@@ -1,7 +1,5 @@
-import Test from "./test/Test.vue";
-import Test2 from "./test2/Test2.vue";
+import AppLink from "./utils/AppLink.vue";
 
 export {
-    Test,
-    Test2
+    AppLink
 };
