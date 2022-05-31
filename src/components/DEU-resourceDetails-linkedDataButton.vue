@@ -6,7 +6,7 @@
 
 <script>
   // Import components used in template
-  import AppLink from './AppLink';
+  import { AppLink } from '@/modules/utils';
   // Import glue-config.js
 
   export default {

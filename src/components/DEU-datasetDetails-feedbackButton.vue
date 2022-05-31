@@ -22,7 +22,7 @@
   import { has } from 'lodash';
   import { getTranslationFor } from '../utils/helpers';
   // Import components used in template
-  import AppLink from './AppLink';
+  import { AppLink } from '@/modules/utils';
 
   export default {
     name: 'DEU-datasetDetailsFeedbackButton',

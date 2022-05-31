@@ -47,7 +47,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
-import AppLink from '../../AppLink';
+import { AppLink } from '@/modules/utils';
 
 export default {
   props: [],

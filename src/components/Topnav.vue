@@ -91,7 +91,7 @@
 </template>
 
 <script>
-  import AppLink from './AppLink';
+import { AppLink } from '@/modules/utils';
 
   export default {
     name: 'topnav',

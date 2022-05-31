@@ -55,7 +55,7 @@
 import axios from 'axios';
 import $ from 'jquery';
 import { mapGetters } from 'vuex';
-import AppLink from '../AppLink';
+import { AppLink } from '@/modules/utils';
 import Dropup from '../Dropup';
 
 export default {

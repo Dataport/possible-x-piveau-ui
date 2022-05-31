@@ -12,7 +12,7 @@
 
 <script>
 import $ from 'jquery';
-import AppLink from './AppLink';
+import { AppLink } from '@/modules/utils';
 
 export default {
   components: {

@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import AppLink from './AppLink';
+import { AppLink } from '@/modules/utils';
 
 export default {
-/* eslint-disable */ 
+/* eslint-disable */
   name: 'SearchBar',
   components: {
     appLink: AppLink,

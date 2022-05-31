@@ -49,7 +49,7 @@
   import { has, isNil, isObject } from 'lodash';
 
   import DatasetDate from './DatasetDate';
-  import AppLink from './AppLink';
+  import { AppLink } from '@/modules/utils';
 
   // import filters
   import dateFilters from '../filters/dateFilters';

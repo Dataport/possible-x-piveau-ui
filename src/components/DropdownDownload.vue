@@ -35,7 +35,7 @@
 import $ from 'jquery';
 import { mixin as clickaway } from 'vue-clickaway';
 import { replaceHttp } from '../utils/helpers';
-import AppLink from './AppLink';
+import { AppLink } from '@/modules/utils';
 
 export default {
   mixins: [clickaway],
