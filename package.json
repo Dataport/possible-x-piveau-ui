@@ -1,6 +1,6 @@
 {
-  "name": "piveau-hub-ui-modules",
-  "version": "0.1.10",
+  "name": "@piveau/piveau-hub-ui-modules",
+  "version": "0.1.0",
   "files": ["dist/*"],
   "main": "./dist/piveau-hub-ui-modules.umd.min.js",
   "scripts": {
