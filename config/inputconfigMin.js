@@ -1,0 +1,98 @@
+const config = {
+  datasets: {
+    step1: {
+      title: {source: {language: 'languages'} },
+      datasetID: {},
+      description: {source: {language: 'languages'}},
+      catalog: {},
+      publisher: {},
+      keyword: {source: {language: 'languages'}},
+      issued: {},
+      modified: {},  
+    },
+    step2: {
+      contactPoint: {},
+      creator: {},
+      language: {source: {language: 'languages'}}, 
+      subject: {},
+      theme: {},
+      type: {},
+      source: {},
+      identifier: {},
+      admsIdentifier: {},
+      page: {},
+      landingPage: {},
+      provenance: {},
+      accrualPeriodicity: {},
+      accessRights: {},
+      conformsTo: {},
+      relation: {},
+      qualifiedRelation: {},
+      qualifiedAttribution: {},
+      spatial: {},
+      spatialResolutionInMeters: {},
+      temporal: {},
+      temporalResolution: {},
+      isReferencedBy: {},
+      wasGeneratedBy: {},
+      isVersionOf: {},
+      isUsedBy: {},
+      hasVersion: {},
+      versionInfo: {},
+      versionNotes: {source: {language: 'languages'}},
+    },
+    step3: {
+      distribution1: {
+        accessUrl: {},
+        title: {source: {language: 'languages'}},
+        description: {source: {language: 'languages'}},
+        accessService: {source: {language: 'languages'}},
+        downloadUrl: {},
+        format: {},
+        licence: {},
+        issued: {},
+        modified: {},
+      },
+      distribution2: {
+        type: {},
+        mediaType: {},
+        availability: {},
+        byteSize: {},
+        checksum: {},
+        compressFormat: {},
+        packageFormat: {},
+      },
+      distribution3: {
+        language: {source: {language: 'languages'}},
+        status: {},
+        page: {},
+        rights: {},
+        conformsTo: {},
+        hasPolicy: {},
+        temporalResolution: {},
+        spatialResolutionInMeters: {},
+      },
+      distribution4: {}
+    }
+  },
+  catalogues: {
+    step1: {
+      title: {source: {language: 'languages'}},
+      description: {source: {language: 'languages'}},
+      publisher: {},
+      licence: {},
+      homepage: {},
+      catalog: {},
+    },
+    step2: {
+      language: {source: {language: 'languages'}},
+      creator: {},
+      spatial: {},
+      rights: {},
+      hasPart: {},
+      isPartOf: {},
+    }
+  }
+};
+
+export default config;
