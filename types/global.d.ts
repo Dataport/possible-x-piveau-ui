@@ -20,4 +20,6 @@ export type Dataset = {
    * Distribution format hints
    */
   formats?: DistributionFormat[] | null;
+
+  // todo: information about modified and created date
 }

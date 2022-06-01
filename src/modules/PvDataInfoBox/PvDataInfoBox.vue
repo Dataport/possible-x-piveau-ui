@@ -45,6 +45,9 @@
     </div>
   </slot>
 
+  <!-- Footer slot -->
+  <!-- todo: de-hardcode modified and created date -->
+  <!-- todo: add tooltip functionality along with invalid date detection -->
   <slot name="footer" :dataset="dataset">
     <small class="dataset-info-box-footer d-flex justify-content-between align-items-center">
       <div class="d-flex flex-row">
