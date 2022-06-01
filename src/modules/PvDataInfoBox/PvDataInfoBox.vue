@@ -1,5 +1,5 @@
 <template>
-<router-link :to="to" class="dataset-info-box">
+<router-link :to="to" class="dataset-info-box text-dark text-decoration-none">
   <slot name="header">
     <div class="dataset-info-box-header">
       <h2>{{ dataset.title }}</h2>
