@@ -24,6 +24,7 @@ import SubNavigation from "./navigation/SubNavigation.vue";
 import DatasetDate from "./datasets/DatasetDate.vue";
 
 import dateFilters from "./filters/dateFilters";
+import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
 
 import filtersMixin from "./mixins/filters";
 import animations from "./mixins/animations";
@@ -35,7 +36,8 @@ export {
     DropdownDownload,
     ResourceAccessPopup,
 
-    // ResourceDetailsLinkedDataButton,
+    PvDataInfoBox,
+    ResourceDetailsLinkedDataButton,
     DatasetDetailsCategories,
     Distributions,
     DatasetDetailsHeader,
