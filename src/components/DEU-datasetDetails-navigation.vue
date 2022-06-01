@@ -166,12 +166,11 @@
 <script>
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
-import { getTranslationFor } from '../utils/helpers';
-import { AppLink } from "@piveau/piveau-hub-ui-modules";
+import { AppLink, helpers, ResourceDetailsLinkedDataButton } from "@piveau/piveau-hub-ui-modules";
+const { getTranslationFor } = helpers;
 import SubNavigation from './SubNavigation';
 import DatasetDetailsFeedbackButton from './DEU-datasetDetails-feedbackButton';
 import DatasetDetailsShareButton from './DEU-datasetDetails-shareButton';
-import ResourceDetailsLinkedDataButton from './DEU-resourceDetails-linkedDataButton';
 import DatasetDetailsLinkedMetricsButton from './DEU-datasetDetails-linkedMetricsButton';
 
   export default {

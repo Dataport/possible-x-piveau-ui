@@ -1,6 +1,7 @@
 /* eslint-disable brace-style,no-lonely-if,no-console */
 import { DataEuropaFormatter } from './formatter';
-import { matchesObjectStructure } from './helpers';
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+const { matchesObjectStructure } = helpers;
 
 /**
  * @description Function for retireving data dependant on given sourceInformation (fetching or reading from provided source, optional formatting)

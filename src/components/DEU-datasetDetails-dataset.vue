@@ -1214,15 +1214,14 @@
   import { AppLink } from "@piveau/piveau-hub-ui-modules";
   // import filters
   import dateFilters from '../filters/dateFilters';
-  // eslint-disable-next-line
-  import {
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const {
     getTranslationFor, getCountryFlagImg, truncate, removeMailtoOrTel, replaceHttp, appendCurrentLocaleToURL,
-  } from '../utils/helpers';
+  } = helpers;
 
-  import Tooltip from './Tooltip';
+  import { Tooltip, Distributions } from "@piveau/piveau-hub-ui-modules";
 
   import AppMarkdownContent from './AppMarkdownContent';
-  import Distributions from './Distributions';
 
 
   export default {

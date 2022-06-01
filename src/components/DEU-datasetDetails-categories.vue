@@ -21,7 +21,8 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
-  import { getTranslationFor } from '../utils/helpers';
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const { getTranslationFor } = helpers;
   import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
   export default {

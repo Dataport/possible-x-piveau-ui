@@ -35,7 +35,7 @@
 import $ from 'jquery';
 import { mixin as clickaway } from 'vue-clickaway';
 import { replaceHttp } from '../utils/helpers';
-import { AppLink } from "@piveau/piveau-hub-ui-modules";
+import AppLink from "./AppLink";
 
 export default {
   mixins: [clickaway],

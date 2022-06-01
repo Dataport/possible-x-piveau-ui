@@ -31,7 +31,8 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
-  import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const { getTranslationFor, appendCurrentLocaleToURL } = helpers;
 
   export default {
     name: 'datasetDetailsSimilarDatasets',

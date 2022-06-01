@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import AppLink from '@/modules/utils/AppLink.vue';
+import AppLink from '@/modules/widgets/AppLink.vue';
 
 describe('AppLink.vue', () => {
   it('mounts AppLink', () => {

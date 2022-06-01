@@ -60,7 +60,8 @@
 <script>
 import $ from 'jquery';
 import { isEmpty } from 'lodash';
-import { truncate } from '../../../utils/helpers';
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+const { truncate } = helpers;
 
 export default {
   props: ['distributionOverviewPage'],

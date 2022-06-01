@@ -422,12 +422,8 @@
 </template>
 
 <script>
-    import Tooltip from './Tooltip';
-    import Dropdown from './Dropdown';
-    import { AppLink } from "@piveau/piveau-hub-ui-modules";
-    import DropdownDownload from './DropdownDownload';
-    import ResourceDetailsLinkedDataButton from './DEU-resourceDetails-linkedDataButton';
-    import ResourceAccessPopup from './ResourceAccessPopup';
+    import { AppLink, Tooltip, Dropdown, DropdownDownload,
+      ResourceDetailsLinkedDataButton, ResourceAccessPopup } from "@piveau/piveau-hub-ui-modules";
 
 
     export default {
@@ -499,8 +495,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-  @import '../styles/utils/css-animations';
 
   .catalogue-label {
     white-space: pre-line;

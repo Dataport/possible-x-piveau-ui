@@ -53,7 +53,8 @@
 
   // import filters
   import dateFilters from '../filters/dateFilters';
-  import { getTranslationFor, getCountryFlagImg, truncate } from '../utils/helpers';
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const { getTranslationFor, getCountryFlagImg, truncate } = helpers;
 
   export default {
     name: 'datasetDetailsDataset',

@@ -472,8 +472,8 @@
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
-  import { getTranslationFor } from '../utils/helpers';
-  import { AppLink } from "@piveau/piveau-hub-ui-modules";
+  import { AppLink, helpers } from "@piveau/piveau-hub-ui-modules";
+  const { getTranslationFor } = helpers;
 
   export default {
     name: 'datasetDetailsCategories',
