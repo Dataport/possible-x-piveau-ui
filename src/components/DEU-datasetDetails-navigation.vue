@@ -167,7 +167,7 @@
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
 import { getTranslationFor } from '../utils/helpers';
-import { AppLink } from '@/modules/utils';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 import SubNavigation from './SubNavigation';
 import DatasetDetailsFeedbackButton from './DEU-datasetDetails-feedbackButton';
 import DatasetDetailsShareButton from './DEU-datasetDetails-shareButton';

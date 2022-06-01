@@ -424,7 +424,7 @@
 <script>
     import Tooltip from './Tooltip';
     import Dropdown from './Dropdown';
-    import { AppLink } from '@/modules/utils';
+    import { AppLink } from "@piveau/piveau-hub-ui-modules";
     import DropdownDownload from './DropdownDownload';
     import ResourceDetailsLinkedDataButton from './DEU-resourceDetails-linkedDataButton';
     import ResourceAccessPopup from './ResourceAccessPopup';

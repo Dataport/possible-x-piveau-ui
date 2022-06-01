@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { AppLink } from '@/modules/utils';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
 export default {
   name: 'NotFound',

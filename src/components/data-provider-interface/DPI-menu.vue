@@ -55,7 +55,7 @@
 import axios from 'axios';
 import $ from 'jquery';
 import { mapGetters } from 'vuex';
-import { AppLink } from '@/modules/utils';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 import Dropup from '../Dropup';
 
 export default {

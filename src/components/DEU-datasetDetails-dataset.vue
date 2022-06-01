@@ -1211,7 +1211,7 @@
   import filtersMixin from '@/mixins/filters';
   // import nested components
   import MapBasic from './MapBasic';
-  import { AppLink } from '@/modules/utils';
+  import { AppLink } from "@piveau/piveau-hub-ui-modules";
   // import filters
   import dateFilters from '../filters/dateFilters';
   // eslint-disable-next-line

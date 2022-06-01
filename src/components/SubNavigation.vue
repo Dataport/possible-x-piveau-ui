@@ -12,7 +12,7 @@
 
 <script>
 import $ from 'jquery';
-import { AppLink } from '@/modules/utils';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
 export default {
   components: {

@@ -539,7 +539,7 @@ import {
 import LANGS from '../../../../config/langs.json';
 import dateFilters from '../../../filters/dateFilters';
 import { getTranslationFor, truncate } from '../../../utils/helpers';
-import { AppLink } from '@/modules/utils';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
 export default {
   components: {
