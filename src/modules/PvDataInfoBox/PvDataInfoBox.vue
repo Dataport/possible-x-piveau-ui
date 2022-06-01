@@ -71,6 +71,7 @@
 </template>
 
 <script lang="ts">
+import { Dataset } from 'types/global';
 import Vue, { PropType } from 'vue';
 import type RouteLocationRaw from 'vue-router';
 
