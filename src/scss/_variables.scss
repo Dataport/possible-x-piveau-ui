@@ -1,0 +1,17 @@
+// Format colors
+$format-color-default: #595959!default;
+$format-color-html: #285C76!default;
+$format-color-json: var(--dark-orange)!default;
+$format-color-xml: #8F4300!default;
+$format-color-txt: #2B5E73!default;
+$format-color-csv: var(--badge-green)!default;
+$format-color-xls: #1A6537!default;
+$format-color-zip: #252525!default;
+$format-color-api: #923560!default;
+$format-color-pdf: #B30519!default;
+$format-color-shp: var(--badge-black)!default;
+$format-color-ld: #0b4498!default;
+$format-color-rdf: $format-color-ld!default;
+$format-color-nquad: $format-color-ld!default;
+$format-color-ntriples: $format-color-ld!default;
+$format-color-turtle: $format-color-ld!default;

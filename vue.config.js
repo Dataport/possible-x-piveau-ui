@@ -2,6 +2,8 @@ const webpack = require('webpack');
 const { defineConfig } = require('@vue/cli-service');
 const config = require('./config');
 const package = require('./package.json');
+const path = require('path');
+const copy = require('copy-webpack-plugin');
 
 let buildMode;
 if (process.env.NODE_ENV === 'production') {
@@ -41,6 +43,19 @@ module.exports = defineConfig({
               return options;
             }
         );
+
+    config
+      .plugin('copy')
+      .use(copy, [
+        {
+          patterns: [
+            {
+              from: path.resolve(__dirname, 'src/scss'),
+              to: path.resolve(__dirname, 'dist/scss'),
+              toType: 'dir',
+            }],
+        },
+      ]);
 
     // Declare all package.json dependencies as external (i.e. "peer dependencies") when we run the build script
     if (process.env.BUILD_MODE === 'lib') {
