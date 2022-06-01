@@ -12,7 +12,7 @@
         @input="getAutocompleteSuggestions()">
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
-          <button 
+          <button
             class="list-group-item list-group-item-action"
             v-for="(suggestion, i) in filteredAutocompleteSuggestions"
             :key="i"
@@ -22,9 +22,9 @@
         </ul>
       </div>
       <div v-if="multiple && values.length > 0" class="selected-values-div">
-        <span 
-          v-for="(selectedValue, i) in values" 
-          :key="i" 
+        <span
+          v-for="(selectedValue, i) in values"
+          :key="i"
           class="selected-value">
           {{ selectedValue.name }}
           <span aria-hidden="true" class="delete-selected-value" @click="deleteValue(selectedValue.resrouce)">&times;</span>
@@ -37,7 +37,8 @@
 <script>
 /* eslint-disable,arrow-parens,no-param-reassign, no-lonely-if, no-await-in-loop */
 import axios from 'axios';
-import { getTranslationFor } from '../../../utils/helpers';
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+const { getTranslationFor } = helpers;
 
 export default {
   props: {

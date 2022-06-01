@@ -20,15 +20,11 @@
 <script>
 /* eslint-disable */
 import { mixin as clickaway } from 'vue-clickaway';
-import ResourceDetailsLinkedDataButton from './DEU-resourceDetails-linkedDataButton';
 
 export default {
   mixins: [clickaway],
   name: 'Dropdown',
   props: ['distribution', 'title', 'message', 'bgLight'],
-  components: {
-    resourceDetailsLinkedDataButton: ResourceDetailsLinkedDataButton,
-  },
   methods: {
     away() {
       this.open = false;

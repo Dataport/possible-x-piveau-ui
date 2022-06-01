@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable no-restricted-syntax,guard-for-in,no-param-reassign,no-lonely-if */
 /**
  * @created 11.05.2017
@@ -19,6 +20,7 @@ import { getName, registerLocale } from 'i18n-iso-countries';
 // ga and mt missing, nb for no
 const languageList = ['bg', 'cs', 'da', 'de', 'el', 'es', 'et', 'fr', 'hr', 'hu', 'it', 'lt', 'lv', 'nl', 'nb', 'pl', 'pt', 'ro', 'sk', 'sl', 'fi', 'sv'];
 languageList.forEach((lang) => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   registerLocale(require(`i18n-iso-countries/langs/${lang}.json`));
 });
 

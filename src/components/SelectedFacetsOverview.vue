@@ -15,7 +15,8 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import { getFacetTranslation } from '../utils/helpers';
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const { getFacetTranslation } = helpers;
 
   export default {
     name: 'SelectedFacetsOverview',

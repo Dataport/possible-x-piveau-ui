@@ -247,7 +247,8 @@
   import { AppLink } from "@piveau/piveau-hub-ui-modules";
   import SubNavigation from './SubNavigation';
   import SelectedFacetsOverview from './SelectedFacetsOverview';
-  import { getTranslationFor, truncate } from '../utils/helpers';
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const { getTranslationFor, truncate } = helpers;
 
   export default {
     name: 'datasets',

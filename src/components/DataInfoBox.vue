@@ -116,17 +116,17 @@
   import moment from 'moment';
 
   // import nested components
-  import { AppLink } from "@piveau/piveau-hub-ui-modules";
-  import Tooltip from './Tooltip';
+  import { AppLink, Tooltip } from "@piveau/piveau-hub-ui-modules";
   import LinkCopyBar from './LinkCopyBar';
   import DatasetDate from './DatasetDate';
   import animations from '../mixins/animations';
-  import {
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const {
     getTranslationFor,
     getImg,
     getCountryFlagImg,
     truncate,
-  } from '../utils/helpers';
+  } = helpers;
   import dateFilters from '../filters/dateFilters';
   import filtersMixin from '@/mixins/filters';
 

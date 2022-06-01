@@ -65,7 +65,8 @@
   import Facet from '@/components/Facet';
   import DatasetFacetsItem from '@/components/DatasetFacetsItem';
   // Import custom helpers
-  import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../utils/helpers';
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const { getTranslationFor, getCountryFlagImg, getFacetTranslation } = helpers;
 
   export default {
     name: 'catalogueFacets',

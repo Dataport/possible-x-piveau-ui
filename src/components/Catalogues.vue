@@ -170,7 +170,8 @@
   import Pagination from './Pagination';
   import dateFilters from '../filters/dateFilters';
   import SelectedFacetsOverview from './SelectedFacetsOverview';
-  import { getCountryFlagImg, getTranslationFor } from '../utils/helpers';
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const { getCountryFlagImg, getTranslationFor } = helpers;
   import SubNavigation from './SubNavigation';
 
 

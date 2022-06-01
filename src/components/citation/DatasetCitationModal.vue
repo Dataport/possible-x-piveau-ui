@@ -75,7 +75,8 @@ import './plugins/csl-add-accessed';
 // import datacite from './template/datacite';
 import deu from './template/deu';
 
-import { getRepresentativeLocaleOf } from '../../utils/helpers';
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+const { getRepresentativeLocaleOf } = helpers;
 
 export default {
   props: {

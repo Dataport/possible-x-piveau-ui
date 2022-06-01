@@ -22,7 +22,8 @@ import DatasetDetailsNavigation from './DEU-datasetDetails-navigation';
 import DatasetDetailsDataset from './DEU-datasetDetails-dataset';
 import DatasetDetailsCategories from './DEU-datasetDetails-categories';
 import DatasetDetailsSimilarDatasets from './DEU-datasetDetails-similarDatasets';
-import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+const { getRepresentativeLocaleOf, getTranslationFor } = helpers;
 // import DatasetDetailsActivityStream from './DEU-datasetDetails-activityStream';
 
 export default {

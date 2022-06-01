@@ -20,7 +20,8 @@
   import { mapGetters } from 'vuex';
   // Import custom helpers
   import { has } from 'lodash';
-  import { getTranslationFor } from '../utils/helpers';
+  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  const { getTranslationFor } = helpers;
   // Import components used in template
   import { AppLink } from "@piveau/piveau-hub-ui-modules";
 

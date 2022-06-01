@@ -25,6 +25,7 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-this-alias': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     'vue/no-side-effects-in-computed-properties': 'off'
   },
   overrides: [

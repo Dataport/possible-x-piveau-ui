@@ -393,10 +393,8 @@
   import DatasetFacetsItem from '@/components/DatasetFacetsItem';
   import MapBoundsSender from './MapBoundsSender';
   import dateFilters from '../filters/dateFilters';
-  import { getTranslationFor, getImg, getFacetTranslation } from '../utils/helpers';
-  import { AppLink } from "@piveau/piveau-hub-ui-modules";
-  import ResourceDetailsLinkedDataButton from './DEU-resourceDetails-linkedDataButton';
-  import Tooltip from './Tooltip';
+  import { AppLink, Tooltip, helpers, ResourceDetailsLinkedDataButton } from '@piveau/piveau-hub-ui-modules';
+  const { getTranslationFor, getImg, getFacetTranslation } = helpers;
 
   const MapBoundsReceiver = () => import(/* webpackChunkName: "MapBoundsReceiver" */'./MapBoundsReceiver');
 
