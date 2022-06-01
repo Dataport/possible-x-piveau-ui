@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import AppLink from './AppLink';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
 export default {
-/* eslint-disable */ 
+/* eslint-disable */
   name: 'SearchBar',
   components: {
     appLink: AppLink,

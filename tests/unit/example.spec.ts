@@ -1,8 +1,8 @@
 import { shallowMount } from '@vue/test-utils'
-import { Test } from '@/modules';
+import AppLink from '@/modules/utils/AppLink.vue';
 
-describe('Test.vue', () => {
-  it('mounts test', () => {
-    const wrapper = shallowMount(Test)
+describe('AppLink.vue', () => {
+  it('mounts AppLink', () => {
+    const wrapper = shallowMount(AppLink)
   })
 })

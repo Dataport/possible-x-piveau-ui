@@ -244,7 +244,7 @@
   import DatasetFacets from './DatasetFacets';
   import DataInfoBox from './DataInfoBox';
   import Pagination from './Pagination';
-  import AppLink from './AppLink';
+  import { AppLink } from "@piveau/piveau-hub-ui-modules";
   import SubNavigation from './SubNavigation';
   import SelectedFacetsOverview from './SelectedFacetsOverview';
   import { getTranslationFor, truncate } from '../utils/helpers';

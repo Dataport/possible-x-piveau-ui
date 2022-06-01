@@ -91,7 +91,7 @@
 </template>
 
 <script>
-  import AppLink from './AppLink';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
   export default {
     name: 'topnav',

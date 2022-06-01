@@ -116,7 +116,7 @@
   import moment from 'moment';
 
   // import nested components
-  import AppLink from './AppLink';
+  import { AppLink } from "@piveau/piveau-hub-ui-modules";
   import Tooltip from './Tooltip';
   import LinkCopyBar from './LinkCopyBar';
   import DatasetDate from './DatasetDate';

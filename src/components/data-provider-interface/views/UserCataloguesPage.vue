@@ -16,7 +16,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import AppLink from '../../AppLink';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
 export default {
   components: {

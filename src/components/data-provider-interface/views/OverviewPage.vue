@@ -203,7 +203,7 @@
                     </div>
                   </div>
                 </td>
-              </tr>   
+              </tr>
 
               <!-- SUBJECT -->
               <tr v-if="showProperty('datasets', 'dct:subject')">
@@ -251,7 +251,7 @@
                     </div>
                   </div>
                 </td>
-              </tr>  
+              </tr>
 
               <!-- IDENTIFIER -->
               <tr v-if="showProperty('datasets', 'dct:identifier')">
@@ -539,7 +539,7 @@ import {
 import LANGS from '../../../../config/langs.json';
 import dateFilters from '../../../filters/dateFilters';
 import { getTranslationFor, truncate } from '../../../utils/helpers';
-import AppLink from '../../AppLink';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
 export default {
   components: {

@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const { defineConfig } = require('@vue/cli-service');
 const config = require('./config');
+const path = require('path');
 
 let buildMode;
 if (process.env.NODE_ENV === 'production') {

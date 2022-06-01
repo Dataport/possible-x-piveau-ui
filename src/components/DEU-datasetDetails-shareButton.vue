@@ -14,7 +14,7 @@
 
 <script>
   // Import components used in template
-  import AppLink from './AppLink';
+  import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
   export default {
     name: 'DEU-datasetDetailsShareButton',

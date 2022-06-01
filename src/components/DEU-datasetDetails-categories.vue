@@ -22,7 +22,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
   import { getTranslationFor } from '../utils/helpers';
-  import AppLink from './AppLink';
+  import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
   export default {
     name: 'datasetDetailsCategories',
