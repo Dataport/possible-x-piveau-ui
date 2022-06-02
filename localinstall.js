@@ -23,10 +23,6 @@ const copyRecursiveSync = function(src, dest) {
     }
 };
 
-if (fs.existsSync(target)) {
-    fs.rmSync(target, { recursive: true, force: true })
-}
-
 copyRecursiveSync('./dist', target + '/dist');
 fs.copyFileSync('./package.json', target + '/package.json');
 fs.copyFileSync('./README.md', target + '/README.md');
