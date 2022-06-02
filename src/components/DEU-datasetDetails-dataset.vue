@@ -1213,8 +1213,7 @@
   import MapBasic from './MapBasic';
   import { AppLink } from "@piveau/piveau-hub-ui-modules";
   // import filters
-  import dateFilters from '../filters/dateFilters';
-  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  import { helpers, dateFilters } from '@piveau/piveau-hub-ui-modules';
   const {
     getTranslationFor, getCountryFlagImg, truncate, removeMailtoOrTel, replaceHttp, appendCurrentLocaleToURL,
   } = helpers;

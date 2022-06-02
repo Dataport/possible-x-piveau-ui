@@ -118,16 +118,14 @@
   // import nested components
   import { AppLink, Tooltip } from "@piveau/piveau-hub-ui-modules";
   import LinkCopyBar from './LinkCopyBar';
-  import DatasetDate from './DatasetDate';
   import animations from '../mixins/animations';
-  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  import { helpers, dateFilters, DatasetDate } from '@piveau/piveau-hub-ui-modules';
   const {
     getTranslationFor,
     getImg,
     getCountryFlagImg,
     truncate,
   } = helpers;
-  import dateFilters from '../filters/dateFilters';
   import filtersMixin from '@/mixins/filters';
 
   export default {

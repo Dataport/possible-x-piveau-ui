@@ -66,7 +66,7 @@ import store from './store/index';
 // Import the APP component
 import App from './App';
 // Import dateFilters
-import dateFilters from './filters/dateFilters';
+import { dateFilters } from '@piveau/piveau-hub-ui-modules';
 // Import runtimeconfig
 import RuntimeConfiguration from './runtimeconfig';
 // Import services

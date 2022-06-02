@@ -6,7 +6,7 @@
   >
     <datasetDetailsNavigation :dataset-id="getID"></datasetDetailsNavigation>
     <div class="container-fluid mb-5 pt-1 content">
-      <datasetDetailsTop v-bind:dataset-id="getID"></datasetDetailsTop>
+      <dataset-details-header />
       <router-view name="datasetDetailsSubpages"></router-view>
     </div>
   </div>
@@ -17,18 +17,16 @@
 import { mapActions, mapGetters } from 'vuex';
 
 // import nested components
-import DatasetDetailsTop from './DEU-datasetDetails-top';
 import DatasetDetailsNavigation from './DEU-datasetDetails-navigation';
 import DatasetDetailsDataset from './DEU-datasetDetails-dataset';
 import DatasetDetailsSimilarDatasets from './DEU-datasetDetails-similarDatasets';
-import { helpers } from '@piveau/piveau-hub-ui-modules';
+import { helpers, DatasetDetailsHeader } from '@piveau/piveau-hub-ui-modules';
 const { getRepresentativeLocaleOf, getTranslationFor } = helpers;
-// import DatasetDetailsActivityStream from './DEU-datasetDetails-activityStream';
 
 export default {
   name: 'datasetDetails',
   components: {
-    datasetDetailsTop: DatasetDetailsTop,
+    DatasetDetailsHeader,
     datasetDetailsNavigation: DatasetDetailsNavigation,
     datasetDetailsDataset: DatasetDetailsDataset,
     datasetDetailsSimilarDatasets: DatasetDetailsSimilarDatasets
