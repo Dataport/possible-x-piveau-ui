@@ -21,9 +21,9 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
-  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  import * as helpers from '../utils/helpers';
   const { getTranslationFor } = helpers;
-  import { AppLink } from "@piveau/piveau-hub-ui-modules";
+  import AppLink from "../widgets/AppLink.vue";
 
   export default {
     name: 'datasetDetailsCategories',
