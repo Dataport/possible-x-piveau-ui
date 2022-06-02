@@ -5,6 +5,7 @@ import DropdownDownload from "./widgets/DropdownDownload.vue";
 import ResourceAccessPopup from "./widgets/ResourceAccessPopup.vue";
 
 import ResourceDetailsLinkedDataButton from "./datasetDetails/ResourceDetailsLinkedDataButton.vue";
+import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
 import Distributions from "./datasetDetails/Distributions.vue";
 
 export {
@@ -15,6 +16,7 @@ export {
     ResourceAccessPopup,
 
     ResourceDetailsLinkedDataButton,
+    DatasetDetailsCategories,
     Distributions
 };
 

@@ -4,12 +4,13 @@ import Router from 'vue-router';
 import store from './store/index';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import { decode } from './utils/jwt';
+import { DatasetDetailsCategories } from "@piveau/piveau-hub-ui-modules";
 
 const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
 const MapBoundsReceiver = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/MapBoundsReceiver');
 const DatasetDetails = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails');
 const DatasetDetailsDataset = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-dataset');
-const DatasetDetailsCategories = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-categories');
+// const DatasetDetailsCategories = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-categories');
 const DatasetDetailsSimilarDatasets = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-similarDatasets');
 const DatasetDetailsQuality = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-quality');
 // const DatasetDetailsActivityStream = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-activityStream');

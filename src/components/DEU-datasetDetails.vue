@@ -20,7 +20,6 @@ import { mapActions, mapGetters } from 'vuex';
 import DatasetDetailsTop from './DEU-datasetDetails-top';
 import DatasetDetailsNavigation from './DEU-datasetDetails-navigation';
 import DatasetDetailsDataset from './DEU-datasetDetails-dataset';
-import DatasetDetailsCategories from './DEU-datasetDetails-categories';
 import DatasetDetailsSimilarDatasets from './DEU-datasetDetails-similarDatasets';
 import { helpers } from '@piveau/piveau-hub-ui-modules';
 const { getRepresentativeLocaleOf, getTranslationFor } = helpers;
@@ -32,9 +31,7 @@ export default {
     datasetDetailsTop: DatasetDetailsTop,
     datasetDetailsNavigation: DatasetDetailsNavigation,
     datasetDetailsDataset: DatasetDetailsDataset,
-    datasetDetailsCategories: DatasetDetailsCategories,
-    datasetDetailsSimilarDatasets: DatasetDetailsSimilarDatasets,
-    // datasetDetailsActivityStream: DatasetDetailsActivityStream,
+    datasetDetailsSimilarDatasets: DatasetDetailsSimilarDatasets
   },
   metaInfo() {
     const datasetTitleTranslated = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
