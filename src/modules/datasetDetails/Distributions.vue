@@ -422,9 +422,12 @@
 </template>
 
 <script>
-    import { AppLink, Tooltip, Dropdown, DropdownDownload,
-      ResourceDetailsLinkedDataButton, ResourceAccessPopup } from "@piveau/piveau-hub-ui-modules";
-
+    import AppLink from '../widgets/AppLink.vue';
+    import Tooltip from '../widgets/Tooltip.vue';
+    import Dropdown from '../widgets/Dropdown.vue';
+    import DropdownDownload from '../widgets/DropdownDownload.vue';
+    import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
+    import ResourceDetailsLinkedDataButton from './ResourceDetailsLinkedDataButton.vue';
 
     export default {
       name: 'distributions',
