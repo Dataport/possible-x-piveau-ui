@@ -4,6 +4,7 @@
  * @description Contains filters to format Dates.
  */
 
+// @ts-nocheck
 import moment from 'moment';
 
 /**

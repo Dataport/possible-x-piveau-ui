@@ -168,9 +168,8 @@
   import CatalogFacets from './CatalogueFacets';
   import DataInfoBox from './DataInfoBox';
   import Pagination from './Pagination';
-  import dateFilters from '../filters/dateFilters';
   import SelectedFacetsOverview from './SelectedFacetsOverview';
-  import { helpers } from '@piveau/piveau-hub-ui-modules';
+  import { helpers, dateFilters } from '@piveau/piveau-hub-ui-modules';
   const { getCountryFlagImg, getTranslationFor } = helpers;
   import SubNavigation from './SubNavigation';
 

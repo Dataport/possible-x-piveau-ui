@@ -537,8 +537,7 @@ import {
   isObject,
 } from 'lodash';
 import LANGS from '../../../../config/langs.json';
-import dateFilters from '../../../filters/dateFilters';
-import { AppLink, helpers } from "@piveau/piveau-hub-ui-modules";
+import { AppLink, helpers, dateFilters } from "@piveau/piveau-hub-ui-modules";
 const { getTranslationFor, truncate } = helpers;
 
 export default {

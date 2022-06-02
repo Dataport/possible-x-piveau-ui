@@ -48,12 +48,10 @@
   // import helper functions
   import { has, isNil, isObject } from 'lodash';
 
-  import DatasetDate from './DatasetDate';
-  import { AppLink } from "@piveau/piveau-hub-ui-modules";
-
-  // import filters
+  import AppLink from '../widgets/AppLink.vue';
+  import DatasetDate from '../datasets/DatasetDate.vue';
+  import * as helpers from '../utils/helpers';
   import dateFilters from '../filters/dateFilters';
-  import { helpers } from '@piveau/piveau-hub-ui-modules';
   const { getTranslationFor, getCountryFlagImg, truncate } = helpers;
 
   export default {
@@ -107,8 +105,6 @@
 </script>
 
 <style scoped lang="scss">
-@import '../styles/bootstrap_theme';
-@import "~bootstrap/scss/bootstrap";
 
 .flag {
   max-width: 30px;
@@ -128,13 +124,13 @@
   opacity: 0.8;
 }
 
-@include media-breakpoint-up(md) {
+@media (min-width: 768px) {
   .dataset-details-title {
     font-size: 1.5rem;
   }
 }
 
-@include media-breakpoint-up(lg) {
+@media (min-width: 992px) {
   .dataset-details-title {
     font-size: 1.75rem;
   }
