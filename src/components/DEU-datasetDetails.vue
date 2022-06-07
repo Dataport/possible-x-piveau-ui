@@ -17,10 +17,9 @@
 import { mapActions, mapGetters } from 'vuex';
 
 // import nested components
-import DatasetDetailsNavigation from './DEU-datasetDetails-navigation';
 import DatasetDetailsDataset from './DEU-datasetDetails-dataset';
 import DatasetDetailsSimilarDatasets from './DEU-datasetDetails-similarDatasets';
-import { helpers, DatasetDetailsHeader } from '@piveau/piveau-hub-ui-modules';
+import { helpers, DatasetDetailsHeader, DatasetDetailsNavigation } from '@piveau/piveau-hub-ui-modules';
 const { getRepresentativeLocaleOf, getTranslationFor } = helpers;
 
 export default {

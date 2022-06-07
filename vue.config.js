@@ -41,5 +41,11 @@ module.exports = defineConfig({
               return options;
             }
         );
+
+    if (process.env.BUILD_MODE === 'lib') {
+      config.externals({
+        'jquery': 'jquery'
+      });
+    }
   }
 });

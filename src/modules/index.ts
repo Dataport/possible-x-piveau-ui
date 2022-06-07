@@ -8,6 +8,12 @@ import ResourceDetailsLinkedDataButton from "./datasetDetails/ResourceDetailsLin
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
 import Distributions from "./datasetDetails/Distributions.vue";
 import DatasetDetailsHeader from "./datasetDetails/DatasetDetailsHeader.vue";
+import DatasetDetailsShareButton from "./datasetDetails/DatasetDetailsShareButton.vue";
+import DatasetDetailsLinkedMetricsButton from "./datasetDetails/DatasetDetailsLinkedMetricsButton.vue";
+import DatasetDetailsNavigation from "./datasetDetails/DatasetDetailsNavigation.vue";
+import DatasetDetailsFeedbackButton from "./datasetDetails/DatasetDetailsFeedbackButton.vue";
+
+import SubNavigation from "./navigation/SubNavigation.vue";
 
 import DatasetDate from "./datasets/DatasetDate.vue";
 
@@ -20,10 +26,16 @@ export {
     DropdownDownload,
     ResourceAccessPopup,
 
-    ResourceDetailsLinkedDataButton,
+    // ResourceDetailsLinkedDataButton,
     DatasetDetailsCategories,
     Distributions,
     DatasetDetailsHeader,
+    // DatasetDetailsShareButton,
+    // DatasetDetailsLinkedMetricsButton,
+    DatasetDetailsNavigation,
+    // DatasetDetailsFeedbackButton,
+
+    SubNavigation,
 
     DatasetDate,
 

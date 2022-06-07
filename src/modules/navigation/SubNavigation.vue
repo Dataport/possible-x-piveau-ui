@@ -12,7 +12,7 @@
 
 <script>
 import $ from 'jquery';
-import { AppLink } from "@piveau/piveau-hub-ui-modules";
+import AppLink from "../widgets/AppLink.vue";
 
 export default {
   components: {
@@ -40,7 +40,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~bootstrap/scss/bootstrap";
 
 .navigation-box {
   background-color: white !important;
