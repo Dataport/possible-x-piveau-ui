@@ -23,7 +23,7 @@
         </div>
         <div class="col-12 col-md">
           <slot>
-            <template v-if="description">
+            <template v-if="dataset.description">
               {{ dataset.description }}
             </template>
             <span v-else>
@@ -104,7 +104,7 @@ export default Vue.extend({
      * The route to navigate to when clicking on the dataset.
      */
     to: {
-      type: Object as PropType<RouteLocationRaw>,
+      type: Object as PropType<RouteLocationRaw> | string as PropType<string>,
     },
 
     /**
@@ -119,7 +119,7 @@ export default Vue.extend({
      * Image source for the catalog logo/flag.
      */
     src: {
-      type: [String],
+      type: String,
       default: '',
     },
 
