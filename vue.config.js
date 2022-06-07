@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const { defineConfig } = require('@vue/cli-service');
 const config = require('./config');
-const path = require('path');
+const package = require('./package.json');
 
 let buildMode;
 if (process.env.NODE_ENV === 'production') {
@@ -43,9 +43,12 @@ module.exports = defineConfig({
         );
 
     if (process.env.BUILD_MODE === 'lib') {
-      config.externals({
-        'jquery': 'jquery'
-      });
+      const dependencyKeys = Object.keys(package.dependencies);
+      const dependenciesObject = dependencyKeys.reduce((acc, curr) => {
+        acc[curr] = curr;
+        return acc;
+      }, {});
+      config.externals(dependenciesObject);
     }
   }
 });
