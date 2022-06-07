@@ -57,6 +57,9 @@ module.exports = defineConfig({
         },
       ]);
 
+    config.resolve.symlinks(false)
+    config.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'))
+
     // Declare all package.json dependencies as external (i.e. "peer dependencies") when we run the build script
     if (process.env.BUILD_MODE === 'lib') {
       const dependencyKeys = Object.keys(package.dependencies);
