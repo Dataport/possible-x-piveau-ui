@@ -27,4 +27,8 @@
       height: auto;
       max-height: 200px;
     }
+
+    &-header {
+      font-size: $data-info-box-header-font-size;
+    }
   }
