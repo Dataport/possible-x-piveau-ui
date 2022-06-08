@@ -14,7 +14,7 @@
 
 <script>
   // Import components used in template
-  import { AppLink } from "@piveau/piveau-hub-ui-modules";
+  import AppLink from "../widgets/AppLink.vue";
 
   export default {
     name: 'DEU-datasetDetailsShareButton',
@@ -42,6 +42,3 @@
     methods: {},
   };
 </script>
-
-<style lang="scss" scoped>
-</style>

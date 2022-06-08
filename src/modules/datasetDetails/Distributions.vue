@@ -437,7 +437,7 @@
         AppLink,
         DropdownDownload,
         ResourceDetailsLinkedDataButton,
-        ResourceAccessPopup,
+        ResourceAccessPopup
       },
       props: {
         getDistributions: Array,

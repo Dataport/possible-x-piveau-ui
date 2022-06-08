@@ -1,5 +1,5 @@
 <template>
-  <div id="externalAccess" tabindex="-1" role="dialog" class="modal fade show" aria-modal="true" style="visibility:hidden;padding-left: 0px;">
+  <div id="externalAccess" tabindex="-1" role="dialog" class="modal fade show" aria-hidden="true" aria-modal="true" style="padding-left: 0px;">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

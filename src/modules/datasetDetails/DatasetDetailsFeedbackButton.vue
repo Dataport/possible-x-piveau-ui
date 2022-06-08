@@ -20,10 +20,9 @@
   import { mapGetters } from 'vuex';
   // Import custom helpers
   import { has } from 'lodash';
-  import { helpers } from '@piveau/piveau-hub-ui-modules';
-  const { getTranslationFor } = helpers;
+  import { getTranslationFor } from "../utils/helpers";
   // Import components used in template
-  import { AppLink } from "@piveau/piveau-hub-ui-modules";
+  import AppLink from "../widgets/AppLink.vue";
 
   export default {
     name: 'DEU-datasetDetailsFeedbackButton',

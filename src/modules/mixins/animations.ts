@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable no-mixed-operators */
 import anime from 'animejs';
 

@@ -8,7 +8,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts && node ./localinstall.js",
+    "build:lib": "export BUILD_MODE=lib && node ./localuninstall.js && vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts && node ./localinstall.js && unset BUILD_MODE",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"

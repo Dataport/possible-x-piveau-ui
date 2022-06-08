@@ -1208,29 +1208,25 @@
   import JSZip from 'jszip';
   import { saveAs } from 'file-saver';
   import axios from 'axios';
-  import filtersMixin from '@/mixins/filters';
-  // import nested components
-  import MapBasic from './MapBasic';
-  import { AppLink } from "@piveau/piveau-hub-ui-modules";
-  // import filters
-  import { helpers, dateFilters } from '@piveau/piveau-hub-ui-modules';
-  const {
-    getTranslationFor, getCountryFlagImg, truncate, removeMailtoOrTel, replaceHttp, appendCurrentLocaleToURL,
-  } = helpers;
-
-  import { Tooltip, Distributions } from "@piveau/piveau-hub-ui-modules";
-
-  import AppMarkdownContent from './AppMarkdownContent';
-
+  import MapBasic from './MapBasic.vue';
+  import AppLink from '../widgets/AppLink.vue';
+  import Tooltip from '../widgets/Tooltip.vue';
+  import Distributions from './Distributions.vue';
+  import AppMarkdownContent from './AppMarkdownContent.vue';
+  import filtersMixin from '../mixins/filters';
+  import dateFilters from '../filters/dateFilters';
+  import {
+    getTranslationFor, getCountryFlagImg, truncate, removeMailtoOrTel, replaceHttp, appendCurrentLocaleToURL
+  } from '../utils/helpers';
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
       AppLink,
-      mapBasic: MapBasic,
+      MapBasic,
       Tooltip,
-      appMarkdownContent: AppMarkdownContent,
+      AppMarkdownContent,
       Distributions,
       // Lazy load MarkdownContent for improved performance
       // as not every dataset will utilize it.
@@ -2495,8 +2491,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-  @import '../styles/utils/css-animations';
 
   .catalogue-label {
     white-space: pre-line;

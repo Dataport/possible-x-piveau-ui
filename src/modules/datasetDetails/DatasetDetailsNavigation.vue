@@ -164,14 +164,16 @@
 </template>
 
 <script>
-  import $ from 'jquery';
-  import { mapActions, mapGetters } from 'vuex';
-import { AppLink, helpers, ResourceDetailsLinkedDataButton } from "@piveau/piveau-hub-ui-modules";
-const { getTranslationFor } = helpers;
-import SubNavigation from './SubNavigation';
-import DatasetDetailsFeedbackButton from './DEU-datasetDetails-feedbackButton';
-import DatasetDetailsShareButton from './DEU-datasetDetails-shareButton';
-import DatasetDetailsLinkedMetricsButton from './DEU-datasetDetails-linkedMetricsButton';
+import $ from 'jquery';
+import { mapActions, mapGetters } from 'vuex';
+import AppLink from "../widgets/AppLink.vue";
+import ResourceDetailsLinkedDataButton from "./ResourceDetailsLinkedDataButton.vue";
+import { getTranslationFor } from "../utils/helpers";
+import SubNavigation from '../navigation/SubNavigation.vue';
+import DatasetDetailsFeedbackButton from './DatasetDetailsFeedbackButton.vue';
+import DatasetDetailsShareButton from './DatasetDetailsShareButton';
+import DatasetDetailsLinkedMetricsButton from './DatasetDetailsLinkedMetricsButton.vue';
+import DatasetCitationModal from '../citation/DatasetCitationModal.vue';
 
   export default {
     name: 'datasetDetailsNavigation',
@@ -182,7 +184,7 @@ import DatasetDetailsLinkedMetricsButton from './DEU-datasetDetails-linkedMetric
       datasetDetailsShareButton: DatasetDetailsShareButton,
       resourceDetailsLinkedDataButton: ResourceDetailsLinkedDataButton,
       datasetDetailsLinkedMetricsButton: DatasetDetailsLinkedMetricsButton,
-      DatasetCitationModal: () => import(/* webpackChunkName: "DatasetCitationModal" */ /* webpackPrefetch: true */'./citation/DatasetCitationModal'),
+      DatasetCitationModal
     },
     props: {
       datasetId: {
@@ -262,8 +264,7 @@ import DatasetDetailsLinkedMetricsButton from './DEU-datasetDetails-linkedMetric
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-
+  @import '../../styles/bootstrap_theme';
   .nav-link {
     text-decoration: underline;
   }
