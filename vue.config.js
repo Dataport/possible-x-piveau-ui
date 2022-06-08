@@ -42,6 +42,7 @@ module.exports = defineConfig({
             }
         );
 
+    // Declare all package.json dependencies as external (i.e. "peer dependencies") when we run build:lib
     if (process.env.BUILD_MODE === 'lib') {
       const dependencyKeys = Object.keys(package.dependencies);
       const dependenciesObject = dependencyKeys.reduce((acc, curr) => {

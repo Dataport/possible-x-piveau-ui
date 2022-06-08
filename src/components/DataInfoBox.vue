@@ -116,17 +116,14 @@
   import moment from 'moment';
 
   // import nested components
-  import { AppLink, Tooltip } from "@piveau/piveau-hub-ui-modules";
   import LinkCopyBar from './LinkCopyBar';
-  import animations from '../mixins/animations';
-  import { helpers, dateFilters, DatasetDate } from '@piveau/piveau-hub-ui-modules';
+  import { helpers, dateFilters, DatasetDate, filtersMixin, AppLink, Tooltip, animations } from '@piveau/piveau-hub-ui-modules';
   const {
     getTranslationFor,
     getImg,
     getCountryFlagImg,
     truncate,
   } = helpers;
-  import filtersMixin from '@/mixins/filters';
 
   export default {
     name: 'dataInfoBox',

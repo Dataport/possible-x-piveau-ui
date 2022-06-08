@@ -13,22 +13,18 @@
 </template>
 
 <script>
-// import Actions and Getters from Store Module
 import { mapActions, mapGetters } from 'vuex';
-
-// import nested components
-import DatasetDetailsDataset from './DEU-datasetDetails-dataset';
-import DatasetDetailsSimilarDatasets from './DEU-datasetDetails-similarDatasets';
-import { helpers, DatasetDetailsHeader, DatasetDetailsNavigation } from '@piveau/piveau-hub-ui-modules';
-const { getRepresentativeLocaleOf, getTranslationFor } = helpers;
+import DatasetDetailsHeader from './DatasetDetailsHeader.vue'
+import DatasetDetailsNavigation from './DatasetDetailsNavigation.vue'
+import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
 
 export default {
   name: 'datasetDetails',
   components: {
     DatasetDetailsHeader,
-    datasetDetailsNavigation: DatasetDetailsNavigation,
-    datasetDetailsDataset: DatasetDetailsDataset,
-    datasetDetailsSimilarDatasets: DatasetDetailsSimilarDatasets
+    DatasetDetailsNavigation,
+    // datasetDetailsDataset: DatasetDetailsDataset
+    // datasetDetailsSimilarDatasets: DatasetDetailsSimilarDatasets
   },
   metaInfo() {
     const datasetTitleTranslated = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
@@ -70,8 +66,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-
   .content {
     padding: 30px 30px 0 30px;
     margin-top: 15px;

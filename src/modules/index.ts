@@ -12,12 +12,21 @@ import DatasetDetailsShareButton from "./datasetDetails/DatasetDetailsShareButto
 import DatasetDetailsLinkedMetricsButton from "./datasetDetails/DatasetDetailsLinkedMetricsButton.vue";
 import DatasetDetailsNavigation from "./datasetDetails/DatasetDetailsNavigation.vue";
 import DatasetDetailsFeedbackButton from "./datasetDetails/DatasetDetailsFeedbackButton.vue";
+import DatasetDetailsQuality from "./datasetDetails/DatasetDetailsQuality.vue";
+import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets.vue";
+import DatasetDetailsActivityStream from "./datasetDetails/DatasetDetailsActivityStream.vue";
+import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
+import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
+import MapBasic from "./datasetDetails/MapBasic.vue";
 
 import SubNavigation from "./navigation/SubNavigation.vue";
 
 import DatasetDate from "./datasets/DatasetDate.vue";
 
 import dateFilters from "./filters/dateFilters";
+
+import filtersMixin from "./mixins/filters";
+import animations from "./mixins/animations";
 
 export {
     AppLink,
@@ -34,12 +43,21 @@ export {
     // DatasetDetailsLinkedMetricsButton,
     DatasetDetailsNavigation,
     // DatasetDetailsFeedbackButton,
+    DatasetDetailsQuality,
+    DatasetDetailsSimilarDatasets,
+    // DatasetDetailsActivityStream,
+    DatasetDetailsDataset,
+    DatasetDetails,
+    MapBasic,
 
     SubNavigation,
 
     DatasetDate,
 
-    dateFilters
+    dateFilters,
+
+    filtersMixin,
+    animations
 };
 
 // @ts-ignore

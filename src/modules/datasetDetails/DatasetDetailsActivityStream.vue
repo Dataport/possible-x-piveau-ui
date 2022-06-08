@@ -66,7 +66,3 @@
     },
   };
 </script>
-
-<style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-</style>

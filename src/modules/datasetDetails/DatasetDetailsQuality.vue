@@ -472,8 +472,8 @@
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
-  import { AppLink, helpers } from "@piveau/piveau-hub-ui-modules";
-  const { getTranslationFor } = helpers;
+  import AppLink from "../widgets/AppLink.vue";
+  import { getTranslationFor } from "../utils/helpers";
 
   export default {
     name: 'datasetDetailsCategories',
@@ -588,8 +588,8 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-  @import '../styles/utils/css-animations';
+  @import '../../styles/bootstrap_theme';
+  @import '../../styles/utils/css-animations';
 
 .dimension-card {
   // Default background color to be overwritten

@@ -2,7 +2,7 @@
 
 export default {
   filters: {
-    stripHtml(value) {
+    stripHtml(value: string): string {
       // Strips content from HTML tags
       const div = document.createElement('div');
       div.innerHTML = value;

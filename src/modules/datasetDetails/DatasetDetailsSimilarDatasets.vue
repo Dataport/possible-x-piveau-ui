@@ -31,8 +31,7 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
-  import { helpers } from '@piveau/piveau-hub-ui-modules';
-  const { getTranslationFor, appendCurrentLocaleToURL } = helpers;
+  import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
 
   export default {
     name: 'datasetDetailsSimilarDatasets',
@@ -128,7 +127,3 @@
   };
 </script>
 
-<style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-  @import '../styles/utils/css-animations';
-</style>
