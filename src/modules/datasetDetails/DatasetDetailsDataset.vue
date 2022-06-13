@@ -1211,7 +1211,7 @@
   import MapBasic from './MapBasic.vue';
   import AppLink from '../widgets/AppLink.vue';
   import Tooltip from '../widgets/Tooltip.vue';
-  import Distributions from './Distributions.vue';
+  import Distributions from './distributions/Distributions.vue';
   import AppMarkdownContent from './AppMarkdownContent.vue';
   import filtersMixin from '../mixins/filters';
   import dateFilters from '../filters/dateFilters';
