@@ -239,7 +239,6 @@
   import $ from 'jquery';
   import fileTypes from '../utils/fileTypes';
   import DatasetFacets from './DatasetFacets';
-  import DataInfoBox from './DataInfoBox';
   import Pagination from './Pagination';
   import SelectedFacetsOverview from './SelectedFacetsOverview';
   import { AppLink, SubNavigation, helpers, PvDataInfoBox } from "@piveau/piveau-hub-ui-modules";
@@ -251,7 +250,6 @@
     components: {
       appLink: AppLink,
       selectedFacetsOverview: SelectedFacetsOverview,
-      dataInfoBox: DataInfoBox,
       datasetFacets: DatasetFacets,
       pagination: Pagination,
       subNavigation: SubNavigation,
