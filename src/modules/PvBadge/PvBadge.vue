@@ -10,8 +10,8 @@ export default Vue.extend({
   name: 'PvBadge',
   props: {
     format: {
-      type: Object as PropType<DistributionFormat>,
-      default: 'default' as DistributionFormat,
+      type: String as PropType<DistributionFormat>,
+      default: null,
     },
   },
 });

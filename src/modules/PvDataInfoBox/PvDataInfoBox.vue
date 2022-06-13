@@ -1,7 +1,10 @@
 <template>
 <router-link :to="to" class="dataset-info-box text-dark text-decoration-none">
   <slot name="header">
-    <div class="dataset-info-box-header">
+    <div
+      class="dataset-info-box-header"
+      data-cy="dataset-title"
+    >
       <h2>{{ dataset.title }}</h2>
     </div>
   </slot>
@@ -11,18 +14,18 @@
   <slot name="body">
     <div class="dataset-info-box-body">
       <div class="row">
-        <div v-if="false" class="col-12 col-md-2">
-        </div>
-        <div v-if="catalog" class="col-12 col-md-2">
+        <div v-if="catalogMode" class="col-12 col-md-2">
           <img
             :src="src"
-            width="200"
             alt="img"
             class="catalog-img catalog-img--big border border-dark"
           >
         </div>
-        <div class="col-12 col-md">
-          <slot>
+        <div
+          class="dataset-info-box-description col-12 col-md"
+          data-cy="dataset-description"
+        >
+          <slot name="description">
             <template v-if="dataset.description">
               {{ dataset.description }}
             </template>
@@ -32,13 +35,21 @@
           </slot>
         </div>
         <div class="col-12 col-md-3">
-          <div class="d-flex flex-col flex-wrap">
-            <PvBadge
-              v-for="(format, i) in dataset.formats"
-              :key="i"
-              class="mr-1 mb-1"
-              :format="format"
-            />
+          <div
+            v-if="dataset.formats && dataset.formats.length > 0"
+            class="d-flex flex-col flex-wrap"
+            data-toggle="tooltip"
+            data-placement="top"
+            :title="$t('message.tooltip.datasetDetails.format')"
+          >
+            <template v-for="(format, i) in dataset.formats.slice(0, 10)">
+              <PvBadge
+                :key="`badge@${i}`"
+                class="mr-1 mb-1"
+                :format="format"
+              />
+            </template>
+            <span v-if="dataset.formats.length >= 10">...</span>
           </div>
         </div>
       </div>
@@ -49,26 +60,12 @@
   <!-- todo: de-hardcode modified and created date -->
   <!-- todo: add tooltip functionality along with invalid date detection -->
   <slot name="footer" :dataset="dataset">
-    <small class="dataset-info-box-footer d-flex justify-content-between align-items-center">
-      <div class="d-flex flex-row">
-          <div class="mr-1">
-            <span class="font-weight-bold">Created: </span>
-            <span>12.12.2021</span>
-          </div>
-          <div>
-            <span class="font-weight-bold">Updated: </span>
-            <span>12.12.2021</span>
-          </div>
-      </div>
-      <div class="d-flex align-items-center">
-        <img
-          class="border border-dark mr-1"
-          width="30"
-          :src="src"
-          :alt="dataset.catalog">
-        <span>data.gov.uk</span>
-      </div>
-    </small>
+    <PvDataInfoBoxFooter
+      :src="src"
+      :createdDate="dataset.createdDate"
+      :updatedDate="dataset.updatedDate"
+      :catalog="dataset.catalog"
+    />
   </slot>
 </router-link>
 </template>
@@ -79,11 +76,13 @@ import Vue, { PropType } from 'vue';
 import type RouteLocationRaw from 'vue-router';
 
 import PvBadge from '../PvBadge/PvBadge.vue';
+import PvDataInfoBoxFooter from './PvDataInfoBoxFooter.vue';
 
 export default Vue.extend({
   name: 'PvDataInfoBox',
   components: {
     PvBadge,
+    PvDataInfoBoxFooter,
   },
   props: {
 
@@ -96,6 +95,8 @@ export default Vue.extend({
         title: '',
         description: '',
         catalog: '',
+        createdDate: '12.12.2021',
+        updatedDate: '13.12.2021',
         formats: [],
       } as Dataset),
     },
@@ -104,7 +105,8 @@ export default Vue.extend({
      * The route to navigate to when clicking on the dataset.
      */
     to: {
-      type: Object as PropType<RouteLocationRaw> | string as PropType<string>,
+      type: [Object, String] as PropType<RouteLocationRaw | string>,
+      required: true
     },
 
     /**

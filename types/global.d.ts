@@ -21,5 +21,8 @@ export type Dataset = {
    */
   formats?: DistributionFormat[] | null;
 
+  createdDate?: string;
+  updatedDate?: string;
+
   // todo: information about modified and created date
 }

@@ -33,9 +33,22 @@
     width: 100%;
     height: auto;
     max-height: 200px;
+
+    &--big {
+      max-width: 126.41px;
+      max-height: 85.09px;
+    }
   }
 
   &-header > h2 {
     font-size: $data-info-box-header-font-size;
+  }
+
+  &-description {
+    // line clamp
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $data-info-box-body-line-clamp;
+    overflow: hidden;
   }
 }
