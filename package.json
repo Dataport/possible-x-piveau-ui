@@ -1,14 +1,15 @@
 {
   "name": "@piveau/piveau-hub-ui-modules",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "files": [
     "dist/*"
   ],
   "main": "./dist/piveau-hub-ui-modules.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build:lib": "export BUILD_MODE=lib && node ./localuninstall.js && vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts && node ./localinstall.js && unset BUILD_MODE",
+    "build": "export BUILD_MODE=lib && vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts && unset BUILD_MODE",
+    "localdeploy": "node ./localuninstall.js && npm run build && node ./localinstall.js",
+    "deploy": "npm run build && npm publish",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
@@ -28,6 +29,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "@piveau/dcatap-frontend": "^2.5.0",
     "@piveau/piveau-universal-piwik": "^2.3.0",
+    "@piveau/piveau-hub-ui-modules": "file:./src/modules",
     "@triply/yasgui": "^4.2.25",
     "@triply/yasqe": "^4.2.23",
     "@triply/yasr": "^4.2.25",
