@@ -2,7 +2,7 @@
   <div>
     <!-- Preview and action overlay -->
     <div
-        v-if="!distributions.displayAll && !isDistributionsAllDisplayed && i === distributions.displayCount - 1"
+        v-if="fading"
         class="distributions__item--preview"
     >
       <!-- Fade out the last item so it has a preview feel -->
@@ -361,6 +361,11 @@
 </template>
 
 <script>
+import {
+  has,
+  isNil,
+  showArray
+} from 'lodash';
 import Tooltip from "@/modules/widgets/Tooltip";
 import Dropdown from "@/modules/widgets/Dropdown";
 import AppLink from "@/modules/widgets/AppLink";
@@ -379,16 +384,11 @@ export default {
     ResourceAccessPopup
   },
   props: {
-    i: Number,
+    fading: Boolean,
     distribution: Object,
     openModal: Function,
     getDistributions: Array,
-    expandedDistributions: Array,
-    expandedDistributionDescriptions: Array,
-    displayedDistributions: Array,
     distributions: Object,
-    isDistributionsAllDisplayed: Boolean,
-    pages: Object,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     truncate: Function,
@@ -398,24 +398,12 @@ export default {
     getDistributionDescription: Function,
     distributionIsExpanded: Function,
     showObject: Function,
-    has: Function,
     distributionCanShowMore: Function,
     showOptionsDropdown: Function,
     showDownloadDropdown: Function,
-    isLoadingAllDistributionFiles: Boolean,
-    downloadProgress: Number,
-    downloadedFilesCounter: Number,
-    failedDownloads: Number,
-    numberOfFilesToZip: Number,
-    isGeneratingZip: Boolean,
-    isGeneratingZipDone: Boolean,
-    downloadAllSuccess: Boolean,
-    downloadAllError: Boolean,
     showLicence: Function,
     showLicensingAssistant: Function,
-    isNil: Function,
     filterDateFormatEU: Function,
-    showArray: Function,
     showObjectArray: Function,
     showVisualisationLink: Function,
     getVisualisationLink: Function,
@@ -436,6 +424,11 @@ export default {
     cancelDownloadAllAxiosRequestSource: Object,
     nonOverflowingIncrementsForDistributions: Function,
   },
+  methods: {
+    has,
+    isNil,
+    showArray
+  }
 };
 </script>
 

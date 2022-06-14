@@ -53,20 +53,15 @@
           <hr>
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
             <distribution
-                v-for="(distribution, i) in displayedDistributions"
-                :key="`${i}--${distribution.id}`"
+                v-for="(distribution, index) in displayedDistributions"
+                :key="`${index}--${distribution.id}`"
                 class="distributions__item"
 
                 :distribution="distribution"
-                :i="i"
+                :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
                 :openModal="openModal"
                 :getDistributions="getDistributions"
-                :expandedDistributions="expandedDistributions"
-                :expandedDistributionDescriptions="expandedDistributionDescriptions"
-                :displayedDistributions="displayedDistributions"
-                :isDistributionsAllDisplayed="isDistributionsAllDisplayed"
                 :distributions="distributions"
-                :pages="pages"
                 :getDistributionFormat="getDistributionFormat"
                 :distributionFormatTruncated="distributionFormatTruncated"
                 :truncate="truncate"
@@ -76,24 +71,12 @@
                 :getDistributionDescription="getDistributionDescription"
                 :distributionIsExpanded="distributionIsExpanded"
                 :showObject="showObject"
-                :has="has"
                 :distributionCanShowMore="distributionCanShowMore"
                 :showOptionsDropdown="showOptionsDropdown"
                 :showDownloadDropdown="showDownloadDropdown"
-                :isLoadingAllDistributionFiles="isLoadingAllDistributionFiles"
-                :downloadProgress="downloadProgress"
-                :downloadedFilesCounter="downloadedFilesCounter"
-                :failedDownloads="failedDownloads"
-                :numberOfFilesToZip="numberOfFilesToZip"
-                :isGeneratingZip="isGeneratingZip"
-                :isGeneratingZipDone="isGeneratingZipDone"
-                :downloadAllSuccess="downloadAllSuccess"
-                :downloadAllError="downloadAllError"
                 :showLicence="showLicence"
                 :showLicensingAssistant="showLicensingAssistant"
-                :isNil="isNil"
                 :filterDateFormatEU="filterDateFormatEU"
-                :showArray="showArray"
                 :showObjectArray="showObjectArray"
                 :showVisualisationLink="showVisualisationLink"
                 :getVisualisationLink="getVisualisationLink"
@@ -121,6 +104,7 @@
 </template>
 
 <script>
+
 import Distribution from './Distribution.vue';
 import AppLink from '../../widgets/AppLink.vue';
 import Tooltip from '../../widgets/Tooltip.vue';
@@ -157,7 +141,6 @@ export default {
     getDistributionDescription: Function,
     distributionIsExpanded: Function,
     showObject: Function,
-    has: Function,
     distributionCanShowMore: Function,
     showOptionsDropdown: Function,
     showDownloadDropdown: Function,
@@ -172,7 +155,6 @@ export default {
     downloadAllError: Boolean,
     showLicence: Function,
     showLicensingAssistant: Function,
-    isNil: Function,
     filterDateFormatEU: Function,
     showArray: Function,
     showObjectArray: Function,
