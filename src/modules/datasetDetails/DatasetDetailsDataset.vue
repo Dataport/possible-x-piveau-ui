@@ -1252,6 +1252,10 @@
             name: 'subject',
             vmid: 'subject',
           },
+          {
+            name: 'robots',
+            content: 'index',
+          },
         ],
         script: this.validateDataset(),
         link: [
