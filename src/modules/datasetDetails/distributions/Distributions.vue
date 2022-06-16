@@ -77,6 +77,7 @@
                 :showLicence="showLicence"
                 :showLicensingAssistant="showLicensingAssistant"
                 :filterDateFormatEU="filterDateFormatEU"
+                :showArray="showArray"
                 :showObjectArray="showObjectArray"
                 :showVisualisationLink="showVisualisationLink"
                 :getVisualisationLink="getVisualisationLink"

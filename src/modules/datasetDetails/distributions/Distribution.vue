@@ -363,8 +363,7 @@
 <script>
 import {
   has,
-  isNil,
-  showArray
+  isNil
 } from 'lodash';
 import Tooltip from "@/modules/widgets/Tooltip";
 import Dropdown from "@/modules/widgets/Dropdown";
@@ -404,6 +403,7 @@ export default {
     showLicence: Function,
     showLicensingAssistant: Function,
     filterDateFormatEU: Function,
+    showArray: Function,
     showObjectArray: Function,
     showVisualisationLink: Function,
     getVisualisationLink: Function,
@@ -426,8 +426,7 @@ export default {
   },
   methods: {
     has,
-    isNil,
-    showArray
+    isNil
   }
 };
 </script>
