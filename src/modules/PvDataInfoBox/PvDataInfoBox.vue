@@ -42,7 +42,7 @@
               v-for="(format, i) in dataset.formats.slice(0, 10)"
               :key="`badge@${i}`"
               class="mr-1 mb-1"
-              :format="format.id"
+              :format="format"
               data-toggle="tooltip"
               data-placement="top"
               :title="$t('message.tooltip.datasetDetails.format')"
