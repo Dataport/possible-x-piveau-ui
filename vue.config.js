@@ -50,15 +50,15 @@ module.exports = defineConfig({
         {
           patterns: [
             {
-              from: path.resolve(__dirname, 'src/scss'),
+              from: path.resolve(__dirname, 'src/modules/dist/scss'),
               to: path.resolve(__dirname, 'dist/scss'),
               toType: 'dir',
             }],
         },
       ]);
 
-    config.resolve.symlinks(false)
-    config.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'))
+    // config.resolve.symlinks(false);
+    // config.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'));
 
     // Declare all package.json dependencies as external (i.e. "peer dependencies") when we run the build script
     if (process.env.BUILD_MODE === 'lib') {

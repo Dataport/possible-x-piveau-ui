@@ -133,7 +133,6 @@
       :getDistributionDescription="getDistributionDescription"
       :distributionIsExpanded="distributionIsExpanded"
       :showObject="showObject"
-      :has="has"
       :distributionCanShowMore="distributionCanShowMore"
       :showOptionsDropdown="showOptionsDropdown"
       :showDownloadDropdown="showDownloadDropdown"
@@ -148,7 +147,6 @@
       :downloadAllError="downloadAllError"
       :showLicence="showLicence"
       :showLicensingAssistant="showLicensingAssistant"
-      :isNil="isNil"
       :filterDateFormatEU="filterDateFormatEU"
       :showArray="showArray"
       :showObjectArray="showObjectArray"
@@ -1211,7 +1209,7 @@
   import MapBasic from './MapBasic.vue';
   import AppLink from '../widgets/AppLink.vue';
   import Tooltip from '../widgets/Tooltip.vue';
-  import Distributions from './Distributions.vue';
+  import Distributions from './distributions/Distributions.vue';
   import AppMarkdownContent from './AppMarkdownContent.vue';
   import filtersMixin from '../mixins/filters';
   import dateFilters from '../filters/dateFilters';

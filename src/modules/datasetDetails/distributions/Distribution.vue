@@ -1,98 +1,41 @@
 <template>
-    <div class="mt-1">
-      <resource-access-popup ref="externalResourceModal" />
-      <div class="row">
-        <div class="col-12 col-lg-11 offset-lg-1 d-flex justify-content-between align-items-center">
-          <h2 :title="$t('message.tooltip.datasetDetails.distribution')"
-              data-toggle="tooltip"
-              data-placement="top"
-              data-cy="dataset-distributions">{{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})</h2>
-          <div v-if="getDistributions.length > 1">
-            <button v-if="isLoadingAllDistributionFiles" class="btn btn-sm btn-primary download-all-btn d-flex justify-content-center rounded-lg btn-color" data-toggle="modal" data-target="#downloadAllModal">
-              <div class="loading-spinner"></div>
-            </button>
-            <button v-else class="btn btn-sm btn-primary download-all-btn rounded-lg btn-color" @click="$refs.externalResourceModal.openModal(downloadAllDistributions, true)">{{ $t('message.datasetDetails.datasets.downloadAll') }}</button>
-            <div class="modal fade" id="downloadAllModal" tabindex="-1" role="dialog" aria-labelledby="download progress" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title">{{ $t('message.datasetDetails.datasets.modal.downloadProgress') }}</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" :style="{width: `${downloadProgress}%`}" :aria-valuenow="downloadProgress" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div>{{ $t('message.datasetDetails.datasets.modal.downloadingFiles') }} {{ downloadedFilesCounter.toLocaleString('fi') }}/{{getDistributions.length.toLocaleString('fi')}}</div>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>{{ $t('message.datasetDetails.datasets.modal.notDownloaded') }} {{ failedDownloads.toLocaleString('fi') }}</div>
-                      <i class="material-icons help-icon" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.datasets.modal.notDownloadedTooltip')">help</i>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>{{ $t('message.datasetDetails.datasets.modal.zipNumberOfFiles', { number: numberOfFilesToZip.toLocaleString('fi') }) }} <span v-if="isLoadingAllDistributionFiles && numberOfFilesToZip > 0">{{ $t('message.datasetDetails.datasets.modal.coupleOfMinutes') }}</span> <span v-else-if="isLoadingAllDistributionFiles">{{ $t('message.datasetDetails.datasets.modal.waitingForDownload')}}</span></div>
-                      <div v-if="isGeneratingZip" class="spinner-grow text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                      <i v-else-if="isGeneratingZipDone" class="material-icons check-icon">check_circle</i>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ $t('message.datasetDetails.datasets.modal.close') }}</button>
-                    <button v-if="!downloadAllSuccess && !downloadAllError" type="button" class="btn btn-danger" data-dismiss="modal" @click="cancelDownloadAll(cancelDownloadAllAxiosRequestSource)">{{ $t('message.datasetDetails.datasets.modal.cancel') }}</button>
-                    <button v-else-if="downloadAllError" type="button" class="btn btn-danger" @click="downloadAllDistributions()">{{ $t('message.datasetDetails.datasets.modal.error') }}</button>
-                    <button v-else-if="downloadAllSuccess" type="button" class="btn btn-success" data-dismiss="modal">{{ $t('message.datasetDetails.datasets.modal.okay') }}</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <ul class="list list-unstyled col-12">
-          <hr>
-          <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
-            <div
-              v-for="(distribution, i) in displayedDistributions"
-              :key="`${i}--${distribution.id}`"
-              class="distributions__item"
-            >
-              <!-- Preview and action overlay -->
-              <div
-                v-if="!distributions.displayAll && !isDistributionsAllDisplayed && i === distributions.displayCount - 1"
-                class="distributions__item--preview"
-              >
-                <!-- Fade out the last item so it has a preview feel -->
-                <!-- Render actions on top of it -->
-                <div class="distributions__actions pb-md-3">
-                  <button
-                    v-for="increment in distributions.incrementSteps.filter(nonOverflowingIncrementsForDistributions)"
-                    :key="increment"
-                    class="btn btn-sm btn-secondary mr-1"
-                    @click="increaseNumDisplayedDistributions(increment)"
-                  >
-                    <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
-                  </button>
-                  <button
-                    class="btn btn-sm btn-primary"
-                    @click="distributions.displayCount = getDistributions.length"
-                  >
-                    <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getDistributions.length.toLocaleString('fi') }}
-                  </button>
-                </div>
-              </div>
-              <li class="row">
-                <!-- DISTRIBUTION FORMAT -->
-                <span class="d-inline-block col-2 col-md-1 pl-1 p-md-3 px-md-4 m-md-0 m-auto">
+  <div>
+    <!-- Preview and action overlay -->
+    <div
+        v-if="fading"
+        class="distributions__item--preview"
+    >
+      <!-- Fade out the last item so it has a preview feel -->
+      <!-- Render actions on top of it -->
+      <div class="distributions__actions pb-md-3">
+        <circle
+            v-for="increment in distributions.incrementSteps.filter(nonOverflowingIncrementsForDistributions)"
+            :key="increment"
+            class="btn btn-sm btn-secondary mr-1"
+            @click="increaseNumDisplayedDistributions(increment)"
+        >
+          <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
+        </circle>
+        <button
+            class="btn btn-sm btn-primary"
+            @click="distributions.displayCount = getDistributions.length"
+        >
+          <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getDistributions.length.toLocaleString('fi') }}
+        </button>
+      </div>
+    </div>
+    <li class="row">
+      <!-- DISTRIBUTION FORMAT -->
+      <span class="d-inline-block col-2 col-md-1 pl-1 p-md-3 px-md-4 m-md-0 m-auto">
                   <div class="circle float-md-right text-center text-white"
-                        :type="getDistributionFormat(distribution)"
-                        :data-toggle="distributionFormatTruncated(distribution) ? 'tooltip' : false"
-                        :data-placement="distributionFormatTruncated(distribution) ? 'top' : false"
-                        :title="distributionFormatTruncated(distribution) ? getDistributionFormat(distribution) : false">
+                       :type="getDistributionFormat(distribution)"
+                       :data-toggle="distributionFormatTruncated(distribution) ? 'tooltip' : false"
+                       :data-placement="distributionFormatTruncated(distribution) ? 'top' : false"
+                       :title="distributionFormatTruncated(distribution) ? getDistributionFormat(distribution) : false">
                     <span>{{ truncate(getDistributionFormat(distribution), 4, true) }}</span>
                   </div>
                 </span>
-                <span class="col-10 col-md-11">
+      <span class="col-10 col-md-11">
                   <span class="row">
                     <!-- DISTRIBUTION TITLE -->
                     <span class="d-inline-block col-12">
@@ -131,8 +74,8 @@
                           </td>
                           <td v-if="showObject(distribution.licence) && showLicence(distribution.licence)">
                             <app-link :to="distribution.licence.resource"
-                                target="_blank"
-                                @click="$emit('track-link', distribution.licence.resource, 'link')">
+                                      target="_blank"
+                                      @click="$emit('track-link', distribution.licence.resource, 'link')">
                               {{ distribution.licence.label }}
                             </app-link>
                             <app-link :to="distribution.licence.resource"
@@ -282,8 +225,8 @@
                             </td>
                           <td  v-if="showObject(distribution.licence) && showLicence(distribution.licence)">
                             <app-link :to="distribution.licence.resource"
-                                target="_blank"
-                                @click="$emit('track-link', distribution.licence.resource, 'link')">
+                                      target="_blank"
+                                      @click="$emit('track-link', distribution.licence.resource, 'link')">
                               {{ distribution.licence.label }}
                             </app-link>
                             <app-link :to="distribution.licence.resource"
@@ -336,16 +279,16 @@
                     <span class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
                       <!-- DISTRIBUTION OPTIONS -->
                       <dropdown  v-if="showOptionsDropdown(distribution)"
-                                :distribution="distribution"
-                                :title="$t('message.tooltip.datasetDetails.distributions.options')"
-                                :message="$t('message.datasetDetails.options')"
-                                bgLight="true"
-                                >
+                                 :distribution="distribution"
+                                 :title="$t('message.tooltip.datasetDetails.distributions.options')"
+                                 :message="$t('message.datasetDetails.options')"
+                                 bgLight="true"
+                      >
                             <a ref="previewLink" class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-                                    :href="getVisualisationLink(distribution)"
-                                    target="_blank"
-                                    v-if="showVisualisationLink(distribution)">
-                              <div @click.prevent="$refs.externalResourceModal.openModal(previewLinkCallback(distribution), false)">
+                               :href="getVisualisationLink(distribution)"
+                               target="_blank"
+                               v-if="showVisualisationLink(distribution)">
+                              <div @click.prevent="openModal(previewLinkCallback(distribution), false)">
                                 <small class="px-2">{{ $t('message.datasetDetails.preview') }}</small>
                                   <i class="material-icons align-bottom">bar_chart</i>
                               </div>
@@ -362,14 +305,14 @@
                       </dropdown>
                       <!-- DISTRIBUTION DOWNLOAD -->
                       <dropdownDownload  v-if="showDownloadDropdown(distribution)"
-                                        :distribution="distribution"
-                                        :title="$t('message.tooltip.datasetDetails.distributions.download')"
-                                        :message="$t('message.datasetDetails.download')"
-                                        :isOnlyOneUrl="isOnlyOneUrl(distribution)"
-                                        :getDownloadUrl="getDownloadUrl"
-                                        @trackGoto="trackGoto"
-                                        bgLight="true"
-                                        >
+                                         :distribution="distribution"
+                                         :title="$t('message.tooltip.datasetDetails.distributions.download')"
+                                         :message="$t('message.datasetDetails.download')"
+                                         :isOnlyOneUrl="isOnlyOneUrl(distribution)"
+                                         :getDownloadUrl="getDownloadUrl"
+                                         @trackGoto="trackGoto"
+                                         bgLight="true"
+                      >
                           <span class="dropdown-item px-3 d-flex justify-content-end align-items-center"
                                 v-if="showAccessUrls(distribution)">
                                 <app-link class="text-dark text-decoration-none"
@@ -402,7 +345,7 @@
                      <dropdown :distribution="distribution"
                                :title="$t('message.tooltip.datasetDetails.distributions.linkedData')"
                                :message="$t('message.metadata.linkedData')"
-                                >
+                     >
                         <resourceDetailsLinkedDataButton class="dropdown-item" format="rdf" text="RDF/XML" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
                         <resourceDetailsLinkedDataButton class="dropdown-item" format="ttl" text="Turtle" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
                         <resourceDetailsLinkedDataButton class="dropdown-item" format="n3" text="Notation3" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
@@ -412,280 +355,272 @@
                     </span>
                   </span>
                 </span>
-              </li>
-              <hr class="mt-1">
-            </div>
-          </div>
-        </ul>
-      </div>
-    </div>
+    </li>
+    <hr class="mt-1">
+  </div>
 </template>
 
 <script>
-    import AppLink from '../widgets/AppLink.vue';
-    import Tooltip from '../widgets/Tooltip.vue';
-    import Dropdown from '../widgets/Dropdown.vue';
-    import DropdownDownload from '../widgets/DropdownDownload.vue';
-    import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
-    import ResourceDetailsLinkedDataButton from './ResourceDetailsLinkedDataButton.vue';
+import {
+  has,
+  isNil
+} from 'lodash';
+import Tooltip from "@/modules/widgets/Tooltip";
+import Dropdown from "@/modules/widgets/Dropdown";
+import AppLink from "@/modules/widgets/AppLink";
+import DropdownDownload from "@/modules/widgets/DropdownDownload";
+import ResourceDetailsLinkedDataButton from "@/modules/datasetDetails/ResourceDetailsLinkedDataButton";
+import ResourceAccessPopup from "@/modules/widgets/ResourceAccessPopup";
 
-    export default {
-      name: 'distributions',
-      components: {
-        Tooltip,
-        Dropdown,
-        AppLink,
-        DropdownDownload,
-        ResourceDetailsLinkedDataButton,
-        ResourceAccessPopup
-      },
-      props: {
-        getDistributions: Array,
-        expandedDistributions: Array,
-        expandedDistributionDescriptions: Array,
-        displayedDistributions: Array,
-        distributions: Object,
-        isDistributionsAllDisplayed: Boolean,
-        pages: Object,
-        getDistributionFormat: Function,
-        distributionFormatTruncated: Function,
-        truncate: Function,
-        getDistributionTitle: Function,
-        distributionDescriptionIsExpanded: Function,
-        distributionDescriptionIsExpandable: Function,
-        getDistributionDescription: Function,
-        distributionIsExpanded: Function,
-        showObject: Function,
-        has: Function,
-        distributionCanShowMore: Function,
-        showOptionsDropdown: Function,
-        showDownloadDropdown: Function,
-        isLoadingAllDistributionFiles: Boolean,
-        downloadProgress: Number,
-        downloadedFilesCounter: Number,
-        failedDownloads: Number,
-        numberOfFilesToZip: Number,
-        isGeneratingZip: Boolean,
-        isGeneratingZipDone: Boolean,
-        downloadAllSuccess: Boolean,
-        downloadAllError: Boolean,
-        showLicence: Function,
-        showLicensingAssistant: Function,
-        isNil: Function,
-        filterDateFormatEU: Function,
-        showArray: Function,
-        showObjectArray: Function,
-        showVisualisationLink: Function,
-        getVisualisationLink: Function,
-        showGeoLink: Function,
-        isOnlyOneUrl: Function,
-        getDownloadUrl: Function,
-        trackGoto: Function,
-        showAccessUrls: Function,
-        replaceHttp: Function,
-        previewLinkCallback: Function,
-        downloadAllDistributions: Function,
-        toggleDistribution: Function,
-        setClipboard: Function,
-        getGeoLink: Function,
-        toggleDistributionDescription: Function,
-        increaseNumDisplayedDistributions: Function,
-        cancelDownloadAll: Function,
-        cancelDownloadAllAxiosRequestSource: Object,
-        nonOverflowingIncrementsForDistributions: Function,
-      },
-    };
+export default {
+  name: 'distribution',
+  components: {
+    Tooltip,
+    Dropdown,
+    AppLink,
+    DropdownDownload,
+    ResourceDetailsLinkedDataButton,
+    ResourceAccessPopup
+  },
+  props: {
+    fading: Boolean,
+    distribution: Object,
+    openModal: Function,
+    getDistributions: Array,
+    distributions: Object,
+    getDistributionFormat: Function,
+    distributionFormatTruncated: Function,
+    truncate: Function,
+    getDistributionTitle: Function,
+    distributionDescriptionIsExpanded: Function,
+    distributionDescriptionIsExpandable: Function,
+    getDistributionDescription: Function,
+    distributionIsExpanded: Function,
+    showObject: Function,
+    distributionCanShowMore: Function,
+    showOptionsDropdown: Function,
+    showDownloadDropdown: Function,
+    showLicence: Function,
+    showLicensingAssistant: Function,
+    filterDateFormatEU: Function,
+    showArray: Function,
+    showObjectArray: Function,
+    showVisualisationLink: Function,
+    getVisualisationLink: Function,
+    showGeoLink: Function,
+    isOnlyOneUrl: Function,
+    getDownloadUrl: Function,
+    trackGoto: Function,
+    showAccessUrls: Function,
+    replaceHttp: Function,
+    previewLinkCallback: Function,
+    downloadAllDistributions: Function,
+    toggleDistribution: Function,
+    setClipboard: Function,
+    getGeoLink: Function,
+    toggleDistributionDescription: Function,
+    increaseNumDisplayedDistributions: Function,
+    cancelDownloadAll: Function,
+    cancelDownloadAllAxiosRequestSource: Object,
+    nonOverflowingIncrementsForDistributions: Function,
+  },
+  methods: {
+    has,
+    isNil
+  }
+};
 </script>
+
 
 <style lang="scss" scoped>
 
-  .catalogue-label {
-    white-space: pre-line;
-  }
+.catalogue-label {
+  white-space: pre-line;
+}
 
-  .cursor-pointer {
-    cursor: pointer;
-  }
+.cursor-pointer {
+  cursor: pointer;
+}
 
-  .tag-color {
-    background-color: var(--tag-color);
-  }
-  .subjectBg {
+.tag-color {
+  background-color: var(--tag-color);
+}
+.subjectBg {
+  background-color: #196fd2;
+}
+.btn-color {
+  &:hover {
     background-color: #196fd2;
+    border-color: #196fd2;
   }
-  .btn-color {
-     &:hover {
-       background-color: #196fd2;
-       border-color: #196fd2;
-     }
-  }
+}
 
-  .heading, .arrow, .copy-text {
-    cursor: pointer;
-  }
+.heading, .arrow, .copy-text {
+  cursor: pointer;
+}
 
-  .details-link {
-    cursor: pointer;
+.details-link {
+  cursor: pointer;
 
-    &:hover {
-      text-decoration: underline;
-    }
+  &:hover {
+    text-decoration: underline;
   }
+}
 
-  .text-break {
-    word-break: break-word;
-  }
+.text-break {
+  word-break: break-word;
+}
 
-  .circle {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto;
-    padding: 20px 0;
-    font-size: 12px;
-    line-height: 1px;
-    border-radius: 50%;
-    background-color: #595959;
-    &[type="HTML"] {
-      background-color: #285C76;
-    }
-    &[type="JSON"] {
-      background-color: var(--dark-orange);
-    }
-    &[type="XML"] {
-      background-color: #8F4300;
-    }
-    &[type="TXT"] {
-      background-color: #2B5E73;
-    }
-    &[type="CSV"] {
-      background-color: var(--badge-green);
-    }
-    &[type="XLS"] {
-      background-color: #1A6537;
-    }
-    &[type="ZIP"] {
-      background-color: #252525;
-    }
-    &[type="API"] {
-      background-color: #923560;
-    }
-    &[type="PDF"] {
-      background-color: #B30519;
-    }
-    &[type="SHP"] {
-      background-color: var(--badge-black);
-    }
-    &[type="RDF"],
-    &[type="NQUAD"],
-    &[type="NTRIPLES"],
-    &[type="TURTLE"] {
-      background-color: #0b4498;
-    }
+.circle {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  padding: 20px 0;
+  font-size: 12px;
+  line-height: 1px;
+  border-radius: 50%;
+  background-color: #595959;
+  &[type="HTML"] {
+    background-color: #285C76;
   }
+  &[type="JSON"] {
+    background-color: var(--dark-orange);
+  }
+  &[type="XML"] {
+    background-color: #8F4300;
+  }
+  &[type="TXT"] {
+    background-color: #2B5E73;
+  }
+  &[type="CSV"] {
+    background-color: var(--badge-green);
+  }
+  &[type="XLS"] {
+    background-color: #1A6537;
+  }
+  &[type="ZIP"] {
+    background-color: #252525;
+  }
+  &[type="API"] {
+    background-color: #923560;
+  }
+  &[type="PDF"] {
+    background-color: #B30519;
+  }
+  &[type="SHP"] {
+    background-color: var(--badge-black);
+  }
+  &[type="RDF"],
+  &[type="NQUAD"],
+  &[type="NTRIPLES"],
+  &[type="TURTLE"] {
+    background-color: #0b4498;
+  }
+}
 
-  td {
-    padding-left: 0 !important;
-    padding-top: 1% !important;
-    padding-bottom: 1% !important;
-  }
+td {
+  padding-left: 0 !important;
+  padding-top: 1% !important;
+  padding-bottom: 1% !important;
+}
 
-  .download-all-btn {
-    min-width: 100px;
-    height: 31px;
-  }
+.download-all-btn {
+  min-width: 100px;
+  height: 31px;
+}
 
-  /*** BOOTSTRAP ***/
-  button:focus {
-    outline:0;
-  }
-  .options, .download {
-    .dropdown-menu {
-      .dropdown-item {
-        &:hover {
-          color: initial;
-          background-color: initial;
-        }
+/*** BOOTSTRAP ***/
+button:focus {
+  outline:0;
+}
+.options, .download {
+  .dropdown-menu {
+    .dropdown-item {
+      &:hover {
+        color: initial;
+        background-color: initial;
       }
     }
   }
+}
 .spinner-grow {
   width: 20px;
   height: 20px;
 }
 
-  /*** FONT AWESOME ICONS ***/
-  .fa-check-square {
-    color: #28a745;
-    width: 16px;
-    height: 16px;
-  }
+/*** FONT AWESOME ICONS ***/
+.fa-check-square {
+  color: #28a745;
+  width: 16px;
+  height: 16px;
+}
 
-  /*** MATERIAL ICONS ***/
-  %modal-icon {
-    font-size: 18px;
-    cursor: default;
-  }
+/*** MATERIAL ICONS ***/
+%modal-icon {
+  font-size: 18px;
+  cursor: default;
+}
 
-  .help-icon {
-    @extend %modal-icon;
-  }
+.help-icon {
+  @extend %modal-icon;
+}
 
-  .check-icon {
-    @extend %modal-icon;
-    color: #28a745;
-  }
+.check-icon {
+  @extend %modal-icon;
+  color: #28a745;
+}
 
-  .material-icons.small-icon {
-    font-size: 20px;
-  }
+.material-icons.small-icon {
+  font-size: 20px;
+}
 
-  .distributions {
+.distributions {
 
-    &__item {
-      position: relative;
+  &__item {
+    position: relative;
 
-      &--preview {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, white 55%);
-        z-index: 10;
-      }
-    }
-
-    &__actions {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
+    &--preview {
+      width: 100%;
       height: 100%;
-      z-index: 11;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, white 55%);
+      z-index: 10;
     }
   }
-  .mt-4 {
-    margin-top: 1.5rem !important;
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    z-index: 11;
+  }
+}
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.keywords {
+
+  &__item {
+    position: relative;
   }
 
-  .keywords {
-
-    &__item {
-      position: relative;
-    }
-
-    &__actions {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: 100%;
-      z-index: 11;
-    }
+  &__actions {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    z-index: 11;
   }
-  .sectionList {
-    list-style-type: '→ ';
-    margin-left:6.5%;
-  }
-  @media only screen and (max-width: 991px) {
+}
+.sectionList {
+  list-style-type: '→ ';
+  margin-left:6.5%;
+}
+@media only screen and (max-width: 991px) {
   .sectionList {
     margin-left: 0;
   }

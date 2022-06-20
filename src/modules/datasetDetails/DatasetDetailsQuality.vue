@@ -588,12 +588,12 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../../styles/bootstrap_theme';
-  @import '../../styles/utils/css-animations';
+  //@import '../../styles/bootstrap_theme';
+  //@import '../../styles/utils/css-animations';
 
 .dimension-card {
   // Default background color to be overwritten
-  background-color: $gray;
+  background-color: var(--gray);
   color: rgba(rgb(255, 255, 255), 1.00);
   border-radius: 4px;
 
@@ -612,7 +612,6 @@
       top: 0;
       right: 0;
       bottom: 0;
-      right: 0;
       width: 100%;
       height: 100%;
       transition: opacity .5s cubic-bezier(.25, .8, .25, 1);
@@ -701,23 +700,23 @@
 }
 
 .dimension-accessibility {
-  @include gradient($deu-logo-medium-blue-gradient);
+  @include gradient(var(--deu-logo-medium-blue-gradient));
 }
 
 .dimension-findability {
-  @include gradient($deu-badge-green-gradient);
+  @include gradient(var(--deu-badge-green-gradient));
 }
 
 .dimension-interoperability {
-  @include gradient($deu-logo-blue-gradient);
+  @include gradient(var(--deu-logo-blue-gradient));
 }
 
 .dimension-reusability {
-  @include gradient($deu-dark-orange-gradient);
+  @include gradient(var(--deu-dark-orange-gradient));
 }
 
 .dimension-contextuality {
-  @include gradient($deu-logo-yellow-gradient);
+  @include gradient(var(--deu-logo-yellow-gradient));
 }
 
 .dimension-total {
@@ -725,7 +724,7 @@
 }
 
 .dimension-scoring {
-  background-image: $deu-badge-black-gradient;
+  background-image: var(--deu-badge-black-gradient);
 }
 
 .small-arrow {
