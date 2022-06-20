@@ -8,14 +8,14 @@
       <!-- Fade out the last item so it has a preview feel -->
       <!-- Render actions on top of it -->
       <div class="distributions__actions pb-md-3">
-        <button
+        <circle
             v-for="increment in distributions.incrementSteps.filter(nonOverflowingIncrementsForDistributions)"
             :key="increment"
             class="btn btn-sm btn-secondary mr-1"
             @click="increaseNumDisplayedDistributions(increment)"
         >
           <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
-        </button>
+        </circle>
         <button
             class="btn btn-sm btn-primary"
             @click="distributions.displayCount = getDistributions.length"

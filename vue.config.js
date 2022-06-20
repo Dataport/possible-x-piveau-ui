@@ -19,7 +19,7 @@ const buildConfig = {
 
 module.exports = defineConfig({
   transpileDependencies: true,
-  // css: { extract: false },
+  css: { extract: false },
   publicPath: buildConfig.BASE_PATH,
   configureWebpack: {
     plugins: [
@@ -50,7 +50,7 @@ module.exports = defineConfig({
         {
           patterns: [
             {
-              from: path.resolve(__dirname, 'src/scss'),
+              from: path.resolve(__dirname, 'src/modules/dist/scss'),
               to: path.resolve(__dirname, 'dist/scss'),
               toType: 'dir',
             }],
