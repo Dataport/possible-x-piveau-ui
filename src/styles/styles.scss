@@ -1,0 +1,8 @@
+// import custom theme
+@import 'bootstrap_theme';
+
+// import full bootstrap framework
+@import "~bootstrap/scss/bootstrap.scss";
+
+// Import Piveau modules
+@import "~@piveau/piveau-hub-ui-modules/dist/scss/main.scss";

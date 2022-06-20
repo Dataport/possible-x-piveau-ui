@@ -205,7 +205,7 @@ require('popper.js');
 
 require('bootstrap');
 
-require('./styles/styles.sass');
+require('./styles/styles.scss');
 
 $(() => {
   $('[data-toggle="popover"]').popover({ container: 'body' });

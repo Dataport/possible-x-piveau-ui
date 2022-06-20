@@ -183,28 +183,25 @@
           <selectedFacetsOverview
           v-if="getFacets"
           :selected-facets="getFacets"/>
-          <data-info-box class="dataset" v-if="!getLoading" v-for="dataset in getDatasets" :key="dataset.id"
-                        :link-to="`/datasets/${dataset.id}`"
-                        :title="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
-                        :description="getTranslationFor(dataset.description, $route.query.locale, dataset.languages)"
-                        :description-length="1000"
-                        :body-tags="removeDuplicatesOf(dataset.distributionFormats)"
-                        :source="{
-                                      sourceImage: getCatalogImage(dataset.catalog),
-                                      sourceTitle: dataset.catalog.title,
-                                  }"
-                        :metadata="{
-                                      releaseDate: {
-                                        title: $t('message.metadata.created'),
-                                        value: dataset.releaseDate,
-                                      },
-                                      modificationDate: {
-                                        title: $t('message.metadata.updated'),
-                                        value: dataset.modificationDate,
-                                      },
-                                    }"
-                        :data-cy="`dataset@${dataset.id}`">
-          </data-info-box>
+          <template v-if="!getLoading">
+            <pv-data-info-box
+              v-for="dataset in getDatasets"
+              :key="dataset.id"
+              :to="`/datasets/${dataset.id}`"
+              :src="getImg(getCatalogImage(dataset.catalog))"
+              :dataset="{
+                title: getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id,
+                description:
+                  truncate(getTranslationFor(dataset.description, $route.query.locale, dataset.languages), 1000),
+                catalog: getTranslationFor(dataset.catalog.title, $route.query.locale, []),
+                createdDate: dataset.releaseDate,
+                updatedDate: dataset.modificationDate,
+                formats: removeDuplicatesOf(dataset.distributionFormats).map(format => format.id.toLowerCase()),
+              }"
+              :data-cy="`dataset@${dataset.id}`"
+              class="mt-3"
+            />
+          </template>
           <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
         </section>
       </div>
@@ -242,11 +239,10 @@
   import $ from 'jquery';
   import fileTypes from '../utils/fileTypes';
   import DatasetFacets from './DatasetFacets';
-  import DataInfoBox from './DataInfoBox';
   import Pagination from './Pagination';
   import SelectedFacetsOverview from './SelectedFacetsOverview';
-  import { AppLink, SubNavigation, helpers } from "@piveau/piveau-hub-ui-modules";
-  const { getTranslationFor, truncate } = helpers;
+  import { AppLink, SubNavigation, helpers, PvDataInfoBox } from "@piveau/piveau-hub-ui-modules";
+  const { getTranslationFor, truncate, getImg } = helpers;
 
   export default {
     name: 'datasets',
@@ -254,10 +250,10 @@
     components: {
       appLink: AppLink,
       selectedFacetsOverview: SelectedFacetsOverview,
-      dataInfoBox: DataInfoBox,
       datasetFacets: DatasetFacets,
       pagination: Pagination,
       subNavigation: SubNavigation,
+      PvDataInfoBox,
     },
     props: {
       infiniteScrolling: {
@@ -378,6 +374,7 @@
       isArray,
       truncate,
       getTranslationFor,
+      getImg,
       autocomplete(query) {
         this.autocompleteQuery(query)
           .then((response) => {
