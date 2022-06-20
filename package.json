@@ -7,7 +7,7 @@
   "main": "./dist/piveau-hub-ui-modules.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "cross-env BUILD_MODE=lib && vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts",
+    "build": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts",
     "localdeploy": "node ./localuninstall.js && npm run build && node ./localinstall.js",
     "deploy": "npm run build && npm publish",
     "test:unit": "vue-cli-service test:unit",
@@ -22,6 +22,7 @@
     "@citation-js/plugin-doi": "^0.5.7",
     "@deu/deu-cookie-consent": "^2.1.0",
     "@deu/deu-header-footer": "^4.13.0",
+    "@ecl/preset-ec": "^3.3.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
     "@fortawesome/free-brands-svg-icons": "^5.11.2",
     "@fortawesome/free-regular-svg-icons": "^5.11.2",
@@ -38,7 +39,6 @@
     "babel-eslint": "^10.0.1",
     "bootstrap": "^4.3.1",
     "core-js": "^3.22.4",
-    "cross-env": "^7.0.3",
     "dompurify": "^2.3.6",
     "es6-promise": "^4.2.4",
     "file-loader": "^6.2.0",
@@ -105,6 +105,7 @@
     "babel-jest": "^27.0.6",
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-transform-imports": "^2.0.0",
+    "cross-env": "^7.0.3",
     "cypress": "^8.3.0",
     "cypress-pipe": "^2.0.0",
     "cypress-wait-until": "^1.7.2",
@@ -119,8 +120,5 @@
     "vue-template-compiler": "^2.6.14",
     "vuex-router-sync": "^5.0.0",
     "webpack-merge": "^4.2.2"
-  },
-  "peerDependencies": {
-    "vue": ">=2.x"
   }
 }

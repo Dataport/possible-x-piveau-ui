@@ -264,7 +264,8 @@ import DatasetCitationModal from '../citation/DatasetCitationModal.vue';
 </script>
 
 <style lang="scss" scoped>
-  @import '../../styles/bootstrap_theme';
+  //@import '../../styles/bootstrap_theme';
+
   .nav-link {
     text-decoration: underline;
   }
@@ -276,7 +277,7 @@ import DatasetCitationModal from '../citation/DatasetCitationModal.vue';
 
   .dropdown-item {
     &:active {
-      background-color: $dropdown-item-active-bg;
+      background-color: var(--dropdown-item-active-bg);
     }
   }
 </style>
