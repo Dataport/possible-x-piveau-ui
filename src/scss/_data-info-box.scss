@@ -22,6 +22,11 @@
 
   &-footer {
     @extend .card-footer;
+
+    &-catalog-img {
+      max-width: 30px;
+      max-height: 19px;
+    }
   }
 
   &:hover {
