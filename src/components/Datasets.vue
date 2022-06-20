@@ -196,7 +196,7 @@
                 catalog: getTranslationFor(dataset.catalog.title, $route.query.locale, []),
                 createdDate: dataset.releaseDate,
                 updatedDate: dataset.modificationDate,
-                formats: removeDuplicatesOf(dataset.distributionFormats).map(format => format.id.toLowerCase()),
+                formats: removeDuplicatesOf(dataset.distributionFormats).filter((format) => format.id || format.label),
               }"
               :data-cy="`dataset@${dataset.id}`"
               class="mt-3"

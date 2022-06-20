@@ -26,31 +26,30 @@
           data-cy="dataset-description"
         >
           <slot name="description">
-            <template v-if="dataset.description">
+            <p v-if="dataset.description">
               {{ dataset.description }}
-            </template>
+            </p>
             <span v-else>
               No description available.
             </span>
           </slot>
         </div>
-        <div class="col-12 col-md-3">
-          <div
-            v-if="dataset.formats && dataset.formats.length > 0"
-            class="d-flex flex-col flex-wrap"
-            data-toggle="tooltip"
-            data-placement="top"
-            :title="$t('message.tooltip.datasetDetails.format')"
-          >
-            <template v-for="(format, i) in dataset.formats.slice(0, 10)">
-              <PvBadge
-                :key="`badge@${i}`"
-                class="mr-1 mb-1"
-                :format="format"
-              />
-            </template>
-            <span v-if="dataset.formats.length >= 10">...</span>
-          </div>
+        <div
+          v-if="dataset.formats && dataset.formats.length > 0"
+          class="col-12 col-md-3"
+        >
+            <PvBadge
+              v-for="(format, i) in dataset.formats.slice(0, 10)"
+              :key="`badge@${i}`"
+              class="mr-1 mb-1"
+              :format="format.id"
+              data-toggle="tooltip"
+              data-placement="top"
+              :title="$t('message.tooltip.datasetDetails.format')"
+            >
+              {{ format.label || format.id || 'UNKNOWN' }}
+            </PvBadge>
+          <span v-if="dataset.formats.length >= 10">...</span>
         </div>
       </div>
     </div>
