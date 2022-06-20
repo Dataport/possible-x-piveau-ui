@@ -23,8 +23,7 @@
       </div>
       <div class="d-flex flex-wrap align-items-center">
         <img
-          class="border border-dark mr-1"
-          width="30"
+          class="dataset-info-box-footer-catalog-img border border-dark mr-1"
           :src="src"
           :alt="catalog">
         <span> {{ catalog }} </span>
