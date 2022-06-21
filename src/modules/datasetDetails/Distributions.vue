@@ -255,7 +255,7 @@
                           <td class="w-25 font-weight-bold">{{ $t('message.metadata.pages') }}</td>
                           <td>
                             <div v-for="(page, i) of distribution.pages" :key="i">
-                              <app-link :to="page">{{ truncate(page.resource, 75) }}</app-link>
+                              <app-link :to="page.resource">{{ truncate(page.resource, 75) }}</app-link>
                             </div>
                           </td>
                         </tr>
@@ -268,6 +268,90 @@
                           <td>
                             <div v-if="!isNil(distribution.type.label)">
                               {{ distribution.type.label }}
+                            </div>
+                          </td>
+                        </tr>
+                        <tr v-if="has(distribution, 'compressFormat') && !isNil(distribution.compressFormat)">
+                          <td class="w-25 font-weight-bold">
+                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.type')">
+                             Compress Format placeholder
+                            </tooltip>
+                          </td>
+                          <td>
+                            <div>
+                              {{ distribution.compressFormat }}
+                            </div>
+                          </td>
+                        </tr>
+                        <tr v-if="has(distribution, 'packageFormat') && !isNil(distribution.packageFormat)">
+                          <td class="w-25 font-weight-bold">
+                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.type')">
+                             Package Format placeholder
+                            </tooltip>
+                          </td>
+                          <td>
+                            <div>
+                              {{ distribution.packageFormat }}
+                            </div>
+                          </td>
+                        </tr>
+                        <tr v-if="has(distribution, 'hasPolicy') && !isNil(distribution.hasPolicy)">
+                          <td class="w-25 font-weight-bold">
+                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.type')">
+                             Has Policy placeholder
+                            </tooltip>
+                          </td>
+                          <td>
+                            <div>
+                              <a :href="appendCurrentLocaleToURL(distribution.hasPolicy)">{{ truncate(distribution.hasPolicy, 75) }}</a>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr v-if="has(distribution, 'conformsTo') && showObjectArray(distribution.conformsTo)">
+                          <td class="w-25 font-weight-bold">
+                            <tooltip :title="$t('message.tooltip.datasetDetails.conformsTo')">
+                              {{ $t('message.metadata.conformsTo') }}
+                            </tooltip>
+                          </td>
+                          <td >
+                            <div v-for="(conformTo, i) in distribution.conformsTo" :key="i">
+                              <div v-if="has(conformTo, 'label') && !isNil(conformTo.label)">
+                                {{ $t('message.metadata.label') }}:
+                                {{ conformTo.label }}
+                              </div>
+                              <div v-if="has(conformTo, 'resource') && !isNil(conformTo.resource)">
+                                {{ $t('message.metadata.resource') }}:
+                                <app-link :to="conformTo.resource"
+                                          target="_blank"
+                                          @click="$emit('track-link', conformTo.resource, 'link')">
+                                  {{ conformTo.resource }}
+                                </app-link>
+                              </div>
+                              <br>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr v-if="has(distribution, 'spatialResolutionInMeters') && showArray(distribution.spatialResolutionInMeters)">
+                          <td class="w-25 font-weight-bold">
+                            <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
+                              Spatial Resolution In Meters placeholder
+                            </tooltip>
+                          </td>
+                          <td>
+                            <div v-if="showNumber(distribution.spatialResolutionInMeters[0])">
+                              {{ distribution.spatialResolutionInMeters[0] }} Meters PLACEHOLDER
+                            </div>
+                          </td>
+                        </tr>
+                        <tr v-if="has(distribution, 'temporalResolution') && showArray(distribution.temporalResolution)">
+                          <td class="w-25 font-weight-bold">
+                            <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
+                              Temporal Resolution placeholder
+                            </tooltip>
+                          </td>
+                          <td>
+                            <div v-for="(temporalResolution, i) of distribution.temporalResolution" :key="i">
+                              {{ temporalResolution }}
                             </div>
                           </td>
                         </tr>
@@ -474,6 +558,7 @@
         isNil: Function,
         filterDateFormatEU: Function,
         showArray: Function,
+        showNumber: Function,
         showObjectArray: Function,
         showVisualisationLink: Function,
         getVisualisationLink: Function,
@@ -493,6 +578,7 @@
         cancelDownloadAll: Function,
         cancelDownloadAllAxiosRequestSource: Object,
         nonOverflowingIncrementsForDistributions: Function,
+        appendCurrentLocaleToURL: Function,
       },
     };
 </script>
