@@ -192,12 +192,13 @@
               :dataset="{
                 title: getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id,
                 description:
-                  truncate(getTranslationFor(dataset.description, $route.query.locale, dataset.languages), 1000),
+                  getTranslationFor(dataset.description, $route.query.locale, dataset.languages),
                 catalog: getTranslationFor(dataset.catalog.title, $route.query.locale, []),
                 createdDate: dataset.releaseDate,
                 updatedDate: dataset.modificationDate,
                 formats: removeDuplicatesOf(dataset.distributionFormats).filter((format) => format.id || format.label),
               }"
+              :description-max-length="1000"
               :data-cy="`dataset@${dataset.id}`"
               class="mt-3"
             />

@@ -5,7 +5,7 @@
       class="dataset-info-box-header"
       data-cy="dataset-title"
     >
-      <h2>{{ dataset.title }}</h2>
+      <h2>{{ datasetOrCatalogTitle }}</h2>
     </div>
   </slot>
 
@@ -27,7 +27,10 @@
         >
           <slot name="description">
             <p v-if="dataset.description">
-              {{ dataset.description }}
+              {{ descriptionMaxLength
+                ? truncate(dataset.description, descriptionMaxLength)
+                : dataset.description
+              }}
             </p>
             <span v-else>
               No description available.
@@ -56,15 +59,15 @@
   </slot>
 
   <!-- Footer slot -->
-  <!-- todo: de-hardcode modified and created date -->
-  <!-- todo: add tooltip functionality along with invalid date detection -->
   <slot name="footer" :dataset="dataset">
     <PvDataInfoBoxFooter
+      v-if="!catalogMode"
       :src="src"
       :createdDate="dataset.createdDate"
       :updatedDate="dataset.updatedDate"
       :catalog="dataset.catalog"
     />
+    <div v-else class="dataset-info-box-footer" />
   </slot>
 </router-link>
 </template>
@@ -76,6 +79,8 @@ import type RouteLocationRaw from 'vue-router';
 
 import PvBadge from '../PvBadge/PvBadge.vue';
 import PvDataInfoBoxFooter from './PvDataInfoBoxFooter.vue';
+
+import { truncate } from '../utils/helpers';
 
 export default Vue.extend({
   name: 'PvDataInfoBox',
@@ -131,6 +136,19 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+  },
+
+  computed: {
+    datasetOrCatalogTitle() {
+      const { dataset, catalogMode } = this;
+      return catalogMode
+        ? dataset.title || dataset.catalog || ''
+        : dataset.title || ''
+    }
+  },
+
+  methods: {
+    truncate,
   },
 });
 </script>

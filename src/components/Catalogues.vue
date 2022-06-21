@@ -129,16 +129,25 @@
           <div class="loading-spinner ml-3" v-if="getLoading"></div>
         </div>
         <selectedFacetsOverview :selected-facets="getFacets"></selectedFacetsOverview>
-        <data-info-box class="catalog"
-                      ref="catalogBox"
-                      v-for="catalog in getCatalogs"
-                      :key="catalog.id"
-                      :link-to="getCatalogLink(catalog)"
-                      :title="getTranslationFor(catalog.title, $route.query.locale, getCatalogLanguages(catalog))"
-                      :description="getTranslationFor(catalog.description, $route.query.locale, getCatalogLanguages(catalog))"
-                      :body-img="getCatalogImage(catalog)"
-                      :footer-tags="getFooterTags(catalog)">
-        </data-info-box>
+        <pv-data-info-box
+          v-for="catalog in getCatalogs"
+          :key="`data-info-box@${catalog.id}`"
+          catalog-mode
+          :to="`/catalogues/${catalog.id}`"
+          :src="getImg(getCatalogImage(catalog))"
+          :dataset="{
+            title: getTranslationFor(catalog.title, $route.query.locale, getCatalogLanguages(catalog)),
+            description:
+              getTranslationFor(catalog.description, $route.query.locale, getCatalogLanguages(catalog)),
+            catalog: getTranslationFor(catalog.title, $route.query.locale, getCatalogLanguages(catalog)),
+            createdDate: null,
+            updatedDate: null,
+            formats: [],
+          }"
+          :description-max-length="1000"
+          :data-cy="`catalog@${catalog.id}`"
+          class="mt-3"
+        />
         <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
       </section>
     </div>
@@ -169,8 +178,13 @@
   import DataInfoBox from './DataInfoBox';
   import Pagination from './Pagination';
   import SelectedFacetsOverview from './SelectedFacetsOverview';
-  import { helpers, dateFilters, SubNavigation } from '@piveau/piveau-hub-ui-modules';
-  const { getCountryFlagImg, getTranslationFor } = helpers;
+  import {
+    helpers,
+    dateFilters,
+    SubNavigation,
+    PvDataInfoBox,
+  } from '@piveau/piveau-hub-ui-modules';
+  const { getImg, getCountryFlagImg, getTranslationFor } = helpers;
 
 
   export default {
@@ -178,7 +192,8 @@
     dependencies: ['catalogService'],
     components: {
       selectedFacetsOverview: SelectedFacetsOverview,
-      dataInfoBox: DataInfoBox,
+      DataInfoBox,
+      PvDataInfoBox,
       catalogFacets: CatalogFacets,
       pagination: Pagination,
       subNavigation: SubNavigation,
@@ -261,6 +276,7 @@
         'setLoading',
       ]),
       has,
+      getImg,
       getTranslationFor,
       getCountryFlagImg,
       initPage() {
