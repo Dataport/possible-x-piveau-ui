@@ -133,7 +133,7 @@
           v-for="catalog in getCatalogs"
           :key="`data-info-box@${catalog.id}`"
           catalog-mode
-          :to="`/catalogues/${catalog.id}`"
+          :to="{name: 'Datasets', query: {catalog: catalog.id, showcatalogdetails: true, locale: $route.query.locale}}"
           :src="getImg(getCatalogImage(catalog))"
           :dataset="{
             title: getTranslationFor(catalog.title, $route.query.locale, getCatalogLanguages(catalog)),
