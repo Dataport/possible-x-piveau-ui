@@ -33,7 +33,9 @@
               }}
             </p>
             <span v-else>
-              No description available.
+              <p class="text-muted font-italic" data-cy="dataset-description">
+                {{ $t('message.catalogsAndDatasets.noDescriptionAvailable') }}
+              </p>
             </span>
           </slot>
         </div>
