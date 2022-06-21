@@ -175,7 +175,6 @@
   import { debounce, has } from 'lodash';
   import fileTypes from '../utils/fileTypes';
   import CatalogFacets from './CatalogueFacets';
-  import DataInfoBox from './DataInfoBox';
   import Pagination from './Pagination';
   import SelectedFacetsOverview from './SelectedFacetsOverview';
   import {
@@ -192,7 +191,6 @@
     dependencies: ['catalogService'],
     components: {
       selectedFacetsOverview: SelectedFacetsOverview,
-      DataInfoBox,
       PvDataInfoBox,
       catalogFacets: CatalogFacets,
       pagination: Pagination,
