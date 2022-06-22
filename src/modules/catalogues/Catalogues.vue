@@ -174,16 +174,13 @@
   import { mapActions, mapGetters } from 'vuex';
   import { debounce, has } from 'lodash';
   import fileTypes from '../utils/fileTypes';
-  import CatalogFacets from './CatalogueFacets';
-  import Pagination from './Pagination';
-  import SelectedFacetsOverview from './SelectedFacetsOverview';
-  import {
-    helpers,
-    dateFilters,
-    SubNavigation,
-    PvDataInfoBox,
-  } from '@piveau/piveau-hub-ui-modules';
-  const { getImg, getCountryFlagImg, getTranslationFor } = helpers;
+  import CatalogFacets from './CatalogueFacets.vue';
+  import Pagination from '../widgets/Pagination.vue';
+  import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
+  import dateFilters from '../filters/dateFilters';
+  import SubNavigation from '../navigation/SubNavigation.vue';
+  import PvDataInfoBox from '../PvDataInfoBox/PvDataInfoBox.vue';
+  import { getImg, getCountryFlagImg, getTranslationFor } from '../utils/helpers';
 
 
   export default {
@@ -487,8 +484,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-  @import '../styles/utils/css-animations';
 
   .alert-primary {
     color: #042648;

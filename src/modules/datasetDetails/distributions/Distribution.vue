@@ -369,7 +369,7 @@ import Tooltip from "@/modules/widgets/Tooltip";
 import Dropdown from "@/modules/widgets/Dropdown";
 import AppLink from "@/modules/widgets/AppLink";
 import DropdownDownload from "@/modules/widgets/DropdownDownload";
-import ResourceDetailsLinkedDataButton from "@/modules/datasetDetails/ResourceDetailsLinkedDataButton";
+import ResourceDetailsLinkedDataButton from "@/modules/widgets/ResourceDetailsLinkedDataButton";
 import ResourceAccessPopup from "@/modules/widgets/ResourceAccessPopup";
 
 export default {

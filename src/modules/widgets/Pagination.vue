@@ -124,7 +124,6 @@
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/bootstrap_theme';
 
 .page-item.disabled {
   color: rgba(0,0,0,0.7);

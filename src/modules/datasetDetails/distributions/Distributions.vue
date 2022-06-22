@@ -112,7 +112,7 @@ import Tooltip from '../../widgets/Tooltip.vue';
 import Dropdown from '../../widgets/Dropdown.vue';
 import DropdownDownload from '../../widgets/DropdownDownload.vue';
 import ResourceAccessPopup from '../../widgets/ResourceAccessPopup.vue';
-import ResourceDetailsLinkedDataButton from '../ResourceDetailsLinkedDataButton.vue';
+import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
 
 export default {
   name: 'distributions',

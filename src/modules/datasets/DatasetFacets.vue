@@ -389,13 +389,15 @@
     isNil,
     isNumber,
 } from 'lodash';
-  import Facet from '@/components/Facet';
-  import DatasetFacetsItem from '@/components/DatasetFacetsItem';
-  import MapBoundsSender from './MapBoundsSender';
-  import { AppLink, Tooltip, helpers, ResourceDetailsLinkedDataButton, dateFilters } from '@piveau/piveau-hub-ui-modules';
-  const { getTranslationFor, getImg, getFacetTranslation } = helpers;
-
-  const MapBoundsReceiver = () => import(/* webpackChunkName: "MapBoundsReceiver" */'./MapBoundsReceiver');
+  import Facet from '../facets/Facet.vue';
+  import DatasetFacetsItem from './DatasetFacetsItem.vue';
+  import MapBoundsSender from '../map/MapBoundsSender.vue';
+  import MapBoundsReceiver from '../map/MapBoundsReceiver.vue';
+  import AppLink from '../widgets/AppLink.vue';
+  import Tooltip from '../widgets/Tooltip.vue';
+  import ResourceDetailsLinkedDataButton from '../widgets/ResourceDetailsLinkedDataButton.vue';
+  import dateFilters from '../filters/dateFilters';
+  import { getTranslationFor, getImg, getFacetTranslation } from '../utils/helpers';
 
   export default {
     name: 'datasetFacets',
