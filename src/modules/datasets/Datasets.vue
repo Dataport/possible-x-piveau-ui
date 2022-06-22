@@ -239,11 +239,13 @@
   } from 'lodash';
   import $ from 'jquery';
   import fileTypes from '../utils/fileTypes';
-  import DatasetFacets from './DatasetFacets';
-  import Pagination from './Pagination';
-  import SelectedFacetsOverview from './SelectedFacetsOverview';
-  import { AppLink, SubNavigation, helpers, PvDataInfoBox } from "@piveau/piveau-hub-ui-modules";
-  const { getTranslationFor, truncate, getImg } = helpers;
+  import DatasetFacets from './DatasetFacets.vue';
+  import Pagination from '../widgets/Pagination.vue';
+  import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
+  import AppLink from '../widgets/AppLink.vue';
+  import SubNavigation from '../navigation/SubNavigation.vue';
+  import PvDataInfoBox from '../PvDataInfoBox/PvDataInfoBox.vue';
+  import { getTranslationFor, truncate, getImg } from '../utils/helpers';
 
   export default {
     name: 'datasets',
@@ -681,8 +683,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
-  @import '../styles/utils/css-animations';
 
   .alert-primary {
     color: #042648;
@@ -788,7 +788,7 @@
 
   .dropdown-item {
     &:active {
-      background-color: $dropdown-item-active-bg;
+      background-color: var(--dropdown-item-active-bg);
     }
   }
 

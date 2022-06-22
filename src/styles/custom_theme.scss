@@ -920,6 +920,8 @@ $pre-scrollable-max-height:         340px !default;
 // Transforming Sass variables into CSS variables
 * {
   --gray: #{$gray};
+  --primary: #{$primary};
+  --primary-light: #{$primary-light};
   --deu-logo-medium-blue-gradient: #{$deu-logo-medium-blue-gradient};
   --deu-badge-green-gradient: #{$deu-badge-green-gradient};
   --deu-logo-blue-gradient: #{$deu-logo-blue-gradient};

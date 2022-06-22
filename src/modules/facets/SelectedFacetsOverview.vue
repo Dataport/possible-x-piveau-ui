@@ -15,8 +15,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import { helpers } from '@piveau/piveau-hub-ui-modules';
-  const { getFacetTranslation } = helpers;
+  import { getFacetTranslation } from '../utils/helpers';
 
   export default {
     name: 'SelectedFacetsOverview',
@@ -126,7 +125,6 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../styles/bootstrap_theme';
 
   .close-facet {
     cursor: pointer;

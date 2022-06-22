@@ -1206,7 +1206,7 @@
   import JSZip from 'jszip';
   import { saveAs } from 'file-saver';
   import axios from 'axios';
-  import MapBasic from './MapBasic.vue';
+  import MapBasic from '../map/MapBasic.vue';
   import AppLink from '../widgets/AppLink.vue';
   import Tooltip from '../widgets/Tooltip.vue';
   import Distributions from './distributions/Distributions.vue';
