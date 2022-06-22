@@ -31,7 +31,7 @@ The workflow is as follows:
 In order for imports from `@piveau/piveau-hub-ui-modules` in the test-app to work, that package must be accessible in the node_modules folder.
 There are two ways to get achieve this:
 
-  1. A simple `npm install` takes the dependency from package.json and creates a symlink to the `src/modules` folder in node_modules.
+  1. Executing `npm run link-module` creates a symlink to the `src/modules` folder in node_modules.
   2. Executing `npm run localdeploy` creates a compiled version of the modules folder in `dist` and copies it into node_modules`.
 
 The advantage of option 2 is that the package in node_modules is exactly the same as the published version will be.
@@ -53,10 +53,15 @@ npm run serve
 npm run build
 ```
 
-or to also add a copy of the compiled modules in node_modules:
+or to compile and also add a copy of the compiled modules in node_modules:
 
 ```
 npm run localdeploy
+```
+
+### Creating a symlink of the module in node_modules
+```
+npm run link-module
 ```
 
 ### Publishing modules

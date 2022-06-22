@@ -27,4 +27,4 @@ copyRecursiveSync('./dist', target + '/dist');
 fs.copyFileSync('./package.json', target + '/package.json');
 fs.copyFileSync('./README.md', target + '/README.md');
 
-console.log("Package copied to node_modules");
+console.log("Bundled module copied to node_modules");

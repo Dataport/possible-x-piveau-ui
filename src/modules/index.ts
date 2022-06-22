@@ -8,13 +8,13 @@ import ResourceDetailsLinkedDataButton from "./datasetDetails/ResourceDetailsLin
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
 import Distributions from "./datasetDetails/distributions/Distributions.vue";
 import DatasetDetailsHeader from "./datasetDetails/DatasetDetailsHeader.vue";
-import DatasetDetailsShareButton from "./datasetDetails/DatasetDetailsShareButton.vue";
-import DatasetDetailsLinkedMetricsButton from "./datasetDetails/DatasetDetailsLinkedMetricsButton.vue";
+// import DatasetDetailsShareButton from "./datasetDetails/DatasetDetailsShareButton.vue";
+// import DatasetDetailsLinkedMetricsButton from "./datasetDetails/DatasetDetailsLinkedMetricsButton.vue";
+// import DatasetDetailsFeedbackButton from "./datasetDetails/DatasetDetailsFeedbackButton.vue";
+// import DatasetDetailsActivityStream from "./datasetDetails/DatasetDetailsActivityStream.vue";
 import DatasetDetailsNavigation from "./datasetDetails/DatasetDetailsNavigation.vue";
-import DatasetDetailsFeedbackButton from "./datasetDetails/DatasetDetailsFeedbackButton.vue";
 import DatasetDetailsQuality from "./datasetDetails/DatasetDetailsQuality.vue";
 import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets.vue";
-import DatasetDetailsActivityStream from "./datasetDetails/DatasetDetailsActivityStream.vue";
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 import MapBasic from "./datasetDetails/MapBasic.vue";
