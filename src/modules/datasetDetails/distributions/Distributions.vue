@@ -55,7 +55,6 @@
             <distribution
                 v-for="(distribution, index) in displayedDistributions"
                 :key="`${index}--${distribution.id}`"
-                class="distributions__item"
 
                 :distribution="distribution"
                 :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
@@ -88,14 +87,11 @@
                 :showAccessUrls="showAccessUrls"
                 :replaceHttp="replaceHttp"
                 :previewLinkCallback="previewLinkCallback"
-                :downloadAllDistributions="downloadAllDistributions"
                 :toggleDistribution="toggleDistribution"
                 :setClipboard="setClipboard"
                 :getGeoLink="getGeoLink"
                 :toggleDistributionDescription="toggleDistributionDescription"
                 :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
-                :cancelDownloadAll="cancelDownloadAll"
-                :cancelDownloadAllAxiosRequestSource="cancelDownloadAllAxiosRequestSource"
                 :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
             />
           </div>
@@ -213,71 +209,6 @@ export default {
     cursor: pointer;
   }
 
-  .details-link {
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  .text-break {
-    word-break: break-word;
-  }
-
-  .circle {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto;
-    padding: 20px 0;
-    font-size: 12px;
-    line-height: 1px;
-    border-radius: 50%;
-    background-color: #595959;
-    &[type="HTML"] {
-      background-color: #285C76;
-    }
-    &[type="JSON"] {
-      background-color: var(--dark-orange);
-    }
-    &[type="XML"] {
-      background-color: #8F4300;
-    }
-    &[type="TXT"] {
-      background-color: #2B5E73;
-    }
-    &[type="CSV"] {
-      background-color: var(--badge-green);
-    }
-    &[type="XLS"] {
-      background-color: #1A6537;
-    }
-    &[type="ZIP"] {
-      background-color: #252525;
-    }
-    &[type="API"] {
-      background-color: #923560;
-    }
-    &[type="PDF"] {
-      background-color: #B30519;
-    }
-    &[type="SHP"] {
-      background-color: var(--badge-black);
-    }
-    &[type="RDF"],
-    &[type="NQUAD"],
-    &[type="NTRIPLES"],
-    &[type="TURTLE"] {
-      background-color: #0b4498;
-    }
-  }
-
-  td {
-    padding-left: 0 !important;
-    padding-top: 1% !important;
-    padding-bottom: 1% !important;
-  }
-
   .download-all-btn {
     min-width: 100px;
     height: 31px;
@@ -287,16 +218,7 @@ export default {
   button:focus {
     outline:0;
   }
-  .options, .download {
-    .dropdown-menu {
-      .dropdown-item {
-        &:hover {
-          color: initial;
-          background-color: initial;
-        }
-      }
-    }
-  }
+
 .spinner-grow {
   width: 20px;
   height: 20px;
@@ -328,30 +250,6 @@ export default {
     font-size: 20px;
   }
 
-  .distributions {
-
-    &__item {
-      position: relative;
-
-      &--preview {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, white 55%);
-        z-index: 10;
-      }
-    }
-
-    &__actions {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      height: 100%;
-      z-index: 11;
-    }
-  }
   .mt-4 {
     margin-top: 1.5rem !important;
   }

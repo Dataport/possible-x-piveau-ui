@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="distributions__item">
     <!-- Preview and action overlay -->
     <div
         v-if="fading"
@@ -342,16 +342,9 @@
                             <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.downloadURLTooltip')">help_outline</i>
                           </span>
                     </dropdownDownload>
-                     <dropdown :distribution="distribution"
-                               :title="$t('message.tooltip.datasetDetails.distributions.linkedData')"
-                               :message="$t('message.metadata.linkedData')"
-                     >
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="rdf" text="RDF/XML" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="ttl" text="Turtle" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="n3" text="Notation3" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="nt" text="N-Triples" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="jsonld" text="JSON-LD" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                     </dropdown>
+                    <linked-data-buttons-dropdown
+                      :distributions="distributions"
+                      :distribution="distribution" />
                     </span>
                   </span>
                 </span>
@@ -365,21 +358,22 @@ import {
   has,
   isNil
 } from 'lodash';
-import Tooltip from "@/modules/widgets/Tooltip";
-import Dropdown from "@/modules/widgets/Dropdown";
-import AppLink from "@/modules/widgets/AppLink";
-import DropdownDownload from "@/modules/widgets/DropdownDownload";
-import ResourceDetailsLinkedDataButton from "@/modules/widgets/ResourceDetailsLinkedDataButton";
-import ResourceAccessPopup from "@/modules/widgets/ResourceAccessPopup";
+import Tooltip from "../../widgets/Tooltip";
+import Dropdown from "../../widgets/Dropdown";
+import AppLink from "../../widgets/AppLink";
+import DropdownDownload from "../../widgets/DropdownDownload";
+import ResourceAccessPopup from "../../widgets/ResourceAccessPopup";
+import LinkedDataButtonsDropdown
+  from "../../datasetDetails/distributions/LinkedDataButtonsDropdown";
 
 export default {
   name: 'distribution',
   components: {
+    LinkedDataButtonsDropdown,
     Tooltip,
     Dropdown,
     AppLink,
     DropdownDownload,
-    ResourceDetailsLinkedDataButton,
     ResourceAccessPopup
   },
   props: {
@@ -414,14 +408,11 @@ export default {
     showAccessUrls: Function,
     replaceHttp: Function,
     previewLinkCallback: Function,
-    downloadAllDistributions: Function,
     toggleDistribution: Function,
     setClipboard: Function,
     getGeoLink: Function,
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
-    cancelDownloadAll: Function,
-    cancelDownloadAllAxiosRequestSource: Object,
     nonOverflowingIncrementsForDistributions: Function,
   },
   methods: {
@@ -433,31 +424,6 @@ export default {
 
 
 <style lang="scss" scoped>
-
-.catalogue-label {
-  white-space: pre-line;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.tag-color {
-  background-color: var(--tag-color);
-}
-.subjectBg {
-  background-color: #196fd2;
-}
-.btn-color {
-  &:hover {
-    background-color: #196fd2;
-    border-color: #196fd2;
-  }
-}
-
-.heading, .arrow, .copy-text {
-  cursor: pointer;
-}
 
 .details-link {
   cursor: pointer;
@@ -524,11 +490,6 @@ td {
   padding-bottom: 1% !important;
 }
 
-.download-all-btn {
-  min-width: 100px;
-  height: 31px;
-}
-
 /*** BOOTSTRAP ***/
 button:focus {
   outline:0;
@@ -543,17 +504,6 @@ button:focus {
     }
   }
 }
-.spinner-grow {
-  width: 20px;
-  height: 20px;
-}
-
-/*** FONT AWESOME ICONS ***/
-.fa-check-square {
-  color: #28a745;
-  width: 16px;
-  height: 16px;
-}
 
 /*** MATERIAL ICONS ***/
 %modal-icon {
@@ -563,11 +513,6 @@ button:focus {
 
 .help-icon {
   @extend %modal-icon;
-}
-
-.check-icon {
-  @extend %modal-icon;
-  color: #28a745;
 }
 
 .material-icons.small-icon {
@@ -600,29 +545,5 @@ button:focus {
 }
 .mt-4 {
   margin-top: 1.5rem !important;
-}
-
-.keywords {
-
-  &__item {
-    position: relative;
-  }
-
-  &__actions {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 100%;
-    z-index: 11;
-  }
-}
-.sectionList {
-  list-style-type: '→ ';
-  margin-left:6.5%;
-}
-@media only screen and (max-width: 991px) {
-  .sectionList {
-    margin-left: 0;
-  }
 }
 </style>
