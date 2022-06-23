@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="distributions__item">
     <!-- Preview and action overlay -->
     <div
         v-if="fading"
@@ -305,55 +305,20 @@
                             <i class="material-icons float-right align-bottom">public</i>
                           </app-link>
                       </dropdown>
-                      <!-- DISTRIBUTION DOWNLOAD -->
-                      <dropdownDownload  v-if="showDownloadDropdown(distribution)"
-                                         :distribution="distribution"
-                                         :title="$t('message.tooltip.datasetDetails.distributions.download')"
-                                         :message="$t('message.datasetDetails.download')"
-                                         :isOnlyOneUrl="isOnlyOneUrl(distribution)"
-                                         :getDownloadUrl="getDownloadUrl"
-                                         @trackGoto="trackGoto"
-                                         bgLight="true"
-                      >
-                          <span class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-                                v-if="showAccessUrls(distribution)">
-                                <app-link class="text-dark text-decoration-none"
-                                          :to="replaceHttp(distribution.accessUrl[0])"
-                                          target="_blank"
-                                          rel="dcat:distribution noopener"
-                                          matomo-track-download
-                                          @after-click="$emit('trackGoto')">
-                                  <small class="px-2" property="dcat:mediaType" :content="getDistributionFormat">accessURL</small>
-                                  <i class="material-icons align-bottom">open_in_new</i>
-                                </app-link>
-                                <i class="copy-text material-icons float-right align-bottom" @click="setClipboard(distribution.accessUrl[0])">file_copy</i>
-                                <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.accessURLTooltip')">help_outline</i>
-                          </span>
-                          <span class="dropdown-item d-block px-3 d-flex justify-content-end align-items-center"
-                                v-for="(downloadURL, i) in distribution.downloadUrls"
-                                :key="i">
-                            <app-link class="text-dark text-decoration-none"
-                                      :to="replaceHttp(downloadURL)"
-                                      target="_blank"
-                                      matomo-track-download
-                                      @after-click="$emit('trackGoto')">
-                              <small class="px-2" property="dcat:mediaType">downloadURL</small>
-                              <i class="material-icons align-bottom">open_in_new</i>
-                            </app-link>
-                            <i class="copy-text material-icons float-right align-bottom" @click="setClipboard(downloadURL)">file_copy</i>
-                            <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.downloadURLTooltip')">help_outline</i>
-                          </span>
-                    </dropdownDownload>
-                     <dropdown :distribution="distribution"
-                               :title="$t('message.tooltip.datasetDetails.distributions.linkedData')"
-                               :message="$t('message.metadata.linkedData')"
-                     >
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="rdf" text="RDF/XML" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="ttl" text="Turtle" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="n3" text="Notation3" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="nt" text="N-Triples" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                        <resourceDetailsLinkedDataButton class="dropdown-item" format="jsonld" text="JSON-LD" resources="distributions" v-bind:resources-id="distribution.id"></resourceDetailsLinkedDataButton>
-                     </dropdown>
+                    <distribution-download
+                      v-if="showDownloadDropdown(distribution)"
+                      :getDownloadUrl="getDownloadUrl"
+                      :showAccessUrls="showAccessUrls"
+                      :isOnlyOneUrl="isOnlyOneUrl"
+                      :message="message"
+                      :title="title"
+                      :replaceHttp="replaceHttp"
+                      :distribution="distribution"
+                    />
+                    <linked-data-buttons-dropdown
+                      :distributions="distributions"
+                      :distribution="distribution"
+                    />
                     </span>
                   </span>
                 </span>
@@ -370,18 +335,19 @@ import {
 import Tooltip from "@/modules/widgets/Tooltip";
 import Dropdown from "@/modules/widgets/Dropdown";
 import AppLink from "@/modules/widgets/AppLink";
-import DropdownDownload from "@/modules/widgets/DropdownDownload";
-import ResourceDetailsLinkedDataButton from "@/modules/widgets/ResourceDetailsLinkedDataButton";
 import ResourceAccessPopup from "@/modules/widgets/ResourceAccessPopup";
+import LinkedDataButtonsDropdown
+  from "@/modules/datasetDetails/distributions/LinkedDataButtonsDropdown";
+import DistributionDownload from "@/modules/datasetDetails/distributions/DistributionDownload";
 
 export default {
   name: 'distribution',
   components: {
+    DistributionDownload,
+    LinkedDataButtonsDropdown,
     Tooltip,
     Dropdown,
     AppLink,
-    DropdownDownload,
-    ResourceDetailsLinkedDataButton,
     ResourceAccessPopup
   },
   props: {
@@ -416,14 +382,11 @@ export default {
     showAccessUrls: Function,
     replaceHttp: Function,
     previewLinkCallback: Function,
-    downloadAllDistributions: Function,
     toggleDistribution: Function,
     setClipboard: Function,
     getGeoLink: Function,
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
-    cancelDownloadAll: Function,
-    cancelDownloadAllAxiosRequestSource: Object,
     nonOverflowingIncrementsForDistributions: Function,
     isUrlInvalid: Function,
     openIfValidUrl: Function,
@@ -440,31 +403,6 @@ export default {
 <style lang="scss" scoped>
 .disabled {
   cursor: not-allowed;
-}
-
-.catalogue-label {
-  white-space: pre-line;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.tag-color {
-  background-color: var(--tag-color);
-}
-.subjectBg {
-  background-color: #196fd2;
-}
-.btn-color {
-  &:hover {
-    background-color: #196fd2;
-    border-color: #196fd2;
-  }
-}
-
-.heading, .arrow, .copy-text {
-  cursor: pointer;
 }
 
 .details-link {
@@ -532,11 +470,6 @@ td {
   padding-bottom: 1% !important;
 }
 
-.download-all-btn {
-  min-width: 100px;
-  height: 31px;
-}
-
 /*** BOOTSTRAP ***/
 button:focus {
   outline:0;
@@ -550,32 +483,6 @@ button:focus {
       }
     }
   }
-}
-.spinner-grow {
-  width: 20px;
-  height: 20px;
-}
-
-/*** FONT AWESOME ICONS ***/
-.fa-check-square {
-  color: #28a745;
-  width: 16px;
-  height: 16px;
-}
-
-/*** MATERIAL ICONS ***/
-%modal-icon {
-  font-size: 18px;
-  cursor: default;
-}
-
-.help-icon {
-  @extend %modal-icon;
-}
-
-.check-icon {
-  @extend %modal-icon;
-  color: #28a745;
 }
 
 .material-icons.small-icon {
@@ -608,29 +515,5 @@ button:focus {
 }
 .mt-4 {
   margin-top: 1.5rem !important;
-}
-
-.keywords {
-
-  &__item {
-    position: relative;
-  }
-
-  &__actions {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 100%;
-    z-index: 11;
-  }
-}
-.sectionList {
-  list-style-type: '→ ';
-  margin-left:6.5%;
-}
-@media only screen and (max-width: 991px) {
-  .sectionList {
-    margin-left: 0;
-  }
 }
 </style>
