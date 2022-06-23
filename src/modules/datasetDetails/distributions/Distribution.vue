@@ -279,20 +279,22 @@
                     <span class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
                       <!-- DISTRIBUTION OPTIONS -->
                       <dropdown  v-if="showOptionsDropdown(distribution)"
-                                 :distribution="distribution"
-                                 :title="$t('message.tooltip.datasetDetails.distributions.options')"
-                                 :message="$t('message.datasetDetails.options')"
-                                 bgLight="true"
-                      >
-                            <a ref="previewLink" class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-                               :href="getVisualisationLink(distribution)"
-                               target="_blank"
-                               v-if="showVisualisationLink(distribution)">
-                              <div @click.prevent="openModal(previewLinkCallback(distribution), false)">
+                                :distribution="distribution"
+                                :title="$t('message.tooltip.datasetDetails.distributions.options')"
+                                :message="$t('message.datasetDetails.options')"
+                                bgLight="true"
+                                >
+                          <span data-toggle="tooltip" data-placement="top" :title="showTooltipVisualiseButton(isUrlInvalid(getVisualisationLink(distribution)))">
+                            <a @click.prevent="openIfValidUrl(!isUrlInvalid(getVisualisationLink(distribution)), previewLinkCallback, distribution, $event)"  :class="{ disabled: isUrlInvalid(getVisualisationLink(distribution)) }" ref="previewLink" class="dropdown-item px-3 d-flex justify-content-end align-items-center"
+                                    :href="getVisualisationLink(distribution)"
+                                    target="_blank"
+                                    v-if="showVisualisationLink(distribution)">
+                              <button role="button" class="border-0 bg-transparent button" :disabled="isUrlInvalid(getVisualisationLink(distribution))" >
                                 <small class="px-2">{{ $t('message.datasetDetails.preview') }}</small>
                                   <i class="material-icons align-bottom">bar_chart</i>
-                              </div>
+                              </button>
                             </a>
+                          </span>
 
                           <app-link class="dropdown-item px-3 d-flex justify-content-end align-items-center"
                                     :path="getGeoLink(distribution.format.label, distribution.id)"
@@ -386,16 +388,22 @@ export default {
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
     nonOverflowingIncrementsForDistributions: Function,
+    isUrlInvalid: Function,
+    openIfValidUrl: Function,
+    showTooltipVisualiseButton: Function,
   },
   methods: {
     has,
-    isNil
+    isNil,
   }
 };
 </script>
 
 
 <style lang="scss" scoped>
+.disabled {
+  cursor: not-allowed;
+}
 
 .details-link {
   cursor: pointer;
