@@ -106,7 +106,7 @@ import Distribution from './Distribution.vue';
 import AppLink from '../../widgets/AppLink.vue';
 import Tooltip from '../../widgets/Tooltip.vue';
 import Dropdown from '../../widgets/Dropdown.vue';
-import DropdownDownload from '../../widgets/DropdownDownload.vue';
+import DropdownDownload from './DistributionDropdownDownload.vue';
 import ResourceAccessPopup from '../../widgets/ResourceAccessPopup.vue';
 import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
 

@@ -1,7 +1,7 @@
 import AppLink from "./widgets/AppLink.vue";
 import Tooltip from "./widgets/Tooltip.vue";
 import Dropdown from "./widgets/Dropdown.vue";
-import DropdownDownload from "./widgets/DropdownDownload.vue";
+// import DropdownDownload from "./datasetDetails/distributions/DistributionDropdownDownload.vue";
 import ResourceAccessPopup from "./widgets/ResourceAccessPopup.vue";
 
 import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton.vue";
@@ -34,7 +34,7 @@ export {
     AppLink,
     Tooltip,
     Dropdown,
-    DropdownDownload,
+    // DropdownDownload,
     ResourceAccessPopup,
 
     PvDataInfoBox,
