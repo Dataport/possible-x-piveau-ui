@@ -97,6 +97,9 @@
                 :cancelDownloadAll="cancelDownloadAll"
                 :cancelDownloadAllAxiosRequestSource="cancelDownloadAllAxiosRequestSource"
                 :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
+                :isUrlInvalid="isUrlInvalid"
+                :openIfValidUrl="openIfValidUrl"
+                :showTooltipVisualiseButton="showTooltipVisualiseButton"
             />
           </div>
         </ul>
@@ -177,11 +180,14 @@ export default {
     cancelDownloadAll: Function,
     cancelDownloadAllAxiosRequestSource: Object,
     nonOverflowingIncrementsForDistributions: Function,
+    isUrlInvalid: Function,
+    openIfValidUrl: Function,
+    showTooltipVisualiseButton: Function,
   },
   methods: {
     openModal(callback, toggleDownloadPopup) {
       this.$refs.externalResourceModal.openModal(callback, toggleDownloadPopup)
-    }
+    },
   }
 };
 </script>
