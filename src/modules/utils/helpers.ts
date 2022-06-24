@@ -52,10 +52,10 @@ function unique(prop, array) {
 function getImg(image, defaultFallbackImage) {
   let img;
   try {
-    img = require(`@/assets/img${image}.png`);
+    img = require(`../assets/img${image}.png`);
   } catch (err) {
-    if (defaultFallbackImage) img = require(`@/assets/img${defaultFallbackImage}.png`);
-    else img = require('@/assets/img/img-not-available.png');
+    if (defaultFallbackImage) img = require(`../assets/img${defaultFallbackImage}.png`);
+    else img = require('../assets/img/img-not-available.png');
   }
   return img;
 }
