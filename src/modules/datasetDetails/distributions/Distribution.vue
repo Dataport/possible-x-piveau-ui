@@ -310,8 +310,8 @@
                       :getDownloadUrl="getDownloadUrl"
                       :showAccessUrls="showAccessUrls"
                       :isOnlyOneUrl="isOnlyOneUrl"
-                      :message="message"
-                      :title="title"
+                      :trackGoto="trackGoto"
+                      :getDistributionFormat="getDistributionFormat"
                       :replaceHttp="replaceHttp"
                       :distribution="distribution"
                     />
@@ -415,6 +415,10 @@ export default {
 
 .text-break {
   word-break: break-word;
+}
+
+.heading, .arrow, .copy-text {
+  cursor: pointer;
 }
 
 .circle {
