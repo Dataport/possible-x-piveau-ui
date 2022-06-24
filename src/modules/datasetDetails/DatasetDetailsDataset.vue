@@ -1274,7 +1274,7 @@
                   </td>
                   <td>
                     <div v-if="showNumber(getSpatialResolutionInMeters[0])">
-                      {{ $t('message.metadata.spatialResolutionInMeters.value', {number: distribution.spatialResolutionInMeters[0]}) }}
+                      {{ $t('message.metadata.spatialResolutionInMeters.value', {number: getSpatialResolutionInMeters[0]}) }}
                     </div>
                   </td>
                 </tr>
