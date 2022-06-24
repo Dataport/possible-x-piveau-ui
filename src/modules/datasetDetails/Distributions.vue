@@ -273,8 +273,8 @@
                         </tr>
                         <tr v-if="has(distribution, 'compressFormat') && !isNil(distribution.compressFormat)">
                           <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.type')">
-                             Compress Format placeholder
+                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.compressFormat')">
+                             {{ $t('message.metadata.compressFormat') }}
                             </tooltip>
                           </td>
                           <td>
@@ -285,8 +285,8 @@
                         </tr>
                         <tr v-if="has(distribution, 'packageFormat') && !isNil(distribution.packageFormat)">
                           <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.type')">
-                             Package Format placeholder
+                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.packageFormat')">
+                             {{ $t('message.metadata.packageFormat') }}
                             </tooltip>
                           </td>
                           <td>
@@ -297,8 +297,8 @@
                         </tr>
                         <tr v-if="has(distribution, 'hasPolicy') && !isNil(distribution.hasPolicy)">
                           <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.type')">
-                             Has Policy placeholder
+                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.hasPolicy')">
+                             {{ $t('message.metadata.hasPolicy') }}
                             </tooltip>
                           </td>
                           <td>
@@ -324,7 +324,7 @@
                                 <app-link :to="conformTo.resource"
                                           target="_blank"
                                           @click="$emit('track-link', conformTo.resource, 'link')">
-                                  {{ conformTo.resource }}
+                                  {{ truncate(conformTo.resource, 75) }}
                                 </app-link>
                               </div>
                               <br>
@@ -333,20 +333,20 @@
                         </tr>
                         <tr v-if="has(distribution, 'spatialResolutionInMeters') && showArray(distribution.spatialResolutionInMeters)">
                           <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
-                              Spatial Resolution In Meters placeholder
+                            <tooltip :title="$t('message.tooltip.datasetDetails.spatialResolutionInMeters')">
+                              {{ $t('message.metadata.spatialResolutionInMeters.label') }}
                             </tooltip>
                           </td>
                           <td>
                             <div v-if="showNumber(distribution.spatialResolutionInMeters[0])">
-                              {{ distribution.spatialResolutionInMeters[0] }} Meters PLACEHOLDER
+                              {{ $t('message.metadata.spatialResolutionInMeters.value', {number: distribution.spatialResolutionInMeters[0]}) }}
                             </div>
                           </td>
                         </tr>
                         <tr v-if="has(distribution, 'temporalResolution') && showArray(distribution.temporalResolution)">
                           <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
-                              Temporal Resolution placeholder
+                            <tooltip :title="$t('message.tooltip.datasetDetails.temporalResolution')">
+                              {{ $t('message.metadata.temporalResolution') }}
                             </tooltip>
                           </td>
                           <td>
