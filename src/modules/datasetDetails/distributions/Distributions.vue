@@ -114,7 +114,7 @@ import ResourceAccessPopup from '../../widgets/ResourceAccessPopup.vue';
 import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
 
 export default {
-  name: 'distributions',
+  name: 'Distributions',
   components: {
     Distribution,
     Tooltip,

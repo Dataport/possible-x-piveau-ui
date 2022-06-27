@@ -275,50 +275,33 @@
                         </small>
                       </div>
                     </span>
-                    <!-- DISTRIBUTION BUTTONS -->
                     <span class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
-                      <!-- DISTRIBUTION OPTIONS -->
-                      <dropdown  v-if="showOptionsDropdown(distribution)"
-                                :distribution="distribution"
-                                :title="$t('message.tooltip.datasetDetails.distributions.options')"
-                                :message="$t('message.datasetDetails.options')"
-                                bgLight="true"
-                                >
-                          <span data-toggle="tooltip" data-placement="top" :title="showTooltipVisualiseButton(isUrlInvalid(getVisualisationLink(distribution)))">
-                            <a @click.prevent="openIfValidUrl(!isUrlInvalid(getVisualisationLink(distribution)), previewLinkCallback, distribution, $event)"  :class="{ disabled: isUrlInvalid(getVisualisationLink(distribution)) }" ref="previewLink" class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-                                    :href="getVisualisationLink(distribution)"
-                                    target="_blank"
-                                    v-if="showVisualisationLink(distribution)">
-                              <button role="button" class="border-0 bg-transparent button" :disabled="isUrlInvalid(getVisualisationLink(distribution))" >
-                                <small class="px-2">{{ $t('message.datasetDetails.preview') }}</small>
-                                  <i class="material-icons align-bottom">bar_chart</i>
-                              </button>
-                            </a>
-                          </span>
-
-                          <app-link class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-                                    :path="getGeoLink(distribution.format.label, distribution.id)"
-                                    target="_blank"
-                                    @click="$emit('track-link', getGeoLink(distribution.format.label, distribution.id), 'link')"
-                                    v-if="showGeoLink(distribution)">
-                            <small class="px-2">{{ $t('message.datasetDetails.geoVisualisation') }}</small>
-                            <i class="material-icons float-right align-bottom">public</i>
-                          </app-link>
-                      </dropdown>
-                    <distribution-download
-                      v-if="showDownloadDropdown(distribution)"
-                      :getDownloadUrl="getDownloadUrl"
-                      :showAccessUrls="showAccessUrls"
-                      :isOnlyOneUrl="isOnlyOneUrl"
-                      :trackGoto="trackGoto"
-                      :getDistributionFormat="getDistributionFormat"
-                      :replaceHttp="replaceHttp"
-                      :distribution="distribution"
-                    />
-                    <linked-data-buttons-dropdown
-                      :distributions="distributions"
-                      :distribution="distribution"
-                    />
+                      <distribution-options-dropdown
+                        v-if="showOptionsDropdown(distribution)"
+                        :showTooltipVisualiseButton="showTooltipVisualiseButton"
+                        :isUrlInvalid="isUrlInvalid"
+                        :getVisualisationLink="getVisualisationLink"
+                        :distribution="distribution"
+                        :openIfValidUrl="openIfValidUrl"
+                        :previewLinkCallback="previewLinkCallback"
+                        :showVisualisationLink="showVisualisationLink"
+                        :getGeoLink="getGeoLink"
+                        :showGeoLink="showGeoLink"
+                      />
+                      <distribution-download
+                        v-if="showDownloadDropdown(distribution)"
+                        :getDownloadUrl="getDownloadUrl"
+                        :showAccessUrls="showAccessUrls"
+                        :isOnlyOneUrl="isOnlyOneUrl"
+                        :trackGoto="trackGoto"
+                        :getDistributionFormat="getDistributionFormat"
+                        :replaceHttp="replaceHttp"
+                        :distribution="distribution"
+                      />
+                      <linked-data-buttons-dropdown
+                        :distributions="distributions"
+                        :distribution="distribution"
+                      />
                     </span>
                   </span>
                 </span>
@@ -339,10 +322,13 @@ import ResourceAccessPopup from "@/modules/widgets/ResourceAccessPopup";
 import LinkedDataButtonsDropdown
   from "@/modules/datasetDetails/distributions/LinkedDataButtonsDropdown";
 import DistributionDownload from "@/modules/datasetDetails/distributions/DistributionDownload";
+import DistributionOptionsDropdown
+  from "@/modules/datasetDetails/distributions/DistributionOptionsDropdown";
 
 export default {
-  name: 'distribution',
+  name: 'Distribution',
   components: {
+    DistributionOptionsDropdown,
     DistributionDownload,
     LinkedDataButtonsDropdown,
     Tooltip,
