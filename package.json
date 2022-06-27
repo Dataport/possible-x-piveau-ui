@@ -1,12 +1,13 @@
 {
   "name": "@piveau/piveau-hub-ui-modules",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "files": [
     "dist/*"
   ],
   "main": "./dist/piveau-hub-ui-modules.umd.min.js",
   "scripts": {
     "serve": "node scripts/ensure_module.js && vue-cli-service serve",
+    "dev": "npm run serve",
     "link-module": "node scripts/localuninstall.js && node scripts/create_module_symlink.js",
     "build": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts",
     "localdeploy": "node scripts/localuninstall.js && npm run build && node scripts/localinstall.js",
