@@ -1,6 +1,5 @@
 <template>
     <div class="mt-1">
-      <resource-access-popup ref="externalResourceModal" />
       <div class="row">
         <div class="col-12 col-lg-11 offset-lg-1 d-flex justify-content-between align-items-center">
           <h2 :title="$t('message.tooltip.datasetDetails.distribution')"
@@ -9,31 +8,13 @@
               data-cy="dataset-distributions">
             {{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})
           </h2>
-          <div v-if="getDistributions.length > 1">
-            <button v-if="isLoadingAllDistributionFiles"
-                    class="btn btn-sm btn-primary download-all-btn d-flex justify-content-center rounded-lg btn-color"
-                    data-toggle="modal" data-target="#downloadAllModal">
-              <div class="loading-spinner"></div>
-            </button>
-            <button v-else class="btn btn-sm btn-primary download-all-btn rounded-lg btn-color" @click="openModal(downloadAllDistributions, true)">
-              {{ $t('message.datasetDetails.datasets.downloadAll') }}
-            </button>
-            <download-all-distributions-modal
-              :downloadProgress="downloadProgress"
-              :downloadedFilesCounter="downloadedFilesCounter"
-              :getDistributions="getDistributions"
-              :failedDownloads="failedDownloads"
-              :isLoadingAllDistributionFiles="isLoadingAllDistributionFiles"
-              :numberOfFilesToZip="numberOfFilesToZip"
-              :isGeneratingZip="isGeneratingZip"
-              :isGeneratingZipDone="isGeneratingZipDone"
-              :downloadAllSuccess="downloadAllSuccess"
-              :downloadAllError="downloadAllError"
-              :cancelDownloadAll="cancelDownloadAll"
-              :cancelDownloadAllAxiosRequestSource="cancelDownloadAllAxiosRequestSource"
-              :downloadAllDistributions="downloadAllDistributions"
-            />
-          </div>
+          <download-all-distributions
+            :getDistributions="getDistributions"
+            :openModal="openModal"
+            :getDistributionTitle="getDistributionTitle"
+            :showDownloadUrls="showDownloadUrls"
+            :getTranslationFor="getTranslationFor"
+          />
         </div>
         <ul class="list list-unstyled col-12">
           <hr>
@@ -44,7 +25,6 @@
 
                 :distribution="distribution"
                 :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
-                :openModal="openModal"
                 :getDistributions="getDistributions"
                 :distributions="distributions"
                 :getDistributionFormat="getDistributionFormat"
@@ -95,24 +75,23 @@ import AppLink from '../../widgets/AppLink.vue';
 import Tooltip from '../../widgets/Tooltip.vue';
 import Dropdown from '../../widgets/Dropdown.vue';
 import DropdownDownload from './DistributionDropdownDownload.vue';
-import ResourceAccessPopup from '../../widgets/ResourceAccessPopup.vue';
 import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
-import DownloadAllDistributionsModal
-  from "@/modules/datasetDetails/distributions/DownloadAllDistributionsModal";
+import DownloadAllDistributions
+  from "@/modules/datasetDetails/distributions/DownloadAllDistributions";
 
 export default {
   name: 'Distributions',
   components: {
-    DownloadAllDistributionsModal,
+    DownloadAllDistributions,
     Distribution,
     Tooltip,
     Dropdown,
     AppLink,
     DropdownDownload,
-    ResourceDetailsLinkedDataButton,
-    ResourceAccessPopup
+    ResourceDetailsLinkedDataButton
   },
   props: {
+    openModal: Function,
     getDistributions: Array,
     expandedDistributions: Array,
     expandedDistributionDescriptions: Array,
@@ -120,6 +99,8 @@ export default {
     distributions: Object,
     isDistributionsAllDisplayed: Boolean,
     pages: Object,
+    getTranslationFor: Function,
+    showDownloadUrls: Function,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,
@@ -131,15 +112,6 @@ export default {
     distributionCanShowMore: Function,
     showOptionsDropdown: Function,
     showDownloadDropdown: Function,
-    isLoadingAllDistributionFiles: Boolean,
-    downloadProgress: Number,
-    downloadedFilesCounter: Number,
-    failedDownloads: Number,
-    numberOfFilesToZip: Number,
-    isGeneratingZip: Boolean,
-    isGeneratingZipDone: Boolean,
-    downloadAllSuccess: Boolean,
-    downloadAllError: Boolean,
     showLicence: Function,
     showLicensingAssistant: Function,
     filterDateFormatEU: Function,
@@ -154,23 +126,15 @@ export default {
     showAccessUrls: Function,
     replaceHttp: Function,
     previewLinkCallback: Function,
-    downloadAllDistributions: Function,
     toggleDistribution: Function,
     setClipboard: Function,
     getGeoLink: Function,
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
-    cancelDownloadAll: Function,
-    cancelDownloadAllAxiosRequestSource: Object,
     nonOverflowingIncrementsForDistributions: Function,
     isUrlInvalid: Function,
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
-  },
-  methods: {
-    openModal(callback, toggleDownloadPopup) {
-      this.$refs.externalResourceModal.openModal(callback, toggleDownloadPopup)
-    },
   }
 };
 </script>
