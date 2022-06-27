@@ -127,9 +127,15 @@
                           {{ $t('message.metadata.publisher') }}
                   </span>
                 </dt>
+                <dd v-if="has(catalog, 'publisher.name')  && showString(catalog.publisher.name)">{{ catalog.publisher.name }}</dd>
                 <dd>
                   <app-link v-if="has(catalog, 'publisher.homepage') && showString(catalog.publisher.homepage)" :to="catalog.publisher.homepage">
                     {{ catalog.publisher.homepage }}
+                  </app-link>
+                </dd>
+                <dd>
+                  <app-link v-if="has(catalog, 'publisher.email') && showString(catalog.publisher.email)" :to="catalog.publisher.email">
+                    {{ catalog.publisher.email }}
                   </app-link>
                 </dd>
               </dl>
