@@ -120,6 +120,7 @@
     <distributions
       :openModal="openModal"
       :getDistributions="getDistributions"
+      :getCatalog="getCatalog"
       :expandedDistributions="expandedDistributions"
       :expandedDistributionDescriptions="expandedDistributionDescriptions"
       :displayedDistributions="displayedDistributions"

@@ -70,6 +70,8 @@ export default {
     'openModal',
     'getDistributionTitle',
     'getTranslationFor',
+    'isUrlInvalid',
+    'getCatalog',
     'showDownloadUrls'
   ],
   data() {

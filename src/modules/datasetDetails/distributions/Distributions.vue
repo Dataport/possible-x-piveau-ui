@@ -14,6 +14,8 @@
             :getDistributionTitle="getDistributionTitle"
             :showDownloadUrls="showDownloadUrls"
             :getTranslationFor="getTranslationFor"
+            :getCatalog="getCatalog"
+            :isUrlInvalid="isUrlInvalid"
           />
         </div>
         <ul class="list list-unstyled col-12">
@@ -93,6 +95,7 @@ export default {
   props: {
     openModal: Function,
     getDistributions: Array,
+    getCatalog: Object,
     expandedDistributions: Array,
     expandedDistributionDescriptions: Array,
     displayedDistributions: Array,
