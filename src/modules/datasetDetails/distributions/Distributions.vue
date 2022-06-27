@@ -63,7 +63,6 @@
                 :distributions="distributions"
                 :getDistributionFormat="getDistributionFormat"
                 :distributionFormatTruncated="distributionFormatTruncated"
-                :truncate="truncate"
                 :getDistributionTitle="getDistributionTitle"
                 :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
                 :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
@@ -134,7 +133,6 @@ export default {
     pages: Object,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
-    truncate: Function,
     getDistributionTitle: Function,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,
