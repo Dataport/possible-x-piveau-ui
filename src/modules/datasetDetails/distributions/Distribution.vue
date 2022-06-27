@@ -1,328 +1,89 @@
 <template>
   <div class="distributions__item">
-    <!-- Preview and action overlay -->
-    <div
-        v-if="fading"
-        class="distributions__item--preview"
-    >
-      <!-- Fade out the last item so it has a preview feel -->
-      <!-- Render actions on top of it -->
-      <div class="distributions__actions pb-md-3">
-        <circle
-            v-for="increment in distributions.incrementSteps.filter(nonOverflowingIncrementsForDistributions)"
-            :key="increment"
-            class="btn btn-sm btn-secondary mr-1"
-            @click="increaseNumDisplayedDistributions(increment)"
-        >
-          <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
-        </circle>
-        <button
-            class="btn btn-sm btn-primary"
-            @click="distributions.displayCount = getDistributions.length"
-        >
-          <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getDistributions.length.toLocaleString('fi') }}
-        </button>
+    <fading-distribution-overlay
+      v-if="fading"
+      :distributions="distributions"
+      :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
+      :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
+      :getDistributions="getDistributions"
+    />
+    <div class="row">
+      <distribution-format
+        :distribution="distribution"
+        :getDistributionFormat="getDistributionFormat"
+        :distributionFormatTruncated="distributionFormatTruncated"
+      />
+      <div class="col-10 col-md-11">
+        <div class="row">
+          <!-- DISTRIBUTION TITLE -->
+          <span class="d-inline-block col-12">
+            <h3 class="m-0 text-break">{{ getDistributionTitle(distribution) }}</h3>
+          </span>
+          <span class="d-inline-block col-12 col-md-9 col-lg-7">
+            <distribution-description
+              :distribution="distribution"
+              :distributions="distributions"
+              :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
+              :getDistributionDescription="getDistributionDescription"
+              :toggleDistributionDescription="toggleDistributionDescription"
+              :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
+            />
+            <distribution-expanded-content
+              :distribution="distribution"
+              :distributionIsExpanded="distributionIsExpanded"
+              :showLicensingAssistant="showLicensingAssistant"
+              :showLicence="showLicence"
+              :filterDateFormatEU="filterDateFormatEU"
+              :showArray="showArray"
+              :showObject="showObject"
+              :showObjectArray="showObjectArray"
+            />
+            <distribution-visible-content
+              :distribution="distribution"
+              :distributionIsExpanded="distributionIsExpanded"
+              :showObject="showObject"
+              :showLicence="showLicence"
+              :showLicensingAssistant="showLicensingAssistant"
+              :filterDateFormatEU="filterDateFormatEU"
+            />
+            <distribution-expand
+              :distribution="distribution"
+              :distributionCanShowMore="distributionCanShowMore"
+              :toggleDistribution="toggleDistribution"
+              :distributionIsExpanded="distributionIsExpanded"
+            />
+          </span>
+          <div class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
+            <distribution-options-dropdown
+              v-if="showOptionsDropdown(distribution)"
+              :showTooltipVisualiseButton="showTooltipVisualiseButton"
+              :isUrlInvalid="isUrlInvalid"
+              :getVisualisationLink="getVisualisationLink"
+              :distribution="distribution"
+              :openIfValidUrl="openIfValidUrl"
+              :previewLinkCallback="previewLinkCallback"
+              :showVisualisationLink="showVisualisationLink"
+              :getGeoLink="getGeoLink"
+              :showGeoLink="showGeoLink"
+            />
+            <distribution-download
+              v-if="showDownloadDropdown(distribution)"
+              :getDownloadUrl="getDownloadUrl"
+              :showAccessUrls="showAccessUrls"
+              :isOnlyOneUrl="isOnlyOneUrl"
+              :trackGoto="trackGoto"
+              :getDistributionFormat="getDistributionFormat"
+              :replaceHttp="replaceHttp"
+              :distribution="distribution"
+            />
+            <linked-data-buttons-dropdown
+              :distributions="distributions"
+              :distribution="distribution"
+            />
+          </div>
+        </div>
       </div>
     </div>
-    <li class="row">
-      <!-- DISTRIBUTION FORMAT -->
-      <span class="d-inline-block col-2 col-md-1 pl-1 p-md-3 px-md-4 m-md-0 m-auto">
-                  <div class="circle float-md-right text-center text-white"
-                       :type="getDistributionFormat(distribution)"
-                       :data-toggle="distributionFormatTruncated(distribution) ? 'tooltip' : false"
-                       :data-placement="distributionFormatTruncated(distribution) ? 'top' : false"
-                       :title="distributionFormatTruncated(distribution) ? getDistributionFormat(distribution) : false">
-                    <span>{{ truncate(getDistributionFormat(distribution), 4, true) }}</span>
-                  </div>
-                </span>
-      <span class="col-10 col-md-11">
-                  <span class="row">
-                    <!-- DISTRIBUTION TITLE -->
-                    <span class="d-inline-block col-12">
-                      <h3 class="m-0 text-break">{{ getDistributionTitle(distribution) }}</h3>
-                    </span>
-                    <span class="d-inline-block col-12 col-md-9 col-lg-7">
-                      <!-- DISTRIBUTION DESCRIPTION -->
-                      <span class="mt-2 d-block">
-                        <small v-if="distributionDescriptionIsExpanded(distribution.id)">
-                          <p class="text-muted">
-                            {{ getDistributionDescription(distribution) }}
-                            <span class="text-primary details-link pl-2" @click="toggleDistributionDescription(distribution.id)">
-                              {{ $t('message.metadata.readLess') }}
-                            </span>
-                          </p>
-                        </small>
-                        <small v-else-if="!distributionDescriptionIsExpandable(getDistributionDescription(distribution))">
-                          <p class="text-muted">{{ getDistributionDescription(distribution) }}</p>
-                        </small>
-                        <small v-else>
-                          <p class="text-muted">
-                            {{ truncate(getDistributionDescription(distribution), distributions.descriptionMaxChars) }}
-                            <span class="text-primary details-link pl-2" @click="toggleDistributionDescription(distribution.id)">
-                              {{ $t('message.metadata.readMore') }}
-                            </span>
-                          </p>
-                        </small>
-                      </span>
-                      <!-- DISTRIBUTION EXPANDED CONTENT -->
-                      <table class="col-12 table table-borderless table-responsive small pl-0 mt-2 mb-1" v-show="distributionIsExpanded(distribution.id)">
-                        <tr>
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.licence')">
-                              {{ $t('message.metadata.license') }}
-                            </tooltip>
-                          </td>
-                          <td v-if="showObject(distribution.licence) && showLicence(distribution.licence)">
-                            <app-link :to="distribution.licence.resource"
-                                      target="_blank"
-                                      @click="$emit('track-link', distribution.licence.resource, 'link')">
-                              {{ distribution.licence.label }}
-                            </app-link>
-                            <app-link :to="distribution.licence.resource"
-                                      target="_blank"
-                                      data-toggle="tooltip"
-                                      data-placement="top"
-                                      :title="distribution.licence.description"
-                                      @click="$emit('track-link', distribution.licence.resource, 'link')">
-                              <i class="material-icons small-icon align-bottom text-dark">info</i>
-                            </app-link>
-                            <app-link :to="distribution.licence.la_url"
-                                      target="_blank"
-                                      @click="$emit('track-link', distribution.licence.la_url, 'link')"
-                                      v-if="showLicensingAssistant(distribution)">
-                              {{ $t('message.distributionLicense.licensingAssistant') }}
-                            </app-link>
-                            <app-link :to="distribution.licence.la_url"
-                                      target="_blank"
-                                      @click="$emit('track-link', distribution.licence.la_url, 'link')"
-                                      v-if="showLicensingAssistant(distribution)">
-                              <i class="material-icons small-icon align-bottom text-dark">open_in_new</i>
-                            </app-link>
-                          </td>
-                          <td v-else>
-                            {{ $t('message.distributionLicense.notProvided') }}
-                          </td>
-                        </tr>
-                        <tr v-if="has(distribution, 'modificationDate') && !isNil(distribution.modificationDate)">
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')">
-                                {{ $t('message.metadata.updated') }}
-                            </tooltip>
-                          </td>
-                          <td>{{ filterDateFormatEU(distribution.modificationDate) }}</td>
-                        </tr>
-                        <tr v-if="has(distribution, 'releaseDate') && !isNil(distribution.releaseDate)">
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.created')">
-                                {{ $t('message.metadata.created') }}
-                            </tooltip>
-                          </td>
-                          <td>
-                            {{ filterDateFormatEU(distribution.releaseDate) }}
-                          </td>
-                        </tr>
-                        <tr v-if="has(distribution, 'languages') && showArray(distribution.languages)">
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.language')">
-                             {{ $t('message.metadata.languages') }}
-                             </tooltip>
-                          <td>
-                            <div v-for="(language, i) of distribution.languages.map(lang => lang.label)" :key="i">
-                              <span>{{ language }}</span>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr v-if="has(distribution, 'availability') && showObject(distribution.availability) && !isNil(distribution.availability.label)">
-                          <td class="w-25 font-weight-bold">
-                             <tooltip :title="$t('message.tooltip.datasetDetails.distributions.availability')">
-                              {{ $t('message.metadata.availability') }}
-                             </tooltip>
-                          </td>
-                          <td>{{ distribution.availability.label }}</td>
-                        </tr>
-                        <tr v-if="has(distribution, 'status') && showObject(distribution.status)">
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.status')">
-                              {{ $t('message.metadata.status') }}
-                             </tooltip>
-                          </td>
-                          <td>
-                            <div v-if="!isNil(distribution.status.label)">
-                              {{ distribution.status.label }}
-                            </div>
-                          </td>
-                        </tr>
-                        <tr v-if="has(distribution, 'rights') && showObject(distribution.rights)">
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.rights')">
-                              {{ $t('message.datasetDetails.quality.rightsAvailability') }}
-                            </tooltip>
-                          </td>
-                          <td>
-                            <!-- if wen want to show label AND resource!
-                            <div v-for="(right, i) in distribution.rights" :key="i">
-                              <span>{{ truncate(right, 75) }}</span>
-                            </div>
-                            -->
-                            <div>{{ distribution.rights.label }}</div>
-                          </td>
-                        </tr>
-                        <tr v-if="has(distribution, 'mediaType') && !isNil(distribution.mediaType)">
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.mediaType')">
-                              {{ $t('message.metadata.mediaType') }}
-                            </tooltip>
-                          </td>
-                          <td>{{ distribution.mediaType }}</td>
-                        </tr>
-                        <tr v-if="has(distribution, 'byteSize') && !isNil(distribution.byteSize)">
-                          <td class="w-25 font-weight-bold">
-                             <tooltip :title="$t('message.tooltip.datasetDetails.distributions.byteSize')">
-                              {{ $t('message.metadata.byteSize') }}
-                            </tooltip>
-                          </td>
-                          <td>{{ distribution.byteSize }}</td>
-                        </tr>
-                        <tr v-if="has(distribution, 'checksum') && !isNil(distribution.checksum) && has(distribution.checksum, 'algorithm') && !isNil(distribution.checksum.algorithm) && has(distribution.checksum, 'checksum_value') && !isNil(distribution.checksum.checksum_value)">
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.checksum')">
-                              {{ $t('message.metadata.checksum') }}
-                            </tooltip>
-                          </td>
-                          <td>
-                            <div>{{ distribution.checksum.algorithm }}</div>
-                            <div>{{ distribution.checksum.checksum_value }}</div>
-                          </td>
-                        </tr>
-                        <tr v-if="has(distribution, 'pages') && showObjectArray(distribution.pages)">
-                          <td class="w-25 font-weight-bold">{{ $t('message.metadata.pages') }}</td>
-                          <td>
-                            <div v-for="(page, i) of distribution.pages" :key="i">
-                              <app-link :to="page">{{ truncate(page.resource, 75) }}</app-link>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr v-if="has(distribution, 'type') && showObject(distribution.type)">
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.type')">
-                             {{ $t('message.metadata.type') }}
-                            </tooltip>
-                          </td>
-                          <td>
-                            <div v-if="!isNil(distribution.type.label)">
-                              {{ distribution.type.label }}
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                      <!-- DISTRIBUTION VISIBLE CONTENT -->
-                      <table class="col-12 table table-borderless table-responsive small pl-0 mt-1 mb-0" v-show="!distributionIsExpanded(distribution.id)">
-                        <tr>
-                          <td class="w-25 font-weight-bold">
-                            <tooltip :title="$t('message.tooltip.datasetDetails.distributions.licence')">
-                               {{ $t('message.metadata.license') }}
-                            </tooltip>
-                            </td>
-                          <td  v-if="showObject(distribution.licence) && showLicence(distribution.licence)">
-                            <app-link :to="distribution.licence.resource"
-                                      target="_blank"
-                                      @click="$emit('track-link', distribution.licence.resource, 'link')">
-                              {{ distribution.licence.label }}
-                            </app-link>
-                            <app-link :to="distribution.licence.resource"
-                                      target="_blank"
-                                      data-toggle="tooltip"
-                                      data-placement="top"
-                                      :title="distribution.licence.description"
-                                      @click="$emit('track-link', distribution.licence.resource, 'link')">
-                              <i class="material-icons small-icon align-bottom text-dark" >info</i>
-                            </app-link>
-                            <app-link :to="distribution.licence.la_url"
-                                      target="_blank"
-                                      @click="$emit('track-link', distribution.licence.la_url, 'link')"
-                                      v-if="showLicensingAssistant(distribution)">
-                              {{ $t('message.distributionLicense.licensingAssistant') }}
-                            </app-link>
-                            <app-link :to="distribution.licence.la_url"
-                                      target="_blank"
-                                      @click="$emit('track-link', distribution.licence.la_url, 'link')"
-                                      v-if="showLicensingAssistant(distribution)">
-                              <i class="material-icons small-icon align-bottom text-dark">open_in_new</i>
-                            </app-link>
-                          </td>
-                          <td v-else>
-                            {{ $t('message.distributionLicense.notProvided') }}
-                          </td>
-                        </tr>
-                        <tr v-if="has(distribution, 'modificationDate') && !isNil(distribution.modificationDate)">
-                          <td class="w-25 font-weight-bold">
-                              <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')">
-                                {{ $t('message.metadata.updated') }}
-                              </tooltip>
-                          </td>
-                          <td>{{ filterDateFormatEU(distribution.modificationDate) }}</td>
-                        </tr>
-                      </table>
-                      <!-- DISTRIBUTION EXPAND -->
-                      <div class="text-right" v-if="distributionCanShowMore(distribution)" @click="toggleDistribution(distribution.id)">
-                        <small class="arrow" v-if="distributionIsExpanded(distribution.id)">
-                          {{ $t('message.metadata.showLess') }}
-                          <i class="material-icons align-middle small-icon">keyboard_arrow_up</i>
-                        </small>
-                        <small class="arrow" v-else>
-                          {{ $t('message.metadata.showMore') }}
-                          <i class="material-icons align-middle small-icon">keyboard_arrow_down</i>
-                        </small>
-                      </div>
-                    </span>
-                    <!-- DISTRIBUTION BUTTONS -->
-                    <span class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
-                      <!-- DISTRIBUTION OPTIONS -->
-                      <dropdown  v-if="showOptionsDropdown(distribution)"
-                                :distribution="distribution"
-                                :title="$t('message.tooltip.datasetDetails.distributions.options')"
-                                :message="$t('message.datasetDetails.options')"
-                                bgLight="true"
-                                >
-                          <span data-toggle="tooltip" data-placement="top" :title="showTooltipVisualiseButton(isUrlInvalid(getVisualisationLink(distribution)))">
-                            <a @click.prevent="openIfValidUrl(!isUrlInvalid(getVisualisationLink(distribution)), previewLinkCallback, distribution, $event)"  :class="{ disabled: isUrlInvalid(getVisualisationLink(distribution)) }" ref="previewLink" class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-                                    :href="getVisualisationLink(distribution)"
-                                    target="_blank"
-                                    v-if="showVisualisationLink(distribution)">
-                              <button role="button" class="border-0 bg-transparent button" :disabled="isUrlInvalid(getVisualisationLink(distribution))" >
-                                <small class="px-2">{{ $t('message.datasetDetails.preview') }}</small>
-                                  <i class="material-icons align-bottom">bar_chart</i>
-                              </button>
-                            </a>
-                          </span>
-
-                          <app-link class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-                                    :path="getGeoLink(distribution.format.label, distribution.id)"
-                                    target="_blank"
-                                    @click="$emit('track-link', getGeoLink(distribution.format.label, distribution.id), 'link')"
-                                    v-if="showGeoLink(distribution)">
-                            <small class="px-2">{{ $t('message.datasetDetails.geoVisualisation') }}</small>
-                            <i class="material-icons float-right align-bottom">public</i>
-                          </app-link>
-                      </dropdown>
-                    <distribution-download
-                      v-if="showDownloadDropdown(distribution)"
-                      :getDownloadUrl="getDownloadUrl"
-                      :showAccessUrls="showAccessUrls"
-                      :isOnlyOneUrl="isOnlyOneUrl"
-                      :message="message"
-                      :title="title"
-                      :replaceHttp="replaceHttp"
-                      :distribution="distribution"
-                    />
-                    <linked-data-buttons-dropdown
-                      :distributions="distributions"
-                      :distribution="distribution"
-                    />
-                    </span>
-                  </span>
-                </span>
-    </li>
     <hr class="mt-1">
   </div>
 </template>
@@ -332,6 +93,7 @@ import {
   has,
   isNil
 } from 'lodash';
+import { truncate } from '../../utils/helpers';
 import Tooltip from "@/modules/widgets/Tooltip";
 import Dropdown from "@/modules/widgets/Dropdown";
 import AppLink from "@/modules/widgets/AppLink";
@@ -339,10 +101,26 @@ import ResourceAccessPopup from "@/modules/widgets/ResourceAccessPopup";
 import LinkedDataButtonsDropdown
   from "@/modules/datasetDetails/distributions/LinkedDataButtonsDropdown";
 import DistributionDownload from "@/modules/datasetDetails/distributions/DistributionDownload";
+import DistributionOptionsDropdown
+  from "@/modules/datasetDetails/distributions/DistributionOptionsDropdown";
+import DistributionExpand from "@/modules/datasetDetails/distributions/DistributionExpand";
+import DistributionVisibleContent
+  from "@/modules/datasetDetails/distributions/DistributionVisibleContent";
+import DistributionExpandedContent
+  from "@/modules/datasetDetails/distributions/DistributionExpandedContent";
+import DistributionDescription
+  from "@/modules/datasetDetails/distributions/DistributionDescription";
+import DistributionFormat from "@/modules/datasetDetails/distributions/DistributionFormat";
 
 export default {
-  name: 'distribution',
+  name: 'Distribution',
   components: {
+    DistributionFormat,
+    DistributionDescription,
+    DistributionExpandedContent,
+    DistributionVisibleContent,
+    DistributionExpand,
+    DistributionOptionsDropdown,
     DistributionDownload,
     LinkedDataButtonsDropdown,
     Tooltip,
@@ -358,7 +136,6 @@ export default {
     distributions: Object,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
-    truncate: Function,
     getDistributionTitle: Function,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,
@@ -395,12 +172,13 @@ export default {
   methods: {
     has,
     isNil,
+    truncate
   }
 };
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 .disabled {
   cursor: not-allowed;
 }
@@ -415,6 +193,10 @@ export default {
 
 .text-break {
   word-break: break-word;
+}
+
+.heading, .arrow, .copy-text {
+  cursor: pointer;
 }
 
 .circle {

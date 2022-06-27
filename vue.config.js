@@ -26,7 +26,19 @@ module.exports = defineConfig({
       new webpack.DefinePlugin({
         'process.env.buildconf': JSON.stringify(buildConfig)
       }),
-    ]
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.(png|jpg|gif)$/i,
+          parser: {
+            dataUrlCondition: {
+              maxSize: 32 * 1024, // This ensures also larger images will be inlined in our module bundle
+            },
+          }
+        },
+      ]
+    }
   },
 
   chainWebpack: (config) => {
@@ -43,6 +55,19 @@ module.exports = defineConfig({
               return options;
             }
         );
+
+    // config
+    //   .module
+    //   .rule('image-inline')
+    //   .test(/\\.(png|jpg|gif)$/i)
+    //   .use([
+    //     {
+    //       loader: 'url-loader',
+    //       options: {
+    //         limit: 8192,
+    //       }
+    //     },
+    //   ],)
 
     config
       .plugin('copy')

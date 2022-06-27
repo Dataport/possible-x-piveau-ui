@@ -49,9 +49,9 @@ export default {
     "getDownloadUrl",
     "showAccessUrls",
     "isOnlyOneUrl",
-    "message",
-    "title",
+    "trackGoto",
     "replaceHttp",
+    "getDistributionFormat",
     "distribution"
   ],
   components: {

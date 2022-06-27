@@ -6,47 +6,33 @@
           <h2 :title="$t('message.tooltip.datasetDetails.distribution')"
               data-toggle="tooltip"
               data-placement="top"
-              data-cy="dataset-distributions">{{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})</h2>
+              data-cy="dataset-distributions">
+            {{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})
+          </h2>
           <div v-if="getDistributions.length > 1">
-            <button v-if="isLoadingAllDistributionFiles" class="btn btn-sm btn-primary download-all-btn d-flex justify-content-center rounded-lg btn-color" data-toggle="modal" data-target="#downloadAllModal">
+            <button v-if="isLoadingAllDistributionFiles"
+                    class="btn btn-sm btn-primary download-all-btn d-flex justify-content-center rounded-lg btn-color"
+                    data-toggle="modal" data-target="#downloadAllModal">
               <div class="loading-spinner"></div>
             </button>
-            <button v-else class="btn btn-sm btn-primary download-all-btn rounded-lg btn-color" @click="openModal(downloadAllDistributions, true)">{{ $t('message.datasetDetails.datasets.downloadAll') }}</button>
-            <div class="modal fade" id="downloadAllModal" tabindex="-1" role="dialog" aria-labelledby="download progress" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title">{{ $t('message.datasetDetails.datasets.modal.downloadProgress') }}</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" :style="{width: `${downloadProgress}%`}" :aria-valuenow="downloadProgress" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div>{{ $t('message.datasetDetails.datasets.modal.downloadingFiles') }} {{ downloadedFilesCounter.toLocaleString('fi') }}/{{getDistributions.length.toLocaleString('fi')}}</div>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>{{ $t('message.datasetDetails.datasets.modal.notDownloaded') }} {{ failedDownloads.toLocaleString('fi') }}</div>
-                      <i class="material-icons help-icon" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.datasets.modal.notDownloadedTooltip')">help</i>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>{{ $t('message.datasetDetails.datasets.modal.zipNumberOfFiles', { number: numberOfFilesToZip.toLocaleString('fi') }) }} <span v-if="isLoadingAllDistributionFiles && numberOfFilesToZip > 0">{{ $t('message.datasetDetails.datasets.modal.coupleOfMinutes') }}</span> <span v-else-if="isLoadingAllDistributionFiles">{{ $t('message.datasetDetails.datasets.modal.waitingForDownload')}}</span></div>
-                      <div v-if="isGeneratingZip" class="spinner-grow text-primary" role="status">
-                        <span class="sr-only">Loading...</span>
-                      </div>
-                      <i v-else-if="isGeneratingZipDone" class="material-icons check-icon">check_circle</i>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ $t('message.datasetDetails.datasets.modal.close') }}</button>
-                    <button v-if="!downloadAllSuccess && !downloadAllError" type="button" class="btn btn-danger" data-dismiss="modal" @click="cancelDownloadAll(cancelDownloadAllAxiosRequestSource)">{{ $t('message.datasetDetails.datasets.modal.cancel') }}</button>
-                    <button v-else-if="downloadAllError" type="button" class="btn btn-danger" @click="downloadAllDistributions()">{{ $t('message.datasetDetails.datasets.modal.error') }}</button>
-                    <button v-else-if="downloadAllSuccess" type="button" class="btn btn-success" data-dismiss="modal">{{ $t('message.datasetDetails.datasets.modal.okay') }}</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <button v-else class="btn btn-sm btn-primary download-all-btn rounded-lg btn-color" @click="openModal(downloadAllDistributions, true)">
+              {{ $t('message.datasetDetails.datasets.downloadAll') }}
+            </button>
+            <download-all-distributions-modal
+              :downloadProgress="downloadProgress"
+              :downloadedFilesCounter="downloadedFilesCounter"
+              :getDistributions="getDistributions"
+              :failedDownloads="failedDownloads"
+              :isLoadingAllDistributionFiles="isLoadingAllDistributionFiles"
+              :numberOfFilesToZip="numberOfFilesToZip"
+              :isGeneratingZip="isGeneratingZip"
+              :isGeneratingZipDone="isGeneratingZipDone"
+              :downloadAllSuccess="downloadAllSuccess"
+              :downloadAllError="downloadAllError"
+              :cancelDownloadAll="cancelDownloadAll"
+              :cancelDownloadAllAxiosRequestSource="cancelDownloadAllAxiosRequestSource"
+              :downloadAllDistributions="downloadAllDistributions"
+            />
           </div>
         </div>
         <ul class="list list-unstyled col-12">
@@ -63,7 +49,6 @@
                 :distributions="distributions"
                 :getDistributionFormat="getDistributionFormat"
                 :distributionFormatTruncated="distributionFormatTruncated"
-                :truncate="truncate"
                 :getDistributionTitle="getDistributionTitle"
                 :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
                 :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
@@ -112,10 +97,13 @@ import Dropdown from '../../widgets/Dropdown.vue';
 import DropdownDownload from './DistributionDropdownDownload.vue';
 import ResourceAccessPopup from '../../widgets/ResourceAccessPopup.vue';
 import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
+import DownloadAllDistributionsModal
+  from "@/modules/datasetDetails/distributions/DownloadAllDistributionsModal";
 
 export default {
-  name: 'distributions',
+  name: 'Distributions',
   components: {
+    DownloadAllDistributionsModal,
     Distribution,
     Tooltip,
     Dropdown,
@@ -134,7 +122,6 @@ export default {
     pages: Object,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
-    truncate: Function,
     getDistributionTitle: Function,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,

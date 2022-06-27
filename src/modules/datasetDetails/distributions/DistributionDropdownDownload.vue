@@ -39,7 +39,7 @@ import AppLink from "../../widgets/AppLink";
 
 export default {
   mixins: [clickaway],
-  name: 'DropdownDownload',
+  name: 'DistributionDropdownDownload',
   props: ['distribution', 'title', 'message', 'bgLight', 'isOnlyOneUrl', 'getDownloadUrl'],
   components: {
     AppLink,

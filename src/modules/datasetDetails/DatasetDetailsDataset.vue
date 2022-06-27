@@ -126,7 +126,6 @@
       :pages="pages"
       :getDistributionFormat="getDistributionFormat"
       :distributionFormatTruncated="distributionFormatTruncated"
-      :truncate="truncate"
       :getDistributionTitle="getDistributionTitle"
       :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
       :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"

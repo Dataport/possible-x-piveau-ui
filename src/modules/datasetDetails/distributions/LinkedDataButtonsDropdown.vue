@@ -1,5 +1,5 @@
 <template>
-  <dropdown :distribution="distribution"
+  <dropdown
             :title="$t('message.tooltip.datasetDetails.distributions.linkedData')"
             :message="$t('message.metadata.linkedData')"
   >

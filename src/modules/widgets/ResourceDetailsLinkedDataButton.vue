@@ -10,7 +10,7 @@
   // Import glue-config.js
 
   export default {
-    name: 'DEU-resourceDetailsLinkedDataButton',
+    name: 'ResourceDetailsLinkedDataButton',
     components: {
       appLink: AppLink,
     },
