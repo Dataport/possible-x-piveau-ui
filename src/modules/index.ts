@@ -4,6 +4,7 @@ import Dropdown from "./widgets/Dropdown.vue";
 // import DropdownDownload from "./datasetDetails/distributions/DistributionDropdownDownload.vue";
 import ResourceAccessPopup from "./widgets/ResourceAccessPopup.vue";
 import AppSnackbar from './modal/AppSnackbar.vue';
+import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
 
 import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton.vue";
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
@@ -32,37 +33,38 @@ import filtersMixin from "./mixins/filters";
 import animations from "./mixins/animations";
 
 export {
-    AppLink,
-    Tooltip,
-    Dropdown,
-    // DropdownDownload,
-    ResourceAccessPopup,
-    AppSnackbar,
+  AppLink,
+  Tooltip,
+  Dropdown,
+  // DropdownDownload,
+  ResourceAccessPopup,
+  AppSnackbar,
+  AppConfirmationDialog,
 
-    PvDataInfoBox,
-    ResourceDetailsLinkedDataButton,
-    DatasetDetailsCategories,
-    Distributions,
-    DatasetDetailsHeader,
-    DatasetDetailsNavigation,
-    DatasetDetailsQuality,
-    DatasetDetailsSimilarDatasets,
-    DatasetDetailsDataset,
-    DatasetDetails,
+  PvDataInfoBox,
+  ResourceDetailsLinkedDataButton,
+  DatasetDetailsCategories,
+  Distributions,
+  DatasetDetailsHeader,
+  DatasetDetailsNavigation,
+  DatasetDetailsQuality,
+  DatasetDetailsSimilarDatasets,
+  DatasetDetailsDataset,
+  DatasetDetails,
 
-    MapBasic,
-    MapBoundsReceiver,
+  MapBasic,
+  MapBoundsReceiver,
 
-    SubNavigation,
+  SubNavigation,
 
-    DatasetDate,
-    Datasets,
-    Catalogues,
+  DatasetDate,
+  Datasets,
+  Catalogues,
 
-    dateFilters,
+  dateFilters,
 
-    filtersMixin,
-    animations
+  filtersMixin,
+  animations
 };
 
 // @ts-ignore

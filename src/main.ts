@@ -24,7 +24,6 @@ import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
 // import AppToast from '@/components/AppToast';
-import AppConfirmationDialog from '@/components/AppConfirmationDialog';
 // Import v-select
 // Import i18n validation messages for vueformulate
 // import {
@@ -65,7 +64,7 @@ import store from './store/index';
 // Import the APP component
 import App from './App';
 // Import dateFilters
-import { dateFilters, AppSnackbar } from '@piveau/piveau-hub-ui-modules';
+import { dateFilters, AppSnackbar, AppConfirmationDialog } from '@piveau/piveau-hub-ui-modules';
 // Import runtimeconfig
 import RuntimeConfiguration from './runtimeconfig';
 // Import services

@@ -27,7 +27,7 @@
             @click="$emit('confirm')"
             :disabled="loading"
           >
-            <span 
+            <span
               v-show="loading"
               class="spinner-border spinner-border-sm"
               role="status"
@@ -57,7 +57,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>
