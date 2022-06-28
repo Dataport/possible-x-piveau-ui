@@ -37,6 +37,8 @@ import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
 import filtersMixin from "./mixins/filters";
 import animations from "./mixins/animations";
 
+import authService from "./services/authService";
+
 export {
   AppLink,
   Tooltip,
@@ -74,7 +76,9 @@ export {
   dateFilters,
 
   filtersMixin,
-  animations
+  animations,
+
+  authService
 };
 
 // @ts-ignore
