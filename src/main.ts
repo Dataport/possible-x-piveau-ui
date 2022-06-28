@@ -23,8 +23,7 @@ import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
-import AppToast from '@/components/AppToast';
-import AppSnackbar from '@/components/AppSnackbar';
+// import AppToast from '@/components/AppToast';
 import AppConfirmationDialog from '@/components/AppConfirmationDialog';
 // Import v-select
 // Import i18n validation messages for vueformulate
@@ -66,7 +65,7 @@ import store from './store/index';
 // Import the APP component
 import App from './App';
 // Import dateFilters
-import { dateFilters } from '@piveau/piveau-hub-ui-modules';
+import { dateFilters, AppSnackbar } from '@piveau/piveau-hub-ui-modules';
 // Import runtimeconfig
 import RuntimeConfiguration from './runtimeconfig';
 // Import services
@@ -90,7 +89,7 @@ Vue.component('AutocompleteInput', AutocompleteInput);
 Vue.component('UniqueIdentifierInput', UniqueIdentifierInput);
 Vue.component('FileUpload', FileUpload);
 
-Vue.component('AppToast', AppToast);
+// Vue.component('AppToast', AppToast);
 Vue.component('AppSnackbar', AppSnackbar);
 Vue.component('AppConfirmationDialog', AppConfirmationDialog);
 

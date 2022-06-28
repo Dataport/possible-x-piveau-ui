@@ -13,8 +13,13 @@
 </template>
 
 <script>
+import AppToast from "./AppToast.vue";
+
 export default {
   name: 'Snackbar',
+  components: {
+    AppToast
+  },
   data() {
     return {
       nextId: 0,

@@ -3,6 +3,7 @@ import Tooltip from "./widgets/Tooltip.vue";
 import Dropdown from "./widgets/Dropdown.vue";
 // import DropdownDownload from "./datasetDetails/distributions/DistributionDropdownDownload.vue";
 import ResourceAccessPopup from "./widgets/ResourceAccessPopup.vue";
+import AppSnackbar from './modal/AppSnackbar.vue';
 
 import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton.vue";
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
@@ -36,6 +37,7 @@ export {
     Dropdown,
     // DropdownDownload,
     ResourceAccessPopup,
+    AppSnackbar,
 
     PvDataInfoBox,
     ResourceDetailsLinkedDataButton,

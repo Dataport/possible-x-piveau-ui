@@ -27,10 +27,10 @@ import {
 // const DistributionDetails = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DistributionDetails');
 // const MapBasic = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/MapBasic');
 // const Catalogues = () => import(/* webpackChunkName: "Catalogues" */'@/components/Catalogues');
-const Home = () => import(/* webpackChunkName: "Home" */'@/components/Home');
+// const Home = () => import(/* webpackChunkName: "Home" */'@/components/Home');
 const Imprint = () => import(/* webpackChunkName: "Imprint" */'@/components/Imprint');
 const PrivacyPolicy = () => import(/* webpackChunkName: "PrivacyPolicy" */'@/components/PrivacyPolicy');
-const Auth = () => import(/* webpackChunkName: "Auth" */'@/components/Auth');
+// const Auth = () => import(/* webpackChunkName: "Auth" */'@/components/Auth');
 const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
 const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
 
@@ -147,14 +147,14 @@ const router = new Router({
         title,
       },
     },
-    {
-      path: '/home',
-      name: 'Home',
-      component: Home,
-      meta: {
-        title,
-      },
-    },
+    // {
+    //   path: '/home',
+    //   name: 'Home',
+    //   component: Home,
+    //   meta: {
+    //     title,
+    //   },
+    // },
     {
       path: '/imprint',
       name: 'Imprint',
@@ -185,15 +185,15 @@ const router = new Router({
         title,
       },
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: Auth,
-      meta: {
-        title,
-        requiresAuth: true,
-      },
-    },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: Auth,
+    //   meta: {
+    //     title,
+    //     requiresAuth: true,
+    //   },
+    // },
     {
       path: '/404',
       alias: '*',
