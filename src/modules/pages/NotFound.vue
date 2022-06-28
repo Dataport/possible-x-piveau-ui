@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { AppLink } from "@piveau/piveau-hub-ui-modules";
+import AppLink from "../widgets/AppLink.vue";
 
 export default {
   name: 'NotFound',
@@ -41,6 +41,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

@@ -5,15 +5,19 @@ import store from './store/index';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import { decode } from './utils/jwt';
 import {
-    DatasetDetailsCategories,
-    DatasetDetailsQuality,
-    DatasetDetailsSimilarDatasets,
-    DatasetDetailsDataset,
-    DatasetDetails,
-    MapBasic,
-    MapBoundsReceiver,
-    Datasets,
-    Catalogues
+  DatasetDetailsCategories,
+  DatasetDetailsQuality,
+  DatasetDetailsSimilarDatasets,
+  DatasetDetailsDataset,
+  DatasetDetails,
+  MapBasic,
+  MapBoundsReceiver,
+  Datasets,
+  Catalogues,
+  NotFound,
+  SparqlSearch,
+  Imprint,
+  PrivacyPolicy
 } from "@piveau/piveau-hub-ui-modules";
 
 // const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
@@ -28,11 +32,11 @@ import {
 // const MapBasic = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/MapBasic');
 // const Catalogues = () => import(/* webpackChunkName: "Catalogues" */'@/components/Catalogues');
 // const Home = () => import(/* webpackChunkName: "Home" */'@/components/Home');
-const Imprint = () => import(/* webpackChunkName: "Imprint" */'@/components/Imprint');
-const PrivacyPolicy = () => import(/* webpackChunkName: "PrivacyPolicy" */'@/components/PrivacyPolicy');
+// const Imprint = () => import(/* webpackChunkName: "Imprint" */'@/components/Imprint');
+// const PrivacyPolicy = () => import(/* webpackChunkName: "PrivacyPolicy" */'@/components/PrivacyPolicy');
 // const Auth = () => import(/* webpackChunkName: "Auth" */'@/components/Auth');
-const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
-const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
+// const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
+// const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
 
 const DataProviderInterface = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/DataProviderInterface');
 const DataFetchingComponent = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/components/DataFetchingComponent');

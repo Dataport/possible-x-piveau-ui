@@ -21,6 +21,11 @@ import MapBoundsReceiver from "./map/MapBoundsReceiver.vue";
 
 import SubNavigation from "./navigation/SubNavigation.vue";
 
+import NotFound from "./pages/NotFound.vue";
+import Imprint from "./pages/Imprint.vue";
+import PrivacyPolicy from "./pages/PrivacyPolicy.vue";
+import SparqlSearch from "./pages/SparqlSearch.vue";
+
 import DatasetDate from "./datasets/DatasetDate.vue";
 import Datasets from "./datasets/Datasets.vue";
 
@@ -56,6 +61,11 @@ export {
   MapBoundsReceiver,
 
   SubNavigation,
+
+  NotFound,
+  Imprint,
+  PrivacyPolicy,
+  SparqlSearch,
 
   DatasetDate,
   Datasets,
