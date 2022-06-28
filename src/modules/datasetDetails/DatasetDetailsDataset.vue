@@ -1307,18 +1307,6 @@
                     </div>
                   </td>
                 </tr>
-                <tr v-if="showArray(getTemporalResolution)">
-                  <td class="w-25 font-weight-bold">
-                    <tooltip :title="$t('message.tooltip.datasetDetails.temporalResolution')">
-                      {{ $t('message.metadata.temporalResolution') }}
-                    </tooltip>
-                  </td>
-                  <td>
-                    <div v-for="(temporalResolution, i) of getTemporalResolution" :key="i">
-                      {{ temporalResolution }}
-                    </div>
-                  </td>
-                </tr>
               </table>
             </div>
           </div>
