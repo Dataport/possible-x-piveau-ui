@@ -56,6 +56,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VuePositionSticky from 'vue-position-sticky';
 // Import main user configurations (glueConfig) and i18n configurations
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
+import runtimeConfig from '../config/runtime-config';
 import router from './router';
 import store from './store/index';
 import App from './App';
@@ -65,9 +66,9 @@ import {
   AppConfirmationDialog,
   vueKeycloak,
   bulkDownloadCorsProxyService ,
-  corsProxyService
+  corsProxyService,
+  runtimeConfigurationService
 } from '@piveau/piveau-hub-ui-modules';
-import RuntimeConfiguration from './runtimeconfig';
 import services from './services/services';
 // import additional custom vueformulate components
 import InfoSlot from './components/data-provider-interface/components/InfoSlot';
@@ -134,7 +135,7 @@ Vue.use(VueFormulate, {
 });
 
 // Runtimeconfig setup
-Vue.use(RuntimeConfiguration, { baseConfig: GLUE_CONFIG, debug: false });
+Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 
 // Corsproxy setup
 Vue.use(corsProxyService, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);

@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 
-const CorsproxyService = {
+const CorsProxyService = {
   install(Vue, corsproxyUrl = '') {
     // Create a modified axios instance such that its API
     // works just as if requests are called without proxy
@@ -41,4 +41,4 @@ const CorsproxyService = {
   },
 };
 
-export default CorsproxyService;
+export default CorsProxyService;

@@ -1,16 +1,17 @@
+// @ts-nocheck
 /**
  * Vue.js plugin to consume configurations using environment variables
  */
 
 import merge from 'merge-anything';
 // The configuration object that contains symbols for overwriting during runtime
-import config from '../../config/runtime-config';
+// import config from '../../config/runtime-config';
 
 // Takes a base configuration (e.g., process.env) and a runtime configuration
 // and merges the runtime configuration over the base configuration to overwrite it.
 // Overwritten values are always of type string. Pass an empty string to model a falsy value.
 const RuntimeConfiguration = {
-  install(Vue, options = {}) {
+  install(Vue, runtimeConfig, options = {}) {
     const defaultOptions = {
       debug: true,
       baseConfig: process.env,
@@ -39,7 +40,7 @@ const RuntimeConfiguration = {
       extensions: [ignoreUnusedVariables],
     };
 
-    const merged = merge(mergeOptions, opts.baseConfig, config);
+    const merged = merge(mergeOptions, opts.baseConfig, runtimeConfig);
     if (opts.debug) {
       console.log(`Runtime configuration = ${JSON.stringify(merged)}`); // eslint-disable-line
     }
