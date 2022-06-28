@@ -313,7 +313,7 @@
                               {{ $t('message.metadata.conformsTo') }}
                             </tooltip>
                           </td>
-                          <td >
+                          <td>
                             <div v-for="(conformTo, i) in distribution.conformsTo" :key="i">
                               <div v-if="has(conformTo, 'label') && !isNil(conformTo.label)">
                                 {{ $t('message.metadata.label') }}:
@@ -327,7 +327,6 @@
                                   {{ truncate(conformTo.resource, 75) }}
                                 </app-link>
                               </div>
-                              <br>
                             </div>
                           </td>
                         </tr>

@@ -1234,7 +1234,7 @@
                   <td>
                     <div v-for="(qualifiedRelation, i) of getQualifiedRelations" :key="i">
                       <div v-if="has(qualifiedRelation, 'relation') && !isNil(qualifiedRelation.relation)">
-                        {{ $t('message.metadata.relation') }}
+                        {{ $t('message.metadata.relation') }}:
                         <div v-for="(relation, i) of qualifiedRelation.relation" :key="i" class="d-inline-table">
                           <div v-if="showString(relation)">
                             <a :href="appendCurrentLocaleToURL(relation)">{{ truncate(relation, 75) }}</a>
@@ -1242,7 +1242,7 @@
                         </div>
                       </div>
                       <div v-if="has(qualifiedRelation, 'had_role') && !isNil(qualifiedRelation.had_role)">
-                        {{ $t('message.metadata.role') }}
+                        {{ $t('message.metadata.role') }}:
                         <div v-for="(role, i) of qualifiedRelation.had_role" :key="i" class="d-inline-table">
                           <div v-if="showString(role)">
                             <a :href="appendCurrentLocaleToURL(role)">{{ truncate(role, 75) }}</a>
@@ -1292,6 +1292,18 @@
                     <div v-if="has(getType, 'resource') && !isNil(getType.resource)">
                       {{ $t('message.metadata.resource') }}:
                       <a :href="appendCurrentLocaleToURL(getType.resource)">{{ truncate(getType.resource, 75) }}</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showArray(getTemporalResolution)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.temporalResolution')">
+                      {{ $t('message.metadata.temporalResolution') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-for="(temporalResolution, i) of getTemporalResolution" :key="i">
+                      {{ temporalResolution }}
                     </div>
                   </td>
                 </tr>
