@@ -1316,7 +1316,8 @@
                     "options": "Open a preview of the distribution.",
                     "temporalResolution": "Refers to the minimum time period resolvable in the dataset distribution.",
                     "hasPolicy": "This property refers to the policy expressing the rights associated with the distribution.",
-                    "packageFormat": "This property refers to the format of the file in which one or more data files are grouped together, e.g. to enable a set of related files to be downloaded together."
+                    "packageFormat": "This property refers to the format of the file in which one or more data files are grouped together, e.g. to enable a set of related files to be downloaded together.",
+                    "compressFormat": "This property refers to the format of the file in which the data is contained in a compressed form, e.g. to reduce the size of the downloadable file."
                 },
                 "otherIdentifier": "Secondary identifier of the Dataset, such as MAST/ADS16, DataCite17, DOI18 , EZID19 or W3ID20 .",
                 "numSeries": "Contains the number of data series contained in the Dataset.",

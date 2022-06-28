@@ -55,6 +55,7 @@
                 :getDistributionDescription="getDistributionDescription"
                 :distributionIsExpanded="distributionIsExpanded"
                 :showObject="showObject"
+                :showNumber="showNumber"
                 :distributionCanShowMore="distributionCanShowMore"
                 :showOptionsDropdown="showOptionsDropdown"
                 :showDownloadDropdown="showDownloadDropdown"
@@ -81,6 +82,7 @@
                 :isUrlInvalid="isUrlInvalid"
                 :openIfValidUrl="openIfValidUrl"
                 :showTooltipVisualiseButton="showTooltipVisualiseButton"
+                :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
             />
           </div>
         </ul>
@@ -128,6 +130,7 @@ export default {
     getDistributionDescription: Function,
     distributionIsExpanded: Function,
     showObject: Function,
+    showNumber: Function,
     distributionCanShowMore: Function,
     showOptionsDropdown: Function,
     showDownloadDropdown: Function,
@@ -166,6 +169,7 @@ export default {
     isUrlInvalid: Function,
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
+    appendCurrentLocaleToURL: Function,
   },
   methods: {
     openModal(callback, toggleDownloadPopup) {
