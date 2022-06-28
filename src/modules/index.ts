@@ -38,6 +38,10 @@ import filtersMixin from "./mixins/filters";
 import animations from "./mixins/animations";
 
 import authService from "./services/authService";
+import vueKeycloak from "./services/vue-keycloak";
+import bulkDownloadCorsProxyService from "./services/bulk-download-corsproxy-service";
+import corsProxyService from "./services/corsproxy-service";
+import uploadService from "./services/upload-service";
 
 export {
   AppLink,
@@ -78,7 +82,11 @@ export {
   filtersMixin,
   animations,
 
-  authService
+  authService,
+  vueKeycloak,
+  bulkDownloadCorsProxyService,
+  corsProxyService,
+  uploadService
 };
 
 // @ts-ignore

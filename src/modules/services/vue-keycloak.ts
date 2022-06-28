@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable */
 
 import Keycloak from 'keycloak-js';
@@ -87,17 +88,17 @@ function init(config, watch, options) {
     // Check token validity every 10 seconds (10 000 ms) and, if necessary, update the token.
     // Refresh token if it's valid for less then 60 seconds
     const updateTokenInterval = setInterval(() => keycloak.updateToken(60)
-    .then((hasRefreshed) => {
-      if (hasRefreshed) {
-        // When the auth token refreshes, 'invalidate' the stored rtpToken
-        // to force getting a new rtpToken the next time
+      .then((hasRefreshed) => {
+        if (hasRefreshed) {
+          // When the auth token refreshes, 'invalidate' the stored rtpToken
+          // to force getting a new rtpToken the next time
+          rtpToken = null;
+        }
+      })
+      .catch(() => {
         rtpToken = null;
-      }
-    })
-    .catch(() => {
-      rtpToken = null;
-      keycloak.clearToken();
-    }), 10000);
+        keycloak.clearToken();
+      }), 10000);
     watch.logoutFn = () => {
       clearInterval(updateTokenInterval);
       keycloak.logout(options.logout || { redirectUri: config.logoutRedirectUri });

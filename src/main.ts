@@ -54,25 +54,21 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VuePositionSticky from 'vue-position-sticky';
-import VueKeycloak from './plugins/vue-keycloak-js';
 // Import main user configurations (glueConfig) and i18n configurations
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
-// Import vue-router
 import router from './router';
-// Import vuex store
 import store from './store/index';
-// Import the APP component
 import App from './App';
-// Import dateFilters
-import { dateFilters, AppSnackbar, AppConfirmationDialog } from '@piveau/piveau-hub-ui-modules';
-// Import runtimeconfig
+import {
+  dateFilters,
+  AppSnackbar,
+  AppConfirmationDialog,
+  vueKeycloak,
+  bulkDownloadCorsProxyService ,
+  corsProxyService
+} from '@piveau/piveau-hub-ui-modules';
 import RuntimeConfiguration from './runtimeconfig';
-// Import services
 import services from './services/services';
-// Import corsproxy service
-import CorsproxyService from './plugins/corsproxy-service';
-// Import bulkdownload hot fix service
-import BulkDownloadAxiosInstance from './plugins/bulk-download-corsproxy-service';
 // import additional custom vueformulate components
 import InfoSlot from './components/data-provider-interface/components/InfoSlot';
 import ConditionalInput from './components/data-provider-interface/components/ConditionalInput';
@@ -141,10 +137,10 @@ Vue.use(VueFormulate, {
 Vue.use(RuntimeConfiguration, { baseConfig: GLUE_CONFIG, debug: false });
 
 // Corsproxy setup
-Vue.use(CorsproxyService, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
+Vue.use(corsProxyService, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
 
 // Bulk Download hotfix setup
-Vue.use(BulkDownloadAxiosInstance, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
+Vue.use(bulkDownloadCorsProxyService, GLUE_CONFIG, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
 
 const { isPiwikPro, siteId, trackerUrl } = Vue.prototype.$env.tracker;
 Vue.use(UniversalPiwik, {
@@ -271,7 +267,7 @@ const wait = ms => new Promise((resolve, reject) => setTimeout(() => {
 }, ms));
 
 const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
-  Vue.use(VueKeycloak, {
+  Vue.use(vueKeycloak, {
     config: {
       rtp: Vue.prototype.$env.rtp,
       ...Vue.prototype.$env.keycloak,

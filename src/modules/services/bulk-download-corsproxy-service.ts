@@ -1,13 +1,13 @@
+// @ts-nocheck
 /**
  * Vue plugin that exposes a http client based on Axios,
  * which proxies client requests to a given CORS proxy service
  */
 
 import axios from 'axios';
-import { glueConfig as GLUE_CONFIG } from '../../config/user-config';
 
 const BulkDownloadAxiosInstance = {
-  install(Vue, corsproxyUrl = '') {
+  install(Vue, glueConfig, corsproxyUrl = '') {
     // Create a modified axios instance such that its API
     // works just as if requests are called without proxy
     const bulkDownloadAxiosInstance = axios.create();
@@ -16,12 +16,12 @@ const BulkDownloadAxiosInstance = {
     let PENDING_REQUESTS = 0;
     bulkDownloadAxiosInstance.interceptors.request.use(config => new Promise((resolve) => {
       const interval = setInterval(() => {
-        if (PENDING_REQUESTS < GLUE_CONFIG.datasetDetails.bulkDownload.MAX_REQUESTS_COUNT) {
+        if (PENDING_REQUESTS < glueConfig.datasetDetails.bulkDownload.MAX_REQUESTS_COUNT) {
           PENDING_REQUESTS += 1;
           clearInterval(interval);
           resolve(config);
         }
-      }, GLUE_CONFIG.datasetDetails.bulkDownload.INTERVAL_MS);
+      }, glueConfig.datasetDetails.bulkDownload.INTERVAL_MS);
     }));
 
     bulkDownloadAxiosInstance.interceptors.response.use((response) => {

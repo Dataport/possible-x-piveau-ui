@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable class-methods-use-this */
 /**
  * @author Har Preet Singh
@@ -7,7 +8,7 @@
 
 import axios from 'axios';
 
-export default class Uploads {
+export default class UploadService {
   constructor(baseUrl, authToken) {
     this.baseUrl = baseUrl;
     this.authToken = authToken;

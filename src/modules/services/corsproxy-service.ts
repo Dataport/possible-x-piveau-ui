@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Vue plugin that exposes a http client based on Axios,
  * which proxies client requests to a given CORS proxy service
