@@ -1,4 +1,8 @@
-export type DistributionFormat = 'default' | 'html' | 'json' | 'xml' | 'txt' | 'csv' | 'xls' | 'zip' | 'api' | 'pdf' | 'shp' | 'ld' | 'rdf' | 'nquad' | 'ntriples' | 'turtle'
+export type DistributionFormat = {
+  id?: 'default' | 'html' | 'json' | 'xml' | 'txt' | 'csv' | 'xls' | 'zip' | 'api' | 'pdf' | 'shp' | 'ld' | 'rdf' | 'nquad' | 'ntriples' | 'turtle';
+  label?: string;
+  resource?: string;
+};
 
 export type Dataset = {
   /**

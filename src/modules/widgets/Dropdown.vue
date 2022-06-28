@@ -24,7 +24,7 @@ import { mixin as clickaway } from 'vue-clickaway';
 export default {
   mixins: [clickaway],
   name: 'Dropdown',
-  props: ['distribution', 'title', 'message', 'bgLight'],
+  props: ['title', 'message', 'bgLight'],
   methods: {
     away() {
       this.open = false;

@@ -10,11 +10,14 @@ import {
     DatasetDetailsSimilarDatasets,
     DatasetDetailsDataset,
     DatasetDetails,
-    MapBasic
+    MapBasic,
+    MapBoundsReceiver,
+    Datasets,
+    Catalogues
 } from "@piveau/piveau-hub-ui-modules";
 
-const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
-const MapBoundsReceiver = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/MapBoundsReceiver');
+// const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
+// const MapBoundsReceiver = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/MapBoundsReceiver');
 // const DatasetDetails = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails');
 // const DatasetDetailsDataset = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-dataset');
 // const DatasetDetailsCategories = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-categories');
@@ -23,7 +26,7 @@ const MapBoundsReceiver = () => import(/* webpackChunkName: "Datasets" */ /* web
 // const DatasetDetailsActivityStream = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-activityStream');
 // const DistributionDetails = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DistributionDetails');
 // const MapBasic = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/MapBasic');
-const Catalogues = () => import(/* webpackChunkName: "Catalogues" */'@/components/Catalogues');
+// const Catalogues = () => import(/* webpackChunkName: "Catalogues" */'@/components/Catalogues');
 const Home = () => import(/* webpackChunkName: "Home" */'@/components/Home');
 const Imprint = () => import(/* webpackChunkName: "Imprint" */'@/components/Imprint');
 const PrivacyPolicy = () => import(/* webpackChunkName: "PrivacyPolicy" */'@/components/PrivacyPolicy');

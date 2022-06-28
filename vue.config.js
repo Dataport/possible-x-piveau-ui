@@ -26,7 +26,19 @@ module.exports = defineConfig({
       new webpack.DefinePlugin({
         'process.env.buildconf': JSON.stringify(buildConfig)
       }),
-    ]
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.(png|jpg|gif)$/i,
+          parser: {
+            dataUrlCondition: {
+              maxSize: 32 * 1024, // This ensures also larger images will be inlined in our module bundle
+            },
+          }
+        },
+      ]
+    }
   },
 
   chainWebpack: (config) => {
@@ -44,21 +56,34 @@ module.exports = defineConfig({
             }
         );
 
+    // config
+    //   .module
+    //   .rule('image-inline')
+    //   .test(/\\.(png|jpg|gif)$/i)
+    //   .use([
+    //     {
+    //       loader: 'url-loader',
+    //       options: {
+    //         limit: 8192,
+    //       }
+    //     },
+    //   ],)
+
     config
       .plugin('copy')
       .use(copy, [
         {
           patterns: [
             {
-              from: path.resolve(__dirname, 'src/scss'),
+              from: path.resolve(__dirname, 'src/modules/dist/scss'),
               to: path.resolve(__dirname, 'dist/scss'),
               toType: 'dir',
             }],
         },
       ]);
 
-    config.resolve.symlinks(false)
-    config.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'))
+    // config.resolve.symlinks(false);
+    // config.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'));
 
     // Declare all package.json dependencies as external (i.e. "peer dependencies") when we run the build script
     if (process.env.BUILD_MODE === 'lib') {

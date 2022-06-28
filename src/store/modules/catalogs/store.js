@@ -131,7 +131,7 @@ const actions = {
     // const offset = GETTERS.getOffset(state) + amount;
     // commit('SET_OFFSET', offset);
     const page = GETTERS.getPage(state);
-    const catalogsCount = GETTERS.getCatalogsCount(state);
+    // const catalogsCount = GETTERS.getCatalogsCount(state);
     // If there are no more catalogs to load, cancel.
     // if (offset < catalogsCount) {
     // actions.loadCatalogs({ commit, state }, { offset, append: true });

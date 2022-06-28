@@ -167,7 +167,7 @@
 import $ from 'jquery';
 import { mapActions, mapGetters } from 'vuex';
 import AppLink from "../widgets/AppLink.vue";
-import ResourceDetailsLinkedDataButton from "./ResourceDetailsLinkedDataButton.vue";
+import ResourceDetailsLinkedDataButton from "../widgets/ResourceDetailsLinkedDataButton.vue";
 import { getTranslationFor } from "../utils/helpers";
 import SubNavigation from '../navigation/SubNavigation.vue';
 import DatasetDetailsFeedbackButton from './DatasetDetailsFeedbackButton.vue';
@@ -264,7 +264,8 @@ import DatasetCitationModal from '../citation/DatasetCitationModal.vue';
 </script>
 
 <style lang="scss" scoped>
-  @import '../../styles/bootstrap_theme';
+  //@import '../../styles/bootstrap_theme';
+
   .nav-link {
     text-decoration: underline;
   }
@@ -276,7 +277,7 @@ import DatasetCitationModal from '../citation/DatasetCitationModal.vue';
 
   .dropdown-item {
     &:active {
-      background-color: $dropdown-item-active-bg;
+      background-color: var(--dropdown-item-active-bg);
     }
   }
 </style>

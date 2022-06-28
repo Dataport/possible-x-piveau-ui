@@ -5,7 +5,7 @@
       class="dataset-info-box-header"
       data-cy="dataset-title"
     >
-      <h2>{{ dataset.title }}</h2>
+      <h2>{{ datasetOrCatalogTitle }}</h2>
     </div>
   </slot>
 
@@ -26,46 +26,50 @@
           data-cy="dataset-description"
         >
           <slot name="description">
-            <template v-if="dataset.description">
-              {{ dataset.description }}
-            </template>
+            <p v-if="dataset.description">
+              {{ descriptionMaxLength
+                ? truncate(dataset.description, descriptionMaxLength)
+                : dataset.description
+              }}
+            </p>
             <span v-else>
-              No description available.
+              <p class="text-muted font-italic" data-cy="dataset-description">
+                {{ $t('message.catalogsAndDatasets.noDescriptionAvailable') }}
+              </p>
             </span>
           </slot>
         </div>
-        <div class="col-12 col-md-3">
-          <div
-            v-if="dataset.formats && dataset.formats.length > 0"
-            class="d-flex flex-col flex-wrap"
-            data-toggle="tooltip"
-            data-placement="top"
-            :title="$t('message.tooltip.datasetDetails.format')"
-          >
-            <template v-for="(format, i) in dataset.formats.slice(0, 10)">
-              <PvBadge
-                :key="`badge@${i}`"
-                class="mr-1 mb-1"
-                :format="format"
-              />
-            </template>
-            <span v-if="dataset.formats.length >= 10">...</span>
-          </div>
+        <div
+          v-if="dataset.formats && dataset.formats.length > 0"
+          class="col-12 col-md-3"
+        >
+            <PvBadge
+              v-for="(format, i) in dataset.formats.slice(0, 10)"
+              :key="`badge@${i}`"
+              class="mr-1"
+              :format="format"
+              data-toggle="tooltip"
+              data-placement="top"
+              :title="$t('message.tooltip.datasetDetails.format')"
+            >
+              {{ format.label || format.id || 'UNKNOWN' }}
+            </PvBadge>
+          <span v-if="dataset.formats.length >= 10">...</span>
         </div>
       </div>
     </div>
   </slot>
 
   <!-- Footer slot -->
-  <!-- todo: de-hardcode modified and created date -->
-  <!-- todo: add tooltip functionality along with invalid date detection -->
   <slot name="footer" :dataset="dataset">
     <PvDataInfoBoxFooter
+      v-if="!catalogMode"
       :src="src"
       :createdDate="dataset.createdDate"
       :updatedDate="dataset.updatedDate"
       :catalog="dataset.catalog"
     />
+    <div v-else class="dataset-info-box-footer" />
   </slot>
 </router-link>
 </template>
@@ -77,6 +81,8 @@ import type RouteLocationRaw from 'vue-router';
 
 import PvBadge from '../PvBadge/PvBadge.vue';
 import PvDataInfoBoxFooter from './PvDataInfoBoxFooter.vue';
+
+import { truncate } from '../utils/helpers';
 
 export default Vue.extend({
   name: 'PvDataInfoBox',
@@ -132,6 +138,19 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+  },
+
+  computed: {
+    datasetOrCatalogTitle() {
+      const { dataset, catalogMode } = this;
+      return catalogMode
+        ? dataset.title || dataset.catalog || ''
+        : dataset.title || ''
+    }
+  },
+
+  methods: {
+    truncate,
   },
 });
 </script>

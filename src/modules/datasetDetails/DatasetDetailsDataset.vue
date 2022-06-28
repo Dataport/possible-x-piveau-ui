@@ -126,7 +126,6 @@
       :pages="pages"
       :getDistributionFormat="getDistributionFormat"
       :distributionFormatTruncated="distributionFormatTruncated"
-      :truncate="truncate"
       :getDistributionTitle="getDistributionTitle"
       :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
       :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
@@ -134,7 +133,6 @@
       :distributionIsExpanded="distributionIsExpanded"
       :showNumber="showNumber"
       :showObject="showObject"
-      :has="has"
       :distributionCanShowMore="distributionCanShowMore"
       :showOptionsDropdown="showOptionsDropdown"
       :showDownloadDropdown="showDownloadDropdown"
@@ -149,7 +147,6 @@
       :downloadAllError="downloadAllError"
       :showLicence="showLicence"
       :showLicensingAssistant="showLicensingAssistant"
-      :isNil="isNil"
       :filterDateFormatEU="filterDateFormatEU"
       :showArray="showArray"
       :showObjectArray="showObjectArray"
@@ -172,6 +169,9 @@
       :cancelDownloadAllAxiosRequestSource="cancelDownloadAllAxiosRequestSource"
       :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
       :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
+      :isUrlInvalid="isUrlInvalid"
+      :openIfValidUrl="openIfValidUrl"
+      :showTooltipVisualiseButton="showTooltipVisualiseButton"
     />
     <!-- <resource-access-popup /> -->
 
@@ -1346,10 +1346,10 @@
   import JSZip from 'jszip';
   import { saveAs } from 'file-saver';
   import axios from 'axios';
-  import MapBasic from './MapBasic.vue';
+  import MapBasic from '../map/MapBasic.vue';
   import AppLink from '../widgets/AppLink.vue';
   import Tooltip from '../widgets/Tooltip.vue';
-  import Distributions from './Distributions.vue';
+  import Distributions from './distributions/Distributions.vue';
   import AppMarkdownContent from './AppMarkdownContent.vue';
   import filtersMixin from '../mixins/filters';
   import dateFilters from '../filters/dateFilters';
@@ -1389,6 +1389,10 @@
           {
             name: 'subject',
             vmid: 'subject',
+          },
+          {
+            name: 'robots',
+            content: 'index',
           },
         ],
         script: this.validateDataset(),
@@ -2376,7 +2380,9 @@
                 csvDownloadURLIssue = error;
               });
             } else csvDownloadURLIssue = 'no download url available';
-
+            if (this.isUrlInvalid(file.downloadUrl)) {
+              csvReportArray.push([file.csvReportTitle, 'issue', 'url is invalid']);
+            }
             // try to download from access url
             if (isRejected) {
               responseData = await axiosInstance.get(file.accessUrl, requestSettings).then((responseAccessUrl) => {
@@ -2516,6 +2522,35 @@
           // dataset_VersionInfo: this.getVersionInfo,
           // dataset_VersionNotes: this.getVersionNotes,
         });
+      },
+      isUrlInvalid(url) {
+        if (url) {
+          try {
+            /* eslint-disable no-useless-escape */
+            return !(new RegExp("^((https?:\/\/(www\.)?)([-a-zA-Z0-9@:%._\+~#=]{1,256})([-a-zA-Z0-9()@:%_\+.~#?&//=]*))$", "i")).test(decodeURIComponent(url.split("=").pop()));
+            /* eslint-enable no-useless-escape */
+        } catch (e) {
+            console.error(e);
+          }
+        }
+      },
+      openIfValidUrl(isValid, previewLinkCallback, distribution, event) {
+      if (isValid) {
+        for (let key in this.$children) {
+          if(this.$children[key].$refs["externalResourceModal"]) {
+            this.$children[key].$refs["externalResourceModal"].openModal(previewLinkCallback(distribution), false);
+          }
+        }
+      } else {
+        event.preventDefault();
+        event.stopPropagation();
+        }
+      },
+      showTooltipVisualiseButton(invalidUrl) {
+        if (invalidUrl) {
+          return  this.$t('message.tooltip.invalidVisualise');
+        }
+        return ''
       },
     },
     created() {
