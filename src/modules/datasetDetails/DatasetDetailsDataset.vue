@@ -131,6 +131,7 @@
       :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
       :getDistributionDescription="getDistributionDescription"
       :distributionIsExpanded="distributionIsExpanded"
+      :showNumber="showNumber"
       :showObject="showObject"
       :distributionCanShowMore="distributionCanShowMore"
       :showOptionsDropdown="showOptionsDropdown"
@@ -167,6 +168,7 @@
       :cancelDownloadAll="cancelDownloadAll"
       :cancelDownloadAllAxiosRequestSource="cancelDownloadAllAxiosRequestSource"
       :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
+      :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
       :isUrlInvalid="isUrlInvalid"
       :openIfValidUrl="openIfValidUrl"
       :showTooltipVisualiseButton="showTooltipVisualiseButton"
@@ -909,7 +911,7 @@
                         <app-link :to="conformTo.resource"
                                   target="_blank"
                                   @click="$emit('track-link', conformTo.resource, 'link')">
-                          {{ conformTo.resource }}
+                          {{ truncate(conformTo.resource, 75) }}
                         </app-link>
                       </div>
                       <br>
@@ -1181,6 +1183,142 @@
                     <a :href="appendCurrentLocaleToURL(getResource)">{{ truncate(getResource, 75) }}</a>
                   </td>
                 </tr>
+                <tr v-if="showArray(getIsReferencedBy)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.isReferencedBy')">
+                      {{ $t('message.metadata.isReferencedBy') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-for="(reference, i) of getIsReferencedBy" :key="i">
+                      <div v-if="showString(reference)">
+                        <a :href="appendCurrentLocaleToURL(reference)">{{ truncate(reference, 75) }}</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showArray(getQualifiedAttributions)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.qualifiedAttributions')">
+                      {{ $t('message.metadata.qualifiedAttributions') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-for="(qualifiedAttribution, i) of getQualifiedAttributions" :key="i">
+                      <div v-if="showString(qualifiedAttribution)">
+                        <a :href="appendCurrentLocaleToURL(qualifiedAttribution)">{{ truncate(qualifiedAttribution, 75) }}</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showArray(getWasGeneratedBy)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.wasGeneratedBy')">
+                      {{ $t('message.metadata.wasGeneratedBy') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-for="(wasGeneratedBy, i) of getWasGeneratedBy" :key="i">
+                      <div v-if="showString(wasGeneratedBy)">
+                        <a :href="appendCurrentLocaleToURL(wasGeneratedBy)">{{ truncate(wasGeneratedBy, 75) }}</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showObjectArray(getQualifiedRelations)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.distributions.qualifiedRelations')" >
+                        {{ $t('message.metadata.qualifiedRelations') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-for="(qualifiedRelation, i) of getQualifiedRelations" :key="i">
+                      <div v-if="has(qualifiedRelation, 'relation') && !isNil(qualifiedRelation.relation)">
+                        {{ $t('message.metadata.relation') }}:
+                        <div v-for="(relation, i) of qualifiedRelation.relation" :key="i" class="d-inline-table">
+                          <div v-if="showString(relation)">
+                            <a :href="appendCurrentLocaleToURL(relation)">{{ truncate(relation, 75) }}</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div v-if="has(qualifiedRelation, 'had_role') && !isNil(qualifiedRelation.had_role)">
+                        {{ $t('message.metadata.role') }}:
+                        <div v-for="(role, i) of qualifiedRelation.had_role" :key="i" class="d-inline-table">
+                          <div v-if="showString(role)">
+                            <a :href="appendCurrentLocaleToURL(role)">{{ truncate(role, 75) }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showArray(getSample)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.sample')">
+                      {{ $t('message.metadata.sample') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-for="(sample, i) of getSample" :key="i">
+                      <div v-if="showString(sample)">
+                        <a :href="appendCurrentLocaleToURL(sample)">{{ truncate(sample, 75) }}</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showArray(getSpatialResolutionInMeters)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.spatialResolutionInMeters')">
+                      {{ $t('message.metadata.spatialResolutionInMeters.label') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-if="showNumber(getSpatialResolutionInMeters[0])">
+                      {{ $t('message.metadata.spatialResolutionInMeters.value', {number: getSpatialResolutionInMeters[0]}) }}
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showObject(getType)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.type')">
+                       {{ $t('message.metadata.type') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-if="has(getType, 'label') && !isNil(getType.label)">
+                      {{ $t('message.metadata.label') }}:
+                      {{ getType.label }}
+                    </div>
+                    <div v-if="has(getType, 'resource') && !isNil(getType.resource)">
+                      {{ $t('message.metadata.resource') }}:
+                      <a :href="appendCurrentLocaleToURL(getType.resource)">{{ truncate(getType.resource, 75) }}</a>
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showArray(getTemporalResolution)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.temporalResolution')">
+                      {{ $t('message.metadata.temporalResolution') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-for="(temporalResolution, i) of getTemporalResolution" :key="i">
+                      {{ temporalResolution }}
+                    </div>
+                  </td>
+                </tr>
+                <tr v-if="showArray(getTemporalResolution)">
+                  <td class="w-25 font-weight-bold">
+                    <tooltip :title="$t('message.tooltip.datasetDetails.temporalResolution')">
+                      {{ $t('message.metadata.temporalResolution') }}
+                    </tooltip>
+                  </td>
+                  <td>
+                    <div v-for="(temporalResolution, i) of getTemporalResolution" :key="i">
+                      {{ temporalResolution }}
+                    </div>
+                  </td>
+                </tr>
               </table>
             </div>
           </div>
@@ -1379,56 +1517,64 @@
       // import store-getters
       ...mapGetters('datasetDetails', [
         'getAccessRights',
-        'getAccrualPeriodicity',
-        'getAttributes',
-        'getCatalog',
-        'getCategories',
-        'getConformsTo',
-        'getContactPoints',
-        'getCountry',
-        'getCreator',
-        'getDescription',
-        'getDimensions',
-        'getDistributions',
-        'getDistributionFormats',
-        'getDocumentations',
-        'getFrequency',
-        'getHasQualityAnnotations',
-        'getHasVersion',
-        'getID',
-        'getIdentifiers',
-        'getIdName',
-        'getIsVersionOf',
-        'getKeywords',
-        'getSubject',
-        'getLandingPages',
-        'getLanguages',
-        'getLicences',
-        'getLoading',
-        'getModificationDate',
-        'getNumSeries',
-        'getOriginalLanguage',
-        'getOtherIdentifiers',
-        'getPages',
-        'getProvenances',
-        'getPublisher',
-        'getRelations',
-        'getRelatedResources',
-        'getReleaseDate',
-        'getResource',
-        'getSources',
-        'getSpatial',
-        'getSpatialResource',
-        'getStatUnitMeasures',
-        'getTemporal',
-        'getTranslationMetaData',
-        'getTitle',
-        'getVersionInfo',
-        'getVersionNotes',
-        'getVisualisations',
-        'getQualityDistributionData',
-        'getCatalogRecord',
-        'getExtendedMetadata',
+      'getAccrualPeriodicity',
+      'getAttributes',
+      'getCatalog',
+      'getCatalogRecord',
+      'getCategories',
+      'getConformsTo',
+      'getContactPoints',
+      'getCountry',
+      'getCreator',
+      'getDescription',
+      'getDimensions',
+      'getDistributions',
+      'getDistributionFormats',
+      'getDocumentations',
+      'getExtendedMetadata',
+      'getFrequency',
+      'getHasQualityAnnotations',
+      'getHasVersion',
+      'getID',
+      'getIdentifiers',
+      'getIdName',
+      'getIsReferencedBy',
+      'getIsVersionOf',
+      'getKeywords',
+      'getSubject',
+      'getLandingPages',
+      'getLanguages',
+      'getLicences',
+      'getLoading',
+      'getModificationDate',
+      'getNumSeries',
+      'getOriginalLanguage',
+      'getOtherIdentifiers',
+      'getPages',
+      'getProvenances',
+      'getPublisher',
+      'getRelations',
+      'getRelatedResources',
+      'getReleaseDate',
+      'getResource',
+      'getSample',
+      'getSources',
+      'getSpatial',
+      'getSpatialResolutionInMeters',
+      'getSpatialResource',
+      'getStatUnitMeasures',
+      'getTemporal',
+      'getTemporalResolution',
+      'getTranslationMetaData',
+      'getTitle',
+      'getType',
+      'getVersionInfo',
+      'getVersionNotes',
+      'getVisualisations',
+      'getQualifiedAttributions',
+      'getQualifiedRelations',
+      'getQualityDistributionData',
+      'getWasGeneratedBy',
       ]),
       getDataServices() {
         if (this.getDistributions) {
@@ -1918,7 +2064,13 @@
             || (has(distribution, 'checksum') && !isNil(distribution.checksum) && has(distribution.checksum, 'algorithm') && !isNil(distribution.checksum.algorithm) && has(distribution.checksum, 'checksum_value') && !isNil(distribution.checksum.checksum_value))
             || (has(distribution, 'pages') && this.showArray(distribution.pages))
             || (has(distribution, 'languages') && this.showArray(distribution.languages))
-            || (has(distribution, 'conformsTo') && this.showArray(distribution.conformsTo));
+            || (has(distribution, 'conformsTo') && this.showArray(distribution.conformsTo))
+            || (has(distribution, 'compressFormat') && !isNil(distribution.compressFormat))
+            || (has(distribution, 'packageFormat') && !isNil(distribution.packageFormat))
+            || (has(distribution, 'hasPolicy') && !isNil(distribution.hasPolicy))
+            || (has(distribution, 'conformsTo') && this.showObjectArray(distribution.conformsTo))
+            || (has(distribution, 'spatialResolutionInMeters') && this.showArray(distribution.spatialResolutionInMeters))
+            || (has(distribution, 'temporalResolution') && this.showArray(distribution.temporalResolution));
       },
       /* GETTER / SETTER FUNCTIONS */
       getDatasetOriginalLanguage(originalLanguage) {
@@ -2620,6 +2772,10 @@
   .download-all-btn {
     min-width: 100px;
     height: 31px;
+  }
+
+  .d-inline-table {
+    display: inline-table;
   }
 
   /*** BOOTSTRAP ***/

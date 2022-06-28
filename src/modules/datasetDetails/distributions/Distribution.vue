@@ -35,8 +35,10 @@
               :showLicence="showLicence"
               :filterDateFormatEU="filterDateFormatEU"
               :showArray="showArray"
+              :showNumber="showNumber"
               :showObject="showObject"
               :showObjectArray="showObjectArray"
+              :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
             />
             <distribution-visible-content
               :distribution="distribution"
@@ -142,6 +144,7 @@ export default {
     getDistributionDescription: Function,
     distributionIsExpanded: Function,
     showObject: Function,
+    showNumber: Function,
     distributionCanShowMore: Function,
     showOptionsDropdown: Function,
     showDownloadDropdown: Function,
@@ -168,6 +171,7 @@ export default {
     isUrlInvalid: Function,
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
+    appendCurrentLocaleToURL: Function,
   },
   methods: {
     has,
