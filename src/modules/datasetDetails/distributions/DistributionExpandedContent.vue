@@ -255,7 +255,7 @@ export default {
     'showNumber',
     'showObject',
     'showObjectArray',
-    'appendCurrentLocaleToURL'
+    'appendCurrentLocaleToURL',
   ],
   methods: {
     has,
