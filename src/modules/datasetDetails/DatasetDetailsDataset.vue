@@ -1199,8 +1199,8 @@
                 </tr>
                 <tr v-if="showArray(getQualifiedAttributions)">
                   <td class="w-25 font-weight-bold">
-                    <tooltip :title="$t('message.tooltip.datasetDetails.qualifiedAttributions')">
-                      {{ $t('message.metadata.qualifiedAttributions') }}
+                    <tooltip :title="$t('message.tooltip.datasetDetails.qualifiedAttribution')">
+                      {{ $t('message.metadata.qualifiedAttribution') }}
                     </tooltip>
                   </td>
                   <td>
@@ -1227,8 +1227,8 @@
                 </tr>
                 <tr v-if="showObjectArray(getQualifiedRelations)">
                   <td class="w-25 font-weight-bold">
-                    <tooltip :title="$t('message.tooltip.datasetDetails.distributions.qualifiedRelations')" >
-                        {{ $t('message.metadata.qualifiedRelations') }}
+                    <tooltip :title="$t('message.tooltip.datasetDetails.qualifiedRelation')" >
+                        {{ $t('message.metadata.qualifiedRelation') }}
                     </tooltip>
                   </td>
                   <td>
