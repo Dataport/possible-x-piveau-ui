@@ -1,5 +1,8 @@
 /* eslint-disable */
 /* eslint-disable no-plusplus */
+
+import { LanguageInformation } from "./adapter";
+
 /**
  * @description Fetching values from endpoint given by source (considering language settings)
  * @param {Object} values An object containing the data retrieved from endpoint
@@ -7,8 +10,10 @@
  * @returns {Object} Object of fetched values with key
  *
  */
-async function DataEuropaFormatter(values, languageInformation) {
-  const fetchedValues = {};
+async function DataEuropaFormatter(
+    values: { count: number, results: [{ pref_label: any, id: string }]},
+    languageInformation: LanguageInformation) {
+  const fetchedValues = {} as { [key: string]: string };
 
   for (let i = 0; i < values.count; i++) {
     // grep result matching the local langauge setting

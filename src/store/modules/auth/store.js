@@ -4,9 +4,11 @@ import Vuex from 'vuex';
 
 import axios from 'axios';
 import { get } from 'lodash';
-import createDraftApi from '@/utils/draftApi';
-import createIdentifiersApi from '@/utils/identifiersApi';
-import { decode } from '@/utils/jwt';
+import {
+  decode,
+  createIdentifiersApi,
+  createDraftApi
+} from '@piveau/piveau-hub-ui-modules';
 
 let draftApi;
 let identifiersApi;

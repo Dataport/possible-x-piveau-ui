@@ -1,9 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from './store/index';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
-import { decode } from './utils/jwt';
 import {
   DatasetDetailsCategories,
   DatasetDetailsQuality,
@@ -17,7 +15,8 @@ import {
   NotFound,
   SparqlSearch,
   Imprint,
-  PrivacyPolicy
+  PrivacyPolicy,
+  decode
 } from "@piveau/piveau-hub-ui-modules";
 
 // const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');

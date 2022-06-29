@@ -1,7 +1,12 @@
 /* eslint-disable brace-style,no-lonely-if,no-console */
 import { DataEuropaFormatter } from './formatter';
-import { helpers } from '@piveau/piveau-hub-ui-modules';
-const { matchesObjectStructure } = helpers;
+import { matchesObjectStructure } from './helpers';
+
+export type LanguageInformation = {
+  translation: { [key: string]: any},
+  locale: string,
+  fallbackLocale: string
+}
 
 /**
  * @description Function for retireving data dependant on given sourceInformation (fetching or reading from provided source, optional formatting)
@@ -16,12 +21,20 @@ const { matchesObjectStructure } = helpers;
  * @param {Object} languageInformation Object containing local and fallback language settings
  * @returns {Object} Object of retrieved data
  */
-async function retrieveDataFromSource(sourceInformation, languageInformation) {
+async function retrieveDataFromSource(
+  sourceInformation: {
+    fetchFromEndpoint: boolean,
+    needsFormatting: boolean,
+    formatter: any,
+    values: any,
+    endpoint: RequestInfo
+  },
+  languageInformation: LanguageInformation) {
   let result = {};
 
-  if (sourceInformation.fetchFromEndpoint === false) {
+  if (!sourceInformation.fetchFromEndpoint) {
     // case 1: provided values are already in the right format
-    if (sourceInformation.needsFormatting === false) {
+    if (!sourceInformation.needsFormatting) {
       result = sourceInformation.values;
 
       if (!matchesObjectStructure(result)) {
@@ -43,7 +56,7 @@ async function retrieveDataFromSource(sourceInformation, languageInformation) {
     }
   } else {
     // case 3: values must be fetched from endpoint without formatting
-    if (sourceInformation.needsFormatting === false) {
+    if (!sourceInformation.needsFormatting) {
       try {
         const status = await fetch(sourceInformation.endpoint).then(response => response.status);
 

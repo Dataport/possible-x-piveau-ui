@@ -2,10 +2,11 @@ import AppLink from "./widgets/AppLink.vue";
 import Tooltip from "./widgets/Tooltip.vue";
 import Dropdown from "./widgets/Dropdown.vue";
 import ResourceAccessPopup from "./widgets/ResourceAccessPopup.vue";
+import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton.vue";
+
 import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
 
-import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton.vue";
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
 import Distributions from "./datasetDetails/distributions/Distributions.vue";
 import DatasetDetailsHeader from "./datasetDetails/DatasetDetailsHeader.vue";
@@ -47,6 +48,12 @@ import catalogService from "./services/piveau-ui-adapter-vhub/catalogs";
 import gazetteerService from "./services/piveau-ui-adapter-vhub/gazetteer";
 // @ts-ignore
 import registerServices from "./services/registerServices";
+
+import { decode } from "./utils/jwt";
+import createIdentifiersApi from "./utils/identifiersApi";
+import { DataEuropaFormatter } from "./utils/formatter";
+import createDraftApi from "./utils/draftApi";
+import { retrieveDataFromSource } from "./utils/adapter";
 
 export {
   AppLink,
@@ -96,7 +103,13 @@ export {
   datasetService,
   catalogService,
   gazetteerService,
-  registerServices
+  registerServices,
+
+  decode,
+  createIdentifiersApi,
+  DataEuropaFormatter,
+  createDraftApi,
+  retrieveDataFromSource
 };
 
 // @ts-ignore

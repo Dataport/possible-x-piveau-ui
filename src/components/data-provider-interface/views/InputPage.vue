@@ -30,7 +30,7 @@ import {
 } from 'lodash';
 import inputconfigMin from '../../../../config/inputconfigMin';
 import dcatapProperties from '../../../utils/converter/dcatapProperties';
-import { retrieveDataFromSource } from '../../../utils/adapter';
+import { retrieveDataFromSource } from '@piveau/piveau-hub-ui-modules';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from '../components/DistributionOverview.vue';
 import InfoBox from '../components/InfoBox.vue';

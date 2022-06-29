@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-const createDraftApi = ({ baseURL, authToken }) => {
+const createDraftApi = ({ baseURL, authToken }: { baseURL: string, authToken: string }) => {
   const maybeTrailingSlash = baseURL.endsWith('/') ? '' : '/';
   const api = Axios.create({
     baseURL: `${baseURL}${maybeTrailingSlash}drafts`,
@@ -11,7 +11,8 @@ const createDraftApi = ({ baseURL, authToken }) => {
   });
 
   // Create a new draft
-  const createDatasetDraft = ({ id, catalogue, body }) => api.put(`/datasets/${id}`, body, {
+  const createDatasetDraft = ({ id, catalogue, body }: { id: string, catalogue: string, body: any}) =>
+    api.put(`/datasets/${id}`, body, {
     headers: { 'Content-Type': 'application/ld+json' },
     params: { catalogue },
   });
@@ -26,16 +27,17 @@ const createDraftApi = ({ baseURL, authToken }) => {
   };
 
   // Delete a draft by id
-  const deleteDatasetDraft = ({ id, catalogue }) => api.delete(`/datasets/${id}`, { params: { catalogue } });
+  const deleteDatasetDraft = ({ id, catalogue }: { id: string, catalogue: string }) =>
+    api.delete(`/datasets/${id}`, { params: { catalogue } });
 
   // Publish a draft as dataset
-  const publishDatasetDraft = ({ id, catalogue, body }) => {
+  const publishDatasetDraft = ({ id, catalogue, body }: { id: string, catalogue: string, body: any }) => {
     const maybeId = id ? `/${id}` : '';
     return api.put(`/datasets/publish${maybeId}`, body, { params: { catalogue } });
   };
 
   // Put a dataset back to draft
-  const putDatasetToDraft = ({ id, catalogue }) => {
+  const putDatasetToDraft = ({ id, catalogue }: { id: string, catalogue: string }) => {
     const maybeId = id ? `/${id}` : '';
     return api.put(`/datasets/hide${maybeId}`, null, { params: { catalogue } });
   };

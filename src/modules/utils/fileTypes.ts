@@ -5,7 +5,7 @@
  */
 
 const fileTypes = {
-  getFileTypeColor: (type: string) => {
+  getFileTypeColor: (type: string): { [key: string]: boolean } => {
     switch (type.toLowerCase()) {
     case 'csv':
     case 'xls':
