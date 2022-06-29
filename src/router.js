@@ -37,14 +37,14 @@ import {
 // const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
 // const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
 
-const DataProviderInterface = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/DataProviderInterface');
-const DataFetchingComponent = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/components/DataFetchingComponent');
-const OverviewPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/OverviewPage');
-const InputPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/InputPage');
-const DraftsPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/DraftsPage');
-const LinkedDataViewer = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/LinkedDataViewer');
-const UserProfilePage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/UserProfilePage');
-const UserCataloguesPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/UserCataloguesPage');
+const DataProviderInterface = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/DataProviderInterface');
+const DataFetchingComponent = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/components/DataFetchingComponent');
+const OverviewPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/OverviewPage');
+const InputPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/InputPage');
+const DraftsPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/DraftsPage');
+const LinkedDataViewer = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/LinkedDataViewer');
+const UserProfilePage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/UserProfilePage');
+const UserCataloguesPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/UserCataloguesPage');
 
 Vue.use(Router);
 

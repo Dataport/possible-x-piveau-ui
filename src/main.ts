@@ -58,7 +58,6 @@ import VuePositionSticky from 'vue-position-sticky';
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
 import runtimeConfig from '../config/runtime-config';
 import router from './router';
-import store from './store';
 import App from './App';
 import {
   dateFilters,
@@ -68,14 +67,15 @@ import {
   bulkDownloadCorsProxyService ,
   corsProxyService,
   runtimeConfigurationService,
-  registerServices
+  registerServices,
+  store
 } from '@piveau/piveau-hub-ui-modules';
 // import additional custom vueformulate components
-import InfoSlot from './components/data-provider-interface/components/InfoSlot';
-import ConditionalInput from './components/data-provider-interface/components/ConditionalInput';
-import AutocompleteInput from './components/data-provider-interface/components/AutocompleteInput';
-import UniqueIdentifierInput from './components/data-provider-interface/components/UniqueIdentifierInput';
-import FileUpload from './components/data-provider-interface/components/FileUpload';
+import InfoSlot from './data-provider-interface/components/InfoSlot';
+import ConditionalInput from './data-provider-interface/components/ConditionalInput';
+import AutocompleteInput from './data-provider-interface/components/AutocompleteInput';
+import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
+import FileUpload from './data-provider-interface/components/FileUpload';
 
 Vue.config.devtools = true;
 

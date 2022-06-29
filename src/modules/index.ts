@@ -55,6 +55,8 @@ import { DataEuropaFormatter } from "./utils/formatter";
 import createDraftApi from "./utils/draftApi";
 import { retrieveDataFromSource } from "./utils/adapter";
 
+import store from "./store";
+
 export {
   AppLink,
   Tooltip,
@@ -109,7 +111,9 @@ export {
   createIdentifiersApi,
   DataEuropaFormatter,
   createDraftApi,
-  retrieveDataFromSource
+  retrieveDataFromSource,
+
+  store
 };
 
 // @ts-ignore

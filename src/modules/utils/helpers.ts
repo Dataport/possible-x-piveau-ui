@@ -69,9 +69,9 @@ function getImg(image, defaultFallbackImage) {
 function getCountryFlagImg(countryId) {
   let img;
   try {
-    img = require(`@/assets/img/flags/${countryId.toLowerCase()}.png`);
+    img = require(`../assets/img/flags/${countryId.toLowerCase()}.png`);
   } catch (err) {
-    img = require('@/assets/img/flags/eu.png');
+    img = require('../assets/img/flags/eu.png');
   }
   return img;
 }
