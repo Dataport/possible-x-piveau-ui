@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * @author Dennis ritter
  * @created 25.10.17

@@ -1,7 +1,6 @@
 import AppLink from "./widgets/AppLink.vue";
 import Tooltip from "./widgets/Tooltip.vue";
 import Dropdown from "./widgets/Dropdown.vue";
-// import DropdownDownload from "./datasetDetails/distributions/DistributionDropdownDownload.vue";
 import ResourceAccessPopup from "./widgets/ResourceAccessPopup.vue";
 import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
@@ -43,6 +42,9 @@ import bulkDownloadCorsProxyService from "./services/bulkDownloadCorsProxyServic
 import corsProxyService from "./services/corsProxyService";
 import uploadService from "./services/uploadService";
 import runtimeConfigurationService from "./services/runtimeConfigurationService";
+import datasetService from "./services/piveau-ui-adapter-vhub/datasets";
+import catalogService from "./services/piveau-ui-adapter-vhub/catalogs";
+import gazetteerService from "./services/piveau-ui-adapter-vhub/gazetteer";
 // @ts-ignore
 import registerServices from "./services/registerServices";
 
@@ -91,6 +93,9 @@ export {
   corsProxyService,
   uploadService,
   runtimeConfigurationService,
+  datasetService,
+  catalogService,
+  gazetteerService,
   registerServices
 };
 

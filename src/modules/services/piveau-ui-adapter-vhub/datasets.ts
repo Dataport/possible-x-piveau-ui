@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable no-console */
 /**
  * @author Dennis ritter
@@ -152,7 +153,7 @@ export default class Datasets {
           try {
             ds = getResponseData(dataset);
           } catch (error) {
-            console.warn('Error in datasets.js while checking response:', error.message);
+            console.warn('Error in datasets.ts while checking response:', error.message);
             console.error(error.stack);
           }
           resolve(ds);
@@ -219,7 +220,7 @@ export default class Datasets {
       })
         .then((response) => {
           if (!has(response.data, 'result')) {
-            console.warn('Error in datasets.js while checking response');
+            console.warn('Error in datasets.ts while checking response');
             return reject(new Error('Empty Response Data'));
           }
           /**
@@ -277,7 +278,7 @@ export default class Datasets {
             try {
               ds = getResponseData(dataset);
             } catch (error) {
-              console.warn('Error in datasets.js while checking response:', error.message);
+              console.warn('Error in datasets.ts while checking response:', error.message);
               console.error(error.stack);
             }
             resData.datasets.push(ds);

@@ -1,7 +1,10 @@
-import datasetService from '../src/piveau-ui-adapter-vhub/datasets';
-import catalogService from '../src/piveau-ui-adapter-vhub/catalogs';
-import gazetteerService from '../src/piveau-ui-adapter-vhub/gazetteer';
-import { authService, uploadService } from '@piveau/piveau-hub-ui-modules';
+import {
+  authService,
+  uploadService,
+  datasetService,
+  catalogService,
+  gazetteerService
+} from '@piveau/piveau-hub-ui-modules';
 import i18n from './i18n';
 import languages from './langs.json'
 

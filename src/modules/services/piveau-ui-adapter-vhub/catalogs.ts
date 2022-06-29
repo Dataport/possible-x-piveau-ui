@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable no-console */
 /**
  * @author Dennis ritter
@@ -59,7 +60,7 @@ export default class Catalogs {
           try {
             cat = getResponseData(catalog);
           } catch (error) {
-            console.warn('Error in catalogs.js while checking response:', error.message);
+            console.warn('Error in catalogs.ts while checking response:', error.message);
             console.error(error.stack);
           }
           resolve(cat);
@@ -133,7 +134,7 @@ export default class Catalogs {
             try {
               cat = getResponseData(catalog);
             } catch (error) {
-              console.warn('Error in catalogs.js while checking response:', error.message);
+              console.warn('Error in catalogs.ts while checking response:', error.message);
               console.error(error.stack);
             }
             resData.catalogs.push(cat);

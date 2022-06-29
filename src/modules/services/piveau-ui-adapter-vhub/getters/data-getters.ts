@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable padded-blocks */
 import {
   has, isNil, isArray, isString, isNumber, isObject,
