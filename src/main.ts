@@ -58,7 +58,7 @@ import VuePositionSticky from 'vue-position-sticky';
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
 import runtimeConfig from '../config/runtime-config';
 import router from './router';
-import store from './store/index';
+import store from './store';
 import App from './App';
 import {
   dateFilters,
@@ -67,9 +67,9 @@ import {
   vueKeycloak,
   bulkDownloadCorsProxyService ,
   corsProxyService,
-  runtimeConfigurationService
+  runtimeConfigurationService,
+  registerServices
 } from '@piveau/piveau-hub-ui-modules';
-import services from './services/services';
 // import additional custom vueformulate components
 import InfoSlot from './components/data-provider-interface/components/InfoSlot';
 import ConditionalInput from './components/data-provider-interface/components/ConditionalInput';
@@ -239,7 +239,7 @@ Vue.use(DeuHeaderFooter);
 Vue.use(VuePositionSticky);
 
 // Services setup
-services(Vue.prototype.$env);
+registerServices(Vue.prototype.$env, GLUE_CONFIG, store);
 
 // Sync store and router
 sync(store, router);

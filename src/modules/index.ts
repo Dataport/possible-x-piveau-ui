@@ -43,6 +43,8 @@ import bulkDownloadCorsProxyService from "./services/bulkDownloadCorsProxyServic
 import corsProxyService from "./services/corsProxyService";
 import uploadService from "./services/uploadService";
 import runtimeConfigurationService from "./services/runtimeConfigurationService";
+// @ts-ignore
+import registerServices from "./services/registerServices";
 
 export {
   AppLink,
@@ -88,7 +90,8 @@ export {
   bulkDownloadCorsProxyService,
   corsProxyService,
   uploadService,
-  runtimeConfigurationService
+  runtimeConfigurationService,
+  registerServices
 };
 
 // @ts-ignore
