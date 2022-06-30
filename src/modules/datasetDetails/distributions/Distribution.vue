@@ -1,12 +1,5 @@
 <template>
   <div class="distributions__item">
-    <fading-distribution-overlay
-      v-if="fading"
-      :distributions="distributions"
-      :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
-      :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
-      :getDistributions="getDistributions"
-    />
     <div class="row">
       <distribution-format
         :distribution="distribution"
@@ -86,6 +79,13 @@
         </div>
       </div>
     </div>
+    <fading-distribution-overlay
+      v-if="fading"
+      :distributions="distributions"
+      :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
+      :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
+      :getDistributions="getDistributions"
+    />
     <hr class="mt-1">
   </div>
 </template>
@@ -113,10 +113,13 @@ import DistributionExpandedContent
 import DistributionDescription
   from "@/modules/datasetDetails/distributions/DistributionDescription";
 import DistributionFormat from "@/modules/datasetDetails/distributions/DistributionFormat";
+import FadingDistributionOverlay
+  from "@/modules/datasetDetails/distributions/FadingDistributionOverlay";
 
 export default {
   name: 'Distribution',
   components: {
+    FadingDistributionOverlay,
     DistributionFormat,
     DistributionDescription,
     DistributionExpandedContent,
@@ -275,30 +278,10 @@ button:focus {
   font-size: 20px;
 }
 
-.distributions {
-
-  &__item {
-    position: relative;
-
-    &--preview {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, white 55%);
-      z-index: 10;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    height: 100%;
-    z-index: 11;
-  }
+.distributions__item {
+  position: relative;
 }
+
 .mt-4 {
   margin-top: 1.5rem !important;
 }
