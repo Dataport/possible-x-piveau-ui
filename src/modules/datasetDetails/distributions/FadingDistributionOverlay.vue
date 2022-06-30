@@ -35,6 +35,26 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
+.distributions {
+
+  &__item--preview {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, white 55%);
+    z-index: 10;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    z-index: 11;
+  }
+}
 </style>
