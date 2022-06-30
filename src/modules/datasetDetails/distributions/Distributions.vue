@@ -10,10 +10,10 @@
           </h2>
           <download-all-distributions
             :getDistributions="getDistributions"
+            :getDistributionDescription="getDistributionDescription"
             :openModal="openModal"
             :getDistributionTitle="getDistributionTitle"
             :showDownloadUrls="showDownloadUrls"
-            :getTranslationFor="getTranslationFor"
             :getCatalog="getCatalog"
             :isUrlInvalid="isUrlInvalid"
           />
@@ -24,7 +24,6 @@
             <distribution
                 v-for="(distribution, index) in displayedDistributions"
                 :key="`${index}--${distribution.id}`"
-
                 :distribution="distribution"
                 :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
                 :getDistributions="getDistributions"
@@ -81,7 +80,7 @@ import Dropdown from '../../widgets/Dropdown.vue';
 import DropdownDownload from './DistributionDropdownDownload.vue';
 import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
 import DownloadAllDistributions
-  from "@/modules/datasetDetails/distributions/DownloadAllDistributions";
+  from "../../datasetDetails/distributions/DownloadAllDistributions";
 
 export default {
   name: 'Distributions',
@@ -104,7 +103,6 @@ export default {
     distributions: Object,
     isDistributionsAllDisplayed: Boolean,
     pages: Object,
-    getTranslationFor: Function,
     showDownloadUrls: Function,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,

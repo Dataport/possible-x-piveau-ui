@@ -13,8 +13,7 @@
    isArray,
  } from 'lodash';
 
- import { helpers } from '@piveau/piveau-hub-ui-modules';
- const { mirrorPropertyFn } = helpers;
+ import { mirrorPropertyFn } from '../../utils/helpers';
 
  // The helper functions below stabilize the store against API changes without changing everything
  // throughout the whole project.

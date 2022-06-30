@@ -129,7 +129,6 @@
       :pages="pages"
       :showDownloadUrls="showDownloadUrls"
       :isOnlyOneUrl="isOnlyOneUrl"
-      :getTranslationFor="getTranslationFor"
       :getDistributionFormat="getDistributionFormat"
       :distributionFormatTruncated="distributionFormatTruncated"
       :getDistributionTitle="getDistributionTitle"

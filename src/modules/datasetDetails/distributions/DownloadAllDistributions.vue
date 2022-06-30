@@ -62,18 +62,23 @@ import JSZip from "jszip";
 import axios from "axios";
 import { saveAs } from 'file-saver';
 import $ from "jquery";
+import { getTranslationFor } from "../../utils/helpers";
+import { mapGetters } from "vuex";
 
 export default {
   name: "DownloadAllDistributions",
   props: [
     'getDistributions',
+    'getDistributionDescription',
     'openModal',
     'getDistributionTitle',
-    'getTranslationFor',
     'isUrlInvalid',
     'getCatalog',
     'showDownloadUrls'
   ],
+  computed: {
+    ...mapGetters('datasetDetails', ['getTitle'])
+  },
   data() {
     return {
       downloadedFilesCounter: 0,
@@ -94,6 +99,7 @@ export default {
     }
   },
   methods: {
+    getTranslationFor,
     async fetchDistributionFiles(zip, files, folder, getContentTypeFormat) {
       const csvReportArray = [];
       let csvReport = 'filename,status, issue_cause downloadURL, issue_cause accessURL\n';
@@ -259,6 +265,7 @@ export default {
           title: getFileName(distribution, i + 1), ...getUrls(distribution), format: getFormat(distribution), csvReportTitle: getFileNameForCSV(distribution),
         }));
       const zip = new JSZip();
+      console.log("TITLE", this.getTitle, this.getLanguages);
       const zipName = `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)}.zip`;
       const folder = zip.folder(this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages));
       await this.fetchDistributionFiles(zip, files, folder, getContentTypeFormat);

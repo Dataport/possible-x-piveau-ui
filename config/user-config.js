@@ -13,8 +13,8 @@ const glueConfig = {
   description: 'data.europa.eu',
   keywords: 'DEU',
   api: {
-    // baseUrl: 'https://data.europa.eu/api/hub/search/',
-    baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    baseUrl: 'https://data.europa.eu/api/hub/search/',
+    // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
     similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
