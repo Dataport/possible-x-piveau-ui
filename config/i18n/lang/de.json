@@ -861,6 +861,85 @@
                     "step2": {
                         "name": "Festlegung der Eigenschaften des Datensatzes"
                     }
+                },
+                "issued": {
+                    "placeholder": "Datensatz Ausgegebener Platzhalter Text",
+                    "label": "Ausgestellt",
+                    "info": "Diese Eigenschaft enthält das Datum der förmlichen Ausstellung (z. B. Veröffentlichung) des Datensatzes.",
+                    "help": "Datum der förmlichen Ausgabe (z. B. Veröffentlichung) des Datensatzes. Zulässige Datumsformate: JJJJ-MM-TT, JJJJ-MM, JJJJ-JJJJ."
+                },
+                "datasetID": {
+                    "label": "Datensatz-ID",
+                    "help": "Diese Eigenschaft enthält die Hauptkennung für den Datensatz.",
+                    "info": "Diese Eigenschaft enthält die Hauptkennung für den Datensatz, z. B. die URI oder eine andere eindeutige Kennung im Kontext des Katalogs."
+                },
+                "catalog": {
+                    "placeholder": "Datensatz Katalog Platzhaltertext",
+                    "label": "Katalog",
+                    "info": "Der Katalog des Datensatzes.",
+                    "help": "Der Katalog des Datensatzes."
+                },
+                "datetime": {
+                    "label": "Datumszeit"
+                },
+                "date": {
+                    "label": "Datum"
+                },
+                "title": {
+                    "placeholder": "Text des Datensatzes Titel Platzhalter",
+                    "label": "Titel",
+                    "info": "Kurzer aussagekräftiger Titel für den Datensatz. Bitte keine vollwertige Beschreibung eintragen; hierfür ist das Feld „Beschreibung“ vorgesehen. Bitte am Ende keinen Punkt setzen und Nicht ausschließlich Großbuchstaben verwenden.",
+                    "help": "Kurzer aussagekräftiger Titel für den Datensatz.",
+                    "add-label": "Titel in einer anderen Sprache hinzufügen"
+                },
+                "modified": {
+                    "placeholder": "Datensatz Modifizierter Platzhaltertext",
+                    "label": "Geändert",
+                    "info": "Letztes Datum, an dem der Datensatz geändert, aktualisiert oder geändert wurde. Zulässige Datumsformate: JJJJ-MM-TT, JJJJ-MM, JJJJ-JJJJ.",
+                    "help": "Letztes Datum, an dem der Datensatz geändert, aktualisiert oder geändert wurde."
+                },
+                "publisherType": {
+                    "label": "Typ",
+                    "placeholder": "Datensatz „Publisher Typ Platzhalter“"
+                },
+                "publisher": {
+                    "label": "Datenbereitsteller",
+                    "placeholder": "Datensatz „Publisher Platzhalter“",
+                    "info": "Für die Bereitstellung des Datensatzes zuständige Stelle (Person, Organisation, Dienst usw.).",
+                    "help": "Für die Bereitstellung des Datensatzes zuständige Stelle (Person, Organisation, Dienst usw.).",
+                    "add-label": "Publisher in einer anderen Sprache hinzufügen"
+                },
+                "publisherName": {
+                    "label": "Name des Namens",
+                    "placeholder": "Datensatz „Publisher Name Placeholder“"
+                },
+                "publisherHomepage": {
+                    "label": "Startseite",
+                    "placeholder": "Datensatz „Publisher Homepage“-Platzhaltertext"
+                },
+                "language": {
+                    "placeholder": "Text des Datensatzes „Sprachplatzhalter“",
+                    "label": "Sprache",
+                    "info": "Durch den Datensatz abgedeckte Sprachen.",
+                    "help": "Durch den Datensatz abgedeckte Sprachen."
+                },
+                "publisherEmail": {
+                    "placeholder": "Datensatz Publisher E-Mail Platzhalter Text",
+                    "label": "E-Mail"
+                },
+                "keyword": {
+                    "placeholder": "Datensatz „Stichwort Platzhalter“",
+                    "label": "Stichwort",
+                    "info": "Durch Komma getrennte Begriffe, durch die dieser Datensatz mit ähnlichen Datensätzen verknüpft werden könnte. Die Stichwörter müssen aus alphanumerischen Zeichen in Kleinbuchstaben oder folgenden Symbolen bestehen: —_. Aus mehreren Wörtern bestehende Begriffe sollten mit Bindestrichen verbunden werden: Verschmutzung, Flüsse, stoffliche-Belastung.",
+                    "add-label": "Schlüsselwort hinzufügen",
+                    "help": "Durch Komma getrennte Begriffe, durch die dieser Datensatz mit ähnlichen Datensätzen verknüpft werden könnte."
+                },
+                "description": {
+                    "placeholder": "Text des Datensatzes Platzhalter der Beschreibung",
+                    "label": "Beschreibung",
+                    "info": "Allgemeine Beschreibung des Datensatzes. Sie wird häufig zusammen mit dem Pakettitel angezeigt. Am Anfang sollte ein kurzer Satz stehen, der den Inhalt des Datensatzes prägnant beschreibt, da in manchen Datensatz-Ansichten unter Umständen nur die ersten Wörter angezeigt werden.",
+                    "help": "Allgemeine Beschreibung des Datensatzes.",
+                    "add-label": "Beschreibung in einer anderen Sprache hinzufügen"
                 }
             },
             "catalogues": {

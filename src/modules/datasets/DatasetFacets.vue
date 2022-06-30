@@ -101,6 +101,11 @@
                   </span>
                 </dt>
                 <dd>{{ getTranslationFor(catalog.title, $route.query.locale, catalog.languages) }}</dd>
+                <dd>
+                  <app-link :to="catalog.homepage">
+                    {{ catalog.homepage }}
+                  </app-link>
+                </dd>
               </dl>
               <!-- DESCRIPTION -->
               <dl v-if="has(catalog, 'description') && showObject(catalog.description)">
@@ -146,15 +151,6 @@
                 <dd>
                   <app-link v-if="has(catalog, 'creator.email') && showString(catalog.creator.email)" :to="catalog.creator.email">
                     {{ catalog.creator.email }}
-                  </app-link>
-                </dd>
-              </dl>
-              <!-- HOMEPAGE -->
-              <dl v-if="has(catalog, 'homepage') && showString(catalog.homepage)">
-                <dt>{{ $t('message.metadata.homepage') }}</dt>
-                <dd>
-                  <app-link :to="catalog.homepage">
-                    {{ catalog.homepage }}
                   </app-link>
                 </dd>
               </dl>
