@@ -24,7 +24,7 @@ import { MyComponent } from '@piveau/piveau-hub-ui-modules';
 The workflow is as follows:
 
   * Develop your component in `src/modules`
-  * Export the component in `src/modules/index.js`
+  * Export the component in `src/modules/index.ts`
   * Import the component in the test app from `@piveau/piveau-hub-ui-modules`
   * When a new version should be published, increase the version number in `package.json` and run `npm run deploy` (you have to be logged into our paca npm registry)
 

@@ -1,19 +1,22 @@
 /* eslint-disable */
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from './store/index';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
-import { decode } from './utils/jwt';
 import {
-    DatasetDetailsCategories,
-    DatasetDetailsQuality,
-    DatasetDetailsSimilarDatasets,
-    DatasetDetailsDataset,
-    DatasetDetails,
-    MapBasic,
-    MapBoundsReceiver,
-    Datasets,
-    Catalogues
+  DatasetDetailsCategories,
+  DatasetDetailsQuality,
+  DatasetDetailsSimilarDatasets,
+  DatasetDetailsDataset,
+  DatasetDetails,
+  MapBasic,
+  MapBoundsReceiver,
+  Datasets,
+  Catalogues,
+  NotFound,
+  SparqlSearch,
+  Imprint,
+  PrivacyPolicy,
+  decode
 } from "@piveau/piveau-hub-ui-modules";
 
 // const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
@@ -27,21 +30,21 @@ import {
 // const DistributionDetails = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DistributionDetails');
 // const MapBasic = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/MapBasic');
 // const Catalogues = () => import(/* webpackChunkName: "Catalogues" */'@/components/Catalogues');
-const Home = () => import(/* webpackChunkName: "Home" */'@/components/Home');
-const Imprint = () => import(/* webpackChunkName: "Imprint" */'@/components/Imprint');
-const PrivacyPolicy = () => import(/* webpackChunkName: "PrivacyPolicy" */'@/components/PrivacyPolicy');
-const Auth = () => import(/* webpackChunkName: "Auth" */'@/components/Auth');
-const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
-const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
+// const Home = () => import(/* webpackChunkName: "Home" */'@/components/Home');
+// const Imprint = () => import(/* webpackChunkName: "Imprint" */'@/components/Imprint');
+// const PrivacyPolicy = () => import(/* webpackChunkName: "PrivacyPolicy" */'@/components/PrivacyPolicy');
+// const Auth = () => import(/* webpackChunkName: "Auth" */'@/components/Auth');
+// const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
+// const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
 
-const DataProviderInterface = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/DataProviderInterface');
-const DataFetchingComponent = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/components/DataFetchingComponent');
-const OverviewPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/OverviewPage');
-const InputPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/InputPage');
-const DraftsPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/DraftsPage');
-const LinkedDataViewer = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/LinkedDataViewer');
-const UserProfilePage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/UserProfilePage');
-const UserCataloguesPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/components/data-provider-interface/views/UserCataloguesPage');
+const DataProviderInterface = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/DataProviderInterface');
+const DataFetchingComponent = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/components/DataFetchingComponent');
+const OverviewPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/OverviewPage');
+const InputPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/InputPage');
+const DraftsPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/DraftsPage');
+const LinkedDataViewer = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/LinkedDataViewer');
+const UserProfilePage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/UserProfilePage');
+const UserCataloguesPage = () => import(/* webpackChunkName: "DataProviderInterface" */'@/data-provider-interface/views/UserCataloguesPage');
 
 Vue.use(Router);
 
@@ -147,14 +150,14 @@ const router = new Router({
         title,
       },
     },
-    {
-      path: '/home',
-      name: 'Home',
-      component: Home,
-      meta: {
-        title,
-      },
-    },
+    // {
+    //   path: '/home',
+    //   name: 'Home',
+    //   component: Home,
+    //   meta: {
+    //     title,
+    //   },
+    // },
     {
       path: '/imprint',
       name: 'Imprint',
@@ -185,15 +188,15 @@ const router = new Router({
         title,
       },
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: Auth,
-      meta: {
-        title,
-        requiresAuth: true,
-      },
-    },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: Auth,
+    //   meta: {
+    //     title,
+    //     requiresAuth: true,
+    //   },
+    // },
     {
       path: '/404',
       alias: '*',

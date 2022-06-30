@@ -35,7 +35,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { isNumber } from 'lodash';
 import CookieConsent from '@deu/deu-cookie-consent';
 import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
-import DpiMenu from './components/data-provider-interface/DPI-menu';
+import DpiMenu from './data-provider-interface/DPI-menu';
 
 export default {
   name: 'app',

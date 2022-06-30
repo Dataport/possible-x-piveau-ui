@@ -1,10 +1,12 @@
 import AppLink from "./widgets/AppLink.vue";
 import Tooltip from "./widgets/Tooltip.vue";
 import Dropdown from "./widgets/Dropdown.vue";
-// import DropdownDownload from "./datasetDetails/distributions/DistributionDropdownDownload.vue";
 import ResourceAccessPopup from "./widgets/ResourceAccessPopup.vue";
-
 import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton.vue";
+
+import AppSnackbar from './modal/AppSnackbar.vue';
+import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
+
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
 import Distributions from "./datasetDetails/distributions/Distributions.vue";
 import DatasetDetailsHeader from "./datasetDetails/DatasetDetailsHeader.vue";
@@ -19,6 +21,11 @@ import MapBoundsReceiver from "./map/MapBoundsReceiver.vue";
 
 import SubNavigation from "./navigation/SubNavigation.vue";
 
+import NotFound from "./pages/NotFound.vue";
+import Imprint from "./pages/Imprint.vue";
+import PrivacyPolicy from "./pages/PrivacyPolicy.vue";
+import SparqlSearch from "./pages/SparqlSearch.vue";
+
 import DatasetDate from "./datasets/DatasetDate.vue";
 import Datasets from "./datasets/Datasets.vue";
 
@@ -30,37 +37,83 @@ import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
 import filtersMixin from "./mixins/filters";
 import animations from "./mixins/animations";
 
+import authService from "./services/authService";
+import vueKeycloak from "./services/keycloakService";
+import bulkDownloadCorsProxyService from "./services/bulkDownloadCorsProxyService";
+import corsProxyService from "./services/corsProxyService";
+import uploadService from "./services/uploadService";
+import runtimeConfigurationService from "./services/runtimeConfigurationService";
+import datasetService from "./services/piveau-ui-adapter-vhub/datasets";
+import catalogService from "./services/piveau-ui-adapter-vhub/catalogs";
+import gazetteerService from "./services/piveau-ui-adapter-vhub/gazetteer";
+// @ts-ignore
+import registerServices from "./services/registerServices";
+
+import { decode } from "./utils/jwt";
+import createIdentifiersApi from "./utils/identifiersApi";
+import { DataEuropaFormatter } from "./utils/formatter";
+import createDraftApi from "./utils/draftApi";
+import { retrieveDataFromSource } from "./utils/adapter";
+
+import store from "./store";
+
 export {
-    AppLink,
-    Tooltip,
-    Dropdown,
-    // DropdownDownload,
-    ResourceAccessPopup,
+  AppLink,
+  Tooltip,
+  Dropdown,
+  // DropdownDownload,
+  ResourceAccessPopup,
+  AppSnackbar,
+  AppConfirmationDialog,
 
-    PvDataInfoBox,
-    ResourceDetailsLinkedDataButton,
-    DatasetDetailsCategories,
-    Distributions,
-    DatasetDetailsHeader,
-    DatasetDetailsNavigation,
-    DatasetDetailsQuality,
-    DatasetDetailsSimilarDatasets,
-    DatasetDetailsDataset,
-    DatasetDetails,
+  PvDataInfoBox,
+  ResourceDetailsLinkedDataButton,
+  DatasetDetailsCategories,
+  Distributions,
+  DatasetDetailsHeader,
+  DatasetDetailsNavigation,
+  DatasetDetailsQuality,
+  DatasetDetailsSimilarDatasets,
+  DatasetDetailsDataset,
+  DatasetDetails,
 
-    MapBasic,
-    MapBoundsReceiver,
+  MapBasic,
+  MapBoundsReceiver,
 
-    SubNavigation,
+  SubNavigation,
 
-    DatasetDate,
-    Datasets,
-    Catalogues,
+  NotFound,
+  Imprint,
+  PrivacyPolicy,
+  SparqlSearch,
 
-    dateFilters,
+  DatasetDate,
+  Datasets,
+  Catalogues,
 
-    filtersMixin,
-    animations
+  dateFilters,
+
+  filtersMixin,
+  animations,
+
+  authService,
+  vueKeycloak,
+  bulkDownloadCorsProxyService,
+  corsProxyService,
+  uploadService,
+  runtimeConfigurationService,
+  datasetService,
+  catalogService,
+  gazetteerService,
+  registerServices,
+
+  decode,
+  createIdentifiersApi,
+  DataEuropaFormatter,
+  createDraftApi,
+  retrieveDataFromSource,
+
+  store
 };
 
 // @ts-ignore

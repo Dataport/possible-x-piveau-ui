@@ -1,8 +1,10 @@
-import datasetService from '../src/piveau-ui-adapter-vhub/datasets';
-import catalogService from '../src/piveau-ui-adapter-vhub/catalogs';
-import gazetteerService from '../src/piveau-ui-adapter-vhub/gazetteer';
-import uploadService from '../src/services/uploads';
-import authService from '../src/auth/authService';
+import {
+  authService,
+  uploadService,
+  datasetService,
+  catalogService,
+  gazetteerService
+} from '@piveau/piveau-hub-ui-modules';
 import i18n from './i18n';
 import languages from './langs.json'
 
@@ -11,8 +13,8 @@ const glueConfig = {
   description: 'data.europa.eu',
   keywords: 'DEU',
   api: {
-    // baseUrl: 'https://data.europa.eu/api/hub/search/',
-    baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    baseUrl: 'https://data.europa.eu/api/hub/search/',
+    // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
     similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',

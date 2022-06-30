@@ -182,7 +182,6 @@
   import PvDataInfoBox from '../PvDataInfoBox/PvDataInfoBox.vue';
   import { getImg, getCountryFlagImg, getTranslationFor } from '../utils/helpers';
 
-
   export default {
     name: 'catalogs',
     dependencies: ['catalogService'],

@@ -23,9 +23,7 @@ import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
-import AppToast from '@/components/AppToast';
-import AppSnackbar from '@/components/AppSnackbar';
-import AppConfirmationDialog from '@/components/AppConfirmationDialog';
+// import AppToast from '@/components/AppToast';
 // Import v-select
 // Import i18n validation messages for vueformulate
 // import {
@@ -56,31 +54,28 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VuePositionSticky from 'vue-position-sticky';
-import VueKeycloak from './plugins/vue-keycloak-js';
 // Import main user configurations (glueConfig) and i18n configurations
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
-// Import vue-router
+import runtimeConfig from '../config/runtime-config';
 import router from './router';
-// Import vuex store
-import store from './store/index';
-// Import the APP component
 import App from './App';
-// Import dateFilters
-import { dateFilters } from '@piveau/piveau-hub-ui-modules';
-// Import runtimeconfig
-import RuntimeConfiguration from './runtimeconfig';
-// Import services
-import services from './services/services';
-// Import corsproxy service
-import CorsproxyService from './plugins/corsproxy-service';
-// Import bulkdownload hot fix service
-import BulkDownloadAxiosInstance from './plugins/bulk-download-corsproxy-service';
+import {
+  dateFilters,
+  AppSnackbar,
+  AppConfirmationDialog,
+  vueKeycloak,
+  bulkDownloadCorsProxyService ,
+  corsProxyService,
+  runtimeConfigurationService,
+  registerServices,
+  store
+} from '@piveau/piveau-hub-ui-modules';
 // import additional custom vueformulate components
-import InfoSlot from './components/data-provider-interface/components/InfoSlot';
-import ConditionalInput from './components/data-provider-interface/components/ConditionalInput';
-import AutocompleteInput from './components/data-provider-interface/components/AutocompleteInput';
-import UniqueIdentifierInput from './components/data-provider-interface/components/UniqueIdentifierInput';
-import FileUpload from './components/data-provider-interface/components/FileUpload';
+import InfoSlot from './data-provider-interface/components/InfoSlot';
+import ConditionalInput from './data-provider-interface/components/ConditionalInput';
+import AutocompleteInput from './data-provider-interface/components/AutocompleteInput';
+import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
+import FileUpload from './data-provider-interface/components/FileUpload';
 
 Vue.config.devtools = true;
 
@@ -90,7 +85,7 @@ Vue.component('AutocompleteInput', AutocompleteInput);
 Vue.component('UniqueIdentifierInput', UniqueIdentifierInput);
 Vue.component('FileUpload', FileUpload);
 
-Vue.component('AppToast', AppToast);
+// Vue.component('AppToast', AppToast);
 Vue.component('AppSnackbar', AppSnackbar);
 Vue.component('AppConfirmationDialog', AppConfirmationDialog);
 
@@ -140,13 +135,13 @@ Vue.use(VueFormulate, {
 });
 
 // Runtimeconfig setup
-Vue.use(RuntimeConfiguration, { baseConfig: GLUE_CONFIG, debug: false });
+Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 
 // Corsproxy setup
-Vue.use(CorsproxyService, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
+Vue.use(corsProxyService, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
 
 // Bulk Download hotfix setup
-Vue.use(BulkDownloadAxiosInstance, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
+Vue.use(bulkDownloadCorsProxyService, GLUE_CONFIG, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
 
 const { isPiwikPro, siteId, trackerUrl } = Vue.prototype.$env.tracker;
 Vue.use(UniversalPiwik, {
@@ -244,7 +239,7 @@ Vue.use(DeuHeaderFooter);
 Vue.use(VuePositionSticky);
 
 // Services setup
-services(Vue.prototype.$env);
+registerServices(Vue.prototype.$env, GLUE_CONFIG, store);
 
 // Sync store and router
 sync(store, router);
@@ -273,7 +268,7 @@ const wait = ms => new Promise((resolve, reject) => setTimeout(() => {
 }, ms));
 
 const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
-  Vue.use(VueKeycloak, {
+  Vue.use(vueKeycloak, {
     config: {
       rtp: Vue.prototype.$env.rtp,
       ...Vue.prototype.$env.keycloak,
