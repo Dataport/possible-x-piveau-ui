@@ -4,6 +4,7 @@
 import Keycloak from 'keycloak-js';
 import qs from 'qs';
 import axios from 'axios';
+import { store } from "../store";
 
 let installed = false;
 let rtpToken = null;
@@ -139,11 +140,23 @@ function init(config, watch, options) {
         reject(error);
       });
     });
-  };
+  }
+
+  function loginFn() {
+    keycloak.login()
+      .then(() => {
+        store.dispatch('auth/setKeycloak', keycloak);
+        store.dispatch('auth/authLogin', keycloak.authenticated);
+      })
+      .catch((err) => {
+        console.error(`Error keycloak login: ${JSON.stringify(err)}`);
+      });
+  }
 
   function updateWatchVariables(isAuthenticated = false) {
     watch.authenticated = isAuthenticated;
-    watch.loginFn = keycloak.login;
+    watch.loginFn = loginFn;
+    // watch.loginFn = keycloak.login;
     watch.login = keycloak.login;
     watch.createLoginUrl = keycloak.createLoginUrl;
     watch.createLogoutUrl = keycloak.createLogoutUrl;

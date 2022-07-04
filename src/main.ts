@@ -239,7 +239,7 @@ Vue.use(DeuHeaderFooter);
 Vue.use(VuePositionSticky);
 
 // Services setup
-registerServices(Vue.prototype.$env, GLUE_CONFIG, store);
+registerServices(Vue.prototype.$env, GLUE_CONFIG);
 
 // Sync store and router
 sync(store, router);

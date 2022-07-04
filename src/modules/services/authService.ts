@@ -9,6 +9,7 @@
 import Keycloak from 'keycloak-js';
 import axios from 'axios';
 import qs from 'qs';
+import store from '../store';
 
 let kc = null;
 
@@ -18,7 +19,7 @@ export default class AuthService {
    * @param redirectUrl redirection url used for logout redirection
    * @param keyclockConfig keyclock configuration from user-config.js
    */
-  constructor(keyclockConfig, rtpConfig, useAuthService, store) {
+  constructor(keyclockConfig, rtpConfig, useAuthService) {
     if (!useAuthService) return;
     // Init Keycloak configuration
     kc = kc || new Keycloak(keyclockConfig);
@@ -26,7 +27,6 @@ export default class AuthService {
     this.baseUrl = keyclockConfig.url;
     this.realm = keyclockConfig.realm;
     this.rtpConfig = rtpConfig;
-    this.store = store;
     // Check if the user has session
     kc.init({
       onLoad: 'check-sso',
@@ -36,9 +36,9 @@ export default class AuthService {
     })
       .then((authenticated) => {
         if (authenticated) {
-          this.store.dispatch('auth/authLogin', kc.authenticated);
+          store.dispatch('auth/authLogin', kc.authenticated);
           this.getRTPToken(kc.token).then((res) => {
-            this.store.dispatch('auth/rtpToken', res.data.access_token);
+            store.dispatch('auth/rtpToken', res.data.access_token);
           });
         }
       })
@@ -50,8 +50,8 @@ export default class AuthService {
   init() {
     kc.login()
       .then(() => {
-        this.store.dispatch('auth/setKeycloak', kc);
-        this.store.dispatch('auth/authLogin', kc.authenticated);
+        store.dispatch('auth/setKeycloak', kc);
+        store.dispatch('auth/authLogin', kc.authenticated);
         this.$router.push('/');
       })
       .catch((err) => {
@@ -93,8 +93,8 @@ export default class AuthService {
     const _keycloack = keycloak;
     _keycloack.updateToken(10)
       .then(() => {
-        this.store.dispatch('auth/setKeycloak', _keycloack);
-        this.store.dispatch('auth/authLogin', _keycloack.authenticated);
+        store.dispatch('auth/setKeycloak', _keycloack);
+        store.dispatch('auth/authLogin', _keycloack.authenticated);
         return _keycloack.token;
       });
   };
@@ -106,8 +106,8 @@ export default class AuthService {
   refreshToken = keycloak => (new Promise((resolve, reject) => {
     keycloak.updateToken(10)
       .then(() => {
-        this.store.dispatch('auth/setKeycloak', keycloak);
-        this.store.dispatch('auth/authLogin', keycloak.authenticated);
+        store.dispatch('auth/setKeycloak', keycloak);
+        store.dispatch('auth/authLogin', keycloak.authenticated);
         resolve(keycloak.token);
       }).catch((err) => {
         reject(err);
