@@ -1,6 +1,6 @@
 {
   "name": "@piveau/piveau-hub-ui-modules",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "files": [
     "dist/*"
   ],

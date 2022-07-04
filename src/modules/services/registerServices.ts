@@ -24,6 +24,5 @@ export default (envConfig, glueConfig) => {
   if (glueConfig.services.datastoreService) injector.service('DatastoreService', ['baseUrl'], glueConfig.services.datastoreService);
   if (glueConfig.services.gazetteerService) injector.service('GazetteerService', ['gazetteerBaseUrl'], glueConfig.services.gazetteerService);
   if (glueConfig.services.uploadService) injector.service('uploadService', ['hubUrl', 'authToken'], glueConfig.services.uploadService);
-  if (glueConfig.services.authService) injector.service('authService', ['keycloak', 'rtp', 'useAuthService'], glueConfig.services.authService);
   if (glueConfig.services.jsonldService) injector.service('jsonldService', glueConfig.services.jsonldService);
 };

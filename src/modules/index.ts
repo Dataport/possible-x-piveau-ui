@@ -37,7 +37,6 @@ import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
 import filtersMixin from "./mixins/filters";
 import animations from "./mixins/animations";
 
-import authService from "./services/authService";
 import vueKeycloak from "./services/keycloakService";
 import bulkDownloadCorsProxyService from "./services/bulkDownloadCorsProxyService";
 import corsProxyService from "./services/corsProxyService";
@@ -96,7 +95,6 @@ export {
   filtersMixin,
   animations,
 
-  authService,
   vueKeycloak,
   bulkDownloadCorsProxyService,
   corsProxyService,
