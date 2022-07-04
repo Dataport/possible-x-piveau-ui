@@ -39,7 +39,6 @@ import DpiMenu from './data-provider-interface/DPI-menu';
 
 export default {
   name: 'app',
-  // dependencies: 'authService',
   components: {
     CookieConsent,
     DpiMenu,
@@ -104,9 +103,6 @@ export default {
     ]),
     isNumber,
     login() {
-      // if (this.$env.keycloak.enableLogin) {
-      //   this.authService.init();
-      // }
       this.$keycloak.loginFn();
     },
     logout() {
