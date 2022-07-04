@@ -1,10 +1,11 @@
 import {
-  authService,
+  // authService,
   uploadService,
   datasetService,
   catalogService,
   gazetteerService
 } from '@piveau/piveau-hub-ui-modules';
+// import authService from "../src/authService";
 import i18n from './i18n';
 import languages from './langs.json'
 
@@ -59,7 +60,7 @@ const glueConfig = {
     datasetService,
     gazetteerService,
     uploadService,
-    authService,
+    // authService,
   },
   themes: {
     header: 'dark',
