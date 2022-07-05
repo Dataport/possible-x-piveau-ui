@@ -16,7 +16,7 @@ build-asset:
     - develop
 
   script:
-    - npm install
+    - npm ci
     - npm run build
   artifacts:
     paths:
