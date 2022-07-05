@@ -239,7 +239,7 @@ Vue.use(DeuHeaderFooter);
 Vue.use(VuePositionSticky);
 
 // Services setup
-registerServices(Vue.prototype.$env, GLUE_CONFIG, store);
+registerServices(Vue.prototype.$env, GLUE_CONFIG);
 
 // Sync store and router
 sync(store, router);
@@ -263,7 +263,8 @@ const createVueApp = () => {
 };
 
 // Promise that timeouts after x seconds
-const wait = ms => new Promise((resolve, reject) => setTimeout(() => {
+let waitTimeoutHandle;
+const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeout(() => {
   reject(new Error(`Keycloak failed to load after a timeout of ${ms} ms`));
 }, ms));
 
@@ -278,8 +279,11 @@ const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
       onLoad: 'check-sso',
       silentCheckSsoRedirectUri: `${window.location.origin}${process.env.buildconf.BASE_PATH}static/silent-check-sso.html`,
     },
-    onReady: resolve,
-    onInitError: reject,
+    onReady: () => {
+      resolve();
+      if (waitTimeoutHandle) clearTimeout(waitTimeoutHandle);
+    },
+    onInitError: reject
   });
 });
 
