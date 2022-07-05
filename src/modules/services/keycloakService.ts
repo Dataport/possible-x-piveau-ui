@@ -102,7 +102,7 @@ function init(config, watch, options) {
       }), 10000);
     watch.logoutFn = () => {
       clearInterval(updateTokenInterval);
-      keycloak.logout(options.logout || { redirectUri: config.logoutRedirectUri });
+      keycloak.logout(options.logout || { redirectUri: `${window.location.origin}${config.logoutRedirectUri}` });
     };
   };
   keycloak.onAuthRefreshSuccess = function () {
