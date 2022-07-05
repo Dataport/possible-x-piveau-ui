@@ -13,7 +13,7 @@ build-asset:
     - master
     - next
     - beta
-    - branches
+    - develop
 
   script:
     - npm install
@@ -29,12 +29,12 @@ publish package to npm repository:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
     - npm install --only=dev
   only:
-    - master
-    - next
-    - beta
-    - develop
-    - branches
-  changes:
+    refs:
+      #- master
+      #- next
+      #- beta
+      - develop
+    changes:
       - package.json
 
   script:
