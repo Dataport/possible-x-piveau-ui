@@ -14,7 +14,6 @@ build-asset:
     - next
     - beta
     - develop
-
   script:
     - npm ci
     - npm run build
