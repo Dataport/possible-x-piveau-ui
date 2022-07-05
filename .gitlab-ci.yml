@@ -8,7 +8,8 @@ stages:
 
 build-asset:
   stage: build
-  image: node:lts-alpine3.10
+  #image: node:lts-alpine3.10
+  image: node:16-alpine3.16
   only:
     - master
     - next
