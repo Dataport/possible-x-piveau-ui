@@ -86,3 +86,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## CI
+
+When a new version should be published, increase the version number in `package.json`, CI will only if `package.json` in master branch.
