@@ -138,7 +138,7 @@
         "channel": "next"
       },
       {
-        "name": "beta",
+        "name": "develop",
         "prerelease": true
       }
     ],
