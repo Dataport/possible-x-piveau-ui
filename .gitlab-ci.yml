@@ -35,4 +35,5 @@ publish package to npm repository:
   script:
     - export VERSION=$(node -p "require('./package.json').version")
     - echo deploy VERSION $VERSION
-    - npm run semantic-release --dry-run
+    - npm run deploy
+    #- npm run semantic-release --dry-run
