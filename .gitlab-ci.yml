@@ -15,7 +15,7 @@ build-asset:
     - develop
   script:
     - npm install
-    - npm run build
+    - npm run build:lib
   artifacts:
     paths:
       - dist
@@ -35,5 +35,5 @@ publish package to npm repository:
   script:
     - export VERSION=$(node -p "require('./package.json').version")
     - echo deploy VERSION $VERSION
-    - npm run deploy
-    #- npm run semantic-release --dry-run
+    #- npm run deploy
+    - npm run semantic-release --dry-run
