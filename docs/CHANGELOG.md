@@ -1,3 +1,17 @@
+# [1.0.0-develop.3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.0-develop.2...v1.0.0-develop.3) (2022-07-08)
+
+
+### Features
+
+* **pencil:** added 'Feature Release test' test to the title for test, pls ignore ([705b4fa](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/705b4faeb046c5c22fac0e3bcf4629020f1f86f7))
+
+# [1.0.0-develop.2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.0-develop.1...v1.0.0-develop.2) (2022-07-08)
+
+
+### Features
+
+* **pencil:** add 'Feature Release test' test to the tiltle for test, pls ignore ([680583d](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/680583dccab76a1f077ebf4b0477296b80947a52))
+
 # 1.0.0-develop.1 (2022-07-07)
 
 
