@@ -332,7 +332,13 @@ export default {
     resourceDetailsLinkedDataButton: ResourceDetailsLinkedDataButton,
     Tooltip,
   },
-  TooltipmetaInfo() {
+  props: {
+    dataScope: {
+      type: String,
+      default: null,
+    },
+  },
+  metaInfo() {
     const catalogTitle = this.getTranslationFor(this.catalog.title, this.$route.query.locale, this.catalogLanguageIds) || this.catalog.id;
     const catalogDescription = this.getTranslationFor(this.catalog.description, this.$route.query.locale, this.catalogLanguageIds) || this.catalog.id;
     const title = this.currentSearchQuery
@@ -358,12 +364,6 @@ export default {
       FACET_OPERATORS: this.$env.datasets.facets.FACET_OPERATORS,
       FACET_GROUP_OPERATORS: this.$env.datasets.facets.FACET_GROUP_OPERATORS,
     };
-  },
-  props: {
-    dataScope: {
-      type: String,
-      default: null,
-    },
   },
   computed: {
     ...mapGetters('catalogDetails', [
