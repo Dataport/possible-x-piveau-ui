@@ -503,7 +503,8 @@
           } else {
             for (const facet of this.$route.query[field]) {
               // do not add duplicates
-              if (!this.getFacets[field].includes(facet)) {
+              if (!this.getFacets[field]?.includes(facet)) {
+                console.log('here');
                 this.addFacet({ field, facet });
               }
             }
