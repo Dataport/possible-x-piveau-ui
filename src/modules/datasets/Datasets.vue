@@ -239,7 +239,7 @@
   } from 'lodash';
   import $ from 'jquery';
   import fileTypes from '../utils/fileTypes';
-  import DatasetFacets from './DatasetFacets.vue';
+  import DatasetFacets from './datasetFacets/DatasetFacets.vue';
   import Pagination from '../widgets/Pagination.vue';
   import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
   import AppLink from '../widgets/AppLink.vue';
