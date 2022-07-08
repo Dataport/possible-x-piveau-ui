@@ -96,4 +96,4 @@ For each new commit added to one of the release branches (for example: master, d
 
 you find your module in paca npm registry [piveau-hub-ui-modules](https://paca.fokus.fraunhofer.de/#browse/browse:npm-hosted:%40piveau%2Fpiveau-hub-ui-modules)
 # Changelog
-For each release, a docs/CHANGELOG.md will be created or updated.
+For each release for develop branch, a [docs/CHANGELOG.md](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/-/blob/develop/docs/CHANGELOG.md) will be created or updated.
