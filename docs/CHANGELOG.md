@@ -1,3 +1,10 @@
+## [1.0.1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.0...v1.0.1) (2022-07-08)
+
+
+### Bug Fixes
+
+* fix website freezing after selecting quality facet ([1910139](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/19101398ddb08a10a2c7feae44e8a46fa83226a0))
+
 # 1.0.0 (2022-07-08)
 
 
