@@ -1,4 +1,4 @@
-# Contributing to edp-header-footer
+# Contributing to piveau-hub-ui-modules
 
 As a contributor, here are the guidelines to follow.
 
