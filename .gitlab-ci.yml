@@ -8,7 +8,6 @@ stages:
 
 build-asset:
   stage: build
-  #image: node:lts-alpine3.10
   image: node:16-alpine3.16
   only:
     - master
@@ -22,7 +21,6 @@ build-asset:
 
 publish package to npm repository:
   stage: publish
-  #image: node:16-alpine3.16
   image: node:lts-buster-slim
   before_script:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
@@ -31,11 +29,5 @@ publish package to npm repository:
     refs:
       - master
       - develop
-#    changes:
-#      - package.json
   script:
-    - export VERSION=$(node -p "require('./package.json').version")
-    - echo deploy VERSION $VERSION
-    #- npm run deploy
-    #- npm run semantic-release --dry-run
     - npm run semantic-release
