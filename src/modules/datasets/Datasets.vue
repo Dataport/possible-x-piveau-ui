@@ -1,32 +1,10 @@
 <template>
   <div class="d-flex flex-column p-0 bg-transparent">
-    <sub-navigation>
-      <div class="container-fluid justify-content-between">
-        <div class="navbar-nav align-items-center justify-content-end">
-          <div class="nav-item dropdown">
-            <div v-if="useFeed" class="nav-link dropdown-toggle cursor-pointer"
-              id="dropdown-feeds" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              <ins>{{ $t('message.datasets.datasetsFeed') }}</ins>
-            </div>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-feeds">
-              <app-link class="dropdown-item text-decoration-none"
-                :path="getFeedLink('rss')"
-                :query="getFeedQuery()"
-                target="_blank"
-                matomo-track-page-view>
-                RSS Feed</app-link>
-              <app-link class="dropdown-item text-decoration-none"
-                :path="getFeedLink('atom')"
-                :query="getFeedQuery()"
-                target="_blank"
-                matomo-track-page-view>
-                ATOM Feed</app-link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </sub-navigation>
+    <datasets-top-controls
+      :facets="facets"
+      :getPage="getPage"
+      :getLimit="getLimit"
+    />
     <div class="container-fluid datasets content">
       <h1 class="row col-12 page-title text-primary">{{ $t('message.header.navigation.data.datasets') }}</h1>
       <div class="row">
@@ -37,7 +15,7 @@
             <i class="material-icons small-icon align-bottom" v-else>arrow_drop_down</i>
           </button>
         </div>
-        <dataset-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></dataset-facets>
+        <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></datasets-facets>
         <section class="col-md-9 col-12">
           <div class="filters-group">
             <div class="row">
@@ -239,23 +217,23 @@
   } from 'lodash';
   import $ from 'jquery';
   import fileTypes from '../utils/fileTypes';
-  import DatasetFacets from './datasetFacets/DatasetFacets.vue';
+  import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
   import Pagination from '../widgets/Pagination.vue';
   import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
   import AppLink from '../widgets/AppLink.vue';
-  import SubNavigation from '../navigation/SubNavigation.vue';
   import PvDataInfoBox from '../PvDataInfoBox/PvDataInfoBox.vue';
   import { getTranslationFor, truncate, getImg } from '../utils/helpers';
+  import DatasetsTopControls from "@/modules/datasets/DatasetsTopControls";
 
   export default {
     name: 'datasets',
     dependencies: ['DatasetService'],
     components: {
+      DatasetsTopControls,
       appLink: AppLink,
       selectedFacetsOverview: SelectedFacetsOverview,
-      datasetFacets: DatasetFacets,
+      datasetsFacets: DatasetsFacets,
       pagination: Pagination,
-      subNavigation: SubNavigation,
       PvDataInfoBox,
     },
     props: {
@@ -298,7 +276,6 @@
         useCreateCatalogueButton: this.$env.upload.useCreateCatalogueButton,
         useDatasetFacets: this.$env.datasets.facets.useDatasetFacets,
         useSort: this.$env.datasets.useSort,
-        useFeed: this.$env.datasets.useFeed,
         useCatalogs: this.$env.datasets.useCatalogs,
       };
     },
@@ -313,7 +290,6 @@
         'getPage',
         'getPageCount',
         'getAvailableFacets',
-        'getSort',
         'getMinScoring',
       ]),
       /**
@@ -572,25 +548,6 @@
         if (method === `title.${this.$route.query.locale}`) this.sortSelected = `${method}+${order}, relevance+desc, modified+desc`;
         if (method === 'issued') this.sortSelected = `${method}+${order}, relevance+desc, title.${this.$route.query.locale}+asc`;
         return this.sortSelected;
-      },
-      getFeedLink(format) {
-        return `${this.baseUrl}${this.$route.query.locale}/feeds/datasets.${format}`;
-      },
-      getFeedQuery() {
-        const feedQuery = {};
-        if (this.currentSearchQuery) feedQuery.q = this.currentSearchQuery;
-        if (this.facetsNotEmpty() && JSON.stringify(this.facets)) feedQuery.facets = JSON.stringify(this.facets);
-        if (this.getPage) feedQuery.page = Math.max(this.getPage - 1, 0);
-        if (this.getLimit) feedQuery.limit = this.getLimit;
-        feedQuery.facetOperator = this.$route.query.facetOperator || 'AND';
-        feedQuery.facetGroupOperator = this.$route.query.facetOperator || 'AND';
-        feedQuery.dataServices = this.$route.query.dataServices || 'false';
-        if (this.getSort) feedQuery.sort = this.getSort;
-
-        return feedQuery;
-      },
-      facetsNotEmpty() {
-        return Object.values(this.facets).some(facet => facet.length > 0);
       },
       changeQuery(query) {
         this.$router.replace({ query: Object.assign({}, this.$route.query, { query }, { page: 1 }) }).catch(() => {});

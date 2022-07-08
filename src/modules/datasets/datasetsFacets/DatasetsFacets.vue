@@ -2,7 +2,7 @@
   <div class="container dataset-facets">
     <div class="row mx-3 mr-md-0">
       <div class="col">
-        <dataset-facet-map
+        <datasets-facet-map
           :showCatalogDetails="showCatalogDetails"
         />
         <!-- CATALOG DETAILS -->
@@ -241,7 +241,7 @@
             class="col pr-0"
             v-slot="{ item: facet }"
           >
-            <dataset-facets-item
+            <datasets-facets-item
               class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"
               :title="$te(`message.datasetFacets.facets.datascopeField.${facet.id}`)
                 ? $t(`message.datasetFacets.facets.datascopeField.${facet.id}`)
@@ -287,7 +287,7 @@
             class="col pr-0"
             v-slot="{ item: facet }"
           >
-            <dataset-facets-item
+            <datasets-facets-item
               class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"
               :title="getFacetTranslationWrapper(field.id, facet.id, $route.query.locale, facet.title)"
               :count="getFacetCount(field, facet)"
@@ -313,22 +313,22 @@ import {
   isNumber,
 } from 'lodash';
 import Facet from '../../facets/Facet.vue';
-import DatasetFacetsItem from '../DatasetFacetsItem.vue';
+import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import AppLink from '../../widgets/AppLink.vue';
 import Tooltip from '../../widgets/Tooltip.vue';
 import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
 import dateFilters from '../../filters/dateFilters';
 import { getTranslationFor, getImg, getFacetTranslation } from '../../utils/helpers';
-import DatasetFacetMap from "@/modules/datasets/datasetFacets/DatasetFacetMap";
+import DatasetsFacetMap from "@/modules/datasets/datasetsFacets/DatasetsFacetMap";
 
 export default {
   name: 'datasetFacets',
   dependencies: ['catalogService'],
   components: {
-    DatasetFacetMap,
+    DatasetsFacetMap,
     AppLink,
     Facet,
-    DatasetFacetsItem,
+    DatasetsFacetsItem,
     resourceDetailsLinkedDataButton: ResourceDetailsLinkedDataButton,
     Tooltip,
   },
