@@ -93,3 +93,6 @@ semantic-release is meant to be executed on the CI environment after every succe
 .
 # Triggering a release
 For each new commit added to one of the release branches (for example: master, develop), with git push or by merging a pull request or merging from another branch, a CI build is triggered and runs the semantic-release command to make a release if there are codebase changes since the last release that affect the package functionalities.
+
+# Changelog
+For each release, a docs/CHANGELOG.md will be created or updated.
