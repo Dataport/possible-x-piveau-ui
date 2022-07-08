@@ -122,3 +122,12 @@ BREAKING CHANGE: The graphiteWidth option has been removed.
 The default graphite width of 10mm is always used for performance reasons.
 ```
 
+## Automation with CI
+semantic-release is meant to be executed on the CI environment after every successful build on the release branch. This way no human is directly involved in the release process and the releases are guaranteed to be
+.
+# Triggering a release
+For each new commit added to one of the release branches (for example: master, develop), with git push or by merging a pull request or merging from another branch, a CI build is triggered and runs the semantic-release command to make a release if there are codebase changes since the last release that affect the package functionalities.
+
+you find your module in paca npm registry [piveau-hub-ui-modules](https://paca.fokus.fraunhofer.de/#browse/browse:npm-hosted:%40piveau%2Fpiveau-hub-ui-modules)
+# Changelog
+For each release for develop or master branch, a [docs/CHANGELOG.md](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/-/blob/master/docs/CHANGELOG.md) will be created or updated.
