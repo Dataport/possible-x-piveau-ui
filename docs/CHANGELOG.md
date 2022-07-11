@@ -1,3 +1,10 @@
+# [1.0.0-develop.4](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.0-develop.3...v1.0.0-develop.4) (2022-07-11)
+
+
+### Bug Fixes
+
+* add dpiStore ([5bc8a18](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/5bc8a18b90a38899b0f8346d3b0d8369240f015e))
+
 # [1.0.0-develop.3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.0-develop.2...v1.0.0-develop.3) (2022-07-08)
 
 
