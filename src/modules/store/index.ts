@@ -17,6 +17,7 @@ import gazetteer from './modules/gazetteerStore';
 import geo from './modules/geoStore';
 import auth from './modules/authStore';
 import snackbar from './modules/snackbarStore';
+import dpiStore from './modules/dpiStore';
 
 Vue.use(Vuex);
 
@@ -45,6 +46,7 @@ const store = new Vuex.Store({
     catalogDetails,
     datasets,
     datasetDetails,
+    dpiStore,
     mapsData,
     gazetteer,
     geo,
