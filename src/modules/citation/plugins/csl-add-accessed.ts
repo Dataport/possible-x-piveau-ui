@@ -1,8 +1,7 @@
+// @ts-nocheck
 /**
  * Citation-js plugin to add accessed date to CSL object
  */
-
-/* eslint-disable */
 
 import { plugins } from '@citation-js/core';
 

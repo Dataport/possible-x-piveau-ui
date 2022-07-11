@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { plugins } from '@citation-js/core';
 import dgs from './dg';
 

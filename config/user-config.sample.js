@@ -1,5 +1,5 @@
 import {
-  authService,
+  // authService,
   uploadService,
   datasetService,
   catalogService,
@@ -59,7 +59,7 @@ const glueConfig = {
     datasetService,
     gazetteerService,
     uploadService,
-    authService,
+    // authService,
   },
   themes: {
     header: 'dark',
