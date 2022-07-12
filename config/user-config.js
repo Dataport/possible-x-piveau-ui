@@ -77,7 +77,7 @@ const glueConfig = {
         data: {
           show: true,
           sparql: {
-            show: false,
+            show: true,
           },
         },
         maps: {

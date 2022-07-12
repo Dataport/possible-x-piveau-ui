@@ -1,3 +1,11 @@
+## [1.0.2-develop.1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.1...v1.0.2-develop.1) (2022-07-12)
+
+
+### Bug Fixes
+
+* add dpiStore ([5bc8a18](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/5bc8a18b90a38899b0f8346d3b0d8369240f015e))
+* yasgui initialization ([72ec058](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/72ec058c704b80a96b1480ed80faa79cf14b1d8d))
+
 ## [1.0.1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.0...v1.0.1) (2022-07-08)
 
 
