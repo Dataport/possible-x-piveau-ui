@@ -15,7 +15,7 @@
       </circle>
       <button
         class="btn btn-sm btn-primary"
-        @click="distributions.displayCount = getDistributions.length"
+        @click="setDistributionsDisplayCount(getDistributions.length)"
       >
         <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getDistributions.length.toLocaleString('fi') }}
       </button>
@@ -26,12 +26,13 @@
 <script>
 export default {
   name: "FadingDistributionOverlay",
-  props: [
-    'distributions',
-    'increaseNumDisplayedDistributions',
-    'nonOverflowingIncrementsForDistributions',
-    'getDistributions'
-  ]
+  props: {
+    distributions: Object,
+    setDistributionsDisplayCount: Function,
+    increaseNumDisplayedDistributions: Function,
+    nonOverflowingIncrementsForDistributions: Function,
+    getDistributions: Array
+  }
 }
 </script>
 

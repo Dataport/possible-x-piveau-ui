@@ -28,6 +28,7 @@
                 :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
                 :getDistributions="getDistributions"
                 :distributions="distributions"
+                :setDistributionsDisplayCount="setDistributionsDisplayCount"
                 :getDistributionFormat="getDistributionFormat"
                 :distributionFormatTruncated="distributionFormatTruncated"
                 :getDistributionTitle="getDistributionTitle"
@@ -101,6 +102,7 @@ export default {
     expandedDistributionDescriptions: Array,
     displayedDistributions: Array,
     distributions: Object,
+    setDistributionsDisplayCount: Function,
     isDistributionsAllDisplayed: Boolean,
     pages: Object,
     showDownloadUrls: Function,

@@ -82,6 +82,7 @@
     <fading-distribution-overlay
       v-if="fading"
       :distributions="distributions"
+      :setDistributionsDisplayCount="setDistributionsDisplayCount"
       :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
       :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
       :getDistributions="getDistributions"
@@ -136,9 +137,10 @@ export default {
   props: {
     fading: Boolean,
     distribution: Object,
+    distributions: Object,
+    setDistributionsDisplayCount: Function,
     openModal: Function,
     getDistributions: Array,
-    distributions: Object,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,
