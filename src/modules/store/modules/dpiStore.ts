@@ -39,7 +39,7 @@ const actions = {
         });
     });
   },
-  requestResourceName({ commit }, { voc, vocMatch, resource }) {
+  requestResourceName({ commit }, { voc, resource }) {
     const value = resource.substring(resource.lastIndexOf('/') + 1);
     const req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}/${value}`;
     return new Promise((resolve, reject) => {

@@ -315,7 +315,6 @@ import {
 import Facet from '../../facets/Facet.vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import AppLink from '../../widgets/AppLink.vue';
-import Tooltip from '../../widgets/Tooltip.vue';
 import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
 import dateFilters from '../../filters/dateFilters';
 import { getTranslationFor, getImg, getFacetTranslation } from '../../utils/helpers';
@@ -329,8 +328,7 @@ export default {
     AppLink,
     Facet,
     DatasetsFacetsItem,
-    resourceDetailsLinkedDataButton: ResourceDetailsLinkedDataButton,
-    Tooltip,
+    resourceDetailsLinkedDataButton: ResourceDetailsLinkedDataButton
   },
   props: {
     dataScope: {

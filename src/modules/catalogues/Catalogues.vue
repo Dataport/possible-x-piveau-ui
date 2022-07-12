@@ -186,11 +186,10 @@
     name: 'catalogs',
     dependencies: ['catalogService'],
     components: {
-      selectedFacetsOverview: SelectedFacetsOverview,
+      SelectedFacetsOverview,
       PvDataInfoBox,
       CataloguesFacets,
-      pagination: Pagination,
-      subNavigation: SubNavigation,
+      Pagination
     },
     props: {
       infiniteScrolling: {

@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <p v-for="fieldId in Object.keys(selectedFacets)" :key="fieldId"
-       v-if="showSelectedFacet(fieldId)">
+  <div class="container">
+    <p v-for="fieldId in Object.keys(selectedFacets).filter(id => showSelectedFacet(id))" :key="fieldId">
       <span>
         {{ `${findFacetFieldTitle(fieldId)}:` }}
       </span>
