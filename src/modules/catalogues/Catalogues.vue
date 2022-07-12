@@ -186,11 +186,10 @@
     name: 'catalogs',
     dependencies: ['catalogService'],
     components: {
-      selectedFacetsOverview: SelectedFacetsOverview,
+      SelectedFacetsOverview,
       PvDataInfoBox,
       CataloguesFacets,
-      pagination: Pagination,
-      subNavigation: SubNavigation,
+      Pagination
     },
     props: {
       infiniteScrolling: {
@@ -349,7 +348,7 @@
             this.autocompleteData.suggestions = displayedSuggestions;
             this.autocompleteData.show = query.length !== 0;
           })
-          .catch(() => {});
+          .catch(error => { console.log(error); });
       },
       handleSuggestionSelection(suggestion) {
         this.$router.push({ path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` });
@@ -472,8 +471,6 @@
           .catch(() => this.$Progress.fail());
       });
       if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
-    },
-    mounted() {
     },
     beforeDestroy() {
       $('.tooltip').remove();

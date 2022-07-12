@@ -1,3 +1,12 @@
+## [1.0.2-develop.2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2-develop.1...v1.0.2-develop.2) (2022-07-12)
+
+
+### Bug Fixes
+
+* activate most linting properties again ([5c366e2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/5c366e2392f7b75f65b739988388c7860c08dc20))
+* mutation of prop in FadingDistributionOverlay.vue ([f853f49](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/f853f49ec5cd5618abca94de2365ce5a3e63c43c))
+* vue/no-unused-components linting active again ([979a75a](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/979a75a7db67f553c92df2d9eb31309907025f05))
+
 ## [1.0.2-develop.1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.1...v1.0.2-develop.1) (2022-07-12)
 
 

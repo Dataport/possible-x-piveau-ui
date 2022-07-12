@@ -124,7 +124,11 @@ export default {
     },
     redirectToDistributionForm(distributionIndex) {
       localStorage.setItem('currentDistribution', distributionIndex + 1);
-      this.$router.push(`${this.$env.upload.basePath}/${this.$route.params.property}/${this.$env.upload.input[this.$route.params.property].subroutingStepEntry}`).catch(() => {});
+      this.$router.push(
+        `${this.$env.upload.basePath}/${this.$route.params.property}/${this.$env.upload.input[this.$route.params.property].subroutingStepEntry}`
+      ).catch(
+        error => { console.log(error); }
+      );
     },
     getDistributionDetailsForDelete(parameter) {
       if (!isEmpty(this.distributionData)) return this.distributionData[this.distributionToDelete - 1][parameter];

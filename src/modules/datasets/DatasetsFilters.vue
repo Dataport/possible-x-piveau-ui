@@ -159,12 +159,20 @@ export default {
       }
     },
     changeQuery(query) {
-      this.$router.replace({ query: Object.assign({}, this.$route.query, { query }, { page: 1 }) }).catch(() => {});
+      this.$router.replace(
+        { query: Object.assign({}, this.$route.query, { query }, { page: 1 }) }
+      ).catch(
+        error => { console.log(error); }
+      );
       this.setQuery(query);
     },
     handleSuggestionSelection(suggestion) {
       /* eslint-disable no-underscore-dangle */
-      this.$router.push({ path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` }).catch(() => {});
+      this.$router.push(
+        { path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` }
+      ).catch(
+        error => { console.log(error); }
+      );
     },
     initSort() {
       let sort = this.$route.query.sort;
@@ -232,7 +240,8 @@ export default {
   watch: {
     sortSelected: {
       handler(sort) {
-        this.$router.replace({ query: Object.assign({}, this.$route.query, { sort }) }).catch(() => {});
+        this.$router.replace({ query: Object.assign({}, this.$route.query, { sort }) })
+          .catch(error => { console.log(error); });
         this.setSort(sort);
       },
       deep: true,

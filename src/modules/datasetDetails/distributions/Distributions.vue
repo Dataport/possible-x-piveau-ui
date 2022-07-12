@@ -28,6 +28,7 @@
                 :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
                 :getDistributions="getDistributions"
                 :distributions="distributions"
+                :setDistributionsDisplayCount="setDistributionsDisplayCount"
                 :getDistributionFormat="getDistributionFormat"
                 :distributionFormatTruncated="distributionFormatTruncated"
                 :getDistributionTitle="getDistributionTitle"
@@ -74,11 +75,6 @@
 <script>
 
 import Distribution from './Distribution.vue';
-import AppLink from '../../widgets/AppLink.vue';
-import Tooltip from '../../widgets/Tooltip.vue';
-import Dropdown from '../../widgets/Dropdown.vue';
-import DropdownDownload from './DistributionDropdownDownload.vue';
-import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
 import DownloadAllDistributions
   from "../../datasetDetails/distributions/DownloadAllDistributions";
 
@@ -86,12 +82,7 @@ export default {
   name: 'Distributions',
   components: {
     DownloadAllDistributions,
-    Distribution,
-    Tooltip,
-    Dropdown,
-    AppLink,
-    DropdownDownload,
-    ResourceDetailsLinkedDataButton
+    Distribution
   },
   props: {
     openModal: Function,
@@ -101,6 +92,7 @@ export default {
     expandedDistributionDescriptions: Array,
     displayedDistributions: Array,
     distributions: Object,
+    setDistributionsDisplayCount: Function,
     isDistributionsAllDisplayed: Boolean,
     pages: Object,
     showDownloadUrls: Function,

@@ -128,7 +128,7 @@ const actions = {
    * @param state
    * @param {number} amount - The amount of catalogs to add.
    */
-  loadAdditionalCatalogs({ commit, state }, amount = RESULTS_PER_PAGE) {
+  loadAdditionalCatalogs({ commit, state } /*, amount = RESULTS_PER_PAGE*/) {
     // const offset = GETTERS.getOffset(state) + amount;
     // commit('SET_OFFSET', offset);
     const page = GETTERS.getPage(state);

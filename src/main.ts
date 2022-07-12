@@ -9,7 +9,6 @@ import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
 // Import vue-progressbar
 import VueProgressBar from 'vue-progressbar';
-// Import vue-i18n
 import VueI18n from 'vue-i18n';
 import VueFormulate from '@braid/vue-formulate';
 // The Vue build version to load with the `import` command
@@ -176,7 +175,6 @@ Vue.use(UniversalPiwik, {
 const LOCALE = Vue.prototype.$env.languages.locale;
 const FALLBACKLOCALE = Vue.prototype.$env.languages.fallbackLocale;
 
-// Vue-i18n setup
 Vue.use(VueI18n);
 // eslint-disable-next-line
 export const i18n = new VueI18n({

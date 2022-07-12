@@ -3,7 +3,7 @@
     <!-- TOP -->
     <div>
       <h1 class="small-headline">{{ mode }}</h1>
-      <Navigation 
+      <Navigation
         :isOverviewPage="isOverviewPage"
         :steps="steps"
         :currentStep="currentStep"
@@ -13,7 +13,7 @@
         @newSubrouting="newSubrouting"
         @clearStorage="clearStorage">
       </Navigation>
-      <StepProgress 
+      <StepProgress
         id="stepper"
         :line-thickness="1"
         :steps="stepNames"
@@ -26,27 +26,27 @@
     <!-- CONTENT -->
     <router-view @error="jumpToFirstPage" :currentSubroutingStep="currentSubroutingStep" ref="view">
       <div id="subStepperBox">
-        <StepProgress 
-          id="subStepper" 
-          v-if="showSubroutingStepper" 
-          :steps="subroutingStepNames" 
-          :current-step="currentSubroutingStep" 
-          active-color="#343434" 
-          :line-thickness="1" 
-          :active-thickness="20" 
+        <StepProgress
+          id="subStepper"
+          v-if="showSubroutingStepper"
+          :steps="subroutingStepNames"
+          :current-step="currentSubroutingStep"
+          active-color="#343434"
+          :line-thickness="1"
+          :active-thickness="20"
           :passive-thickness="20">
         </StepProgress>
       </div>
     </router-view>
     <!-- BOTTOM -->
     <div>
-      <Navigation 
-        v-if="!isOverviewPage && !isDistributionsOverviewPage" 
-        :steps="steps" :currentStep="currentStep" 
-        :currentSubroutingStep="currentSubroutingStep" 
-        @previous="previous" 
-        @next="next" 
-        @newSubrouting="newSubrouting" 
+      <Navigation
+        v-if="!isOverviewPage && !isDistributionsOverviewPage"
+        :steps="steps" :currentStep="currentStep"
+        :currentSubroutingStep="currentSubroutingStep"
+        @previous="previous"
+        @next="next"
+        @newSubrouting="newSubrouting"
         @clearStorage="clearStorage">
       </Navigation>
     </div>
@@ -184,10 +184,10 @@ export default {
           ? this.currentStep - 1
           : 0;
         this.currentSubroutingStep = 0;
-        this.$router.push(this.getPreviousPath(this.currentStep, undefined)).catch(() => {});
+        this.$router.push(this.getPreviousPath(this.currentStep, undefined)).catch(error => { console.log(error); });
       } else {
         this.currentSubroutingStep = previousStep;
-        this.$router.push(this.getPreviousPath(this.currentStep, this.currentSubroutingStep)).catch(() => {});
+        this.$router.push(this.getPreviousPath(this.currentStep, this.currentSubroutingStep)).catch(error => { console.log(error); });
       }
 
       window.scrollTo(0, 0);
@@ -207,7 +207,7 @@ export default {
           this.$router.push(`${this.$env.upload.basePath}/${this.property}/overview?locale=${this.$i18n.locale}`);
         } else {
           this.currentSubroutingStep = nextStep;
-          this.$router.push(this.getNextPath(this.currentStep, this.currentSubroutingStep)).catch(() => {});
+          this.$router.push(this.getNextPath(this.currentStep, this.currentSubroutingStep)).catch(error => { console.log(error); });
         }
       } else {
         if (nextStep === this.steps.length) {
@@ -215,11 +215,11 @@ export default {
         } else {
           this.currentStep = nextStep;
           if (this.currentStep === -1) {
-            this.$router.push(this.getNextPath(this.currentStep, undefined)).catch(() => {});
+            this.$router.push(this.getNextPath(this.currentStep, undefined)).catch(error => { console.log(error); });
           } else if (this.steps[this.currentStep].subrouting) {
-            this.$router.push(this.getNextPath(this.currentStep, 0)).catch(() => {});
+            this.$router.push(this.getNextPath(this.currentStep, 0)).catch(error => { console.log(error); });
           } else {
-            this.$router.push(this.getNextPath(this.currentStep, undefined)).catch(() => {});
+            this.$router.push(this.getNextPath(this.currentStep, undefined)).catch(error => { console.log(error); });
           }
         }
       }
@@ -360,7 +360,7 @@ font-size: 25px;
 }
 
 .formulate-input[data-classification=group] [data-is-repeatable] .formulate-input-group-repeatable {
-  border-bottom: none; 
+  border-bottom: none;
 }
 
 .formulate-input-element--checkbox {

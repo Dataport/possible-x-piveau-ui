@@ -315,7 +315,6 @@ import {
 import Facet from '../../facets/Facet.vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import AppLink from '../../widgets/AppLink.vue';
-import Tooltip from '../../widgets/Tooltip.vue';
 import ResourceDetailsLinkedDataButton from '../../widgets/ResourceDetailsLinkedDataButton.vue';
 import dateFilters from '../../filters/dateFilters';
 import { getTranslationFor, getImg, getFacetTranslation } from '../../utils/helpers';
@@ -329,8 +328,7 @@ export default {
     AppLink,
     Facet,
     DatasetsFacetsItem,
-    resourceDetailsLinkedDataButton: ResourceDetailsLinkedDataButton,
-    Tooltip,
+    resourceDetailsLinkedDataButton: ResourceDetailsLinkedDataButton
   },
   props: {
     dataScope: {
@@ -490,7 +488,11 @@ export default {
     },
     toggleFacet(field, facet) {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-        return this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) }).catch(() => {});
+        return this.$router.push(
+          { query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) }
+        ).catch(
+          error => { console.log(error); }
+        );
       }
       let facets = this.$route.query[field].slice();
       if (!Array.isArray(facets)) facets = [facets];
@@ -502,7 +504,11 @@ export default {
       const index = facets.indexOf(facet);
       if (index > -1) facets.splice(index, 1);
       else facets.push(facet);
-      return this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }).catch(() => {});
+      return this.$router.push(
+        { query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }
+      ).catch(
+        error => { console.log(error); }
+      );
     },
     scoringFacetIsSelected(minScoring) {
       const qMinScoring = parseInt(this.getMinScoring, 10);
@@ -520,11 +526,19 @@ export default {
     },
     dataScopeFacetClicked(dataScope) {
       if (this.dataScopeFacetIsSelected(dataScope)) {
-        this.$router.push({ query: Object.assign({}, this.$route.query, { dataScope: [], country: [], page: 1 }) }).catch(() => {});
+        this.$router.push(
+          { query: Object.assign({}, this.$route.query, { dataScope: [], country: [], page: 1 }) }
+        ).catch(
+          error => { console.log(error); }
+        );
       } else {
         const country = [];
         if (dataScope !== 'countryData') country.push(dataScope);
-        this.$router.push({ query: Object.assign({}, this.$route.query, { dataScope, country, page: 1 }) }).catch(() => {});
+        this.$router.push(
+          { query: Object.assign({}, this.$route.query, { dataScope, country, page: 1 }) }
+        ).catch(
+          error => { console.log(error); }
+        );
       }
     },
     changeFacetOperator(op) {
@@ -540,7 +554,11 @@ export default {
       this.setDataServices(ds);
     },
     resetPage() {
-      this.$router.replace({ query: Object.assign({}, this.$route.query, { page: 1 }) }).catch(() => {});
+      this.$router.replace(
+        { query: Object.assign({}, this.$route.query, { page: 1 }) }
+      ).catch(
+        error => { console.log(error); }
+      );
     },
     initShowCatalogDetails() {
       const showCatalogDetails = this.$route.query.showcatalogdetails;
@@ -586,17 +604,29 @@ export default {
     // },
     facetOperatorWatcher: {
       handler(facetOperator) {
-        this.$router.replace({ query: Object.assign({}, this.$route.query, { facetOperator }) }).catch(() => {});
+        this.$router.replace(
+          { query: Object.assign({}, this.$route.query, { facetOperator }) }
+        ).catch(
+          error => { console.log(error); }
+        );
       },
     },
     facetGroupOperatorWatcher: {
       handler(facetGroupOperator) {
-        this.$router.replace({ query: Object.assign({}, this.$route.query, { facetGroupOperator }) }).catch(() => {});
+        this.$router.replace(
+          { query: Object.assign({}, this.$route.query, { facetGroupOperator }) }
+        ).catch(
+          error => { console.log(error); }
+        );
       },
     },
     dataServicesWatcher: {
       handler(dataServices) {
-        this.$router.replace({ query: Object.assign({}, this.$route.query, { dataServices }) }).catch(() => {});
+        this.$router.replace(
+          { query: Object.assign({}, this.$route.query, { dataServices }) }
+        ).catch(
+          error => { console.log(error); }
+        );
       },
     },
     showCatalogDetailsWatcher: {
@@ -614,9 +644,7 @@ export default {
     // this.useService(this.GazetteerService);
     this.useCatalogService(this.catalogService);
     this.initShowCatalogDetails();
-  },
-  mounted() {},
-  destroyed() {},
+  }
 };
 </script>
 
