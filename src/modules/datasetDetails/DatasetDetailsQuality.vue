@@ -170,13 +170,12 @@
         <div class="markdown-content">
           <p v-html="$t('message.datasetDetails.intro.distribution', { locale: $route.query.locale })" />
         </div>
-        <div v-if="getQualityDistributionData.result">
+        <div v-if="getQualityDistributionData.result" id="YEAH">
           <div id="accordion" class="space" v-if="showLess">
             <div
-              v-for="(value, key) in getQualityDistributionData.result.results"
+              v-for="(value, key) in getQualityDistributionData.result.results.slice(0, 4)"
               class="card"
               :key="`B-${key}`"
-              v-if="key <= 3"
             >
               <div class="card-header distribution" id="headingFirst"
                 @click="clickHandler(key)"
@@ -232,9 +231,8 @@
                           <ul class="keys">
                             <li
                               class="list-group-item keys"
-                              v-for="(value,index) in value"
+                              v-for="(value,index) in value.slice(0, 2)"
                               :key="`O-${index}`"
-                              v-if="index <= 1"
                             >
                               <!-- <li class="list-group-item keys" v-if="index <= 1">  -->
                               <div class="row">
@@ -269,9 +267,8 @@
                           <ul class="keys">
                             <li
                               class="list-group-item keys"
-                              v-for="(value,index) in value"
+                              v-for="(value,index) in value.slice(2)"
                               :key="`S-${index}`"
-                              v-if="index >= 2"
                             >
                               <!-- <li class="list-group-item keys" v-if="index <= 1">       -->
                               <div class="row">
@@ -374,9 +371,8 @@
                           <ul class="keys">
                             <li
                               class="list-group-item keys"
-                              v-for="(value,index) in value"
+                              v-for="(value,index) in value.slice(0, 2)"
                               :key="`O-${index}`"
-                              v-if="index <= 1"
                             >
                               <!-- <li class="list-group-item keys" v-if="index <= 1">  -->
                               <div class="row">
@@ -411,9 +407,8 @@
                           <ul class="keys">
                             <li
                               class="list-group-item keys"
-                              v-for="(value,index) in value"
+                              v-for="(value,index) in value.slice(2)"
                               :key="`S-${index}`"
-                              v-if="index >= 2"
                             >
                               <!-- <li class="list-group-item keys" v-if="index <= 1">       -->
                               <div class="row">
@@ -472,15 +467,11 @@
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
-  import AppLink from "../widgets/AppLink.vue";
   import { getTranslationFor } from "../utils/helpers";
 
   export default {
     name: 'datasetDetailsCategories',
     dependencies: 'DatasetService',
-    components: {
-      appLink: AppLink,
-    },
     metaInfo() {
       return {
         // title: this.$t('message.metadata.categories'),

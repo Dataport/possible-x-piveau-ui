@@ -227,10 +227,7 @@
           this.$router.replace({ query: Object.assign({}, this.$route.query, { facetGroupOperator }) });
         },
       },
-    },
-    created() {},
-    mounted() {
-    },
+    }
   };
 </script>
 

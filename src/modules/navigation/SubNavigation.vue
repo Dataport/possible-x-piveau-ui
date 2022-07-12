@@ -12,12 +12,8 @@
 
 <script>
 import $ from 'jquery';
-import AppLink from "../widgets/AppLink.vue";
 
 export default {
-  components: {
-    AppLink,
-  },
   props: {
     to: {
       default: '',

@@ -219,9 +219,9 @@ const actions = {
    * @param state
    * @param {number} amount - The amount of datasets to add.
    */
-  loadAdditionalDatasets({ commit, state }, amount = RESULTS_PER_PAGE) {
+  loadAdditionalDatasets({ commit, state } /*, amount = RESULTS_PER_PAGE */) {
     const page = GETTERS.getPage(state);
-    const datasetsCount = GETTERS.getDatasetsCount(state);
+    // const datasetsCount = GETTERS.getDatasetsCount(state);
     actions.loadDatasets({ commit, state }, { page, append: true });
   },
   /**

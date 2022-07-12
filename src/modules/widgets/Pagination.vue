@@ -111,15 +111,7 @@
       clickedPageValid(page) {
         return typeof page === 'number' && page > 0 && page <= this.pageCount;
       },
-    },
-    watch: {
-    },
-    created() {
-    },
-    mounted() {
-    },
-    beforeDestroy() {
-    },
+    }
   };
 </script>
 

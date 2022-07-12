@@ -17,12 +17,11 @@
           <i class="material-icons align-bottom">search</i>
         </button>
       </div>
-      <div class="suggestion-list-group">
+      <div class="suggestion-list-group" v-if="!gazetteer.selected">
         <ul class="list-group suggestion-list">
           <button class="list-group-item list-group-item-action"
-            v-for="(suggestion, i) in gazetteer.suggestions"
+            v-for="(suggestion, i) in gazetteer.suggestions.slice(0, 10)"
             :key="i"
-            v-if="i <= 9 && !gazetteer.selected"
             @click="handleSuggestionSelection(suggestion)">
             {{suggestion.name}}
           </button>

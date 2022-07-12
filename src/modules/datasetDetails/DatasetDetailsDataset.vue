@@ -126,6 +126,7 @@
       :displayedDistributions="displayedDistributions"
       :isDistributionsAllDisplayed="isDistributionsAllDisplayed"
       :distributions="distributions"
+      :setDistributionsDisplayCount="setDistributionsDisplayCount"
       :pages="pages"
       :showDownloadUrls="showDownloadUrls"
       :isOnlyOneUrl="isOnlyOneUrl"
@@ -1308,7 +1309,8 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+  // @ts-nocheck
   /* eslint-disable no-confusing-arrow, no-nested-ternary, no-return-assign, no-confusing-arrow */
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
@@ -1725,6 +1727,9 @@
       truncate,
       removeMailtoOrTel,
       replaceHttp,
+      setDistributionsDisplayCount(count: number) {
+        this.distributions.displayCount = count;
+      },
       openModal(callback, toggleDownloadPopup) {
         this.$refs.externalResourceModal.openModal(callback, toggleDownloadPopup)
       },
@@ -2433,8 +2438,6 @@
       }
 
       if (this.dataServices.displayAll) this.dataServices.displayCount = this.getDataServices.length;
-    },
-    mounted() {
     },
     beforeDestroy() {
       $('.tooltip').remove();

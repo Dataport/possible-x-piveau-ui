@@ -32,7 +32,6 @@
       },
       icon: {
         type: Object,
-        default: '',
         required: true,
       },
     },
