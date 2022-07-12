@@ -73,7 +73,11 @@
        */
       toggleFacet(field, facet) {
         if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-          this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) }).catch(() => {});
+          this.$router.push(
+            { query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) }
+          ).catch(
+            error => { console.log(error); }
+          );
         }
         let facets = this.$route.query[field].slice();
         if (!Array.isArray(facets)) facets = [facets];
@@ -89,9 +93,17 @@
           facets.push(facet);
         }
         if (field === 'country' && (facet === 'eu' || facet === 'io')) {
-          this.$router.push({ query: Object.assign({}, this.$route.query, { dataScope: [], page: 1 }) }).catch(() => {});
+          this.$router.push(
+            { query: Object.assign({}, this.$route.query, { dataScope: [], page: 1 }) }
+          ).catch(
+            error => { console.log(error); }
+          );
         }
-        this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }).catch(() => {});
+        this.$router.push(
+          { query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }
+        ).catch(
+          error => { console.log(error); }
+        );
       },
       initShowCatalogDetails() {
         const showCatalogDetails = this.$route.query.showcatalogdetails;
@@ -115,11 +127,7 @@
     },
     created() {
       this.initShowCatalogDetails();
-    },
-    mounted() {
-    },
-    beforeDestroy() {
-    },
+    }
   };
 </script>
 

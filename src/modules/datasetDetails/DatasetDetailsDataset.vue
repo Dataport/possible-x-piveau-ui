@@ -2439,8 +2439,6 @@
 
       if (this.dataServices.displayAll) this.dataServices.displayCount = this.getDataServices.length;
     },
-    mounted() {
-    },
     beforeDestroy() {
       $('.tooltip').remove();
     },

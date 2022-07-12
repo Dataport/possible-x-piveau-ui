@@ -229,7 +229,9 @@
       getTranslationFor,
       getImg,
       changePageTo(page) {
-        this.$router.replace({ query: Object.assign({}, this.$route.query, { page }) }).catch(() => {});
+        this.$router.replace(
+          { query: Object.assign({}, this.$route.query, { page }) }
+        ).catch(error => { console.log(error); });
         this.scrollTo(0, 0);
       },
       /**
@@ -318,7 +320,7 @@
           if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
             this.$router.replace({
               query: Object.assign({}, this.$route.query, { [field]: [] }),
-            }).catch(() => {});
+            }).catch(error => { console.log(error); });
           } else {
             for (const facet of this.$route.query[field]) {
               // do not add duplicates!
@@ -414,8 +416,6 @@
         });
       });
       if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
-    },
-    mounted() {
     },
     beforeDestroy() {
       $('.tooltip').remove();

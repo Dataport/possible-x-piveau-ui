@@ -57,11 +57,7 @@ export default {
     ]),
     getRepresentativeLocaleOf,
     getTranslationFor,
-  },
-  created() {
-  },
-  mounted() {
-  },
+  }
 };
 </script>
 
