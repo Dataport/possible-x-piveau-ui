@@ -1,3 +1,11 @@
+## [1.0.2-develop.4](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2-develop.3...v1.0.2-develop.4) (2022-07-13)
+
+
+### Bug Fixes
+
+* showcatalogdetails watching simplified ([8bbb747](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/8bbb7478ce88f497c01d09007b354d7c56235af0))
+* simplified catalog watching in DatasetsFacets.vue ([0e70be3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/0e70be3c81ce287a72ba1b9d893ae08fe151e968))
+
 ## [1.0.2-develop.3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2-develop.2...v1.0.2-develop.3) (2022-07-13)
 
 
