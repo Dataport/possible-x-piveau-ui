@@ -1,3 +1,10 @@
+## [1.0.3-develop.3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.3-develop.2...v1.0.3-develop.3) (2022-07-13)
+
+
+### Bug Fixes
+
+* this is a test for semantic-release ([57125d1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/57125d123c6648007fd454af1a5b7fa3169ebc21))
+
 ## [1.0.3-develop.2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.3-develop.1...v1.0.3-develop.2) (2022-07-13)
 
 

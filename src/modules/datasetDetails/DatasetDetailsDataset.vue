@@ -1881,8 +1881,6 @@
           });
         }
         // https://schema.org/DataCatalog
-        console.log("BBBBB", {a: this.getCatalog.title, b: this.$route.query.locale, c: this.getLanguages, d: this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages),
-            e: this.getTranslationFor(this.getCatalog.description, this.$route.query.locale, this.getLanguages)})
         payload.catalog = {
           '@type': 'DataCatalog',
           name: this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages)?.substring(0, 4999),
@@ -2355,46 +2353,44 @@
     },
     mounted() {
       this.useService(this.DatasetService);
-      this.$nextTick(() => {
-        this.$Progress.start();
-        this.loadingDatasetDetails = true;
-        this.loadDatasetDetails(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-            this.loadingDatasetDetails = false;
-            this.datasetSchema = this.getSchemaOrg();
-            this.piwikMetaPush();
-            this.$nextTick(() => {
-            // Display/hide translation banners
-              this.setTranslationBanners();
-              $('[data-toggle="tooltip"]').tooltip({
-                container: 'body',
-              });
-            });
-          })
-          .catch((err) => {
-            console.warn(err); // eslint-disable-line
-            this.$Progress.fail();
-            this.$router.replace({
-              name: 'NotFound',
-              query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+      this.$Progress.start();
+      this.loadingDatasetDetails = true;
+      this.loadDatasetDetails(this.$route.params.ds_id)
+        .then(() => {
+          this.$Progress.finish();
+          this.loadingDatasetDetails = false;
+          this.datasetSchema = this.getSchemaOrg();
+          this.piwikMetaPush();
+          this.$nextTick(() => {
+          // Display/hide translation banners
+            this.setTranslationBanners();
+            $('[data-toggle="tooltip"]').tooltip({
+              container: 'body',
             });
           });
-        this.loadQualityData(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-          })
-          .catch(() => {
-            this.$Progress.fail();
+        })
+        .catch((err) => {
+          console.warn(err); // eslint-disable-line
+          this.$Progress.fail();
+          this.$router.replace({
+            name: 'NotFound',
+            query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
           });
-        this.loadQualityDistributionData(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-          })
-          .catch(() => {
-            this.$Progress.fail();
-          });
-      });
+        });
+      this.loadQualityData(this.$route.params.ds_id)
+        .then(() => {
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+      this.loadQualityDistributionData(this.$route.params.ds_id)
+        .then(() => {
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
       this.$root.$on('date-incorrect', () => {
         this.dateIncorrect = true;
       });
