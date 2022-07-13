@@ -1,3 +1,10 @@
+## [1.0.3-develop.1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2...v1.0.3-develop.1) (2022-07-13)
+
+
+### Bug Fixes
+
+* showcatalogdetails watching simplified ([8bbb747](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/8bbb7478ce88f497c01d09007b354d7c56235af0))
+
 ## [1.0.2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.1...v1.0.2) (2022-07-13)
 
 
