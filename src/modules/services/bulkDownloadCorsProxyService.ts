@@ -35,7 +35,7 @@ const BulkDownloadAxiosInstance = {
     // If corsproxyUrl is not given, just provide unmodified axios client
     // to pass requests as-is
     if (corsproxyUrl) {
-      const hasTrailingSlash = corsproxyUrl.substr(-1) === '/' || !corsproxyUrl;
+      const hasTrailingSlash = corsproxyUrl.endsWith('/') || !corsproxyUrl;
       const normalizedCorsproxyUrl = hasTrailingSlash
         ? corsproxyUrl
         : `${corsproxyUrl}/`;

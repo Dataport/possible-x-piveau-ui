@@ -43,12 +43,12 @@
           {
             name: 'description',
             vmid: 'description',
-            content: (`${this.$t('message.similarDatasets.similarDatasets')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - data.europa.eu`).substr(0, 4999),
+            content: (`${this.$t('message.similarDatasets.similarDatasets')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - data.europa.eu`)?.substring(0, 4999),
           },
           {
             name: 'keywords',
             vmid: 'keywords',
-            content: this.getKeywords.map(k => k.title).join(' ').substr(0, 4999),
+            content: this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
           },
         ],
       };

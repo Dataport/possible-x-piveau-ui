@@ -1354,14 +1354,14 @@
             vmid: 'description',
             content: (this.getDescription
               ? `${this.getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages.map(lang => lang.id))}`
-              : `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages.map(lang => lang.id))}`).substr(0, 4999),
+              : `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages.map(lang => lang.id))}`).substring(0, 4999),
           },
           {
             name: 'keywords',
             vmid: 'keywords',
             content: isNil(this.getKeywords) || this.getKeywords === 0
               ? ''
-              : this.getKeywords.map(k => k.title).join(' ').substr(0, 4999),
+              : this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
           },
           {
             name: 'subject',
@@ -1867,9 +1867,9 @@
 
         // https://schema.org/Dataset
         payload.name = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
-        payload.name = payload.name ? payload.name.substr(0, 4999) : payload.name;
+        payload.name = payload.name ? payload.name.substring(0, 4999) : payload.name;
         payload.description = this.getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages);
-        payload.description = payload.description ? payload.description.substr(0, 4999) : payload.description;
+        payload.description = payload.description ? payload.description.substring(0, 4999) : payload.description;
         payload.license = this.getSchemaOfFirstAvailableLicense();
         payload.spatialCoverage = this.getSchemaOfSpatialCoverage(this.getSpatial);
         payload.identifier = this.getOtherIdentifiers;
@@ -1881,10 +1881,12 @@
           });
         }
         // https://schema.org/DataCatalog
+        console.log("BBBBB", {a: this.getCatalog.title, b: this.$route.query.locale, c: this.getLanguages, d: this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages),
+            e: this.getTranslationFor(this.getCatalog.description, this.$route.query.locale, this.getLanguages)})
         payload.catalog = {
           '@type': 'DataCatalog',
-          name: this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages).substr(0, 4999),
-          description: this.getTranslationFor(this.getCatalog.description, this.$route.query.locale, this.getLanguages).substr(0, 4999),
+          name: this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages)?.substring(0, 4999),
+          description: this.getTranslationFor(this.getCatalog.description, this.$route.query.locale, this.getLanguages)?.substring(0, 4999),
           publisher: this.getCatalog.publisher,
           url: this.getCatalog.homepage,
           inLanguage: isArray(this.getCatalog.language) ? this.getCatalog.language[0] : this.getCatalog.language,
@@ -2351,7 +2353,7 @@
         return ''
       },
     },
-    created() {
+    mounted() {
       this.useService(this.DatasetService);
       this.$nextTick(() => {
         this.$Progress.start();
