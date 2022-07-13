@@ -43,7 +43,7 @@
           {
             name: 'keywords',
             vmid: 'keywords',
-            content: this.getKeywords.map(k => k.title).join(' ').substr(0, 4999),
+            content: this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
           },
         ],
       };
