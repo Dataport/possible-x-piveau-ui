@@ -124,7 +124,6 @@ function dcatStateToCsl(state) {
       version: state.versionInfo,
     },
   ];
-
   return csl;
 }
 

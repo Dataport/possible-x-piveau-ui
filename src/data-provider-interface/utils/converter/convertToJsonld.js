@@ -8,7 +8,7 @@ import {
 
 function getRandomNumber() {
   // Maybe get a "better" random number?
-  return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20);
+  return Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0, 20);
 }
 
 function getNumberOfDistributions() {
