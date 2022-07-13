@@ -391,9 +391,9 @@ export default {
     // dataServicesWatcher() {
     //   return this.getDataServices;
     // },
-    catalogWatcher() {
-      return this.getCatalog;
-    },
+    // catalogWatcher() {
+    //   return this.getCatalog;
+    // },
     showCatalogDetailsWatcher() {
       return this.$route.query.showcatalogdetails;
     },
@@ -597,11 +597,6 @@ export default {
     },
   },
   watch: {
-    // datasetBoundsWatcher: {
-    //   deep: true,
-    //   handler() {
-    //   },
-    // },
     facetOperatorWatcher: {
       handler(facetOperator) {
         this.$router.replace(
@@ -634,10 +629,8 @@ export default {
         this.showCatalogDetails = showCatalogDetails;
       },
     },
-    catalogWatcher: {
-      handler(catalog) {
-        this.catalog = catalog;
-      },
+    getCatalog(catalog) {
+      this.catalog = catalog;
     },
   },
   created() {
