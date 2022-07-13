@@ -1,6 +1,5 @@
 // @ts-nocheck
 /* eslint-disable */
-
 import Keycloak from 'keycloak-js';
 import qs from 'qs';
 import axios from 'axios';
@@ -57,18 +56,19 @@ export default {
         };
       },
     });
+
     getConfig(options.config)
-      .then((config) => {
-        init(config, watch, options);
-        Object.defineProperty(Vue.prototype, '$keycloak', {
-          get() {
-            return watch;
-          },
-        });
-      })
-      .catch((err) => {
-        console.error(err);
+    .then((config) => {
+      init(config, watch, options);
+      Object.defineProperty(Vue.prototype, '$keycloak', {
+        get() {
+          return watch;
+        },
       });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   },
 };
 
@@ -85,33 +85,37 @@ function init(config, watch, options) {
     watch.ready = true;
     typeof options.onReady === 'function' && watch.$emit('ready', options.onReady.bind(this, keycloak));
   };
+
   keycloak.onAuthSuccess = function () {
     // Check token validity every 10 seconds (10 000 ms) and, if necessary, update the token.
     // Refresh token if it's valid for less then 60 seconds
     const updateTokenInterval = setInterval(() => keycloak.updateToken(60)
-      .then((hasRefreshed) => {
-        if (hasRefreshed) {
-          // When the auth token refreshes, 'invalidate' the stored rtpToken
-          // to force getting a new rtpToken the next time
-          rtpToken = null;
-        }
-      })
-      .catch(() => {
+    .then((hasRefreshed) => {
+      if (hasRefreshed) {
+        // When the auth token refreshes, 'invalidate' the stored rtpToken
+        // to force getting a new rtpToken the next time
         rtpToken = null;
-        keycloak.clearToken();
-      }), 10000);
+      }
+    })
+    .catch(() => {
+      rtpToken = null;
+      keycloak.clearToken();
+    }), 10000);
+
     watch.logoutFn = () => {
       clearInterval(updateTokenInterval);
-      keycloak.logout(options.logout || { redirectUri: `${window.location.origin}${config.logoutRedirectUri}` });
+      keycloak.logout(options.logout || { redirectUri: `${window.location.origin}${config.logoutRedirectUri}${window.location.search}` });
     };
   };
+
   keycloak.onAuthRefreshSuccess = function () {
     updateWatchVariables(true);
   };
+
   keycloak.init(options.init)
-    .catch((err) => {
-      typeof options.onInitError === 'function' && options.onInitError(err);
-    });
+  .catch((err) => {
+    typeof options.onInitError === 'function' && options.onInitError(err);
+  }); 
 
   function getRtpToken() {
     const rtpConfig = options.config.rtp;
@@ -123,11 +127,13 @@ function init(config, watch, options) {
       grant_type: rtpConfig.grand_type,
       audience: rtpConfig.audience,
     };
+
     return new Promise((resolve, reject) => {
       if (rtpToken) {
         resolve(rtpToken)
         return;
       }
+      
       axios.post(endpoint, qs.stringify(requestBody), {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -144,19 +150,18 @@ function init(config, watch, options) {
 
   function loginFn() {
     keycloak.login()
-      .then(() => {
-        store.dispatch('auth/setKeycloak', keycloak);
-        store.dispatch('auth/authLogin', keycloak.authenticated);
-      })
-      .catch((err) => {
-        console.error(`Error keycloak login: ${JSON.stringify(err)}`);
-      });
+    .then(() => {
+      store.dispatch('auth/setKeycloak', keycloak);
+      store.dispatch('auth/authLogin', keycloak.authenticated);
+    })
+    .catch((err) => {
+      console.error(`Error keycloak login: ${JSON.stringify(err)}`);
+    });
   }
 
   function updateWatchVariables(isAuthenticated = false) {
     watch.authenticated = isAuthenticated;
     watch.loginFn = loginFn;
-    // watch.loginFn = keycloak.login;
     watch.login = keycloak.login;
     watch.createLoginUrl = keycloak.createLoginUrl;
     watch.createLogoutUrl = keycloak.createLogoutUrl;
