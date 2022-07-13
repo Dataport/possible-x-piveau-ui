@@ -90,7 +90,6 @@
     "@cypress/webpack-preprocessor": "^5.11.1",
     "@fortawesome/fontawesome-free": "^5.5.0",
     "@semantic-release/changelog": "github:semantic-release/changelog",
-    "@semantic-release/git": "github:semantic-release/git",
     "@semantic-release/gitlab": "github:semantic-release/gitlab",
     "@types/jest": "^27.0.1",
     "@types/jquery": "^3.5.14",
@@ -145,27 +144,11 @@
     ],
     "plugins": [
       "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogFile": "docs/CHANGELOG.md"
-        }
-      ],
       "@semantic-release/npm",
       [
         "@semantic-release/gitlab",
         {
           "gitlabUrl": "https://gitlab.fokus.fraunhofer.de"
-        }
-      ],
-      [
-        "@semantic-release/git",
-        {
-          "assets": [
-            "docs"
-          ],
-          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
         }
       ]
     ]
