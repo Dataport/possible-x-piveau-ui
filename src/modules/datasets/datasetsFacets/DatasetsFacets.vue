@@ -391,9 +391,9 @@ export default {
     // dataServicesWatcher() {
     //   return this.getDataServices;
     // },
-    // catalogWatcher() {
-    //   return this.getCatalog;
-    // },
+    catalogWatcher() {
+      return this.getCatalog;
+    },
     showCatalogDetailsWatcher() {
       return this.$route.query.showcatalogdetails;
     },
@@ -641,7 +641,6 @@ export default {
     },
   },
   created() {
-    // this.useService(this.GazetteerService);
     this.useCatalogService(this.catalogService);
     this.initShowCatalogDetails();
   }
