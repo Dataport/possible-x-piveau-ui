@@ -394,9 +394,9 @@ export default {
     // catalogWatcher() {
     //   return this.getCatalog;
     // },
-    showCatalogDetailsWatcher() {
-      return this.$route.query.showcatalogdetails;
-    },
+    // showCatalogDetailsWatcher() {
+    //   return this.$route.query.showcatalogdetails;
+    // },
     useCatalogFacets() {
       return !this.showCatalogDetails;
     },
@@ -624,10 +624,14 @@ export default {
         );
       },
     },
-    showCatalogDetailsWatcher: {
-      handler(showCatalogDetails) {
-        this.showCatalogDetails = showCatalogDetails;
-      },
+    // showCatalogDetailsWatcher: {
+    //   handler(showCatalogDetails) {
+    //     this.showCatalogDetails = showCatalogDetails;
+    //   },
+    // },
+    '$route.query.showcatalogdetails'(showCatalogDetails) {
+      console.log("'$route.query.showcatalogdetails'", showCatalogDetails)
+      this.showCatalogDetails = showCatalogDetails;
     },
     getCatalog(catalog) {
       this.catalog = catalog;
