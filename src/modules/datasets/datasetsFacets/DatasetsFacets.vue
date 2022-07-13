@@ -391,12 +391,12 @@ export default {
     // dataServicesWatcher() {
     //   return this.getDataServices;
     // },
-    catalogWatcher() {
-      return this.getCatalog;
-    },
-    showCatalogDetailsWatcher() {
-      return this.$route.query.showcatalogdetails;
-    },
+    // catalogWatcher() {
+    //   return this.getCatalog;
+    // },
+    // showCatalogDetailsWatcher() {
+    //   return this.$route.query.showcatalogdetails;
+    // },
     useCatalogFacets() {
       return !this.showCatalogDetails;
     },
@@ -597,11 +597,6 @@ export default {
     },
   },
   watch: {
-    // datasetBoundsWatcher: {
-    //   deep: true,
-    //   handler() {
-    //   },
-    // },
     facetOperatorWatcher: {
       handler(facetOperator) {
         this.$router.replace(
@@ -629,15 +624,17 @@ export default {
         );
       },
     },
-    showCatalogDetailsWatcher: {
-      handler(showCatalogDetails) {
-        this.showCatalogDetails = showCatalogDetails;
-      },
+    // showCatalogDetailsWatcher: {
+    //   handler(showCatalogDetails) {
+    //     this.showCatalogDetails = showCatalogDetails;
+    //   },
+    // },
+    '$route.query.showcatalogdetails'(showCatalogDetails) {
+      console.log("'$route.query.showcatalogdetails'", showCatalogDetails)
+      this.showCatalogDetails = showCatalogDetails;
     },
-    catalogWatcher: {
-      handler(catalog) {
-        this.catalog = catalog;
-      },
+    getCatalog(catalog) {
+      this.catalog = catalog;
     },
   },
   created() {
