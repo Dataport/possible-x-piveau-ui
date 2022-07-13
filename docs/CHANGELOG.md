@@ -1,3 +1,10 @@
+## [1.0.2-develop.3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2-develop.2...v1.0.2-develop.3) (2022-07-13)
+
+
+### Bug Fixes
+
+* activated catalogue watcher ([91a3a0c](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/91a3a0c2688507a9c012b8d5abeb4e99fafc517d))
+
 ## [1.0.2-develop.2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2-develop.1...v1.0.2-develop.2) (2022-07-12)
 
 
