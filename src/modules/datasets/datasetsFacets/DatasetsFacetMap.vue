@@ -129,7 +129,10 @@ export default {
     ...mapGetters('geo', [
       'getGeoBoundsById',
       'getHoldedGeoBoundsById',
-    ])
+    ]),
+    geoStateBoundsWatcher() {
+      return this.getGeoBoundsById(this.map.geoBoundsId);
+    }
   },
   methods: {
     ...mapActions('gazetteer', [
@@ -195,10 +198,7 @@ export default {
           window.dispatchEvent(new Event('resize'));
         }, 200);
       }
-    },
-    // geoStateBoundsWatcher() {
-    //   return this.getGeoBoundsById(this.map.geoBoundsId);
-    // }
+    }
   },
   watch: {
     geoStateBoundsWatcher: {

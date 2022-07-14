@@ -379,9 +379,9 @@ export default {
       'getDatasetGeoBounds',
       'getScoringFacets',
     ]),
-    // datasetBoundsWatcher() {
-    //   return this.getDatasetGeoBounds;
-    // },
+    datasetBoundsWatcher() {
+      return this.getDatasetGeoBounds;
+    },
     facetOperatorWatcher() {
       return this.getFacetOperator;
     },
@@ -615,23 +615,32 @@ export default {
         );
       },
     },
-    dataServicesWatcher: {
-      handler(dataServices) {
-        this.$router.replace(
-          { query: Object.assign({}, this.$route.query, { dataServices }) }
-        ).catch(
-          error => { console.log(error); }
-        );
-      },
-    },
+    // dataServicesWatcher: {
+    //   handler(dataServices) {
+    //     this.$router.replace(
+    //       { query: Object.assign({}, this.$route.query, { dataServices }) }
+    //     ).catch(
+    //       error => { console.log(error); }
+    //     );
+    //   },
+    // },
     // showCatalogDetailsWatcher: {
     //   handler(showCatalogDetails) {
     //     this.showCatalogDetails = showCatalogDetails;
     //   },
     // },
+    getDataServices(dataServices) {
+      this.$router.replace(
+        { query: Object.assign({}, this.$route.query, { dataServices }) }
+      ).catch(
+        error => { console.log(error); }
+      );
+    },
     '$route.query.showcatalogdetails'(showCatalogDetails) {
-      console.log("'$route.query.showcatalogdetails'", showCatalogDetails)
       this.showCatalogDetails = showCatalogDetails;
+    },
+    getDatasetGeoBounds(bounds) {
+      this.bounds = bounds
     },
     getCatalog(catalog) {
       this.catalog = catalog;
