@@ -77,7 +77,7 @@
                         :items-count="getDatasetsCount"
                         :items-per-page="getLimit"
                         :click-handler="changePageTo"
-                        :get-page="this.getPage"
+                        :get-page="getPage"
                         :next-button-text="$t('message.pagination.nextPage')"
                         :prev-button-text="$t('message.pagination.previousPage')">
             </pagination>
