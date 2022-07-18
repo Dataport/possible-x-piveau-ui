@@ -1,4 +1,4 @@
-// import AppLink from "./widgets/AppLink.vue";
+import AppLink from "./widgets/AppLink.vue";
 // import Tooltip from "./widgets/Tooltip.vue";
 // import Dropdown from "./widgets/Dropdown.vue";
 // import ResourceAccessPopup from "./widgets/ResourceAccessPopup.vue";
@@ -57,7 +57,7 @@ import { retrieveDataFromSource } from "./utils/adapter";
 import store from "./store";
 
 export {
-  // AppLink,
+  AppLink,
   // Tooltip,
   // Dropdown,
   // DropdownDownload,
