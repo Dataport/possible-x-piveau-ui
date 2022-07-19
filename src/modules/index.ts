@@ -1,3 +1,4 @@
+// @ts-nocheck
 import AppLink from "./widgets/AppLink.vue";
 // import Tooltip from "./widgets/Tooltip.vue";
 // import Dropdown from "./widgets/Dropdown.vue";
@@ -45,7 +46,6 @@ import runtimeConfigurationService from "./services/runtimeConfigurationService"
 import datasetService from "./services/piveau-ui-adapter-vhub/datasets";
 import catalogService from "./services/piveau-ui-adapter-vhub/catalogs";
 import gazetteerService from "./services/piveau-ui-adapter-vhub/gazetteer";
-// @ts-ignore
 import registerServices from "./services/registerServices";
 
 import { decode } from "./utils/jwt";
@@ -55,6 +55,21 @@ import { decode } from "./utils/jwt";
 import { retrieveDataFromSource } from "./utils/adapter";
 
 import store from "./store";
+
+import DataProviderInterface from './data-provider-interface/DataProviderInterface';
+import DataFetchingComponent from './data-provider-interface/components/DataFetchingComponent';
+import OverviewPage from './data-provider-interface/views/OverviewPage';
+import InputPage from './data-provider-interface/views/InputPage';
+import DraftsPage from './data-provider-interface/views/DraftsPage';
+import LinkedDataViewer from './data-provider-interface/views/LinkedDataViewer';
+import UserProfilePage from './data-provider-interface/views/UserProfilePage';
+import UserCataloguesPage from './data-provider-interface/views/UserCataloguesPage';
+import DpiMenu from './data-provider-interface/DPI-menu';
+import InfoSlot from './data-provider-interface/components/InfoSlot';
+import AutocompleteInput from './data-provider-interface/components/AutocompleteInput';
+import ConditionalInput from './data-provider-interface/components/ConditionalInput';
+import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
+
 
 export {
   AppLink,
@@ -111,7 +126,20 @@ export {
   // createDraftApi,
   retrieveDataFromSource,
 
-  store
+  store,
+  DataProviderInterface,
+  DataFetchingComponent,
+  OverviewPage,
+  InputPage,
+  DraftsPage,
+  LinkedDataViewer,
+  UserProfilePage,
+  UserCataloguesPage,
+  DpiMenu,
+  InfoSlot,
+  AutocompleteInput,
+  ConditionalInput,
+  UniqueIdentifierInput
 };
 
 // @ts-ignore

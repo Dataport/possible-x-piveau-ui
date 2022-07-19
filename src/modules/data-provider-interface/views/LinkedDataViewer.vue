@@ -18,6 +18,7 @@
 
 <script>
 /* eslint-disable no-extra-boolean-cast, no-plusplus */
+import { mapActions, mapGetters } from 'vuex';
 import axios from 'axios';
 
 export default {
@@ -36,6 +37,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('auth', [
+      'getUserData',
+    ]),
     isLoading() {
       return this.loading;
     },
@@ -44,6 +48,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions('snackbar', [
+      'showSnackbar',
+    ]),
     setupLinkedDataViewer() {
       if (!!this.url) {
         this.loadLinkedData()
@@ -66,7 +73,7 @@ export default {
         const req = this.url;
         axios.get(req, {
           headers: {
-            Authorization: `Bearer ${this.$store.getters['auth/getUserData'].rtpToken}`,
+            Authorization: `Bearer ${this.getUserData.rtpToken}`,
           },
         })
           .then((res) => {
@@ -79,7 +86,7 @@ export default {
     },
     handleCopy(text) {
       navigator.clipboard.writeText(text);
-      this.$store.dispatch('snackbar/showSnackbar', {
+      this.showSnackbar({
         message: 'Text successfully copied',
         variant: 'success',
       });

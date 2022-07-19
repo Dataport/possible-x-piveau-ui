@@ -23,6 +23,7 @@
                 :to="menuItem.to"
                 @click.native="menuItem.handler ? menuItem.handler() : null"
               >
+              {{menuItem.handler}}
                 {{ menuItem.name }}
               </component>
             </button>
@@ -54,9 +55,9 @@
 <script>
 import axios from 'axios';
 import $ from 'jquery';
-import { mapGetters } from 'vuex';
-import { AppLink } from "@/modules";
-import Dropup from './Dropup';
+import { mapGetters, mapActions } from 'vuex';
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
+import Dropup from './components/Dropup';
 
 export default {
   name: 'DPI-menu',
@@ -89,6 +90,9 @@ export default {
     ...mapGetters('auth', [
       'getUserData',
     ]),
+    ...mapGetters('dpiStore', [
+      'getNavSteps',
+    ]),
     menuGroups() {
       return [
         {
@@ -99,8 +103,8 @@ export default {
               name: 'Create Dataset',
               to: {
                 name: 'DataProviderInterface-Input',
-                query: { locale: this.$route.query.locale },
-                params: { property: 'datasets', page: 'step1', createNewDataset: true },
+                query: { locale: this.$route.query.locale, edit: false }, // if edit is false -> reset is triggered
+                params: { property: 'datasets', page: this.getNavSteps.datasets[0] },
               },
             },
             {
@@ -232,10 +236,13 @@ export default {
         && datasetId === this.getID;
     },
   },
-  created() {
-    this.setupKeycloakWatcher();
-  },
   methods: {
+    ...mapActions('auth', [
+      'updateUserData',
+    ]),
+    ...mapActions('snackbar', [
+      'showSnackbar',
+    ]),
     setupKeycloakWatcher() {
       if (this.$keycloak && this.$keycloak.authenticated) {
         // Set up watcher here since we this.$keycloak might not be available.
@@ -243,7 +250,7 @@ export default {
         this.$watch('$keycloak.token', async (newToken) => {
           if (!newToken) return;
 
-          this.$store.dispatch('auth/updateUserData', {
+          this.updateUserData({
             authToken: newToken,
             rtpTokenFn: this.$keycloak.getRtpToken,
             hubUrl: this.$env.api.hubUrl,
@@ -262,7 +269,7 @@ export default {
         await this.$store.dispatch(action, argsObj);
 
         // Successful DOI registration
-        this.$store.dispatch('snackbar/showSnackbar', {
+        this.showSnackbar({
           message: successMessage,
           variant: 'success',
         });
@@ -282,7 +289,7 @@ export default {
 
         const errorMsg = customErrorMessage || maybeErrorStatusMsg || ex.message || 'An error occurred';
         // show snackbar
-        this.$store.dispatch('snackbar/showSnackbar', {
+        this.showSnackbar({
           message: errorMsg,
           variant: 'error',
         });
@@ -311,7 +318,7 @@ export default {
         errorMessage: { prefix: this.$te('message.snackbar.doiRegistration.error') ? this.$t('message.snackbar.doiRegistration.error') : 'Failed to mark dataset as draft' },
       });
 
-      this.$router.push({ name: 'DataProviderInterface-Draft' });
+      this.$router.push({ name: 'DataProviderInterface-Draft' }).catch(() => {});
     },
     async handleDeleteDataset({ id, catalog }) {
       // todo: create user dataset api (and maybe integrate to store)
@@ -323,26 +330,26 @@ export default {
         await axios.delete(`${this.$env.api.hubUrl}datasets/${id}?catalogue=${catalog}`, {
           headers: {
             'Content-Type': 'text/turtle',
-            Authorization: `Bearer ${this.$store.getters['auth/getUserData'].rtpToken}`,
+            Authorization: `Bearer ${this.getUserData.rtpToken}`,
           },
         });
 
         const successMessage = this.$te('message.snackbar.deleteDataset.success') ? this.$t('message.snackbar.deleteDataset.success') : 'Dataset successfully deleted';
 
-        this.$store.dispatch('snackbar/showSnackbar', {
+        this.showSnackbar({
           message: successMessage,
           variant: 'success',
         });
         this.$Progress.finish();
 
         // Redirect to Home
-        this.$router.push({ name: 'Datasets' });
+        this.$router.push({ name: 'Datasets' }).catch(() => {});
       } catch (ex) {
         this.$Progress.fail();
 
         const errorMessage = this.$te('message.snackbar.deleteDataset.error') ? this.$t('message.snackbar.deleteDataset.error') : 'Failed to delete dataset';
 
-        this.$store.dispatch('snackbar/showSnackbar', {
+        this.showSnackbar({
           message: `${errorMessage}${ex.response?.data ? ` — ${ex.response?.data}` : ex.message}`,
           variant: 'error',
         });
@@ -351,6 +358,9 @@ export default {
         $('#DPIMenuModal').modal('hide');
       }
     },
+  },
+  created() {
+    this.setupKeycloakWatcher();
   },
 };
 </script>

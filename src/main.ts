@@ -1,24 +1,19 @@
+// @ts-nocheck
+
 // Import IE Promise polyfill
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import '@babel/polyfill';
 import 'es6-promise/auto';
-// Import jQuery
 import $ from 'jquery';
-// Import vuex-router-sync
 import { sync } from 'vuex-router-sync';
-// Import vue-progressbar
 import VueProgressBar from 'vue-progressbar';
 import VueI18n from 'vue-i18n';
 import VueFormulate from '@braid/vue-formulate';
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-// Import vue-meta
 import Meta from 'vue-meta';
-// Import vue-inject
 import injector from 'vue-inject';
-// Import vee-validate
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
@@ -29,7 +24,6 @@ import UniversalPiwik from '@piveau/piveau-universal-piwik';
 // ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv,
 // } from '@braid/vue-formulate-i18n';
 
-// Import Font Awesome Icons Library for vue
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faGoogle,
@@ -67,14 +61,13 @@ import {
   corsProxyService,
   runtimeConfigurationService,
   registerServices,
-  store
+  store,
+  InfoSlot,
+  ConditionalInput,
+  AutocompleteInput,
+  UniqueIdentifierInput,
+  FileUpload
 } from '@piveau/piveau-hub-ui-modules';
-// import additional custom vueformulate components
-import InfoSlot from './data-provider-interface/components/InfoSlot';
-import ConditionalInput from './data-provider-interface/components/ConditionalInput';
-import AutocompleteInput from './data-provider-interface/components/AutocompleteInput';
-import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
-import FileUpload from './data-provider-interface/components/FileUpload';
 
 Vue.config.devtools = true;
 
@@ -183,6 +176,9 @@ export const i18n = new VueI18n({
   messages: I18N_CONFIG,
   silentTranslationWarn: true,
 });
+
+// Make i18n globally available
+Vue.i18n = i18n;
 
 // Set locale for dateFilters
 dateFilters.setLocale(LOCALE);

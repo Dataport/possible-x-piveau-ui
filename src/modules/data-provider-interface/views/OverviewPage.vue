@@ -7,13 +7,13 @@
         <div class="row">
 
           <!-- DATASET ID -->
-          <div class="col-5 offset-1" v-if="showProperty('datasets', 'datasetID')">
-            <p class="mb-0">Dataset ID: {{ getString('datasets', 'datasetID') }}</p>
+          <div class="col-5 offset-1" v-if="showProperty('datasets', '@id')">
+            <p class="mb-0">Dataset ID: {{ getString('datasets', '@id') }}</p>
           </div>
 
           <!-- CATALOG -->
-          <div class="col-5 offset-1" v-if="showProperty('datasets', 'dcat:Catalog')">
-            <p class="mb-0">Catalog: {{ getString('datasets', 'dcat:Catalog') }}</p>
+          <div class="col-5 offset-1" v-if="showProperty('datasets', 'dct:catalog')">
+            <p class="mb-0">Catalog: {{ getString('datasets', 'dct:catalog') }}</p>
           </div>
         </div>
         <hr>
@@ -48,16 +48,16 @@
           <div class="col-12">
             <div class="row">
               <div class="col-10 offset-1 py-2 text-left">
-                <h2>{{ $t('message.metadata.distributions') }} ({{ getDistributions.length }})</h2>
+                <h2>{{ $t('message.metadata.distributions') }} ({{ values.distributions.length }})</h2>
               </div>
               <ul class="list list-unstyled col-12" v-if="showDistributions">
-                <li class="row" v-for="(distribution, i) in getDistributions" :key="`distribution${i+1}`">
+                <li class="row" v-for="(distribution, i) in getData('distributions')" :key="`distribution${i+1}`">
                   <span class="d-inline-block col-md-1 col-2 pt-3 pr-md-1 pr-0 m-md-0 m-auto">
                     <div v-if="showProperty(`distribution_${i+1}`, 'dct:format')" class="circle float-md-right text-center text-white text-truncate"
-                         :type="getString(`distribution_${i+1}`, 'dct:format').substring(getString(`distribution_${i+1}`, 'dct:format').lastIndexOf('/') + 1)"
-                         :title="getString(`distribution_${i+1}`, 'dct:format').substring(getString(`distribution_${i+1}`, 'dct:format').lastIndexOf('/') + 1)">
+                         :type="getDistributionFormat(distribution)"
+                         :title="getDistributionFormat(distribution)">
                       <span>
-                        {{ truncate(getString(`distribution_${i+1}`, 'dct:format').substring(getString(`distribution_${i+1}`, 'dct:format').lastIndexOf('/') + 1), 4, true) }}
+                        {{ truncate(getDistributionFormat(distribution), 4, true) }}
                       </span>
                     </div>
                     <div v-else class="circle float-md-right text-center text-white text-truncate" type="UNKNOWN" title="UNKNOWN"><span>UNKNOWN</span></div>
@@ -527,7 +527,7 @@
 <script>
 /* eslint-disable no-restricted-syntax,guard-for-in */
 import axios from 'axios';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import {
   has,
   isNil,
@@ -536,13 +536,14 @@ import {
   isArray,
   isObject,
 } from 'lodash';
-import LANGS from '../../../config/langs.json';
-import { AppLink, helpers, dateFilters } from "@/modules";
-const { getTranslationFor, truncate } = helpers;
+import LANGS from '../config/selector-languages.json';
+import { getTranslationFor, truncate } from '../../utils/helpers';
+import AppLink from "@/modules/widgets/AppLink";
+import dateFilters from "@/modules/filters/dateFilters";
 
 export default {
   components: {
-    appLink: AppLink,
+    AppLink
   },
   props: ['property'],
   data() {
@@ -552,22 +553,22 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['getIsEditMode']),
+    ...mapGetters('auth', [
+      'getIsEditMode',
+    ]),
+    ...mapGetters('dpiStore', [
+      'getNumberOfDistributions',
+      'getNavSteps',
+      'getData',
+    ]),
     showDatasetsOverview() {
       return this.$route.params.property === 'datasets' && has(this.values, 'datasets');
     },
     showCatalogsOverview() {
       return this.$route.params.property === 'catalogues' && has(this.values, 'catalogues');
     },
-    getDistributions() {
-      const distributions = Object.keys(this.values)
-        .filter(el => el.startsWith('distribution'))
-        .map(distEl => this.values[distEl])
-        .filter(dist => !isEmpty(dist));
-      return distributions;
-    },
     showDistributions() {
-      return this.getDistributions.length > 0;
+      return this.values.distributions.length > 0;
     },
     showTable() {
       /* eslint-disable semi-style */
@@ -607,6 +608,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions('dpiStore', [
+      'saveExistingJsonld',
+    ]),
     has,
     isNil,
     isEmpty,
@@ -651,36 +655,18 @@ export default {
     getLanguageArray(property, name) {
       return this.values[property][name].filter(el => has(el, '@value') && has(el, '@language'));
     },
+    getDistributionFormat(distribution) {
+      return distribution['dct:format'].substring(distribution['dct:format'].lastIndexOf('/') + 1);
+    },
     getLocalstorageValues() {
-      const values = {};
-      values[this.property] = {};
-      const numberOfDistributions = JSON.parse(localStorage.getItem('numberOfDistributions'));
-
+      this.values[this.property] = this.getData(this.property);
       if (this.property === 'datasets') {
-        for (let distIndex = 1; distIndex <= numberOfDistributions; distIndex += 1) {
-          values[`distribution_${distIndex}`] = {};
-        }
+        this.values['distributions'] = this.getData('distributions');
       }
-      for (const index in Object.keys(localStorage)) {
-        const variableName = Object.keys(localStorage)[index];
-
-        if (variableName.startsWith(`inputValues_${this.property}`)) {
-          if (variableName.includes('distribution')) {
-            for (let subIndex = 1; subIndex <= numberOfDistributions; subIndex += 1) {
-              if (variableName.endsWith(subIndex)) {
-                Object.assign(values[`distribution_${subIndex}`], JSON.parse(localStorage.getItem(variableName)));
-              }
-            }
-          } else {
-            Object.assign(values[this.property], JSON.parse(localStorage.getItem(variableName)));
-          }
-        }
-      }
-      this.values = values;
     },
     checkDatasetMandatory() {
       // Check if mandatory dataset properties are set
-      if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dcat:Catalog')) {
+      if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dct:catalog')) {
         this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'mandatory' } });
       }
     },
@@ -750,19 +736,22 @@ export default {
   },
   created() {
     this.getLocalstorageValues();
-    this.$nextTick(() => {
-      if (this.property === 'datasets') {
-        this.checkDatasetMandatory();
-        this.checkDatasetID();
-        this.cleanupDistributions();
-        this.checkDistributionMandatory();
-      }
+    // this.$nextTick(() => {
+    //   if (this.property === 'datasets') {
+    //     this.checkDatasetMandatory();
+    //     this.checkDatasetID();
+    //     this.cleanupDistributions();
+    //     this.checkDistributionMandatory();
+    //   }
 
-      if (this.property === 'catalogues') {
-        this.checkCatalogueMandatory();
-      }
-    });
+    //   if (this.property === 'catalogues') {
+    //     this.checkCatalogueMandatory();
+    //   }
+    // });
   },
+  mounted() {
+    this.saveExistingJsonld(this.property);
+  }
 };
 </script>
 

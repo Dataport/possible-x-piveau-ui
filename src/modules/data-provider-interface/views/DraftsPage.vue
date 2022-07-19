@@ -47,7 +47,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
-import { AppLink } from "@/modules";
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
 export default {
   props: [],
@@ -70,7 +70,13 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions('auth', ['setIsDraft']),
+    ...mapActions('auth', [
+      'setIsDraft',
+      'updateUserDrafts',
+    ]),
+    ...mapActions('snackbar', [
+      'showSnackbar',
+    ]),
     createLinkedMetricsURL(id, catalog, format) {
       return {
         path: `/dpi/draft/${id}.${format}`,
@@ -83,12 +89,12 @@ export default {
     },
     handleEdit(id, catalog) {
       this.setIsDraft(true);
-      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id } }).catch(() => {return;});
+      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id } }).catch(() => {});
     },
     async handleDelete(id, catalog) {
       await this.doRequest('auth/deleteUserDraftById', { id, catalog });
       $('#draftsModal').modal('hide');
-      this.$store.dispatch('snackbar/showSnackbar', {
+      this.showSnackbar({
         message: 'Draft successfully deleted',
         variant: 'success',
       });
@@ -96,11 +102,11 @@ export default {
     async handlePublish(id, catalog) {
       await this.doRequest('auth/publishUserDraftById', { id, catalog });
       $('#draftsModal').modal('hide');
-      this.$store.dispatch('snackbar/showSnackbar', {
+      this.showSnackbar({
         message: 'Draft successfully published',
         variant: 'success',
       });
-      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: id } });
+      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: id } }).catch(() => {});
     },
     handleConfirmPublish(id, catalog) {
       this.$set(this.modalProps, 'message', 'Are you sure you want to publish this draft?');
@@ -120,7 +126,7 @@ export default {
         this.$Progress.finish();
       } catch (ex) {
         // Show snackbar
-        this.$store.dispatch('snackbar/showSnackbar', {
+        this.showSnackbar({
           message: ex.message,
           color: 'error',
         });
@@ -132,7 +138,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('auth/updateUserDrafts');
+    this.updateUserDrafts();
   },
 };
 </script>

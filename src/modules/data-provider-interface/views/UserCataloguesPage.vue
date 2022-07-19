@@ -16,7 +16,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { AppLink } from "@/modules";
+import { AppLink } from "@piveau/piveau-hub-ui-modules";
 
 export default {
   components: {
@@ -35,8 +35,9 @@ export default {
   },
   methods: {
     // handleEdit(catalog) {
-    //   this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'catalogues' } });
+    //   this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'catalogues' } }).catch(() => {});
     // },
-  }
+  },
+  created() {},
 };
 </script>

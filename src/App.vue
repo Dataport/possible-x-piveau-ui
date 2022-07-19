@@ -23,7 +23,7 @@
           @logout="logout"
           @click-follow-link="handleFollowClick"/>
     </div>
-    <dpiMenu v-if="keycloak && keycloak.authenticated"></dpiMenu>
+    <dpi-menu v-if="keycloak && keycloak.authenticated"></dpi-menu>
 
   </div>
 
@@ -35,7 +35,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { isNumber } from 'lodash';
 import CookieConsent from '@deu/deu-cookie-consent';
 import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
-import DpiMenu from './data-provider-interface/DPI-menu';
+import { DpiMenu } from '@piveau/piveau-hub-ui-modules';
 
 export default {
   name: 'app',

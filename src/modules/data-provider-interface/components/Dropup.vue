@@ -23,17 +23,17 @@
 </template>
 
 <script>
-  export default {
-    name: 'Dropup',
-    props: {
-      groupName: {
-        type: String,
-      },
-      groupItems: {
-        type: Array,
-      },
+export default {
+  name: 'Dropup',
+  props: {
+    groupName: {
+      type: String,
     },
-  };
+    groupItems: {
+      type: Array,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -41,24 +41,3 @@ button.dpi-menu-dropup-btn {
   color:white;
 }
 </style>
-
-
-      <!-- <ul>
-        <li v-for="menuItem in menuItems">
-          <router-link
-            v-if="!menuItem.onlyAuthorizedDatasetPage"
-            :to="menuItem.to">
-            {{ menuItem.name }}
-          </router-link>
-        <router-link
-          v-else
-          :class="{ 'disabled': !isLocatedOnAuthorizedDatasetPage }"
-          :to="isLocatedOnAuthorizedDatasetPage ? menuItem.to : '/'"
-        >
-          {{ menuItem.name }}
-        </router-link>
-        </li>
-        <li>
-          <a href="#" @click="$keycloak && $keycloak.logoutFn('/')">Logout</a>
-        </li>
-      </ul> -->
