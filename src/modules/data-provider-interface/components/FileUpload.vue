@@ -14,6 +14,7 @@
 
 <script>
 /* eslint-disable consistent-return, no-unused-vars */
+import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
 
 export default {
@@ -26,24 +27,41 @@ export default {
   data() {
     return {
       isLoading: false,
-      success: '',
-      fail: '',
-      catalog: JSON.parse(localStorage.getItem('dpi_additional_data')).catalogues,
-      token: this.$store.getters['auth/getUserData'].rtpToken,
+      success: false,
+      fail: false,
     };
   },
+  computed: {
+    ...mapGetters('auth', [
+      'getUserData',
+    ]),
+    ...mapGetters('dpiStore', [
+      'getData',
+    ]),
+    getCatalogue() {
+      const catalog = this.getData('datasets')['dct:catalog'];
+      return catalog;
+    },
+  },
   methods: {
+    ...mapActions('dpiStore', [
+      'saveExistingJsonld',
+    ]),
     async uploadFile(file) {
       this.isLoading = true;
+
       const form = new FormData();
       form.append('file', file);
 
+      const catalog = this.getCatalogue;
+      const token = this.getUserData.rtpToken;
+
       const requestOptions = {
         method: 'POST',
-        url: `${this.$env.api.fileUploadUrl}data?catalog=${this.catalog}`,
+        url: `${this.$env.api.fileUploadUrl}data?catalog=${catalog}`,
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${token}`,
         },
         data: form,
       };
@@ -62,12 +80,15 @@ export default {
       }
     },
   },
+  mounted() {
+    this.saveExistingJsonld('datasets');
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../../styles/bootstrap_theme';
-@import '../../styles/utils/css-animations';
+@import '../../../styles/bootstrap_theme';
+@import '../../../styles/utils/css-animations';
 
 .file-div {
   display: flex;

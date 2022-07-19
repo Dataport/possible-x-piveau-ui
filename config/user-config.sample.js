@@ -1,12 +1,9 @@
-import {
-  // authService,
-  uploadService,
-  datasetService,
-  catalogService,
-  gazetteerService
-} from '@piveau/piveau-hub-ui-modules';
+import datasetService from '../src/piveau-ui-adapter-vhub/datasets';
+import catalogService from '../src/piveau-ui-adapter-vhub/catalogs';
+import gazetteerService from '../src/piveau-ui-adapter-vhub/gazetteer';
+import uploadService from '../src/services/uploads';
+import authService from '../src/auth/authService';
 import i18n from './i18n';
-import languages from './langs.json'
 
 const glueConfig = {
   title: 'data.europa.eu',
@@ -44,7 +41,6 @@ const glueConfig = {
     'verify-token-audience': true,
     'use-resource-role-mappings': true,
     'confidential-port': 0,
-    logoutRedirectUri: '/data',
   },
   rtp: {
     grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
@@ -60,7 +56,7 @@ const glueConfig = {
     datasetService,
     gazetteerService,
     uploadService,
-    // authService,
+    authService,
   },
   themes: {
     header: 'dark',
@@ -80,7 +76,7 @@ const glueConfig = {
         data: {
           show: true,
           sparql: {
-            show: true,
+            show: false,
           },
         },
         maps: {
@@ -359,56 +355,6 @@ const glueConfig = {
     useCreateDatasetButton: true,
     useCreateCatalogueButton: true,
     basePath: '/dpi',
-    // Input Information
-    input: {
-      /********** Stepper Information *********/
-      datasets: {
-        subroutingStep: 'step3',
-        subroutingStepEntry: 'step3/distribution1',
-        steps: [
-          {
-            path: 'step1',
-            subrouting: false,
-          },
-          {
-            path: 'step2',
-            subrouting: false,
-          },
-          {
-            path: 'step3',
-            subrouting: true,
-            children: ['distribution1', 'distribution2', 'distribution3', 'distribution4'],
-          },
-        ],
-      },
-      catalogues: {
-        steps: [
-          {
-            path: 'step1',
-            subrouting: false,
-          },
-          {
-            path: 'step2',
-            subrouting: false,
-          },
-        ],
-      },
-      /********** Source properties *********/
-      // Languages
-      languages: {
-        fetchFromEndpoint: false,
-        endpoint: "",
-        values: languages,
-        needsFormatting: false,
-        formatter: "DataEuropa",
-      },
-    },
-    // Language Information
-    languages: {
-      locale: 'en',
-      fallbackLocale: 'en',
-      translation: i18n,
-    },
   },
   doiRegistrationService: {
     // Can be either 'eu-ra-doi' or 'mock'

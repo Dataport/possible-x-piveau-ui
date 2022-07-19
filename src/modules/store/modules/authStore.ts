@@ -1,13 +1,14 @@
 // @ts-nocheck
+
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
 import { get } from 'lodash';
-import { decode } from '../../utils/jwt';
-import createIdentifiersApi from '../../utils/identifiersApi';
-import createDraftApi from '../../utils/draftApi';
+import createDraftApi from '@/modules/utils/draftApi';
+import createIdentifiersApi from '@/modules/utils/identifiersApi';
+import { decode } from '@/modules/utils/jwt';
 
 let draftApi;
 let identifiersApi;
@@ -202,6 +203,8 @@ const actions = {
       response = await draftApi.publishDatasetDraft({ id, catalogue: catalog, body });
       commit('DELETE_USER_DRAFT', id);
       commit('UPDATE_USER_DATA_SUCCESS');
+      commit('CHANGE_IS_DRAFT', false);
+      commit('CHANGE_IS_EDIT_MODE', false);
     } catch (ex) {
       commit('UPDATE_USER_DATA_ERROR');
       throw ex;
@@ -252,6 +255,9 @@ const actions = {
     }
     return response;
   },
+  populateDraftAndEdit({ commit }) {
+    commit('PREDEFINE_DRAFT_AND_EDIT');
+  }
 };
 
 const mutations = {
@@ -299,10 +305,21 @@ const mutations = {
   },
   CHANGE_IS_EDIT_MODE(state, bool) {
     state.isEditMode = bool;
+    localStorage.setItem('dpi_editmode', bool);
   },
   CHANGE_IS_DRAFT(state, bool) {
     state.isDraft = bool;
+    localStorage.setItem('dpi_draftmode', bool);
   },
+  PREDEFINE_DRAFT_AND_EDIT(state) {
+    const localStorageKeys = Object.keys(localStorage);
+    if (localStorageKeys.includes('dpi_editmode')) {
+      state.isEditMode = JSON.parse(localStorage.getItem('dpi_editmode'));
+    }
+    if (localStorageKeys.includes('dpi_draftmode')) {
+      state.isDraft = JSON.parse(localStorage.getItem('dpi_draftmode'));
+    }
+  }
 };
 
 const module = {

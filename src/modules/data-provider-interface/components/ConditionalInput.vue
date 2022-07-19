@@ -37,70 +37,60 @@ export default {
       inputValues: {},
     };
   },
+  computed: {},
   methods: {
+    /**
+     * Saving changed values to context which will be given to parent form
+     */
     setContext() {
       const dataKey = Object.keys(this.inputValues);
       if (dataKey.length > 0) {
-        // because of the deep nesting spatial should at least provide used vocabulary for later jsonld conversion
-        if (this.context.attributes.name === 'dct:spatial') {
-          if (dataKey[0] !== '@value') {
-            // spatial can be a manual link
-            this.context.model = this.inputValues;
-          } else {
-            // or a value from a vocabulary which must be provided too
-            this.context.model = this.inputValues[dataKey[0]];
-          }
-        } else {
-          this.context.model = this.inputValues[dataKey[0]];
-        }
+        this.context.model = this.inputValues[dataKey[0]];
       }
       this.context.rootEmit('change');
     },
-  },
-  beforeMount() {
-    // if values for conditional inputs are available:
-    // define condition and fill fields
-    if (this.context.model) {
+    fillValues() {
       const semanticName = this.context.attributes.name;
       if (semanticName === 'dct:issued' || semanticName === 'dct:modified') {
         //   // date time includes an 'T' to delimit date and time
         if (this.context.model.includes('T')) {
           this.conditionalValues[this.context.name] = 'datetime';
-          this.inputValues['@value'] = this.context.model.slice(0, 16);
         } else {
           this.conditionalValues[this.context.name] = 'date';
-          this.inputValues['@value'] = this.context.model;
         }
-      } else if (semanticName === 'dct:license' || semanticName === 'dct:publisher') {
-        // either an object containing multiple properties
-        if (typeof this.context.model === 'object') {
-          this.conditionalValues[this.context.name] = 'man';
-          this.inputValues[semanticName] = this.context.model;
-        } else { // or a single URI
-          this.conditionalValues[this.context.name] = 'voc';
-          this.inputValues['@value'] = this.context.model;
-        }
+        this.inputValues = {'@value': this.context.model }; // string with special characters won't be added to empty object anymore
+      // } else if (semanticName === 'dct:license') {
+      //   // either an object containing multiple properties
+      //   if (typeof this.context.model === 'object') {
+      //     this.conditionalValues[this.context.name] = 'man';
+      //     this.inputValues = {'dct:license': this.context.model };
+      //   } else { // or a single URI
+      //     this.conditionalValues[this.context.name] = 'voc';
+      //     this.inputValues = this.context.model;
+      //   }
       } else if (this.context.attributes.identifier === 'accessUrl') {
         this.conditionalValues[this.context.name] = 'url';
-        this.inputValues = { '@value': this.context.model };
+        this.inputValues = { '@id': this.context.model };
       } else if (semanticName === 'dct:spatial') {
-        if (typeof this.context.model !== 'string') {
-          const objectKey = Object.keys(this.context.model)[0];
-          if (objectKey.startsWith('dct:spatial')) {
-            this.conditionalValues[this.context.name] = 'voc';
-            this.inputValues = this.context.model;
-          } else if (objectKey.startsWith('http')) {
-            const vocKey = objectKey.substring(objectKey.lastIndexOf('/') + 1);
-            this.conditionalValues[this.context.name] = vocKey;
-            this.inputValues = this.context.model;
-          }
-        } else {
-          this.conditionalValues[this.context.name] = 'man';
-          this.inputValues = this.context.model;
+
+        // both options return an URI
+        this.conditionalValues[this.context.name] = 'man';
+        this.inputValues = {'@id': this.context.model };
+
+        // TODO: implement display of conditional choice when vocabulary was used
+
+      }
+    },
+  },
+  watch: {
+    context: {
+      handler() {
+        if (this.context.model !== "") {
+          this.fillValues();
         }
       }
     }
-  },
+  }
 };
 </script>
 

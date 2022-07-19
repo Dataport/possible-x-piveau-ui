@@ -1,3 +1,5 @@
+import language from './selector-languages.json';
+
 const dcatapProperties = {
   datasets: {
     datasetID: {
@@ -13,6 +15,7 @@ const dcatapProperties = {
       name: 'dct:description',
       class: 'property grid1r2c',
       repeatable: true,
+      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -27,7 +30,7 @@ const dcatapProperties = {
           identifier: 'language',
           value: 'en',
           type: 'select',
-          options: {},
+          options: language,
           validation: 'required',
           name: '@language',
           class: 'row1 column2',
@@ -41,6 +44,7 @@ const dcatapProperties = {
       name: 'dct:title',
       class: 'property grid1r2c',
       repeatable: true,
+      '@repeatableRemoved': true, 	
       minimum: 1,
       children: [
         {
@@ -56,7 +60,7 @@ const dcatapProperties = {
           value: 'en',
           type: 'select',
           validation: 'required',
-          options: {},
+          options: language,
           name: '@language',
           class: 'row1 column2',
           '@change': true,
@@ -68,6 +72,7 @@ const dcatapProperties = {
       type: 'group',
       name: 'dcat:contactPoint',
       class: 'property',
+      '@repeatableRemoved': true,
       repeatable: true,
       children: [
         {
@@ -97,7 +102,6 @@ const dcatapProperties = {
           identifier: 'contactPointAddress',
           type: 'group',
           name: 'vcard:hasAddress',
-          help: '',
           children: [
             {
               identifier: 'contactPointAddressStreet',
@@ -161,6 +165,7 @@ const dcatapProperties = {
       name: 'dcat:keyword',
       class: 'property grid2r2c',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'keyword',
@@ -175,7 +180,7 @@ const dcatapProperties = {
           type: 'select',
           name: '@language',
           class: 'row1 column2',
-          options: {},
+          options: language,
           '@change': true,
         },
       ],
@@ -195,6 +200,7 @@ const dcatapProperties = {
       class: 'property',
       '@change': true,
       repeatable: true,
+      '@repeatableRemoved': true, 
       options: {
         voc: 'Choose from vocabulary',
         man: 'Manually submit information',
@@ -217,7 +223,7 @@ const dcatapProperties = {
                   identifier: 'spatialContinent',
                   type: 'autocomplete-input',
                   voc: 'continent',
-                  name: 'http://publications.europa.eu/resource/authority/continent',
+                  name: '@id',
                   '@change': true,
                 },
               ],
@@ -226,7 +232,7 @@ const dcatapProperties = {
                   identifier: 'spatialCountry',
                   type: 'autocomplete-input',
                   voc: 'country',
-                  name: 'http://publications.europa.eu/resource/authority/country',
+                  name: '@id',
                   '@change': true,
                 },
               ],
@@ -235,7 +241,7 @@ const dcatapProperties = {
                   identifier: 'spatialPlace',
                   type: 'autocomplete-input',
                   voc: 'place',
-                  name: 'http://publications.europa.eu/resource/authority/place',
+                  name: '@id',
                   '@change': true,
                 },
               ],
@@ -246,7 +252,7 @@ const dcatapProperties = {
           {
             identifier: 'spatial',
             type: 'url',
-            name: '@value',
+            name: '@id',
             validation: 'optional|url',
             '@change': true,
           },
@@ -260,6 +266,7 @@ const dcatapProperties = {
       class: 'property besides',
       '@change': true,
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'temporalStart',
@@ -282,8 +289,6 @@ const dcatapProperties = {
       voc: 'data-theme',
       name: 'dcat:theme',
       class: 'property',
-      help: 'theme',
-      info: 'theme',
       '@change': true,
     },
     accessRights: {
@@ -300,6 +305,7 @@ const dcatapProperties = {
       name: 'dct:creator',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'creatorType',
@@ -339,6 +345,7 @@ const dcatapProperties = {
       name: 'dct:conformsTo',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'conformsToTitle',
@@ -361,6 +368,7 @@ const dcatapProperties = {
       name: 'foaf:page',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'pageTitle',
@@ -405,11 +413,12 @@ const dcatapProperties = {
       name: 'dct:hasVersion',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'hasVersionUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -421,11 +430,12 @@ const dcatapProperties = {
       name: 'dct:isVersionOf',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'isVersionOfUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -434,12 +444,13 @@ const dcatapProperties = {
     source: {
       type: 'group',
       repeatable: true,
+      '@repeatableRemoved': true, 
       identifier: 'source',
       name: 'dct:source',
       class: 'property',
       children: [
         {
-          name: '@value',
+          name: '@id',
           identifier: 'sourceUrl',
           type: 'url',
           validation: 'optional|url',
@@ -453,6 +464,7 @@ const dcatapProperties = {
       name: 'dct:identifier',
       identifier: 'identifier',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'identifier',
@@ -468,11 +480,12 @@ const dcatapProperties = {
       name: 'dct:isReferencedBy',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'isReferencedByUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -484,11 +497,12 @@ const dcatapProperties = {
       name: 'dcat:landingPage',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'landingPageUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -509,6 +523,7 @@ const dcatapProperties = {
       name: 'adms:identifier',
       identifier: 'admsIdentifier',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'admsIdentifierUrl',
@@ -521,7 +536,6 @@ const dcatapProperties = {
           identifier: 'admsIdentifierSkosNotation',
           type: 'group',
           name: 'skos:notation',
-          help: '',
           children: [
             {
               identifier: 'admsIdentifierValue',
@@ -546,6 +560,7 @@ const dcatapProperties = {
       name: 'dct:provenance',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'provenance',
@@ -561,11 +576,12 @@ const dcatapProperties = {
       name: 'prov:qualifiedAttribution',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'qualifiedAttributionUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -577,11 +593,12 @@ const dcatapProperties = {
       name: 'prov:wasGeneratedBy',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'wasGeneratedByUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -593,11 +610,12 @@ const dcatapProperties = {
       name: 'dcat:qualifiedRelation',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'qualifiedRelationUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -609,11 +627,12 @@ const dcatapProperties = {
       name: 'dct:relation',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'relationUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -757,6 +776,7 @@ const dcatapProperties = {
       name: 'adms:versionNotes',
       class: 'property besides',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'versionNotes',
@@ -770,7 +790,7 @@ const dcatapProperties = {
           value: 'en',
           type: 'select',
           name: '@language',
-          options: {},
+          options: language,
           class: 'row1 column2',
           '@change': true,
         },
@@ -779,7 +799,7 @@ const dcatapProperties = {
     catalog: {
       identifier: 'catalog',
       type: 'select',
-      name: 'dcat:Catalog',
+      name: 'dct:catalog',
       class: 'property',
       validation: 'required',
       options: {},
@@ -792,6 +812,7 @@ const dcatapProperties = {
       class: 'property',
       '@change': true,
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           type: 'url',
@@ -803,20 +824,21 @@ const dcatapProperties = {
       ],
     },
   },
-  distribution: {
-    accessUrl: {
+  distributions: {
+    accessURL: {
       identifier: 'accessUrl',
       name: 'dcat:accessURL',
       type: 'group',
       '@change': true,
       repeatable: true,
+      '@repeatableRemoved': true, 
       validation: 'required',
       minimum: 1,
       class: 'property',
       children: [
         {
           identifier: 'accessUrl',
-          name: '@value',
+          name: '@id',
           type: 'conditional-input',
           '@change': true,
           options: { url: 'Provide an URL', file: 'Upload a file' },
@@ -825,7 +847,7 @@ const dcatapProperties = {
               {
                 type: 'url',
                 identifier: 'accessUrl',
-                name: '@value',
+                name: '@id',
                 '@change': true,
                 validation: 'required|url',
               },
@@ -834,7 +856,7 @@ const dcatapProperties = {
               {
                 type: 'fileupload',
                 identifier: 'accessUrl',
-                name: '@value',
+                name: '@id',
                 '@change': true,
                 validation: 'required',
               },
@@ -847,7 +869,7 @@ const dcatapProperties = {
       identifier: 'availability',
       type: 'autocomplete-input',
       voc: 'planned-availability',
-      name: 'dcatap:availability',
+      name: 'dcat:availability',
       class: 'property',
       '@change': true,
     },
@@ -857,6 +879,7 @@ const dcatapProperties = {
       name: 'dct:description',
       class: 'property grid1r2c',
       repeatable: true,
+      '@repeatableRemoved': true, 
       minimum: 1,
       children: [
         {
@@ -870,7 +893,7 @@ const dcatapProperties = {
           identifier: 'language',
           value: 'en',
           type: 'select',
-          options: {},
+          options: language,
           name: '@language',
           class: 'row1 column2',
           '@change': true,
@@ -901,7 +924,7 @@ const dcatapProperties = {
             identifier: 'licence',
             type: 'autocomplete-input',
             voc: 'licence',
-            name: '@value',
+            name: '@id',
             '@change': true,
           },
         ],
@@ -941,6 +964,7 @@ const dcatapProperties = {
       name: 'dct:title',
       class: 'property grid1r2c',
       repeatable: true,
+      '@repeatableRemoved': true, 
       minimum: 1,
       children: [
         {
@@ -954,7 +978,7 @@ const dcatapProperties = {
           identifier: 'language',
           value: 'en',
           type: 'select',
-          options: {},
+          options: language,
           name: '@language',
           class: 'row1 column2',
           '@change': true,
@@ -972,14 +996,15 @@ const dcatapProperties = {
     downloadUrl: {
       type: 'group',
       identifier: 'downloadUrl',
-      repeatabale: true,
+      repeatable: true,
       name: 'dcat:downloadURL',
+      '@repeatableRemoved': true,
       class: 'property',
       children: [
         {
           identifier: 'downloadUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -991,6 +1016,7 @@ const dcatapProperties = {
       name: 'dcat:accessService',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'accessServiceTitle',
@@ -998,8 +1024,8 @@ const dcatapProperties = {
           name: 'dct:title',
           class: 'property besides',
           '@change': true,
-          'add-label': '',
           repeatable: true,
+          '@repeatableRemoved': true, 
           children: [
             {
               identifier: 'title',
@@ -1014,6 +1040,7 @@ const dcatapProperties = {
               type: 'select',
               name: '@language',
               class: 'sub',
+              options: language,
               '@change': true,
             },
           ],
@@ -1024,8 +1051,8 @@ const dcatapProperties = {
           name: 'dct:description',
           class: 'property besides',
           '@change': true,
-          'add-label': '',
           repeatable: true,
+          '@repeatableRemoved': true, 
           children: [
             {
               identifier: 'description',
@@ -1040,6 +1067,7 @@ const dcatapProperties = {
               type: 'select',
               name: '@language',
               class: 'sub',
+              options: language,
               '@change': true,
             },
           ],
@@ -1104,6 +1132,7 @@ const dcatapProperties = {
       name: 'foaf:page',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'pageTitle',
@@ -1139,11 +1168,12 @@ const dcatapProperties = {
       class: 'property',
       name: 'odrl:hasPolicy',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'hasPolicyUrl',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -1154,8 +1184,8 @@ const dcatapProperties = {
       type: 'autocomplete-input',
       multiple: true,
       name: 'dct:language',
+      voc: 'language',
       class: 'property',
-      options: {},
       '@change': true,
     },
     conformsTo: {
@@ -1164,6 +1194,7 @@ const dcatapProperties = {
       name: 'dct:conformsTo',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'conformsToTitle',
@@ -1235,11 +1266,31 @@ const dcatapProperties = {
     },
     rights: {
       identifier: 'rights',
-      type: 'text',
+      type: 'conditional-input',
       name: 'dct:rights',
       class: 'property',
       '@change': true,
-      validation: 'optional',
+      options: { url: 'URL', str: 'String' },
+      data: {
+        url: [
+          {
+            name: 'rdfs:label',
+            identifier: 'url',
+            type: 'url',
+            '@change': true,
+            validation: 'optional|url'
+          }
+        ],
+        str: [
+          {
+            name: 'rdfs:label',
+            identifier: 'str',
+            type: 'text',
+            '@change': true,
+            validation: 'optional'
+          }
+        ]
+      }
     },
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
@@ -1253,16 +1304,18 @@ const dcatapProperties = {
       identifier: 'temporalResolution',
       type: 'group',
       name: 'dcat:temporalResolution',
-      class: 'property besides',
+      class: 'property',
       '@change': true,
       children: [
         {
+          identifier: 'temporalResolutionYear',
           type: 'number',
           min: 0,
           '@change': true,
           name: 'Year',
         },
         {
+          identifier: 'temporalResolutionMonth',
           type: 'number',
           min: 0,
           max: 12,
@@ -1270,6 +1323,7 @@ const dcatapProperties = {
           name: 'Month',
         },
         {
+          identifier: 'temporalResolutionDay',
           type: 'number',
           min: 0,
           max: 31,
@@ -1277,6 +1331,7 @@ const dcatapProperties = {
           name: 'Day',
         },
         {
+          identifier: 'temporalResolutionHour',
           type: 'number',
           min: 0,
           max: 23,
@@ -1284,6 +1339,7 @@ const dcatapProperties = {
           name: 'Hour',
         },
         {
+          identifier: 'temporalResolutionMinute',
           type: 'number',
           min: 0,
           max: 59,
@@ -1291,6 +1347,7 @@ const dcatapProperties = {
           name: 'Minute',
         },
         {
+          identifier: 'temporalResolutionSecond',
           type: 'number',
           min: 0,
           max: 59,
@@ -1323,6 +1380,7 @@ const dcatapProperties = {
       name: 'dct:title',
       class: 'property grid1r2c',
       repeatable: true,
+      '@repeatableRemoved': true, 
       minimum: 1,
       children: [
         {
@@ -1338,7 +1396,7 @@ const dcatapProperties = {
           value: 'en',
           type: 'select',
           validation: 'required',
-          options: {},
+          options: language,
           name: '@language',
           class: 'row1 column2',
           '@change': true,
@@ -1351,6 +1409,7 @@ const dcatapProperties = {
       name: 'dct:description',
       class: 'property grid1r2c',
       repeatable: true,
+      '@repeatableRemoved': true, 
       minimum: 1,
       children: [
         {
@@ -1365,7 +1424,7 @@ const dcatapProperties = {
           identifier: 'language',
           value: 'en',
           type: 'select',
-          options: {},
+          options: language,
           validation: 'required',
           name: '@language',
           class: 'row1 column2',
@@ -1406,7 +1465,7 @@ const dcatapProperties = {
             identifier: 'licence',
             type: 'autocomplete-input',
             voc: 'licence',
-            name: '@value',
+            name: '@id',
             class: 'main',
             '@change': true,
           },
@@ -1452,6 +1511,7 @@ const dcatapProperties = {
       class: 'property',
       '@change': true,
       repeatable: true,
+      '@repeatableRemoved': true, 
       options: {
         voc: 'Choose from vocabulary',
         man: 'Manually submit information',
@@ -1462,7 +1522,7 @@ const dcatapProperties = {
             identifier: 'spatialContinent',
             type: 'autocomplete-input',
             voc: 'continent',
-            name: 'http://publications.europa.eu/resource/authority/continent',
+            name: '@id',
             class: 'main',
             '@change': true,
           },
@@ -1470,7 +1530,7 @@ const dcatapProperties = {
             identifier: 'spatialCountry',
             type: 'autocomplete-input',
             voc: 'country',
-            name: 'http://publications.europa.eu/resource/authority/country',
+            name: '@id',
             class: 'main',
             '@change': true,
           },
@@ -1478,7 +1538,7 @@ const dcatapProperties = {
             identifier: 'spatialPlace',
             type: 'autocomplete-input',
             voc: 'place',
-            name: 'http://publications.europa.eu/resource/authority/place',
+            name: '@id',
             class: 'main',
             '@change': true,
           },
@@ -1487,7 +1547,7 @@ const dcatapProperties = {
           {
             identifier: 'spatial',
             type: 'url',
-            name: '@value',
+            name: '@id',
             class: 'main',
             validation: 'optional|url',
             '@change': true,
@@ -1509,11 +1569,12 @@ const dcatapProperties = {
       name: 'dct:hasPart',
       class: 'property',
       repeatable: true,
+      '@repeatableRemoved': true, 
       children: [
         {
           identifier: 'hasPartURL',
           type: 'url',
-          name: '@value',
+          name: '@id',
           validation: 'optional|url',
           '@change': true,
         },
@@ -1529,11 +1590,31 @@ const dcatapProperties = {
     },
     rights: {
       identifier: 'rights',
-      type: 'url',
+      type: 'conditional-input',
       name: 'dct:rights',
       class: 'property',
-      validation: 'optional|url',
       '@change': true,
+      options: { url: 'URL', str: 'String' },
+      data: {
+        url: [
+          {
+            name: 'rdfs:label',
+            identifier: 'url',
+            type: 'url',
+            '@change': true,
+            validation: 'optional|url'
+          }
+        ],
+        str: [
+          {
+            name: 'rdfs:label',
+            identifier: 'str',
+            type: 'text',
+            '@change': true,
+            validation: 'optional'
+          }
+        ]
+      }
     },
     catalog: {
       type: 'group',
@@ -1556,6 +1637,7 @@ const dcatapProperties = {
       type: 'group',
       name: 'dct:creator',
       repeatable: true,
+      '@repeatableRemoved': true, 
       class: 'property',
       children: [
         {

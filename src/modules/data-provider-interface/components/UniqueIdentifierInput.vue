@@ -66,7 +66,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['getIsEditMode']),
+    ...mapGetters('auth', [
+      'getIsEditMode',
+    ]),
   },
   methods: {
     populateID() {

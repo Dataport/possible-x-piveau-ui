@@ -61,14 +61,13 @@ import {
   corsProxyService,
   runtimeConfigurationService,
   registerServices,
-  store
+  store,
+  InfoSlot,
+  ConditionalInput,
+  AutocompleteInput,
+  UniqueIdentifierInput,
+  FileUpload
 } from '@piveau/piveau-hub-ui-modules';
-// import additional custom vueformulate components
-import InfoSlot from './data-provider-interface/components/InfoSlot';
-import ConditionalInput from './data-provider-interface/components/ConditionalInput';
-import AutocompleteInput from './data-provider-interface/components/AutocompleteInput';
-import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
-import FileUpload from './data-provider-interface/components/FileUpload';
 
 Vue.config.devtools = true;
 
@@ -177,6 +176,9 @@ export const i18n = new VueI18n({
   messages: I18N_CONFIG,
   silentTranslationWarn: true,
 });
+
+// Make i18n globally available
+Vue.i18n = i18n;
 
 // Set locale for dateFilters
 dateFilters.setLocale(LOCALE);

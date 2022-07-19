@@ -27,7 +27,7 @@
           :key="i"
           class="selected-value">
           {{ selectedValue.name }}
-          <span aria-hidden="true" class="delete-selected-value" @click="deleteValue(selectedValue.resrouce)">&times;</span>
+          <span aria-hidden="true" class="delete-selected-value" @click="deleteValue(selectedValue.resource)">&times;</span>
         </span>
       </div>
     </div>
@@ -36,9 +36,8 @@
 
 <script>
 /* eslint-disable,arrow-parens,no-param-reassign, no-lonely-if, no-await-in-loop */
-import axios from 'axios';
-import { helpers } from '@/modules';
-const { getTranslationFor } = helpers;
+import { mapActions } from 'vuex';
+import { getTranslationFor } from '../../utils/helpers';
 
 export default {
   props: {
@@ -65,89 +64,59 @@ export default {
       values: [],
     };
   },
+  computed: {
+    filteredAutocompleteSuggestions() {
+      if (this.autocomplete.selected) return [];
+      return this.autocomplete.suggestions.slice(0, 10);
+    },
+  },
   methods: {
+    ...mapActions('dpiStore', [
+      'requestFirstEntrySuggestions',
+      'requestAutocompleteSuggestions',
+      'requestResourceName',
+    ]),
+    getTranslationFor,
     deleteValue(value) {
-      const index = this.values.indexOf(value);
-      this.values.splice(index, 1);
-      this.context.model = this.values.map(dataset => dataset.resource);
+      this.values = this.values.filter(dataset => dataset.resource !== value);
+      this.context.model = this.values.filter(dataset => dataset.resource !== value).map(dataset => dataset.resource);
       this.autocomplete.text = '';
       this.context.rootEmit('change');
     },
-    getTranslationFor,
     focusAutocomplete() {
       this.autocomplete.selected = false;
       this.autocomplete.text = '';
       this.getAutocompleteSuggestions();
     },
+    clearAutocompleteSuggestions() {
+      this.autocomplete.suggestions = [];
+    },
+    hideSuggestions() {
+      this.autocomplete.selected = true;
+    },
     getAutocompleteSuggestions() {
-      // Clear old suggestions
+      let voc = this.voc;
+      let text = this.autocomplete.text;
+
       this.clearAutocompleteSuggestions();
 
-      // Show first 10 entries of vocabulary if text empty
       if (this.autocomplete.text.length <= 1) {
-        this.requestFirstEntrySuggestions()
+        this.requestFirstEntrySuggestions(voc)
           .then((response) => {
             const results = response.data.result.results.map((r) => ({ name: getTranslationFor(r.pref_label, this.$i18n.locale, []), resource: r.resource }));
             this.autocomplete.suggestions = results;
           });
       } else {
-        // Request Autocompletion Suggestions
-        this.requestAutocompleteSuggestions()
+        this.requestAutocompleteSuggestions({ voc, text })
           .then((response) => {
             const results = response.data.result.results.map((r) => ({ name: getTranslationFor(r.pref_label, this.$i18n.locale, []), resource: r.resource }));
             this.autocomplete.suggestions = results;
           });
       }
-    },
-    // TODO: Move into DPI store
-    requestFirstEntrySuggestions() {
-      const vocabulary = this.voc;
-      return new Promise((resolve, reject) => {
-        const req = `${this.$env.api.baseUrl}search?filter=vocabulary&vocabulary=${vocabulary}&autocomplete=true`;
-        axios.get(req)
-          .then((res) => {
-            resolve(res);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-    // TODO: Move into DPI store
-    requestAutocompleteSuggestions() {
-      const vocabulary = this.voc;
-      return new Promise((resolve, reject) => {
-        const input = this.autocomplete.text;
-        const req = `${this.$env.api.baseUrl}search?filter=vocabulary&vocabulary=${vocabulary}&autocomplete=true&q=${input}`;
-        axios.get(req)
-          .then((res) => {
-            resolve(res);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-    requestResourceName(resource) {
-      const value = resource.substring(resource.lastIndexOf('/') + 1);
-      let req;
-      if (this.voc === 'iana-media-types' || this.voc === 'spdx-checksum-algorithm') {
-        req = `${this.$env.api.baseUrl}/vocabularies/${this.voc}`;
-      } else {
-        req = `${this.$env.api.baseUrl}/vocabularies/${this.voc}/${value}`;
-      }
-      return new Promise((resolve, reject) => {
-        axios.get(req)
-          .then((res) => {
-            resolve(res);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
     },
     handleAutocompleteSuggestions(suggestion) {
       this.autocomplete.selected = true;
+
       if (this.multiple) {
         if (!this.values.map(dataset => dataset.resource).includes(suggestion.resource)) {
           this.values.push(suggestion);
@@ -161,49 +130,34 @@ export default {
       this.context.rootEmit('change');
     },
     async getResourceName(resource) {
-      const preValues = { name: '', resource: '' };
-      await this.requestResourceName(resource).then((response) => {
-        let result;
-        if (this.voc === 'iana-media-types' || this.voc === 'spdx-checksum-algorithm') {
-          result = response.data.result.results.filter(dataset => dataset.resource === resource).map(dataset => dataset.pref_label)[0].en;
-        } else {
-          result = getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
-        }
+      let preValues = { name: '', resource: '' };
+      let vocMatch = this.voc === 'iana-media-types' || this.voc === 'spdx-checksum-algorithm';
+      await this.requestResourceName({ voc: this.voc, resource }).then((response) => {
+        let result = vocMatch
+          ? response.data.result.results.filter(dataset => dataset.resource === resource).map(dataset => dataset.pref_label)[0].en
+          : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
         preValues.name = result;
         preValues.resource = resource;
       });
       return preValues;
     },
-    clearAutocompleteSuggestions() {
-      this.autocomplete.suggestions = [];
-    },
-    hideSuggestions() {
-      this.autocomplete.selected = true;
-    },
     async handleValues() {
-      if (Array.isArray(this.context.model)) {
-        for (let index = 0; index < this.context.model.length; index += 1) {
-          const result = await this.getResourceName(this.context.model[index]);
-          this.values.push(result);
-          this.autocomplete.text = result.name;
-        }
-      } else if (this.context.model !== '') {
-        if (this.multiple) {
-          const result = await this.getResourceName(this.context.model);
-          this.values.push(result);
-          this.autocomplete.text = result.name;
+      if (this.context.model !== "") {
+        // multiple autocomplete input provides always an array of values
+        if (Array.isArray(this.context.model)) {
+          const newValues = [];
+          for (let index = 0; index < this.context.model.length; index += 1) {
+            const result = await this.getResourceName(this.context.model[index]);
+            newValues.push(result);
+            this.autocomplete.text = result.name;
+          }
+          this.values = newValues;
         } else {
-          const valueName = await this.getResourceName(this.context.model);
-          this.autocomplete.text = valueName.name;
-          // this.context.model = this.context.model;
+          // singular autocomplete always provides a single value
+          const result = await this.getResourceName(this.context.model);
+          this.autocomplete.text = result.name;
         }
       }
-    },
-  },
-  computed: {
-    filteredAutocompleteSuggestions() {
-      if (this.autocomplete.selected) return [];
-      return this.autocomplete.suggestions.slice(0, 10);
     },
   },
   directives: {
@@ -219,8 +173,13 @@ export default {
       },
     },
   },
-  beforeMount() {
-    this.handleValues();
+  watch: {
+    // context contains predefined values from parent form which need to be filled in for edit purpose
+    context: {
+      async handler() {
+        await this.handleValues();
+      },
+    },
   },
 };
 </script>
