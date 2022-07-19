@@ -18,7 +18,7 @@ import namespacedKeys from '../../data-provider-interface/config/dcatap-namespac
 // jsonld context for DCAT-AP
 import context from '../../data-provider-interface/config/context.json';
 // general configurations
-import { glueConfig as GLUE_CONFIG } from '../../../../config/user-config';
+// import { glueConfig as GLUE_CONFIG } from '../../../../config/user-config';
 
 // property types for jsonld and form input groupes by special format
 import dcataptypes from '../../data-provider-interface/config/dcatap-jsonld-types';
@@ -387,7 +387,7 @@ const actions = {
       const datasetData = {...context, ...state[property]};
 
       // @id has to be an Url
-      datasetData['@id'] = `${GLUE_CONFIG.api.hubUrl}${state[property]['@id']}`;
+      datasetData['@id'] = `${Vue.prototype.$env.api.hubUrl}${state[property]['@id']}`;
 
       dispatch('removeEmptyEntries', datasetData);
       jsonld.push(datasetData);
@@ -405,7 +405,7 @@ const actions = {
       jsonld = {...context, ...state[property]};
 
       // @id has to be an Url
-      state[property]['@id'] = `${GLUE_CONFIG.api.hubUrl}${state[property]['@id']}`;
+      state[property]['@id'] = `${Vue.prototype.$env.api.hubUrl}${state[property]['@id']}`;
 
       dispatch('removeEmptyEntries', jsonld);
     }
@@ -697,7 +697,7 @@ const mutations = {
     }
     const newDistribution = jsonlddefinitions.distributions;
     // give distribution random id (which must be a link)
-    newDistribution['@id'] = `${GLUE_CONFIG.api.hubUrl}distribution/${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20)}`;
+    newDistribution['@id'] = `${Vue.prototype.$env.api.hubUrl}distribution/${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20)}`;
     state.distributions.push(newDistribution);
 
     // add id to distributions array within datasets

@@ -56,14 +56,12 @@
 import axios from 'axios';
 import $ from 'jquery';
 import { mapGetters, mapActions } from 'vuex';
-import { AppLink } from "@piveau/piveau-hub-ui-modules";
 import Dropup from './components/Dropup';
 
 export default {
   name: 'DPI-menu',
   components: {
-    AppLink,
-    Dropup,
+    Dropup
   },
   props: [],
   data() {
