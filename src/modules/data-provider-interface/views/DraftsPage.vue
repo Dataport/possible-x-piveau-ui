@@ -47,12 +47,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
-import { AppLink } from "@piveau/piveau-hub-ui-modules";
+import AppLink from "@/modules/widgets/AppLink";
 
 export default {
   props: [],
   components: {
-    appLink: AppLink,
+    AppLink
   },
   data() {
     return {

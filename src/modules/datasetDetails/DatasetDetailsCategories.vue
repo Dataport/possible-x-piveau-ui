@@ -21,8 +21,7 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash';
-  import * as helpers from '../utils/helpers';
-  const { getTranslationFor } = helpers;
+  import { getTranslationFor } from '../utils/helpers';
   import AppLink from "../widgets/AppLink.vue";
 
   export default {

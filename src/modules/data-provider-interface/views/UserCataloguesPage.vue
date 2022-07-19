@@ -16,11 +16,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { AppLink } from "@piveau/piveau-hub-ui-modules";
+import AppLink from "@/modules/widgets/AppLink";
 
 export default {
   components: {
-    AppLink,
+    AppLink
   },
   name: 'MyCatalogues',
   props: [],
