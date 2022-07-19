@@ -1,24 +1,19 @@
+// @ts-nocheck
+
 // Import IE Promise polyfill
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import '@babel/polyfill';
 import 'es6-promise/auto';
-// Import jQuery
 import $ from 'jquery';
-// Import vuex-router-sync
 import { sync } from 'vuex-router-sync';
-// Import vue-progressbar
 import VueProgressBar from 'vue-progressbar';
 import VueI18n from 'vue-i18n';
 import VueFormulate from '@braid/vue-formulate';
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-// Import vue-meta
 import Meta from 'vue-meta';
-// Import vue-inject
 import injector from 'vue-inject';
-// Import vee-validate
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
@@ -29,7 +24,6 @@ import UniversalPiwik from '@piveau/piveau-universal-piwik';
 // ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv,
 // } from '@braid/vue-formulate-i18n';
 
-// Import Font Awesome Icons Library for vue
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faGoogle,

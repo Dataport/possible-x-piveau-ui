@@ -17,9 +17,7 @@
         </div>
         <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></datasets-facets>
         <section class="col-md-9 col-12">
-
           <datasets-filters />
-
           <div class="alert alert-primary mt-3 d-flex flex-row"
               :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
             <div>
@@ -44,8 +42,9 @@
           </div>
           -->
           <selectedFacetsOverview
-          v-if="getFacets"
-          :selected-facets="getFacets"/>
+            v-if="getFacets"
+            :selected-facets="getFacets"
+          />
           <template v-if="!getLoading">
             <pv-data-info-box
               v-for="dataset in getDatasets"
