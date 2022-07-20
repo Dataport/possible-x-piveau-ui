@@ -1,26 +1,26 @@
 <template>
-    <div class="form-container">
-      <slot></slot>
-      <div class="inputContainer" v-if="isInput">
-        <div class="formContainer formulate">
-          <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields" @submit="handleSubmit"
-          @change="saveToJsonld({property: property, values: formValues, distid: id})"
-          @repeatableRemoved="saveToJsonld({property: property, values: formValues, distid: id})">
-            <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
-          </FormulateForm>
-          <FormulateInput type="hidden" class="display-none"></FormulateInput>
-        </div>
-        <InfoBox class="infoContainer"></InfoBox>
+  <div class="form-container">
+    <slot></slot>
+    <div class="inputContainer" v-if="isInput">
+      <div class="formContainer formulate">
+        <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields" @submit="handleSubmit"
+        @change="saveToJsonld({property: property, values: formValues, distid: id})"
+        @repeatableRemoved="saveToJsonld({property: property, values: formValues, distid: id})">
+          <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
+        </FormulateForm>
+        <FormulateInput type="hidden" class="display-none"></FormulateInput>
       </div>
-      <div v-if="isDistributionOverview">
-        <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
-      </div>
-      <ValidationModal :failedFields="failedFields"></ValidationModal>
-      <!-- not the prettiest way but calling it within navigation component seems quiet complicated -->
-      <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
-        {{ mandatoryModal.message }}
-      </app-confirmation-dialog>
+      <InfoBox class="infoContainer"></InfoBox>
     </div>
+    <div v-if="isDistributionOverview">
+      <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
+    </div>
+    <ValidationModal :failedFields="failedFields"></ValidationModal>
+    <!-- not the prettiest way but calling it within navigation component seems quiet complicated -->
+    <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
+      {{ mandatoryModal.message }}
+    </app-confirmation-dialog>
+  </div>
 </template>
 
 <script>
@@ -165,6 +165,7 @@ export default {
   },
   mounted() {
     if (this.page !== 'overview' && this.page !== 'distoverview') {
+      console.log(this.getUserCatalogIds);
       this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
       this.saveExistingJsonld(this.property);
       this.saveToForm({property: this.property, page: this.page, distid: this.id }).then((response) => {
@@ -179,6 +180,11 @@ export default {
       handler() {
         // only create id from title if the user is not editing an existing dataset with an existing datasetID
         if (!this.getIsEditMode) this.createDatasetID();
+      },
+    },
+    getUserCatalogIds: {
+      handler() {
+        this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
       },
     },
     // the schema is a computed value which gets computed only once so on language change this value must be re-computed
