@@ -66,8 +66,18 @@ import {
   ConditionalInput,
   AutocompleteInput,
   UniqueIdentifierInput,
-  FileUpload
+  FileUpload,
+  configureModules
 } from '@piveau/piveau-hub-ui-modules';
+
+// Custom facet component:
+
+// import Facet from "./Facet.vue";
+configureModules({
+  components: {
+    // Facet
+  }
+})
 
 Vue.config.devtools = true;
 
