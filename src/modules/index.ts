@@ -69,7 +69,9 @@ import InfoSlot from './data-provider-interface/components/InfoSlot';
 import AutocompleteInput from './data-provider-interface/components/AutocompleteInput';
 import ConditionalInput from './data-provider-interface/components/ConditionalInput';
 import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
+import FileUpload from './data-provider-interface/components/FileUpload';
 
+import { configureModules } from "./configurations/configureModules";
 
 export {
   AppLink,
@@ -139,7 +141,10 @@ export {
   InfoSlot,
   AutocompleteInput,
   ConditionalInput,
-  UniqueIdentifierInput
+  UniqueIdentifierInput,
+  FileUpload,
+
+  configureModules
 };
 
 // @ts-ignore

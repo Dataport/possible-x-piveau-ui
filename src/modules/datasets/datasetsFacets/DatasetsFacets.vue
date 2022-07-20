@@ -5,7 +5,6 @@
         <datasets-facet-map
           :showCatalogDetails="showCatalogDetails"
         />
-        <!-- CATALOG DETAILS -->
         <catalog-details-facet
           v-if="showCatalogDetails"
           :catalog="catalog"
@@ -15,8 +14,8 @@
         <div class="row facet-field mb-3" v-if="!showCatalogDetails">
           <facet
             :header="$t('message.datasetFacets.settings')"
-            :items="[]"
             :toolTipTitle="$t('message.helpIcon.settings')"
+            :items="[]"
             class="col pr-0"
           >
             <template #after>
@@ -123,7 +122,7 @@ import {
   isNil,
   isNumber,
 } from 'lodash';
-import Facet from '../../facets/Facet.vue';
+// import Facet from '../../facets/Facet.vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsFacetMap from "@/modules/datasets/datasetsFacets/DatasetsFacetMap";
@@ -134,8 +133,8 @@ export default {
   dependencies: ['catalogService'],
   components: {
     CatalogDetailsFacet,
+    // Facet,
     DatasetsFacetMap,
-    Facet,
     DatasetsFacetsItem,
   },
   props: {

@@ -32,11 +32,11 @@
       <template v-if="items && items.length > 0">
         <div
           class="list-item-container"
-          v-for="(items, index) in items.slice(0, numItemsAllowed)"
+          v-for="(item, index) in items.slice(0, numItemsAllowed)"
           :key="`field@${index}`"
         >
           <slot
-            :item="items"
+            :item="item"
             :index="index"
           />
         </div>
