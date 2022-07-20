@@ -12,13 +12,19 @@ function translateProperty(propertyDefinition, property) {
     const propertyName = propertyDefinition.identifier;
 
     for (let valueIndex = 0; valueIndex < translatableParameters.length; valueIndex += 1) {
+        let translation = propertyName;
         const parameter = translatableParameters[valueIndex];
-
-        // only set translation when parameter not already there and if translation exists
         const translationExsists = Vue.i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
-        if (!has(property, parameter) && translationExsists) {
-          propertyDefinition[parameter] = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
-        }
+
+        // Check if translation exists
+        // if (!has(property, parameter) && translationExsists) {
+        //   translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
+        // }
+
+        // Highlight mandatory fields
+        if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') translation = `${translation}*`
+
+        propertyDefinition[parameter] = translation;
     }
 }
 
