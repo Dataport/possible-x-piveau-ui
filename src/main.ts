@@ -60,7 +60,6 @@ import {
   bulkDownloadCorsProxyService ,
   corsProxyService,
   runtimeConfigurationService,
-  registerServices,
   store,
   InfoSlot,
   ConditionalInput,
@@ -70,16 +69,31 @@ import {
   configureModules
 } from '@piveau/piveau-hub-ui-modules';
 
-// Custom facet component:
+Vue.config.devtools = true;
+
+Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
+const env = Vue.prototype.$env;
 
 // import Facet from "./Facet.vue";
 configureModules({
-  components: {
-    // Facet
+  // components: {
+  //   Facet
+  // },
+  services: GLUE_CONFIG.services,
+  serviceParams: {
+    baseUrl: env.api.baseUrl,
+    qualityBaseUrl: env.api.qualityBaseUrl,
+    similarityBaseUrl: env.api.similarityBaseUrl,
+    gazetteerBaseUrl: env.api.gazetteerBaseUrl,
+    hubUrl: env.api.hubUrl,
+    keycloak: env.keycloak,
+    rtp: env.rtp,
+    useAuthService: env.useAuthService,
+    authToken: env.api.authToken,
+    defaultScoringFacets: env.datasets.facets.scoringFacets.defaultScoringFacets,
   }
-})
+});
 
-Vue.config.devtools = true;
 
 Vue.component('InfoSlot', InfoSlot);
 Vue.component('ConditionalInput', ConditionalInput);
@@ -136,16 +150,11 @@ Vue.use(VueFormulate, {
   },
 });
 
-// Runtimeconfig setup
-Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
+Vue.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
 
-// Corsproxy setup
-Vue.use(corsProxyService, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
+Vue.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
 
-// Bulk Download hotfix setup
-Vue.use(bulkDownloadCorsProxyService, GLUE_CONFIG, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
-
-const { isPiwikPro, siteId, trackerUrl } = Vue.prototype.$env.tracker;
+const { isPiwikPro, siteId, trackerUrl } = env.tracker;
 Vue.use(UniversalPiwik, {
   router,
   isPiwikPro,
@@ -175,8 +184,8 @@ Vue.use(UniversalPiwik, {
 
 
 // Configured language
-const LOCALE = Vue.prototype.$env.languages.locale;
-const FALLBACKLOCALE = Vue.prototype.$env.languages.fallbackLocale;
+const LOCALE = env.languages.locale;
+const FALLBACKLOCALE = env.languages.fallbackLocale;
 
 Vue.use(VueI18n);
 // eslint-disable-next-line
@@ -242,9 +251,6 @@ Vue.use(DeuHeaderFooter);
 
 Vue.use(VuePositionSticky);
 
-// Services setup
-registerServices(Vue.prototype.$env, GLUE_CONFIG);
-
 // Sync store and router
 sync(store, router);
 
@@ -275,8 +281,8 @@ const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeo
 const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
   Vue.use(vueKeycloak, {
     config: {
-      rtp: Vue.prototype.$env.rtp,
-      ...Vue.prototype.$env.keycloak,
+      rtp: env.rtp,
+      ...env.keycloak,
     },
     init: {
       ...window.Cypress && { checkLoginIframe: !window.Cypress },
@@ -304,7 +310,7 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
 // Attempt to load Vue with Keycloak using recover mechanism
 (async () => {
-  if (!Vue.prototype.$env.useAuthService) {
+  if (!env.useAuthService) {
     createVueApp().$mount('#app');
     return {};
   }

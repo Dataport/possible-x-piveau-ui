@@ -32,6 +32,7 @@
 import AppLink from "@/modules/widgets/AppLink";
 import SubNavigation from "@/modules/navigation/SubNavigation";
 import {mapGetters} from "vuex";
+
 export default {
   name: "DataSetsTopControls",
   components: {SubNavigation, AppLink},
@@ -42,7 +43,8 @@ export default {
   ],
   data() {
     return {
-      useFeed: this.$env.datasets.useFeed
+      useFeed: this.$env.datasets.useFeed,
+      baseUrl: this.$env.api.baseUrl,
     }
   },
   computed: {
@@ -74,6 +76,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
