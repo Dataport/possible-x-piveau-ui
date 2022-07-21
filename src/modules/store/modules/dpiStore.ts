@@ -46,6 +46,7 @@ const state = {
 
 const getters = {
   getSchema(state) {
+    console.log('GET SCHEMA');
     return state.schema;
   },
   getData: (state) => (property) => {
@@ -285,6 +286,7 @@ const actions = {
    * @param {*} param1 Object containing curren tproperty (datasets/catalogues) and all catalog options the user has permissions for
    */
   addCatalogOptions({ commit }, {property, catalogs}) {
+    console.log('ADD CATALOGUE OPTIONS');
     commit('saveCatalogOptions', {property, catalogs});
   },
   /**
@@ -551,7 +553,7 @@ const mutations = {
     }
   },
   /**
-   * Saves all catalog the current user has permissions for as options within the schema
+   * Saves all catalogs the current user has permissions for as options within the schema
    * @param {*} state
    * @param {*} param1 Object containing current property and the users catalog options
    */

@@ -17,8 +17,8 @@ const glueConfig = {
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
     similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
-    hubUrl: 'https://data.europa.eu/api/hub/repo/',
-    // hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    // hubUrl: 'https://data.europa.eu/api/hub/repo/',
+    hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     catalogBaseUrl: 'https://europeandataportal.eu/',
     authToken: '',
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
@@ -148,13 +148,18 @@ const glueConfig = {
       ],
     },
     facets: {
-      useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
-      useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
+      // Enable / Disable the facets on the Datasets page
+      useDatasetFacets: true,
+      // Enable / Disable the map on the Datasets page
+      useDatasetFacetsMap: true,
       defaultFacetOrder: ['dataScope', 'country', 'catalog', 'categories', 'publisher', 'keywords', 'dataServices', 'scoring', 'format', 'license'],
       scoringFacets: {
-        useScoringFacets: true, // Enable / Disable the scoring facets
-        defaultMinScore: 0, // Set the default mininimum score, the value should be one of the below listed minScores
-        defaultScoringFacets: { // Set the properties of the scoring facets
+        // Enable / Disable the scoring facets
+        useScoringFacets: true,
+        // Set the default mininimum score, the value should be one of the below listed minScores
+        defaultMinScore: 0,
+        // Set the properties of the scoring facets
+        defaultScoringFacets: {
           excellentScoring: {
             id: 'excellentScoring',
             title: 'Excellent',
