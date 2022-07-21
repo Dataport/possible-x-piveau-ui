@@ -42,7 +42,8 @@ export default {
   ],
   data() {
     return {
-      useFeed: this.$env.datasets.useFeed
+      useFeed: this.$env.datasets.useFeed,
+      baseUrl: this.$env.api.baseUrl,
     }
   },
   computed: {
@@ -52,6 +53,7 @@ export default {
   },
   methods: {
     getFeedLink(format) {
+      console.log("BLAAA", this.baseUrl, this.$route.query.locale)
       return `${this.baseUrl}${this.$route.query.locale}/feeds/datasets.${format}`;
     },
     getFeedQuery() {
@@ -74,6 +76,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
