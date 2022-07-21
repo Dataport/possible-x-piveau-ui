@@ -1,12 +1,15 @@
 .DS_Store
 node_modules
-/dist
-/storage
+dist
+storage
 
-/tests/unit/coverage
-/tests/e2e/reports
-/tests/e2e/screenshots
-/tests/e2e/videos
+config/*.env.js
+config/user-config.js
+
+tests/unit/coverage
+tests/e2e/reports
+tests/e2e/screenshots
+tests/e2e/videos
 
 # local env files
 .env.local
@@ -27,5 +30,4 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-/config/*.env.js
-/config/user-config.js
+

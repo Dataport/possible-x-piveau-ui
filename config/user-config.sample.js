@@ -1,20 +1,19 @@
 import {
-  // authService,
   uploadService,
   datasetService,
   catalogService,
   gazetteerService
 } from '@piveau/piveau-hub-ui-modules';
+
 import i18n from './i18n';
-import languages from './langs.json'
 
 const glueConfig = {
   title: 'data.europa.eu',
   description: 'data.europa.eu',
   keywords: 'DEU',
   api: {
-    baseUrl: 'https://data.europa.eu/api/hub/search/',
-    // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    // baseUrl: 'https://data.europa.eu/api/hub/search/',
+    baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
     similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
@@ -59,8 +58,7 @@ const glueConfig = {
     catalogService,
     datasetService,
     gazetteerService,
-    uploadService,
-    // authService,
+    uploadService
   },
   themes: {
     header: 'dark',
@@ -80,7 +78,7 @@ const glueConfig = {
         data: {
           show: true,
           sparql: {
-            show: true,
+            show: false,
           },
         },
         maps: {
@@ -150,18 +148,13 @@ const glueConfig = {
       ],
     },
     facets: {
-      // Enable / Disable the facets on the Datasets page
-      useDatasetFacets: true,
-      // Enable / Disable the map on the Datasets page
-      useDatasetFacetsMap: true,
+      useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
+      useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
       defaultFacetOrder: ['dataScope', 'country', 'catalog', 'categories', 'publisher', 'keywords', 'dataServices', 'scoring', 'format', 'license'],
       scoringFacets: {
-        // Enable / Disable the scoring facets
-        useScoringFacets: true,
-        // Set the default mininimum score, the value should be one of the below listed minScores
-        defaultMinScore: 0,
-        // Set the properties of the scoring facets
-        defaultScoringFacets: {
+        useScoringFacets: true, // Enable / Disable the scoring facets
+        defaultMinScore: 0, // Set the default mininimum score, the value should be one of the below listed minScores
+        defaultScoringFacets: { // Set the properties of the scoring facets
           excellentScoring: {
             id: 'excellentScoring',
             title: 'Excellent',
@@ -359,56 +352,6 @@ const glueConfig = {
     useCreateDatasetButton: true,
     useCreateCatalogueButton: true,
     basePath: '/dpi',
-    // Input Information
-    input: {
-      /********** Stepper Information *********/
-      datasets: {
-        subroutingStep: 'step3',
-        subroutingStepEntry: 'step3/distribution1',
-        steps: [
-          {
-            path: 'step1',
-            subrouting: false,
-          },
-          {
-            path: 'step2',
-            subrouting: false,
-          },
-          {
-            path: 'step3',
-            subrouting: true,
-            children: ['distribution1', 'distribution2', 'distribution3', 'distribution4'],
-          },
-        ],
-      },
-      catalogues: {
-        steps: [
-          {
-            path: 'step1',
-            subrouting: false,
-          },
-          {
-            path: 'step2',
-            subrouting: false,
-          },
-        ],
-      },
-      /********** Source properties *********/
-      // Languages
-      languages: {
-        fetchFromEndpoint: false,
-        endpoint: "",
-        values: languages,
-        needsFormatting: false,
-        formatter: "DataEuropa",
-      },
-    },
-    // Language Information
-    languages: {
-      locale: 'en',
-      fallbackLocale: 'en',
-      translation: i18n,
-    },
   },
   doiRegistrationService: {
     // Can be either 'eu-ra-doi' or 'mock'

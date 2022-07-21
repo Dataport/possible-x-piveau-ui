@@ -17,16 +17,17 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'vue/no-mutating-props': 'off',
-    // 'vue/no-use-v-if-with-v-for': 'off',
-    // 'vue/no-unused-components': 'off',
-    // 'vue/require-valid-default-prop': 'off',
-    // 'vue/require-v-for-key': 'off',
-    // 'vue/no-duplicate-attributes': 'off',
-    // 'no-constant-condition': 'off',
-    // 'no-unused-vars': 'off',
-    // '@typescript-eslint/no-this-alias': 'off',
-    // '@typescript-eslint/no-empty-function': 'off',
-    // 'vue/no-side-effects-in-computed-properties': 'off'
+
+    'vue/no-use-v-if-with-v-for': 'off',
+    'vue/no-unused-components': 'off',
+    'vue/require-valid-default-prop': 'off',
+    'vue/require-v-for-key': 'off',
+    'vue/no-duplicate-attributes': 'off',
+    'no-constant-condition': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-this-alias': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    'vue/no-side-effects-in-computed-properties': 'off'
   },
   overrides: [
     {

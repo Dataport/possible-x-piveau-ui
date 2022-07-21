@@ -1,24 +1,19 @@
+// @ts-nocheck
+
 // Import IE Promise polyfill
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import '@babel/polyfill';
 import 'es6-promise/auto';
-// Import jQuery
 import $ from 'jquery';
-// Import vuex-router-sync
 import { sync } from 'vuex-router-sync';
-// Import vue-progressbar
 import VueProgressBar from 'vue-progressbar';
 import VueI18n from 'vue-i18n';
 import VueFormulate from '@braid/vue-formulate';
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
-// Import vue-meta
 import Meta from 'vue-meta';
-// Import vue-inject
 import injector from 'vue-inject';
-// Import vee-validate
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
@@ -29,7 +24,6 @@ import UniversalPiwik from '@piveau/piveau-universal-piwik';
 // ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv,
 // } from '@braid/vue-formulate-i18n';
 
-// Import Font Awesome Icons Library for vue
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faGoogle,
@@ -66,17 +60,40 @@ import {
   bulkDownloadCorsProxyService ,
   corsProxyService,
   runtimeConfigurationService,
-  registerServices,
-  store
+  store,
+  InfoSlot,
+  ConditionalInput,
+  AutocompleteInput,
+  UniqueIdentifierInput,
+  FileUpload,
+  configureModules
 } from '@piveau/piveau-hub-ui-modules';
-// import additional custom vueformulate components
-import InfoSlot from './data-provider-interface/components/InfoSlot';
-import ConditionalInput from './data-provider-interface/components/ConditionalInput';
-import AutocompleteInput from './data-provider-interface/components/AutocompleteInput';
-import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
-import FileUpload from './data-provider-interface/components/FileUpload';
 
 Vue.config.devtools = true;
+
+Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
+const env = Vue.prototype.$env;
+
+// import Facet from "./Facet.vue";
+configureModules({
+  // components: {
+  //   Facet
+  // },
+  services: GLUE_CONFIG.services,
+  serviceParams: {
+    baseUrl: env.api.baseUrl,
+    qualityBaseUrl: env.api.qualityBaseUrl,
+    similarityBaseUrl: env.api.similarityBaseUrl,
+    gazetteerBaseUrl: env.api.gazetteerBaseUrl,
+    hubUrl: env.api.hubUrl,
+    keycloak: env.keycloak,
+    rtp: env.rtp,
+    useAuthService: env.useAuthService,
+    authToken: env.api.authToken,
+    defaultScoringFacets: env.datasets.facets.scoringFacets.defaultScoringFacets,
+  }
+});
+
 
 Vue.component('InfoSlot', InfoSlot);
 Vue.component('ConditionalInput', ConditionalInput);
@@ -133,16 +150,11 @@ Vue.use(VueFormulate, {
   },
 });
 
-// Runtimeconfig setup
-Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
+Vue.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
 
-// Corsproxy setup
-Vue.use(corsProxyService, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
+Vue.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
 
-// Bulk Download hotfix setup
-Vue.use(bulkDownloadCorsProxyService, GLUE_CONFIG, Vue.prototype.$env.api.vueAppCorsproxyApiUrl);
-
-const { isPiwikPro, siteId, trackerUrl } = Vue.prototype.$env.tracker;
+const { isPiwikPro, siteId, trackerUrl } = env.tracker;
 Vue.use(UniversalPiwik, {
   router,
   isPiwikPro,
@@ -172,8 +184,8 @@ Vue.use(UniversalPiwik, {
 
 
 // Configured language
-const LOCALE = Vue.prototype.$env.languages.locale;
-const FALLBACKLOCALE = Vue.prototype.$env.languages.fallbackLocale;
+const LOCALE = env.languages.locale;
+const FALLBACKLOCALE = env.languages.fallbackLocale;
 
 Vue.use(VueI18n);
 // eslint-disable-next-line
@@ -183,6 +195,9 @@ export const i18n = new VueI18n({
   messages: I18N_CONFIG,
   silentTranslationWarn: true,
 });
+
+// Make i18n globally available
+Vue.i18n = i18n;
 
 // Set locale for dateFilters
 dateFilters.setLocale(LOCALE);
@@ -236,9 +251,6 @@ Vue.use(DeuHeaderFooter);
 
 Vue.use(VuePositionSticky);
 
-// Services setup
-registerServices(Vue.prototype.$env, GLUE_CONFIG);
-
 // Sync store and router
 sync(store, router);
 
@@ -269,8 +281,8 @@ const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeo
 const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
   Vue.use(vueKeycloak, {
     config: {
-      rtp: Vue.prototype.$env.rtp,
-      ...Vue.prototype.$env.keycloak,
+      rtp: env.rtp,
+      ...env.keycloak,
     },
     init: {
       ...window.Cypress && { checkLoginIframe: !window.Cypress },
@@ -298,7 +310,7 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
 // Attempt to load Vue with Keycloak using recover mechanism
 (async () => {
-  if (!Vue.prototype.$env.useAuthService) {
+  if (!env.useAuthService) {
     createVueApp().$mount('#app');
     return {};
   }
