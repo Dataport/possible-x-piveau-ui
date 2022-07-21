@@ -7,7 +7,7 @@ const defaultComponents: ComponentMap = {
   Facet
 };
 
-export function configureComponents(components: ComponentMap) {
+export function configureComponents(components?: ComponentMap) {
   const allComponents: ComponentMap = { ...defaultComponents, ...components };
   const componentKeys: string[] = Object.keys(allComponents );
   componentKeys.forEach((key: string) => {

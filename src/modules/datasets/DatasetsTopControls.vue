@@ -32,6 +32,7 @@
 import AppLink from "@/modules/widgets/AppLink";
 import SubNavigation from "@/modules/navigation/SubNavigation";
 import {mapGetters} from "vuex";
+
 export default {
   name: "DataSetsTopControls",
   components: {SubNavigation, AppLink},
@@ -53,7 +54,6 @@ export default {
   },
   methods: {
     getFeedLink(format) {
-      console.log("BLAAA", this.baseUrl, this.$route.query.locale)
       return `${this.baseUrl}${this.$route.query.locale}/feeds/datasets.${format}`;
     },
     getFeedQuery() {
