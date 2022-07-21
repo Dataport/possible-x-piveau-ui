@@ -40,7 +40,7 @@
             class="col pr-0"
             v-slot="{ item: facet }"
           >
-            <dataset-facets-item
+            <datasets-facets-item
               class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"
               :title="getFacetTranslation(field.id, facet.id, $route.query.locale, facet.title)"
               :count="getFacetCount(field, facet)"
@@ -63,14 +63,14 @@
     isNil,
   } from 'lodash';
   import Facet from '../facets/Facet.vue';
-  import DatasetFacetsItem from '../datasets/DatasetFacetsItem.vue';
+  import DatasetsFacetsItem from '../datasets/datasetsFacets/DatasetsFacetsItem.vue';
   import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../utils/helpers';
 
   export default {
     name: 'catalogueFacets',
     components: {
       Facet,
-      DatasetFacetsItem
+      DatasetsFacetsItem
     },
     data() {
       return {
@@ -227,10 +227,7 @@
           this.$router.replace({ query: Object.assign({}, this.$route.query, { facetGroupOperator }) });
         },
       },
-    },
-    created() {},
-    mounted() {
-    },
+    }
   };
 </script>
 

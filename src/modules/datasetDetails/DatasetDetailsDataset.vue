@@ -126,6 +126,7 @@
       :displayedDistributions="displayedDistributions"
       :isDistributionsAllDisplayed="isDistributionsAllDisplayed"
       :distributions="distributions"
+      :setDistributionsDisplayCount="setDistributionsDisplayCount"
       :pages="pages"
       :showDownloadUrls="showDownloadUrls"
       :isOnlyOneUrl="isOnlyOneUrl"
@@ -1308,7 +1309,8 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+  // @ts-nocheck
   /* eslint-disable no-confusing-arrow, no-nested-ternary, no-return-assign, no-confusing-arrow */
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
@@ -1352,14 +1354,14 @@
             vmid: 'description',
             content: (this.getDescription
               ? `${this.getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages.map(lang => lang.id))}`
-              : `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages.map(lang => lang.id))}`).substr(0, 4999),
+              : `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages.map(lang => lang.id))}`).substring(0, 4999),
           },
           {
             name: 'keywords',
             vmid: 'keywords',
             content: isNil(this.getKeywords) || this.getKeywords === 0
               ? ''
-              : this.getKeywords.map(k => k.title).join(' ').substr(0, 4999),
+              : this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
           },
           {
             name: 'subject',
@@ -1725,6 +1727,9 @@
       truncate,
       removeMailtoOrTel,
       replaceHttp,
+      setDistributionsDisplayCount(count: number) {
+        this.distributions.displayCount = count;
+      },
       openModal(callback, toggleDownloadPopup) {
         this.$refs.externalResourceModal.openModal(callback, toggleDownloadPopup)
       },
@@ -1862,9 +1867,9 @@
 
         // https://schema.org/Dataset
         payload.name = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
-        payload.name = payload.name ? payload.name.substr(0, 4999) : payload.name;
+        payload.name = payload.name ? payload.name.substring(0, 4999) : payload.name;
         payload.description = this.getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages);
-        payload.description = payload.description ? payload.description.substr(0, 4999) : payload.description;
+        payload.description = payload.description ? payload.description.substring(0, 4999) : payload.description;
         payload.license = this.getSchemaOfFirstAvailableLicense();
         payload.spatialCoverage = this.getSchemaOfSpatialCoverage(this.getSpatial);
         payload.identifier = this.getOtherIdentifiers;
@@ -1878,8 +1883,8 @@
         // https://schema.org/DataCatalog
         payload.catalog = {
           '@type': 'DataCatalog',
-          name: this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages).substr(0, 4999),
-          description: this.getTranslationFor(this.getCatalog.description, this.$route.query.locale, this.getLanguages).substr(0, 4999),
+          name: this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages)?.substring(0, 4999),
+          description: this.getTranslationFor(this.getCatalog.description, this.$route.query.locale, this.getLanguages)?.substring(0, 4999),
           publisher: this.getCatalog.publisher,
           url: this.getCatalog.homepage,
           inLanguage: isArray(this.getCatalog.language) ? this.getCatalog.language[0] : this.getCatalog.language,
@@ -2346,48 +2351,46 @@
         return ''
       },
     },
-    created() {
+    mounted() {
       this.useService(this.DatasetService);
-      this.$nextTick(() => {
-        this.$Progress.start();
-        this.loadingDatasetDetails = true;
-        this.loadDatasetDetails(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-            this.loadingDatasetDetails = false;
-            this.datasetSchema = this.getSchemaOrg();
-            this.piwikMetaPush();
-            this.$nextTick(() => {
-            // Display/hide translation banners
-              this.setTranslationBanners();
-              $('[data-toggle="tooltip"]').tooltip({
-                container: 'body',
-              });
-            });
-          })
-          .catch((err) => {
-            console.warn(err); // eslint-disable-line
-            this.$Progress.fail();
-            this.$router.replace({
-              name: 'NotFound',
-              query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+      this.$Progress.start();
+      this.loadingDatasetDetails = true;
+      this.loadDatasetDetails(this.$route.params.ds_id)
+        .then(() => {
+          this.$Progress.finish();
+          this.loadingDatasetDetails = false;
+          this.datasetSchema = this.getSchemaOrg();
+          this.piwikMetaPush();
+          this.$nextTick(() => {
+          // Display/hide translation banners
+            this.setTranslationBanners();
+            $('[data-toggle="tooltip"]').tooltip({
+              container: 'body',
             });
           });
-        this.loadQualityData(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-          })
-          .catch(() => {
-            this.$Progress.fail();
+        })
+        .catch((err) => {
+          console.warn(err); // eslint-disable-line
+          this.$Progress.fail();
+          this.$router.replace({
+            name: 'NotFound',
+            query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
           });
-        this.loadQualityDistributionData(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-          })
-          .catch(() => {
-            this.$Progress.fail();
-          });
-      });
+        });
+      this.loadQualityData(this.$route.params.ds_id)
+        .then(() => {
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+      this.loadQualityDistributionData(this.$route.params.ds_id)
+        .then(() => {
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
       this.$root.$on('date-incorrect', () => {
         this.dateIncorrect = true;
       });
@@ -2433,8 +2436,6 @@
       }
 
       if (this.dataServices.displayAll) this.dataServices.displayCount = this.getDataServices.length;
-    },
-    mounted() {
     },
     beforeDestroy() {
       $('.tooltip').remove();

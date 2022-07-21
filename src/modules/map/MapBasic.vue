@@ -101,7 +101,6 @@
         },
       },
     },
-    created() {},
     mounted() {
       this.map = this.initMap();
       this.map.on('resize', () => {

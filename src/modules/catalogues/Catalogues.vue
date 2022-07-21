@@ -2,7 +2,7 @@
   <div class="container-fluid catalogs content">
     <h1 class="row col-12 page-title text-primary">{{ $t('message.header.navigation.data.catalogs') }}</h1>
     <div class="row">
-      <catalog-facets v-if="useCatalogFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0"></catalog-facets>
+      <catalogues-facets v-if="useCatalogFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0"></catalogues-facets>
       <section class="col-md col-12">
         <div class="filters-group">
           <div class="row">
@@ -174,7 +174,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { debounce, has } from 'lodash';
   import fileTypes from '../utils/fileTypes';
-  import CatalogFacets from './CatalogueFacets.vue';
+  import CataloguesFacets from './CataloguesFacets.vue';
   import Pagination from '../widgets/Pagination.vue';
   import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
   import dateFilters from '../filters/dateFilters';
@@ -186,11 +186,10 @@
     name: 'catalogs',
     dependencies: ['catalogService'],
     components: {
-      selectedFacetsOverview: SelectedFacetsOverview,
+      SelectedFacetsOverview,
       PvDataInfoBox,
-      catalogFacets: CatalogFacets,
-      pagination: Pagination,
-      subNavigation: SubNavigation,
+      CataloguesFacets,
+      Pagination
     },
     props: {
       infiniteScrolling: {
@@ -349,7 +348,7 @@
             this.autocompleteData.suggestions = displayedSuggestions;
             this.autocompleteData.show = query.length !== 0;
           })
-          .catch(() => {});
+          .catch(error => { console.log(error); });
       },
       handleSuggestionSelection(suggestion) {
         this.$router.push({ path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` });
@@ -472,8 +471,6 @@
           .catch(() => this.$Progress.fail());
       });
       if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
-    },
-    mounted() {
     },
     beforeDestroy() {
       $('.tooltip').remove();

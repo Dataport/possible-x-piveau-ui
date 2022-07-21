@@ -82,6 +82,7 @@
     <fading-distribution-overlay
       v-if="fading"
       :distributions="distributions"
+      :setDistributionsDisplayCount="setDistributionsDisplayCount"
       :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
       :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
       :getDistributions="getDistributions"
@@ -96,10 +97,6 @@ import {
   isNil
 } from 'lodash';
 import { truncate } from '../../utils/helpers';
-import Tooltip from "@/modules/widgets/Tooltip";
-import Dropdown from "@/modules/widgets/Dropdown";
-import AppLink from "@/modules/widgets/AppLink";
-import ResourceAccessPopup from "@/modules/widgets/ResourceAccessPopup";
 import LinkedDataButtonsDropdown
   from "@/modules/datasetDetails/distributions/LinkedDataButtonsDropdown";
 import DistributionDownload from "@/modules/datasetDetails/distributions/DistributionDownload";
@@ -127,18 +124,15 @@ export default {
     DistributionExpand,
     DistributionOptionsDropdown,
     DistributionDownload,
-    LinkedDataButtonsDropdown,
-    Tooltip,
-    Dropdown,
-    AppLink,
-    ResourceAccessPopup
+    LinkedDataButtonsDropdown
   },
   props: {
     fading: Boolean,
     distribution: Object,
+    distributions: Object,
+    setDistributionsDisplayCount: Function,
     openModal: Function,
     getDistributions: Array,
-    distributions: Object,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,

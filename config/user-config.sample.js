@@ -44,6 +44,7 @@ const glueConfig = {
     'verify-token-audience': true,
     'use-resource-role-mappings': true,
     'confidential-port': 0,
+    logoutRedirectUri: '/data',
   },
   rtp: {
     grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
@@ -79,7 +80,7 @@ const glueConfig = {
         data: {
           show: true,
           sparql: {
-            show: false,
+            show: true,
           },
         },
         maps: {

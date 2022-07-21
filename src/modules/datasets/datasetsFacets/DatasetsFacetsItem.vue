@@ -10,7 +10,7 @@
 <script>
 
 export default {
-  name: 'DatasetFacetsItem',
+  name: 'DatasetsFacetsItem',
   data() {
     return {
       tooltip: '',

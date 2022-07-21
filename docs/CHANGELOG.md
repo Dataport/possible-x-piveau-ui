@@ -1,3 +1,61 @@
+## [1.0.3-develop.3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.3-develop.2...v1.0.3-develop.3) (2022-07-13)
+
+
+### Bug Fixes
+
+* this is a test for semantic-release ([57125d1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/57125d123c6648007fd454af1a5b7fa3169ebc21))
+
+## [1.0.3-develop.2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.3-develop.1...v1.0.3-develop.2) (2022-07-13)
+
+
+### Bug Fixes
+
+* substr replaced by substring and several safeguards implemented ([821f257](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/821f257a28b60124b6182a14cda162bacaf5f0e5))
+
+## [1.0.3-develop.1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2...v1.0.3-develop.1) (2022-07-13)
+
+
+### Bug Fixes
+
+* showcatalogdetails watching simplified ([8bbb747](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/8bbb7478ce88f497c01d09007b354d7c56235af0))
+
+## [1.0.2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.1...v1.0.2) (2022-07-13)
+
+
+### Bug Fixes
+
+* activate most linting properties again ([5c366e2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/5c366e2392f7b75f65b739988388c7860c08dc20))
+* activated catalogue watcher ([91a3a0c](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/91a3a0c2688507a9c012b8d5abeb4e99fafc517d))
+* add dpiStore ([5bc8a18](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/5bc8a18b90a38899b0f8346d3b0d8369240f015e))
+* mutation of prop in FadingDistributionOverlay.vue ([f853f49](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/f853f49ec5cd5618abca94de2365ce5a3e63c43c))
+* simplified catalog watching in DatasetsFacets.vue ([0e70be3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/0e70be3c81ce287a72ba1b9d893ae08fe151e968))
+* vue/no-unused-components linting active again ([979a75a](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/979a75a7db67f553c92df2d9eb31309907025f05))
+* yasgui initialization ([72ec058](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/72ec058c704b80a96b1480ed80faa79cf14b1d8d))
+
+## [1.0.2-develop.3](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2-develop.2...v1.0.2-develop.3) (2022-07-13)
+
+
+### Bug Fixes
+
+* activated catalogue watcher ([91a3a0c](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/91a3a0c2688507a9c012b8d5abeb4e99fafc517d))
+
+## [1.0.2-develop.2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.2-develop.1...v1.0.2-develop.2) (2022-07-12)
+
+
+### Bug Fixes
+
+* activate most linting properties again ([5c366e2](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/5c366e2392f7b75f65b739988388c7860c08dc20))
+* mutation of prop in FadingDistributionOverlay.vue ([f853f49](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/f853f49ec5cd5618abca94de2365ce5a3e63c43c))
+* vue/no-unused-components linting active again ([979a75a](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/979a75a7db67f553c92df2d9eb31309907025f05))
+
+## [1.0.2-develop.1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.1...v1.0.2-develop.1) (2022-07-12)
+
+
+### Bug Fixes
+
+* add dpiStore ([5bc8a18](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/5bc8a18b90a38899b0f8346d3b0d8369240f015e))
+* yasgui initialization ([72ec058](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/commit/72ec058c704b80a96b1480ed80faa79cf14b1d8d))
+
 ## [1.0.1](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-modules/compare/v1.0.0...v1.0.1) (2022-07-08)
 
 

@@ -1,5 +1,7 @@
 # piveau-hub-ui-modules
 
+> Please use node version >= 14. Recommended is version 17.
+
 This is a space to develop Vanilla piveau-hub-ui components. 
 This project can be published as an npm package to our npm registry
 which can then be used in Piveau based projects to import the
@@ -29,7 +31,7 @@ The workflow is as follows:
   * When a new version should be published, increase the version number in `package.json` and run `npm run deploy` (you have to be logged into our paca npm registry)
 
 In order for imports from `@piveau/piveau-hub-ui-modules` in the test-app to work, that package must be accessible in the node_modules folder.
-There are two ways to get achieve this:
+There are two ways to achieve this:
 
   1. Executing `npm run link-module` creates a symlink to the `src/modules` folder in node_modules.
   2. Executing `npm run localdeploy` creates a compiled version of the modules folder in `dist` and copies it into node_modules`.

@@ -9,7 +9,6 @@ import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
 // Import vue-progressbar
 import VueProgressBar from 'vue-progressbar';
-// Import vue-i18n
 import VueI18n from 'vue-i18n';
 import VueFormulate from '@braid/vue-formulate';
 // The Vue build version to load with the `import` command
@@ -176,7 +175,6 @@ Vue.use(UniversalPiwik, {
 const LOCALE = Vue.prototype.$env.languages.locale;
 const FALLBACKLOCALE = Vue.prototype.$env.languages.fallbackLocale;
 
-// Vue-i18n setup
 Vue.use(VueI18n);
 // eslint-disable-next-line
 export const i18n = new VueI18n({
@@ -263,7 +261,8 @@ const createVueApp = () => {
 };
 
 // Promise that timeouts after x seconds
-const wait = ms => new Promise((resolve, reject) => setTimeout(() => {
+let waitTimeoutHandle;
+const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeout(() => {
   reject(new Error(`Keycloak failed to load after a timeout of ${ms} ms`));
 }, ms));
 
@@ -278,8 +277,11 @@ const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
       onLoad: 'check-sso',
       silentCheckSsoRedirectUri: `${window.location.origin}${process.env.buildconf.BASE_PATH}static/silent-check-sso.html`,
     },
-    onReady: resolve,
-    onInitError: reject,
+    onReady: () => {
+      resolve();
+      if (waitTimeoutHandle) clearTimeout(waitTimeoutHandle);
+    },
+    onInitError: reject
   });
 });
 
