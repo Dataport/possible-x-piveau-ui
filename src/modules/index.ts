@@ -51,6 +51,8 @@ import AutocompleteInput from './data-provider-interface/components/Autocomplete
 import ConditionalInput from './data-provider-interface/components/ConditionalInput';
 import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
 import FileUpload from './data-provider-interface/components/FileUpload';
+import DatePicker from './data-provider-interface/components/DatePicker';
+import DateTimePicker from './data-provider-interface/components/DateTimePicker';
 
 import { configureModules } from "./configurations/configureModules";
 
@@ -105,6 +107,8 @@ export {
   ConditionalInput,
   UniqueIdentifierInput,
   FileUpload,
+  DatePicker,
+  DateTimePicker,
 
   configureModules
 };
