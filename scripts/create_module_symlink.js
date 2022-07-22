@@ -5,9 +5,9 @@ try {
   fs.symlinkSync("../../src/modules/", target, "dir");
   console.log("Module symlink created in node_modules");
 } catch(ex) {
-  console.log("Failed to create symlink in node_modules.")
+  console.error("Failed to create symlink in node_modules.")
   if (process.platform === "win32") { // Operating under MS Windows
-    console.log("You need to execute this script as ADMIN.");
+    console.error("You need to execute this script as ADMIN.");
   }
 }
 
