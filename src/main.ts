@@ -66,6 +66,8 @@ import {
   AutocompleteInput,
   UniqueIdentifierInput,
   FileUpload,
+  DatePicker,
+  DateTimePicker,
   configureModules
 } from '@piveau/piveau-hub-ui-modules';
 
@@ -100,6 +102,8 @@ Vue.component('ConditionalInput', ConditionalInput);
 Vue.component('AutocompleteInput', AutocompleteInput);
 Vue.component('UniqueIdentifierInput', UniqueIdentifierInput);
 Vue.component('FileUpload', FileUpload);
+Vue.component('DatePicker', DatePicker);
+Vue.component('DateTimePicker', DateTimePicker);
 
 // Vue.component('AppToast', AppToast);
 Vue.component('AppSnackbar', AppSnackbar);
@@ -146,6 +150,14 @@ Vue.use(VueFormulate, {
     'unique-identifier-input': {
       classification: 'text',
       component: 'UniqueIdentifierInput',
+    },
+    'date-picker': {
+      classification: 'date',
+      component: 'DatePicker',
+    },
+    'datetime-picker': {
+      classification: 'datetime-local',
+      component: 'DateTimePicker',
     },
   },
 });
