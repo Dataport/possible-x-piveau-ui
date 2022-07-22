@@ -1,6 +1,36 @@
 # Contributing to piveau-hub-ui-modules
 
-As a contributor, here are the guidelines to follow.
+## Module development
+
+We are developing an npm package named `@piveau/piveau-hub-ui-modules`
+Component development takes place in the `src/modules` folder and
+all components that should be part of our npm package must be
+exported from there.
+
+The rest of the source code (outside `src/modules`) is a test app, which is a copy of Data Europa
+Piveau-Hub-UI and can be run with `npm run serve`. The basic idea is to take parts from
+the test app and isolate them in `src/modules`, then import them back into the test
+app just like you would from the published package:
+
+```
+import { MyComponent } from '@piveau/piveau-hub-ui-modules';
+```
+
+The workflow is as follows:
+
+* Develop your component in `src/modules`
+* Export the component in `src/modules/index.ts`
+* Import the component in the test app from `@piveau/piveau-hub-ui-modules`
+* When a new version should be published, do ONE of the following:
+  * Merge your feature branch into the develop branch. The CI will create a new version on the registry that can be imported as
+    `npm install @piveau/piveau-hub-ui-modules@develop`.
+  * Merge the develop branch into master. The CI will create a new version on the registry that can be imported as
+    `npm install @piveau/piveau-hub-ui-modules`.
+  * Increase the version number in `package.json` and run `npm run deploy` (you have to be logged into our paca npm registry).
+    THIS IS GENERALLY NOT RECOMMENDED! USE THE CI MECHANISM!
+  
+Note that by the CI, NO new version of the modules is published if there are no fixes, new features or branking changes in the commits 
+(see below how to indicate such changes in you commit messages).
 
 ## Branches
 
@@ -13,17 +43,6 @@ This allows us for a flow very similar to the git-flow:
 * it is recommended to first implement  test code changes on the `develop` branch and then merging it into `master` when ready.
 * Issues/tickets should be worked on dedicated branches (and merged into `develop`/`master` when ready)
 
-## Coding rules
-
-### Source code
-
-To ensure consistency and quality throughout the source code, all code modifications must have:
-- No [linting](#lint) errors
-- A [test](#tests) for every possible case introduced by your code change
-- **100%** test coverage
-- [Valid commit message(s)](#commit-message-guidelines)
-- Documentation for new features
-- Updated documentation for modified features
 
 ### Commit message guidelines
 
