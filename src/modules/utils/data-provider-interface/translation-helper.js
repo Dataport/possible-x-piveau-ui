@@ -17,14 +17,13 @@ function translateProperty(propertyDefinition, property) {
         const translationExsists = Vue.i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
 
         // Check if translation exists
-        // if (!has(property, parameter) && translationExsists) {
-        //   translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
-        // }
+        if (!has(property, parameter) && translationExsists) {
+          translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
+          propertyDefinition[parameter] = translation;
+        }
 
         // Highlight mandatory fields
         if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') translation = `${translation}*`
-
-        propertyDefinition[parameter] = translation;
     }
 }
 
