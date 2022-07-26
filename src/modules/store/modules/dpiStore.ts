@@ -606,7 +606,16 @@ const mutations = {
       }
 
       if (property === 'datasets' && normalKeyName === 'distribution') {
-        storedata['dcat:distribution'] = data[normalKeyName];
+        // backend provided either String or array of strings but we need the distribution ids as URIs
+        const distributionIds = data[normalKeyName];
+        if (typeof distributionIds === 'string') {
+          storedata['dcat:distribution'] = [{'@id': distributionIds}];
+        } else if (Array.isArray(distributionIds)) {
+          storedata['dcat:distribution'] = [];
+          for (let index = 0; index < distributionIds.length; index += 1) {
+            storedata['dcat:distribution'][index] = {'@id': distributionIds[index]};
+          }
+        }
       }
 
       if (property === 'distributions') {
