@@ -104,6 +104,7 @@ export default {
     ]),
     ...mapActions('dpiStore', [
       'finishJsonld',
+      'clearAll',
     ]),
     closeModal() {
       $('#modal').modal('hide');
@@ -224,14 +225,12 @@ export default {
       }
     },
     createDataset(datasetId) {
-      this.setIsEditMode(false);
-      this.setIsDraft(false);
+      this.clearAll();
       this.showSnackbar({ message: 'Dataset published successfully', variant: 'success' });
       this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId } }).catch(() => {});
     },
     createDraft() {
-      this.setIsEditMode(false);
-      this.setIsDraft(false);
+      this.clearAll();
       this.showSnackbar({ message: 'Draft saved successfully', variant: 'success' });
       this.$router.push({ name: 'DataProviderInterface-Draft' }).catch(() => {});
     },
