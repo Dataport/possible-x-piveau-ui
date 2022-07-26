@@ -714,6 +714,12 @@ const mutations = {
     state.distributions.push(newDistribution);
 
     // add id to distributions array within datasets
+    // if edit mode and only one distribution is available, write id into array to enable adding additional distribution ids
+    if (!Array.isArray(state.datasets['dcat:distribution'])) {
+      const existingId = state.datasets['dcat:distribution'];
+      state.datasets['dcat:distribution'] = [];
+      state.datasets['dcat:distribution'].push({'@id': existingId});
+    }
     state.datasets['dcat:distribution'].push({'@id': newDistribution['@id']});
 
     // save changes to local storage
