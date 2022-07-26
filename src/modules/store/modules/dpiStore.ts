@@ -46,7 +46,6 @@ const state = {
 
 const getters = {
   getSchema(state) {
-    console.log('GET SCHEMA');
     return state.schema;
   },
   getData: (state) => (property) => {
@@ -286,7 +285,6 @@ const actions = {
    * @param {*} param1 Object containing curren tproperty (datasets/catalogues) and all catalog options the user has permissions for
    */
   addCatalogOptions({ commit }, {property, catalogs}) {
-    console.log('ADD CATALOGUE OPTIONS');
     commit('saveCatalogOptions', {property, catalogs});
   },
   /**
@@ -540,16 +538,29 @@ const mutations = {
    * @param {String} property Property within the stae where the existing data should be saved to (datasets/distributions/catalogues)
    */
   saveJsonld(state, property) {
-    const valueName = `dpi_${property}`;
-    if (Object.keys(localStorage).includes(valueName)) {
-      const localStorageData = JSON.parse(localStorage.getItem(valueName));
-      state[property] = localStorageData;
+    let valueName;
+
+    if (property === 'catalogues') {
+      valueName = 'dpi_catalogues';
+    } else {
+      valueName = 'dpi_datasets';
     }
 
-    const distName = 'dpi_distributions';
-    if (Object.keys(localStorage).includes(distName)) {
-      const distributionsData = JSON.parse(localStorage.getItem(distName));
-      state.distributions = distributionsData;
+    // extract catalogues or datasets data
+    if (Object.keys(localStorage).includes(valueName)) {
+      const localStorageData = JSON.parse(localStorage.getItem(valueName));
+      if (property === 'catalogues') state[property] = localStorageData;
+      else state.datasets = localStorageData;
+    }
+
+    // additionally get distribution data if existing
+    if (property === 'datasets' || property === 'distributions') {
+      const distName = 'dpi_distributions';
+  
+      if (Object.keys(localStorage).includes(distName)) {
+        const distributionsData = JSON.parse(localStorage.getItem(distName));
+        state.distributions = distributionsData;
+      }
     }
   },
   /**
