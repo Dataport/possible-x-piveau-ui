@@ -742,8 +742,10 @@ const mutations = {
    */
   removeDistribution(state, index) {
     if (index > -1 && index < state.distributions.length) {
+      state.datasets['dcat:distribution'].splice(index, 1);
       state.distributions.splice(index, 1);
       localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
+      localStorage.setItem('dpi_datasets', JSON.stringify(state.datasets));
     }
   },
   resetStore(state) {
