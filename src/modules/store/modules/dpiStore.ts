@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
-import { has, isEmpty, isNil } from 'lodash';
+import { has, isEmpty, isNil, cloneDeep } from 'lodash';
 import * as jsonldLib from 'jsonld';
 
 // config defining which properties are displayed on which page
@@ -34,9 +34,9 @@ Vue.use(Vuex);
 
 const state = {
   schema: [],
-  datasets: jsonlddefinitions.datasets,
+  datasets: cloneDeep(jsonlddefinitions.datasets),
   distributions: [],
-  catalogues: jsonlddefinitions.catalogues,
+  catalogues: cloneDeep(jsonlddefinitions.catalogues),
   navigation: {
     datasets: [],
     distributions: [],
@@ -589,16 +589,27 @@ const mutations = {
    */
   transferJsonld(state, {data, nodeData, property, id}) {
     const propertyKeys = Object.keys(data);
+    let storedata;
+
+    // save id of property dataset or catalogues to @id-field
+    if (property === 'datasets' || property === 'catalogues') {
+      state[property]['@id'] = id;
+      storedata = state[property];
+    }
+
+    if (property === 'distributions') {
+      // povided id is index of distribution
+      if (!state.distributions) {
+        state.distributions = [];
+      }
+
+      state.distributions[id] = cloneDeep(jsonlddefinitions.distributions);
+      storedata = state[property][id];
+      storedata['@id'] = data['@id'];
+    }
 
     for (let index = 0; index < propertyKeys.length; index += 1) {
       const normalKeyName = propertyKeys[index];
-      let storedata;
-
-      // save id of property dataset or catalogues to @id-field
-      if (property === 'datasets' || property === 'catalogues') {
-        state[property]['@id'] = id;
-        storedata = state[property];
-      }
 
       // save catalog info for input of datasets (no valid/ real property -> just for input)
       if (property === 'datasets' && normalKeyName === 'catalog') {
@@ -616,16 +627,6 @@ const mutations = {
             storedata['dcat:distribution'][index] = {'@id': distributionIds[index]};
           }
         }
-      }
-
-      if (property === 'distributions') {
-        // povided id is index of distribution
-        if (!state.distributions) {
-          state.distributions = [];
-        }
-        state.distributions[id] = jsonlddefinitions.distributions;
-        storedata = state[property][id];
-        storedata['@id'] = data['@id'];
       }
 
       if (has(namespacedKeys, normalKeyName)) {
@@ -717,7 +718,7 @@ const mutations = {
     if (!state.distributions) {
       state.distributions = [];
     }
-    const newDistribution = jsonlddefinitions.distributions;
+    const newDistribution = cloneDeep(jsonlddefinitions.distributions);
     // give distribution random id (which must be a link)
     newDistribution['@id'] = `${Vue.prototype.$env.api.hubUrl}distribution/${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20)}`;
     state.distributions.push(newDistribution);
@@ -755,8 +756,8 @@ const mutations = {
     localStorage.removeItem('dpi_distributions');
 
     // resetting all store data properties
-    state.datasets = jsonlddefinitions.datasets;
-    state.catalogues = jsonlddefinitions.catalogues;
+    state.datasets = cloneDeep(jsonlddefinitions.datasets);
+    state.catalogues = cloneDeep(jsonlddefinitions.catalogues);
     state.distributions = [];
 
     // edit and draft mode not within this store so resetting via local storage
