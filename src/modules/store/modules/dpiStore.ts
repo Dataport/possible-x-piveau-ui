@@ -743,7 +743,12 @@ const mutations = {
    */
   removeDistribution(state, index) {
     if (index > -1 && index < state.distributions.length) {
-      state.datasets['dcat:distribution'].splice(index, 1);
+      // distribution ids within dataset object not neccesaryly sorted the same way as distributions in state
+      const currentDistributionId = state.distributions[index]['@id'];
+      const idList = state.datasets['dcat:distribution'].map(dataset => dataset['@id']);
+      const idIndex = idList.indexOf(currentDistributionId);
+      state.datasets['dcat:distribution'].splice(idIndex, 1);
+      
       state.distributions.splice(index, 1);
       localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
       localStorage.setItem('dpi_datasets', JSON.stringify(state.datasets));
