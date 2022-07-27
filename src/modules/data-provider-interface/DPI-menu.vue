@@ -201,7 +201,7 @@ export default {
     menuItems() {
       return [
         {
-          name: 'My Draft Datasets',
+          name: 'Draft Datasets',
           to: { name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale } },
         },
         {
