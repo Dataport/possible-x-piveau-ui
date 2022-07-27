@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
-import { has, isEmpty, isNil } from 'lodash';
+import { has, isEmpty, isNil, cloneDeep } from 'lodash';
 import * as jsonldLib from 'jsonld';
 
 // config defining which properties are displayed on which page
@@ -34,9 +34,9 @@ Vue.use(Vuex);
 
 const state = {
   schema: [],
-  datasets: jsonlddefinitions.datasets,
+  datasets: cloneDeep(jsonlddefinitions.datasets),
   distributions: [],
-  catalogues: jsonlddefinitions.catalogues,
+  catalogues: cloneDeep(jsonlddefinitions.catalogues),
   navigation: {
     datasets: [],
     distributions: [],
@@ -46,7 +46,6 @@ const state = {
 
 const getters = {
   getSchema(state) {
-    console.log('GET SCHEMA');
     return state.schema;
   },
   getData: (state) => (property) => {
@@ -286,7 +285,6 @@ const actions = {
    * @param {*} param1 Object containing curren tproperty (datasets/catalogues) and all catalog options the user has permissions for
    */
   addCatalogOptions({ commit }, {property, catalogs}) {
-    console.log('ADD CATALOGUE OPTIONS');
     commit('saveCatalogOptions', {property, catalogs});
   },
   /**
@@ -540,16 +538,29 @@ const mutations = {
    * @param {String} property Property within the stae where the existing data should be saved to (datasets/distributions/catalogues)
    */
   saveJsonld(state, property) {
-    const valueName = `dpi_${property}`;
-    if (Object.keys(localStorage).includes(valueName)) {
-      const localStorageData = JSON.parse(localStorage.getItem(valueName));
-      state[property] = localStorageData;
+    let valueName;
+
+    if (property === 'catalogues') {
+      valueName = 'dpi_catalogues';
+    } else {
+      valueName = 'dpi_datasets';
     }
 
-    const distName = 'dpi_distributions';
-    if (Object.keys(localStorage).includes(distName)) {
-      const distributionsData = JSON.parse(localStorage.getItem(distName));
-      state.distributions = distributionsData;
+    // extract catalogues or datasets data
+    if (Object.keys(localStorage).includes(valueName)) {
+      const localStorageData = JSON.parse(localStorage.getItem(valueName));
+      if (property === 'catalogues') state[property] = localStorageData;
+      else state.datasets = localStorageData;
+    }
+
+    // additionally get distribution data if existing
+    if (property === 'datasets' || property === 'distributions') {
+      const distName = 'dpi_distributions';
+  
+      if (Object.keys(localStorage).includes(distName)) {
+        const distributionsData = JSON.parse(localStorage.getItem(distName));
+        state.distributions = distributionsData;
+      }
     }
   },
   /**
@@ -578,16 +589,27 @@ const mutations = {
    */
   transferJsonld(state, {data, nodeData, property, id}) {
     const propertyKeys = Object.keys(data);
+    let storedata;
+
+    // save id of property dataset or catalogues to @id-field
+    if (property === 'datasets' || property === 'catalogues') {
+      state[property]['@id'] = id;
+      storedata = state[property];
+    }
+
+    if (property === 'distributions') {
+      // povided id is index of distribution
+      if (!state.distributions) {
+        state.distributions = [];
+      }
+
+      state.distributions[id] = cloneDeep(jsonlddefinitions.distributions);
+      storedata = state[property][id];
+      storedata['@id'] = data['@id'];
+    }
 
     for (let index = 0; index < propertyKeys.length; index += 1) {
       const normalKeyName = propertyKeys[index];
-      let storedata;
-
-      // save id of property dataset or catalogues to @id-field
-      if (property === 'datasets' || property === 'catalogues') {
-        state[property]['@id'] = id;
-        storedata = state[property];
-      }
 
       // save catalog info for input of datasets (no valid/ real property -> just for input)
       if (property === 'datasets' && normalKeyName === 'catalog') {
@@ -595,17 +617,16 @@ const mutations = {
       }
 
       if (property === 'datasets' && normalKeyName === 'distribution') {
-        storedata['dcat:distribution'] = data[normalKeyName];
-      }
-
-      if (property === 'distributions') {
-        // povided id is index of distribution
-        if (!state.distributions) {
-          state.distributions = [];
+        // backend provided either String or array of strings but we need the distribution ids as URIs
+        const distributionIds = data[normalKeyName];
+        if (typeof distributionIds === 'string') {
+          storedata['dcat:distribution'] = [{'@id': distributionIds}];
+        } else if (Array.isArray(distributionIds)) {
+          storedata['dcat:distribution'] = [];
+          for (let index = 0; index < distributionIds.length; index += 1) {
+            storedata['dcat:distribution'][index] = {'@id': distributionIds[index]};
+          }
         }
-        state.distributions[id] = jsonlddefinitions.distributions;
-        storedata = state[property][id];
-        storedata['@id'] = data['@id'];
       }
 
       if (has(namespacedKeys, normalKeyName)) {
@@ -697,12 +718,18 @@ const mutations = {
     if (!state.distributions) {
       state.distributions = [];
     }
-    const newDistribution = jsonlddefinitions.distributions;
+    const newDistribution = cloneDeep(jsonlddefinitions.distributions);
     // give distribution random id (which must be a link)
     newDistribution['@id'] = `${Vue.prototype.$env.api.hubUrl}distribution/${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20)}`;
     state.distributions.push(newDistribution);
 
     // add id to distributions array within datasets
+    // if edit mode and only one distribution is available, write id into array to enable adding additional distribution ids
+    if (!Array.isArray(state.datasets['dcat:distribution'])) {
+      const existingId = state.datasets['dcat:distribution'];
+      state.datasets['dcat:distribution'] = [];
+      state.datasets['dcat:distribution'].push({'@id': existingId});
+    }
     state.datasets['dcat:distribution'].push({'@id': newDistribution['@id']});
 
     // save changes to local storage
@@ -716,8 +743,15 @@ const mutations = {
    */
   removeDistribution(state, index) {
     if (index > -1 && index < state.distributions.length) {
+      // distribution ids within dataset object not neccesaryly sorted the same way as distributions in state
+      const currentDistributionId = state.distributions[index]['@id'];
+      const idList = state.datasets['dcat:distribution'].map(dataset => dataset['@id']);
+      const idIndex = idList.indexOf(currentDistributionId);
+      state.datasets['dcat:distribution'].splice(idIndex, 1);
+      
       state.distributions.splice(index, 1);
       localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
+      localStorage.setItem('dpi_datasets', JSON.stringify(state.datasets));
     }
   },
   resetStore(state) {
@@ -727,8 +761,8 @@ const mutations = {
     localStorage.removeItem('dpi_distributions');
 
     // resetting all store data properties
-    state.datasets = jsonlddefinitions.datasets;
-    state.catalogues = jsonlddefinitions.catalogues;
+    state.datasets = cloneDeep(jsonlddefinitions.datasets);
+    state.catalogues = cloneDeep(jsonlddefinitions.catalogues);
     state.distributions = [];
 
     // edit and draft mode not within this store so resetting via local storage

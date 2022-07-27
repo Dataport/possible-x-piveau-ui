@@ -104,6 +104,7 @@ export default {
     ]),
     ...mapActions('dpiStore', [
       'finishJsonld',
+      'clearAll',
     ]),
     closeModal() {
       $('#modal').modal('hide');
@@ -168,13 +169,22 @@ export default {
       this.uploading[mode] = true;
       this.$Progress.start();
 
-      const jsonld = await this.finishJsonld(this.$route.params.property).then((response) => {
+      // adapt submit property for case of distributions
+      let submitProperty;
+      if (this.property === 'distributions') {
+        submitProperty = 'datasets';
+      } else {
+        submitProperty = this.property;
+      }
+
+      const jsonld = await this.finishJsonld(submitProperty).then((response) => {
         return response;
       });
 
       const rtpToken = this.getUserData.rtpToken;
-      const datasetId = this.getData(this.property)['@id'];
-      const catalogName = this.getData(this.property)['dct:catalog'] ? this.getData(this.property)['dct:catalog'] : '';
+
+      const datasetId = this.getData(submitProperty)['@id'];
+      const catalogName = this.getData(submitProperty)['dct:catalog'] ? this.getData(submitProperty)['dct:catalog'] : '';      
       let uploadUrl;
       let actionName;
       let actionParams = {
@@ -215,14 +225,12 @@ export default {
       }
     },
     createDataset(datasetId) {
-      this.setIsEditMode(false);
-      this.setIsDraft(false);
+      this.clearAll();
       this.showSnackbar({ message: 'Dataset published successfully', variant: 'success' });
       this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId } }).catch(() => {});
     },
     createDraft() {
-      this.setIsEditMode(false);
-      this.setIsDraft(false);
+      this.clearAll();
       this.showSnackbar({ message: 'Draft saved successfully', variant: 'success' });
       this.$router.push({ name: 'DataProviderInterface-Draft' }).catch(() => {});
     },
