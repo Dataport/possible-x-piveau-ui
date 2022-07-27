@@ -49,8 +49,6 @@ const getters = {
    * @description Get all catalog IDs associated to the user where they have access to.
    */
   getUserCatalogIds: (state, getters) => {
-    console.log('GET USER CATALOGUE IDs');
-    console.log(getters.getUserCatalogs.map(catalog => catalog.rsname));
     return getters.getUserCatalogs.map(catalog => catalog.rsname)
   },
   getUserDrafts: state => state.userData.drafts,

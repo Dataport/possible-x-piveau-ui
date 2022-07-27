@@ -46,7 +46,6 @@ const state = {
 
 const getters = {
   getSchema(state) {
-    console.log('GET SCHEMA');
     return state.schema;
   },
   getData: (state) => (property) => {
@@ -286,7 +285,6 @@ const actions = {
    * @param {*} param1 Object containing curren tproperty (datasets/catalogues) and all catalog options the user has permissions for
    */
   addCatalogOptions({ commit }, {property, catalogs}) {
-    console.log('ADD CATALOGUE OPTIONS');
     commit('saveCatalogOptions', {property, catalogs});
   },
   /**
@@ -721,15 +719,22 @@ const mutations = {
     }
   },
   resetStore(state) {
+    console.log('RESET STORE');
     // remove dpi values from local store
     localStorage.removeItem('dpi_datasets');
     localStorage.removeItem('dpi_catalogues');
     localStorage.removeItem('dpi_distributions');
 
+    console.log(jsonlddefinitions);
+    
     // resetting all store data properties
     state.datasets = jsonlddefinitions.datasets;
     state.catalogues = jsonlddefinitions.catalogues;
     state.distributions = [];
+    
+    console.log(state.datasets);
+    console.log(state.catalogues);
+    console.log(state.distributions);
 
     // edit and draft mode not within this store so resetting via local storage
     localStorage.setItem('dpi_editmode', false);
