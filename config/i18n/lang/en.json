@@ -875,6 +875,9 @@
                     },
                     "step2": {
                         "name": "Define Dataset properties"
+                    },
+                    "distoverview": {
+                        "name": "Distribution Overview"
                     }
                 },
                 "catalog": {
@@ -1297,6 +1300,36 @@
                     "info": "This property refers to a geographic region that is covered by the Dataset.",
                     "help": "A geographic region that is covered by the Dataset.",
                     "placeholder": "Dataset Spatial placeholder text"
+                },
+                "temporalStart": {
+                    "label": "Start"
+                },
+                "temporalEnd": {
+                    "label": "End"
+                },
+                "temporalResolutionSecond": {
+                    "label": "Temporal Resolution Second",
+                    "placeholder": "Dataset Temporal Resolution Second placeholder text"
+                },
+                "temporalResolutionMinute": {
+                    "label": "Temporal Resolution Minute",
+                    "placeholder": "Dataset Temporal Resolution Minute placeholder text"
+                },
+                "temporalResolutionHour": {
+                    "label": "Temporal Resolution Hour",
+                    "placeholder": "Dataset Temporal Resolution Hour placeholder text"
+                },
+                "temporalResolutionDay": {
+                    "placeholder": "Dataset Temporal Resolution Day placeholder text",
+                    "label": "Temporal Resolution Day"
+                },
+                "temporalResolutionMonth": {
+                    "label": "Temporal Resolution Month",
+                    "placeholder": "Dataset Temporal Resolution Month placeholder text"
+                },
+                "temporalResolutionYear": {
+                    "label": "Temporal Resolution Year",
+                    "placeholder": "Dataset Temporal Resolution Year placeholder text"
                 }
             },
             "catalogues": {
@@ -1738,6 +1771,20 @@
                 "pageTitle": {
                     "placeholder": "Distribution Page Title placeholder text",
                     "label": "Title"
+                },
+                "stepper": {
+                    "distoverview": {
+                        "name": "Distribution Overview"
+                    },
+                    "step3": {
+                        "name": "Additional Information"
+                    },
+                    "step2": {
+                        "name": "Additional Information"
+                    },
+                    "step1": {
+                        "name": "General Information"
+                    }
                 }
             }
         },
