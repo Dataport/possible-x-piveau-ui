@@ -227,12 +227,12 @@ export default {
     createDataset(datasetId) {
       this.clearAll();
       this.showSnackbar({ message: 'Dataset published successfully', variant: 'success' });
-      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$i18n.locale } }).catch(() => {});
+      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     createDraft() {
       this.clearAll();
       this.showSnackbar({ message: 'Draft saved successfully', variant: 'success' });
-      this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$i18n.locale } }).catch(() => {});
+      this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
   },
   mounted() {
