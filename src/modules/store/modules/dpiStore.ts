@@ -191,6 +191,8 @@ const actions = {
         // values with identical structure for JSONLD and input form
         if (inputtypes.sameFormatProperties[property].includes(propertyKey)) {
           if (!isEmpty(stateValues)) formData[propertyKey] = stateValues;
+        } else if (inputtypes.typedStrings[property].includes(propertyKey)) {
+          if (!isEmpty(stateValues)) toInputConverter.typedStringToString(formData, stateValues, propertyKey);
         } else if (inputtypes.multiURIs[property].includes(propertyKey)) {
           // values with multiple URIs which need to be converted into multiple strings
           if (!isEmpty(stateValues)) toInputConverter.multiUriToString(formData, stateValues, propertyKey);
@@ -260,6 +262,15 @@ const actions = {
               } else if (typeof stateValues['rdfs:label'] === 'object') {
                 formData[propertyKey]['rdfs:label'] = stateValues['rdfs:label']['@id'];
               }
+            }
+          }
+        } else if (propertyKey === 'dct:temporal') {
+          if (!isEmpty(stateValues)) {
+            formData[propertyKey] = [];
+            for (let index = 0; index < stateValues.length; index += 1) {
+              formData[propertyKey][index] = {'dcat:startDate': '', 'dcat:endDate': ''};
+              if (has(stateValues[index], 'dcat:startDate')) formData[propertyKey][index]['dcat:startDate'] = stateValues[index]['dcat:startDate']['@value'];
+              if (has(stateValues[index], 'dcat:endDate')) formData[propertyKey][index]['dcat:endDate'] = stateValues[index]['dcat:endDate']['@value'];
             }
           }
         }
@@ -476,6 +487,8 @@ const mutations = {
         // properties which value is a single string
         if (dcataptypes.singularString[property].includes(key)) {
           if(!isEmpty(values[key])) toJsonldConverter.convertSingularString(storedata, values[key], key);
+        } else if (dcataptypes.typedStrings[property].includes(key)) {
+          if (!isEmpty(values[key])) toJsonldConverter.convertTypedStrings(storedata, values[key], key);
         } else if (dcataptypes.singularURI[property].includes(key)) {
           // properties which value is a singulare URI
           if(!isEmpty(values[key])) toJsonldConverter.convertSingularURI(storedata[key], values[key]);
@@ -636,6 +649,8 @@ const mutations = {
         // propertie which value is a singular string
         if (dcataptypes.singularString[property].includes(key)) {
           if(!isEmpty(data[normalKeyName])) toJsonldConverter.convertSingularString(storedata, data[normalKeyName], key);
+        } else if (dcataptypes.typedStrings[property].includes(key)) {
+          if (!isEmpty(data[normalKeyName])) toJsonldConverter.convertTypedStrings(storedata, data[normalKeyName], key);
         } else if (dcataptypes.multiLang[property].includes(key)) {
           // multilingual Properties
           let values;

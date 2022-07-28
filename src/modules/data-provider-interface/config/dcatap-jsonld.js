@@ -12,8 +12,8 @@ const datasets = {
     "dct:catalog": "", // ""
     "dct:publisher": {}, // {"@id": ""} 
     "dcat:keyword": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }]
-    "dct:issued": "", // ""
-    "dct:modified": "",  // ""
+    "dct:issued": {}, // {'@value': '', '@type': ''}
+    "dct:modified": {},  // {'@value': '', '@type': ''}
     "dcat:contactPoint": [], // [{"@type": "", "vcard:fn": "", "vcard:hasAddress": { "vcard:country_name": "", "vcard:locality": "", "vcard:postal_code": "", "vcard:street_address": ""}, "vcard:hasEmail": {"@id": ""},
          // "vcard:hasOrganizationName": "", "vcard:hasTelephone": "", "vcard:hasURL": {"@id": ""}, }]
     "dct:creator": [], // [{"@type": "", "foaf:homepage": {"@id": ""}, "foaf:mbox": {"@id": ""}, "foaf:name": ""}]
@@ -34,7 +34,7 @@ const datasets = {
     "dcat:qualifiedRelation": [], // [{"@id": ""}]
     "prov:qualifiedAttribution": [], // [{"@id": ""}]
     "dct:spatial": {}, // {"@id": ""}
-    "dcat:spatialResolutionInMeters": "", // ""
+    "dcat:spatialResolutionInMeters": {}, // {'@value': '', '@type': 'xsd:decimal'}
     "dct:temporal": [], // [{"@type": "dct:PeriodOfTime", "dcat:endDate": "", "dcat:startDate": ""}]
     "dcat:temporalResolution": {}, // {'@value': '', '@type': 'xsd:duration'}
     "dct:isReferencedBy": [], // [{"@id": ""}]
@@ -56,8 +56,8 @@ const distributions = {
     "dcat:downloadURL": [], // [{"@id": ""}]
     "dct:format": {}, // {"@id": ""},
     "dct:license": {}, // {"@id": ""} OR {"@type": "dct:LicenseDocument", "dct:title": "", "skos:exactMatch": {"@id": ""}, "skos:prefLabel": ""}
-    "dct:issued": "", // ""
-    "dct:modified": "", // ""
+    "dct:issued": {}, // {'@value': '', '@type': ''}
+    "dct:modified": {}, // {'@value': '', '@type': ''}
     "dct:type": {}, // {"@id": ""}
     "dcat:mediaType": {}, // {"@id": ""}
     "dcat:availability": {}, // {"@id": ""}
@@ -72,7 +72,7 @@ const distributions = {
     "dct:conformsTo": [], // [{"@id": "", "@type": "dct:Standard", "rdfs:label": ""}]
     "odrl:hasPolicy": [], // [{"@id": ""}]
     "dcat:temporalResolution": "", // ""
-    "dcat:spatialResolutionInMeters": "", // ""
+    "dcat:spatialResolutionInMeters": {}, // {'@value': '', '@type': 'xsd:decimal'}
 };
 
 const catalogues = {
