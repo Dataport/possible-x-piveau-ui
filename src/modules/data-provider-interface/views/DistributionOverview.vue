@@ -11,7 +11,7 @@
           <div class="dist-details">
             <div class="dist-info">
               <!-- accessURL is always an array of URIs, first one might be enough for displaying -->
-              <span style="font-weight: bold">{{ dist['dcat:accessURL'][0]['@id'] }}</span><br /> 
+              <span v-if="accessExists(dist)" style="font-weight: bold">{{ dist['dcat:accessURL'][0]['@id'] }}</span><br /> 
 
               <!-- title and description always an array, first valu emights be enough for displaying-->
               <span v-if="titleExists(dist)" style="color: #868e96">{{ dist['dct:title'][0]['@value'] }}<br /></span>
@@ -119,6 +119,9 @@ export default {
     },
     descriptionExists(data){
       return !isEmpty(data['dct:description']) && !isEmpty(data['dct:description'][0]) && has(data['dct:description'][0], '@value') && !isEmpty(data['dct:description'][0]['@value']);
+    },
+    accessExists(data){
+      return !isEmpty(data['dcat:accessURL']) && !isEmpty(data['dcat:accessURL'][0]) && has(data['dcat:accessURL'][0], '@id') && !isEmpty(data['dcat:accessURL'][0]['@id']);
     },
   },
   mounted() {
