@@ -667,7 +667,7 @@ export default {
     checkDatasetMandatory() {
       // Check if mandatory dataset properties are set
       if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dct:catalog')) {
-        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'mandatory' } });
+        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'mandatory', locale: this.$route.query.locale } });
       }
     },
     checkDistributionMandatory() {
@@ -681,7 +681,10 @@ export default {
             page: 'step3',
             id: 'distribution1',
           },
-          query: { error: 'mandatory' },
+          query: { 
+            error: 'mandatory',
+            locale: this.$route.query.locale
+          },
         });
       }
     },
@@ -698,7 +701,7 @@ export default {
           .then((isUniqueID) => {
             if (!isUniqueID) {
               // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
-              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'id' } });
+              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'id', locale: this.$route.query.locale } });
             }
           });
       }

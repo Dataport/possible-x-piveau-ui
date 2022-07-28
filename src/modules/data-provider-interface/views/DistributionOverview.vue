@@ -82,8 +82,7 @@ export default {
     deleteDist() {
       this.deleteDistribution(this.distributionToDelete);
       $('#deleteDistributionModal').modal('hide');
-
-      this.$router.push(`${this.$env.upload.basePath}/${this.$route.params.property}/distoverview`).catch(() => {});
+      this.$router.push({ path: `${this.$env.upload.basePath}/${this.$route.params.property}/distoverview`, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     triggerDeleteModal(index) {
       this.distributionToDelete = index;
@@ -98,7 +97,7 @@ export default {
     },
     redirectToDistributionForm(distributionIndex) {
       const firstDistPage = this.getNavSteps.distributions[0];
-      this.$router.push(`${this.$env.upload.basePath}/distributions/${firstDistPage}/${distributionIndex}`).catch(() => {});
+      this.$router.push({ path: `${this.$env.upload.basePath}/distributions/${firstDistPage}/${distributionIndex}`, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     createDistribution(){
       // create an new distribution within store
@@ -108,7 +107,7 @@ export default {
       const firstDistPage = this.getNavSteps.distributions[0];
 
       // direct to distribution input form
-      this.$router.push(`${this.$env.upload.basePath}/distributions/${firstDistPage}/${distIndex}?locale=${this.$i18n.locale}`);
+      this.$router.push({ path: `${this.$env.upload.basePath}/distributions/${firstDistPage}/${distIndex}?locale=${this.$i18n.locale}`, query: { locale: this.$route.query.locale }});
     }
   },
   mounted() {

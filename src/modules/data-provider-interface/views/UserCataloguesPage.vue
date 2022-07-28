@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     // handleEdit(catalog) {
-    //   this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'catalogues' } }).catch(() => {});
+    //   this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'catalogues' }, query: { locale: this.$route.query.locale }}).catch(() => {});
     // },
   },
   created() {},
