@@ -154,7 +154,7 @@ function convertGroupedInput(state, values, key) {
             "dcat:endpointURL": {"@id": ""}
         },
         "dct:provenance": {
-            "@id": "dct:ProvenanceStatement",
+            "@type": "dct:ProvenanceStatement",
             "rdfs:label": "",
         },
         "dct:conformsTo": {

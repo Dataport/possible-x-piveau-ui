@@ -26,7 +26,7 @@ const datasets = {
     "adms:identifier": [], // [{"@id": "", "skos:notation": {"@type": "", "@value": ""}}]
     "foaf:page": [], // [{"@id": "", "@type": "foaf:Document", "dct:description": "", "dct:format": {"@id": ""}, "dct:title": ""}]
     "dcat:landingPage": [], // [{"@id": ""}]
-    "dct:provenance": [], // [{"@id": "dct:ProvenanceStatement", "rdfs:label": ""}]
+    "dct:provenance": [], // [{"@type": "dct:ProvenanceStatement", "rdfs:label": ""}]
     "dct:accrualPeriodicity": {}, // {"@id": ""}
     "dct:accessRights": {}, // {"@id": ""}
     "dct:conformsTo": [], // [{"@id": "", "@type": "dct:Standard", "rdfs:label": ""}]
