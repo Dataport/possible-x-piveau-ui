@@ -36,7 +36,7 @@ const datasets = {
     "dct:spatial": {}, // {"@id": ""}
     "dcat:spatialResolutionInMeters": "", // ""
     "dct:temporal": [], // [{"@type": "dct:PeriodOfTime", "dcat:endDate": "", "dcat:startDate": ""}]
-    "dcat:temporalResolution": "", // ""
+    "dcat:temporalResolution": {}, // {'@value': '', '@type': 'xsd:duration'}
     "dct:isReferencedBy": [], // [{"@id": ""}]
     "prov:wasGeneratedBy": [], // [{"@id": ""}]
     "dct:isVersionOf": [], // [{"@id": ""}]

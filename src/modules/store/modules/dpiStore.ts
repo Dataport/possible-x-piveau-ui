@@ -231,7 +231,7 @@ const actions = {
             // find index of letter for time period
             // extract substring until this index
             // extract number from string and set as according value for input
-            let resolutionString = stateValues;
+            let resolutionString = stateValues['@value'];
             for (let tempIndex = 0; tempIndex < shorts.length; tempIndex += 1) {
               const position = resolutionString.indexOf(shorts[tempIndex]); // position of duration letter
               const subDuration = resolutionString.substring(0, position); // substring until position of duration letter
@@ -515,7 +515,8 @@ const mutations = {
           // the form for temporal resolution returns (if single fields are given):
           // [{'Year': '', 'Month': '', ...}]
           const resultionValues = values[key][0];
-          storedata[key] = `P${resultionValues.Year ? resultionValues.Year : 0}Y${resultionValues.Month ? resultionValues.Month : 0}M${resultionValues.Day ? resultionValues.Day : 0}DT${resultionValues.Hour ? resultionValues.Hour : 0}H${resultionValues.Minute ? resultionValues.Minute : 0}M${resultionValues.Second ? resultionValues.Second : 0}S`
+          storedata[key] = {'@value': '', '@type': 'xsd:duration'};
+          storedata[key]['@value'] = `P${resultionValues.Year ? resultionValues.Year : 0}Y${resultionValues.Month ? resultionValues.Month : 0}M${resultionValues.Day ? resultionValues.Day : 0}DT${resultionValues.Hour ? resultionValues.Hour : 0}H${resultionValues.Minute ? resultionValues.Minute : 0}M${resultionValues.Second ? resultionValues.Second : 0}S`
         } else if (key === 'spdx:checksum') {
           const actualValues = values[key][0]; // checksum is a grouped property and therefore stored within an array (with only one entry because it is not repeatable)
           if (!isEmpty(actualValues)) {
@@ -671,7 +672,7 @@ const mutations = {
           }
         } else if (key === 'dcat:temporalResolution') {
           // temporal resolution given as string (e.g. P1Y1M0DT0H2M0S)
-          if (!isEmpty(data[normalKeyName])) storedata[key] = data[normalKeyName];
+          if (!isEmpty(data[normalKeyName])) storedata[key] = { '@value': data[normalKeyName], '@type': 'xsd:duration' };
         } else if (dcataptypes.groupedProperties.includes(key)) {
           // properties with a group (and nested group) of subproperties
           const singularData = data[normalKeyName];
