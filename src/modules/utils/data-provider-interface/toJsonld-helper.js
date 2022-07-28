@@ -13,6 +13,35 @@ function convertSingularString(state, values, key) {
 }
 
 /**
+ * Converts string into typed value
+ * @param {*} state The JSONLD-object of the store which should contain all data at the end
+ * @param {*} values he actual unformatted values which should be converted and saved to the JSONLD-object (provided by UI-form)
+ * @param {*} key The JSONLD name of the current property (e.g. 'dct:issued')
+ */
+function convertTypedStrings(state, values, key) {
+    let currentValue;
+    if (typeof values === 'string') {
+        currentValue = values;
+    } else if (typeof values === 'object') {
+        currentValue = values['@value'];
+    }
+
+    state[key] = {'@value': '', '@type': ''};
+
+    if (key !== 'dcat:spatialResolutionInMeters') {
+        if (currentValue.includes('T')){
+            state[key]['@type'] = 'xsd:dateTime';
+        } else {
+            state[key]['@type'] = 'xsd:date';
+        }
+    } else {
+        state[key]['@type'] = 'xsd:decimal';
+    }
+
+    state[key]['@value'] = currentValue;
+}
+
+/**
  * Converting and saving a value as an URI ({'@id': 'value'})
  * @param {*} state The JSONLD-object of the store which should contain all data at the end
  * @param {*} values The actual unformatted values which should be converted and saved to the JSONLD-object (provided by UI-form)
@@ -140,8 +169,8 @@ function convertGroupedInput(state, values, key) {
         },
         "dct:temporal": {
             "@type": "dct:PeriodOfTime",
-            "dcat:endDate": "",
-            "dcat:startDate": ""
+            "dcat:endDate": {'@value': '', '@type': 'xsd:dateTime'},
+            "dcat:startDate": {'@value': '', '@type': 'xsd:dateTime'}
         },
         "dext:metadataExtension": {
             "@type": "dext:MetadataExtension",
@@ -154,7 +183,7 @@ function convertGroupedInput(state, values, key) {
             "dcat:endpointURL": {"@id": ""}
         },
         "dct:provenance": {
-            "@id": "dct:ProvenanceStatement",
+            "@type": "dct:ProvenanceStatement",
             "rdfs:label": "",
         },
         "dct:conformsTo": {
@@ -196,6 +225,8 @@ function addGroupedValues(state, values, definition, parentKey) {
                     state[key] = {};
                     convertSingularURI(state[key], values[key]);
                 }
+            } else if (dcataptypes.nestedTypedString.includes(key)) {
+                if (values[key]) convertTypedStrings(state, values[key], key);
             //-------------------------------------------------
             // property with singular string value
             //-------------------------------------------------
@@ -311,5 +342,6 @@ export default {
     convertConditional,
     convertGroupedInput,
     mergeNodeData,
-    replaceWithNamespaceKey
+    replaceWithNamespaceKey,
+    convertTypedStrings,
 };

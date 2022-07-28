@@ -112,9 +112,26 @@ export default {
       'addCatalogOptions',
       'clearAll',
     ]),
+    initInputPage() {
+      if (this.page !== 'overview' && this.page !== 'distoverview') {
+        this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
+        this.saveExistingJsonld(this.property);
+        this.saveToForm({property: this.property, page: this.page, distid: this.id }).then((response) => {
+          const preexistingValues = response;
+          // vuex returns observer of the data which will not be accepted by the input form so the data gets converted to 'real' data by using JSON conversion functions
+          this.formValues = JSON.parse(JSON.stringify(preexistingValues));
+        });
+      }
+    },
+    clear() {
+      this.clearValues();
+      this.clearAll();
+    },
     clearValues() {
+      console.log('CLEAR VALUES');
       this.formValues = {};
       this.failedFields = [];
+      console.log(this.formValues);
     },
     showValidationFields(fields) {
       const fieldNames = Object.keys(fields);
@@ -155,7 +172,7 @@ export default {
   },
   created() {
     if (this.$route.query.edit === false) {
-      this.clearAll();
+      this.clear();
     }
     // form content (schema) created based on defined page properties included in inputconfigMin
     if (this.page !== 'overview' && this.page !== 'distoverview') {
@@ -164,16 +181,10 @@ export default {
     }
   },
   mounted() {
-    if (this.page !== 'overview' && this.page !== 'distoverview') {
-      console.log(this.getUserCatalogIds);
-      this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
-      this.saveExistingJsonld(this.property);
-      this.saveToForm({property: this.property, page: this.page, distid: this.id }).then((response) => {
-        const preexistingValues = response;
-        // vuex returns observer of the data which will not be accepted by the input form so the data gets converted to 'real' data by using JSON conversion functions
-        this.formValues = JSON.parse(JSON.stringify(preexistingValues));
-      });
-    }
+    console.log('MOUNTED');
+    console.log(this.formValues);
+    this.initInputPage();
+    console.log(this.formValues);
   },
   watch: {
     getFirstTitleFromForm: {
@@ -199,11 +210,13 @@ export default {
     // Always clear storage when entering DPI
     next(vm => {
       if (from.name !== null && !from.name.startsWith('DataProviderInterface')) {
-        vm.clearAll();
+        vm.clear();
       }
     });
   },
   beforeRouteUpdate(to, from, next) {
+    console.log('BEFORE ROUTE UPDATE');
+    console.log(this.formValues);
     // get first route for property
     let firstStep;
     let path;

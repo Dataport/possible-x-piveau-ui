@@ -191,6 +191,8 @@ const actions = {
         // values with identical structure for JSONLD and input form
         if (inputtypes.sameFormatProperties[property].includes(propertyKey)) {
           if (!isEmpty(stateValues)) formData[propertyKey] = stateValues;
+        } else if (inputtypes.typedStrings[property].includes(propertyKey)) {
+          if (!isEmpty(stateValues)) toInputConverter.typedStringToString(formData, stateValues, propertyKey);
         } else if (inputtypes.multiURIs[property].includes(propertyKey)) {
           // values with multiple URIs which need to be converted into multiple strings
           if (!isEmpty(stateValues)) toInputConverter.multiUriToString(formData, stateValues, propertyKey);
@@ -231,7 +233,7 @@ const actions = {
             // find index of letter for time period
             // extract substring until this index
             // extract number from string and set as according value for input
-            let resolutionString = stateValues;
+            let resolutionString = stateValues['@value'];
             for (let tempIndex = 0; tempIndex < shorts.length; tempIndex += 1) {
               const position = resolutionString.indexOf(shorts[tempIndex]); // position of duration letter
               const subDuration = resolutionString.substring(0, position); // substring until position of duration letter
@@ -260,6 +262,15 @@ const actions = {
               } else if (typeof stateValues['rdfs:label'] === 'object') {
                 formData[propertyKey]['rdfs:label'] = stateValues['rdfs:label']['@id'];
               }
+            }
+          }
+        } else if (propertyKey === 'dct:temporal') {
+          if (!isEmpty(stateValues)) {
+            formData[propertyKey] = [];
+            for (let index = 0; index < stateValues.length; index += 1) {
+              formData[propertyKey][index] = {'dcat:startDate': '', 'dcat:endDate': ''};
+              if (has(stateValues[index], 'dcat:startDate')) formData[propertyKey][index]['dcat:startDate'] = stateValues[index]['dcat:startDate']['@value'];
+              if (has(stateValues[index], 'dcat:endDate')) formData[propertyKey][index]['dcat:endDate'] = stateValues[index]['dcat:endDate']['@value'];
             }
           }
         }
@@ -476,6 +487,8 @@ const mutations = {
         // properties which value is a single string
         if (dcataptypes.singularString[property].includes(key)) {
           if(!isEmpty(values[key])) toJsonldConverter.convertSingularString(storedata, values[key], key);
+        } else if (dcataptypes.typedStrings[property].includes(key)) {
+          if (!isEmpty(values[key])) toJsonldConverter.convertTypedStrings(storedata, values[key], key);
         } else if (dcataptypes.singularURI[property].includes(key)) {
           // properties which value is a singulare URI
           if(!isEmpty(values[key])) toJsonldConverter.convertSingularURI(storedata[key], values[key]);
@@ -515,7 +528,8 @@ const mutations = {
           // the form for temporal resolution returns (if single fields are given):
           // [{'Year': '', 'Month': '', ...}]
           const resultionValues = values[key][0];
-          storedata[key] = `P${resultionValues.Year ? resultionValues.Year : 0}Y${resultionValues.Month ? resultionValues.Month : 0}M${resultionValues.Day ? resultionValues.Day : 0}DT${resultionValues.Hour ? resultionValues.Hour : 0}H${resultionValues.Minute ? resultionValues.Minute : 0}M${resultionValues.Second ? resultionValues.Second : 0}S`
+          storedata[key] = {'@value': '', '@type': 'xsd:duration'};
+          storedata[key]['@value'] = `P${resultionValues.Year ? resultionValues.Year : 0}Y${resultionValues.Month ? resultionValues.Month : 0}M${resultionValues.Day ? resultionValues.Day : 0}DT${resultionValues.Hour ? resultionValues.Hour : 0}H${resultionValues.Minute ? resultionValues.Minute : 0}M${resultionValues.Second ? resultionValues.Second : 0}S`
         } else if (key === 'spdx:checksum') {
           const actualValues = values[key][0]; // checksum is a grouped property and therefore stored within an array (with only one entry because it is not repeatable)
           if (!isEmpty(actualValues)) {
@@ -635,6 +649,8 @@ const mutations = {
         // propertie which value is a singular string
         if (dcataptypes.singularString[property].includes(key)) {
           if(!isEmpty(data[normalKeyName])) toJsonldConverter.convertSingularString(storedata, data[normalKeyName], key);
+        } else if (dcataptypes.typedStrings[property].includes(key)) {
+          if (!isEmpty(data[normalKeyName])) toJsonldConverter.convertTypedStrings(storedata, data[normalKeyName], key);
         } else if (dcataptypes.multiLang[property].includes(key)) {
           // multilingual Properties
           let values;
@@ -671,7 +687,7 @@ const mutations = {
           }
         } else if (key === 'dcat:temporalResolution') {
           // temporal resolution given as string (e.g. P1Y1M0DT0H2M0S)
-          if (!isEmpty(data[normalKeyName])) storedata[key] = data[normalKeyName];
+          if (!isEmpty(data[normalKeyName])) storedata[key] = { '@value': data[normalKeyName], '@type': 'xsd:duration' };
         } else if (dcataptypes.groupedProperties.includes(key)) {
           // properties with a group (and nested group) of subproperties
           const singularData = data[normalKeyName];
@@ -755,15 +771,22 @@ const mutations = {
     }
   },
   resetStore(state) {
+    console.log('RESET STORE');
     // remove dpi values from local store
     localStorage.removeItem('dpi_datasets');
     localStorage.removeItem('dpi_catalogues');
     localStorage.removeItem('dpi_distributions');
 
+    console.log(jsonlddefinitions);
+    
     // resetting all store data properties
     state.datasets = cloneDeep(jsonlddefinitions.datasets);
     state.catalogues = cloneDeep(jsonlddefinitions.catalogues);
     state.distributions = [];
+    
+    console.log(state.datasets);
+    console.log(state.catalogues);
+    console.log(state.distributions);
 
     // edit and draft mode not within this store so resetting via local storage
     localStorage.setItem('dpi_editmode', false);

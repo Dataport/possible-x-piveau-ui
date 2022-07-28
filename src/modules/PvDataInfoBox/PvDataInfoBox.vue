@@ -22,11 +22,11 @@
           >
         </div>
         <div
-          class="dataset-info-box-description col-12 col-md"
+          class="dataset-info-box-description-container col-12 col-md"
           data-cy="dataset-description"
         >
           <slot name="description">
-            <p v-if="dataset.description">
+            <p v-if="dataset.description" class="dataset-info-box-description">
               {{ descriptionMaxLength
                 ? truncate(dataset.description, descriptionMaxLength)
                 : dataset.description
