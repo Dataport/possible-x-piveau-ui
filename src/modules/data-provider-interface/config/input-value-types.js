@@ -4,16 +4,12 @@ const sameFormatProperties = {
         'dct:title',
         'dct:description',
         'dcat:keyword',
-        'dct:issued',
-        'dct:modified',
         'adms:versionNotes',
         'dct:source',
         'dcat:landingPage',
         'dct:relation',
         'dcat:qualifiedRelation',
         'prov:qualifiedAttribution',
-        'dcat:spatialResolutionInMeters',
-        'dct:temporal',
         'dct:isReferencedBy',
         'prov:wasGeneratedBy',
         'dct:isVersionOf',
@@ -37,6 +33,21 @@ const sameFormatProperties = {
     ],
     catalogues: [],
 };
+
+// JSONLD contains an object with the value and its type -> value needed for input
+const typedStrings = {
+    datasets: [
+        'dct:issued',
+        'dct:modified',
+        'dcat:spatialResolutionInMeters',
+    ],
+    distributions: [
+        'dct:issued',
+        'dct:modified',
+        'dcat:spatialResolutionInMeters',
+    ],
+    catalogues: [],
+}
 
 // JSONLD contains an array o URIs which needs to be converted into an array of strings (URLs)
 const multiURIs = {
@@ -99,4 +110,4 @@ const nestedSingularURIs = [
     'dcat:endpointURL',
 ];
 
-export default { sameFormatProperties, multiURIs, singularURI, groupedValues, nestedSingularURIs };
+export default { sameFormatProperties, multiURIs, singularURI, groupedValues, nestedSingularURIs, typedStrings };

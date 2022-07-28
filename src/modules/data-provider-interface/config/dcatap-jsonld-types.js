@@ -6,19 +6,28 @@
 const singularString = {
     datasets: [
         "dct:catalog",
+        "owl:versionInfo",
+    ],
+    distributions: [
+        "dcat:byteSize",
+    ],
+    catalogues: [],
+};
+
+// all DCAT-AP properies wich need a type
+const typedStrings = {
+    datasets: [
         "dct:issued",
         "dct:modified",
         "dcat:spatialResolutionInMeters",
-        "owl:versionInfo",
     ],
     distributions: [
         "dct:issued",
         "dct:modified",
-        "dcat:byteSize",
         "dcat:spatialResolutionInMeters",
     ],
     catalogues: [],
-};
+}
 
 // all DCAT-AP properties (first level) which will be presented by a singular URI ({'@id': ''})
 const singularURI = {
@@ -132,8 +141,6 @@ const nestedSingularString = [
     'vcard:hasOrganizationName',
     'vcard:hasTelephone',
     'foaf:name',
-    'dcat:endDate',
-    'dcat:startDate',
     'spdx:checksumValue',
     "vcard:country_name",
     "vcard:locality", 
@@ -144,4 +151,20 @@ const nestedSingularString = [
     '@type',
 ];
 
-export default { singularString, singularURI, multipleURI, multiLang, conditionalValues, nestedSingularURIs, nestedSingularString, groupedProperties };
+const nestedTypedString = [
+    'dcat:endDate',
+    'dcat:startDate',
+];
+
+export default { 
+    singularString,
+    singularURI,
+    multipleURI,
+    multiLang,
+    conditionalValues,
+    nestedSingularURIs,
+    nestedSingularString,
+    groupedProperties,
+    typedStrings,
+    nestedTypedString,
+};
