@@ -265,7 +265,6 @@ export default {
           title: getFileName(distribution, i + 1), ...getUrls(distribution), format: getFormat(distribution), csvReportTitle: getFileNameForCSV(distribution),
         }));
       const zip = new JSZip();
-      console.log("TITLE", this.getTitle, this.getLanguages);
       const zipName = `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)}.zip`;
       const folder = zip.folder(this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages));
       await this.fetchDistributionFiles(zip, files, folder, getContentTypeFormat);

@@ -1,7 +1,10 @@
 <template>
   <label :for="context.id">
     <span class="form-label">{{ context.label }}</span>
-    <a v-if="info" @click="displayInfo()" class="infoButton"><i class="material-icons">info</i></a>
+    <a v-if="info" class="infoButton"><i class="material-icons" :title="info"
+      data-toggle="tooltip"
+      data-placement="top">info</i>
+    </a>
   </label>
 </template>
 
@@ -15,11 +18,6 @@ export default {
     info: {
       type: [String, Boolean],
       default: false,
-    },
-  },
-  methods: {
-    displayInfo() {
-      document.getElementById('info').innerHTML = `<p>${this.info}</p>`;
     },
   },
 };

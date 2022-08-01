@@ -10,7 +10,6 @@
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
       </div>
-      <InfoBox class="infoContainer"></InfoBox>
     </div>
     <div v-if="isDistributionOverview">
       <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
@@ -34,7 +33,6 @@ import {
 } from 'lodash';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
-import InfoBox from '../components/InfoBox.vue';
 
 export default {
   props: {
@@ -68,7 +66,6 @@ export default {
   components: {
     ValidationModal,
     DistributionOverview,
-    InfoBox,
   },
   computed: {
     ...mapGetters('auth', [
@@ -121,6 +118,11 @@ export default {
           // vuex returns observer of the data which will not be accepted by the input form so the data gets converted to 'real' data by using JSON conversion functions
           this.formValues = JSON.parse(JSON.stringify(preexistingValues));
         });
+        this.$nextTick(() => {
+          $('[data-toggle="tooltip"]').tooltip({
+            container: 'body',
+          });
+        });
       }
     },
     clear() {
@@ -128,10 +130,8 @@ export default {
       this.clearAll();
     },
     clearValues() {
-      console.log('CLEAR VALUES');
       this.formValues = {};
       this.failedFields = [];
-      console.log(this.formValues);
     },
     showValidationFields(fields) {
       const fieldNames = Object.keys(fields);
@@ -181,7 +181,6 @@ export default {
     }
   },
   mounted() {
-    console.log('MOUNTED');
     console.log(this.formValues);
     this.initInputPage();
     console.log(this.formValues);
@@ -215,26 +214,21 @@ export default {
     });
   },
   beforeRouteUpdate(to, from, next) {
-    console.log('BEFORE ROUTE UPDATE');
-    console.log(this.formValues);
     // get first route for property
     let firstStep;
     let path;
     if (this.property === 'distributions') {
       firstStep = this.getNavSteps.datasets[0];
-      path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
+      path = `${this.$env.upload.basePath}/datasets/${firstStep}`;
     } else {
       firstStep = this.getNavSteps[this.property][0];
-      path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
+      path = `${this.$env.upload.basePath}/${this.property}/${firstStep}`;
     }
 
-    // only show modal if next route is not first route (prevents showing of modal on clearing all properties from another route)
-    if (!to.path.startsWith(path)) {
-      if (!this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
-        $('#mandatoryModal').modal({ show: true });
-      } else {
-        next();
-      }
+    if (!to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+      $('#mandatoryModal').modal({ show: true });
+    } else {
+      next();
     }
   },
 };
@@ -257,15 +251,7 @@ select {
 }
 
 .formContainer {
-  width: 70%;
-}
-
-.infoContainer {
-  top: 20px;
-  width: 35%;
-  padding: 10px;
-  margin: 0 10px 0 10px;
-  background-color: transparent;
+  width: 100% !important;
 }
 
 .distributionPage0 {

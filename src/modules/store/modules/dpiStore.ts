@@ -771,7 +771,6 @@ const mutations = {
     }
   },
   resetStore(state) {
-    console.log('RESET STORE');
     // remove dpi values from local store
     localStorage.removeItem('dpi_datasets');
     localStorage.removeItem('dpi_catalogues');
