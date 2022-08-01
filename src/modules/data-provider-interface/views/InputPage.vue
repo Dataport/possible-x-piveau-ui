@@ -10,7 +10,6 @@
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
       </div>
-      <InfoBox class="infoContainer"></InfoBox>
     </div>
     <div v-if="isDistributionOverview">
       <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
@@ -34,7 +33,6 @@ import {
 } from 'lodash';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
-import InfoBox from '../components/InfoBox.vue';
 
 export default {
   props: {
@@ -68,7 +66,6 @@ export default {
   components: {
     ValidationModal,
     DistributionOverview,
-    InfoBox,
   },
   computed: {
     ...mapGetters('auth', [
@@ -120,6 +117,11 @@ export default {
           const preexistingValues = response;
           // vuex returns observer of the data which will not be accepted by the input form so the data gets converted to 'real' data by using JSON conversion functions
           this.formValues = JSON.parse(JSON.stringify(preexistingValues));
+        });
+        this.$nextTick(() => {
+          $('[data-toggle="tooltip"]').tooltip({
+            container: 'body',
+          });
         });
       }
     },
@@ -257,15 +259,7 @@ select {
 }
 
 .formContainer {
-  width: 70%;
-}
-
-.infoContainer {
-  top: 20px;
-  width: 35%;
-  padding: 10px;
-  margin: 0 10px 0 10px;
-  background-color: transparent;
+  width: 100% !important;
 }
 
 .distributionPage0 {

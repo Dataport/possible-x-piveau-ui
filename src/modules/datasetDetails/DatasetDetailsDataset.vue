@@ -182,7 +182,7 @@
             >
               <app-link v-if="showKeyword(keyword)" :to="getKeywordLink(keyword)" :rel="followKeywordLinks">
               <small class="d-inline-block w-100 py-2 rounded-pill text-center text-white tag-color"
-                     :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
+                     :data-toggle="keywordTruncated(keyword) ? '' : false"
                      :data-placement="keywordTruncated(keyword) ? 'top' : false"
                      :title="keywordTruncated(keyword) ? keyword.title : false">
                 {{ truncate(keyword.title, maxKeywordLength, false) }}
