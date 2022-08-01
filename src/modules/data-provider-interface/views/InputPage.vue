@@ -217,26 +217,21 @@ export default {
     });
   },
   beforeRouteUpdate(to, from, next) {
-    console.log('BEFORE ROUTE UPDATE');
-    console.log(this.formValues);
     // get first route for property
     let firstStep;
     let path;
     if (this.property === 'distributions') {
       firstStep = this.getNavSteps.datasets[0];
-      path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
+      path = `${this.$env.upload.basePath}/datasets/${firstStep}`;
     } else {
       firstStep = this.getNavSteps[this.property][0];
-      path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
+      path = `${this.$env.upload.basePath}/${this.property}/${firstStep}`;
     }
 
-    // only show modal if next route is not first route (prevents showing of modal on clearing all properties from another route)
-    if (!to.path.startsWith(path)) {
-      if (!this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
-        $('#mandatoryModal').modal({ show: true });
-      } else {
-        next();
-      }
+    if (!to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+      $('#mandatoryModal').modal({ show: true });
+    } else {
+      next();
     }
   },
 };
