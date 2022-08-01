@@ -49,3 +49,9 @@ export default {
   ]
 }
 </script>
+
+<style scoped lang="scss">
+  .disabled {
+    cursor: not-allowed;
+  }
+</style>

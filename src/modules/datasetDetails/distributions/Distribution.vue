@@ -180,71 +180,9 @@ export default {
 
 
 <style lang="scss" scoped>
-.disabled {
-  cursor: not-allowed;
-}
-
-.details-link {
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
 
 .text-break {
   word-break: break-word;
-}
-
-.heading, .arrow, .copy-text {
-  cursor: pointer;
-}
-
-.circle {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto;
-  padding: 20px 0;
-  font-size: 12px;
-  line-height: 1px;
-  border-radius: 50%;
-  background-color: #595959;
-  &[type="HTML"] {
-    background-color: #285C76;
-  }
-  &[type="JSON"] {
-    background-color: var(--dark-orange);
-  }
-  &[type="XML"] {
-    background-color: #8F4300;
-  }
-  &[type="TXT"] {
-    background-color: #2B5E73;
-  }
-  &[type="CSV"] {
-    background-color: var(--badge-green);
-  }
-  &[type="XLS"] {
-    background-color: #1A6537;
-  }
-  &[type="ZIP"] {
-    background-color: #252525;
-  }
-  &[type="API"] {
-    background-color: #923560;
-  }
-  &[type="PDF"] {
-    background-color: #B30519;
-  }
-  &[type="SHP"] {
-    background-color: var(--badge-black);
-  }
-  &[type="RDF"],
-  &[type="NQUAD"],
-  &[type="NTRIPLES"],
-  &[type="TURTLE"] {
-    background-color: #0b4498;
-  }
 }
 
 td {
