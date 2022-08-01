@@ -130,10 +130,8 @@ export default {
       this.clearAll();
     },
     clearValues() {
-      console.log('CLEAR VALUES');
       this.formValues = {};
       this.failedFields = [];
-      console.log(this.formValues);
     },
     showValidationFields(fields) {
       const fieldNames = Object.keys(fields);
@@ -183,7 +181,6 @@ export default {
     }
   },
   mounted() {
-    console.log('MOUNTED');
     console.log(this.formValues);
     this.initInputPage();
     console.log(this.formValues);
