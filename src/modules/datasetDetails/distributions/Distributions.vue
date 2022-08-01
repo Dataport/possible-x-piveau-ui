@@ -159,10 +159,6 @@ export default {
      }
   }
 
-  .heading, .arrow, .copy-text {
-    cursor: pointer;
-  }
-
   .download-all-btn {
     min-width: 100px;
     height: 31px;

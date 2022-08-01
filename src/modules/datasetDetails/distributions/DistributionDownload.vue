@@ -62,15 +62,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  /*** MATERIAL ICONS ***/
+  %modal-icon {
+    font-size: 18px;
+    cursor: default;
+  }
 
-/*** MATERIAL ICONS ***/
-%modal-icon {
-  font-size: 18px;
-  cursor: default;
-}
+  .help-icon {
+    @extend %modal-icon;
+  }
 
-.help-icon {
-  @extend %modal-icon;
-}
-
+  .copy-text {
+    cursor: pointer;
+  }
 </style>
