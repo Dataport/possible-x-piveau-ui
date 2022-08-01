@@ -156,7 +156,6 @@
       :replaceHttp="replaceHttp"
       :previewLinkCallback="previewLinkCallback"
       :toggleDistribution="toggleDistribution"
-      :setClipboard="setClipboard"
       :getGeoLink="getGeoLink"
       :toggleDistributionDescription="toggleDistributionDescription"
       :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
@@ -2141,15 +2140,6 @@
         f = this.geoLinkFormats[f];
         // Return Geo Visualisation Link
         return `/geo-viewer/?dataset=${distributionID}&type=${f}&lang=${this.$route.query.locale}`;
-      },
-      setClipboard(value) {
-        const input = document.createElement('INPUT');
-        // input.style = "position: absolute; left: -1000px; top: -1000px";
-        input.value = value;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
       },
       getKeywordLink(keyword) {
         return { path: `/datasets?keywords=${keyword.id}`, query: Object.assign({}, { locale: this.$route.query.locale }) };

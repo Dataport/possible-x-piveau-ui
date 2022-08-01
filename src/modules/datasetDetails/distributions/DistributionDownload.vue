@@ -57,6 +57,17 @@ export default {
   components: {
     DistributionDropdownDownload,
     AppLink
+  },
+  methods: {
+    setClipboard(value) {
+      const input = document.createElement('INPUT');
+      // input.style = "position: absolute; left: -1000px; top: -1000px";
+      input.value = value;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
   }
 }
 </script>
