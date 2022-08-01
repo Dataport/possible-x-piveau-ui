@@ -776,16 +776,10 @@ const mutations = {
     localStorage.removeItem('dpi_catalogues');
     localStorage.removeItem('dpi_distributions');
 
-    console.log(jsonlddefinitions);
-    
     // resetting all store data properties
     state.datasets = cloneDeep(jsonlddefinitions.datasets);
     state.catalogues = cloneDeep(jsonlddefinitions.catalogues);
     state.distributions = [];
-    
-    console.log(state.datasets);
-    console.log(state.catalogues);
-    console.log(state.distributions);
 
     // edit and draft mode not within this store so resetting via local storage
     localStorage.setItem('dpi_editmode', false);
