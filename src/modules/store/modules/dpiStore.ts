@@ -25,10 +25,10 @@ import dcataptypes from '../../data-provider-interface/config/dcatap-jsonld-type
 import inputtypes from '../../data-provider-interface/config/input-value-types';
 
 // converter for converting jsonld to input and vice versa
-import toJsonldConverter from '../../utils/data-provider-interface/toJsonld-helper';
-import toInputConverter from '../../utils/data-provider-interface/toInput-helper';
+import toJsonldConverter from '../../data-provider-interface/utils/toJsonld-helper';
+import toInputConverter from '../../data-provider-interface/utils/toInput-helper';
 
-import translate from '../../utils/data-provider-interface/translation-helper';
+import translate from '../../data-provider-interface/utils/translation-helper';
 
 Vue.use(Vuex);
 
