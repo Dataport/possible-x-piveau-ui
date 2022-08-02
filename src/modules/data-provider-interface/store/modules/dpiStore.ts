@@ -8,27 +8,27 @@ import { has, isEmpty, isNil, cloneDeep } from 'lodash';
 import * as jsonldLib from 'jsonld';
 
 // config defining which properties are displayed on which page
-import dpiconfig from '../../data-provider-interface/config/page-content-config';
+import dpiconfig from '../../config/page-content-config';
 // jsonld definition of all properties for each DCAT-AP profile
-import jsonlddefinitions from '../../data-provider-interface/config/dcatap-jsonld';
+import jsonlddefinitions from '../../config/dcatap-jsonld';
 // form input definition for all properties of each DCAT-AP profile
-import dcatapproperties from '../../data-provider-interface/config/dcatap-input-definition';
+import dcatapproperties from '../../config/dcatap-input-definition';
 // namespaced key for all DCATAP properties
-import namespacedKeys from '../../data-provider-interface/config/dcatap-namespace';
+import namespacedKeys from '../../config/dcatap-namespace';
 // jsonld context for DCAT-AP
-import context from '../../data-provider-interface/config/context.json';
+import context from '../../config/context.json';
 // general configurations
 // import { glueConfig as GLUE_CONFIG } from '../../../../config/user-config';
 
 // property types for jsonld and form input groupes by special format
-import dcataptypes from '../../data-provider-interface/config/dcatap-jsonld-types';
-import inputtypes from '../../data-provider-interface/config/input-value-types';
+import dcataptypes from '../../config/dcatap-jsonld-types';
+import inputtypes from '../../config/input-value-types';
 
 // converter for converting jsonld to input and vice versa
-import toJsonldConverter from '../../data-provider-interface/utils/toJsonld-helper';
-import toInputConverter from '../../data-provider-interface/utils/toInput-helper';
+import toJsonldConverter from '../../utils/toJsonld-helper';
+import toInputConverter from '../../utils/toInput-helper';
 
-import translate from '../../data-provider-interface/utils/translation-helper';
+import translate from '../../utils/translation-helper';
 
 Vue.use(Vuex);
 
