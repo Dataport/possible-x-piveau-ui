@@ -17,7 +17,7 @@ import gazetteer from './modules/gazetteerStore';
 import geo from './modules/geoStore';
 import auth from './modules/authStore';
 import snackbar from './modules/snackbarStore';
-import dpiStore from './modules/dpiStore';
+import dpiStore from '../data-provider-interface/store/modules/dpiStore';
 
 Vue.use(Vuex);
 

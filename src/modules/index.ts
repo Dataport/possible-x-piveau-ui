@@ -33,7 +33,6 @@ import catalogService from "./services/piveau-ui-adapter-vhub/catalogs";
 import gazetteerService from "./services/piveau-ui-adapter-vhub/gazetteer";
 
 import { decode } from "./utils/jwt";
-import { retrieveDataFromSource } from "./utils/adapter";
 
 import store from "./store";
 
@@ -90,7 +89,6 @@ export {
   gazetteerService,
 
   decode,
-  retrieveDataFromSource,
 
   store,
   DataProviderInterface,
