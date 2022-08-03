@@ -659,7 +659,9 @@ export default {
       return this.showObjectArray(property, name) && this.values[property][name].filter(el => has(el, '@value') && has(el, '@language')).length > 0;
     },
     getString(property, name) {
-      return this.values[property][name];
+      return has(this.values[property][name], '@value')
+        ? this.values[property][name]['@value']
+        : this.values[property][name][0];
     },
     getDistributionString(index, property, name) {
       return this.values.distributions[index][property][name];
