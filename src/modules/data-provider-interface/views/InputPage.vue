@@ -181,9 +181,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.formValues);
     this.initInputPage();
-    console.log(this.formValues);
   },
   watch: {
     getFirstTitleFromForm: {

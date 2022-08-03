@@ -51,9 +51,9 @@
                 <h2>{{ $t('message.metadata.distributions') }} ({{ values.distributions.length }})</h2>
               </div>
               <ul class="list list-unstyled col-12" v-if="showDistributions">
-                <li class="row" v-for="(distribution, i) in getData('distributions')" :key="`distribution${i+1}`">
+                <li class="row" v-for="(distribution, i) in getDistributions" :key="`distribution${i+1}`">
                   <span class="d-inline-block col-md-1 col-2 pt-3 pr-md-1 pr-0 m-md-0 m-auto">
-                    <div v-if="showProperty(`distribution_${i+1}`, 'dct:format')" class="circle float-md-right text-center text-white text-truncate"
+                    <div v-if="showDistributionProperty(i, 'dct:format')" class="circle float-md-right text-center text-white text-truncate"
                          :type="getDistributionFormat(distribution)"
                          :title="getDistributionFormat(distribution)">
                       <span>
@@ -65,25 +65,25 @@
                   <span class="col-10">
                     <span class="row">
                       <span class="d-inline-block col-md-7 col-12">
-                        <span v-if="showProperty(`distribution_${i+1}`, 'dct:title')">
-                          <h6 class="m-0" v-for="(title, index) in getLanguageArray(`distribution_${i+1}`, 'dct:title')" :key="index">
+                        <span v-if="showDistributionProperty(i, 'dct:title')">
+                          <h6 class="m-0" v-for="(title, index) in getDistributionsLanguageArray(i, 'dct:title')" :key="index">
                             {{ languageNames[title['@language']] }}: {{ title['@value'] }}
                           </h6>
                         </span>
-                        <span class="mt-2 d-block text-muted text-truncate" v-if="showProperty(`distribution_${i+1}`, 'dct:description')">
-                          <small v-for="(description, index) in getLanguageArray(`distribution_${i+1}`, 'dct:description')" :key="index">
+                        <span class="mt-2 d-block text-muted text-truncate" v-if="showDistributionProperty(i, 'dct:description')">
+                          <small v-for="(description, index) in getDistributionsLanguageArray(i, 'dct:description')" :key="index">
                             {{ languageNames[description['@language']] }}: {{ description['@value'] }}
                           </small>
                         </span>
-                        <span class="mt-2 d-block"  v-if="showProperty(`distribution_${i+1}`, 'dct:license')">
+                        <span class="mt-2 d-block"  v-if="showDistributionProperty(i, 'dct:license')">
                           <small class="font-weight-bold">
-                            {{ $t('message.metadata.license') }} : {{ getString(`distribution_${i+1}`, 'dct:license') }}
+                            {{ $t('message.metadata.license') }} : {{ getDistributionString(i, 'dct:license', '@id') }}
                           </small>
                         </span>
                       </span>
-                      <span class="col-md-5 col-12 mt-2 text-md-right text-left" v-if="showProperty(`distribution_${i+1}`, 'dct:issued')">
+                      <span class="col-md-5 col-12 mt-2 text-md-right text-left" v-if="showDistributionProperty(i, 'dct:issued')">
                         <span class="d-inline-block">
-                          <small class="pr-1">{{ filterDateFormatEU(getString(`distribution_${i+1}`, 'dct:issued')) }}</small>
+                          <small class="pr-1">{{ filterDateFormatEU(getDistributionString(i, 'dct:issued', '@value')) }}</small>
                         </span>
                       </span>
                     </span>
@@ -561,6 +561,9 @@ export default {
       'getNavSteps',
       'getData',
     ]),
+    getDistributions() {
+      return this.getData('distributions');
+    },
     showDatasetsOverview() {
       return this.$route.params.property === 'datasets' && has(this.values, 'datasets');
     },
@@ -609,6 +612,7 @@ export default {
   },
   methods: {
     ...mapActions('dpiStore', [
+      'clearAll',
       'saveExistingJsonld',
     ]),
     has,
@@ -619,6 +623,14 @@ export default {
     isObject,
     getTranslationFor,
     truncate,
+    clear() {
+      this.clearValues();
+      this.clearAll();
+    },
+    clearValues() {
+      // this.formValues = {};
+      // this.failedFields = [];
+    },
     capitalize(word) {
       return `${word.substring(0, 1).toUpperCase()}${word.substring(1)}`;
     },
@@ -632,7 +644,10 @@ export default {
       return isString(property) && !isNil(property);
     },
     showProperty(property, name) {
-      return has(this.values, property) && has(this.values[property], name) && !isNil(this.values[property][name]);
+      return has(this.values, property) && has(this.values[property], name) && !isNil(this.values[property][name]) && !isEmpty(this.values[property][name]);
+    },
+    showDistributionProperty(index, name) {
+      return has(this.values, 'distributions') && !isEmpty(this.values.distributions) && !isEmpty(this.values.distributions[index]) && has(this.values.distributions[index], name) && !isNil(this.values.distributions[index][name]) && !isEmpty(this.values.distributions[index][name]);
     },
     showStringArray(property, name) {
       return this.showProperty(property, name) && isArray(this.values[property][name]);
@@ -644,7 +659,12 @@ export default {
       return this.showObjectArray(property, name) && this.values[property][name].filter(el => has(el, '@value') && has(el, '@language')).length > 0;
     },
     getString(property, name) {
-      return this.values[property][name];
+      return has(this.values[property][name], '@value')
+        ? this.values[property][name]['@value']
+        : this.values[property][name][0];
+    },
+    getDistributionString(index, property, name) {
+      return this.values.distributions[index][property][name];
     },
     getStringArray(property, name) {
       return this.values[property][name];
@@ -655,8 +675,11 @@ export default {
     getLanguageArray(property, name) {
       return this.values[property][name].filter(el => has(el, '@value') && has(el, '@language'));
     },
+    getDistributionsLanguageArray(index, property) {
+      return this.values.distributions[index][property].filter(el => has(el, '@value') && has(el, '@language'));
+    },
     getDistributionFormat(distribution) {
-      return distribution['dct:format'].substring(distribution['dct:format'].lastIndexOf('/') + 1);
+      return distribution['dct:format']['@id'].substring(distribution['dct:format']['@id'].lastIndexOf('/') + 1);
     },
     getLocalstorageValues() {
       this.values[this.property] = this.getData(this.property);
