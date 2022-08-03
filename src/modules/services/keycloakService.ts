@@ -145,12 +145,13 @@ function init(config, watch, options) {
         },
       }).then((response) => {
         rtpToken = response?.data?.access_token;
+        const refreshInterval = response?.data?.expires_in * 1000 * 0.8;
 
         if (autoRefresh) {
           if (updateTokenTimeout) clearTimeout(updateTokenTimeout);
           updateTokenTimeout = setTimeout(async () => {
             await getRtpToken({ autoRefresh: true, refreshToken: response.data.refresh_token });
-          }, (rtpConfig.refresh_interval * 0.75) * 1000);
+          }, refreshInterval);
         }
         updateWatchVariables(true);
         resolve(rtpToken);
