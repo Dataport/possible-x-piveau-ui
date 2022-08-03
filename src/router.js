@@ -344,7 +344,7 @@ router.beforeEach((to, from, next) => {
       // TODO: Show unauthorized page here
     } else {
       router.app.$keycloak.getRtpToken().then((rtpToken) => {
-        const decodedAccessToken = decode(rtpToken.data.access_token);
+        const decodedAccessToken = decode(rtpToken);
         let isAuthenticated = false;
         decodedAccessToken.authorization.permissions.forEach((permission) => {
           if (permission.scopes.find(scope => scope === 'dataset:create')) isAuthenticated = true;
