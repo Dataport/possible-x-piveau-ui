@@ -62,6 +62,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+.custom-control {
+  padding-left: 1.5rem;
+  margin-right: 1rem;
+}
+.custom-control-label {
+  &::before {
+    left: -1.5rem !important;
+  }
+  &::after {
+    left: -1.5rem !important;
+  }
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
 
 </style>
