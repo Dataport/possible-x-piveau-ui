@@ -62,14 +62,14 @@
     has,
     isNil,
   } from 'lodash';
-  import Facet from '../facets/Facet.vue';
+  // import Facet from '../facets/Facet.vue';
   import DatasetsFacetsItem from '../datasets/datasetsFacets/DatasetsFacetsItem.vue';
   import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../utils/helpers';
 
   export default {
     name: 'catalogueFacets',
     components: {
-      Facet,
+      // Facet,
       DatasetsFacetsItem
     },
     data() {

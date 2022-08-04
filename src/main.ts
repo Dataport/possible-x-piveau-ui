@@ -76,11 +76,11 @@ Vue.config.devtools = true;
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
 
-// import Facet from "./Facet.vue";
+import Facet from "./components/Facet.vue";
 configureModules({
-  // components: {
-  //   Facet
-  // },
+  components: {
+    // Facet
+  },
   services: GLUE_CONFIG.services,
   serviceParams: {
     baseUrl: env.api.baseUrl,

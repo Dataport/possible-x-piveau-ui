@@ -7,7 +7,7 @@
 
 import injector from 'vue-inject';
 
-export default (services: {[key: string]: object}, params?: {[key: string]: any}) => {
+export default (services: {[key: string]: object}, params?: {[key: string]: unknown}) => {
   if (params) {
     Object.keys(params).forEach(key => {
       injector.constant(key, params[key]);
