@@ -22,6 +22,7 @@
         >
           <facet
             v-if="field.id === 'dataScope'"
+            :fieldId="field.id"
             :header="$t('message.datasetFacets.facets.datascope')"
             :items="field.items"
             :minItems="MIN_FACET_LIMIT"
@@ -43,6 +44,7 @@
           </facet>
           <facet
             v-else-if="(field.id === 'dataServices')"
+            :fieldId="field.id"
             :header="$t('message.metadata.dataServices')"
             :items="[]"
             :toolTipTitle="$t('message.helpIcon.dataServices')"
@@ -66,6 +68,7 @@
           </facet>
           <facet
             v-else
+            :fieldId="field.id"
             :header="field.id === 'scoring'
               ? $t('message.header.navigation.data.metadataquality')
               : $t(`message.datasetFacets.facets.${field.id.toLowerCase()}`)"
@@ -101,7 +104,7 @@ import {
   isNil,
   isNumber,
 } from 'lodash';
-// import Facet from '../../facets/Facet.vue';
+// import Facet from '../../facets/SelectFacet.vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsFacetMap from "@/modules/datasets/datasetsFacets/DatasetsFacetMap";
