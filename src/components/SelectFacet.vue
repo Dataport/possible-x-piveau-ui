@@ -19,7 +19,6 @@
               aria-haspopup="true"
               aria-expanded="false">
         <span data-toggle="tooltip"
-              :title="toolTipTitle"
               data-placement="center"
               class="ml-2">
           {{ header }}

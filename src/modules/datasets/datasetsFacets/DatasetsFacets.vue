@@ -66,28 +66,43 @@
               </div>
             </template>
           </facet>
-          <facet
+          <expandable-select-facet
             v-else
             :fieldId="field.id"
-            :header="field.id === 'scoring'
-              ? $t('message.header.navigation.data.metadataquality')
+            :header="field.id === 'scoring' ?
+              $t('message.header.navigation.data.metadataquality')
               : $t(`message.datasetFacets.facets.${field.id.toLowerCase()}`)"
             :items="sortByCount(field.items, field.id)"
-            :minItems="MIN_FACET_LIMIT"
-            :maxItems="MAX_FACET_LIMIT"
             :toolTipTitle="$t(`message.helpIcon.${field.id.toLowerCase()}`)"
+            :getFacetTranslationWrapper="getFacetTranslationWrapper"
+            :scoringFacetIsSelected="scoringFacetIsSelected"
+            :scoringFacetClicked="scoringFacetClicked"
+            :facetIsSelected="facetIsSelected"
+            :facetClicked="facetClicked"
             class="col pr-0"
-            v-slot="{ item: facet }"
-          >
-            <datasets-facets-item
-              class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"
-              :title="getFacetTranslationWrapper(field.id, facet.id, $route.query.locale, facet.title)"
-              :count="getFacetCount(field, facet)"
-              :hide-count="field.id === 'dataScope'"
-              :class="{active: field.id === 'scoring' ? scoringFacetIsSelected(facet.minScoring) : facetIsSelected(field.id, facet.id)}"
-              @click.native="field.id === 'scoring' ? scoringFacetClicked(facet.minScoring): facetClicked(field.id, facet.id)"
-            />
-          </facet>
+          />
+<!--          <facet-->
+<!--            v-else-->
+<!--            :fieldId="field.id"-->
+<!--            :header="field.id === 'scoring'-->
+<!--              ? $t('message.header.navigation.data.metadataquality')-->
+<!--              : $t(`message.datasetFacets.facets.${field.id.toLowerCase()}`)"-->
+<!--            :items="sortByCount(field.items, field.id)"-->
+<!--            :minItems="MIN_FACET_LIMIT"-->
+<!--            :maxItems="MAX_FACET_LIMIT"-->
+<!--            :toolTipTitle="$t(`message.helpIcon.${field.id.toLowerCase()}`)"-->
+<!--            class="col pr-0"-->
+<!--            v-slot="{ item: facet }"-->
+<!--          >-->
+<!--            <datasets-facets-item-->
+<!--              class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"-->
+<!--              :title="getFacetTranslationWrapper(field.id, facet.id, $route.query.locale, facet.title)"-->
+<!--              :count="getFacetCount(field, facet)"-->
+<!--              :hide-count="field.id === 'dataScope'"-->
+<!--              :class="{active: field.id === 'scoring' ? scoringFacetIsSelected(facet.minScoring) : facetIsSelected(field.id, facet.id)}"-->
+<!--              @click.native="field.id === 'scoring' ? scoringFacetClicked(facet.minScoring): facetClicked(field.id, facet.id)"-->
+<!--            />-->
+<!--          </facet>-->
         </div>
       </div>
     </div>
@@ -110,11 +125,13 @@ import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsFacetMap from "@/modules/datasets/datasetsFacets/DatasetsFacetMap";
 import CatalogDetailsFacet from "@/modules/datasets/datasetsFacets/CatalogDetailsFacet";
 import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
+import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet";
 
 export default {
   name: 'datasetFacets',
   dependencies: ['catalogService'],
   components: {
+    ExpandableSelectFacet,
     SettingsFacet,
     CatalogDetailsFacet,
     // Facet,
@@ -232,7 +249,6 @@ export default {
       'useCatalogService',
     ]),
     ...mapActions('datasets', [
-      'toggleFacet',
       'addFacet',
       'removeFacet',
       'setFacetGroupOperator',
