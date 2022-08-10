@@ -10,40 +10,14 @@
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
         />
-        <!-- Facet settings -->
-        <settings-facet
-          v-if="!showCatalogDetails"
-        />
-        <!-- Facets -->
+        <settings-facet v-if="!showCatalogDetails" />
         <div class="row facet-field mb-3"
              v-for="(field, index) in getSortedFacets"
              :key="`facet@${index}`"
              :class="{'mt-3': (index > 0)}"
         >
           <facet
-            v-if="field.id === 'dataScope'"
-            :fieldId="field.id"
-            :header="$t('message.datasetFacets.facets.datascope')"
-            :items="field.items"
-            :minItems="MIN_FACET_LIMIT"
-            :maxItems="MAX_FACET_LIMIT"
-            :toolTipTitle="$t('message.helpIcon.dataScope')"
-            class="col pr-0"
-            v-slot="{ item: facet }"
-          >
-            <datasets-facets-item
-              class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"
-              :title="$te(`message.datasetFacets.facets.datascopeField.${facet.id}`)
-                ? $t(`message.datasetFacets.facets.datascopeField.${facet.id}`)
-                : getFacetTranslationWrapper(field.id, facet.id, $route.query.locale, facet.title)"
-              :count="getFacetCount(field, facet)"
-              :hide-count="true"
-              :class="{active: dataScopeFacetIsSelected(facet.id)}"
-              @click.native="dataScopeFacetClicked(facet.id)"
-            />
-          </facet>
-          <facet
-            v-else-if="(field.id === 'dataServices')"
+            v-if="(field.id === 'dataServices')"
             :fieldId="field.id"
             :header="$t('message.metadata.dataServices')"
             :items="[]"
@@ -73,7 +47,7 @@
               $t('message.header.navigation.data.metadataquality')
               : $t(`message.datasetFacets.facets.${field.id.toLowerCase()}`)"
             :items="sortByCount(field.items, field.id)"
-            :toolTipTitle="$t(`message.helpIcon.${field.id.toLowerCase()}`)"
+            :toolTipTitle="field.id === 'dataScope' ? $t('message.helpIcon.dataScope') : $t(`message.helpIcon.${field.id.toLowerCase()}`)"
             :getFacetTranslationWrapper="getFacetTranslationWrapper"
             :scoringFacetIsSelected="scoringFacetIsSelected"
             :scoringFacetClicked="scoringFacetClicked"
@@ -81,28 +55,6 @@
             :facetClicked="facetClicked"
             class="col pr-0"
           />
-<!--          <facet-->
-<!--            v-else-->
-<!--            :fieldId="field.id"-->
-<!--            :header="field.id === 'scoring'-->
-<!--              ? $t('message.header.navigation.data.metadataquality')-->
-<!--              : $t(`message.datasetFacets.facets.${field.id.toLowerCase()}`)"-->
-<!--            :items="sortByCount(field.items, field.id)"-->
-<!--            :minItems="MIN_FACET_LIMIT"-->
-<!--            :maxItems="MAX_FACET_LIMIT"-->
-<!--            :toolTipTitle="$t(`message.helpIcon.${field.id.toLowerCase()}`)"-->
-<!--            class="col pr-0"-->
-<!--            v-slot="{ item: facet }"-->
-<!--          >-->
-<!--            <datasets-facets-item-->
-<!--              class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"-->
-<!--              :title="getFacetTranslationWrapper(field.id, facet.id, $route.query.locale, facet.title)"-->
-<!--              :count="getFacetCount(field, facet)"-->
-<!--              :hide-count="field.id === 'dataScope'"-->
-<!--              :class="{active: field.id === 'scoring' ? scoringFacetIsSelected(facet.minScoring) : facetIsSelected(field.id, facet.id)}"-->
-<!--              @click.native="field.id === 'scoring' ? scoringFacetClicked(facet.minScoring): facetClicked(field.id, facet.id)"-->
-<!--            />-->
-<!--          </facet>-->
         </div>
       </div>
     </div>
@@ -126,11 +78,13 @@ import DatasetsFacetMap from "@/modules/datasets/datasetsFacets/DatasetsFacetMap
 import CatalogDetailsFacet from "@/modules/datasets/datasetsFacets/CatalogDetailsFacet";
 import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
 import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet";
+import RadioFacet from "@/modules/facets/RadioFacet";
 
 export default {
   name: 'datasetFacets',
   dependencies: ['catalogService'],
   components: {
+    RadioFacet,
     ExpandableSelectFacet,
     SettingsFacet,
     CatalogDetailsFacet,
@@ -263,7 +217,7 @@ export default {
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     sortByCount(facets, fieldId) {
-      if (fieldId === 'scoring') return facets;
+      if (fieldId === 'scoring' || fieldId === 'dataScope') return facets;
       return facets.slice().sort((a, b) => {
         const n = b.count - a.count;
         if (n !== 0) return b.count - a.count;
@@ -275,6 +229,7 @@ export default {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, field)) {
         return false;
       }
+      if (field === 'dataScope') return this.$route.query.dataScope === facet;
       let qField = this.$route.query[field];
       if (!Array.isArray(qField)) qField = [qField];
       if (field === 'categories') {
@@ -284,9 +239,17 @@ export default {
       }
       return qField.indexOf(facet) > -1;
     },
+    // dataScopeFacetIsSelected(dataScope) {
+    //   if (!Object.prototype.hasOwnProperty.call(this.$route.query, 'dataScope')) return false;
+    //   return this.$route.query.dataScope === dataScope;
+    // },
     facetClicked(field, facet) {
-      this.toggleFacet(field, facet);
-      this.resetPage();
+      if (field === "dataScope") {
+        this.dataScopeFacetClicked(facet);
+      } else {
+        this.toggleFacet(field, facet);
+        this.resetPage();
+      }
     },
     toggleFacet(field, facet) {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
@@ -322,12 +285,8 @@ export default {
       this.resetPage();
       window.scrollTo(0, 0);
     },
-    dataScopeFacetIsSelected(dataScope) {
-      if (!Object.prototype.hasOwnProperty.call(this.$route.query, 'dataScope')) return false;
-      return this.$route.query.dataScope === dataScope;
-    },
     dataScopeFacetClicked(dataScope) {
-      if (this.dataScopeFacetIsSelected(dataScope)) {
+      if (this.facetIsSelected('dataScope', dataScope)) {
         this.$router.push(
           { query: Object.assign({}, this.$route.query, { dataScope: [], country: [], page: 1 }) }
         ).catch(
