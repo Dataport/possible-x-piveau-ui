@@ -52,8 +52,9 @@
               </div>
               <ul class="list list-unstyled col-12" v-if="showDistributions">
                 <li class="row" v-for="(distribution, i) in getDistributions" :key="`distribution${i+1}`">
+                  <!-- DISTRIBUTIONS FORMAT -->
                   <span class="d-inline-block col-md-1 col-2 pt-3 pr-md-1 pr-0 m-md-0 m-auto">
-                    <div v-if="showDistributionProperty(i, 'dct:format')" class="circle float-md-right text-center text-white text-truncate"
+                    <div v-if="showDistributionProperty(distribution, 'dct:format')" class="circle float-md-right text-center text-white text-truncate"
                          :type="getDistributionFormat(distribution)"
                          :title="getDistributionFormat(distribution)">
                       <span>
@@ -65,25 +66,35 @@
                   <span class="col-10">
                     <span class="row">
                       <span class="d-inline-block col-md-7 col-12">
-                        <span v-if="showDistributionProperty(i, 'dct:title')">
-                          <h6 class="m-0" v-for="(title, index) in getDistributionsLanguageArray(i, 'dct:title')" :key="index">
+                        <!-- DISTRIBUTIONS TITLE -->
+                        <span v-if="showDistributionProperty(distribution, 'dct:title')">
+                          <h6 class="m-0" v-for="(title, index) in getDistributionsLanguageArray(distribution, 'dct:title')" :key="index">
                             {{ languageNames[title['@language']] }}: {{ title['@value'] }}
                           </h6>
                         </span>
-                        <span class="mt-2 d-block text-muted text-truncate" v-if="showDistributionProperty(i, 'dct:description')">
-                          <small v-for="(description, index) in getDistributionsLanguageArray(i, 'dct:description')" :key="index">
+                        <!-- DISTRIBUTIONS DESCRIPTION -->
+                        <span class="mt-2 d-block text-muted text-truncate" v-if="showDistributionProperty(distribution, 'dct:description')">
+                          <small v-for="(description, index) in getDistributionsLanguageArray(distribution, 'dct:description')" :key="index">
                             {{ languageNames[description['@language']] }}: {{ description['@value'] }}
                           </small>
                         </span>
-                        <span class="mt-2 d-block"  v-if="showDistributionProperty(i, 'dct:license')">
+                        <!-- DISTRIBUTIONS LICENSE -->
+                        <span class="mt-2 d-block"  v-if="showDistributionProperty(distribution, 'dct:license')">
                           <small class="font-weight-bold">
-                            {{ $t('message.metadata.license') }} : {{ getDistributionString(i, 'dct:license', '@id') }}
+                            {{ $t('message.metadata.license') }} : {{ getDistributionString(distribution, 'dct:license', '@id') }}
                           </small>
                         </span>
                       </span>
-                      <span class="col-md-5 col-12 mt-2 text-md-right text-left" v-if="showDistributionProperty(i, 'dct:issued')">
+                      <!-- DISTRIBUTIONS ISSUED -->
+                      <span class="col-md-5 col-12 mt-2 text-md-right text-left" v-if="showDistributionProperty(distribution, 'dct:issued')">
                         <span class="d-inline-block">
-                          <small class="pr-1">{{ filterDateFormatEU(getDistributionString(i, 'dct:issued', '@value')) }}</small>
+                          <small class="pr-1">{{ filterDateFormatEU(getDistributionString(distribution, 'dct:issued', '@value')) }}</small>
+                        </span>
+                      </span>
+                      <!-- DISTRIBUTIONS MODIFIED -->
+                      <span class="col-md-5 col-12 mt-2 text-md-right text-left" v-if="showDistributionProperty(distribution, 'dct:issued')">
+                        <span class="d-inline-block">
+                          <small class="pr-1">{{ filterDateFormatEU(getDistributionString(distribution, 'dct:issued', '@value')) }}</small>
                         </span>
                       </span>
                     </span>
@@ -624,12 +635,7 @@ export default {
     getTranslationFor,
     truncate,
     clear() {
-      this.clearValues();
       this.clearAll();
-    },
-    clearValues() {
-      // this.formValues = {};
-      // this.failedFields = [];
     },
     capitalize(word) {
       return `${word.substring(0, 1).toUpperCase()}${word.substring(1)}`;
@@ -646,8 +652,8 @@ export default {
     showProperty(property, name) {
       return has(this.values, property) && has(this.values[property], name) && !isNil(this.values[property][name]) && !isEmpty(this.values[property][name]);
     },
-    showDistributionProperty(index, name) {
-      return has(this.values, 'distributions') && !isEmpty(this.values.distributions) && !isEmpty(this.values.distributions[index]) && has(this.values.distributions[index], name) && !isNil(this.values.distributions[index][name]) && !isEmpty(this.values.distributions[index][name]);
+    showDistributionProperty(distribution, name) {
+      return has(this.values, 'distributions') && !isEmpty(this.values.distributions) && !isEmpty(distribution) && has(distribution, name) && !isNil(distribution[name]) && !isEmpty(distribution[name]);
     },
     showStringArray(property, name) {
       return this.showProperty(property, name) && isArray(this.values[property][name]);
@@ -659,12 +665,10 @@ export default {
       return this.showObjectArray(property, name) && this.values[property][name].filter(el => has(el, '@value') && has(el, '@language')).length > 0;
     },
     getString(property, name) {
-      return has(this.values[property][name], '@value')
-        ? this.values[property][name]['@value']
-        : this.values[property][name][0];
+      return this.values[property][name];
     },
-    getDistributionString(index, property, name) {
-      return this.values.distributions[index][property][name];
+    getDistributionString(distribution, property, name) {
+      return distribution[property][name];
     },
     getStringArray(property, name) {
       return this.values[property][name];
@@ -675,13 +679,16 @@ export default {
     getLanguageArray(property, name) {
       return this.values[property][name].filter(el => has(el, '@value') && has(el, '@language'));
     },
-    getDistributionsLanguageArray(index, property) {
-      return this.values.distributions[index][property].filter(el => has(el, '@value') && has(el, '@language'));
+    getDistributionsLanguageArray(distribution, property) {
+      return distribution[property].filter(el => has(el, '@value') && has(el, '@language'));
     },
     getDistributionFormat(distribution) {
       return distribution['dct:format']['@id'].substring(distribution['dct:format']['@id'].lastIndexOf('/') + 1);
     },
     getLocalstorageValues() {
+      console.log('GET VALUES');
+      console.log(this.property);
+      console.log(this.getData(this.property));
       this.values[this.property] = this.getData(this.property);
       if (this.property === 'datasets') {
         this.values['distributions'] = this.getData('distributions');
@@ -690,22 +697,21 @@ export default {
     checkDatasetMandatory() {
       // Check if mandatory dataset properties are set
       if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dct:catalog')) {
-        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'mandatory', locale: this.$route.query.locale } });
+        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'mandatoryDataset', locale: this.$route.query.locale } });
       }
     },
     checkDistributionMandatory() {
       // Check if mandatory distribution properties are set
-      if (Object.keys(this.values).filter(el => el.startsWith('distribution')).filter(dist => !has(this.values[dist], 'dcat:accessURL')).length > 0) {
+      if (this.values.distributions.filter(dist => !has(dist, 'dcat:accessURL') || dist['dcat:accessURL'].length === 0).length > 0) {
         this.$router.push({
-          name: 'DataProviderInterface-ID',
-          path: '/dpi/datasets/step3/distribution1',
+          name: 'DataProviderInterface-Input',
+          path: '/dpi/datasets/distoverview',
           params: {
             property: 'datasets',
-            page: 'step3',
-            id: 'distribution1',
+            page: 'distoverview',
           },
           query: { 
-            error: 'mandatory',
+            error: 'mandatoryDist',
             locale: this.$route.query.locale
           },
         });
@@ -714,7 +720,7 @@ export default {
     checkCatalogueMandatory() {
       // Check if mandatory catalogue properties are set
       if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('datasets', 'dct:description')) {
-        this.$emit('error');
+        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'catalogues', page: 'step1' }, query: { error: 'mandatoryCatalog', locale: this.$route.query.locale } });
       }
     },
     checkDatasetID() {
@@ -743,41 +749,25 @@ export default {
         }
       });
     },
-    cleanupDistributions() {
-      // Remove empty distributions
-      let numberOfDistributions = localStorage.getItem('numberOfDistributions');
-      Object.keys(this.values).filter(el => el.startsWith('distribution')).forEach((distEl) => {
-        if (isEmpty(this.values[distEl])) {
-          numberOfDistributions -= 1;
-          delete this.values[distEl];
-        }
-      });
-
-      // Set new numberOfDistributions
-      localStorage.setItem('numberOfDistributions', JSON.stringify(numberOfDistributions));
-    },
     addPrecedingZero(value) {
       return parseInt(value, 10) < 10 ? 0 : '';
     },
   },
   created() {
     this.getLocalstorageValues();
-    // this.$nextTick(() => {
-    //   if (this.property === 'datasets') {
-    //     this.checkDatasetMandatory();
-    //     this.checkDatasetID();
-    //     this.cleanupDistributions();
-    //     this.checkDistributionMandatory();
-    //   }
-
-    //   if (this.property === 'catalogues') {
-    //     this.checkCatalogueMandatory();
-    //   }
-    // });
-  },
-  mounted() {
     this.saveExistingJsonld(this.property);
-  }
+    this.$nextTick(() => {
+      // if (this.property === 'datasets') {
+      //   this.checkDatasetMandatory();
+      //   this.checkDatasetID();
+      //   this.checkDistributionMandatory();
+      // }
+
+      // if (this.property === 'catalogues') {
+      //   this.checkCatalogueMandatory();
+      // }
+    });
+  },
 };
 </script>
 
