@@ -3,15 +3,10 @@
   <div class="list-group">
     <slot name="before" />
     <template v-if="header">
-      <div class="d-none d-md-block list-group-item facet-header">
-        <h2 class="h5 mb-0 float-left">{{ header }}</h2>
-        <i class="tooltip-icon material-icons small-icon align-right text-dark pl-1"
-           data-toggle="tooltip"
-           data-placement="right"
-           :title="toolTipTitle">
-          help_outline
-        </i>
-      </div>
+      <facet-title
+        :title="header"
+        :tooltip="toolTipTitle"
+      />
       <a
         class="d-flex d-md-none list-group-item justify-content-between align-items-baseline"
         data-toggle="collapse"
@@ -52,8 +47,6 @@
           <i class="material-icons align-bottom expand-more animated">{{ isGrown ? 'expand_less' : 'expand_more' }}</i>
         </button>
       </template>
-
-      <slot name="after" />
     </div>
   </div>
 </template>
@@ -61,9 +54,10 @@
 <script>
 
 import DatasetsFacetsItem from "@/modules/datasets/datasetsFacets/DatasetsFacetsItem";
+import FacetTitle from "@/modules/facets/FacetTitle";
 export default {
   name: 'ExpandableSelectFacet',
-  components: {DatasetsFacetsItem},
+  components: {FacetTitle, DatasetsFacetsItem},
   props: {
     header: {
       type: String,
@@ -114,10 +108,7 @@ export default {
       if (this.fieldId === 'scoring') return '';
       return facet.count;
     }
-  },
-  mounted() {
-    this.id = this._uid; // eslint-disable-line
-  },
+  }
 };
 
 </script>

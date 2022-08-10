@@ -1,14 +1,9 @@
 <template>
-  <div class="list-group">
-    <div class="d-none d-md-block list-group-item facet-header">
-      <h2 class="h5 mb-0 float-left">{{ header }}</h2>
-      <i class="tooltip-icon material-icons small-icon align-right text-dark pl-1"
-         data-toggle="tooltip"
-         data-placement="right"
-         :title="toolTipTitle">
-        help_outline
-      </i>
-    </div>
+  <div class="list-group row">
+    <facet-title
+      :title="header"
+      :tooltip="toolTipTitle"
+    />
     <div class="form-group list-group-item list-group-item-action d-flex justify-content-between align-items-center">
       {{ property }}
       <span class="ml-2 d-flex flex-wrap">
@@ -22,8 +17,10 @@
 </template>
 
 <script>
+import FacetTitle from "@/modules/facets/FacetTitle";
 export default {
   name: "RadioFacet",
+  components: {FacetTitle},
   props: {
     header: String,
     toolTipTitle: String,
@@ -38,23 +35,25 @@ export default {
       option: this.initialOption
     };
   },
+  computed: {
+    myId() {
+      // Use Vue generated uid to set give each facet a unique id
+      return `facet-${this.id}`;
+    },
+  },
   methods: {
     onChange(index) {
       this.option = index;
       this.change(index);
     }
-  }
+  },
+  mounted() {
+    this.id = this._uid; // eslint-disable-line
+  },
 }
 </script>
 
 <style scoped lang="scss">
-.facet-header {
-  background-color: rgba(0, 29, 133,0.05);
-}
-
-.tooltip-icon {
-  font-size: 15px;
-}
 
 .custom-control {
   padding-left: 1.5rem;
