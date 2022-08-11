@@ -1,6 +1,5 @@
 <template>
   <div class="col-12">
-    <p>{{values}}</p>
     <div class="mb-3" v-if="showDatasetsOverview">
 
       <!-- DATASET ID && CATALOG -->
