@@ -1,5 +1,6 @@
 <template>
   <div class="col-12">
+    <p>{{values}}</p>
     <div class="mb-3" v-if="showDatasetsOverview">
 
       <!-- DATASET ID && CATALOG -->
@@ -727,6 +728,7 @@ export default {
       return distribution['dct:format']['@id'].substring(distribution['dct:format']['@id'].lastIndexOf('/') + 1);
     },
     getLocalstorageValues() {
+      this.values = {...this.values};
       this.values[this.property] = this.getData(this.property);
       if (this.property === 'datasets') {
         this.values['distributions'] = this.getData('distributions');
@@ -792,8 +794,6 @@ export default {
     },
   },
   created() {
-    this.getLocalstorageValues();
-    this.saveExistingJsonld(this.property);
     this.$nextTick(() => {
       // if (this.property === 'datasets') {
       //   this.checkDatasetMandatory();
@@ -806,6 +806,10 @@ export default {
       // }
     });
   },
+  mounted(){
+    this.saveExistingJsonld(this.property);
+    this.getLocalstorageValues();
+  }
 };
 </script>
 
