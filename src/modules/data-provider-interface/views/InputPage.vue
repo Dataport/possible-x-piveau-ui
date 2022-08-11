@@ -212,12 +212,12 @@ export default {
     });
   },
   beforeRouteUpdate(to, from, next) {
-    // get first route for property
     let firstStep;
     let path;
+    let firstPath = `${this.$env.upload.basePath}/datasets/step1`;
+
     if (this.property === 'distributions') {
-      firstStep = this.getNavSteps.datasets[0];
-      path = `${this.$env.upload.basePath}/datasets/${firstStep}`;
+      path = `${this.$env.upload.basePath}/datasets/distoverview`;
     } else {
       firstStep = this.getNavSteps[this.property][0];
       path = `${this.$env.upload.basePath}/${this.property}/${firstStep}`;

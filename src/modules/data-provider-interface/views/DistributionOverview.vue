@@ -86,7 +86,7 @@ export default {
     deleteDist() {
       this.deleteDistribution(this.distributionToDelete);
       $('#deleteDistributionModal').modal('hide');
-      this.$router.push({ path: `${this.$env.upload.basePath}/${this.$route.params.property}/distoverview`, query: { locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ path: `${this.$env.upload.basePath}/datasets/distoverview`, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     triggerDeleteModal(index) {
       this.distributionToDelete = index;

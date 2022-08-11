@@ -59,6 +59,11 @@ export default {
           message: 'Dataset ID already exists',
           callback: this.closeModal,
         },
+        mandatory: {
+          confirm: '',
+          message: 'Mandatory Properties are missing',
+          callback: this.closeModal,
+        },
         clear: {
           confirm: 'Clear form',
           message: 'Are your sure you want to clear the form?',
@@ -81,9 +86,10 @@ export default {
       'getNavSteps',
       'mandatoryFieldsFilled',
     ]),
-    iDError() {
-      return this.$route.query.error === 'id';
-    },
+    iDError() { return this.$route.query.error === 'id' },
+    datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
+    distributionMandatoryError() { return this.$route.query.error === 'mandatoryDistribution' },
+    catalogMandatoryError() { return this.$route.query.error === 'mandatoryCatalog' },
     isPreviousPage() {
       const currentPageIndex = this.getNavSteps[this.property].indexOf(this.page);
       return currentPageIndex > 0;
@@ -111,6 +117,18 @@ export default {
     },
     handleIDError() {
       this.modal = this.modals.id;
+      $('#modal').modal({ show: true });
+    },
+    handleDatasetMandatoryError() {
+      this.modal = this.modals.mandatory;
+      $('#modal').modal({ show: true });
+    },
+    handleDistributionMandatoryError() {
+      this.modal = this.modals.mandatory;
+      $('#modal').modal({ show: true });
+    },
+    handleCatalogMandatoryError() {
+      this.modal = this.modals.mandatory;
       $('#modal').modal({ show: true });
     },
     handleClear() {
@@ -239,7 +257,10 @@ export default {
     this.$root.$on('go-to-next', () => this.next());
 
     // Show error if ID was already taken in meantime
-    // if (this.iDError) this.handleIDError();
+    if (this.iDError) this.handleIDError();
+    if (this.datasetMandatoryError) this.handleDatasetMandatoryError();
+    if (this.distributionMandatoryError) this.handleDistributionMandatoryError();
+    if (this.catalogMandatoryError) this.handleCatalogMandatoryError();
   },
 };
 </script>
