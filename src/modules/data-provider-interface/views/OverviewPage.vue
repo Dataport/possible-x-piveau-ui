@@ -99,7 +99,7 @@
                                 {{ languageNames[description['@language']] }}: {{ description['@value'] }}
                               </small></div>
                               <div><small v-if="showObjectElementValue(accessService, 'dcat:endpointURL', '@id')" class="pr-1">
-                                <a :href="getDistributionProperty(accessService, 'dcat:endpointURL', '@id')">{{ getDistributionProperty(accessService, 'dcat:endpointURL', '@id') }}</a>
+                                <a :href="getDistributionProperty(accessService, 'dcat:endpointURL', ['@id'])">{{ getDistributionProperty(accessService, 'dcat:endpointURL', ['@id']) }}</a>
                               </small></div>
                             </div>
                           </span>
@@ -116,36 +116,36 @@
                         </span>
                         <!-- DISTRIBUTIONS LICENSE -->
                         <span class="mt-2 text-left"  v-if="showDistributionProperty(distribution, 'dct:license')">
-                          <small>{{ $t('message.metadata.license') }} : {{ getDistributionProperty(distribution, 'dct:license', '@id') }}</small>
+                          <small>{{ $t('message.metadata.license') }} : {{ getDistributionProperty(distribution, 'dct:license', ['@id']) }}</small>
                         </span>
                         <!-- DISTRIBUTIONS ISSUED -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dct:issued')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.created') }} : {{ filterDateFormatEU(getDistributionProperty(distribution, 'dct:issued', '@value')) }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.created') }} : {{ filterDateFormatEU(getDistributionProperty(distribution, 'dct:issued', ['@value'])) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS MODIFIED -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dct:modified')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.updated') }} : {{ filterDateFormatEU(getDistributionProperty(distribution, 'dct:modified', '@value')) }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.updated') }} : {{ filterDateFormatEU(getDistributionProperty(distribution, 'dct:modified', ['@value'])) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS TYPE -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dct:type')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.type') }} : {{ getDistributionProperty(distribution, 'dct:type', '@id') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.type') }} : {{ getDistributionProperty(distribution, 'dct:type', ['@id']) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS MEDIA TYPE -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:mediaType')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.mediaType') }} : {{ getDistributionProperty(distribution, 'dcat:mediaType', '@id') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.mediaType') }} : {{ getDistributionProperty(distribution, 'dcat:mediaType', ['@id']) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS AVAILABILITY -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:availability')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.availability') }} : {{ getDistributionProperty(distribution, 'dcat:availability', '@id') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.availability') }} : {{ getDistributionProperty(distribution, 'dcat:availability', ['@id']) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS BYTE SIZE -->
@@ -157,67 +157,96 @@
                         <!-- DISTRIBUTIONS PACKAGE FORMAT -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:packageFormat')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.packageFormat') }} : {{ getDistributionProperty(distribution, 'dcat:packageFormat', '@id') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.packageFormat') }} : {{ getDistributionProperty(distribution, 'dcat:packageFormat', ['@id']) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS COMPRESS FORMAT -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:compressFormat')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.compressFormat') }} : {{ getDistributionProperty(distribution, 'dcat:compressFormat', '@id') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.compressFormat') }} : {{ getDistributionProperty(distribution, 'dcat:compressFormat', ['@id']) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS STATUS -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'adms:status')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.status') }} : {{ getDistributionProperty(distribution, 'adms:status', '@id') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.status') }} : {{ getDistributionProperty(distribution, 'adms:status', ['@id']) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS SPATIAL RESOLUTION IN METERS -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:spatialResolutionInMeters')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.spatialResolutionInMeters') }} : {{ getDistributionProperty(distribution, 'dcat:spatialResolutionInMeters', '@value') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.spatialResolutionInMeters.label') }} : {{ $t('message.metadata.spatialResolutionInMeters.label', { number: getDistributionProperty(distribution, 'dcat:spatialResolutionInMeters', ['@value'])}) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS TEMPORAL RESOLUTION -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:temporalResolution')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.temporalResolution') }} : {{ getDistributionProperty(distribution, 'dcat:temporalResolution', '@value') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.temporalResolution') }} : {{ getDistributionProperty(distribution, 'dcat:temporalResolution', ['@value']) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS CONFORMS TO -->
-                        <!-- <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dct:conformsTo')">
+                        <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dct:conformsTo')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.conformsTo') }} : {{ getDistributionProperty(distribution, 'dct:conformsTo', '@id') }}</small>
+                            <div v-for="(conformsTo, index) in getDistributionObjectArray(distribution, 'dct:conformsTo')" :key="index">
+                              <small v-if="showElementValue(conformsTo, 'rdfs:label')" class="pr-1">
+                                {{ $t('message.metadata.conformsTo') }}: <a :href="conformsTo['rdfs:label']">{{ conformsTo['rdfs:label'] }}</a>
+                              </small>
+                              <small v-if="showElementValue(conformsTo, '@id')" class="pr-1">
+                                {{ $t('message.metadata.conformsTo') }}: <a :href="conformsTo['@id']">{{ conformsTo['@id'] }}</a>
+                              </small>
+                            </div>
                           </span>
-                        </span> -->
+                        </span>
                         <!-- DISTRIBUTIONS LANGUAGE -->
-                        <!-- <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dct:language')">
+                        <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dct:language')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.language') }} : {{ getDistributionProperty(distribution, 'dct:language', '@id') }}</small>
+                            <div v-for="(language, index) in getDistributionObjectArray(distribution, 'dct:language')" :key="index">
+                              <small v-if="showElementValue(language, '@id')" class="pr-1">
+                                {{ $t('message.metadata.languages') }}: <a :href="language['@id']">{{ language['@id'] }}</a>
+                              </small>
+                            </div>
                           </span>
-                        </span> -->
+                        </span>
                         <!-- DISTRIBUTIONS RIGHTS -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dct:rights')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.rights') }} : {{ getDistributionProperty(distribution, 'dct:rights', '@id') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.rights') }} : {{ getDistributionProperty(distribution, 'dct:rights', ['rdfs:label']) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS PAGE -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'foaf:page')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.page') }} : {{ getDistributionProperty(distribution, 'foaf:page', '@id') }}</small>
+                            <div v-for="(page, index) in getDistributionObjectArray(distribution, 'foaf:page')" :key="index">
+                              <small v-if="showElementValue(page, 'dct:title')" class="pr-1">
+                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:title']">{{ page['dct:title'] }}</a>
+                              </small>
+                              <small v-if="showElementValue(page, 'dct:description')" class="pr-1">
+                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:description']">{{ page['dct:description'] }}</a>
+                              </small>
+                              <small v-if="showElementValue(page, '@id')" class="pr-1">
+                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['@id']">{{ page['@id'] }}</a>
+                              </small>
+                              <small v-if="showElementValue(page, 'dct:format')" class="pr-1">
+                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:format']">{{ page['dct:format'] }}</a>
+                              </small>
+                            </div>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS HAS POLICY -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'odrl:hasPolicy')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.hasPolicy') }} : {{ getDistributionProperty(distribution, 'odrl:hasPolicy', '@id') }}</small>
+                            <div v-for="(hasPolicy, index) in getDistributionObjectArray(distribution, 'odrl:hasPolicy')" :key="index">
+                              <small v-if="showElementValue(hasPolicy, '@id')" class="pr-1">
+                                {{ $t('message.metadata.hasPolicy') }}: <a :href="hasPolicy['@id']">{{ hasPolicy['@id'] }}</a>
+                              </small>
+                            </div>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS CHECKSUM -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'spdx:checksum')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.checksum') }} : {{ getDistributionProperty(distribution, 'spdx:checksum', '@id') }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.checksum') }} : {{ getDistributionProperty(distribution, 'spdx:checksum', ['spdx:checksumValue']) }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.checksum') }} : {{ getDistributionProperty(distribution, 'spdx:checksum', ['spdx:algorithm', '@id']) }}</small>
                           </span>
                         </span>
                       </span>
@@ -782,10 +811,15 @@ export default {
     showDistributionProperty(distribution, name) {
       return has(this.values, 'distributions') && !isEmpty(this.values.distributions) && !isEmpty(distribution) && has(distribution, name) && !isNil(distribution[name]) && !isEmpty(distribution[name]);
     },
-    getDistributionProperty(distribution, property, name) {
-      return has(distribution, property) && has(distribution[property], name)
-        ? distribution[property][name]
-        : [];
+    getDistributionProperty(distribution, property, path) {
+      if (has(distribution, property)) {
+        let currentProp = distribution[property];
+        path.forEach((p) => {
+          if (has(currentProp, p)) currentProp = currentProp[p];
+        });
+        return currentProp;
+      } 
+      return [];
     },
     getDistributionString(distribution, name) {
       return has(distribution, name) 
