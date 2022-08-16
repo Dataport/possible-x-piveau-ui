@@ -214,7 +214,6 @@ export default {
   beforeRouteUpdate(to, from, next) {
     let firstStep;
     let path;
-    let firstPath = `${this.$env.upload.basePath}/datasets/step1`;
 
     if (this.property === 'distributions') {
       path = `${this.$env.upload.basePath}/datasets/distoverview`;
@@ -223,7 +222,9 @@ export default {
       path = `${this.$env.upload.basePath}/${this.property}/${firstStep}`;
     }
 
-    if (!to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+    console.log(to);
+
+    if (to.query.clear !== 'true' && !to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
       $('#mandatoryModal').modal({ show: true });
     } else {
       next();

@@ -168,10 +168,10 @@ export default {
 
       if (this.property === 'distributions') {
         firstStep = this.getNavSteps.datasets[0];
-        path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
+        path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
       } else {
         firstStep = this.getNavSteps[this.property][0];
-        path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
+        path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
       }
       return path;
     },
