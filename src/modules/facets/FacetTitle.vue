@@ -13,17 +13,11 @@
 
 <script>
 
-import $ from "jquery";
-
 export default {
   name: "FacetTitle",
   props: {
     title: String,
     tooltip: String
-  },
-  mounted() {
-    // this.$refs['tooltip-icon'].tooltip({ container: 'body' });
-    // $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
   }
 }
 </script>

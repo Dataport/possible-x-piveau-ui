@@ -1,14 +1,14 @@
 <template>
-  <div class="list-group row">
+  <div class="list-group">
     <facet-title
-      :title="header"
+      :title="title"
       :tooltip="toolTipTitle"
     />
-    <div class="form-group list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
       {{ property }}
       <span class="ml-2 d-flex flex-wrap">
         <div class="custom-control custom-radio" v-for="(id, index) in optionIds">
-          <input type="radio" :id="id" name="radio-facet-operator" class="custom-control-input" @click="onChange(index)" :checked="option === index">
+          <input type="radio" :id="id" :name="title" class="custom-control-input" @click="onChange(id)" :checked="option === id">
           <label class="custom-control-label" :for="id">{{ optionLabels[index] }}</label>
         </div>
       </span>
@@ -22,10 +22,10 @@ export default {
   name: "RadioFacet",
   components: {FacetTitle},
   props: {
-    header: String,
+    title: String,
     toolTipTitle: String,
     property: String,
-    initialOption: Number,
+    initialOption: String,
     optionIds: Array,
     optionLabels: Array,
     change: Function
@@ -39,15 +39,16 @@ export default {
     myId() {
       // Use Vue generated uid to set give each facet a unique id
       return `facet-${this.id}`;
-    },
+    }
   },
   methods: {
-    onChange(index) {
-      this.option = index;
-      this.change(index);
+    onChange(id) {
+      this.option = id;
+      this.change(id);
     }
   },
   mounted() {
+    // this.id = this.myId; // eslint-disable-line
     this.id = this._uid; // eslint-disable-line
   },
 }
