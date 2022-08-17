@@ -248,12 +248,31 @@ export default {
         this.$watch('$keycloak.token', async (newToken) => {
           if (!newToken) return;
 
+          let rtpToken = this.$keycloak.rtpToken;
+          if (!rtpToken) {
+            const rtpTokenFn = this.$keycloak.getRtpToken;
+            if (rtpTokenFn) {
+              const res = (await rtpTokenFn({ autoRefresh: true }));
+              rtpToken = res;
+            }
+          }
+
           this.updateUserData({
             authToken: newToken,
-            rtpTokenFn: this.$keycloak.getRtpToken,
+            rtpToken: rtpToken,
             hubUrl: this.$env.api.hubUrl,
           });
         }, { immediate: true });
+
+        this.$watch('$keycloak.rtpToken', (newRtpToken) => {
+          if (!newRtpToken) return;
+
+          this.updateUserData({
+            authToken: this.$keycloak.token,
+            rtpToken: newRtpToken,
+            hubUrl: this.$env.api.hubUrl,
+          });
+        });
       }
     },
     async handleConfirm(action, argsObj, { successMessage, errorMessage }) {
@@ -316,7 +335,7 @@ export default {
         errorMessage: { prefix: this.$te('message.snackbar.doiRegistration.error') ? this.$t('message.snackbar.doiRegistration.error') : 'Failed to mark dataset as draft' },
       });
 
-      this.$router.push({ name: 'DataProviderInterface-Draft' }).catch(() => {});
+      this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     async handleDeleteDataset({ id, catalog }) {
       // todo: create user dataset api (and maybe integrate to store)
@@ -341,7 +360,7 @@ export default {
         this.$Progress.finish();
 
         // Redirect to Home
-        this.$router.push({ name: 'Datasets' }).catch(() => {});
+        this.$router.push({ name: 'Datasets', query: { locale: this.$route.query.locale }}).catch(() => {});
       } catch (ex) {
         this.$Progress.fail();
 

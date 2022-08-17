@@ -10,8 +10,12 @@
           </div>
           <div class="dist-details">
             <div class="dist-info">
-              <span style="font-weight: bold">{{ dist['dct:title'] }}</span><br />
-              <span style="color: #868e96">{{ dist['dct:description'] }}</span>
+              <!-- accessURL is always an array of URIs, first one might be enough for displaying -->
+              <span v-if="accessExists(dist)" style="font-weight: bold">{{ dist['dcat:accessURL'][0]['@id'] }}</span><br /> 
+
+              <!-- title and description always an array, first valu emights be enough for displaying-->
+              <span v-if="titleExists(dist)" style="color: #868e96">{{ dist['dct:title'][0]['@value'] }}<br /></span>
+              <span v-if="descriptionExists(dist)" style="color: #868e96">{{ dist['dct:description'][0]['@value'] }}</span>
             </div>
             <div class="dist-edit">
               <span @click="redirectToDistributionForm(i)" class="dist-edit-button">{{ $t('message.datasetDetails.edit') }}</span>
@@ -53,7 +57,7 @@
 
 <script>
 import $ from 'jquery';
-import { isEmpty } from 'lodash';
+import { isEmpty, has } from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
 import { truncate } from '../../utils/helpers';
 
@@ -82,8 +86,7 @@ export default {
     deleteDist() {
       this.deleteDistribution(this.distributionToDelete);
       $('#deleteDistributionModal').modal('hide');
-
-      this.$router.push(`${this.$env.upload.basePath}/${this.$route.params.property}/distoverview`).catch(() => {});
+      this.$router.push({ path: `${this.$env.upload.basePath}/datasets/distoverview`, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     triggerDeleteModal(index) {
       this.distributionToDelete = index;
@@ -98,7 +101,7 @@ export default {
     },
     redirectToDistributionForm(distributionIndex) {
       const firstDistPage = this.getNavSteps.distributions[0];
-      this.$router.push(`${this.$env.upload.basePath}/distributions/${firstDistPage}/${distributionIndex}`).catch(() => {});
+      this.$router.push({ path: `${this.$env.upload.basePath}/distributions/${firstDistPage}/${distributionIndex}`, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     createDistribution(){
       // create an new distribution within store
@@ -109,7 +112,16 @@ export default {
 
       // direct to distribution input form
       this.$router.push(`${this.$env.upload.basePath}/distributions/${firstDistPage}/${distIndex}?locale=${this.$i18n.locale}`);
-    }
+    },
+    titleExists(data){
+      return !isEmpty(data['dct:title']) && !isEmpty(data['dct:title'][0]) && has(data['dct:title'][0], '@value') && !isEmpty(data['dct:title'][0]['@value']);
+    },
+    descriptionExists(data){
+      return !isEmpty(data['dct:description']) && !isEmpty(data['dct:description'][0]) && has(data['dct:description'][0], '@value') && !isEmpty(data['dct:description'][0]['@value']);
+    },
+    accessExists(data){
+      return !isEmpty(data['dcat:accessURL']) && !isEmpty(data['dcat:accessURL'][0]) && has(data['dcat:accessURL'][0], '@id') && !isEmpty(data['dcat:accessURL'][0]['@id']);
+    },
   },
   mounted() {
     // saving existing dataset and distrbution data from localStorage to vuex store

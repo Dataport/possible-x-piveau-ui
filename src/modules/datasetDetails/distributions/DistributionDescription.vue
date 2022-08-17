@@ -41,6 +41,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .details-link {
+    cursor: pointer;
 
+  &:hover {
+     text-decoration: underline;
+   }
+  }
 </style>

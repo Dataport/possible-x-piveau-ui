@@ -49,8 +49,6 @@ const getters = {
    * @description Get all catalog IDs associated to the user where they have access to.
    */
   getUserCatalogIds: (state, getters) => {
-    console.log('GET USER CATALOGUE IDs');
-    console.log(getters.getUserCatalogs.map(catalog => catalog.rsname));
     return getters.getUserCatalogs.map(catalog => catalog.rsname)
   },
   getUserDrafts: state => state.userData.drafts,
@@ -80,17 +78,15 @@ const actions = {
    * @param {Object} params
    * @returns {Promise<Object>}
    */
-  async updateUserData({ commit, dispatch }, { authToken, rtpTokenFn, hubUrl }) {
-    if (!authToken || typeof rtpTokenFn !== 'function') return {};
+  async updateUserData({ commit, dispatch }, { authToken, rtpToken, hubUrl }) {
+    if (!authToken || !rtpToken) {
+      console.error('Missing authToken or rtpToken');
+      commit('UPDATE_USER_DATA_ERROR');
+      return {};
+    }
     commit('UPDATE_USER_DATA_PENDING');
 
     try {
-      // Get RTP token as JWT token
-      const rtpTokenResponse = await rtpTokenFn();
-      const rtpToken = rtpTokenResponse.status === 200
-        && rtpTokenResponse.data
-        && rtpTokenResponse.data.access_token;
-
       if (!rtpToken) throw new Error('Failed to retrieve RTP token');
 
       const decodedRtpToken = decode(rtpToken);

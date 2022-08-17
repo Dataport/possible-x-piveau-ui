@@ -24,8 +24,8 @@ export default {
 </script>
 
 <style scoped>
-div {
-  cursor: pointer;
-}
+  div, .arrow {
+    cursor: pointer;
+  }
 </style>
 

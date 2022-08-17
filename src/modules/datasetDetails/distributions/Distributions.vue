@@ -56,7 +56,6 @@
                 :replaceHttp="replaceHttp"
                 :previewLinkCallback="previewLinkCallback"
                 :toggleDistribution="toggleDistribution"
-                :setClipboard="setClipboard"
                 :getGeoLink="getGeoLink"
                 :toggleDistributionDescription="toggleDistributionDescription"
                 :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
@@ -123,7 +122,6 @@ export default {
     replaceHttp: Function,
     previewLinkCallback: Function,
     toggleDistribution: Function,
-    setClipboard: Function,
     getGeoLink: Function,
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
@@ -157,10 +155,6 @@ export default {
        background-color: #196fd2;
        border-color: #196fd2;
      }
-  }
-
-  .heading, .arrow, .copy-text {
-    cursor: pointer;
   }
 
   .download-all-btn {

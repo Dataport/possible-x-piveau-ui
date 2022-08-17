@@ -270,13 +270,13 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'temporalStart',
-          type: 'datetime-local',
+          type: 'datetime-picker',
           name: 'dcat:startDate',
           '@change': true,
         },
         {
           identifier: 'temporalEnd',
-          type: 'datetime-local',
+          type: 'datetime-picker',
           name: 'dcat:endDate',
           '@change': true,
         },
@@ -650,7 +650,7 @@ const dcatapProperties = {
           {
             name: '@value',
             identifier: 'date',
-            type: 'date',
+            type: 'date-picker',
             '@change': true,
           },
         ],
@@ -658,7 +658,7 @@ const dcatapProperties = {
           {
             name: '@value',
             identifier: 'datetime',
-            type: 'datetime-local',
+            type: 'datetime-picker',
             '@change': true,
           },
         ],
@@ -676,7 +676,7 @@ const dcatapProperties = {
           {
             name: '@value',
             identifier: 'date',
-            type: 'date',
+            type: 'date-picker',
             '@change': true,
           },
         ],
@@ -684,7 +684,7 @@ const dcatapProperties = {
           {
             name: '@value',
             identifier: 'datetime',
-            type: 'datetime-local',
+            type: 'datetime-picker',
             '@change': true,
           },
         ],
@@ -1224,7 +1224,7 @@ const dcatapProperties = {
           {
             name: '@value',
             identifier: 'date',
-            type: 'date',
+            type: 'date-picker',
             '@change': true,
           },
         ],
@@ -1232,7 +1232,7 @@ const dcatapProperties = {
           {
             name: '@value',
             identifier: 'datetime',
-            type: 'datetime-local',
+            type: 'datetime-picker',
             '@change': true,
           },
         ],
@@ -1250,7 +1250,7 @@ const dcatapProperties = {
           {
             name: '@value',
             identifier: 'date',
-            type: 'date',
+            type: 'date-picker',
             '@change': true,
           },
         ],
@@ -1258,7 +1258,7 @@ const dcatapProperties = {
           {
             name: '@value',
             identifier: 'datetime',
-            type: 'datetime-local',
+            type: 'datetime-picker',
             '@change': true,
           },
         ],

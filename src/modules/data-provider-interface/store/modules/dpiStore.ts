@@ -4,39 +4,39 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
-import { has, isEmpty, isNil } from 'lodash';
+import { has, isEmpty, isNil, cloneDeep } from 'lodash';
 import * as jsonldLib from 'jsonld';
 
 // config defining which properties are displayed on which page
-import dpiconfig from '../../data-provider-interface/config/page-content-config';
+import dpiconfig from '../../config/page-content-config';
 // jsonld definition of all properties for each DCAT-AP profile
-import jsonlddefinitions from '../../data-provider-interface/config/dcatap-jsonld';
+import jsonlddefinitions from '../../config/dcatap-jsonld';
 // form input definition for all properties of each DCAT-AP profile
-import dcatapproperties from '../../data-provider-interface/config/dcatap-input-definition';
+import dcatapproperties from '../../config/dcatap-input-definition';
 // namespaced key for all DCATAP properties
-import namespacedKeys from '../../data-provider-interface/config/dcatap-namespace';
+import namespacedKeys from '../../config/dcatap-namespace';
 // jsonld context for DCAT-AP
-import context from '../../data-provider-interface/config/context.json';
+import context from '../../config/context.json';
 // general configurations
 // import { glueConfig as GLUE_CONFIG } from '../../../../config/user-config';
 
 // property types for jsonld and form input groupes by special format
-import dcataptypes from '../../data-provider-interface/config/dcatap-jsonld-types';
-import inputtypes from '../../data-provider-interface/config/input-value-types';
+import dcataptypes from '../../config/dcatap-jsonld-types';
+import inputtypes from '../../config/input-value-types';
 
 // converter for converting jsonld to input and vice versa
-import toJsonldConverter from '../../utils/data-provider-interface/toJsonld-helper';
-import toInputConverter from '../../utils/data-provider-interface/toInput-helper';
+import toJsonldConverter from '../../utils/toJsonld-helper';
+import toInputConverter from '../../utils/toInput-helper';
 
-import translate from '../../utils/data-provider-interface/translation-helper';
+import translate from '../../utils/translation-helper';
 
 Vue.use(Vuex);
 
 const state = {
   schema: [],
-  datasets: jsonlddefinitions.datasets,
+  datasets: cloneDeep(jsonlddefinitions.datasets),
   distributions: [],
-  catalogues: jsonlddefinitions.catalogues,
+  catalogues: cloneDeep(jsonlddefinitions.catalogues),
   navigation: {
     datasets: [],
     distributions: [],
@@ -46,7 +46,6 @@ const state = {
 
 const getters = {
   getSchema(state) {
-    console.log('GET SCHEMA');
     return state.schema;
   },
   getData: (state) => (property) => {
@@ -192,6 +191,8 @@ const actions = {
         // values with identical structure for JSONLD and input form
         if (inputtypes.sameFormatProperties[property].includes(propertyKey)) {
           if (!isEmpty(stateValues)) formData[propertyKey] = stateValues;
+        } else if (inputtypes.typedStrings[property].includes(propertyKey)) {
+          if (!isEmpty(stateValues)) toInputConverter.typedStringToString(formData, stateValues, propertyKey);
         } else if (inputtypes.multiURIs[property].includes(propertyKey)) {
           // values with multiple URIs which need to be converted into multiple strings
           if (!isEmpty(stateValues)) toInputConverter.multiUriToString(formData, stateValues, propertyKey);
@@ -232,7 +233,7 @@ const actions = {
             // find index of letter for time period
             // extract substring until this index
             // extract number from string and set as according value for input
-            let resolutionString = stateValues;
+            let resolutionString = stateValues['@value'];
             for (let tempIndex = 0; tempIndex < shorts.length; tempIndex += 1) {
               const position = resolutionString.indexOf(shorts[tempIndex]); // position of duration letter
               const subDuration = resolutionString.substring(0, position); // substring until position of duration letter
@@ -263,6 +264,15 @@ const actions = {
               }
             }
           }
+        } else if (propertyKey === 'dct:temporal') {
+          if (!isEmpty(stateValues)) {
+            formData[propertyKey] = [];
+            for (let index = 0; index < stateValues.length; index += 1) {
+              formData[propertyKey][index] = {'dcat:startDate': '', 'dcat:endDate': ''};
+              if (has(stateValues[index], 'dcat:startDate')) formData[propertyKey][index]['dcat:startDate'] = stateValues[index]['dcat:startDate']['@value'];
+              if (has(stateValues[index], 'dcat:endDate')) formData[propertyKey][index]['dcat:endDate'] = stateValues[index]['dcat:endDate']['@value'];
+            }
+          }
         }
       } else if (property === 'datasets' && propertyKey === 'datasetID') {
         if (!isEmpty(storedata['@id'])) {
@@ -286,7 +296,6 @@ const actions = {
    * @param {*} param1 Object containing curren tproperty (datasets/catalogues) and all catalog options the user has permissions for
    */
   addCatalogOptions({ commit }, {property, catalogs}) {
-    console.log('ADD CATALOGUE OPTIONS');
     commit('saveCatalogOptions', {property, catalogs});
   },
   /**
@@ -478,6 +487,8 @@ const mutations = {
         // properties which value is a single string
         if (dcataptypes.singularString[property].includes(key)) {
           if(!isEmpty(values[key])) toJsonldConverter.convertSingularString(storedata, values[key], key);
+        } else if (dcataptypes.typedStrings[property].includes(key)) {
+          if (!isEmpty(values[key])) toJsonldConverter.convertTypedStrings(storedata, values[key], key);
         } else if (dcataptypes.singularURI[property].includes(key)) {
           // properties which value is a singulare URI
           if(!isEmpty(values[key])) toJsonldConverter.convertSingularURI(storedata[key], values[key]);
@@ -517,7 +528,8 @@ const mutations = {
           // the form for temporal resolution returns (if single fields are given):
           // [{'Year': '', 'Month': '', ...}]
           const resultionValues = values[key][0];
-          storedata[key] = `P${resultionValues.Year ? resultionValues.Year : 0}Y${resultionValues.Month ? resultionValues.Month : 0}M${resultionValues.Day ? resultionValues.Day : 0}DT${resultionValues.Hour ? resultionValues.Hour : 0}H${resultionValues.Minute ? resultionValues.Minute : 0}M${resultionValues.Second ? resultionValues.Second : 0}S`
+          storedata[key] = {'@value': '', '@type': 'xsd:duration'};
+          storedata[key]['@value'] = `P${resultionValues.Year ? resultionValues.Year : 0}Y${resultionValues.Month ? resultionValues.Month : 0}M${resultionValues.Day ? resultionValues.Day : 0}DT${resultionValues.Hour ? resultionValues.Hour : 0}H${resultionValues.Minute ? resultionValues.Minute : 0}M${resultionValues.Second ? resultionValues.Second : 0}S`
         } else if (key === 'spdx:checksum') {
           const actualValues = values[key][0]; // checksum is a grouped property and therefore stored within an array (with only one entry because it is not repeatable)
           if (!isEmpty(actualValues)) {
@@ -540,16 +552,29 @@ const mutations = {
    * @param {String} property Property within the stae where the existing data should be saved to (datasets/distributions/catalogues)
    */
   saveJsonld(state, property) {
-    const valueName = `dpi_${property}`;
-    if (Object.keys(localStorage).includes(valueName)) {
-      const localStorageData = JSON.parse(localStorage.getItem(valueName));
-      state[property] = localStorageData;
+    let valueName;
+
+    if (property === 'catalogues') {
+      valueName = 'dpi_catalogues';
+    } else {
+      valueName = 'dpi_datasets';
     }
 
-    const distName = 'dpi_distributions';
-    if (Object.keys(localStorage).includes(distName)) {
-      const distributionsData = JSON.parse(localStorage.getItem(distName));
-      state.distributions = distributionsData;
+    // extract catalogues or datasets data
+    if (Object.keys(localStorage).includes(valueName)) {
+      const localStorageData = JSON.parse(localStorage.getItem(valueName));
+      if (property === 'catalogues') state[property] = localStorageData;
+      else state.datasets = localStorageData;
+    }
+
+    // additionally get distribution data if existing
+    if (property === 'datasets' || property === 'distributions') {
+      const distName = 'dpi_distributions';
+  
+      if (Object.keys(localStorage).includes(distName)) {
+        const distributionsData = JSON.parse(localStorage.getItem(distName));
+        state.distributions = distributionsData;
+      }
     }
   },
   /**
@@ -578,16 +603,27 @@ const mutations = {
    */
   transferJsonld(state, {data, nodeData, property, id}) {
     const propertyKeys = Object.keys(data);
+    let storedata;
+
+    // save id of property dataset or catalogues to @id-field
+    if (property === 'datasets' || property === 'catalogues') {
+      state[property]['@id'] = id;
+      storedata = state[property];
+    }
+
+    if (property === 'distributions') {
+      // povided id is index of distribution
+      if (!state.distributions) {
+        state.distributions = [];
+      }
+
+      state.distributions[id] = cloneDeep(jsonlddefinitions.distributions);
+      storedata = state[property][id];
+      storedata['@id'] = data['@id'];
+    }
 
     for (let index = 0; index < propertyKeys.length; index += 1) {
       const normalKeyName = propertyKeys[index];
-      let storedata;
-
-      // save id of property dataset or catalogues to @id-field
-      if (property === 'datasets' || property === 'catalogues') {
-        state[property]['@id'] = id;
-        storedata = state[property];
-      }
 
       // save catalog info for input of datasets (no valid/ real property -> just for input)
       if (property === 'datasets' && normalKeyName === 'catalog') {
@@ -595,17 +631,16 @@ const mutations = {
       }
 
       if (property === 'datasets' && normalKeyName === 'distribution') {
-        storedata['dcat:distribution'] = data[normalKeyName];
-      }
-
-      if (property === 'distributions') {
-        // povided id is index of distribution
-        if (!state.distributions) {
-          state.distributions = [];
+        // backend provided either String or array of strings but we need the distribution ids as URIs
+        const distributionIds = data[normalKeyName];
+        if (typeof distributionIds === 'string') {
+          storedata['dcat:distribution'] = [{'@id': distributionIds}];
+        } else if (Array.isArray(distributionIds)) {
+          storedata['dcat:distribution'] = [];
+          for (let index = 0; index < distributionIds.length; index += 1) {
+            storedata['dcat:distribution'][index] = {'@id': distributionIds[index]};
+          }
         }
-        state.distributions[id] = jsonlddefinitions.distributions;
-        storedata = state[property][id];
-        storedata['@id'] = data['@id'];
       }
 
       if (has(namespacedKeys, normalKeyName)) {
@@ -614,6 +649,8 @@ const mutations = {
         // propertie which value is a singular string
         if (dcataptypes.singularString[property].includes(key)) {
           if(!isEmpty(data[normalKeyName])) toJsonldConverter.convertSingularString(storedata, data[normalKeyName], key);
+        } else if (dcataptypes.typedStrings[property].includes(key)) {
+          if (!isEmpty(data[normalKeyName])) toJsonldConverter.convertTypedStrings(storedata, data[normalKeyName], key);
         } else if (dcataptypes.multiLang[property].includes(key)) {
           // multilingual Properties
           let values;
@@ -650,7 +687,7 @@ const mutations = {
           }
         } else if (key === 'dcat:temporalResolution') {
           // temporal resolution given as string (e.g. P1Y1M0DT0H2M0S)
-          if (!isEmpty(data[normalKeyName])) storedata[key] = data[normalKeyName];
+          if (!isEmpty(data[normalKeyName])) storedata[key] = { '@value': data[normalKeyName], '@type': 'xsd:duration' };
         } else if (dcataptypes.groupedProperties.includes(key)) {
           // properties with a group (and nested group) of subproperties
           const singularData = data[normalKeyName];
@@ -697,12 +734,18 @@ const mutations = {
     if (!state.distributions) {
       state.distributions = [];
     }
-    const newDistribution = jsonlddefinitions.distributions;
+    const newDistribution = cloneDeep(jsonlddefinitions.distributions);
     // give distribution random id (which must be a link)
     newDistribution['@id'] = `${Vue.prototype.$env.api.hubUrl}distribution/${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20)}`;
     state.distributions.push(newDistribution);
 
     // add id to distributions array within datasets
+    // if edit mode and only one distribution is available, write id into array to enable adding additional distribution ids
+    if (!Array.isArray(state.datasets['dcat:distribution'])) {
+      const existingId = state.datasets['dcat:distribution'];
+      state.datasets['dcat:distribution'] = [];
+      state.datasets['dcat:distribution'].push({'@id': existingId});
+    }
     state.datasets['dcat:distribution'].push({'@id': newDistribution['@id']});
 
     // save changes to local storage
@@ -716,8 +759,15 @@ const mutations = {
    */
   removeDistribution(state, index) {
     if (index > -1 && index < state.distributions.length) {
+      // distribution ids within dataset object not neccesaryly sorted the same way as distributions in state
+      const currentDistributionId = state.distributions[index]['@id'];
+      const idList = state.datasets['dcat:distribution'].map(dataset => dataset['@id']);
+      const idIndex = idList.indexOf(currentDistributionId);
+      state.datasets['dcat:distribution'].splice(idIndex, 1);
+      
       state.distributions.splice(index, 1);
       localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
+      localStorage.setItem('dpi_datasets', JSON.stringify(state.datasets));
     }
   },
   resetStore(state) {
@@ -727,8 +777,8 @@ const mutations = {
     localStorage.removeItem('dpi_distributions');
 
     // resetting all store data properties
-    state.datasets = jsonlddefinitions.datasets;
-    state.catalogues = jsonlddefinitions.catalogues;
+    state.datasets = cloneDeep(jsonlddefinitions.datasets);
+    state.catalogues = cloneDeep(jsonlddefinitions.catalogues);
     state.distributions = [];
 
     // edit and draft mode not within this store so resetting via local storage

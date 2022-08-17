@@ -33,7 +33,6 @@ import catalogService from "./services/piveau-ui-adapter-vhub/catalogs";
 import gazetteerService from "./services/piveau-ui-adapter-vhub/gazetteer";
 
 import { decode } from "./utils/jwt";
-import { retrieveDataFromSource } from "./utils/adapter";
 
 import store from "./store";
 
@@ -51,6 +50,8 @@ import AutocompleteInput from './data-provider-interface/components/Autocomplete
 import ConditionalInput from './data-provider-interface/components/ConditionalInput';
 import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
 import FileUpload from './data-provider-interface/components/FileUpload';
+import DatePicker from './data-provider-interface/components/DatePicker';
+import DateTimePicker from './data-provider-interface/components/DateTimePicker';
 
 import { configureModules } from "./configurations/configureModules";
 
@@ -88,7 +89,6 @@ export {
   gazetteerService,
 
   decode,
-  retrieveDataFromSource,
 
   store,
   DataProviderInterface,
@@ -105,6 +105,8 @@ export {
   ConditionalInput,
   UniqueIdentifierInput,
   FileUpload,
+  DatePicker,
+  DateTimePicker,
 
   configureModules
 };

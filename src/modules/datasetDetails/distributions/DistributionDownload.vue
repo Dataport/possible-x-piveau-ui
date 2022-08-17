@@ -57,20 +57,33 @@ export default {
   components: {
     DistributionDropdownDownload,
     AppLink
+  },
+  methods: {
+    setClipboard(value) {
+      const input = document.createElement('INPUT');
+      // input.style = "position: absolute; left: -1000px; top: -1000px";
+      input.value = value;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
+  /*** MATERIAL ICONS ***/
+  %modal-icon {
+    font-size: 18px;
+    cursor: default;
+  }
 
-/*** MATERIAL ICONS ***/
-%modal-icon {
-  font-size: 18px;
-  cursor: default;
-}
+  .help-icon {
+    @extend %modal-icon;
+  }
 
-.help-icon {
-  @extend %modal-icon;
-}
-
+  .copy-text {
+    cursor: pointer;
+  }
 </style>

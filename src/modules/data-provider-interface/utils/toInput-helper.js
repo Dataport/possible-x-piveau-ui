@@ -18,6 +18,16 @@ function multiUriToString(state, values, key) {
 }
 
 /**
+ * Converts typed strings into a singular string
+ * @param {*} state 
+ * @param {*} values 
+ * @param {*} key 
+ */
+function typedStringToString(state, values, key) {
+    state[key] = values['@value'];
+}
+
+/**
  * Conerted JSONLD grouped values into input grouped values matching form input format
  * @param {*} state
  * @param {*} values
@@ -85,4 +95,4 @@ function convertNestedProperties(state, values) {
 
 }
 
-export default { multiUriToString, convertGroupedProperties };
+export default { multiUriToString, convertGroupedProperties, typedStringToString };

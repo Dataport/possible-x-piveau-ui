@@ -141,27 +141,26 @@ export default {
   methods: {
     ...mapActions('dpiStore', [
       'saveExistingJsonld',
-      'clearAll',
     ]),
     ...mapActions('auth', [
       'populateDraftAndEdit',
     ]),
     clearStorageAndValues() {
-
       // Clear storage
-      this.$refs.view.clearValues(); // first clear values of form and then store so new default values include language preselection
-      this.clearAll();
-
-      // Jump to first page
-      // first page could include query parameters so searching for the same path start
+      // 1. Clear form values 
+      // 2. Clear store values
+      // 3, Clear local storage
+      this.$refs.view.clear(); 
+      
+      // Jump to first page and compare path start because of possible query params
       if (!this.$route.fullPath.startsWith(this.getFirstPath())) {
         this.jumpToFirstPage();
       } else {
+        // Hacky solution which accepts a reload to solve the datasetID and preselected languages bug
+        // --> Should be replaced if built-in functionality works
+        // this.$formulate.resetValidation('form');
         this.$router.go();
       }
-      //   // this.$formulate.resetValidation('form');
-      //   // document.getElementById('datasetIDForm').value = ''; // TODO: Clear the datasetID
-      //   this.$router.go(); // Hacky solution which accepts a reload to solve the datasetID and preselected languages bug
     },
     getFirstPath() {
       let firstStep;
@@ -169,10 +168,10 @@ export default {
 
       if (this.property === 'distributions') {
         firstStep = this.getNavSteps.datasets[0];
-        path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
+        path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
       } else {
         firstStep = this.getNavSteps[this.property][0];
-        path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
+        path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
       }
       return path;
     },

@@ -59,6 +59,11 @@ export default {
           message: 'Dataset ID already exists',
           callback: this.closeModal,
         },
+        mandatory: {
+          confirm: '',
+          message: 'Mandatory Properties are missing',
+          callback: this.closeModal,
+        },
         clear: {
           confirm: 'Clear form',
           message: 'Are your sure you want to clear the form?',
@@ -81,9 +86,10 @@ export default {
       'getNavSteps',
       'mandatoryFieldsFilled',
     ]),
-    iDError() {
-      return this.$route.query.error === 'id';
-    },
+    iDError() { return this.$route.query.error === 'id' },
+    datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
+    distributionMandatoryError() { return this.$route.query.error === 'mandatoryDistribution' },
+    catalogMandatoryError() { return this.$route.query.error === 'mandatoryCatalog' },
     isPreviousPage() {
       const currentPageIndex = this.getNavSteps[this.property].indexOf(this.page);
       return currentPageIndex > 0;
@@ -104,12 +110,25 @@ export default {
     ]),
     ...mapActions('dpiStore', [
       'finishJsonld',
+      'clearAll',
     ]),
     closeModal() {
       $('#modal').modal('hide');
     },
     handleIDError() {
       this.modal = this.modals.id;
+      $('#modal').modal({ show: true });
+    },
+    handleDatasetMandatoryError() {
+      this.modal = this.modals.mandatory;
+      $('#modal').modal({ show: true });
+    },
+    handleDistributionMandatoryError() {
+      this.modal = this.modals.mandatory;
+      $('#modal').modal({ show: true });
+    },
+    handleCatalogMandatoryError() {
+      this.modal = this.modals.mandatory;
       $('#modal').modal({ show: true });
     },
     handleClear() {
@@ -168,13 +187,22 @@ export default {
       this.uploading[mode] = true;
       this.$Progress.start();
 
-      const jsonld = await this.finishJsonld(this.$route.params.property).then((response) => {
+      // adapt submit property for case of distributions
+      let submitProperty;
+      if (this.property === 'distributions') {
+        submitProperty = 'datasets';
+      } else {
+        submitProperty = this.property;
+      }
+
+      const jsonld = await this.finishJsonld(submitProperty).then((response) => {
         return response;
       });
 
       const rtpToken = this.getUserData.rtpToken;
-      const datasetId = this.getData(this.property)['@id'];
-      const catalogName = this.getData(this.property)['dct:catalog'] ? this.getData(this.property)['dct:catalog'] : '';
+
+      const datasetId = this.getData(submitProperty)['@id'];
+      const catalogName = this.getData(submitProperty)['dct:catalog'] ? this.getData(submitProperty)['dct:catalog'] : '';      
       let uploadUrl;
       let actionName;
       let actionParams = {
@@ -215,23 +243,24 @@ export default {
       }
     },
     createDataset(datasetId) {
-      this.setIsEditMode(false);
-      this.setIsDraft(false);
+      this.clearAll();
       this.showSnackbar({ message: 'Dataset published successfully', variant: 'success' });
-      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId } }).catch(() => {});
+      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     createDraft() {
-      this.setIsEditMode(false);
-      this.setIsDraft(false);
+      this.clearAll();
       this.showSnackbar({ message: 'Draft saved successfully', variant: 'success' });
-      this.$router.push({ name: 'DataProviderInterface-Draft' }).catch(() => {});
+      this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
   },
   mounted() {
     this.$root.$on('go-to-next', () => this.next());
 
     // Show error if ID was already taken in meantime
-    // if (this.iDError) this.handleIDError();
+    if (this.iDError) this.handleIDError();
+    if (this.datasetMandatoryError) this.handleDatasetMandatoryError();
+    if (this.distributionMandatoryError) this.handleDistributionMandatoryError();
+    if (this.catalogMandatoryError) this.handleCatalogMandatoryError();
   },
 };
 </script>

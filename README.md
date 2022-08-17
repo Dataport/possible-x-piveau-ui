@@ -1,48 +1,29 @@
 # piveau-hub-ui-modules
 
-> Please use node version >= 14. Recommended is version 17.
+> Please use node version >= 14. Recommended is version 17.6.0.
 
 This is a space to develop Vanilla piveau-hub-ui components. 
-This project can be published as an npm package to our npm registry
+The contents of the modules folder can be published as an npm package to our npm registry
 which can then be used in Piveau based projects to import the
-required parts.
+required parts. It also has a sample-app which can be run as follows:
 
-## Module development
+## Running the sample app
 
-We are developing an npm package named `@piveau/piveau-hub-ui-modules`
-Component development takes place in the `src/modules` folder and
-all components that should be part of our npm package must be 
-exported from there.
-
-The rest of the source code (outside `src/modules`) is a test app, which is a copy of Data Europa
-Piveau-Hub-UI and can be run with `npm run serve`. The basic idea is to take parts from 
-the test app and isolate them in `src/modules`, then import them back into the test 
-app just like you would from the published package:
-
-```
-import { MyComponent } from '@piveau/piveau-hub-ui-modules';
-```
-
-The workflow is as follows:
-
-  * Develop your component in `src/modules`
-  * Export the component in `src/modules/index.ts`
-  * Import the component in the test app from `@piveau/piveau-hub-ui-modules`
-  * When a new version should be published, increase the version number in `package.json` and run `npm run deploy` (you have to be logged into our paca npm registry)
-
-In order for imports from `@piveau/piveau-hub-ui-modules` in the test-app to work, that package must be accessible in the node_modules folder.
-There are two ways to achieve this:
-
-  1. Executing `npm run link-module` creates a symlink to the `src/modules` folder in node_modules.
-  2. Executing `npm run localdeploy` creates a compiled version of the modules folder in `dist` and copies it into node_modules`.
-
-The advantage of option 2 is that the package in node_modules is exactly the same as the published version will be.
-However development with that option requires repeated `npm run build` to update the package for the test-app.
-Option 1 does not require rebuilding so the development experience is simpler and faster.
+1. Make sure you have a configuration file named `user-config.js` in the `config` folder.
+To start with, you can make a copy of `user-config.sample.js` and rename it to 
+`user-config.js`.
+2. Run the command `npm ci` to install the dependencies.
+3. We must add the contents of the modules folders as a package dependency in node_modules. You have the following possibilities:
+    - Either you run `npm run localdeploy`; then the modules will be bundled and copied into node_modules. (Note that changes in the modules folders will cause no hot-reloads in this case -- you have to run this command over again to reflect changes.)
+    - Or: you run `npm run link-module`. A Symlink to the modules folder will then be added to node_modules. IMPORTANT: if you work under Windows, you must execute that command as admin! Alternatively you could also create the symlink by hand (adapt your path):
+      ```
+      MKLINK /d   "D:\Dev\piveau\piveau-hub-ui-modules\node_modules\@piveau\piveau-hub-ui-modules" "D:\Dev\piveau\piveau-hub-ui-modules\src\modules"
+      ```
+4. Run the command `npm run serve` and open http://localhost:8080/ in your browser.
 
 ## Project setup
 ```
-npm install
+npm ci
 ```
 
 ### Test app compiles and hot-reloads for development

@@ -10,7 +10,6 @@
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
       </div>
-      <InfoBox class="infoContainer"></InfoBox>
     </div>
     <div v-if="isDistributionOverview">
       <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
@@ -34,7 +33,6 @@ import {
 } from 'lodash';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
-import InfoBox from '../components/InfoBox.vue';
 
 export default {
   props: {
@@ -68,7 +66,6 @@ export default {
   components: {
     ValidationModal,
     DistributionOverview,
-    InfoBox,
   },
   computed: {
     ...mapGetters('auth', [
@@ -112,6 +109,26 @@ export default {
       'addCatalogOptions',
       'clearAll',
     ]),
+    initInputPage() {
+      if (this.page !== 'overview' && this.page !== 'distoverview') {
+        this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
+        this.saveExistingJsonld(this.property);
+        this.saveToForm({property: this.property, page: this.page, distid: this.id }).then((response) => {
+          const preexistingValues = response;
+          // vuex returns observer of the data which will not be accepted by the input form so the data gets converted to 'real' data by using JSON conversion functions
+          this.formValues = JSON.parse(JSON.stringify(preexistingValues));
+        });
+        this.$nextTick(() => {
+          $('[data-toggle="tooltip"]').tooltip({
+            container: 'body',
+          });
+        });
+      }
+    },
+    clear() {
+      this.clearValues();
+      this.clearAll();
+    },
     clearValues() {
       this.formValues = {};
       this.failedFields = [];
@@ -155,7 +172,7 @@ export default {
   },
   created() {
     if (this.$route.query.edit === false) {
-      this.clearAll();
+      this.clear();
     }
     // form content (schema) created based on defined page properties included in inputconfigMin
     if (this.page !== 'overview' && this.page !== 'distoverview') {
@@ -164,16 +181,7 @@ export default {
     }
   },
   mounted() {
-    if (this.page !== 'overview' && this.page !== 'distoverview') {
-      console.log(this.getUserCatalogIds);
-      this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
-      this.saveExistingJsonld(this.property);
-      this.saveToForm({property: this.property, page: this.page, distid: this.id }).then((response) => {
-        const preexistingValues = response;
-        // vuex returns observer of the data which will not be accepted by the input form so the data gets converted to 'real' data by using JSON conversion functions
-        this.formValues = JSON.parse(JSON.stringify(preexistingValues));
-      });
-    }
+    this.initInputPage();
   },
   watch: {
     getFirstTitleFromForm: {
@@ -199,29 +207,27 @@ export default {
     // Always clear storage when entering DPI
     next(vm => {
       if (from.name !== null && !from.name.startsWith('DataProviderInterface')) {
-        vm.clearAll();
+        vm.clear();
       }
     });
   },
   beforeRouteUpdate(to, from, next) {
-    // get first route for property
     let firstStep;
     let path;
+
     if (this.property === 'distributions') {
-      firstStep = this.getNavSteps.datasets[0];
-      path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
+      path = `${this.$env.upload.basePath}/datasets/distoverview`;
     } else {
       firstStep = this.getNavSteps[this.property][0];
-      path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
+      path = `${this.$env.upload.basePath}/${this.property}/${firstStep}`;
     }
 
-    // only show modal if next route is not first route (prevents showing of modal on clearing all properties from another route)
-    if (!to.path.startsWith(path)) {
-      if (!this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
-        $('#mandatoryModal').modal({ show: true });
-      } else {
-        next();
-      }
+    console.log(to);
+
+    if (to.query.clear !== 'true' && !to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+      $('#mandatoryModal').modal({ show: true });
+    } else {
+      next();
     }
   },
 };
@@ -244,15 +250,7 @@ select {
 }
 
 .formContainer {
-  width: 70%;
-}
-
-.infoContainer {
-  top: 20px;
-  width: 35%;
-  padding: 10px;
-  margin: 0 10px 0 10px;
-  background-color: transparent;
+  width: 100% !important;
 }
 
 .distributionPage0 {
