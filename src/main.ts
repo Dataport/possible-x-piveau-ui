@@ -71,16 +71,26 @@ import {
   configureModules
 } from '@piveau/piveau-hub-ui-modules';
 
+/**********************************************
+ *  Integrating the EC component library here *
+ **********************************************/
+require('@ecl/preset-ec/dist/styles/ecl-ec.css');
+// import Select from './ecl/ec-select.js';
+// $(() => {
+//   Select.autoInit(document.getElementById('app'));
+// });
+
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
 
-// import ECSelectFacet from "./components/ECSelectFacet.vue";
-import SelectFacet from "./components/SelectFacet.vue";
+import ECMultiSelectFacet from "./components/ECMultiSelectFacet.vue";
+// import SelectFacet from "./components/SelectFacet.vue";
 configureModules({
   components: {
-    Facet: SelectFacet
+    SelectFacet: ECMultiSelectFacet
+    // Facet: SelectFacet
     // Facet: ECSelectFacet
   },
   services: GLUE_CONFIG.services,
@@ -242,11 +252,6 @@ require('@deu/deu-header-footer/dist/deu-header-footer.css');
 require('leaflet/dist/leaflet.css');
 
 require('@piveau/dcatap-frontend/dist/dcatap-frontend.css');
-
-/**********************************************
- *  Integrating the EC component library here *
- **********************************************/
-require('@ecl/preset-ec/dist/styles/ecl-ec.css');
 
 // Vue-progressbar setup
 const progressBarOptions = {

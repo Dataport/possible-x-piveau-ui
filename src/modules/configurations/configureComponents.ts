@@ -1,10 +1,11 @@
-import Facet from "@/modules/facets/Facet.vue";
+// import Facet from "@/modules/facets/Facet.vue";
 import Vue from "vue";
+import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet.vue";
 
 export type ComponentMap = { [key: string]: any };
 
 const defaultComponents: ComponentMap = {
-  Facet
+  SelectFacet: ExpandableSelectFacet
 };
 
 export function configureComponents(components?: ComponentMap) {

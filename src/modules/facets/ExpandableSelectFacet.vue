@@ -1,7 +1,6 @@
 <template>
   <!-- Component for a collapsible facet -->
   <div class="list-group">
-    <slot name="before" />
     <template v-if="header">
       <facet-title
         :title="header"

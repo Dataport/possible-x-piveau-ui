@@ -2,7 +2,7 @@
   <div class="container dataset-facets">
     <div class="row mx-3 mr-md-0">
       <div class="col">
-        <datasets-facet-map
+        <datasets-map-facet
           :showCatalogDetails="showCatalogDetails"
         />
         <catalog-details-facet
@@ -10,14 +10,14 @@
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
         />
-        <e-c-select-facet />
-        <e-c-multi-select-facet />
-        <select-facet
-          header="Hello"
-          :items="[]"
-          fieldId="test"
-          toolTipTitle="mytooltip"
-        />
+<!--        <e-c-select-facet />-->
+
+<!--        <select-facet-->
+<!--          header="Hello"-->
+<!--          :items="[]"-->
+<!--          fieldId="test"-->
+<!--          toolTipTitle="mytooltip"-->
+<!--        />-->
         <settings-facet
           v-if="!showCatalogDetails"
           class="row facet-field mb-3"
@@ -37,31 +37,7 @@
             :initialOption="getDataServices"
             :change="changeDataServices"
           />
-<!--          <facet-->
-<!--            v-if="(field.id === 'dataServices')"-->
-<!--            :fieldId="field.id"-->
-<!--            :header="$t('message.metadata.dataServices')"-->
-<!--            :items="[]"-->
-<!--            :toolTipTitle="$t('message.helpIcon.dataServices')"-->
-<!--            class="col pr-0"-->
-<!--          >-->
-<!--            <template #after>-->
-<!--              <div class="form-group list-group-item list-group-item-action d-flex justify-content-between align-items-center">-->
-<!--                {{ $t('message.datasetFacets.facets.dataServices.dataServicesOnly') }}-->
-<!--                <span class="ml-2 d-flex flex-wrap">-->
-<!--                  <div class="custom-control custom-radio">-->
-<!--                    <input type="radio" id="radio-yes" name="radio-facet-data-services" class="custom-control-input" @click="changeDataServices('true')" :checked="getDataServices === 'true'">-->
-<!--                    <label class="custom-control-label" for="radio-yes">{{ $t('message.metadata.yes') }}</label>-->
-<!--                  </div>-->
-<!--                  <div class="custom-control custom-radio">-->
-<!--                    <input type="radio" class="custom-control-input" id="radio-no" name="radio-facet-data-services" @click="changeDataServices('false')" :checked="getDataServices === 'false'">-->
-<!--                    <label class="custom-control-label" for="radio-no">{{ $t('message.metadata.no') }}</label>-->
-<!--                  </div>-->
-<!--                </span>-->
-<!--              </div>-->
-<!--            </template>-->
-<!--          </facet>-->
-          <expandable-select-facet
+          <select-facet
             v-else
             :fieldId="field.id"
             :header="field.id === 'scoring' ?
@@ -96,28 +72,26 @@ import {
 import Vue from 'vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
-import DatasetsFacetMap from "@/modules/datasets/datasetsFacets/DatasetsFacetMap";
+import DatasetsMapFacet from "@/modules/datasets/datasetsFacets/DatasetsMapFacet";
 import CatalogDetailsFacet from "@/modules/datasets/datasetsFacets/CatalogDetailsFacet";
 import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
-import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet";
+// import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet";
 import RadioFacet from "@/modules/facets/RadioFacet";
 import ECSelectFacet from "@/components/ECSelectFacet";
-import ECMultiSelectFacet from "@/components/ECMultiSelectFacet";
-import SelectFacet from "@/components/SelectFacet";
+// import SelectFacet from "@/components/SelectFacet";
 
 export default {
   name: 'datasetFacets',
   dependencies: ['catalogService'],
   components: {
-    ECMultiSelectFacet,
     ECSelectFacet,
     RadioFacet,
-    ExpandableSelectFacet,
+    // ExpandableSelectFacet,
     SettingsFacet,
     CatalogDetailsFacet,
-    SelectFacet,
+    // SelectFacet,
     // Facet,
-    DatasetsFacetMap,
+    DatasetsMapFacet,
     DatasetsFacetsItem,
   },
   props: {
