@@ -2,8 +2,11 @@
   <div class="facet-container user-select-none">
     <div class="mb-2 font-weight-bold facet-header"><span class="font-weight-bold">{{ header }}</span></div>
     <div>
-      <div @click="open=true" class="value-display list-group-item col w-100 d-flex flex-row justify-content-between p-0 align-items-center"
+      <div @click="showOptions()"
+           class="value-display list-group-item col w-100 d-flex flex-row justify-content-between p-0 align-items-center"
            type="button"
+           tabindex="0"
+           ref="value-display"
            aria-haspopup="true"
            aria-expanded="false">
         <span data-toggle="tooltip"
@@ -20,7 +23,7 @@
         <!--        <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>-->
       </div>
       <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
-        <div v-for="(item, index) in items.slice(0, numItemsAllowed)" :key="`field@${index}`">
+        <div v-for="(item, index) in items.slice(0, numItemsAllowed)" :key="`field@${index}`" class="select-row">
           <div style="display:flex; flex-direction: row; justify-content: space-between">
             <div class="text-truncate">
               {{itemTitles[index]}}
@@ -105,6 +108,11 @@ export default {
     },
     away() {
       this.open = false;
+    },
+    showOptions() {
+      this.open = true;
+      this.$refs["value-display"].focus();
+      // this.$refs["value-display"].style = "border-width:3px"
     }
   },
   mounted() {
@@ -129,8 +137,27 @@ export default {
 //  width: 48px;
 //  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" preserveAspectRatio="xMinYMin meet" xmlns:xlink="http://www.w3.org/1999/xlink" id="graphic-display_svg"><rect x="0" y="0" width="720" height="720" style="fill:rgb(44,44,44);"/><g transform="matrix(1 0 0 1 0 0)"><path d="M220,300L360,420L500,300" style="stroke:rgb(255,255,255);fill:none;stroke-width:50;stroke-linecap:round;stroke-linejoin:round"/></g></svg>') no-repeat right;
 //}
+
+.select-row {
+ padding-bottom: 16px;
+ padding-top: 16px;
+}
+
+.ecl-select__icon {
+  height: 100%;
+}
+
 .value-display {
   height: 48px;
+  &:focus {
+    border-width: 3px;
+  }
+  &:hover {
+    border-color: var(--primary);
+    .ecl-select__icon {
+      background: var(--primary);
+    }
+  }
 }
 
 .facet-container {
