@@ -2,7 +2,9 @@
   <div class="facet-container user-select-none">
     <div class="mb-2 font-weight-bold facet-header"><span class="font-weight-bold">{{ header }}</span></div>
     <div>
-      <div @click="showOptions()"
+      <div @click="showOptions"
+           @keydown.esc="away"
+           @keydown.enter="showOptions"
            class="value-display list-group-item col w-100 d-flex flex-row justify-content-between p-0 align-items-center"
            type="button"
            tabindex="0"
@@ -23,15 +25,12 @@
         <!--        <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>-->
       </div>
       <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
-        <div v-for="(item, index) in items.slice(0, numItemsAllowed)" :key="`field@${index}`" class="select-row">
-          <div style="display:flex; flex-direction: row; justify-content: space-between">
-            <div class="text-truncate">
-              {{itemTitles[index]}}
-            </div>
-            <div>
-              {{item.count}}
-            </div>
-          </div>
+        <div v-for="(item, index) in items" :key="`field@${index}`" class="select-row">
+          <e-c-checkbox
+            :id="`${fieldId}_${itemTitles[index]}`"
+            :label="itemTitles[index]"
+            :label-right="item.count"
+          />
         </div>
       </div>
     </div>
@@ -43,10 +42,11 @@ import Vue from 'vue';
 import {getFacetTranslation} from "@/modules/utils/helpers";
 import { mixin as clickaway } from 'vue-clickaway';
 import Dropdown from "@/modules/widgets/Dropdown";
+import ECCheckbox from "@/components/ECCheckbox";
 
 export default {
   name: "ECMultiSelectFacet",
-  components: {Dropdown},
+  components: {ECCheckbox, Dropdown},
   mixins: [clickaway],
   props: {
     header: {
@@ -71,8 +71,7 @@ export default {
       open: false,
       id: null,
       isExpanded: false,
-      isGrown: false,
-      numItemsAllowed: this.minItems,
+      isGrown: false
     };
   },
   computed: {
@@ -81,17 +80,7 @@ export default {
       return `facet-${this.id}`;
     },
     itemTitles() {
-      // const maxLength = this.items.reduce((curr, item) => Math.max(curr, item.title.length));
-      return this.items.map(item => {
-        const title = this.getTitle(item);
-        const length = title.length;
-        if (length < 20) {
-          // return title;
-        } else {
-          // return title.substring(0, 17) + "...";
-        }
-        return title;
-      });
+      return this.items.map(this.getTitle);
     }
   },
   methods: {
@@ -112,7 +101,6 @@ export default {
     showOptions() {
       this.open = true;
       this.$refs["value-display"].focus();
-      // this.$refs["value-display"].style = "border-width:3px"
     }
   },
   mounted() {
@@ -139,8 +127,14 @@ export default {
 //}
 
 .select-row {
- padding-bottom: 16px;
- padding-top: 16px;
+ padding: 16px;
+  &:hover {
+    background-color: #e3e3e3;
+  }
+}
+
+.highlighted-row {
+  background-color: #e3e3e3;
 }
 
 .ecl-select__icon {
@@ -185,13 +179,22 @@ export default {
   }
 }
 
+//.dropdown {
+//  background:#f8f9fa;
+//  padding: 6px;
+//  border: 1px solid #ccc;
+//  max-height: 300px;
+//  overflow: auto;
+//  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+//}
+
 .dropdown {
-  background:#f8f9fa;
-  padding: 6px;
-  border: 1px solid #ccc;
+  background: #f5f5f5;
+  border: 1px solid #e3e3e3;
   max-height: 300px;
   overflow: auto;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+  //box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+  //padding: 6px;
 }
 
 .value-display {

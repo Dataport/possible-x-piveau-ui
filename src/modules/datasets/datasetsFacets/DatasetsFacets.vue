@@ -40,11 +40,9 @@
           <select-facet
             v-else
             :fieldId="field.id"
-            :header="field.id === 'scoring' ?
-              $t('message.header.navigation.data.metadataquality')
-              : $t(`message.datasetFacets.facets.${field.id.toLowerCase()}`)"
+            :header="facetTitle(field.id)"
             :items="sortByCount(field.items, field.id)"
-            :toolTipTitle="field.id === 'dataScope' ? $t('message.helpIcon.dataScope') : $t(`message.helpIcon.${field.id.toLowerCase()}`)"
+            :toolTipTitle="tooltip(field.id)"
             :getFacetTranslationWrapper="getFacetTranslationWrapper"
             :scoringFacetIsSelected="scoringFacetIsSelected"
             :scoringFacetClicked="scoringFacetClicked"
@@ -220,6 +218,14 @@ export default {
       'setPageCount',
       'setMinScoring',
     ]),
+    facetTitle(fieldId) {
+      return fieldId === 'scoring' ?
+        Vue.i18n.t('message.header.navigation.data.metadataquality')
+        : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+    },
+    tooltip(fieldId) {
+      return fieldId === 'dataScope' ? Vue.i18n.t('message.helpIcon.dataScope') : Vue.i18n.t(`message.helpIcon.${fieldId.toLowerCase()}`);
+    },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
         ? `${this.$t(`message.datasetFacets.facets.scoring.${facetId}`)}${facetId === 'sufficientScoring' || facetId === 'goodScoring' ? '+' : ''}`
