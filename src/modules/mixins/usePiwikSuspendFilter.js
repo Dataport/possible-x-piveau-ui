@@ -13,8 +13,6 @@ export default Vue.extend({
     }
     once = true;
 
-    console.log('usePiwikSuspendFilter');
-
     if (this.$route.name === 'DatasetDetailsDataset') {
       this.$piwik.suspendFilter(([data]) => {
       const isOneOfInitialEvent = ['stg.start', 'stg.domReady'].includes(data.event);
