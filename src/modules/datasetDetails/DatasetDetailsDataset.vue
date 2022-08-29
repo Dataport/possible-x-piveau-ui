@@ -2351,6 +2351,9 @@
           this.loadingDatasetDetails = false;
           this.datasetSchema = this.getSchemaOrg();
           this.piwikMetaPush();
+          setTimeout(() => {
+            this.$piwik.resume();
+          }, 500);
           this.$nextTick(() => {
           // Display/hide translation banners
             this.setTranslationBanners();
@@ -2362,6 +2365,7 @@
         .catch((err) => {
           console.warn(err); // eslint-disable-line
           this.$Progress.fail();
+          this.$piwik.resume();
           this.$router.replace({
             name: 'NotFound',
             query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
