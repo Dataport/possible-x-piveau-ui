@@ -173,6 +173,7 @@ Vue.use(UniversalPiwik, {
   trackerUrl,
   siteId,
   debug: process.env.NODE_ENV === 'development',
+  useSuspendFeature: true,
   pageViewOptions: {
     // Set this to true as long as navigating to the /datasets/ route
     // adds a 'minScore' query to prevent duplicated tracking

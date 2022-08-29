@@ -35,7 +35,11 @@ import { mapGetters, mapActions } from 'vuex';
 import { isNumber } from 'lodash';
 import CookieConsent from '@deu/deu-cookie-consent';
 import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
-import { DpiMenu } from '@piveau/piveau-hub-ui-modules';
+import {
+  DpiMenu,
+  usePiwikSuspendFilter,
+  useRouteMetaBreadcrumbs
+} from '@piveau/piveau-hub-ui-modules';
 
 export default {
   name: 'app',
@@ -43,6 +47,9 @@ export default {
     CookieConsent,
     DpiMenu,
   },
+  mixins: [
+    usePiwikSuspendFilter,
+  ],
   metaInfo() {
     return {
       titleTemplate(chunk) {
@@ -101,6 +108,9 @@ export default {
     ...mapActions('datasets', [
       'setMinScoring',
     ]),
+    resume() {
+      this.$piwik.resume();
+    },
     isNumber,
     login() {
       this.$keycloak.loginFn();

@@ -53,6 +53,8 @@ import FileUpload from './data-provider-interface/components/FileUpload';
 import DatePicker from './data-provider-interface/components/DatePicker';
 import DateTimePicker from './data-provider-interface/components/DateTimePicker';
 
+import usePiwikSuspendFilter from "./mixins/usePiwikSuspendFilter";
+
 import { configureModules } from "./configurations/configureModules";
 
 export {
@@ -107,6 +109,8 @@ export {
   FileUpload,
   DatePicker,
   DateTimePicker,
+
+  usePiwikSuspendFilter,
 
   configureModules
 };
