@@ -18,7 +18,7 @@ export default Vue.extend({
     if (this.$route.name === 'DatasetDetailsDataset') {
       this.$piwik.suspendFilter(([data]) => {
       const isOneOfInitialEvent = ['stg.start', 'stg.domReady'].includes(data.event);
-      const isDatasetMetadataEvent = data.event_type === 'stg.datasetMetadata';
+      const isDatasetMetadataEvent = data.event_type === 'send_dataset_metadata';
       return isOneOfInitialEvent || isDatasetMetadataEvent;
       });
     }
