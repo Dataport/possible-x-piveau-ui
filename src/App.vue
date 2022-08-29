@@ -38,7 +38,6 @@ import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
 import {
   DpiMenu,
   usePiwikSuspendFilter,
-  useRouteMetaBreadcrumbs
 } from '@piveau/piveau-hub-ui-modules';
 
 export default {
