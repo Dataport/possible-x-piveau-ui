@@ -34,8 +34,8 @@
             :title="getFacetTranslationWrapper(fieldId, item.id, $route.query.locale, item.title)"
             :count="getFacetCount(item)"
             :hide-count="fieldId === 'dataScope'"
-            :class="{active: fieldId === 'scoring' ? scoringFacetIsSelected(item.minScoring) : facetIsSelected(fieldId, item.id)}"
-            @click.native="fieldId === 'scoring' ? scoringFacetClicked(item.minScoring): facetClicked(fieldId, item.id)"
+            :class="{active: facetIsSelected(fieldId, item)}"
+            @click.native="facetClicked(fieldId, item)"
           />
         </div>
         <button
@@ -75,8 +75,6 @@ export default {
       default: '',
     },
     getFacetTranslationWrapper: Function,
-    scoringFacetIsSelected: Function,
-    scoringFacetClicked: Function,
     facetIsSelected: Function,
     facetClicked: Function
   },

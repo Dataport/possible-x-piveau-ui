@@ -44,8 +44,6 @@
             :items="sortByCount(field.items, field.id)"
             :toolTipTitle="tooltip(field.id)"
             :getFacetTranslationWrapper="getFacetTranslationWrapper"
-            :scoringFacetIsSelected="scoringFacetIsSelected"
-            :scoringFacetClicked="scoringFacetClicked"
             :facetIsSelected="facetIsSelected"
             :facetClicked="facetClicked"
             class="col pr-0"
@@ -240,14 +238,19 @@ export default {
         return 1;
       });
     },
-    facetIsSelected(field, facet) {
-      if (!Object.prototype.hasOwnProperty.call(this.$route.query, field)) {
+    facetIsSelected(fieldId, item) {
+      if (fieldId === 'scoring') {
+        const qMinScoring = parseInt(this.getMinScoring, 10);
+        return qMinScoring === item.minScoring;
+      }
+      const facet = item.id;
+      if (!Object.prototype.hasOwnProperty.call(this.$route.query, fieldId)) {
         return false;
       }
-      if (field === 'dataScope') return this.$route.query.dataScope === facet;
-      let qField = this.$route.query[field];
+      if (fieldId === 'dataScope') return this.$route.query.dataScope === facet;
+      let qField = this.$route.query[fieldId];
       if (!Array.isArray(qField)) qField = [qField];
-      if (field === 'categories') {
+      if (fieldId === 'categories') {
         // Ignore Case for categories
         facet.toUpperCase();
         qField = qField.map(f => f.toUpperCase());
@@ -258,9 +261,16 @@ export default {
     //   if (!Object.prototype.hasOwnProperty.call(this.$route.query, 'dataScope')) return false;
     //   return this.$route.query.dataScope === dataScope;
     // },
-    facetClicked(field, facet) {
+    facetClicked(field, item) {
+      const facet = item.id;
       if (field === "dataScope") {
         this.dataScopeFacetClicked(facet);
+      } else if (field === 'scoring') {
+        item.minScoring
+        this.setMinScoring(item.minScoring);
+        localStorage.setItem('minScoring', JSON.stringify(item.minScoring));
+        this.resetPage();
+        window.scrollTo(0, 0);
       } else {
         this.toggleFacet(field, facet);
         this.resetPage();
@@ -289,16 +299,6 @@ export default {
       ).catch(
         error => { console.log(error); }
       );
-    },
-    scoringFacetIsSelected(minScoring) {
-      const qMinScoring = parseInt(this.getMinScoring, 10);
-      return qMinScoring === minScoring;
-    },
-    scoringFacetClicked(minScoring) {
-      this.setMinScoring(minScoring);
-      localStorage.setItem('minScoring', JSON.stringify(minScoring));
-      this.resetPage();
-      window.scrollTo(0, 0);
     },
     dataScopeFacetClicked(dataScope) {
       if (this.facetIsSelected('dataScope', dataScope)) {
