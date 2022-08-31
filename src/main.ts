@@ -89,7 +89,7 @@ import ECMultiSelectFacet from "./components/ECMultiSelectFacet.vue";
 // import SelectFacet from "./components/SelectFacet.vue";
 configureModules({
   components: {
-    // SelectFacet: ECMultiSelectFacet
+    SelectFacet: ECMultiSelectFacet
     // Facet: SelectFacet
     // Facet: ECSelectFacet
   },

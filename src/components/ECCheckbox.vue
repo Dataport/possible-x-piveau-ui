@@ -1,6 +1,6 @@
 <template>
-  <div :class="`ecl-checkbox${ disabled ? ' ecl-checkbox--disabled' : ''}`">
-    <input type="checkbox" :name="id" class="ecl-checkbox__input" :value="value" :id="id"
+  <div :class="`ecl-checkbox${ disabled ? ' ecl-checkbox--disabled' : ''}`" @click="() => onClick(state)">
+    <input type="checkbox" :name="id" class="ecl-checkbox__input" v-model="state" :id="id"
            :disabled="disabled" />
     <label :for="id" class="ecl-checkbox__label">
       <span :class="`ecl-checkbox__box${ disabled ? ' ecl-checkbox__box--disabled' : ''}`">
@@ -27,11 +27,12 @@ export default {
     label: [Number, String],
     labelRight: [Number, String],
     helpText: String,
-    disabled: Boolean
+    disabled: Boolean,
+    onClick: Function
   },
   data() {
     return {
-      value: this.checked
+      state: this.checked
     }
   }
 }

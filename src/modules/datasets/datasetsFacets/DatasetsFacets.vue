@@ -239,11 +239,11 @@ export default {
       });
     },
     facetIsSelected(fieldId, item) {
+      const facet = item.id;
       if (fieldId === 'scoring') {
         const qMinScoring = parseInt(this.getMinScoring, 10);
         return qMinScoring === item.minScoring;
       }
-      const facet = item.id;
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, fieldId)) {
         return false;
       }
@@ -257,10 +257,6 @@ export default {
       }
       return qField.indexOf(facet) > -1;
     },
-    // dataScopeFacetIsSelected(dataScope) {
-    //   if (!Object.prototype.hasOwnProperty.call(this.$route.query, 'dataScope')) return false;
-    //   return this.$route.query.dataScope === dataScope;
-    // },
     facetClicked(field, item) {
       const facet = item.id;
       if (field === "dataScope") {
@@ -301,7 +297,7 @@ export default {
       );
     },
     dataScopeFacetClicked(dataScope) {
-      if (this.facetIsSelected('dataScope', dataScope)) {
+      if (this.$route.query.dataScope === dataScope) {
         this.$router.push(
           { query: Object.assign({}, this.$route.query, { dataScope: [], country: [], page: 1 }) }
         ).catch(

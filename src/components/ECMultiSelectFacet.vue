@@ -16,13 +16,11 @@
               class="ml-2">
           {{ header }}
         </span>
-<!--        <div class="dropdown-icon"></div>-->
         <div class="ecl-select__icon">
           <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape" focusable="false" aria-hidden="true">
             <use xlink:href="../assets/img/ecl/icons.svg#corner-arrow"></use>
           </svg>
         </div>
-        <!--        <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>-->
       </div>
       <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
         <div v-for="(item, index) in items" :key="`field@${index}`" class="select-row">
@@ -30,6 +28,8 @@
             :id="`${fieldId}_${itemTitles[index]}`"
             :label="itemTitles[index]"
             :label-right="item.count"
+            :checked="facetIsSelected(fieldId, item)"
+            :onClick="() => facetClicked(fieldId, item)"
           />
         </div>
       </div>
@@ -64,7 +64,9 @@ export default {
     toolTipTitle: {
       type: String,
       default: '',
-    }
+    },
+    facetIsSelected: Function,
+    facetClicked: Function
   },
   data() {
     return {
@@ -110,21 +112,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-//select {
-//  border-radius: 0;
-//  border-color: #2c2c2c;
-//  appearance: none;
-//  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" preserveAspectRatio="xMinYMin meet" xmlns:xlink="http://www.w3.org/1999/xlink" id="graphic-display_svg"><rect x="0" y="0" width="720" height="720" style="fill:rgb(44,44,44);"/><g transform="matrix(1 0 0 1 0 0)"><path d="M220,300L360,420L500,300" style="stroke:rgb(255,255,255);fill:none;stroke-width:50;stroke-linecap:round;stroke-linejoin:round"/></g></svg>') no-repeat right;
-//}
-//
-//.dropdown-icon {
-//  height: 48px;
-//  margin: 0;
-//  padding: 0;
-//  width: 48px;
-//  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" preserveAspectRatio="xMinYMin meet" xmlns:xlink="http://www.w3.org/1999/xlink" id="graphic-display_svg"><rect x="0" y="0" width="720" height="720" style="fill:rgb(44,44,44);"/><g transform="matrix(1 0 0 1 0 0)"><path d="M220,300L360,420L500,300" style="stroke:rgb(255,255,255);fill:none;stroke-width:50;stroke-linecap:round;stroke-linejoin:round"/></g></svg>') no-repeat right;
-//}
 
 .select-row {
  padding: 16px;
