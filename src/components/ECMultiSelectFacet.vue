@@ -13,8 +13,10 @@
            aria-expanded="false">
         <span data-toggle="tooltip"
               data-placement="center"
-              class="ml-2">
-          {{ header }}
+              class="ml-2"
+              :class="{empty: selection === ''}"
+        >
+          {{ selection || "Select" }}
         </span>
         <div class="ecl-select__icon">
           <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape" focusable="false" aria-hidden="true">
@@ -83,6 +85,10 @@ export default {
     },
     itemTitles() {
       return this.items.map(this.getTitle);
+    },
+    selection() {
+      const selectedItems = this.items.filter(item => this.facetIsSelected(this.fieldId, item));
+      return selectedItems.map(item => this.getTitle(item)).join(", ");
     }
   },
   methods: {
@@ -186,6 +192,10 @@ export default {
 
 .value-display {
   border-color: #2c2c2c;
+}
+
+.empty {
+  color: grey;
 }
 
 </style>
