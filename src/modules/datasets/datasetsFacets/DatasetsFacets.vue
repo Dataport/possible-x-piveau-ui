@@ -262,14 +262,17 @@ export default {
       if (field === "dataScope") {
         this.dataScopeFacetClicked(facet);
       } else if (field === 'scoring') {
-        item.minScoring
-        this.setMinScoring(item.minScoring);
-        localStorage.setItem('minScoring', JSON.stringify(item.minScoring));
+        let newScoring = item.minScoring;
+        if (newScoring === this.getMinScoring) {
+          newScoring = 0;
+        }
+        this.setMinScoring(newScoring);
+        localStorage.setItem('minScoring', JSON.stringify(newScoring));
         this.resetPage();
         window.scrollTo(0, 0);
       } else {
         this.toggleFacet(field, facet);
-        this.resetPage();
+        // this.resetPage();
       }
     },
     toggleFacet(field, facet) {
@@ -288,8 +291,11 @@ export default {
         facets = facets.map(f => f.toUpperCase());
       }
       const index = facets.indexOf(facet);
-      if (index > -1) facets.splice(index, 1);
-      else facets.push(facet);
+      if (index > -1) {
+        facets.splice(index, 1);
+      } else {
+        facets.push(facet);
+      }
       return this.$router.push(
         { query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }
       ).catch(
