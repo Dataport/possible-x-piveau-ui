@@ -25,6 +25,7 @@
         </div>
       </div>
       <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
+        <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" />
         <div v-for="(item, index) in items" :key="`field@${index}`" class="select-row">
           <e-c-checkbox
             :id="`${fieldId}_${itemTitles[index]}`"
@@ -67,6 +68,7 @@ export default {
       type: String,
       default: '',
     },
+    showFilter: String,
     facetIsSelected: Function,
     facetClicked: Function
   },
@@ -89,6 +91,12 @@ export default {
     selection() {
       const selectedItems = this.items.filter(item => this.facetIsSelected(this.fieldId, item));
       return selectedItems.map(item => this.getTitle(item)).join(", ");
+    },
+    displayFilterInputBox() {
+      const show = (this.showFilter || "").toLowerCase();
+      if (show === "never") return false;
+      const count = this.items.length;
+      return show === "always" || count > 10;
     }
   },
   methods: {
