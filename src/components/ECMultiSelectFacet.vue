@@ -1,6 +1,18 @@
 <template>
   <div class="facet-container user-select-none">
-    <div class="mb-2 font-weight-bold facet-header"><span class="font-weight-bold">{{ header }}</span></div>
+    <div
+        v-if="header"
+        class="mb-2 font-weight-bold facet-header">
+      <span class="font-weight-bold">{{ header }}</span>
+      <i
+          v-if="toolTipTitle"
+          class="tooltip-icon material-icons small-icon align-right text-dark pl-1"
+          data-toggle="tooltip"
+          data-placement="right"
+          :title="toolTipTitle">
+        help_outline
+      </i>
+    </div>
     <div>
       <div @click="showOptions"
            @keydown.esc="away"
@@ -13,7 +25,7 @@
            aria-expanded="false">
         <span data-toggle="tooltip"
               data-placement="center"
-              class="ml-2"
+              class="ml-2 overflow-hidden"
               :class="{empty: selection === ''}"
         >
           {{ selection || "Select" }}
@@ -25,8 +37,8 @@
         </div>
       </div>
       <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
-        <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" />
-        <div v-for="(item, index) in items" :key="`field@${index}`" class="select-row">
+        <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" v-model="filter"/>
+        <div v-for="(item, index) in filteredItems" :key="getTitle(item)+index" class="select-row">
           <e-c-checkbox
             :id="`${fieldId}_${itemTitles[index]}`"
             :label="itemTitles[index]"
@@ -76,8 +88,9 @@ export default {
     return {
       open: false,
       id: null,
-      isExpanded: false,
-      isGrown: false
+      filter: "",
+      filterTimeout: null,
+      filteredItems: this.items
     };
   },
   computed: {
@@ -86,7 +99,7 @@ export default {
       return `facet-${this.id}`;
     },
     itemTitles() {
-      return this.items.map(this.getTitle);
+      return this.filteredItems.map(this.getTitle);
     },
     selection() {
       const selectedItems = this.items.filter(item => this.facetIsSelected(this.fieldId, item));
@@ -121,6 +134,22 @@ export default {
   },
   mounted() {
     this.id = this._uid; // eslint-disable-line
+  },
+  watch: {
+    filter(newFilter) {
+      if (this.filterTimeout) {
+        clearTimeout(this.filterTimeout);
+      }
+      this.filterTimeout = setTimeout(() => {
+        const lcFilter = newFilter.toLowerCase();
+        this.filteredItems = this.items.filter(item => this.getTitle(item).toLowerCase().includes(lcFilter));
+      }, 200);
+    }
+  },
+  beforeDestroy() {
+    if (this.filterTimeout) {
+      clearTimeout(this.filterTimeout);
+    }
   }
 }
 </script>
@@ -143,7 +172,7 @@ export default {
 }
 
 .value-display {
-  height: 48px;
+  min-height: 48px;
   &:focus {
     border-width: 3px;
   }
@@ -204,6 +233,10 @@ export default {
 
 .empty {
   color: grey;
+}
+
+.tooltip-icon {
+  font-size: 15px;
 }
 
 </style>
