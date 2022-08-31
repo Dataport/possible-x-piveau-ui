@@ -1,41 +1,16 @@
 <template>
   <div class="facet-container user-select-none">
-    <div
-        v-if="header"
-        class="mb-2 font-weight-bold facet-header">
-      <span class="font-weight-bold">{{ header }}</span>
-      <i
-          v-if="toolTipTitle"
-          class="tooltip-icon material-icons small-icon align-right text-dark pl-1"
-          data-toggle="tooltip"
-          data-placement="right"
-          :title="toolTipTitle">
-        help_outline
-      </i>
-    </div>
+    <e-c-select-header
+      :header="header"
+      :toolTipTitle="toolTipTitle"
+    />
     <div>
-      <div @click="showOptions"
-           @keydown.esc="away"
-           @keydown.enter="showOptions"
-           class="value-display list-group-item col w-100 d-flex flex-row justify-content-between p-0 align-items-center"
-           type="button"
-           tabindex="0"
-           ref="value-display"
-           aria-haspopup="true"
-           aria-expanded="false">
-        <span data-toggle="tooltip"
-              data-placement="center"
-              class="ml-2 overflow-hidden"
-              :class="{empty: selection === ''}"
-        >
-          {{ selection || "Select" }}
-        </span>
-        <div class="ecl-select__icon">
-          <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape" focusable="false" aria-hidden="true">
-            <use xlink:href="../assets/img/ecl/icons.svg#corner-arrow"></use>
-          </svg>
-        </div>
-      </div>
+      <e-c-select-display
+        :text="selection"
+        hint="Select"
+        :showOptions="showOptions"
+        :away="away"
+      />
       <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
         <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" v-model="filter"/>
         <div v-for="(item, index) in filteredItems" :key="getTitle(item)+index" class="select-row">
@@ -58,10 +33,12 @@ import {getFacetTranslation} from "@/modules/utils/helpers";
 import { mixin as clickaway } from 'vue-clickaway';
 import Dropdown from "@/modules/widgets/Dropdown";
 import ECCheckbox from "@/components/ECCheckbox";
+import ECSelectHeader from "@/components/ec-multiselect/ECSelectHeader";
+import ECSelectDisplay from "@/components/ec-multiselect/ECSelectDisplay";
 
 export default {
   name: "ECMultiSelectFacet",
-  components: {ECCheckbox, Dropdown},
+  components: {ECSelectDisplay, ECSelectHeader, ECCheckbox, Dropdown},
   mixins: [clickaway],
   props: {
     header: {
@@ -129,7 +106,6 @@ export default {
     },
     showOptions() {
       this.open = true;
-      this.$refs["value-display"].focus();
     }
   },
   mounted() {
@@ -171,27 +147,9 @@ export default {
   height: 100%;
 }
 
-.value-display {
-  min-height: 48px;
-  &:focus {
-    border-width: 3px;
-  }
-  &:hover {
-    border-color: var(--primary);
-    .ecl-select__icon {
-      background: var(--primary);
-    }
-  }
-}
-
 .facet-container {
   padding: 0;
   font-family: Arial, sans-serif;
-}
-
-.facet-header > span {
-  font-size: medium;
-  color: #2c2c2c;
 }
 
 .tooltip-icon {
@@ -227,16 +185,8 @@ export default {
   //padding: 6px;
 }
 
-.value-display {
-  border-color: #2c2c2c;
-}
-
 .empty {
   color: grey;
-}
-
-.tooltip-icon {
-  font-size: 15px;
 }
 
 </style>

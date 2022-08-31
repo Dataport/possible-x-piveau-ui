@@ -85,7 +85,7 @@ Vue.config.devtools = true;
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
 
-import ECMultiSelectFacet from "./components/ECMultiSelectFacet.vue";
+import ECMultiSelectFacet from "./components/ec-multiselect/ECMultiSelectFacet.vue";
 // import SelectFacet from "./components/SelectFacet.vue";
 configureModules({
   components: {
