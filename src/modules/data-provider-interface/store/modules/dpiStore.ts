@@ -623,7 +623,7 @@ const mutations = {
     }
 
     for (let index = 0; index < propertyKeys.length; index += 1) {
-      const normalKeyName = propertyKeys[index];
+      let normalKeyName = propertyKeys[index];
 
       // save catalog info for input of datasets (no valid/ real property -> just for input)
       if (property === 'datasets' && normalKeyName === 'catalog') {
@@ -643,6 +643,11 @@ const mutations = {
         }
       }
 
+      // sometime properties are also delivered with their prefix which is not reflected within the namespace object
+      // remove the prefix
+      if (normalKeyName !== 'adms:identifier' && normalKeyName.includes(':')) {
+        normalKeyName = normalKeyName.substring(normalKeyName.indexOf(':') + 1);
+      }
       if (has(namespacedKeys, normalKeyName)) {
         const key = namespacedKeys[normalKeyName]; // convert normal key name into namespaced key (e.g. title -> 'dct:title')
 
@@ -650,7 +655,11 @@ const mutations = {
         if (dcataptypes.singularString[property].includes(key)) {
           if(!isEmpty(data[normalKeyName])) toJsonldConverter.convertSingularString(storedata, data[normalKeyName], key);
         } else if (dcataptypes.typedStrings[property].includes(key)) {
-          if (!isEmpty(data[normalKeyName])) toJsonldConverter.convertTypedStrings(storedata, data[normalKeyName], key);
+          if (!isEmpty(data[normalKeyName])) {
+            toJsonldConverter.convertTypedStrings(storedata, data[normalKeyName], key);
+          } else if (!isEmpty(data[key])) {
+            toJsonldConverter.convertTypedStrings(storedata, data[key], key);
+          }
         } else if (dcataptypes.multiLang[property].includes(key)) {
           // multilingual Properties
           let values;
