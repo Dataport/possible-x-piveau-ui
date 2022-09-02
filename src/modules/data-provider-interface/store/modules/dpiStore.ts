@@ -752,7 +752,7 @@ const mutations = {
             if (has(licenseNodeData, 'exactMatch') && !isEmpty(licenseNodeData['exactMatch'])) storedata[key]['skos:exactMatch']['@id'] = licenseNodeData['exactMatch'];
           } else {
             // license URI
-            storedata[key] = data[normalKeyName];
+            storedata[key] = {'@id': data[normalKeyName]};
           }
         }
       }

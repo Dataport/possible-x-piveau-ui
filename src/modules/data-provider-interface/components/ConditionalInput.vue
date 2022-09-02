@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { isEmpty } from 'lodash';
+
 export default {
   props: {
     context: {
@@ -61,7 +63,7 @@ export default {
         this.inputValues = {'@value': this.context.model };
       } else if (semanticName === 'dct:license') {
         // either an array with an object containing multiple properties
-        if (typeof this.context.model === 'object') {
+        if (typeof this.context.model === 'object' && !isEmpty(this.context.model)) {
           this.conditionalValues[this.context.name] = 'man';
           this.inputValues = { 'dct:license': this.context.model };
         } else {
