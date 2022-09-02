@@ -746,10 +746,10 @@ const mutations = {
           if (!isEmpty(licenseNodeData)) {
             licenseNodeData = licenseNodeData[0]; // filter returns and array with only one entry
             // group of sub properties
-            storedata[key] = { 'dct:title': '', 'skos:prefLabel': '', 'skos:exactMatch': '' };
+            storedata[key] = { 'dct:title': '', 'skos:prefLabel': '', 'skos:exactMatch': {'@id': ''} };
             if (has(licenseNodeData, 'title') && !isEmpty(licenseNodeData['title'])) storedata[key]['dct:title'] = licenseNodeData['title'];
             if (has(licenseNodeData, 'prefLabel') && !isEmpty(licenseNodeData['prefLabel'])) storedata[key]['skos:prefLabel'] = licenseNodeData['prefLabel'];
-            if (has(licenseNodeData, 'exactMatch') && !isEmpty(licenseNodeData['exactMatch'])) storedata[key]['skos:exactMatch'] = licenseNodeData['exactMatch'];
+            if (has(licenseNodeData, 'exactMatch') && !isEmpty(licenseNodeData['exactMatch'])) storedata[key]['skos:exactMatch']['@id'] = licenseNodeData['exactMatch'];
           } else {
             // license URI
             storedata[key] = data[normalKeyName];
