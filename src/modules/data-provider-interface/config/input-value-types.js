@@ -91,6 +91,7 @@ const groupedValues = {
         'dct:creator',
         'dext:metadataExtension',
         'adms:identifier',
+        'dct:temporal',
     ],
     distributions: [
         'dcat:accessService',
