@@ -727,8 +727,21 @@ const mutations = {
           } else {
             storedata[key] = data[normalKeyName];
           }
+        } else if (key === 'dct:license') {
+          // license could either be an URI or a group of values stored within a node
+          let licenseNodeData = nodeData.filter(dataset => dataset['@id'] === data[normalKeyName]);
+          if (!isEmpty(licenseNodeData)) {
+            licenseNodeData = licenseNodeData[0]; // filter returns and array with only one entry
+            // group of sub properties
+            storedata[key] = { 'dct:title': '', 'skos:prefLabel': '', 'skos:exactMatch': '' };
+            if (has(licenseNodeData, 'title') && !isEmpty(licenseNodeData['title'])) storedata[key]['dct:title'] = licenseNodeData['title'];
+            if (has(licenseNodeData, 'prefLabel') && !isEmpty(licenseNodeData['prefLabel'])) storedata[key]['skos:prefLabel'] = licenseNodeData['prefLabel'];
+            if (has(licenseNodeData, 'exactMatch') && !isEmpty(licenseNodeData['exactMatch'])) storedata[key]['skos:exactMatch'] = licenseNodeData['exactMatch'];
+          } else {
+            // license URI
+            storedata[key] = data[normalKeyName];
+          }
         }
-        // conditional inputs
       }
     }
 
