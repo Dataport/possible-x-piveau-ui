@@ -846,7 +846,6 @@ const dcatapProperties = {
             url: [
               {
                 type: 'url',
-                identifier: 'accessUrl',
                 name: '@id',
                 '@change': true,
                 validation: 'required|url',
@@ -855,7 +854,6 @@ const dcatapProperties = {
             file: [
               {
                 type: 'fileupload',
-                identifier: 'accessUrl',
                 name: '@id',
                 '@change': true,
                 validation: 'required',
@@ -921,7 +919,6 @@ const dcatapProperties = {
       data: {
         voc: [
           {
-            identifier: 'licence',
             type: 'autocomplete-input',
             voc: 'licence',
             name: '@id',
