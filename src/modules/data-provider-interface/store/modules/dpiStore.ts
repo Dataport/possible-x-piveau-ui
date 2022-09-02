@@ -273,6 +273,19 @@ const actions = {
               if (has(stateValues[index], 'dcat:endDate')) formData[propertyKey][index]['dcat:endDate'] = stateValues[index]['dcat:endDate']['@value'];
             }
           }
+        } else if (propertyKey === 'dct:license') {
+          if (has(stateValues, '@id')) {
+            // URI
+            if (!isEmpty(stateValues['@id'])) formData[propertyKey] = stateValues['@id'];
+          } else {
+            // multiple sub properties
+            const licenseData = {};
+            if (has(stateValues, 'dct:title') && !isEmpty(stateValues['dct:title'])) licenseData['dct:title'] = stateValues['dct:title'];
+            if (has(stateValues, 'skos:prefLabel') && !isEmpty(stateValues['skos:prefLabel'])) licenseData['skos:prefLabel'] = stateValues['skos:prefLabel'];
+            if (has(stateValues, 'skos:exactMatch') && !isEmpty(stateValues['skos:exactMatch']) && has(stateValues['skos:exactMatch'], '@id') && !isEmpty(stateValues['skos:exactMatch']['@id'])) licenseData['skos:exactMatch'] = stateValues['skos:exactMatch']['@id'];
+
+            formData[propertyKey] = [licenseData];
+          }
         }
       } else if (property === 'datasets' && propertyKey === 'datasetID') {
         if (!isEmpty(storedata['@id'])) {
