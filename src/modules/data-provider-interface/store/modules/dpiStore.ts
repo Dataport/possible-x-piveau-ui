@@ -734,12 +734,23 @@ const mutations = {
         } else if (key === 'spdx:checksum') {
           storedata[key] = toJsonldConverter.mergeNodeData(nodeData, data[normalKeyName]);
         } else if (key === 'dct:rights') {
-          const nodeDataKeys = nodeData.map(dataset => dataset['@id']);
-          if (nodeDataKeys.includes(data[normalKeyName])) {
-            storedata[key] = toJsonldConverter.mergeNodeData(nodeData, data[normalKeyName]);
-          } else {
-            storedata[key] = data[normalKeyName];
-          }
+          const rightsValue = data[normalKeyName];
+          let rightsNodeData = nodeData.filter(dataset => dataset['@id'] === rightsValue);
+
+          if (!isEmpty(rightsNodeData)) {
+            // existing node Data ( data always within a node)
+            rightsNodeData = rightsNodeData[0]; // filter provides array we only need the single entry of array
+            if (has(rightsNodeData, 'label') && !isEmpty(rightsNodeData['label'])) {
+              storedata[key] = {'@type': 'dct:RightsStatement'};
+              if (typeof rightsNodeData['label'] === 'object') {
+                if (has(rightsNodeData['label'], '@id') && !isEmpty(rightsNodeData['label']['@id'])) storedata[key]['rdfs:label'] = rightsNodeData['label']; 
+              } else {
+                // for some reason the backend returns URI in JSON-LD wrongly
+                if (rightsNodeData['label'].startsWith('http') || rightsNodeData['label'].startsWith('www')) storedata[key]['rdfs:label'] = {'@id': rightsNodeData['label']};
+                else storedata[key]['rdfs:label'] = rightsNodeData['label'];
+              }
+            }
+          } 
         } else if (key === 'dct:license') {
           // license could either be an URI or a group of values stored within a node
           let licenseNodeData = nodeData.filter(dataset => dataset['@id'] === data[normalKeyName]);
