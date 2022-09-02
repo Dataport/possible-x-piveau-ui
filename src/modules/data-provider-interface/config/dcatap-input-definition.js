@@ -208,7 +208,6 @@ const dcatapProperties = {
       data: {
         voc: [
           {
-            identifier: 'spatial',
             type: 'conditional-input',
             name: 'dct:spatial',
             options: {
@@ -220,7 +219,6 @@ const dcatapProperties = {
             data: {
               continent: [
                 {
-                  identifier: 'spatialContinent',
                   type: 'autocomplete-input',
                   voc: 'continent',
                   name: '@id',
@@ -250,7 +248,6 @@ const dcatapProperties = {
         ],
         man: [
           {
-            identifier: 'spatial',
             type: 'url',
             name: '@id',
             validation: 'optional|url',
