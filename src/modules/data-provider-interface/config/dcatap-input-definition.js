@@ -44,7 +44,7 @@ const dcatapProperties = {
       name: 'dct:title',
       class: 'property grid1r2c',
       repeatable: true,
-      '@repeatableRemoved': true, 	
+      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -165,7 +165,7 @@ const dcatapProperties = {
       name: 'dcat:keyword',
       class: 'property grid2r2c',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'keyword',
@@ -200,7 +200,7 @@ const dcatapProperties = {
       class: 'property',
       '@change': true,
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       options: {
         voc: 'Choose from vocabulary',
         man: 'Manually submit information',
@@ -263,7 +263,7 @@ const dcatapProperties = {
       class: 'property besides',
       '@change': true,
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'temporalStart',
@@ -302,7 +302,7 @@ const dcatapProperties = {
       name: 'dct:creator',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'creatorType',
@@ -342,7 +342,7 @@ const dcatapProperties = {
       name: 'dct:conformsTo',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'conformsToTitle',
@@ -365,7 +365,7 @@ const dcatapProperties = {
       name: 'foaf:page',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'pageTitle',
@@ -410,7 +410,7 @@ const dcatapProperties = {
       name: 'dct:hasVersion',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'hasVersionUrl',
@@ -427,7 +427,7 @@ const dcatapProperties = {
       name: 'dct:isVersionOf',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'isVersionOfUrl',
@@ -441,7 +441,7 @@ const dcatapProperties = {
     source: {
       type: 'group',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       identifier: 'source',
       name: 'dct:source',
       class: 'property',
@@ -461,7 +461,7 @@ const dcatapProperties = {
       name: 'dct:identifier',
       identifier: 'identifier',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'identifier',
@@ -477,7 +477,7 @@ const dcatapProperties = {
       name: 'dct:isReferencedBy',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'isReferencedByUrl',
@@ -494,7 +494,7 @@ const dcatapProperties = {
       name: 'dcat:landingPage',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'landingPageUrl',
@@ -520,7 +520,7 @@ const dcatapProperties = {
       name: 'adms:identifier',
       identifier: 'admsIdentifier',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'admsIdentifierUrl',
@@ -557,7 +557,7 @@ const dcatapProperties = {
       name: 'dct:provenance',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'provenance',
@@ -573,7 +573,7 @@ const dcatapProperties = {
       name: 'prov:qualifiedAttribution',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'qualifiedAttributionUrl',
@@ -590,7 +590,7 @@ const dcatapProperties = {
       name: 'prov:wasGeneratedBy',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'wasGeneratedByUrl',
@@ -607,7 +607,7 @@ const dcatapProperties = {
       name: 'dcat:qualifiedRelation',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'qualifiedRelationUrl',
@@ -624,7 +624,7 @@ const dcatapProperties = {
       name: 'dct:relation',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'relationUrl',
@@ -773,7 +773,7 @@ const dcatapProperties = {
       name: 'adms:versionNotes',
       class: 'property besides',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'versionNotes',
@@ -809,7 +809,7 @@ const dcatapProperties = {
       class: 'property',
       '@change': true,
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           type: 'url',
@@ -828,7 +828,7 @@ const dcatapProperties = {
       type: 'group',
       '@change': true,
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       validation: 'required',
       minimum: 1,
       class: 'property',
@@ -874,7 +874,7 @@ const dcatapProperties = {
       name: 'dct:description',
       class: 'property grid1r2c',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -958,7 +958,7 @@ const dcatapProperties = {
       name: 'dct:title',
       class: 'property grid1r2c',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -1010,8 +1010,16 @@ const dcatapProperties = {
       name: 'dcat:accessService',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
+        {
+          identifier: 'accessServiceEndpointURL',
+          type: 'url',
+          name: 'dcat:endpointURL',
+          class: 'main',
+          validation: 'optional|url',
+          '@change': true,
+        },
         {
           identifier: 'accessServiceTitle',
           type: 'group',
@@ -1019,7 +1027,7 @@ const dcatapProperties = {
           class: 'property besides',
           '@change': true,
           repeatable: true,
-          '@repeatableRemoved': true, 
+          '@repeatableRemoved': true,
           children: [
             {
               identifier: 'title',
@@ -1046,7 +1054,7 @@ const dcatapProperties = {
           class: 'property besides',
           '@change': true,
           repeatable: true,
-          '@repeatableRemoved': true, 
+          '@repeatableRemoved': true,
           children: [
             {
               identifier: 'description',
@@ -1065,14 +1073,6 @@ const dcatapProperties = {
               '@change': true,
             },
           ],
-        },
-        {
-          identifier: 'accessServiceEndpointURL',
-          type: 'url',
-          name: 'dcat:endpointURL',
-          class: 'main',
-          validation: 'optional|url',
-          '@change': true,
         },
       ],
     },
@@ -1126,7 +1126,7 @@ const dcatapProperties = {
       name: 'foaf:page',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'pageTitle',
@@ -1162,7 +1162,7 @@ const dcatapProperties = {
       class: 'property',
       name: 'odrl:hasPolicy',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'hasPolicyUrl',
@@ -1188,7 +1188,7 @@ const dcatapProperties = {
       name: 'dct:conformsTo',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'conformsToTitle',
@@ -1374,7 +1374,7 @@ const dcatapProperties = {
       name: 'dct:title',
       class: 'property grid1r2c',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -1403,7 +1403,7 @@ const dcatapProperties = {
       name: 'dct:description',
       class: 'property grid1r2c',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -1505,7 +1505,7 @@ const dcatapProperties = {
       class: 'property',
       '@change': true,
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       options: {
         voc: 'Choose from vocabulary',
         man: 'Manually submit information',
@@ -1563,7 +1563,7 @@ const dcatapProperties = {
       name: 'dct:hasPart',
       class: 'property',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'hasPartURL',
@@ -1631,7 +1631,7 @@ const dcatapProperties = {
       type: 'group',
       name: 'dct:creator',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       class: 'property',
       children: [
         {
