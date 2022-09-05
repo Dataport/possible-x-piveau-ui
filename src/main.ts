@@ -86,10 +86,12 @@ Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, d
 const env = Vue.prototype.$env;
 
 import ECMultiSelectFacet from "./components/ec-multiselect/ECMultiSelectFacet.vue";
+import ECSelectFacet from "./components/ECSelectFacet.vue";
 // import SelectFacet from "./components/SelectFacet.vue";
 configureModules({
   components: {
-    SelectFacet: ECMultiSelectFacet
+    // SelectFacet: ECSelectFacet,
+    SelectFacet: ECMultiSelectFacet,
     // Facet: SelectFacet
     // Facet: ECSelectFacet
   },

@@ -13,7 +13,7 @@
               class="ml-2 overflow-hidden"
               :class="{empty: !text}"
         >
-          {{ text || hint || "Select" }}
+          {{ text || placeholder || "Select" }}
         </span>
     <div class="ecl-select__icon">
       <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape" focusable="false" aria-hidden="true">
@@ -28,7 +28,7 @@ export default {
   name: "ECSelectDisplay",
   props: {
     text: String,
-    hint: String,
+    placeholder: String,
     showOptions: Function,
     away: Function,
   },
@@ -55,6 +55,10 @@ export default {
       background: var(--primary);
     }
   }
+}
+
+.empty {
+  color: grey;
 }
 
 </style>

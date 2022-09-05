@@ -30,8 +30,8 @@ export default {
   font-size: 15px;
 }
 
-
 span {
+  font-family: Arial, sans-serif;
   font-size: medium;
   color: #2c2c2c;
 }

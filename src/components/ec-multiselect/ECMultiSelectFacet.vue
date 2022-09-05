@@ -7,13 +7,13 @@
     <div>
       <e-c-select-display
         :text="selection"
-        hint="Select"
+        placeholder="Select"
         :showOptions="showOptions"
         :away="away"
       />
       <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
         <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" v-model="filter"/>
-        <div v-for="(item, index) in filteredItems" :key="getTitle(item)+index" class="select-row">
+        <div v-for="(item, index) in filteredItems" :key="getTitle(item)+index" class="select-item">
           <e-c-checkbox
             :id="`${fieldId}_${itemTitles[index]}`"
             :label="itemTitles[index]"
@@ -132,7 +132,7 @@ export default {
 
 <style lang="scss" scoped>
 
-.select-row {
+.select-item {
  padding: 16px;
   &:hover {
     background-color: #e3e3e3;
@@ -143,19 +143,10 @@ export default {
   background-color: #e3e3e3;
 }
 
-.ecl-select__icon {
-  height: 100%;
-}
-
 .facet-container {
   padding: 0;
   font-family: Arial, sans-serif;
 }
-
-.tooltip-icon {
-  font-size: 15px;
-}
-
 
 .btn-color {
   background-color: var(--primary);
@@ -167,26 +158,11 @@ export default {
   }
 }
 
-//.dropdown {
-//  background:#f8f9fa;
-//  padding: 6px;
-//  border: 1px solid #ccc;
-//  max-height: 300px;
-//  overflow: auto;
-//  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
-//}
-
 .dropdown {
   background: #f5f5f5;
   border: 1px solid #e3e3e3;
   max-height: 300px;
   overflow: auto;
-  //box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
-  //padding: 6px;
-}
-
-.empty {
-  color: grey;
 }
 
 </style>
