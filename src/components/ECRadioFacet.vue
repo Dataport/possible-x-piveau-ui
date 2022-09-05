@@ -1,11 +1,11 @@
 <template>
-  <div class="list-group">
+  <div class="facet-container list-group">
     <e-c-facet-header
       v-if="title"
       :title="title"
       :tooltip="toolTipTitle"
     />
-    <div class="value-display list-group-item d-flex justify-content-between align-items-center">
+    <div class="value-display list-group-item">
       {{ property }}
       <span class="ml-2 d-flex flex-wrap">
         <div class="custom-control custom-radio" v-for="(id, index) in optionIds">
@@ -80,20 +80,22 @@ export default {
 }
 
 .value-display {
-  width: 100%;
   min-height: 48px;
   border-color: #2c2c2c;
   border-radius: 0 !important;
   padding: 8px;
-  &:focus {
-    border-width: 3px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   &:hover {
     border-color: var(--primary);
-    .ecl-select__icon {
-      background: var(--primary);
-    }
   }
+}
+
+.facet-container {
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 </style>

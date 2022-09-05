@@ -151,16 +151,6 @@ export default {
   font-family: Arial, sans-serif;
 }
 
-.btn-color {
-  background-color: var(--primary);
-  border-color: var(--primary);
-
-  &:hover {
-    background-color: #196fd2;
-    border-color: #196fd2;
-  }
-}
-
 .dropdown {
   width: 100%;
   background: #f5f5f5;
