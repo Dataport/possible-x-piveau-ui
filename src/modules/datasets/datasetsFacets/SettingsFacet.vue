@@ -56,16 +56,6 @@ export default {
         this.changeFacetOperator(op);
       }
     },
-  },
-  watch: {
-    // getFacetOperator(facetOperator) {
-    //   console.log("WATCHING", facetOperator)
-    //   this.$router.replace(
-    //     { query: Object.assign({}, this.$route.query, { facetOperator }) }
-    //   ).catch(
-    //     error => { console.log(error); }
-    //   );
-    // }
   }
 }
 </script>

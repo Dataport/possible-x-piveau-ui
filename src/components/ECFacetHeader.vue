@@ -3,11 +3,11 @@
     class="mb-2">
     <span class="font-weight-bold">{{ title }}</span>
     <i
-      v-if="toolTipTitle"
+      v-if="tooltip"
       class="tooltip-icon material-icons small-icon align-right text-dark pl-1"
       data-toggle="tooltip"
       data-placement="right"
-      :title="toolTipTitle">
+      :title="tooltip">
       help_outline
     </i>
   </div>
@@ -18,7 +18,7 @@ export default {
   name: "ECFacetHeader",
   props: {
     title: String,
-    toolTipTitle: String
+    tooltip: String
   }
 }
 </script>

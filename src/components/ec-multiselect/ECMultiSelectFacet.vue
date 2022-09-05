@@ -3,7 +3,7 @@
     <e-c-facet-header
       v-if="header"
       :title="header"
-      :toolTipTitle="toolTipTitle"
+      :tooltip="toolTipTitle"
     />
     <div>
       <e-c-select-display

@@ -10,14 +10,6 @@
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
         />
-<!--        <e-c-select-facet />-->
-
-<!--        <select-facet-->
-<!--          header="Hello"-->
-<!--          :items="[]"-->
-<!--          fieldId="test"-->
-<!--          toolTipTitle="mytooltip"-->
-<!--        />-->
         <settings-facet
           v-if="!showCatalogDetails"
           class="row facet-field mb-3"
