@@ -11,16 +11,18 @@
         :showOptions="showOptions"
         :away="away"
       />
-      <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
+      <div v-if="open" v-on-clickaway="away" class="dropdown">
         <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" v-model="filter"/>
-        <div v-for="(item, index) in filteredItems" :key="getTitle(item)+index" class="select-item">
-          <e-c-checkbox
-            :id="`${fieldId}_${itemTitles[index]}`"
-            :label="itemTitles[index]"
-            :label-right="item.count"
-            :checked="facetIsSelected(fieldId, item)"
-            :onClick="() => facetClicked(fieldId, item)"
-          />
+        <div class="dropdown-options">
+          <div v-for="(item, index) in filteredItems" :key="getTitle(item)+index" class="select-item">
+            <e-c-checkbox
+              :id="`${fieldId}_${itemTitles[index]}`"
+              :label="itemTitles[index]"
+              :label-right="item.count"
+              :checked="facetIsSelected(fieldId, item)"
+              :onClick="() => facetClicked(fieldId, item)"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -159,8 +161,13 @@ export default {
 }
 
 .dropdown {
+  width: 100%;
   background: #f5f5f5;
   border: 1px solid #e3e3e3;
+}
+
+.dropdown-options {
+  width: 100%;
   max-height: 300px;
   overflow: auto;
 }
