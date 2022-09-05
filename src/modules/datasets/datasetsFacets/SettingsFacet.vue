@@ -1,23 +1,23 @@
 <template>
-  <radio-facet
-    :title="title"
-    :toolTipTitle="toolTipTitle"
-    :property="property"
-    :initialOption="getFacetOperator"
-    :optionIds="optionIds"
-    :optionLabels="optionLabels"
-    :change="change"
-  />
+  <div>
+    <radio-facet
+      :title="title"
+      :toolTipTitle="toolTipTitle"
+      :property="property"
+      :initialOption="getFacetOperator"
+      :optionIds="optionIds"
+      :optionLabels="optionLabels"
+      :change="change"
+    />
+  </div>
 </template>
 
 <script>
 import Vue from 'vue';
 import {mapActions, mapGetters} from "vuex";
-import RadioFacet from "@/modules/facets/RadioFacet";
 
 export default {
   name: "SettingsFacet",
-  components: {RadioFacet},
   data() {
     const ops = this.$env.datasets.facets.FACET_OPERATORS;
     return {

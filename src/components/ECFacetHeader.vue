@@ -1,8 +1,7 @@
 <template>
   <div
-    v-if="header"
     class="mb-2">
-    <span class="font-weight-bold">{{ header }}</span>
+    <span class="font-weight-bold">{{ title }}</span>
     <i
       v-if="toolTipTitle"
       class="tooltip-icon material-icons small-icon align-right text-dark pl-1"
@@ -16,9 +15,9 @@
 
 <script>
 export default {
-  name: "ECSelectHeader",
+  name: "ECFacetHeader",
   props: {
-    header: String,
+    title: String,
     toolTipTitle: String
   }
 }
@@ -34,6 +33,11 @@ span {
   font-family: Arial, sans-serif;
   font-size: medium;
   color: #2c2c2c;
+}
+
+div {
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 </style>

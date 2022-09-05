@@ -72,7 +72,6 @@ import DatasetsMapFacet from "@/modules/datasets/datasetsFacets/DatasetsMapFacet
 import CatalogDetailsFacet from "@/modules/datasets/datasetsFacets/CatalogDetailsFacet";
 import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
 // import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet";
-import RadioFacet from "@/modules/facets/RadioFacet";
 import ECSelectFacet from "@/components/ECSelectFacet";
 // import SelectFacet from "@/components/SelectFacet";
 
@@ -81,7 +80,6 @@ export default {
   dependencies: ['catalogService'],
   components: {
     ECSelectFacet,
-    RadioFacet,
     // ExpandableSelectFacet,
     SettingsFacet,
     CatalogDetailsFacet,

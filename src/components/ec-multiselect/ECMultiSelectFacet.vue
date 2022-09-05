@@ -1,7 +1,8 @@
 <template>
   <div class="facet-container user-select-none">
-    <e-c-select-header
-      :header="header"
+    <e-c-facet-header
+      v-if="header"
+      :title="header"
       :toolTipTitle="toolTipTitle"
     />
     <div>
@@ -35,12 +36,12 @@ import {getFacetTranslation} from "@/modules/utils/helpers";
 import { mixin as clickaway } from 'vue-clickaway';
 import Dropdown from "@/modules/widgets/Dropdown";
 import ECCheckbox from "@/components/ECCheckbox";
-import ECSelectHeader from "@/components/ec-multiselect/ECSelectHeader";
+import ECFacetHeader from "@/components/ECFacetHeader";
 import ECSelectDisplay from "@/components/ec-multiselect/ECSelectDisplay";
 
 export default {
   name: "ECMultiSelectFacet",
-  components: {ECSelectDisplay, ECSelectHeader, ECCheckbox, Dropdown},
+  components: {ECSelectDisplay, ECFacetHeader, ECCheckbox, Dropdown},
   mixins: [clickaway],
   props: {
     header: {

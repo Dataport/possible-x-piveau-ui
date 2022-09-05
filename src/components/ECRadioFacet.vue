@@ -1,10 +1,11 @@
 <template>
   <div class="list-group">
-    <facet-title
+    <e-c-facet-header
+      v-if="title"
       :title="title"
       :tooltip="toolTipTitle"
     />
-    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+    <div class="value-display list-group-item d-flex justify-content-between align-items-center">
       {{ property }}
       <span class="ml-2 d-flex flex-wrap">
         <div class="custom-control custom-radio" v-for="(id, index) in optionIds">
@@ -18,9 +19,10 @@
 
 <script>
 import FacetTitle from "@/modules/facets/FacetTitle";
+import ECFacetHeader from "@/components/ECFacetHeader";
 export default {
-  name: "RadioFacet",
-  components: {FacetTitle},
+  name: "ECRadioFacet",
+  components: {ECFacetHeader, FacetTitle},
   props: {
     title: String,
     toolTipTitle: String,
@@ -72,4 +74,26 @@ export default {
   border-color: var(--primary);
   background-color: var(--primary);
 }
+
+.list-group {
+  width: 100%;
+}
+
+.value-display {
+  width: 100%;
+  min-height: 48px;
+  border-color: #2c2c2c;
+  border-radius: 0 !important;
+  padding: 8px;
+  &:focus {
+    border-width: 3px;
+  }
+  &:hover {
+    border-color: var(--primary);
+    .ecl-select__icon {
+      background: var(--primary);
+    }
+  }
+}
+
 </style>
