@@ -134,7 +134,8 @@
        * @param facet - The facet to check.
        * @returns {boolean}
        */
-      facetIsSelected(field, facet) {
+      facetIsSelected(field, item) {
+        const facet = item.id;
         if (!Object.prototype.hasOwnProperty.call(this.$route.query, field)) {
           return false;
         }
@@ -147,7 +148,8 @@
        * @param field - The field of the clicked facet
        * @param facet - The clicked facet
        */
-      facetClicked(field, facet) {
+      facetClicked(field, item) {
+        const facet = item.id;
         this.toggleFacet(field, facet);
         // this.resetPage();
       },
@@ -168,7 +170,7 @@
         } else {
           facets.push(facet);
         }
-        this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: facets }) });
+        this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) });
       },
       changeFacetOperator(op) {
         this.setFacetOperator(op);

@@ -16,7 +16,7 @@
         />
         <div class="row facet-field mb-3"
              v-for="(field, index) in getSortedFacets"
-             :key="`facet@${index}`"
+             :key="`facet@${field.id}`"
              :class="{'mt-3': (index > 0)}"
         >
           <radio-facet
@@ -219,9 +219,10 @@ export default {
         ? `${this.$t(`message.datasetFacets.facets.scoring.${facetId}`)}${facetId === 'sufficientScoring' || facetId === 'goodScoring' ? '+' : ''}`
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
-    sortByCount(facets, fieldId) {
-      if (fieldId === 'scoring' || fieldId === 'dataScope') return facets;
-      return facets.slice().sort((a, b) => {
+    sortByCount(items, fieldId) {
+      console.log("SORTBYVCOUNT")
+      if (fieldId === 'scoring' || fieldId === 'dataScope') return items;
+      return items.slice().sort((a, b) => {
         const n = b.count - a.count;
         if (n !== 0) return b.count - a.count;
         if (a.name < b.name) return -1;

@@ -70,7 +70,7 @@ export default {
       id: null,
       filter: "",
       filterTimeout: null,
-      filteredItems: this.items
+      // filteredItems: this.items
     };
   },
   computed: {
@@ -90,6 +90,10 @@ export default {
       if (show === "never") return false;
       const count = this.items.length;
       return show === "always" || count > 10;
+    },
+    filteredItems() {
+      const lcFilter = this.filter.toLowerCase();
+      return this.items.filter(item => this.getTitle(item).toLowerCase().includes(lcFilter));
     }
   },
   methods: {
@@ -114,17 +118,17 @@ export default {
   mounted() {
     this.id = this._uid; // eslint-disable-line
   },
-  watch: {
-    filter(newFilter) {
-      if (this.filterTimeout) {
-        clearTimeout(this.filterTimeout);
-      }
-      this.filterTimeout = setTimeout(() => {
-        const lcFilter = newFilter.toLowerCase();
-        this.filteredItems = this.items.filter(item => this.getTitle(item).toLowerCase().includes(lcFilter));
-      }, 200);
-    }
-  },
+  // watch: {
+  //   filter(newFilter) {
+  //     if (this.filterTimeout) {
+  //       clearTimeout(this.filterTimeout);
+  //     }
+  //     this.filterTimeout = setTimeout(() => {
+  //       const lcFilter = newFilter.toLowerCase();
+  //       this.filteredItems = this.items.filter(item => this.getTitle(item).toLowerCase().includes(lcFilter));
+  //     }, 200);
+  //   }
+  // },
   beforeDestroy() {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
