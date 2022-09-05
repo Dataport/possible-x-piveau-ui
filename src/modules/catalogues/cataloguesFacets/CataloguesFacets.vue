@@ -63,8 +63,8 @@
     isNil,
   } from 'lodash';
   // import Facet from '../facets/SelectFacet.vue';
-  import DatasetsFacetsItem from '../datasets/datasetsFacets/DatasetsFacetsItem.vue';
-  import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../utils/helpers';
+  import DatasetsFacetsItem from '../../datasets/datasetsFacets/DatasetsFacetsItem.vue';
+  import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../../utils/helpers';
 
   export default {
     name: 'catalogueFacets',
