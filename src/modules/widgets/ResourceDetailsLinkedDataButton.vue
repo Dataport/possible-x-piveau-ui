@@ -12,7 +12,7 @@
   export default {
     name: 'ResourceDetailsLinkedDataButton',
     components: {
-      appLink: AppLink,
+      AppLink,
     },
     data() {
       return {};

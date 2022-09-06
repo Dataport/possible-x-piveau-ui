@@ -29,7 +29,7 @@ The workflow is as follows:
   * Increase the version number in `package.json` and run `npm run deploy` (you have to be logged into our paca npm registry).
     THIS IS GENERALLY NOT RECOMMENDED! USE THE CI MECHANISM!
   
-Note that by the CI, NO new version of the modules is published if there are no fixes, new features or branking changes in the commits 
+Note that by the CI, NO new version of the modules is published if there are no fixes, new features or breaking changes in the commits 
 (see below how to indicate such changes in you commit messages).
 
 ## Branches

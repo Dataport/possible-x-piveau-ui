@@ -79,8 +79,12 @@ export default {
     minScoring() {
       if (this.$env.datasets.facets.scoringFacets.useScoringFacets) {
         // Check local storage value
-        let minScoring = parseInt(JSON.parse(localStorage.getItem('minScoring')), 10);
-        if (isNumber(minScoring)) this.setMinScoring(minScoring);
+        let minScoring = localStorage.getItem('minScoring');
+        if (minScoring && minScoring !== "undefined") {
+          console.log("MIN 2222", minScoring)
+          minScoring = parseInt(JSON.parse(minScoring), 10);
+          if (isNumber(minScoring)) this.setMinScoring(minScoring);
+        }
         // Check existing store value
         if (!isNumber(this.getMinScoring)) {
           minScoring = parseInt(this.$env.datasets.facets.scoringFacets.defaultMinScore, 10);

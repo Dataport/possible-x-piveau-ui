@@ -2,7 +2,7 @@
   <div class="container dataset-facets">
     <div class="row mx-3 mr-md-0">
       <div class="col">
-        <datasets-facet-map
+        <datasets-map-facet
           :showCatalogDetails="showCatalogDetails"
         />
         <catalog-details-facet
@@ -10,81 +10,37 @@
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
         />
-        <!-- Facet settings -->
         <settings-facet
           v-if="!showCatalogDetails"
+          class="row facet-field mb-3"
         />
-        <!-- Facets -->
         <div class="row facet-field mb-3"
              v-for="(field, index) in getSortedFacets"
-             :key="`facet@${index}`"
+             :key="`facet@${field.id}`"
              :class="{'mt-3': (index > 0)}"
         >
-          <facet
-            v-if="field.id === 'dataScope'"
-            :header="$t('message.datasetFacets.facets.datascope')"
-            :items="field.items"
-            :minItems="MIN_FACET_LIMIT"
-            :maxItems="MAX_FACET_LIMIT"
-            :toolTipTitle="$t('message.helpIcon.dataScope')"
-            class="col pr-0"
-            v-slot="{ item: facet }"
-          >
-            <datasets-facets-item
-              class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"
-              :title="$te(`message.datasetFacets.facets.datascopeField.${facet.id}`)
-                ? $t(`message.datasetFacets.facets.datascopeField.${facet.id}`)
-                : getFacetTranslationWrapper(field.id, facet.id, $route.query.locale, facet.title)"
-              :count="getFacetCount(field, facet)"
-              :hide-count="true"
-              :class="{active: dataScopeFacetIsSelected(facet.id)}"
-              @click.native="dataScopeFacetClicked(facet.id)"
-            />
-          </facet>
-          <facet
-            v-else-if="(field.id === 'dataServices')"
-            :header="$t('message.metadata.dataServices')"
-            :items="[]"
-            :toolTipTitle="$t('message.helpIcon.dataServices')"
-            class="col pr-0"
-          >
-            <template #after>
-              <div class="form-group list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                {{ $t('message.datasetFacets.facets.dataServices.dataServicesOnly') }}
-                <span class="ml-2 d-flex flex-wrap">
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="radio-yes" name="radio-facet-data-services" class="custom-control-input" @click="changeDataServices('true')" :checked="getDataServices === 'true'">
-                    <label class="custom-control-label" for="radio-yes">{{ $t('message.metadata.yes') }}</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="radio-no" name="radio-facet-data-services" @click="changeDataServices('false')" :checked="getDataServices === 'false'">
-                    <label class="custom-control-label" for="radio-no">{{ $t('message.metadata.no') }}</label>
-                  </div>
-                </span>
-              </div>
-            </template>
-          </facet>
-          <facet
+          <radio-facet
+            v-if="(field.id === 'dataServices')"
+            :title="dataServices.title"
+            :property="dataServices.property"
+            :toolTipTitle="dataServices.toolTipTitle"
+            :optionIds="['true', 'false']"
+            :optionLabels="[dataServices.yes, dataServices.no]"
+            :initialOption="getDataServices"
+            :change="changeDataServices"
+          />
+          <select-facet
             v-else
-            :header="field.id === 'scoring'
-              ? $t('message.header.navigation.data.metadataquality')
-              : $t(`message.datasetFacets.facets.${field.id.toLowerCase()}`)"
+            :fieldId="field.id"
+            :header="facetTitle(field.id)"
             :items="sortByCount(field.items, field.id)"
-            :minItems="MIN_FACET_LIMIT"
-            :maxItems="MAX_FACET_LIMIT"
-            :toolTipTitle="$t(`message.helpIcon.${field.id.toLowerCase()}`)"
+            :toolTipTitle="tooltip(field.id)"
+            :getFacetTranslationWrapper="getFacetTranslationWrapper"
+            :facetIsSelected="facetIsSelected"
+            :facetClicked="facetClicked"
+            :multiSelect="field.id !== 'scoring'"
             class="col pr-0"
-            v-slot="{ item: facet }"
-          >
-            <datasets-facets-item
-              class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"
-              :title="getFacetTranslationWrapper(field.id, facet.id, $route.query.locale, facet.title)"
-              :count="getFacetCount(field, facet)"
-              :hide-count="field.id === 'dataScope'"
-              :class="{active: field.id === 'scoring' ? scoringFacetIsSelected(facet.minScoring) : facetIsSelected(field.id, facet.id)}"
-              @click.native="field.id === 'scoring' ? scoringFacetClicked(facet.minScoring): facetClicked(field.id, facet.id)"
-            />
-          </facet>
+          />
         </div>
       </div>
     </div>
@@ -101,21 +57,28 @@ import {
   isNil,
   isNumber,
 } from 'lodash';
-// import Facet from '../../facets/Facet.vue';
+// import Facet from '../../facets/SelectFacet.vue';
+import Vue from 'vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
-import DatasetsFacetMap from "@/modules/datasets/datasetsFacets/DatasetsFacetMap";
+import DatasetsMapFacet from "@/modules/datasets/datasetsFacets/DatasetsMapFacet";
 import CatalogDetailsFacet from "@/modules/datasets/datasetsFacets/CatalogDetailsFacet";
 import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
+// import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet";
+import ECSelectFacet from "@/components/ECSingleSelectFacet";
+// import SelectFacet from "@/components/SelectFacet";
 
 export default {
   name: 'datasetFacets',
   dependencies: ['catalogService'],
   components: {
+    ECSelectFacet,
+    // ExpandableSelectFacet,
     SettingsFacet,
     CatalogDetailsFacet,
+    // SelectFacet,
     // Facet,
-    DatasetsFacetMap,
+    DatasetsMapFacet,
     DatasetsFacetsItem,
   },
   props: {
@@ -149,6 +112,13 @@ export default {
       MAX_FACET_LIMIT: this.$env.datasets.facets.MAX_FACET_LIMIT,
       FACET_OPERATORS: this.$env.datasets.facets.FACET_OPERATORS,
       FACET_GROUP_OPERATORS: this.$env.datasets.facets.FACET_GROUP_OPERATORS,
+      dataServices: {
+        yes: Vue.i18n.t('message.metadata.yes'),
+        no: Vue.i18n.t('message.metadata.no'),
+        property: Vue.i18n.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
+        title: Vue.i18n.t('message.metadata.dataServices'),
+        toolTipTitle: Vue.i18n.t('message.helpIcon.dataServices'),
+      }
     };
   },
   computed: {
@@ -229,7 +199,6 @@ export default {
       'useCatalogService',
     ]),
     ...mapActions('datasets', [
-      'toggleFacet',
       'addFacet',
       'removeFacet',
       'setFacetGroupOperator',
@@ -238,36 +207,64 @@ export default {
       'setPageCount',
       'setMinScoring',
     ]),
+    facetTitle(fieldId) {
+      return fieldId === 'scoring' ?
+        Vue.i18n.t('message.header.navigation.data.metadataquality')
+        : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+    },
+    tooltip(fieldId) {
+      return fieldId === 'dataScope' ? Vue.i18n.t('message.helpIcon.dataScope') : Vue.i18n.t(`message.helpIcon.${fieldId.toLowerCase()}`);
+    },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
         ? `${this.$t(`message.datasetFacets.facets.scoring.${facetId}`)}${facetId === 'sufficientScoring' || facetId === 'goodScoring' ? '+' : ''}`
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
-    sortByCount(facets, fieldId) {
-      if (fieldId === 'scoring') return facets;
-      return facets.slice().sort((a, b) => {
+    sortByCount(items, fieldId) {
+      if (fieldId === 'scoring' || fieldId === 'dataScope') return items;
+      return items.slice().sort((a, b) => {
         const n = b.count - a.count;
         if (n !== 0) return b.count - a.count;
         if (a.name < b.name) return -1;
         return 1;
       });
     },
-    facetIsSelected(field, facet) {
-      if (!Object.prototype.hasOwnProperty.call(this.$route.query, field)) {
+    facetIsSelected(fieldId, item) {
+      const facet = item.id;
+      if (fieldId === 'scoring') {
+        const qMinScoring = parseInt(this.getMinScoring, 10);
+        return qMinScoring === item.minScoring;
+      }
+      if (!Object.prototype.hasOwnProperty.call(this.$route.query, fieldId)) {
         return false;
       }
-      let qField = this.$route.query[field];
+      if (fieldId === 'dataScope') return this.$route.query.dataScope === facet;
+      let qField = this.$route.query[fieldId];
       if (!Array.isArray(qField)) qField = [qField];
-      if (field === 'categories') {
+      if (fieldId === 'categories') {
         // Ignore Case for categories
         facet.toUpperCase();
         qField = qField.map(f => f.toUpperCase());
       }
       return qField.indexOf(facet) > -1;
     },
-    facetClicked(field, facet) {
-      this.toggleFacet(field, facet);
-      this.resetPage();
+    facetClicked(field, item) {
+      const facet = item.id;
+      if (field === "dataScope") {
+        this.dataScopeFacetClicked(facet);
+      } else if (field === 'scoring') {
+        let newScoring = item.minScoring;
+        if (newScoring === this.getMinScoring) {
+          newScoring = 0;
+        }
+        this.setMinScoring(newScoring);
+        localStorage.setItem('minScoring', JSON.stringify(newScoring));
+        this.resetPage();
+        window.scrollTo(0, 0);
+      } else {
+        this.toggleFacet(field, facet);
+        // this.resetPage();
+      }
     },
     toggleFacet(field, facet) {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
@@ -285,30 +282,19 @@ export default {
         facets = facets.map(f => f.toUpperCase());
       }
       const index = facets.indexOf(facet);
-      if (index > -1) facets.splice(index, 1);
-      else facets.push(facet);
+      if (index > -1) {
+        facets.splice(index, 1);
+      } else {
+        facets.push(facet);
+      }
       return this.$router.push(
         { query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }
       ).catch(
         error => { console.log(error); }
       );
     },
-    scoringFacetIsSelected(minScoring) {
-      const qMinScoring = parseInt(this.getMinScoring, 10);
-      return qMinScoring === minScoring;
-    },
-    scoringFacetClicked(minScoring) {
-      this.setMinScoring(minScoring);
-      localStorage.setItem('minScoring', JSON.stringify(minScoring));
-      this.resetPage();
-      window.scrollTo(0, 0);
-    },
-    dataScopeFacetIsSelected(dataScope) {
-      if (!Object.prototype.hasOwnProperty.call(this.$route.query, 'dataScope')) return false;
-      return this.$route.query.dataScope === dataScope;
-    },
     dataScopeFacetClicked(dataScope) {
-      if (this.dataScopeFacetIsSelected(dataScope)) {
+      if (this.$route.query.dataScope === dataScope) {
         this.$router.push(
           { query: Object.assign({}, this.$route.query, { dataScope: [], country: [], page: 1 }) }
         ).catch(

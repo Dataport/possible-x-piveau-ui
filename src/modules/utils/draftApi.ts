@@ -11,7 +11,7 @@ const createDraftApi = ({ baseURL, authToken }: { baseURL: string, authToken: st
   });
 
   // Create a new draft
-  const createDatasetDraft = ({ id, catalogue, body }: { id: string, catalogue: string, body: any}) =>
+  const createDatasetDraft = ({ id, catalogue, body }: { id: string, catalogue: string, body: unknown}) =>
     api.put(`/datasets/${id}`, body, {
     headers: { 'Content-Type': 'application/ld+json' },
     params: { catalogue },
@@ -31,7 +31,7 @@ const createDraftApi = ({ baseURL, authToken }: { baseURL: string, authToken: st
     api.delete(`/datasets/${id}`, { params: { catalogue } });
 
   // Publish a draft as dataset
-  const publishDatasetDraft = ({ id, catalogue, body }: { id: string, catalogue: string, body: any }) => {
+  const publishDatasetDraft = ({ id, catalogue, body }: { id: string, catalogue: string, body: unknown }) => {
     const maybeId = id ? `/${id}` : '';
     return api.put(`/datasets/publish${maybeId}`, body, { params: { catalogue } });
   };
