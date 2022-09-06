@@ -250,7 +250,15 @@ const actions = {
           if (!isEmpty(stateValues)) {
             const checksum = { '@type': 'spdx:Checksum', 'spdx:checksumValue': '', 'spdx:algorithm': ''};
             if (!isEmpty(stateValues['spdx:checksumValue'])) checksum['spdx:checksumValue'] = stateValues['spdx:checksumValue'];
-            if (!isEmpty(stateValues['spdx:algorithm']['@id'])) checksum['spdx:algorithm'] = stateValues['spdx:algorithm']['@id'];
+            if (!isEmpty(stateValues['spdx:algorithm']['@id'])) {
+              const algorithmValue = stateValues['spdx:algorithm']['@id'];
+              if (algorithmValue.startsWith('http') || algorithmValue.startsWith('www')) {
+                checksum['spdx:algorithm'] = algorithmValue;
+              } else if (algorithmValue.includes(':')) {
+                const algorithm = algorithmValue.replace(':', '');
+                checksum['spdx:algorithm'] = `http://spdx.org/rdf/terms#${algorithm}`;
+              }
+            }
             formData[propertyKey] = [checksum]; // is a grouped values and therefore must be within an array
           }
         } else if (propertyKey === 'dct:rights') {
