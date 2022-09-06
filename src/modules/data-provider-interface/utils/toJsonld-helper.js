@@ -191,10 +191,6 @@ function convertGroupedInput(state, values, key) {
             "@type": "dct:Standard",
             "rdfs:label": ""
         },
-        "adms:identifier": {
-            "@id": "",
-            "skos:notation": {"@type": "", "@value": ""},
-        }
     };
 
     for (let index = 0; index < values.length; index += 1) {
