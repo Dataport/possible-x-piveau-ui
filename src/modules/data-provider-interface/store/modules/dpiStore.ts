@@ -558,6 +558,23 @@ const mutations = {
             if (!isEmpty(actualValues['spdx:checksumValue'])) storedata[key]['spdx:checksumValue'] = actualValues['spdx:checksumValue'];
             if (!isEmpty(actualValues['spdx:algorithm'])) storedata[key]['spdx:algorithm']['@id'] = actualValues['spdx:algorithm'];
           }
+        } else if (key === 'adms:identifier') {
+          const identifierObject = {
+              "@id": "",
+              "skos:notation": {"@type": "", "@value": ""},
+          };
+          for (let index = 0; index < values[key].length; index += 1) {
+            storedata[key][index] = cloneDeep(identifierObject);
+            const currentData = values[key][index];
+            const currentStoreData = storedata[key][index];
+            if (has(currentData, '@id') && !isEmpty(currentData['@id'])) currentStoreData['@id'] = currentData['@id'];
+            if (has(currentData, 'skos:notation') && !isEmpty(currentData['skos:notation'])) {
+              // is a subgroup which is summarized in array with singular entry
+              const currentNotation = currentData['skos:notation'][0];
+              if (has(currentNotation, '@value') && !isEmpty(currentNotation['@value'])) currentStoreData['skos:notation']['@value'] = currentNotation['@value'];
+              if (has(currentNotation, '@type') && !isEmpty(currentNotation['@type'])) currentStoreData['skos:notation']['@type'] = currentNotation['@type'];
+            }
+          }
         }
       } else if (key === 'datasetID') {
         // save datasetID to '@id'-property for datasets
