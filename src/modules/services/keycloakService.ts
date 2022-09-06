@@ -28,6 +28,7 @@ export default {
           userName: null,
           fullName: null,
           token: null,
+          rtpToken: null,
           tokenParsed: null,
           logoutFn: null,
           loginFn: null,
@@ -115,33 +116,45 @@ function init(config, watch, options) {
   keycloak.init(options.init)
   .catch((err) => {
     typeof options.onInitError === 'function' && options.onInitError(err);
-  }); 
+  });
 
-  function getRtpToken() {
+  let updateTokenTimeout = null;
+
+  function getRtpToken({ autoRefresh = false, refreshToken = null} = {}) {
     const rtpConfig = options.config.rtp;
     const baseUrl = options.config.url;
     const realm = options.config.realm;
-    const token = keycloak.token
+    const token = keycloak.token;
     const endpoint = `${baseUrl}/realms/${realm}/protocol/openid-connect/token`;
     const requestBody = {
       grant_type: rtpConfig.grand_type,
       audience: rtpConfig.audience,
+      ...refreshToken ? { refresh_token: refreshToken } : {},
     };
 
     return new Promise((resolve, reject) => {
-      if (rtpToken) {
+      if (rtpToken && !refreshToken) {
         resolve(rtpToken)
         return;
       }
-      
+
       axios.post(endpoint, qs.stringify(requestBody), {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       }).then((response) => {
-        rtpToken = response;
-        resolve(response);
+        rtpToken = response?.data?.access_token;
+        const refreshInterval = response?.data?.expires_in * 1000 * 0.8;
+
+        if (autoRefresh) {
+          if (updateTokenTimeout) clearTimeout(updateTokenTimeout);
+          updateTokenTimeout = setTimeout(async () => {
+            await getRtpToken({ autoRefresh: true, refreshToken: response.data.refresh_token });
+          }, refreshInterval);
+        }
+        updateWatchVariables(true);
+        resolve(rtpToken);
       }).catch((error) => {
         reject(error);
       });
@@ -175,6 +188,7 @@ function init(config, watch, options) {
       watch.loadUserProfile = keycloak.loadUserProfile;
       watch.loadUserInfo = keycloak.loadUserInfo;
       watch.token = keycloak.token;
+      watch.rtpToken = rtpToken;
       watch.subject = keycloak.subject;
       watch.idToken = keycloak.idToken;
       watch.idTokenParsed = keycloak.idTokenParsed;

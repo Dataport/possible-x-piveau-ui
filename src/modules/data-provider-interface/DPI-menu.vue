@@ -248,12 +248,31 @@ export default {
         this.$watch('$keycloak.token', async (newToken) => {
           if (!newToken) return;
 
+          let rtpToken = this.$keycloak.rtpToken;
+          if (!rtpToken) {
+            const rtpTokenFn = this.$keycloak.getRtpToken;
+            if (rtpTokenFn) {
+              const res = (await rtpTokenFn({ autoRefresh: true }));
+              rtpToken = res;
+            }
+          }
+
           this.updateUserData({
             authToken: newToken,
-            rtpTokenFn: this.$keycloak.getRtpToken,
+            rtpToken: rtpToken,
             hubUrl: this.$env.api.hubUrl,
           });
         }, { immediate: true });
+
+        this.$watch('$keycloak.rtpToken', (newRtpToken) => {
+          if (!newRtpToken) return;
+
+          this.updateUserData({
+            authToken: this.$keycloak.token,
+            rtpToken: newRtpToken,
+            hubUrl: this.$env.api.hubUrl,
+          });
+        });
       }
     },
     async handleConfirm(action, argsObj, { successMessage, errorMessage }) {

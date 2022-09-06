@@ -181,9 +181,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.formValues);
     this.initInputPage();
-    console.log(this.formValues);
   },
   watch: {
     getFirstTitleFromForm: {
@@ -214,18 +212,19 @@ export default {
     });
   },
   beforeRouteUpdate(to, from, next) {
-    // get first route for property
     let firstStep;
     let path;
+
     if (this.property === 'distributions') {
-      firstStep = this.getNavSteps.datasets[0];
-      path = `${this.$env.upload.basePath}/datasets/${firstStep}`;
+      path = `${this.$env.upload.basePath}/datasets/distoverview`;
     } else {
       firstStep = this.getNavSteps[this.property][0];
       path = `${this.$env.upload.basePath}/${this.property}/${firstStep}`;
     }
 
-    if (!to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+    console.log(to);
+
+    if (to.query.clear !== 'true' && !to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
       $('#mandatoryModal').modal({ show: true });
     } else {
       next();

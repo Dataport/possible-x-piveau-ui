@@ -54,7 +54,7 @@ const multiURIs = {
     datasets: [
         'dct:language',
         'dct:subject',
-        'dct:theme',
+        'dcat:theme',
         'dct:type',
     ],
     distributions: [
