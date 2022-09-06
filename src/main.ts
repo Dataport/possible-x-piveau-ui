@@ -90,8 +90,8 @@ import ECRadioFacet from "./components/ECRadioFacet.vue";
 
 configureModules({
   components: {
-    SelectFacet: ECSelectFacet,
-    RadioFacet: ECRadioFacet
+    // SelectFacet: ECSelectFacet,
+    // RadioFacet: ECRadioFacet
   },
   services: GLUE_CONFIG.services,
   serviceParams: {
