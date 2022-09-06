@@ -208,7 +208,6 @@ const dcatapProperties = {
       data: {
         voc: [
           {
-            identifier: 'spatial',
             type: 'conditional-input',
             name: 'dct:spatial',
             options: {
@@ -220,7 +219,6 @@ const dcatapProperties = {
             data: {
               continent: [
                 {
-                  identifier: 'spatialContinent',
                   type: 'autocomplete-input',
                   voc: 'continent',
                   name: '@id',
@@ -250,7 +248,6 @@ const dcatapProperties = {
         ],
         man: [
           {
-            identifier: 'spatial',
             type: 'url',
             name: '@id',
             validation: 'optional|url',
@@ -846,7 +843,6 @@ const dcatapProperties = {
             url: [
               {
                 type: 'url',
-                identifier: 'accessUrl',
                 name: '@id',
                 '@change': true,
                 validation: 'required|url',
@@ -855,7 +851,6 @@ const dcatapProperties = {
             file: [
               {
                 type: 'fileupload',
-                identifier: 'accessUrl',
                 name: '@id',
                 '@change': true,
                 validation: 'required',
@@ -921,7 +916,6 @@ const dcatapProperties = {
       data: {
         voc: [
           {
-            identifier: 'licence',
             type: 'autocomplete-input',
             voc: 'licence',
             name: '@id',

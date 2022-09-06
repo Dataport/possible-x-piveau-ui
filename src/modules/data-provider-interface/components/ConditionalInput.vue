@@ -3,7 +3,6 @@
     <FormulateSlot name="prefix" :context="context">
       <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context"/>
     </FormulateSlot>
-
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
     <FormulateForm v-model="conditionalValues" key="intern">
       <FormulateInput type="select" :options="context.options" :name="context.name" :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormulateInput>
@@ -23,6 +22,8 @@
 </template>
 
 <script>
+import { isEmpty, has } from 'lodash';
+
 export default {
   props: {
     context: {
@@ -58,16 +59,19 @@ export default {
         } else {
           this.conditionalValues[this.context.name] = 'date';
         }
-        this.inputValues = {'@value': this.context.model }; // string with special characters won't be added to empty object anymore
-      // } else if (semanticName === 'dct:license') {
-      //   // either an object containing multiple properties
-      //   if (typeof this.context.model === 'object') {
-      //     this.conditionalValues[this.context.name] = 'man';
-      //     this.inputValues = {'dct:license': this.context.model };
-      //   } else { // or a single URI
-      //     this.conditionalValues[this.context.name] = 'voc';
-      //     this.inputValues = this.context.model;
-      //   }
+        this.inputValues = {'@value': this.context.model };
+      } else if (semanticName === 'dct:license') {
+        // either an array with an object containing multiple properties
+        if (Array.isArray(this.context.model)) {
+          if (!isEmpty(this.context.model[0])) {
+            this.conditionalValues[this.context.name] = 'man';
+            this.inputValues = {...this.inputValues, 'dct:license': this.context.model};
+          }
+        } else {
+          // singular URI
+          this.conditionalValues[this.context.name] = 'voc';
+          this.inputValues = {'@id': this.context.model };
+        }
       } else if (this.context.attributes.identifier === 'accessUrl') {
         this.conditionalValues[this.context.name] = 'url';
         this.inputValues = { '@id': this.context.model };
@@ -79,6 +83,16 @@ export default {
 
         // TODO: implement display of conditional choice when vocabulary was used
 
+      } else if (semanticName === 'dct:rights') {
+        if (has(this.context.model, 'rdfs:label') && !isEmpty(this.context.model['rdfs:label'])) {
+          // url and string provided as normal string
+          if (this.context.model['rdfs:label'].startsWith('http') || this.context.model['rdfs:label'].startsWith('www')) {
+            this.conditionalValues[this.context.name] = 'url';
+          } else {
+            this.conditionalValues[this.context.name] = 'str';
+          }
+          this.inputValues = {'rdfs:label': this.context.model['rdfs:label']};
+        }
       }
     },
   },

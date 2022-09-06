@@ -86,6 +86,12 @@ function convertNestedProperties(state, values) {
                     state[key][0][subkey] = values[key][subkey];
                 }
             }
+        } else if (key === 'dct:title' || key === 'dct:description') {
+            if (Array.isArray(values[key])) {
+                state[key] = values[key];
+            } else {
+                state[key] = [values[key]];
+            }
         } else {
             if (!isEmpty(values[key])) {
                 state[key] = values[key];

@@ -22,10 +22,7 @@ const sameFormatProperties = {
     distributions: [
         'dct:title',
         'dct:description',
-        'dct:issued',
-        'dct:modified',
         'dcat:byteSize',
-        'dcat:spatialResolutionInMeters',
         'odrl:hasPolicy',
         'dct:conformsTo',
         'dcat:accessURL',
@@ -91,6 +88,7 @@ const groupedValues = {
         'dct:creator',
         'dext:metadataExtension',
         'adms:identifier',
+        'dct:temporal',
     ],
     distributions: [
         'dcat:accessService',

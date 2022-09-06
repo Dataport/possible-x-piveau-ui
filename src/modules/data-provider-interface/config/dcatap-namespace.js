@@ -69,6 +69,7 @@ const namespacedKeys = {
     'checksumValue': 'spdx:checksumValue',
     'algorithm': 'spdx:algorithm',
     'rights': 'dct:rights',
+    'license': 'dct:license',
 }
 
 export default namespacedKeys;

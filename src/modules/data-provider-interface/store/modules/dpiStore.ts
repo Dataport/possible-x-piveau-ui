@@ -250,7 +250,15 @@ const actions = {
           if (!isEmpty(stateValues)) {
             const checksum = { '@type': 'spdx:Checksum', 'spdx:checksumValue': '', 'spdx:algorithm': ''};
             if (!isEmpty(stateValues['spdx:checksumValue'])) checksum['spdx:checksumValue'] = stateValues['spdx:checksumValue'];
-            if (!isEmpty(stateValues['spdx:algorithm']['@id'])) checksum['spdx:algorithm'] = stateValues['spdx:algorithm']['@id'];
+            if (!isEmpty(stateValues['spdx:algorithm']['@id'])) {
+              const algorithmValue = stateValues['spdx:algorithm']['@id'];
+              if (algorithmValue.startsWith('http') || algorithmValue.startsWith('www')) {
+                checksum['spdx:algorithm'] = algorithmValue;
+              } else if (algorithmValue.includes(':')) {
+                const algorithm = algorithmValue.replace(':', '');
+                checksum['spdx:algorithm'] = `http://spdx.org/rdf/terms#${algorithm}`;
+              }
+            }
             formData[propertyKey] = [checksum]; // is a grouped values and therefore must be within an array
           }
         } else if (propertyKey === 'dct:rights') {
@@ -272,6 +280,19 @@ const actions = {
               if (has(stateValues[index], 'dcat:startDate')) formData[propertyKey][index]['dcat:startDate'] = stateValues[index]['dcat:startDate']['@value'];
               if (has(stateValues[index], 'dcat:endDate')) formData[propertyKey][index]['dcat:endDate'] = stateValues[index]['dcat:endDate']['@value'];
             }
+          }
+        } else if (propertyKey === 'dct:license') {
+          if (has(stateValues, '@id')) {
+            // URI
+            if (!isEmpty(stateValues['@id'])) formData[propertyKey] = stateValues['@id'];
+          } else {
+            // multiple sub properties
+            const licenseData = {};
+            if (has(stateValues, 'dct:title') && !isEmpty(stateValues['dct:title'])) licenseData['dct:title'] = stateValues['dct:title'];
+            if (has(stateValues, 'skos:prefLabel') && !isEmpty(stateValues['skos:prefLabel'])) licenseData['skos:prefLabel'] = stateValues['skos:prefLabel'];
+            if (has(stateValues, 'skos:exactMatch') && !isEmpty(stateValues['skos:exactMatch']) && has(stateValues['skos:exactMatch'], '@id') && !isEmpty(stateValues['skos:exactMatch']['@id'])) licenseData['skos:exactMatch'] = stateValues['skos:exactMatch']['@id'];
+
+            formData[propertyKey] = [licenseData];
           }
         }
       } else if (property === 'datasets' && propertyKey === 'datasetID') {
@@ -349,20 +370,22 @@ const actions = {
       && dataset['@type'] !== 'dcat:Dataset'
       && dataset['@type'] !== 'dcat:Catalogue'));
 
+    const context = data['@context'];
+
     if (property === 'datasets') {
       // tranfer datasets data into stores state
       const datasetData = graphData.filter(dataset => dataset['@type'] === 'dcat:Dataset')[0]; // there is only one dataset entry
-      commit('transferJsonld', {data: datasetData, nodeData, property, id});
+      commit('transferJsonld', {data: datasetData, nodeData, property, id, context});
 
       // transfer distribution data into stores state
       const distributionData = graphData.filter(dataset => dataset['@type'] === 'dcat:Distribution');
       for (let index = 0; index < distributionData.length; index += 1) {
-        commit('transferJsonld', {data: distributionData[index], nodeData, property: 'distributions', id: index});
+        commit('transferJsonld', {data: distributionData[index], nodeData, property: 'distributions', id: index, context});
       }
     } else if (property === 'catalogues') {
       // transfer catalog data into stores state
       const catalogueData = graphData.filter(dataset => dataset['@type'] === 'dcat:Catalogue')[0]; // there is only one catalogue entry
-      commit('transferJsonld', {data: catalogueData, nodeData, property, id});
+      commit('transferJsonld', {data: catalogueData, nodeData, property, id, context});
     }
   },
   /**
@@ -537,6 +560,23 @@ const mutations = {
             if (!isEmpty(actualValues['spdx:checksumValue'])) storedata[key]['spdx:checksumValue'] = actualValues['spdx:checksumValue'];
             if (!isEmpty(actualValues['spdx:algorithm'])) storedata[key]['spdx:algorithm']['@id'] = actualValues['spdx:algorithm'];
           }
+        } else if (key === 'adms:identifier') {
+          const identifierObject = {
+              "@id": "",
+              "skos:notation": {"@type": "", "@value": ""},
+          };
+          for (let index = 0; index < values[key].length; index += 1) {
+            storedata[key][index] = cloneDeep(identifierObject);
+            const currentData = values[key][index];
+            const currentStoreData = storedata[key][index];
+            if (has(currentData, '@id') && !isEmpty(currentData['@id'])) currentStoreData['@id'] = currentData['@id'];
+            if (has(currentData, 'skos:notation') && !isEmpty(currentData['skos:notation'])) {
+              // is a subgroup which is summarized in array with singular entry
+              const currentNotation = currentData['skos:notation'][0];
+              if (has(currentNotation, '@value') && !isEmpty(currentNotation['@value'])) currentStoreData['skos:notation']['@value'] = currentNotation['@value'];
+              if (has(currentNotation, '@type') && !isEmpty(currentNotation['@type'])) currentStoreData['skos:notation']['@type'] = currentNotation['@type'];
+            }
+          }
         }
       } else if (key === 'datasetID') {
         // save datasetID to '@id'-property for datasets
@@ -601,7 +641,7 @@ const mutations = {
    * @param {*} state
    * @param {*} param1
    */
-  transferJsonld(state, {data, nodeData, property, id}) {
+  transferJsonld(state, {data, nodeData, property, id, context}) {
     const propertyKeys = Object.keys(data);
     let storedata;
 
@@ -721,14 +761,74 @@ const mutations = {
         } else if (key === 'spdx:checksum') {
           storedata[key] = toJsonldConverter.mergeNodeData(nodeData, data[normalKeyName]);
         } else if (key === 'dct:rights') {
-          const nodeDataKeys = nodeData.map(dataset => dataset['@id']);
-          if (nodeDataKeys.includes(data[normalKeyName])) {
-            storedata[key] = toJsonldConverter.mergeNodeData(nodeData, data[normalKeyName]);
+          const rightsValue = data[normalKeyName];
+          let rightsNodeData = nodeData.filter(dataset => dataset['@id'] === rightsValue);
+
+          if (!isEmpty(rightsNodeData)) {
+            // existing node Data ( data always within a node)
+            rightsNodeData = rightsNodeData[0]; // filter provides array we only need the single entry of array
+            if (has(rightsNodeData, 'label') && !isEmpty(rightsNodeData['label'])) {
+              storedata[key] = {'@type': 'dct:RightsStatement'};
+              if (typeof rightsNodeData['label'] === 'object') {
+                if (has(rightsNodeData['label'], '@id') && !isEmpty(rightsNodeData['label']['@id'])) storedata[key]['rdfs:label'] = rightsNodeData['label']; 
+              } else {
+                // for some reason the backend returns URI in JSON-LD wrongly
+                if (rightsNodeData['label'].startsWith('http') || rightsNodeData['label'].startsWith('www')) storedata[key]['rdfs:label'] = {'@id': rightsNodeData['label']};
+                else storedata[key]['rdfs:label'] = rightsNodeData['label'];
+              }
+            }
+          } 
+        } else if (key === 'dct:license') {
+          // license could either be an URI or a group of values stored within a node
+          let licenseNodeData = nodeData.filter(dataset => dataset['@id'] === data[normalKeyName]);
+          if (!isEmpty(licenseNodeData)) {
+            licenseNodeData = licenseNodeData[0]; // filter returns and array with only one entry
+            // group of sub properties
+            storedata[key] = { 'dct:title': '', 'skos:prefLabel': '', 'skos:exactMatch': {'@id': ''} };
+            if (has(licenseNodeData, 'title') && !isEmpty(licenseNodeData['title'])) storedata[key]['dct:title'] = licenseNodeData['title'];
+            if (has(licenseNodeData, 'prefLabel') && !isEmpty(licenseNodeData['prefLabel'])) storedata[key]['skos:prefLabel'] = licenseNodeData['prefLabel'];
+            if (has(licenseNodeData, 'exactMatch') && !isEmpty(licenseNodeData['exactMatch'])) storedata[key]['skos:exactMatch']['@id'] = licenseNodeData['exactMatch'];
           } else {
-            storedata[key] = data[normalKeyName];
+            // license URI
+            storedata[key] = {'@id': data[normalKeyName]};
+          }
+        } else if (key === 'adms:identifier') {
+          const admsObject = {
+            '@id': '',
+            'skos:notation': {'@value': '', '@type': ''}
+          };
+          // there could be multiple identifiers
+          let admsData;
+          if (Array.isArray(data[key])) {
+            admsData = data[key];
+          } else {
+            admsData = [data[key]];
+          }
+
+          for (let amdsId = 0; amdsId < admsData.length; amdsId += 1) {
+            const currentIdentifierData = admsData[amdsId];
+            if (has(currentIdentifierData, '@id') && !isEmpty(currentIdentifierData['@id'])) {
+              storedata[key][amdsId] = cloneDeep(admsObject);
+              storedata[key][amdsId]['@id'] = currentIdentifierData['@id'];
+              let admsNodeData = nodeData.filter(el => el['@id'] === currentIdentifierData['@id']);
+              if (!isEmpty(admsNodeData)) {
+                admsNodeData = admsNodeData[0]; // should only return one element within array because id has to be unique
+                if (has(admsNodeData, 'skos:notation') && !isEmpty(admsNodeData['skos:notation'])) {
+                  if (has(admsNodeData['skos:notation'], '@value') && !isEmpty(admsNodeData['skos:notation']['@value'])) storedata[key][amdsId]['skos:notation']['@value'] = admsNodeData['skos:notation']['@value'];
+                  if (has(admsNodeData['skos:notation'], '@type') && !isEmpty(admsNodeData['skos:notation']['@type'])) storedata[key][amdsId]['skos:notation']['@type'] = admsNodeData['skos:notation']['@type'];
+                } else if (has(admsNodeData, 'notation') && !isEmpty(admsNodeData.notation)) {
+                  // notation type is located in the context
+                  storedata[key][amdsId]['skos:notation']['@value'] = admsNodeData.notation;
+                  if (has(context, 'notation') && !isEmpty(context.notation)) {
+                    if (has(context.notation, '@type') && !isEmpty(context.notation['@type'])) {
+                      storedata[key][amdsId]['skos:notation']['@type'] =context.notation['@type'];
+                    }
+                  }
+                }
+              }
+            }
           }
         }
-        // conditional inputs
       }
     }
 
