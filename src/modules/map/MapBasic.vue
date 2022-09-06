@@ -65,7 +65,6 @@
         Leaflet.tileLayer(this.urlTemplate, this.options).addTo(map);
 
         // Use GeoJSON object
-        // eslint-disable-next-line
         const geoJsonLayer = Leaflet.geoJSON({
           type: 'Feature',
           properties: {},

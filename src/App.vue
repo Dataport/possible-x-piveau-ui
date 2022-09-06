@@ -35,7 +35,10 @@ import { mapGetters, mapActions } from 'vuex';
 import { isNumber } from 'lodash';
 import CookieConsent from '@deu/deu-cookie-consent';
 import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
-import { DpiMenu } from '@piveau/piveau-hub-ui-modules';
+import {
+  DpiMenu,
+  usePiwikSuspendFilter,
+} from '@piveau/piveau-hub-ui-modules';
 
 export default {
   name: 'app',
@@ -43,6 +46,9 @@ export default {
     CookieConsent,
     DpiMenu,
   },
+  mixins: [
+    usePiwikSuspendFilter,
+  ],
   metaInfo() {
     return {
       titleTemplate(chunk) {
@@ -79,8 +85,12 @@ export default {
     minScoring() {
       if (this.$env.datasets.facets.scoringFacets.useScoringFacets) {
         // Check local storage value
-        let minScoring = parseInt(JSON.parse(localStorage.getItem('minScoring')), 10);
-        if (isNumber(minScoring)) this.setMinScoring(minScoring);
+        let minScoring = localStorage.getItem('minScoring');
+        if (minScoring && minScoring !== "undefined") {
+          console.log("MIN 2222", minScoring)
+          minScoring = parseInt(JSON.parse(minScoring), 10);
+          if (isNumber(minScoring)) this.setMinScoring(minScoring);
+        }
         // Check existing store value
         if (!isNumber(this.getMinScoring)) {
           minScoring = parseInt(this.$env.datasets.facets.scoringFacets.defaultMinScore, 10);
@@ -101,6 +111,9 @@ export default {
     ...mapActions('datasets', [
       'setMinScoring',
     ]),
+    resume() {
+      this.$piwik.resume();
+    },
     isNumber,
     login() {
       this.$keycloak.loginFn();

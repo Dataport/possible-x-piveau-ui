@@ -71,16 +71,28 @@ import {
   configureModules
 } from '@piveau/piveau-hub-ui-modules';
 
+/**********************************************
+ *  Integrating the EC component library here *
+ **********************************************/
+require('@ecl/preset-ec/dist/styles/ecl-ec.css');
+// import Select from './ecl/ec-select.js';
+// $(() => {
+//   Select.autoInit(document.getElementById('app'));
+// });
+
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
 
-// import Facet from "./Facet.vue";
+import ECSelectFacet from "./components/ECSelectFacet.vue";
+import ECRadioFacet from "./components/ECRadioFacet.vue";
+
 configureModules({
-  // components: {
-  //   Facet
-  // },
+  components: {
+    // SelectFacet: ECSelectFacet,
+    // RadioFacet: ECRadioFacet
+  },
   services: GLUE_CONFIG.services,
   serviceParams: {
     baseUrl: env.api.baseUrl,
@@ -173,6 +185,7 @@ Vue.use(UniversalPiwik, {
   trackerUrl,
   siteId,
   debug: process.env.NODE_ENV === 'development',
+  useSuspendFeature: true,
   pageViewOptions: {
     // Set this to true as long as navigating to the /datasets/ route
     // adds a 'minScore' query to prevent duplicated tracking

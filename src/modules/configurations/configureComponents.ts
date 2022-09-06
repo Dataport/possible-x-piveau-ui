@@ -1,10 +1,13 @@
-import Facet from "@/modules/facets/Facet.vue";
+// import Facet from "@/modules/facets/Facet.vue";
 import Vue from "vue";
+import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet.vue";
+import RadioFacet from "@/modules/facets/RadioFacet.vue";
 
 export type ComponentMap = { [key: string]: any };
 
 const defaultComponents: ComponentMap = {
-  Facet
+  SelectFacet: ExpandableSelectFacet,
+  RadioFacet
 };
 
 export function configureComponents(components?: ComponentMap) {

@@ -118,7 +118,7 @@ export default {
       },
       browser: {
         /* eslint-disable-next-line */
-        isIE: /*@cc_on!@*/false || !!document.documentMode,
+        isIE: /*@cc_on!@*/!!document.documentMode,
       }
     }
   },

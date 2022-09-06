@@ -2,52 +2,25 @@
   <div class="container catalog-facets">
     <div class="row mx-3 mr-md-0">
       <div class="col">
-        <div class="row facet-field mb-3">
-          <facet
-            :header="$t('message.datasetFacets.settings')"
-            :items="[]"
-            :toolTipTitle="$t('message.helpIcon.settings')"
-            class="col pr-0"
-          >
-            <template #after>
-              <div class="form-group list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                {{ $t('message.datasetFacets.operator') }}
-                <span class="ml-2 d-flex flex-wrap">
-                  <div class="custom-control custom-radio">
-                    <input type="radio" id="radio-and" name="radio-facet-operator" class="custom-control-input" @click="changeFacetOperator(FACET_OPERATORS.and)" :checked="getFacetOperator === FACET_OPERATORS.and">
-                    <label class="custom-control-label" for="radio-and">{{ $t('message.datasetFacets.and') }}</label>
-                  </div>
-                  <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="radio-or" name="radio-facet-operator" @click="changeFacetOperator(FACET_OPERATORS.or)" :checked="getFacetOperator === FACET_OPERATORS.or">
-                    <label class="custom-control-label" for="radio-or">{{ $t('message.datasetFacets.or').toUpperCase() }}</label>
-                  </div>
-                </span>
-              </div>
-            </template>
-          </facet>
-        </div>
+        <settings-facet
+          v-if="!showCatalogDetails"
+          class="row facet-field mb-3"
+        />
         <div class="row facet-field mb-3"
-              v-for="(field, index) in getSortedFacets"
-              :key="index"
-              :class="{'mt-3': (index > 0)}">
-          <facet
-            :header="field.id === 'scoring'
-              ? $t('message.header.navigation.data.metadataquality')
-              : $t(`message.datasetFacets.facets.${field.id.toLowerCase()}`)"
+             v-for="(field, index) in getSortedFacets"
+             :key="`facet@${index}`"
+             :class="{'mt-3': (index > 0)}"
+        >
+          <select-facet
+            :fieldId="field.id"
+            :header="facetTitle(field.id)"
             :items="sortByCount(field.items, field.id)"
-            :minItems="MIN_FACET_LIMIT"
-            :maxItems="MAX_FACET_LIMIT"
+            :getFacetTranslationWrapper="getFacetTranslation"
+            :facetIsSelected="facetIsSelected"
+            :facetClicked="facetClicked"
+            :multiSelect="field.id !== 'scoring'"
             class="col pr-0"
-            v-slot="{ item: facet }"
-          >
-            <datasets-facets-item
-              class="d-flex facet list-group-item list-group-item-action justify-content-between align-items-center"
-              :title="getFacetTranslation(field.id, facet.id, $route.query.locale, facet.title)"
-              :count="getFacetCount(field, facet)"
-              :class="{active: facetIsSelected(field.id, facet.id)}"
-              @click.native="facetClicked(field.id, facet.id)"
-            />
-          </facet>
+          />
         </div>
       </div>
     </div>
@@ -62,14 +35,17 @@
     has,
     isNil,
   } from 'lodash';
-  import Facet from '../facets/Facet.vue';
-  import DatasetsFacetsItem from '../datasets/datasetsFacets/DatasetsFacetsItem.vue';
-  import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../utils/helpers';
+  // import Facet from '../facets/SelectFacet.vue';
+  import DatasetsFacetsItem from '../../datasets/datasetsFacets/DatasetsFacetsItem.vue';
+  import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../../utils/helpers';
+  import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
+  import Vue from "vue";
 
   export default {
     name: 'catalogueFacets',
     components: {
-      Facet,
+      SettingsFacet,
+      // Facet,
       DatasetsFacetsItem
     },
     data() {
@@ -148,13 +124,19 @@
           return 1;
         });
       },
+      facetTitle(fieldId) {
+        return fieldId === 'scoring' ?
+          Vue.i18n.t('message.header.navigation.data.metadataquality')
+          : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+      },
       /**
        * @description Returns whether a facet is selected or not.
        * @param field - The field of the facet to check.
        * @param facet - The facet to check.
        * @returns {boolean}
        */
-      facetIsSelected(field, facet) {
+      facetIsSelected(field, item) {
+        const facet = item.id;
         if (!Object.prototype.hasOwnProperty.call(this.$route.query, field)) {
           return false;
         }
@@ -167,9 +149,10 @@
        * @param field - The field of the clicked facet
        * @param facet - The clicked facet
        */
-      facetClicked(field, facet) {
+      facetClicked(field, item) {
+        const facet = item.id;
         this.toggleFacet(field, facet);
-        this.resetPage();
+        // this.resetPage();
       },
       /**
        * @description Add/Remove a facet from the routers query parameters.
@@ -188,7 +171,7 @@
         } else {
           facets.push(facet);
         }
-        this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: facets }) });
+        this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) });
       },
       changeFacetOperator(op) {
         this.setFacetOperator(op);

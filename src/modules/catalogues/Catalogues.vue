@@ -174,7 +174,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { debounce, has } from 'lodash';
   import fileTypes from '../utils/fileTypes';
-  import CataloguesFacets from './CataloguesFacets.vue';
+  import CataloguesFacets from './cataloguesFacets/CataloguesFacets.vue';
   import Pagination from '../widgets/Pagination.vue';
   import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
   import dateFilters from '../filters/dateFilters';
