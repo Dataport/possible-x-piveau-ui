@@ -118,7 +118,6 @@ const groupedProperties = [
     'dct:temporal',
     'dext:metadataExtension',
     'dcat:accessService',
-    // 'adms:identifier', // uncomment as soon as backend error is fixed
     'dct:provenance',
     'dct:conformsTo',
 ];
