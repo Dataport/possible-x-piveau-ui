@@ -370,20 +370,22 @@ const actions = {
       && dataset['@type'] !== 'dcat:Dataset'
       && dataset['@type'] !== 'dcat:Catalogue'));
 
+    const context = data['@context'];
+
     if (property === 'datasets') {
       // tranfer datasets data into stores state
       const datasetData = graphData.filter(dataset => dataset['@type'] === 'dcat:Dataset')[0]; // there is only one dataset entry
-      commit('transferJsonld', {data: datasetData, nodeData, property, id});
+      commit('transferJsonld', {data: datasetData, nodeData, property, id, context});
 
       // transfer distribution data into stores state
       const distributionData = graphData.filter(dataset => dataset['@type'] === 'dcat:Distribution');
       for (let index = 0; index < distributionData.length; index += 1) {
-        commit('transferJsonld', {data: distributionData[index], nodeData, property: 'distributions', id: index});
+        commit('transferJsonld', {data: distributionData[index], nodeData, property: 'distributions', id: index, context});
       }
     } else if (property === 'catalogues') {
       // transfer catalog data into stores state
       const catalogueData = graphData.filter(dataset => dataset['@type'] === 'dcat:Catalogue')[0]; // there is only one catalogue entry
-      commit('transferJsonld', {data: catalogueData, nodeData, property, id});
+      commit('transferJsonld', {data: catalogueData, nodeData, property, id, context});
     }
   },
   /**
@@ -639,7 +641,7 @@ const mutations = {
    * @param {*} state
    * @param {*} param1
    */
-  transferJsonld(state, {data, nodeData, property, id}) {
+  transferJsonld(state, {data, nodeData, property, id, context}) {
     const propertyKeys = Object.keys(data);
     let storedata;
 
@@ -789,6 +791,42 @@ const mutations = {
           } else {
             // license URI
             storedata[key] = {'@id': data[normalKeyName]};
+          }
+        } else if (key === 'adms:identifier') {
+          const admsObject = {
+            '@id': '',
+            'skos:notation': {'@value': '', '@type': ''}
+          };
+          // there could be multiple identifiers
+          let admsData;
+          if (Array.isArray(data[key])) {
+            admsData = data[key];
+          } else {
+            admsData = [data[key]];
+          }
+
+          for (let amdsId = 0; amdsId < admsData.length; amdsId += 1) {
+            const currentIdentifierData = admsData[amdsId];
+            if (has(currentIdentifierData, '@id') && !isEmpty(currentIdentifierData['@id'])) {
+              storedata[key][amdsId] = cloneDeep(admsObject);
+              storedata[key][amdsId]['@id'] = currentIdentifierData['@id'];
+              let admsNodeData = nodeData.filter(el => el['@id'] === currentIdentifierData['@id']);
+              if (!isEmpty(admsNodeData)) {
+                admsNodeData = admsNodeData[0]; // should only return one element within array because id has to be unique
+                if (has(admsNodeData, 'skos:notation') && !isEmpty(admsNodeData['skos:notation'])) {
+                  if (has(admsNodeData['skos:notation'], '@value') && !isEmpty(admsNodeData['skos:notation']['@value'])) storedata[key][amdsId]['skos:notation']['@value'] = admsNodeData['skos:notation']['@value'];
+                  if (has(admsNodeData['skos:notation'], '@type') && !isEmpty(admsNodeData['skos:notation']['@type'])) storedata[key][amdsId]['skos:notation']['@type'] = admsNodeData['skos:notation']['@type'];
+                } else if (has(admsNodeData, 'notation') && !isEmpty(admsNodeData.notation)) {
+                  // notation type is located in the context
+                  storedata[key][amdsId]['skos:notation']['@value'] = admsNodeData.notation;
+                  if (has(context, 'notation') && !isEmpty(context.notation)) {
+                    if (has(context.notation, '@type') && !isEmpty(context.notation['@type'])) {
+                      storedata[key][amdsId]['skos:notation']['@type'] =context.notation['@type'];
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
