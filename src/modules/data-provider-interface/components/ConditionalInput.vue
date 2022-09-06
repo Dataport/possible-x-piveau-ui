@@ -62,9 +62,11 @@ export default {
         this.inputValues = {'@value': this.context.model };
       } else if (semanticName === 'dct:license') {
         // either an array with an object containing multiple properties
-        if (Array.isArray(this.context.model) && !isEmpty(this.context.model[0])) {
-          this.conditionalValues[this.context.name] = 'man';
-          this.inputValues['dct:license'] = this.context.model;
+        if (Array.isArray(this.context.model)) {
+          if (!isEmpty(this.context.model[0])) {
+            this.conditionalValues[this.context.name] = 'man';
+            this.inputValues = {...this.inputValues, 'dct:license': this.context.model};
+          }
         } else {
           // singular URI
           this.conditionalValues[this.context.name] = 'voc';
