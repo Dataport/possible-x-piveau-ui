@@ -84,9 +84,8 @@ function convertMultiLingual(state, values) {
     for (let arrayIndex = 0; arrayIndex < arrayLength; arrayIndex += 1) {
         // for mutilingual fields a default language is predefined and would be saved
         // it only makes sense to save this predefined (or changed) language if there is a value
+        state[arrayIndex] = {'@value': '', '@language': 'en'};
         if (values[arrayIndex]['@value'] !== '' && values[arrayIndex]['@value'] !== undefined) {
-            state[arrayIndex] = {'@value': '', '@language': ''};
-
             state[arrayIndex]['@value'] = values[arrayIndex]['@value'];
             if (values[arrayIndex]['@language']) state[arrayIndex]['@language'] = values[arrayIndex]['@language'];
         }
