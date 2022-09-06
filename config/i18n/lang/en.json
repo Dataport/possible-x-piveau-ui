@@ -867,17 +867,26 @@
                                 "name": "Additional Information"
                             }
                         },
-                        "name": "Create Distributions"
+                        "name": "@:message.dataupload.datasets.stepper.additional.name"
                     },
                     "overview": "Dataset Overview",
-                    "step1": {
-                        "name": "Create Dataset"
-                    },
-                    "step2": {
-                        "name": "Define Dataset properties"
-                    },
                     "distoverview": {
                         "name": "Distribution Overview"
+                    },
+                    "essential": {
+                        "name": "Essential Properties"
+                    },
+                    "additional": {
+                        "name": "Additional Properties"
+                    },
+                    "advised": {
+                        "name": "Advised Properties"
+                    },
+                    "step2": {
+                        "name": "@:message.dataupload.datasets.stepper.advised.name"
+                    },
+                    "step1": {
+                        "name": "@:message.dataupload.datasets.stepper.essential.name"
                     }
                 },
                 "catalog": {
@@ -1776,17 +1785,31 @@
                     "distoverview": {
                         "name": "Distribution Overview"
                     },
+                    "additional": {
+                        "name": "@:message.dataupload.datasets.stepper.additional.name"
+                    },
+                    "advised": {
+                        "name": "@:message.dataupload.datasets.stepper.advised.name"
+                    },
                     "step3": {
-                        "name": "Additional Information"
+                        "name": "@:message.dataupload.datasets.stepper.additional.name"
                     },
                     "step2": {
-                        "name": "Additional Information"
+                        "name": "@:message.dataupload.datasets.stepper.advised.name"
                     },
                     "step1": {
-                        "name": "General Information"
+                        "name": "@:message.dataupload.datasets.stepper.essential.name"
+                    },
+                    "step4": {
+                        "name": "@:message.metadata.dataServices"
                     }
                 }
-            }
+            },
+            "createDataset": "Create Dataset",
+            "defineDatasetProperties": "Define Dataset properties",
+            "createDistributions": "Create Distributions",
+            "generalInformation": "General Information",
+            "additionalInformation": "Additional Information"
         },
         "datasetDetails": {
             "subnav": {
@@ -2114,7 +2137,9 @@
                     "sparqleditor": "SPARQL Editor",
                     "statistics": "Statistics",
                     "sparqlsearch": "SPARQL Search",
-                    "title": "Data"
+                    "title": "Data",
+                    "euVocabularies": " EU Vocabularies",
+                    "persistentUris": " Persistent URIs"
                 },
                 "impactStudies": {
                     "opendataimpact": "Open Data Impact",
@@ -2124,7 +2149,8 @@
                     "countryInsights": "Country Insights",
                     "useCases": "Use Cases",
                     "title": "Impact & Studies",
-                    "overview": "Overview"
+                    "overview": "Overview",
+                    "countyInsights": "Country Insights"
                 },
                 "training": {
                     "licensingAssistant": "Licensing Assistant",
@@ -2132,7 +2158,8 @@
                     "moreTrainingMaterial": "More training material",
                     "whatIsOpenData": "What is open data",
                     "title": "Training",
-                    "elearning": "eLearning"
+                    "elearning": "eLearning",
+                    "dataEuropaAcademy": "data.europa academy"
                 },
                 "about": {
                     "beHarvestedByUs": "Add your open data catalogue",
