@@ -18,6 +18,7 @@
             :getFacetTranslationWrapper="getFacetTranslation"
             :facetIsSelected="facetIsSelected"
             :facetClicked="facetClicked"
+            :multiSelect="field.id !== 'scoring'"
             class="col pr-0"
           />
         </div>

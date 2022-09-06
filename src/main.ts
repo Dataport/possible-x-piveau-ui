@@ -85,16 +85,13 @@ Vue.config.devtools = true;
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
 
-import ECMultiSelectFacet from "./components/ec-multiselect/ECMultiSelectFacet.vue";
+import ECSelectFacet from "./components/ECSelectFacet.vue";
 import ECRadioFacet from "./components/ECRadioFacet.vue";
-// import ECSelectFacet from "./components/ECSelectFacet.vue";
-// import SelectFacet from "./components/SelectFacet.vue";
+
 configureModules({
   components: {
-    SelectFacet: ECMultiSelectFacet,
+    SelectFacet: ECSelectFacet,
     RadioFacet: ECRadioFacet
-    // SelectFacet: SelectFacet
-    // SelectFacet: ECSelectFacet
   },
   services: GLUE_CONFIG.services,
   serviceParams: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="list-group">
+  <div class="list-group w-100">
     <facet-title
       :title="title"
       :tooltip="toolTipTitle"

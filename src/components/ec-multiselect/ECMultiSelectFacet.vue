@@ -70,7 +70,6 @@ export default {
       id: null,
       filter: "",
       filterTimeout: null,
-      // filteredItems: this.items
     };
   },
   computed: {
@@ -118,17 +117,6 @@ export default {
   mounted() {
     this.id = this._uid; // eslint-disable-line
   },
-  // watch: {
-  //   filter(newFilter) {
-  //     if (this.filterTimeout) {
-  //       clearTimeout(this.filterTimeout);
-  //     }
-  //     this.filterTimeout = setTimeout(() => {
-  //       const lcFilter = newFilter.toLowerCase();
-  //       this.filteredItems = this.items.filter(item => this.getTitle(item).toLowerCase().includes(lcFilter));
-  //     }, 200);
-  //   }
-  // },
   beforeDestroy() {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);

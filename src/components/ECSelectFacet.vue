@@ -1,37 +1,52 @@
 <template>
-  <div class="row">
-    <label for="select-default" class="ecl-form-label">
-      Select a country<span class="ecl-form-label__required">*</span>
-    </label>
-    <div class="ecl-help-block">This is the input's helper text.</div>
-    <div class="ecl-select__container ecl-select__container--m w-100">
-      <select class="ecl-select" id="select-default" required>
-        <option value="1">Belgium</option>
-        <option value="2">France</option>
-        <option value="3" disabled>Luxembourg</option>
-        <option value="4">Germany</option>
-        <option value="5" selected>Bulgaria</option>
-        <option value="6">Italy</option>
-        <option value="7">Romania</option>
-        <option value="8">Greece</option>
-        <option value="9">Hungary</option>
-        <option value="10">Portugal</option>
-      </select>
-      <div class="ecl-select__icon">
-        <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape" focusable="false" aria-hidden="true">
-          <use xlink:href="../assets/img/ecl/icons.svg#corner-arrow"></use>
-        </svg>
-      </div>
-    </div>
+  <div class="p-0">
+    <e-c-multi-select-facet
+      v-if="multiSelect"
+      :header="header"
+      :fieldId="fieldId"
+      :items="items"
+      :toolTipTitle="toolTipTitle"
+      :facetIsSelected="facetIsSelected"
+      :facetClicked="facetClicked"
+    />
+    <e-c-single-select-facet
+      v-else
+      :header="header"
+      :fieldId="fieldId"
+      :items="items"
+      :toolTipTitle="toolTipTitle"
+      :facetIsSelected="facetIsSelected"
+      :facetClicked="facetClicked"
+    />
   </div>
 </template>
 
 <script>
+import ECSingleSelectFacet from "@/components/ECSingleSelectFacet";
+import ECMultiSelectFacet from "@/components/ec-multiselect/ECMultiSelectFacet";
 export default {
-  name: "ECSelectFacet"
+  name: "ECSelectFacet",
+  components: {ECMultiSelectFacet, ECSingleSelectFacet},
+  props: {
+    header: {
+      type: String,
+      default: '',
+    },
+    fieldId: {
+      type: String,
+      default: '',
+    },
+    items: {
+      type: Array,
+      required: true,
+    },
+    toolTipTitle: {
+      type: String,
+      default: '',
+    },
+    facetIsSelected: Function,
+    facetClicked: Function,
+    multiSelect: Boolean
+  }
 }
 </script>
-
-<style scoped>
-
-</style>

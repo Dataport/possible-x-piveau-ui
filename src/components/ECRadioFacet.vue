@@ -75,10 +75,6 @@ export default {
   background-color: var(--primary);
 }
 
-.list-group {
-  width: 100%;
-}
-
 .value-display {
   min-height: 48px;
   border-color: #2c2c2c;
@@ -94,6 +90,7 @@ export default {
 }
 
 .facet-container {
+  width: 100%;
   padding: 0;
   font-family: Arial, sans-serif;
 }
