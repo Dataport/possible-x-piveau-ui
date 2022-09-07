@@ -175,27 +175,27 @@ export default {
 
           ],
         },
-        // {
-        //   group: 'Catalogue',
-        //   items: [
-        //     {
-        //       name: 'Create Catalogue',
-        //       to: { name: 'DataProviderInterface-Home', query: { locale: this.$route.query.locale }, params: { property: 'catalogues' } },
-        //     },
-        //     // {
-        //     //   name: 'Delete Catalogue',
-        //     //   onlyAuthorizedDatasetPage: true,
-        //     //   // to: { name: 'DataProviderInterface-Home', query: { locale: this.$route.query.locale }, params: { property: 'datasets' } },
-        //     // },
-        //     {
-        //       name: 'Edit Catalog',
-        //       disabled: !this.isLocatedOnAuthorizedDatasetPage,
-        //       to: this.getCatalog.id
-        //         ? { name: 'DataProviderInterface-Edit', query: { locale: this.$route.query.locale }, params: { catalog: this.getCatalog.id, property: 'catalogues', id: this.getCatalog.id } }
-        //         : '/',
-        //     },
-        //   ],
-        // },
+        {
+          group: 'Catalogue',
+          items: [
+            {
+              name: 'Create Catalogue',
+              to: { name: 'DataProviderInterface-Home', query: { locale: this.$route.query.locale }, params: { property: 'catalogues' } },
+            },
+            // {
+            //   name: 'Delete Catalogue',
+            //   onlyAuthorizedDatasetPage: true,
+            //   // to: { name: 'DataProviderInterface-Home', query: { locale: this.$route.query.locale }, params: { property: 'datasets' } },
+            // },
+            {
+              name: 'Edit Catalog',
+              disabled: !this.isLocatedOnAuthorizedDatasetPage,
+              to: this.getCatalog.id
+                ? { name: 'DataProviderInterface-Edit', query: { locale: this.$route.query.locale }, params: { catalog: this.getCatalog.id, property: 'catalogues', id: this.getCatalog.id } }
+                : '/',
+            },
+          ],
+        },
       ];
     },
     menuItems() {

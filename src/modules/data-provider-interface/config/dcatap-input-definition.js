@@ -1374,12 +1374,12 @@ const dcatapProperties = {
       name: 'dct:title',
       class: 'property grid1r2c',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true, 	
       minimum: 1,
       children: [
         {
           identifier: 'title',
-          type: 'text',
+          type: 'textarea',
           name: '@value',
           validation: 'required',
           class: 'row1 column1',
@@ -1403,7 +1403,7 @@ const dcatapProperties = {
       name: 'dct:description',
       class: 'property grid1r2c',
       repeatable: true,
-      '@repeatableRemoved': true, 
+      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -1432,23 +1432,24 @@ const dcatapProperties = {
       class: 'property',
       type: 'autocomplete-input',
       voc: 'corporate-body',
+      validation: 'required',
       '@change': true,
     },
     language: {
       identifier: 'language',
       type: 'autocomplete-input',
-      voc: 'language',
-      multiple: true,
       name: 'dct:language',
       class: 'property',
+      multiple: true,
+      voc: 'language',
       '@change': true,
     },
     licence: {
       identifier: 'licence',
       type: 'conditional-input',
       name: 'dct:license',
-      class: 'property',
       '@change': true,
+      class: 'property',
       options: {
         voc: 'Choose from vocabulary',
         man: 'Manually submit information',
@@ -1456,17 +1457,14 @@ const dcatapProperties = {
       data: {
         voc: [
           {
-            identifier: 'licence',
             type: 'autocomplete-input',
             voc: 'licence',
             name: '@id',
-            class: 'main',
             '@change': true,
           },
         ],
         man: [
           {
-            identifier: 'licence',
             type: 'group',
             name: 'dct:license',
             '@change': true,
@@ -1475,21 +1473,18 @@ const dcatapProperties = {
                 identifier: 'licenceTitle',
                 type: 'text',
                 name: 'dct:title',
-                class: 'main',
                 '@change': true,
               },
               {
                 identifier: 'licenceDescription',
-                type: 'text',
-                name: 'dct:description',
-                class: 'main',
+                type: 'textarea',
+                name: 'skos:prefLabel',
                 '@change': true,
               },
               {
                 identifier: 'licenceURL',
                 type: 'url',
-                name: 'foaf:homepage',
-                class: 'main',
+                name: 'skos:exactMatch',
                 validation: 'optional|url',
                 '@change': true,
               },
@@ -1513,36 +1508,48 @@ const dcatapProperties = {
       data: {
         voc: [
           {
-            identifier: 'spatialContinent',
-            type: 'autocomplete-input',
-            voc: 'continent',
-            name: '@id',
-            class: 'main',
+            type: 'conditional-input',
+            name: 'dct:spatial',
+            options: {
+              continent: 'Continent',
+              country: 'Country',
+              place: 'Place',
+            },
             '@change': true,
-          },
-          {
-            identifier: 'spatialCountry',
-            type: 'autocomplete-input',
-            voc: 'country',
-            name: '@id',
-            class: 'main',
-            '@change': true,
-          },
-          {
-            identifier: 'spatialPlace',
-            type: 'autocomplete-input',
-            voc: 'place',
-            name: '@id',
-            class: 'main',
-            '@change': true,
+            data: {
+              continent: [
+                {
+                  type: 'autocomplete-input',
+                  voc: 'continent',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              country: [
+                {
+                  identifier: 'spatialCountry',
+                  type: 'autocomplete-input',
+                  voc: 'country',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              place: [
+                {
+                  identifier: 'spatialPlace',
+                  type: 'autocomplete-input',
+                  voc: 'place',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+            },
           },
         ],
         man: [
           {
-            identifier: 'spatial',
             type: 'url',
             name: '@id',
-            class: 'main',
             validation: 'optional|url',
             '@change': true,
           },
@@ -1576,11 +1583,20 @@ const dcatapProperties = {
     },
     isPartOf: {
       identifier: 'isPartOf',
-      type: 'url',
       name: 'dct:isPartOf',
+      type: 'group',
       class: 'property',
-      validation: 'optional|url',
-      '@change': true,
+      repeatable: true,
+      '@repeatableRemoved': true, 
+      children: [
+        {
+          identifier: 'isPartOf',
+          type: 'url',
+          name: '@id',
+          validation: 'optional|url',
+          '@change': true,
+        }
+      ]
     },
     rights: {
       identifier: 'rights',
@@ -1614,15 +1630,16 @@ const dcatapProperties = {
       type: 'group',
       repeatabale: true,
       identifier: 'catalog',
-      name: 'dcat:Catalog',
+      name: 'dcat:catalog',
       class: 'property',
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'catalogURL',
           type: 'url',
           validation: 'optional|url',
           '@change': true,
-          name: '@value',
+          name: '@id',
         },
       ],
     },
@@ -1630,15 +1647,14 @@ const dcatapProperties = {
       identifier: 'creator',
       type: 'group',
       name: 'dct:creator',
+      class: 'property',
       repeatable: true,
       '@repeatableRemoved': true, 
-      class: 'property',
       children: [
         {
           identifier: 'creatorType',
           type: 'select',
           name: '@type',
-          class: 'main',
           options: {
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
@@ -1649,14 +1665,12 @@ const dcatapProperties = {
           identifier: 'creatorName',
           type: 'text',
           name: 'foaf:name',
-          class: 'main',
           '@change': true,
         },
         {
           identifier: 'creatorEmail',
           type: 'email',
           name: 'foaf:mbox',
-          class: 'main',
           validation: 'optional|email',
           '@change': true,
         },
@@ -1664,13 +1678,12 @@ const dcatapProperties = {
           identifier: 'creatorHomepage',
           type: 'url',
           name: 'foaf:homepage',
-          class: 'main',
           validation: 'optional|url',
           '@change': true,
         },
       ],
     },
-  },
+  }
 };
 
 export default dcatapProperties;

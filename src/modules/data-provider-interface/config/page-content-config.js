@@ -79,17 +79,17 @@ const config = {
       title: {},
       description: {},
       publisher: {},
-      licence: {},
       homepage: {},
-      catalog: {},
+      language: {},
+      licence: {},
     },
     step2: {
-      language: {},
-      creator: {},
       spatial: {},
-      rights: {},
       hasPart: {},
       isPartOf: {},
+      rights: {},
+      catalog: {},
+      creator: {}, 
     }
   }
 };
