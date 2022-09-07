@@ -1,4 +1,4 @@
-<template>
+    <template>
   <div class="distributions__item">
     <div class="row">
       <distribution-format

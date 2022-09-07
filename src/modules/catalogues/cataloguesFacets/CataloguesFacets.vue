@@ -22,6 +22,18 @@
             class="col pr-0"
           />
         </div>
+        <pv-show-more
+          v-if="showMoreFacetsShown"
+          :label="cutoff >= 0? 'More filters' : 'Less filters'"
+          :upArrow="cutoff === -1"
+          :action="toggleCutoff"
+        />
+        <pv-button
+          v-if="showClearButton"
+          label="Clear filters"
+          class="row mt-5"
+          :action="clearFacets"
+        />
       </div>
     </div>
   </div>
@@ -50,6 +62,8 @@
     },
     data() {
       return {
+        cutoff: this.$env.catalogs.facets.cutoff,
+        showClearButton: this.$env.catalogs.facets.showClearButton,
         showCatalogDetails: false,
         catalog: {},
         browser: {
@@ -77,6 +91,9 @@
       },
       facetGroupOperatorWatcher() {
         return this.getFacetGroupOperator;
+      },
+      showMoreFacetsShown() {
+        return this.$env.datasets.facets.cutoff < this.getAvailableFacets.length;
       },
       getSortedFacets() {
         const availableFacets = this.getAvailableFacets;
@@ -115,6 +132,9 @@
        * @param {String} facet.name - The name of this facet
        * @returns {Array<Object>}
        */
+      toggleCutoff() {
+        this.cutoff = this.cutoff >= 0 ? -1 : this.$env.datasets.facets.cutoff;
+      },
       sortByCount(facets, fieldId) {
         if (fieldId === 'scoring') return facets;
         return facets.slice().sort((a, b) => {
@@ -153,6 +173,12 @@
         const facet = item.id;
         this.toggleFacet(field, facet);
         // this.resetPage();
+      },
+      clearFacets() {
+        if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
+          this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
+            .catch(error => { console.log(error); });
+        }
       },
       /**
        * @description Add/Remove a facet from the routers query parameters.

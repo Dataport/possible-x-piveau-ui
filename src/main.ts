@@ -87,12 +87,21 @@ const env = Vue.prototype.$env;
 
 import ECSelectFacet from "./components/ECSelectFacet.vue";
 import ECRadioFacet from "./components/ECRadioFacet.vue";
+import ECMore from "./components/ECMore.vue";
+import ECButton from "./components/ECButton.vue";
 
 configureModules({
   components: {
     // SelectFacet: ECSelectFacet,
-    // RadioFacet: ECRadioFacet
+    // RadioFacet: ECRadioFacet,
+    // PvShowMore: ECMore,
+    // PvButton: ECButton
   },
+  // props: {
+  //   facets: {
+  //     cutoff: 4
+  //   }
+  // },
   services: GLUE_CONFIG.services,
   serviceParams: {
     baseUrl: env.api.baseUrl,
