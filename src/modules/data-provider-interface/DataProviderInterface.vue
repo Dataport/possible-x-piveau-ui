@@ -110,14 +110,7 @@ export default {
       return this.page === 'distoverview';
     },
     stepNames() {
-      const names = this.steps[this.property].map(s => this.$t(`message.dataupload.${this.property}.stepper.${s}.name`));
-
-      // use right translation for overview page (distributions has no overview page)
-      if (this.property !== 'distributions') {
-        const overviewIndex = names.length - 1;
-        names[overviewIndex] = this.$t(`message.dataupload.${this.property}.stepper.overview`);
-      }
-      return names;
+      return this.getTranslatedStepNamesByProperty(this.property);
     },
     getCurrentStep(){
       // for some reason overview is not set as page property so must be read from path
@@ -128,11 +121,7 @@ export default {
       }
     },
     datasetStepNames() {
-      const names = this.steps[this.property].map(s => this.$t(`message.dataupload.datasets.stepper.${s}.name`));
-      // use right translation for overview page
-      const overviewIndex = names.length - 1;
-      names[overviewIndex] = this.$t(`message.dataupload.datasets.stepper.overview`);
-      return names;
+      return this.getTranslatedStepNamesByProperty('datasets');
     },
     showDatasetStepper() {
       return this.property === 'distributions';
@@ -145,13 +134,22 @@ export default {
     ...mapActions('auth', [
       'populateDraftAndEdit',
     ]),
+    getTranslatedStepNamesByProperty(property = 'dataset') {
+      const names = this.steps[property].map(s => this.$t(`message.dataupload.${property}.stepper.${s}.name`));
+      if (property !== 'distributions') {
+        // use right translation for overview page
+        const overviewIndex = names.length - 1;
+        names[overviewIndex] = this.$t(`message.dataupload.datasets.stepper.overview`);
+      }
+      return names;
+    },
     clearStorageAndValues() {
       // Clear storage
-      // 1. Clear form values 
+      // 1. Clear form values
       // 2. Clear store values
       // 3, Clear local storage
-      this.$refs.view.clear(); 
-      
+      this.$refs.view.clear();
+
       // Jump to first page and compare path start because of possible query params
       if (!this.$route.fullPath.startsWith(this.getFirstPath())) {
         this.jumpToFirstPage();
