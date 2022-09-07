@@ -11,15 +11,20 @@
       <div class="right-form-nav">
 
         <!-- PUBLISH NEW DATASET -->
-        <FormulateInput type="button" @click="submit('createdataset')" v-if="isOverviewPage && !getIsEditMode && !getIsDraft" class="mr-2"><span v-if="uploading.createdataset" class="loading-spinner"></span>{{$t('message.dataupload.publishdataset')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createdataset')" v-if="isOverviewPage && !getIsEditMode && !getIsDraft && property !== 'catalogues'" class="mr-2"><span v-if="uploading.createdataset" class="loading-spinner"></span>{{$t('message.dataupload.publishdataset')}}</FormulateInput>
         <!-- SAVE NEW DATASET AS DRAFT -->
-        <FormulateInput type="button" @click="submit('createdraft')" v-if="(mandatoryFieldsFilled({property, id}) || isOverviewPage) && !getIsEditMode && !getIsDraft" class="mr-2"><span v-if="uploading.createdraft" class="loading-spinner"></span>{{$t('message.dataupload.saveasdraft')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createdraft')" v-if="(mandatoryFieldsFilled({property, id}) || isOverviewPage) && !getIsEditMode && !getIsDraft && property !== 'catalogues'" class="mr-2"><span v-if="uploading.createdraft" class="loading-spinner"></span>{{$t('message.dataupload.saveasdraft')}}</FormulateInput>
 
         <!-- PUBLISH EDITED DATASET -->
-        <FormulateInput type="button" @click="submit('createdataset')" v-if="getIsEditMode && !getIsDraft" class="mr-2"><span v-if="uploading.createdataset" class="loading-spinner"></span>{{$t('message.dataupload.savedataset')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createdataset')" v-if="getIsEditMode && !getIsDraft && property !== 'catalogues'" class="mr-2"><span v-if="uploading.createdataset" class="loading-spinner"></span>{{$t('message.dataupload.savedataset')}}</FormulateInput>
 
         <!-- SAVE EDITED DRAFT  -->
-        <FormulateInput type="button" @click="submit('createdraft')" v-if="(mandatoryFieldsFilled({property, id}) || isOverviewPage) && getIsEditMode && getIsDraft" class="mr-2"><span v-if="uploading.createdraft" class="loading-spinner"></span>{{$t('message.dataupload.savedraft')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createdraft')" v-if="(mandatoryFieldsFilled({property, id}) || isOverviewPage) && getIsEditMode && getIsDraft && property !== 'catalogues'" class="mr-2"><span v-if="uploading.createdraft" class="loading-spinner"></span>{{$t('message.dataupload.savedraft')}}</FormulateInput>
+
+        <!-- PUBLISH NEW CATALOGUE -->
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="isOverviewPage && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        <!-- PUBLISH EDITED CATALOGUE -->
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.savecatalogue')}}</FormulateInput>
 
         <!-- NEXT STEP -->
         <!-- label triggers form submit and therefore handles error mesaages if required values are missing -->
@@ -47,6 +52,7 @@ export default {
         createdataset: false,
         createdraft: false,
         publishdraft: false,
+        createcatalogue: false,
       },
       modal: {
         confirm: '',
@@ -201,7 +207,7 @@ export default {
 
       const rtpToken = this.getUserData.rtpToken;
 
-      const datasetId = this.getData(submitProperty)['@id'];
+      const datasetId = this.getData(submitProperty)['@id']; // id for catalog is the same
       const catalogName = this.getData(submitProperty)['dct:catalog'] ? this.getData(submitProperty)['dct:catalog'] : '';      
       let uploadUrl;
       let actionName;
@@ -224,6 +230,9 @@ export default {
       } else if (mode === 'publishdraft') {
         uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/publish/${datasetId}?catalogue=${catalogName}`;
         actionName = 'auth/publishUserDraft';
+      } else if (mode === 'createcatalogue') {
+        uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
+        actionName = 'auth/createCatalogue';
       }
 
       try {
