@@ -147,7 +147,7 @@ export default {
       this.$root.$emit('go-to-next');
     },
     createDatasetID() {
-      if (this.property === 'datasets' && this.page === 'step1') {
+      if ((this.property === 'datasets' || this.property === 'catalogues') && this.page === this.getNavSteps[this.property][0]) {
         // Create Dataset ID from title if not existing
         if (has(this.formValues, 'dct:title')
         && !isNil(this.formValues['dct:title']

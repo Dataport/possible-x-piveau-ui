@@ -77,6 +77,7 @@ const config = {
   catalogues: {
     step1: {
       title: {},
+      datasetID: {},
       description: {},
       publisher: {},
       homepage: {},

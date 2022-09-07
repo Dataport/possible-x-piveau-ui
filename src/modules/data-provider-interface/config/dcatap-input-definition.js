@@ -1368,6 +1368,13 @@ const dcatapProperties = {
     },
   },
   catalogues: {
+    datasetID: {
+      identifier: 'datasetID',
+      type: 'unique-identifier-input',
+      name: 'datasetID',
+      class: 'property',
+      '@change': true,
+    },
     title: {
       identifier: 'title',
       type: 'group',
