@@ -443,7 +443,7 @@ const actions = {
       jsonld = {...context, ...state[property]};
 
       // @id has to be an Url
-      state[property]['@id'] = `${Vue.prototype.$env.api.hubUrl}${state[property]['@id']}`;
+      jsonld['@id'] = `${Vue.prototype.$env.api.hubUrl}${state[property]['@id']}`;
 
       dispatch('removeEmptyEntries', jsonld);
     }

@@ -246,6 +246,7 @@ export default {
 
         if (mode === 'createdataset' || mode === 'publishdraft') this.createDataset(datasetId);
         if (mode === 'createdraft') this.createDraft();
+        if (mode === 'createcatalogue') this.createCatalogue(datasetId);
       } catch (err) {
         this.uploading[mode] = false;
         this.$Progress.fail();
@@ -262,6 +263,11 @@ export default {
       this.showSnackbar({ message: 'Draft saved successfully', variant: 'success' });
       this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
+    createCatalogue(datasetId) {
+      this.clearAll();
+      this.showSnackbar({ message: 'Catalogue created successfully', varaint: 'success' });
+      this.$router.push({ name: '', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale, showcatalogdetails: true}}).catch(() => {});
+    }
   },
   mounted() {
     this.$root.$on('go-to-next', () => this.next());
