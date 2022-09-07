@@ -180,7 +180,11 @@ export default {
           items: [
             {
               name: 'Create Catalogue',
-              to: { name: 'DataProviderInterface-Home', query: { locale: this.$route.query.locale }, params: { property: 'catalogues' } },
+              to: { 
+                name: 'DataProviderInterface-Home',
+                query: { locale: this.$route.query.locale, edit: false },
+                params: { property: 'catalogues' } 
+              },
             },
             // {
             //   name: 'Delete Catalogue',
