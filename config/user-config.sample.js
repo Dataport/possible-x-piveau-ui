@@ -148,6 +148,8 @@ const glueConfig = {
       ],
     },
     facets: {
+      cutoff: null, // Add a number here to limit the number of displayed facets
+      showClearButton: false, // A button to clear all filters at once
       useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
       useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
       defaultFacetOrder: ['dataScope', 'country', 'catalog', 'categories', 'publisher', 'keywords', 'dataServices', 'scoring', 'format', 'license'],
@@ -205,6 +207,8 @@ const glueConfig = {
   },
   catalogs: {
     facets: {
+      cutoff: null, // Add a number here to limit the number of displayed facets
+      showClearButton: false, // A button to clear all filters at once
       // Enable / Disable the facets on the Catalogues page
       useCatalogFacets: true,
       defaultFacetOrder: ['country'],
