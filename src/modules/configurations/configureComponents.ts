@@ -2,12 +2,16 @@
 import Vue from "vue";
 import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet.vue";
 import RadioFacet from "@/modules/facets/RadioFacet.vue";
+import PvShowMore from "@/modules/widgets/PvShowMore.vue";
+import PvButton from "@/modules/widgets/PvButton.vue";
 
 export type ComponentMap = { [key: string]: any };
 
 const defaultComponents: ComponentMap = {
   SelectFacet: ExpandableSelectFacet,
-  RadioFacet
+  RadioFacet,
+  PvShowMore,
+  PvButton
 };
 
 export function configureComponents(components?: ComponentMap) {

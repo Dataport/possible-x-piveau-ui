@@ -87,7 +87,6 @@ export default {
         // Check local storage value
         let minScoring = localStorage.getItem('minScoring');
         if (minScoring && minScoring !== "undefined") {
-          console.log("MIN 2222", minScoring)
           minScoring = parseInt(JSON.parse(minScoring), 10);
           if (isNumber(minScoring)) this.setMinScoring(minScoring);
         }
