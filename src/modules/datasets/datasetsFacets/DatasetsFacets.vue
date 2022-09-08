@@ -79,22 +79,13 @@ import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsMapFacet from "@/modules/datasets/datasetsFacets/DatasetsMapFacet";
 import CatalogDetailsFacet from "@/modules/datasets/datasetsFacets/CatalogDetailsFacet";
 import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
-// import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet";
-import ECSelectFacet from "@/components/ECSingleSelectFacet";
-import ECMultiSelectFacet from "@/components/ec-multiselect/ECMultiSelectFacet";
-// import SelectFacet from "@/components/SelectFacet";
 
 export default {
   name: 'datasetFacets',
   dependencies: ['catalogService'],
   components: {
-    ECMultiSelectFacet,
-    ECSelectFacet,
-    // ExpandableSelectFacet,
     SettingsFacet,
     CatalogDetailsFacet,
-    // SelectFacet,
-    // Facet,
     DatasetsMapFacet,
     DatasetsFacetsItem,
   },
