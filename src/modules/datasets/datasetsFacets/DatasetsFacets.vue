@@ -10,6 +10,7 @@
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
         />
+        <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
         <settings-facet
           v-if="!showCatalogDetails"
           class="row facet-field mb-3"
@@ -113,6 +114,7 @@ export default {
     return {
       cutoff: this.$env.datasets.facets.cutoff,
       showClearButton: this.$env.datasets.facets.showClearButton,
+      showFacetsTitle: this.$env.datasets.facets.showFacetsTitle,
       defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       useScoringFacets: this.$env.datasets.facets.scoringFacets.useScoringFacets,
       useDataScopeFacets: this.$route.query.catalog.length === 0,

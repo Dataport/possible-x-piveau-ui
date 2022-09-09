@@ -36,6 +36,7 @@ span {
 }
 
 div {
+  margin-top: 4px;
   padding: 0;
   font-family: Arial, sans-serif;
 }
