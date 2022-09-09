@@ -2,6 +2,7 @@
   <div class="container catalog-facets">
     <div class="row mx-3 mr-md-0">
       <div class="col">
+        <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
         <settings-facet
           v-if="!showCatalogDetails"
           class="row facet-field mb-3"
@@ -47,7 +48,6 @@
     has,
     isNil,
   } from 'lodash';
-  // import Facet from '../facets/SelectFacet.vue';
   import DatasetsFacetsItem from '../../datasets/datasetsFacets/DatasetsFacetsItem.vue';
   import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../../utils/helpers';
   import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
@@ -57,13 +57,13 @@
     name: 'catalogueFacets',
     components: {
       SettingsFacet,
-      // Facet,
       DatasetsFacetsItem
     },
     data() {
       return {
         cutoff: this.$env.catalogs.facets.cutoff,
         showClearButton: this.$env.catalogs.facets.showClearButton,
+        showFacetsTitle: this.$env.catalogs.facets.showFacetsTitle,
         showCatalogDetails: false,
         catalog: {},
         browser: {

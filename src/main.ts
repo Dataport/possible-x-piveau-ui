@@ -85,17 +85,17 @@ Vue.config.devtools = true;
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
 
-// import ECSelectFacet from "./components/ECSelectFacet.vue";
-// import ECRadioFacet from "./components/ECRadioFacet.vue";
-// import ECMore from "./components/ECMore.vue";
-// import ECButton from "./components/ECButton.vue";
+import ECSelectFacet from "./components/ECSelectFacet.vue";
+import ECRadioFacet from "./components/ECRadioFacet.vue";
+import ECMore from "./components/ECMore.vue";
+import ECButton from "./components/ECButton.vue";
 
 configureModules({
   components: {
-  //   SelectFacet: ECSelectFacet,
-  //   RadioFacet: ECRadioFacet,
-  //   PvShowMore: ECMore,
-  //   PvButton: ECButton
+    SelectFacet: ECSelectFacet,
+    RadioFacet: ECRadioFacet,
+    PvShowMore: ECMore,
+    PvButton: ECButton
   },
   services: GLUE_CONFIG.services,
   serviceParams: {

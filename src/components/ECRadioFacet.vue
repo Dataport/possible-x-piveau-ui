@@ -76,7 +76,7 @@ export default {
 
 .value-display {
   min-height: 48px;
-  border-color: #2c2c2c;
+  border-color: #707070;
   border-radius: 0 !important;
   padding: 8px;
   display: flex;
