@@ -60,58 +60,15 @@
     <!-- <resource-access-popup /> -->
 
     <!-- KEYWORDS -->
-    <div class="mt-2"
-         v-if="showObjectArray(getKeywords)">
-      <div class="row">
-        <div class="col-12 col-lg-11 offset-lg-1">
-          <div class="keywords__item row" id="keywordsItemsDiv">
-            <span
-              v-for='(keyword, i) in displayedKeywords'
-              :content="keyword.title"
-              :key="i"
-              class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 mx-0 px-1"
-            >
-              <app-link v-if="showKeyword(keyword)" :to="getKeywordLink(keyword)" :rel="followKeywordLinks">
-              <small class="d-inline-block w-100 py-2 rounded-pill text-center text-white tag-color"
-                     :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
-                     :data-placement="keywordTruncated(keyword) ? 'top' : false"
-                     :title="keywordTruncated(keyword) ? keyword.title : false">
-                {{ truncate(keyword.title, maxKeywordLength, false) }}
-              </small>
-              </app-link>
-            </span>
-          </div>
-          <div>
-            <div
-              v-if="!keywords.displayAll && !isKeywordsAllDisplayed"
-              class="keywords__item"
-            >
-              <div
-                class="keywords__actions pb-md-3"
-              >
-                <button
-                  v-for="increment in keywords.incrementSteps.filter(nonOverflowingIncrementsForKeywords)"
-                  :key="increment"
-                  class="btn btn-sm btn-secondary mr-1"
-                  @click="increaseNumDisplayedKeywords(increment)"
-                >
-                  <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
-                </button>
-                <button
-                  class="btn btn-sm btn-primary"
-                  @click="keywords.displayCount = getKeywords.length"
-                >
-                  <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getKeywords.length.toLocaleString('fi') }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <dataset-details-keywords
+      v-if="showObjectArray(getKeywords)"
+      :sortAlphabetically="sortAlphabetically"
+      :showKeyword="showKeyword"
+    />
     <!-- Subject -->
      <div class="mt-4"
          v-if="showObjectArray(getSubject)">
+         <div class="row">
          <div class="row">
           <div class="col-12 col-lg-11 offset-lg-1">
             <div class="keywords__item row" id="keywordsItemsDiv">
@@ -1197,6 +1154,7 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -1225,11 +1183,13 @@
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
   import DatasetDetailsBanners from "@/modules/datasetDetails/DatasetDetailsBanners.vue";
   import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
+  import DatasetDetailsKeywords from "@/modules/datasetDetails/DatasetDetailsKeywords.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
+      DatasetDetailsKeywords,
       DatasetDetailsDescription,
       DatasetDetailsBanners,
       AppLink,
@@ -1303,7 +1263,6 @@
         maxKeywordLength: this.$env.datasets.maxKeywordLength,
         maxSubjectLength: this.$env.datasets.maxSubjectLength,
         datasetSchema: {},
-        followKeywordLinks: this.$env.datasets.followKeywordLinks,
         followSubjectLinks: this.$env.datasets.followSubjectLinks,
         distributions: {
           displayAll: this.$env.datasetDetails.distributions.displayAll,
@@ -1349,11 +1308,6 @@
           width: this.$env.maps.width,
           mapContainerId: this.$env.maps.mapContainerId,
         },
-        keywords: {
-          displayAll: false,
-          displayCount: 24, // Should never exceed number of keywords
-          incrementSteps: [12, 60],
-        },
         subject: {
           displayAll: false,
           displayCount: 24, // Should never exceed number of subjects
@@ -1366,6 +1320,7 @@
       isTrusted: () => process.env.NODE_ENV === 'development',
       // import store-getters
       ...mapGetters('datasetDetails', [
+      'getKeywords',
       'getAccessRights',
       'getOriginalLanguage',
       'getAccrualPeriodicity',
@@ -1391,7 +1346,6 @@
       'getIdName',
       'getIsReferencedBy',
       'getIsVersionOf',
-      'getKeywords',
       'getSubject',
       'getLandingPages',
       'getLanguages',
@@ -1520,32 +1474,6 @@
       remainingDataServices() {
         return this.getDataServices.length - this.dataServices.displayCount;
       },
-      sortedKeywords() {
-        let selected = [], fallback = [], other = {}, without = []; // eslint-disable-line
-        const selectedLanguage = this.$route.query.locale;
-        const fallbackLanguage = this.defaultLocale;
-        // Sort by language
-        this.getKeywords.forEach(k => has(k, 'language') && isString(k.language)
-          ? (k.language === selectedLanguage
-            ? selected.push(k)
-            : k.language === fallbackLanguage
-              ? fallback.push(k)
-              : has(other, k.language)
-                ? other[k.language].push(k)
-                : other[k.language] = [k])
-          : without.push(k));
-        // Sort alphabetically
-        this.sortAlphabetically(selected, 'title');
-        this.sortAlphabetically(fallback, 'title');
-        Object.keys(other).forEach(key => this.sortAlphabetically(other[key], 'title'));
-        other = Object.keys(other).sort().reduce((arr, el) => arr.concat(other[el]), []);
-        this.sortAlphabetically(without, 'title');
-        // Return sorted keywords by language order
-        return selected
-          .concat(fallback)
-          .concat(other)
-          .concat(without);
-      },
       sortedSubject() {
         let selected = [], fallback = [], other = {}, without = []; // eslint-disable-line
         const selectedLanguage = this.$route.query.locale;
@@ -1567,25 +1495,14 @@
         this.sortAlphabetically(selected, 'title');
         return selected;
       },
-      displayedKeywords() {
-        return this.keywords.displayAll
-          ? Object.freeze(this.sortedKeywords)
-          : Object.freeze(this.sortedKeywords.slice(0, this.keywords.displayCount));
-      },
       displayedSubject() {
         return this.subject.displayAll
           ? Object.freeze(this.sortedSubject)
           : Object.freeze(this.sortedSubject.slice(0, this.subject.displayCount));
       },
-      isKeywordsAllDisplayed() {
-        return this.keywords.displayCount >= this.getKeywords.length;
-      },
       isSubjectAllDisplayed() {
         return this.subject.displayCount >= this.getSubject.length;
-      },
-      remainingKeywords() {
-        return this.getKeywords.length - this.keywords.displayCount;
-      },
+      }
     },
     methods: {
       // import store-actions
@@ -2017,15 +1934,9 @@
         // Return Geo Visualisation Link
         return `/geo-viewer/?dataset=${distributionID}&type=${f}&lang=${this.$route.query.locale}`;
       },
-      getKeywordLink(keyword) {
-        return { path: `/datasets?keywords=${keyword.id}`, query: Object.assign({}, { locale: this.$route.query.locale }) };
-      },
       // getSubjectLink(subject) {
       //   return { path: `/datasets?subject=${subject.id}`, query: Object.assign({}, { locale: this.$route.query.locale }) };
       // },
-      keywordTruncated(keyword) {
-        return keyword.title.length > this.maxKeywordLength;
-      },
       subjectTruncated(subject) {
         return subject.title.length > this.maxSubjectLength;
       },
@@ -2127,18 +2038,9 @@
       nonOverflowingIncrementsForVisualisations(incrementStep) {
         return this.visualisations.displayCount + incrementStep <= this.getVisualisations.length;
       },
-      // Increases the current number of keywords displayed
-      // and clamps the result so that it never exceeds the number of all keywords.
-      increaseNumDisplayedKeywords(increment) {
-        const clampedSum = this.clamp(this.keywords.displayCount + increment, 0, this.getKeywords.length);
-        this.keywords.displayCount = clampedSum;
-      },
       increaseNumDisplayedSubject(increment) {
         const clampedSum = this.clamp(this.subject.displayCount + increment, 0, this.getSubject.length);
         this.subject.displayCount = clampedSum;
-      },
-      nonOverflowingIncrementsForKeywords(incrementStep) {
-        return this.keywords.displayCount + incrementStep <= this.getKeywords.length;
       },
       nonOverflowingIncrementsForSubject(incrementStep) {
         return this.subject.displayCount + incrementStep <= this.getSubject.length;
