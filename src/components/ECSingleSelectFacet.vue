@@ -27,7 +27,6 @@
 import ECFacetHeader from "@/components/ECFacetHeader";
 import Vue from "vue";
 import { helpers } from '@piveau/piveau-hub-ui-modules';
-console.log("HELPERS", helpers)
 const { getFacetTranslation } = helpers;
 export default {
   name: "ECSingleSelectFacet",

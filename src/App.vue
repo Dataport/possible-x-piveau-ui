@@ -111,7 +111,7 @@ export default {
       'setMinScoring',
     ]),
     resume() {
-      this.$piwik.resume();
+      if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
     },
     isNumber,
     login() {
@@ -121,7 +121,7 @@ export default {
       this.$keycloak.logoutFn();
     },
     handleFollowClick(url) {
-      this.$piwik.trackOutlink(url);
+      if (typeof this.$piwik?.resume === "function") this.$piwik.trackOutlink(url);
     },
   },
 };
