@@ -4,38 +4,11 @@
     <span property="dc:issued" :content="getReleaseDate"></span>
     <span property="dc:modified" :content="getModificationDate"></span>
     <!-- INFO BANNERS -->
-    <div>
-      <div class="row">
-        <div class="col-12">
-          <!-- INCORRECT DATE BANNER -->
-          <div class="p-0 py-3 text-center text-sm-left alert alert-secondary alert-dismissible fade show"
-                role="alert"
-                v-if="dateIncorrect">
-            <div class="row">
-              <div class="col-1 m-auto text-center">
-                <i class="material-icons">info</i>
-              </div>
-              <div class="col-10">
-                <p class="mb-0">This dataset's last updated date is incorrect or incomplete, please contact the data provider for further inquiries.</p>
-              </div>
-              <div class="col-1">
-                <button class="close pt-0"
-                        type="button"
-                        data-dismiss="alert"
-                        aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <dataset-details-translation-info
-            :machineTranslated="machineTranslated"
-            :translationNotAvailable="translationNotAvailable"
-            :showString="showString"
-          />
-        </div>
-      </div>
-    </div>
+    <dataset-details-banners
+      :dateIncorrect="dateIncorrect"
+      :machineTranslated="machineTranslated"
+      :translationNotAvailable="translationNotAvailable"
+    />
     <!-- TEXT -->
     <div class="mt-1 mb-4" data-cy="dataset-description">
       <div class="row">
@@ -1287,14 +1260,13 @@
     getTranslationFor, getCountryFlagImg, truncate, removeMailtoOrTel, replaceHttp, appendCurrentLocaleToURL
   } from '../utils/helpers';
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
-  import DatasetDetailsTranslationInfo
-    from "@/modules/datasetDetails/DatasetDetailsTranslationInfo.vue";
+  import DatasetDetailsBanners from "@/modules/datasetDetails/DatasetDetailsBanners.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
-      DatasetDetailsTranslationInfo,
+      DatasetDetailsBanners,
       AppLink,
       MapBasic,
       Tooltip,
@@ -1434,7 +1406,8 @@
       isTrusted: () => process.env.NODE_ENV === 'development',
       // import store-getters
       ...mapGetters('datasetDetails', [
-        'getAccessRights',
+      'getAccessRights',
+      'getOriginalLanguage',
       'getAccrualPeriodicity',
       'getAttributes',
       'getCatalog',
