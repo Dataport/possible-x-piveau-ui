@@ -57,72 +57,15 @@
       :openIfValidUrl="openIfValidUrl"
       :showTooltipVisualiseButton="showTooltipVisualiseButton"
     />
-    <!-- <resource-access-popup /> -->
-
-    <!-- KEYWORDS -->
     <dataset-details-keywords
       v-if="showObjectArray(getKeywords)"
       :sortAlphabetically="sortAlphabetically"
       :showKeyword="showKeyword"
     />
-    <!-- Subject -->
-     <div class="mt-4"
-         v-if="showObjectArray(getSubject)">
-         <div class="row">
-         <div class="row">
-          <div class="col-12 col-lg-11 offset-lg-1">
-            <div class="keywords__item row" id="keywordsItemsDiv">
-              <span
-                v-for='(subject, i) in displayedSubject'
-                :key="i"
-                class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 mx-0 px-1"
-              >
-              <span v-if="showSubject(subject)">
-                  <small v-if="typeof (subject.title) === 'object'" class="d-inline-block w-100 py-2 rounded-pill text-center text-white subjectBg">
-                    <span v-for="(value, key) in subject.title" :key="key">
-                      <tooltip :title="value"  data-placement="top">
-                        {{ truncate(value, maxKeywordLength, false) }}
-                      </tooltip>
-                    </span>
-                  </small>
-                  <small v-else-if="typeof (subject.title) === 'string'" class="d-inline-block w-100 py-2 rounded-pill text-center text-white subjectBg">
-                    <span>
-                      <tooltip :title="subject.title"  data-placement="top">
-                        {{ truncate(subject.title, maxKeywordLength, false) }}
-                      </tooltip>
-                    </span>
-                  </small>
-              </span>
-                </span>
-            </div>
-          </div>
-          <div>
-            <div
-              v-if="!subject.displayAll && !isSubjectAllDisplayed"
-              class="keywords__item"
-            >
-              <div
-                class="keywords__actions pb-md-3"
-              >
-                <button
-                  v-for="increment in subject.incrementSteps.filter(nonOverflowingIncrementsForSubject)"
-                  :key="increment"
-                  class="btn btn-sm btn-secondary mr-1"
-                  @click="increaseNumDisplayedSubject(increment)"
-                >
-                  <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
-                </button>
-                <button
-                  class="btn btn-sm btn-primary"
-                  @click="subject.displayCount = getSubject.length"
-                >
-                  <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getSubject.length.toLocaleString('fi') }}
-                </button>
-              </div>
-            </div>
-          </div>
-         </div>
-     </div>
+    <dataset-details-subject
+      v-if="showObjectArray(getSubject)"
+      :sortAlphabetically="sortAlphabetically"
+    />
 
     <!-- PAGES -->
     <div class="mt-5" v-if="showObjectArray(getPages)">
@@ -1154,7 +1097,6 @@
         </div>
       </div>
     </div>
-    </div>
   </div>
 </template>
 
@@ -1184,11 +1126,13 @@
   import DatasetDetailsBanners from "@/modules/datasetDetails/DatasetDetailsBanners.vue";
   import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
   import DatasetDetailsKeywords from "@/modules/datasetDetails/DatasetDetailsKeywords.vue";
+  import DatasetDetailsSubject from "@/modules/datasetDetails/DatasetDetailsSubject.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
+      DatasetDetailsSubject,
       DatasetDetailsKeywords,
       DatasetDetailsDescription,
       DatasetDetailsBanners,
@@ -1260,10 +1204,7 @@
           fiware_cb: 'fiware_cb',
           'fiware-cb': 'fiware_cb',
         },
-        maxKeywordLength: this.$env.datasets.maxKeywordLength,
-        maxSubjectLength: this.$env.datasets.maxSubjectLength,
         datasetSchema: {},
-        followSubjectLinks: this.$env.datasets.followSubjectLinks,
         distributions: {
           displayAll: this.$env.datasetDetails.distributions.displayAll,
           displayCount: this.$env.datasetDetails.distributions.displayCount,
@@ -1307,12 +1248,7 @@
           height: this.$env.maps.height,
           width: this.$env.maps.width,
           mapContainerId: this.$env.maps.mapContainerId,
-        },
-        subject: {
-          displayAll: false,
-          displayCount: 24, // Should never exceed number of subjects
-          incrementSteps: [12, 60],
-        },
+        }
       };
     },
     computed: {
@@ -1473,35 +1409,6 @@
       },
       remainingDataServices() {
         return this.getDataServices.length - this.dataServices.displayCount;
-      },
-      sortedSubject() {
-        let selected = [], fallback = [], other = {}, without = []; // eslint-disable-line
-        const selectedLanguage = this.$route.query.locale;
-
-        // Sort by language
-        this.getSubject.forEach((element) => {
-          const e = element;
-          if (has(element, 'title') && element.title !== null) {
-            if (typeof element.title === 'object') {
-              Object.keys(element.title).forEach((key) => {
-                if (key !== selectedLanguage) {
-                  delete e.title[key];
-                }
-              });
-            }
-            selected.push(element);
-          }
-        });
-        this.sortAlphabetically(selected, 'title');
-        return selected;
-      },
-      displayedSubject() {
-        return this.subject.displayAll
-          ? Object.freeze(this.sortedSubject)
-          : Object.freeze(this.sortedSubject.slice(0, this.subject.displayCount));
-      },
-      isSubjectAllDisplayed() {
-        return this.subject.displayCount >= this.getSubject.length;
       }
     },
     methods: {
@@ -1813,9 +1720,6 @@
           && !isNil(keyword.id)
           && !isNil(keyword.title);
       },
-      showSubject(subject) {
-        return has(subject, 'title') && !isNil(subject.title);
-      },
       distributionCanShowMore(distribution) {
         return (has(distribution, 'releaseDate') && !isNil(distribution.releaseDate))
             || (has(distribution, 'availability') && !isNil(distribution.availability))
@@ -1937,9 +1841,6 @@
       // getSubjectLink(subject) {
       //   return { path: `/datasets?subject=${subject.id}`, query: Object.assign({}, { locale: this.$route.query.locale }) };
       // },
-      subjectTruncated(subject) {
-        return subject.title.length > this.maxSubjectLength;
-      },
       toggleDistribution(id) {
         const index = this.expandedDistributions.indexOf(id);
         if (index > -1) this.expandedDistributions.splice(index, 1);
@@ -2037,13 +1938,6 @@
       },
       nonOverflowingIncrementsForVisualisations(incrementStep) {
         return this.visualisations.displayCount + incrementStep <= this.getVisualisations.length;
-      },
-      increaseNumDisplayedSubject(increment) {
-        const clampedSum = this.clamp(this.subject.displayCount + increment, 0, this.getSubject.length);
-        this.subject.displayCount = clampedSum;
-      },
-      nonOverflowingIncrementsForSubject(incrementStep) {
-        return this.subject.displayCount + incrementStep <= this.getSubject.length;
       },
       piwikMetaPush() {
         this.$piwik.trackDatasetDetailsPageView(null, null, {
@@ -2231,9 +2125,7 @@
   .tag-color {
     background-color: var(--tag-color);
   }
-  .subjectBg {
-    background-color: #196fd2;
-  }
+
   .btn-color {
      &:hover {
        background-color: #196fd2;
