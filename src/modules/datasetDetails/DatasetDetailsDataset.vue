@@ -3,47 +3,12 @@
     <resource-access-popup ref="externalResourceModal" />
     <span property="dc:issued" :content="getReleaseDate"></span>
     <span property="dc:modified" :content="getModificationDate"></span>
-    <!-- INFO BANNERS -->
     <dataset-details-banners
       :dateIncorrect="dateIncorrect"
       :machineTranslated="machineTranslated"
       :translationNotAvailable="translationNotAvailable"
     />
-    <!-- TEXT -->
-    <div class="mt-1 mb-4" data-cy="dataset-description">
-      <div class="row">
-        <div v-if="getDatasetDescription !== 'No description available'" class="col-12 col-lg-11 offset-lg-1" property="dc:description">
-          <app-markdown-content
-            v-if="$env.datasetDetails.description.enableMarkdownInterpretation"
-            :text="truncate(getDatasetDescription, datasetDescriptionLength)"
-          >
-            <template #after>
-              <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-                {{ $t('message.metadata.showMore') }}
-              </small>
-              <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-                {{ $t('message.metadata.showLess') }}
-              </small>
-            </template>
-          </app-markdown-content>
-          <p v-else style="word-wrap:break-word;">
-            <span class="mr-2">{{ truncate(getDatasetDescription, datasetDescriptionLength) | stripHtml }}</span>
-            <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-              {{ $t('message.metadata.showMore') }}
-            </small>
-            <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-              {{ $t('message.metadata.showLess') }}
-            </small>
-          </p>
-        </div>
-        <div v-else class="col-10 offset-1 text-muted font-italic">
-            <p style="word-wrap:break-word;">
-              {{ $t('message.catalogsAndDatasets.noDescriptionAvailable') }}
-            </p>
-          </div>
-      </div>
-    </div>
-    <!-- DISTRIBUTIONS -->
+    <dataset-details-description />
     <distributions
       :openModal="openModal"
       :getDistributions="getDistributions"
@@ -1253,24 +1218,23 @@
   import AppLink from '../widgets/AppLink.vue';
   import Tooltip from '../widgets/Tooltip.vue';
   import Distributions from './distributions/Distributions.vue';
-  import AppMarkdownContent from './AppMarkdownContent.vue';
-  import filtersMixin from '../mixins/filters';
   import dateFilters from '../filters/dateFilters';
   import {
     getTranslationFor, getCountryFlagImg, truncate, removeMailtoOrTel, replaceHttp, appendCurrentLocaleToURL
   } from '../utils/helpers';
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
   import DatasetDetailsBanners from "@/modules/datasetDetails/DatasetDetailsBanners.vue";
+  import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
+      DatasetDetailsDescription,
       DatasetDetailsBanners,
       AppLink,
       MapBasic,
       Tooltip,
-      AppMarkdownContent,
       Distributions,
       ResourceAccessPopup
     },
@@ -1306,14 +1270,10 @@
         ],
       };
     },
-    mixins: [filtersMixin],
     data() {
       return {
         defaultLocale: this.$env.languages.locale,
-        INITIAL_DATASET_DESCRIPTION_LENGTH: 5000,
-        MAX_DATASET_DESCRIPTION_LENGTH: 100000,
         // has to be INITIAL_DATASET_DESCRIPTION_LENGTH
-        datasetDescriptionLength: 5000,
         isDatasetDescriptionExpanded: false,
         loadingDatasetDetails: false,
         dateIncorrect: false,
@@ -1496,12 +1456,6 @@
         return (this.getAccrualPeriodicity && this.getAccrualPeriodicity.label)
           || this.getAccrualPeriodicity;
       },
-      getDatasetDescription() {
-        return getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages);
-      },
-      getDatasetDescriptionLength() {
-        return this.getDatasetDescription ? this.getDatasetDescription.length : 0;
-      },
       displayedDistributions() {
         const sorted = [...this.getDistributions].sort((a, b) => {
           if (getTranslationFor(a.title, this.$route.query.locale, this.getLanguages) < getTranslationFor(b.title, this.$route.query.locale, this.getLanguages)) { return -1; }
@@ -1669,11 +1623,6 @@
       },
       showContactPoint(contactPoints) {
         return Object.keys(contactPoints[0]).filter(contactPoint => contactPoint !== 'resource' && contactPoint !== 'type').length > 0;
-      },
-      toggleDatasetDescription() {
-        this.isDatasetDescriptionExpanded = !this.isDatasetDescriptionExpanded;
-        if (this.datasetDescriptionLength === this.INITIAL_DATASET_DESCRIPTION_LENGTH) this.datasetDescriptionLength = this.MAX_DATASET_DESCRIPTION_LENGTH;
-        else this.datasetDescriptionLength = this.INITIAL_DATASET_DESCRIPTION_LENGTH;
       },
       sortAlphabetically(array, property) {
         try {
