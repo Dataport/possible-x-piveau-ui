@@ -92,10 +92,10 @@ import ECButton from "./components/ECButton.vue";
 
 configureModules({
   components: {
-    SelectFacet: ECSelectFacet,
-    RadioFacet: ECRadioFacet,
-    PvShowMore: ECMore,
-    PvButton: ECButton
+    // SelectFacet: ECSelectFacet,
+    // RadioFacet: ECRadioFacet,
+    // PvShowMore: ECMore,
+    // PvButton: ECButton
   },
   services: GLUE_CONFIG.services,
   serviceParams: {
