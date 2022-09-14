@@ -432,6 +432,14 @@ const actions = {
           const distData = {...context, ...state.distributions[num]};
           // distribution id is already set as url on create
           dispatch('removeEmptyEntries', distData);
+
+          // Copy accessURL to downloadURL, if downloadURL is empty
+          // TODO: is there a more transparent way to do this?
+          if (isEmpty(distData['dcat:downloadURL']) && !isEmpty(distData['dcat:accessURL'])) {
+            // make sure to copy the object and not the reference
+            distData['dcat:downloadURL'] = JSON.parse(JSON.stringify(distData['dcat:accessURL']));
+          }
+
           jsonld.push(distData);
         }
       }
@@ -610,7 +618,7 @@ const mutations = {
     // additionally get distribution data if existing
     if (property === 'datasets' || property === 'distributions') {
       const distName = 'dpi_distributions';
-  
+
       if (Object.keys(localStorage).includes(distName)) {
         const distributionsData = JSON.parse(localStorage.getItem(distName));
         state.distributions = distributionsData;
@@ -770,14 +778,14 @@ const mutations = {
             if (has(rightsNodeData, 'label') && !isEmpty(rightsNodeData['label'])) {
               storedata[key] = {'@type': 'dct:RightsStatement'};
               if (typeof rightsNodeData['label'] === 'object') {
-                if (has(rightsNodeData['label'], '@id') && !isEmpty(rightsNodeData['label']['@id'])) storedata[key]['rdfs:label'] = rightsNodeData['label']; 
+                if (has(rightsNodeData['label'], '@id') && !isEmpty(rightsNodeData['label']['@id'])) storedata[key]['rdfs:label'] = rightsNodeData['label'];
               } else {
                 // for some reason the backend returns URI in JSON-LD wrongly
                 if (rightsNodeData['label'].startsWith('http') || rightsNodeData['label'].startsWith('www')) storedata[key]['rdfs:label'] = {'@id': rightsNodeData['label']};
                 else storedata[key]['rdfs:label'] = rightsNodeData['label'];
               }
             }
-          } 
+          }
         } else if (key === 'dct:license') {
           // license could either be an URI or a group of values stored within a node
           let licenseNodeData = nodeData.filter(dataset => dataset['@id'] === data[normalKeyName]);
@@ -873,7 +881,7 @@ const mutations = {
       const idList = state.datasets['dcat:distribution'].map(dataset => dataset['@id']);
       const idIndex = idList.indexOf(currentDistributionId);
       state.datasets['dcat:distribution'].splice(idIndex, 1);
-      
+
       state.distributions.splice(index, 1);
       localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
       localStorage.setItem('dpi_datasets', JSON.stringify(state.datasets));
