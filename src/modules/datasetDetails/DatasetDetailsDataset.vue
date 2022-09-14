@@ -464,51 +464,10 @@
       </div>
     </div>
 
-    <!-- MAP -->
-    <div class="mt-5"
-          v-if="showObjectArray(getSpatial)">
-      <div class="row">
-        <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
-              @click="toggleMap()">
-          <span class="arrow text-dark"
-                v-if="!mapVisible">
-            <i class="material-icons">keyboard_arrow_down</i>
-          </span>
-          <span class="arrow text-dark" v-else>
-            <i class="material-icons">keyboard_arrow_up</i>
-          </span>
-        </div>
-        <div class="col-11 py-2 bg-white">
-          <h2 class="heading"
-              data-cy="geo-info-toggle"
-              @click="toggleMap()">{{ $t('message.datasetDetails.geoInfo') }}</h2>
-        </div>
-        <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"
-              @click="toggleMap()">
-          <span class="arrow text-dark"
-                v-if="!mapVisible">
-            <i class="material-icons">keyboard_arrow_down</i>
-          </span>
-          <span class="arrow text-dark" v-else>
-            <i class="material-icons">keyboard_arrow_up</i>
-          </span>
-        </div>
-        <div class="col-12 col-lg-11 offset-lg-1">
-          <div id="collapse-geo-info"
-               ref="geocollapse"
-               class="collapse show"
-               data-cy="geo-info">
-            <div class="map">
-              <map-basic :location="getCoordinates()"
-                         :spatial-type="getSpatialType()"
-                         :height="maps.height"
-                         :width="maps.width"
-                         :map-container-id="maps.mapContainerId"></map-basic>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <dataset-details-map
+      v-if="showObjectArray(getSpatial)"
+      :getSpatial="getSpatial"
+    />
 
     <!-- INFO -->
     <dataset-details-info
@@ -536,7 +495,6 @@
     isNumber,
     isEmpty,
   } from 'lodash';
-  import MapBasic from '../map/MapBasic.vue';
   import AppLink from '../widgets/AppLink.vue';
   import Tooltip from '../widgets/Tooltip.vue';
   import Distributions from './distributions/Distributions.vue';
@@ -550,18 +508,19 @@
   import DatasetDetailsKeywords from "@/modules/datasetDetails/DatasetDetailsKeywords.vue";
   import DatasetDetailsSubject from "@/modules/datasetDetails/DatasetDetailsSubject.vue";
   import DatasetDetailsInfo from "@/modules/datasetDetails/DatasetDetailsInfo.vue";
+  import DatasetDetailsMap from "@/modules/datasetDetails/DatasetDetailsMap.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
+      DatasetDetailsMap,
       DatasetDetailsInfo,
       DatasetDetailsSubject,
       DatasetDetailsKeywords,
       DatasetDetailsDescription,
       DatasetDetailsBanners,
       AppLink,
-      MapBasic,
       Tooltip,
       Distributions,
       ResourceAccessPopup
@@ -615,7 +574,6 @@
         expandedVisualisationDescriptions: [],
         expandedDataServices: [],
         expandedDataServicesDescriptions: [],
-        mapVisible: true,
         visualisationLinkFormats: [
           'csv',
           'xlsx',
@@ -664,13 +622,6 @@
         },
         relatedResources: {
           isVisible: this.$env.datasetDetails.relatedResources.isVisible,
-        },
-        maps: {
-          location: this.$env.maps.location,
-          spatialType: this.$env.maps.spatialType,
-          height: this.$env.maps.height,
-          width: this.$env.maps.width,
-          mapContainerId: this.$env.maps.mapContainerId,
         }
       };
     },
@@ -1013,14 +964,6 @@
       filterDateFormatEU(date) {
         return dateFilters.formatEU(date);
       },
-      getCoordinates() {
-        const coordinates = this.getSpatial[0].coordinates;
-        return (!isNil(coordinates) && isArray(coordinates) && isArray(coordinates[0])) ? [coordinates[0], this.maps.location[1]] : this.maps.location;
-      },
-      getSpatialType() {
-        const type = this.getSpatial[0].type;
-        return (!isNil(type) && isString(type)) ? type : this.maps.spatialType;
-      },
       /* ABSTRACT SHOW FUNCTIONS */
       showString(string) {
         return !isNil(string) && isString(string);
@@ -1255,10 +1198,6 @@
       },
       toggleRelatedResources() {
         this.relatedResources.isVisible = !this.relatedResources.isVisible;
-      },
-      toggleMap() {
-        this.$refs.geocollapse.classList.toggle('show');
-        this.mapVisible = !this.mapVisible;
       },
       setTranslationBanners() {
         if (!this.$i18n) return;
