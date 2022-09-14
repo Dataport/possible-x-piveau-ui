@@ -58,16 +58,23 @@ export default {
       for (const sibling of element.parentNode.children) {
         // Siblings only with the exception of elements with class="formulate-input-help"
         if (sibling !== element && !sibling.classList.contains('formulate-input-help')) {
+          // toggle display:none!important on sibling
           sibling.classList.toggle('d-none');
         }
       }
       // add collapse class to the element
-      element.classList.toggle(COLLAPSED_CLASS_NAME);
+      element.parentNode.classList.toggle(COLLAPSED_CLASS_NAME);
       this.isCollapsed = !this.isCollapsed;
     },
   },
 };
 </script>
+
+<style>
+  .collapsed .d-none {
+    display: none !important;
+  }
+</style>
 
 <style scoped>
 .infoButton{
