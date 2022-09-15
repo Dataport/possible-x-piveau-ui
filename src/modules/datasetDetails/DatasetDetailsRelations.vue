@@ -28,17 +28,19 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "DatasetDetailsRelations",
-  props: {
-    getRelations: Array
-  },
   data() {
     return {
+      ...mapGetters('datasetDetails', [
+        'getRelations'
+      ]),
       relatedResources: {
         isVisible: this.$env.datasetDetails.relatedResources.isVisible,
       }
-    }
+    };
   },
   methods: {
     toggleRelatedResources() {

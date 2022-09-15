@@ -138,7 +138,8 @@ export default {
   },
   computed: {
     ...mapGetters('datasetDetails', [
-      'getLanguages'
+      'getLanguages',
+      'getVisualisations'
     ]),
     isVisualisationsAllDisplayed() {
       return this.visualisations.displayCount === this.getVisualisations.length;

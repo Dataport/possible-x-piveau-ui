@@ -57,55 +57,19 @@
       :openIfValidUrl="openIfValidUrl"
       :showTooltipVisualiseButton="showTooltipVisualiseButton"
     />
-    <dataset-details-keywords
-      v-if="showObjectArray(getKeywords)"
-      :sortAlphabetically="sortAlphabetically"
-      :showKeyword="showKeyword"
-    />
-    <dataset-details-subject
-      v-if="showObjectArray(getSubject)"
-      :sortAlphabetically="sortAlphabetically"
-    />
 
-    <dataset-details-pages
-      v-if="showObjectArray(getPages)"
-      :getPages="getPages"
+    <dataset-details-features
+      :getKeywords="getKeywords"
       :pages="pages"
       :increaseNumDisplayedPages="increaseNumDisplayedPages"
       :nonOverflowingIncrementsForPages="nonOverflowingIncrementsForPages"
+      :showKeyword="showKeyword"
       :trackGoto="trackGoto"
+      :showObjectArray="showObjectArray"
+      :showArray="showArray"
+      :showObject="showObject"
     />
 
-    <dataset-details-visualisations
-      v-if="showObjectArray(getVisualisations)"
-      :getVisualisations="getVisualisations"
-      :trackGoto="trackGoto"
-    />
-
-    <dataset-details-data-services
-      v-if="showObjectArray(getDataServices)"
-      :getDataServices="getDataServices"
-      :nonOverflowingIncrementsForPages="nonOverflowingIncrementsForPages"
-      :increaseNumDisplayedPages="increaseNumDisplayedPages"
-      :trackGoto="trackGoto"
-    />
-
-    <dataset-details-is-used-by
-      v-if="showObject(getExtendedMetadata)"
-      :getExtendedMetadata="getExtendedMetadata"
-    />
-
-    <dataset-details-relations
-      v-if="showArray(getRelations)"
-      :getRelations="getRelations"
-    />
-
-    <dataset-details-map
-      v-if="showObjectArray(getSpatial)"
-      :getSpatial="getSpatial"
-    />
-
-    <!-- INFO -->
     <dataset-details-info
       :filterDateFormatEU="filterDateFormatEU"
       :showObjectArray="showObjectArray"
@@ -141,31 +105,18 @@
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
   import DatasetDetailsBanners from "@/modules/datasetDetails/DatasetDetailsBanners.vue";
   import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
-  import DatasetDetailsKeywords from "@/modules/datasetDetails/DatasetDetailsKeywords.vue";
-  import DatasetDetailsSubject from "@/modules/datasetDetails/DatasetDetailsSubject.vue";
   import DatasetDetailsInfo from "@/modules/datasetDetails/DatasetDetailsInfo.vue";
-  import DatasetDetailsMap from "@/modules/datasetDetails/DatasetDetailsMap.vue";
   import DatasetDetailsExtendedMetaData
     from "@/modules/datasetDetails/DatasetDetailsIsUsedBy.vue";
-  import DatasetDetailsIsUsedBy from "@/modules/datasetDetails/DatasetDetailsIsUsedBy.vue";
-  import DatasetDetailsDataServices from "@/modules/datasetDetails/DatasetDetailsDataServices.vue";
-  import DatasetDetailsVisualisations
-    from "@/modules/datasetDetails/DatasetDetailsVisualisations.vue";
-  import DatasetDetailsPages from "@/modules/datasetDetails/DatasetDetailsPages.vue";
+  import DatasetDetailsFeatures from "@/modules/datasetDetails/features/DatasetDetailsFeatures.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
-      DatasetDetailsPages,
-      DatasetDetailsVisualisations,
-      DatasetDetailsDataServices,
-      DatasetDetailsIsUsedBy,
+      DatasetDetailsFeatures,
       DatasetDetailsExtendedMetaData,
-      DatasetDetailsMap,
       DatasetDetailsInfo,
-      DatasetDetailsSubject,
-      DatasetDetailsKeywords,
       DatasetDetailsDescription,
       DatasetDetailsBanners,
       AppLink,
@@ -257,42 +208,18 @@
       'getContactPoints',
       'getDescription',
       'getDistributions',
-      'getExtendedMetadata',
       'getID',
-      'getSubject',
       'getLanguages',
       'getLicences',
       'getModificationDate',
       'getOtherIdentifiers',
       'getPages',
       'getPublisher',
-      'getRelations',
       'getReleaseDate',
       'getSpatial',
       'getTranslationMetaData',
       'getTitle',
-      'getVisualisations'
       ]),
-      getDataServices() {
-        if (this.getDistributions) {
-          const accessServiceList = this.getDistributions
-            .filter(distribution => has(distribution, 'accessService') && !isEmpty(distribution.accessService))
-            .map(distribution => ({
-              endpoint_url: distribution.accessService[0].endpoint_url,
-              title: distribution.accessService[0].title,
-              description: distribution.accessService[0].description,
-            }));
-          const uniqueAccessServiceList = [...new Map(
-            accessServiceList
-              .filter(accessService => accessService?.endpoint_url?.length)
-              .map(accessService => [
-                accessService.endpoint_url[0], accessService,
-              ]),
-          ).values()];
-          return uniqueAccessServiceList;
-        }
-        return [{}];
-      },
       displayedDistributions() {
         const sorted = [...this.getDistributions].sort((a, b) => {
           if (getTranslationFor(a.title, this.$route.query.locale, this.getLanguages) < getTranslationFor(b.title, this.$route.query.locale, this.getLanguages)) { return -1; }
@@ -342,22 +269,6 @@
           this.$emit('track-link', this.getVisualisationLink(distribution), 'link');
           window.open(this.getVisualisationLink(distribution), '_blank');
         };
-      },
-      sortAlphabetically(array, property) {
-        try {
-          array.sort((a, b) => {
-            const propA = a[property].toLowerCase();
-            const propB = b[property].toLowerCase();
-
-            return propA > propB
-              ? 1
-              : -1;
-          });
-        } catch (e) {
-          // Catch TypeErrors for undefined Keyword titles
-          console.warn('CATCHED ERROR - UNDEFINED KEYWORD TITLES'); // eslint-disable-line
-          console.warn(e); // eslint-disable-line
-        }
       },
       validateDataset() {
         const isConform = true;

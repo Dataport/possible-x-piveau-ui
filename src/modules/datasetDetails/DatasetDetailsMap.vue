@@ -47,6 +47,7 @@
 <script>
 import MapBasic from "@/modules/map/MapBasic";
 import {isArray, isNil, isString} from "lodash";
+import {mapGetters} from "vuex";
 export default {
   name: "DatasetDetailsMap",
   components: {MapBasic},
@@ -64,6 +65,11 @@ export default {
         mapContainerId: this.$env.maps.mapContainerId,
       }
     }
+  },
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getSpatial'
+    ])
   },
   methods: {
     toggleMap() {

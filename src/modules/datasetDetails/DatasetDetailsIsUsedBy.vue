@@ -30,17 +30,21 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "DatasetDetailsIsUsedBy",
-  props: {
-    getExtendedMetadata: Object
-  },
   data() {
     return {
       isUsedBy: {
         isVisible: this.$env.datasetDetails.isUsedBy.isVisible,
       }
     };
+  },
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getExtendedMetadata'
+    ]),
   },
   methods: {
     toggleIsUsedBy() {

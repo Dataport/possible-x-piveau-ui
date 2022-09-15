@@ -117,12 +117,12 @@ import $ from "jquery";
 import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {has, isNil} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
+import {mapGetters} from "vuex";
 
 export default {
   name: "DatasetDetailsPages",
   components: {AppLink},
   props: {
-    getPages: Array,
     pages: Object,
     increaseNumDisplayedPages: Function,
     nonOverflowingIncrementsForPages: Function,
@@ -135,6 +135,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('datasetDetails', [
+      'getPages'
+    ]),
     displayedPages() {
       const sorted = [...this.getPages].sort((a, b) => {
         if (getTranslationFor(a.title, this.$route.query.locale, this.getLanguages) < getTranslationFor(b.title, this.$route.query.locale, this.getLanguages)) { return -1; }
