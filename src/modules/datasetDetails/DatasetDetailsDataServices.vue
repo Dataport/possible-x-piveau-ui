@@ -110,6 +110,7 @@
 import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {has, isNil} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
+import {mapGetters} from "vuex";
 
 export default {
   name: "DatasetDetailsDataServices",
@@ -135,6 +136,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('datasetDetails', [
+      'getLanguages'
+    ]),
     displayedDataServices() {
       const sorted = [...this.getDataServices].sort((a, b) => {
         if (getTranslationFor(a.title, this.$route.query.locale, this.getLanguages) < getTranslationFor(b.title, this.$route.query.locale, this.getLanguages)) { return -1; }
@@ -195,7 +199,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

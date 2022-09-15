@@ -182,119 +182,11 @@
       </div>
     </div>
 
-    <!-- VISUALISATION -->
-    <div class="mt-5" v-if="showObjectArray(getVisualisations)">
-      <div class="row">
-        <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
-              @click="toggleVisualisation()">
-          <span class="arrow text-dark"
-                v-if="!visualisations.isVisible">
-            <i class="material-icons">keyboard_arrow_down</i>
-          </span>
-          <span class="arrow text-dark" v-else>
-            <i class="material-icons">keyboard_arrow_up</i>
-          </span>
-        </div>
-        <div class="col-11 py-2 bg-white">
-          <h2 class="heading"
-              @click="toggleVisualisation()">{{ $t('message.metadata.visualisations') }} ({{ getVisualisations ? getVisualisations.length.toLocaleString('fi') : 0 }})</h2>
-        </div>
-        <ul v-if="visualisations.isVisible" class="list list-unstyled col-12">
-          <hr>
-          <div class="distributions" :key="`${expandedVisualisations.length}--${expandedVisualisationDescriptions.length}`">
-            <div
-              v-for="(visualisation, i) in displayedVisualisations"
-              :key="i"
-              class="distributions__item"
-            >
-              <!-- Preview and action overlay -->
-              <div
-                v-if="!visualisations.displayAll && !isVisualisationsAllDisplayed && i === visualisations.displayCount - 1"
-                class="distributions__item--preview"
-              >
-                <!-- Fade out the last item so it has a preview feel -->
-                <!-- Render actions on top of it -->
-                <div class="distributions__actions pb-md-3">
-                  <button
-                    v-for="increment in visualisations.incrementSteps.filter(nonOverflowingIncrementsForVisualisations)"
-                    :key="increment"
-                    class="btn btn-sm btn-secondary mr-1"
-                    @click="increaseNumDisplayedVisualisations(increment)"
-                  >
-                    <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
-                  </button>
-                  <button
-                    class="btn btn-sm btn-primary"
-                    @click="visualisations.displayCount = getVisualisations.length"
-                  >
-                    <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getVisualisations.length.toLocaleString('fi') }}
-                  </button>
-                </div>
-              </div>
-              <li class="row">
-                <!-- VISUALISATION FORMAT -->
-                <span class="d-inline-block col-2 col-md-1 pl-1 p-md-3 px-md-4 m-md-0 m-auto">
-                  <div class="circle float-md-right text-center text-white"
-                        :type="getVisualisationFormat(visualisation)"
-                        :data-toggle="visualisationFormatTruncated(visualisation) ? 'tooltip' : false"
-                        :data-placement="visualisationFormatTruncated(visualisation) ? 'top' : false"
-                        :title="visualisationFormatTruncated(visualisation) ? getVisualisationFormat(visualisation) : false">
-                    <span>{{ truncate(getVisualisationFormat(visualisation), 4, true) }}</span>
-                  </div>
-                </span>
-                <span class="col-10 col-md-11">
-                  <span class="row">
-                    <!-- VISUALISATION TITLE -->
-                    <span class="d-inline-block col-12">
-                      <h3 class="m-0 text-break" :title="getVisualisationTitle(visualisation)">{{ getVisualisationTitle(visualisation) }}</h3>
-                    </span>
-                    <span class="d-inline-block col-12 col-md-9 col-lg-7">
-                      <!-- VISUALISATION DESCRIPTION -->
-                      <span class="mt-2 d-block">
-                        <small v-if="visualisationDescriptionIsExpanded(`visualisation-description-toggle-${i}`)">
-                          <p class="text-muted">
-                            {{ getVisualisationDescription(visualisation) }}
-                            <span class="text-primary details-link pl-2" @click="toggleVisualisationDescription(`visualisation-description-toggle-${i}`)">
-                              {{ $t('message.metadata.readLess') }}
-                            </span>
-                          </p>
-                        </small>
-                        <small v-else-if="!visualisationDescriptionIsExpandable(getVisualisationDescription(visualisation))">
-                          <p class="text-muted">{{ getVisualisationDescription(visualisation) }}</p>
-                        </small>
-                        <small v-else>
-                          <p class="text-muted">
-                            {{ truncate(getVisualisationDescription(visualisation), visualisations.descriptionMaxChars) }}
-                            <span class="text-primary details-link pl-2" @click="toggleVisualisationDescription(`visualisation-description-toggle-${i}`)">
-                              {{ $t('message.metadata.readMore') }}
-                            </span>
-                          </p>
-                        </small>
-                      </span>
-                    </span>
-                    <!-- VISUALISATION BUTTONS -->
-                    <span class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
-                      <!-- VISUALISATION DOWNLOAD -->
-                      <span class="download dropdown d-inline-block">
-                        <app-link class="btn btn-sm btn-primary p-0 pl-2 pr-2 w-100 rounded-lg btn-color"
-                                  :to="visualisation.accessUrl[0]"
-                                  target="_blank"
-                                  rel="dcat:distribution noopener"
-                                  matomo-track-download
-                                  @after-click="trackGoto">
-                              {{ $t('message.datasetDetails.access') }}
-                        </app-link>
-                        </span>
-                    </span>
-                  </span>
-                </span>
-              </li>
-              <hr class="mt-1">
-            </div>
-          </div>
-        </ul>
-      </div>
-    </div>
+    <dataset-details-visualisations
+      v-if="showObjectArray(getVisualisations)"
+      :getVisualisations="getVisualisations"
+      :trackGoto="trackGoto"
+    />
 
     <dataset-details-data-services
       v-if="showObjectArray(getDataServices)"
@@ -363,11 +255,14 @@
     from "@/modules/datasetDetails/DatasetDetailsIsUsedBy.vue";
   import DatasetDetailsIsUsedBy from "@/modules/datasetDetails/DatasetDetailsIsUsedBy.vue";
   import DatasetDetailsDataServices from "@/modules/datasetDetails/DatasetDetailsDataServices.vue";
+  import DatasetDetailsVisualisations
+    from "@/modules/datasetDetails/DatasetDetailsVisualisations.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
+      DatasetDetailsVisualisations,
       DatasetDetailsDataServices,
       DatasetDetailsIsUsedBy,
       DatasetDetailsExtendedMetaData,
@@ -427,8 +322,6 @@
         expandedDistributionDescriptions: [],
         expandedPages: [],
         expandedPageDescriptions: [],
-        expandedVisualisations: [],
-        expandedVisualisationDescriptions: [],
         visualisationLinkFormats: [
           'csv',
           'xlsx',
@@ -455,14 +348,6 @@
           incrementSteps: this.$env.datasetDetails.pages.incrementSteps,
           descriptionMaxLines: this.$env.datasetDetails.pages.descriptionMaxLines,
           descriptionMaxChars: this.$env.datasetDetails.pages.descriptionMaxChars,
-        },
-        visualisations: {
-          isVisible: this.$env.datasetDetails.visualisations.isVisible,
-          displayAll: this.$env.datasetDetails.visualisations.displayAll,
-          displayCount: this.$env.datasetDetails.visualisations.displayCount,
-          incrementSteps: this.$env.datasetDetails.visualisations.incrementSteps,
-          descriptionMaxLines: this.$env.datasetDetails.visualisations.descriptionMaxLines,
-          descriptionMaxChars: this.$env.datasetDetails.visualisations.descriptionMaxChars,
         }
       };
     },
@@ -545,22 +430,6 @@
       },
       remainingPages() {
         return this.getPages.length - this.pages.displayCount;
-      },
-      displayedVisualisations() {
-        const sorted = [...this.getVisualisations].sort((a, b) => {
-          if (getTranslationFor(a.title, this.$route.query.locale, this.getLanguages) < getTranslationFor(b.title, this.$route.query.locale, this.getLanguages)) { return -1; }
-          if (getTranslationFor(a.title, this.$route.query.locale, this.getLanguages) > getTranslationFor(b.title, this.$route.query.locale, this.getLanguages)) { return 1; }
-          return 0;
-        });
-        return this.visualisations.displayAll
-          ? Object.freeze(sorted)
-          : Object.freeze(sorted.slice(0, this.visualisations.displayCount));
-      },
-      isVisualisationsAllDisplayed() {
-        return this.visualisations.displayCount === this.getVisualisations.length;
-      },
-      remainingVisualisations() {
-        return this.getVisualisations.length - this.visualisations.displayCount;
       }
     },
     methods: {
@@ -930,27 +799,6 @@
       getPageDescription(page) {
         return (has(page, 'description') && !isNil(page.description)) ? getTranslationFor(page.description, this.$route.query.locale, this.getLanguages) : this.$t('message.catalogsAndDatasets.noDescriptionAvailable');
       },
-      visualisationIsExpanded(id) {
-        return this.expandedVisualisations.includes(id);
-      },
-      visualisationDescriptionIsExpanded(id) {
-        return this.expandedVisualisationDescriptions.includes(id);
-      },
-      visualisationDescriptionIsExpandable(description) {
-        return isNil(description) ? false : description.length > this.visualisations.descriptionMaxChars;
-      },
-      getVisualisationFormat(visualisation) {
-        return has(visualisation, 'format.label') && !isNil(visualisation.format.label) ? visualisation.format.label : 'UNKNOWN';
-      },
-      visualisationFormatTruncated(visualisation) {
-        return this.getVisualisationFormat(visualisation).length > 4;
-      },
-      getVisualisationTitle(visualisation) {
-        return visualisation.title ? getTranslationFor(visualisation.title, this.$route.query.locale, this.getLanguages) : truncate(visualisation.resource, 50);
-      },
-      getVisualisationDescription(visualisation) {
-        return (has(visualisation, 'description') && !isNil(visualisation.description)) ? getTranslationFor(visualisation.description, this.$route.query.locale, this.getLanguages) : this.$t('message.catalogsAndDatasets.noDescriptionAvailable');
-      },
       getVisualisationLink(distribution) {
         // Return Visualisation Link
         const accessUrl = distribution.downloadUrls && distribution.downloadUrls.length ? distribution.downloadUrls[0] : distribution.accessUrl[0];
@@ -986,14 +834,6 @@
         $('[data-toggle="tooltip"]').tooltip({
           container: 'body',
         });
-      },
-      toggleVisualisation() {
-        this.visualisations.isVisible = !this.visualisations.isVisible;
-      },
-      toggleVisualisationDescription(id) {
-        const index = this.expandedVisualisationDescriptions.indexOf(id);
-        if (index > -1) this.expandedVisualisationDescriptions.splice(index, 1);
-        else this.expandedVisualisationDescriptions.push(id);
       },
       setTranslationBanners() {
         if (!this.$i18n) return;
@@ -1033,15 +873,6 @@
       },
       nonOverflowingIncrementsForPages(incrementStep) {
         return this.pages.displayCount + incrementStep <= this.getPages.length;
-      },
-      // Increases the current number of distributions displayed
-      // and clamps the result so that it never exceeds the number of all distributions.
-      increaseNumDisplayedVisualisations(increment) {
-        const clampedSum = this.clamp(this.visualisations.displayCount + increment, 0, this.getVisualisations.length);
-        this.visualisations.displayCount = clampedSum;
-      },
-      nonOverflowingIncrementsForVisualisations(incrementStep) {
-        return this.visualisations.displayCount + incrementStep <= this.getVisualisations.length;
       },
       piwikMetaPush() {
         this.$piwik.trackDatasetDetailsPageView(null, null, {

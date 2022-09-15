@@ -53,7 +53,8 @@ export default {
   },
   computed: {
     ...mapGetters('datasetDetails', [
-      'getDescription'
+      'getDescription',
+      'getLanguages'
     ]),
     getDatasetDescription() {
       return getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages);
