@@ -107,7 +107,7 @@
   import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
   import DatasetDetailsInfo from "@/modules/datasetDetails/DatasetDetailsInfo.vue";
   import DatasetDetailsExtendedMetaData
-    from "@/modules/datasetDetails/DatasetDetailsIsUsedBy.vue";
+    from "@/modules/datasetDetails/features/DatasetDetailsIsUsedBy.vue";
   import DatasetDetailsFeatures from "@/modules/datasetDetails/features/DatasetDetailsFeatures.vue";
 
   export default {

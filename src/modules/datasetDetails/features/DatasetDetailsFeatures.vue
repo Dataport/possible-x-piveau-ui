@@ -46,14 +46,14 @@
 </template>
 
 <script>
-import DatasetDetailsKeywords from "@/modules/datasetDetails/DatasetDetailsKeywords";
-import DatasetDetailsSubject from "@/modules/datasetDetails/DatasetDetailsSubject";
-import DatasetDetailsPages from "@/modules/datasetDetails/DatasetDetailsPages";
-import DatasetDetailsVisualisations from "@/modules/datasetDetails/DatasetDetailsVisualisations";
-import DatasetDetailsDataServices from "@/modules/datasetDetails/DatasetDetailsDataServices";
-import DatasetDetailsIsUsedBy from "@/modules/datasetDetails/DatasetDetailsIsUsedBy";
-import DatasetDetailsRelations from "@/modules/datasetDetails/DatasetDetailsRelations";
-import DatasetDetailsMap from "@/modules/datasetDetails/DatasetDetailsMap";
+import DatasetDetailsKeywords from "@/modules/datasetDetails/features/DatasetDetailsKeywords";
+import DatasetDetailsSubject from "@/modules/datasetDetails/features/DatasetDetailsSubject";
+import DatasetDetailsPages from "@/modules/datasetDetails/features/DatasetDetailsPages";
+import DatasetDetailsVisualisations from "@/modules/datasetDetails/features/DatasetDetailsVisualisations";
+import DatasetDetailsDataServices from "@/modules/datasetDetails/features/DatasetDetailsDataServices";
+import DatasetDetailsIsUsedBy from "@/modules/datasetDetails/features/DatasetDetailsIsUsedBy";
+import DatasetDetailsRelations from "@/modules/datasetDetails/features/DatasetDetailsRelations";
+import DatasetDetailsMap from "@/modules/datasetDetails/features/DatasetDetailsMap";
 import {mapGetters} from "vuex";
 import {has, isEmpty} from "lodash";
 
