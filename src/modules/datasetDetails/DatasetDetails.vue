@@ -14,7 +14,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import DatasetDetailsHeader from './DatasetDetailsHeader.vue'
+import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue'
 import DatasetDetailsNavigation from './DatasetDetailsNavigation.vue'
 import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
 
