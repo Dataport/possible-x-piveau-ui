@@ -7,6 +7,7 @@
       </div>
       <div class="col-10">
         <p class="mb-0">{{ text }}</p>
+      <slot></slot>
       </div>
       <div class="col-1">
         <button class="close pt-0"

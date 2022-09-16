@@ -15,9 +15,11 @@
 import {has, isNil} from "lodash";
 import {getTranslationFor, getCountryFlagImg} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
+import AppLink from "@/modules/widgets/AppLink";
 
 export default {
   name: "DatasetDetailsHeaderCatalogue",
+  components: {AppLink},
   computed: {
     ...mapGetters('datasetDetails', [
       'getCatalog',
