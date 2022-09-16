@@ -15,7 +15,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue'
-import DatasetDetailsNavigation from './DatasetDetailsNavigation.vue'
+import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue'
 import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
 
 export default {
@@ -43,6 +43,7 @@ export default {
       type: Number,
       default: 0,
     },
+    citationStyle: String
   },
   computed: {
     ...mapGetters('datasetDetails', [
