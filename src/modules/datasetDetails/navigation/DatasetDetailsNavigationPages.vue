@@ -16,19 +16,10 @@
 </template>
 
 <script>
-import AppLink from "@/modules/widgets/AppLink";
 import {mapGetters} from "vuex";
 import Vue from "vue";
-import DatasetDetailsNavigationPage
-  from "@/modules/datasetDetails/navigation/DatasetDetailsNavigationPage";
 export default {
   name: "DatasetDetailsNavigationPages",
-  components: {DatasetDetailsNavigationPage, AppLink},
-  // data() {
-  //   return {
-  //     pages: []
-  //   };
-  // },
   computed: {
     ...mapGetters('datasetDetails', [
       'getID'

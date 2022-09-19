@@ -89,13 +89,15 @@ import ECSelectFacet from "./components/ECSelectFacet.vue";
 import ECRadioFacet from "./components/ECRadioFacet.vue";
 import ECMore from "./components/ECMore.vue";
 import ECButton from "./components/ECButton.vue";
+import ECLinkButton from "./components/ECLinkButton.vue";
 
 configureModules({
   components: {
     SelectFacet: ECSelectFacet,
     RadioFacet: ECRadioFacet,
     PvShowMore: ECMore,
-    PvButton: ECButton
+    PvButton: ECButton,
+    DatasetDetailsNavigationPage: ECLinkButton
   },
   services: GLUE_CONFIG.services,
   serviceParams: {

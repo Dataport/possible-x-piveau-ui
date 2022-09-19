@@ -4,10 +4,10 @@
     :data-cy="getRepresentativeLocaleOf(getTitle, $route.query.locale, getLanguages)
     && `dataset@${getRepresentativeLocaleOf(getTitle, $route.query.locale, getLanguages)}`"
   >
-    <datasetDetailsNavigation :dataset-id="getID"></datasetDetailsNavigation>
+    <dataset-details-header />
     <div class="container-fluid mb-5 pt-1 content">
-      <dataset-details-header />
-      <router-view name="datasetDetailsSubpages"></router-view>
+      <datasetDetailsNavigation :dataset-id="getID"/>
+      <router-view name="datasetDetailsSubpages" />
     </div>
   </div>
 </template>

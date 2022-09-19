@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import SubNavigation from '../../navigation/SubNavigation.vue';
 import DatasetCitationModal from '../../citation/DatasetCitationModal.vue';
