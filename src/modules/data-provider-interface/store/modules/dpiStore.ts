@@ -674,7 +674,7 @@ const mutations = {
       let normalKeyName = propertyKeys[index];
 
       // save catalog info for input of datasets (no valid/ real property -> just for input)
-      if (property === 'datasets' && normalKeyName === 'catalog') {
+      if (property === 'datasets' && (normalKeyName === 'catalog' || normalKeyName === 'dct:catalog')) {
         state[property]['dct:catalog'] = data[normalKeyName];
       }
 
