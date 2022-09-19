@@ -54,8 +54,6 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions('datasetDetails', [
-    ]),
     getRepresentativeLocaleOf,
     getTranslationFor,
   }
