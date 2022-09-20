@@ -675,7 +675,7 @@ const mutations = {
 
       // save catalog info for input of datasets (no valid/ real property -> just for input)
       if (property === 'datasets' && (normalKeyName === 'catalog' || normalKeyName === 'dct:catalog')) {
-        state[property]['dct:catalog'] = data[normalKeyName];
+        state['datasets']['dct:catalog'] = data[normalKeyName];
       }
 
       if (property === 'datasets' && normalKeyName === 'distribution') {
