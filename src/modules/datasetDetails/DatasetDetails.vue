@@ -4,9 +4,11 @@
     :data-cy="getRepresentativeLocaleOf(getTitle, $route.query.locale, getLanguages)
     && `dataset@${getRepresentativeLocaleOf(getTitle, $route.query.locale, getLanguages)}`"
   >
+    <dataset-details-navigation v-if="!topTitle" :dataset-id="getID"/>
     <div class="container-fluid mb-5 pt-1 content">
       <dataset-details-header />
-      <dataset-details-navigation :dataset-id="getID"/>
+      <dataset-details-navigation v-if="topTitle" :dataset-id="getID"/>
+      <hr v-if="!topTitle" />
       <router-view name="datasetDetailsSubpages" />
     </div>
   </div>
@@ -36,7 +38,9 @@ export default {
     };
   },
   data() {
-    return {};
+    return {
+      topTitle: this.$env.datasetDetails.header.navigation === "top"
+    };
   },
   props: {
     activeTab: {
