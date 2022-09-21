@@ -915,6 +915,7 @@ export default {
 
       if (this.property === 'catalogues') {
         this.checkCatalogueMandatory();
+        // TODO?
       }
     });
   },
