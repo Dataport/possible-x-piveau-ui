@@ -1,5 +1,5 @@
 <template>
-  <nav class="col-12 navbar navbar-expand-lg navbar-light px-4 pb-3 mt-0 navigation-box">
+  <nav class="col-12 navbar navbar-expand-lg navbar-light px-4 pb-3 mt-0 sub-navigation">
     <button class="navbar-toggler px-1" type="button" data-toggle="collapse" data-target="#subNavigation" aria-controls="subNavigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 
-.navigation-box {
+.sub-navigation {
   background-color: white !important;
   box-shadow: 0 2px 4px -4px grey;
   min-height: 56px;

@@ -1,6 +1,6 @@
 <template>
   <sub-navigation :title="getTranslationFor(getTitle, $route.query.locale, getLanguages)">
-    <div class="d-flex container-fluid justify-content-between px-0">
+    <div class="d-flex container-fluid justify-content-between px-0 dsd-nav">
       <dataset-details-navigation-pages />
       <dataset-details-navigation-links
         :datasetId="datasetId"

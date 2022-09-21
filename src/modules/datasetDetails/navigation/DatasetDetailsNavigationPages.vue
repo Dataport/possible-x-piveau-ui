@@ -2,14 +2,13 @@
   <nav>
     <ul class="menu m-0 list-inline list-unstyled navbar-nav mr-auto">
       <li v-for="(page, index) in pages" :key="index"
-        class="mr-2 list-inline-item nav-item text-nowrap"
+        class="mr-2 list-inline-item nav-item text-nowrap dsd-nav-button"
       >
         <dataset-details-navigation-page
           :path="page.path"
           :title="page.title"
           :tooltip="page.tooltip"
           :exact="page.exact"
-          class="dsd-nav-button"
         />
       </li>
     </ul>

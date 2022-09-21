@@ -14,11 +14,27 @@ body {
   padding-left: 0;
 }
 
-.navigation-box {
+.sub-navigation {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
+.dsd-nav {
+  flex-wrap: nowrap !important;
+}
+
+.dsd-nav-links {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .dsd-nav-button {
-  margin-right: 16px
+  margin-right: 16px !important;
+}
+
+@media screen and (max-width: 991px) { // less than lg
+  .dsd-nav-button button {
+    min-width: 200px !important;
+    margin-bottom: 8px !important;
+  }
 }
