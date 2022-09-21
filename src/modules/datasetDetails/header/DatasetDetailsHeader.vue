@@ -4,25 +4,18 @@
     <dataset-details-header-title />
     <div class="row mt-1">
       <dataset-details-header-catalogue />
-      <div class="col-4 text-break" v-if="showObject(getPublisher)">
-          <span class="font-weight-bold"
-                :title="$t('message.tooltip.datasetDetails.publisher')"
-                data-toggle="tooltip"
-                data-placement="top">
-                {{ $t('message.metadata.publisher')}}:
-          </span>
-          <span v-if="has(getPublisher, 'name') && !isNil(getPublisher.name)">
-              {{ getPublisher.name }}
-            </span>
-        </div>
-      <div class="col-4 text-right text-break">
-        <span class="font-weight-bold mx-1"
-          :title="$t('message.tooltip.datasetDetails.updated')"
-              data-toggle="tooltip"
-              data-placement="top">
-              {{ $t('message.metadata.updated') }}:</span>
-          <dataset-date :date="getModificationDate"/>
-      </div>
+      <property-value
+        v-if="showObject(getPublisher)"
+        :property="$t('message.metadata.publisher')"
+        :tooltip="$t('message.tooltip.datasetDetails.publisher')"
+        :value="getPublisherName"
+      />
+      <property-value
+        :property="$t('message.metadata.updated')"
+        :tooltip="$t('message.tooltip.datasetDetails.updated')"
+        :value="getModificationDate"
+        :isDate="true"
+      />
     </div>
     <hr>
   </div>
@@ -41,11 +34,13 @@
   import DatasetDetailsHeaderTitle from "@/modules/datasetDetails/header/DatasetDetailsHeaderTitle";
   import DatasetDetailsHeaderCatalogue
     from "@/modules/datasetDetails/header/DatasetDetailsHeaderCatalogue";
+  import PropertyValue from "@/modules/widgets/PropertyValue";
   const { getTranslationFor, getCountryFlagImg, truncate } = helpers;
 
   export default {
     name: 'datasetDetailsDataset',
     components: {
+      PropertyValue,
       DatasetDetailsHeaderCatalogue,
       DatasetDetailsHeaderTitle,
       DatasetDate,
@@ -64,6 +59,13 @@
         'getPublisher',
         'getModificationDate'
       ]),
+      getPublisherName() {
+        if (has(this.getPublisher, 'name') && !isNil(this.getPublisher.name)) {
+          return this.getPublisher.name;
+        } else {
+          return "";
+        }
+      }
     },
     methods: {
       has,

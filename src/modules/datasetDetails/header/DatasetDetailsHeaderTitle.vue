@@ -1,8 +1,6 @@
 <template>
-  <div class="row">
-    <div class="col-12 col-lg-10 offset-lg-1">
+  <div class="col-12 col-lg-10 offset-lg-1">
       <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
-    </div>
   </div>
 </template>
 

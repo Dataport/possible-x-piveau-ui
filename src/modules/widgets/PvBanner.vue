@@ -6,7 +6,7 @@
         <i class="material-icons">info</i>
       </div>
       <div class="col-10">
-        <p class="mb-0">{{ text }}</p>
+        <p class="mb-0">{{ message }}</p>
       <slot></slot>
       </div>
       <div class="col-1">
@@ -25,7 +25,7 @@
 export default {
   name: "PvBanner",
   props: {
-    text: String
+    message: String
   }
 }
 </script>
