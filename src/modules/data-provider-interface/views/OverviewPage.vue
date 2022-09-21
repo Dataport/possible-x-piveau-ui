@@ -907,15 +907,15 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      // if (this.property === 'datasets') {
-      //   this.checkDatasetMandatory();
-      //   this.checkDatasetID();
-      //   this.checkDistributionMandatory();
-      // }
+      if (this.property === 'datasets') {
+        this.checkDatasetMandatory();
+        this.checkDatasetID();
+        this.checkDistributionMandatory();
+      }
 
-      // if (this.property === 'catalogues') {
-      //   this.checkCatalogueMandatory();
-      // }
+      if (this.property === 'catalogues') {
+        this.checkCatalogueMandatory();
+      }
     });
   },
   mounted(){
