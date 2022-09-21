@@ -114,7 +114,7 @@ export default {
                   ...{
                     message: 'Are you sure you want to delete this dataset? This can not be reverted.',
                     confirm: 'Delete dataset (irreversible)',
-                    confirmHandler: () => this.handleDeleteDataset({ id: this.getID, catalog: this.getCatalog.id }),
+                    confirmHandler: () => this.handleDeleteDataset({ id: this.getID }),
                   },
                 };
                 $('#DPIMenuModal').modal({ show: true });
@@ -337,14 +337,14 @@ export default {
 
       this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
-    async handleDeleteDataset({ id, catalog }) {
+    async handleDeleteDataset({ id }) {
       // todo: create user dataset api (and maybe integrate to store)
 
       // For now, do request manually using axios
       this.modal.loading = true;
       this.$Progress.start();
       try {
-        await axios.delete(`${this.$env.api.hubUrl}datasets/${id}?catalogue=${catalog}`, {
+        await axios.delete(`${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true`, {
           headers: {
             'Content-Type': 'text/turtle',
             Authorization: `Bearer ${this.getUserData.rtpToken}`,

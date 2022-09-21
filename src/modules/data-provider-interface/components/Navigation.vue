@@ -201,17 +201,25 @@ export default {
 
       const rtpToken = this.getUserData.rtpToken;
 
+      if (!this.mandatoryFieldsFilled({ property: this.property, id: this.id })) {
+        this.$Progress.fail();
+        this.showSnackbar({ message: 'Mandatory Properties missing', variant: 'error' });
+        return; 
+      }
+
       const datasetId = this.getData(submitProperty)['@id'];
-      const catalogName = this.getData(submitProperty)['dct:catalog'] ? this.getData(submitProperty)['dct:catalog'] : '';      
+      const title = this.getData(submitProperty)['dct:title'];
+      const description = this.getData(submitProperty)['dct:description'];
+      const catalogName = this.getData(submitProperty)['dct:catalog'] ? this.getData(submitProperty)['dct:catalog'] : '';
+
       let uploadUrl;
       let actionName;
       let actionParams = {
         id: datasetId,
         catalog: catalogName,
         body: jsonld,
-        // TODO: populate title and description
-        title: {},
-        description: {},
+        title,
+        description,
       };
 
       if (mode === 'createdataset') {
