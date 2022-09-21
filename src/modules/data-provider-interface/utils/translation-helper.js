@@ -28,7 +28,7 @@ function translateProperty(propertyDefinition, property) {
         }
 
         // Highlight mandatory fields
-        if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') translation = `${translation}*`
+        if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') propertyDefinition[parameter] = `${translation}*`
     }
 }
 
