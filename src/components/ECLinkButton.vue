@@ -29,9 +29,6 @@ export default {
     active() {
       return this.$route.path === this.path;
     }
-  },
-  mounted() {
-    console.log(this.$route)
   }
 }
 </script>
