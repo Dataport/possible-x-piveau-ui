@@ -28,13 +28,12 @@
 
 <script>
 import {mapGetters} from "vuex";
-import PvBanner from "@/modules/widgets/PvBanner";
 import {isNil, isString} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
 
 export default {
   name: "DatasetDetailsBanners",
-  components: {AppLink, PvBanner},
+  components: {AppLink},
   props: {
     dateIncorrect: Boolean,
     machineTranslated: Boolean,
