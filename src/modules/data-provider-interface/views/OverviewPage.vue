@@ -92,11 +92,11 @@
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:accessService')">
                           <span class="d-block">
                             <div v-for="(accessService, index) in getDistributionObjectArray(distribution, 'dcat:accessService')" :key="index">
-                              <div><small v-for="(title, index) in getDistributionLanguageArray(accessService, 'dct:title')" :key="index">
-                                {{ languageNames[title['@language']] }}: {{ title['@value'] }}
+                              <div><small>
+                                {{ languageNames[getDistributionProperty(accessService, 'dct:title', ['@language'])] }}: {{ getDistributionProperty(accessService, 'dct:title', ['@value']) }}
                               </small></div>
-                              <div><small v-for="(description, index) in getDistributionLanguageArray(accessService, 'dct:description')" :key="index">
-                                {{ languageNames[description['@language']] }}: {{ description['@value'] }}
+                              <div><small>
+                                {{ languageNames[getDistributionProperty(accessService, 'dct:description', ['@language'])] }}: {{ getDistributionProperty(accessService, 'dct:description', ['@value']) }}
                               </small></div>
                               <div><small v-if="showObjectElementValue(accessService, 'dcat:endpointURL', '@id')" class="pr-1">
                                 <a :href="getDistributionProperty(accessService, 'dcat:endpointURL', ['@id'])">{{ getDistributionProperty(accessService, 'dcat:endpointURL', ['@id']) }}</a>
