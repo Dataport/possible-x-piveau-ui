@@ -3,7 +3,7 @@
     <button class="navbar-toggler px-1" type="button" data-toggle="collapse" data-target="#subNavigation" aria-controls="subNavigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <h1 class="d-inline-block d-lg-none col-10 col-md-11 dataset-details-title mb-0 text-break">{{ title }}</h1>
+    <h1 class="d-inline-block d-lg-none col-10 col-md-11 title mb-0 text-break">{{ title }}</h1>
     <div class="col-12 collapse navbar-collapse pl-0" id="subNavigation">
       <slot/>
     </div>
@@ -47,7 +47,7 @@ export default {
   margin-top: -60px;
 }
 
-.dataset-details-title {
+.title {
   font-size: 1.5rem;
   font-family: inherit;
   font-weight: 500;
@@ -55,7 +55,7 @@ export default {
   color: inherit;
 }
 
-.navbar-toggler-icon{
+.navbar-toggler-icon {
     font-size: 0.8em;
 }
 </style>

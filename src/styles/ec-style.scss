@@ -1,0 +1,24 @@
+//
+// EC restyle settings
+//
+
+body {
+  font: normal normal 400 1rem/1.5rem arial,sans-serif;
+}
+
+// dataset details
+
+.dsd-header-info, .dsd-header-title {
+  margin-left: 0;
+  margin-bottom: 16px;
+  padding-left: 0;
+}
+
+.navigation-box {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.dsd-nav-button {
+  margin-right: 16px
+}

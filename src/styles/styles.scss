@@ -7,13 +7,9 @@
 // Import Piveau modules
 @import "~@piveau/piveau-hub-ui-modules/dist/scss/main.scss";
 
-//
-// EC restyle settings
-//
-
-body {
-  font: normal normal 400 1rem/1.5rem arial,sans-serif;
-}
+///////////////// EC Restyling //
+@import 'ec-style';
+/////////////////////////////////
 
 .mt-4 {
   margin-top: 30px !important;

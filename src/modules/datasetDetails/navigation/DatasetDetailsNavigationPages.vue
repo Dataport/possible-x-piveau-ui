@@ -9,6 +9,7 @@
           :title="page.title"
           :tooltip="page.tooltip"
           :exact="page.exact"
+          class="dsd-nav-button"
         />
       </li>
     </ul>

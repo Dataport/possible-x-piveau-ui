@@ -2,7 +2,7 @@
   <!-- HEADER -->
   <div>
     <dataset-details-header-title />
-    <div class="d-flex offset-lg-1 col-lg-10 mt-1 flex-nowrap justify-content-between">
+    <div class="d-flex offset-lg-1 col-lg-10 mt-1 flex-nowrap justify-content-between dsd-header-info">
       <dataset-details-header-catalogue />
       <property-value
         v-if="showPublisher && showObject(getPublisher)"
