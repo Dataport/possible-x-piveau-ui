@@ -128,6 +128,7 @@ export default {
     clear() {
       this.clearValues();
       this.clearAll();
+      this.setIsEditMode(false);
     },
     clearValues() {
       this.formValues = {};
