@@ -1,5 +1,5 @@
 <template>
-  <nav class="col-12 navbar navbar-expand-lg navbar-light px-4 pb-3 mt-0 mt-xl-n5 navigation-box">
+  <nav class="col-12 navbar navbar-expand-lg navbar-light px-4 pb-3 mt-0 navigation-box">
     <button class="navbar-toggler px-1" type="button" data-toggle="collapse" data-target="#subNavigation" aria-controls="subNavigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -18,7 +18,6 @@
         :isDate="true"
       />
     </div>
-    <hr>
   </div>
 </template>
 
