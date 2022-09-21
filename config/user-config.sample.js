@@ -241,6 +241,11 @@ const glueConfig = {
     defaultCatalogID: 'european-union-open-data-portal',
   },
   datasetDetails: {
+    header: {
+      navigation: "top", // "top", "below"
+      showPublisher: true,
+      showDate: true
+    },
     description: {
       // If true, parses dataset description as Markdown formatted text content.
       enableMarkdownInterpretation: true,

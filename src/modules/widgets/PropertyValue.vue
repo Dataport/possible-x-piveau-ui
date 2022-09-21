@@ -1,5 +1,5 @@
 <template>
-  <div class="col-4 text-break">
+  <div class="text-break">
     <span class="font-weight-bold"
           :title="tooltip"
           data-toggle="tooltip"

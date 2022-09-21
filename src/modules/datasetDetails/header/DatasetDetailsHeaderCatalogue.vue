@@ -1,5 +1,5 @@
 <template>
-  <div class="col-4 col-lg-3 offset-lg-1 d-flex align-items-center">
+  <div class="d-flex align-items-center">
     <img v-if="showCountryFlag(getCountry)" class="mr-2 border border-dark flag" :class="{ 'io': getCountry.id === 'io' }" :src="getCountryFlagImg(getCountry.id)" alt="Catalog Flag">
     <app-link
       :to="getCatalogLink(getCatalog)"
