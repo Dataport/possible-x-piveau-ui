@@ -8,7 +8,7 @@ body {
 
 // dataset details
 
-.dsd-header-info, .dsd-header-title {
+.dsd-header-info, .dsd-header-title, .dsd-keywords {
   margin-left: 0;
   margin-bottom: 16px;
   padding-left: 0;
@@ -89,7 +89,6 @@ body {
     order: 5;
     grid-column: span 2;
   }
-
 }
 
 .dsd-banners {

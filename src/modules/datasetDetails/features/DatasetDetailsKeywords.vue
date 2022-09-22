@@ -1,7 +1,7 @@
 <template>
-  <div class="row mt-2">
-    <div class="col-12 col-lg-11 offset-lg-1">
-      <div class="keywords__item row" id="keywordsItemsDiv">
+    <div class="row mt-2 col-12 col-lg-11 offset-lg-1 dsd-keywords">
+      <span v-if="showTitle" class="mb-4 h2">Keywords ({{ getKeywords.length }})</span>
+      <div class="keywords__item row w-100" id="keywordsItemsDiv">
           <span
             v-for='(keyword, i) in displayedKeywords'
             :content="keyword.title"
@@ -18,33 +18,39 @@
             </app-link>
           </span>
       </div>
-      <div>
-        <div
-          v-if="!keywords.displayAll && !isKeywordsAllDisplayed"
-          class="keywords__item"
-        >
-          <div
-            class="keywords__actions pb-md-3"
-          >
-            <button
-              v-for="increment in keywords.incrementSteps.filter(nonOverflowingIncrementsForKeywords)"
-              :key="increment"
-              class="btn btn-sm btn-secondary mr-1"
-              @click="increaseNumDisplayedKeywords(increment)"
-            >
-              <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
-            </button>
-            <button
-              class="btn btn-sm btn-primary"
-              @click="keywords.displayCount = getKeywords.length"
-            >
-              <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getKeywords.length.toLocaleString('fi') }}
-            </button>
-          </div>
-        </div>
-      </div>
+      <pv-show-more
+        v-if="getKeywords.length > defaultDisplayCount"
+        :label="isKeywordsAllDisplayed? 'Show less' : 'Show more'"
+        :upArrow="isKeywordsAllDisplayed"
+        :action="toggleDisplayCount"
+        class="row text-primary"
+      />
+<!--      <div>-->
+<!--        <div-->
+<!--          v-if="!keywords.displayAll && !isKeywordsAllDisplayed"-->
+<!--          class="keywords__item"-->
+<!--        >-->
+<!--          <div-->
+<!--            class="keywords__actions pb-md-3"-->
+<!--          >-->
+<!--            <button-->
+<!--              v-for="increment in keywords.incrementSteps.filter(nonOverflowingIncrementsForKeywords)"-->
+<!--              :key="increment"-->
+<!--              class="btn btn-sm btn-secondary mr-1"-->
+<!--              @click="increaseNumDisplayedKeywords(increment)"-->
+<!--            >-->
+<!--              <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}-->
+<!--            </button>-->
+<!--            <button-->
+<!--              class="btn btn-sm btn-primary"-->
+<!--              @click="keywords.displayCount = getKeywords.length"-->
+<!--            >-->
+<!--              <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getKeywords.length.toLocaleString('fi') }}-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
-  </div>
 </template>
 
 <script>
@@ -52,10 +58,11 @@ import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import {has, isString} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
+import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsKeywords",
-  components: {AppLink},
+  components: {PvShowMore, AppLink},
   props: {
     sortAlphabetically: Function,
     showKeyword: Function
@@ -63,6 +70,8 @@ export default {
   data() {
     return {
       defaultLocale: this.$env.languages.locale,
+      showTitle: this.$env.datasetDetails.keywords.showTitle,
+      defaultDisplayCount: 24,
       keywords: {
         displayAll: false,
         displayCount: 24, // Should never exceed number of keywords
@@ -133,6 +142,13 @@ export default {
     },
     getKeywordLink(keyword) {
       return { path: `/datasets?keywords=${keyword.id}`, query: Object.assign({}, { locale: this.$route.query.locale }) };
+    },
+    toggleDisplayCount() {
+      if (this.keywords.displayCount < this.getKeywords.length) {
+        this.keywords.displayCount = this.getKeywords.length;
+      } else {
+        this.keywords.displayCount = this.defaultDisplayCount;
+      }
     }
   }
 }

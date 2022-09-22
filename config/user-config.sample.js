@@ -246,6 +246,9 @@ const glueConfig = {
       showPublisher: true,
       showDate: true
     },
+    keywords: {
+      showTitle: false
+    },
     description: {
       // If true, parses dataset description as Markdown formatted text content.
       enableMarkdownInterpretation: true,
