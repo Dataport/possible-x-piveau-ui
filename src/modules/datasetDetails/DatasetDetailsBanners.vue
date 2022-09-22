@@ -4,10 +4,12 @@
     <pv-banner
       v-if="dateIncorrect"
       message="This dataset's last updated date is incorrect or incomplete, please contact the data provider for further inquiries."
+      class="mb-3"
     />
     <pv-banner
       v-if="machineTranslated"
       :message="$t('message.datasetDetails.translation.message')"
+      class="mb-3"
     >
       <div v-if="showString(getOriginalLanguage)">
         <p class="mb-0">{{ $t('message.datasetDetails.translation.original') }}: <strong>{{ getOriginalLanguage }}</strong></p>
@@ -22,6 +24,12 @@
     <pv-banner
       v-if="translationNotAvailable"
       :message="$t('message.datasetDetails.translation.noTranslation')"
+      class="mb-3"
+    />
+    <pv-banner
+      v-if="translationNotAvailable"
+      :message="$t('message.datasetDetails.translation.noTranslation')"
+      class="mb-3"
     />
   </div>
 </template>
