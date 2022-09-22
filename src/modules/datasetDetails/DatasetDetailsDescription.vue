@@ -5,24 +5,31 @@
         v-if="$env.datasetDetails.description.enableMarkdownInterpretation"
         :text="truncate(getDatasetDescription, datasetDescriptionLength)"
       >
-        <template #after>
-          <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-            {{ $t('message.metadata.showMore') }}
-          </small>
-          <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-            {{ $t('message.metadata.showLess') }}
-          </small>
-        </template>
+<!--        <template #after>-->
+<!--          <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">-->
+<!--            {{ $t('message.metadata.showMore') }}-->
+<!--          </small>-->
+<!--          <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">-->
+<!--            {{ $t('message.metadata.showLess') }}-->
+<!--          </small>-->
+<!--        </template>-->
       </app-markdown-content>
       <p v-else style="word-wrap:break-word;">
         <span class="mr-2">{{ truncate(getDatasetDescription, datasetDescriptionLength) | stripHtml }}</span>
-        <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-          {{ $t('message.metadata.showMore') }}
-        </small>
-        <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-          {{ $t('message.metadata.showLess') }}
-        </small>
+<!--        <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">-->
+<!--          {{ $t('message.metadata.showMore') }}-->
+<!--        </small>-->
+<!--        <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">-->
+<!--          {{ $t('message.metadata.showLess') }}-->
+<!--        </small>-->
       </p>
+      <pv-show-more
+        v-if="isDatasetDescriptionExpanded || (datasetDescriptionLength < getDatasetDescriptionLength)"
+        :label="isDatasetDescriptionExpanded? 'Show less' : 'Show more'"
+        :upArrow="isDatasetDescriptionExpanded"
+        :action="toggleDatasetDescription"
+        class="row text-primary"
+      />
     </div>
     <div v-else class="col-10 offset-1 text-muted font-italic dsd-description-content">
       <p style="word-wrap:break-word;">
@@ -37,15 +44,16 @@ import AppMarkdownContent from "@/modules/datasetDetails/AppMarkdownContent";
 import filtersMixin from "@/modules/mixins/filters";
 import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
+import PvShowMore from "@/modules/widgets/PvShowMore";
 export default {
   name: "DatasetDetailsDescription",
-  components: {AppMarkdownContent},
+  components: {PvShowMore, AppMarkdownContent},
   mixins: [filtersMixin],
   data() {
     return {
       isDatasetDescriptionExpanded: false,
-      datasetDescriptionLength: 5000,
-      INITIAL_DATASET_DESCRIPTION_LENGTH: 5000,
+      datasetDescriptionLength: 1500,
+      INITIAL_DATASET_DESCRIPTION_LENGTH: 1500,
       MAX_DATASET_DESCRIPTION_LENGTH: 100000
     }
   },
