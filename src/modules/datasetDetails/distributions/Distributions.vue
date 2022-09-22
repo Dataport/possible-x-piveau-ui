@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-1">
+    <div class="mt-1 dsd-distributions">
       <div class="row">
         <div class="col-12 col-lg-11 offset-lg-1 d-flex justify-content-between align-items-center">
           <h2 :title="$t('message.tooltip.datasetDetails.distribution')"

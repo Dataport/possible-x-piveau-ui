@@ -1,34 +1,35 @@
 <template>
-  <div class="mt-5">
-    <div class="row">
+  <div class="mt-5 dsd-properties">
       <div class="col-12 mb-2">
         <div class="row">
-          <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
-               @click="toggleInfo()">
-              <span class="arrow text-dark"
-                    v-if="!infoVisible">
-                <i class="material-icons">keyboard_arrow_down</i>
-              </span>
-            <span class="arrow text-dark" v-else>
-                <i class="material-icons">keyboard_arrow_up</i>
-              </span>
+          <div class="w-100 d-flex heading">
+            <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
+                 @click="toggleInfo()">
+                <span class="arrow text-dark"
+                      v-if="!infoVisible">
+                  <i class="material-icons">keyboard_arrow_down</i>
+                </span>
+              <span class="arrow text-dark" v-else>
+                  <i class="material-icons">keyboard_arrow_up</i>
+                </span>
+            </div>
+            <div class="col-11 py-2 bg-white">
+              <h2
+                  data-cy="additional-information-toggle"
+                  @click="toggleInfo()">{{ $t('message.datasetDetails.additionalInfo') }}</h2>
+            </div>
+            <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"
+                 @click="toggleInfo()">
+                <span class="arrow text-dark"
+                      v-if="!infoVisible">
+                  <i class="material-icons">keyboard_arrow_down</i>
+                </span>
+              <span class="arrow text-dark" v-else>
+                  <i class="material-icons">keyboard_arrow_up</i>
+                </span>
+            </div>
           </div>
-          <div class="col-11 py-2 bg-white">
-            <h2 class="heading"
-                data-cy="additional-information-toggle"
-                @click="toggleInfo()">{{ $t('message.datasetDetails.additionalInfo') }}</h2>
-          </div>
-          <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"
-               @click="toggleInfo()">
-              <span class="arrow text-dark"
-                    v-if="!infoVisible">
-                <i class="material-icons">keyboard_arrow_down</i>
-              </span>
-            <span class="arrow text-dark" v-else>
-                <i class="material-icons">keyboard_arrow_up</i>
-              </span>
-          </div>
-          <div class="col-12 col-lg-11 offset-lg-1 bg-light"
+          <div class="col-12 col-lg-11 offset-lg-1 bg-light additional-information"
                data-cy="additional-information"
                v-show="infoVisible">
             <table class="table table-borderless table-responsive"  id="myTab" role="tablist">
@@ -583,7 +584,6 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -595,7 +595,7 @@ import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 
 export default {
-  name: "DatasetDetailsInfo",
+  name: "DatasetDetailsProperties",
   components: {Tooltip, AppLink},
   props: {
     filterDateFormatEU: Function,

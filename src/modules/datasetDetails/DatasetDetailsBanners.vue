@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100">
+  <div class="w-100 dsd-banners">
     <!-- INCORRECT DATE BANNER -->
     <pv-banner
       v-if="dateIncorrect"
@@ -21,11 +21,6 @@
         </app-link>
       </div>
     </pv-banner>
-    <pv-banner
-      v-if="translationNotAvailable"
-      :message="$t('message.datasetDetails.translation.noTranslation')"
-      class="mb-3"
-    />
     <pv-banner
       v-if="translationNotAvailable"
       :message="$t('message.datasetDetails.translation.noTranslation')"

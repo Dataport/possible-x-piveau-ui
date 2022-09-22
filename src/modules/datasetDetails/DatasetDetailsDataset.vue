@@ -1,83 +1,85 @@
 <template>
-  <div v-if="!loadingDatasetDetails">
+  <div>
     <resource-access-popup ref="externalResourceModal" />
     <span property="dc:issued" :content="getReleaseDate"></span>
     <span property="dc:modified" :content="getModificationDate"></span>
-    <dataset-details-banners
-      :dateIncorrect="dateIncorrect"
-      :machineTranslated="machineTranslated"
-      :translationNotAvailable="translationNotAvailable"
-    />
-    <dataset-details-description />
-    <distributions
-      :openModal="openModal"
-      :getDistributions="getDistributions"
-      :getCatalog="getCatalog"
-      :expandedDistributions="expandedDistributions"
-      :expandedDistributionDescriptions="expandedDistributionDescriptions"
-      :displayedDistributions="displayedDistributions"
-      :isDistributionsAllDisplayed="isDistributionsAllDisplayed"
-      :distributions="distributions"
-      :setDistributionsDisplayCount="setDistributionsDisplayCount"
-      :pages="pages"
-      :showDownloadUrls="showDownloadUrls"
-      :isOnlyOneUrl="isOnlyOneUrl"
-      :getDistributionFormat="getDistributionFormat"
-      :distributionFormatTruncated="distributionFormatTruncated"
-      :getDistributionTitle="getDistributionTitle"
-      :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
-      :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
-      :getDistributionDescription="getDistributionDescription"
-      :distributionIsExpanded="distributionIsExpanded"
-      :showNumber="showNumber"
-      :showObject="showObject"
-      :distributionCanShowMore="distributionCanShowMore"
-      :showOptionsDropdown="showOptionsDropdown"
-      :showDownloadDropdown="showDownloadDropdown"
-      :showLicence="showLicence"
-      :showLicensingAssistant="showLicensingAssistant"
-      :filterDateFormatEU="filterDateFormatEU"
-      :showArray="showArray"
-      :showObjectArray="showObjectArray"
-      :showVisualisationLink="showVisualisationLink"
-      :getVisualisationLink="getVisualisationLink"
-      :showGeoLink="showGeoLink"
-      :getDownloadUrl="getDownloadUrl"
-      :trackGoto="trackGoto"
-      :showAccessUrls="showAccessUrls"
-      :replaceHttp="replaceHttp"
-      :previewLinkCallback="previewLinkCallback"
-      :toggleDistribution="toggleDistribution"
-      :getGeoLink="getGeoLink"
-      :toggleDistributionDescription="toggleDistributionDescription"
-      :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
-      :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
-      :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
-      :isUrlInvalid="isUrlInvalid"
-      :openIfValidUrl="openIfValidUrl"
-      :showTooltipVisualiseButton="showTooltipVisualiseButton"
-    />
+    <div v-if="!loadingDatasetDetails" class="dsd-dataset">
+      <dataset-details-banners
+        :dateIncorrect="dateIncorrect"
+        :machineTranslated="machineTranslated"
+        :translationNotAvailable="translationNotAvailable"
+      />
+      <dataset-details-description />
+      <distributions
+        :openModal="openModal"
+        :getDistributions="getDistributions"
+        :getCatalog="getCatalog"
+        :expandedDistributions="expandedDistributions"
+        :expandedDistributionDescriptions="expandedDistributionDescriptions"
+        :displayedDistributions="displayedDistributions"
+        :isDistributionsAllDisplayed="isDistributionsAllDisplayed"
+        :distributions="distributions"
+        :setDistributionsDisplayCount="setDistributionsDisplayCount"
+        :pages="pages"
+        :showDownloadUrls="showDownloadUrls"
+        :isOnlyOneUrl="isOnlyOneUrl"
+        :getDistributionFormat="getDistributionFormat"
+        :distributionFormatTruncated="distributionFormatTruncated"
+        :getDistributionTitle="getDistributionTitle"
+        :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
+        :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
+        :getDistributionDescription="getDistributionDescription"
+        :distributionIsExpanded="distributionIsExpanded"
+        :showNumber="showNumber"
+        :showObject="showObject"
+        :distributionCanShowMore="distributionCanShowMore"
+        :showOptionsDropdown="showOptionsDropdown"
+        :showDownloadDropdown="showDownloadDropdown"
+        :showLicence="showLicence"
+        :showLicensingAssistant="showLicensingAssistant"
+        :filterDateFormatEU="filterDateFormatEU"
+        :showArray="showArray"
+        :showObjectArray="showObjectArray"
+        :showVisualisationLink="showVisualisationLink"
+        :getVisualisationLink="getVisualisationLink"
+        :showGeoLink="showGeoLink"
+        :getDownloadUrl="getDownloadUrl"
+        :trackGoto="trackGoto"
+        :showAccessUrls="showAccessUrls"
+        :replaceHttp="replaceHttp"
+        :previewLinkCallback="previewLinkCallback"
+        :toggleDistribution="toggleDistribution"
+        :getGeoLink="getGeoLink"
+        :toggleDistributionDescription="toggleDistributionDescription"
+        :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
+        :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
+        :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
+        :isUrlInvalid="isUrlInvalid"
+        :openIfValidUrl="openIfValidUrl"
+        :showTooltipVisualiseButton="showTooltipVisualiseButton"
+      />
 
-    <dataset-details-features
-      :getKeywords="getKeywords"
-      :pages="pages"
-      :increaseNumDisplayedPages="increaseNumDisplayedPages"
-      :nonOverflowingIncrementsForPages="nonOverflowingIncrementsForPages"
-      :showKeyword="showKeyword"
-      :trackGoto="trackGoto"
-      :showObjectArray="showObjectArray"
-      :showArray="showArray"
-      :showObject="showObject"
-    />
+      <dataset-details-features
+        :getKeywords="getKeywords"
+        :pages="pages"
+        :increaseNumDisplayedPages="increaseNumDisplayedPages"
+        :nonOverflowingIncrementsForPages="nonOverflowingIncrementsForPages"
+        :showKeyword="showKeyword"
+        :trackGoto="trackGoto"
+        :showObjectArray="showObjectArray"
+        :showArray="showArray"
+        :showObject="showObject"
+      />
 
-    <dataset-details-info
-      :filterDateFormatEU="filterDateFormatEU"
-      :showObjectArray="showObjectArray"
-      :showArray="showArray"
-      :showString="showString"
-      :showObject="showObject"
-      :showNumber="showNumber"
-    />
+      <dataset-details-properties
+        :filterDateFormatEU="filterDateFormatEU"
+        :showObjectArray="showObjectArray"
+        :showArray="showArray"
+        :showString="showString"
+        :showObject="showObject"
+        :showNumber="showNumber"
+      />
+    </div>
   </div>
 </template>
 
@@ -105,7 +107,7 @@
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
   import DatasetDetailsBanners from "@/modules/datasetDetails/DatasetDetailsBanners.vue";
   import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
-  import DatasetDetailsInfo from "@/modules/datasetDetails/DatasetDetailsInfo.vue";
+  import DatasetDetailsProperties from "@/modules/datasetDetails/DatasetDetailsProperties.vue";
   import DatasetDetailsExtendedMetaData
     from "@/modules/datasetDetails/features/DatasetDetailsIsUsedBy.vue";
   import DatasetDetailsFeatures from "@/modules/datasetDetails/features/DatasetDetailsFeatures.vue";
@@ -116,7 +118,7 @@
     components: {
       DatasetDetailsFeatures,
       DatasetDetailsExtendedMetaData,
-      DatasetDetailsInfo,
+      DatasetDetailsProperties,
       DatasetDetailsDescription,
       DatasetDetailsBanners,
       AppLink,

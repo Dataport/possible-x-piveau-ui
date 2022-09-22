@@ -1,35 +1,33 @@
 <template>
-  <div class="mt-1 mb-4" data-cy="dataset-description">
-    <div class="row">
-      <div v-if="getDatasetDescription !== 'No description available'" class="col-12 col-lg-11 offset-lg-1" property="dc:description">
-        <app-markdown-content
-          v-if="$env.datasetDetails.description.enableMarkdownInterpretation"
-          :text="truncate(getDatasetDescription, datasetDescriptionLength)"
-        >
-          <template #after>
-            <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-              {{ $t('message.metadata.showMore') }}
-            </small>
-            <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
-              {{ $t('message.metadata.showLess') }}
-            </small>
-          </template>
-        </app-markdown-content>
-        <p v-else style="word-wrap:break-word;">
-          <span class="mr-2">{{ truncate(getDatasetDescription, datasetDescriptionLength) | stripHtml }}</span>
+  <div class="row mt-4 mb-4 dsd-description" data-cy="dataset-description">
+    <div v-if="getDatasetDescription !== 'No description available'" class="col-12 col-lg-11 offset-lg-1 dsd-description-content" property="dc:description">
+      <app-markdown-content
+        v-if="$env.datasetDetails.description.enableMarkdownInterpretation"
+        :text="truncate(getDatasetDescription, datasetDescriptionLength)"
+      >
+        <template #after>
           <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
             {{ $t('message.metadata.showMore') }}
           </small>
           <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
             {{ $t('message.metadata.showLess') }}
           </small>
-        </p>
-      </div>
-      <div v-else class="col-10 offset-1 text-muted font-italic">
-        <p style="word-wrap:break-word;">
-          {{ $t('message.catalogsAndDatasets.noDescriptionAvailable') }}
-        </p>
-      </div>
+        </template>
+      </app-markdown-content>
+      <p v-else style="word-wrap:break-word;">
+        <span class="mr-2">{{ truncate(getDatasetDescription, datasetDescriptionLength) | stripHtml }}</span>
+        <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
+          {{ $t('message.metadata.showMore') }}
+        </small>
+        <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">
+          {{ $t('message.metadata.showLess') }}
+        </small>
+      </p>
+    </div>
+    <div v-else class="col-10 offset-1 text-muted font-italic dsd-description-content">
+      <p style="word-wrap:break-word;">
+        {{ $t('message.catalogsAndDatasets.noDescriptionAvailable') }}
+      </p>
     </div>
   </div>
 </template>

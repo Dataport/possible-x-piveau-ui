@@ -38,3 +38,77 @@ body {
     margin-bottom: 8px !important;
   }
 }
+
+.dsd-dataset {
+  display: block;
+}
+
+@media screen and (min-width: 992px) { // at least than lg
+  .dsd-dataset {
+    display: grid;
+    grid-template-columns: auto 30%;
+    grid-template-rows: auto 1fr auto auto;
+    grid-auto-flow: row dense;
+  }
+
+  .dsd-description {
+    order: 1;
+    grid-row: span 2;
+  }
+
+  .dsd-description-content {
+    margin-left: 0 !important;
+    padding-right: 40px !important;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  .dsd-properties {
+    order: 2;
+    .heading {
+      display: none !important;
+    }
+    .additional-information {
+      margin-left: 0 !important;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+
+  .dsd-banners {
+    order: 3;
+  }
+
+  .dsd-features {
+    order: 4;
+    grid-column: span 2;
+    margin-bottom: 3rem;
+  }
+
+  .dsd-distributions {
+    order: 5;
+    grid-column: span 2;
+  }
+
+}
+
+.dsd-banners {
+
+}
+
+.dsd-description {
+
+}
+
+.dsd-distributions {
+
+}
+
+.dsd-features {
+
+}
+
+.dsd-properties {
+
+}
+

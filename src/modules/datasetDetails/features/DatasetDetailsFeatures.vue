@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dsd-features">
     <dataset-details-keywords
       v-if="showObjectArray(getKeywords)"
       :sortAlphabetically="sortAlphabetically"
