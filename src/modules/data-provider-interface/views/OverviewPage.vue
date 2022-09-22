@@ -181,7 +181,7 @@
                         <!-- DISTRIBUTIONS TEMPORAL RESOLUTION -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:temporalResolution')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.temporalResolution') }} : {{ getDistributionProperty(distribution, 'dcat:temporalResolution', ['@value']) }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.temporalResolution') }} : {{ formatDatetime(getDistributionProperty(distribution, 'dcat:temporalResolution', ['@value'])) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS CONFORMS TO -->
@@ -582,7 +582,7 @@
               <tr v-if="showProperty('datasets', 'dcat:temporalResolution')">
                 <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.temporalResolution.label') }}</td>
                 <td v-if="showObjectValue('datasets', 'dcat:temporalResolution', '@value')">
-                  {{ getObjectString('datasets', 'dcat:temporalResolution', '@value') }}
+                  {{ formatDatetime(getObjectString('datasets', 'dcat:temporalResolution', '@value')) }}
                 </td>
               </tr>
 
@@ -769,6 +769,31 @@ export default {
     filterDateFormatEU(date) {
       return dateFilters.formatEU(date);
     },
+    formatDatetime(datetime) {
+      let date = datetime.split('T')[0].substr(1,);
+      let year, month, day;
+
+      year = date.split('Y')[0];
+      date = date.split('Y')[1];
+
+      month = this.addPrecedingZero(date.split('M')[0]);
+      date = date.split('M')[1];
+
+      day = this.addPrecedingZero(date.split('D')[0]);
+
+      let time = datetime.split('T')[1];
+      let hour, minute, second;
+
+      hour = this.addPrecedingZero(time.split('H')[0]);
+      time = time.split('H')[1];
+
+      minute = this.addPrecedingZero(time.split('M')[0]);
+      time = time.split('M')[1];
+
+      second = this.addPrecedingZero(time.split('S')[0]);
+
+      return `${hour}:${minute}:${second} - ${day}.${month}.${year}`;
+    },
     showString(property) {
       return isString(property) && !isNil(property);
     },
@@ -902,7 +927,7 @@ export default {
       });
     },
     addPrecedingZero(value) {
-      return parseInt(value, 10) < 10 ? 0 : '';
+      return `${parseInt(value, 10) < 10 ? 0 : ''}${parseInt(value, 10)}`;
     },
   },
   created() {
