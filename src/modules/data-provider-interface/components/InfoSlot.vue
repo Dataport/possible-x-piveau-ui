@@ -22,7 +22,10 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
+import {
+  isEmpty,
+} from 'lodash';
 const COLLAPSED_CLASS_NAME = 'collapsed';
 
 export default {
@@ -44,8 +47,18 @@ export default {
       default: false,
     },
   },
+  computed: {
+    ...mapGetters('dpiStore', [
+      'getData',
+    ]),
+    propertyIsEmpty() {
+      let data = this.getData(this.$route.params.property);
+      if (this.$route.params.property === 'distributions')  data = data[this.$route.params.id];
+      return isEmpty(data[this.context.name]);
+    },
+  },
   mounted() {
-    if (this.collapsed) {
+    if (this.collapsed && this.propertyIsEmpty) {
       this.toggleCollapse();
     }
   },

@@ -223,8 +223,6 @@ export default {
       path = `${this.$env.upload.basePath}/${this.property}/${firstStep}`;
     }
 
-    console.log(to);
-
     if (to.query.clear !== 'true' && !to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
       $('#mandatoryModal').modal({ show: true });
     } else {
