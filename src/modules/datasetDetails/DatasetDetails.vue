@@ -5,7 +5,7 @@
     && `dataset@${getRepresentativeLocaleOf(getTitle, $route.query.locale, getLanguages)}`"
   >
     <dataset-details-navigation v-if="!topTitle" :dataset-id="getID"/>
-    <div class="container-fluid mb-5 pt-1 content">
+    <div class="container-fluid mb-5 pt-1 content dsd-content">
       <dataset-details-header />
       <dataset-details-navigation v-if="topTitle" :dataset-id="getID"/>
       <hr v-if="!topTitle" />

@@ -12,6 +12,11 @@ body {
   margin-left: 0;
   margin-bottom: 16px;
   padding-left: 0;
+  padding-right: 0;
+}
+
+.dsd-header-title > h1 {
+  font-weight: bold !important;
 }
 
 .sub-navigation {
@@ -32,6 +37,14 @@ body {
   margin-right: 20px !important;
 }
 
+.dsd-content .sub-navigation {
+  box-shadow: none;
+}
+
+.dsd-dataset {
+  display: block;
+}
+
 @media screen and (max-width: 991px) { // less than lg
   .dsd-nav-button button {
     min-width: 200px !important;
@@ -39,11 +52,18 @@ body {
   }
 }
 
-.dsd-dataset {
-  display: block;
-}
+@media screen and (min-width: 992px) { // at least lg
 
-@media screen and (min-width: 992px) { // at least than lg
+  .dsd-nav-links {
+    display: flex;
+    flex: 0 0 30%;
+    ul {
+      border-bottom: 1px solid #ccc;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  }
+
   .dsd-dataset {
     display: grid;
     grid-template-columns: auto 30%;
@@ -65,6 +85,7 @@ body {
 
   .dsd-properties {
     order: 2;
+    margin-top: 1.5rem !important;
     .heading {
       display: none !important;
     }

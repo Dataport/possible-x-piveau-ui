@@ -3,15 +3,16 @@
   <div>
     <dataset-details-header-title />
     <div class="d-flex offset-lg-1 col-lg-10 mt-1 flex-nowrap justify-content-between dsd-header-info">
-      <dataset-details-header-catalogue />
+      <dataset-details-header-catalogue class="mr-2"/>
       <property-value
-        v-if="showPublisher && showObject(getPublisher)"
+        v-if="!hidePublisher && showObject(getPublisher)"
         :property="$t('message.metadata.publisher')"
         :tooltip="$t('message.tooltip.datasetDetails.publisher')"
         :value="getPublisherName"
+        class="mr-2"
       />
       <property-value
-        v-if="showDate"
+        v-if="!hideDate"
         :property="$t('message.metadata.updated')"
         :tooltip="$t('message.tooltip.datasetDetails.updated')"
         :value="getModificationDate"
@@ -49,8 +50,8 @@
     dependencies: 'DatasetService',
     data() {
       return {
-        showPublisher: this.$env.datasetDetails.header.showPublisher,
-        showDate: this.$env.datasetDetails.header.showDate,
+        hidePublisher: this.$env.datasetDetails.header.hidePublisher,
+        hideDate: this.$env.datasetDetails.header.hideDate,
       };
     },
     computed: {

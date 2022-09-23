@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-lg-10 offset-lg-1 dsd-header-title">
+  <div class="col-12 col-lg-10 offset-lg-1 mb-3 dsd-header-title">
       <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
   </div>
 </template>

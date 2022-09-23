@@ -1,6 +1,6 @@
 <template>
-  <nav>
-    <ul class="menu m-0 list-inline list-unstyled navbar-nav dsd-nav-links">
+  <nav class="dsd-nav-links">
+    <ul class="menu m-0 list-inline list-unstyled navbar-nav">
       <dataset-details-feedback-button></dataset-details-feedback-button>
       <div class="d-inline dropdown">
         <app-link class="nav-item nav-link dropdown-toggle text-nowrap" fragment="#" role="button" id="shareDatasetDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -81,6 +81,7 @@
           </button>
         </div>
       </div>
+      <hr />
     </ul>
     <dataset-citation-modal
       v-if="!getLoading && getID"

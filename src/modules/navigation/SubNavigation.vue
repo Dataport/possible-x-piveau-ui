@@ -4,7 +4,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <h1 class="d-inline-block d-lg-none col-10 col-md-11 title mb-0 text-break">{{ title }}</h1>
-    <div class="col-12 collapse navbar-collapse pl-0" id="subNavigation">
+    <div class="col-12 collapse navbar-collapse px-0" id="subNavigation">
       <slot/>
     </div>
   </nav>

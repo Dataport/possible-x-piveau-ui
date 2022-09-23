@@ -1,6 +1,6 @@
 <template>
     <div class="row mt-2 col-12 col-lg-11 offset-lg-1 dsd-keywords">
-      <span v-if="showTitle" class="mb-4 h2">Keywords ({{ getKeywords.length }})</span>
+      <span v-if="showTitle" class="mb-4 h4 font-weight-bold">Keywords ({{ getKeywords.length }})</span>
       <div class="keywords__item row w-100" id="keywordsItemsDiv">
           <span
             v-for='(keyword, i) in displayedKeywords'
