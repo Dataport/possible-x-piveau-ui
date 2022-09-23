@@ -94,7 +94,7 @@ You can/should replace the usage of this component when Vue Router supports exte
       trackLink() {
         /* eslint-disable */
         if (this.matomoTrackPageView) {
-          this.$piwik.trackPageView(`${window.location.origin}${this.path}`)
+          this.$piwik.trackPageView(`${window.location.origin}${this.path}`, '', {});
           /* eslint-disable */
          return;
         }
