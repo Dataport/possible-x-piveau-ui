@@ -360,7 +360,7 @@ export default {
         this.$Progress.finish();
 
         // Redirect to Home
-        this.$router.push({ name: 'Datasets', query: { locale: this.$route.query.locale }}).catch(() => {});
+        this.$router.push({ name: 'Datasets', query: { locale: this.$route.query.locale, refresh: true }}).catch(() => {});
       } catch (ex) {
         this.$Progress.fail();
 
