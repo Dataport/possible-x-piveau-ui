@@ -1,9 +1,9 @@
 <template>
   <div class="mt-5 dsd-properties">
-      <div class="col-12 mb-2">
-        <div class="row">
-          <div class="w-100 d-flex heading">
-            <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
+    <div class="col-12 mb-2 dsd-properties-list">
+      <div class="row">
+          <div class="w-100 d-flex heading dsd-item">
+            <div class="d-none d-lg-block my-auto pr-2 text-right"
                  @click="toggleInfo()">
                 <span class="arrow text-dark"
                       v-if="!infoVisible">
@@ -13,12 +13,12 @@
                   <i class="material-icons">keyboard_arrow_up</i>
                 </span>
             </div>
-            <div class="col-11 py-2 bg-white">
+            <div class="py-2 bg-white">
               <h2
                   data-cy="additional-information-toggle"
                   @click="toggleInfo()">{{ $t('message.datasetDetails.additionalInfo') }}</h2>
             </div>
-            <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"
+            <div class="d-block d-lg-none my-auto pr-0 text-right"
                  @click="toggleInfo()">
                 <span class="arrow text-dark"
                       v-if="!infoVisible">
@@ -29,10 +29,10 @@
                 </span>
             </div>
           </div>
-          <div class="col-12 col-lg-11 offset-lg-1 bg-light additional-information"
+          <div class="dsd-item additional-information"
                data-cy="additional-information"
                v-show="infoVisible">
-            <table class="table table-borderless table-responsive"  id="myTab" role="tablist">
+            <table class="table table-borderless table-responsive bg-light" ref="dsdProperties" id="myTab" role="tablist">
               <tr v-if="showArray(getLandingPagesResource)">
                 <td class="w-25 font-weight-bold">
                   <tooltip :title="$t('message.tooltip.datasetDetails.landingPage')">
@@ -583,7 +583,14 @@
             </table>
           </div>
         </div>
-      </div>
+    </div>
+    <pv-show-more
+      v-if="initialHeight > 300"
+      :label="expanded? 'Show less' : 'Show more'"
+      :upArrow="expanded"
+      :action="toggleExpanded"
+      class="row text-primary"
+    />
   </div>
 </template>
 
@@ -593,10 +600,11 @@ import {mapGetters} from "vuex";
 import {removeMailtoOrTel, truncate, appendCurrentLocaleToURL, getTranslationFor} from "@/modules/utils/helpers";
 import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
+import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsProperties",
-  components: {Tooltip, AppLink},
+  components: {PvShowMore, Tooltip, AppLink},
   props: {
     filterDateFormatEU: Function,
     showObjectArray: Function,
@@ -607,7 +615,9 @@ export default {
   },
   data() {
     return {
-      infoVisible: true
+      infoVisible: true,
+      initialHeight: 0,
+      expanded: false
     };
   },
   computed: {
@@ -675,7 +685,21 @@ export default {
     getAccrualPeriodicityLabel() {
       return (this.getAccrualPeriodicity && this.getAccrualPeriodicity.label)
         || this.getAccrualPeriodicity;
+    },
+    toggleExpanded() {
+      this.expanded = ! this.expanded;
+      this.adaptHeight();
+    },
+    adaptHeight() {
+      this.$refs.dsdProperties.style['flex'] = this.expanded ? "0 0 100%": "0 0 300px";
+      this.$refs.dsdProperties.style['max-height'] = this.expanded ? "100%": "300px";
+      // this.$refs.dsdProperties.style['overflow-y'] = this.expanded ? "auto": "hidden";
     }
+  },
+  mounted() {
+    this.initialHeight = this.$refs.dsdProperties.clientHeight;
+    console.log("THIS", this.initialHeight)
+    this.adaptHeight();
   }
 }
 </script>

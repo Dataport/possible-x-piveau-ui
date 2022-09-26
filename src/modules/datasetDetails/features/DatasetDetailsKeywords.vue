@@ -1,7 +1,7 @@
 <template>
-    <div class="row mt-2 col-12 col-lg-11 offset-lg-1 dsd-keywords">
+    <div class="row mt-2 flex-column dsd-item dsd-keywords">
       <span v-if="showTitle" class="mb-4 h4 font-weight-bold">Keywords ({{ getKeywords.length }})</span>
-      <div class="keywords__item row w-100" id="keywordsItemsDiv">
+      <div class="keywords__item row" id="keywordsItemsDiv">
           <span
             v-for='(keyword, i) in displayedKeywords'
             :content="keyword.title"

@@ -7,9 +7,9 @@
 // Import Piveau modules
 @import "~@piveau/piveau-hub-ui-modules/dist/scss/main.scss";
 
-///////////////// EC Restyling //
-@import 'ec-style';
-/////////////////////////////////
+.dsd-item {
+  @extend .col-12, .col-lg-11, .offset-lg-1
+}
 
 .mt-4 {
   margin-top: 30px !important;
@@ -23,3 +23,6 @@
   margin-bottom: 0 !important;
 }
 
+///////////////// EC Restyling //
+@import 'ec-style';
+/////////////////////////////////

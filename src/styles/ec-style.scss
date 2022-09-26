@@ -4,16 +4,59 @@
 
 body {
   font: normal normal 400 1rem/1.5rem arial,sans-serif;
+
+  --dsd-right-column-width: 40%;
 }
 
 // dataset details
 
-.dsd-header-info, .dsd-header-title, .dsd-keywords {
+.dsd-header-info, .dsd-header-title {
   margin-left: 0;
+  margin-right: 0;
   margin-bottom: 16px;
   padding-left: 0;
   padding-right: 0;
 }
+.dsd-content {
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .sub-navigation {
+    box-shadow: none;
+  }
+}
+
+.dsd-item {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 16px;
+  padding-left: 0;
+  padding-right: 0;
+  max-width: 100%;
+  flex: 0 0 100%;
+  h1, h2, h3, .h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .keywords__item {
+    margin-left: 0;
+    margin-right: 0;
+    span {
+      padding-left: 0 !important;
+      padding-right: 8px !important;
+    }
+  }
+}
+
+//.dsd-keywords {
+//  max-width: 100%;
+//  flex: 0 0 100%;
+//  .keywords__item {
+//    margin-left: 0;
+//    margin-right: 0;
+//  }
+//}
 
 .dsd-header-title > h1 {
   font-weight: bold !important;
@@ -37,10 +80,6 @@ body {
   margin-right: 20px !important;
 }
 
-.dsd-content .sub-navigation {
-  box-shadow: none;
-}
-
 .dsd-dataset {
   display: block;
 }
@@ -56,7 +95,7 @@ body {
 
   .dsd-nav-links {
     display: flex;
-    flex: 0 0 30%;
+    flex: 0 0 var(--dsd-right-column-width);
     ul {
       border-bottom: 1px solid #ccc;
       width: 100%;
@@ -66,7 +105,7 @@ body {
 
   .dsd-dataset {
     display: grid;
-    grid-template-columns: auto 30%;
+    grid-template-columns: auto var(--dsd-right-column-width);
     grid-template-rows: auto 1fr auto auto;
     grid-auto-flow: row dense;
   }
@@ -78,6 +117,7 @@ body {
 
   .dsd-description-content {
     margin-left: 0 !important;
+    padding-left: 0 !important;
     padding-right: 40px !important;
     flex: 0 0 100%;
     max-width: 100%;
@@ -91,8 +131,13 @@ body {
     }
     .additional-information {
       margin-left: 0 !important;
-      flex: 0 0 100%;
-      max-width: 100%;
+      margin-bottom: 0 !important;
+    }
+    > div {
+      padding: 0 !important;
+    }
+    table {
+      margin-bottom: 0 !important;
     }
   }
 
@@ -112,23 +157,4 @@ body {
   }
 }
 
-.dsd-banners {
-
-}
-
-.dsd-description {
-
-}
-
-.dsd-distributions {
-
-}
-
-.dsd-features {
-
-}
-
-.dsd-properties {
-
-}
 

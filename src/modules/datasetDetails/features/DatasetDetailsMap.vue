@@ -1,31 +1,33 @@
 <template>
   <div class="row mt-5">
-    <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
-         @click="toggleMap()">
-        <span class="arrow text-dark"
-              v-if="!mapVisible">
-          <i class="material-icons">keyboard_arrow_down</i>
-        </span>
-      <span class="arrow text-dark" v-else>
-          <i class="material-icons">keyboard_arrow_up</i>
-        </span>
+    <div class="row w-100 d-flex dsd-item">
+      <div class="d-none d-lg-block my-auto pr-0 text-right"
+           @click="toggleMap()">
+          <span class="arrow text-dark"
+                v-if="!mapVisible">
+            <i class="material-icons">keyboard_arrow_down</i>
+          </span>
+        <span class="arrow text-dark" v-else>
+            <i class="material-icons">keyboard_arrow_up</i>
+          </span>
+      </div>
+      <div class="col-11 py-2 bg-white">
+        <h2 class="heading"
+            data-cy="geo-info-toggle"
+            @click="toggleMap()">{{ $t('message.datasetDetails.geoInfo') }}</h2>
+      </div>
+      <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"
+           @click="toggleMap()">
+          <span class="arrow text-dark"
+                v-if="!mapVisible">
+            <i class="material-icons">keyboard_arrow_down</i>
+          </span>
+        <span class="arrow text-dark" v-else>
+            <i class="material-icons">keyboard_arrow_up</i>
+          </span>
+      </div>
     </div>
-    <div class="col-11 py-2 bg-white">
-      <h2 class="heading"
-          data-cy="geo-info-toggle"
-          @click="toggleMap()">{{ $t('message.datasetDetails.geoInfo') }}</h2>
-    </div>
-    <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"
-         @click="toggleMap()">
-        <span class="arrow text-dark"
-              v-if="!mapVisible">
-          <i class="material-icons">keyboard_arrow_down</i>
-        </span>
-      <span class="arrow text-dark" v-else>
-          <i class="material-icons">keyboard_arrow_up</i>
-        </span>
-    </div>
-    <div class="col-12 col-lg-11 offset-lg-1">
+    <div class="dsd-item">
       <div id="collapse-geo-info"
            ref="geocollapse"
            class="collapse show"
@@ -51,9 +53,6 @@ import {mapGetters} from "vuex";
 export default {
   name: "DatasetDetailsMap",
   components: {MapBasic},
-  props: {
-    getSpatial: Array
-  },
   data() {
     return {
       mapVisible: true,
