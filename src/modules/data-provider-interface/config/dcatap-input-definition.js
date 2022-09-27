@@ -843,6 +843,7 @@ const dcatapProperties = {
           data: {
             url: [
               {
+                identifier: 'accessUrlLink',
                 type: 'url',
                 name: '@id',
                 '@change': true,
@@ -851,6 +852,7 @@ const dcatapProperties = {
             ],
             file: [
               {
+                identifier: 'accessUrlFile',
                 type: 'fileupload',
                 name: '@id',
                 '@change': true,

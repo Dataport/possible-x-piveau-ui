@@ -151,705 +151,499 @@
                 "information": "Information"
             },
             "datasets": {
-                "step2": {
-                    "isReferencedBy": {
-                        "add-label": "Add Is Referenced By",
-                        "placeholder": "Dataset Is Referenced By placeholder text",
-                        "help": "This property is about a related resource.",
-                        "info": "This property is about a related resource, such as a publication, that references, cites, or otherwise points to the dataset.",
-                        "label": "Is Referenced By"
-                    },
-                    "contactPointAddressCity": {
-                        "placeholder": "Dataset Contact Point Address City placeholder text",
-                        "label": "Address City"
-                    },
-                    "source": {
-                        "label": "Source",
-                        "help": "Dataset from which the described Dataset is derived.",
-                        "info": "This property refers to a related Dataset from which the described Dataset is derived.",
-                        "placeholder": "Dataset Source placeholder text",
-                        "add-label": "Add Source"
-                    },
-                    "type": {
-                        "label": "Type",
-                        "help": "This property refers to the type of the Dataset.",
-                        "info": "This property refers to the type of the Dataset.",
-                        "placeholder": "Dataset Type placeholder text"
-                    },
-                    "pageUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset Page Url placeholder text"
-                    },
-                    "admsIdentifierSkosNotation": {
-                        "help": "Datasets adms:Identifier Scheme help text",
-                        "label": "Scheme"
-                    },
-                    "spatialPlace": {
-                        "placeholder": "Dataset Spatial Place placeholder text",
-                        "label": "Place"
-                    },
-                    "subject": {
-                        "label": "Subject",
-                        "help": "A category of the Dataset.",
-                        "info": "This property refers to a category of the Dataset. A Dataset may be associated with multiple themes."
-                    },
-                    "qualifiedRelationUrl": {
-                        "placeholder": "Dataset Qualified Relation Url placeholder text",
-                        "label": "Url"
-                    },
-                    "accrualPeriodicity": {
-                        "info": "This property refers to the frequency at which the Dataset is updated.",
-                        "label": "Accrual Periodicity",
-                        "placeholder": "Dataset Accrual Periodicity placeholder text",
-                        "help": "This property refers to the frequency at which the Dataset is updated."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset Is Referenced By Url placeholder text"
-                    },
-                    "versionNotes": {
-                        "placeholder": "Dataset Version Notes placeholder text",
-                        "label": "Version Notes",
-                        "help": "Description of changes between this version and the previous version of the dataset.",
-                        "info": "This property contains a description of the differences between this version and a previous version of the Dataset. This property can be repeated for parallel language versions of the version notes.",
-                        "add-label": "Add Version Notes in another language"
-                    },
-                    "contactPointAddressStreet": {
-                        "label": "Address Street",
-                        "placeholder": "Dataset Contact Point Address Street placeholder text"
-                    },
-                    "relationUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset Relation Url placeholder text"
-                    },
-                    "isVersionOfUrl": {
-                        "placeholder": "Dataset Is Version Of Url placeholder text",
-                        "label": "Url"
-                    },
-                    "conformsTo": {
-                        "label": "Conforms To",
-                        "help": "This property refers to an implementing rule or other specification.",
-                        "info": "This property refers to an implementing rule or other specification.",
-                        "placeholder": "Dataset Conforms To placeholder text",
-                        "add-label": "Add Conforms To"
-                    },
-                    "pageFormat": {
-                        "placeholder": "Dataset Page Format placeholder text",
-                        "label": "Format"
-                    },
-                    "qualifiedAttributionUrl": {
-                        "placeholder": "Dataset Qualified Attribution Url placeholder text",
-                        "label": "Url"
-                    },
-                    "isVersionOf": {
-                        "add-label": "Add Is Version Of",
-                        "help": "Dataset is a version, edition, or adaptation.",
-                        "label": "Is Version Of",
-                        "info": "This property refers to a related Dataset of which the described Dataset is a version, edition, or adaptation.",
-                        "placeholder": "Dataset Is Version Of placeholder text"
-                    },
-                    "relation": {
-                        "placeholder": "Dataset Relation placeholder text",
-                        "add-label": "Add Relation",
-                        "help": "This property refers to a related resource.",
-                        "info": "This property refers to a related resource.",
-                        "label": "Relation"
-                    },
-                    "provenance": {
-                        "label": "Provenance",
-                        "help": "This property contains a statement about the lineage of a Dataset.",
-                        "add-label": "Add Provenance",
-                        "info": "This property contains a statement about the lineage of a Dataset.",
-                        "placeholder": "Dataset Provenance placeholder text"
-                    },
-                    "language": {
-                        "help": "The language coverage of this dataset.",
-                        "info": "The language coverage of this dataset.",
-                        "placeholder": "Dataset Language placeholder text",
-                        "label": "Language"
-                    },
-                    "spatialContinent": {
-                        "placeholder": "Dataset Spatial Continent placeholder text",
-                        "label": "Continent"
-                    },
-                    "spatialResolutionInMeters": {
-                        "help": "Minimum spatial separation resolvable in a dataset.",
-                        "info": "This property refers to the minimum spatial separation resolvable in a dataset, measured in meters.",
-                        "label": "Spatial Resolution in Meters",
-                        "placeholder": "Dataset Spatial Resolution In Meters placeholder text"
-                    },
-                    "qualifiedAttribution": {
-                        "add-label": "Add Qualified Attribution",
-                        "help": "Link to an Agent having some form of responsibility for the resource",
-                        "info": "This property refers to a link to an Agent having some form of responsibility for the resource",
-                        "label": "Qualified Attribution",
-                        "placeholder": "Dataset Qualified Attribution placeholder text"
-                    },
-                    "temporal": {
-                        "help": "This property refers to a temporal period that the Dataset covers.",
-                        "info": "This property refers to a temporal period that the Dataset covers.",
-                        "add-label": "Add Temporal",
-                        "label": "Temporal",
-                        "placeholder": "Dataset Temporal placeholder text"
-                    },
-                    "temporalResolutionYear": {
-                        "placeholder": "Dataset Temporal Resolution Year placeholder text",
-                        "label": "Temporal Resolution Year"
-                    },
-                    "admsIdentifier": {
-                        "add-label": "Add another adms:Identifier",
-                        "label": "adms:Identifier",
-                        "help": "An identifier in a particular context, consisting of the string that is the identifier.",
-                        "info": "An identifier in a particular context, consisting of the string that is the identifier; an optional identifier for the identifier scheme; an optional identifier for the version of the identifier scheme; an optional identifier for the agency that manages the identifier scheme"
-                    },
-                    "accessRights": {
-                        "help": "Dataset Access Rights.",
-                        "info": "This property refers to information that indicates whether the Dataset is open data, has access restrictions or is not public.",
-                        "label": "Access Rights",
-                        "placeholder": "Dataset Access Rights placeholder text"
-                    },
-                    "pageDescription": {
-                        "label": "Description",
-                        "placeholder": "Dataset Page Description placeholder text"
-                    },
-                    "identifier": {
-                        "add-label": "Add Identifier",
-                        "placeholder": "Dataset Identifier placeholder text",
-                        "label": "Identifier",
-                        "help": "This property contains the main identifier for the Dataset.",
-                        "info": "This property contains the main identifier for the Dataset, e.g. the URI or other unique identifier in the context of the Catalogue."
-                    },
-                    "creatorName": {
-                        "placeholder": "Dataset Creator Name placeholder text",
-                        "label": "Name"
-                    },
-                    "hasVersionUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset Has Version Url placeholder text"
-                    },
-                    "versionInfo": {
-                        "label": "Version Info",
-                        "placeholder": "Dataset Version Info placeholder text",
-                        "help": "Version number of the Dataset.",
-                        "info": "This property contains a version number or other version designation of the Dataset."
-                    },
-                    "theme": {
-                        "label": "Theme",
-                        "placeholder": "Dataset Theme placeholder text",
-                        "help": "The EuroVoc Domains for this dataset.",
-                        "info": "The values to be used for this property are the URIs of the concepts in the vocabulary."
-                    },
-                    "hasVersion": {
-                        "placeholder": "Dataset Has Version placeholder text",
-                        "help": "That is a version, edition, or adaptation of the described Dataset.",
-                        "info": "This property refers to a related Dataset that is a version, edition, or adaptation of the described Dataset.",
-                        "add-label": "Add Has Version",
-                        "label": "Has Version"
-                    },
-                    "temporalResolution": {
-                        "label": "Temporal Resolution",
-                        "help": "The minimum time period resolvable in the dataset.",
-                        "info": "This property refers to the minimum time period resolvable in the dataset.",
-                        "placeholder": "Dataset Temporal Resolution placeholder text"
-                    },
-                    "wasGeneratedBy": {
-                        "label": "Was Generated By",
-                        "add-label": "Add Was Generated By",
-                        "placeholder": "Dataset Was Generated By placeholder text",
-                        "help": "This property refers to an activity that generated.",
-                        "info": "This property refers to an activity that generated, or provides the business context for, the creation of the dataset."
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Dataset Temporal Resolution Hour placeholder text",
-                        "label": "Temporal Resolution Hour"
-                    },
-                    "qualifiedRelation": {
-                        "help": "This property provides a link to a description of a relationship with another resource",
-                        "info": "This property provides a link to a description of a relationship with another resource",
-                        "label": "Qualified Relation",
-                        "add-label": "Add Qualified Relation",
-                        "placeholder": "Dataset Qualified Relation placeholder text"
-                    },
-                    "pageTitle": {
-                        "placeholder": "Dataset Page Title placeholder text",
-                        "label": "Title"
-                    },
-                    "landingPageUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset Landing Page Url placeholder text"
-                    },
-                    "conformsToTitle": {
-                        "placeholder": "Dataset Conforms To Title placeholder text",
-                        "label": "Title"
-                    },
-                    "conformsToUrl": {
-                        "placeholder": "Dataset Conforms To Url placeholder text",
-                        "label": "Url"
-                    },
-                    "landingPage": {
-                        "help": "This property refers to a web page that provides access to the Dataset.",
-                        "info": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information. It is intended to point to a landing page at the original data provider, not to a page on a site of a third party, such as an aggregator.",
-                        "label": "Landing Page",
-                        "placeholder": "Dataset Landing Page placeholder text",
-                        "add-label": "Add Landing Page"
-                    },
-                    "creatorType": {
-                        "label": "Type",
-                        "placeholder": "Dataset Creator Type placeholder text"
-                    },
-                    "contactPointAddressPostcode": {
-                        "label": "Address Postcode",
-                        "placeholder": "Dataset Contact Point Address Postcode placeholder text"
-                    },
-                    "contactPointTelephone": {
-                        "label": "Telephone",
-                        "placeholder": "Dataset Contact Point Telephone placeholder text"
-                    },
-                    "spatial": {
-                        "placeholder": "Dataset Spatial placeholder text",
-                        "help": "A geographic region that is covered by the Dataset.",
-                        "info": "This property refers to a geographic region that is covered by the Dataset.",
-                        "label": "Spatial"
-                    },
-                    "page": {
-                        "label": "Page",
-                        "help": "Page or document about this Dataset.",
-                        "placeholder": "Dataset Page placeholder text",
-                        "info": "This property refers to a page or document about this Dataset.",
-                        "add-label": "Add Page"
-                    },
-                    "temporalResolutionMonth": {
-                        "placeholder": "Dataset Temporal Resolution Month placeholder text",
-                        "label": "Temporal Resolution Month"
-                    },
-                    "temporalResolutionSecond": {
-                        "placeholder": "Dataset Temporal Resolution Second placeholder text",
-                        "label": "Temporal Resolution Second"
-                    },
-                    "identifierText": {
-                        "placeholder": "Dataset Identifier Text placeholder text",
-                        "label": "Text"
-                    },
-                    "contactPointAddressCountry": {
-                        "label": "Address Country",
-                        "placeholder": "Dataset Contact Point Address Country placeholder text"
-                    },
-                    "contactPointName": {
-                        "placeholder": "Dataset Contact Point Name placeholder text",
-                        "label": "Name"
-                    },
-                    "isUsedBy": {
-                        "help": "This property refers to an application or other work that uses the Dataset in any form.",
-                        "label": "Is Used By",
-                        "info": "Dataset Is Used By info text",
-                        "placeholder": "Dataset Is Used By placeholder text",
-                        "add-label": "Add Is Used By"
-                    },
-                    "contactPointType": {
-                        "label": "Type",
-                        "placeholder": "Dataset Contact Point Type placeholder text"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Dataset Temporal Resolution Minute placeholder text",
-                        "label": "Temporal Resolution Minute"
-                    },
-                    "sourceUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset Source Url placeholder text"
-                    },
-                    "spatialCountry": {
-                        "label": "Country",
-                        "placeholder": "Dataset Spatial Country placeholder text"
-                    },
-                    "creatorEmail": {
-                        "label": "Email",
-                        "placeholder": "Dataset Creator Email placeholder text"
-                    },
-                    "contactPointEmail": {
-                        "label": "Email",
-                        "placeholder": "Dataset Contact Point Email placeholder text"
-                    },
-                    "contactPointAddress": {
-                        "label": "Contact Point Address",
-                        "help": "Dataset Contact Point Address help text"
-                    },
-                    "admsIdentifierUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset adms:Identifier Url placeholder text"
-                    },
-                    "temporalStart": {
-                        "label": "Start"
-                    },
-                    "contactPointOrganisationName": {
-                        "placeholder": "Dataset Contact Point Organisation Name placeholder text",
-                        "label": "Organisation Name"
-                    },
-                    "creator": {
-                        "help": "This property refers to the entity responsible for producing the dataset.",
-                        "add-label": "Add Creator",
-                        "info": "This property refers to the entity responsible for producing the dataset.",
-                        "label": "Creator"
-                    },
-                    "contactPoint": {
-                        "label": "Contact Point",
-                        "placeholder": "Dataset Contact Point placeholder text",
-                        "add-label": "Add Contact Point",
-                        "help": "This property contains contact information.",
-                        "info": "This property contains contact information that can be used for sending comments about the Dataset."
-                    },
-                    "admsIdentifierValue": {
-                        "placeholder": "Dataset adms:Identifier Identifier placeholder text",
-                        "label": "Identifier"
-                    },
-                    "temporalEnd": {
-                        "label": "End"
-                    },
-                    "contactPointUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset Contact Point Url placeholder text"
-                    },
-                    "temporalResolutionDay": {
-                        "label": "Temporal Resolution Day",
-                        "placeholder": "Dataset Temporal Resolution Day placeholder text"
-                    },
-                    "creatorHomepage": {
-                        "placeholder": "Dataset Creator Homepage placeholder text",
-                        "label": "Homepage"
-                    },
-                    "admsIdentifierType": {
-                        "label": "Type"
-                    },
-                    "admsIdentifierCheckbox": {
-                        "label": "adms:Identifier Checkbox"
-                    },
-                    "wasGeneratedByUrl": {
-                        "label": "Url",
-                        "placeholder": "Dataset Was Generated By Url placeholder text"
-                    },
-                    "provenanceText": {
-                        "label": "Text",
-                        "placeholder": "Dataset Provenance Text placeholder text"
-                    },
-                    "schemeIdentifier": {
-                        "label": "Scheme Identifier"
-                    }
+                "isReferencedBy": {
+                    "add-label": "Add Is Referenced By",
+                    "placeholder": "Dataset Is Referenced By placeholder text",
+                    "help": "This property is about a related resource.",
+                    "info": "This property is about a related resource, such as a publication, that references, cites, or otherwise points to the dataset.",
+                    "label": "Is Referenced By"
                 },
-                "step1": {
-                    "description": {
-                        "label": "Description",
-                        "add-label": "Add Description in another language",
-                        "placeholder": "Dataset Description placeholder text",
-                        "help": "The main description of the dataset.",
-                        "info": "The main description of the dataset. It is often displayed with the package title. In particular, it should start with a short sentence that describes the data set succinctly, because the first few words alone may be used in some views of the data sets."
-                    },
-                    "publisherType": {
-                        "label": "Type",
-                        "placeholder": "Dataset Publisher Type placeholder text"
-                    },
-                    "title": {
-                        "add-label": "Add Title in another language",
-                        "placeholder": "Dataset Title placeholder text",
-                        "help": "A short descriptive title for the data set.",
-                        "info": "A short descriptive title for the data set. It should not be a description though - save that for the Description field. Do not give a trailing full stop. Do not use allcaps.",
-                        "label": "Title"
-                    },
-                    "datasetID": {
-                        "help": "This property contains the main identifier for the Dataset.",
-                        "info": "This property contains the main identifier for the Dataset, e.g. the URI or other unique identifier in the context of the Catalogue.",
-                        "label": "Dataset ID"
-                    },
-                    "publisherName": {
-                        "placeholder": "Dataset Publisher Name placeholder text",
-                        "label": "Name"
-                    },
-                    "keyword": {
-                        "add-label": "Add Keyword",
-                        "help": "Comma-separated terms that may link this dataset to similar ones.",
-                        "placeholder": "Dataset Keyword placeholder text",
-                        "info": "Comma-separated terms that may link this dataset to similar ones. Keywords must be lowercase alphanumeric characters or symbols: -_. Words in phrases should be connected with a hyphen. e.g. pollution, rivers, water-quality",
-                        "label": "Keyword"
-                    },
-                    "modified": {
-                        "label": "Modified",
-                        "help": "Most recent date on which the dataset was changed, updated or modified.",
-                        "info": "Most recent date on which the dataset was changed, updated or modified. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
-                        "placeholder": "Dataset Modified placeholder text"
-                    },
-                    "publisher": {
-                        "help": "An entity, such as a person, organisation, or service, that is responsible for making the dataset available.",
-                        "add-label": "Add Publisher in another language",
-                        "info": "An entity, such as a person, organisation, or service, that is responsible for making the dataset available.",
-                        "placeholder": "Dataset Publisher placeholder text",
-                        "label": "Publisher"
-                    },
-                    "datetime": {
-                        "label": "Datetime"
-                    },
-                    "catalog": {
-                        "placeholder": "Dataset Catalog placeholder text",
-                        "help": "The catalog of the dataset.",
-                        "label": "Catalog",
-                        "info": "The catalog of the dataset."
-                    },
-                    "issued": {
-                        "placeholder": "Dataset Issued placeholder text",
-                        "label": "Issued",
-                        "help": "Date of formal issuance (e.g., publication) of the dataset. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
-                        "info": "This property contains the date of formal issuance (e.g., publication) of the Dataset."
-                    },
-                    "language": {
-                        "placeholder": "Dataset Language placeholder text",
-                        "label": "Language",
-                        "help": "The language coverage of this dataset.",
-                        "info": "The language coverage of this dataset."
-                    },
-                    "publisherEmail": {
-                        "placeholder": "Dataset Publisher Email placeholder text",
-                        "label": "Email"
-                    },
-                    "publisherHomepage": {
-                        "label": "Homepage",
-                        "placeholder": "Dataset Publisher Homepage placeholder text"
-                    },
-                    "date": {
-                        "label": "Date"
-                    }
+                "contactPointAddressCity": {
+                    "placeholder": "Dataset Contact Point Address City placeholder text",
+                    "label": "Address City",
+                    "help": "The city of the contact point's address"
                 },
-                "step3": {
-                    "temporalResolution": {
-                        "help": "The minimum time period resolvable in the dataset distribution.",
-                        "info": "This property refers to the minimum time period resolvable in the dataset distribution.",
-                        "placeholder": "Distribution Temporal Resolution placeholder text",
-                        "label": "Temporal Resolution",
-                        "add-label": "Add Temporal Resolution"
-                    },
-                    "spatialResolutionInMeters": {
-                        "help": "Minimum spatial separation resolvable in a dataset.",
-                        "info": "This property refers to the minimum spatial separation resolvable in a dataset, measured in meters.",
-                        "placeholder": "Distribution Spatial Resolution In Meters placeholder text",
-                        "label": "Spatial Resolution In Meters"
-                    },
-                    "compressFormat": {
-                        "placeholder": "Distribution Compress Format placeholder text",
-                        "help": "The format of the file in which the data is contained in a compressed form.",
-                        "info": "This property refers to the format of the file in which the data is contained in a compressed form, e.g. to reduce the size of the downloadable file. It SHOULD be expressed using a media type as defined in the official register of media types managed by IANA.",
-                        "label": "Compress Format"
-                    },
-                    "mediaType": {
-                        "placeholder": "Distribution Media Type placeholder text",
-                        "help": "The format of the file in which the data is contained in a compressed form.",
-                        "info": "This property refers to the format of the file in which the data is contained in a compressed form, e.g. to reduce the size of the downloadable file. It SHOULD be expressed using a media type as defined in the official",
-                        "label": "Media Type"
-                    },
-                    "pageTitle": {
-                        "label": "Title",
-                        "placeholder": "Distribution Page Title placeholder text"
-                    },
-                    "language": {
-                        "placeholder": "Distribution Language placeholder text",
-                        "label": "Language",
-                        "help": "A language used in the Distribution.",
-                        "info": "This property refers to a language used in the Distribution. This property can be repeated if the metadata is provided in multiple languages."
-                    },
-                    "packageFormat": {
-                        "placeholder": "Distribution Package Format placeholder text",
-                        "help": "The format of the file in which one or more data files are grouped together.",
-                        "info": "This property refers to the format of the file in which one or more data files are grouped together, e.g. to enable a set of related files to be downloaded together. It SHOULD be expressed using a media type as defined in the official register of media types managed by IANA.",
-                        "label": "Package Format"
-                    },
-                    "title": {
-                        "placeholder": "Distribution Title placeholder text",
-                        "help": "This property contains a name given to the Distribution.",
-                        "info": "This property contains a name given to the Distribution. This property can be repeated for parallel language versions of the description.",
-                        "add-label": "Add Title in another language",
-                        "label": "Title"
-                    },
-                    "licenceDescription": {
-                        "label": "Licence Description",
-                        "placeholder": "Catalogue Licence Description placeholder text"
-                    },
-                    "checksumAlgorithm": {
-                        "label": "Checksum Algorithm"
-                    },
-                    "status": {
-                        "help": "The status of the distribution in the context of maturity lifecycle.",
-                        "info": "the status of the distribution in the context of maturity lifecycle. It MUST take one of the values Completed, Deprecated, Under Development, Withdrawn.",
-                        "label": "Status",
-                        "placeholder": "Distribution Status placeholder text"
-                    },
-                    "downloadUrl": {
-                        "placeholder": "Distribution Download Url placeholder text",
-                        "help": "Direct link to a downloadable file in a given format.",
-                        "info": "This property contains a URL that is a direct link to a downloadable file in a given format.",
-                        "label": "Download Url"
-                    },
-                    "checksum": {
-                        "help": "The checksum is related to the downloadURL.",
-                        "info": "This property provides a mechanism that can be used to verify that the contents of a distribution have not changed. The checksum is related to the downloadURL.",
-                        "placeholder": "Distribution Checksum placeholder text",
-                        "label": "Checksum"
-                    },
-                    "licenceTitle": {
-                        "placeholder": "Catalogue Licence Title placeholder text",
-                        "label": "Licence Title"
-                    },
-                    "type": {
-                        "label": "Type",
-                        "help": "The media type of the Distribution.",
-                        "info": "This property refers to the media type of the Distribution as defined in the official register of media types managed by IANA."
-                    },
-                    "hasPolicyUrl": {
-                        "label": "Url",
-                        "placeholder": "Distribution Has Policy Url placeholder text"
-                    },
-                    "accessServiceDescription": {
-                        "add-label": "Add Data Service Description in another language",
-                        "label": "Data Service Description"
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Dataset Temporal Resolution Day placeholder text",
-                        "label": "Temporal Resolution Day"
-                    },
-                    "page": {
-                        "placeholder": "Distribution Page placeholder text",
-                        "add-label": "Add Page",
-                        "label": "Page",
-                        "help": "A page or document about this Distribution.",
-                        "info": "This property refers to a page or document about this Distribution."
-                    },
-                    "accessService": {
-                        "help": "A data service that gives access to the distribution of the dataset",
-                        "info": "This property refers to a data service that gives access to the distribution of the dataset.",
-                        "add-label": "Add another Data Service",
-                        "label": "Data Service"
-                    },
-                    "availability": {
-                        "help": "How long it is planned to keep the Distribution of the Dataset available.",
-                        "info": "This property indicates how long it is planned to keep the Distribution of the Dataset available.",
-                        "placeholder": "Distribution Availability placeholder text",
-                        "label": "Availability"
-                    },
-                    "conformsToTitle": {
-                        "placeholder": "Distribution Conforms To Title placeholder text",
-                        "label": "Title"
-                    },
-                    "rights": {
-                        "label": "Rights",
-                        "placeholder": "Distribution Rights placeholder text",
-                        "help": "This property refers to a statement that specifies rights associated with the Distribution.",
-                        "info": "This property refers to a statement that specifies rights associated with the Distribution."
-                    },
-                    "format": {
-                        "placeholder": "Distribution Format placeholder text",
-                        "help": "The file format of the Distribution.",
-                        "info": "This property refers to the file format of the Distribution.",
-                        "label": "Format"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Distribution Conforms To placeholder text",
-                        "help": "An established schema to which the described Distribution conforms.",
-                        "info": "This property refers to an established schema to which the described Distribution conforms.",
-                        "label": "Conforms To",
-                        "add-label": "Add Conforms To"
-                    },
-                    "pageDescription": {
-                        "placeholder": "Distribution Page Description placeholder text",
-                        "label": "Description"
-                    },
-                    "accessServiceTitle": {
-                        "add-label": "Add Data Service Title in another language",
-                        "label": "Data Service Title"
-                    },
-                    "issued": {
-                        "placeholder": "Distribution Issued placeholder text",
-                        "help": "The date of formal issuance (e.g., publication) of the Distribution.",
-                        "info": "This property contains the date of formal issuance (e.g., publication) of the Distribution.",
-                        "label": "Issued"
-                    },
-                    "licenceURL": {
-                        "placeholder": "Catalogue Licence URL placeholder text",
-                        "label": "Licence URL"
-                    },
-                    "modified": {
-                        "label": "Modified",
-                        "placeholder": "Distribution Modified placeholder text",
-                        "help": "Date on which the Distribution was changed or modified.",
-                        "info": "This property contains the most recent date on which the Distribution was changed or modified."
-                    },
-                    "description": {
-                        "add-label": "Add Description in another language",
-                        "help": "This property contains a free-text account of the Distribution.",
-                        "info": "This property contains a free-text account of the Distribution. This property can be repeated for parallel language versions of the description.",
-                        "placeholder": "Distribution Description placeholder text",
-                        "label": "Description"
-                    },
-                    "datetime": {
-                        "label": "Datetime"
-                    },
-                    "temporalResolutionYear": {
-                        "placeholder": "Dataset Temporal Resolution Year placeholder text",
-                        "label": "Temporal Resolution Year"
-                    },
-                    "hasPolicy": {
-                        "add-label": "Add Has Policy",
-                        "help": "The policy expressing the rights.",
-                        "info": "This property refers to the policy expressing the rights associated with the distribution if using the ODRL vocabulary",
-                        "label": "Has Policy"
-                    },
-                    "byteSize": {
-                        "placeholder": "Distribution Byte Size placeholder text",
-                        "help": "The size of a Distribution in bytes.",
-                        "info": "This property contains the size of a Distribution in bytes.",
-                        "label": "Byte Size"
-                    },
-                    "temporalResolutionMonth": {
-                        "placeholder": "Dataset Temporal Resolution Month placeholder text",
-                        "label": "Temporal Resolution Month"
-                    },
-                    "accessUrl": {
-                        "help": "This property contains a URL that gives access to a Distribution of the Dataset.",
-                        "info": "This property contains a URL that gives access to a Distribution of the Dataset. The resource at the access URL may contain information about how to get the Dataset.",
-                        "label": "Access Url",
-                        "placeholder": "Distribution Access Url placeholder text",
-                        "add-label": "Add Access Url"
-                    },
-                    "temporalResolutionMinute": {
-                        "label": "Temporal Resolution Minute",
-                        "placeholder": "Dataset Temporal Resolution Minute placeholder text"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Dataset Temporal Resolution Hour placeholder text",
-                        "label": "Temporal Resolution Hour"
-                    },
-                    "temporalResolutionSecond": {
-                        "label": "Temporal Resolution Second",
-                        "placeholder": "Dataset Temporal Resolution Second placeholder text"
-                    },
-                    "pageUrl": {
-                        "placeholder": "Distribution Page Url placeholder text",
-                        "label": "Url"
-                    },
-                    "pageFormat": {
-                        "label": "Format",
-                        "placeholder": "Distribution Page Format placeholder text"
-                    },
-                    "licence": {
-                        "help": "The licence under which the Distribution is made available.",
-                        "label": "Licence",
-                        "placeholder": "Distribution Licence placeholder text",
-                        "info": "This property refers to the licence under which the Distribution is made available."
-                    },
-                    "accessServiceEndpointURL": {
-                        "placeholder": "Distribution Data Service Endpoint URL placeholder text",
-                        "label": "Data Service Endpoint URL"
-                    },
-                    "conformsToUrl": {
-                        "placeholder": "Distribution Conforms To Url placeholder text",
-                        "label": "Url"
-                    },
-                    "date": {
-                        "label": "Date"
-                    }
+                "source": {
+                    "label": "Source",
+                    "help": "Dataset from which the described Dataset is derived.",
+                    "info": "This property refers to a related Dataset from which the described Dataset is derived.",
+                    "placeholder": "Dataset Source placeholder text",
+                    "add-label": "Add Source"
+                },
+                "type": {
+                    "label": "Type",
+                    "help": "This property refers to the type of the Dataset.",
+                    "info": "This property refers to the type of the Dataset.",
+                    "placeholder": "Dataset Type placeholder text"
+                },
+                "pageUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset Page Url placeholder text",
+                    "help": "The link to the webpage of the page."
+                },
+                "admsIdentifierSkosNotation": {
+                    "help": "Datasets adms:Identifier Scheme help text",
+                    "label": "Scheme"
+                },
+                "spatialPlace": {
+                    "placeholder": "Dataset Spatial Place placeholder text",
+                    "label": "Place"
+                },
+                "subject": {
+                    "label": "Subject",
+                    "help": "A category of the Dataset.",
+                    "info": "This property refers to a category of the Dataset. A Dataset may be associated with multiple themes."
+                },
+                "qualifiedRelationUrl": {
+                    "placeholder": "Dataset Qualified Relation Url placeholder text",
+                    "label": "Url",
+                    "help": "The link to the propertie's webpage."
+                },
+                "accrualPeriodicity": {
+                    "info": "This property refers to the frequency at which the Dataset is updated.",
+                    "label": "Accrual Periodicity",
+                    "placeholder": "Dataset Accrual Periodicity placeholder text",
+                    "help": "This property refers to the frequency at which the Dataset is updated."
+                },
+                "isReferencedByUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset Is Referenced By Url placeholder text",
+                    "help": "The link to the propertie's webpage."
+                },
+                "versionNotes": {
+                    "placeholder": "Dataset Version Notes placeholder text",
+                    "label": "Version Notes",
+                    "help": "Description of changes between this version and the previous version of the dataset.",
+                    "info": "This property contains a description of the differences between this version and a previous version of the Dataset. This property can be repeated for parallel language versions of the version notes.",
+                    "add-label": "Add Version Notes in another language"
+                },
+                "contactPointAddressStreet": {
+                    "label": "Address Street",
+                    "placeholder": "Dataset Contact Point Address Street placeholder text",
+                    "help": "The street of the contact point's address"
+                },
+                "relationUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset Relation Url placeholder text",
+                    "help": "The link to the relation's webpage."
+                },
+                "isVersionOfUrl": {
+                    "placeholder": "Dataset Is Version Of Url placeholder text",
+                    "label": "Url",
+                    "help": "The link to the propertie's webpage."
+                },
+                "conformsTo": {
+                    "label": "Conforms To",
+                    "help": "This property refers to an implementing rule or other specification.",
+                    "info": "This property refers to an implementing rule or other specification.",
+                    "placeholder": "Dataset Conforms To placeholder text",
+                    "add-label": "Add Conforms To"
+                },
+                "pageFormat": {
+                    "placeholder": "Dataset Page Format placeholder text",
+                    "label": "Format",
+                    "help": "The format of the page."
+                },
+                "qualifiedAttributionUrl": {
+                    "placeholder": "Dataset Qualified Attribution Url placeholder text",
+                    "label": "Url",
+                    "help": "The link to the propertie's webpage."
+                },
+                "isVersionOf": {
+                    "add-label": "Add Is Version Of",
+                    "help": "Dataset is a version, edition, or adaptation.",
+                    "label": "Is Version Of",
+                    "info": "This property refers to a related Dataset of which the described Dataset is a version, edition, or adaptation.",
+                    "placeholder": "Dataset Is Version Of placeholder text"
+                },
+                "relation": {
+                    "placeholder": "Dataset Relation placeholder text",
+                    "add-label": "Add Relation",
+                    "help": "This property refers to a related resource.",
+                    "info": "This property refers to a related resource.",
+                    "label": "Relation"
+                },
+                "provenance": {
+                    "label": "Provenance",
+                    "help": "This property contains a statement about the lineage of a Dataset.",
+                    "add-label": "Add Provenance",
+                    "info": "This property contains a statement about the lineage of a Dataset.",
+                    "placeholder": "Dataset Provenance placeholder text"
+                },
+                "language": {
+                    "help": "The language coverage of this dataset.",
+                    "info": "The language coverage of this dataset.",
+                    "placeholder": "Dataset Language placeholder text",
+                    "label": "Language"
+                },
+                "spatialContinent": {
+                    "placeholder": "Dataset Spatial Continent placeholder text",
+                    "label": "Continent"
+                },
+                "spatialResolutionInMeters": {
+                    "help": "Minimum spatial separation resolvable in a dataset.",
+                    "info": "This property refers to the minimum spatial separation resolvable in a dataset, measured in meters.",
+                    "label": "Spatial Resolution in Meters",
+                    "placeholder": "Dataset Spatial Resolution In Meters placeholder text"
+                },
+                "qualifiedAttribution": {
+                    "add-label": "Add Qualified Attribution",
+                    "help": "Link to an Agent having some form of responsibility for the resource",
+                    "info": "This property refers to a link to an Agent having some form of responsibility for the resource",
+                    "label": "Qualified Attribution",
+                    "placeholder": "Dataset Qualified Attribution placeholder text"
+                },
+                "temporal": {
+                    "help": "This property refers to a temporal period that the Dataset covers.",
+                    "info": "This property refers to a temporal period that the Dataset covers.",
+                    "add-label": "Add Temporal",
+                    "label": "Temporal",
+                    "placeholder": "Dataset Temporal placeholder text"
+                },
+                "temporalResolutionYear": {
+                    "placeholder": "Dataset Temporal Resolution Year placeholder text",
+                    "label": "Temporal Resolution Year",
+                    "help": "The number of years."
+                },
+                "admsIdentifier": {
+                    "add-label": "Add another adms:Identifier",
+                    "label": "adms:Identifier",
+                    "help": "An identifier in a particular context, consisting of the string that is the identifier.",
+                    "info": "An identifier in a particular context, consisting of the string that is the identifier; an optional identifier for the identifier scheme; an optional identifier for the version of the identifier scheme; an optional identifier for the agency that manages the identifier scheme"
+                },
+                "accessRights": {
+                    "help": "Dataset Access Rights.",
+                    "info": "This property refers to information that indicates whether the Dataset is open data, has access restrictions or is not public.",
+                    "label": "Access Rights",
+                    "placeholder": "Dataset Access Rights placeholder text"
+                },
+                "pageDescription": {
+                    "label": "Description",
+                    "placeholder": "Dataset Page Description placeholder text",
+                    "help": "A description of the page."
+                },
+                "identifier": {
+                    "add-label": "Add Identifier",
+                    "placeholder": "Dataset Identifier placeholder text",
+                    "label": "Identifier",
+                    "help": "This property contains the main identifier for the Dataset.",
+                    "info": "This property contains the main identifier for the Dataset, e.g. the URI or other unique identifier in the context of the Catalogue."
+                },
+                "creatorName": {
+                    "placeholder": "Dataset Creator Name placeholder text",
+                    "label": "Name",
+                    "help": "This property refers to the name of the creator."
+                },
+                "hasVersionUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset Has Version Url placeholder text",
+                    "help": "The link to the propertie's webpage."
+                },
+                "versionInfo": {
+                    "label": "Version Info",
+                    "placeholder": "Dataset Version Info placeholder text",
+                    "help": "Version number of the Dataset.",
+                    "info": "This property contains a version number or other version designation of the Dataset."
+                },
+                "theme": {
+                    "label": "Theme",
+                    "placeholder": "Dataset Theme placeholder text",
+                    "help": "The EuroVoc Domains for this dataset.",
+                    "info": "The values to be used for this property are the URIs of the concepts in the vocabulary."
+                },
+                "hasVersion": {
+                    "placeholder": "Dataset Has Version placeholder text",
+                    "help": "That is a version, edition, or adaptation of the described Dataset.",
+                    "info": "This property refers to a related Dataset that is a version, edition, or adaptation of the described Dataset.",
+                    "add-label": "Add Has Version",
+                    "label": "Has Version"
+                },
+                "temporalResolution": {
+                    "label": "Temporal Resolution",
+                    "help": "The minimum time period resolvable in the dataset.",
+                    "info": "This property refers to the minimum time period resolvable in the dataset.",
+                    "placeholder": "Dataset Temporal Resolution placeholder text"
+                },
+                "wasGeneratedBy": {
+                    "label": "Was Generated By",
+                    "add-label": "Add Was Generated By",
+                    "placeholder": "Dataset Was Generated By placeholder text",
+                    "help": "This property refers to an activity that generated.",
+                    "info": "This property refers to an activity that generated, or provides the business context for, the creation of the dataset."
+                },
+                "temporalResolutionHour": {
+                    "placeholder": "Dataset Temporal Resolution Hour placeholder text",
+                    "label": "Temporal Resolution Hour",
+                    "help": "The number of hours."
+                },
+                "qualifiedRelation": {
+                    "help": "This property provides a link to a description of a relationship with another resource",
+                    "info": "This property provides a link to a description of a relationship with another resource",
+                    "label": "Qualified Relation",
+                    "add-label": "Add Qualified Relation",
+                    "placeholder": "Dataset Qualified Relation placeholder text"
+                },
+                "pageTitle": {
+                    "placeholder": "Dataset Page Title placeholder text",
+                    "label": "Title",
+                    "help": "The page title."
+                },
+                "landingPageUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset Landing Page Url placeholder text",
+                    "help": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information. "
+                },
+                "conformsToTitle": {
+                    "placeholder": "Dataset Conforms To Title placeholder text",
+                    "label": "Title",
+                    "help": "The propertie's title."
+                },
+                "conformsToUrl": {
+                    "placeholder": "Dataset Conforms To Url placeholder text",
+                    "label": "Url",
+                    "help": "The propertie's link."
+                },
+                "landingPage": {
+                    "help": "This property refers to a web page that provides access to the Dataset.",
+                    "info": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information. It is intended to point to a landing page at the original data provider, not to a page on a site of a third party, such as an aggregator.",
+                    "label": "Landing Page",
+                    "placeholder": "Dataset Landing Page placeholder text",
+                    "add-label": "Add Landing Page"
+                },
+                "creatorType": {
+                    "label": "Type",
+                    "placeholder": "Dataset Creator Type placeholder text",
+                    "help": "This property refers to the type of the creator."
+                },
+                "contactPointAddressPostcode": {
+                    "label": "Address Postcode",
+                    "placeholder": "Dataset Contact Point Address Postcode placeholder text",
+                    "help": "The postcode of the contact point's address"
+                },
+                "contactPointTelephone": {
+                    "label": "Telephone",
+                    "placeholder": "Dataset Contact Point Telephone placeholder text",
+                    "help": "The telephone number of the contact point"
+                },
+                "spatial": {
+                    "placeholder": "Dataset Spatial placeholder text",
+                    "help": "A geographic region that is covered by the Dataset.",
+                    "info": "This property refers to a geographic region that is covered by the Dataset.",
+                    "label": "Spatial"
+                },
+                "page": {
+                    "label": "Page",
+                    "help": "Page or document about this Dataset.",
+                    "placeholder": "Dataset Page placeholder text",
+                    "info": "This property refers to a page or document about this Dataset.",
+                    "add-label": "Add Page"
+                },
+                "temporalResolutionMonth": {
+                    "placeholder": "Dataset Temporal Resolution Month placeholder text",
+                    "label": "Temporal Resolution Month",
+                    "help": "The number of months."
+                },
+                "temporalResolutionSecond": {
+                    "placeholder": "Dataset Temporal Resolution Second placeholder text",
+                    "label": "Temporal Resolution Second",
+                    "help": "The number of seconds."
+                },
+                "identifierText": {
+                    "placeholder": "Dataset Identifier Text placeholder text",
+                    "label": "Text"
+                },
+                "contactPointAddressCountry": {
+                    "label": "Address Country",
+                    "placeholder": "Dataset Contact Point Address Country placeholder text",
+                    "help": "The country of the contact point's address"
+                },
+                "contactPointName": {
+                    "placeholder": "Dataset Contact Point Name placeholder text",
+                    "label": "Name",
+                    "help": "The name of the contact point"
+                },
+                "isUsedBy": {
+                    "help": "This property refers to an application or other work that uses the Dataset in any form.",
+                    "label": "Is Used By",
+                    "info": "Dataset Is Used By info text",
+                    "placeholder": "Dataset Is Used By placeholder text",
+                    "add-label": "Add Is Used By"
+                },
+                "contactPointType": {
+                    "label": "Type",
+                    "placeholder": "Dataset Contact Point Type placeholder text",
+                    "help": "The type of the contact point"
+                },
+                "temporalResolutionMinute": {
+                    "placeholder": "Dataset Temporal Resolution Minute placeholder text",
+                    "label": "Temporal Resolution Minute",
+                    "help": "The number of minutes."
+                },
+                "sourceUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset Source Url placeholder text",
+                    "help": "The link to the propertie's webpage."
+                },
+                "spatialCountry": {
+                    "label": "Country",
+                    "placeholder": "Dataset Spatial Country placeholder text"
+                },
+                "creatorEmail": {
+                    "label": "Email",
+                    "placeholder": "Dataset Creator Email placeholder text",
+                    "help": "This property refers to the creator's e-mail."
+                },
+                "contactPointEmail": {
+                    "label": "Email",
+                    "placeholder": "Dataset Contact Point Email placeholder text",
+                    "help": "The e-mail address of the contact point"
+                },
+                "contactPointAddress": {
+                    "label": "Contact Point Address",
+                    "help": "The full address of the contact point"
+                },
+                "admsIdentifierUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset adms:Identifier Url placeholder text",
+                    "help": "The link to the admsIdentifier's webpage."
+                },
+                "temporalStart": {
+                    "label": "Start",
+                    "help": "This property refers to the start of a temporal period that the Dataset covers."
+                },
+                "contactPointOrganisationName": {
+                    "placeholder": "Dataset Contact Point Organisation Name placeholder text",
+                    "label": "Organisation Name",
+                    "help": "The oranization name contact point."
+                },
+                "creator": {
+                    "help": "This property refers to the entity responsible for producing the dataset.",
+                    "add-label": "Add Creator",
+                    "info": "This property refers to the entity responsible for producing the dataset.",
+                    "label": "Creator"
+                },
+                "contactPoint": {
+                    "label": "Contact Point",
+                    "placeholder": "Dataset Contact Point placeholder text",
+                    "add-label": "Add Contact Point",
+                    "help": "This property contains contact information.",
+                    "info": "This property contains contact information that can be used for sending comments about the Dataset."
+                },
+                "admsIdentifierValue": {
+                    "placeholder": "Dataset adms:Identifier Identifier placeholder text",
+                    "label": "Identifier",
+                    "help": "The identifier String of the admsIdentifier."
+                },
+                "temporalEnd": {
+                    "label": "End",
+                    "help": "This property refers to the end of a temporal period that the Dataset covers."
+                },
+                "contactPointUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset Contact Point Url placeholder text",
+                    "help": "The web page of the contact point"
+                },
+                "temporalResolutionDay": {
+                    "label": "Temporal Resolution Day",
+                    "placeholder": "Dataset Temporal Resolution Day placeholder text",
+                    "help": "The number of days."
+                },
+                "creatorHomepage": {
+                    "placeholder": "Dataset Creator Homepage placeholder text",
+                    "label": "Homepage",
+                    "help": "This property refers to the homepage of the creator."
+                },
+                "admsIdentifierType": {
+                    "label": "Type",
+                    "help": "The admsIdentifier's type."
+                },
+                "admsIdentifierCheckbox": {
+                    "label": "adms:Identifier Checkbox"
+                },
+                "wasGeneratedByUrl": {
+                    "label": "Url",
+                    "placeholder": "Dataset Was Generated By Url placeholder text",
+                    "help": "The link to the propertie's webpage."
+                },
+                "provenanceText": {
+                    "label": "Text",
+                    "placeholder": "Dataset Provenance Text placeholder text"
+                },
+                "schemeIdentifier": {
+                    "label": "Scheme Identifier"
+                },
+                "description": {
+                    "label": "Description",
+                    "add-label": "Add Description in another language",
+                    "placeholder": "Dataset Description placeholder text",
+                    "help": "The main description of the dataset.",
+                    "info": "The main description of the dataset. It is often displayed with the package title. In particular, it should start with a short sentence that describes the data set succinctly, because the first few words alone may be used in some views of the data sets."
+                },
+                "publisherType": {
+                    "label": "Type",
+                    "placeholder": "Dataset Publisher Type placeholder text"
+                },
+                "title": {
+                    "add-label": "Add Title in another language",
+                    "placeholder": "Dataset Title placeholder text",
+                    "help": "A short descriptive title for the data set.",
+                    "info": "A short descriptive title for the data set. It should not be a description though - save that for the Description field. Do not give a trailing full stop. Do not use allcaps.",
+                    "label": "Title"
+                },
+                "datasetID": {
+                    "help": "This property contains the main identifier for the Dataset.",
+                    "info": "This property contains the main identifier for the Dataset, e.g. the URI or other unique identifier in the context of the Catalogue.",
+                    "label": "Dataset ID"
+                },
+                "publisherName": {
+                    "placeholder": "Dataset Publisher Name placeholder text",
+                    "label": "Name"
+                },
+                "keyword": {
+                    "add-label": "Add Keyword",
+                    "help": "Comma-separated terms that may link this dataset to similar ones.",
+                    "placeholder": "Dataset Keyword placeholder text",
+                    "info": "Comma-separated terms that may link this dataset to similar ones. Keywords must be lowercase alphanumeric characters or symbols: -_. Words in phrases should be connected with a hyphen. e.g. pollution, rivers, water-quality",
+                    "label": "Keyword"
+                },
+                "modified": {
+                    "label": "Modified",
+                    "help": "Most recent date on which the dataset was changed, updated or modified.",
+                    "info": "Most recent date on which the dataset was changed, updated or modified. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
+                    "placeholder": "Dataset Modified placeholder text"
+                },
+                "publisher": {
+                    "help": "An entity, such as a person, organisation, or service, that is responsible for making the dataset available.",
+                    "add-label": "Add Publisher in another language",
+                    "info": "An entity, such as a person, organisation, or service, that is responsible for making the dataset available.",
+                    "placeholder": "Dataset Publisher placeholder text",
+                    "label": "Publisher"
+                },
+                "datetime": {
+                    "label": "Datetime"
+                },
+                "catalog": {
+                    "placeholder": "Dataset Catalog placeholder text",
+                    "help": "The catalog of the dataset.",
+                    "label": "Catalog",
+                    "info": "The catalog of the dataset."
+                },
+                "issued": {
+                    "placeholder": "Dataset Issued placeholder text",
+                    "label": "Issued",
+                    "help": "Date of formal issuance (e.g., publication) of the dataset. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
+                    "info": "This property contains the date of formal issuance (e.g., publication) of the Dataset."
+                },
+                "publisherEmail": {
+                    "placeholder": "Dataset Publisher Email placeholder text",
+                    "label": "Email"
+                },
+                "publisherHomepage": {
+                    "label": "Homepage",
+                    "placeholder": "Dataset Publisher Homepage placeholder text"
+                },
+                "date": {
+                    "label": "Date"
                 },
                 "stepper": {
                     "step3": {
@@ -888,634 +682,173 @@
                     "step1": {
                         "name": "@:message.dataupload.datasets.stepper.essential.name"
                     }
+                }
+            },
+            "catalogues": {
+                "rights": {
+                    "placeholder": "Catalogue Rights placeholder text",
+                    "help": "A statement that specifies rights associated with the Catalogue.",
+                    "label": "Rights",
+                    "info": "This property refers to a statement that specifies rights associated with the Catalogue."
+                },
+                "isPartOf": {
+                    "label": "Is Part Of",
+                    "placeholder": "Catalogue Is Part Of placeholder text",
+                    "help": "A related Catalogue in which the described Catalogue is physically or logically included.",
+                    "info": "This property refers to a related Catalogue in which the described Catalogue is physically or logically included."
                 },
                 "catalog": {
-                    "help": "The catalog of the dataset.",
-                    "info": "The catalog of the dataset.",
                     "label": "Catalog",
-                    "placeholder": "Dataset Catalog placeholder text"
+                    "help": "A catalog whose contents are of interest in the context of this catalog.",
+                    "info": "This property refers to a catalog whose contents are of interest in the context of this catalog.",
+                    "add-label": "Add Catalog in another language",
+                    "placeholder": "Catalogue Catalog placeholder text"
                 },
-                "datasetID": {
-                    "help": "This property contains the main identifier for the Dataset.",
-                    "info": "This property contains the main identifier for the Dataset, e.g. the URI or other unique identifier in the context of the Catalogue.",
-                    "label": "Dataset ID"
+                "creatorEmail": {
+                    "label": "Email",
+                    "placeholder": "Catalogue Creator Email placeholder text",
+                    "help": "This property refers to the creator's e-mail."
                 },
-                "date": {
-                    "label": "Date"
+                "language": {
+                    "help": "A language used in the textual metadata describing titles, descriptions, etc.",
+                    "info": "This property refers to a language used in the textual metadata describing titles, descriptions, etc. of the Dataset. This property can be repeated if the metadata is provided in multiple languages.",
+                    "label": "Language",
+                    "add-label": "Add Language in another language",
+                    "placeholder": "Catalogue Language placeholder text"
+                },
+                "spatialContinent": {
+                    "label": "Continent",
+                    "placeholder": "Catalogue Spatial Continent placeholder text"
+                },
+                "spatial": {
+                    "help": "This property refers to a geographical area covered by the Catalogue.",
+                    "info": "This property refers to a geographical area covered by the Catalogue.",
+                    "add-label": "Add Spatial in another language",
+                    "label": "Spatial",
+                    "placeholder": "Catalogue Spatial placeholder text"
+                },
+                "creatorType": {
+                    "placeholder": "Catalogue Creator Type placeholder text",
+                    "label": "Type",
+                    "help": "This property refers to the type of the creator."
+                },
+                "hasPart": {
+                    "add-label": "Add Has Part",
+                    "label": "Has Part",
+                    "help": "This property refers to a related Catalogue that is part of the described Catalogue",
+                    "placeholder": "Catalogue Has Part placeholder text",
+                    "info": "This property refers to a related Catalogue that is part of the described Catalogue."
+                },
+                "spatialCountry": {
+                    "label": "Country",
+                    "placeholder": "Catalogue Spatial Country placeholder text"
+                },
+                "creator": {
+                    "help": "The entity responsible for producing the catalogue",
+                    "info": "This property refers to the entity responsible for producing the catalogue",
+                    "label": "Creator",
+                    "add-label": "Add Creator"
+                },
+                "hasPartURL": {
+                    "placeholder": "Catalogue Has Part URL placeholder text",
+                    "label": "Has Part"
+                },
+                "spatialPlace": {
+                    "placeholder": "Catalogue Spatial Place placeholder text",
+                    "label": "Place"
+                },
+                "creatorHomepage": {
+                    "label": "Homepage",
+                    "placeholder": "Catalogue Creator Homepage placeholder text",
+                    "help": "This property refers to the homepage of the creator."
+                },
+                "creatorName": {
+                    "placeholder": "Catalogue Creator Name placeholder text",
+                    "label": "Name"
+                },
+                "issued": {
+                    "info": "This property contains the date on which the description of the Dataset was included in the Catalogue.",
+                    "add-label": "Add Issued in another language",
+                    "label": "Issued",
+                    "placeholder": "Catalogue Issued placeholder text",
+                    "help": "This property contains the date on which the description of the Dataset was included in the Catalogue."
+                },
+                "title": {
+                    "label": "Title",
+                    "placeholder": "Catalogue Title placeholder text",
+                    "help": "A name given to the Catalogue Record. ",
+                    "info": "This property contains a name given to the Catalogue Record. This property can be repeated for parallel language versions of the name.",
+                    "add-label": "Add Title in another language"
+                },
+                "description": {
+                    "label": "Description",
+                    "help": "This property contains a free-text account of the record.",
+                    "info": "This property contains a free-text account of the record. This property can be repeated for parallel language versions of the description.",
+                    "add-label": "Add Description in another language",
+                    "placeholder": "Catalogue Description placeholder text"
+                },
+                "publisherName": {
+                    "placeholder": "Catalogue Publisher Name placeholder text",
+                    "label": "Name"
+                },
+                "licence": {
+                    "help": "The licence under which the Catalogue can be used or reused.",
+                    "info": "This property refers to the licence under which the Catalogue can be used or reused.",
+                    "label": "Licence",
+                    "placeholder": "Catalogue Licence placeholder text"
+                },
+                "licenceTitle": {
+                    "label": "Licence Title",
+                    "placeholder": "Catalogue Licence Title placeholder text"
+                },
+                "publisherEmail": {
+                    "label": "Email",
+                    "placeholder": "Catalogue Publisher Email placeholder text"
+                },
+                "modified": {
+                    "help": "The most recent date on which the Catalogue entry was changed or modified.",
+                    "info": "This property contains the most recent date on which the Catalogue entry was changed or modified.",
+                    "placeholder": "Catalogue Modified placeholder text",
+                    "label": "Modified",
+                    "add-label": "Add Modified in another language"
+                },
+                "publisher": {
+                    "label": "Publisher",
+                    "placeholder": "Catalogue Publisher placeholder text",
+                    "help": "This property refers to an entity (organisation) responsible for making the Dataset available.",
+                    "info": "This property refers to an entity (organisation) responsible for making the Dataset available."
+                },
+                "publisherHomepage": {
+                    "placeholder": "Catalogue Publisher Homepage placeholder text",
+                    "label": "Homepage"
+                },
+                "licenceDescription": {
+                    "label": "Licence Description",
+                    "placeholder": "Catalogue Licence Description placeholder text"
+                },
+                "licenceURL": {
+                    "placeholder": "Catalogue Licence URL placeholder text",
+                    "label": "Licence URL"
+                },
+                "publisherType": {
+                    "label": "Type",
+                    "placeholder": "Catalogue Publisher Type placeholder text"
+                },
+                "homepage": {
+                    "placeholder": "Catalogue Homepage placeholder text",
+                    "label": "Homepage",
+                    "help": "A web page that acts as the main page for the Catalogue.",
+                    "info": "This property refers to a web page that acts as the main page for the Catalogue."
                 },
                 "datetime": {
                     "label": "Datetime"
                 },
-                "description": {
-                    "add-label": "Add Description in another language",
-                    "help": "The main description of the dataset.",
-                    "info": "The main description of the dataset. It is often displayed with the package title. In particular, it should start with a short sentence that describes the data set succinctly, because the first few words alone may be used in some views of the data sets.",
-                    "label": "Description",
-                    "placeholder": "Dataset Description placeholder text"
-                },
-                "issued": {
-                    "help": "Date of formal issuance (e.g., publication) of the dataset. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
-                    "info": "This property contains the date of formal issuance (e.g., publication) of the Dataset.",
-                    "label": "Issued",
-                    "placeholder": "Dataset Issued placeholder text"
-                },
-                "keyword": {
-                    "help": "Comma-separated terms that may link this dataset to similar ones.",
-                    "add-label": "Add Keyword",
-                    "info": "Comma-separated terms that may link this dataset to similar ones. Keywords must be lowercase alphanumeric characters or symbols: -_. Words in phrases should be connected with a hyphen. e.g. pollution, rivers, water-quality",
-                    "label": "Keyword",
-                    "placeholder": "Dataset Keyword placeholder text"
-                },
-                "language": {
-                    "help": "The language coverage of this dataset.",
-                    "info": "The language coverage of this dataset.",
-                    "label": "Language",
-                    "placeholder": "Dataset Language placeholder text"
-                },
-                "modified": {
-                    "help": "Most recent date on which the dataset was changed, updated or modified.",
-                    "info": "Most recent date on which the dataset was changed, updated or modified. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
-                    "label": "Modified",
-                    "placeholder": "Dataset Modified placeholder text"
-                },
-                "publisher": {
-                    "add-label": "Add Publisher in another language",
-                    "help": "An entity, such as a person, organisation, or service, that is responsible for making the dataset available.",
-                    "info": "An entity, such as a person, organisation, or service, that is responsible for making the dataset available.",
-                    "label": "Publisher",
-                    "placeholder": "Dataset Publisher placeholder text"
-                },
-                "publisherEmail": {
-                    "label": "Email",
-                    "placeholder": "Dataset Publisher Email placeholder text"
-                },
-                "publisherHomepage": {
-                    "label": "Homepage",
-                    "placeholder": "Dataset Publisher Homepage placeholder text"
-                },
-                "publisherName": {
-                    "label": "Name",
-                    "placeholder": "Dataset Publisher Name placeholder text"
-                },
-                "publisherType": {
-                    "label": "Type",
-                    "placeholder": "Dataset Publisher Type placeholder text"
-                },
-                "title": {
-                    "add-label": "Add Title in another language",
-                    "help": "A short descriptive title for the data set.",
-                    "info": "A short descriptive title for the data set. It should not be a description though - save that for the Description field. Do not give a trailing full stop. Do not use allcaps.",
-                    "label": "Title",
-                    "placeholder": "Dataset Title placeholder text"
-                },
-                "subject": {
-                    "label": "Subject",
-                    "help": "A category of the Dataset.",
-                    "info": "This property refers to a category of the Dataset. A Dataset may be associated with multiple themes."
-                },
-                "theme": {
-                    "label": "Theme",
-                    "placeholder": "Dataset Theme placeholder text",
-                    "help": "The EuroVoc Domains for this dataset.",
-                    "info": "The values to be used for this property are the URIs of the concepts in the vocabulary."
-                },
-                "type": {
-                    "label": "Type",
-                    "help": "This property refers to the type of the Dataset.",
-                    "info": "This property refers to the type of the Dataset.",
-                    "placeholder": "Dataset Type placeholder text"
-                },
-                "source": {
-                    "help": "Dataset from which the described Dataset is derived.",
-                    "label": "Source",
-                    "info": "This property refers to a related Dataset from which the described Dataset is derived.",
-                    "placeholder": "Dataset Source placeholder text",
-                    "add-label": "Add Source"
-                },
-                "sourceUrl": {
-                    "label": "Url",
-                    "placeholder": "Dataset Source Url placeholder text"
-                },
-                "landingPage": {
-                    "add-label": "Add Landing Page",
-                    "help": "This property refers to a web page that provides access to the Dataset.",
-                    "info": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information. It is intended to point to a landing page at the original data provider, not to a page on a site of a third party, such as an aggregator.",
-                    "label": "Landing Page",
-                    "placeholder": "Dataset Landing Page placeholder text"
-                },
-                "landingPageUrl": {
-                    "label": "Url",
-                    "placeholder": "Dataset Landing Page Url placeholder text"
-                },
-                "provenance": {
-                    "add-label": "Add Provenance",
-                    "help": "This property contains a statement about the lineage of a Dataset.",
-                    "info": "This property contains a statement about the lineage of a Dataset.",
-                    "label": "Provenance",
-                    "placeholder": "Dataset Provenance placeholder text"
-                },
-                "provenanceText": {
-                    "label": "Text",
-                    "placeholder": "Dataset Provenance Text placeholder text"
-                },
-                "relation": {
-                    "add-label": "Add Relation",
-                    "help": "This property refers to a related resource.",
-                    "info": "This property refers to a related resource.",
-                    "label": "Relation",
-                    "placeholder": "Dataset Relation placeholder text"
-                },
-                "relationUrl": {
-                    "label": "Url",
-                    "placeholder": "Dataset Relation Url placeholder text"
-                },
-                "temporal": {
-                    "add-label": "Add Temporal",
-                    "help": "This property refers to a temporal period that the Dataset covers.",
-                    "info": "This property refers to a temporal period that the Dataset covers.",
-                    "label": "Temporal",
-                    "placeholder": "Dataset Temporal placeholder text"
-                },
-                "temporalResolution": {
-                    "help": "The minimum time period resolvable in the dataset.",
-                    "info": "This property refers to the minimum time period resolvable in the dataset.",
-                    "label": "Temporal Resolution",
-                    "placeholder": "Dataset Temporal Resolution placeholder text"
-                },
-                "versionInfo": {
-                    "help": "Version number of the Dataset.",
-                    "info": "This property contains a version number or other version designation of the Dataset.",
-                    "label": "Version Info",
-                    "placeholder": "Dataset Version Info placeholder text"
-                },
-                "versionNotes": {
-                    "add-label": "Add Version Notes in another language",
-                    "help": "Description of changes between this version and the previous version of the dataset.",
-                    "info": "This property contains a description of the differences between this version and a previous version of the Dataset. This property can be repeated for parallel language versions of the version notes.",
-                    "label": "Version Notes",
-                    "placeholder": "Dataset Version Notes placeholder text"
-                },
-                "hasVersion": {
-                    "add-label": "Add Has Version",
-                    "help": "That is a version, edition, or adaptation of the described Dataset.",
-                    "info": "This property refers to a related Dataset that is a version, edition, or adaptation of the described Dataset.",
-                    "label": "Has Version",
-                    "placeholder": "Dataset Has Version placeholder text"
-                },
-                "hasVersionUrl": {
-                    "label": "Url",
-                    "placeholder": "Dataset Has Version Url placeholder text"
-                },
-                "isVersionOf": {
-                    "placeholder": "Dataset Is Version Of placeholder text",
-                    "info": "This property refers to a related Dataset of which the described Dataset is a version, edition, or adaptation.",
-                    "label": "Is Version Of",
-                    "help": "Dataset is a version, edition, or adaptation.",
-                    "add-label": "Add Is Version Of"
-                },
-                "isVersionOfUrl": {
-                    "label": "Url",
-                    "placeholder": "Dataset Is Version Of Url placeholder text"
-                },
-                "identifierText": {
-                    "label": "Text",
-                    "placeholder": "Dataset Identifier Text placeholder text"
-                },
-                "identifier": {
-                    "info": "This property contains the main identifier for the Dataset, e.g. the URI or other unique identifier in the context of the Catalogue.",
-                    "help": "This property contains the main identifier for the Dataset.",
-                    "label": "Identifier",
-                    "placeholder": "Dataset Identifier placeholder text",
-                    "add-label": "Add Identifier"
-                },
-                "qualifiedRelation": {
-                    "placeholder": "Dataset Qualified Relation placeholder text",
-                    "add-label": "Add Qualified Relation",
-                    "label": "Qualified Relation",
-                    "info": "This property provides a link to a description of a relationship with another resource",
-                    "help": "This property provides a link to a description of a relationship with another resource"
-                },
-                "qualifiedRelationUrl": {
-                    "label": "Url",
-                    "placeholder": "Dataset Qualified Relation Url placeholder text"
-                },
-                "accrualPeriodicity": {
-                    "help": "This property refers to the frequency at which the Dataset is updated.",
-                    "placeholder": "Dataset Accrual Periodicity placeholder text",
-                    "label": "Accrual Periodicity",
-                    "info": "This property refers to the frequency at which the Dataset is updated."
-                },
-                "accessRights": {
-                    "placeholder": "Dataset Access Rights placeholder text",
-                    "label": "Access Rights",
-                    "info": "This property refers to information that indicates whether the Dataset is open data, has access restrictions or is not public.",
-                    "help": "Dataset Access Rights."
-                },
-                "qualifiedAttribution": {
-                    "placeholder": "Dataset Qualified Attribution placeholder text",
-                    "label": "Qualified Attribution",
-                    "info": "This property refers to a link to an Agent having some form of responsibility for the resource",
-                    "help": "Link to an Agent having some form of responsibility for the resource",
-                    "add-label": "Add Qualified Attribution"
-                },
-                "qualifiedAttributionUrl": {
-                    "label": "Url",
-                    "placeholder": "Dataset Qualified Attribution Url placeholder text"
-                },
-                "spatialResolutionInMeters": {
-                    "placeholder": "Dataset Spatial Resolution In Meters placeholder text",
-                    "label": "Spatial Resolution in Meters",
-                    "info": "This property refers to the minimum spatial separation resolvable in a dataset, measured in meters.",
-                    "help": "Minimum spatial separation resolvable in a dataset."
-                },
-                "isReferencedByUrl": {
-                    "placeholder": "Dataset Is Referenced By Url placeholder text",
-                    "label": "Url"
-                },
-                "isReferencedBy": {
-                    "label": "Is Referenced By",
-                    "info": "This property is about a related resource, such as a publication, that references, cites, or otherwise points to the dataset.",
-                    "help": "This property is about a related resource.",
-                    "placeholder": "Dataset Is Referenced By placeholder text",
-                    "add-label": "Add Is Referenced By"
-                },
-                "isUsedBy": {
-                    "add-label": "Add Is Used By",
-                    "placeholder": "Dataset Is Used By placeholder text",
-                    "info": "Dataset Is Used By info text",
-                    "label": "Is Used By",
-                    "help": "This property refers to an application or other work that uses the Dataset in any form."
-                },
-                "wasGeneratedByUrl": {
-                    "placeholder": "Dataset Was Generated By Url placeholder text",
-                    "label": "Url"
-                },
-                "wasGeneratedBy": {
-                    "info": "This property refers to an activity that generated, or provides the business context for, the creation of the dataset.",
-                    "help": "This property refers to an activity that generated.",
-                    "placeholder": "Dataset Was Generated By placeholder text",
-                    "add-label": "Add Was Generated By",
-                    "label": "Was Generated By"
-                },
-                "spatialContinent": {
-                    "label": "Continent",
-                    "placeholder": "Dataset Spatial Continent placeholder text"
-                },
-                "spatialPlace": {
-                    "label": "Place",
-                    "placeholder": "Dataset Spatial Place placeholder text"
-                },
-                "page": {
-                    "add-label": "Add Page",
-                    "info": "This property refers to a page or document about this Dataset.",
-                    "placeholder": "Dataset Page placeholder text",
-                    "help": "Page or document about this Dataset.",
-                    "label": "Page"
-                },
-                "pageTitle": {
-                    "label": "Title",
-                    "placeholder": "Dataset Page Title placeholder text"
-                },
-                "pageDescription": {
-                    "placeholder": "Dataset Page Description placeholder text",
-                    "label": "Description"
-                },
-                "pageFormat": {
-                    "label": "Format",
-                    "placeholder": "Dataset Page Format placeholder text"
-                },
-                "pageUrl": {
-                    "placeholder": "Dataset Page Url placeholder text",
-                    "label": "Url"
-                },
-                "admsIdentifierValue": {
-                    "placeholder": "Dataset adms:Identifier Identifier placeholder text",
-                    "label": "Identifier"
-                },
-                "admsIdentifierUrl": {
-                    "placeholder": "Dataset adms:Identifier Url placeholder text",
-                    "label": "Url"
-                },
-                "admsIdentifierType": {
-                    "label": "Type"
-                },
-                "admsIdentifierSkosNotation": {
-                    "label": "Scheme",
-                    "help": "Datasets adms:Identifier Scheme help text"
-                },
-                "admsIdentifier": {
-                    "label": "adms:Identifier",
-                    "info": "An identifier in a particular context, consisting of the string that is the identifier; an optional identifier for the identifier scheme; an optional identifier for the version of the identifier scheme; an optional identifier for the agency that manages the identifier scheme",
-                    "help": "An identifier in a particular context, consisting of the string that is the identifier.",
-                    "add-label": "Add another adms:Identifier"
-                },
-                "admsIdentifierCheckbox": {
-                    "label": "adms:Identifier Checkbox"
-                },
-                "contactPointUrl": {
-                    "placeholder": "Dataset Contact Point Url placeholder text",
-                    "label": "Url"
-                },
-                "contactPoint": {
-                    "info": "This property contains contact information that can be used for sending comments about the Dataset.",
-                    "help": "This property contains contact information.",
-                    "add-label": "Add Contact Point",
-                    "placeholder": "Dataset Contact Point placeholder text",
-                    "label": "Contact Point"
-                },
-                "contactPointOrganisationName": {
-                    "label": "Organisation Name",
-                    "placeholder": "Dataset Contact Point Organisation Name placeholder text"
-                },
-                "contactPointAddress": {
-                    "help": "Dataset Contact Point Address help text",
-                    "label": "Contact Point Address"
-                },
-                "contactPointEmail": {
-                    "placeholder": "Dataset Contact Point Email placeholder text",
-                    "label": "Email"
-                },
-                "contactPointType": {
-                    "placeholder": "Dataset Contact Point Type placeholder text",
-                    "label": "Type"
-                },
-                "contactPointName": {
-                    "label": "Name",
-                    "placeholder": "Dataset Contact Point Name placeholder text"
-                },
-                "contactPointAddressCountry": {
-                    "placeholder": "Dataset Contact Point Address Country placeholder text",
-                    "label": "Address Country"
-                },
-                "contactPointTelephone": {
-                    "placeholder": "Dataset Contact Point Telephone placeholder text",
-                    "label": "Telephone"
-                },
-                "contactPointAddressPostcode": {
-                    "placeholder": "Dataset Contact Point Address Postcode placeholder text",
-                    "label": "Address Postcode"
-                },
-                "contactPointAddressStreet": {
-                    "placeholder": "Dataset Contact Point Address Street placeholder text",
-                    "label": "Address Street"
-                },
-                "contactPointAddressCity": {
-                    "label": "Address City",
-                    "placeholder": "Dataset Contact Point Address City placeholder text"
-                },
-                "creatorHomepage": {
-                    "label": "Homepage",
-                    "placeholder": "Dataset Creator Homepage placeholder text"
-                },
-                "creator": {
-                    "label": "Creator",
-                    "info": "This property refers to the entity responsible for producing the dataset.",
-                    "add-label": "Add Creator",
-                    "help": "This property refers to the entity responsible for producing the dataset."
-                },
-                "creatorEmail": {
-                    "placeholder": "Dataset Creator Email placeholder text",
-                    "label": "Email"
-                },
-                "creatorType": {
-                    "placeholder": "Dataset Creator Type placeholder text",
-                    "label": "Type"
-                },
-                "creatorName": {
-                    "label": "Name",
-                    "placeholder": "Dataset Creator Name placeholder text"
-                },
-                "conformsToUrl": {
-                    "label": "Url",
-                    "placeholder": "Dataset Conforms To Url placeholder text"
-                },
-                "conformsToTitle": {
-                    "label": "Title",
-                    "placeholder": "Dataset Conforms To Title placeholder text"
-                },
-                "conformsTo": {
-                    "add-label": "Add Conforms To",
-                    "placeholder": "Dataset Conforms To placeholder text",
-                    "info": "This property refers to an implementing rule or other specification.",
-                    "help": "This property refers to an implementing rule or other specification.",
-                    "label": "Conforms To"
-                },
-                "spatialCountry": {
-                    "placeholder": "Dataset Spatial Country placeholder text",
-                    "label": "Country"
-                },
-                "spatial": {
-                    "label": "Spatial",
-                    "info": "This property refers to a geographic region that is covered by the Dataset.",
-                    "help": "A geographic region that is covered by the Dataset.",
-                    "placeholder": "Dataset Spatial placeholder text"
-                },
-                "temporalStart": {
-                    "label": "Start"
-                },
-                "temporalEnd": {
-                    "label": "End"
-                },
-                "temporalResolutionSecond": {
-                    "label": "Temporal Resolution Second",
-                    "placeholder": "Dataset Temporal Resolution Second placeholder text"
-                },
-                "temporalResolutionMinute": {
-                    "label": "Temporal Resolution Minute",
-                    "placeholder": "Dataset Temporal Resolution Minute placeholder text"
-                },
-                "temporalResolutionHour": {
-                    "label": "Temporal Resolution Hour",
-                    "placeholder": "Dataset Temporal Resolution Hour placeholder text"
-                },
-                "temporalResolutionDay": {
-                    "placeholder": "Dataset Temporal Resolution Day placeholder text",
-                    "label": "Temporal Resolution Day"
-                },
-                "temporalResolutionMonth": {
-                    "label": "Temporal Resolution Month",
-                    "placeholder": "Dataset Temporal Resolution Month placeholder text"
-                },
-                "temporalResolutionYear": {
-                    "label": "Temporal Resolution Year",
-                    "placeholder": "Dataset Temporal Resolution Year placeholder text"
-                }
-            },
-            "catalogues": {
-                "step2": {
-                    "rights": {
-                        "placeholder": "Catalogue Rights placeholder text",
-                        "help": "A statement that specifies rights associated with the Catalogue.",
-                        "label": "Rights",
-                        "info": "This property refers to a statement that specifies rights associated with the Catalogue."
-                    },
-                    "isPartOf": {
-                        "label": "Is Part Of",
-                        "placeholder": "Catalogue Is Part Of placeholder text",
-                        "help": "A related Catalogue in which the described Catalogue is physically or logically included.",
-                        "info": "This property refers to a related Catalogue in which the described Catalogue is physically or logically included."
-                    },
-                    "catalog": {
-                        "label": "Catalog",
-                        "help": "A catalog whose contents are of interest in the context of this catalog.",
-                        "info": "This property refers to a catalog whose contents are of interest in the context of this catalog.",
-                        "add-label": "Add Catalog in another language",
-                        "placeholder": "Catalogue Catalog placeholder text"
-                    },
-                    "creatorEmail": {
-                        "label": "Email",
-                        "placeholder": "Catalogue Creator Email placeholder text"
-                    },
-                    "language": {
-                        "help": "A language used in the textual metadata describing titles, descriptions, etc.",
-                        "info": "This property refers to a language used in the textual metadata describing titles, descriptions, etc. of the Dataset. This property can be repeated if the metadata is provided in multiple languages.",
-                        "label": "Language",
-                        "add-label": "Add Language in another language",
-                        "placeholder": "Catalogue Language placeholder text"
-                    },
-                    "spatialContinent": {
-                        "label": "Continent",
-                        "placeholder": "Catalogue Spatial Continent placeholder text"
-                    },
-                    "spatial": {
-                        "help": "This property refers to a geographical area covered by the Catalogue.",
-                        "info": "This property refers to a geographical area covered by the Catalogue.",
-                        "add-label": "Add Spatial in another language",
-                        "label": "Spatial",
-                        "placeholder": "Catalogue Spatial placeholder text"
-                    },
-                    "creatorType": {
-                        "placeholder": "Catalogue Creator Type placeholder text",
-                        "label": "Type"
-                    },
-                    "hasPart": {
-                        "add-label": "Add Has Part",
-                        "label": "Has Part",
-                        "help": "This property refers to a related Catalogue that is part of the described Catalogue",
-                        "placeholder": "Catalogue Has Part placeholder text",
-                        "info": "This property refers to a related Catalogue that is part of the described Catalogue."
-                    },
-                    "spatialCountry": {
-                        "label": "Country",
-                        "placeholder": "Catalogue Spatial Country placeholder text"
-                    },
-                    "creator": {
-                        "help": "The entity responsible for producing the catalogue",
-                        "info": "This property refers to the entity responsible for producing the catalogue",
-                        "label": "Creator",
-                        "add-label": "Add Creator"
-                    },
-                    "hasPartURL": {
-                        "placeholder": "Catalogue Has Part URL placeholder text",
-                        "label": "Has Part"
-                    },
-                    "spatialPlace": {
-                        "placeholder": "Catalogue Spatial Place placeholder text",
-                        "label": "Place"
-                    },
-                    "creatorHomepage": {
-                        "label": "Homepage",
-                        "placeholder": "Catalogue Creator Homepage placeholder text"
-                    },
-                    "creatorName": {
-                        "placeholder": "Catalogue Creator Name placeholder text",
-                        "label": "Name"
-                    }
-                },
-                "step1": {
-                    "issued": {
-                        "info": "This property contains the date on which the description of the Dataset was included in the Catalogue.",
-                        "add-label": "Add Issued in another language",
-                        "label": "Issued",
-                        "placeholder": "Catalogue Issued placeholder text",
-                        "help": "This property contains the date on which the description of the Dataset was included in the Catalogue."
-                    },
-                    "title": {
-                        "label": "Title",
-                        "placeholder": "Catalogue Title placeholder text",
-                        "help": "A name given to the Catalogue Record. ",
-                        "info": "This property contains a name given to the Catalogue Record. This property can be repeated for parallel language versions of the name.",
-                        "add-label": "Add Title in another language"
-                    },
-                    "catalog": {
-                        "help": "A catalog whose contents are of interest in the context of this catalog",
-                        "info": "This property refers to a catalog whose contents are of interest in the context of this catalog",
-                        "label": "Catalog"
-                    },
-                    "description": {
-                        "label": "Description",
-                        "help": "This property contains a free-text account of the record.",
-                        "info": "This property contains a free-text account of the record. This property can be repeated for parallel language versions of the description.",
-                        "add-label": "Add Description in another language",
-                        "placeholder": "Catalogue Description placeholder text"
-                    },
-                    "publisherName": {
-                        "placeholder": "Catalogue Publisher Name placeholder text",
-                        "label": "Name"
-                    },
-                    "licence": {
-                        "help": "The licence under which the Catalogue can be used or reused.",
-                        "info": "This property refers to the licence under which the Catalogue can be used or reused.",
-                        "label": "Licence",
-                        "placeholder": "Catalogue Licence placeholder text"
-                    },
-                    "licenceTitle": {
-                        "label": "Licence Title",
-                        "placeholder": "Catalogue Licence Title placeholder text"
-                    },
-                    "publisherEmail": {
-                        "label": "Email",
-                        "placeholder": "Catalogue Publisher Email placeholder text"
-                    },
-                    "modified": {
-                        "help": "The most recent date on which the Catalogue entry was changed or modified.",
-                        "info": "This property contains the most recent date on which the Catalogue entry was changed or modified.",
-                        "placeholder": "Catalogue Modified placeholder text",
-                        "label": "Modified",
-                        "add-label": "Add Modified in another language"
-                    },
-                    "publisher": {
-                        "label": "Publisher",
-                        "placeholder": "Catalogue Publisher placeholder text",
-                        "help": "This property refers to an entity (organisation) responsible for making the Dataset available.",
-                        "info": "This property refers to an entity (organisation) responsible for making the Dataset available."
-                    },
-                    "publisherHomepage": {
-                        "placeholder": "Catalogue Publisher Homepage placeholder text",
-                        "label": "Homepage"
-                    },
-                    "licenceDescription": {
-                        "label": "Licence Description",
-                        "placeholder": "Catalogue Licence Description placeholder text"
-                    },
-                    "licenceURL": {
-                        "placeholder": "Catalogue Licence URL placeholder text",
-                        "label": "Licence URL"
-                    },
-                    "publisherType": {
-                        "label": "Type",
-                        "placeholder": "Catalogue Publisher Type placeholder text"
-                    },
-                    "homepage": {
-                        "placeholder": "Catalogue Homepage placeholder text",
-                        "label": "Homepage",
-                        "help": "A web page that acts as the main page for the Catalogue.",
-                        "info": "This property refers to a web page that acts as the main page for the Catalogue."
-                    },
-                    "datetime": {
-                        "label": "Datetime"
-                    },
-                    "language": {
-                        "label": "Language",
-                        "placeholder": "Catalogue Language placeholder text"
-                    },
-                    "catalogURL": {
-                        "label": "Catalog URL",
-                        "placeholder": "Catalogue Catalog URL placeholer text"
-                    },
-                    "date": {
-                        "label": "Date"
-                    }
+                "catalogURL": {
+                    "label": "Catalog URL",
+                    "placeholder": "Catalogue Catalog URL placeholer text"
+                },
+                "date": {
+                    "label": "Date"
                 },
                 "stepper": {
                     "overview": "Catalogue Overview",
@@ -1555,7 +888,8 @@
             "distributions": {
                 "accessServiceTitle": {
                     "label": "Data Service Title",
-                    "add-label": "Add Data Service Title in another language"
+                    "add-label": "Add Data Service Title in another language",
+                    "help": "The title of the data access service."
                 },
                 "accessService": {
                     "label": "Data Service",
@@ -1565,7 +899,8 @@
                 },
                 "accessServiceDescription": {
                     "label": "Data Service Description",
-                    "add-label": "Add Data Service Description in another language"
+                    "add-label": "Add Data Service Description in another language",
+                    "help": "A description of the data access service."
                 },
                 "licence": {
                     "info": "This property refers to the licence under which the Distribution is made available.",
@@ -1630,6 +965,15 @@
                     "info": "This property contains a URL that gives access to a Distribution of the Dataset. The resource at the access URL may contain information about how to get the Dataset.",
                     "help": "This property contains a URL that gives access to a Distribution of the Dataset."
                 },
+                "accessUrlLink": {
+                    "label": "URL",
+                    "help": "",
+                    "placeholder": "Access Url link"
+                },
+                "accessUrlFile": {
+                    "label": "File",
+                    "help": ""
+                },
                 "spatialResolutionInMeters": {
                     "label": "Spatial Resolution In Meters",
                     "placeholder": "Distribution Spatial Resolution In Meters placeholder text",
@@ -1638,27 +982,33 @@
                 },
                 "temporalResolutionSecond": {
                     "placeholder": "Dataset Temporal Resolution Second placeholder text",
-                    "label": "Temporal Resolution Second"
+                    "label": "Temporal Resolution Second",
+                    "help": "The number of seconds."
                 },
                 "temporalResolutionHour": {
                     "label": "Temporal Resolution Hour",
-                    "placeholder": "Dataset Temporal Resolution Hour placeholder text"
+                    "placeholder": "Dataset Temporal Resolution Hour placeholder text",
+                    "help": "The number of hours."
                 },
                 "temporalResolutionMinute": {
                     "placeholder": "Dataset Temporal Resolution Minute placeholder text",
-                    "label": "Temporal Resolution Minute"
+                    "label": "Temporal Resolution Minute",
+                    "help": "The number of minutes."
                 },
                 "temporalResolutionMonth": {
                     "label": "Temporal Resolution Month",
-                    "placeholder": "Dataset Temporal Resolution Month placeholder text"
+                    "placeholder": "Dataset Temporal Resolution Month placeholder text",
+                    "help": "The number of months."
                 },
                 "temporalResolutionYear": {
                     "label": "Temporal Resolution Year",
-                    "placeholder": "Dataset Temporal Resolution Year placeholder text"
+                    "placeholder": "Dataset Temporal Resolution Year placeholder text",
+                    "help": "The number of years."
                 },
                 "temporalResolutionDay": {
                     "label": "Temporal Resolution Day",
-                    "placeholder": "Dataset Temporal Resolution Day placeholder text"
+                    "placeholder": "Dataset Temporal Resolution Day placeholder text",
+                    "help": "The number of days."
                 },
                 "temporalResolution": {
                     "add-label": "Add Temporal Resolution",
@@ -1698,7 +1048,8 @@
                     "help": "The checksum is related to the downloadURL."
                 },
                 "checksumAlgorithm": {
-                    "label": "Checksum Algorithm"
+                    "label": "Checksum Algorithm",
+                    "help": "Algorithm used for checksum."
                 },
                 "mediaType": {
                     "label": "Media Type",
@@ -1725,7 +1076,8 @@
                 },
                 "accessServiceEndpointURL": {
                     "label": "Data Service Endpoint URL",
-                    "placeholder": "Distribution Data Service Endpoint URL placeholder text"
+                    "placeholder": "Distribution Data Service Endpoint URL placeholder text",
+                    "help": "The link to the data service's webpage."
                 },
                 "rights": {
                     "info": "This property refers to a statement that specifies rights associated with the Distribution.",
@@ -1735,7 +1087,8 @@
                 },
                 "conformsToUrl": {
                     "label": "Url",
-                    "placeholder": "Distribution Conforms To Url placeholder text"
+                    "placeholder": "Distribution Conforms To Url placeholder text",
+                    "help": "The propertie's link."
                 },
                 "conformsTo": {
                     "add-label": "Add Conforms To",
@@ -1746,7 +1099,8 @@
                 },
                 "conformsToTitle": {
                     "label": "Title",
-                    "placeholder": "Distribution Conforms To Title placeholder text"
+                    "placeholder": "Distribution Conforms To Title placeholder text",
+                    "help": "The propertie's title."
                 },
                 "hasPolicy": {
                     "label": "Has Policy",
@@ -1756,19 +1110,23 @@
                 },
                 "hasPolicyUrl": {
                     "placeholder": "Distribution Has Policy Url placeholder text",
-                    "label": "Url"
+                    "label": "Url",
+                    "help": "The policy link."
                 },
                 "pageFormat": {
                     "placeholder": "Distribution Page Format placeholder text",
-                    "label": "Format"
+                    "label": "Format",
+                    "help": "The format of the page."
                 },
                 "pageUrl": {
                     "label": "Url",
-                    "placeholder": "Distribution Page Url placeholder text"
+                    "placeholder": "Distribution Page Url placeholder text",
+                    "help": "The link to the webpage of the page."
                 },
                 "pageDescription": {
                     "label": "Description",
-                    "placeholder": "Distribution Page Description placeholder text"
+                    "placeholder": "Distribution Page Description placeholder text",
+                    "help": "The page's description."
                 },
                 "page": {
                     "info": "This property refers to a page or document about this Distribution.",
@@ -1779,7 +1137,8 @@
                 },
                 "pageTitle": {
                     "placeholder": "Distribution Page Title placeholder text",
-                    "label": "Title"
+                    "label": "Title",
+                    "help": "The page title."
                 },
                 "stepper": {
                     "distoverview": {
