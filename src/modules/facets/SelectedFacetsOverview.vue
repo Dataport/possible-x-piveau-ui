@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import { getFacetTranslation } from '../utils/helpers';
 
   export default {
@@ -39,11 +39,12 @@
       },
     },
     methods: {
+      ...mapActions('datasets', [
+        'setMinScoring',
+      ]),
       showSelectedFacet(fieldId) {
         return this.selectedFacets[fieldId].length > 0
-        && ((this.showCatalogDetails === (fieldId !== 'catalog')) || !this.showCatalogDetails)
-        && this.showEUInternationalCountry(fieldId, this.selectedFacets[fieldId][0])
-        && fieldId !== 'dataServices';
+          // && fieldId !== 'dataServices';
       },
       findFacetTitle(fieldId, facetId) {
         try {
@@ -85,6 +86,9 @@
           // Ignore Case for categories
           facet.toUpperCase();
           facets = facets.map(f => f.toUpperCase());
+        } else if (field === 'scoring') {
+          this.setMinScoring(0);
+          localStorage.setItem('minScoring', JSON.stringify(0));
         }
         const index = facets.indexOf(facet);
         if (index > -1) {
