@@ -58,11 +58,10 @@ import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import {has, isString} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
-import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsKeywords",
-  components: {PvShowMore, AppLink},
+  components: {AppLink},
   props: {
     sortAlphabetically: Function,
     showKeyword: Function

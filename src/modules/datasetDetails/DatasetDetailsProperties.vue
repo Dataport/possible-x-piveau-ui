@@ -600,11 +600,10 @@ import {mapGetters} from "vuex";
 import {removeMailtoOrTel, truncate, appendCurrentLocaleToURL, getTranslationFor} from "@/modules/utils/helpers";
 import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
-import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsProperties",
-  components: {PvShowMore, Tooltip, AppLink},
+  components: {Tooltip, AppLink},
   props: {
     filterDateFormatEU: Function,
     showObjectArray: Function,

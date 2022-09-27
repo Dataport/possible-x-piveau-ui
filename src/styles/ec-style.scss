@@ -8,6 +8,11 @@ body {
   --dsd-right-column-width: 36%;
 }
 
+.show-more {
+  padding-left: 0 !important;
+  font-weight: initial;
+}
+
 // dataset details
 
 .dsd-header-info, .dsd-header-title {

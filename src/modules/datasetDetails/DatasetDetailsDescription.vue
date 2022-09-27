@@ -44,10 +44,9 @@ import AppMarkdownContent from "@/modules/datasetDetails/AppMarkdownContent";
 import filtersMixin from "@/modules/mixins/filters";
 import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
-import PvShowMore from "@/modules/widgets/PvShowMore";
 export default {
   name: "DatasetDetailsDescription",
-  components: {PvShowMore, AppMarkdownContent},
+  components: {AppMarkdownContent},
   mixins: [filtersMixin],
   data() {
     return {
