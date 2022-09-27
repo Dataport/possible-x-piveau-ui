@@ -1,6 +1,6 @@
 <template>
-  <div class="row mt-5">
-    <div class="row w-100 d-flex dsd-item">
+  <div class="row mt-5 dsd-item">
+    <div class="row w-100 d-flex">
       <div class="d-none d-lg-block my-auto pr-0 text-right"
            @click="toggleMap()">
           <span class="arrow text-dark"
@@ -27,7 +27,7 @@
           </span>
       </div>
     </div>
-    <div class="dsd-item">
+    <div class=" w-100 h-100">
       <div id="collapse-geo-info"
            ref="geocollapse"
            class="collapse show"
