@@ -281,9 +281,16 @@ function mergeNodeData(nodeData, value) {
     let mergedData;
     const nodeDataKeys = nodeData.map(datasets => datasets['@id']);
 
+    let identifier;
+    if (typeof value === 'object' && Object.keys(value).includes('@id')) {
+        identifier = value['@id'];
+    } else {
+        identifier = value;
+    }
+
     // if value is a key of a danat node merge node data
-    if (nodeDataKeys.includes(value)) {
-        const node = replaceWithNamespaceKey(nodeData.filter(dataset => dataset['@id'] === value)[0]); // for valid jsonld the normal key names must be replcaed by namespaced keys
+    if (nodeDataKeys.includes(identifier)) {
+        const node = replaceWithNamespaceKey(nodeData.filter(dataset => dataset['@id'] === identifier)[0]); // for valid jsonld the normal key names must be replcaed by namespaced keys
         mergedData = node;
 
         // some properties have nested grouped data which will be also located in a node and must be merged (e.g. contactPoint -> vcard:hasAddress)

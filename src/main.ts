@@ -139,7 +139,7 @@ Vue.use(VueFormulate, {
   },
   // Define any props we want to pass to our slot component
   slotProps: {
-    label: ['info'],
+    label: ['info', 'collapsed'],
   },
   components: {
     ConditionalInput,
