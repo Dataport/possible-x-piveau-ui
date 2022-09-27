@@ -634,12 +634,6 @@
                     "help": "Date of formal issuance (e.g., publication) of the dataset. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
                     "info": "This property contains the date of formal issuance (e.g., publication) of the Dataset."
                 },
-                "language": {
-                    "placeholder": "Dataset Language placeholder text",
-                    "label": "Language",
-                    "help": "The language coverage of this dataset.",
-                    "info": "The language coverage of this dataset."
-                },
                 "publisherEmail": {
                     "placeholder": "Dataset Publisher Email placeholder text",
                     "label": "Email"
@@ -786,11 +780,6 @@
                     "info": "This property contains a name given to the Catalogue Record. This property can be repeated for parallel language versions of the name.",
                     "add-label": "Add Title in another language"
                 },
-                "catalog": {
-                    "help": "A catalog whose contents are of interest in the context of this catalog",
-                    "info": "This property refers to a catalog whose contents are of interest in the context of this catalog",
-                    "label": "Catalog"
-                },
                 "description": {
                     "label": "Description",
                     "help": "This property contains a free-text account of the record.",
@@ -853,10 +842,6 @@
                 },
                 "datetime": {
                     "label": "Datetime"
-                },
-                "language": {
-                    "label": "Language",
-                    "placeholder": "Catalogue Language placeholder text"
                 },
                 "catalogURL": {
                     "label": "Catalog URL",
