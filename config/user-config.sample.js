@@ -7,18 +7,21 @@ import {
 
 import i18n from './i18n';
 
+const ecStyle = true;
+
 const glueConfig = {
   title: 'data.europa.eu',
   description: 'data.europa.eu',
   keywords: 'DEU',
+  style: ecStyle ? "ec" : "default",
   api: {
-    // baseUrl: 'https://data.europa.eu/api/hub/search/',
-    baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    baseUrl: 'https://data.europa.eu/api/hub/search/',
+    // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
     similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
-    // hubUrl: 'https://data.europa.eu/api/hub/repo/',
-    hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    hubUrl: 'https://data.europa.eu/api/hub/repo/',
+    // hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     catalogBaseUrl: 'https://europeandataportal.eu/',
     authToken: '',
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
@@ -148,9 +151,9 @@ const glueConfig = {
       ],
     },
     facets: {
-      cutoff: null, // Add a number here to limit the number of displayed facets
-      showClearButton: false, // A button to clear all filters at once
-      showFacetsTitle: false, // Title on top of the facets
+      cutoff: 4,
+      showClearButton: true,
+      showFacetsTitle: true, // Title on top of the facets
       useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
       useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
       defaultFacetOrder: ['dataScope', 'country', 'catalog', 'categories', 'publisher', 'keywords', 'dataServices', 'scoring', 'format', 'license'],
@@ -208,9 +211,9 @@ const glueConfig = {
   },
   catalogs: {
     facets: {
-      cutoff: null, // Add a number here to limit the number of displayed facets
-      showClearButton: false, // A button to clear all filters at once
-      showFacetsTitle: false, // Title on top of the facets
+      cutoff: 4,
+      showClearButton: true,
+      showFacetsTitle: true, // Title on top of the facets
       // Enable / Disable the facets on the Catalogues page
       useCatalogFacets: true,
       defaultFacetOrder: ['country'],
@@ -242,12 +245,12 @@ const glueConfig = {
   },
   datasetDetails: {
     header: {
-      navigation: "top", // "top", "below"
-      showPublisher: true,
-      showDate: true
+      navigation: ecStyle ? "top" : "below", // "top", "below"
+      hidePublisher: ecStyle,
+      hideDate: ecStyle
     },
     keywords: {
-      showTitle: false
+      showTitle: ecStyle
     },
     description: {
       // If true, parses dataset description as Markdown formatted text content.

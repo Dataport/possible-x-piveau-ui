@@ -8,7 +8,7 @@
 @import "~@piveau/piveau-hub-ui-modules/dist/scss/main.scss";
 
 .dsd-item {
-  @extend .col-12, .col-lg-11, .offset-lg-1
+  @extend .col-12, .col-lg-11, .offset-lg-1;
 }
 
 .mt-4 {
@@ -22,7 +22,3 @@
 #navbar-toggle {
   margin-bottom: 0 !important;
 }
-
-///////////////// EC Restyling //
-@import 'ec-style';
-/////////////////////////////////

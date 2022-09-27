@@ -71,19 +71,13 @@ import {
   configureModules
 } from '@piveau/piveau-hub-ui-modules';
 
-/**********************************************
- *  Integrating the EC component library here *
- **********************************************/
-require('@ecl/preset-ec/dist/styles/ecl-ec.css');
-// import Select from './ecl/ec-select.js';
-// $(() => {
-//   Select.autoInit(document.getElementById('app'));
-// });
+
 
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
+const ecStyle = env.style === "ec";
 
 import ECSelectFacet from "./components/ECSelectFacet.vue";
 import ECRadioFacet from "./components/ECRadioFacet.vue";
@@ -92,15 +86,17 @@ import ECButton from "./components/ECButton.vue";
 import ECInfo from "./components/ECInfo.vue";
 import ECLinkButton from "./components/ECLinkButton.vue";
 
+const components = ecStyle ? {
+  SelectFacet: ECSelectFacet,
+  RadioFacet: ECRadioFacet,
+  PvShowMore: ECMore,
+  PvButton: ECButton,
+  PvBanner: ECInfo,
+  DatasetDetailsNavigationPage: ECLinkButton
+} : {};
+
 configureModules({
-  components: {
-    SelectFacet: ECSelectFacet,
-    RadioFacet: ECRadioFacet,
-    PvShowMore: ECMore,
-    PvButton: ECButton,
-    PvBanner: ECInfo,
-    DatasetDetailsNavigationPage: ECLinkButton
-  },
+  components,
   services: GLUE_CONFIG.services,
   serviceParams: {
     baseUrl: env.api.baseUrl,
@@ -247,6 +243,11 @@ require('popper.js');
 require('bootstrap');
 
 require('./styles/styles.scss');
+
+if (ecStyle) {
+  require('@ecl/preset-ec/dist/styles/ecl-ec.css');
+  require('./styles/ec-style.scss');
+}
 
 $(() => {
   $('[data-toggle="popover"]').popover({ container: 'body' });

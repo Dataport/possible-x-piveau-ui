@@ -585,7 +585,7 @@
         </div>
     </div>
     <pv-show-more
-      v-if="initialHeight > 300"
+      v-if="initialHeight > restrictedHeight"
       :label="expanded? 'Show less' : 'Show more'"
       :upArrow="expanded"
       :action="toggleExpanded"
@@ -617,6 +617,7 @@ export default {
     return {
       infoVisible: true,
       initialHeight: 0,
+      restrictedHeight: 500,
       expanded: false
     };
   },
@@ -691,14 +692,13 @@ export default {
       this.adaptHeight();
     },
     adaptHeight() {
-      this.$refs.dsdProperties.style['flex'] = this.expanded ? "0 0 100%": "0 0 300px";
-      this.$refs.dsdProperties.style['max-height'] = this.expanded ? "100%": "300px";
+      this.$refs.dsdProperties.style['flex'] = this.expanded ? "0 0 100%": `0 0 ${this.restrictedHeight}px`;
+      this.$refs.dsdProperties.style['max-height'] = this.expanded ? "100%": `${this.restrictedHeight}px`;
       // this.$refs.dsdProperties.style['overflow-y'] = this.expanded ? "auto": "hidden";
     }
   },
   mounted() {
     this.initialHeight = this.$refs.dsdProperties.clientHeight;
-    console.log("THIS", this.initialHeight)
     this.adaptHeight();
   }
 }
