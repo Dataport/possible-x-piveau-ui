@@ -92,11 +92,11 @@
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:accessService')">
                           <span class="d-block">
                             <div v-for="(accessService, index) in getDistributionObjectArray(distribution, 'dcat:accessService')" :key="index">
-                              <div><small v-for="(title, index) in getDistributionLanguageArray(accessService, 'dct:title')" :key="index">
-                                {{ languageNames[title['@language']] }}: {{ title['@value'] }}
+                              <div><small>
+                                {{ languageNames[getDistributionProperty(accessService, 'dct:title', ['@language'])] }}: {{ getDistributionProperty(accessService, 'dct:title', ['@value']) }}
                               </small></div>
-                              <div><small v-for="(description, index) in getDistributionLanguageArray(accessService, 'dct:description')" :key="index">
-                                {{ languageNames[description['@language']] }}: {{ description['@value'] }}
+                              <div><small>
+                                {{ languageNames[getDistributionProperty(accessService, 'dct:description', ['@language'])] }}: {{ getDistributionProperty(accessService, 'dct:description', ['@value']) }}
                               </small></div>
                               <div><small v-if="showObjectElementValue(accessService, 'dcat:endpointURL', '@id')" class="pr-1">
                                 <a :href="getDistributionProperty(accessService, 'dcat:endpointURL', ['@id'])">{{ getDistributionProperty(accessService, 'dcat:endpointURL', ['@id']) }}</a>
@@ -181,7 +181,7 @@
                         <!-- DISTRIBUTIONS TEMPORAL RESOLUTION -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:temporalResolution')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.temporalResolution') }} : {{ getDistributionProperty(distribution, 'dcat:temporalResolution', ['@value']) }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.temporalResolution') }} : {{ formatDatetime(getDistributionProperty(distribution, 'dcat:temporalResolution', ['@value'])) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS CONFORMS TO -->
@@ -582,7 +582,7 @@
               <tr v-if="showProperty('datasets', 'dcat:temporalResolution')">
                 <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.temporalResolution.label') }}</td>
                 <td v-if="showObjectValue('datasets', 'dcat:temporalResolution', '@value')">
-                  {{ getObjectString('datasets', 'dcat:temporalResolution', '@value') }}
+                  {{ formatDatetime(getObjectString('datasets', 'dcat:temporalResolution', '@value')) }}
                 </td>
               </tr>
 
@@ -898,6 +898,31 @@ export default {
     filterDateFormatEU(date) {
       return dateFilters.formatEU(date);
     },
+    formatDatetime(datetime) {
+      let date = datetime.split('T')[0].substr(1,);
+      let year, month, day;
+
+      year = date.split('Y')[0];
+      date = date.split('Y')[1];
+
+      month = this.addPrecedingZero(date.split('M')[0]);
+      date = date.split('M')[1];
+
+      day = this.addPrecedingZero(date.split('D')[0]);
+
+      let time = datetime.split('T')[1];
+      let hour, minute, second;
+
+      hour = this.addPrecedingZero(time.split('H')[0]);
+      time = time.split('H')[1];
+
+      minute = this.addPrecedingZero(time.split('M')[0]);
+      time = time.split('M')[1];
+
+      second = this.addPrecedingZero(time.split('S')[0]);
+
+      return `${hour}:${minute}:${second} - ${day}.${month}.${year}`;
+    },
     showString(property) {
       return isString(property) && !isNil(property);
     },
@@ -1031,20 +1056,21 @@ export default {
       });
     },
     addPrecedingZero(value) {
-      return parseInt(value, 10) < 10 ? 0 : '';
+      return `${parseInt(value, 10) < 10 ? 0 : ''}${parseInt(value, 10)}`;
     },
   },
   created() {
     this.$nextTick(() => {
-      // if (this.property === 'datasets') {
-      //   this.checkDatasetMandatory();
-      //   this.checkDatasetID();
-      //   this.checkDistributionMandatory();
-      // }
+      if (this.property === 'datasets') {
+        this.checkDatasetMandatory();
+        this.checkDatasetID();
+        this.checkDistributionMandatory();
+      }
 
-      // if (this.property === 'catalogues') {
-      //   this.checkCatalogueMandatory();
-      // }
+      if (this.property === 'catalogues') {
+        this.checkCatalogueMandatory();
+        // TODO?
+      }
     });
   },
   mounted(){

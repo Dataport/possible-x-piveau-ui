@@ -45,7 +45,7 @@ export default {
 
 .value-display {
   min-height: 48px;
-  border-color: #2c2c2c;
+  border-color: #707070;
   &:focus {
      border-width: 3px;
   }

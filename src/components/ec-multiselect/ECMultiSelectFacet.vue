@@ -32,16 +32,16 @@
 
 <script>
 import Vue from 'vue';
-import {getFacetTranslation} from "@/modules/utils/helpers";
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+const { getFacetTranslation } = helpers;
 import { mixin as clickaway } from 'vue-clickaway';
-import Dropdown from "@/modules/widgets/Dropdown";
 import ECCheckbox from "@/components/ECCheckbox";
 import ECFacetHeader from "@/components/ECFacetHeader";
 import ECSelectDisplay from "@/components/ec-multiselect/ECSelectDisplay";
 
 export default {
   name: "ECMultiSelectFacet",
-  components: {ECSelectDisplay, ECFacetHeader, ECCheckbox, Dropdown},
+  components: {ECSelectDisplay, ECFacetHeader, ECCheckbox},
   mixins: [clickaway],
   props: {
     header: {
@@ -128,7 +128,7 @@ export default {
 <style lang="scss" scoped>
 
 .select-item {
- padding: 16px;
+  padding: 16px;
   &:hover {
     background-color: #e3e3e3;
   }

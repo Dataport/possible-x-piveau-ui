@@ -60,8 +60,9 @@ function convertNestedProperties(state, values) {
         const key = objectKeys[keyIndex];
 
         if (inputtypes.nestedSingularURIs.includes(key)) {
-            if (!isEmpty(values[key])) {
+            if (!isEmpty(values[key]) && !Array.isArray(values[key]['@id'])) {
                 // mail addresse are extended with mailto: which needs to be removed for the input
+                // normally nested URIs shouldn't be within an array
                 if (values[key]['@id'].startsWith('mailto:')) {
                     state[key] = values[key]['@id'].replace('mailto:', '');
                 } else {

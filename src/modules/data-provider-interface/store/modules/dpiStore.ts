@@ -436,6 +436,14 @@ const actions = {
           const distData = {...context, ...state.distributions[num]};
           // distribution id is already set as url on create
           dispatch('removeEmptyEntries', distData);
+
+          // Copy accessURL to downloadURL, if downloadURL is empty
+          // TODO: is there a more transparent way to do this?
+          if (isEmpty(distData['dcat:downloadURL']) && !isEmpty(distData['dcat:accessURL'])) {
+            // make sure to copy the object and not the reference
+            distData['dcat:downloadURL'] = JSON.parse(JSON.stringify(distData['dcat:accessURL']));
+          }
+
           jsonld.push(distData);
         }
       }
@@ -567,7 +575,6 @@ const mutations = {
         } else if (key === 'adms:identifier') {
           const identifierObject = {
               "@id": "",
-              "skos:notation": {"@type": "", "@value": ""},
           };
           for (let index = 0; index < values[key].length; index += 1) {
             storedata[key][index] = cloneDeep(identifierObject);
@@ -575,6 +582,7 @@ const mutations = {
             const currentStoreData = storedata[key][index];
             if (has(currentData, '@id') && !isEmpty(currentData['@id'])) currentStoreData['@id'] = currentData['@id'];
             if (has(currentData, 'skos:notation') && !isEmpty(currentData['skos:notation'])) {
+              currentStoreData['skos:notation'] = {};
               // is a subgroup which is summarized in array with singular entry
               const currentNotation = currentData['skos:notation'][0];
               if (has(currentNotation, '@value') && !isEmpty(currentNotation['@value'])) currentStoreData['skos:notation']['@value'] = currentNotation['@value'];
@@ -614,7 +622,7 @@ const mutations = {
     // additionally get distribution data if existing
     if (property === 'datasets' || property === 'distributions') {
       const distName = 'dpi_distributions';
-  
+
       if (Object.keys(localStorage).includes(distName)) {
         const distributionsData = JSON.parse(localStorage.getItem(distName));
         state.distributions = distributionsData;
@@ -669,9 +677,20 @@ const mutations = {
     for (let index = 0; index < propertyKeys.length; index += 1) {
       let normalKeyName = propertyKeys[index];
 
+      // if only adms identifier is provided the key might be provided as 'identifier' not 'adms:identifier' -> check context URI
+      const originalIdentifierKey = normalKeyName;
+      if (normalKeyName === 'identifier') {
+        if (has(context, 'identifier')) {
+          const identifierURI = context.identifier['@id'];
+          if (identifierURI.includes('adms')) {
+            normalKeyName = 'adms:identifier';
+          }
+        }
+      }
+
       // save catalog info for input of datasets (no valid/ real property -> just for input)
-      if (property === 'datasets' && normalKeyName === 'catalog') {
-        state[property]['dct:catalog'] = data[normalKeyName];
+      if (property === 'datasets' && (normalKeyName === 'catalog' || normalKeyName === 'dct:catalog')) {
+        state['datasets']['dct:catalog'] = data[normalKeyName];
       }
 
       if (property === 'datasets' && normalKeyName === 'distribution') {
@@ -694,7 +713,6 @@ const mutations = {
       }
       if (has(namespacedKeys, normalKeyName)) {
         const key = namespacedKeys[normalKeyName]; // convert normal key name into namespaced key (e.g. title -> 'dct:title')
-
         // propertie which value is a singular string
         if (dcataptypes.singularString[property].includes(key)) {
           if(!isEmpty(data[normalKeyName])) toJsonldConverter.convertSingularString(storedata, data[normalKeyName], key);
@@ -733,10 +751,10 @@ const mutations = {
           toJsonldConverter.convertMultipleURIs(storedata[key], values);
         } else if (key === 'dct:identifier' && property !== 'distributions') {
           // identiier is an array of strings
-          if (Array.isArray(data[normalKeyName])) {
-            if (!isEmpty(data[normalKeyName])) storedata[key] = data[normalKeyName];
-          } else if (typeof data[normalKeyName] === 'string') {
-            if (!isEmpty(data[normalKeyName])) storedata[key] = [data[normalKeyName]];
+          if (Array.isArray(data[originalIdentifierKey])) {
+            if (!isEmpty(data[originalIdentifierKey])) storedata[key] = data[originalIdentifierKey];
+          } else if (typeof data[originalIdentifierKey] === 'string') {
+            if (!isEmpty(data[originalIdentifierKey])) storedata[key] = [data[originalIdentifierKey]];
           }
         } else if (key === 'dcat:temporalResolution') {
           // temporal resolution given as string (e.g. P1Y1M0DT0H2M0S)
@@ -774,14 +792,14 @@ const mutations = {
             if (has(rightsNodeData, 'label') && !isEmpty(rightsNodeData['label'])) {
               storedata[key] = {'@type': 'dct:RightsStatement'};
               if (typeof rightsNodeData['label'] === 'object') {
-                if (has(rightsNodeData['label'], '@id') && !isEmpty(rightsNodeData['label']['@id'])) storedata[key]['rdfs:label'] = rightsNodeData['label']; 
+                if (has(rightsNodeData['label'], '@id') && !isEmpty(rightsNodeData['label']['@id'])) storedata[key]['rdfs:label'] = rightsNodeData['label'];
               } else {
                 // for some reason the backend returns URI in JSON-LD wrongly
                 if (rightsNodeData['label'].startsWith('http') || rightsNodeData['label'].startsWith('www')) storedata[key]['rdfs:label'] = {'@id': rightsNodeData['label']};
                 else storedata[key]['rdfs:label'] = rightsNodeData['label'];
               }
             }
-          } 
+          }
         } else if (key === 'dct:license') {
           // license could either be an URI or a group of values stored within a node
           let licenseNodeData = nodeData.filter(dataset => dataset['@id'] === data[normalKeyName]);
@@ -803,30 +821,35 @@ const mutations = {
           };
           // there could be multiple identifiers
           let admsData;
-          if (Array.isArray(data[key])) {
-            admsData = data[key];
+          if (Array.isArray(data[originalIdentifierKey])) {
+            admsData = data[originalIdentifierKey];
           } else {
-            admsData = [data[key]];
+            admsData = [data[originalIdentifierKey]];
           }
 
           for (let amdsId = 0; amdsId < admsData.length; amdsId += 1) {
             const currentIdentifierData = admsData[amdsId];
+            let identifierURI;
             if (has(currentIdentifierData, '@id') && !isEmpty(currentIdentifierData['@id'])) {
-              storedata[key][amdsId] = cloneDeep(admsObject);
-              storedata[key][amdsId]['@id'] = currentIdentifierData['@id'];
-              let admsNodeData = nodeData.filter(el => el['@id'] === currentIdentifierData['@id']);
-              if (!isEmpty(admsNodeData)) {
-                admsNodeData = admsNodeData[0]; // should only return one element within array because id has to be unique
-                if (has(admsNodeData, 'skos:notation') && !isEmpty(admsNodeData['skos:notation'])) {
-                  if (has(admsNodeData['skos:notation'], '@value') && !isEmpty(admsNodeData['skos:notation']['@value'])) storedata[key][amdsId]['skos:notation']['@value'] = admsNodeData['skos:notation']['@value'];
-                  if (has(admsNodeData['skos:notation'], '@type') && !isEmpty(admsNodeData['skos:notation']['@type'])) storedata[key][amdsId]['skos:notation']['@type'] = admsNodeData['skos:notation']['@type'];
-                } else if (has(admsNodeData, 'notation') && !isEmpty(admsNodeData.notation)) {
-                  // notation type is located in the context
-                  storedata[key][amdsId]['skos:notation']['@value'] = admsNodeData.notation;
-                  if (has(context, 'notation') && !isEmpty(context.notation)) {
-                    if (has(context.notation, '@type') && !isEmpty(context.notation['@type'])) {
-                      storedata[key][amdsId]['skos:notation']['@type'] =context.notation['@type'];
-                    }
+              identifierURI = currentIdentifierData['@id']
+            } else if (!isEmpty(currentIdentifierData)) {
+              identifierURI = currentIdentifierData;
+            }
+
+            storedata[key][amdsId] = cloneDeep(admsObject);
+            storedata[key][amdsId]['@id'] = identifierURI;
+            let admsNodeData = nodeData.filter(el => el['@id'] === identifierURI);
+            if (!isEmpty(admsNodeData)) {
+              admsNodeData = admsNodeData[0]; // should only return one element within array because id has to be unique
+              if (has(admsNodeData, 'skos:notation') && !isEmpty(admsNodeData['skos:notation'])) {
+                if (has(admsNodeData['skos:notation'], '@value') && !isEmpty(admsNodeData['skos:notation']['@value'])) storedata[key][amdsId]['skos:notation']['@value'] = admsNodeData['skos:notation']['@value'];
+                if (has(admsNodeData['skos:notation'], '@type') && !isEmpty(admsNodeData['skos:notation']['@type'])) storedata[key][amdsId]['skos:notation']['@type'] = admsNodeData['skos:notation']['@type'];
+              } else if (has(admsNodeData, 'notation') && !isEmpty(admsNodeData.notation)) {
+                // notation type is located in the context
+                storedata[key][amdsId]['skos:notation']['@value'] = admsNodeData.notation;
+                if (has(context, 'notation') && !isEmpty(context.notation)) {
+                  if (has(context.notation, '@type') && !isEmpty(context.notation['@type'])) {
+                    storedata[key][amdsId]['skos:notation']['@type'] = context.notation['@type'];
                   }
                 }
               }
@@ -877,7 +900,7 @@ const mutations = {
       const idList = state.datasets['dcat:distribution'].map(dataset => dataset['@id']);
       const idIndex = idList.indexOf(currentDistributionId);
       state.datasets['dcat:distribution'].splice(idIndex, 1);
-      
+
       state.distributions.splice(index, 1);
       localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
       localStorage.setItem('dpi_datasets', JSON.stringify(state.datasets));

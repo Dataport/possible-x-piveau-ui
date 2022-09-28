@@ -10,6 +10,7 @@
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
         />
+        <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
         <settings-facet
           v-if="!showCatalogDetails"
           class="row facet-field mb-3"
@@ -42,6 +43,21 @@
             class="col pr-0"
           />
         </div>
+        <div>
+          <pv-show-more
+            v-if="showMoreFacetsShown"
+            :label="cutoff >= 0? 'More filters' : 'Less filters'"
+            :upArrow="cutoff === -1"
+            :action="toggleCutoff"
+            class="p-0 row"
+          />
+        </div>
+        <pv-button
+          v-if="showClearButton"
+          label="Clear filters"
+          class="row mt-5"
+          :action="clearFacets"
+        />
       </div>
     </div>
   </div>
@@ -64,20 +80,13 @@ import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsMapFacet from "@/modules/datasets/datasetsFacets/DatasetsMapFacet";
 import CatalogDetailsFacet from "@/modules/datasets/datasetsFacets/CatalogDetailsFacet";
 import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
-// import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet";
-import ECSelectFacet from "@/components/ECSingleSelectFacet";
-// import SelectFacet from "@/components/SelectFacet";
 
 export default {
   name: 'datasetFacets',
   dependencies: ['catalogService'],
   components: {
-    ECSelectFacet,
-    // ExpandableSelectFacet,
     SettingsFacet,
     CatalogDetailsFacet,
-    // SelectFacet,
-    // Facet,
     DatasetsMapFacet,
     DatasetsFacetsItem,
   },
@@ -103,6 +112,9 @@ export default {
   },
   data() {
     return {
+      cutoff: this.$env.datasets.facets.cutoff,
+      showClearButton: this.$env.datasets.facets.showClearButton,
+      showFacetsTitle: this.$env.datasets.facets.showFacetsTitle,
       defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       useScoringFacets: this.$env.datasets.facets.scoringFacets.useScoringFacets,
       useDataScopeFacets: this.$route.query.catalog.length === 0,
@@ -158,6 +170,9 @@ export default {
     currentSearchQuery() {
       return this.$route.query.query;
     },
+    showMoreFacetsShown() {
+      return this.$env.datasets.facets.cutoff < this.getAllAvailableFacets.length;
+    },
     getSortedFacets() {
       const availableFacets = this.getAllAvailableFacets;
       const sortedFacets = [];
@@ -172,8 +187,11 @@ export default {
             && (field.id !== 'dataScope' || this.useDataScopeFacets)) sortedFacets.push(field);
         });
       });
-
-      return sortedFacets;
+      if (this.cutoff > 0) {
+        return sortedFacets.slice(0, this.cutoff - 1); // -1 because we always show the settings facet
+      } else {
+        return sortedFacets;
+      }
     },
     // Returns the current catalog's available language ids
     // example: ['en', 'de', 'sv']
@@ -207,6 +225,9 @@ export default {
       'setPageCount',
       'setMinScoring',
     ]),
+    toggleCutoff() {
+      this.cutoff = this.cutoff >= 0 ? -1 : this.$env.datasets.facets.cutoff;
+    },
     facetTitle(fieldId) {
       return fieldId === 'scoring' ?
         Vue.i18n.t('message.header.navigation.data.metadataquality')
@@ -252,18 +273,9 @@ export default {
       const facet = item.id;
       if (field === "dataScope") {
         this.dataScopeFacetClicked(facet);
-      } else if (field === 'scoring') {
-        let newScoring = item.minScoring;
-        if (newScoring === this.getMinScoring) {
-          newScoring = 0;
-        }
-        this.setMinScoring(newScoring);
-        localStorage.setItem('minScoring', JSON.stringify(newScoring));
-        this.resetPage();
-        window.scrollTo(0, 0);
       } else {
+        if (field === 'scoring') this.scoringFacetClicked(item);
         this.toggleFacet(field, facet);
-        // this.resetPage();
       }
     },
     toggleFacet(field, facet) {
@@ -280,6 +292,9 @@ export default {
         // Ignore Case for categories
         facet.toUpperCase();
         facets = facets.map(f => f.toUpperCase());
+      } else if (field === 'scoring') {
+        // Empty facets as scoring facets are disjoint
+        facets = [];
       }
       const index = facets.indexOf(facet);
       if (index > -1) {
@@ -292,6 +307,12 @@ export default {
       ).catch(
         error => { console.log(error); }
       );
+    },
+    clearFacets() {
+      if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
+        this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
+          .catch(error => { console.log(error); });
+      }
     },
     dataScopeFacetClicked(dataScope) {
       if (this.$route.query.dataScope === dataScope) {
@@ -309,6 +330,14 @@ export default {
           error => { console.log(error); }
         );
       }
+    },
+    scoringFacetClicked(item) {
+      let newScoring = item.minScoring;
+      if (newScoring === this.getMinScoring) newScoring = 0;
+      this.setMinScoring(newScoring);
+      localStorage.setItem('minScoring', JSON.stringify(newScoring));
+      this.resetPage();
+      window.scrollTo(0, 0);
     },
     toggleFacetGroupOperator() {
       let op = this.getFacetGroupOperator;

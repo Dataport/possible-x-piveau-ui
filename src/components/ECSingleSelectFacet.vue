@@ -11,7 +11,7 @@
           v-for="(item, index) in items"
           :value="item"
           :key="getTitle(item)+index">
-            {{ getTitle(item) }}
+          {{ getTitle(item) }}
         </option>
       </select>
       <div class="ecl-select__icon">
@@ -26,7 +26,9 @@
 <script>
 import ECFacetHeader from "@/components/ECFacetHeader";
 import Vue from "vue";
-import {getFacetTranslation} from "@/modules/utils/helpers";
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+console.log("HELPERS", helpers)
+const { getFacetTranslation } = helpers;
 export default {
   name: "ECSingleSelectFacet",
   components: {ECFacetHeader},
@@ -68,7 +70,7 @@ export default {
         ? `${Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)}${facetId === 'sufficientScoring' || facetId === 'goodScoring' ? '+' : ''}`
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
-    onChange(event) {
+    onChange() {
       this.facetClicked(this.fieldId, this.selected);
     }
   },
