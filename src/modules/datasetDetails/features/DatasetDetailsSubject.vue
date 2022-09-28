@@ -60,12 +60,12 @@
 import {truncate} from "@/modules/utils/helpers";
 import {has, isNil} from "lodash";
 import {mapGetters} from "vuex";
+import Tooltip from "@/modules/widgets/Tooltip";
+import {sortAlphabetically} from "@/modules/datasetDetails/features/utils/sortAlphabetically";
 
 export default {
   name: "DatasetDetailsSubject",
-  props: {
-    sortAlphabetically: Function
-  },
+  components: {Tooltip},
   data() {
     return {
       maxSubjectLength: this.$env.datasets.maxSubjectLength,
@@ -107,12 +107,13 @@ export default {
           selected.push(element);
         }
       });
-      this.sortAlphabetically(selected, 'title');
+      this.sortAlphabetically(selected, 'title', selectedLanguage);
       return selected;
     }
   },
   methods: {
     truncate,
+    sortAlphabetically,
     showSubject(subject) {
       return has(subject, 'title') && !isNil(subject.title);
     },

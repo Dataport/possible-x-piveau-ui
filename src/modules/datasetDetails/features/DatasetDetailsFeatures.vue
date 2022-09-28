@@ -2,12 +2,10 @@
   <div class="row dsd-features">
     <dataset-details-keywords
       v-if="showObjectArray(getKeywords)"
-      :sortAlphabetically="sortAlphabetically"
       :showKeyword="showKeyword"
     />
     <dataset-details-subject
       v-if="showObjectArray(getSubject)"
-      :sortAlphabetically="sortAlphabetically"
     />
 
     <dataset-details-pages
@@ -109,24 +107,6 @@ export default {
         return uniqueAccessServiceList;
       }
       return [{}];
-    }
-  },
-  methods: {
-    sortAlphabetically(array, property) {
-      try {
-        array.sort((a, b) => {
-          const propA = a[property].toLowerCase();
-          const propB = b[property].toLowerCase();
-
-          return propA > propB
-            ? 1
-            : -1;
-        });
-      } catch (e) {
-        // Catch TypeErrors for undefined Keyword titles
-        console.warn('CATCHED ERROR - UNDEFINED KEYWORD TITLES'); // eslint-disable-line
-        console.warn(e); // eslint-disable-line
-      }
     }
   }
 }

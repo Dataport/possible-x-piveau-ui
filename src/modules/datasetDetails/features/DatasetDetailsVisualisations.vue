@@ -119,7 +119,6 @@ import {mapGetters} from "vuex";
 export default {
   name: "DatasetDetailsVisualisations",
   props: {
-    getVisualisations: Array,
     trackGoto: Function
   },
   data() {

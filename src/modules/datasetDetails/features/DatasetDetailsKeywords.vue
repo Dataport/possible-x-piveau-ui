@@ -58,12 +58,12 @@ import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import {has, isString} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
+import {sortAlphabetically} from "@/modules/datasetDetails/features/utils/sortAlphabetically";
 
 export default {
   name: "DatasetDetailsKeywords",
   components: {AppLink},
   props: {
-    sortAlphabetically: Function,
     showKeyword: Function
   },
   data() {
@@ -110,11 +110,11 @@ export default {
               : other[k.language] = [k])
         : without.push(k));
       // Sort alphabetically
-      this.sortAlphabetically(selected, 'title');
-      this.sortAlphabetically(fallback, 'title');
-      Object.keys(other).forEach(key => this.sortAlphabetically(other[key], 'title'));
+      this.sortAlphabetically(selected, 'title', selectedLanguage);
+      this.sortAlphabetically(fallback, 'title', fallbackLanguage);
+      Object.keys(other).forEach(key => this.sortAlphabetically(other[key], 'title', selectedLanguage || fallbackLanguage));
       other = Object.keys(other).sort().reduce((arr, el) => arr.concat(other[el]), []);
-      this.sortAlphabetically(without, 'title');
+      this.sortAlphabetically(without, 'title', selectedLanguage || fallbackLanguage);
       // Return sorted keywords by language order
       return selected
         .concat(fallback)
@@ -124,6 +124,7 @@ export default {
   },
   methods: {
     truncate,
+    sortAlphabetically,
     // Increases the current number of keywords displayed
     // and clamps the result so that it never exceeds the number of all keywords.
     increaseNumDisplayedKeywords(increment) {
