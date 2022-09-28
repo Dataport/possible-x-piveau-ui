@@ -110,16 +110,16 @@ export default {
       return !this.isPreviousPage && !this.property === 'distributions';
     },
     showCreateNewDataset() {
-      return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft;
+      return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateNewDraft() {
-      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft;
+      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
     },
     showCreateEditedDataset() {
-      return this.getIsEditMode && !this.getIsDraft;
+      return this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateEditedDraft() {
-      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft;
+      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
     },
     showNextLabel() {
       return !(this.isOverviewPage || this.page === 'distoverview');
