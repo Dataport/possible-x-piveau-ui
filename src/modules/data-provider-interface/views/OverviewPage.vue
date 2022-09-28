@@ -1025,26 +1025,26 @@ export default {
     },
     checkCatalogueMandatory() {
       // Check if mandatory catalogue properties are set
-      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('datasets', 'dct:description')) {
+      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('catalogues', 'dct:description') || !this.showProperty('catalogues', 'dct:publisher')) {
         this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'catalogues', page: 'step1' }, query: { error: 'mandatoryCatalog', locale: this.$route.query.locale } });
       }
     },
-    checkDatasetID() {
+    checkID(property) {
       // Check uniqueness of Dataset ID
       if (!this.getIsEditMode) {
-        this.checkUniqueID()
+        this.checkUniqueID(property)
           .then((isUniqueID) => {
             if (!isUniqueID) {
               // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
-              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'id', locale: this.$route.query.locale } });
+              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: property, page: 'step1' }, query: { error: 'id', locale: this.$route.query.locale } });
             }
           });
       }
     },
-    checkUniqueID() {
+    checkUniqueID(property) {
       return new Promise((resolve) => {
-        if (this.values.datasets.datasetID !== '') {
-          const request = `${this.$env.api.hubUrl}datasets/${this.values.datasets.datasetID}?useNormalizedId=true`;
+        if (this.values[property]['@id'] !== '') {
+          const request = `${this.$env.api.hubUrl}${property}/${this.values[property]['@id']}?useNormalizedId=true`;
           axios.head(request)
             .then(() => {
               resolve(false);
@@ -1063,13 +1063,13 @@ export default {
     this.$nextTick(() => {
       if (this.property === 'datasets') {
         this.checkDatasetMandatory();
-        this.checkDatasetID();
+        this.checkID('datasets');
         this.checkDistributionMandatory();
       }
 
       if (this.property === 'catalogues') {
         this.checkCatalogueMandatory();
-        // TODO?
+        this.checkID('catalogues')
       }
     });
   },
