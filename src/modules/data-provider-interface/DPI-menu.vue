@@ -115,7 +115,7 @@ export default {
                   ...{
                     message: 'Are you sure you want to delete this dataset? This can not be reverted.',
                     confirm: 'Delete dataset (irreversible)',
-                    confirmHandler: () => this.handleDeleteDataset({ id: this.getID }),
+                    confirmHandler: () => this.handleDelete({ id: this.getID, property: 'datasets' }),
                   },
                 };
                 $('#DPIMenuModal').modal({ show: true });
@@ -187,11 +187,21 @@ export default {
                 params: { property: 'catalogues' } 
               },
             },
-            // {
-            //   name: 'Delete Catalogue',
-            //   onlyAuthorizedDatasetPage: true,
-            //   // to: { name: 'DataProviderInterface-Home', query: { locale: this.$route.query.locale }, params: { property: 'datasets' } },
-            // },
+            {
+              name: 'Delete Catalogue',
+              disabled: !this.isLocatedOnAuthorizedCatalogPage,
+              handler: () => {
+                this.modal = {
+                  ...this.modal,
+                  ...{
+                    message: 'Are you sure you want to delete this catalogue? This can not be reverted!',
+                    confirm: 'Delete catlogue (irreversible)',
+                    confirmHandler: () => this.handleDelete({ id: this.$route.query.catalog, property: 'catalogues' }),
+                  },
+                };
+                $('#DPIMenuModal').modal({ show: true });
+              }
+            },
             {
               name: 'Edit Catalog',
               onlyAuthorizedDatasetPage: true,
@@ -370,21 +380,34 @@ export default {
 
       this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
-    async handleDeleteDataset({ id }) {
+    async handleDelete({ id, property }) {
       // todo: create user dataset api (and maybe integrate to store)
 
       // For now, do request manually using axios
       this.modal.loading = true;
       this.$Progress.start();
       try {
-        await axios.delete(`${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true`, {
+        let endpoint;
+        if (property === 'datasets') {
+          endpoint = `${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true`;
+        } else if (property === 'catalogues') {
+          endpoint = `${this.$env.api.hubUrl}catalogues/${id}`
+        }
+
+        await axios.delete(endpoint, {
           headers: {
             'Content-Type': 'text/turtle',
             Authorization: `Bearer ${this.getUserData.rtpToken}`,
           },
         });
 
-        const successMessage = this.$te('message.snackbar.deleteDataset.success') ? this.$t('message.snackbar.deleteDataset.success') : 'Dataset successfully deleted';
+        let successMessage;
+        if (property === 'datasets') {
+          successMessage = this.$te('message.snackbar.deleteDataset.success') ? this.$t('message.snackbar.deleteDataset.success') : 'Dataset successfully deleted';
+        } else if (property === 'catalogues') {
+          successMessage = this.$te('message.snackbar.deleteCatalog.success') ? this.$t('message.snackbar.deleteCatalog.success') : 'Catalog successfully deleted';
+        }
+        
 
         this.showSnackbar({
           message: successMessage,
@@ -397,7 +420,13 @@ export default {
       } catch (ex) {
         this.$Progress.fail();
 
-        const errorMessage = this.$te('message.snackbar.deleteDataset.error') ? this.$t('message.snackbar.deleteDataset.error') : 'Failed to delete dataset';
+        let errorMessage;
+
+        if (property === 'datasets') {
+          errorMessage = this.$te('message.snackbar.deleteDataset.error') ? this.$t('message.snackbar.deleteDataset.error') : 'Failed to delete dataset';
+        } else if (property === 'catalogues') {
+          errorMessage = this.$te('message.snackbar.deleteCatalog.error') ? this.$t('message.snackbar.deleteCatalog.error') : 'Failed to delete catalog';
+        }
 
         this.showSnackbar({
           message: `${errorMessage}${ex.response?.data ? ` — ${ex.response?.data}` : ex.message}`,
