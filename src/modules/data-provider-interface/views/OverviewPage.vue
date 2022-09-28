@@ -871,10 +871,56 @@ export default {
         this.values['distributions'] = this.getData('distributions');
       }
     },
+    checkDatasetID() {
+      // Check uniqueness of Dataset ID
+      if (!this.getIsEditMode) {
+        this.checkUniqueID()
+          .then((isUniqueID) => {
+            if (!isUniqueID) {
+              // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
+              this.$router.push({ 
+                name: 'DataProviderInterface-Input', 
+                params: { 
+                  property: 'datasets', 
+                  page: 'step1' 
+                }, 
+                query: { 
+                  error: 'id', 
+                  locale: this.$route.query.locale 
+                } 
+              });
+            }
+          });
+      }
+    },
+    checkUniqueID() {
+      return new Promise((resolve) => {
+        if (this.values.datasets.datasetID !== '') {
+          const request = `${this.$env.api.hubUrl}datasets/${this.values.datasets.datasetID}?useNormalizedId=true`;
+          axios.head(request)
+            .then(() => {
+              resolve(false);
+            })
+            .catch(() => {
+              resolve(true);
+            });
+        }
+      });
+    },
     checkDatasetMandatory() {
       // Check if mandatory dataset properties are set
       if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dct:catalog')) {
-        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'mandatoryDataset', locale: this.$route.query.locale } });
+        this.$router.push({ 
+          name: 'DataProviderInterface-Input', 
+          params: { 
+            property: 'datasets', 
+            page: 'step1' 
+          }, 
+          query: { 
+            error: 'mandatoryDataset', 
+            locale: this.$route.query.locale 
+          } 
+        });
       }
     },
     checkDistributionMandatory() {
@@ -897,34 +943,18 @@ export default {
     checkCatalogueMandatory() {
       // Check if mandatory catalogue properties are set
       if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('datasets', 'dct:description')) {
-        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'catalogues', page: 'step1' }, query: { error: 'mandatoryCatalog', locale: this.$route.query.locale } });
+        this.$router.push({ 
+          name: 'DataProviderInterface-Input', 
+          params: { 
+            property: 'catalogues', 
+            page: 'step1' 
+          }, 
+          query: { 
+            error: 'mandatoryCatalog', 
+            locale: this.$route.query.locale 
+          } 
+        });
       }
-    },
-    checkDatasetID() {
-      // Check uniqueness of Dataset ID
-      if (!this.getIsEditMode) {
-        this.checkUniqueID()
-          .then((isUniqueID) => {
-            if (!isUniqueID) {
-              // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
-              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'id', locale: this.$route.query.locale } });
-            }
-          });
-      }
-    },
-    checkUniqueID() {
-      return new Promise((resolve) => {
-        if (this.values.datasets.datasetID !== '') {
-          const request = `${this.$env.api.hubUrl}datasets/${this.values.datasets.datasetID}?useNormalizedId=true`;
-          axios.head(request)
-            .then(() => {
-              resolve(false);
-            })
-            .catch(() => {
-              resolve(true);
-            });
-        }
-      });
     },
     addPrecedingZero(value) {
       return `${parseInt(value, 10) < 10 ? 0 : ''}${parseInt(value, 10)}`;
@@ -933,8 +963,8 @@ export default {
   created() {
     this.$nextTick(() => {
       if (this.property === 'datasets') {
-        this.checkDatasetMandatory();
         this.checkDatasetID();
+        this.checkDatasetMandatory();
         this.checkDistributionMandatory();
       }
 

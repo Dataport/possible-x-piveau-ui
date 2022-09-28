@@ -5,7 +5,7 @@ import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
 
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
-import DatasetDetailsQuality from "./datasetDetails/ECDatasetDetailsQuality.vue";
+import DatasetDetailsQuality from "../components/ECDatasetDetailsQuality.vue";
 import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets.vue";
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
