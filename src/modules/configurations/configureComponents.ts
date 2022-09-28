@@ -20,7 +20,7 @@ const defaultComponents: ComponentMap = {
 
 export function configureComponents(components?: ComponentMap) {
   const allComponents: ComponentMap = { ...defaultComponents, ...components };
-  const componentKeys: string[] = Object.keys(allComponents );
+  const componentKeys: string[] = Object.keys(allComponents);
   componentKeys.forEach((key: string) => {
     Vue.component(key, allComponents[key]);
   });
