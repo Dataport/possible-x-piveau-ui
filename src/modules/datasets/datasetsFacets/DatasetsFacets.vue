@@ -88,7 +88,7 @@ export default {
     SettingsFacet,
     CatalogDetailsFacet,
     DatasetsMapFacet,
-    DatasetsFacetsItem,
+    DatasetsFacetsItem
   },
   props: {
     dataScope: {

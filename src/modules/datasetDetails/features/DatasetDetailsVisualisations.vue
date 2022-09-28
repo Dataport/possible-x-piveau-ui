@@ -115,9 +115,11 @@
 import {has, isNil} from "lodash";
 import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
+import AppLink from "@/modules/widgets/AppLink";
 
 export default {
   name: "DatasetDetailsVisualisations",
+  components: {AppLink},
   props: {
     trackGoto: Function
   },
