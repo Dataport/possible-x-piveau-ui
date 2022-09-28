@@ -55,6 +55,7 @@
 <script>
 import axios from 'axios';
 import $ from 'jquery';
+import { has, isEmpty } from 'lodash';
 import { mapGetters, mapActions } from 'vuex';
 import Dropup from './components/Dropup';
 
@@ -193,10 +194,20 @@ export default {
             // },
             {
               name: 'Edit Catalog',
-              disabled: !this.isLocatedOnAuthorizedDatasetPage,
-              to: this.getCatalog.id
-                ? { name: 'DataProviderInterface-Edit', query: { locale: this.$route.query.locale }, params: { catalog: this.getCatalog.id, property: 'catalogues', id: this.getCatalog.id } }
-                : '/',
+              onlyAuthorizedDatasetPage: true,
+              disabled: !this.isLocatedOnAuthorizedCatalogPage,
+              to: {
+                name: 'DataProviderInterface-Edit',
+                params: {
+                  catalog: this.$route.query.catalog ? this.$route.query.catalog : 'undefined',
+                  property: 'catalogues',
+                  id: this.getID || 'undefined',
+                },
+                query: {
+                  draft: false,
+                  locale: this.$route.query.locale,
+                }
+              }
             },
           ],
         },
@@ -237,6 +248,24 @@ export default {
         && isOnDatasetDetailsPage
         && datasetId === this.getID;
     },
+    isLocatedOnAuthorizedCatalogPage() {
+      // never return true while loading
+      if (this.getLoading) return false;
+
+      // is the user located on the correct page?
+      const onDatasetPage = this.$route.name === 'Datasets';
+      const queryCatalogProperty = has(this.$route.query, 'catalog') && !isEmpty(this.$route.query.catalog);
+      const catalogDetailsShown = has(this.$route.query, 'showcatalogdetails') && this.$route.query.showcatalogdetails === 'true';
+      const isOnRightPage = onDatasetPage && queryCatalogProperty && catalogDetailsShown;
+      if (!(isOnRightPage)) return false;
+
+      const permissions = this.getUserData && this.getUserData.permissions;
+      const catalogId = this.$route.query.catalog;
+      const hasPermission = permissions.find(permission => permission.rsname === catalogId);
+      
+      // does user have permission on current catalogue
+      return hasPermission && isOnRightPage;
+    }
   },
   methods: {
     ...mapActions('auth', [
