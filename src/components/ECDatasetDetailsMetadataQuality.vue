@@ -6,9 +6,9 @@
                 <p v-html="$t('message.datasetDetails.intro.metadataQuality', { locale: $route.query.locale })"></p>
             </div>
         </div>
-        <div class="content">
-            <article class="row ecl-card" v-for="(result, index) in qualityDataResults" :key="index">
-                <div class="col-12 ecl-card__body">
+        <div class="row col-12 content">
+            <article class="ecl-card" v-for="(result, index) in qualityDataResults" :key="index">
+                <div class="ecl-card__body">
                     <div class="ecl-content-block ecl-card__content-block">
                         <h1 class="ecl-content-block__title ecl-u-type-color-blue">
                             {{ result.title }}
@@ -16,19 +16,19 @@
                         <div class="row ecl-u-type-color-blue">
                             <div class="col-3 mt-5" v-for="(item, index) in result.items" :key="index">
                                 <div class="ecl-u-border-bottom ecl-u-border-color-blue">
-                                <div class="row">
-                                    <div class="col-8 text-truncate">
-                                        <span class="mr-2">{{ item.title }}</span>
-                                    </div>
-                                    <div class="col-4">
-                                        <span v-if="has(item.items, 'name') && has(item.items, 'percentage') && item.items.name === 'yes'">{{ `${item.items.percentage}%` }}</span>
-                                        <span v-else-if="has(item.items, 'name') && has(item.items, 'percentage') && item.items.name === '200'">{{ item.items.name }}</span>
-                                        <span v-else-if="has(item.items, 'name') && has(item.items, 'percentage')">{{ `${item.items.percentage} : ${item.items.percentage}%` }}</span>
-                                        <span v-else-if="item.items === undefined">n/a</span>
-                                        <span v-else>{{ item.items }}</span>
+                                    <div class="row">
+                                        <div class="col-8 text-truncate">
+                                            <span class="mr-2">{{ item.title }}</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <span v-if="has(item.items, 'name') && has(item.items, 'percentage') && item.items.name === 'yes'">{{ `${item.items.percentage}%` }}</span>
+                                            <span v-else-if="has(item.items, 'name') && has(item.items, 'percentage') && item.items.name === '200'">{{ item.items.name }}</span>
+                                            <span v-else-if="has(item.items, 'name') && has(item.items, 'percentage')">{{ `${item.items.percentage} : ${item.items.percentage}%` }}</span>
+                                            <span v-else-if="item.items === undefined">n/a</span>
+                                            <span v-else>{{ item.items }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>

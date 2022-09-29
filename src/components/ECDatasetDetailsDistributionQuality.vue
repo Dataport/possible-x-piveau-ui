@@ -1,15 +1,16 @@
 <template>
-    <div class="dsd-distribution-quality">
+    <div class="container dsd-distribution-quality">
         <div class="header mt-5">
             <h2>{{ $t('message.datasetDetails.quality.distributionQuality') }}</h2>
             <div class="markdown-content">
                 <p v-html="$t('message.datasetDetails.intro.distribution', { locale: $route.query.locale })" />
             </div>
         </div>
-        <div class="content">
-            <div class="ecl-accordion" data-ecl-auto-init="Accordion" data-ecl-accordion="">
+        <div class="row content">
+            <div class="col-12 ecl-accordion" data-ecl-auto-init="Accordion" data-ecl-accordion="">
                 <div class="ecl-accordion__item" v-for="(distribution, index) in qualityDistributions" :key="index">
-                    <h3 class="ecl-accordion__title">
+                    <!-- Distribution Quality -->
+                    <h3 class="ecl-accordion__title" @click="toggleDistribution(index)">
                         <button 
                             type="button" 
                             class="ecl-accordion__toggle" 
@@ -19,12 +20,12 @@
                             aria-controls="accordion-example-content">
                             <span class="ecl-accordion__toggle-flex">
                                 <span class="ecl-accordion__toggle-indicator">
-                                    <span class="ecl-accordion__toggle-label">
-                                        Open
-                                    </span>
-                                    <svg class="ecl-icon ecl-icon--m ecl-accordion__toggle-icon" focusable="false" aria-hidden="true" data-ecl-accordion-icon="">
-                                        <use xlink:href="/icons.svg#plus"></use>
-                                    </svg>
+                                    <div class="collapsed ecl-icon ecl-icon--m ecl-accordion__toggle-icon" :ref="`distDown${index}`" focusable="false">
+                                        <i class="material-icons">keyboard_arrow_down</i>
+                                    </div>
+                                    <div class="ecl-icon ecl-icon--m ecl-accordion__toggle-icon" :ref="`distUp${index}`" focusable="false">
+                                        <i class="material-icons">keyboard_arrow_up</i>
+                                    </div>
                                 </span>
                                 <span class="ecl-accordion__toggle-title">
                                     {{ distribution.title }}
@@ -32,14 +33,14 @@
                             </span>
                         </button>
                     </h3>
-                    <div class="ecl-accordion__content" hidden="" id="accordion-example-content" role="region">
-                        <div class="dsd-distribution-quality-property" v-for="(el, index) in qualityDistributionData" :key="index">
-                            <h4>{{ el }}</h4>
-                            <span>Time based search ..... 100%</span>
-                            <span>Geo search ..... 100%</span>
-                            <span>Keyword usage ..... 100%</span>
-                            <span>Categories ..... 100%</span>
+                    <div class="collapsed ecl-accordion__content ecl-u-border-top ecl-u-border-color-grey-25" :ref="`dist${index}`">
+                        <div class="dsd-distribution-quality-property" v-for="(qualityElement, index) in qualityDistributionData" :key="index">
+                            <h4>{{ $t(`message.datasetDetails.quality.${qualityElement.title}`) }}</h4>
+                            <div v-for="(el, index) in qualityElement.items" :key="index">
+                                <span v-for="(property, index) in printObject(el)" :key="index">{{ property }}</span>
+                            </div>
                         </div>
+                        <!-- CSV Linter -->
                         <div class="dsd-distribution-quality-csv">
                             <h4>CSV Validation Results</h4>
                             <div class="csv-result-box">
@@ -55,17 +56,22 @@
                             <br>
                             <br>
                             <div class="csv-result-details">
-                                <div class="badge warning">Warning</div>
+                                <div class="badge ecl-u-type-color-white" :class="getBadgeStyle('error')">Error</div>
+                                <h5>ERROR</h5>
+                                <p>Your CSV ...</p>
+                            </div>
+                            <div class="csv-result-details">
+                                <div class="badge ecl-u-type-color-white" :class="getBadgeStyle('warning')">Warning</div>
                                 <h5>Incorrect Encoding</h5>
                                 <p>Your CSV ...</p>
                             </div>
                             <div class="csv-result-details">
-                                <div class="badge message">Message</div>
+                                <div class="badge ecl-u-type-color-white" :class="getBadgeStyle('message')">Message</div>
                                 <h5>Assumed Header</h5>
                                 <p>Your CSV ...</p>
                             </div>
                             <div class="csv-result-details">
-                                <div class="badge message">Message</div>
+                                <div class="badge ecl-u-type-color-white" :class="getBadgeStyle('message')">Message</div>
                                 <h5>Non-standard Line Breaks on row 1</h5>
                                 <p>Your CSV ...</p>
                             </div>
@@ -109,19 +115,31 @@ export default {
             let properties = Object.keys(data).filter(prop => prop !== 'info');
 
             return properties.map(prop => {
-                return data[prop];
+                return {
+                    title: prop,
+                    items: data[prop],
+                }
             });
         }
     },
     methods: {
-        toggleDistribution(index) {},
         getTranslationFor,
+        toggleDistribution(index) {
+            this.$refs[`dist${index}`][0].classList.toggle('collapsed');
+            this.$refs[`distDown${index}`][0].classList.toggle('collapsed');
+            this.$refs[`distUp${index}`][0].classList.toggle('collapsed');
+        },
+        printObject(object) {
+            return Object.keys(object).map(o => `${this.$t(`message.datasetDetails.quality.${o}`)}: ${JSON.stringify(object[o])}`);
+        },
+        getBadgeStyle(type) {
+            return type === 'error' ? 'ecl-u-bg-red'
+                : type === 'warning' ? 'ecl-u-bg-orange'
+                : type === 'message' ? 'ecl-u-bg-blue-50'
+                : 'ecl-u-bg-white';
+        },
     },
-    created() {
-        // var elt = document.querySelector('[data-ecl-accordion]');
-        // var accordion = new ECL.Accordion(elt);
-        // accordion.init();
-    },
+    created() {},
     mounted() {},
 };
 </script>
@@ -132,21 +150,8 @@ export default {
         margin-bottom: 5%;
     }
 
-    .box {
-        &-header {
-            cursor: pointer;
-            border-bottom: 1px solid grey;
-
-            span {
-                font-size: 250%;
-                font-weight: 300;
-                margin-right: 2%;
-            }
-
-            h3 {
-                display: inline-block;
-            }
-        }
+    .collapsed {
+        display: none;
     }
 
     .csv-result {
