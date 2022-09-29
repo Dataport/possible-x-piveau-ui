@@ -301,7 +301,7 @@ export default {
     },
     createCatalogue(datasetId) {
       this.clearAll();
-      this.showSnackbar({ message: 'Catalogue created successfully', varaint: 'success' });
+      this.showSnackbar({ message: 'Catalogue saved successfully', variant: 'success' });
       this.$router.push({ name: 'Datasets', query: { catalog: datasetId, showcatalogdetails: true, locale: this.$route.query.locale }}).catch(() => {});
     }
   },
