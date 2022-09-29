@@ -656,8 +656,9 @@
         </div>
       </div>
     </div>
-    <div class="mb-3" v-if="showCatalogsOverview">
 
+
+    <div class="mb-3" v-if="showCatalogsOverview">
       <!-- TITLE -->
       <div class="mt-2 mb-4" v-if="showLanguageArray('catalogues', 'dct:title')">
         <div class="row">
@@ -753,12 +754,8 @@
 
               <!-- IS PART OF -->
               <tr v-if="showProperty('catalogues', 'dct:isPartOf')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.catalogues.isPartOf.label') }}</td>
-                <td v-if="showObjectArray('catalogues', 'dct:isPartOf')">
-                  <div v-for="(relation, index) in getObjectArray('catalogues', 'dct:isPartOf')" :key="index">
-                    <app-link v-if="showElementValue(relation, '@id')" :to="relation">{{ relation['@id'] }}</app-link>
-                  </div>
-                </td>
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.isPartOf') }}</td>
+                <td>{{ getObjectString('catalogues', 'dct:isPartOf', '@id') }}</td>
               </tr>
 
               <!-- CATALOG -->
