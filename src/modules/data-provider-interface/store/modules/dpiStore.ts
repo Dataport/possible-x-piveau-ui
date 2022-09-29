@@ -372,7 +372,7 @@ const actions = {
     // nested and grouped data is outsourced into own entries with id
     const nodeData = graphData.filter(dataset => (dataset['@type'] !== 'dcat:Distribution'
       && dataset['@type'] !== 'dcat:Dataset'
-      && dataset['@type'] !== 'dcat:Catalogue' && dataset['@type'] !== 'dcat:Catalog'));
+      && dataset['@type'] !== 'dcat:Catalog'));
 
     const context = data['@context'];
 
@@ -388,7 +388,7 @@ const actions = {
       }
     } else if (property === 'catalogues') {
       // transfer catalog data into stores state
-      const catalogueData = graphData.filter(dataset => (dataset['@type'] === 'dcat:Catalogue' || dataset['@type'] === 'dcat:Catalog'))[0]; // there is only one catalogue entry
+      const catalogueData = graphData.filter(dataset => dataset['@type'] === 'dcat:Catalog')[0]; // there is only one catalogue entry
       commit('transferJsonld', {data: catalogueData, nodeData, property, id, context});
     }
   },
