@@ -354,6 +354,7 @@ const glueConfig = {
     },
   },
   upload: {
+    useUpload: true,
     buttons: {
       Dataset: true,
       Catalogue: false,
