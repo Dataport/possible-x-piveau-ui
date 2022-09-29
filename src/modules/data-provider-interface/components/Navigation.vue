@@ -13,7 +13,7 @@
         <!-- PUBLISH NEW CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || mandatoryFieldsFilled({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
-        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.savecatalogue')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         
         <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateNewDataset" class="mr-2">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
