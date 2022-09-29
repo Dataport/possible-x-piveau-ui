@@ -10,7 +10,11 @@
       </div>
       <div class="right-form-nav">
 
-        <!-- PUBLISH NEW DATASET -->
+        <!-- PUBLISH NEW CATALOGUE -->
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || mandatoryFieldsFilled({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        <!-- PUBLISH EDITED CATALOGUE -->
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        
         <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateNewDataset" class="mr-2">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
           {{ $t('message.dataupload.publishdataset') }}
@@ -106,16 +110,16 @@ export default {
       return !this.isPreviousPage && !this.property === 'distributions';
     },
     showCreateNewDataset() {
-      return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft;
+      return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateNewDraft() {
-      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft;
+      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
     },
     showCreateEditedDataset() {
-      return this.getIsEditMode && !this.getIsDraft;
+      return this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateEditedDraft() {
-      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft;
+      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
     },
     showNextLabel() {
       return !(this.isOverviewPage || this.page === 'distoverview');
@@ -262,6 +266,10 @@ export default {
       } else if (mode === 'draft') {
         uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
         actionName = 'auth/createUserDraft';
+      } else if (mode === 'createcatalogue') {
+        uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
+        actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
+        actionName = 'auth/createCatalogue';
       }
 
       try {
@@ -272,6 +280,7 @@ export default {
         this.$Progress.finish();
         this.uploading = false;
 
+        if (mode === 'createcatalogue') this.createCatalogue(datasetId);
         if (mode === 'dataset') this.createDataset(datasetId);
         if (mode === 'draft') this.createDraft();
       } catch (err) {
@@ -290,6 +299,11 @@ export default {
       this.showSnackbar({ message: 'Draft saved successfully', variant: 'success' });
       this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
+    createCatalogue(datasetId) {
+      this.clearAll();
+      this.showSnackbar({ message: 'Catalogue saved successfully', variant: 'success' });
+      this.$router.push({ name: 'Datasets', query: { catalog: datasetId, showcatalogdetails: true, locale: this.$route.query.locale }}).catch(() => {});
+    }
   },
   mounted() {
     this.$root.$on('go-to-next', () => this.next());

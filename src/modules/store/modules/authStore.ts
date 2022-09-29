@@ -255,6 +255,24 @@ const actions = {
   },
   populateDraftAndEdit({ commit }) {
     commit('PREDEFINE_DRAFT_AND_EDIT');
+  },
+  async createCatalogue({ commit }, actionParams) {
+    const requestOptions = {
+      method: 'PUT',
+      url: actionParams.url,
+      headers: {
+        'Content-Type': 'application/ld+json',
+        Authorization: `Bearer ${actionParams.token}`,
+      },
+      data: actionParams.data,
+    };
+
+    const result = await axios.request(requestOptions);
+
+    if (result.status === 201 | result.status === 204 ) {
+      commit('CHANGE_IS_EDIT_MODE', false);
+      commit('CHANGE_IS_DRAFT', false); // shouldn't be necessary but for safety
+    }
   }
 };
 

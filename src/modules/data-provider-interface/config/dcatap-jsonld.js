@@ -77,7 +77,7 @@ const distributions = {
 
 const catalogues = {
     '@id': '',
-    '@type': 'dcat:Catalogue',
+    '@type': 'dcat:Catalog',
     "dct:title": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }] 
     "dct:description": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }]
     "dct:publisher": {}, // {"@id": ""} 

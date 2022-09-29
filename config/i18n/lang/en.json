@@ -685,6 +685,11 @@
                 }
             },
             "catalogues": {
+                "datasetID": {
+                    "help": "This property contains the main identifier for the Catalog.",
+                    "info": "This property contains the main identifier for the Catalog, e.g. the URI or other unique identifier in the context of the Catalogue.",
+                    "label": "Catalog ID"
+                },
                 "rights": {
                     "placeholder": "Catalogue Rights placeholder text",
                     "help": "A statement that specifies rights associated with the Catalogue.",
@@ -883,6 +888,7 @@
             "publishdataset": "Publish Dataset",
             "validationtitle": "Validation",
             "publishdraft": "Publish Draft",
+            "publishcatalogue": "Publish Catalog",
             "newDistribution": "Add another Distribution",
             "validationerror": "There was an error validating your form!",
             "distributions": {
