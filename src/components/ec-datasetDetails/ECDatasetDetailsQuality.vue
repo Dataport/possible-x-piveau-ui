@@ -60,36 +60,36 @@ export default {
             this.isLoadingQualityDistributionData = true;
             
             this.loadDatasetDetails(this.$route.params.ds_id)
-            .then(() => {
-                this.$Progress.finish();
-            })
-            .catch(() => {
-                this.$Progress.fail();
-                this.$router.replace({
-                name: 'NotFound',
-                query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+                .then(() => {
+                    this.$Progress.finish();
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                    this.$router.replace({
+                    name: 'NotFound',
+                    query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+                    });
                 });
-            });
 
             this.loadQualityData(this.$route.params.ds_id)
-            .then(() => {
-                this.$Progress.finish();
-                this.isLoadingQualityData = false;
-            })
-            .catch(() => {
-                this.$Progress.fail();
-                this.isLoadingQualityData = false;
-            });
+                .then(() => {
+                    this.$Progress.finish();
+                    this.isLoadingQualityData = false;
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                    this.isLoadingQualityData = false;
+                });
 
             this.loadQualityDistributionData(this.$route.params.ds_id)
-            .then(() => {
-                this.$Progress.finish();
-                this.isLoadingQualityDistributionData = false;
-            })
-            .catch(() => {
-                this.$Progress.fail();
-                this.isLoadingQualityDistributionData = false;
-            });
+                .then(() => {
+                    this.$Progress.finish();
+                    this.isLoadingQualityDistributionData = false;
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                    this.isLoadingQualityDistributionData = false;
+                });
         });
     },
     mounted() {},
