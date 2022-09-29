@@ -9,7 +9,8 @@
       <dropup v-for="(group, index) in menuGroups"
         :key="`Group${index}`"
         :groupName="group.group"
-        :groupItems="group.items">
+        :groupItems="group.items"
+        :show="$env.upload.buttons[group.group]">
       </dropup>
       <ul>
         <div class="btn-group dropup">
@@ -173,7 +174,6 @@ export default {
                 $('#DPIMenuModal').modal({ show: true });
               },
             },
-
           ],
         },
         {

@@ -135,9 +135,10 @@ export default {
     },
   },
   upload: {
-    useUpload: "$VUE_APP_UPLOAD_USE_UPLOAD",
-    useCreateDatasetButton: "$VUE_APP_UPLOAD_USE_CREATE_DATASET_BUTTON",
-    useCreateCatalogueButton: "$VUE_APP_UPLOAD_USE_CREATE_CATALOGUE_BUTTON",
+    buttons: {
+      Dataset: "$VUE_APP_UPLOAD_BUTTON_DATASET",
+      Catalogue: "$VUE_APP_UPLOAD_BUTTON_CATALOGUE"
+    }
   },
   doiRegistrationService: {
     persistentIdentifierType: "$VUE_APP_DOI_REGISTRATION_SERVICE_PERSISTENT_IDENTIFIER_TYPE",
