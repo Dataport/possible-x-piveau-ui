@@ -1,20 +1,19 @@
 <template>
     <div class="row mt-2 flex-column dsd-item dsd-keywords">
       <span v-if="showTitle" class="mb-4 h4 font-weight-bold">Keywords ({{ getKeywords.length }})</span>
-      <div class="keywords__item row" id="keywordsItemsDiv">
+      <div class="keywords__item row">
           <span
             v-for='(keyword, i) in displayedKeywords'
-            :content="keyword.title"
             :key="i"
-            class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 mx-0 px-1"
+            class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 px-1"
           >
             <app-link v-if="showKeyword(keyword)" :to="getKeywordLink(keyword)" :rel="followKeywordLinks">
-            <small class="d-inline-block w-100 py-2 rounded-pill text-center text-white tag-color"
-                   :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
-                   :data-placement="keywordTruncated(keyword) ? 'top' : false"
-                   :title="keywordTruncated(keyword) ? keyword.title : false">
-              {{ truncate(keyword.title, maxKeywordLength, false) }}
-            </small>
+              <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
+                     :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
+                     :data-placement="keywordTruncated(keyword) ? 'top' : false"
+                     :title="keywordTruncated(keyword) ? keyword.title : false">
+                {{ truncate(keyword.title, maxKeywordLength, false) }}
+              </small>
             </app-link>
           </span>
       </div>
@@ -59,10 +58,11 @@ import {mapGetters} from "vuex";
 import {has, isString} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
 import {sortAlphabetically} from "@/modules/datasetDetails/features/utils/sortAlphabetically";
+import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsKeywords",
-  components: {AppLink},
+  components: {PvShowMore, AppLink},
   props: {
     showKeyword: Function
   },
@@ -157,5 +157,9 @@ export default {
 <style scoped lang="scss">
 .tag-color {
   background-color: var(--tag-color);
+}
+.keywords__item > div {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 </style>

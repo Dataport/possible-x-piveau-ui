@@ -1,5 +1,5 @@
 <template>
-  <div class="row dsd-features">
+  <div class="row flex-column dsd-features">
     <dataset-details-keywords
       v-if="showObjectArray(getKeywords)"
       :showKeyword="showKeyword"

@@ -1,20 +1,20 @@
 <template>
-  <div class="row mt-2 flex-column dsd-item dsd-keywords">
+  <div class="row mt-4 flex-column dsd-item dsd-keywords">
     <span v-if="showTitle" class="mb-4 h4 font-weight-bold">Subjects ({{ displayedSubjects.length }})</span>
-    <div class="keywords__item row" id="keywordsItemsDiv">
+    <div class="keywords__item row">
       <span
         v-for='(subject, i) in displayedSubjects'
         :key="i"
         class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 mx-0 px-1"
       >
-        <small v-if="typeof subject.title === 'object'" class="d-inline-block w-100 py-2 rounded-pill text-center text-white subjectBg">
+        <small v-if="typeof subject.title === 'object'" class="d-inline-block w-100 py-2 rounded-pill text-center text-white subject">
           <span v-for="(value, key) in subject.title" :key="key">
             <tooltip :title="value"  data-placement="top">
               {{ truncate(value, maxSubjectLength, false) }}
             </tooltip>
           </span>
         </small>
-        <small v-else-if="typeof subject.title === 'string'" class="d-inline-block w-100 py-2 rounded-pill text-center text-white subjectBg">
+        <small v-else-if="typeof subject.title === 'string'" class="d-inline-block w-100 py-2 rounded-pill text-center text-white subject">
           <span>
             <tooltip :title="subject.title"  data-placement="top">
               {{ truncate(subject.title, maxSubjectLength, false) }}
@@ -141,7 +141,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.subjectBg {
+.subject {
   background-color: #196fd2;
 }
 </style>
