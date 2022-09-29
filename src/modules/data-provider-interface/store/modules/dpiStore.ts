@@ -299,7 +299,7 @@ const actions = {
             formData[propertyKey] = [licenseData];
           }
         }
-      } else if (property === 'datasets' && propertyKey === 'datasetID') {
+      } else if (property !== 'distributions'  && propertyKey === 'datasetID') {
         if (!isEmpty(storedata['@id'])) {
           formData['datasetID'] = storedata['@id'];
         }
@@ -372,7 +372,7 @@ const actions = {
     // nested and grouped data is outsourced into own entries with id
     const nodeData = graphData.filter(dataset => (dataset['@type'] !== 'dcat:Distribution'
       && dataset['@type'] !== 'dcat:Dataset'
-      && dataset['@type'] !== 'dcat:Catalogue'));
+      && dataset['@type'] !== 'dcat:Catalogue' && dataset['@type'] !== 'dcat:Catalog'));
 
     const context = data['@context'];
 
@@ -388,7 +388,7 @@ const actions = {
       }
     } else if (property === 'catalogues') {
       // transfer catalog data into stores state
-      const catalogueData = graphData.filter(dataset => dataset['@type'] === 'dcat:Catalogue')[0]; // there is only one catalogue entry
+      const catalogueData = graphData.filter(dataset => (dataset['@type'] === 'dcat:Catalogue' || dataset['@type'] === 'dcat:Catalog'))[0]; // there is only one catalogue entry
       commit('transferJsonld', {data: catalogueData, nodeData, property, id, context});
     }
   },
@@ -691,6 +691,26 @@ const mutations = {
       // save catalog info for input of datasets (no valid/ real property -> just for input)
       if (property === 'datasets' && (normalKeyName === 'catalog' || normalKeyName === 'dct:catalog')) {
         state['datasets']['dct:catalog'] = data[normalKeyName];
+      }
+
+      // save catalog info for catalogues
+      if (property === 'catalogues' && (normalKeyName === 'catalog' || normalKeyName === 'dcat:catalog')) {
+        let catalogValues;
+        if (!Array.isArray(data[normalKeyName])) {
+          catalogValues = [data[normalKeyName]];
+        } else {
+          catalogValues = data[normalKeyName];
+        }
+      
+        state['catalogues']['dcat:catalog'] = [];
+        for (let catid = 0; catid < catalogValues.length; catid += 1) {
+          const currentCatalog = catalogValues[catid];
+          if (typeof currentCatalog === 'object' && has(currentCatalog, '@id')) {
+            state['catalogues']['dcat:catalog'][catid] = currentCatalog;
+          } else if (typeof currentCatalog === 'string') {
+            state['catalogues']['dcat:catalog'][catid] = { '@id': currentCatalog };
+          }
+        }
       }
 
       if (property === 'datasets' && normalKeyName === 'distribution') {

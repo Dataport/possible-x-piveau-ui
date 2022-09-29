@@ -50,6 +50,7 @@ const singularURI = {
         'foaf:homepage',
         'dct:publisher',
         'dct:spatial',
+        'dct:isPartOf',
     ],
 };
 
@@ -79,7 +80,6 @@ const multipleURI = {
     ],
     catalogues: [
         "dct:hasPart",
-        'dct:isPartOf',
         'dcat:catalog',
         'dct:language',
     ],

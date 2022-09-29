@@ -1594,19 +1594,10 @@ const dcatapProperties = {
     isPartOf: {
       identifier: 'isPartOf',
       name: 'dct:isPartOf',
-      type: 'group',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true, 
-      children: [
-        {
-          identifier: 'isPartOf',
-          type: 'url',
-          name: '@id',
-          validation: 'optional|url',
-          '@change': true,
-        }
-      ]
+      type: 'url',
+      validation: 'optional|url',
+      '@change': true
     },
     rights: {
       identifier: 'rights',
@@ -1642,6 +1633,7 @@ const dcatapProperties = {
       identifier: 'catalog',
       name: 'dcat:catalog',
       class: 'property',
+      repeatable: true,
       '@repeatableRemoved': true,
       children: [
         {

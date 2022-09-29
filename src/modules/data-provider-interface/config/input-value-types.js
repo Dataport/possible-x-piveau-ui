@@ -32,7 +32,6 @@ const sameFormatProperties = {
         'dct:title',
         'dct:description',
         'dct:hasPart',
-        'dct:isPartOf',
         'dcat:catalog',
     ],
 };
@@ -89,6 +88,7 @@ const singularURI = {
         'dct:publisher',
         'foaf:homepage',
         'dct:spatial',
+        'dct:isPartOf',
     ],
 }
 
