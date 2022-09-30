@@ -302,6 +302,11 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row accordion-body">
+                    <div class="col-12">
+                      <CSVLinter></CSVLinter>
+                    </div> 
+                </div>
                 </div>
               </div>
             </div>
@@ -469,9 +474,14 @@
   import { has } from 'lodash';
   import { getTranslationFor } from "../utils/helpers";
 
+  import CSVLinter from './DatasetDetailsCSVLinter.vue';
+
   export default {
     name: 'datasetDetailsCategories',
     dependencies: 'DatasetService',
+    components: {
+      CSVLinter,
+    },
     metaInfo() {
       return {
         // title: this.$t('message.metadata.categories'),

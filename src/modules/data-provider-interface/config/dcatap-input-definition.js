@@ -209,6 +209,7 @@ const dcatapProperties = {
       data: {
         voc: [
           {
+            identifier: 'spatialVocabulary',
             type: 'conditional-input',
             name: 'dct:spatial',
             options: {
@@ -220,6 +221,7 @@ const dcatapProperties = {
             data: {
               continent: [
                 {
+                  identifier: 'spatialContinent',
                   type: 'autocomplete-input',
                   voc: 'continent',
                   name: '@id',
@@ -249,6 +251,7 @@ const dcatapProperties = {
         ],
         man: [
           {
+            identifier: 'spatialUrl',
             type: 'url',
             name: '@id',
             validation: 'optional|url',
@@ -843,6 +846,7 @@ const dcatapProperties = {
           data: {
             url: [
               {
+                identifier: 'accessUrlLink',
                 type: 'url',
                 name: '@id',
                 '@change': true,
@@ -851,6 +855,7 @@ const dcatapProperties = {
             ],
             file: [
               {
+                identifier: 'accessUrlFile',
                 type: 'fileupload',
                 name: '@id',
                 '@change': true,
@@ -917,6 +922,7 @@ const dcatapProperties = {
       data: {
         voc: [
           {
+            identifier: 'licenceVocabulary',
             type: 'autocomplete-input',
             voc: 'licence',
             name: '@id',
@@ -925,6 +931,7 @@ const dcatapProperties = {
         ],
         man: [
           {
+            identifier: 'licenceDetails',
             type: 'group',
             name: 'dct:license',
             '@change': true,
@@ -1270,7 +1277,7 @@ const dcatapProperties = {
         url: [
           {
             name: 'rdfs:label',
-            identifier: 'url',
+            identifier: 'rightsUrl',
             type: 'url',
             '@change': true,
             validation: 'optional|url'
@@ -1279,7 +1286,7 @@ const dcatapProperties = {
         str: [
           {
             name: 'rdfs:label',
-            identifier: 'str',
+            identifier: 'rightsString',
             type: 'text',
             '@change': true,
             validation: 'optional'
@@ -1369,6 +1376,13 @@ const dcatapProperties = {
     },
   },
   catalogues: {
+    datasetID: {
+      identifier: 'datasetID',
+      type: 'unique-identifier-input',
+      name: 'datasetID',
+      class: 'property',
+      '@change': true,
+    },
     title: {
       identifier: 'title',
       type: 'group',
@@ -1380,7 +1394,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'title',
-          type: 'text',
+          type: 'textarea',
           name: '@value',
           validation: 'required',
           class: 'row1 column1',
@@ -1433,23 +1447,24 @@ const dcatapProperties = {
       class: 'property',
       type: 'autocomplete-input',
       voc: 'corporate-body',
+      validation: 'required',
       '@change': true,
     },
     language: {
       identifier: 'language',
       type: 'autocomplete-input',
-      voc: 'language',
-      multiple: true,
       name: 'dct:language',
       class: 'property',
+      multiple: true,
+      voc: 'language',
       '@change': true,
     },
     licence: {
       identifier: 'licence',
       type: 'conditional-input',
       name: 'dct:license',
-      class: 'property',
       '@change': true,
+      class: 'property',
       options: {
         voc: 'Choose from vocabulary',
         man: 'Manually submit information',
@@ -1457,17 +1472,16 @@ const dcatapProperties = {
       data: {
         voc: [
           {
-            identifier: 'licence',
+            identifier: 'licenceVocabulary',
             type: 'autocomplete-input',
             voc: 'licence',
             name: '@id',
-            class: 'main',
             '@change': true,
           },
         ],
         man: [
           {
-            identifier: 'licence',
+            identifier: 'licenceDetails',
             type: 'group',
             name: 'dct:license',
             '@change': true,
@@ -1476,21 +1490,18 @@ const dcatapProperties = {
                 identifier: 'licenceTitle',
                 type: 'text',
                 name: 'dct:title',
-                class: 'main',
                 '@change': true,
               },
               {
                 identifier: 'licenceDescription',
-                type: 'text',
-                name: 'dct:description',
-                class: 'main',
+                type: 'textarea',
+                name: 'skos:prefLabel',
                 '@change': true,
               },
               {
                 identifier: 'licenceURL',
                 type: 'url',
-                name: 'foaf:homepage',
-                class: 'main',
+                name: 'skos:exactMatch',
                 validation: 'optional|url',
                 '@change': true,
               },
@@ -1514,36 +1525,51 @@ const dcatapProperties = {
       data: {
         voc: [
           {
-            identifier: 'spatialContinent',
-            type: 'autocomplete-input',
-            voc: 'continent',
-            name: '@id',
-            class: 'main',
+            identifier: 'spatialVocabulary',
+            type: 'conditional-input',
+            name: 'dct:spatial',
+            options: {
+              continent: 'Continent',
+              country: 'Country',
+              place: 'Place',
+            },
             '@change': true,
-          },
-          {
-            identifier: 'spatialCountry',
-            type: 'autocomplete-input',
-            voc: 'country',
-            name: '@id',
-            class: 'main',
-            '@change': true,
-          },
-          {
-            identifier: 'spatialPlace',
-            type: 'autocomplete-input',
-            voc: 'place',
-            name: '@id',
-            class: 'main',
-            '@change': true,
+            data: {
+              continent: [
+                {
+                  identifier: 'spatialContinent',
+                  type: 'autocomplete-input',
+                  voc: 'continent',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              country: [
+                {
+                  identifier: 'spatialCountry',
+                  type: 'autocomplete-input',
+                  voc: 'country',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              place: [
+                {
+                  identifier: 'spatialPlace',
+                  type: 'autocomplete-input',
+                  voc: 'place',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+            },
           },
         ],
         man: [
           {
-            identifier: 'spatial',
+            identifier: 'spatialUrl',
             type: 'url',
             name: '@id',
-            class: 'main',
             validation: 'optional|url',
             '@change': true,
           },
@@ -1577,11 +1603,11 @@ const dcatapProperties = {
     },
     isPartOf: {
       identifier: 'isPartOf',
-      type: 'url',
       name: 'dct:isPartOf',
       class: 'property',
+      type: 'url',
       validation: 'optional|url',
-      '@change': true,
+      '@change': true
     },
     rights: {
       identifier: 'rights',
@@ -1594,7 +1620,7 @@ const dcatapProperties = {
         url: [
           {
             name: 'rdfs:label',
-            identifier: 'url',
+            identifier: 'rightsUrl',
             type: 'url',
             '@change': true,
             validation: 'optional|url'
@@ -1603,7 +1629,7 @@ const dcatapProperties = {
         str: [
           {
             name: 'rdfs:label',
-            identifier: 'str',
+            identifier: 'rightsString',
             type: 'text',
             '@change': true,
             validation: 'optional'
@@ -1615,15 +1641,17 @@ const dcatapProperties = {
       type: 'group',
       repeatabale: true,
       identifier: 'catalog',
-      name: 'dcat:Catalog',
+      name: 'dcat:catalog',
       class: 'property',
+      repeatable: true,
+      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'catalogURL',
           type: 'url',
           validation: 'optional|url',
           '@change': true,
-          name: '@value',
+          name: '@id',
         },
       ],
     },
@@ -1631,15 +1659,14 @@ const dcatapProperties = {
       identifier: 'creator',
       type: 'group',
       name: 'dct:creator',
+      class: 'property',
       repeatable: true,
       '@repeatableRemoved': true,
-      class: 'property',
       children: [
         {
           identifier: 'creatorType',
           type: 'select',
           name: '@type',
-          class: 'main',
           options: {
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
@@ -1650,14 +1677,12 @@ const dcatapProperties = {
           identifier: 'creatorName',
           type: 'text',
           name: 'foaf:name',
-          class: 'main',
           '@change': true,
         },
         {
           identifier: 'creatorEmail',
           type: 'email',
           name: 'foaf:mbox',
-          class: 'main',
           validation: 'optional|email',
           '@change': true,
         },
@@ -1665,13 +1690,12 @@ const dcatapProperties = {
           identifier: 'creatorHomepage',
           type: 'url',
           name: 'foaf:homepage',
-          class: 'main',
           validation: 'optional|url',
           '@change': true,
         },
       ],
     },
-  },
+  }
 };
 
 // Dynamically add a collapsed property to all fields that are component of

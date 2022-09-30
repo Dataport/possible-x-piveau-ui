@@ -273,18 +273,9 @@ export default {
       const facet = item.id;
       if (field === "dataScope") {
         this.dataScopeFacetClicked(facet);
-      } else if (field === 'scoring') {
-        let newScoring = item.minScoring;
-        if (newScoring === this.getMinScoring) {
-          newScoring = 0;
-        }
-        this.setMinScoring(newScoring);
-        localStorage.setItem('minScoring', JSON.stringify(newScoring));
-        this.resetPage();
-        window.scrollTo(0, 0);
       } else {
+        if (field === 'scoring') this.scoringFacetClicked(item);
         this.toggleFacet(field, facet);
-        // this.resetPage();
       }
     },
     toggleFacet(field, facet) {
@@ -301,6 +292,9 @@ export default {
         // Ignore Case for categories
         facet.toUpperCase();
         facets = facets.map(f => f.toUpperCase());
+      } else if (field === 'scoring') {
+        // Empty facets as scoring facets are disjoint
+        facets = [];
       }
       const index = facets.indexOf(facet);
       if (index > -1) {
@@ -336,6 +330,14 @@ export default {
           error => { console.log(error); }
         );
       }
+    },
+    scoringFacetClicked(item) {
+      let newScoring = item.minScoring;
+      if (newScoring === this.getMinScoring) newScoring = 0;
+      this.setMinScoring(newScoring);
+      localStorage.setItem('minScoring', JSON.stringify(newScoring));
+      this.resetPage();
+      window.scrollTo(0, 0);
     },
     toggleFacetGroupOperator() {
       let op = this.getFacetGroupOperator;

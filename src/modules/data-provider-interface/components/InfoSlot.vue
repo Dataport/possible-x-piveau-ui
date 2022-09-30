@@ -24,6 +24,8 @@
 <script>
 import { mapGetters } from 'vuex';
 import {
+  has,
+  isArray,
   isEmpty,
 } from 'lodash';
 const COLLAPSED_CLASS_NAME = 'collapsed';
@@ -52,9 +54,28 @@ export default {
       'getData',
     ]),
     propertyIsEmpty() {
+      let property;
       let data = this.getData(this.$route.params.property);
       if (this.$route.params.property === 'distributions')  data = data[this.$route.params.id];
-      return isEmpty(data[this.context.name]);
+
+      property = data[this.context.name];
+
+      if (!isEmpty(property)) {
+        if (has(property, 'skos:exactMatch') && has(property['skos:exactMatch'], '@id') && isEmpty(property['skos:exactMatch']['@id'])) return true
+        if (has(property, '@language') && has(property, '@value')) return isEmpty(property['@value']);
+        if (isArray(property)) {
+          return property
+          .map(el => {
+            if (has(el, '@language') && has(el, '@value') && isEmpty(el['@value'])) return true;
+            if (!isEmpty(el)) return false;
+            return true;
+          })
+          .reduce((a,b) => {
+            return a && b;
+          }, true);
+        }
+        return false;
+      } else return true;
     },
   },
   mounted() {

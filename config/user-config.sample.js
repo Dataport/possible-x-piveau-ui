@@ -366,8 +366,10 @@ const glueConfig = {
   },
   upload: {
     useUpload: true,
-    useCreateDatasetButton: true,
-    useCreateCatalogueButton: true,
+    buttons: {
+      Dataset: true,
+      Catalogue: false,
+    },
     basePath: '/dpi',
   },
   doiRegistrationService: {

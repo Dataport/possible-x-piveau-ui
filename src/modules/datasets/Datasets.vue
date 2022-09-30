@@ -416,6 +416,22 @@
       });
       if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
     },
+    mounted() {
+      // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)
+      if (this.$route.query.refresh === 'true') {
+        this.$nextTick(() => { 
+          this.$nextTick(() => {
+            this.loadDatasets({ locale: this.$route.query.locale })
+              .then(() => {
+                this.$router.push({ query: { locale: this.$route.query.locale } });
+              })
+              .catch(() => {
+                this.$Progress.fail();
+              });
+          });
+        });
+      }
+    },
     beforeDestroy() {
       $('.tooltip').remove();
       if (this.infiniteScrolling) window.removeEventListener('scroll', this.onScroll);
