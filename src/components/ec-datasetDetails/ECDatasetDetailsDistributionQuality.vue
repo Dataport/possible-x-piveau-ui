@@ -56,7 +56,7 @@
 import { mapGetters } from 'vuex';
 import { getTranslationFor } from "@piveau/piveau-hub-ui-modules/utils/helpers";
 
-import CSVLinter from './ECDatasetDetailsCSVLinter.vue';
+import CSVLinter from '@piveau/piveau-hub-ui-modules/datasetDetails/DatasetDetailsCSVLinter.vue';
 
 export default {
     name: 'datasetDetailsDistributionQuality',

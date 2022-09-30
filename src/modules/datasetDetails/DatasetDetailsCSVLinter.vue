@@ -165,7 +165,6 @@ export default {
 
 <style lang="scss" scoped>
 .dsd-distribution-quality-csv {
-
     .heading {
         &-1 {
             font-size: 2rem;
@@ -207,6 +206,7 @@ export default {
     }
 
     .csv-validation-box {
+        color: black; 
         background-color: white;
         border: 2px solid black;
         
