@@ -4,6 +4,7 @@
       v-if="showObjectArray(getKeywords)"
       :showKeyword="showKeyword"
     />
+
     <dataset-details-subject
       v-if="showObjectArray(getSubject)"
     />

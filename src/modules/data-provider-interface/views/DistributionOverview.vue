@@ -11,7 +11,7 @@
           <div class="dist-details">
             <div class="dist-info">
               <!-- accessURL is always an array of URIs, first one might be enough for displaying -->
-              <span v-if="accessExists(dist)" style="font-weight: bold">{{ dist['dcat:accessURL'][0]['@id'] }}</span><br /> 
+              <span v-if="accessExists(dist)" style="font-weight: bold">{{ dist['dcat:accessURL'][0]['@id'] }}</span><br />
 
               <!-- title and description always an array, first valu emights be enough for displaying-->
               <span v-if="titleExists(dist)" style="color: #868e96">{{ dist['dct:title'][0]['@value'] }}<br /></span>
@@ -131,52 +131,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.circle {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto;
-  padding: 20px 0;
-  font-size: 12px;
-  line-height: 1px;
-  border-radius: 50%;
-  background-color: #595959;
-  &[type="HTML"] {
-    background-color: #285C76;
-  }
-  &[type="JSON"] {
-    background-color: var(--dark-orange);
-  }
-  &[type="XML"] {
-    background-color: #8F4300;
-  }
-  &[type="TXT"] {
-    background-color: #2B5E73;
-  }
-  &[type="CSV"] {
-    background-color: var(--badge-green);
-  }
-  &[type="XLS"] {
-    background-color: #1A6537;
-  }
-  &[type="ZIP"] {
-    background-color: #252525;
-  }
-  &[type="API"] {
-    background-color: #923560;
-  }
-  &[type="PDF"] {
-    background-color: #B30519;
-  }
-  &[type="SHP"] {
-    background-color: var(--badge-black);
-  }
-  &[type="RDF"],
-  &[type="NQUAD"],
-  &[type="NTRIPLES"],
-  &[type="TURTLE"] {
-    background-color: #0b4498;
-  }
-}
 
 .dist {
   &-list {

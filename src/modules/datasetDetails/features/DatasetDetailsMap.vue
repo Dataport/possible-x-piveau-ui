@@ -1,33 +1,38 @@
 <template>
-  <div class="row mt-5 dsd-item">
-    <div class="row w-100 d-flex">
-      <div class="d-none d-lg-block my-auto pr-0 text-right"
-           @click="toggleMap()">
-          <span class="arrow text-dark"
-                v-if="!mapVisible">
-            <i class="material-icons">keyboard_arrow_down</i>
-          </span>
-        <span class="arrow text-dark" v-else>
-            <i class="material-icons">keyboard_arrow_up</i>
-          </span>
-      </div>
-      <div class="col-11 py-2 bg-white">
-        <h2 class="heading"
-            data-cy="geo-info-toggle"
-            @click="toggleMap()">{{ $t('message.datasetDetails.geoInfo') }}</h2>
-      </div>
-      <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"
-           @click="toggleMap()">
-          <span class="arrow text-dark"
-                v-if="!mapVisible">
-            <i class="material-icons">keyboard_arrow_down</i>
-          </span>
-        <span class="arrow text-dark" v-else>
-            <i class="material-icons">keyboard_arrow_up</i>
-          </span>
-      </div>
-    </div>
-    <div class=" w-100 h-100">
+  <div class="dsd-feature">
+    <dataset-details-feature-header
+      :title="$t('message.datasetDetails.geoInfo')"
+      :arrowDown="!mapVisible"
+      tag="geo-info-toggle"
+      :onClick="toggleMap"
+    />
+<!--    <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"-->
+<!--         @click="toggleMap()">-->
+<!--        <span class="arrow text-dark"-->
+<!--              v-if="!mapVisible">-->
+<!--          <i class="material-icons">keyboard_arrow_down</i>-->
+<!--        </span>-->
+<!--      <span class="arrow text-dark" v-else>-->
+<!--          <i class="material-icons">keyboard_arrow_up</i>-->
+<!--        </span>-->
+<!--    </div>-->
+<!--    <div class="col-11 py-2 bg-white">-->
+<!--      <h2 class="heading"-->
+<!--          data-cy="geo-info-toggle"-->
+<!--          @click="toggleMap()">{{ $t('message.datasetDetails.geoInfo') }}</h2>-->
+<!--    </div>-->
+
+<!--      <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"-->
+<!--           @click="toggleMap()">-->
+<!--          <span class="arrow text-dark"-->
+<!--                v-if="!mapVisible">-->
+<!--            <i class="material-icons">keyboard_arrow_down</i>-->
+<!--          </span>-->
+<!--        <span class="arrow text-dark" v-else>-->
+<!--            <i class="material-icons">keyboard_arrow_up</i>-->
+<!--          </span>-->
+<!--      </div>-->
+    <div class="w-100 h-100 dsd-item">
       <div id="collapse-geo-info"
            ref="geocollapse"
            class="collapse show"
@@ -50,9 +55,11 @@
 import MapBasic from "@/modules/map/MapBasic";
 import {isArray, isNil, isString} from "lodash";
 import {mapGetters} from "vuex";
+import DatasetDetailsFeatureHeader
+  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 export default {
   name: "DatasetDetailsMap",
-  components: {MapBasic},
+  components: {DatasetDetailsFeatureHeader, MapBasic},
   data() {
     return {
       mapVisible: true,

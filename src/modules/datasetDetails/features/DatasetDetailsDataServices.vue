@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-5">
+  <div class="dsd-feature">
     <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
          @click="toggleDataServices()">
         <span class="arrow text-dark"

@@ -843,21 +843,21 @@ export default {
           if (has(currentProp, p)) currentProp = currentProp[p];
         });
         return currentProp;
-      } 
+      }
       return [];
     },
     getDistributionString(distribution, name) {
-      return has(distribution, name) 
+      return has(distribution, name)
         ? distribution[name]
         : [];
     },
     getDistributionObjectArray(distribution, property) {
-      return has(distribution, property) 
+      return has(distribution, property)
         ? distribution[property]
         : [];
     },
     getDistributionLanguageArray(distribution, property) {
-      return has(distribution, property) 
+      return has(distribution, property)
         ? distribution[property].filter(el => has(el, '@value') && has(el, '@language'))
         : [];
     },
@@ -887,7 +887,7 @@ export default {
             property: 'datasets',
             page: 'distoverview',
           },
-          query: { 
+          query: {
             error: 'mandatoryDist',
             locale: this.$route.query.locale
           },
@@ -968,50 +968,4 @@ export default {
     }
   }
 
-  .circle {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto;
-    padding: 20px 0;
-    font-size: 12px;
-    line-height: 1px;
-    border-radius: 50%;
-    background-color: #000000;
-    &[type="HTML"] {
-      background-color: #285C76;
-    }
-    &[type="JSON"] {
-      background-color: var(--dark-orange);
-    }
-    &[type="XML"] {
-      background-color: #8F4300;
-    }
-    &[type="TXT"] {
-      background-color: #2B5E73;
-    }
-    &[type="CSV"] {
-      background-color: var(--badge-green);
-    }
-    &[type="XLS"] {
-      background-color: #1A6537;
-    }
-    &[type="ZIP"] {
-      background-color: #252525;
-    }
-    &[type="API"] {
-      background-color: #923560;
-    }
-    &[type="PDF"] {
-      background-color: #B30519;
-    }
-    &[type="SHP"] {
-      background-color: var(--badge-black);
-    }
-    &[type="RDF"],
-    &[type="NQUAD"],
-    &[type="NTRIPLES"],
-    &[type="TURTLE"] {
-      background-color: #0b4498;
-    }
-  }
 </style>

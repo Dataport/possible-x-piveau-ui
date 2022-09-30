@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-5 dsd-properties">
+  <div class="row mt-5 dsd-properties">
     <div class="col-12 mb-2 p-0 dsd-properties-list">
       <div class="row">
-          <div class="w-100 d-flex heading dsd-item">
+          <div class="w-100 d-flex dsd-item heading">
             <div class="d-none d-lg-block my-auto pr-2 text-right"
                  @click="toggleInfo()">
                 <span class="arrow text-dark"
