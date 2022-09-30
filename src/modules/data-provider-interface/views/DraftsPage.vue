@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between mt-n5 content">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content">
     <h1 class="small-headline">Draft datasets</h1>
     <div class="col-12 col-md-8 m-auto">
       <table class="table">

@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" @click="action">
+  <button class="btn show-more" @click="action">
     {{ label }}
     <i v-if="upArrow" class="material-icons small-icon float-right align-bottom">keyboard_arrow_up</i>
     <i v-else class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>
