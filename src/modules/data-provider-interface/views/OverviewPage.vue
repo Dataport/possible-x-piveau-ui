@@ -656,7 +656,133 @@
         </div>
       </div>
     </div>
+
+
     <div class="mb-3" v-if="showCatalogsOverview">
+      <!-- TITLE -->
+      <div class="mt-2 mb-4" v-if="showLanguageArray('catalogues', 'dct:title')">
+        <div class="row">
+          <div class="col-8 offset-1">
+            <h2 v-for="(title, index) in getLanguageArray('catalogues', 'dct:title')" :key="index">
+              {{ languageNames[title['@language']] }}: {{ title['@value'] }}
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="mt-2" v-if="showLanguageArray('catalogues', 'dct:description')">
+        <div class="row">
+          <div class="col-10 offset-1">
+            <p v-for="(description, index) in getLanguageArray('catalogues', 'dct:description')" :key="index">
+              {{ languageNames[description['@language']] }}: {{ description['@value'] }}
+            </p>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <!-- INFO TABLE -->
+      <div class="mt-5">
+        <div class="row">
+          <div class="col-10 offset-1 py-2 bg-white">
+            <h2 class="heading">{{ $t('message.datasetDetails.additionalInfo') }}</h2>
+          </div>
+          <div class="col-10 offset-1">
+            <table class="table table-borderless table-responsive pl-3 bg-light">
+
+              <!-- PUBLISHER -->
+              <tr v-if="showProperty('catalogues', 'dct:publisher')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.publisher') }}</td>
+                <td>{{ getObjectString('catalogues', 'dct:publisher', '@id') }}</td>
+              </tr>
+
+              <!-- HOMEPAGE -->
+              <tr v-if="showProperty('catalogues', 'foaf:homepage')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.homepage') }}</td>
+                <td>{{ getObjectString('catalogues', 'foaf:homepage', '@id') }}</td>
+              </tr>
+
+              <!-- LANGUAGES -->
+              <tr v-if="showProperty('catalogues', 'dct:language')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.languages') }}</td>
+                <td v-if="showObjectArray('catalogues', 'dct:language')">
+                  <div v-for="(language, index) in getObjectArray('catalogues', 'dct:language')" :key="index">
+                    <div v-if="showElementValue(language, '@id')">
+                      {{ language['@id'] }}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- SPATIAL -->
+              <tr v-if="showProperty('catalogues', 'dct:spatial')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.spatial') }}</td>
+                <td>{{ getObjectString('catalogues', 'dct:spatial', '@id') }}</td>
+              </tr>
+
+              <!-- CREATOR -->
+              <tr v-if="showProperty('catalogues', 'dct:creator')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.creator') }}</td>
+                <td v-if="showObjectArray('catalogues', 'dct:creator')">
+                  <div v-for="(creator, index) in getObjectArray('catalogues', 'dct:creator')" :key="index">
+                    <div v-if="showElementValue(creator, '@type')">
+                      {{ $t('message.metadata.type') }}: {{ creator['@type'] }}
+                    </div>
+                    <div v-if="showElementValue(creator, 'foaf:name')">
+                      {{ $t('message.metadata.name') }}: {{ creator['foaf:name'] }}
+                    </div>
+                    <div v-if="showObjectElementValue(creator, 'foaf:mbox', '@id')">
+                      {{ $t('message.metadata.email') }}: <app-link :to="`mailto:${creator['foaf:mbox']['@id']}`">{{ creator['foaf:mbox']['@id'] }}</app-link>
+                    </div>
+                    <div v-if="showObjectElementValue(creator, 'foaf:homepage', '@id')">
+                      {{ $t('message.metadata.homepage') }}: <app-link :to="creator['foaf:homepage']['@id']">{{ creator['foaf:homepage']['@id'] }}</app-link>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- HAS PART -->
+              <tr v-if="showProperty('catalogues', 'dct:hasPart')">
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.catalogues.hasPart.label') }}</td>
+                <td v-if="showObjectArray('catalogues', 'dct:hasPart')">
+                  <div v-for="(relation, index) in getObjectArray('catalogues', 'dct:hasPart')" :key="index">
+                    <app-link v-if="showElementValue(relation, '@id')" :to="relation">{{ relation['@id'] }}</app-link>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- IS PART OF -->
+              <tr v-if="showProperty('catalogues', 'dct:isPartOf')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.isPartOf') }}</td>
+                <td>{{ getObjectString('catalogues', 'dct:isPartOf', '@id') }}</td>
+              </tr>
+
+              <!-- CATALOG -->
+              <tr v-if="showProperty('catalogues', 'dcat:catalog')">
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.catalogues.catalog.label') }}</td>
+                <td v-if="showObjectArray('catalogues', 'dcat:catalog')">
+                  <div v-for="(relation, index) in getObjectArray('catalogues', 'dcat:catalog')" :key="index">
+                    <app-link v-if="showElementValue(relation, '@id')" :to="relation">{{ relation['@id'] }}</app-link>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- RIGHTS -->
+              <tr v-if="showProperty('catalogues', 'dct:rights')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.rights') }}</td>
+                <td v-if="typeof getObjectString('catalogues', 'dct:rights', 'rdfs:label') === 'object'">
+                  <app-link>{{ getObjectString('catalogues', 'dct:rights', 'rdfs:label')['@id'] }}</app-link>
+                </td>
+                <td v-else>
+                  <p>{{ getObjectString('catalogues', 'dct:rights', 'rdfs:label') }}</p>
+                </td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -871,42 +997,6 @@ export default {
         this.values['distributions'] = this.getData('distributions');
       }
     },
-    checkDatasetID() {
-      // Check uniqueness of Dataset ID
-      if (!this.getIsEditMode) {
-        this.checkUniqueID()
-          .then((isUniqueID) => {
-            if (!isUniqueID) {
-              // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
-              this.$router.push({ 
-                name: 'DataProviderInterface-Input', 
-                params: { 
-                  property: 'datasets', 
-                  page: 'step1' 
-                }, 
-                query: { 
-                  error: 'id', 
-                  locale: this.$route.query.locale 
-                } 
-              });
-            }
-          });
-      }
-    },
-    checkUniqueID() {
-      return new Promise((resolve) => {
-        if (this.values.datasets.datasetID !== '') {
-          const request = `${this.$env.api.hubUrl}datasets/${this.values.datasets.datasetID}?useNormalizedId=true`;
-          axios.head(request)
-            .then(() => {
-              resolve(false);
-            })
-            .catch(() => {
-              resolve(true);
-            });
-        }
-      });
-    },
     checkDatasetMandatory() {
       // Check if mandatory dataset properties are set
       if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dct:catalog')) {
@@ -942,7 +1032,7 @@ export default {
     },
     checkCatalogueMandatory() {
       // Check if mandatory catalogue properties are set
-      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('datasets', 'dct:description')) {
+      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('catalogues', 'dct:description') || !this.showProperty('catalogues', 'dct:publisher')) {
         this.$router.push({ 
           name: 'DataProviderInterface-Input', 
           params: { 
@@ -951,10 +1041,36 @@ export default {
           }, 
           query: { 
             error: 'mandatoryCatalog', 
-            locale: this.$route.query.locale 
+            locale: this.$route.query.locale
           } 
         });
       }
+    },
+    checkID(property) {
+      // Check uniqueness of Dataset ID
+      if (!this.getIsEditMode) {
+        this.checkUniqueID(property)
+          .then((isUniqueID) => {
+            if (!isUniqueID) {
+              // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
+              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: property, page: 'step1' }, query: { error: 'id', locale: this.$route.query.locale } });
+            }
+          });
+      }
+    },
+    checkUniqueID(property) {
+      return new Promise((resolve) => {
+        if (this.values[property]['@id'] !== '') {
+          const request = `${this.$env.api.hubUrl}${property}/${this.values[property]['@id']}?useNormalizedId=true`;
+          axios.head(request)
+            .then(() => {
+              resolve(false);
+            })
+            .catch(() => {
+              resolve(true);
+            });
+        }
+      });
     },
     addPrecedingZero(value) {
       return `${parseInt(value, 10) < 10 ? 0 : ''}${parseInt(value, 10)}`;
@@ -963,14 +1079,14 @@ export default {
   created() {
     this.$nextTick(() => {
       if (this.property === 'datasets') {
-        this.checkDatasetID();
+        this.checkID('datasets');
         this.checkDatasetMandatory();
         this.checkDistributionMandatory();
       }
 
       if (this.property === 'catalogues') {
+        this.checkID('catalogues')
         this.checkCatalogueMandatory();
-        // TODO?
       }
     });
   },

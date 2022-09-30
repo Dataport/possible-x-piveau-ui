@@ -187,7 +187,8 @@
                 },
                 "spatialPlace": {
                     "placeholder": "Dataset Spatial Place placeholder text",
-                    "label": "Place"
+                    "label": "Place",
+                    "help": ""
                 },
                 "subject": {
                     "label": "Subject",
@@ -278,7 +279,8 @@
                 },
                 "spatialContinent": {
                     "placeholder": "Dataset Spatial Continent placeholder text",
-                    "label": "Continent"
+                    "label": "Continent",
+                    "help": ""
                 },
                 "spatialResolutionInMeters": {
                     "help": "Minimum spatial separation resolvable in a dataset.",
@@ -486,7 +488,8 @@
                 },
                 "spatialCountry": {
                     "label": "Country",
-                    "placeholder": "Dataset Spatial Country placeholder text"
+                    "placeholder": "Dataset Spatial Country placeholder text",
+                    "help": ""
                 },
                 "creatorEmail": {
                     "label": "Email",
@@ -620,7 +623,8 @@
                     "label": "Publisher"
                 },
                 "datetime": {
-                    "label": "Datetime"
+                    "label": "Datetime",
+                    "help": "Acceptable date formats: YYYY-MM-DD:HH:MM."
                 },
                 "catalog": {
                     "placeholder": "Dataset Catalog placeholder text",
@@ -643,7 +647,8 @@
                     "placeholder": "Dataset Publisher Homepage placeholder text"
                 },
                 "date": {
-                    "label": "Date"
+                    "label": "Date",
+                    "help": "Acceptable date formats: YYYY-MM-DD."
                 },
                 "stepper": {
                     "step3": {
@@ -682,14 +687,39 @@
                     "step1": {
                         "name": "@:message.dataupload.datasets.stepper.essential.name"
                     }
+                },
+                "spatialUrl": {
+                    "label": "SpatialUrl",
+                    "placeholder": "Spatial Url",
+                    "help": "Spatial Url help text"
+                },
+                "spatialVocabulary": {
+                    "label": "Spatial",
+                    "placeholder": "Choose a vocabulary",
+                    "help": "Either a continent, a country or a place."
                 }
             },
             "catalogues": {
+                "datasetID": {
+                    "help": "This property contains the main identifier for the Catalog.",
+                    "info": "This property contains the main identifier for the Catalog, e.g. the URI or other unique identifier in the context of the Catalogue.",
+                    "label": "Catalog ID"
+                },
                 "rights": {
                     "placeholder": "Catalogue Rights placeholder text",
                     "help": "A statement that specifies rights associated with the Catalogue.",
                     "label": "Rights",
                     "info": "This property refers to a statement that specifies rights associated with the Catalogue."
+                },
+                "rightsUrl": {
+                    "label": "Rights Url",
+                    "help": "A link to the rights definition",
+                    "placeholder": "Rights Url placeholder"
+                },
+                "rightsString": {
+                    "label": "Rights Statement",
+                    "help": "A statement describing the rights associated with the distribuion",
+                    "placeholder": "RightsStatement placeholder"
                 },
                 "isPartOf": {
                     "label": "Is Part Of",
@@ -716,9 +746,20 @@
                     "add-label": "Add Language in another language",
                     "placeholder": "Catalogue Language placeholder text"
                 },
+                "spatialVocabulary": {
+                    "label": "Spatial",
+                    "placeholder": "Choose a vocabulary",
+                    "help": ""
+                },
+                "spatialUrl": {
+                    "label": "SpatialUrl",
+                    "help": "Spatial Url help text",
+                    "placeholder": "Spatial Url"
+                },
                 "spatialContinent": {
                     "label": "Continent",
-                    "placeholder": "Catalogue Spatial Continent placeholder text"
+                    "placeholder": "Catalogue Spatial Continent placeholder text",
+                    "help": ""
                 },
                 "spatial": {
                     "help": "This property refers to a geographical area covered by the Catalogue.",
@@ -741,7 +782,8 @@
                 },
                 "spatialCountry": {
                     "label": "Country",
-                    "placeholder": "Catalogue Spatial Country placeholder text"
+                    "placeholder": "Catalogue Spatial Country placeholder text",
+                    "help": ""
                 },
                 "creator": {
                     "help": "The entity responsible for producing the catalogue",
@@ -751,11 +793,13 @@
                 },
                 "hasPartURL": {
                     "placeholder": "Catalogue Has Part URL placeholder text",
-                    "label": "Has Part"
+                    "label": "Has Part",
+                    "help": "Link to catalog that is part of the described catalog."
                 },
                 "spatialPlace": {
                     "placeholder": "Catalogue Spatial Place placeholder text",
-                    "label": "Place"
+                    "label": "Place",
+                    "help": ""
                 },
                 "creatorHomepage": {
                     "label": "Homepage",
@@ -787,23 +831,25 @@
                     "add-label": "Add Description in another language",
                     "placeholder": "Catalogue Description placeholder text"
                 },
-                "publisherName": {
-                    "placeholder": "Catalogue Publisher Name placeholder text",
-                    "label": "Name"
-                },
                 "licence": {
                     "help": "The licence under which the Catalogue can be used or reused.",
                     "info": "This property refers to the licence under which the Catalogue can be used or reused.",
                     "label": "Licence",
                     "placeholder": "Catalogue Licence placeholder text"
                 },
+                "licenceVocabulary": {
+                    "label": "Licence",
+                    "placeholder": "Licence vocabulary",
+                    "help": ""
+                },
+                "licenceDetails": {
+                    "label": "Licence",
+                    "help": ""
+                },
                 "licenceTitle": {
                     "label": "Licence Title",
-                    "placeholder": "Catalogue Licence Title placeholder text"
-                },
-                "publisherEmail": {
-                    "label": "Email",
-                    "placeholder": "Catalogue Publisher Email placeholder text"
+                    "placeholder": "Catalogue Licence Title placeholder text",
+                    "help": "The licence's name."
                 },
                 "modified": {
                     "help": "The most recent date on which the Catalogue entry was changed or modified.",
@@ -818,21 +864,15 @@
                     "help": "This property refers to an entity (organisation) responsible for making the Dataset available.",
                     "info": "This property refers to an entity (organisation) responsible for making the Dataset available."
                 },
-                "publisherHomepage": {
-                    "placeholder": "Catalogue Publisher Homepage placeholder text",
-                    "label": "Homepage"
-                },
                 "licenceDescription": {
                     "label": "Licence Description",
-                    "placeholder": "Catalogue Licence Description placeholder text"
+                    "placeholder": "Catalogue Licence Description placeholder text",
+                    "help": "A licence description"
                 },
                 "licenceURL": {
                     "placeholder": "Catalogue Licence URL placeholder text",
-                    "label": "Licence URL"
-                },
-                "publisherType": {
-                    "label": "Type",
-                    "placeholder": "Catalogue Publisher Type placeholder text"
+                    "label": "Licence URL",
+                    "help": "A link to the licence."
                 },
                 "homepage": {
                     "placeholder": "Catalogue Homepage placeholder text",
@@ -841,14 +881,17 @@
                     "info": "This property refers to a web page that acts as the main page for the Catalogue."
                 },
                 "datetime": {
-                    "label": "Datetime"
+                    "label": "Datetime",
+                    "help": "Acceptable date formats: YYYY-MM-DD:HH:MM."
                 },
                 "catalogURL": {
                     "label": "Catalog URL",
-                    "placeholder": "Catalogue Catalog URL placeholer text"
+                    "placeholder": "Catalogue Catalog URL placeholer text",
+                    "help": "Link to catalog that contents are interesting for this catalog."
                 },
                 "date": {
-                    "label": "Date"
+                    "label": "Date",
+                    "help": "Acceptable date formats: YYYY-MM-DD."
                 },
                 "stepper": {
                     "overview": "Catalogue Overview",
@@ -883,6 +926,7 @@
             "publishdataset": "Publish Dataset",
             "validationtitle": "Validation",
             "publishdraft": "Publish Draft",
+            "publishcatalogue": "Publish Catalog",
             "newDistribution": "Add another Distribution",
             "validationerror": "There was an error validating your form!",
             "distributions": {
@@ -902,6 +946,14 @@
                     "add-label": "Add Data Service Description in another language",
                     "help": "A description of the data access service."
                 },
+                "licenceVocabulary": {
+                    "label": "Licence",
+                    "help": ""
+                },
+                "licenceDetails": {
+                    "label": "Licence",
+                    "help": ""
+                },
                 "licence": {
                     "info": "This property refers to the licence under which the Distribution is made available.",
                     "placeholder": "Distribution Licence placeholder text",
@@ -910,15 +962,18 @@
                 },
                 "licenceURL": {
                     "label": "Licence URL",
-                    "placeholder": "Catalogue Licence URL placeholder text"
+                    "placeholder": "Catalogue Licence URL placeholder text",
+                    "help": "A link to the licence."
                 },
                 "licenceTitle": {
                     "label": "Licence Title",
-                    "placeholder": "Catalogue Licence Title placeholder text"
+                    "placeholder": "Catalogue Licence Title placeholder text",
+                    "help": "The licence's name."
                 },
                 "licenceDescription": {
                     "placeholder": "Catalogue Licence Description placeholder text",
-                    "label": "Licence Description"
+                    "label": "Licence Description",
+                    "help": "A licence description"
                 },
                 "modified": {
                     "info": "This property contains the most recent date on which the Distribution was changed or modified.",
@@ -931,6 +986,14 @@
                     "info": "This property contains the date of formal issuance (e.g., publication) of the Distribution.",
                     "help": "The date of formal issuance (e.g., publication) of the Distribution.",
                     "placeholder": "Distribution Issued placeholder text"
+                },
+                "date": {
+                    "label": "Date",
+                    "help": "Acceptable date formats: YYYY-MM-DD."
+                },
+                "datetime": {
+                    "label": "Datetime",
+                    "help": "Acceptable date formats: YYYY-MM-DD:HH:MM."
                 },
                 "format": {
                     "label": "Format",
@@ -1084,6 +1147,16 @@
                     "help": "This property refers to a statement that specifies rights associated with the Distribution.",
                     "placeholder": "Distribution Rights placeholder text",
                     "label": "Rights"
+                },
+                "rightsUrl": {
+                    "label": "Rights Url",
+                    "placeholder": "Rights Url placeholder",
+                    "help": "A link to the rights definition"
+                },
+                "rightsString": {
+                    "label": "Rights Statement",
+                    "placeholder": "RightsStatement placeholder",
+                    "help": "A statement describing the rights associated with the distribuion"
                 },
                 "conformsToUrl": {
                     "label": "Url",
