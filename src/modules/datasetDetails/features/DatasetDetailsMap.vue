@@ -1,12 +1,12 @@
 <template>
-  <div class="dsd-feature">
+  <div class="dsd-feature dsd-map">
     <dataset-details-feature-header
       :title="$t('message.datasetDetails.geoInfo')"
       :arrowDown="!mapVisible"
       tag="geo-info-toggle"
       :onClick="toggleMap"
     />
-    <div class="w-100 h-100 dsd-item">
+    <div class="mt-3 w-100 h-100">
       <div id="collapse-geo-info"
            ref="geocollapse"
            class="collapse show"

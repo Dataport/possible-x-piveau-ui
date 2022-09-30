@@ -7,9 +7,9 @@
       </span>
     </div>
     <div class="col-11 py-2 bg-white">
-      <h2
+      <span class="dsd-feature-title"
           :data-cy="tag"
-          @click="onClick()">{{ title }}</h2>
+          @click="onClick()">{{ title }}</span>
     </div>
   </div>
 </template>

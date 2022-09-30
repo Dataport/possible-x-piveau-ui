@@ -23,13 +23,15 @@
         </small>
       </span>
     </div>
-    <pv-show-more
-      v-if="displayedSubjects.length > defaultDisplayCount"
-      :label="isSubjectAllDisplayed? 'Show less' : 'Show more'"
-      :upArrow="isSubjectAllDisplayed"
-      :action="toggleDisplayCount"
-      class="row text-primary"
-    />
+    <div>
+      <pv-show-more
+        v-if="displayedSubjects.length > defaultDisplayCount"
+        :label="isSubjectAllDisplayed? 'Show less' : 'Show more'"
+        :upArrow="isSubjectAllDisplayed"
+        :action="toggleDisplayCount"
+        class="row text-primary"
+      />
+    </div>
 <!--    <div>-->
 <!--      <div-->
 <!--        v-if="!subject.displayAll && !isSubjectAllDisplayed"-->

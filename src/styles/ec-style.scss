@@ -39,7 +39,8 @@ body {
   padding-left: 0;
   padding-right: 0;
   max-width: 100%;
-  flex: 0 0 100%;
+  //flex: 0 0 100%;
+  flex: 1;
   h1, h2, h3, .h4 {
     font-size: 1.5rem;
     font-weight: bold;
@@ -54,17 +55,27 @@ body {
   }
 }
 
-//.dsd-keywords {
-//  max-width: 100%;
-//  flex: 0 0 100%;
-//  .keywords__item {
-//    margin-left: 0;
-//    margin-right: 0;
-//  }
-//}
+.dsd-feature .heading {
+  .col-1 {
+    padding-left: 0 !important;
+    flex: 0 0 auto !important;
+    width: initial !important;
+  }
+  .col-11 {
+    padding-left: 0;
+    flex: 0 0 auto !important;
+    width: initial !important;
+    max-width: initial !important;
+  }
+}
 
 .dsd-header-title > h1 {
   font-weight: bold !important;
+}
+
+.dsd-feature-title {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .sub-navigation {
@@ -89,10 +100,22 @@ body {
   display: block;
 }
 
+.dsd-properties .show-more {
+  display: initial;
+}
+
 @media screen and (max-width: 991px) { // less than lg
   .dsd-nav-button button {
     min-width: 200px !important;
     margin-bottom: 8px !important;
+  }
+
+  .dsd-feature .heading .col-11 {
+    flex: 1 !important;
+  }
+
+  .dsd-properties .heading .col-11 {
+    padding-left: 0 !important;
   }
 }
 

@@ -17,13 +17,15 @@
             </app-link>
           </span>
       </div>
-      <pv-show-more
-        v-if="getKeywords.length > defaultDisplayCount"
-        :label="isKeywordsAllDisplayed? 'Show less' : 'Show more'"
-        :upArrow="isKeywordsAllDisplayed"
-        :action="toggleDisplayCount"
-        class="row text-primary"
-      />
+      <div>
+        <pv-show-more
+          v-if="getKeywords.length > defaultDisplayCount"
+          :label="isKeywordsAllDisplayed? 'Show less' : 'Show more'"
+          :upArrow="isKeywordsAllDisplayed"
+          :action="toggleDisplayCount"
+          class="row text-primary"
+        />
+      </div>
 <!--      <div>-->
 <!--        <div-->
 <!--          v-if="!keywords.displayAll && !isKeywordsAllDisplayed"-->
