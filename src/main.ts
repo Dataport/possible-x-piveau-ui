@@ -77,7 +77,8 @@ Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
-const ecStyle = env.style === "ec";
+
+import { ecStyle } from '../config/user-config.js';
 
 import ECSelectFacet from "./components/ECSelectFacet.vue";
 import ECRadioFacet from "./components/ECRadioFacet.vue";
