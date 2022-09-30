@@ -7,13 +7,13 @@ import {
 
 import i18n from './i18n';
 
-const ecStyle = true;
+// export const ecStyle = true;
+export const ecStyle = false;
 
 const glueConfig = {
   title: 'data.europa.eu',
   description: 'data.europa.eu',
   keywords: 'DEU',
-  style: ecStyle ? "ec" : "default",
   api: {
     baseUrl: 'https://data.europa.eu/api/hub/search/',
     // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
@@ -31,9 +31,9 @@ const glueConfig = {
   tracker: {
     // Matomo/PiwikPro analytics config
     // If true, uses PiwikPro, if false, uses Matomo
-    isPiwikPro: true,
-    siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
-    trackerUrl: 'https://opanalytics.containers.piwik.pro/'
+    isPiwikPro: false,
+    // siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
+    // trackerUrl: 'https://opanalytics.containers.piwik.pro/'
   },
   useAuthService: true,
   keycloak: {
