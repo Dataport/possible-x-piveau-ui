@@ -6,32 +6,6 @@
       tag="geo-info-toggle"
       :onClick="toggleMap"
     />
-<!--    <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"-->
-<!--         @click="toggleMap()">-->
-<!--        <span class="arrow text-dark"-->
-<!--              v-if="!mapVisible">-->
-<!--          <i class="material-icons">keyboard_arrow_down</i>-->
-<!--        </span>-->
-<!--      <span class="arrow text-dark" v-else>-->
-<!--          <i class="material-icons">keyboard_arrow_up</i>-->
-<!--        </span>-->
-<!--    </div>-->
-<!--    <div class="col-11 py-2 bg-white">-->
-<!--      <h2 class="heading"-->
-<!--          data-cy="geo-info-toggle"-->
-<!--          @click="toggleMap()">{{ $t('message.datasetDetails.geoInfo') }}</h2>-->
-<!--    </div>-->
-
-<!--      <div class="d-block d-lg-none col-1 my-auto pr-0 text-right"-->
-<!--           @click="toggleMap()">-->
-<!--          <span class="arrow text-dark"-->
-<!--                v-if="!mapVisible">-->
-<!--            <i class="material-icons">keyboard_arrow_down</i>-->
-<!--          </span>-->
-<!--        <span class="arrow text-dark" v-else>-->
-<!--            <i class="material-icons">keyboard_arrow_up</i>-->
-<!--          </span>-->
-<!--      </div>-->
     <div class="w-100 h-100 dsd-item">
       <div id="collapse-geo-info"
            ref="geocollapse"

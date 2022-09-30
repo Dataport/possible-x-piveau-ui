@@ -1,20 +1,11 @@
 <template>
   <div class="dsd-feature">
-    <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
-         @click="toggleDataServices()">
-        <span class="arrow text-dark"
-              v-if="!dataServices.isVisible">
-          <i class="material-icons">keyboard_arrow_down</i>
-        </span>
-      <span class="arrow text-dark" v-else>
-          <i class="material-icons">keyboard_arrow_up</i>
-        </span>
-    </div>
-    <div class="col-11 py-2 bg-white">
-      <h2 class="heading"
-          data-cy="documentation-toggle"
-          @click="toggleDataServices()">{{ $t('message.metadata.dataServices') }}  ({{ getDataServices ? getDataServices.length.toLocaleString('fi') : 0 }})</h2>
-    </div>
+    <dataset-details-feature-header
+      :title="`${$t('message.metadata.dataServices')} (${getDataServices ? getDataServices.length.toLocaleString('fi') : 0})`"
+      :arrowDown="!dataServices.isVisible"
+      tag="documentation-toggle"
+      :onClick="toggleDataServices"
+    />
     <ul v-if="dataServices.isVisible" class="list list-unstyled col-12" data-cy="documentation">
       <hr>
       <div class="distributions" :key="`${expandedDataServices.length}--${expandedDataServicesDescriptions.length}`">
@@ -111,10 +102,12 @@ import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {has, isNil} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
 import {mapGetters} from "vuex";
+import DatasetDetailsFeatureHeader
+  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 
 export default {
   name: "DatasetDetailsDataServices",
-  components: {AppLink},
+  components: {DatasetDetailsFeatureHeader, AppLink},
   props: {
     getDataServices: Array,
     nonOverflowingIncrementsForPages: Function,

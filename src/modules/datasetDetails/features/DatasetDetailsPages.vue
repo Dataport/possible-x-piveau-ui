@@ -1,20 +1,11 @@
 <template>
   <div class="dsd-feature">
-    <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
-         @click="togglePage()">
-        <span class="arrow text-dark"
-              v-if="!pages.isVisible">
-          <i class="material-icons">keyboard_arrow_down</i>
-        </span>
-      <span class="arrow text-dark" v-else>
-          <i class="material-icons">keyboard_arrow_up</i>
-        </span>
-    </div>
-    <div class="col-11 py-2 bg-white">
-      <h2 class="heading"
-          data-cy="documentation-toggle"
-          @click="togglePage()">{{ $t('message.metadata.documentations') }}  ({{ getPages ? getPages.length.toLocaleString('fi') : 0 }})</h2>
-    </div>
+    <dataset-details-feature-header
+      :title="`${$t('message.metadata.documentations')} (${getPages ? getPages.length.toLocaleString('fi') : 0})`"
+      :arrowDown="!pages.isVisible"
+      tag="documentation-toggle"
+      :onClick="togglePage"
+    />
     <ul v-if="pages.isVisible" class="list list-unstyled col-12" data-cy="documentation">
       <hr>
       <div class="distributions" :key="`${expandedPages.length}--${expandedPageDescriptions.length}`">
@@ -118,10 +109,12 @@ import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {has, isNil} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
 import {mapGetters} from "vuex";
+import DatasetDetailsFeatureHeader
+  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 
 export default {
   name: "DatasetDetailsPages",
-  components: {AppLink},
+  components: {DatasetDetailsFeatureHeader, AppLink},
   props: {
     pages: Object,
     increaseNumDisplayedPages: Function,

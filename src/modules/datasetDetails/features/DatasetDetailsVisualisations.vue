@@ -1,19 +1,10 @@
 <template>
   <div class="dsd-feature">
-    <div class="d-none d-lg-block col-1 my-auto pr-0 text-right"
-         @click="toggleVisualisation()">
-        <span class="arrow text-dark"
-              v-if="!visualisations.isVisible">
-          <i class="material-icons">keyboard_arrow_down</i>
-        </span>
-      <span class="arrow text-dark" v-else>
-          <i class="material-icons">keyboard_arrow_up</i>
-        </span>
-    </div>
-    <div class="col-11 py-2 bg-white">
-      <h2 class="heading"
-          @click="toggleVisualisation()">{{ $t('message.metadata.visualisations') }} ({{ getVisualisations ? getVisualisations.length.toLocaleString('fi') : 0 }})</h2>
-    </div>
+    <dataset-details-feature-header
+      :title="`${$t('message.metadata.visualisations')} (${getVisualisations ? getVisualisations.length.toLocaleString('fi') : 0})`"
+      :arrowDown="!visualisations.isVisible"
+      :onClick="toggleVisualisation"
+    />
     <ul v-if="visualisations.isVisible" class="list list-unstyled col-12">
       <hr>
       <div class="distributions" :key="`${expandedVisualisations.length}--${expandedVisualisationDescriptions.length}`">
@@ -116,10 +107,12 @@ import {has, isNil} from "lodash";
 import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import AppLink from "@/modules/widgets/AppLink";
+import DatasetDetailsFeatureHeader
+  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 
 export default {
   name: "DatasetDetailsVisualisations",
-  components: {AppLink},
+  components: {DatasetDetailsFeatureHeader, AppLink},
   props: {
     trackGoto: Function
   },
