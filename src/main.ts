@@ -75,10 +75,6 @@ import {
  *  Integrating the EC component library here *
  **********************************************/
 require('@ecl/preset-ec/dist/styles/ecl-ec.css');
-// import Select from './ecl/ec-select.js';
-// $(() => {
-//   Select.autoInit(document.getElementById('app'));
-// });
 
 Vue.config.devtools = true;
 

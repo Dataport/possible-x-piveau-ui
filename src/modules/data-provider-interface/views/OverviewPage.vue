@@ -1000,7 +1000,17 @@ export default {
     checkDatasetMandatory() {
       // Check if mandatory dataset properties are set
       if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dct:catalog')) {
-        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'mandatoryDataset', locale: this.$route.query.locale } });
+        this.$router.push({ 
+          name: 'DataProviderInterface-Input', 
+          params: { 
+            property: 'datasets', 
+            page: 'step1' 
+          }, 
+          query: { 
+            error: 'mandatoryDataset', 
+            locale: this.$route.query.locale 
+          } 
+        });
       }
     },
     checkDistributionMandatory() {
@@ -1023,7 +1033,17 @@ export default {
     checkCatalogueMandatory() {
       // Check if mandatory catalogue properties are set
       if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('catalogues', 'dct:description') || !this.showProperty('catalogues', 'dct:publisher')) {
-        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'catalogues', page: 'step1' }, query: { error: 'mandatoryCatalog', locale: this.$route.query.locale } });
+        this.$router.push({ 
+          name: 'DataProviderInterface-Input', 
+          params: { 
+            property: 'catalogues', 
+            page: 'step1' 
+          }, 
+          query: { 
+            error: 'mandatoryCatalog', 
+            locale: this.$route.query.locale
+          } 
+        });
       }
     },
     checkID(property) {
@@ -1059,14 +1079,14 @@ export default {
   created() {
     this.$nextTick(() => {
       if (this.property === 'datasets') {
-        this.checkDatasetMandatory();
         this.checkID('datasets');
+        this.checkDatasetMandatory();
         this.checkDistributionMandatory();
       }
 
       if (this.property === 'catalogues') {
-        this.checkCatalogueMandatory();
         this.checkID('catalogues')
+        this.checkCatalogueMandatory();
       }
     });
   },
