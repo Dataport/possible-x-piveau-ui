@@ -84,8 +84,8 @@ const config = {
       datasetID: {},
       description: {},
       publisher: {},
-      homepage: {},
       language: {},
+      homepage: {},
       licence: {},
     },
     step2: {
