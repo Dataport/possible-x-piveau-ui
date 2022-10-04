@@ -1,6 +1,6 @@
 <template>
   <div class="position-relative d-inline-block ml-1">
-      <button @click="open=true" class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color"
+      <button @click="open=true" class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button"
               type="button"
               aria-haspopup="true"
               aria-expanded="false">

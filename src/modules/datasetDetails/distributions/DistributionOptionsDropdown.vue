@@ -11,7 +11,7 @@
          v-if="showVisualisationLink(distribution)">
         <button role="button" class="border-0 bg-transparent button" :disabled="isUrlInvalid(getVisualisationLink(distribution))" >
           <small class="px-2">{{ $t('message.datasetDetails.preview') }}</small>
-            <i class="material-icons align-bottom">bar_chart</i>
+          <i class="material-icons align-bottom">bar_chart</i>
         </button>
       </a>
     </span>

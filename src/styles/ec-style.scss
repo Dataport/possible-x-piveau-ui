@@ -104,6 +104,28 @@ body {
   display: initial;
 }
 
+.dsd-download-all-distributions-button {
+  button {
+    background: chartreuse;
+  }
+}
+
+.dropdown-button {
+  background: white !important;
+  color: #004494 !important;
+  border: none !important;
+}
+
+.distribution-actions {
+  .dropdown-item, .text-dark {
+    color: #004494 !important;
+  }
+}
+
+.dropdownMenu button {
+  color: #004494 !important;
+}
+
 @media screen and (max-width: 991px) { // less than lg
   .dsd-nav-button button {
     min-width: 200px !important;

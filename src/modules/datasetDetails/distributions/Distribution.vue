@@ -1,4 +1,4 @@
-    <template>
+<template>
   <div class="distributions__item">
     <div class="row">
       <distribution-format
@@ -12,7 +12,7 @@
           <span class="d-inline-block col-12">
             <h3 class="m-0 text-break">{{ getDistributionTitle(distribution) }}</h3>
           </span>
-          <span class="d-inline-block col-12 col-md-9 col-lg-7">
+          <div class="d-inline-block col-12 col-md-9 col-lg-7">
             <distribution-description
               :distribution="distribution"
               :distributions="distributions"
@@ -47,35 +47,27 @@
               :toggleDistribution="toggleDistribution"
               :distributionIsExpanded="distributionIsExpanded"
             />
-          </span>
-          <div class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
-            <distribution-options-dropdown
-              v-if="showOptionsDropdown(distribution)"
-              :showTooltipVisualiseButton="showTooltipVisualiseButton"
-              :isUrlInvalid="isUrlInvalid"
-              :getVisualisationLink="getVisualisationLink"
-              :distribution="distribution"
-              :openIfValidUrl="openIfValidUrl"
-              :previewLinkCallback="previewLinkCallback"
-              :showVisualisationLink="showVisualisationLink"
-              :getGeoLink="getGeoLink"
-              :showGeoLink="showGeoLink"
-            />
-            <distribution-download
-              v-if="showDownloadDropdown(distribution)"
-              :getDownloadUrl="getDownloadUrl"
-              :showAccessUrls="showAccessUrls"
-              :isOnlyOneUrl="isOnlyOneUrl"
-              :trackGoto="trackGoto"
-              :getDistributionFormat="getDistributionFormat"
-              :replaceHttp="replaceHttp"
-              :distribution="distribution"
-            />
-            <linked-data-buttons-dropdown
-              :distributions="distributions"
-              :distribution="distribution"
-            />
           </div>
+          <distribution-actions
+            :distribution="distribution"
+            :distributions="distributions"
+            :showOptionsDropdown="showOptionsDropdown"
+            :isUrlInvalid="isUrlInvalid"
+            :getVisualisationLink="getVisualisationLink"
+            :showTooltipVisualiseButton="showTooltipVisualiseButton"
+            :previewLinkCallback="previewLinkCallback"
+            :showVisualisationLink="showVisualisationLink"
+            :openIfValidUrl="openIfValidUrl"
+            :getGeoLink="getGeoLink"
+            :showGeoLink="showGeoLink"
+            :showDownloadDropdown="showDownloadDropdown"
+            :getDownloadUrl="getDownloadUrl"
+            :showAccessUrls="showAccessUrls"
+            :isOnlyOneUrl="isOnlyOneUrl"
+            :trackGoto="trackGoto"
+            :getDistributionFormat="getDistributionFormat"
+            :replaceHttp="replaceHttp"
+          />
         </div>
       </div>
     </div>
@@ -97,11 +89,6 @@ import {
   isNil
 } from 'lodash';
 import { truncate } from '../../utils/helpers';
-import LinkedDataButtonsDropdown
-  from "@/modules/datasetDetails/distributions/LinkedDataButtonsDropdown";
-import DistributionDownload from "@/modules/datasetDetails/distributions/DistributionDownload";
-import DistributionOptionsDropdown
-  from "@/modules/datasetDetails/distributions/DistributionOptionsDropdown";
 import DistributionExpand from "@/modules/datasetDetails/distributions/DistributionExpand";
 import DistributionVisibleContent
   from "@/modules/datasetDetails/distributions/DistributionVisibleContent";
@@ -112,19 +99,18 @@ import DistributionDescription
 import DistributionFormat from "@/modules/datasetDetails/distributions/DistributionFormat";
 import FadingDistributionOverlay
   from "@/modules/datasetDetails/distributions/FadingDistributionOverlay";
+import DistributionActions from "@/modules/datasetDetails/distributions/DistributionActions";
 
 export default {
   name: 'Distribution',
   components: {
+    DistributionActions,
     FadingDistributionOverlay,
     DistributionFormat,
     DistributionDescription,
     DistributionExpandedContent,
     DistributionVisibleContent,
-    DistributionExpand,
-    DistributionOptionsDropdown,
-    DistributionDownload,
-    LinkedDataButtonsDropdown
+    DistributionExpand
   },
   props: {
     fading: Boolean,

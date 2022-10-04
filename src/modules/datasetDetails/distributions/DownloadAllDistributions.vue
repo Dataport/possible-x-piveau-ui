@@ -1,5 +1,5 @@
 <template>
-  <div v-if="getDistributions.length > 1">
+  <div v-if="getDistributions.length > 1" class="dsd-download-all-distributions-button">
     <button v-if="isLoadingAllDistributionFiles"
             class="btn btn-sm btn-primary download-all-btn d-flex justify-content-center rounded-lg btn-color"
             data-toggle="modal" data-target="#downloadAllModal">

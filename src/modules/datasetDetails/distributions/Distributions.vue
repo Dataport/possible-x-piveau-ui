@@ -9,6 +9,7 @@
             {{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})
           </h2>
           <download-all-distributions
+            v-if="downloadAllTop"
             :getDistributions="getDistributions"
             :getDistributionDescription="getDistributionDescription"
             :openModal="openModal"
@@ -67,6 +68,18 @@
             />
           </div>
         </ul>
+        <div class="w-100 d-flex flex-row justify-content-end">
+          <download-all-distributions
+            v-if="!downloadAllTop"
+            :getDistributions="getDistributions"
+            :getDistributionDescription="getDistributionDescription"
+            :openModal="openModal"
+            :getDistributionTitle="getDistributionTitle"
+            :showDownloadUrls="showDownloadUrls"
+            :getCatalog="getCatalog"
+            :isUrlInvalid="isUrlInvalid"
+          />
+        </div>
       </div>
     </div>
 </template>
@@ -82,6 +95,11 @@ export default {
   components: {
     DownloadAllDistributions,
     Distribution
+  },
+  data() {
+    return {
+      downloadAllTop: this.$env.datasetDetails.bulkDownload.buttonPosition === "top"
+    };
   },
   props: {
     openModal: Function,
