@@ -90,6 +90,7 @@ const catalogues = {
     "dct:rights": {}, // {"@type": "dct:RightsStatement", "rdfs:label": {"@id": ""}} OR {"@type": "dct:RightsStatement", "rdfs:label": ""}
     "dct:hasPart": [], // [{'@id': ''}]
     "dct:isPartOf": {}, // {'@id': ''}
+    "dct:type": "dcat-ap"
 };
 
 export default { datasets, distributions, catalogues };

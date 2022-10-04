@@ -54,7 +54,7 @@ const getters = {
         } else if (property === 'catalogues') {
             return !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
             && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-            && !isEmpty(data['dct:publisher']);
+            && !isEmpty(data['dct:publisher']) && !isEmpty(data['dct:language']);
         }
     }
 };

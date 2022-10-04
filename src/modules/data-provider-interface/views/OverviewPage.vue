@@ -1032,7 +1032,7 @@ export default {
     },
     checkCatalogueMandatory() {
       // Check if mandatory catalogue properties are set
-      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('catalogues', 'dct:description') || !this.showProperty('catalogues', 'dct:publisher')) {
+      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('catalogues', 'dct:description') || !this.showProperty('catalogues', 'dct:publisher') || !this.showProperty('catalogues', 'dct:language')) {
         this.$router.push({ 
           name: 'DataProviderInterface-Input', 
           params: { 
