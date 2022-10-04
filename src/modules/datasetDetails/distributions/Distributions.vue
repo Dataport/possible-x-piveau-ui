@@ -10,6 +10,7 @@
           </h2>
           <download-all-distributions
             v-if="downloadAllTop"
+            :primary="true"
             :getDistributions="getDistributions"
             :getDistributionDescription="getDistributionDescription"
             :openModal="openModal"

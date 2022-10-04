@@ -1,13 +1,13 @@
 <template>
   <div v-if="getDistributions.length > 1" class="dsd-download-all-distributions-button">
-    <button v-if="isLoadingAllDistributionFiles"
-            class="btn btn-sm btn-primary download-all-btn d-flex justify-content-center rounded-lg btn-color"
+    <pv-button v-if="isLoadingAllDistributionFiles" :rounded="true" :primary="true"
+            class="download-all-btn"
             data-toggle="modal" data-target="#downloadAllModal">
       <div class="loading-spinner"></div>
-    </button>
-    <button v-else class="btn btn-sm btn-primary download-all-btn rounded-lg btn-color" @click="openModal(downloadAllDistributions, true)">
+    </pv-button>
+    <pv-button v-else class="download-all-btn" :rounded="true" :primary="primary" :action="() => openModal(downloadAllDistributions, true)">
       {{ $t('message.datasetDetails.datasets.downloadAll') }}
-    </button>
+    </pv-button>
     <div class="modal fade" id="downloadAllModal" tabindex="-1" role="dialog" aria-labelledby="download progress" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -74,7 +74,8 @@ export default {
     'getDistributionTitle',
     'isUrlInvalid',
     'getCatalog',
-    'showDownloadUrls'
+    'showDownloadUrls',
+    'primary'
   ],
   computed: {
     ...mapGetters('datasetDetails', [

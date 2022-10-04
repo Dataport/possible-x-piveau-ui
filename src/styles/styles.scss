@@ -63,6 +63,11 @@
   @extend .d-flex, .flex-wrap, .mt-5;
 }
 
+.download-all-btn {
+  display: flex;
+  justify-content: center;
+}
+
 .dsd-feature-title {
   font-size: 2rem;
   line-height: 1.2;

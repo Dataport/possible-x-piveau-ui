@@ -5,6 +5,11 @@
     :title="tooltip"
   >
     {{ label }}
+    <svg v-if="icon" class="ecl-icon ecl-icon--fluid ecl-button__icon ecl-button__icon--after"
+         focusable="false" aria-hidden="true" data-ecl-icon="">
+      <use :xlink:href="`@/assets/img/ecl/icons.svg#${icon}`"></use>
+    </svg>
+    <slot />
   </button>
 </template>
 
@@ -15,7 +20,8 @@ export default {
     primary: Boolean,
     label: String,
     action: Function,
-    tooltip: String
+    tooltip: String,
+    icon: String
   },
   methods: {
     onClick() {

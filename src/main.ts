@@ -91,7 +91,7 @@ const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
   RadioFacet: ECRadioFacet,
   PvShowMore: ECMore,
-  PvButton: ECButton,
+  // PvButton: ECButton,
   PvBanner: ECInfo,
   DatasetDetailsNavigationPage: ECLinkButton
 } : {};
