@@ -71,8 +71,6 @@ import {
   configureModules
 } from '@piveau/piveau-hub-ui-modules';
 
-
-
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
@@ -91,7 +89,7 @@ const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
   RadioFacet: ECRadioFacet,
   PvShowMore: ECMore,
-  // PvButton: ECButton,
+  PvButton: ECButton,
   PvBanner: ECInfo,
   DatasetDetailsNavigationPage: ECLinkButton
 } : {};

@@ -1,15 +1,15 @@
 <template>
   <button
-    :class="`ecl-button ecl-button--${primary? 'primary' : 'secondary'}`"
+    :class="`d-flex ecl-button ecl-button--${primary? 'primary' : 'secondary'}`"
     @click="onClick()"
     :title="tooltip"
   >
     {{ label }}
-    <svg v-if="icon" class="ecl-icon ecl-icon--fluid ecl-button__icon ecl-button__icon--after"
-         focusable="false" aria-hidden="true" data-ecl-icon="">
-      <use :xlink:href="`@/assets/img/ecl/icons.svg#${icon}`"></use>
-    </svg>
     <slot />
+    <svg v-if="download" class="ecl-icon ecl-icon--fluid ecl-button__icon ecl-button__icon--after"
+         focusable="false" aria-hidden="true" data-ecl-icon="">
+      <use xlink:href="@/assets/img/ecl/icons.svg#download" />
+    </svg>
   </button>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     label: String,
     action: Function,
     tooltip: String,
-    icon: String
+    download: Boolean
   },
   methods: {
     onClick() {
@@ -31,3 +31,8 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+  .ecl-icon {
+    margin-left: 8px !important;
+  }
+</style>
