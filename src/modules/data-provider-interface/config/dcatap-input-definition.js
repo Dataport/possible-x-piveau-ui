@@ -1456,6 +1456,8 @@ const dcatapProperties = {
       name: 'dct:language',
       class: 'property',
       multiple: true,
+      validation: "required",
+      minimum: 1,
       voc: 'language',
       '@change': true,
     },
