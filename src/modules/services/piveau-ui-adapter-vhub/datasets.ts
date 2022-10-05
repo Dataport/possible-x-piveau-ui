@@ -81,7 +81,7 @@
      distribution.availability = dataGetters.getObject(dist, 'availability', ['label', 'resource']);
      distribution.byteSize = dataGetters.getNumber(dist, 'byte_size');
      distribution.checksum = dataGetters.getObject(dist, 'checksum', ['algorithm', 'checksum_value']);
-     distribution.compressFormat = dataGetters.getString(dist, 'compress_format');
+     distribution.compressFormat = dataGetters.getObject(dist, 'compress_format', ['label', 'resource']);
      distribution.conformsTo = dataGetters.getArrayOfObjects(dist, 'conforms_to', ['label', 'resource']);
      distribution.description = dataGetters.getObjectLanguage(dist, 'description', 'No description available');
      distribution.downloadUrls = dataGetters.getArrayOfStrings(dist, 'download_url');
@@ -92,7 +92,7 @@
      distribution.licence = dataGetters.getObject(dist, 'license', ['id', 'label', 'description', 'resource', 'la_url']);
      distribution.mediaType = dataGetters.getString(dist, 'media_type');
      distribution.modificationDate = dataGetters.getString(dist, 'modified');
-     distribution.packageFormat = dataGetters.getString(dist, 'package_format');
+     distribution.packageFormat = dataGetters.getObject(dist, 'package_format', ['label', 'resource']);
      distribution.pages = dataGetters.getArrayOfObjects(dist, 'page', ['format', 'title', 'description', 'resource']);
      distribution.releaseDate = dataGetters.getString(dist, 'issued');
      distribution.rights = dataGetters.getObject(dist, 'rights', ['label', 'resource']);

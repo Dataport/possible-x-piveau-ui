@@ -325,6 +325,42 @@ function appendCurrentLocaleToURL(url) {
   }
 }
 
+/**
+* @description Add preceding zero for numbers < 100 (if not already existing)
+* @param {String} value value
+*/
+function addPrecedingZero(value) {
+  return `${parseInt(value, 10) < 10 ? 0 : ''}${parseInt(value, 10)}`;
+}
+
+/**
+* @description Formatting temporalResolution property into human-readable format
+* @param {String} datetime datetime in temporalResolution format
+*/
+function formatDatetime(datetime) {
+  let date = datetime.split('T')[0].substr(1,);
+
+  const year = date.split('Y')[0];
+  date = date.split('Y')[1];
+
+  const month = addPrecedingZero(date.split('M')[0]);
+  date = date.split('M')[1];
+
+  const day = addPrecedingZero(date.split('D')[0]);
+
+  let time = datetime.split('T')[1];
+
+  const hour = addPrecedingZero(time.split('H')[0]);
+  time = time.split('H')[1];
+
+  const minute = addPrecedingZero(time.split('M')[0]);
+  time = time.split('M')[1];
+
+  const second = addPrecedingZero(time.split('S')[0]);
+
+  return `${hour}:${minute}:${second} - ${day}.${month}.${year}`;
+}
+
 // Export all functions as default export.
 export {
   unique,
@@ -342,4 +378,6 @@ export {
   findPropertiesWithSources,
   setTranslation,
   appendCurrentLocaleToURL,
+  addPrecedingZero,
+  formatDatetime,
 };
