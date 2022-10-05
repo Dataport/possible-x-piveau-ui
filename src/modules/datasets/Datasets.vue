@@ -105,7 +105,6 @@
   import Pagination from '../widgets/Pagination.vue';
   import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
   import AppLink from '../widgets/AppLink.vue';
-  import PvDataInfoBox from '../PvDataInfoBox/PvDataInfoBox.vue';
   import { getTranslationFor, truncate, getImg } from '../utils/helpers';
   import DatasetsTopControls from "@/modules/datasets/DatasetsTopControls";
   import DatasetsFilters from "@/modules/datasets/DatasetsFilters";
@@ -120,7 +119,6 @@
       selectedFacetsOverview: SelectedFacetsOverview,
       datasetsFacets: DatasetsFacets,
       pagination: Pagination,
-      PvDataInfoBox,
     },
     props: {
       infiniteScrolling: {
