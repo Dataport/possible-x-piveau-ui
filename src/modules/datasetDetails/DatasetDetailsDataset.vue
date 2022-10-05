@@ -13,7 +13,6 @@
       <distributions
         :openModal="openModal"
         :getDistributions="getDistributions"
-        :getCatalog="getCatalog"
         :expandedDistributions="expandedDistributions"
         :expandedDistributionDescriptions="expandedDistributionDescriptions"
         :displayedDistributions="displayedDistributions"
@@ -28,7 +27,6 @@
         :getDistributionTitle="getDistributionTitle"
         :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
         :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
-        :getDistributionDescription="getDistributionDescription"
         :distributionIsExpanded="distributionIsExpanded"
         :showNumber="showNumber"
         :showObject="showObject"
@@ -536,9 +534,6 @@
       },
       getDistributionTitle(distribution) {
         return distribution.title ? getTranslationFor(distribution.title, this.$route.query.locale, this.getLanguages) : '-';
-      },
-      getDistributionDescription(distribution) {
-        return (has(distribution, 'description') && !isNil(distribution.description)) ? getTranslationFor(distribution.description, this.$route.query.locale, this.getLanguages) : '-';
       },
       getVisualisationLink(distribution) {
         // Return Visualisation Link

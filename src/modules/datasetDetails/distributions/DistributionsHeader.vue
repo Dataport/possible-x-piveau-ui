@@ -14,22 +14,39 @@
       :openModal="openModal"
       :getDistributionTitle="getDistributionTitle"
       :showDownloadUrls="showDownloadUrls"
-      :getCatalog="getCatalog"
       :isUrlInvalid="isUrlInvalid"
     />
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+import DownloadAllDistributions
+  from "@/modules/datasetDetails/distributions/DownloadAllDistributions";
+
 export default {
   name: "DistributionsHeader",
+  components: {DownloadAllDistributions},
   props: [
-    ''
+    'getDistributionDescription',
+    'openModal',
+    'getDistributionTitle',
+    'showDownloadUrls',
+    'isUrlInvalid'
   ],
   data() {
     return {
       downloadAllTop: this.$env.datasetDetails.bulkDownload.buttonPosition === "top"
     };
+  },
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getDistributions',
+      'getLanguages'
+    ])
+  },
+  methods: {
+
   }
 }
 </script>

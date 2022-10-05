@@ -71,7 +71,6 @@ export default {
   props: [
     'getDistributionDescription',
     'getDistributionTitle',
-    'getCatalog',
     'openModal',
     'isUrlInvalid',
     'showDownloadUrls',
@@ -81,6 +80,7 @@ export default {
     ...mapGetters('datasetDetails', [
       'getDistributions',
       'getTitle',
+      'getCatalog',
       'getLanguages'
     ])
   },

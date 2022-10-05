@@ -1,7 +1,13 @@
 <template>
     <div class="mt-1 dsd-distributions">
       <div class="row">
-
+        <distributions-header
+          :getDistributionDescription="getDistributionDescription"
+          :openModal="openModal"
+          :getDistributionTitle="getDistributionTitle"
+          :showDownloadUrls="showDownloadUrls"
+          :isUrlInvalid="isUrlInvalid"
+        />
         <ul class="list list-unstyled col-12">
           <hr>
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
@@ -53,7 +59,6 @@
             :openModal="openModal"
             :getDistributionTitle="getDistributionTitle"
             :showDownloadUrls="showDownloadUrls"
-            :getCatalog="getCatalog"
             :isUrlInvalid="isUrlInvalid"
           />
         </div>
@@ -67,16 +72,19 @@ import Distribution from './Distribution.vue';
 import DownloadAllDistributions
   from "../../datasetDetails/distributions/DownloadAllDistributions";
 import {has, isNil} from "lodash";
+import {getTranslationFor} from "@/modules/utils/helpers";
+import { mapGetters } from "vuex";
+import DistributionsHeader from "@/modules/datasetDetails/distributions/DistributionsHeader";
 
 export default {
   name: 'Distributions',
   components: {
+    DistributionsHeader,
     DownloadAllDistributions,
     Distribution
   },
   props: {
     openModal: Function,
-    getCatalog: Object,
     expandedDistributions: Array,
     expandedDistributionDescriptions: Array,
     displayedDistributions: Array,
@@ -90,7 +98,6 @@ export default {
     getDistributionTitle: Function,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,
-    getDistributionDescription: Function,
     distributionIsExpanded: Function,
     showObject: Function,
     showNumber: Function,
@@ -121,6 +128,17 @@ export default {
     return {
       downloadAllTop: this.$env.datasetDetails.bulkDownload.buttonPosition === "top"
     };
+  },
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getLanguages',
+      'getCatalog',
+    ])
+  },
+  methods: {
+    getDistributionDescription(distribution) {
+      return (has(distribution, 'description') && !isNil(distribution.description)) ? getTranslationFor(distribution.description, this.$route.query.locale, this.getLanguages) : '-';
+    }
   }
 };
 </script>
