@@ -1,48 +1,54 @@
 <template>
-<router-link :to="to" class="dataset-info-box text-dark text-decoration-none">
-  <slot name="header">
-    <div
-      class="dataset-info-box-header"
-      data-cy="dataset-title"
-    >
-      <h2>{{ datasetOrCatalogTitle }}</h2>
-    </div>
-  </slot>
+  <router-link
+    :to="to"
+    class="dataset-info-box text-dark text-decoration-none"
+    :class="{'dataset-info-box--catalog': catalogMode}"
+  >
+    <slot name="header" v-if="!compact">
+      <div class="dataset-info-box-header" data-cy="dataset-title">
+        <h2 class="card-title m0">{{ datasetOrCatalogTitle }}</h2>
+      </div>
+    </slot>
 
-  <!-- Body slot -->
-  <!-- todo: implement max description length cutoff (either by js or css) -->
-  <slot name="body">
-    <div class="dataset-info-box-body">
-      <div class="row">
-        <div v-if="catalogMode" class="col-12 col-md-2">
-          <img
-            :src="src"
-            alt="img"
-            class="catalog-img catalog-img--big border border-dark"
+    <!-- Body slot -->
+    <slot name="body">
+      <div class="dataset-info-box-body">
+        <div class="row">
+          <div v-if="catalogMode && !compact" class="col-12 col-md-2">
+            <img
+              :src="src"
+              alt="img"
+              class="catalog-img border border-dark"
+              :class="{'catalog-img--big': !compact}"
+            />
+          </div>
+          <div
+            class="dataset-info-box-description-container col-12 col-md"
+            data-cy="dataset-description"
           >
-        </div>
-        <div
-          class="dataset-info-box-description-container col-12 col-md"
-          data-cy="dataset-description"
-        >
-          <slot name="description">
-            <p v-if="dataset.description" class="dataset-info-box-description">
-              {{ descriptionMaxLength
-                ? truncate(dataset.description, descriptionMaxLength)
-                : dataset.description
-              }}
-            </p>
-            <span v-else>
-              <p class="text-muted font-italic" data-cy="dataset-description">
-                {{ $t('message.catalogsAndDatasets.noDescriptionAvailable') }}
-              </p>
-            </span>
-          </slot>
-        </div>
-        <div
-          v-if="dataset.formats && dataset.formats.length > 0"
-          class="col-12 col-md-3"
-        >
+            <slot name="header" v-if="compact">
+              <div data-cy="dataset-title">
+                <h2 class="card-title">{{ datasetOrCatalogTitle }}</h2>
+              </div>
+            </slot>
+
+            <slot name="description">
+              <pv-data-info-box-description
+                v-if="!catalogMode || !compact"
+                :class="'mb-3'"
+                :description="dataset.description"
+                :description-max-length="descriptionMaxLength"
+                :truncate="descriptionMaxLength"
+              />
+            </slot>
+
+            <slot name="after-description" />
+          </div>
+          <div
+            v-if="dataset.formats && dataset.formats.length > 0"
+            class="col-12 mb-3"
+            :class="{ 'col-md-3': !compact }"
+          >
             <PvBadge
               v-for="(format, i) in dataset.formats.slice(0, 10)"
               :key="`badge@${i}`"
@@ -52,59 +58,70 @@
               data-placement="top"
               :title="$t('message.tooltip.datasetDetails.format')"
             >
-              {{ format.label || format.id || 'UNKNOWN' }}
+              {{ format.label || format.id || "UNKNOWN" }}
             </PvBadge>
-          <span v-if="dataset.formats.length >= 10">...</span>
+            <span v-if="dataset.formats.length >= 10">...</span>
+          </div>
+          <slot name="footer" :dataset="dataset" v-if="compact">
+            <PvDataInfoBoxFooter
+              class="col-12"
+              :src="src"
+              :createdDate="null"
+              :updatedDate="null"
+              :catalog="catalogMode ? dataset.description : dataset.catalog"
+            />
+            <!-- <div v-else class="dataset-info-box-footer" /> -->
+          </slot>
         </div>
       </div>
-    </div>
-  </slot>
+    </slot>
 
-  <!-- Footer slot -->
-  <slot name="footer" :dataset="dataset">
-    <PvDataInfoBoxFooter
-      v-if="!catalogMode"
-      :src="src"
-      :createdDate="dataset.createdDate"
-      :updatedDate="dataset.updatedDate"
-      :catalog="dataset.catalog"
-    />
-    <div v-else class="dataset-info-box-footer" />
-  </slot>
-</router-link>
+    <!-- Footer slot -->
+    <slot name="footer" :dataset="dataset" v-if="!compact">
+      <PvDataInfoBoxFooter
+        class="dataset-info-box-footer"
+        v-if="!catalogMode"
+        :src="src"
+        :createdDate="dataset.createdDate"
+        :updatedDate="dataset.updatedDate"
+        :catalog="dataset.catalog"
+      />
+      <div v-else class="dataset-info-box-footer" />
+    </slot>
+  </router-link>
 </template>
 
 <script lang="ts">
-import { Dataset } from 'types/global';
-import Vue, { PropType } from 'vue';
-import type RouteLocationRaw from 'vue-router';
+import { Dataset } from "types/global";
+import Vue, { PropType } from "vue";
+import type RouteLocationRaw from "vue-router";
 
-import PvBadge from '../PvBadge/PvBadge.vue';
-import PvDataInfoBoxFooter from './PvDataInfoBoxFooter.vue';
-
-import { truncate } from '../utils/helpers';
+import PvBadge from "../PvBadge/PvBadge.vue";
+import PvDataInfoBoxFooter from "./PvDataInfoBoxFooter.vue";
+import PvDataInfoBoxDescription from "./PvDataInfoBoxDescription.vue";
 
 export default Vue.extend({
-  name: 'PvDataInfoBox',
+  name: "PvDataInfoBox",
   components: {
     PvBadge,
     PvDataInfoBoxFooter,
+    PvDataInfoBoxDescription,
   },
   props: {
-
     /**
      * The dataset to display.
      */
     dataset: {
       type: Object as PropType<Dataset>,
-      default: () => ({
-        title: '',
-        description: '',
-        catalog: '',
-        createdDate: '12.12.2021',
-        updatedDate: '13.12.2021',
-        formats: [],
-      } as Dataset),
+      default: () =>
+        ({
+          title: "",
+          description: "",
+          catalog: "",
+          createdDate: "12.12.2021",
+          updatedDate: "13.12.2021",
+          formats: [],
+        } as Dataset),
     },
 
     /**
@@ -112,7 +129,7 @@ export default Vue.extend({
      */
     to: {
       type: [Object, String] as PropType<RouteLocationRaw | string>,
-      required: true
+      required: true,
     },
 
     /**
@@ -128,7 +145,7 @@ export default Vue.extend({
      */
     src: {
       type: String,
-      default: '',
+      default: "",
     },
 
     /**
@@ -138,19 +155,24 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
+
+    /**
+     * If true switches from two column to one column layout
+     * and decreases vertical distancing between elements.
+     */
+    compact: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {
     datasetOrCatalogTitle() {
       const { dataset, catalogMode } = this;
       return catalogMode
-        ? dataset.title || dataset.catalog || ''
-        : dataset.title || ''
-    }
-  },
-
-  methods: {
-    truncate,
+        ? dataset.title || dataset.catalog || ""
+        : dataset.title || "";
+    },
   },
 });
 </script>

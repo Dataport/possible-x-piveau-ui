@@ -1,13 +1,14 @@
 // import Facet from "@/modules/facets/Facet.vue";
-import Vue from "vue";
+import Vue, { VueConstructor } from "vue";
 import ExpandableSelectFacet from "@/modules/facets/ExpandableSelectFacet.vue";
 import RadioFacet from "@/modules/facets/RadioFacet.vue";
 import PvShowMore from "@/modules/widgets/PvShowMore.vue";
 import PvButton from "@/modules/widgets/PvButton.vue";
 import PvBanner from "@/modules/widgets/PvBanner.vue";
 import DatasetDetailsNavigationPage from "@/modules/datasetDetails/navigation/DatasetDetailsNavigationPage.vue";
+import PvDataInfoBox from "@/modules/PvDataInfoBox/PvDataInfoBox.vue";
 
-export type ComponentMap = { [key: string]: any };
+export type ComponentMap = { [key: string]: VueConstructor<Vue> };
 
 const defaultComponents: ComponentMap = {
   SelectFacet: ExpandableSelectFacet,
@@ -15,7 +16,8 @@ const defaultComponents: ComponentMap = {
   PvShowMore,
   PvButton,
   PvBanner,
-  DatasetDetailsNavigationPage
+  DatasetDetailsNavigationPage,
+  PvDataInfoBox,
 };
 
 export function configureComponents(components?: ComponentMap) {

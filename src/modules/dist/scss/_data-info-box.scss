@@ -27,6 +27,13 @@
       max-width: 30px;
       max-height: 19px;
     }
+
+    &-catalog-description {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+    }
   }
 
   &:hover {
@@ -60,5 +67,12 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: $data-info-box-body-line-clamp;
     overflow: hidden;
+  }
+
+  &--catalog {
+    .dataset-info-box-body {
+      min-height: initial;
+    }
+    
   }
 }
