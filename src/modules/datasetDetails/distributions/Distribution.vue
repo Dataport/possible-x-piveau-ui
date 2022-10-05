@@ -9,9 +9,7 @@
       <div class="col-10 col-md-11">
         <div class="row">
           <!-- DISTRIBUTION TITLE -->
-          <span class="d-inline-block col-12">
-            <h3 class="m-0 text-break">{{ getDistributionTitle(distribution) }}</h3>
-          </span>
+          <h3 class="m-0 text-break col-12">{{ getDistributionTitle(distribution) }}</h3>
           <div class="d-inline-block col-12 col-md-9 col-lg-7">
             <distribution-description
               :distribution="distribution"
