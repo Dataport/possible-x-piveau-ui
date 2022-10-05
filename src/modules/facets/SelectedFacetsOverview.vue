@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <p v-for="fieldId in Object.keys(selectedFacets).filter(id => showSelectedFacet(id))" :key="fieldId">
+    <p v-for="fieldId in Object.keys(getSelectedFacets).filter(id => showSelectedFacet(id))" :key="fieldId">
       <span>
         {{ `${findFacetFieldTitle(fieldId)}:` }}
       </span>
-      <span v-for="(facetId, i) in selectedFacets[fieldId]" :key="i" class="badge badge-pill badge-highlight mr-1">
+      <span v-for="(facetId, i) in getSelectedFacets[fieldId]" :key="i" class="badge badge-pill badge-highlight mr-1">
         {{ findFacetTitle(fieldId, facetId) }}
         <span @click="removeSelectedFacet(fieldId, facetId)" class="close-facet ml-2">&times;</span>
       </span>
@@ -34,6 +34,22 @@
       ...mapGetters('datasets', [
         'getAllAvailableFacets',
       ]),
+      getSelectedFacets() {
+        if (this.$route.query.dataScope) {
+          let newSelectedFacets = {};
+
+          Object.keys(this.selectedFacets).map(key => {
+            if (key === 'country') {
+              newSelectedFacets['dataScope'] = [];
+              this.selectedFacets[key].forEach(country => newSelectedFacets.dataScope.push(country));
+            }
+            else newSelectedFacets[key] = this.selectedFacets[key];
+          });
+
+          return newSelectedFacets;
+        } 
+        return this.selectedFacets;
+      },
       showCatalogDetailsWatcher() {
         return this.$route.query.showcatalogdetails;
       },
@@ -42,9 +58,11 @@
       ...mapActions('datasets', [
         'setMinScoring',
       ]),
+      routerPush(object) {
+        return this.$router.push(object).catch(error => console.log(error));
+      },
       showSelectedFacet(fieldId) {
-        return this.selectedFacets[fieldId].length > 0
-          // && fieldId !== 'dataServices';
+        return this.getSelectedFacets[fieldId].length > 0
       },
       findFacetTitle(fieldId, facetId) {
         try {
@@ -73,41 +91,40 @@
        * @param facet - The given facet
        */
       toggleFacet(field, facet) {
+        let routerObject = null;
+
         if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-          this.$router.push(
-            { query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) }
-          ).catch(
-            error => { console.log(error); }
-          );
-        }
-        let facets = this.$route.query[field].slice();
-        if (!Array.isArray(facets)) facets = [facets];
-        if (field === 'categories') {
-          // Ignore Case for categories
-          facet.toUpperCase();
-          facets = facets.map(f => f.toUpperCase());
+          routerObject = { query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) };
         } else if (field === 'scoring') {
           this.setMinScoring(0);
           localStorage.setItem('minScoring', JSON.stringify(0));
+          routerObject = { query: Object.assign({}, this.$route.query, { scoring: [], page: 1 }) };
+        } else if (field === 'country' && (facet === 'eu' || facet === 'io')) {
+          routerObject = { query: Object.assign({}, this.$route.query, { dataScope: [], page: 1 }) };
         }
-        const index = facets.indexOf(facet);
-        if (index > -1) {
-          facets.splice(index, 1);
-        } else {
-          facets.push(facet);
+
+        if (!routerObject) {
+          let facets = this.$route.query[field].slice();
+
+          if (!Array.isArray(facets)) facets = [facets];
+
+          if (field === 'categories') {
+            facet.toUpperCase();
+            facets = facets.map(f => f.toUpperCase());
+          }
+
+          const index = facets.indexOf(facet);
+
+          if (index > -1) {
+            facets.splice(index, 1);
+          } else {
+            facets.push(facet);
+          }
+
+          routerObject = { query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) };
         }
-        if (field === 'country' && (facet === 'eu' || facet === 'io')) {
-          this.$router.push(
-            { query: Object.assign({}, this.$route.query, { dataScope: [], page: 1 }) }
-          ).catch(
-            error => { console.log(error); }
-          );
-        }
-        this.$router.push(
-          { query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+
+        return this.routerPush(routerObject);
       },
       initShowCatalogDetails() {
         const showCatalogDetails = this.$route.query.showcatalogdetails;
@@ -115,12 +132,11 @@
           this.showCatalogDetails = true;
         } else this.showCatalogDetails = false;
       },
-      showEUInternationalCountry(fieldId, facetId) {
-        if (fieldId !== 'country') return true;
-        const dataScope = this.$route.query.dataScope;
-        if (dataScope && dataScope !== 'countryData' && (facetId === 'eu' || facetId === 'io')) return false;
-        return true;
-      },
+      initDataScope() {
+        if (this.$route.query.dataScope && this.$route.query.country) {
+          this.routerPush({ query: Object.assign({}, this.$route.query, { country: [], page: 1 }) });
+        }
+      }
     },
     watch: {
       showCatalogDetailsWatcher: {
@@ -131,7 +147,8 @@
     },
     created() {
       this.initShowCatalogDetails();
-    }
+      // this.initDataScope();
+    },
   };
 </script>
 
