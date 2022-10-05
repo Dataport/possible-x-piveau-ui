@@ -33,23 +33,19 @@
         :showNumber="showNumber"
         :showObject="showObject"
         :distributionCanShowMore="distributionCanShowMore"
-        :showOptionsDropdown="showOptionsDropdown"
         :showDownloadDropdown="showDownloadDropdown"
         :showLicence="showLicence"
         :showLicensingAssistant="showLicensingAssistant"
         :filterDateFormatEU="filterDateFormatEU"
         :showArray="showArray"
         :showObjectArray="showObjectArray"
-        :showVisualisationLink="showVisualisationLink"
         :getVisualisationLink="getVisualisationLink"
-        :showGeoLink="showGeoLink"
         :getDownloadUrl="getDownloadUrl"
         :trackGoto="trackGoto"
         :showAccessUrls="showAccessUrls"
         :replaceHttp="replaceHttp"
         :previewLinkCallback="previewLinkCallback"
         :toggleDistribution="toggleDistribution"
-        :getGeoLink="getGeoLink"
         :toggleDistributionDescription="toggleDistributionDescription"
         :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
         :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
@@ -169,17 +165,6 @@
         translationNotAvailable: false,
         expandedDistributions: [],
         expandedDistributionDescriptions: [],
-        visualisationLinkFormats: [
-          'csv',
-          'xlsx',
-          'xls',
-        ],
-        geoLinkFormats: {
-          wms: 'WMS',
-          geojson: 'GeoJSON',
-          fiware_cb: 'fiware_cb',
-          'fiware-cb': 'fiware_cb',
-        },
         datasetSchema: {},
         distributions: {
           displayAll: this.$env.datasetDetails.distributions.displayAll,
@@ -477,20 +462,6 @@
       showLicensingAssistant(distribution) {
         return has(distribution, 'licence.la_url') && this.showString(distribution.licence.la_url);
       },
-      showOptionsDropdown(distribution) {
-        return this.showVisualisationLink(distribution) || this.showGeoLink(distribution);
-      },
-      showVisualisationLink(distribution) {
-        if (!has(distribution, 'format.label') || isNil(distribution?.format?.label)
-          || (isNil(distribution?.downloadUrls[0]) && isNil(distribution?.accessUrl[0]))) return false;
-        const f = distribution?.format?.id?.toLowerCase();
-        return f && this.visualisationLinkFormats.includes(f);
-      },
-      showGeoLink(distribution) {
-        if (!has(distribution, 'format.label') || isNil(distribution.format.label) || !has(distribution, 'id') || isNil(distribution.id)) return false;
-        const f = distribution.format.label.toLowerCase();
-        return Object.keys(this.geoLinkFormats).includes(f);
-      },
       showDownloadDropdown(distribution) {
         return this.showAccessUrls(distribution) || this.showDownloadUrls(distribution);
       },
@@ -573,13 +544,6 @@
         // Return Visualisation Link
         const accessUrl = distribution.downloadUrls && distribution.downloadUrls.length ? distribution.downloadUrls[0] : distribution.accessUrl[0];
         return `/data/visualisation/?file=${encodeURIComponent(accessUrl)}`;
-      },
-      getGeoLink(format, distributionID) {
-        let f = format.toLowerCase();
-        // Use correct Case Sensitive strings
-        f = this.geoLinkFormats[f];
-        // Return Geo Visualisation Link
-        return `/geo-viewer/?dataset=${distributionID}&type=${f}&lang=${this.$route.query.locale}`;
       },
       // getSubjectLink(subject) {
       //   return { path: `/datasets?subject=${subject.id}`, query: Object.assign({}, { locale: this.$route.query.locale }) };

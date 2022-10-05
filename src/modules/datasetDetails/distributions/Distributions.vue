@@ -1,25 +1,7 @@
 <template>
     <div class="mt-1 dsd-distributions">
       <div class="row">
-        <div class="dsd-item d-flex justify-content-between align-items-center">
-          <h2 :title="$t('message.tooltip.datasetDetails.distribution')"
-              data-toggle="tooltip"
-              data-placement="top"
-              data-cy="dataset-distributions">
-            {{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})
-          </h2>
-          <download-all-distributions
-            v-if="downloadAllTop"
-            :primary="true"
-            :getDistributions="getDistributions"
-            :getDistributionDescription="getDistributionDescription"
-            :openModal="openModal"
-            :getDistributionTitle="getDistributionTitle"
-            :showDownloadUrls="showDownloadUrls"
-            :getCatalog="getCatalog"
-            :isUrlInvalid="isUrlInvalid"
-          />
-        </div>
+
         <ul class="list list-unstyled col-12">
           <hr>
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
@@ -28,7 +10,6 @@
                 :key="`${index}--${distribution.id}`"
                 :distribution="distribution"
                 :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
-                :getDistributions="getDistributions"
                 :distributions="distributions"
                 :setDistributionsDisplayCount="setDistributionsDisplayCount"
                 :getDistributionFormat="getDistributionFormat"
@@ -41,16 +22,13 @@
                 :showObject="showObject"
                 :showNumber="showNumber"
                 :distributionCanShowMore="distributionCanShowMore"
-                :showOptionsDropdown="showOptionsDropdown"
                 :showDownloadDropdown="showDownloadDropdown"
                 :showLicence="showLicence"
                 :showLicensingAssistant="showLicensingAssistant"
                 :filterDateFormatEU="filterDateFormatEU"
                 :showArray="showArray"
                 :showObjectArray="showObjectArray"
-                :showVisualisationLink="showVisualisationLink"
                 :getVisualisationLink="getVisualisationLink"
-                :showGeoLink="showGeoLink"
                 :isOnlyOneUrl="isOnlyOneUrl"
                 :getDownloadUrl="getDownloadUrl"
                 :trackGoto="trackGoto"
@@ -58,7 +36,6 @@
                 :replaceHttp="replaceHttp"
                 :previewLinkCallback="previewLinkCallback"
                 :toggleDistribution="toggleDistribution"
-                :getGeoLink="getGeoLink"
                 :toggleDistributionDescription="toggleDistributionDescription"
                 :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
                 :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
@@ -72,7 +49,6 @@
         <div class="w-100 d-flex flex-row justify-content-end">
           <download-all-distributions
             v-if="!downloadAllTop"
-            :getDistributions="getDistributions"
             :getDistributionDescription="getDistributionDescription"
             :openModal="openModal"
             :getDistributionTitle="getDistributionTitle"
@@ -90,6 +66,7 @@
 import Distribution from './Distribution.vue';
 import DownloadAllDistributions
   from "../../datasetDetails/distributions/DownloadAllDistributions";
+import {has, isNil} from "lodash";
 
 export default {
   name: 'Distributions',
@@ -97,14 +74,8 @@ export default {
     DownloadAllDistributions,
     Distribution
   },
-  data() {
-    return {
-      downloadAllTop: this.$env.datasetDetails.bulkDownload.buttonPosition === "top"
-    };
-  },
   props: {
     openModal: Function,
-    getDistributions: Array,
     getCatalog: Object,
     expandedDistributions: Array,
     expandedDistributionDescriptions: Array,
@@ -124,16 +95,13 @@ export default {
     showObject: Function,
     showNumber: Function,
     distributionCanShowMore: Function,
-    showOptionsDropdown: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,
     filterDateFormatEU: Function,
     showArray: Function,
     showObjectArray: Function,
-    showVisualisationLink: Function,
     getVisualisationLink: Function,
-    showGeoLink: Function,
     isOnlyOneUrl: Function,
     getDownloadUrl: Function,
     trackGoto: Function,
@@ -141,7 +109,6 @@ export default {
     replaceHttp: Function,
     previewLinkCallback: Function,
     toggleDistribution: Function,
-    getGeoLink: Function,
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
     nonOverflowingIncrementsForDistributions: Function,
@@ -149,6 +116,11 @@ export default {
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
     appendCurrentLocaleToURL: Function
+  },
+  data() {
+    return {
+      downloadAllTop: this.$env.datasetDetails.bulkDownload.buttonPosition === "top"
+    };
   }
 };
 </script>

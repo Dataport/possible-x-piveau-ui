@@ -24,14 +24,20 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "FadingDistributionOverlay",
   props: {
     distributions: Object,
     setDistributionsDisplayCount: Function,
     increaseNumDisplayedDistributions: Function,
-    nonOverflowingIncrementsForDistributions: Function,
-    getDistributions: Array
+    nonOverflowingIncrementsForDistributions: Function
+  },
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getDistributions'
+    ])
   }
 }
 </script>

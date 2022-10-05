@@ -51,15 +51,11 @@
           <distribution-actions
             :distribution="distribution"
             :distributions="distributions"
-            :showOptionsDropdown="showOptionsDropdown"
             :isUrlInvalid="isUrlInvalid"
             :getVisualisationLink="getVisualisationLink"
             :showTooltipVisualiseButton="showTooltipVisualiseButton"
             :previewLinkCallback="previewLinkCallback"
-            :showVisualisationLink="showVisualisationLink"
             :openIfValidUrl="openIfValidUrl"
-            :getGeoLink="getGeoLink"
-            :showGeoLink="showGeoLink"
             :showDownloadDropdown="showDownloadDropdown"
             :getDownloadUrl="getDownloadUrl"
             :showAccessUrls="showAccessUrls"
@@ -77,7 +73,6 @@
       :setDistributionsDisplayCount="setDistributionsDisplayCount"
       :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
       :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
-      :getDistributions="getDistributions"
     />
     <hr class="mt-1">
   </div>
@@ -118,7 +113,6 @@ export default {
     distributions: Object,
     setDistributionsDisplayCount: Function,
     openModal: Function,
-    getDistributions: Array,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,
@@ -129,16 +123,13 @@ export default {
     showObject: Function,
     showNumber: Function,
     distributionCanShowMore: Function,
-    showOptionsDropdown: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,
     filterDateFormatEU: Function,
     showArray: Function,
     showObjectArray: Function,
-    showVisualisationLink: Function,
     getVisualisationLink: Function,
-    showGeoLink: Function,
     isOnlyOneUrl: Function,
     getDownloadUrl: Function,
     trackGoto: Function,
@@ -146,7 +137,6 @@ export default {
     replaceHttp: Function,
     previewLinkCallback: Function,
     toggleDistribution: Function,
-    getGeoLink: Function,
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
     nonOverflowingIncrementsForDistributions: Function,

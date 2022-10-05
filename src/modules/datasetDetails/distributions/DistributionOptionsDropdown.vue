@@ -3,6 +3,7 @@
              :title="$t('message.tooltip.datasetDetails.distributions.options')"
              :message="$t('message.datasetDetails.options')"
              bgLight="true"
+             v-if="showOptionsDropdown(distribution)"
   >
     <span data-toggle="tooltip" data-placement="top" :title="showTooltipVisualiseButton(isUrlInvalid(getVisualisationLink(distribution)))">
       <a @click.prevent="openIfValidUrl(!isUrlInvalid(getVisualisationLink(distribution)), previewLinkCallback, distribution, $event)"  :class="{ disabled: isUrlInvalid(getVisualisationLink(distribution)) }" ref="previewLink" class="dropdown-item px-3 d-flex justify-content-end align-items-center"
@@ -29,6 +30,7 @@
 <script>
 import Dropdown from "@/modules/widgets/Dropdown";
 import AppLink from "@/modules/widgets/AppLink";
+import {has, isNil} from "lodash";
 
 export default {
   name: "DistributionOptionsDropdown",
@@ -42,11 +44,46 @@ export default {
     'getVisualisationLink',
     'distribution',
     'openIfValidUrl',
-    'previewLinkCallback',
-    'showVisualisationLink',
-    'getGeoLink',
-    'showGeoLink'
-  ]
+    'previewLinkCallback'
+  ],
+  data() {
+    return {
+      visualisationLinkFormats: [
+        'csv',
+        'xlsx',
+        'xls',
+      ],
+      geoLinkFormats: {
+        wms: 'WMS',
+        geojson: 'GeoJSON',
+        fiware_cb: 'fiware_cb',
+        'fiware-cb': 'fiware_cb',
+      }
+    };
+  },
+  methods: {
+    getGeoLink(format, distributionID) {
+      let f = format.toLowerCase();
+      // Use correct Case Sensitive strings
+      f = this.geoLinkFormats[f];
+      // Return Geo Visualisation Link
+      return `/geo-viewer/?dataset=${distributionID}&type=${f}&lang=${this.$route.query.locale}`;
+    },
+    showOptionsDropdown(distribution) {
+      return this.showVisualisationLink(distribution) || this.showGeoLink(distribution);
+    },
+    showGeoLink(distribution) {
+      if (!has(distribution, 'format.label') || isNil(distribution.format.label) || !has(distribution, 'id') || isNil(distribution.id)) return false;
+      const f = distribution.format.label.toLowerCase();
+      return Object.keys(this.geoLinkFormats).includes(f);
+    },
+    showVisualisationLink(distribution) {
+      if (!has(distribution, 'format.label') || isNil(distribution?.format?.label)
+        || (isNil(distribution?.downloadUrls[0]) && isNil(distribution?.accessUrl[0]))) return false;
+      const f = distribution?.format?.id?.toLowerCase();
+      return f && this.visualisationLinkFormats.includes(f);
+    }
+  }
 }
 </script>
 

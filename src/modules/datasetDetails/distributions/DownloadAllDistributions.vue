@@ -2,7 +2,8 @@
   <div v-if="getDistributions.length > 1" class="dsd-download-all-distributions-button">
     <pv-button v-if="isLoadingAllDistributionFiles" :rounded="true" :primary="primary" :download="true" icon="download"
             class="download-all-btn"
-            data-toggle="modal" data-target="#downloadAllModal">
+            data-toggle="modal" data-target="#downloadAllModal"
+    >
       <div class="loading-spinner"></div>
     </pv-button>
     <pv-button v-else class="download-all-btn" :rounded="true" :primary="primary" :download="true" icon="download" :action="() => openModal(downloadAllDistributions, true)">
@@ -68,17 +69,17 @@ import { mapGetters } from "vuex";
 export default {
   name: "DownloadAllDistributions",
   props: [
-    'getDistributions',
     'getDistributionDescription',
-    'openModal',
     'getDistributionTitle',
-    'isUrlInvalid',
     'getCatalog',
+    'openModal',
+    'isUrlInvalid',
     'showDownloadUrls',
     'primary'
   ],
   computed: {
     ...mapGetters('datasetDetails', [
+      'getDistributions',
       'getTitle',
       'getLanguages'
     ])
