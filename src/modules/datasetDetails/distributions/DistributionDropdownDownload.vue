@@ -12,7 +12,7 @@
         {{ message }}
     </app-link>
     <div v-else>
-        <button @click="openDropdown"  class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button d-flex justify-content-between"
+        <button @click="openDropdown" class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button d-flex justify-content-between"
           type="button"
           aria-haspopup="true"
           aria-expanded="false">

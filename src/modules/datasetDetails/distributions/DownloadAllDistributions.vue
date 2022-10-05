@@ -1,12 +1,12 @@
 <template>
   <div v-if="getDistributions.length > 1" class="dsd-download-all-distributions-button">
-    <pv-button v-if="isLoadingAllDistributionFiles" :rounded="true" :primary="primary" :download="true" icon="download"
+    <pv-button v-if="isLoadingAllDistributionFiles" :small="small" :rounded="true" :primary="primary" :download="true" icon="download"
             class="download-all-btn"
             data-toggle="modal" data-target="#downloadAllModal"
     >
       <div class="loading-spinner"></div>
     </pv-button>
-    <pv-button v-else class="download-all-btn" :rounded="true" :primary="primary" :download="true" icon="download" :action="() => openModal(downloadAllDistributions, true)">
+    <pv-button v-else class="download-all-btn" :small="small" :rounded="true" :primary="primary" :download="true" icon="download" :action="() => openModal(downloadAllDistributions, true)">
       {{ $t('message.datasetDetails.datasets.downloadAll') }}
     </pv-button>
     <div class="modal fade" id="downloadAllModal" tabindex="-1" role="dialog" aria-labelledby="download progress" aria-hidden="true">
@@ -65,16 +65,19 @@ import { saveAs } from 'file-saver';
 import $ from "jquery";
 import { getTranslationFor } from "../../utils/helpers";
 import { mapGetters } from "vuex";
+import PvButton from "@/modules/widgets/PvButton";
 
 export default {
   name: "DownloadAllDistributions",
+  components: {PvButton},
   props: [
     'getDistributionDescription',
     'getDistributionTitle',
     'openModal',
     'isUrlInvalid',
     'showDownloadUrls',
-    'primary'
+    'primary',
+    'small'
   ],
   computed: {
     ...mapGetters('datasetDetails', [

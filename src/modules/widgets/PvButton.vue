@@ -1,5 +1,5 @@
 <template>
-  <button :class="`btn btn-${primary? 'primary' : 'secondary'} ${small? 'btn-small' : ''}  ${rounded? 'rounded-lg' : ''}`" @click="action">
+  <button :class="`btn btn-${primary? 'primary' : 'secondary'} ${small? 'btn-sm' : ''} ${rounded? 'rounded-lg' : ''}`" @click="action">
     {{ label }}
     <slot />
   </button>

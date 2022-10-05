@@ -9,6 +9,7 @@
     <download-all-distributions
       v-if="downloadAllTop"
       :primary="true"
+      :small="true"
       :getDistributions="getDistributions"
       :getDistributionDescription="getDistributionDescription"
       :openModal="openModal"
@@ -44,9 +45,6 @@ export default {
       'getDistributions',
       'getLanguages'
     ])
-  },
-  methods: {
-
   }
 }
 </script>
