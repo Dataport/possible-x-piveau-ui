@@ -99,13 +99,7 @@ const components = ecStyle ? {
 } : {};
 
 configureModules({
-  components: {
-    // SelectFacet: ECSelectFacet,
-    // RadioFacet: ECRadioFacet,
-    // PvShowMore: ECMore,
-    // PvButton: ECButton,
-    // PvDataInfoBox: ECDataInfoBox,
-  },
+  components,
   services: GLUE_CONFIG.services,
   serviceParams: {
     baseUrl: env.api.baseUrl,
