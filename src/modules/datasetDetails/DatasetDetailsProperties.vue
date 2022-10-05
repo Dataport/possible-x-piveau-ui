@@ -554,7 +554,7 @@
             </td>
             <td>
               <div v-for="(temporalResolution, i) of getTemporalResolution" :key="i">
-                {{ temporalResolution }}
+                {{ formatDatetime(temporalResolution) }}
               </div>
             </td>
           </tr>
@@ -574,7 +574,7 @@
 <script>
 import {isArray, isNil, isString, has} from "lodash";
 import {mapGetters} from "vuex";
-import {removeMailtoOrTel, truncate, appendCurrentLocaleToURL, getTranslationFor} from "@/modules/utils/helpers";
+import {removeMailtoOrTel, truncate, appendCurrentLocaleToURL, getTranslationFor, formatDatetime } from "@/modules/utils/helpers";
 import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 import DatasetDetailsFeatureHeader
@@ -655,6 +655,7 @@ export default {
     removeMailtoOrTel,
     appendCurrentLocaleToURL,
     getTranslationFor,
+    formatDatetime,
     toggleInfo() {
       this.infoVisible = !this.infoVisible;
     },

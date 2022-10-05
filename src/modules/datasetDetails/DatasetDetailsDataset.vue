@@ -469,10 +469,8 @@
       showLicence(licence) {
         return has(licence, 'id')
           && has(licence, 'label')
-          && has(licence, 'resource')
           && !isNil(licence.id)
           && !isNil(licence.label)
-          && !isNil(licence.resource);
       },
       showLicensingAssistant(distribution) {
         return has(distribution, 'licence.la_url') && this.showString(distribution.licence.la_url);

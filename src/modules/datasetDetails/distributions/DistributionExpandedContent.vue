@@ -148,27 +148,45 @@
         </div>
       </td>
     </tr>
-    <tr v-if="has(distribution, 'compressFormat') && !isNil(distribution.compressFormat)">
+    <tr v-if="has(distribution, 'compressFormat') && showObject(distribution.compressFormat)">
       <td class="w-25 font-weight-bold">
         <tooltip :title="$t('message.tooltip.datasetDetails.distributions.compressFormat')">
           {{ $t('message.metadata.compressFormat') }}
         </tooltip>
       </td>
       <td>
-        <div>
-          {{ distribution.compressFormat }}
+        <div v-if="!isNil(distribution.compressFormat.label)">
+          {{ distribution.compressFormat.label }}
+        </div>
+        <div v-if="!isNil(distribution.compressFormat.resource)">
+          {{ distribution.compressFormat.resource }}
         </div>
       </td>
     </tr>
-    <tr v-if="has(distribution, 'packageFormat') && !isNil(distribution.packageFormat)">
+    <tr v-if="has(distribution, 'status') && showObject(distribution.status)">
+      <td class="w-25 font-weight-bold">
+        <tooltip :title="$t('message.tooltip.datasetDetails.distributions.status')">
+          {{ $t('message.metadata.status') }}
+        </tooltip>
+      </td>
+      <td>
+        <div v-if="!isNil(distribution.status.label)">
+          {{ distribution.status.label }}
+        </div>
+      </td>
+    </tr>
+    <tr v-if="has(distribution, 'packageFormat') && showObject(distribution.packageFormat)">
       <td class="w-25 font-weight-bold">
         <tooltip :title="$t('message.tooltip.datasetDetails.distributions.packageFormat')">
           {{ $t('message.metadata.packageFormat') }}
         </tooltip>
       </td>
       <td>
-        <div>
-          {{ distribution.packageFormat }}
+        <div v-if="!isNil(distribution.packageFormat.label)">
+          {{ distribution.packageFormat.label }}
+        </div>
+        <div v-if="!isNil(distribution.packageFormat.resource)">
+          {{ distribution.packageFormat.resource }}
         </div>
       </td>
     </tr>
@@ -227,7 +245,7 @@
       </td>
       <td>
         <div v-for="(temporalResolution, i) of distribution.temporalResolution" :key="i">
-          {{ temporalResolution }}
+          {{ formatDatetime(temporalResolution) }}
         </div>
       </td>
     </tr>
@@ -239,7 +257,7 @@ import {
   has,
   isNil
 } from 'lodash';
-import { truncate } from '../../utils/helpers';
+import { truncate, formatDatetime } from '../../utils/helpers';
 import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 export default {
@@ -260,7 +278,8 @@ export default {
   methods: {
     has,
     isNil,
-    truncate
+    truncate,
+    formatDatetime,
   }
 }
 </script>
