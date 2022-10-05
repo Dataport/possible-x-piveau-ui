@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-2 text-md-right col text-left">
+  <div class="d-flex flex-sm-row flex-md-column flex-lg-row justify-content-start justify-content-lg-end mt-2 text-md-right col text-left">
     <distribution-options-dropdown
       :showTooltipVisualiseButton="showTooltipVisualiseButton"
       :isUrlInvalid="isUrlInvalid"

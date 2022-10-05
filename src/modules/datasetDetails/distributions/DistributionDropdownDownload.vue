@@ -1,5 +1,5 @@
 <template>
-  <div class="position-relative d-inline-block ml-1">
+  <div class="position-relative d-inline-block ml-1 mb-1">
     <app-link @click="openDropdown" v-if="isOnlyOneUrl" class="btn btn-sm btn-primary p-0 pl-2 pr-2 w-100 rounded-lg btn-color dropdown-button"
         :to="replaceHttp(getDownloadUrl(distribution))"
         :title="title"
@@ -12,7 +12,7 @@
         {{ message }}
     </app-link>
     <div v-else>
-        <button @click="openDropdown"  class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button"
+        <button @click="openDropdown"  class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button d-flex justify-content-between"
           type="button"
           aria-haspopup="true"
           aria-expanded="false">

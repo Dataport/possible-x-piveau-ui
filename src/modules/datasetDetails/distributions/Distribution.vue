@@ -1,63 +1,65 @@
 <template>
-  <div class="distributions__item d-flex flex-row">
+  <div class="mb-3 d-flex flex-row distributions__item ">
     <distribution-format
       :distribution="distribution"
       :getDistributionFormat="getDistributionFormat"
       :distributionFormatTruncated="distributionFormatTruncated"
     />
-    <div class="d-inline-block col-12 col-md-9 col-lg-7">
-      <h3 class="m-0">{{ getDistributionTitle(distribution) }}</h3>
-      <distribution-description
+    <div class="d-flex flex-sm-wrap flex-md-nowrap">
+      <div class="col-sm-12 col-md-9 col-lg-7">
+        <h3 class="m-0">{{ getDistributionTitle(distribution) }}</h3>
+        <distribution-description
+          :distribution="distribution"
+          :distributions="distributions"
+          :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
+          :getDistributionDescription="getDistributionDescription"
+          :toggleDistributionDescription="toggleDistributionDescription"
+          :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
+        />
+        <distribution-expanded-content
+          :distribution="distribution"
+          :distributionIsExpanded="distributionIsExpanded"
+          :showLicensingAssistant="showLicensingAssistant"
+          :showLicence="showLicence"
+          :filterDateFormatEU="filterDateFormatEU"
+          :showArray="showArray"
+          :showNumber="showNumber"
+          :showObject="showObject"
+          :showObjectArray="showObjectArray"
+          :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
+        />
+        <distribution-visible-content
+          :distribution="distribution"
+          :distributionIsExpanded="distributionIsExpanded"
+          :showObject="showObject"
+          :showLicence="showLicence"
+          :showLicensingAssistant="showLicensingAssistant"
+          :filterDateFormatEU="filterDateFormatEU"
+        />
+        <distribution-expand
+          :distribution="distribution"
+          :distributionCanShowMore="distributionCanShowMore"
+          :toggleDistribution="toggleDistribution"
+          :distributionIsExpanded="distributionIsExpanded"
+        />
+      </div>
+      <distribution-actions
         :distribution="distribution"
         :distributions="distributions"
-        :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
-        :getDistributionDescription="getDistributionDescription"
-        :toggleDistributionDescription="toggleDistributionDescription"
-        :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
-      />
-      <distribution-expanded-content
-        :distribution="distribution"
-        :distributionIsExpanded="distributionIsExpanded"
-        :showLicensingAssistant="showLicensingAssistant"
-        :showLicence="showLicence"
-        :filterDateFormatEU="filterDateFormatEU"
-        :showArray="showArray"
-        :showNumber="showNumber"
-        :showObject="showObject"
-        :showObjectArray="showObjectArray"
-        :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
-      />
-      <distribution-visible-content
-        :distribution="distribution"
-        :distributionIsExpanded="distributionIsExpanded"
-        :showObject="showObject"
-        :showLicence="showLicence"
-        :showLicensingAssistant="showLicensingAssistant"
-        :filterDateFormatEU="filterDateFormatEU"
-      />
-      <distribution-expand
-        :distribution="distribution"
-        :distributionCanShowMore="distributionCanShowMore"
-        :toggleDistribution="toggleDistribution"
-        :distributionIsExpanded="distributionIsExpanded"
+        :isUrlInvalid="isUrlInvalid"
+        :getVisualisationLink="getVisualisationLink"
+        :showTooltipVisualiseButton="showTooltipVisualiseButton"
+        :previewLinkCallback="previewLinkCallback"
+        :openIfValidUrl="openIfValidUrl"
+        :showDownloadDropdown="showDownloadDropdown"
+        :getDownloadUrl="getDownloadUrl"
+        :showAccessUrls="showAccessUrls"
+        :isOnlyOneUrl="isOnlyOneUrl"
+        :trackGoto="trackGoto"
+        :getDistributionFormat="getDistributionFormat"
+        :replaceHttp="replaceHttp"
       />
     </div>
-    <distribution-actions
-      :distribution="distribution"
-      :distributions="distributions"
-      :isUrlInvalid="isUrlInvalid"
-      :getVisualisationLink="getVisualisationLink"
-      :showTooltipVisualiseButton="showTooltipVisualiseButton"
-      :previewLinkCallback="previewLinkCallback"
-      :openIfValidUrl="openIfValidUrl"
-      :showDownloadDropdown="showDownloadDropdown"
-      :getDownloadUrl="getDownloadUrl"
-      :showAccessUrls="showAccessUrls"
-      :isOnlyOneUrl="isOnlyOneUrl"
-      :trackGoto="trackGoto"
-      :getDistributionFormat="getDistributionFormat"
-      :replaceHttp="replaceHttp"
-    />
   </div>
 <!--      </div>-->
 <!--    </div>-->
@@ -178,12 +180,10 @@ button:focus {
 .material-icons.small-icon {
   font-size: 20px;
 }
-//
-//.distributions__item {
-//  position: relative;
-//}
 
-.mt-4 {
-  margin-top: 1.5rem !important;
+.distributions__item {
+  //position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 </style>
