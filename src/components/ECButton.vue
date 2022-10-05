@@ -1,5 +1,9 @@
 <template>
-  <button :class="`ecl-button ecl-button--${primary? 'primary' : 'secondary'}`" @click="action()">
+  <button
+    :class="`ecl-button ecl-button--${primary? 'primary' : 'secondary'}`"
+    @click="onClick()"
+    :title="tooltip"
+  >
     {{ label }}
   </button>
 </template>
@@ -10,7 +14,13 @@ export default {
   props: {
     primary: Boolean,
     label: String,
-    action: Function
+    action: Function,
+    tooltip: String
+  },
+  methods: {
+    onClick() {
+      if (typeof this.action === "function") this.action();
+    }
   }
 }
 </script>

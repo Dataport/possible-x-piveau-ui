@@ -1,4 +1,4 @@
-import { has, isEmpty } from "lodash";
+import { has, isEmpty, cloneDeep } from "lodash";
 import dcataptypes from '../../data-provider-interface/config/dcatap-jsonld-types';
 import namespacedKeys from "../../data-provider-interface/config/dcatap-namespace";
 
@@ -193,7 +193,7 @@ function convertGroupedInput(state, values, key) {
     };
 
     for (let index = 0; index < values.length; index += 1) {
-        state[index] = definitions[key];
+        state[index] = cloneDeep(definitions[key]);
         addGroupedValues(state[index], values[index], definitions, key);
     }
 }

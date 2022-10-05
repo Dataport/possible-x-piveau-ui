@@ -77,7 +77,10 @@ export default {
     'showDownloadUrls'
   ],
   computed: {
-    ...mapGetters('datasetDetails', ['getTitle'])
+    ...mapGetters('datasetDetails', [
+      'getTitle',
+      'getLanguages'
+    ])
   },
   data() {
     return {

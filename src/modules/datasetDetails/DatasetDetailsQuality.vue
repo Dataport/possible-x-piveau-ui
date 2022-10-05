@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-10 offset-1" v-if="getQualityData.result && getQualityDistributionData.result">
         <h2>{{ $t('message.header.navigation.data.metadataquality') }}</h2>
-          <div class="markdown-content">
+        <div class="markdown-content">
           <p v-html="$t('message.datasetDetails.intro.metadataQuality', { locale: $route.query.locale })"></p>
         </div>
         <div class="space card-columns" v-if="getQualityData.result">
@@ -302,6 +302,11 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row accordion-body">
+                    <div class="col-12">
+                      <CSVLinter></CSVLinter>
+                    </div> 
+                </div>
                 </div>
               </div>
             </div>
@@ -469,9 +474,14 @@
   import { has } from 'lodash';
   import { getTranslationFor } from "../utils/helpers";
 
+  import CSVLinter from './DatasetDetailsCSVLinter.vue';
+
   export default {
     name: 'datasetDetailsCategories',
     dependencies: 'DatasetService',
+    components: {
+      CSVLinter,
+    },
     metaInfo() {
       return {
         // title: this.$t('message.metadata.categories'),

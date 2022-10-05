@@ -3,28 +3,45 @@
     <div id="nav" class="d-flex justify-content-between">
       <div class="left-form-nav">
         <!-- PREVIOUS STEP -->
-        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" :disabled="!isPreviousPage && !property === 'distributions'" class="prev-btn mr-2"></FormulateInput>
+        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" :disabled="disablePrevious" class="prev-btn mr-2"></FormulateInput>
 
         <!-- CLEAR FORM -->
         <FormulateInput type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn"></FormulateInput>
       </div>
       <div class="right-form-nav">
 
-        <!-- PUBLISH NEW DATASET -->
-        <FormulateInput type="button" @click="submit('createdataset')" v-if="isOverviewPage && !getIsEditMode && !getIsDraft" class="mr-2"><span v-if="uploading.createdataset" class="loading-spinner"></span>{{$t('message.dataupload.publishdataset')}}</FormulateInput>
+        <!-- PUBLISH NEW CATALOGUE -->
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || mandatoryFieldsFilled({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        <!-- PUBLISH EDITED CATALOGUE -->
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        
+        <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateNewDataset" class="mr-2">
+          <span v-if="uploading.dataset" class="loading-spinner"></span>
+          {{ $t('message.dataupload.publishdataset') }}
+        </FormulateInput>
+        
         <!-- SAVE NEW DATASET AS DRAFT -->
-        <FormulateInput type="button" @click="submit('createdraft')" v-if="(mandatoryFieldsFilled({property, id}) || isOverviewPage) && !getIsEditMode && !getIsDraft" class="mr-2"><span v-if="uploading.createdraft" class="loading-spinner"></span>{{$t('message.dataupload.saveasdraft')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('draft')" v-if="showCreateNewDraft" class="mr-2">
+          <span v-if="uploading.draft" class="loading-spinner"></span>
+          {{ $t('message.dataupload.saveasdraft') }}
+        </FormulateInput>
 
         <!-- PUBLISH EDITED DATASET -->
-        <FormulateInput type="button" @click="submit('createdataset')" v-if="getIsEditMode && !getIsDraft" class="mr-2"><span v-if="uploading.createdataset" class="loading-spinner"></span>{{$t('message.dataupload.savedataset')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateEditedDataset" class="mr-2">
+          <span v-if="uploading.dataset" class="loading-spinner"></span>
+          {{ $t('message.dataupload.savedataset') }}
+        </FormulateInput>
 
         <!-- SAVE EDITED DRAFT  -->
-        <FormulateInput type="button" @click="submit('createdraft')" v-if="(mandatoryFieldsFilled({property, id}) || isOverviewPage) && getIsEditMode && getIsDraft" class="mr-2"><span v-if="uploading.createdraft" class="loading-spinner"></span>{{$t('message.dataupload.savedraft')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('draft')" v-if="showCreateEditedDraft" class="mr-2">
+          <span v-if="uploading.draft" class="loading-spinner"></span>
+          {{ $t('message.dataupload.savedraft') }}
+        </FormulateInput>
 
         <!-- NEXT STEP -->
         <!-- label triggers form submit and therefore handles error mesaages if required values are missing -->
-        <label for="submit-form" v-if="!(isOverviewPage || page === 'distoverview')" class="submit-label">{{$t('message.dataupload.next')}}</label>
-        <FormulateInput type="button" :label="$t('message.dataupload.next')" v-if="(!isOverviewPage && page === 'distoverview')" @click="next()" />
+        <label for="submit-form" v-if="showNextLabel" class="submit-label">{{ $t('message.dataupload.next') }}</label>
+        <FormulateInput type="button" :label="$t('message.dataupload.next')" @click="next()" v-if="showNext"></FormulateInput>
       </div>
     </div>
 
@@ -44,9 +61,8 @@ export default {
   data() {
     return {
       uploading: {
-        createdataset: false,
-        createdraft: false,
-        publishdraft: false,
+        dataset: false,
+        draft: false,
       },
       modal: {
         confirm: '',
@@ -90,6 +106,27 @@ export default {
     datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
     distributionMandatoryError() { return this.$route.query.error === 'mandatoryDistribution' },
     catalogMandatoryError() { return this.$route.query.error === 'mandatoryCatalog' },
+    disablePrevious() {
+      return !this.isPreviousPage && !this.property === 'distributions';
+    },
+    showCreateNewDataset() {
+      return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
+    },
+    showCreateNewDraft() {
+      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
+    },
+    showCreateEditedDataset() {
+      return this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
+    },
+    showCreateEditedDraft() {
+      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
+    },
+    showNextLabel() {
+      return !(this.isOverviewPage || this.page === 'distoverview');
+    },
+    showNext() {
+      return !this.isOverviewPage && this.page === 'distoverview';
+    },
     isPreviousPage() {
       const currentPageIndex = this.getNavSteps[this.property].indexOf(this.page);
       return currentPageIndex > 0;
@@ -222,16 +259,17 @@ export default {
         description,
       };
 
-      if (mode === 'createdataset') {
+      if (mode === 'dataset') {
         uploadUrl = `${this.$env.api.hubUrl}datasets/${datasetId}?catalogue=${catalogName}`;
         actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
         actionName = 'auth/createDataset';
-      } else if (mode === 'createdraft') {
+      } else if (mode === 'draft') {
         uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
         actionName = 'auth/createUserDraft';
-      } else if (mode === 'publishdraft') {
-        uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/publish/${datasetId}?catalogue=${catalogName}`;
-        actionName = 'auth/publishUserDraft';
+      } else if (mode === 'createcatalogue') {
+        uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
+        actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
+        actionName = 'auth/createCatalogue';
       }
 
       try {
@@ -242,8 +280,9 @@ export default {
         this.$Progress.finish();
         this.uploading = false;
 
-        if (mode === 'createdataset' || mode === 'publishdraft') this.createDataset(datasetId);
-        if (mode === 'createdraft') this.createDraft();
+        if (mode === 'createcatalogue') this.createCatalogue(datasetId);
+        if (mode === 'dataset') this.createDataset(datasetId);
+        if (mode === 'draft') this.createDraft();
       } catch (err) {
         this.uploading[mode] = false;
         this.$Progress.fail();
@@ -260,6 +299,11 @@ export default {
       this.showSnackbar({ message: 'Draft saved successfully', variant: 'success' });
       this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
+    createCatalogue(datasetId) {
+      this.clearAll();
+      this.showSnackbar({ message: 'Catalogue saved successfully', variant: 'success' });
+      this.$router.push({ name: 'Datasets', query: { catalog: datasetId, showcatalogdetails: true, locale: this.$route.query.locale }}).catch(() => {});
+    }
   },
   mounted() {
     this.$root.$on('go-to-next', () => this.next());

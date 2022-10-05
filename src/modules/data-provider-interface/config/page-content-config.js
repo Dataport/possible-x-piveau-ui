@@ -81,19 +81,20 @@ const config = {
   catalogues: {
     step1: {
       title: {},
+      datasetID: {},
       description: {},
       publisher: {},
-      licence: {},
+      language: {},
       homepage: {},
-      catalog: {},
+      licence: {},
     },
     step2: {
-      language: {},
-      creator: {},
       spatial: {},
-      rights: {},
       hasPart: {},
       isPartOf: {},
+      rights: {},
+      catalog: {},
+      creator: {}, 
     }
   }
 };

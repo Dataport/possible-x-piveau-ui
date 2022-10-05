@@ -23,6 +23,12 @@ export default {
     token() {
       return this.getUserData.rtpToken;
     },
+    firstStep() {
+      return this.getNavSteps[this.property][0];
+    },
+    redirectUri() {
+      return `${this.$env.upload.basePath}/${this.property}/${this.firstStep}?locale=${this.$i18n.locale}`;
+    },
   },
   methods: {
     ...mapActions('auth', [
@@ -42,17 +48,25 @@ export default {
         await this.saveJsonldFromBackend({endpoint, token: this.token, property: this.property, id: this.id});
       } else {
         this.setIsDraft(false);
-        endpoint = `${this.$env.api.hubUrl}datasets/${this.id}.jsonld?useNormalizedId=true`;
-        await this.saveJsonldFromBackend({endpoint, token: this.token, property: this.property, id: this.id});
+        if (this.property === 'catalogues') {
+          endpoint = `${this.$env.api.hubUrl}catalogues/${this.catalog}.jsonld`;
+          await this.saveJsonldFromBackend({endpoint, token: this.token, property: this.property, id: this.catalog});
+        } else {
+          endpoint = `${this.$env.api.hubUrl}datasets/${this.id}.jsonld?useNormalizedId=true`;
+          await this.saveJsonldFromBackend({endpoint, token: this.token, property: this.property, id: this.id});
+        } 
       }
 
-      const firstStep = this.getNavSteps[this.property][0];
-      const path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
-      this.$router.push(path).catch(() => {});
+      this.$router.push(this.redirectUri).catch(() => {});
     },
   },
-  created() {
-    this.setupEditPage();
+  created() {},
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (from.fullPath.startsWith(vm.redirectUri)) {
+        vm.$router.go(-1);
+      } else vm.setupEditPage();
+    });
   },
 };
 </script>

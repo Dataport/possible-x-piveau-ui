@@ -77,7 +77,7 @@ const distributions = {
 
 const catalogues = {
     '@id': '',
-    '@type': 'dcat:Catalogue',
+    '@type': 'dcat:Catalog',
     "dct:title": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }] 
     "dct:description": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }]
     "dct:publisher": {}, // {"@id": ""} 
@@ -90,6 +90,7 @@ const catalogues = {
     "dct:rights": {}, // {"@type": "dct:RightsStatement", "rdfs:label": {"@id": ""}} OR {"@type": "dct:RightsStatement", "rdfs:label": ""}
     "dct:hasPart": [], // [{'@id': ''}]
     "dct:isPartOf": {}, // {'@id': ''}
+    "dct:type": "dcat-ap"
 };
 
 export default { datasets, distributions, catalogues };

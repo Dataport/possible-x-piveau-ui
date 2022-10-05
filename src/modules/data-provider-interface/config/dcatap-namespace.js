@@ -7,7 +7,6 @@ const namespacedKeys = {
     'modified': "dct:modified",
     'spatialResolutionInMeters': "dcat:spatialResolutionInMeters",
     'versionInfo': "owl:versionInfo",
-    // 'catalog': "dcat:catalog", // catalogues
     'publisher': "dct:publisher",
     'accrualPeriodicity': "dct:accrualPeriodicity",
     'spatial': "dct:spatial",
@@ -70,6 +69,8 @@ const namespacedKeys = {
     'algorithm': 'spdx:algorithm',
     'rights': 'dct:rights',
     'license': 'dct:license',
+    'hasPart': 'dct:hasPart',
+    'isPartOf': 'dct:isPartOf'
 }
 
 export default namespacedKeys;
