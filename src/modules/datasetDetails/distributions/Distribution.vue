@@ -1,79 +1,75 @@
 <template>
-  <div class="distributions__item">
-    <div class="row">
-      <distribution-format
-        :distribution="distribution"
-        :getDistributionFormat="getDistributionFormat"
-        :distributionFormatTruncated="distributionFormatTruncated"
-      />
-      <div class="col-10 col-md-11">
-        <div class="row">
-          <!-- DISTRIBUTION TITLE -->
-          <h3 class="m-0 text-break col-12">{{ getDistributionTitle(distribution) }}</h3>
-          <div class="d-inline-block col-12 col-md-9 col-lg-7">
-            <distribution-description
-              :distribution="distribution"
-              :distributions="distributions"
-              :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
-              :getDistributionDescription="getDistributionDescription"
-              :toggleDistributionDescription="toggleDistributionDescription"
-              :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
-            />
-            <distribution-expanded-content
-              :distribution="distribution"
-              :distributionIsExpanded="distributionIsExpanded"
-              :showLicensingAssistant="showLicensingAssistant"
-              :showLicence="showLicence"
-              :filterDateFormatEU="filterDateFormatEU"
-              :showArray="showArray"
-              :showNumber="showNumber"
-              :showObject="showObject"
-              :showObjectArray="showObjectArray"
-              :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
-            />
-            <distribution-visible-content
-              :distribution="distribution"
-              :distributionIsExpanded="distributionIsExpanded"
-              :showObject="showObject"
-              :showLicence="showLicence"
-              :showLicensingAssistant="showLicensingAssistant"
-              :filterDateFormatEU="filterDateFormatEU"
-            />
-            <distribution-expand
-              :distribution="distribution"
-              :distributionCanShowMore="distributionCanShowMore"
-              :toggleDistribution="toggleDistribution"
-              :distributionIsExpanded="distributionIsExpanded"
-            />
-          </div>
-          <distribution-actions
-            :distribution="distribution"
-            :distributions="distributions"
-            :isUrlInvalid="isUrlInvalid"
-            :getVisualisationLink="getVisualisationLink"
-            :showTooltipVisualiseButton="showTooltipVisualiseButton"
-            :previewLinkCallback="previewLinkCallback"
-            :openIfValidUrl="openIfValidUrl"
-            :showDownloadDropdown="showDownloadDropdown"
-            :getDownloadUrl="getDownloadUrl"
-            :showAccessUrls="showAccessUrls"
-            :isOnlyOneUrl="isOnlyOneUrl"
-            :trackGoto="trackGoto"
-            :getDistributionFormat="getDistributionFormat"
-            :replaceHttp="replaceHttp"
-          />
-        </div>
-      </div>
-    </div>
-    <fading-distribution-overlay
-      v-if="fading"
-      :distributions="distributions"
-      :setDistributionsDisplayCount="setDistributionsDisplayCount"
-      :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
-      :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
+  <div class="distributions__item d-flex flex-row">
+    <distribution-format
+      :distribution="distribution"
+      :getDistributionFormat="getDistributionFormat"
+      :distributionFormatTruncated="distributionFormatTruncated"
     />
-    <hr class="mt-1">
+    <div class="d-inline-block col-12 col-md-9 col-lg-7">
+      <h3 class="m-0">{{ getDistributionTitle(distribution) }}</h3>
+      <distribution-description
+        :distribution="distribution"
+        :distributions="distributions"
+        :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
+        :getDistributionDescription="getDistributionDescription"
+        :toggleDistributionDescription="toggleDistributionDescription"
+        :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
+      />
+      <distribution-expanded-content
+        :distribution="distribution"
+        :distributionIsExpanded="distributionIsExpanded"
+        :showLicensingAssistant="showLicensingAssistant"
+        :showLicence="showLicence"
+        :filterDateFormatEU="filterDateFormatEU"
+        :showArray="showArray"
+        :showNumber="showNumber"
+        :showObject="showObject"
+        :showObjectArray="showObjectArray"
+        :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
+      />
+      <distribution-visible-content
+        :distribution="distribution"
+        :distributionIsExpanded="distributionIsExpanded"
+        :showObject="showObject"
+        :showLicence="showLicence"
+        :showLicensingAssistant="showLicensingAssistant"
+        :filterDateFormatEU="filterDateFormatEU"
+      />
+      <distribution-expand
+        :distribution="distribution"
+        :distributionCanShowMore="distributionCanShowMore"
+        :toggleDistribution="toggleDistribution"
+        :distributionIsExpanded="distributionIsExpanded"
+      />
+    </div>
+    <distribution-actions
+      :distribution="distribution"
+      :distributions="distributions"
+      :isUrlInvalid="isUrlInvalid"
+      :getVisualisationLink="getVisualisationLink"
+      :showTooltipVisualiseButton="showTooltipVisualiseButton"
+      :previewLinkCallback="previewLinkCallback"
+      :openIfValidUrl="openIfValidUrl"
+      :showDownloadDropdown="showDownloadDropdown"
+      :getDownloadUrl="getDownloadUrl"
+      :showAccessUrls="showAccessUrls"
+      :isOnlyOneUrl="isOnlyOneUrl"
+      :trackGoto="trackGoto"
+      :getDistributionFormat="getDistributionFormat"
+      :replaceHttp="replaceHttp"
+    />
   </div>
+<!--      </div>-->
+<!--    </div>-->
+<!--    <fading-distribution-overlay-->
+<!--      v-if="fading"-->
+<!--      :distributions="distributions"-->
+<!--      :setDistributionsDisplayCount="setDistributionsDisplayCount"-->
+<!--      :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"-->
+<!--      :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"-->
+<!--    />-->
+<!--    <hr class="mt-1">-->
+<!--  </div>-->
 </template>
 
 <script>
@@ -182,10 +178,10 @@ button:focus {
 .material-icons.small-icon {
   font-size: 20px;
 }
-
-.distributions__item {
-  position: relative;
-}
+//
+//.distributions__item {
+//  position: relative;
+//}
 
 .mt-4 {
   margin-top: 1.5rem !important;

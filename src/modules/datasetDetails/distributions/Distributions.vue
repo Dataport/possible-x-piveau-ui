@@ -8,7 +8,7 @@
           :showDownloadUrls="showDownloadUrls"
           :isUrlInvalid="isUrlInvalid"
         />
-        <ul class="list list-unstyled col-12">
+        <ul class="list list-unstyled w-100">
           <hr>
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
             <distribution

@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
+  <div class="mt-2 text-md-right col text-left">
     <distribution-options-dropdown
       :showTooltipVisualiseButton="showTooltipVisualiseButton"
       :isUrlInvalid="isUrlInvalid"
