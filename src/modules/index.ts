@@ -10,6 +10,8 @@ import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimila
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
+import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
+
 import MapBasic from "./map/MapBasic.vue";
 import MapBoundsReceiver from "./map/MapBoundsReceiver.vue";
 
@@ -67,6 +69,8 @@ export {
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
   DatasetDetails,
+
+  CSVLinter,
 
   MapBasic,
   MapBoundsReceiver,
