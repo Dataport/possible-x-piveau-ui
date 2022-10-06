@@ -36,7 +36,6 @@
       ]),
       getSelectedFacets() {
         if (this.$route.query.dataScope && this.$route.query.country && this.$route.query.country.length > 0) {
-          console.log('DATA SCOPE + COUNTRY');
           let newSelectedFacets = {};
 
           Object.keys(this.selectedFacets).map(key => {
@@ -59,8 +58,6 @@
 
           return newSelectedFacets;
         } else if (this.$route.query.dataScope && this.$route.query.dataScope.length > 0) {
-          console.log('COUNTRY');
-          console.log(this.$route.query.dataScope);
           let newSelectedFacets = {};
 
           Object.keys(this.selectedFacets).map(key => {
@@ -90,7 +87,7 @@
         'setMinScoring',
       ]),
       routerPush(object) {
-        return this.$router.push(object).catch(error => {/* console.log(error) */});
+        return this.$router.push(object).catch(error => { console.log(error) });
       },
       showSelectedFacet(fieldId) {
         return this.getSelectedFacets[fieldId].length > 0
