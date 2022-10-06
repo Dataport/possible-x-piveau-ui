@@ -35,20 +35,51 @@
         'getAllAvailableFacets',
       ]),
       getSelectedFacets() {
-        if (this.$route.query.dataScope) {
+        if (this.$route.query.dataScope && this.$route.query.country && this.$route.query.country.length > 0) {
+          console.log('DATA SCOPE + COUNTRY');
           let newSelectedFacets = {};
 
           Object.keys(this.selectedFacets).map(key => {
             if (key === 'country') {
+              newSelectedFacets['country'] = [];
               newSelectedFacets['dataScope'] = [];
-              this.selectedFacets[key].forEach(country => newSelectedFacets.dataScope.push(country));
+              if (this.selectedFacets['country'].length === 0) {
+                newSelectedFacets.dataScope.push(this.$route.query.country[0]);
+              } else {
+                this.selectedFacets['country'].forEach(country => {
+                  if (country !== 'countryData') newSelectedFacets.country.push(country);
+                  newSelectedFacets.dataScope.push(country);
+                });
+              }
+            }
+            else newSelectedFacets[key] = this.selectedFacets[key];
+          });
+
+          this.routerPush({ query: Object.assign({}, this.$route.query, { page: 1 }) });
+
+          return newSelectedFacets;
+        } else if (this.$route.query.dataScope && this.$route.query.dataScope.length > 0) {
+          console.log('COUNTRY');
+          console.log(this.$route.query.dataScope);
+          let newSelectedFacets = {};
+
+          Object.keys(this.selectedFacets).map(key => {
+            if (key === 'country') {
+              newSelectedFacets['country'] = [];
+              newSelectedFacets['dataScope'] = [];
+              if (this.selectedFacets['country'].length === 0) {
+                newSelectedFacets.dataScope.push(this.$route.query.dataScope);
+              } else {
+                this.selectedFacets['country'].forEach(country => {
+                  newSelectedFacets.dataScope.push(country)
+                });
+              }
             }
             else newSelectedFacets[key] = this.selectedFacets[key];
           });
 
           return newSelectedFacets;
-        } 
-        return this.selectedFacets;
+        } else return this.selectedFacets;
       },
       showCatalogDetailsWatcher() {
         return this.$route.query.showcatalogdetails;
@@ -59,7 +90,7 @@
         'setMinScoring',
       ]),
       routerPush(object) {
-        return this.$router.push(object).catch(error => console.log(error));
+        return this.$router.push(object).catch(error => {/* console.log(error) */});
       },
       showSelectedFacet(fieldId) {
         return this.getSelectedFacets[fieldId].length > 0
@@ -99,8 +130,10 @@
           this.setMinScoring(0);
           localStorage.setItem('minScoring', JSON.stringify(0));
           routerObject = { query: Object.assign({}, this.$route.query, { scoring: [], page: 1 }) };
-        } else if (field === 'country' && (facet === 'eu' || facet === 'io')) {
-          routerObject = { query: Object.assign({}, this.$route.query, { dataScope: [], page: 1 }) };
+        } else if (field === 'dataScope') {
+          routerObject = { query: Object.assign({}, this.$route.query, { country: [], dataScope: [], page: 1 }) };
+        } else if (field === 'country') {
+          routerObject = { query: Object.assign({}, this.$route.query, { country: [], page: 1 }) };
         }
 
         if (!routerObject) {
@@ -132,11 +165,6 @@
           this.showCatalogDetails = true;
         } else this.showCatalogDetails = false;
       },
-      initDataScope() {
-        if (this.$route.query.dataScope && this.$route.query.country) {
-          this.routerPush({ query: Object.assign({}, this.$route.query, { country: [], page: 1 }) });
-        }
-      }
     },
     watch: {
       showCatalogDetailsWatcher: {
@@ -147,7 +175,6 @@
     },
     created() {
       this.initShowCatalogDetails();
-      // this.initDataScope();
     },
   };
 </script>

@@ -203,8 +203,10 @@
      if (!isNil(dataScope)) {
         // Set countryData param to true if Country data is requested
         params.countryData = dataScope === 'countryData';
-        // Set country facets if EU or International data is requested
-        if (!params.countryData) {
+        // Set country facets param
+        if (params.countryData) {
+          params.facets.country = params.facets.country.filter(c => c !== 'countryData');
+        } else {
           params.facets.country = [];
           params.facets.country.push(dataScope);
         }
