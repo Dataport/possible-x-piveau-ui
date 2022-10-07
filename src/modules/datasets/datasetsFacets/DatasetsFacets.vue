@@ -355,6 +355,10 @@ export default {
         error => { console.log(error); }
       );
     },
+    getFacetCount(field, facet) {
+      if (field.id === 'scoring') return '';
+      return facet.count;
+    },
     initShowCatalogDetails() {
       const showCatalogDetails = this.$route.query.showcatalogdetails;
       if (showCatalogDetails === 'true') {
@@ -362,10 +366,17 @@ export default {
         this.loadCatalog(this.$route.query.catalog);
       } else this.showCatalogDetails = false;
     },
-    getFacetCount(field, facet) {
-      if (field.id === 'scoring') return '';
-      return facet.count;
-    }
+    initMinScoring() {
+      if (this.getMinScoring > 0) {
+        let scoringFacets = this.$env.datasets.facets.scoringFacets.defaultScoringFacets;
+        let currentScore = Object.keys(scoringFacets).filter(score => scoringFacets[score].minScoring === this.getMinScoring);
+        this.$router.push(
+          { query: Object.assign({}, this.$route.query, { scoring: currentScore, page: 1 }) }
+        ).catch(
+          error => { console.log(error); }
+        );
+      }
+    },
   },
   watch: {
     facetGroupOperatorWatcher: {
@@ -397,6 +408,7 @@ export default {
   created() {
     this.useCatalogService(this.catalogService);
     this.initShowCatalogDetails();
+    this.initMinScoring();
   }
 };
 </script>
