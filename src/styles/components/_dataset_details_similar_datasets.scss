@@ -1,0 +1,24 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import '../custom_theme.scss';
+
+.pv-badge {
+  border-radius: 0;
+   
+  &.badge {
+    &-success {
+      background-color: #467A39;
+    }
+  
+    &-info {
+      background-color: #006FB4;
+    }
+  
+    &-warning {
+      background-color: #FFD617   ;
+    }
+  
+    &-secondary {
+      background-color: #707070;
+    }
+  }
+}
