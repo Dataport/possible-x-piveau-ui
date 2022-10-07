@@ -7,6 +7,7 @@ import PvButton from "@/modules/widgets/PvButton.vue";
 import PvBanner from "@/modules/widgets/PvBanner.vue";
 import DatasetDetailsNavigationPage from "@/modules/datasetDetails/navigation/DatasetDetailsNavigationPage.vue";
 import PvDataInfoBox from "@/modules/PvDataInfoBox/PvDataInfoBox.vue";
+import Datasets from "@/modules/datasets/Datasets.vue";
 
 export type ComponentMap = { [key: string]: VueConstructor<Vue> };
 
@@ -18,6 +19,7 @@ const defaultComponents: ComponentMap = {
   PvBanner,
   DatasetDetailsNavigationPage,
   PvDataInfoBox,
+  Datasets,
 };
 
 export function configureComponents(components?: ComponentMap) {

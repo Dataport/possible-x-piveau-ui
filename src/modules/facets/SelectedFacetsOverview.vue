@@ -4,7 +4,7 @@
       <span>
         {{ `${findFacetFieldTitle(fieldId)}:` }}
       </span>
-      <span v-for="(facetId, i) in getSelectedFacets[fieldId]" :key="i" class="badge badge-pill badge-highlight mr-1">
+      <span v-for="(facetId, i) in getSelectedFacets[fieldId]" :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
         {{ findFacetTitle(fieldId, facetId) }}
         <span @click="removeSelectedFacet(fieldId, facetId)" class="close-facet ml-2">&times;</span>
       </span>

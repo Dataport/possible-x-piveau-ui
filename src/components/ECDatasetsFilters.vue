@@ -10,7 +10,7 @@
                 @keyup.enter="changeQuery(query)"
                 @click="autocompleteData.show = autocompleteData.suggestions.length > 0 && query.length > 0 ? !autocompleteData.show : false">
           <div class="input-group-append ml-2">
-            <button class="btn btn-sm btn-primary d-flex align-items-center search-button ds-input" type="button" @click="changeQuery(query)">
+            <button class="btn btn-sm btn-primary d-flex align-items-center ds-input" type="button" @click="changeQuery(query)">
               <i class="material-icons align-bottom">search</i>
             </button>
           </div>
@@ -67,6 +67,7 @@
               </a>
             </li>
           </div>
+          
           <div v-if="useSort" class="btn-group border-1 mb-1 double-button" role="group" aria-label="Button group with nested dropdown">
             <button
               type="button"
@@ -124,7 +125,7 @@ import {mapActions} from "vuex";
 import { getTranslationFor } from "@/modules/utils/helpers";
 
 export default {
-  name: "DatasetsFilters",
+  name: "ECDatasetsFilters",
   data() {
     return {
       query: '',
