@@ -31,9 +31,9 @@ const glueConfig = {
   tracker: {
     // Matomo/PiwikPro analytics config
     // If true, uses PiwikPro, if false, uses Matomo
-    isPiwikPro: false,
-    // siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
-    // trackerUrl: 'https://opanalytics.containers.piwik.pro/'
+    isPiwikPro: true,
+    siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
+    trackerUrl: 'https://opanalytics.containers.piwik.pro/'
   },
   useAuthService: true,
   keycloak: {
@@ -151,9 +151,9 @@ const glueConfig = {
       ],
     },
     facets: {
-      cutoff: 4,
-      showClearButton: true,
-      showFacetsTitle: true, // Title on top of the facets
+      cutoff: ecStyle ? 4 : -1,
+      showClearButton: ecStyle,
+      showFacetsTitle: ecStyle, // Title on top of the facets
       useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
       useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
       defaultFacetOrder: ['dataScope', 'country', 'catalog', 'categories', 'publisher', 'keywords', 'dataServices', 'scoring', 'format', 'license'],
@@ -211,9 +211,9 @@ const glueConfig = {
   },
   catalogs: {
     facets: {
-      cutoff: 4,
-      showClearButton: true,
-      showFacetsTitle: true, // Title on top of the facets
+      cutoff: ecStyle ? 4 : -1,
+      showClearButton: ecStyle,
+      showFacetsTitle: ecStyle, // Title on top of the facets
       // Enable / Disable the facets on the Catalogues page
       useCatalogFacets: true,
       defaultFacetOrder: ['country'],
@@ -315,6 +315,7 @@ const glueConfig = {
       isVisible: false,
     },
     bulkDownload: {
+      buttonPosition: ecStyle ? "bottom" : "top", // bottom or top
       // Maximum length for a file title before being truncated
       MAX_FILE_TITLE_LENGTH: 80,
       // Maximum parallel axios requests

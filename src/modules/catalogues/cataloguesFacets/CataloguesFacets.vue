@@ -93,7 +93,7 @@
         return this.getFacetGroupOperator;
       },
       showMoreFacetsShown() {
-        return this.$env.datasets.facets.cutoff < this.getAvailableFacets.length;
+        return this.$env.catalogs.facets.cutoff > 0 && this.$env.catalogs.facets.cutoff < this.getAvailableFacets.length;
       },
       getSortedFacets() {
         const availableFacets = this.getAvailableFacets;
