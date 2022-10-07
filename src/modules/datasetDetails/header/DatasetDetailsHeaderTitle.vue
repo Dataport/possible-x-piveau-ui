@@ -1,6 +1,11 @@
 <template>
-  <div class="col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
-      <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
+  <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
+    <div class="dsd-title-tag">
+      <span>
+        Dataset
+      </span>
+    </div>
+    <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
   </div>
 </template>
 
@@ -42,4 +47,17 @@ export default {
     font-size: 1.75rem;
   }
 }
+
+.dsd-title-tag {
+  display: none;
+  //background: #6292FA;
+  background-color: steelblue;
+  font-size: smaller;
+  color: white;
+  font-weight: bold;
+  padding: 0.2rem 1.5rem;
+  margin-right: 1rem;
+  margin-bottom: 0.4rem;
+}
+
 </style>
