@@ -245,7 +245,7 @@ const glueConfig = {
   },
   datasetDetails: {
     header: {
-      navigation: ecStyle ? "top" : "below", // "top", "below"
+      navigation: ecStyle ? "below" : "top", // "top", "below"
       hidePublisher: ecStyle,
       hideDate: ecStyle
     },
