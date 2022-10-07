@@ -104,6 +104,22 @@ body {
   display: initial;
 }
 
+.dsd-header-catalogue > img {
+  border: none !important;
+}
+
+.dsd-banners .ecl-message__close {
+  display: none;
+}
+
+.dsd-nav-links .nav-link {
+  text-decoration: none;
+}
+
+.dsd-title-tag {
+  display: block !important;
+}
+
 @media screen and (max-width: 991px) { // less than lg
   .dsd-nav-button button {
     min-width: 200px !important;
