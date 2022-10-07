@@ -52,7 +52,7 @@
             <PvBadge
               v-for="(format, i) in dataset.formats.slice(0, 10)"
               :key="`badge@${i}`"
-              class="mr-1"
+              class="mr-1 format-badge"
               :format="format"
               data-toggle="tooltip"
               data-placement="top"

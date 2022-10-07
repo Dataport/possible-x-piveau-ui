@@ -1,5 +1,5 @@
 <template>
-<div class="format-badge badge" :type="format.id">
+<div class="pv-badge badge" :type="format.id">
   <slot>
     {{ format.label || format.id }}
   </slot>

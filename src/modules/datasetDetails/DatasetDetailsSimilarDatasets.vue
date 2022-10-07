@@ -5,6 +5,10 @@
         <h2>{{ $t('message.datasetDetails.subnav.similarDatasets') }}</h2>
         <div class="loading-spinner mx-auto" v-if="!similarDatasetsFetched"></div>
         <p v-if="!similarDatasetsPresent && similarDatasetsFetched">{{ $t('message.similarDatasets.notFound') }}</p>
+        <PvBadge class="p-1 ml-1 badge-success text-center text-white" :format="{id: $t('message.similarDatasets.verySimilar')}"></PvBadge>
+        <PvBadge class="p-1 ml-1 badge-info text-center text-white" :format="{id: $t('message.similarDatasets.similar')}"></PvBadge>
+        <PvBadge class="p-1 ml-1 badge-warning text-center text-white" :format="{id: $t('message.similarDatasets.lessSimilar')}"></PvBadge>
+        <PvBadge class="p-1 ml-1 badge-secondary text-center text-white" :format="{id: $t('message.similarDatasets.marginalSimilar')}"></PvBadge>
         <div class="mt-4" v-if="similarDatasetsPresent && similarDatasetsFetched">
           <div v-for="(similarDataset, i) in similarDatasets" :key="i">
             <div class="mt-3 border-bottom border-secondary" v-if="has(similarDataset, 'title') && has(similarDataset, 'description')">
@@ -33,9 +37,14 @@
   import { has } from 'lodash';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
 
+  import PvBadge from "../PvBadge/PvBadge.vue";
+
   export default {
     name: 'datasetDetailsSimilarDatasets',
     dependencies: 'DatasetService',
+    components: {
+      PvBadge,
+    },
     metaInfo() {
       return {
         title: this.$t('message.similarDatasets.similarDatasets'),
