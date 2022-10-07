@@ -1,7 +1,7 @@
 <template>
-<div class="pv-badge badge" :type="format.id">
+<div class="pv-badge badge">
   <slot>
-    {{ format.label || format.id }}
+    {{ value.label || value.id }}
   </slot>
 </div>
 </template>
@@ -13,7 +13,7 @@ import { DistributionFormat } from 'types/global';
 export default Vue.extend({
   name: 'PvBadge',
   props: {
-    format: {
+    value: {
       type: Object as PropType<DistributionFormat>,
       default: null,
     },
