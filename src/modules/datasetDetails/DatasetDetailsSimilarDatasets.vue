@@ -15,10 +15,10 @@
                 <small>{{ getTranslationFor(similarDataset.description, $route.query.locale, getLanguages) }}</small>
               </p>
               <div class="mb-3">
-                <span class="p-1 ml-1 badge badge-success text-center text-white" v-if="similarDataset.distance <= 20">{{ $t('message.similarDatasets.verySimilar') }}</span>
-                <span class="p-1 ml-1 badge badge-info text-center text-white" v-else-if="similarDataset.distance > 20 && similarDataset.distance <= 30">{{ $t('message.similarDatasets.similar') }}</span>
-                <span class="p-1 ml-1 badge badge-warning text-center text-white" v-else-if="similarDataset.distance > 30 && similarDataset.distance <= 40">{{ $t('message.similarDatasets.lessSimilar') }}</span>
-                <span class="p-1 ml-1 badge badge-secondary text-center text-white" v-else>{{ $t('message.similarDatasets.marginalSimilar') }}</span>
+                <PvBadge v-if="similarDataset.distance <= 20" class="p-1 ml-1 badge-success text-center text-white" :value="{ label: $t('message.similarDatasets.verySimilar') }"></PvBadge>
+                <PvBadge v-else-if="similarDataset.distance > 20 && similarDataset.distance <= 30" class="p-1 ml-1 badge-info text-center text-white" :value="{ label: $t('message.similarDatasets.similar') }"></PvBadge>
+                <PvBadge v-else-if="similarDataset.distance > 30 && similarDataset.distance <= 40" class="p-1 ml-1 badge-warning text-center text-white" :value="{ label: $t('message.similarDatasets.lessSimilar') }"></PvBadge>
+                <PvBadge v-else class="p-1 ml-1 badge-secondary text-center text-white" :value="{ label: $t('message.similarDatasets.marginalSimilar') }"></PvBadge>
               </div>
             </div>
           </div>
@@ -33,9 +33,14 @@
   import { has } from 'lodash';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
 
+  import PvBadge from "../PvBadge/PvBadge.vue";
+
   export default {
     name: 'datasetDetailsSimilarDatasets',
     dependencies: 'DatasetService',
+    components: {
+      PvBadge,
+    },
     metaInfo() {
       return {
         title: this.$t('message.similarDatasets.similarDatasets'),

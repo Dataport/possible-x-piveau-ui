@@ -52,10 +52,11 @@
             <PvBadge
               v-for="(format, i) in dataset.formats.slice(0, 10)"
               :key="`badge@${i}`"
-              class="mr-1"
-              :format="format"
+              class="mr-1 format-badge"
+              :value="format"
               data-toggle="tooltip"
               data-placement="top"
+              :type="format.id"
               :title="$t('message.tooltip.datasetDetails.format')"
             >
               {{ format.label || format.id || "UNKNOWN" }}
