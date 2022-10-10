@@ -104,6 +104,22 @@ body {
   display: initial;
 }
 
+.dsd-header-catalogue > img {
+  border: none !important;
+}
+
+.dsd-banners .ecl-message__close {
+  display: none;
+}
+
+.dsd-nav-links .nav-link {
+  text-decoration: none;
+}
+
+.dsd-title-tag {
+  display: block !important;
+}
+
 .dropdown-button {
   background: white !important;
   color: #004494 !important;
@@ -203,3 +219,4 @@ body {
 }
 
 @import "./components/data_info_box";
+@import "./components/dataset_details_similar_datasets";
