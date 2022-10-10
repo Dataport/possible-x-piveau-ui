@@ -5,7 +5,7 @@
       :getDistributionFormat="getDistributionFormat"
       :distributionFormatTruncated="distributionFormatTruncated"
     />
-    <div class="flex-grow-1 d-flex flex-sm-wrap flex-md-nowrap">
+    <div class="flex-grow-1 d-flex flex-wrap flex-md-nowrap">
       <div class="col-sm-12 col-md-9 col-lg-7">
         <h3 class="m-0">{{ getDistributionTitle(distribution) }}</h3>
         <distribution-description
