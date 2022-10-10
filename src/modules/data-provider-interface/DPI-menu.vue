@@ -10,7 +10,9 @@
         :key="`Group${index}`"
         :groupName="group.group"
         :groupItems="group.items"
-        :show="$env.upload.buttons[group.group]">
+        :show="$env.upload.buttons[group.group]"
+        :isOperator="getUserData.roles.includes('operator')"
+        :isCatalog="group.group === 'Catalogue' ? true : false">
       </dropup>
       <ul>
         <div class="btn-group dropup">
