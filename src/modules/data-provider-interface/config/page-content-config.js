@@ -92,7 +92,7 @@ const config = {
       spatial: {},
       hasPart: {},
       isPartOf: {},
-      rights: {},
+      // rights: {},
       catalog: {},
       creator: {}, 
     }
