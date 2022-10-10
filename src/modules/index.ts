@@ -23,9 +23,9 @@ import SparqlSearch from "./pages/SparqlSearch.vue";
 import Datasets from "./datasets/Datasets.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
 
-import PvDataInfoBox from "./PvBadge/PvBadge.vue";
+import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
 
-import PvBadge from "./PvDataInfoBox/PvDataInfoBox.vue";
+import PvBadge from "./PvBadge/PvBadge.vue";
 
 import dateFilters from "./filters/dateFilters";
 
