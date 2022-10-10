@@ -65,11 +65,9 @@ import { saveAs } from 'file-saver';
 import $ from "jquery";
 import { getTranslationFor } from "../../utils/helpers";
 import { mapGetters } from "vuex";
-import PvButton from "@/modules/widgets/PvButton";
 
 export default {
   name: "DownloadAllDistributions",
-  components: {PvButton},
   props: [
     'getDistributionDescription',
     'getDistributionTitle',
