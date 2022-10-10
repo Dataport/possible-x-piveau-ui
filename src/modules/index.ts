@@ -23,7 +23,9 @@ import SparqlSearch from "./pages/SparqlSearch.vue";
 import Datasets from "./datasets/Datasets.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
 
-import DataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
+import PvDataInfoBox from "./PvBadge/PvBadge.vue";
+
+import PvBadge from "./PvDataInfoBox/PvDataInfoBox.vue";
 
 import dateFilters from "./filters/dateFilters";
 
@@ -85,7 +87,9 @@ export {
   Datasets,
   Catalogues,
 
-  DataInfoBox,
+  PvDataInfoBox,
+
+  PvBadge,
 
   dateFilters,
 
