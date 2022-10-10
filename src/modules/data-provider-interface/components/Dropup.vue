@@ -1,5 +1,5 @@
 <template>
-   <div class="btn-group dropup" v-if="show">
+   <div class="btn-group dropup" v-if="(show && !isCatalog) || (show && isCatalog && isOperator)">
       <button type="button" class="dpi-menu-dropup-btn btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{ groupName }} <span class="caret"></span>
       </button>
@@ -33,6 +33,12 @@ export default {
       type: Array,
     },
     show: {
+      type: Boolean,
+    },
+    isCatalog: {
+      type: Boolean,
+    },
+    isOperator: {
       type: Boolean,
     }
   },
