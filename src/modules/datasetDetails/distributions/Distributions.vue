@@ -74,12 +74,10 @@ import DownloadAllDistributions
 import {has, isNil} from "lodash";
 import {getTranslationFor} from "@/modules/utils/helpers";
 import { mapGetters } from "vuex";
-import DistributionsHeader from "@/modules/datasetDetails/distributions/DistributionsHeader";
 
 export default {
   name: 'Distributions',
   components: {
-    DistributionsHeader,
     DownloadAllDistributions,
     Distribution
   },
