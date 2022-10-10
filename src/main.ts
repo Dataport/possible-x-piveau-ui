@@ -84,6 +84,7 @@ import ECMore from "./components/ECMore.vue";
 import ECButton from "./components/ECButton.vue";
 import ECInfo from "./components/ECInfo.vue";
 import ECLinkButton from "./components/ECLinkButton.vue";
+import ECDataInfoBox from "./components/ECDataInfoBox.vue";
 
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
@@ -91,7 +92,8 @@ const components = ecStyle ? {
   PvShowMore: ECMore,
   PvButton: ECButton,
   PvBanner: ECInfo,
-  DatasetDetailsNavigationPage: ECLinkButton
+  PvDataInfoBox: ECDataInfoBox,
+  DatasetDetailsNavigationPage: ECLinkButton,
 } : {};
 
 configureModules({

@@ -179,7 +179,6 @@
   import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
   import dateFilters from '../filters/dateFilters';
   import SubNavigation from '../navigation/SubNavigation.vue';
-  import PvDataInfoBox from '../PvDataInfoBox/PvDataInfoBox.vue';
   import { getImg, getCountryFlagImg, getTranslationFor } from '../utils/helpers';
 
   export default {
@@ -187,7 +186,6 @@
     dependencies: ['catalogService'],
     components: {
       SelectedFacetsOverview,
-      PvDataInfoBox,
       CataloguesFacets,
       Pagination
     },

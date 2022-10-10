@@ -1,3 +1,5 @@
+import {ecStyle} from "./user-config.sample";
+
 /**
  * Configuration template file to bind specific properties to environment variables.
  * All values must have the prefix $VUE_APP_.
@@ -61,9 +63,20 @@ export default {
       }
     }
   },
+  catalogs: {
+    facets: {
+      useDatasetFacetsMap: "$VUE_APP_CATALOGS_FACETS_USE_DATASET_FACETS_MAP",
+      cutoff: "$VUE_APP_CATALOGS_FACETS_CUTOFF",
+      showClearButton: "$VUE_APP_CATALOGS_FACETS_SHOW_CLEAR_BUTTON",
+      showFacetsTitle: "$VUE_APP_CATALOGS_FACETS_SHOW_FACETS_TITLE"
+    }
+  },
   datasets: {
     facets: {
-      useDatasetFacetsMap: "$VUE_APP_DATASETS_FACETS_USE_DATASET_FACETS_MAP"
+      useDatasetFacetsMap: "$VUE_APP_DATASETS_FACETS_USE_DATASET_FACETS_MAP",
+      cutoff: "$VUE_APP_DATASETS_FACETS_CUTOFF",
+      showClearButton: "$VUE_APP_DATASETS_FACETS_SHOW_CLEAR_BUTTON",
+      showFacetsTitle: "$VUE_APP_DATASETS_FACETS_SHOW_FACETS_TITLE"
     }
   },
   datasetDetails: {
