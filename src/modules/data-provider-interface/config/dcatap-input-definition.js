@@ -305,8 +305,6 @@ const dcatapProperties = {
       type: 'group',
       name: 'dct:creator',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'creatorType',
@@ -1662,8 +1660,6 @@ const dcatapProperties = {
       type: 'group',
       name: 'dct:creator',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'creatorType',
