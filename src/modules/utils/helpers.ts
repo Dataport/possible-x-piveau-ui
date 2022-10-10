@@ -126,8 +126,12 @@ function getFacetTranslation(fieldId, facetId, userLocale, fallback) {
   if (fieldId === 'country') {
     const locale = userLocale === 'no' ? 'nb' : userLocale;
     const name = getName(facetId, locale);
+    // Translation missing because this.$t('message.catalogFacets.euInstitutions') is not working here
+    // return isNil(name)
+    //   ? (fallback === 'EU institutions' ? this.$t('message.catalogFacets.euInstitutions') : fallback)
+    //   : name;
     return isNil(name)
-      ? (fallback === 'EU institutions' ? this.$t('message.catalogFacets.euInstitutions') : fallback)
+      ? fallback
       : name;
   }
   if (isObject(fallback)) {
