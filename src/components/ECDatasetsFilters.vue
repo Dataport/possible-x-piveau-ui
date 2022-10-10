@@ -9,39 +9,18 @@
                 v-model="query"
                 @keyup.enter="changeQuery(query)"
                 @click="autocompleteData.show = autocompleteData.suggestions.length > 0 && query.length > 0 ? !autocompleteData.show : false">
-          <div class="input-group-append ml-2">
-            <button class="btn btn-sm btn-primary d-flex align-items-center ds-input" type="button" @click="changeQuery(query)">
-              <i class="material-icons align-bottom">search</i>
-            </button>
-          </div>
-          <div class="suggestion-list-group" v-if="autocompleteData.show">
-            <ul class="list-group suggestion-list">
-              <button class="list-group-item list-group-item-action"
-                      v-for="suggestion in autocompleteData.suggestions"
-                      :key="suggestion.id"
-                      @click="handleSuggestionSelection(suggestion)">
-                {{ getTranslationFor(suggestion.title, $route.query.locale, suggestion.languages) }}
-              </button>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col">
-        <ul class="d-flex justify-content-between flex-wrap-reverse nav nav-tabs" id="myTab" role="tablist">
-          <div class="d-flex cursor-pointer">
+                <div class="d-flex cursor-pointer">
+            <ul class="d-flex justify-content-between flex-wrap-reverse nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item mb-0" role="tab"
                   :title="$t('message.tooltip.datasets')"
                   data-toggle="tooltip"
                   data-placement="top">
                 <router-link
-                  :to="{name: 'Datasets', query: { locale: $route.query.locale }}"
+                  :to="{name: 'ECDatasets', query: { locale: $route.query.locale }}"
                   class="nav-link router-link-active"
                   role="presentation">
                      {{ $t('message.header.navigation.data.datasets') }}
                 </router-link>
-
             </li>
             <li class="nav-item mb-0" role="tab"
                 :title="$t('message.tooltip.catalogues')"
@@ -66,8 +45,28 @@
                 {{ $t('message.searchTabs.editorialContent') }}
               </a>
             </li>
+            </ul>
           </div>
-          
+            <div class="input-group-append ml-2">
+            <button class="btn btn-sm btn-primary d-flex align-items-center ds-input" type="button" @click="changeQuery(query)">
+              <i class="material-icons align-bottom">search</i>
+            </button>
+          </div>
+          <div class="suggestion-list-group" v-if="autocompleteData.show">
+            <ul class="list-group suggestion-list">
+              <button class="list-group-item list-group-item-action"
+                      v-for="suggestion in autocompleteData.suggestions"
+                      :key="suggestion.id"
+                      @click="handleSuggestionSelection(suggestion)">
+                {{ getTranslationFor(suggestion.title, $route.query.locale, suggestion.languages) }}
+              </button>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">   
           <div v-if="useSort" class="btn-group border-1 mb-1 double-button" role="group" aria-label="Button group with nested dropdown">
             <button
               type="button"
@@ -114,7 +113,6 @@
               </ul>
             </div>
           </div>
-        </ul>
       </div>
     </div>
   </div>
