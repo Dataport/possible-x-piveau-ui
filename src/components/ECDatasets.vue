@@ -18,61 +18,16 @@
           <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></datasets-facets>
           <section class="col-md-9 col-12">
             <e-c-datasets-filters />
-             <div v-if="useSort" class="btn-group border-1 mb-1 double-button" role="group" aria-label="Button group with nested dropdown">
-            <button
-              type="button"
-              class="custom-button pl-2 pr-2 border-radius-start d-flex align-items-center inactive-styles"
-              :class="{'button-color-grey': isSortSelectedLabelActive($t('message.sort.lastUpdated'))}"
-              :title="$t('message.tooltip.lastModified')"
-              data-toggle="tooltip"
-              data-placement="top"
-              @click="setSortMethod('modified', 'desc', $t('message.sort.lastModified'))"
-            >
-              {{ $t('message.sort.lastUpdated') }}
-            </button>
-            <button
-              type="button"
-              class="custom-middle-button pl-2 pr-2 d-flex align-items-center inactive-styles"
-              :class="{'button-color-grey': isSortSelectedLabelActive($t('message.sort.relevance'))}"
-              :title="$t('message.tooltip.relevance')"
-              data-toggle="tooltip"
-              data-placement="top"
-              @click="setSortMethod('relevance', 'desc', $t('message.sort.relevance'))"
-            >
-              {{ $t('message.sort.relevance') }}
-            </button>
-            <div class="btn-group" role="group">
-              <button v-if="isSortSelectedLabelInDropdown()" class="button-color-grey d-flex align-items-center custom-dropdown-button border-radius-end" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-expanded="false">
-                <div class="pl-2 h-100 d-flex align-items-center">
-                  {{ sortSelectedLabel }}
-                </div>
-                <i class="pr-2 material-icons small-icon dropdown-icon">arrow_drop_down</i>
-              </button>
-              <button v-else class="d-flex align-items-center custom-dropdown-button border-radius-end inactive-styles" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-expanded="false">
-                <div class="pl-2">
-                  {{ $t('message.catalogsAndDatasets.more') }}
-                </div>
-                <i class="pr-2 material-icons small-icon dropdown-icon">arrow_drop_down</i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-              <button class="dropdown-item" @click="setSortMethod(`title.${$route.query.locale}`, 'asc', $t('message.sort.nameAZ'))">
-                {{ $t('message.sort.nameAZ') }}</button>
-              <button class="dropdown-item" @click="setSortMethod(`title.${$route.query.locale}`, 'desc', $t('message.sort.nameZA'))">
-                {{ $t('message.sort.nameZA') }}</button>
-              <button class="dropdown-item" @click="setSortMethod('issued', 'desc', $t('message.sort.lastCreated'))">
-                {{ $t('message.sort.lastCreated') }}</button>
-              </ul>
-            </div>
-          </div>
+ 
             <!-- EC FILTER BOX here -->
-            <div class="ec-search-result"
+            <!-- <div class="ec-search-result"
                 :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
               <div class="ds-result-headline">
                 {{ getLoading ? $t('message.datasets.loadingMessage'):`${$t('message.datasets.countMessage')} (${getDatasetsCount.toLocaleString('fi')})`}}
               </div>
               <hr>
               <div class="loading-spinner ml-3" v-if="getLoading"></div>
-            </div>
+            </div> -->
             
             <!-- EC INFO BOX here -->
             <div class="ecl-message ecl-message--info" v-if="showScoreDisclaimer">
@@ -202,7 +157,8 @@
           catalogAllowed: false,
           useCreateDatasetButton: this.$env.upload.useCreateDatasetButton,
           useCreateCatalogueButton: this.$env.upload.useCreateCatalogueButton,
-          useDatasetFacets: this.$env.datasets.facets.useDatasetFacets
+          useDatasetFacets: this.$env.datasets.facets.useDatasetFacets,
+          // useSort: this.$env.datasets.useSort,
         };
       },
       computed: {

@@ -1,6 +1,20 @@
 .ds-input {
   border-radius: 0px !important;
-  margin-left: 15px;
+  height: 48px;
+}
+
+.ec-ds-search {
+ margin-left: 13px;
+}
+
+.ec-ds-search-button-container {
+  margin-left: -2px;
+}
+
+.ec-ds-search-btn {
+  width: 50px;
+  height: 46xpx;
+  border: solid 1px #001D85;
 }
 
 .ds-label {
@@ -15,11 +29,22 @@
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 10px;
-  margin-top: 20px;
+  margin-top: 32px;
   margin-left: 15px;
 }
 
 hr {
   border-top: 3px solid ;
   margin-left: 15px;
+  margin-top: 10px;
+}
+
+.ec-sort {
+  display: inline;
+  margin-top: 20px;
+}
+
+.ec-sort-dropdown {
+  width: 200px;
+  height: 48px;
 }

@@ -3,15 +3,27 @@
     <div class="row">
       <div class="col">
         <div class="input-group">
-          <input type="text" class="form-control rounded-lg ds-input"
+          <input type="text" class="form-control rounded-lg ds-input ec-ds-search"
                 :aria-label="$t('message.datasets.searchBar.placeholder')"
                 :placeholder="$t('message.datasets.searchBar.placeholder')"
                 v-model="query"
                 @keyup.enter="changeQuery(query)"
                 @click="autocompleteData.show = autocompleteData.suggestions.length > 0 && query.length > 0 ? !autocompleteData.show : false">
                 <div class="d-flex cursor-pointer">
-            <ul class="d-flex justify-content-between flex-wrap-reverse nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item mb-0" role="tab"
+            <!-- TABLIST to Dropdown -->
+            <div class="btn-group ec-sort-dropdown" role="group">
+              <button class="value-display list-group-item col w-100 d-flex flex-row justify-content-between p-0 align-items-center" id="btnGroupDrop2" type="button" data-toggle="dropdown" aria-expanded="false">
+                  <div class="pl-2 h-100 d-flex align-items-center">
+                    {{ sortSelectedLabel }} 
+                  </div>
+                  <div class="ecl-select__icon">
+                  <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape" focusable="false" aria-hidden="true">
+                    <use xlink:href="../assets/img/ecl/icons.svg#corner-arrow"></use>
+                  </svg>
+                </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop2">
+                  <li class="nav-item mb-0" role="tab"
                   :title="$t('message.tooltip.datasets')"
                   data-toggle="tooltip"
                   data-placement="top">
@@ -46,10 +58,47 @@
               </a>
             </li>
             </ul>
+            </div>
+            <!-- <ul class="d-flex justify-content-between flex-wrap-reverse nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item mb-0" role="tab"
+                  :title="$t('message.tooltip.datasets')"
+                  data-toggle="tooltip"
+                  data-placement="top">
+                <router-link
+                  :to="{name: 'ECDatasets', query: { locale: $route.query.locale }}"
+                  class="nav-link router-link-active"
+                  role="presentation">
+                     {{ $t('message.header.navigation.data.datasets') }}
+                </router-link>
+            </li>
+            <li class="nav-item mb-0" role="tab"
+                :title="$t('message.tooltip.catalogues')"
+                data-toggle="tooltip"
+                data-placement="top">
+              <router-link
+                :to="{name: 'Catalogues', query: { locale: $route.query.locale }}"
+                v-if="useCatalogs"
+                class="nav-link router-link-inactive"
+                role="presentation">
+                {{ $t('message.header.navigation.data.catalogs') }}
+              </router-link>
+            </li>
+            <li class="nav-item mb-0" role="tab">
+              <a
+                :href="`/${this.$route.query.locale}/search?term=${query}&searchdomain=site`"
+                class="nav-link router-link-inactive"
+                role="presentation"
+                :title="$t('message.tooltip.editorialContent')"
+                data-toggle="tooltip"
+                data-placement="top">
+                {{ $t('message.searchTabs.editorialContent') }}
+              </a>
+            </li>
+            </ul> -->
           </div>
-            <div class="input-group-append ml-2">
-            <button class="btn btn-sm btn-primary d-flex align-items-center ds-input" type="button" @click="changeQuery(query)">
-              <i class="material-icons align-bottom">search</i>
+            <div class="input-group-append ec-ds-search-button-container">
+            <button class="btn btn-sm btn-primary d-flex align-items-center ds-input ec-ds-search-btn" type="button" @click="changeQuery(query)">
+              <i class="material-icons align-bottom ml-1">search</i>
             </button>
           </div>
           <div class="suggestion-list-group" v-if="autocompleteData.show">
@@ -65,65 +114,57 @@
         </div>
       </div>
     </div>
-    <div class="row mt-3">
-      <div class="col">   
-          <div v-if="useSort" class="btn-group border-1 mb-1 double-button" role="group" aria-label="Button group with nested dropdown">
-            <button
-              type="button"
-              class="custom-button pl-2 pr-2 border-radius-start d-flex align-items-center inactive-styles"
-              :class="{'button-color-grey': isSortSelectedLabelActive($t('message.sort.lastUpdated'))}"
-              :title="$t('message.tooltip.lastModified')"
-              data-toggle="tooltip"
-              data-placement="top"
-              @click="setSortMethod('modified', 'desc', $t('message.sort.lastModified'))"
-            >
-              {{ $t('message.sort.lastUpdated') }}
-            </button>
-            <button
-              type="button"
-              class="custom-middle-button pl-2 pr-2 d-flex align-items-center inactive-styles"
-              :class="{'button-color-grey': isSortSelectedLabelActive($t('message.sort.relevance'))}"
-              :title="$t('message.tooltip.relevance')"
-              data-toggle="tooltip"
-              data-placement="top"
-              @click="setSortMethod('relevance', 'desc', $t('message.sort.relevance'))"
-            >
-              {{ $t('message.sort.relevance') }}
-            </button>
-            <div class="btn-group" role="group">
-              <button v-if="isSortSelectedLabelInDropdown()" class="button-color-grey d-flex align-items-center custom-dropdown-button border-radius-end" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-expanded="false">
-                <div class="pl-2 h-100 d-flex align-items-center">
-                  {{ sortSelectedLabel }}
-                </div>
-                <i class="pr-2 material-icons small-icon dropdown-icon">arrow_drop_down</i>
-              </button>
-              <button v-else class="d-flex align-items-center custom-dropdown-button border-radius-end inactive-styles" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-expanded="false">
-                <div class="pl-2">
-                  {{ $t('message.catalogsAndDatasets.more') }}
-                </div>
-                <i class="pr-2 material-icons small-icon dropdown-icon">arrow_drop_down</i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-              <button class="dropdown-item" @click="setSortMethod(`title.${$route.query.locale}`, 'asc', $t('message.sort.nameAZ'))">
-                {{ $t('message.sort.nameAZ') }}</button>
-              <button class="dropdown-item" @click="setSortMethod(`title.${$route.query.locale}`, 'desc', $t('message.sort.nameZA'))">
-                {{ $t('message.sort.nameZA') }}</button>
-              <button class="dropdown-item" @click="setSortMethod('issued', 'desc', $t('message.sort.lastCreated'))">
-                {{ $t('message.sort.lastCreated') }}</button>
-              </ul>
-            </div>
+    <!-- Search Result coloumn -->
+    <div class="ec-search-result"
+        :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
+        <div class="loading-spinner ml-3" v-if="getLoading"></div>
+        <div class="row">
+          <!-- Headline & Count  -->
+          <div class="ds-result-headline col">
+              {{ getLoading ? $t('message.datasets.loadingMessage'):`${$t('message.datasets.countMessage')} (${getDatasetsCount.toLocaleString('fi')})`}}
           </div>
-      </div>
+      <!-- SORT Dropdown  -->
+          <div class="ec-sort mr-2">
+          <div class="d-inline align-middle mr-2 "> Sort By: </div>
+            <div class="col-right mr-2 d-inline" role="group" aria-label="Sort Dropdown">
+              <div class="btn-group ec-sort-dropdown" role="group">
+                <button class="value-display list-group-item col w-100 d-flex flex-row justify-content-between p-0 align-items-center" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-expanded="false">
+                  <div class="pl-2 h-100 d-flex align-items-center">
+                    {{ sortSelectedLabel }} 
+                  </div>
+                  <div class="ecl-select__icon">
+                  <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape" focusable="false" aria-hidden="true">
+                    <use xlink:href="../assets/img/ecl/icons.svg#corner-arrow"></use>
+                  </svg>
+                </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                <button class="dropdown-item" @click="setSortMethod('modified', 'desc', $t('message.sort.lastModified'))">
+                  {{ $t('message.sort.lastUpdated') }}</button>
+                <button class="dropdown-item" @click="setSortMethod('relevance', 'desc', $t('message.sort.relevance'))">
+                  {{ $t('message.sort.relevance') }}</button>
+                <button class="dropdown-item" @click="setSortMethod(`title.${$route.query.locale}`, 'asc', $t('message.sort.nameAZ'))">
+                  {{ $t('message.sort.nameAZ') }}</button>
+                <button class="dropdown-item" @click="setSortMethod(`title.${$route.query.locale}`, 'desc', $t('message.sort.nameZA'))">
+                  {{ $t('message.sort.nameZA') }}</button>
+                <button class="dropdown-item" @click="setSortMethod('issued', 'desc', $t('message.sort.lastCreated'))">
+                  {{ $t('message.sort.lastCreated') }}</button>
+                </ul>
+              </div> 
+            </div> 
+          </div>
+        </div>
+      <hr> 
     </div>
   </div>
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import { getTranslationFor } from "@/modules/utils/helpers";
 
 export default {
-  name: "ECDatasetsFilters",
+  name: 'ECDatasetsFilters',
   data() {
     return {
       query: '',
@@ -132,10 +173,16 @@ export default {
         show: true,
       },
       useCatalogs: this.$env.datasets.useCatalogs,
-      useSort: this.$env.datasets.useSort,
+      // useSort: this.$env.datasets.useSort,
       sortSelected: '',
       sortSelectedLabel: this.$t('message.sort.relevance')
     }
+  },
+  computed: {
+    ...mapGetters('datasets', [
+        'getDatasetsCount',
+        'getLoading',
+      ]),
   },
   methods: {
     getTranslationFor,
@@ -216,7 +263,10 @@ export default {
     isSortSelectedLabelInDropdown() {
       if (this.sortSelectedLabel === this.$t('message.sort.nameAZ')
         || this.sortSelectedLabel === this.$t('message.sort.nameZA')
-        || this.sortSelectedLabel === this.$t('message.sort.lastCreated')) {
+        || this.sortSelectedLabel === this.$t('message.sort.lastCreated')
+        || this.sortSelectedLabel === this.$t('message.sort.relevance')
+        || this.sortSelectedLabel === this.$t('message.sort.lastUpdated')
+        ) {
         return true;
       }
       return false;
