@@ -25,6 +25,7 @@ const state = {
     userName: '',
     permissions: [],
     drafts: [],
+    roles: [],
   },
   isEditMode: false,
   isDraft: false,
@@ -91,6 +92,7 @@ const actions = {
 
       const decodedRtpToken = decode(rtpToken);
       const permissions = get(decodedRtpToken, 'authorization.permissions', []);
+      const roles = get(decodedRtpToken, 'realm_access.roles', []);
 
       commit('SET_USER_DATA', {
         authToken,
@@ -98,6 +100,7 @@ const actions = {
         userName: decodedRtpToken.preferred_username,
         permissions,
         drafts: [],
+        roles,
       });
 
       draftApi = createDraftApi({ baseURL: hubUrl, authToken: rtpToken });
