@@ -3,6 +3,7 @@
     <div class="col-sm-12 col-md-9 col-lg-7">
       <h3 class="m-0">{{ getDistributionTitle(distribution) }}</h3>
       <distribution-description
+        v-if="expanded"
         :distribution="distribution"
         :distributions="distributions"
         :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
@@ -11,6 +12,7 @@
         :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
       />
       <distribution-expanded-content
+        v-if="expanded"
         :distribution="distribution"
         :distributionIsExpanded="distributionIsExpanded"
         :showLicensingAssistant="showLicensingAssistant"
@@ -22,37 +24,27 @@
         :showObjectArray="showObjectArray"
         :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
       />
-      <distribution-visible-content
-        :distribution="distribution"
-        :distributionIsExpanded="distributionIsExpanded"
-        :showObject="showObject"
-        :showLicence="showLicence"
-        :showLicensingAssistant="showLicensingAssistant"
-        :filterDateFormatEU="filterDateFormatEU"
-      />
-      <distribution-expand
-        :distribution="distribution"
-        :distributionCanShowMore="distributionCanShowMore"
-        :toggleDistribution="toggleDistribution"
-        :distributionIsExpanded="distributionIsExpanded"
+      <e-c-more
+        :label="expanded ? 'Show less' : 'Show more'"
+        :upArrow="expanded"
+        :action="() => toggleDistribution(distribution.id)"
+        class="row text-primary mb-3 mt-2"
       />
     </div>
   </div>
 </template>
 
 <script>
-import DistributionDescription
-  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDescription";
-import DistributionExpandedContent
-  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionExpandedContent";
-import DistributionVisibleContent
-  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionVisibleContent";
-import DistributionExpand from "@/modules/datasetDetails/distributions/distributionDetails/DistributionExpand";
+import {
+  DistributionDescription,
+  DistributionExpandedContent
+} from '@piveau/piveau-hub-ui-modules';
+
+import ECMore from "@/components/ECMore";
 export default {
-  name: "DistributionDetails",
+  name: "ECDistributionDetails",
   components: {
-    DistributionExpand,
-    DistributionVisibleContent,
+    ECMore,
     DistributionExpandedContent,
     DistributionDescription
   },
@@ -75,6 +67,17 @@ export default {
     "appendCurrentLocaleToURL",
     "distributionCanShowMore",
     "toggleDistribution"
-  ]
+  ],
+  computed: {
+    expanded() {
+      return this.distributionIsExpanded(this.distribution.id)
+    }
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+.distribution-details {
+
+}
+</style>

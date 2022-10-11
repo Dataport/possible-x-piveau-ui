@@ -16,10 +16,13 @@
     max-width: 100% !important;
     flex: 0 0 100% !important;
     h3 {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: bold;
       color: #004494;
     }
+  }
+  .show-more {
+    font-size: 0.9rem;
   }
   //background-color: gainsboro;
 }
@@ -75,3 +78,17 @@
   }
 }
 
+@media (max-width: 767px) { // sm
+
+  .distributions__item {
+    justify-content: end;
+    margin-bottom: 2rem !important;
+  }
+  .distribution-added {
+    display: none !important;
+  }
+  .distribution-details {
+    min-width: 400px;
+  }
+
+}

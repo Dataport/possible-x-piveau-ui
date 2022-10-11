@@ -257,7 +257,7 @@ import {
   has,
   isNil
 } from 'lodash';
-import { truncate, formatDatetime } from '../../utils/helpers';
+import { truncate, formatDatetime } from '../../../utils/helpers';
 import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 export default {

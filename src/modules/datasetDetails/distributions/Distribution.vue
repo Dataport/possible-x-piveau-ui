@@ -65,25 +65,22 @@ import {
   isNil
 } from 'lodash';
 import { truncate } from '../../utils/helpers';
-import DistributionExpand from "@/modules/datasetDetails/distributions/DistributionExpand";
+import DistributionExpand from "@/modules/datasetDetails/distributions/distributionDetails/DistributionExpand";
 import DistributionVisibleContent
-  from "@/modules/datasetDetails/distributions/DistributionVisibleContent";
+  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionVisibleContent";
 import DistributionExpandedContent
-  from "@/modules/datasetDetails/distributions/DistributionExpandedContent";
+  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionExpandedContent";
 import DistributionDescription
-  from "@/modules/datasetDetails/distributions/DistributionDescription";
+  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDescription";
 import DistributionFormat from "@/modules/datasetDetails/distributions/DistributionFormat";
 import FadingDistributionOverlay
   from "@/modules/datasetDetails/distributions/FadingDistributionOverlay";
 import DistributionActions from "@/modules/datasetDetails/distributions/DistributionActions";
 import DistributionAdded from "@/modules/datasetDetails/distributions/DistributionAdded";
-import DistributionDetails
-  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDetails";
 
 export default {
   name: 'Distribution',
   components: {
-    DistributionDetails,
     DistributionAdded,
     DistributionActions,
     FadingDistributionOverlay,

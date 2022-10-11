@@ -86,6 +86,7 @@ import ECInfo from "./components/ECInfo.vue";
 import ECLinkButton from "./components/ECLinkButton.vue";
 import ECDataInfoBox from "./components/ECDataInfoBox.vue";
 import ECDistributionsHeader from "./components/ECDistributionsHeader.vue";
+import ECDistributionDetails from "./components/ECDistributionDetails.vue";
 
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
@@ -95,7 +96,8 @@ const components = ecStyle ? {
   PvBanner: ECInfo,
   PvDataInfoBox: ECDataInfoBox,
   DatasetDetailsNavigationPage: ECLinkButton,
-  DistributionsHeader: ECDistributionsHeader
+  DistributionsHeader: ECDistributionsHeader,
+  DistributionDetails: ECDistributionDetails
 } : {};
 
 configureModules({

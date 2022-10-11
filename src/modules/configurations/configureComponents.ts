@@ -7,6 +7,7 @@ import PvBanner from "@/modules/widgets/PvBanner.vue";
 import DatasetDetailsNavigationPage from "@/modules/datasetDetails/navigation/DatasetDetailsNavigationPage.vue";
 import PvDataInfoBox from "@/modules/PvDataInfoBox/PvDataInfoBox.vue";
 import DistributionsHeader from "@/modules/datasetDetails/distributions/DistributionsHeader.vue";
+import DistributionDetails from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDetails.vue";
 
 export type ComponentMap = { [key: string]: any };
 
@@ -18,7 +19,8 @@ const defaultComponents: ComponentMap = {
   PvBanner,
   DatasetDetailsNavigationPage,
   PvDataInfoBox,
-  DistributionsHeader
+  DistributionsHeader,
+  DistributionDetails
 };
 
 export function configureComponents(components?: ComponentMap) {
