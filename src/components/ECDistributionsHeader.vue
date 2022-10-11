@@ -8,11 +8,11 @@
     >
       {{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})
     </h2>
-    <div class="d-none d-lg-flex distributions-list-top">
-      <div class="col-6"><span>Link to the data</span></div>
-      <div class="col-1"><span>Format</span></div>
-      <div class="col-2"><span>Distribution added</span></div>
-      <div class="col-3"><span>Actions</span></div>
+    <div class="d-none d-md-flex distributions-list-top">
+      <div id="description"><div><span>Link to the data</span></div></div>
+      <div id="format"><div><span>Format</span></div></div>
+      <div id="added" class="d-none d-md-block"><div><span>Distribution added</span></div></div>
+      <div id="actions"><div><span>Actions</span></div></div>
     </div>
   </div>
 </template>
@@ -34,8 +34,46 @@ export default {
 .distributions-list-top {
   background-color: #f2f4f8;
   > div {
-    padding: 1rem;
     font-weight: bold;
+    > div {
+      padding: 1rem;
+      > span {
+        white-space: nowrap;
+      }
+    }
   }
 }
+
+#description {
+  flex: 12 0;
+}
+
+#format {
+  flex: 2 0;
+  display: flex;
+  justify-content: center;
+
+}
+
+#added {
+  flex: 0 0 160px;
+  > div {
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#actions {
+  flex: 0 0 200px;
+}
+
+@media (min-width: 992px) { // lg
+  #actions {
+    flex: 0 0 350px;
+    padding-left: 0.5rem !important;
+  }
+}
+
 </style>

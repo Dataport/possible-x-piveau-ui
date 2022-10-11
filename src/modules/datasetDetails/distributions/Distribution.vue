@@ -44,9 +44,10 @@
         />
       </div>
     </div>
-    <div class="distribution-added">
-      ADDED
-    </div>
+    <distribution-added
+      v-if="has(distribution, 'releaseDate') && !isNil(distribution.releaseDate)"
+      :date="filterDateFormatEU(distribution.releaseDate)"
+    />
     <distribution-actions
       :distribution="distribution"
       :distributions="distributions"
@@ -94,10 +95,12 @@ import DistributionFormat from "@/modules/datasetDetails/distributions/Distribut
 import FadingDistributionOverlay
   from "@/modules/datasetDetails/distributions/FadingDistributionOverlay";
 import DistributionActions from "@/modules/datasetDetails/distributions/DistributionActions";
+import DistributionAdded from "@/modules/datasetDetails/distributions/DistributionAdded";
 
 export default {
   name: 'Distribution',
   components: {
+    DistributionAdded,
     DistributionActions,
     FadingDistributionOverlay,
     DistributionFormat,
@@ -189,8 +192,5 @@ button:focus {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.distribution-added {
-  display: none;
-}
 
 </style>
