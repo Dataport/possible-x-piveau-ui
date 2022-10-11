@@ -1,11 +1,11 @@
 <template>
-  <div class="mb-3 d-flex flex-row distributions__item ">
+  <div class="mb-3 d-flex flex-row flex-wrap flex-md-nowrap distributions__item">
     <distribution-format
       :distribution="distribution"
       :getDistributionFormat="getDistributionFormat"
       :distributionFormatTruncated="distributionFormatTruncated"
     />
-    <div class="flex-grow-1 d-flex flex-wrap flex-md-nowrap">
+    <div class="flex-grow-1 d-flex distribution-description">
       <div class="col-sm-12 col-md-9 col-lg-7">
         <h3 class="m-0">{{ getDistributionTitle(distribution) }}</h3>
         <distribution-description
@@ -43,23 +43,26 @@
           :distributionIsExpanded="distributionIsExpanded"
         />
       </div>
-      <distribution-actions
-        :distribution="distribution"
-        :distributions="distributions"
-        :isUrlInvalid="isUrlInvalid"
-        :getVisualisationLink="getVisualisationLink"
-        :showTooltipVisualiseButton="showTooltipVisualiseButton"
-        :previewLinkCallback="previewLinkCallback"
-        :openIfValidUrl="openIfValidUrl"
-        :showDownloadDropdown="showDownloadDropdown"
-        :getDownloadUrl="getDownloadUrl"
-        :showAccessUrls="showAccessUrls"
-        :isOnlyOneUrl="isOnlyOneUrl"
-        :trackGoto="trackGoto"
-        :getDistributionFormat="getDistributionFormat"
-        :replaceHttp="replaceHttp"
-      />
     </div>
+    <div class="distribution-added">
+      ADDED
+    </div>
+    <distribution-actions
+      :distribution="distribution"
+      :distributions="distributions"
+      :isUrlInvalid="isUrlInvalid"
+      :getVisualisationLink="getVisualisationLink"
+      :showTooltipVisualiseButton="showTooltipVisualiseButton"
+      :previewLinkCallback="previewLinkCallback"
+      :openIfValidUrl="openIfValidUrl"
+      :showDownloadDropdown="showDownloadDropdown"
+      :getDownloadUrl="getDownloadUrl"
+      :showAccessUrls="showAccessUrls"
+      :isOnlyOneUrl="isOnlyOneUrl"
+      :trackGoto="trackGoto"
+      :getDistributionFormat="getDistributionFormat"
+      :replaceHttp="replaceHttp"
+    />
   </div>
 <!--      </div>-->
 <!--    </div>-->
@@ -184,6 +187,10 @@ button:focus {
 .distributions__item {
   //position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.distribution-added {
+  display: none;
 }
 
 </style>

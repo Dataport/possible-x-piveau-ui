@@ -1,0 +1,54 @@
+.distribution-description {
+  order: 1;
+  //width: 50% !important;
+  flex: 6 0 50% !important;
+  > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+  //background-color: gainsboro;
+}
+
+.distribution-format {
+  order: 2;
+  display: flex !important;
+  justify-content: center;
+  //width: 25% !important;
+  flex: 1 0 8.3333%!important;
+  max-width: initial !important;
+  .circle {
+    height: unset;
+    width: unset;
+    align-self: flex-start;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 0;
+  }
+  //background-color: crimson;
+}
+
+.distribution-added {
+  display: flex !important;
+  justify-content: center;
+  order: 3;
+  flex: 2 0 16.6666%!important;
+  //background-color: cornsilk;
+}
+
+.distribution-actions {
+  padding-left: 0;
+  order: 4;
+  //width: 25% !important;
+  flex: 0 0 25% !important;
+  .distribution-action {
+    .dropdown-item, .text-dark {
+      color: #004494 !important;
+    }
+  }
+  //background-color: chocolate;
+}
