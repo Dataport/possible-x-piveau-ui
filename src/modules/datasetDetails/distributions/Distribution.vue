@@ -5,45 +5,26 @@
       :getDistributionFormat="getDistributionFormat"
       :distributionFormatTruncated="distributionFormatTruncated"
     />
-    <div class="flex-grow-1 d-flex distribution-description">
-      <div class="col-sm-12 col-md-9 col-lg-7">
-        <h3 class="m-0">{{ getDistributionTitle(distribution) }}</h3>
-        <distribution-description
-          :distribution="distribution"
-          :distributions="distributions"
-          :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
-          :getDistributionDescription="getDistributionDescription"
-          :toggleDistributionDescription="toggleDistributionDescription"
-          :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
-        />
-        <distribution-expanded-content
-          :distribution="distribution"
-          :distributionIsExpanded="distributionIsExpanded"
-          :showLicensingAssistant="showLicensingAssistant"
-          :showLicence="showLicence"
-          :filterDateFormatEU="filterDateFormatEU"
-          :showArray="showArray"
-          :showNumber="showNumber"
-          :showObject="showObject"
-          :showObjectArray="showObjectArray"
-          :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
-        />
-        <distribution-visible-content
-          :distribution="distribution"
-          :distributionIsExpanded="distributionIsExpanded"
-          :showObject="showObject"
-          :showLicence="showLicence"
-          :showLicensingAssistant="showLicensingAssistant"
-          :filterDateFormatEU="filterDateFormatEU"
-        />
-        <distribution-expand
-          :distribution="distribution"
-          :distributionCanShowMore="distributionCanShowMore"
-          :toggleDistribution="toggleDistribution"
-          :distributionIsExpanded="distributionIsExpanded"
-        />
-      </div>
-    </div>
+    <distribution-details
+      :getDistributionTitle="getDistributionTitle"
+      :distribution="distribution"
+      :distributions="distributions"
+      :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
+      :getDistributionDescription="getDistributionDescription"
+      :toggleDistributionDescription="toggleDistributionDescription"
+      :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
+      :distributionIsExpanded="distributionIsExpanded"
+      :showLicensingAssistant="showLicensingAssistant"
+      :showLicence="showLicence"
+      :filterDateFormatEU="filterDateFormatEU"
+      :showArray="showArray"
+      :showNumber="showNumber"
+      :showObject="showObject"
+      :showObjectArray="showObjectArray"
+      :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
+      :distributionCanShowMore="distributionCanShowMore"
+      :toggleDistribution="toggleDistribution"
+    />
     <distribution-added
       v-if="has(distribution, 'releaseDate') && !isNil(distribution.releaseDate)"
       :date="filterDateFormatEU(distribution.releaseDate)"
@@ -96,10 +77,13 @@ import FadingDistributionOverlay
   from "@/modules/datasetDetails/distributions/FadingDistributionOverlay";
 import DistributionActions from "@/modules/datasetDetails/distributions/DistributionActions";
 import DistributionAdded from "@/modules/datasetDetails/distributions/DistributionAdded";
+import DistributionDetails
+  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDetails";
 
 export default {
   name: 'Distribution',
   components: {
+    DistributionDetails,
     DistributionAdded,
     DistributionActions,
     FadingDistributionOverlay,
