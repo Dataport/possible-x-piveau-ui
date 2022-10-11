@@ -30,7 +30,10 @@
             </div> -->
             
             <!-- EC INFO BOX here -->
-            <div class="ecl-message ecl-message--info" v-if="showScoreDisclaimer">
+            <div class="ecl-message ecl-message--info ml-3 mb-3" v-if="showScoreDisclaimer">
+              <svg class="ecl-icon ecl-icon--l ecl-message__icon" focusable="false" aria-hidden="true">
+              <use xlink:href="@/assets/img/ecl/icons.svg#information"></use>
+             </svg>
               <i18n path="message.datasets.scoreDisclaimer" tag="span">
                 <app-link path="/mqa" :query="{ locale: $route.query.locale }" target="_blank">
                   <i18n path="message.metadata.methodologyPage"></i18n>

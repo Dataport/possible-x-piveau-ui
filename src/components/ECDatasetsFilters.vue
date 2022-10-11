@@ -11,22 +11,24 @@
                 @click="autocompleteData.show = autocompleteData.suggestions.length > 0 && query.length > 0 ? !autocompleteData.show : false">
                 <div class="d-flex cursor-pointer">
             <!-- TABLIST to Dropdown -->
-            <div class="btn-group ec-sort-dropdown" role="group">
-              <button class="value-display list-group-item col w-100 d-flex flex-row justify-content-between p-0 align-items-center" id="btnGroupDrop2" type="button" data-toggle="dropdown" aria-expanded="false">
-                  <div class="pl-2 h-100 d-flex align-items-center">
-                    {{ sortSelectedLabel }} 
+            <div class="btn-group ec-ds-scope-dropdown" role="group">
+              <button class="value-display list-group-item col w-100 d-flex flex-row justify-content-between p-0 align-items-center ec-ds-scope-dropdown-inlay" id="btnGroupDrop2" type="button" data-toggle="dropdown" aria-expanded="false">
+                  <div class="pl-2 h-100 d-flex align-items-center font-weight-bold ec-ds-scope-text">
+                    <!-- {{ sortSelectedLabel }} -->
+                    Datasets 
                   </div>
-                  <div class="ecl-select__icon">
-                  <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape" focusable="false" aria-hidden="true">
+                  <div class="ecl-select__icon ec-ds-scope-select">
+                  <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape ec-ds-scope-arrow" focusable="false" aria-hidden="true">
                     <use xlink:href="../assets/img/ecl/icons.svg#corner-arrow"></use>
                   </svg>
                 </div>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop2">
-                  <li class="nav-item mb-0" role="tab"
+                <ul class="dropdown-menu ec-ds-dropdown-items" aria-labelledby="btnGroupDrop2">
+                  <!-- <li class="nav-item mb-0" role="tab"
                   :title="$t('message.tooltip.datasets')"
                   data-toggle="tooltip"
-                  data-placement="top">
+                  data-placement="top"> -->
+                  <li class="nav-item mb-0" role="tab">
                 <router-link
                   :to="{name: 'ECDatasets', query: { locale: $route.query.locale }}"
                   class="nav-link router-link-active"
@@ -34,10 +36,11 @@
                      {{ $t('message.header.navigation.data.datasets') }}
                 </router-link>
             </li>
-            <li class="nav-item mb-0" role="tab"
+            <!-- <li class="nav-item mb-0" role="tab"
                 :title="$t('message.tooltip.catalogues')"
                 data-toggle="tooltip"
-                data-placement="top">
+                data-placement="top"> -->
+            <li class="nav-item mb-0" role="tab">
               <router-link
                 :to="{name: 'Catalogues', query: { locale: $route.query.locale }}"
                 v-if="useCatalogs"
@@ -47,13 +50,19 @@
               </router-link>
             </li>
             <li class="nav-item mb-0" role="tab">
-              <a
+              <!-- <a
                 :href="`/${this.$route.query.locale}/search?term=${query}&searchdomain=site`"
                 class="nav-link router-link-inactive"
                 role="presentation"
                 :title="$t('message.tooltip.editorialContent')"
                 data-toggle="tooltip"
                 data-placement="top">
+                {{ $t('message.searchTabs.editorialContent') }}
+              </a> -->
+              <a
+                :href="`/${this.$route.query.locale}/search?term=${query}&searchdomain=site`"
+                class="nav-link router-link-inactive"
+                role="presentation">
                 {{ $t('message.searchTabs.editorialContent') }}
               </a>
             </li>
@@ -117,7 +126,6 @@
     <!-- Search Result coloumn -->
     <div class="ec-search-result"
         :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
-        <div class="loading-spinner ml-3" v-if="getLoading"></div>
         <div class="row">
           <!-- Headline & Count  -->
           <div class="ds-result-headline col">
@@ -138,7 +146,9 @@
                   </svg>
                 </div>
                 </button>
-                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                <!-- TODO: -->
+                <!-- ADD active state depending on {{sortSelectedLabel}} -->
+                <ul class="dropdown-menu ec-ds-dropdown-items" aria-labelledby="btnGroupDrop1">
                 <button class="dropdown-item" @click="setSortMethod('modified', 'desc', $t('message.sort.lastModified'))">
                   {{ $t('message.sort.lastUpdated') }}</button>
                 <button class="dropdown-item" @click="setSortMethod('relevance', 'desc', $t('message.sort.relevance'))">
