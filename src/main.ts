@@ -71,8 +71,6 @@ import {
   configureModules
 } from '@piveau/piveau-hub-ui-modules';
 
-
-
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
@@ -87,6 +85,8 @@ import ECButton from "./components/ECButton.vue";
 import ECInfo from "./components/ECInfo.vue";
 import ECLinkButton from "./components/ECLinkButton.vue";
 import ECDataInfoBox from "./components/ECDataInfoBox.vue";
+import ECDistributionsHeader from "./components/ECDistributionsHeader.vue";
+import ECDistributionDetails from "./components/ECDistributionDetails.vue";
 
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
@@ -96,6 +96,8 @@ const components = ecStyle ? {
   PvBanner: ECInfo,
   PvDataInfoBox: ECDataInfoBox,
   DatasetDetailsNavigationPage: ECLinkButton,
+  DistributionsHeader: ECDistributionsHeader,
+  DistributionDetails: ECDistributionDetails
 } : {};
 
 configureModules({

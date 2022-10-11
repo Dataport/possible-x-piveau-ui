@@ -10,6 +10,10 @@ import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimila
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
+import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
+import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
+import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
+
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
 import MapBasic from "./map/MapBasic.vue";
@@ -73,6 +77,10 @@ export {
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
   DatasetDetails,
+
+  DistributionDescription,
+  DistributionExpandedContent,
+  DistributionVisibleContent,
 
   CSVLinter,
 
