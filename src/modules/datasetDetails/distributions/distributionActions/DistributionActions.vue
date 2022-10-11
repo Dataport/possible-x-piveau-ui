@@ -31,11 +31,10 @@
 
 <script>
 import DistributionOptionsDropdown
-  from "@/modules/datasetDetails/distributions/DistributionOptionsDropdown";
-import DistributionDownload from "@/modules/datasetDetails/distributions/DistributionDownload";
+  from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
+import DistributionDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownload";
 import LinkedDataButtonsDropdown
-  from "@/modules/datasetDetails/distributions/LinkedDataButtonsDropdown";
-import {has, isNil} from "lodash";
+  from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
 export default {
   name: "DistributionActions",
   components: {LinkedDataButtonsDropdown, DistributionDownload, DistributionOptionsDropdown},

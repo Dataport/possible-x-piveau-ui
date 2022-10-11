@@ -34,8 +34,8 @@
 /* eslint-disable */
 import $ from 'jquery';
 import { mixin as clickaway } from 'vue-clickaway';
-import { replaceHttp } from '../../utils/helpers';
-import AppLink from "../../widgets/AppLink";
+import { replaceHttp } from '../../../utils/helpers';
+import AppLink from "../../../widgets/AppLink";
 
 export default {
   mixins: [clickaway],

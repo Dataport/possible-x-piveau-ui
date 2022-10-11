@@ -74,7 +74,7 @@ import DistributionDescription
 import DistributionFormat from "@/modules/datasetDetails/distributions/DistributionFormat";
 import FadingDistributionOverlay
   from "@/modules/datasetDetails/distributions/FadingDistributionOverlay";
-import DistributionActions from "@/modules/datasetDetails/distributions/DistributionActions";
+import DistributionActions from "@/modules/datasetDetails/distributions/distributionActions/DistributionActions";
 import DistributionAdded from "@/modules/datasetDetails/distributions/DistributionAdded";
 
 export default {
