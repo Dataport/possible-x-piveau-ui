@@ -358,7 +358,6 @@
             </td>
             <td>{{ getTranslationFor(getVersionNotes) }}</td>
           </tr>
-
           <tr v-if="showObject(getCatalogRecord)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.catalogRecord')" >
@@ -618,6 +617,7 @@ export default {
       'getIdentifiers',
       'getIsVersionOf',
       'getIsReferencedBy',
+      'getLandingPages',
       'getLanguages',
       'getModificationDate',
       'getNumSeries',
@@ -646,6 +646,10 @@ export default {
     getLandingPagesResource() {
       return isArray(this.getLandingPages) && this.getLandingPages.map(value => value && value.resource);
     },
+    // Returns the label property of accrual periodicity
+    getAccrualPeriodicityLabel() {
+      return !isNil(this.getAccrualPeriodicity) && has(this.getAccrualPeriodicity, 'label') ? this.getAccrualPeriodicity.label : '';
+    },
   },
   methods: {
     isNil,
@@ -661,11 +665,6 @@ export default {
     },
     showContactPoint(contactPoints) {
       return Object.keys(contactPoints[0]).filter(contactPoint => contactPoint !== 'resource' && contactPoint !== 'type').length > 0;
-    },
-    // Returns the label property of accrual periodicity
-    getAccrualPeriodicityLabel() {
-      return (this.getAccrualPeriodicity && this.getAccrualPeriodicity.label)
-        || this.getAccrualPeriodicity;
     },
     toggleExpanded() {
       this.expanded = ! this.expanded;

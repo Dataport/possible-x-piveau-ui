@@ -218,16 +218,16 @@
                           <span class="d-block">
                             <div v-for="(page, index) in getDistributionObjectArray(distribution, 'foaf:page')" :key="index">
                               <small v-if="showElementValue(page, 'dct:title')" class="pr-1">
-                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:title']">{{ page['dct:title'] }}</a>
+                                {{ $t('message.dataupload.datasets.page.label') }}: <a :href="page['dct:title']">{{ page['dct:title'] }}</a>
                               </small>
                               <small v-if="showElementValue(page, 'dct:description')" class="pr-1">
-                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:description']">{{ page['dct:description'] }}</a>
+                                {{ $t('message.dataupload.datasets.page.label') }}: <a :href="page['dct:description']">{{ page['dct:description'] }}</a>
                               </small>
                               <small v-if="showElementValue(page, '@id')" class="pr-1">
-                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['@id']">{{ page['@id'] }}</a>
+                                {{ $t('message.dataupload.datasets.page.label') }}: <a :href="page['@id']">{{ page['@id'] }}</a>
                               </small>
                               <small v-if="showElementValue(page, 'dct:format')" class="pr-1">
-                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:format']">{{ page['dct:format'] }}</a>
+                                {{ $t('message.dataupload.datasets.page.label') }}: <a :href="page['dct:format']">{{ page['dct:format'] }}</a>
                               </small>
                             </div>
                           </span>
@@ -373,7 +373,7 @@
 
               <!-- SUBJECT -->
               <tr v-if="showProperty('datasets', 'dct:subject')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.subject.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.subject.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dct:subject')">
                   <div v-for="(subject, index) in getObjectArray('datasets', 'dct:subject')" :key="index">
                     <div v-if="showElementValue(subject, '@id')">
@@ -385,7 +385,7 @@
 
               <!-- THEME -->
               <tr v-if="showProperty('datasets', 'dcat:theme')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.theme.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.theme.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dcat:theme')">
                   <div v-for="(theme, index) in getObjectArray('datasets', 'dcat:theme')" :key="index">
                     <div v-if="showElementValue(theme, '@id')">
@@ -451,7 +451,7 @@
 
               <!-- PAGE -->
               <tr v-if="showProperty('datasets', 'foaf:page')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.page.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.page.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'foaf:page')">
                   <div v-for="(page, index) in getObjectArray('datasets', 'foaf:page')" :key="index">
                     <div v-if="showElementValue(page, 'dct:title')">
@@ -521,7 +521,7 @@
 
               <!-- RELATION -->
               <tr v-if="showProperty('datasets', 'dct:relation')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.relation.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.relation.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dct:relation')">
                   <div v-for="(relation, index) in getObjectArray('datasets', 'dct:relation')" :key="index">
                     <app-link v-if="showElementValue(relation, '@id')" :to="relation">{{ relation['@id'] }}</app-link>
@@ -531,7 +531,7 @@
 
               <!-- QUALIFIED RELATION -->
               <tr v-if="showProperty('datasets', 'dcat:qualifiedRelation')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.qualifiedRelation.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.qualifiedRelation.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dcat:qualifiedRelation')">
                   <div v-for="(qualifiedRelation, index) in getObjectArray('datasets', 'dcat:qualifiedRelation')" :key="index">
                     <app-link v-if="showElementValue(qualifiedRelation, '@id')" :to="qualifiedRelation">{{ qualifiedRelation['@id'] }}</app-link>
@@ -541,7 +541,7 @@
 
               <!-- QUALIFIED ATTRIBUTION -->
               <tr v-if="showProperty('datasets', 'prov:qualifiedAttribution')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.qualifiedAttribution.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.qualifiedAttribution.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'prov:qualifiedAttribution')">
                   <div v-for="(qualifiedAttribution, index) in getObjectArray('datasets', 'prov:qualifiedAttribution')" :key="index">
                     <app-link v-if="showElementValue(qualifiedAttribution, '@id')" :to="qualifiedAttribution">{{ qualifiedAttribution['@id'] }}</app-link>
@@ -557,7 +557,7 @@
 
               <!-- SPATIAL RESOLUTION IN METERS -->
               <tr v-if="showProperty('datasets', 'dcat:spatialResolutionInMeters')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.spatialResolutionInMeters.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.spatialResolutionInMeters.label') }}</td>
                 <td v-if="showObjectValue('datasets', 'dcat:spatialResolutionInMeters', '@value')">
                   {{ getObjectString('datasets', 'dcat:spatialResolutionInMeters', '@value') }}
                 </td>
@@ -580,7 +580,7 @@
 
               <!-- TEMPORAL RESOLUTION -->
               <tr v-if="showProperty('datasets', 'dcat:temporalResolution')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.temporalResolution.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.temporalResolution.label') }}</td>
                 <td v-if="showObjectValue('datasets', 'dcat:temporalResolution', '@value')">
                   {{ formatDatetime(getObjectString('datasets', 'dcat:temporalResolution', '@value')) }}
                 </td>
@@ -588,7 +588,7 @@
 
               <!-- IS REFERENCED BY -->
               <tr v-if="showProperty('datasets', 'dct:isReferencedBy')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.isReferencedBy.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.isReferencedBy.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dct:isReferencedBy')">
                   <div v-for="(isReferencedBy, index) in getObjectArray('datasets', 'dct:isReferencedBy')" :key="index">
                     <app-link v-if="showElementValue(isReferencedBy, '@id')" :to="isReferencedBy">{{ isReferencedBy['@id'] }}</app-link>
@@ -598,7 +598,7 @@
 
               <!-- WAS GENERATED BY -->
               <tr v-if="showProperty('datasets', 'prov:wasGeneratedBy')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.wasGeneratedBy.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.wasGeneratedBy.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'prov:wasGeneratedBy')">
                   <div v-for="(wasGeneratedBy, index) in getObjectArray('datasets', 'prov:wasGeneratedBy')" :key="index">
                     <app-link v-if="showElementValue(wasGeneratedBy, '@id')" :to="wasGeneratedBy">{{ wasGeneratedBy['@id'] }}</app-link>
@@ -618,7 +618,7 @@
 
               <!-- IS USED BY -->
               <tr v-if="showProperty('datasets', 'dext:metadataExtension')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.isUsedBy.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.isUsedBy.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dext:metadataExtension')">
                   <div v-for="(isUsedBy, index) in getObjectArray('datasets', 'dext:metadataExtension')" :key="index">
                     <app-link v-if="showObjectElementValue(isUsedBy, 'dext:isUsedBy', '@id')" :to="isUsedBy['dext:isUsedBy']['@id']">{{ isUsedBy['dext:isUsedBy']['@id'] }}</app-link>
