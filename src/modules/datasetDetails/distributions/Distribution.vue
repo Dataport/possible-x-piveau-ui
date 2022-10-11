@@ -26,8 +26,7 @@
       :toggleDistribution="toggleDistribution"
     />
     <distribution-added
-      v-if="has(distribution, 'releaseDate') && !isNil(distribution.releaseDate)"
-      :date="filterDateFormatEU(distribution.releaseDate)"
+      :date="addedDate"
     />
     <distribution-actions
       :distribution="distribution"
@@ -127,6 +126,14 @@ export default {
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
     appendCurrentLocaleToURL: Function,
+  },
+  computed: {
+    addedDate() {
+      if (has(this.distribution, 'releaseDate') && !isNil(this.distribution.releaseDate)) {
+        return this.filterDateFormatEU(this.distribution.releaseDate);
+      }
+      return "";
+    }
   },
   methods: {
     has,
