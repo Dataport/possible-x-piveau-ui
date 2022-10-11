@@ -119,6 +119,9 @@ const glueConfig = {
     },
     bottom: {}
   },
+  pagination: {
+    usePaginationArrows: false,
+  },
   images: {
     top: [
       {

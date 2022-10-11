@@ -187,7 +187,7 @@ export default {
         }
 
         &-blue {
-            color: #279DF2;
+            color: #4073AF;
         } 
     }
 
@@ -201,7 +201,7 @@ export default {
         }
 
         &-blue {
-            background-color: #279DF2;
+            background-color: #4073AF;
         } 
     }
 

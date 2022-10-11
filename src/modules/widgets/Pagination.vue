@@ -2,22 +2,20 @@
 
 <template>
   <ul class="pagination">
-    <li class="page-item" :class="{ 'disabled': !clickedPageValid(getPage - 1) }">
-      <button class="page-link prev-button"
-              @click="pageClickedHandler(getPage - 1)">{{ prevButtonText }}
-      </button>
+    <li class="page-item" :class="{ 'disabled': !clickedPageValid(getPage - 1) }" @click="pageClickedHandler(getPage - 1)">
+      <i class="page-link material-icons" v-if="usePaginationArrows">keyboard_arrow_left</i>
+      <button class="page-link prev-button">{{ prevButtonText }}</button>
     </li>
     <li class="page-item"
         v-for="(page, i) in getPagesDisplayed(getPage, pageCount)"
         :key="i"
         :class="{ 'active': page === getPage}"
         @click="pageClickedHandler(page)">
-      <button class="page-link">{{ page.toLocaleString('fi') }}</button>
+      <button class="page-link page-button">{{ page.toLocaleString('fi') }}</button>
     </li>
-    <li class="page-item" :class="{ 'disabled': !clickedPageValid(getPage + 1) }">
-      <button class="page-link next-button"
-              @click="pageClickedHandler(getPage + 1)">{{ nextButtonText }}
-      </button>
+    <li class="page-item" :class="{ 'disabled': !clickedPageValid(getPage + 1) }" @click="pageClickedHandler(getPage + 1)">
+      <button class="page-link next-button">{{ nextButtonText }}</button>
+      <i class="page-link material-icons" v-if="usePaginationArrows">keyboard_arrow_right</i>
     </li>
   </ul>
 </template>
@@ -57,6 +55,7 @@
     data() {
       return {
         pagesDisplayed: [],
+        usePaginationArrows: this.$env.pagination.usePaginationArrows,
       };
     },
     computed: {
@@ -117,7 +116,17 @@
 
 <style lang="scss" scoped>
 
-.page-item.disabled {
-  color: rgba(0,0,0,0.7);
+
+
+.page-item {
+  display: flex;
+
+  &.disabled {
+    color: rgba(0,0,0,0.7);
+  }
+
+  .page-link {
+    line-height: normal;
+  }
 }
 </style>
