@@ -1,3 +1,12 @@
+.distributions__actions {
+  margin-top: 2.5rem;
+  justify-content: start !important;
+  .fa-chevron-down, .fa-eye {
+    font-size: larger;
+    margin-right: 0.5em;
+  }
+}
+
 .distributions__item {
   border-bottom: none !important;
   //justify-content: end;
@@ -92,3 +101,4 @@
   }
 
 }
+

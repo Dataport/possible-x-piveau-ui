@@ -1,6 +1,6 @@
 <template>
   <app-link
-    class="nav-link"
+    class="nav-link dsd-nav-page"
     :to="{ path, query: Object.assign({}, { locale: $route.query.locale }) }"
     :exact="exact"
   >

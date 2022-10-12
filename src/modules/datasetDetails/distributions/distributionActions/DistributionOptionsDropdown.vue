@@ -17,9 +17,9 @@
       </a>
     </span>
     <app-link class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-              :path="getGeoLink(distribution.format.label, distribution.id)"
+              :path="getGeoLink"
               target="_blank"
-              @click="$emit('track-link', getGeoLink(distribution.format.label, distribution.id), 'link')"
+              @click="$emit('track-link', getGeoLink, 'link')"
               v-if="showGeoLink(distribution)">
       <small class="px-2">{{ $t('message.datasetDetails.geoVisualisation') }}</small>
       <i class="material-icons float-right align-bottom">public</i>
@@ -31,6 +31,7 @@
 import Dropdown from "@/modules/widgets/Dropdown";
 import AppLink from "@/modules/widgets/AppLink";
 import {has, isNil} from "lodash";
+import {mapGetters} from "vuex";
 
 export default {
   name: "DistributionOptionsDropdown",
@@ -61,14 +62,22 @@ export default {
       }
     };
   },
-  methods: {
-    getGeoLink(format, distributionID) {
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getCatalog',
+      'getID'
+    ]),
+    getGeoLink() {
+      const format = this.distribution.format.label;
       let f = format.toLowerCase();
       // Use correct Case Sensitive strings
       f = this.geoLinkFormats[f];
       // Return Geo Visualisation Link
-      return `/geo-viewer/?dataset=${distributionID}&type=${f}&lang=${this.$route.query.locale}`;
-    },
+      return `/geo-viewer/?catalog=${this.getCatalog.id}&dataset=${this.getID}&distribution=${this.distribution.id}&type=${f}&lang=${this.$route.query.locale}`
+      // return `/geo-viewer/?dataset=${distributionID}&type=${f}&lang=${this.$route.query.locale}`;
+    }
+  },
+  methods: {
     showOptionsDropdown(distribution) {
       return this.showVisualisationLink(distribution) || this.showGeoLink(distribution);
     },

@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Dropdown from "../../widgets/Dropdown";
-import ResourceDetailsLinkedDataButton from "../../widgets/ResourceDetailsLinkedDataButton";
+import Dropdown from "../../../widgets/Dropdown";
+import ResourceDetailsLinkedDataButton from "../../../widgets/ResourceDetailsLinkedDataButton";
 
 export default {
   name: "LinkedDataButtonsDropdown",
