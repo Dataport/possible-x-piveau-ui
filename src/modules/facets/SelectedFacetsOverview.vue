@@ -71,7 +71,7 @@
 
           if (this.$route.query.dataScope === 'countryData') newSelectedFacets.dataScope = ['countryData'];
 
-          this.routerPush({ query: Object.assign({}, this.$route.query, { page: 1 }) });
+          this.routerPush({ query: Object.assign({}, this.$route.query) });
 
           return newSelectedFacets;
 
