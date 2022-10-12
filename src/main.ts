@@ -89,6 +89,7 @@ import ECLinkButton from "./components/ECLinkButton.vue";
 import ECDataInfoBox from "./components/ECDataInfoBox.vue";
 import ECDatasets from "./components/ECDatasets.vue";
 import ECDatasetsFilters from "./components/ECDatasetsFilters.vue";
+import ECCatalogues from "./components/ECCatalogues.vue";
 
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
@@ -100,6 +101,7 @@ const components = ecStyle ? {
   DatasetDetailsNavigationPage: ECLinkButton,
   Datasets: ECDatasets,
   DatasetsFilters: ECDatasetsFilters,
+  Catalogues: ECCatalogues,
 } : {};
 
 configureModules({

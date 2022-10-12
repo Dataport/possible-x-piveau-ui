@@ -27,6 +27,7 @@ import {
   decode,
 } from "@piveau/piveau-hub-ui-modules";
 import ECDatasets from "../src/components/ECDatasets.vue"
+import ECCatalogues from "../src/components/ECCatalogues.vue"
 
 // const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
 // const MapBoundsReceiver = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/MapBoundsReceiver');
@@ -145,8 +146,8 @@ const router = new Router({
     },
     {
       path: '/catalogues',
-      name: 'Catalogues',
-      component: Catalogues,
+      name: 'ECCatalogues',
+      component: ECCatalogues,
       meta: {
         title,
       },
