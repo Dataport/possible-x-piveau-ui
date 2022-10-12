@@ -38,7 +38,7 @@
 import {
   DistributionDescription,
   DistributionExpandedContent
-} from '@piveau/piveau-hub-ui-modules';
+} from '@/modules';
 
 import ECMore from "@/components/ECMore";
 export default {
