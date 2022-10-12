@@ -6,6 +6,7 @@
           :showCatalogDetails="showCatalogDetails"
         />
         <catalog-details-facet
+          class="catalog-details"
           v-if="showCatalogDetails"
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
