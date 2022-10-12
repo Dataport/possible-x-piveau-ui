@@ -154,12 +154,12 @@ const glueConfig = {
       ],
     },
     facets: {
-      cutoff: ecStyle ? 4 : -1,
+      cutoff: ecStyle ? 5 : -1,
       showClearButton: ecStyle,
       showFacetsTitle: ecStyle, // Title on top of the facets
       useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
-      useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
-      defaultFacetOrder: ['dataScope', 'country', 'catalog', 'categories', 'publisher', 'keywords', 'dataServices', 'scoring', 'format', 'license'],
+      useDatasetFacetsMap: false, // Enable / Disable the map on the Datasets page
+      defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'],
       scoringFacets: {
         useScoringFacets: true, // Enable / Disable the scoring facets
         defaultMinScore: 0, // Set the default mininimum score, the value should be one of the below listed minScores
@@ -214,7 +214,7 @@ const glueConfig = {
   },
   catalogs: {
     facets: {
-      cutoff: ecStyle ? 4 : -1,
+      cutoff: ecStyle ? 5 : -1,
       showClearButton: ecStyle,
       showFacetsTitle: ecStyle, // Title on top of the facets
       // Enable / Disable the facets on the Catalogues page
