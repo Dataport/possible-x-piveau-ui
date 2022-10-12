@@ -160,7 +160,7 @@ export default {
     useUpload: "$VUE_APP_UPLOAD_USE_UPLOAD",
     buttons: {
       Dataset: "$VUE_APP_UPLOAD_BUTTONS_DATASET",
-      Catalogue: "$VUE_APP_UPLOAD_BUTTONS_CATALOGUE",
+      Catalogue: "$VUE_APP_UPLOAD_BUTTONS_CATALOGUE"
     }
   },
   doiRegistrationService: {

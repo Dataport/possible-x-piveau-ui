@@ -85,8 +85,8 @@ import ECButton from "./components/ECButton.vue";
 import ECInfo from "./components/ECInfo.vue";
 import ECLinkButton from "./components/ECLinkButton.vue";
 import ECDataInfoBox from "./components/ECDataInfoBox.vue";
-import ECDistributionsHeader from "./components/ECDistributionsHeader.vue";
-import ECDistributionDetails from "./components/ECDistributionDetails.vue";
+import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
+import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
 
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
