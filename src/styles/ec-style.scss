@@ -13,9 +13,9 @@ body {
   font-weight: initial;
 }
 
-@import "./components/dataset_details";
-@import "./components/data_info_box";
-@import "./components/dataset_details_similar_datasets";
-@import "./components/datasets";
-@import "./components/distributions";
-@import "./components/pagination";
+@import "./components-ec-style/dataset_details";
+@import "./components-ec-style/data_info_box";
+@import "./components-ec-style/dataset_details_similar_datasets";
+@import "./components-ec-style/datasets";
+@import "./components-ec-style/distributions";
+@import "./components-ec-style/pagination";
