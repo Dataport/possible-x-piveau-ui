@@ -1,0 +1,31 @@
+.pagination {
+  .page-item {
+    display: flex;
+
+    .page-link {
+      border: 2px solid #FFFFFF;
+
+        &.page-button {
+          min-width: 50px;
+          max-height: 50px;
+          border-radius: 50%;
+        }
+
+        &.material-icons {
+          padding-left: 0;
+          padding-right: 0;
+          align-self: center;
+          cursor: pointer;
+        }
+    }
+
+    &.active {
+      .page-link {
+        color: #000000;
+        background-color: #FFFFFF;
+        border: 2px solid #000000;
+        border-radius: 50%;
+      }
+    }
+  }
+}

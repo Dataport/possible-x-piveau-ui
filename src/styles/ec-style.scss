@@ -13,8 +13,8 @@ body {
   font-weight: initial;
 }
 
-@import "./components/dataset_details";
-@import "./components/data_info_box";
-@import "./components/dataset_details_similar_datasets";
-@import "./components/distributions";
-@import "./components/pagination";
+@import "src/styles/components-ec-style/dataset_details";
+@import "src/styles/components-ec-style/data_info_box";
+@import "src/styles/components-ec-style/dataset_details_similar_datasets";
+@import "src/styles/components-ec-style/distributions";
+@import "src/styles/components-ec-style/pagination";
