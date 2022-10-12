@@ -13,9 +13,11 @@ body {
   font-weight: initial;
 }
 
-@import "src/styles/components-ec-style/dataset_details";
-@import "src/styles/components-ec-style/data_info_box";
-@import "src/styles/components-ec-style/dataset_details_similar_datasets";
-@import "src/styles/components-ec-style/distributions";
-@import "src/styles/components-ec-style/catalogue_details";
-@import "src/styles/components-ec-style/pagination";
+@import "./components-ec-style/dataset_details";
+@import "./components-ec-style/data_info_box";
+@import "./components-ec-style/dataset_details_similar_datasets";
+@import "./components-ec-style/datasets";
+@import "./components-ec-style/distributions";
+@import "./components-ec-style/catalogue_details";
+@import "./components-ec-style/pagination";
+
