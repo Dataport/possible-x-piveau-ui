@@ -27,7 +27,6 @@
     data() {
       return {
         availableFacets: [],
-        showCatalogDetails: false,
         defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       };
     },
@@ -39,6 +38,7 @@
         const orderedFacets = [];
 
         this.defaultFacetOrder.forEach((facet) => {
+          if (this.showCatalogDetails && facet === 'catalog') return;
           Object.keys(this.getSelectedFacets).forEach((field) => { 
             if (facet === field && this.getSelectedFacets[field].length > 0) orderedFacets.push({
               field,
@@ -96,9 +96,6 @@
           return newSelectedFacets;
 
         } else return this.selectedFacets;
-      },
-      showCatalogDetailsWatcher() {
-        return this.$route.query.showcatalogdetails;
       },
     },
     methods: {
@@ -176,23 +173,11 @@
 
         return this.routerPush(routerObject);
       },
-      initShowCatalogDetails() {
-        const showCatalogDetails = this.$route.query.showcatalogdetails;
-        if (showCatalogDetails === 'true') {
-          this.showCatalogDetails = true;
-        } else this.showCatalogDetails = false;
+      showCatalogDetails() {
+        return this.$route.query.showcatalogdetails === 'true';
       },
     },
-    watch: {
-      showCatalogDetailsWatcher: {
-        handler(showCatalogDetails) {
-          this.showCatalogDetails = showCatalogDetails;
-        },
-      },
-    },
-    created() {
-      this.initShowCatalogDetails();
-    },
+    created() {},
   };
 </script>
 
