@@ -371,7 +371,7 @@ export default {
         let scoringFacets = this.$env.datasets.facets.scoringFacets.defaultScoringFacets;
         let currentScore = Object.keys(scoringFacets).filter(score => scoringFacets[score].minScoring === this.getMinScoring);
         this.$router.push(
-          { query: Object.assign({}, this.$route.query, { scoring: currentScore, page: 1 }) }
+          { query: Object.assign({}, this.$route.query, { scoring: currentScore }) }
         ).catch(
           error => { console.log(error); }
         );
