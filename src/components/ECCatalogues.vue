@@ -147,7 +147,7 @@
                 </div>
                 <selectedFacetsOverview :selected-facets="getFacets"></selectedFacetsOverview>
                 <pv-data-info-box v-for="catalog in getCatalogs" :key="`data-info-box@${catalog.id}`" catalog-mode
-                    :to="{name: 'Datasets', query: {catalog: catalog.id, showcatalogdetails: true, locale: $route.query.locale}}"
+                    :to="{name: 'ECDatasets', query: {catalog: catalog.id, showcatalogdetails: true, locale: $route.query.locale}}"
                     :src="getImg(getCatalogImage(catalog))" :dataset="{
                       title: getTranslationFor(catalog.title, $route.query.locale, getCatalogLanguages(catalog)),
                       description:
