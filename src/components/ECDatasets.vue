@@ -2,7 +2,7 @@
   <div class="d-flex flex-column p-0 bg-transparent">
     <datasets-top-controls :facets="facets" :getPage="getPage" :getLimit="getLimit" />
     <div class="container-fluid datasets content">
-      <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
+      <h1 class="row col-12 page-title catalog-title text-primary ec-ds-title" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
       <h1 class="row col-12 page-title text-primary ec-ds-title" v-else>{{ $t('message.header.navigation.data.datasets') }}
       </h1>
       <div class="row">
@@ -17,16 +17,8 @@
         <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets"
           :dataScope="dataScope"></datasets-facets>
         <section class="col-md-9 col-12">
+          <!-- EC FILTER BOX -->
           <e-c-datasets-filters />
-          <!-- EC FILTER BOX here -->
-          <!-- <div class="ec-search-result"
-                :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
-              <div class="ds-result-headline">
-                {{ getLoading ? $t('message.datasets.loadingMessage'):`${$t('message.datasets.countMessage')} (${getDatasetsCount.toLocaleString('fi')})`}}
-              </div>
-              <hr>
-              <div class="loading-spinner ml-3" v-if="getLoading"></div>
-            </div> -->
           <!-- EC INFO BOX here -->
           <div class="ecl-message ecl-message--info ml-3 mb-3" v-if="showScoreDisclaimer">
             <svg class="ecl-icon ecl-icon--l ecl-message__icon" focusable="false" aria-hidden="true">
@@ -147,6 +139,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('catalogDetails', [
+        'getCatalog',
+      ]),
     ...mapGetters('datasets', [
       'getDatasets',
       'getDatasetsCount',

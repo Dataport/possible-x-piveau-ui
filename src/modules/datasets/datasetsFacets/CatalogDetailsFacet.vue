@@ -9,7 +9,7 @@
            height="auto"
            :alt="catalog.country.id">
     </span>
-    <div class="col mt-3" v-if="showObject(catalog)">
+    <div class="catalog-details-table col mt-3" v-if="showObject(catalog)">
       <div class="small">
         <!-- TITLE -->
         <dl v-if="has(catalog, 'title') && showObject(catalog.title)">

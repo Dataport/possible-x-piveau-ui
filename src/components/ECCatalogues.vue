@@ -102,7 +102,7 @@
                             <div>
                                 {{ getLoading ? $t('message.catalogs.loadingMessage'):`${$t('message.catalogs.countMessage')} (${getCatalogsCount.toLocaleString('fi')})`}}
                             </div>
-                            <div class="loading-spinner ml-3" v-if="getLoading"></div>
+                            <!-- <div class="loading-spinner ml-3" v-if="getLoading"></div> -->
                         </div>
                         <!-- SORT Dropdown  -->
                         <div class="ec-sort mr-2">
