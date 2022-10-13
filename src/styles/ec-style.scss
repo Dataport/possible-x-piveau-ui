@@ -2,6 +2,7 @@
 // EC restyle settings
 //
 
+@use "../../node_modules/@ecl/preset-ec/dist/styles/ecl-ec.css";
 body {
   font: normal normal 400 1rem/1.5rem arial,sans-serif;
 
@@ -11,6 +12,10 @@ body {
 .show-more {
   padding-left: 0 !important;
   font-weight: initial;
+}
+
+body .content.container-fluid {
+  @extend .ecl-container;
 }
 
 @import "./components-ec-style/dataset_details";
