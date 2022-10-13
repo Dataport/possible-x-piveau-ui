@@ -99,14 +99,11 @@ const components = ecStyle ? {
   PvBanner: ECInfo,
   PvDataInfoBox: ECDataInfoBox,
   DatasetDetailsNavigationPage: ECLinkButton,
-<<<<<<< src/main.ts
   Datasets: ECDatasets,
   DatasetsFilters: ECDatasetsFilters,
   Catalogues: ECCatalogues,
-=======
   DistributionsHeader: ECDistributionsHeader,
   DistributionDetails: ECDistributionDetails
->>>>>>> src/main.ts
 } : {};
 
 configureModules({
