@@ -18,11 +18,18 @@ body .content.container-fluid {
   @extend .ecl-container;
 }
 
+.page-title {
+  font-size: 2rem !important;
+  color: #404040 !important;
+  font-weight: bold !important;
+}
+
 @import "./components-ec-style/dataset_details";
 @import "./components-ec-style/data_info_box";
 @import "./components-ec-style/dataset_details_similar_datasets";
 @import "./components-ec-style/datasets";
 @import "./components-ec-style/distributions";
+@import "./components-ec-style/facets";
 @import "./components-ec-style/catalogue_details";
 @import "./components-ec-style/pagination";
 
