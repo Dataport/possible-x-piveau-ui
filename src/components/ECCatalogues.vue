@@ -178,11 +178,11 @@
 import $ from 'jquery';
 import { mapActions, mapGetters } from 'vuex';
 import { debounce, has } from 'lodash';
-import fileTypes from '@/modules//utils/fileTypes';
+import fileTypes from '@/modules/utils/fileTypes';
 import CataloguesFacets from '@/modules/catalogues/cataloguesFacets/CataloguesFacets.vue';
 import Pagination from '@/modules/widgets/Pagination.vue';
 import SelectedFacetsOverview from '@/modules/facets/SelectedFacetsOverview.vue';
-import dateFilters from '@/modules//filters/dateFilters';
+import dateFilters from '@/modules/filters/dateFilters';
 import SubNavigation from '@/modules/navigation/SubNavigation.vue';
 import { getImg, getCountryFlagImg, getTranslationFor } from '@/modules/utils/helpers';
 

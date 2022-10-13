@@ -69,13 +69,15 @@ import { configureModules } from "./configurations/configureModules";
 
 import fileTypes from './utils/fileTypes';
 import DatasetsFacets from './datasets/datasetsFacets/DatasetsFacets.vue';
-import Pagination from '@/modules/widgets/Pagination.vue';
 import Pagination from './widgets/Pagination';
 import SelectedFacetsOverview from './facets/SelectedFacetsOverview';
 import getTranslationFor from './utils/helpers';
 import truncate from './utils/helpers';
 import getImg from './utils/helpers';
 import DatasetsTopControls from "./datasets/DatasetsTopControls";
+import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
+import SubNavigation from './navigation/SubNavigation.vue';
+import getCountryFlagImg from './utils/helpers';
 
 export {
   AppLink,
@@ -147,11 +149,14 @@ export {
   fileTypes,
   DatasetsFacets,
   Pagination,
+  CataloguesFacets,
+  SubNavigation,
   SelectedFacetsOverview,
   DatasetsTopControls,
   getTranslationFor,
   truncate,
-  getImg
+  getImg,
+  getCountryFlagImg
 
 };
 
