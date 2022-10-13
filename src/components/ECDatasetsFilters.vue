@@ -1,7 +1,8 @@
 <template>
   <div class="filters-group ds">
     <!-- DESKTOP Version -->
-    <div class="d-none d-md-block">
+    <!-- <div class="d-none d-md-block"> (Disabled for the first release on ppe2) -->
+    <div class="">
       <div class="row">
         <div class="col">
           <div class="input-group">
@@ -170,10 +171,10 @@
         <hr>
       </div>
     </div>
-    <!-- Mobile Version-->
-    <div class="d-block d-md-none">
+    <!-- Mobile Version (Disabled for the first PPE2 release) -->
+    <!-- <div class="d-block d-md-none">
       [Mobile Search here]
-    </div>
+    </div> -->
   </div>
 </template>
 
