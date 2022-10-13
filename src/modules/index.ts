@@ -67,6 +67,16 @@ import usePiwikSuspendFilter from "./mixins/usePiwikSuspendFilter";
 
 import { configureModules } from "./configurations/configureModules";
 
+import fileTypes from './utils/fileTypes';
+import DatasetsFacets from './datasets/datasetsFacets/DatasetsFacets.vue';
+import Pagination from '@/modules/widgets/Pagination.vue';
+import Pagination from './widgets/Pagination';
+import SelectedFacetsOverview from './facets/SelectedFacetsOverview';
+import getTranslationFor from './utils/helpers';
+import truncate from './utils/helpers';
+import getImg from './utils/helpers';
+import DatasetsTopControls from "./datasets/DatasetsTopControls";
+
 export {
   AppLink,
   AppSnackbar,
@@ -132,7 +142,17 @@ export {
 
   usePiwikSuspendFilter,
 
-  configureModules
+  configureModules,
+
+  fileTypes,
+  DatasetsFacets,
+  Pagination,
+  SelectedFacetsOverview,
+  DatasetsTopControls,
+  getTranslationFor,
+  truncate,
+  getImg
+
 };
 
 // @ts-ignore
