@@ -250,7 +250,6 @@ require('bootstrap');
 require('./styles/styles.scss');
 
 if (ecStyle) {
-  require('@ecl/preset-ec/dist/styles/ecl-ec.css');
   require('./styles/ec-style.scss');
 }
 

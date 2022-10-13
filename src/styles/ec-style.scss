@@ -1,16 +1,21 @@
 //
 // EC restyle settings
 //
+@use "../../node_modules/@ecl/preset-ec/dist/styles/ecl-ec.css";
 
 body {
   font: normal normal 400 1rem/1.5rem arial,sans-serif;
 
-  --dsd-right-column-width: 36%;
+  --dsd-right-column-width: 40%;
 }
 
 .show-more {
   padding-left: 0 !important;
   font-weight: initial;
+}
+
+body .content.container-fluid {
+  @extend .ecl-container;
 }
 
 @import "./components-ec-style/dataset_details";

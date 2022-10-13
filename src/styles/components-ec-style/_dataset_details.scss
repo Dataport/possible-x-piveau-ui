@@ -73,6 +73,9 @@
 .dsd-nav-links {
   flex-wrap: wrap;
   justify-content: flex-end;
+  .dsd-link-feedback, .dsd-link-share {
+    display: none !important;
+  }
 }
 
 .dsd-nav-button {
@@ -115,6 +118,11 @@
 
 .dropdownMenu button {
   color: #004494 !important;
+}
+
+.dsd-feature-header-arrow {
+  margin-left: -0.5rem;
+  margin-right: 0.3rem;
 }
 
 @media screen and (max-width: 991px) { // less than lg
@@ -179,6 +187,7 @@
     }
     table {
       margin-bottom: 0 !important;
+      overflow-y: hidden;
     }
   }
 

@@ -1,8 +1,8 @@
 <template>
   <nav class="dsd-nav-links">
     <ul class="menu m-0 list-inline list-unstyled navbar-nav">
-      <dataset-details-feedback-button></dataset-details-feedback-button>
-      <div class="d-inline dropdown">
+      <dataset-details-feedback-button />
+      <div class="d-inline dropdown dsd-link-share">
         <app-link class="nav-item nav-link dropdown-toggle text-nowrap" fragment="#" role="button" id="shareDatasetDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span :title="$t('message.tooltip.datasetDetails.share')"
                     data-toggle="tooltip"
@@ -16,7 +16,7 @@
           <dataset-details-share-button class="dropdown-item" :to="`https://www.linkedin.com/shareArticle?mini=true&url=${url}`" :icon="{ prefix: 'fab', iconName: 'linkedin-in' }"></dataset-details-share-button>
         </div>
       </div>
-      <div class="d-inline">
+      <div class="d-inline dsd-link-feed">
         <app-link class="nav-item nav-link text-nowrap"
                   :to="getFeedLink()"
                   target="_blank"
@@ -25,7 +25,7 @@
           {{ $t('message.datasetDetails.datasetFeed') }}
         </app-link>
       </div>
-      <div class="d-inline dropdown">
+      <div class="d-inline dropdown dsd-link-linked-data">
         <app-link class="nav-item nav-link dropdown-toggle text-nowrap" fragment="#" role="button" id="linkedDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <!--<i class="material-icons small-icon align-bottom text-dark">***FIND A LINKED DATA ICON***</i>-->
           <span :title="$t('message.tooltip.datasetDetails.linkedData')"
@@ -42,8 +42,9 @@
           <resource-details-linked-data-button class="dropdown-item" format="jsonld" text="JSON-LD" resources="datasets" v-bind:resources-id="datasetId"></resource-details-linked-data-button>
         </div>
       </div>
-      <div class="d-inline dropdown">
-        <app-link class="nav-item nav-link dropdown-toggle text-nowrap" :class="{'disabled': !(this.getIsDQVDataRDFAvailable)}" fragment="#" role="button" id="metaDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div class="d-inline dropdown dsd-link-dqv" v-if="showDQV">
+        <app-link class="nav-item nav-link dropdown-toggle text-nowrap" :class="{'disabled': !(this.getIsDQVDataRDFAvailable)}"
+                  fragment="#" role="button" id="metaDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <!--<i class="material-icons small-icon align-bottom text-dark">***FIND A LINKED DATA ICON***</i>-->
           <span :title="$t('message.tooltip.datasetDetails.dqvData')"
                 data-toggle="tooltip"
@@ -59,7 +60,7 @@
           <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="jsonld" text="JSON-LD" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
         </div>
       </div>
-      <div class="d-inline dropdown">
+      <div class="d-inline dropdown dsd-link-cite">
         <app-link class="nav-item nav-link dropdown-toggle text-nowrap" fragment="#" role="button" id="citationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-cy="citation-dropdown-expand">
           {{ $t('message.datasetDetails.cite') }}
         </app-link>
@@ -141,6 +142,10 @@ export default {
       'getID'
     ]),
     url() { return window.location.href; },
+    showDQV() {
+      const path = this.$router.currentRoute.path;
+      return path.endsWith("quality");
+    }
   },
   methods: {
     getTranslationFor,

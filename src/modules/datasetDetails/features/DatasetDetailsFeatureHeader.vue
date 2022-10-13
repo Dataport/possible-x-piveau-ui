@@ -3,7 +3,7 @@
     <div class="col-1 my-auto text-right arrow"
          @click="onClick()">
       <span class="text-dark">
-        <i class="material-icons">{{ arrowDown ? "keyboard_arrow_down" : "keyboard_arrow_up" }}</i>
+        <i class="material-icons dsd-feature-header-arrow">{{ arrowDown ? "keyboard_arrow_down" : "keyboard_arrow_up" }}</i>
       </span>
     </div>
     <div class="col-11 py-2 bg-white">
