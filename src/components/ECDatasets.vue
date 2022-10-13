@@ -159,6 +159,9 @@ export default {
       'getAvailableFacets',
       'getMinScoring',
     ]),
+    // showCatalogDetails() {
+    //     return this.$route.query.showcatalogdetails === 'true';
+    // },
     /**
      * @description Returns the current page.
      * @returns {Number}
