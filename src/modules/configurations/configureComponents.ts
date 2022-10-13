@@ -20,12 +20,9 @@ const defaultComponents: ComponentMap = {
   PvBanner,
   DatasetDetailsNavigationPage,
   PvDataInfoBox,
-<<<<<<< src/modules/configurations/configureComponents.ts
   Datasets,
-=======
   DistributionsHeader,
   DistributionDetails
->>>>>>> src/modules/configurations/configureComponents.ts
 };
 
 export function configureComponents(components?: ComponentMap) {
