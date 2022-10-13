@@ -9,6 +9,7 @@ import PvDataInfoBox from "@/modules/PvDataInfoBox/PvDataInfoBox.vue";
 import Datasets from "@/modules/datasets/Datasets.vue";
 import DistributionsHeader from "@/modules/datasetDetails/distributions/DistributionsHeader.vue";
 import DistributionDetails from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDetails.vue";
+import SelectedFacetsOverview from "@/modules/facets/SelectedFacetsOverview.vue";
 
 export type ComponentMap = { [key: string]: any };
 
@@ -22,7 +23,8 @@ const defaultComponents: ComponentMap = {
   PvDataInfoBox,
   Datasets,
   DistributionsHeader,
-  DistributionDetails
+  DistributionDetails,
+  SelectedFacetsOverview
 };
 
 export function configureComponents(components?: ComponentMap) {

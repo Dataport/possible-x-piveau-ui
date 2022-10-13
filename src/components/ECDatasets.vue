@@ -84,7 +84,7 @@ import $ from 'jquery';
 import fileTypes from '@/modules/utils/fileTypes';
 import DatasetsFacets from '@/modules/datasets/datasetsFacets/DatasetsFacets.vue';
 import Pagination from '@/modules/widgets/Pagination.vue';
-import SelectedFacetsOverview from '@/modules/facets/SelectedFacetsOverview';
+import SelectedFacetsOverview from '@piveau/piveau-hub-ui-modules';
 import AppLink from '@/modules/widgets/AppLink.vue';
 import { getTranslationFor, truncate, getImg } from '@/modules/utils/helpers';
 import DatasetsTopControls from "@/modules/datasets/DatasetsTopControls";

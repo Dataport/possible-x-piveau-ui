@@ -68,7 +68,8 @@ import {
   FileUpload,
   DatePicker,
   DateTimePicker,
-  configureModules
+  configureModules,
+  SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
 
 Vue.config.devtools = true;
@@ -135,6 +136,9 @@ Vue.component('DateTimePicker', DateTimePicker);
 // Vue.component('AppToast', AppToast);
 Vue.component('AppSnackbar', AppSnackbar);
 Vue.component('AppConfirmationDialog', AppConfirmationDialog);
+
+// DEU Redesign Components
+Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const VueCookie = require('vue-cookie');
