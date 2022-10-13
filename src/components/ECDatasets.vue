@@ -2,6 +2,7 @@
   <div class="d-flex flex-column p-0 bg-transparent">
     <datasets-top-controls :facets="facets" :getPage="getPage" :getLimit="getLimit" />
     <div class="container-fluid datasets content">
+      <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
       <h1 class="row col-12 page-title text-primary ec-ds-title">{{ $t('message.header.navigation.data.datasets') }}
       </h1>
       <div class="row">
