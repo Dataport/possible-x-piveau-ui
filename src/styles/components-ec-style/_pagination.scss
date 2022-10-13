@@ -1,13 +1,15 @@
 .pagination {
   .page-item {
     display: flex;
+    min-width: 35px;
+    max-height: 35px;
 
     .page-link {
-      border: 2px solid #FFFFFF;
+      border: 0px solid #FFFFFF;
 
         &.page-button {
-          min-width: 50px;
-          max-height: 50px;
+          min-width: 35px;
+          max-height: 35px;
           border-radius: 50%;
         }
 
@@ -25,6 +27,10 @@
         background-color: #FFFFFF;
         border: 2px solid #000000;
         border-radius: 50%;
+
+        &.page-button {
+          font-weight: bold;
+        }
       }
     }
   }
