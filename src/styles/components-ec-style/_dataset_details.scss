@@ -73,6 +73,9 @@
 .dsd-nav-links {
   flex-wrap: wrap;
   justify-content: flex-end;
+  .dsd-link-feedback, .dsd-link-share {
+    display: none !important;
+  }
 }
 
 .dsd-nav-button {

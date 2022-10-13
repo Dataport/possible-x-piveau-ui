@@ -6,7 +6,7 @@
     :query="getFeedbackQuery(getID, getTitle)"
     @click="$emit('track-link', `/${this.$route.query.locale}/feedback/form${getFeedbackQuery(getID, getTitle)}`, 'link')"
     target="_blank"
-    class="nav-item nav-link underline text-nowrap">
+    class="nav-item nav-link underline text-nowrap dsd-link-feedback">
       <span :title="$t('message.tooltip.datasetDetails.feedback')"
                     data-toggle="tooltip"
                     data-placement="top">
