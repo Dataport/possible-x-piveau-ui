@@ -1,12 +1,13 @@
 <template>
-  <div class="d-flex flex-column p-0 bg-transparent">
+  <div class="datasets d-flex flex-column p-0 bg-transparent">
     <datasets-top-controls
       :facets="facets"
       :getPage="getPage"
       :getLimit="getLimit"
     />
     <div class="container-fluid datasets content">
-      <h1 class="row col-12 page-title text-primary">{{ $t('message.header.navigation.data.datasets') }}</h1>
+      <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
+      <h1 class="row col-12 page-title text-primary" v-else>{{ $t('message.header.navigation.data.datasets') }}</h1>
       <div class="row">
         <div class="col d-flex d-md-none justify-content-end flex-wrap">
           <button class="btn btn-primary mb-3 text-right text-white" data-toggle="collapse" data-target="#datasetFacets" data-cy="btn-filter-toggle" @click="filterCollapsed = !filterCollapsed">
@@ -147,14 +148,14 @@
         facetFields: [],
         lang: this.locale,
         filterCollapsed: true,
-        catalogDetailsMode: this.$route.query.showcatalogdetails === 'true',
         catalogAllowed: false,
-        useCreateDatasetButton: this.$env.upload.useCreateDatasetButton,
-        useCreateCatalogueButton: this.$env.upload.useCreateCatalogueButton,
         useDatasetFacets: this.$env.datasets.facets.useDatasetFacets
       };
     },
     computed: {
+      ...mapGetters('catalogDetails', [
+        'getCatalog',
+      ]),
       ...mapGetters('datasets', [
         'getDatasets',
         'getDatasetsCount',
@@ -167,6 +168,9 @@
         'getAvailableFacets',
         'getMinScoring',
       ]),
+      showCatalogDetails() {
+        return this.$route.query.showcatalogdetails === 'true';
+      },
       /**
        * @description Returns the current page.
        * @returns {Number}
@@ -330,7 +334,7 @@
       },
       initFacetOperator() {
         // Always set facet operator to AND when in catalog details mode
-        if (this.$route.query.showcatalogdetails === 'true') this.setFacetOperator('AND');
+        if (this.showCatalogDetails) this.setFacetOperator('AND');
         else {
           const op = this.$route.query.facetOperator;
           if (op === 'AND' || op === 'OR') this.setFacetOperator(op);
@@ -339,7 +343,7 @@
       initFacetGroupOperator() {
         // The facetGroupOperator should be the same as the facetOperator
         // Always set facet operator to AND when in catalog details mode
-        if (this.$route.query.showcatalogdetails === 'true') this.setFacetGroupOperator('AND');
+        if (this.showCatalogDetails) this.setFacetGroupOperator('AND');
         else {
           const op = this.$route.query.facetOperator;
           if (op === 'AND' || op === 'OR') this.setFacetGroupOperator(op);

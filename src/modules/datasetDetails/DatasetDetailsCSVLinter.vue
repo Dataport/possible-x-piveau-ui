@@ -179,50 +179,50 @@ export default {
 
     .color {
         &-red {
-            color: red;
+            color: #DA2131;
         }
 
         &-orange {
-            color: orange;
+            color: #F29527;
         }
 
         &-blue {
-            color: lightblue;
+            color: #4073AF;
         } 
     }
 
     .bg {
         &-red {
-            background-color: red;
+            background-color: #DA2131;
         }
 
         &-orange {
-            background-color: orange;
+            background-color: #F29527;
         }
 
         &-blue {
-            background-color: lightblue;
+            background-color: #4073AF;
         } 
     }
 
     .csv-validation-box {
         color: black; 
-        background-color: white;
-        border: 2px solid black;
+        background-color: #FFFFFF;
+        border: 2px solid #000000;
         
         &.true {
-            border-color: green;
+            border-color: #467A39;
         }
         &.false {
-            border-color: red;
+            border-color: #DA2131;
         }
 
         .material-icons {
             &.true {
-                color: green;
+                color: #467A39;
             }
             &.false {
-                color: red;
+                color: #DA2131;
             }
         }
     }
@@ -231,14 +231,14 @@ export default {
 
         &.border {
             &-top {
-                border-top: 1px solid grey;
+                border-top: 1px solid #9F9F9F;
             }
         }
 
         .tag {
             display: inline-flex;
             align-items: center;
-            color: white;
+            color: #FFFFFF;
             font-size: 1rem;
             padding: 0.5rem 0.75rem;
             border-radius: 1rem;

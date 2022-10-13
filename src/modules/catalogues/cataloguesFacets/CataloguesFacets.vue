@@ -28,11 +28,12 @@
           :label="cutoff >= 0? 'More filters' : 'Less filters'"
           :upArrow="cutoff === -1"
           :action="toggleCutoff"
+          class="p-0 row facets-show-more"
         />
         <pv-button
           v-if="showClearButton"
           label="Clear filters"
-          class="row mt-5"
+          class="row mt-5 facets-clear"
           :action="clearFacets"
         />
       </div>

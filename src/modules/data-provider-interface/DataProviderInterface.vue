@@ -134,12 +134,12 @@ export default {
     ...mapActions('auth', [
       'populateDraftAndEdit',
     ]),
-    getTranslatedStepNamesByProperty(property = 'dataset') {
+    getTranslatedStepNamesByProperty(property) {
       const names = this.steps[property].map(s => this.$t(`message.dataupload.${property}.stepper.${s}.name`));
       if (property !== 'distributions') {
         // use right translation for overview page
         const overviewIndex = names.length - 1;
-        names[overviewIndex] = this.$t(`message.dataupload.datasets.stepper.overview`);
+        names[overviewIndex] = this.$t(`message.dataupload.${property}.stepper.overview`);
       }
       return names;
     },

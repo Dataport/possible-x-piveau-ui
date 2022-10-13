@@ -6,6 +6,7 @@
           :showCatalogDetails="showCatalogDetails"
         />
         <catalog-details-facet
+          class="catalog-details"
           v-if="showCatalogDetails"
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
@@ -49,13 +50,13 @@
             :label="cutoff >= 0? 'More filters' : 'Less filters'"
             :upArrow="cutoff === -1"
             :action="toggleCutoff"
-            class="p-0 row"
+            class="p-0 row facets-show-more"
           />
         </div>
         <pv-button
           v-if="showClearButton"
           label="Clear filters"
-          class="row mt-5"
+          class="row mt-5 facets-clear"
           :action="clearFacets"
         />
       </div>
@@ -371,7 +372,7 @@ export default {
         let scoringFacets = this.$env.datasets.facets.scoringFacets.defaultScoringFacets;
         let currentScore = Object.keys(scoringFacets).filter(score => scoringFacets[score].minScoring === this.getMinScoring);
         this.$router.push(
-          { query: Object.assign({}, this.$route.query, { scoring: currentScore, page: 1 }) }
+          { query: Object.assign({}, this.$route.query, { scoring: currentScore }) }
         ).catch(
           error => { console.log(error); }
         );

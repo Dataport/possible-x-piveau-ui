@@ -5,9 +5,9 @@
   />
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue';
-import PvDataInfoBox from '@/modules/PvDataInfoBox/PvDataInfoBox.vue';
+import { PvDataInfoBox } from '@piveau/piveau-hub-ui-modules';
 
 export default Vue.extend({
   name: 'ECDataInfoBox',
@@ -15,6 +15,5 @@ export default Vue.extend({
   components: {
     PvDataInfoBox,
   },
-})
-
+});
 </script>

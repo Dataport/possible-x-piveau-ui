@@ -71,8 +71,6 @@ import {
   configureModules
 } from '@piveau/piveau-hub-ui-modules';
 
-
-
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
@@ -90,6 +88,8 @@ import ECDataInfoBox from "./components/ECDataInfoBox.vue";
 import ECDatasets from "./components/ECDatasets.vue";
 import ECDatasetsFilters from "./components/ECDatasetsFilters.vue";
 import ECCatalogues from "./components/ECCatalogues.vue";
+import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
+import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
 
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
@@ -99,9 +99,14 @@ const components = ecStyle ? {
   PvBanner: ECInfo,
   PvDataInfoBox: ECDataInfoBox,
   DatasetDetailsNavigationPage: ECLinkButton,
+<<<<<<< src/main.ts
   Datasets: ECDatasets,
   DatasetsFilters: ECDatasetsFilters,
   Catalogues: ECCatalogues,
+=======
+  DistributionsHeader: ECDistributionsHeader,
+  DistributionDetails: ECDistributionDetails
+>>>>>>> src/main.ts
 } : {};
 
 configureModules({
@@ -254,7 +259,6 @@ require('bootstrap');
 require('./styles/styles.scss');
 
 if (ecStyle) {
-  require('@ecl/preset-ec/dist/styles/ecl-ec.css');
   require('./styles/ec-style.scss');
   require('./styles/ec-style-datasets.scss');
 }

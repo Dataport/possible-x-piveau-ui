@@ -1,6 +1,6 @@
 <template>
-  <div class="position-relative d-inline-block ml-1">
-    <app-link @click="openDropdown" v-if="isOnlyOneUrl" class="btn btn-sm btn-primary p-0 pl-2 pr-2 w-100 rounded-lg btn-color"
+  <div class="position-relative d-inline-block ml-1 mb-1">
+    <app-link @click="openDropdown" v-if="isOnlyOneUrl" class="btn btn-sm btn-primary p-0 pl-2 pr-2 w-100 rounded-lg btn-color dropdown-button distribution-dropdown-download-one-url"
         :to="replaceHttp(getDownloadUrl(distribution))"
         :title="title"
         data-toggle="tooltip"
@@ -12,16 +12,16 @@
         {{ message }}
     </app-link>
     <div v-else>
-        <button @click="openDropdown"  class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color"
+        <button @click="openDropdown" class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button d-flex justify-content-between"
           type="button"
           aria-haspopup="true"
           aria-expanded="false">
-        <span data-toggle="tooltip"
-          :title="title"
-          data-placement="top">
-        {{ message }}
-        </span>
-        <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>
+          <span data-toggle="tooltip"
+            :title="title"
+            data-placement="top">
+          {{ message }}
+          </span>
+          <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>
         </button>
         <div v-if="open" v-on-clickaway="away" class="dropdownMenu" :class="{ bglight: bgLight }">
           <slot></slot>
@@ -34,8 +34,8 @@
 /* eslint-disable */
 import $ from 'jquery';
 import { mixin as clickaway } from 'vue-clickaway';
-import { replaceHttp } from '../../utils/helpers';
-import AppLink from "../../widgets/AppLink";
+import { replaceHttp } from '../../../utils/helpers';
+import AppLink from "../../../widgets/AppLink";
 
 export default {
   mixins: [clickaway],

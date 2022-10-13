@@ -1,6 +1,7 @@
 <template>
-  <button :class="`btn btn-${primary? 'primary' : 'secondary'}`" @click="action">
+  <button :class="`btn btn-${primary? 'primary' : 'secondary'} ${small? 'btn-sm' : ''} ${rounded? 'rounded-lg' : ''}`" @click="action">
     {{ label }}
+    <slot />
   </button>
 </template>
 
@@ -10,7 +11,12 @@ export default {
   props: {
     primary: Boolean,
     label: String,
-    action: Function
+    action: {
+      type: Function,
+      default: () => {}
+    },
+    small: Boolean,
+    rounded: Boolean
   }
 }
 </script>

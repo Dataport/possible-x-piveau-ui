@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import DistributionDropdownDownload from "@/modules/datasetDetails/distributions/DistributionDropdownDownload";
+import DistributionDropdownDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDropdownDownload";
 import AppLink from "@/modules/widgets/AppLink";
 
 export default {

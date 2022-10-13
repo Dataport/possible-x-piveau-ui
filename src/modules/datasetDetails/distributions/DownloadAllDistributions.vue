@@ -1,13 +1,14 @@
 <template>
-  <div v-if="getDistributions.length > 1">
-    <button v-if="isLoadingAllDistributionFiles"
-            class="btn btn-sm btn-primary download-all-btn d-flex justify-content-center rounded-lg btn-color"
-            data-toggle="modal" data-target="#downloadAllModal">
+  <div v-if="getDistributions.length > 1" class="dsd-download-all-distributions-button">
+    <pv-button v-if="isLoadingAllDistributionFiles" :small="small" :rounded="true" :primary="primary" :download="true"
+            class="download-all-btn"
+            data-toggle="modal" data-target="#downloadAllModal"
+    >
       <div class="loading-spinner"></div>
-    </button>
-    <button v-else class="btn btn-sm btn-primary download-all-btn rounded-lg btn-color" @click="openModal(downloadAllDistributions, true)">
+    </pv-button>
+    <pv-button v-else class="download-all-btn" :small="small" :rounded="true" :primary="primary" :download="true" :action="() => openModal(downloadAllDistributions, true)">
       {{ $t('message.datasetDetails.datasets.downloadAll') }}
-    </button>
+    </pv-button>
     <div class="modal fade" id="downloadAllModal" tabindex="-1" role="dialog" aria-labelledby="download progress" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -68,17 +69,19 @@ import { mapGetters } from "vuex";
 export default {
   name: "DownloadAllDistributions",
   props: [
-    'getDistributions',
     'getDistributionDescription',
-    'openModal',
     'getDistributionTitle',
+    'openModal',
     'isUrlInvalid',
-    'getCatalog',
-    'showDownloadUrls'
+    'showDownloadUrls',
+    'primary',
+    'small'
   ],
   computed: {
     ...mapGetters('datasetDetails', [
+      'getDistributions',
       'getTitle',
+      'getCatalog',
       'getLanguages'
     ])
   },

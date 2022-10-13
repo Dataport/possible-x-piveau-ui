@@ -10,6 +10,10 @@ import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimila
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
+import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
+import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
+import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
+
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
 import MapBasic from "./map/MapBasic.vue";
@@ -23,7 +27,9 @@ import SparqlSearch from "./pages/SparqlSearch.vue";
 import Datasets from "./datasets/Datasets.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
 
-import DataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
+import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
+
+import PvBadge from "./PvBadge/PvBadge.vue";
 
 import dateFilters from "./filters/dateFilters";
 
@@ -72,6 +78,10 @@ export {
   DatasetDetailsDataset,
   DatasetDetails,
 
+  DistributionDescription,
+  DistributionExpandedContent,
+  DistributionVisibleContent,
+
   CSVLinter,
 
   MapBasic,
@@ -85,7 +95,9 @@ export {
   Datasets,
   Catalogues,
 
-  DataInfoBox,
+  PvDataInfoBox,
+
+  PvBadge,
 
   dateFilters,
 

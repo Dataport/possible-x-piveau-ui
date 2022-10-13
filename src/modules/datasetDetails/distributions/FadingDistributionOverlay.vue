@@ -5,33 +5,41 @@
     <!-- Fade out the last item so it has a preview feel -->
     <!-- Render actions on top of it -->
     <div class="distributions__actions pb-md-3">
-      <button
+      <pv-button
         v-for="increment in distributions.incrementSteps.filter(nonOverflowingIncrementsForDistributions)"
         :key="increment"
-        class="btn btn-sm btn-secondary mr-1"
-        @click="increaseNumDisplayedDistributions(increment)"
+        :small="true"
+        class="mr-1"
+        :action="() => increaseNumDisplayedDistributions(increment)"
       >
         <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
-      </button>
-      <button
-        class="btn btn-sm btn-primary"
-        @click="setDistributionsDisplayCount(getDistributions.length)"
+      </pv-button>
+      <pv-button
+        :primary="true"
+        :small="true"
+        :action="() => setDistributionsDisplayCount(getDistributions.length)"
       >
         <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getDistributions.length.toLocaleString('fi') }}
-      </button>
+      </pv-button>
     </div>
   </div>
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: "FadingDistributionOverlay",
   props: {
     distributions: Object,
     setDistributionsDisplayCount: Function,
     increaseNumDisplayedDistributions: Function,
-    nonOverflowingIncrementsForDistributions: Function,
-    getDistributions: Array
+    nonOverflowingIncrementsForDistributions: Function
+  },
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getDistributions'
+    ])
   }
 }
 </script>

@@ -15,7 +15,6 @@
           class="content"
           :key="`${$route.fullPath}${minScoring}`"
       />
-
       <deu-footer
           :enable-authentication="$env.useAuthService"
           :authenticated="keycloak && keycloak.authenticated"

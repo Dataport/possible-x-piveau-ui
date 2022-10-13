@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <p v-for="fieldId in Object.keys(getSelectedFacets).filter(id => showSelectedFacet(id))" :key="fieldId">
+    <p v-for="facet in getSelectedFacetsOrdered.filter(facet => showSelectedFacet(facet))" :key="facet.field">
       <span>
-        {{ `${findFacetFieldTitle(fieldId)}:` }}
+        {{ `${findFacetFieldTitle(facet.field)}:` }}
       </span>
-      <span v-for="(facetId, i) in getSelectedFacets[fieldId]" :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
-        {{ findFacetTitle(fieldId, facetId) }}
-        <span @click="removeSelectedFacet(fieldId, facetId)" class="close-facet ml-2">&times;</span>
+      <span v-for="(facetId, i) in facet.facets" :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
+        {{ findFacetTitle(facet.field, facetId) }}
+        <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
       </span>
     </p>
   </div>
@@ -27,13 +27,28 @@
     data() {
       return {
         availableFacets: [],
-        showCatalogDetails: false,
+        defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       };
     },
     computed: {
       ...mapGetters('datasets', [
         'getAllAvailableFacets',
       ]),
+      getSelectedFacetsOrdered() {
+        const orderedFacets = [];
+
+        this.defaultFacetOrder.forEach((facet) => {
+          if (this.showCatalogDetails && facet === 'catalog') return;
+          Object.keys(this.getSelectedFacets).forEach((field) => { 
+            if (facet === field && this.getSelectedFacets[field].length > 0) orderedFacets.push({
+              field,
+              facets: this.getSelectedFacets[field],
+            }); 
+          });
+        });
+
+        return orderedFacets;
+      },
       getSelectedFacets() {
         if (this.$route.query.dataScope && this.$route.query.country && this.$route.query.country.length > 0) {
           let newSelectedFacets = {};
@@ -54,9 +69,12 @@
             else newSelectedFacets[key] = this.selectedFacets[key];
           });
 
-          this.routerPush({ query: Object.assign({}, this.$route.query, { page: 1 }) });
+          if (this.$route.query.dataScope === 'countryData') newSelectedFacets.dataScope = ['countryData'];
+
+          this.routerPush({ query: Object.assign({}, this.$route.query) });
 
           return newSelectedFacets;
+
         } else if (this.$route.query.dataScope && this.$route.query.dataScope.length > 0) {
           let newSelectedFacets = {};
 
@@ -68,7 +86,7 @@
                 newSelectedFacets.dataScope.push(this.$route.query.dataScope);
               } else {
                 this.selectedFacets['country'].forEach(country => {
-                  newSelectedFacets.dataScope.push(country)
+                  newSelectedFacets.dataScope.push(country);
                 });
               }
             }
@@ -76,10 +94,8 @@
           });
 
           return newSelectedFacets;
+
         } else return this.selectedFacets;
-      },
-      showCatalogDetailsWatcher() {
-        return this.$route.query.showcatalogdetails;
       },
     },
     methods: {
@@ -89,11 +105,12 @@
       routerPush(object) {
         return this.$router.push(object).catch(error => { console.log(error) });
       },
-      showSelectedFacet(fieldId) {
-        return this.getSelectedFacets[fieldId].length > 0
+      showSelectedFacet(facet) {
+        return facet.facets.length > 0
       },
       findFacetTitle(fieldId, facetId) {
         try {
+          if (fieldId === 'country' && facetId === 'io') fieldId = 'dataScope';
           const facetTitle = this.getAllAvailableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
           return getFacetTranslation(fieldId, facetId, this.$route.query.locale, facetTitle);
         } catch {
@@ -156,23 +173,11 @@
 
         return this.routerPush(routerObject);
       },
-      initShowCatalogDetails() {
-        const showCatalogDetails = this.$route.query.showcatalogdetails;
-        if (showCatalogDetails === 'true') {
-          this.showCatalogDetails = true;
-        } else this.showCatalogDetails = false;
+      showCatalogDetails() {
+        return this.$route.query.showcatalogdetails === 'true';
       },
     },
-    watch: {
-      showCatalogDetailsWatcher: {
-        handler(showCatalogDetails) {
-          this.showCatalogDetails = showCatalogDetails;
-        },
-      },
-    },
-    created() {
-      this.initShowCatalogDetails();
-    },
+    created() {},
   };
 </script>
 

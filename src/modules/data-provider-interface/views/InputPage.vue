@@ -30,6 +30,7 @@ import {
   has,
   isNil,
   isArray,
+  isEmpty,
 } from 'lodash';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
@@ -213,17 +214,15 @@ export default {
     });
   },
   beforeRouteUpdate(to, from, next) {
-    let firstStep;
-    let path;
 
-    if (this.property === 'distributions') {
-      path = `${this.$env.upload.basePath}/datasets/distoverview`;
-    } else {
-      firstStep = this.getNavSteps[this.property][0];
-      path = `${this.$env.upload.basePath}/${this.property}/${firstStep}`;
-    }
+    // from within the DPI: checks if next route within the DPI is a route which does not require mandatory checking
+    let allowedPaths = [
+      `${this.$env.upload.basePath}/datasets/distoverview`,
+      `${this.$env.upload.basePath}/datasets/${this.getNavSteps.datasets[0]}`,
+      `${this.$env.upload.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`
+    ];
 
-    if (to.query.clear !== 'true' && !to.path.startsWith(path) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+    if (to.query.clear !== 'true' && isEmpty(allowedPaths.filter(el => el.startsWith(to.path))) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
       $('#mandatoryModal').modal({ show: true });
     } else {
       next();
