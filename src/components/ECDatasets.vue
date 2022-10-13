@@ -3,7 +3,7 @@
     <datasets-top-controls :facets="facets" :getPage="getPage" :getLimit="getLimit" />
     <div class="container-fluid datasets content">
       <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
-      <h1 class="row col-12 page-title text-primary ec-ds-title">{{ $t('message.header.navigation.data.datasets') }}
+      <h1 class="row col-12 page-title text-primary ec-ds-title" v-else>{{ $t('message.header.navigation.data.datasets') }}
       </h1>
       <div class="row">
         <div class="col d-flex d-md-none justify-content-end flex-wrap">
@@ -159,9 +159,10 @@ export default {
       'getAvailableFacets',
       'getMinScoring',
     ]),
-    // showCatalogDetails() {
-    //     return this.$route.query.showcatalogdetails === 'true';
-    // },
+    showCatalogDetails() {
+         console.log(this.$route.query.showcatalogdetails);
+        return this.$route.query.showcatalogdetails === 'true';
+    },
     /**
      * @description Returns the current page.
      * @returns {Number}
