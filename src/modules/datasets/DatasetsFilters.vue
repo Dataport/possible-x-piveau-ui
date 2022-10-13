@@ -1,16 +1,16 @@
 <template>
-  <div class="filters-group">
+  <div class="filters-group ds">
     <div class="row">
       <div class="col">
         <div class="input-group">
-          <input type="text" class="form-control rounded-lg"
+          <input type="text" class="form-control rounded-lg ds-input"
                 :aria-label="$t('message.datasets.searchBar.placeholder')"
                 :placeholder="$t('message.datasets.searchBar.placeholder')"
                 v-model="query"
                 @keyup.enter="changeQuery(query)"
                 @click="autocompleteData.show = autocompleteData.suggestions.length > 0 && query.length > 0 ? !autocompleteData.show : false">
           <div class="input-group-append ml-2">
-            <button class="btn btn-sm btn-primary d-flex align-items-center search-button" type="button" @click="changeQuery(query)">
+            <button class="btn btn-sm btn-primary d-flex align-items-center search-button ds-input" type="button" @click="changeQuery(query)">
               <i class="material-icons align-bottom">search</i>
             </button>
           </div>

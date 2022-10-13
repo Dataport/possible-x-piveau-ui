@@ -6,6 +6,7 @@ import PvButton from "@/modules/widgets/PvButton.vue";
 import PvBanner from "@/modules/widgets/PvBanner.vue";
 import DatasetDetailsNavigationPage from "@/modules/datasetDetails/navigation/DatasetDetailsNavigationPage.vue";
 import PvDataInfoBox from "@/modules/PvDataInfoBox/PvDataInfoBox.vue";
+import Datasets from "@/modules/datasets/Datasets.vue";
 import DistributionsHeader from "@/modules/datasetDetails/distributions/DistributionsHeader.vue";
 import DistributionDetails from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDetails.vue";
 
@@ -19,8 +20,12 @@ const defaultComponents: ComponentMap = {
   PvBanner,
   DatasetDetailsNavigationPage,
   PvDataInfoBox,
+<<<<<<< src/modules/configurations/configureComponents.ts
+  Datasets,
+=======
   DistributionsHeader,
   DistributionDetails
+>>>>>>> src/modules/configurations/configureComponents.ts
 };
 
 export function configureComponents(components?: ComponentMap) {

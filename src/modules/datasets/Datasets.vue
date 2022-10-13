@@ -111,7 +111,7 @@
   import DatasetsFilters from "@/modules/datasets/DatasetsFilters";
 
   export default {
-    name: 'datasets',
+    name: 'Datasets',
     dependencies: ['DatasetService'],
     components: {
       DatasetsFilters,
