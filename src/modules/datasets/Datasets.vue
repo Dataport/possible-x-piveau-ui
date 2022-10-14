@@ -4,6 +4,7 @@
       :facets="facets"
       :getPage="getPage"
       :getLimit="getLimit"
+      class="datasets-top-controls"
     />
     <div class="container-fluid datasets content">
       <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
@@ -421,7 +422,7 @@
     mounted() {
       // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)
       if (this.$route.query.refresh === 'true') {
-        this.$nextTick(() => { 
+        this.$nextTick(() => {
           this.$nextTick(() => {
             this.loadDatasets({ locale: this.$route.query.locale })
               .then(() => {

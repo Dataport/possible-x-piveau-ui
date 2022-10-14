@@ -261,7 +261,6 @@ require('./styles/styles.scss');
 
 if (ecStyle) {
   require('./styles/ec-style.scss');
-  require('./styles/ec-style-datasets.scss');
 }
 
 $(() => {

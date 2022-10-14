@@ -78,6 +78,7 @@ import DatasetsTopControls from "./datasets/DatasetsTopControls";
 import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
 import SubNavigation from './navigation/SubNavigation.vue';
 import getCountryFlagImg from './utils/helpers';
+import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
 export {
   AppLink,
@@ -105,6 +106,7 @@ export {
   SparqlSearch,
 
   Datasets,
+  DatasetsFilters,
   Catalogues,
 
   PvDataInfoBox,
