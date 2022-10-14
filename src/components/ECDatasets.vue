@@ -405,7 +405,6 @@ export default {
     this.useService(this.DatasetService);
     this.initDataScope();
     this.initLimit();
-    this.initLimit();
     this.initPage();
     this.initFacetOperator();
     this.initFacetGroupOperator();

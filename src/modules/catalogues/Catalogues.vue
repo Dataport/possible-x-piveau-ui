@@ -465,7 +465,6 @@
     created() {
       this.useService(this.catalogService);
       this.initLimit();
-      this.initLimit();
       this.initPage();
       this.initQuery();
       this.initSort();
