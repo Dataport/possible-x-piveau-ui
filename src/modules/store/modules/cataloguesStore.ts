@@ -228,7 +228,6 @@ const actions = {
     commit('SET_SORT', sort);
   },
   setLimit({ commit }, amount = RESULTS_PER_PAGE) {
-    console.log('setLimit')
     commit('SET_LIMIT', amount);
   },
   setLoading({ commit }, isLoading) {
@@ -252,8 +251,6 @@ const mutations = {
     state.catalogs = state.catalogs.concat(data);
   },
   SET_LIMIT(state, limit) {
-    console.log(state.searchParameters.limit)
-    console.log(limit)
     state.searchParameters.limit = limit;
   },
   SET_OFFSET(state, offset) {
