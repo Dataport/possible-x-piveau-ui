@@ -81,14 +81,14 @@ import {
   isArray,
 } from 'lodash';
 import $ from 'jquery';
-import fileTypes from '@/modules/utils/fileTypes';
-import DatasetsFacets from '@/modules/datasets/datasetsFacets/DatasetsFacets.vue';
-import Pagination from '@/modules/widgets/Pagination.vue';
-import SelectedFacetsOverview from '@piveau/piveau-hub-ui-modules';
-import AppLink from '@/modules/widgets/AppLink.vue';
+import { fileTypes } from '@piveau/piveau-hub-ui-modules';
+import { DatasetsFacets } from '@piveau/piveau-hub-ui-modules';
+import { Pagination } from '@piveau/piveau-hub-ui-modules';
+import { SelectedFacetsOverview } from '@piveau/piveau-hub-ui-modules';
+import { AppLink } from '@piveau/piveau-hub-ui-modules';
 import { getTranslationFor, truncate, getImg } from '@/modules/utils/helpers';
-import DatasetsTopControls from "@/modules/datasets/DatasetsTopControls";
-import DatasetsFilters from "@/modules/datasets/DatasetsFilters";
+import { DatasetsTopControls } from "@/modules/datasets/DatasetsTopControls";
+import { DatasetsFilters }  from "@/modules/datasets/DatasetsFilters";
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
 
 export default {
