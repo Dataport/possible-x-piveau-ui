@@ -44,14 +44,14 @@
                                                 data-placement="top"> -->
                                             <li class="nav-item mb-0" role="tab">
                                                 <router-link
-                                                    :to="{name: 'ECCatalogues', query: { locale: $route.query.locale }}"
+                                                    :to="{name: 'Catalogues', query: { locale: $route.query.locale }}"
                                                     class="nav-link router-link-active" role="presentation">
                                                     {{ $t('message.header.navigation.data.catalogs') }}
                                                 </router-link>
                                             </li>
                                             <li class="nav-item mb-0" role="tab">
                                                 <router-link
-                                                    :to="{name: 'ECDatasets', query: { locale: $route.query.locale }}"
+                                                    :to="{name: 'Datasets', query: { locale: $route.query.locale }}"
                                                     class="nav-link router-link-inactive" role="presentation">
                                                     {{ $t('message.header.navigation.data.datasets') }}
                                                 </router-link>
@@ -147,7 +147,7 @@
                 </div>
                 <selectedFacetsOverview :selected-facets="getFacets"></selectedFacetsOverview>
                 <pv-data-info-box v-for="catalog in getCatalogs" :key="`data-info-box@${catalog.id}`" catalog-mode
-                    :to="{name: 'ECDatasets', query: {catalog: catalog.id, showcatalogdetails: true, locale: $route.query.locale}}"
+                    :to="{name: 'Datasets', query: {catalog: catalog.id, showcatalogdetails: true, locale: $route.query.locale}}"
                     :src="getImg(getCatalogImage(catalog))" :dataset="{
                       title: getTranslationFor(catalog.title, $route.query.locale, getCatalogLanguages(catalog)),
                       description:
@@ -172,18 +172,20 @@
       </div>
     </div>
 </template>
-  
+
 <script>
 import $ from 'jquery';
 import { mapActions, mapGetters } from 'vuex';
 import { debounce, has } from 'lodash';
-import fileTypes from '@/modules/utils/fileTypes';
-import CataloguesFacets from '@/modules/catalogues/cataloguesFacets/CataloguesFacets.vue';
-import Pagination from '@/modules/widgets/Pagination.vue';
-import SelectedFacetsOverview from '@/modules/facets/SelectedFacetsOverview.vue';
-import dateFilters from '@/modules/filters/dateFilters';
-import SubNavigation from '@/modules/navigation/SubNavigation.vue';
-import { getImg, getCountryFlagImg, getTranslationFor } from '@/modules/utils/helpers';
+import {
+  CataloguesFacets,
+  Pagination,
+  SelectedFacetsOverview,
+  dateFilters,
+  fileTypes,
+  helpers
+} from '@piveau/piveau-hub-ui-modules';
+const { getImg, getCountryFlagImg, getTranslationFor } = helpers;
 
 export default {
     name: 'eccatalogs',
@@ -489,7 +491,7 @@ export default {
     },
 };
 </script>
-  
+
 <style lang="scss" scoped>
 .alert-primary {
     color: #042648;
@@ -610,4 +612,3 @@ export default {
     z-index: 100;
 }
 </style>
-  

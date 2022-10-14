@@ -1,6 +1,11 @@
 <template>
   <div class="d-flex flex-column p-0 bg-transparent">
-    <datasets-top-controls :facets="facets" :getPage="getPage" :getLimit="getLimit" />
+    <datasets-top-controls
+      :facets="facets"
+      :getPage="getPage"
+      :getLimit="getLimit"
+      class="datasets-top-controls"
+    />
     <div class="container-fluid datasets content">
       <h1 class="row col-12 page-title catalog-title text-primary ec-ds-title" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
       <h1 class="row col-12 page-title text-primary ec-ds-title" v-else>{{ $t('message.header.navigation.data.datasets') }}
@@ -67,10 +72,9 @@
     </div>
   </div>
 </template>
-  
+
 <script>
 /* eslint-disable no-undef */
-// Import vuex helpers
 import { mapActions, mapGetters } from 'vuex';
 import {
   debounce,
@@ -81,15 +85,18 @@ import {
   isArray,
 } from 'lodash';
 import $ from 'jquery';
-import fileTypes from '@/modules/utils/fileTypes';
-import DatasetsFacets from '@/modules/datasets/datasetsFacets/DatasetsFacets.vue';
-import Pagination from '@/modules/widgets/Pagination.vue';
-import SelectedFacetsOverview from '@piveau/piveau-hub-ui-modules';
-import AppLink from '@/modules/widgets/AppLink.vue';
-import { getTranslationFor, truncate, getImg } from '@/modules/utils/helpers';
-import DatasetsTopControls from "@/modules/datasets/DatasetsTopControls";
-import DatasetsFilters from "@/modules/datasets/DatasetsFilters";
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
+import {
+  DatasetsFilters,
+  DatasetsTopControls,
+  AppLink,
+  SelectedFacetsOverview,
+  DatasetsFacets,
+  Pagination,
+  fileTypes,
+  helpers
+} from '@piveau/piveau-hub-ui-modules';
+const { getTranslationFor, truncate, getImg } = helpers;
 
 export default {
   name: 'ECDatasets',
@@ -97,11 +104,11 @@ export default {
   components: {
     DatasetsFilters,
     DatasetsTopControls,
-    appLink: AppLink,
-    selectedFacetsOverview: SelectedFacetsOverview,
-    datasetsFacets: DatasetsFacets,
-    pagination: Pagination,
-    ECDatasetsFilters,
+    AppLink,
+    SelectedFacetsOverview,
+    DatasetsFacets,
+    Pagination,
+    ECDatasetsFilters
   },
   props: {
     infiniteScrolling: {
@@ -429,7 +436,7 @@ export default {
   },
 };
 </script>
-  
+
 <style lang="scss" scoped>
 .alert-primary {
   color: #042648;
@@ -475,4 +482,3 @@ export default {
   }
 }
 </style>
-  

@@ -47,6 +47,7 @@ import ECCatalogues from "../src/components/ECCatalogues.vue"
 // const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
 // const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
 
+import { ecStyle } from '../config/user-config';
 
 Vue.use(Router);
 
@@ -64,15 +65,15 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: { name: 'ECDatasets' },
+      redirect: { name: 'Datasets'  },
       meta: {
         title,
       },
     },
     {
       path: '/datasets',
-      name: 'ECDatasets',
-      component: ECDatasets,
+      name: 'Datasets',
+      component: ecStyle ? ECDatasets : Datasets,
       meta: {
         title,
       },
@@ -146,8 +147,8 @@ const router = new Router({
     },
     {
       path: '/catalogues',
-      name: 'ECCatalogues',
-      component: ECCatalogues,
+      name: 'Catalogues',
+      component: ecStyle ? ECCatalogues : Catalogues,
       meta: {
         title,
       },

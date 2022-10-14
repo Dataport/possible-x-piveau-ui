@@ -34,7 +34,7 @@
                   data-toggle="tooltip"
                   data-placement="top"> -->
                   <li class="nav-item mb-0" role="tab">
-                    <router-link :to="{name: 'ECDatasets', query: { locale: $route.query.locale }}"
+                    <router-link :to="{name: 'Datasets', query: { locale: $route.query.locale }}"
                       class="nav-link router-link-active" role="presentation">
                       {{ $t('message.header.navigation.data.datasets') }}
                     </router-link>
@@ -44,7 +44,7 @@
                 data-toggle="tooltip"
                 data-placement="top"> -->
                   <li class="nav-item mb-0" role="tab">
-                    <router-link :to="{name: 'ECCatalogues', query: { locale: $route.query.locale }}" v-if="useCatalogs"
+                    <router-link :to="{name: 'Catalogues', query: { locale: $route.query.locale }}" v-if="useCatalogs"
                       class="nav-link router-link-inactive" role="presentation">
                       {{ $t('message.header.navigation.data.catalogs') }}
                     </router-link>
@@ -72,7 +72,7 @@
                   data-toggle="tooltip"
                   data-placement="top">
                 <router-link
-                  :to="{name: 'ECDatasets', query: { locale: $route.query.locale }}"
+                  :to="{name: 'Datasets', query: { locale: $route.query.locale }}"
                   class="nav-link router-link-active"
                   role="presentation">
                      {{ $t('message.header.navigation.data.datasets') }}
@@ -180,7 +180,8 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { getTranslationFor } from "@/modules/utils/helpers";
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+const { getTranslationFor } = helpers;
 
 export default {
   name: 'ECDatasetsFilters',
