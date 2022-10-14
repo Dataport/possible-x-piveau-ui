@@ -23,7 +23,7 @@
     <!-- ITEMS PER PAGE -->
     <div class="col-4" v-if="useItemsPerPage">
       <div class="items-per-page">
-        <div class="d-inline align-middle mr-2">{{ $t('message.pagination.itemsPerPage') }}:</div>
+        <div class="d-inline align-middle mr-2">Items per Page:</div>
         <div class="col-right mr-2 d-inline" role="group" aria-label="Items per Page Dropdown">
           <div class="btn-group items-per-page-dropdown" role="group">
             <button
