@@ -1,3 +1,7 @@
+.ecl-select__icon {
+  background-color: #404040 !important;
+}
+
 .ec-ds-title {
   font-size: 32px !important;
   color: #404040 !important;
@@ -37,7 +41,7 @@
 }
 
 .ec-ds-scope-select {
-  background-color: #fff;
+  background-color: #fff !important;
   color: #004494;
 }
 
@@ -96,4 +100,10 @@ hr {
 .ec-sort-dropdown {
   width: 200px;
   height: 48px;
+
+  &-small {
+    width: 100px;
+    height: 48px;
+  }
 }
+
