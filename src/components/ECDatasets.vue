@@ -75,7 +75,6 @@
 
 <script>
 /* eslint-disable no-undef */
-// Import vuex helpers
 import { mapActions, mapGetters } from 'vuex';
 import {
   debounce,
@@ -86,15 +85,18 @@ import {
   isArray,
 } from 'lodash';
 import $ from 'jquery';
-import fileTypes from '@/modules/utils/fileTypes';
-import DatasetsFacets from '@/modules/datasets/datasetsFacets/DatasetsFacets.vue';
-import Pagination from '@/modules/widgets/Pagination.vue';
-import { SelectedFacetsOverview } from '@piveau/piveau-hub-ui-modules';
-import AppLink from '@/modules/widgets/AppLink.vue';
-import { getTranslationFor, truncate, getImg } from '@/modules/utils/helpers';
-import DatasetsTopControls from "@/modules/datasets/DatasetsTopControls";
-import DatasetsFilters from "@/modules/datasets/DatasetsFilters";
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
+import {
+  DatasetsFilters,
+  DatasetsTopControls,
+  AppLink,
+  SelectedFacetsOverview,
+  DatasetsFacets,
+  Pagination,
+  fileTypes,
+  helpers
+} from '@piveau/piveau-hub-ui-modules';
+const { getTranslationFor, truncate, getImg } = helpers;
 
 export default {
   name: 'ECDatasets',
@@ -102,11 +104,11 @@ export default {
   components: {
     DatasetsFilters,
     DatasetsTopControls,
-    appLink: AppLink,
-    selectedFacetsOverview: SelectedFacetsOverview,
-    datasetsFacets: DatasetsFacets,
-    pagination: Pagination,
-    ECDatasetsFilters,
+    AppLink,
+    SelectedFacetsOverview,
+    DatasetsFacets,
+    Pagination,
+    ECDatasetsFilters
   },
   props: {
     infiniteScrolling: {
@@ -160,7 +162,6 @@ export default {
       'getMinScoring',
     ]),
     showCatalogDetails() {
-         console.log(this.$route.query.showcatalogdetails);
         return this.$route.query.showcatalogdetails === 'true';
     },
     /**

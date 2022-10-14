@@ -180,7 +180,8 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { getTranslationFor } from "@/modules/utils/helpers";
+import { helpers } from '@piveau/piveau-hub-ui-modules';
+const { getTranslationFor } = helpers;
 
 export default {
   name: 'ECDatasetsFilters',
