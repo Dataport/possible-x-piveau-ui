@@ -8,14 +8,11 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
-// Module Constants
-/**
- * @description The Default amount of catalogs per page.
- * @type {number}
- */
-const RESULTS_PER_PAGE = 10;
 
-// catalogs Module State
+const RESULTS_PER_PAGE = 10;
+// const RESULTS_PER_PAGE = GLUE_CONFIG.pagination.defaultItemsPerPage;
+
+// Catalogs Module State
 const state = {
   /**
    * @property catalogs
@@ -94,7 +91,7 @@ const actions = {
     { commit, state },
     {
       query = GETTERS.getQuery(state),
-      limit = RESULTS_PER_PAGE,
+      limit = GETTERS.getLimit(state),
       page = GETTERS.getPage(state),
       sort = GETTERS.getSort(state),
       facetOperator = GETTERS.getFacetOperator(state),
@@ -128,7 +125,7 @@ const actions = {
    * @param state
    * @param {number} amount - The amount of catalogs to add.
    */
-  loadAdditionalCatalogs({ commit, state } /*, amount = RESULTS_PER_PAGE*/) {
+  loadAdditionalCatalogs({ commit, state }) {
     // const offset = GETTERS.getOffset(state) + amount;
     // commit('SET_OFFSET', offset);
     const page = GETTERS.getPage(state);
@@ -230,15 +227,9 @@ const actions = {
   setSort({ commit }, sort) {
     commit('SET_SORT', sort);
   },
-  /**
-   * @description Increases the limit that is stored in the state
-   * @param commit
-   * @param state
-   * @param amount {Number} - The amount to add to the current state limit
-   */
-  incLimit({ commit, state, getters }, amount = RESULTS_PER_PAGE) {
-    const limit = getters.getLimit(state) + amount;
-    commit('SET_LIMIT', limit);
+  setLimit({ commit }, amount = RESULTS_PER_PAGE) {
+    console.log('setLimit')
+    commit('SET_LIMIT', amount);
   },
   setLoading({ commit }, isLoading) {
     commit('SET_LOADING', isLoading);
@@ -261,6 +252,8 @@ const mutations = {
     state.catalogs = state.catalogs.concat(data);
   },
   SET_LIMIT(state, limit) {
+    console.log(state.searchParameters.limit)
+    console.log(limit)
     state.searchParameters.limit = limit;
   },
   SET_OFFSET(state, offset) {

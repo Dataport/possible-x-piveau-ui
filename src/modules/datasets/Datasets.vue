@@ -71,18 +71,13 @@
         </section>
       </div>
       <div class="row">
-        <div class="column col-12 col-md-8 offset-md-4">
-          <div class="d-flex flex-row justify-content-center">
-            <pagination class="mt-3"
-                        v-if="pagination"
-                        :items-count="getDatasetsCount"
-                        :items-per-page="getLimit"
-                        :click-handler="changePageTo"
-                        :get-page="getPage"
-                        :next-button-text="$t('message.pagination.nextPage')"
-                        :prev-button-text="$t('message.pagination.previousPage')">
-            </pagination>
-          </div>
+        <div class="column col-12 col-md-9 offset-md-3">
+          <pagination class="mt-3" 
+            :items-count="getDatasetsCount"
+            :items-per-page="getLimit"
+            :get-page="getPage"
+            :get-page-count="getPageCount"
+            @setPageLimit="setPageLimit"></pagination>
         </div>
       </div>
     </div>
@@ -126,10 +121,6 @@
       infiniteScrolling: {
         type: Boolean,
         default: false,
-      },
-      pagination: {
-        type: Boolean,
-        default: true,
       },
     },
     metaInfo() {
@@ -221,6 +212,7 @@
         'setFacetGroupOperator',
         'setDataServices',
         'setPageCount',
+        'setLimit',
         'setLoading',
         'setDataScope',
       ]),
@@ -230,12 +222,6 @@
       truncate,
       getTranslationFor,
       getImg,
-      changePageTo(page) {
-        this.$router.replace(
-          { query: Object.assign({}, this.$route.query, { page }) }
-        ).catch(error => { console.log(error); });
-        this.scrollTo(0, 0);
-      },
       /**
        * @description Handler-function for the scroll event.
        */
@@ -265,14 +251,6 @@
         });
       },
       /**
-       * @description The the current scroll-level to a given point.
-       * @param x {Number} - The x-position to scroll to
-       * @param y {Number} - The y-position to scroll to
-       */
-      scrollTo(x, y) {
-        window.scrollTo(x, y);
-      },
-      /**
        * @description Cuts badge format string (max 8 chars)
        * @param label {String} - badge label or id (e.g. csv)
        */
@@ -300,6 +278,14 @@
         const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
         const uniqByIdAndLabel = uniqBy(uniqById, 'label');
         return uniqByIdAndLabel;
+      },
+      initLimit() {
+        const limit = parseInt(this.$route.query.limit, 10);
+        if (limit > 0) this.setLimit(limit);
+      },
+      setPageLimit(value) {
+        this.setLimit(value);
+        this.initDatasets();
       },
       initDataScope() {
         this.setDataScope(this.dataScope);
@@ -360,6 +346,27 @@
           this.setDataServices('false');
         }
       },
+      initDatasets() {
+        this.$nextTick(() => {
+          this.$nextTick(() => {
+            this.$Progress.start();
+            this.loadDatasets({ locale: this.$route.query.locale })
+              .then(() => {
+                this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
+                this.$Progress.finish();
+                $('[data-toggle="tooltip"]').tooltip({
+                  container: 'body',
+                });
+              })
+              .catch(() => {
+                this.$Progress.fail();
+              });
+          });
+        });
+      },
+      initInfiniteScrolling() {
+        if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
+      },
       getFileTypeColor(format) {
         return fileTypes.getFileTypeColor(format);
       },
@@ -396,28 +403,15 @@
     created() {
       this.useService(this.DatasetService);
       this.initDataScope();
+      this.initLimit();
+      this.initLimit();
       this.initPage();
       this.initFacetOperator();
       this.initFacetGroupOperator();
       this.initDataServices();
       this.initFacets();
-      this.$nextTick(() => {
-        this.$nextTick(() => {
-          this.$Progress.start();
-          this.loadDatasets({ locale: this.$route.query.locale })
-            .then(() => {
-              this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
-              this.$Progress.finish();
-              $('[data-toggle="tooltip"]').tooltip({
-                container: 'body',
-              });
-            })
-            .catch(() => {
-              this.$Progress.fail();
-            });
-        });
-      });
-      if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
+      this.initDatasets();
+      this.initInfiniteScrolling();
     },
     mounted() {
       // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)
