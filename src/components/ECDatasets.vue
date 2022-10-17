@@ -87,7 +87,6 @@ import {
 import $ from 'jquery';
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
 import {
-  DatasetsFilters,
   DatasetsTopControls,
   AppLink,
   SelectedFacetsOverview,
@@ -102,7 +101,6 @@ export default {
   name: 'ECDatasets',
   dependencies: ['DatasetService'],
   components: {
-    DatasetsFilters,
     DatasetsTopControls,
     AppLink,
     SelectedFacetsOverview,

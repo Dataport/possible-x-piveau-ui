@@ -7,7 +7,7 @@
         tag="additional-information-toggle"
         :onClick="toggleInfo"
       />
-      <div class="dsd-item additional-information"
+      <div class="position-relative dsd-item additional-information"
            data-cy="additional-information"
            v-show="infoVisible">
         <table class="table table-borderless table-responsive bg-light" ref="dsdProperties" id="myTab" role="tablist">
@@ -558,10 +558,11 @@
             </td>
           </tr>
         </table>
+        <div class="additional-information-overlay" v-if="showMoreVisible && !expanded"></div>
       </div>
     </div>
     <pv-show-more
-      v-if="initialHeight > restrictedHeight"
+      v-if="showMoreVisible"
       :label="expanded? 'Show less' : 'Show more'"
       :upArrow="expanded"
       :action="toggleExpanded"
@@ -650,6 +651,9 @@ export default {
     getAccrualPeriodicityLabel() {
       return !isNil(this.getAccrualPeriodicity) && has(this.getAccrualPeriodicity, 'label') ? this.getAccrualPeriodicity.label : '';
     },
+    showMoreVisible() {
+      return this.initialHeight > this.restrictedHeight;
+    }
   },
   methods: {
     isNil,
@@ -686,5 +690,15 @@ export default {
 <style scoped lang="scss">
 .arrow {
   cursor: pointer;
+}
+
+.additional-information-overlay {
+  width: 100%;
+  height: 160px;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0, white 100%);
+  pointer-events: none;
 }
 </style>
