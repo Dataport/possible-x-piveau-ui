@@ -7,18 +7,21 @@ import {
 
 import i18n from './i18n';
 
+// export const ecStyle = true;
+export const ecStyle = false;
+
 const glueConfig = {
   title: 'data.europa.eu',
   description: 'data.europa.eu',
   keywords: 'DEU',
   api: {
-    // baseUrl: 'https://data.europa.eu/api/hub/search/',
-    baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    baseUrl: 'https://data.europa.eu/api/hub/search/',
+    // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
     similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
-    // hubUrl: 'https://data.europa.eu/api/hub/repo/',
-    hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    hubUrl: 'https://data.europa.eu/api/hub/repo/',
+    // hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     catalogBaseUrl: 'https://europeandataportal.eu/',
     authToken: '',
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
@@ -116,6 +119,13 @@ const glueConfig = {
     },
     bottom: {}
   },
+  pagination: {
+    usePagination: true,
+    usePaginationArrows: false,
+    useItemsPerPage: true,
+    defaultItemsPerPage: 10,
+    defaultItemsPerPageOptions: [5, 10, 25, 50],
+  },
   images: {
     top: [
       {
@@ -148,9 +158,12 @@ const glueConfig = {
       ],
     },
     facets: {
+      cutoff: ecStyle ? 5 : -1,
+      showClearButton: ecStyle,
+      showFacetsTitle: ecStyle, // Title on top of the facets
       useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
-      useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
-      defaultFacetOrder: ['dataScope', 'country', 'catalog', 'categories', 'publisher', 'keywords', 'dataServices', 'scoring', 'format', 'license'],
+      useDatasetFacetsMap: false, // Enable / Disable the map on the Datasets page
+      defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'],
       scoringFacets: {
         useScoringFacets: true, // Enable / Disable the scoring facets
         defaultMinScore: 0, // Set the default mininimum score, the value should be one of the below listed minScores
@@ -205,6 +218,9 @@ const glueConfig = {
   },
   catalogs: {
     facets: {
+      cutoff: ecStyle ? 5 : -1,
+      showClearButton: ecStyle,
+      showFacetsTitle: ecStyle, // Title on top of the facets
       // Enable / Disable the facets on the Catalogues page
       useCatalogFacets: true,
       defaultFacetOrder: ['country'],
@@ -235,6 +251,14 @@ const glueConfig = {
     defaultCatalogID: 'european-union-open-data-portal',
   },
   datasetDetails: {
+    header: {
+      navigation: ecStyle ? "below" : "top", // "top", "below"
+      hidePublisher: ecStyle,
+      hideDate: ecStyle
+    },
+    keywords: {
+      showTitle: ecStyle
+    },
     description: {
       // If true, parses dataset description as Markdown formatted text content.
       enableMarkdownInterpretation: true,
@@ -298,6 +322,7 @@ const glueConfig = {
       isVisible: false,
     },
     bulkDownload: {
+      buttonPosition: ecStyle ? "bottom" : "top", // bottom or top
       // Maximum length for a file title before being truncated
       MAX_FILE_TITLE_LENGTH: 80,
       // Maximum parallel axios requests
@@ -349,8 +374,10 @@ const glueConfig = {
   },
   upload: {
     useUpload: true,
-    useCreateDatasetButton: true,
-    useCreateCatalogueButton: true,
+    buttons: {
+      Dataset: true,
+      Catalogue: false,
+    },
     basePath: '/dpi',
   },
   doiRegistrationService: {

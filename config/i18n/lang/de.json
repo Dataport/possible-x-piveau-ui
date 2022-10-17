@@ -851,16 +851,11 @@
                             "distribution2": {
                                 "name": "Zusätzliche Informationen"
                             }
-                        },
-                        "name": "Erstellen Sie Verteilungen"
+                        }
                     },
                     "overview": "Übersicht über den Datensatz",
-                    "step1": {
-                        "name": "Datensatz erstellen"
-                    },
-                    "step2": {
-                        "name": "Festlegung der Eigenschaften des Datensatzes"
-                    }
+                    "step1": {},
+                    "step2": {}
                 },
                 "issued": {
                     "placeholder": "Datensatz Ausgegebener Platzhalter Text",
@@ -1152,7 +1147,10 @@
             "validationtitle": "Validierung",
             "publishdraft": "Entwurf veröffentlichen",
             "newDistribution": "Weitere Verteilung hinzufügen",
-            "validationerror": "Es liegt ein Fehler bei der Validierung Ihres Formulars vor!"
+            "validationerror": "Es liegt ein Fehler bei der Validierung Ihres Formulars vor!",
+            "createDataset": "Datensatz erstellen",
+            "defineDatasetProperties": "Festlegung der Eigenschaften des Datensatzes",
+            "createDistributions": "Erstellen Sie Verteilungen"
         },
         "datasetDetails": {
             "subnav": {

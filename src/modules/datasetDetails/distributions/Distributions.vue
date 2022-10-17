@@ -1,32 +1,20 @@
 <template>
-    <div class="mt-1">
+    <div class="mt-1 dsd-distributions">
       <div class="row">
-        <div class="col-12 col-lg-11 offset-lg-1 d-flex justify-content-between align-items-center">
-          <h2 :title="$t('message.tooltip.datasetDetails.distribution')"
-              data-toggle="tooltip"
-              data-placement="top"
-              data-cy="dataset-distributions">
-            {{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})
-          </h2>
-          <download-all-distributions
-            :getDistributions="getDistributions"
-            :getDistributionDescription="getDistributionDescription"
-            :openModal="openModal"
-            :getDistributionTitle="getDistributionTitle"
-            :showDownloadUrls="showDownloadUrls"
-            :getCatalog="getCatalog"
-            :isUrlInvalid="isUrlInvalid"
-          />
-        </div>
-        <ul class="list list-unstyled col-12">
-          <hr>
+        <distributions-header
+          :getDistributionDescription="getDistributionDescription"
+          :openModal="openModal"
+          :getDistributionTitle="getDistributionTitle"
+          :showDownloadUrls="showDownloadUrls"
+          :isUrlInvalid="isUrlInvalid"
+        />
+        <ul class="list list-unstyled w-100">
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
             <distribution
                 v-for="(distribution, index) in displayedDistributions"
                 :key="`${index}--${distribution.id}`"
                 :distribution="distribution"
                 :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
-                :getDistributions="getDistributions"
                 :distributions="distributions"
                 :setDistributionsDisplayCount="setDistributionsDisplayCount"
                 :getDistributionFormat="getDistributionFormat"
@@ -39,16 +27,13 @@
                 :showObject="showObject"
                 :showNumber="showNumber"
                 :distributionCanShowMore="distributionCanShowMore"
-                :showOptionsDropdown="showOptionsDropdown"
                 :showDownloadDropdown="showDownloadDropdown"
                 :showLicence="showLicence"
                 :showLicensingAssistant="showLicensingAssistant"
                 :filterDateFormatEU="filterDateFormatEU"
                 :showArray="showArray"
                 :showObjectArray="showObjectArray"
-                :showVisualisationLink="showVisualisationLink"
                 :getVisualisationLink="getVisualisationLink"
-                :showGeoLink="showGeoLink"
                 :isOnlyOneUrl="isOnlyOneUrl"
                 :getDownloadUrl="getDownloadUrl"
                 :trackGoto="trackGoto"
@@ -56,7 +41,6 @@
                 :replaceHttp="replaceHttp"
                 :previewLinkCallback="previewLinkCallback"
                 :toggleDistribution="toggleDistribution"
-                :getGeoLink="getGeoLink"
                 :toggleDistributionDescription="toggleDistributionDescription"
                 :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
                 :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
@@ -67,6 +51,16 @@
             />
           </div>
         </ul>
+        <div class="w-100 d-flex flex-row justify-content-end">
+          <download-all-distributions
+            v-if="!downloadAllTop"
+            :getDistributionDescription="getDistributionDescription"
+            :openModal="openModal"
+            :getDistributionTitle="getDistributionTitle"
+            :showDownloadUrls="showDownloadUrls"
+            :isUrlInvalid="isUrlInvalid"
+          />
+        </div>
       </div>
     </div>
 </template>
@@ -76,6 +70,9 @@
 import Distribution from './Distribution.vue';
 import DownloadAllDistributions
   from "../../datasetDetails/distributions/DownloadAllDistributions";
+import {has, isNil} from "lodash";
+import {getTranslationFor} from "@/modules/utils/helpers";
+import { mapGetters } from "vuex";
 
 export default {
   name: 'Distributions',
@@ -85,8 +82,6 @@ export default {
   },
   props: {
     openModal: Function,
-    getDistributions: Array,
-    getCatalog: Object,
     expandedDistributions: Array,
     expandedDistributionDescriptions: Array,
     displayedDistributions: Array,
@@ -100,21 +95,17 @@ export default {
     getDistributionTitle: Function,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,
-    getDistributionDescription: Function,
     distributionIsExpanded: Function,
     showObject: Function,
     showNumber: Function,
     distributionCanShowMore: Function,
-    showOptionsDropdown: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,
     filterDateFormatEU: Function,
     showArray: Function,
     showObjectArray: Function,
-    showVisualisationLink: Function,
     getVisualisationLink: Function,
-    showGeoLink: Function,
     isOnlyOneUrl: Function,
     getDownloadUrl: Function,
     trackGoto: Function,
@@ -122,7 +113,6 @@ export default {
     replaceHttp: Function,
     previewLinkCallback: Function,
     toggleDistribution: Function,
-    getGeoLink: Function,
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
     nonOverflowingIncrementsForDistributions: Function,
@@ -130,6 +120,22 @@ export default {
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
     appendCurrentLocaleToURL: Function
+  },
+  data() {
+    return {
+      downloadAllTop: this.$env.datasetDetails.bulkDownload.buttonPosition === "top"
+    };
+  },
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getLanguages',
+      'getCatalog',
+    ])
+  },
+  methods: {
+    getDistributionDescription(distribution) {
+      return (has(distribution, 'description') && !isNil(distribution.description)) ? getTranslationFor(distribution.description, this.$route.query.locale, this.getLanguages) : '-';
+    }
   }
 };
 </script>

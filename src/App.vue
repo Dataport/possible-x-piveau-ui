@@ -15,7 +15,6 @@
           class="content"
           :key="`${$route.fullPath}${minScoring}`"
       />
-
       <deu-footer
           :enable-authentication="$env.useAuthService"
           :authenticated="keycloak && keycloak.authenticated"
@@ -85,8 +84,11 @@ export default {
     minScoring() {
       if (this.$env.datasets.facets.scoringFacets.useScoringFacets) {
         // Check local storage value
-        let minScoring = parseInt(JSON.parse(localStorage.getItem('minScoring')), 10);
-        if (isNumber(minScoring)) this.setMinScoring(minScoring);
+        let minScoring = localStorage.getItem('minScoring');
+        if (minScoring && minScoring !== "undefined") {
+          minScoring = parseInt(JSON.parse(minScoring), 10);
+          if (isNumber(minScoring)) this.setMinScoring(minScoring);
+        }
         // Check existing store value
         if (!isNumber(this.getMinScoring)) {
           minScoring = parseInt(this.$env.datasets.facets.scoringFacets.defaultMinScore, 10);
@@ -108,7 +110,7 @@ export default {
       'setMinScoring',
     ]),
     resume() {
-      this.$piwik.resume();
+      if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
     },
     isNumber,
     login() {
@@ -118,7 +120,7 @@ export default {
       this.$keycloak.logoutFn();
     },
     handleFollowClick(url) {
-      this.$piwik.trackOutlink(url);
+      if (typeof this.$piwik?.resume === "function") this.$piwik.trackOutlink(url);
     },
   },
 };

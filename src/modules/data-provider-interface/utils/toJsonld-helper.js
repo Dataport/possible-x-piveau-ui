@@ -1,4 +1,4 @@
-import { has, isEmpty } from "lodash";
+import { has, isEmpty, cloneDeep } from "lodash";
 import dcataptypes from '../../data-provider-interface/config/dcatap-jsonld-types';
 import namespacedKeys from "../../data-provider-interface/config/dcatap-namespace";
 
@@ -84,9 +84,8 @@ function convertMultiLingual(state, values) {
     for (let arrayIndex = 0; arrayIndex < arrayLength; arrayIndex += 1) {
         // for mutilingual fields a default language is predefined and would be saved
         // it only makes sense to save this predefined (or changed) language if there is a value
+        state[arrayIndex] = {'@value': '', '@language': 'en'};
         if (values[arrayIndex]['@value'] !== '' && values[arrayIndex]['@value'] !== undefined) {
-            state[arrayIndex] = {'@value': '', '@language': ''};
-
             state[arrayIndex]['@value'] = values[arrayIndex]['@value'];
             if (values[arrayIndex]['@language']) state[arrayIndex]['@language'] = values[arrayIndex]['@language'];
         }
@@ -191,14 +190,10 @@ function convertGroupedInput(state, values, key) {
             "@type": "dct:Standard",
             "rdfs:label": ""
         },
-        "adms:identifier": {
-            "@id": "",
-            "skos:notation": {"@type": "", "@value": ""},
-        }
     };
 
     for (let index = 0; index < values.length; index += 1) {
-        state[index] = definitions[key];
+        state[index] = cloneDeep(definitions[key]);
         addGroupedValues(state[index], values[index], definitions, key);
     }
 }
@@ -286,9 +281,16 @@ function mergeNodeData(nodeData, value) {
     let mergedData;
     const nodeDataKeys = nodeData.map(datasets => datasets['@id']);
 
+    let identifier;
+    if (typeof value === 'object' && Object.keys(value).includes('@id')) {
+        identifier = value['@id'];
+    } else {
+        identifier = value;
+    }
+
     // if value is a key of a danat node merge node data
-    if (nodeDataKeys.includes(value)) {
-        const node = replaceWithNamespaceKey(nodeData.filter(dataset => dataset['@id'] === value)[0]); // for valid jsonld the normal key names must be replcaed by namespaced keys
+    if (nodeDataKeys.includes(identifier)) {
+        const node = replaceWithNamespaceKey(nodeData.filter(dataset => dataset['@id'] === identifier)[0]); // for valid jsonld the normal key names must be replcaed by namespaced keys
         mergedData = node;
 
         // some properties have nested grouped data which will be also located in a node and must be merged (e.g. contactPoint -> vcard:hasAddress)

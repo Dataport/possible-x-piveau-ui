@@ -4,18 +4,20 @@
     :data-cy="getRepresentativeLocaleOf(getTitle, $route.query.locale, getLanguages)
     && `dataset@${getRepresentativeLocaleOf(getTitle, $route.query.locale, getLanguages)}`"
   >
-    <datasetDetailsNavigation :dataset-id="getID"></datasetDetailsNavigation>
-    <div class="container-fluid mb-5 pt-1 content">
+    <dataset-details-navigation v-if="topTitle" :dataset-id="getID"/>
+    <div class="container-fluid mb-5 pt-1 content dsd-content">
       <dataset-details-header />
-      <router-view name="datasetDetailsSubpages"></router-view>
+      <dataset-details-navigation v-if="!topTitle" :dataset-id="getID"/>
+      <hr v-if="topTitle" />
+      <router-view name="datasetDetailsSubpages" />
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import DatasetDetailsHeader from './DatasetDetailsHeader.vue'
-import DatasetDetailsNavigation from './DatasetDetailsNavigation.vue'
+import { mapGetters } from 'vuex';
+import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue'
+import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue'
 import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
 
 export default {
@@ -36,13 +38,16 @@ export default {
     };
   },
   data() {
-    return {};
+    return {
+      topTitle: this.$env.datasetDetails.header.navigation === "top"
+    };
   },
   props: {
     activeTab: {
       type: Number,
-      default: 0,
+      default: 0
     },
+    citationStyle: String
   },
   computed: {
     ...mapGetters('datasetDetails', [
@@ -53,8 +58,6 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions('datasetDetails', [
-    ]),
     getRepresentativeLocaleOf,
     getTranslationFor,
   }

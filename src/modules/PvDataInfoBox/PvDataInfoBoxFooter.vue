@@ -1,8 +1,8 @@
 <template>
-  <small class="dataset-info-box-footer d-flex justify-content-between align-items-center">
+  <small class="d-flex justify-content-between align-items-center">
     <slot>
-      <div class="d-flex flex-row">
-        <div v-if="updatedDate" class="d-flex flex-wrap mr-4">
+      <div class="d-flex flex-row" v-if="updatedDate">
+        <div class="d-flex flex-wrap mr-4">
             <tooltip
               :title="$t('message.tooltip.datasetDetails.updated')"
               class="font-weight-bold mr-1"
@@ -21,12 +21,12 @@
             <dataset-date class="align-self-start" :date="createdDate"/>
           </div>
       </div>
-      <div class="d-flex flex-wrap align-items-center">
+      <div class="d-flex align-items-center">
         <img
           class="dataset-info-box-footer-catalog-img border border-dark mr-1"
           :src="src"
           :alt="catalog">
-        <span> {{ catalog }} </span>
+        <span class="dataset-info-box-footer-catalog-description"> {{ catalog }} </span>
       </div>
     </slot>
   </small>

@@ -92,11 +92,11 @@
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:accessService')">
                           <span class="d-block">
                             <div v-for="(accessService, index) in getDistributionObjectArray(distribution, 'dcat:accessService')" :key="index">
-                              <div><small v-for="(title, index) in getDistributionLanguageArray(accessService, 'dct:title')" :key="index">
-                                {{ languageNames[title['@language']] }}: {{ title['@value'] }}
+                              <div><small>
+                                {{ languageNames[getDistributionProperty(accessService, 'dct:title', ['@language'])] }}: {{ getDistributionProperty(accessService, 'dct:title', ['@value']) }}
                               </small></div>
-                              <div><small v-for="(description, index) in getDistributionLanguageArray(accessService, 'dct:description')" :key="index">
-                                {{ languageNames[description['@language']] }}: {{ description['@value'] }}
+                              <div><small>
+                                {{ languageNames[getDistributionProperty(accessService, 'dct:description', ['@language'])] }}: {{ getDistributionProperty(accessService, 'dct:description', ['@value']) }}
                               </small></div>
                               <div><small v-if="showObjectElementValue(accessService, 'dcat:endpointURL', '@id')" class="pr-1">
                                 <a :href="getDistributionProperty(accessService, 'dcat:endpointURL', ['@id'])">{{ getDistributionProperty(accessService, 'dcat:endpointURL', ['@id']) }}</a>
@@ -181,7 +181,7 @@
                         <!-- DISTRIBUTIONS TEMPORAL RESOLUTION -->
                         <span class="mt-2 text-left" v-if="showDistributionProperty(distribution, 'dcat:temporalResolution')">
                           <span class="d-block">
-                            <small class="pr-1">{{ $t('message.metadata.temporalResolution') }} : {{ getDistributionProperty(distribution, 'dcat:temporalResolution', ['@value']) }}</small>
+                            <small class="pr-1">{{ $t('message.metadata.temporalResolution') }} : {{ formatDatetime(getDistributionProperty(distribution, 'dcat:temporalResolution', ['@value'])) }}</small>
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS CONFORMS TO -->
@@ -218,16 +218,16 @@
                           <span class="d-block">
                             <div v-for="(page, index) in getDistributionObjectArray(distribution, 'foaf:page')" :key="index">
                               <small v-if="showElementValue(page, 'dct:title')" class="pr-1">
-                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:title']">{{ page['dct:title'] }}</a>
+                                {{ $t('message.dataupload.datasets.page.label') }}: <a :href="page['dct:title']">{{ page['dct:title'] }}</a>
                               </small>
                               <small v-if="showElementValue(page, 'dct:description')" class="pr-1">
-                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:description']">{{ page['dct:description'] }}</a>
+                                {{ $t('message.dataupload.datasets.page.label') }}: <a :href="page['dct:description']">{{ page['dct:description'] }}</a>
                               </small>
                               <small v-if="showElementValue(page, '@id')" class="pr-1">
-                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['@id']">{{ page['@id'] }}</a>
+                                {{ $t('message.dataupload.datasets.page.label') }}: <a :href="page['@id']">{{ page['@id'] }}</a>
                               </small>
                               <small v-if="showElementValue(page, 'dct:format')" class="pr-1">
-                                {{ $t('message.dataupload.datasets.step2.page.label') }}: <a :href="page['dct:format']">{{ page['dct:format'] }}</a>
+                                {{ $t('message.dataupload.datasets.page.label') }}: <a :href="page['dct:format']">{{ page['dct:format'] }}</a>
                               </small>
                             </div>
                           </span>
@@ -373,7 +373,7 @@
 
               <!-- SUBJECT -->
               <tr v-if="showProperty('datasets', 'dct:subject')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.subject.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.subject.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dct:subject')">
                   <div v-for="(subject, index) in getObjectArray('datasets', 'dct:subject')" :key="index">
                     <div v-if="showElementValue(subject, '@id')">
@@ -385,7 +385,7 @@
 
               <!-- THEME -->
               <tr v-if="showProperty('datasets', 'dcat:theme')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.theme.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.theme.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dcat:theme')">
                   <div v-for="(theme, index) in getObjectArray('datasets', 'dcat:theme')" :key="index">
                     <div v-if="showElementValue(theme, '@id')">
@@ -451,7 +451,7 @@
 
               <!-- PAGE -->
               <tr v-if="showProperty('datasets', 'foaf:page')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.page.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.page.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'foaf:page')">
                   <div v-for="(page, index) in getObjectArray('datasets', 'foaf:page')" :key="index">
                     <div v-if="showElementValue(page, 'dct:title')">
@@ -521,7 +521,7 @@
 
               <!-- RELATION -->
               <tr v-if="showProperty('datasets', 'dct:relation')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.relation.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.relation.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dct:relation')">
                   <div v-for="(relation, index) in getObjectArray('datasets', 'dct:relation')" :key="index">
                     <app-link v-if="showElementValue(relation, '@id')" :to="relation">{{ relation['@id'] }}</app-link>
@@ -531,7 +531,7 @@
 
               <!-- QUALIFIED RELATION -->
               <tr v-if="showProperty('datasets', 'dcat:qualifiedRelation')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.qualifiedRelation.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.qualifiedRelation.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dcat:qualifiedRelation')">
                   <div v-for="(qualifiedRelation, index) in getObjectArray('datasets', 'dcat:qualifiedRelation')" :key="index">
                     <app-link v-if="showElementValue(qualifiedRelation, '@id')" :to="qualifiedRelation">{{ qualifiedRelation['@id'] }}</app-link>
@@ -541,7 +541,7 @@
 
               <!-- QUALIFIED ATTRIBUTION -->
               <tr v-if="showProperty('datasets', 'prov:qualifiedAttribution')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.qualifiedAttribution.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.qualifiedAttribution.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'prov:qualifiedAttribution')">
                   <div v-for="(qualifiedAttribution, index) in getObjectArray('datasets', 'prov:qualifiedAttribution')" :key="index">
                     <app-link v-if="showElementValue(qualifiedAttribution, '@id')" :to="qualifiedAttribution">{{ qualifiedAttribution['@id'] }}</app-link>
@@ -557,7 +557,7 @@
 
               <!-- SPATIAL RESOLUTION IN METERS -->
               <tr v-if="showProperty('datasets', 'dcat:spatialResolutionInMeters')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.spatialResolutionInMeters.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.spatialResolutionInMeters.label') }}</td>
                 <td v-if="showObjectValue('datasets', 'dcat:spatialResolutionInMeters', '@value')">
                   {{ getObjectString('datasets', 'dcat:spatialResolutionInMeters', '@value') }}
                 </td>
@@ -580,15 +580,15 @@
 
               <!-- TEMPORAL RESOLUTION -->
               <tr v-if="showProperty('datasets', 'dcat:temporalResolution')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.temporalResolution.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.temporalResolution.label') }}</td>
                 <td v-if="showObjectValue('datasets', 'dcat:temporalResolution', '@value')">
-                  {{ getObjectString('datasets', 'dcat:temporalResolution', '@value') }}
+                  {{ formatDatetime(getObjectString('datasets', 'dcat:temporalResolution', '@value')) }}
                 </td>
               </tr>
 
               <!-- IS REFERENCED BY -->
               <tr v-if="showProperty('datasets', 'dct:isReferencedBy')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.isReferencedBy.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.isReferencedBy.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dct:isReferencedBy')">
                   <div v-for="(isReferencedBy, index) in getObjectArray('datasets', 'dct:isReferencedBy')" :key="index">
                     <app-link v-if="showElementValue(isReferencedBy, '@id')" :to="isReferencedBy">{{ isReferencedBy['@id'] }}</app-link>
@@ -598,7 +598,7 @@
 
               <!-- WAS GENERATED BY -->
               <tr v-if="showProperty('datasets', 'prov:wasGeneratedBy')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.wasGeneratedBy.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.wasGeneratedBy.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'prov:wasGeneratedBy')">
                   <div v-for="(wasGeneratedBy, index) in getObjectArray('datasets', 'prov:wasGeneratedBy')" :key="index">
                     <app-link v-if="showElementValue(wasGeneratedBy, '@id')" :to="wasGeneratedBy">{{ wasGeneratedBy['@id'] }}</app-link>
@@ -618,7 +618,7 @@
 
               <!-- IS USED BY -->
               <tr v-if="showProperty('datasets', 'dext:metadataExtension')">
-                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.step2.isUsedBy.label') }}</td>
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.isUsedBy.label') }}</td>
                 <td v-if="showObjectArray('datasets', 'dext:metadataExtension')">
                   <div v-for="(isUsedBy, index) in getObjectArray('datasets', 'dext:metadataExtension')" :key="index">
                     <app-link v-if="showObjectElementValue(isUsedBy, 'dext:isUsedBy', '@id')" :to="isUsedBy['dext:isUsedBy']['@id']">{{ isUsedBy['dext:isUsedBy']['@id'] }}</app-link>
@@ -656,7 +656,133 @@
         </div>
       </div>
     </div>
+
+
     <div class="mb-3" v-if="showCatalogsOverview">
+      <!-- TITLE -->
+      <div class="mt-2 mb-4" v-if="showLanguageArray('catalogues', 'dct:title')">
+        <div class="row">
+          <div class="col-8 offset-1">
+            <h2 v-for="(title, index) in getLanguageArray('catalogues', 'dct:title')" :key="index">
+              {{ languageNames[title['@language']] }}: {{ title['@value'] }}
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="mt-2" v-if="showLanguageArray('catalogues', 'dct:description')">
+        <div class="row">
+          <div class="col-10 offset-1">
+            <p v-for="(description, index) in getLanguageArray('catalogues', 'dct:description')" :key="index">
+              {{ languageNames[description['@language']] }}: {{ description['@value'] }}
+            </p>
+          </div>
+        </div>
+        <hr>
+      </div>
+
+      <!-- INFO TABLE -->
+      <div class="mt-5">
+        <div class="row">
+          <div class="col-10 offset-1 py-2 bg-white">
+            <h2 class="heading">{{ $t('message.datasetDetails.additionalInfo') }}</h2>
+          </div>
+          <div class="col-10 offset-1">
+            <table class="table table-borderless table-responsive pl-3 bg-light">
+
+              <!-- PUBLISHER -->
+              <tr v-if="showProperty('catalogues', 'dct:publisher')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.publisher') }}</td>
+                <td>{{ getObjectString('catalogues', 'dct:publisher', '@id') }}</td>
+              </tr>
+
+              <!-- HOMEPAGE -->
+              <tr v-if="showProperty('catalogues', 'foaf:homepage')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.homepage') }}</td>
+                <td>{{ getObjectString('catalogues', 'foaf:homepage', '@id') }}</td>
+              </tr>
+
+              <!-- LANGUAGES -->
+              <tr v-if="showProperty('catalogues', 'dct:language')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.languages') }}</td>
+                <td v-if="showObjectArray('catalogues', 'dct:language')">
+                  <div v-for="(language, index) in getObjectArray('catalogues', 'dct:language')" :key="index">
+                    <div v-if="showElementValue(language, '@id')">
+                      {{ language['@id'] }}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- SPATIAL -->
+              <tr v-if="showProperty('catalogues', 'dct:spatial')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.spatial') }}</td>
+                <td>{{ getObjectString('catalogues', 'dct:spatial', '@id') }}</td>
+              </tr>
+
+              <!-- CREATOR -->
+              <tr v-if="showProperty('catalogues', 'dct:creator')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.creator') }}</td>
+                <td v-if="showObjectArray('catalogues', 'dct:creator')">
+                  <div v-for="(creator, index) in getObjectArray('catalogues', 'dct:creator')" :key="index">
+                    <div v-if="showElementValue(creator, '@type')">
+                      {{ $t('message.metadata.type') }}: {{ creator['@type'] }}
+                    </div>
+                    <div v-if="showElementValue(creator, 'foaf:name')">
+                      {{ $t('message.metadata.name') }}: {{ creator['foaf:name'] }}
+                    </div>
+                    <div v-if="showObjectElementValue(creator, 'foaf:mbox', '@id')">
+                      {{ $t('message.metadata.email') }}: <app-link :to="`mailto:${creator['foaf:mbox']['@id']}`">{{ creator['foaf:mbox']['@id'] }}</app-link>
+                    </div>
+                    <div v-if="showObjectElementValue(creator, 'foaf:homepage', '@id')">
+                      {{ $t('message.metadata.homepage') }}: <app-link :to="creator['foaf:homepage']['@id']">{{ creator['foaf:homepage']['@id'] }}</app-link>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- HAS PART -->
+              <tr v-if="showProperty('catalogues', 'dct:hasPart')">
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.catalogues.hasPart.label') }}</td>
+                <td v-if="showObjectArray('catalogues', 'dct:hasPart')">
+                  <div v-for="(relation, index) in getObjectArray('catalogues', 'dct:hasPart')" :key="index">
+                    <app-link v-if="showElementValue(relation, '@id')" :to="relation">{{ relation['@id'] }}</app-link>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- IS PART OF -->
+              <tr v-if="showProperty('catalogues', 'dct:isPartOf')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.isPartOf') }}</td>
+                <td>{{ getObjectString('catalogues', 'dct:isPartOf', '@id') }}</td>
+              </tr>
+
+              <!-- CATALOG -->
+              <tr v-if="showProperty('catalogues', 'dcat:catalog')">
+                <td class="w-25 font-weight-bold">{{ $t('message.dataupload.catalogues.catalog.label') }}</td>
+                <td v-if="showObjectArray('catalogues', 'dcat:catalog')">
+                  <div v-for="(relation, index) in getObjectArray('catalogues', 'dcat:catalog')" :key="index">
+                    <app-link v-if="showElementValue(relation, '@id')" :to="relation">{{ relation['@id'] }}</app-link>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- RIGHTS -->
+              <tr v-if="showProperty('catalogues', 'dct:rights')">
+                <td class="w-25 font-weight-bold">{{ $t('message.metadata.rights') }}</td>
+                <td v-if="typeof getObjectString('catalogues', 'dct:rights', 'rdfs:label') === 'object'">
+                  <app-link>{{ getObjectString('catalogues', 'dct:rights', 'rdfs:label')['@id'] }}</app-link>
+                </td>
+                <td v-else>
+                  <p>{{ getObjectString('catalogues', 'dct:rights', 'rdfs:label') }}</p>
+                </td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -674,7 +800,7 @@ import {
   isObject,
 } from 'lodash';
 import LANGS from '../config/selector-languages.json';
-import { getTranslationFor, truncate } from '../../utils/helpers';
+import { getTranslationFor, truncate, addPrecedingZero, formatDatetime } from '../../utils/helpers';
 import AppLink from "@/modules/widgets/AppLink";
 import dateFilters from "@/modules/filters/dateFilters";
 
@@ -760,6 +886,8 @@ export default {
     isObject,
     getTranslationFor,
     truncate,
+    formatDatetime,
+    addPrecedingZero,
     clear() {
       this.clearAll();
     },
@@ -818,21 +946,21 @@ export default {
           if (has(currentProp, p)) currentProp = currentProp[p];
         });
         return currentProp;
-      } 
+      }
       return [];
     },
     getDistributionString(distribution, name) {
-      return has(distribution, name) 
+      return has(distribution, name)
         ? distribution[name]
         : [];
     },
     getDistributionObjectArray(distribution, property) {
-      return has(distribution, property) 
+      return has(distribution, property)
         ? distribution[property]
         : [];
     },
     getDistributionLanguageArray(distribution, property) {
-      return has(distribution, property) 
+      return has(distribution, property)
         ? distribution[property].filter(el => has(el, '@value') && has(el, '@language'))
         : [];
     },
@@ -849,7 +977,17 @@ export default {
     checkDatasetMandatory() {
       // Check if mandatory dataset properties are set
       if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dct:catalog')) {
-        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'mandatoryDataset', locale: this.$route.query.locale } });
+        this.$router.push({ 
+          name: 'DataProviderInterface-Input', 
+          params: { 
+            property: 'datasets', 
+            page: 'step1' 
+          }, 
+          query: { 
+            error: 'mandatoryDataset', 
+            locale: this.$route.query.locale 
+          } 
+        });
       }
     },
     checkDistributionMandatory() {
@@ -862,7 +1000,7 @@ export default {
             property: 'datasets',
             page: 'distoverview',
           },
-          query: { 
+          query: {
             error: 'mandatoryDist',
             locale: this.$route.query.locale
           },
@@ -871,26 +1009,36 @@ export default {
     },
     checkCatalogueMandatory() {
       // Check if mandatory catalogue properties are set
-      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('datasets', 'dct:description')) {
-        this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'catalogues', page: 'step1' }, query: { error: 'mandatoryCatalog', locale: this.$route.query.locale } });
+      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('catalogues', 'dct:description') || !this.showProperty('catalogues', 'dct:publisher') || !this.showProperty('catalogues', 'dct:language')) {
+        this.$router.push({ 
+          name: 'DataProviderInterface-Input', 
+          params: { 
+            property: 'catalogues', 
+            page: 'step1' 
+          }, 
+          query: { 
+            error: 'mandatoryCatalog', 
+            locale: this.$route.query.locale
+          } 
+        });
       }
     },
-    checkDatasetID() {
+    checkID(property) {
       // Check uniqueness of Dataset ID
       if (!this.getIsEditMode) {
-        this.checkUniqueID()
+        this.checkUniqueID(property)
           .then((isUniqueID) => {
             if (!isUniqueID) {
               // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
-              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: 'datasets', page: 'step1' }, query: { error: 'id', locale: this.$route.query.locale } });
+              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: property, page: 'step1' }, query: { error: 'id', locale: this.$route.query.locale } });
             }
           });
       }
     },
-    checkUniqueID() {
+    checkUniqueID(property) {
       return new Promise((resolve) => {
-        if (this.values.datasets.datasetID !== '') {
-          const request = `${this.$env.api.hubUrl}datasets/${this.values.datasets.datasetID}?useNormalizedId=true`;
+        if (this.values[property]['@id'] !== '') {
+          const request = `${this.$env.api.hubUrl}${property}/${this.values[property]['@id']}?useNormalizedId=true`;
           axios.head(request)
             .then(() => {
               resolve(false);
@@ -901,21 +1049,19 @@ export default {
         }
       });
     },
-    addPrecedingZero(value) {
-      return parseInt(value, 10) < 10 ? 0 : '';
-    },
   },
   created() {
     this.$nextTick(() => {
-      // if (this.property === 'datasets') {
-      //   this.checkDatasetMandatory();
-      //   this.checkDatasetID();
-      //   this.checkDistributionMandatory();
-      // }
+      if (this.property === 'datasets') {
+        this.checkID('datasets');
+        this.checkDatasetMandatory();
+        this.checkDistributionMandatory();
+      }
 
-      // if (this.property === 'catalogues') {
-      //   this.checkCatalogueMandatory();
-      // }
+      if (this.property === 'catalogues') {
+        this.checkID('catalogues')
+        this.checkCatalogueMandatory();
+      }
     });
   },
   mounted(){
@@ -942,50 +1088,4 @@ export default {
     }
   }
 
-  .circle {
-    width: 40px;
-    height: 40px;
-    margin: 0 auto;
-    padding: 20px 0;
-    font-size: 12px;
-    line-height: 1px;
-    border-radius: 50%;
-    background-color: #000000;
-    &[type="HTML"] {
-      background-color: #285C76;
-    }
-    &[type="JSON"] {
-      background-color: var(--dark-orange);
-    }
-    &[type="XML"] {
-      background-color: #8F4300;
-    }
-    &[type="TXT"] {
-      background-color: #2B5E73;
-    }
-    &[type="CSV"] {
-      background-color: var(--badge-green);
-    }
-    &[type="XLS"] {
-      background-color: #1A6537;
-    }
-    &[type="ZIP"] {
-      background-color: #252525;
-    }
-    &[type="API"] {
-      background-color: #923560;
-    }
-    &[type="PDF"] {
-      background-color: #B30519;
-    }
-    &[type="SHP"] {
-      background-color: var(--badge-black);
-    }
-    &[type="RDF"],
-    &[type="NQUAD"],
-    &[type="NTRIPLES"],
-    &[type="TURTLE"] {
-      background-color: #0b4498;
-    }
-  }
 </style>

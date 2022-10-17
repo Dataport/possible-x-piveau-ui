@@ -79,7 +79,7 @@ export default {
       return new Promise(() => {
         if (isNil(this.uniqueID) || this.uniqueID === '' || this.uniqueID === undefined) this.isUniqueID = true;
         else {
-          const request = `${this.$env.api.hubUrl}datasets/${this.uniqueID}?useNormalizedId=true`;
+          const request = `${this.$env.api.hubUrl}${this.$route.params.property}/${this.uniqueID}?useNormalizedId=true`;
           axios.head(request)
             .then(() => {
               this.isUniqueID = false;

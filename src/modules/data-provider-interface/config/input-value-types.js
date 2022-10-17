@@ -22,16 +22,18 @@ const sameFormatProperties = {
     distributions: [
         'dct:title',
         'dct:description',
-        'dct:issued',
-        'dct:modified',
         'dcat:byteSize',
-        'dcat:spatialResolutionInMeters',
         'odrl:hasPolicy',
         'dct:conformsTo',
         'dcat:accessURL',
         'dcat:downloadURL',
     ],
-    catalogues: [],
+    catalogues: [
+        'dct:title',
+        'dct:description',
+        'dct:hasPart',
+        'dcat:catalog',
+    ],
 };
 
 // JSONLD contains an object with the value and its type -> value needed for input
@@ -54,13 +56,15 @@ const multiURIs = {
     datasets: [
         'dct:language',
         'dct:subject',
-        'dct:theme',
+        'dcat:theme',
         'dct:type',
     ],
     distributions: [
         'dct:language',
     ],
-    catalogues: [],
+    catalogues: [
+        'dct:language',
+    ],
 }
 
 // JSONLD contains singular URI which needs to be converted to a singular string (URL)
@@ -80,7 +84,12 @@ const singularURI = {
         'dcat:packageFormat',
         'adms:status',
     ],
-    catalogues: [],
+    catalogues: [
+        'dct:publisher',
+        'foaf:homepage',
+        'dct:spatial',
+        'dct:isPartOf',
+    ],
 }
 
 // values which multiple different value types and nested values
@@ -91,12 +100,15 @@ const groupedValues = {
         'dct:creator',
         'dext:metadataExtension',
         'adms:identifier',
+        'dct:temporal',
     ],
     distributions: [
         'dcat:accessService',
         'foaf:page',
     ],
-    catogues: [],
+    catalogues: [
+        'dct:creator',
+    ],
 }
 
 // properties which are nested and URIs

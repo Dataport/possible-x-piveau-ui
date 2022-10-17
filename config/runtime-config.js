@@ -1,3 +1,5 @@
+import {ecStyle} from "./user-config.sample";
+
 /**
  * Configuration template file to bind specific properties to environment variables.
  * All values must have the prefix $VUE_APP_.
@@ -61,12 +63,31 @@ export default {
       }
     }
   },
+  catalogs: {
+    facets: {
+      useDatasetFacetsMap: "$VUE_APP_CATALOGS_FACETS_USE_DATASET_FACETS_MAP",
+      cutoff: "$VUE_APP_CATALOGS_FACETS_CUTOFF",
+      showClearButton: "$VUE_APP_CATALOGS_FACETS_SHOW_CLEAR_BUTTON",
+      showFacetsTitle: "$VUE_APP_CATALOGS_FACETS_SHOW_FACETS_TITLE"
+    }
+  },
   datasets: {
     facets: {
-      useDatasetFacetsMap: "$VUE_APP_DATASETS_FACETS_USE_DATASET_FACETS_MAP"
+      useDatasetFacetsMap: "$VUE_APP_DATASETS_FACETS_USE_DATASET_FACETS_MAP",
+      cutoff: "$VUE_APP_DATASETS_FACETS_CUTOFF",
+      showClearButton: "$VUE_APP_DATASETS_FACETS_SHOW_CLEAR_BUTTON",
+      showFacetsTitle: "$VUE_APP_DATASETS_FACETS_SHOW_FACETS_TITLE"
     }
   },
   datasetDetails: {
+    header: {
+      navigation: "$VUE_APP_DATASETDETAILS_HEADER_NAVIGATION",
+      hidePublisher: "$VUE_APP_DATASETDETAILS_HEADER_HIDE_PUBLISHER",
+      hideDate: "$VUE_APP_DATASETDETAILS_HEADER_HIDE_DATE"
+    },
+    keywords: {
+      showTitle: "$VUE_APP_DATASETDETAILS_KEYWORDS_SHOW_TITLE"
+    },
     description: {
       enableMarkdownInterpretation: "$VUE_APP_DATASETDETAILS_DESCRIPTION_ENABLE_MARKDOWN_INTERPRETATION"
     },
@@ -94,6 +115,7 @@ export default {
       descriptionMaxChars: "$VUE_APP_DATASETDETAILS_VISUALISATIONS_DESCRIPTION_MAX_CHARS",
     },
     bulkDownload: {
+      buttonPosition: "$VUE_APP_DATASETDETAILS_BULKDOWNLOAD_BUTTON_POSITION",
       MAX_FILE_TITLE_LENGTH: "$VUE_APP_DATASETDETAILS_BULKDOWNLOAD_MAX_FILE_TITLE_LENGTH",
       MAX_REQUESTS_COUNT: "$VUE_APP_DATASETDETAILS_BULKDOWNLOAD_MAX_REQUESTS_COUNT",
       INTERVAL_MS: "$VUE_APP_DATASETDETAILS_BULKDOWNLOAD_INTERVAL_MS",
@@ -136,8 +158,10 @@ export default {
   },
   upload: {
     useUpload: "$VUE_APP_UPLOAD_USE_UPLOAD",
-    useCreateDatasetButton: "$VUE_APP_UPLOAD_USE_CREATE_DATASET_BUTTON",
-    useCreateCatalogueButton: "$VUE_APP_UPLOAD_USE_CREATE_CATALOGUE_BUTTON",
+    buttons: {
+      Dataset: "$VUE_APP_UPLOAD_BUTTONS_DATASET",
+      Catalogue: "$VUE_APP_UPLOAD_BUTTONS_CATALOGUE"
+    }
   },
   doiRegistrationService: {
     persistentIdentifierType: "$VUE_APP_DOI_REGISTRATION_SERVICE_PERSISTENT_IDENTIFIER_TYPE",

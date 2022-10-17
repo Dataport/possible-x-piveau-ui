@@ -10,6 +10,12 @@ import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimila
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
+import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
+import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
+import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
+
+import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
+
 import MapBasic from "./map/MapBasic.vue";
 import MapBoundsReceiver from "./map/MapBoundsReceiver.vue";
 
@@ -20,8 +26,12 @@ import SparqlSearch from "./pages/SparqlSearch.vue";
 
 import Datasets from "./datasets/Datasets.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
-import dateFilters from "./filters/dateFilters";
 
+import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
+
+import PvBadge from "./PvBadge/PvBadge.vue";
+
+import dateFilters from "./filters/dateFilters";
 
 import vueKeycloak from "./services/keycloakService";
 import bulkDownloadCorsProxyService from "./services/bulkDownloadCorsProxyService";
@@ -57,6 +67,19 @@ import usePiwikSuspendFilter from "./mixins/usePiwikSuspendFilter";
 
 import { configureModules } from "./configurations/configureModules";
 
+import fileTypes from './utils/fileTypes';
+import DatasetsFacets from './datasets/datasetsFacets/DatasetsFacets.vue';
+import Pagination from './widgets/Pagination';
+import SelectedFacetsOverview from './facets/SelectedFacetsOverview';
+import getTranslationFor from './utils/helpers';
+import truncate from './utils/helpers';
+import getImg from './utils/helpers';
+import DatasetsTopControls from "./datasets/DatasetsTopControls";
+import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
+import SubNavigation from './navigation/SubNavigation.vue';
+import getCountryFlagImg from './utils/helpers';
+import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
+
 export {
   AppLink,
   AppSnackbar,
@@ -68,6 +91,12 @@ export {
   DatasetDetailsDataset,
   DatasetDetails,
 
+  DistributionDescription,
+  DistributionExpandedContent,
+  DistributionVisibleContent,
+
+  CSVLinter,
+
   MapBasic,
   MapBoundsReceiver,
 
@@ -77,7 +106,12 @@ export {
   SparqlSearch,
 
   Datasets,
+  DatasetsFilters,
   Catalogues,
+
+  PvDataInfoBox,
+
+  PvBadge,
 
   dateFilters,
 
@@ -112,7 +146,20 @@ export {
 
   usePiwikSuspendFilter,
 
-  configureModules
+  configureModules,
+
+  fileTypes,
+  DatasetsFacets,
+  Pagination,
+  CataloguesFacets,
+  SubNavigation,
+  SelectedFacetsOverview,
+  DatasetsTopControls,
+  getTranslationFor,
+  truncate,
+  getImg,
+  getCountryFlagImg
+
 };
 
 // @ts-ignore

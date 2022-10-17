@@ -17,13 +17,18 @@ function translateProperty(propertyDefinition, property) {
         const translationExsists = Vue.i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
 
         // Check if translation exists
-        if (!has(property, parameter) && translationExsists) {
-          translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
+        if (!has(property, parameter) ) {
+            if (translationExsists) {
+                translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
+            } else {
+                // if no translation is available, provide english label
+                translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
+            }
           propertyDefinition[parameter] = translation;
         }
 
         // Highlight mandatory fields
-        if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') translation = `${translation}*`
+        if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') propertyDefinition[parameter] = `${translation}*`
     }
 }
 

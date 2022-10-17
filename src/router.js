@@ -24,8 +24,10 @@ import {
   LinkedDataViewer,
   UserProfilePage,
   UserCataloguesPage,
-  decode
+  decode,
 } from "@piveau/piveau-hub-ui-modules";
+import ECDatasets from "../src/components/ECDatasets.vue"
+import ECCatalogues from "../src/components/ECCatalogues.vue"
 
 // const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
 // const MapBoundsReceiver = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/MapBoundsReceiver');
@@ -45,6 +47,7 @@ import {
 // const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
 // const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
 
+import { ecStyle } from '../config/user-config';
 
 Vue.use(Router);
 
@@ -62,7 +65,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: { name: 'Datasets' },
+      redirect: { name: 'Datasets'  },
       meta: {
         title,
       },
@@ -70,7 +73,7 @@ const router = new Router({
     {
       path: '/datasets',
       name: 'Datasets',
-      component: Datasets,
+      component: ecStyle ? ECDatasets : Datasets,
       meta: {
         title,
       },
@@ -145,7 +148,7 @@ const router = new Router({
     {
       path: '/catalogues',
       name: 'Catalogues',
-      component: Catalogues,
+      component: ecStyle ? ECCatalogues : Catalogues,
       meta: {
         title,
       },

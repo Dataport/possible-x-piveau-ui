@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-column bg-transparent container-fluid justify-content-between mt-n5 content">
+    <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content">
     <h1 class="small-headline">My Catalogues</h1>
     <ul class="list-group col-md-6 m-auto">
       <li v-for="(catalog, index) in getUserCatalogs" :key="index" class="list-group-item">

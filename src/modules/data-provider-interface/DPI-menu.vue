@@ -9,7 +9,10 @@
       <dropup v-for="(group, index) in menuGroups"
         :key="`Group${index}`"
         :groupName="group.group"
-        :groupItems="group.items">
+        :groupItems="group.items"
+        :show="$env.upload.buttons[group.group]"
+        :isOperator="getUserData.roles.includes('operator')"
+        :isCatalog="group.group === 'Catalogue' ? true : false">
       </dropup>
       <ul>
         <div class="btn-group dropup">
@@ -55,6 +58,7 @@
 <script>
 import axios from 'axios';
 import $ from 'jquery';
+import { has, isEmpty } from 'lodash';
 import { mapGetters, mapActions } from 'vuex';
 import Dropup from './components/Dropup';
 
@@ -114,7 +118,7 @@ export default {
                   ...{
                     message: 'Are you sure you want to delete this dataset? This can not be reverted.',
                     confirm: 'Delete dataset (irreversible)',
-                    confirmHandler: () => this.handleDeleteDataset({ id: this.getID, catalog: this.getCatalog.id }),
+                    confirmHandler: () => this.handleDelete({ id: this.getID, property: 'datasets' }),
                   },
                 };
                 $('#DPIMenuModal').modal({ show: true });
@@ -172,30 +176,53 @@ export default {
                 $('#DPIMenuModal').modal({ show: true });
               },
             },
-
           ],
         },
-        // {
-        //   group: 'Catalogue',
-        //   items: [
-        //     {
-        //       name: 'Create Catalogue',
-        //       to: { name: 'DataProviderInterface-Home', query: { locale: this.$route.query.locale }, params: { property: 'catalogues' } },
-        //     },
-        //     // {
-        //     //   name: 'Delete Catalogue',
-        //     //   onlyAuthorizedDatasetPage: true,
-        //     //   // to: { name: 'DataProviderInterface-Home', query: { locale: this.$route.query.locale }, params: { property: 'datasets' } },
-        //     // },
-        //     {
-        //       name: 'Edit Catalog',
-        //       disabled: !this.isLocatedOnAuthorizedDatasetPage,
-        //       to: this.getCatalog.id
-        //         ? { name: 'DataProviderInterface-Edit', query: { locale: this.$route.query.locale }, params: { catalog: this.getCatalog.id, property: 'catalogues', id: this.getCatalog.id } }
-        //         : '/',
-        //     },
-        //   ],
-        // },
+        {
+          group: 'Catalogue',
+          items: [
+            {
+              name: 'Create Catalogue',
+              to: { 
+                name: 'DataProviderInterface-Home',
+                query: { locale: this.$route.query.locale, edit: false },
+                params: { property: 'catalogues' } 
+              },
+            },
+            {
+              name: 'Delete Catalogue',
+              disabled: !this.isLocatedOnAuthorizedCatalogPage,
+              handler: () => {
+                this.modal = {
+                  ...this.modal,
+                  ...{
+                    message: 'Are you sure you want to delete this catalogue? This can not be reverted!',
+                    confirm: 'Delete catlogue (irreversible)',
+                    confirmHandler: () => this.handleDelete({ id: this.$route.query.catalog, property: 'catalogues' }),
+                  },
+                };
+                $('#DPIMenuModal').modal({ show: true });
+              }
+            },
+            {
+              name: 'Edit Catalog',
+              onlyAuthorizedDatasetPage: true,
+              disabled: !this.isLocatedOnAuthorizedCatalogPage,
+              to: {
+                name: 'DataProviderInterface-Edit',
+                params: {
+                  catalog: this.$route.query.catalog ? this.$route.query.catalog : 'undefined',
+                  property: 'catalogues',
+                  id: this.getID || 'undefined',
+                },
+                query: {
+                  draft: false,
+                  locale: this.$route.query.locale,
+                }
+              }
+            },
+          ],
+        },
       ];
     },
     menuItems() {
@@ -233,6 +260,24 @@ export default {
         && isOnDatasetDetailsPage
         && datasetId === this.getID;
     },
+    isLocatedOnAuthorizedCatalogPage() {
+      // never return true while loading
+      if (this.getLoading) return false;
+
+      // is the user located on the correct page?
+      const onDatasetPage = this.$route.name === 'Datasets';
+      const queryCatalogProperty = has(this.$route.query, 'catalog') && !isEmpty(this.$route.query.catalog);
+      const catalogDetailsShown = has(this.$route.query, 'showcatalogdetails') && this.$route.query.showcatalogdetails === 'true';
+      const isOnRightPage = onDatasetPage && queryCatalogProperty && catalogDetailsShown;
+      if (!(isOnRightPage)) return false;
+
+      const permissions = this.getUserData && this.getUserData.permissions;
+      const catalogId = this.$route.query.catalog;
+      const hasPermission = permissions.find(permission => permission.rsname === catalogId);
+      
+      // does user have permission on current catalogue
+      return hasPermission && isOnRightPage;
+    }
   },
   methods: {
     ...mapActions('auth', [
@@ -337,21 +382,34 @@ export default {
 
       this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
-    async handleDeleteDataset({ id, catalog }) {
+    async handleDelete({ id, property }) {
       // todo: create user dataset api (and maybe integrate to store)
 
       // For now, do request manually using axios
       this.modal.loading = true;
       this.$Progress.start();
       try {
-        await axios.delete(`${this.$env.api.hubUrl}datasets/${id}?catalogue=${catalog}`, {
+        let endpoint;
+        if (property === 'datasets') {
+          endpoint = `${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true`;
+        } else if (property === 'catalogues') {
+          endpoint = `${this.$env.api.hubUrl}catalogues/${id}`
+        }
+
+        await axios.delete(endpoint, {
           headers: {
             'Content-Type': 'text/turtle',
             Authorization: `Bearer ${this.getUserData.rtpToken}`,
           },
         });
 
-        const successMessage = this.$te('message.snackbar.deleteDataset.success') ? this.$t('message.snackbar.deleteDataset.success') : 'Dataset successfully deleted';
+        let successMessage;
+        if (property === 'datasets') {
+          successMessage = this.$te('message.snackbar.deleteDataset.success') ? this.$t('message.snackbar.deleteDataset.success') : 'Dataset successfully deleted';
+        } else if (property === 'catalogues') {
+          successMessage = this.$te('message.snackbar.deleteCatalog.success') ? this.$t('message.snackbar.deleteCatalog.success') : 'Catalog successfully deleted';
+        }
+        
 
         this.showSnackbar({
           message: successMessage,
@@ -360,11 +418,17 @@ export default {
         this.$Progress.finish();
 
         // Redirect to Home
-        this.$router.push({ name: 'Datasets', query: { locale: this.$route.query.locale }}).catch(() => {});
+        this.$router.push({ name: 'Datasets', query: { locale: this.$route.query.locale, refresh: true }}).catch(() => {});
       } catch (ex) {
         this.$Progress.fail();
 
-        const errorMessage = this.$te('message.snackbar.deleteDataset.error') ? this.$t('message.snackbar.deleteDataset.error') : 'Failed to delete dataset';
+        let errorMessage;
+
+        if (property === 'datasets') {
+          errorMessage = this.$te('message.snackbar.deleteDataset.error') ? this.$t('message.snackbar.deleteDataset.error') : 'Failed to delete dataset';
+        } else if (property === 'catalogues') {
+          errorMessage = this.$te('message.snackbar.deleteCatalog.error') ? this.$t('message.snackbar.deleteCatalog.error') : 'Failed to delete catalog';
+        }
 
         this.showSnackbar({
           message: `${errorMessage}${ex.response?.data ? ` — ${ex.response?.data}` : ex.message}`,

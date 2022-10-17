@@ -1,12 +1,14 @@
 <template>
-  <div class="d-flex flex-column p-0 bg-transparent">
+  <div class="datasets d-flex flex-column p-0 bg-transparent">
     <datasets-top-controls
       :facets="facets"
       :getPage="getPage"
       :getLimit="getLimit"
+      class="datasets-top-controls"
     />
     <div class="container-fluid datasets content">
-      <h1 class="row col-12 page-title text-primary">{{ $t('message.header.navigation.data.datasets') }}</h1>
+      <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
+      <h1 class="row col-12 page-title text-primary" v-else>{{ $t('message.header.navigation.data.datasets') }}</h1>
       <div class="row">
         <div class="col d-flex d-md-none justify-content-end flex-wrap">
           <button class="btn btn-primary mb-3 text-right text-white" data-toggle="collapse" data-target="#datasetFacets" data-cy="btn-filter-toggle" @click="filterCollapsed = !filterCollapsed">
@@ -69,18 +71,13 @@
         </section>
       </div>
       <div class="row">
-        <div class="column col-12 col-md-8 offset-md-4">
-          <div class="d-flex flex-row justify-content-center">
-            <pagination class="mt-3"
-                        v-if="pagination"
-                        :items-count="getDatasetsCount"
-                        :items-per-page="getLimit"
-                        :click-handler="changePageTo"
-                        :get-page="getPage"
-                        :next-button-text="$t('message.pagination.nextPage')"
-                        :prev-button-text="$t('message.pagination.previousPage')">
-            </pagination>
-          </div>
+        <div class="column col-12 col-md-9 offset-md-3">
+          <pagination class="mt-3" 
+            :items-count="getDatasetsCount"
+            :items-per-page="getLimit"
+            :get-page="getPage"
+            :get-page-count="getPageCount"
+            @setPageLimit="setPageLimit"></pagination>
         </div>
       </div>
     </div>
@@ -105,13 +102,12 @@
   import Pagination from '../widgets/Pagination.vue';
   import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
   import AppLink from '../widgets/AppLink.vue';
-  import PvDataInfoBox from '../PvDataInfoBox/PvDataInfoBox.vue';
   import { getTranslationFor, truncate, getImg } from '../utils/helpers';
   import DatasetsTopControls from "@/modules/datasets/DatasetsTopControls";
   import DatasetsFilters from "@/modules/datasets/DatasetsFilters";
 
   export default {
-    name: 'datasets',
+    name: 'Datasets',
     dependencies: ['DatasetService'],
     components: {
       DatasetsFilters,
@@ -120,16 +116,11 @@
       selectedFacetsOverview: SelectedFacetsOverview,
       datasetsFacets: DatasetsFacets,
       pagination: Pagination,
-      PvDataInfoBox,
     },
     props: {
       infiniteScrolling: {
         type: Boolean,
         default: false,
-      },
-      pagination: {
-        type: Boolean,
-        default: true,
       },
     },
     metaInfo() {
@@ -149,14 +140,14 @@
         facetFields: [],
         lang: this.locale,
         filterCollapsed: true,
-        catalogDetailsMode: this.$route.query.showcatalogdetails === 'true',
         catalogAllowed: false,
-        useCreateDatasetButton: this.$env.upload.useCreateDatasetButton,
-        useCreateCatalogueButton: this.$env.upload.useCreateCatalogueButton,
         useDatasetFacets: this.$env.datasets.facets.useDatasetFacets
       };
     },
     computed: {
+      ...mapGetters('catalogDetails', [
+        'getCatalog',
+      ]),
       ...mapGetters('datasets', [
         'getDatasets',
         'getDatasetsCount',
@@ -169,6 +160,9 @@
         'getAvailableFacets',
         'getMinScoring',
       ]),
+      showCatalogDetails() {
+        return this.$route.query.showcatalogdetails === 'true';
+      },
       /**
        * @description Returns the current page.
        * @returns {Number}
@@ -218,6 +212,7 @@
         'setFacetGroupOperator',
         'setDataServices',
         'setPageCount',
+        'setLimit',
         'setLoading',
         'setDataScope',
       ]),
@@ -227,12 +222,6 @@
       truncate,
       getTranslationFor,
       getImg,
-      changePageTo(page) {
-        this.$router.replace(
-          { query: Object.assign({}, this.$route.query, { page }) }
-        ).catch(error => { console.log(error); });
-        this.scrollTo(0, 0);
-      },
       /**
        * @description Handler-function for the scroll event.
        */
@@ -262,14 +251,6 @@
         });
       },
       /**
-       * @description The the current scroll-level to a given point.
-       * @param x {Number} - The x-position to scroll to
-       * @param y {Number} - The y-position to scroll to
-       */
-      scrollTo(x, y) {
-        window.scrollTo(x, y);
-      },
-      /**
        * @description Cuts badge format string (max 8 chars)
        * @param label {String} - badge label or id (e.g. csv)
        */
@@ -297,6 +278,14 @@
         const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
         const uniqByIdAndLabel = uniqBy(uniqById, 'label');
         return uniqByIdAndLabel;
+      },
+      initLimit() {
+        const limit = parseInt(this.$route.query.limit, 10);
+        if (limit > 0) this.setLimit(limit);
+      },
+      setPageLimit(value) {
+        this.setLimit(value);
+        this.initDatasets();
       },
       initDataScope() {
         this.setDataScope(this.dataScope);
@@ -332,7 +321,7 @@
       },
       initFacetOperator() {
         // Always set facet operator to AND when in catalog details mode
-        if (this.$route.query.showcatalogdetails === 'true') this.setFacetOperator('AND');
+        if (this.showCatalogDetails) this.setFacetOperator('AND');
         else {
           const op = this.$route.query.facetOperator;
           if (op === 'AND' || op === 'OR') this.setFacetOperator(op);
@@ -341,7 +330,7 @@
       initFacetGroupOperator() {
         // The facetGroupOperator should be the same as the facetOperator
         // Always set facet operator to AND when in catalog details mode
-        if (this.$route.query.showcatalogdetails === 'true') this.setFacetGroupOperator('AND');
+        if (this.showCatalogDetails) this.setFacetGroupOperator('AND');
         else {
           const op = this.$route.query.facetOperator;
           if (op === 'AND' || op === 'OR') this.setFacetGroupOperator(op);
@@ -356,6 +345,27 @@
         else {
           this.setDataServices('false');
         }
+      },
+      initDatasets() {
+        this.$nextTick(() => {
+          this.$nextTick(() => {
+            this.$Progress.start();
+            this.loadDatasets({ locale: this.$route.query.locale })
+              .then(() => {
+                this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
+                this.$Progress.finish();
+                $('[data-toggle="tooltip"]').tooltip({
+                  container: 'body',
+                });
+              })
+              .catch(() => {
+                this.$Progress.fail();
+              });
+          });
+        });
+      },
+      initInfiniteScrolling() {
+        if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
       },
       getFileTypeColor(format) {
         return fileTypes.getFileTypeColor(format);
@@ -393,28 +403,30 @@
     created() {
       this.useService(this.DatasetService);
       this.initDataScope();
+      this.initLimit();
       this.initPage();
       this.initFacetOperator();
       this.initFacetGroupOperator();
       this.initDataServices();
       this.initFacets();
-      this.$nextTick(() => {
+      this.initDatasets();
+      this.initInfiniteScrolling();
+    },
+    mounted() {
+      // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)
+      if (this.$route.query.refresh === 'true') {
         this.$nextTick(() => {
-          this.$Progress.start();
-          this.loadDatasets({ locale: this.$route.query.locale })
-            .then(() => {
-              this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
-              this.$Progress.finish();
-              $('[data-toggle="tooltip"]').tooltip({
-                container: 'body',
+          this.$nextTick(() => {
+            this.loadDatasets({ locale: this.$route.query.locale })
+              .then(() => {
+                this.$router.push({ query: { locale: this.$route.query.locale } });
+              })
+              .catch(() => {
+                this.$Progress.fail();
               });
-            })
-            .catch(() => {
-              this.$Progress.fail();
-            });
+          });
         });
-      });
-      if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
+      }
     },
     beforeDestroy() {
       $('.tooltip').remove();

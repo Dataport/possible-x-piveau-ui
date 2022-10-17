@@ -81,7 +81,7 @@
      distribution.availability = dataGetters.getObject(dist, 'availability', ['label', 'resource']);
      distribution.byteSize = dataGetters.getNumber(dist, 'byte_size');
      distribution.checksum = dataGetters.getObject(dist, 'checksum', ['algorithm', 'checksum_value']);
-     distribution.compressFormat = dataGetters.getString(dist, 'compress_format');
+     distribution.compressFormat = dataGetters.getObject(dist, 'compress_format', ['label', 'resource']);
      distribution.conformsTo = dataGetters.getArrayOfObjects(dist, 'conforms_to', ['label', 'resource']);
      distribution.description = dataGetters.getObjectLanguage(dist, 'description', 'No description available');
      distribution.downloadUrls = dataGetters.getArrayOfStrings(dist, 'download_url');
@@ -92,7 +92,7 @@
      distribution.licence = dataGetters.getObject(dist, 'license', ['id', 'label', 'description', 'resource', 'la_url']);
      distribution.mediaType = dataGetters.getString(dist, 'media_type');
      distribution.modificationDate = dataGetters.getString(dist, 'modified');
-     distribution.packageFormat = dataGetters.getString(dist, 'package_format');
+     distribution.packageFormat = dataGetters.getObject(dist, 'package_format', ['label', 'resource']);
      distribution.pages = dataGetters.getArrayOfObjects(dist, 'page', ['format', 'title', 'description', 'resource']);
      distribution.releaseDate = dataGetters.getString(dist, 'issued');
      distribution.rights = dataGetters.getObject(dist, 'rights', ['label', 'resource']);
@@ -201,192 +201,194 @@
 
      // Check if dataScope is set and then modify params to fullfil the corresponding data scope criterias
      if (!isNil(dataScope)) {
-       // Set countryData param to true if Country data is requested
-       params.countryData = dataScope === 'countryData';
-       // Set country facets if EU or International data is requested
-       if (!params.countryData) {
-         params.facets.country = [];
-         params.facets.country.push(dataScope);
-       }
-     }
+        // Set countryData param to true if Country data is requested
+        params.countryData = dataScope === 'countryData';
+        // Set country facets param
+        if (params.countryData) {
+          params.facets.country = params.facets.country.filter(c => c !== 'countryData');
+        } else {
+          params.facets.country = [];
+          params.facets.country.push(dataScope);
+        }
+      }
 
-     // Add geoBounds parameters if the bounds are valid
-     const bounds = checkBounds(geoBounds);
-     if (!isNil(bounds)) {
-       params.bboxMinLat = bounds[0];
-       params.bboxMaxLat = bounds[2];
-       params.bboxMinLon = bounds[1];
-       params.bboxMaxLon = bounds[3];
-     }
+      // Add geoBounds parameters if the bounds are valid
+      const bounds = checkBounds(geoBounds);
+      if (!isNil(bounds)) {
+        params.bboxMinLat = bounds[0];
+        params.bboxMaxLat = bounds[2];
+        params.bboxMinLon = bounds[1];
+        params.bboxMaxLon = bounds[3];
+      }
 
-     return new Promise((resolve, reject) => {
-       const endpoint = 'search';
-       const reqStr = `${this.baseUrl}${endpoint}`;
-       axios.get(reqStr, {
-         params,
-       })
-         .then((response) => {
-           if (!has(response.data, 'result')) {
-             console.warn('Error in datasets.js while checking response');
-             return reject(new Error('Empty Response Data'));
-           }
-           /**
+      return new Promise((resolve, reject) => {
+        const endpoint = 'search';
+        const reqStr = `${this.baseUrl}${endpoint}`;
+        axios.get(reqStr, {
+          params,
+        })
+          .then((response) => {
+            if (!has(response.data, 'result')) {
+              console.warn('Error in datasets.js while checking response');
+              return reject(new Error('Empty Response Data'));
+            }
+            /**
             * @property availableFacets
             * @type {availableFacets: Array, datasetsCount, datasets: Array}
             * @description The set union of all available facets for the .
             */
-           const resData = {
-             availableFacets: [],
-             scoringCount: {},
-             datasetsCount: response.data.result.count,
-             datasets: [],
-           };
+            const resData = {
+              availableFacets: [],
+              scoringCount: {},
+              datasetsCount: response.data.result.count,
+              datasets: [],
+            };
 
-           // Transform fetched facets
-           for (const field of response.data.result.facets) {
-             // Check for required field keys
-             if (has(field, 'id') && has(field, 'title') && has(field, 'items')) {
-               const items = [];
-               for (const facet of field.items) {
-                 const item = {};
-                 // Check for required facet/item keys
-                 if (has(facet, 'id') && has(facet, 'title') && has(facet, 'count')) {
-                   item.id = facet.id;
-                   item.title = facet.title;
-                   item.count = facet.count;
-                 }
-                 // Handle Scoring Facets
-                 if (has(facet, 'from') && has(facet, 'to')) {
-                   const currentScoringFacet = this.defaultScoringFacets[facet.id];
-                   item.minScoring = facet.from;
-                   item.maxScoring = facet.to;
+            // Transform fetched facets
+            for (const field of response.data.result.facets) {
+              // Check for required field keys
+              if (has(field, 'id') && has(field, 'title') && has(field, 'items')) {
+                const items = [];
+                for (const facet of field.items) {
+                  const item = {};
+                  // Check for required facet/item keys
+                  if (has(facet, 'id') && has(facet, 'title') && has(facet, 'count')) {
+                    item.id = facet.id;
+                    item.title = facet.title;
+                    item.count = facet.count;
+                  }
+                  // Handle Scoring Facets
+                  if (has(facet, 'from') && has(facet, 'to')) {
+                    const currentScoringFacet = this.defaultScoringFacets[facet.id];
+                    item.minScoring = facet.from;
+                    item.maxScoring = facet.to;
 
-                   // Use config values to overwrite the default values form the backend
-                   if (currentScoringFacet.title) item.title = currentScoringFacet.title;
-                   if (currentScoringFacet.minScoring) item.minScoring = currentScoringFacet.minScoring;
-                   if (currentScoringFacet.maxScoring) item.maxScoring = currentScoringFacet.maxScoring;
-                 }
-                 items.push(item);
-               }
-               // Add to response array
-               resData.availableFacets.push({
-                 id: field.id,
-                 title: field.title,
-                 items,
-               });
-             }
-           }
+                    // Use config values to overwrite the default values form the backend
+                    if (currentScoringFacet.title) item.title = currentScoringFacet.title;
+                    if (currentScoringFacet.minScoring) item.minScoring = currentScoringFacet.minScoring;
+                    if (currentScoringFacet.maxScoring) item.maxScoring = currentScoringFacet.maxScoring;
+                  }
+                  items.push(item);
+                }
+                // Add to response array
+                resData.availableFacets.push({
+                  id: field.id,
+                  title: field.title,
+                  items,
+                });
+              }
+            }
 
-           // Transform Datasets Data model
-           const datasets = response.data.result.results;
+            // Transform Datasets Data model
+            const datasets = response.data.result.results;
 
-           for (const dataset of datasets) {
-             let ds = {};
-             try {
-               ds = getResponseData(dataset);
-             } catch (error) {
-               console.warn('Error in datasets.js while checking response:', error.message);
-               console.error(error.stack);
-             }
-             resData.datasets.push(ds);
-           }
-           return resolve(resData);
-         })
-         .catch((error) => {
-           console.error(error);
-           reject(error);
-         });
-     });
-   }
+            for (const dataset of datasets) {
+              let ds = {};
+              try {
+                ds = getResponseData(dataset);
+              } catch (error) {
+                console.warn('Error in datasets.js while checking response:', error.message);
+                console.error(error.stack);
+              }
+              resData.datasets.push(ds);
+            }
+            return resolve(resData);
+          })
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
+    }
 
-   /**
+    /**
    * @description Get similar datasets to the dataset represented by the provided id.
    * @param id {int} The dataset id to get similar datasets for.
    */
-   getSimilarDatasets(id) {
-     return new Promise((resolve, reject) => {
-       const params = {
-         limit: 20,
-       };
-       const endpoint = 'similarity';
-       const reqStr = `${this.similarityBaseUrl}${endpoint}/${id}`;
-       axios.get(reqStr, {
-         params,
-       })
-         .then((response) => {
-           resolve(response);
-         })
-         .catch((error) => {
-           reject(error);
-         });
-     });
-   }
+    getSimilarDatasets(id) {
+      return new Promise((resolve, reject) => {
+        const params = {
+          limit: 20,
+        };
+        const endpoint = 'similarity';
+        const reqStr = `${this.similarityBaseUrl}${endpoint}/${id}`;
+        axios.get(reqStr, {
+          params,
+        })
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    }
 
-   getQualityData(id) {
-     return new Promise((resolve, reject) => {
-       const endpoint = 'datasets';
-       const reqStr = `${this.qualityBaseUrl}${endpoint}/${id} `;
-       axios.get(reqStr, {
-         timeout: 30000,
-       })
-         .then((response) => {
-           resolve(response);
-         })
-         .catch((error) => {
-           reject(error);
-         });
-     });
-   }
+    getQualityData(id) {
+      return new Promise((resolve, reject) => {
+        const endpoint = 'datasets';
+        const reqStr = `${this.qualityBaseUrl}${endpoint}/${id} `;
+        axios.get(reqStr, {
+          timeout: 30000,
+        })
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    }
 
-   getQualityDistributionData(id) {
-     return new Promise((resolve, reject) => {
-       const endpoint = 'distributions';
-       const reqStr = `${this.qualityBaseUrl}${endpoint}/${id} `;
-       axios.get(reqStr, {
-         timeout: 30000,
-       })
-         .then((response) => {
-           resolve(response);
-         })
-         .catch((error) => {
-           reject(error);
-         });
-     });
-   }
+    getQualityDistributionData(id) {
+      return new Promise((resolve, reject) => {
+        const endpoint = 'distributions';
+        const reqStr = `${this.qualityBaseUrl}${endpoint}/${id} `;
+        axios.get(reqStr, {
+          timeout: 30000,
+        })
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    }
 
-   getDQVDataHead(id, format, locale) {
-     return new Promise((resolve, reject) => {
-       const reqStr = `${this.hubUrl}metrics/${id}.${format}?useNormalizedId=true&locale=${locale}`;
-       axios.head(reqStr, {
-       })
-         .then((response) => {
-           resolve(response);
-         })
-         .catch((error) => {
-           reject(error);
-         });
-     });
-   }
+    getDQVDataHead(id, format, locale) {
+      return new Promise((resolve, reject) => {
+        const reqStr = `${this.hubUrl}metrics/${id}.${format}?useNormalizedId=true&locale=${locale}`;
+        axios.head(reqStr, {
+        })
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    }
 
-   /**
+    /**
    * @description Autocomplete the given query.
    * @param q {String} The Query to autocomplete.
    */
-   autocomplete(q) {
-     return new Promise((resolve, reject) => {
-       const endpoint = 'autocomplete';
-       const reqStr = `${this.baseUrl}${endpoint}`;
-       axios.get(reqStr, {
-         params: {
-           q,
-         },
-       })
-         .then((response) => {
-           resolve(response);
-         })
-         .catch((err) => {
-           reject(err);
-         });
-     });
-   }
- }
+    autocomplete(q) {
+      return new Promise((resolve, reject) => {
+        const endpoint = 'autocomplete';
+        const reqStr = `${this.baseUrl}${endpoint}`;
+        axios.get(reqStr, {
+          params: {
+            q,
+          },
+        })
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    }
+  }

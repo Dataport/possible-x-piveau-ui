@@ -47,8 +47,10 @@ const singularURI = {
         "adms:status",
     ],
     catalogues: [
-        "dct:isPartOf",
         'foaf:homepage',
+        'dct:publisher',
+        'dct:spatial',
+        'dct:isPartOf',
     ],
 };
 
@@ -79,6 +81,7 @@ const multipleURI = {
     catalogues: [
         "dct:hasPart",
         'dcat:catalog',
+        'dct:language',
     ],
 }
 
@@ -94,7 +97,10 @@ const multiLang = {
         "dct:title",
         "dct:description",
     ],
-    catalogues: [],
+    catalogues: [
+        'dct:title',
+        'dct:description',
+    ],
 };
 
 // all DCAT-Ap properties (first level) which have different JSONLD formats based on the conditional form input
@@ -118,7 +124,6 @@ const groupedProperties = [
     'dct:temporal',
     'dext:metadataExtension',
     'dcat:accessService',
-    // 'adms:identifier', // uncomment as soon as backend error is fixed
     'dct:provenance',
     'dct:conformsTo',
 ];

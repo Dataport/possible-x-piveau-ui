@@ -16,7 +16,7 @@ const datasets = {
     "dct:modified": {},  // {'@value': '', '@type': ''}
     "dcat:contactPoint": [], // [{"@type": "", "vcard:fn": "", "vcard:hasAddress": { "vcard:country_name": "", "vcard:locality": "", "vcard:postal_code": "", "vcard:street_address": ""}, "vcard:hasEmail": {"@id": ""},
          // "vcard:hasOrganizationName": "", "vcard:hasTelephone": "", "vcard:hasURL": {"@id": ""}, }]
-    "dct:creator": [], // [{"@type": "", "foaf:homepage": {"@id": ""}, "foaf:mbox": {"@id": ""}, "foaf:name": ""}]
+    "dct:creator": {}, // {"@type": "", "foaf:homepage": {"@id": ""}, "foaf:mbox": {"@id": ""}, "foaf:name": ""}
     "dct:language": [], // [{"@id": ""}]
     "dct:subject": [], // [{"@id": ""}]
     "dcat:theme": [], // [{"@id": ""}]
@@ -77,7 +77,7 @@ const distributions = {
 
 const catalogues = {
     '@id': '',
-    '@type': 'dcat:Catalogue',
+    '@type': 'dcat:Catalog',
     "dct:title": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }] 
     "dct:description": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }]
     "dct:publisher": {}, // {"@id": ""} 
@@ -85,11 +85,12 @@ const catalogues = {
     "foaf:homepage": {}, // {'@id': ""}
     "dcat:catalog": [], // [{'@id': ''}]
     "dct:language": [], // [{"@id": ""}]
-    "dct:creator": [], // [{"@type": "", "foaf:homepage": {"@id": ""}, "foaf:mbox": {"@id": ""}, "fofa:name": ""}]
+    "dct:creator": {}, // {"@type": "", "foaf:homepage": {"@id": ""}, "foaf:mbox": {"@id": ""}, "fofa:name": ""}
     "dct:spatial": {}, // {"@id": ""}
     "dct:rights": {}, // {"@type": "dct:RightsStatement", "rdfs:label": {"@id": ""}} OR {"@type": "dct:RightsStatement", "rdfs:label": ""}
     "dct:hasPart": [], // [{'@id': ''}]
     "dct:isPartOf": {}, // {'@id': ''}
+    "dct:type": "dcat-ap"
 };
 
 export default { datasets, distributions, catalogues };

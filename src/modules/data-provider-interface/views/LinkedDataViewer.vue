@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between mt-n5 content">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content">
     <div class="loading-spinner ml-3" v-if="isLoading"></div>
     <div v-else>
       <div class="d-flex justify-content-between">

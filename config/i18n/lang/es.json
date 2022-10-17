@@ -851,16 +851,11 @@
                             "distribution2": {
                                 "name": "Información adicional"
                             }
-                        },
-                        "name": "Crear distribuciones"
+                        }
                     },
                     "overview": "Resumen del conjunto de datos",
-                    "step1": {
-                        "name": "Crear conjunto de datos"
-                    },
-                    "step2": {
-                        "name": "Definir las propiedades del conjunto de datos"
-                    }
+                    "step1": {},
+                    "step2": {}
                 }
             },
             "catalogues": {
@@ -1072,7 +1067,10 @@
             "validationtitle": "Validación",
             "publishdraft": "Publicar el proyecto",
             "newDistribution": "Añadir otra distribución",
-            "validationerror": "Se ha producido un error al validar su formulario."
+            "validationerror": "Se ha producido un error al validar su formulario.",
+            "createDataset": "Crear conjunto de datos",
+            "defineDatasetProperties": "Definir las propiedades del conjunto de datos",
+            "createDistributions": "Crear distribuciones"
         },
         "datasetDetails": {
             "subnav": {

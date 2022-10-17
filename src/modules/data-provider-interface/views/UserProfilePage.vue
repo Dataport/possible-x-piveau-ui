@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between mt-n5 content">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content">
     <h1 class="small-headline">My Profile</h1>
     <div class="panel-body inf-content">
       <div class="row">
