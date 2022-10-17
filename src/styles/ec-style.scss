@@ -16,6 +16,8 @@ body {
 
 body .content.container-fluid {
   @extend .ecl-container;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }
 
 .page-title {

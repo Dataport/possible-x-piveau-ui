@@ -1,5 +1,5 @@
 <template>
-  <div class="datasets d-flex flex-column p-0 bg-transparent">
+  <div class="datasets-container d-flex flex-column p-0 bg-transparent">
     <datasets-top-controls
       :facets="facets"
       :getPage="getPage"
@@ -72,7 +72,7 @@
       </div>
       <div class="row">
         <div class="column col-12 col-md-9 offset-md-3">
-          <pagination class="mt-3" 
+          <pagination class="mt-3"
             :items-count="getDatasetsCount"
             :items-per-page="getLimit"
             :get-page="getPage"
