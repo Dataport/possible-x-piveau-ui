@@ -558,7 +558,7 @@
             </td>
           </tr>
         </table>
-        <div class="additional-information-overlay" v-if="showMoreVisible && !expanded"></div>
+        <div class="additional-information-overlay" ref="overlay" v-show="showMoreVisible && !expanded"></div>
       </div>
     </div>
     <pv-show-more
@@ -682,6 +682,7 @@ export default {
   },
   mounted() {
     this.initialHeight = this.$refs.dsdProperties.clientHeight;
+    this.$refs.overlay.style.bottom = (this.$refs.dsdProperties.offsetHeight - this.$refs.dsdProperties.clientHeight) + "px";
     this.adaptHeight();
   }
 }
@@ -694,9 +695,8 @@ export default {
 
 .additional-information-overlay {
   width: 100%;
-  height: 160px;
+  height: 200px;
   position: absolute;
-  bottom: 10px;
   left: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,0) 0, white 100%);
   pointer-events: none;
