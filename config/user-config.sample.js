@@ -120,7 +120,11 @@ const glueConfig = {
     bottom: {}
   },
   pagination: {
+    usePagination: true,
     usePaginationArrows: false,
+    useItemsPerPage: true,
+    defaultItemsPerPage: 10,
+    defaultItemsPerPageOptions: [5, 10, 25, 50],
   },
   images: {
     top: [

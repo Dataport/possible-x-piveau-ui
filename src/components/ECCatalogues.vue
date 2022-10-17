@@ -161,16 +161,15 @@
             </section>
         </div>
         <div class="row">
-            <div class="column col-12 col-md-8 offset-md-4">
-                <div class="d-flex flex-row justify-content-center">
-                    <pagination class="mt-3" v-if="pagination" :items-count="getCatalogsCount"
-                        :items-per-page="getLimit" :click-handler="changePageTo" :get-page="getPage"
-                        :next-button-text="$t('message.pagination.nextPage')"
-                        :prev-button-text="$t('message.pagination.previousPage')">
-                    </pagination>
-                </div>
+            <div class="column col-12 col-md-9 offset-md-3">
+                <pagination class="mt-3" 
+                    :items-count="getCatalogsCount"
+                    :items-per-page="getLimit"
+                    :get-page="getPage"
+                    :get-page-count="getPageCount"
+                    @setPageLimit="setPageLimit"></pagination>
             </div>
-        </div>
+      </div>
     </div>
 </template>
 
@@ -271,12 +270,21 @@ export default {
             'setFacetGroupOperator',
             'setPageCount',
             'setSort',
+            'setLimit',
             'setLoading',
         ]),
         has,
         getImg,
         getTranslationFor,
         getCountryFlagImg,
+        initLimit() {
+            const limit = parseInt(this.$route.query.limit, 10);
+            if (limit > 0) this.setLimit(limit);
+        },
+        setPageLimit(value) {
+            this.setLimit(value);
+            this.initCatalogues();
+        },
         initPage() {
             const page = parseInt(this.$route.query.page, 10);
             if (page > 0) this.setPage(page);
@@ -328,6 +336,23 @@ export default {
                 }
             }
         },
+        initCatalogues() {
+            this.$nextTick(() => {
+                this.$Progress.start();
+                this.loadCatalogs({})
+                    .then(() => {
+                        this.setPageCount(Math.ceil(this.getCatalogsCount / this.getLimit));
+                        this.$Progress.finish();
+                        $('[data-toggle="tooltip"]').tooltip({
+                            container: 'body',
+                        });
+                    })
+                    .catch(() => this.$Progress.fail());
+            });
+        },
+        initInfiniteScrolling() {
+            if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
+        },
         setSortMethod(method, order, label) {
             this.sortSelectedLabel = label;
             if (method === 'relevance') this.sortSelected = `${method}+${order}, modified+desc, title.${this.$route.query.locale}+asc`;
@@ -357,13 +382,6 @@ export default {
         },
         handleSuggestionSelection(suggestion) {
             this.$router.push({ path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` });
-        },
-        changePageTo(page) {
-            this.$router.replace({ query: Object.assign({}, this.$route.query, { page }) });
-            this.scrollTo(0, 0);
-        },
-        scrollTo(x, y) {
-            window.scrollTo(x, y);
         },
         onScroll() {
             const items = this.$el.querySelectorAll('.catalog');
@@ -457,25 +475,15 @@ export default {
     },
     created() {
         this.useService(this.catalogService);
+        this.initLimit();
         this.initPage();
         this.initQuery();
         this.initSort();
         this.initFacetOperator();
         this.initFacetGroupOperator();
         this.initFacets();
-        this.$nextTick(() => {
-            this.$Progress.start();
-            this.loadCatalogs({})
-                .then(() => {
-                    this.setPageCount(Math.ceil(this.getCatalogsCount / this.getLimit));
-                    this.$Progress.finish();
-                    $('[data-toggle="tooltip"]').tooltip({
-                        container: 'body',
-                    });
-                })
-                .catch(() => this.$Progress.fail());
-        });
-        if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
+        this.initCatalogues();
+        this.initInfiniteScrolling();
     },
     beforeDestroy() {
         $('.tooltip').remove();
