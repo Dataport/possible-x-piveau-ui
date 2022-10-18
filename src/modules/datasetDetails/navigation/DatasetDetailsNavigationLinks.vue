@@ -22,7 +22,11 @@
                   target="_blank"
                   matomo-track-page-view
                   role="button">
-          {{ $t('message.datasetDetails.datasetFeed') }}
+          <span :title="$t('message.tooltip.datasetDetails.datasetFeed')"
+                data-toggle="tooltip"
+                data-placement="top">
+                    {{ $t('message.datasetDetails.datasetFeed') }}
+          </span>
         </app-link>
       </div>
       <div class="d-inline dropdown dsd-link-linked-data">
@@ -62,7 +66,11 @@
       </div>
       <div class="d-inline dropdown dsd-link-cite">
         <app-link class="nav-item nav-link dropdown-toggle text-nowrap" fragment="#" role="button" id="citationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-cy="citation-dropdown-expand">
-          {{ $t('message.datasetDetails.cite') }}
+          <span :title="$t('message.tooltip.datasetDetails.cite')"
+                data-toggle="tooltip"
+                data-placement="top">
+                    {{ $t('message.datasetDetails.cite') }}
+          </span>
         </app-link>
         <div
           class="dropdown-menu dropdown-menu-right"
