@@ -175,6 +175,14 @@
   .dsd-properties {
     order: 2;
     margin-top: 1.5rem !important;
+
+    // Hide scrollbar
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
     .heading {
       display: none !important;
     }
