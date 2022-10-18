@@ -1428,7 +1428,9 @@
                 "wasGeneratedBy": "This property refers to activities that generated, or provides the business context for, the creation of the dataset.",
                 "qualifiedAttribution": "This property refers to a link to agents having some form of responsibility for the resource.",
                 "isReferencedBy": "This property is about a related resources, such as a publications, that references, cites, or otherwise points to the dataset.",
-                "temporalResolution": "This property refers to the minimum time period resolvable in the dataset distribution."
+                "temporalResolution": "This property refers to the minimum time period resolvable in the dataset distribution.",
+                "cite": "Cite this dataset in your publication or other resources.",
+                "datasetFeed": "See the latest changes on this dataset as RSS feed."
             },
             "quality": {
                 "keywordAvailability": "Keywords directly support the search and thus increase the findability of the data dataset.<br><br> The system checks whether keywords are defined. The number of keywords has no impact to the score.",
@@ -1563,13 +1565,13 @@
             "navigation": {
                 "data": {
                     "euInternationalData": "EU and international data",
-                    "datasets": "Datasets",
+                    "datasets": "Quick search",
                     "catalogs": "Catalogues",
-                    "metadataquality": "Metadata Quality",
+                    "metadataquality": "Metadata quality dashboard",
                     "sparqleditor": "SPARQL Editor",
                     "statistics": "Statistics",
-                    "sparqlsearch": "SPARQL Search",
-                    "title": "Data",
+                    "sparqlsearch": "Graph search",
+                    "title": "Datasets",
                     "euVocabularies": " EU Vocabularies",
                     "persistentUris": " Persistent URIs"
                 },
@@ -1577,12 +1579,12 @@
                     "opendataimpact": "Open Data Impact",
                     "tellUsYourStory": "Tell us your story",
                     "studies": "Studies",
-                    "opendatamaturity": "Open Data Maturity",
+                    "opendatamaturity": "Open data maturity",
                     "countryInsights": "Country Insights",
                     "useCases": "Use Cases",
                     "title": "Impact & Studies",
                     "overview": "Overview",
-                    "countyInsights": "Country Insights"
+                    "countyInsights": "Country insights"
                 },
                 "training": {
                     "licensingAssistant": "Licensing Assistant",
@@ -1616,7 +1618,7 @@
                 "newsletter": "Newsletter",
                 "cookies": "Cookies",
                 "login": "Login",
-                "contact": "Contact",
+                "contact": "Contact us",
                 "search": "Search",
                 "logout": "Logout",
                 "legalNotice": "Legal notice",
