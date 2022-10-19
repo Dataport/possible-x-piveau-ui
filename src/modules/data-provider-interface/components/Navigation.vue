@@ -244,7 +244,7 @@ export default {
         return; 
       }
 
-      const datasetId = this.getData(submitProperty)['@id'];
+      const datasetId = this.getData(submitProperty)['datasetID'];
       const title = this.getData(submitProperty)['dct:title'];
       const description = this.getData(submitProperty)['dct:description'];
       const catalogName = this.getData(submitProperty)['dct:catalog'] ? this.getData(submitProperty)['dct:catalog'] : '';

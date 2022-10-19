@@ -876,7 +876,7 @@ export default {
   methods: {
     ...mapActions('dpiStore', [
       'clearAll',
-      'saveExistingJsonld',
+      'saveLocalstorageValues',
     ]),
     has,
     isNil,
@@ -1065,7 +1065,7 @@ export default {
     });
   },
   mounted(){
-    this.saveExistingJsonld(this.property);
+    this.saveLocalstorageValues(this.property);
     this.getLocalstorageValues();
   }
 };

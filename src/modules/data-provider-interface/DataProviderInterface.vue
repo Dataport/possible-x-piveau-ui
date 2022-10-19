@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     ...mapActions('dpiStore', [
-      'saveExistingJsonld',
+      'saveLocalstorageValues',
     ]),
     ...mapActions('auth', [
       'populateDraftAndEdit',
@@ -211,7 +211,7 @@ export default {
   },
   mounted() {
     this.addStepperLinks();
-    this.saveExistingJsonld(this.property);
+    this.saveLocalstorageValues(this.property);
   },
 };
 </script>

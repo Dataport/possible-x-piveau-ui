@@ -79,7 +79,7 @@ export default {
   methods: {
     ...mapActions('dpiStore', [
       'addDistribution',
-      'saveExistingJsonld',
+      'saveLocalstorageValues',
       'deleteDistribution',
     ]),
     truncate,
@@ -125,7 +125,7 @@ export default {
   },
   mounted() {
     // saving existing dataset and distrbution data from localStorage to vuex store
-    this.saveExistingJsonld('datasets');
+    this.saveLocalstorageValues('datasets');
   }
 };
 </script>

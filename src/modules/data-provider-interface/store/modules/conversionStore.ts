@@ -5,6 +5,8 @@ import Vuex from 'vuex';
 
 import { isEmpty, isNil } from 'lodash';
 
+import generalHelper from '../../utils/general-helper';
+
 Vue.use(Vuex);
 
 const state = {
@@ -14,24 +16,76 @@ const state = {
 };
   
 const getters = {
-    getData: (state) => (property) => {
-        return state[property];
+    /**
+     * Rteurns raw values for given property, page and distribution
+     * @param state 
+     * @param0 Object containing property, page and distribution id
+     * @returns Object conatining form values for given property, distribution and page
+     */
+    getRawValues: (state) => ({property, page, id}) => {
+        let data;
+
+        if (id) {
+            data = state[property][id][page];
+        } else {
+            data = state[property][page];
+        }
+
+        return data;
     },
+    /**
+     * Provides property data
+     * @param state 
+     * @param property Property of wanted data
+     * @returns Object containing all values of given property
+     */
+    getData: (state) => (property) => {
+        let data;
+        if (property === 'distributions') {
+            data = [];
+            for (let index = 0; index < state[property].length; index += 1) {
+                const currentDistributionData = generalHelper.mergeNestedObjects(state[property][index]);
+                data.push(currentDistributionData);
+            }
+
+        } else {
+            data = generalHelper.mergeNestedObjects(state[property])
+        }
+        return data;
+    },
+    /**
+     * Returns the number of distributions
+     * @param state 
+     * @returns Number of distributions 
+     */
     getNumberOfDistributions(state) {
         return state.distributions.length;
     },
+    /**
+     * Determines wether all mandatory properties are given for provided property
+     * @param state 
+     * @param param0 Object containing property and distribution id
+     * @returns Bollean determining of all mandatory properties are given
+     */
     mandatoryFieldsFilled: (state) => ({ property, id }) => {
-        const data = state[property];
+    
+        // merge all nested objects into one object
+        let data = {};
+        if (id) data = generalHelper.mergeNestedObjects(state[property][id]);
+        else data = generalHelper.mergeNestedObjects(state[property]);
 
         if (property === 'datasets') {
-            return !isEmpty(data['@id'])
+            // dataset mandatory properties: datasetID, dct:title with language tag, dct:description with language tag and catalog literal
+            return !isEmpty(data['datasetID'])
             && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
             && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
             && !isEmpty(data['dct:catalog']);
         } else if (property === 'distributions') {
-            return !isNil(data) && !isEmpty(data[id]) && !isEmpty(data[id]['dcat:accessURL']);
+            // distribution mandatory properties: dcat:accessUrl
+            return !isNil(data) && !isEmpty(data) && !isEmpty(data['dcat:accessURL']);
         } else if (property === 'catalogues') {
-            return !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
+            // catalogue mandatory properties: datasetId, dct:title and dct:descirption with language tag, dct:publisher and at least one language (dct:language)
+            return !isEmpty(data['datasetID']) && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
             && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
             && !isEmpty(data['dct:publisher']) && !isEmpty(data['dct:language']);
         }
@@ -262,39 +316,20 @@ const mutations = {
             state.distributions = [];
         }
         const newDistribution = {};
-        // give distribution random id (which must be a link)
-        newDistribution['@id'] = `${Vue.prototype.$env.api.hubUrl}distribution/${Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 20)}`;
         state.distributions.push(newDistribution);
 
-        // add id to distributions array within datasets
-        // if edit mode and only one distribution is available, write id into array to enable adding additional distribution ids
-        if (!Array.isArray(state.datasets['dcat:distribution'])) {
-            const existingId = state.datasets['dcat:distribution'];
-            state.datasets['dcat:distribution'] = [];
-            state.datasets['dcat:distribution'].push({'@id': existingId});
-        }
-        state.datasets['dcat:distribution'].push({'@id': newDistribution['@id']});
-
         // save changes to local storage
-        localStorage.setItem('dpi_datasets', JSON.stringify(state.datasets));
         localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));
     },
     /**
     * Removes current distribution from state
     * @param {*} state
-    * @param {*} index Index of current distribution (withinthe state distributions array)
+    * @param {*} index Index of current distribution (within the state distributions array)
     */
     removeDistribution(state, index) {
         if (index > -1 && index < state.distributions.length) {
-            // distribution ids within dataset object not neccesaryly sorted the same way as distributions in state
-            const currentDistributionId = state.distributions[index]['@id'];
-            const idList = state.datasets['dcat:distribution'].map(dataset => dataset['@id']);
-            const idIndex = idList.indexOf(currentDistributionId);
-            state.datasets['dcat:distribution'].splice(idIndex, 1);
-
             state.distributions.splice(index, 1);
             localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
-            localStorage.setItem('dpi_datasets', JSON.stringify(state.datasets));
         }
     },
     resetStore(state) {

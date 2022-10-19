@@ -113,12 +113,7 @@ export default {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
-        // prefilling of input fields with values from localStorage (because vuex store not available yet)
-        if (this.id) {
-          this.formValues = JSON.parse(localStorage.getItem('dpi_distributions'))[this.id][this.page];
-        } else {
-          this.formValues = JSON.parse(localStorage.getItem(`dpi_${this.property}`))[this.page];
-        }
+        this.formValues = this.$store.getters['dpiStore/getRawValues']({property: this.property, page: this.page, id: this.id});
         
         this.$nextTick(() => {
           $('[data-toggle="tooltip"]').tooltip({
