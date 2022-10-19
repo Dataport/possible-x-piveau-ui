@@ -530,6 +530,15 @@
       },
     },
     methods: {
+      // import store-actions
+      ...mapActions('datasetDetails', [
+        'loadDatasetDetails',
+        'useService',
+        'loadQualityData',
+        'loadQualityDistributionData',
+      ]),
+      has,
+      getTranslationFor,
       isAccessAndDownloadUrlStatusCodeAvailable(key, value) {
         return (key === 'accessUrlStatusCode' && typeof value !== 'object' && value.length !== 0) || (key === 'downloadUrlStatusCode' && typeof value !== 'object' && value.length !== 0);
       },
@@ -540,15 +549,13 @@
           this.activeItem = idx;
         }
       },
-      has,
-      getTranslationFor,
-      // import store-actions
-      ...mapActions('datasetDetails', [
-        'loadDatasetDetails',
-        'useService',
-        'loadQualityData',
-        'loadQualityDistributionData',
-      ]),
+      scrollToElement(id) {
+          document.getElementById(id).scrollIntoView(true);
+      },
+      checkDistributionValidation() {
+          let query = this.$route.query.validate;
+          if (document.getElementById(query)) this.scrollToElement(query)
+      },
     },
     created() {
       this.useService(this.DatasetService);
@@ -583,6 +590,7 @@
           .then(() => {
             this.$Progress.finish();
             this.isLoadingQualityDistributionData = false;
+            this.checkDistributionValidation();
           })
           .catch(() => {
             this.$Progress.fail();

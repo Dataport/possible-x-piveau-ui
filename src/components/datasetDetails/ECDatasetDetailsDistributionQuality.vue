@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <div class="col-12 ecl-accordion" data-ecl-auto-init="Accordion" data-ecl-accordion="">
-                <div class="ecl-accordion__item" v-for="(distribution, index) in qualityDistributions" :key="index">
+                <div class="ecl-accordion__item" v-for="(distribution, index) in qualityDistributions" :key="index" :id="distribution.id">
                     <!-- Distribution Quality -->
                     <h3 class="ecl-accordion__title" @click="toggleDistribution(index)">
                         <button 
