@@ -342,8 +342,8 @@
 
     getQualityDistributionData(id) {
       return new Promise((resolve, reject) => {
-        const endpoint = 'distributions';
-        const reqStr = `${this.qualityBaseUrl}${endpoint}/${id} `;
+        const endpoint = `datasets/${id}/distributions`;
+        const reqStr = `${this.qualityBaseUrl}${endpoint} `;
         axios.get(reqStr, {
           timeout: 30000,
         })
