@@ -52,6 +52,13 @@ export default {
         isArray,
         isEmpty,
         getTranslationFor,
+        scrollToElement(id) {
+            document.getElementById(id).scrollIntoView(true);
+        },
+        checkDistributionValidation() {
+            let query = this.$route.query.validate;
+            if (document.getElementById(query)) this.scrollToElement(query)
+        },
     },
     created() {
         this.useService(this.DatasetService);
@@ -68,7 +75,7 @@ export default {
                     this.$Progress.fail();
                     this.$router.replace({
                     name: 'NotFound',
-                    query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+                        query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
                     });
                 });
 
@@ -86,6 +93,7 @@ export default {
                 .then(() => {
                     this.$Progress.finish();
                     this.isLoadingQualityDistributionData = false;
+                    this.checkDistributionValidation();
                 })
                 .catch(() => {
                     this.$Progress.fail();
