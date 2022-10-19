@@ -129,12 +129,6 @@
     "vuex-router-sync": "^5.0.0",
     "webpack-merge": "^4.2.2"
   },
-  "sideEffects": [
-    "./src/modules/utils/helpers.ts",
-    "./src/modules/mixins/usePiwikSuspendFilter.js",
-    "./src/modules/store/index.ts",
-    "*.css"
-  ],
   "release": {
     "branches": [
       {
