@@ -4,8 +4,8 @@
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields" @submit="handleSubmit"
-        @change="saveToJsonld({property: property, values: formValues, distid: id})"
-        @repeatableRemoved="saveToJsonld({property: property, values: formValues, distid: id})">
+        @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+        @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues })">
           <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
@@ -104,21 +104,22 @@ export default {
     ...mapActions('dpiStore', [
       'createSchema',
       'translateSchema',
-      'saveToJsonld',
-      'saveToForm',
-      'saveExistingJsonld',
+      'saveFormValues',
+      'saveLocalstorageValues',
       'addCatalogOptions',
       'clearAll',
     ]),
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
-        this.saveExistingJsonld(this.property);
-        this.saveToForm({property: this.property, page: this.page, distid: this.id }).then((response) => {
-          const preexistingValues = response;
-          // vuex returns observer of the data which will not be accepted by the input form so the data gets converted to 'real' data by using JSON conversion functions
-          this.formValues = JSON.parse(JSON.stringify(preexistingValues));
-        });
+        this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
+        // prefilling of input fields with values from localStorage (because vuex store not available yet)
+        if (this.id) {
+          this.formValues = JSON.parse(localStorage.getItem('dpi_distributions'))[this.id][this.page];
+        } else {
+          this.formValues = JSON.parse(localStorage.getItem(`dpi_${this.property}`))[this.page];
+        }
+        
         this.$nextTick(() => {
           $('[data-toggle="tooltip"]').tooltip({
             container: 'body',
