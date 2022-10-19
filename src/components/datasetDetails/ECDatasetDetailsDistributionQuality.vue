@@ -40,7 +40,8 @@
                                 </span>
                                 <span class="align-center">
                                     <PvBadge 
-                                        class="format-badge" 
+                                        class="format-badge"
+                                        v-if="has(distribution, 'format')" 
                                         :value="distribution.format"
                                         :type="distribution.format.id"></PvBadge>
                                 </span>
@@ -58,7 +59,7 @@
                             </div>
                         </div>
                         <!-- CSV Linter -->
-                        <CSVLinter></CSVLinter>
+                        <CSVLinter :validation="qualityDistributionValidation"></CSVLinter>
                     </div>
                 </div>
             </div>
@@ -68,6 +69,7 @@
   
 <script>
 import { mapGetters } from 'vuex';
+import { has } from 'lodash';
 import { helpers, PvBadge, CSVLinter } from '@piveau/piveau-hub-ui-modules';
 
 const { getTranslationFor } = helpers;
@@ -100,7 +102,7 @@ export default {
 
             let data = this.getQualityDistributionData.result.results[0][0];
 
-            let properties = Object.keys(data).filter(prop => prop !== 'info');
+            let properties = Object.keys(data).filter(prop => prop !== 'info' && prop !== 'validation');
 
             return properties.map(prop => {
                 return {
@@ -108,9 +110,19 @@ export default {
                     items: data[prop],
                 }
             });
-        }
+        },
+        qualityDistributionValidation() {
+            if (!this.getQualityDistributionData.result) return;
+
+            let data = this.getQualityDistributionData.result.results[0][0];
+
+            return has(data, 'validation') 
+                ? data.validation
+                : {};
+        },
     },
     methods: {
+        has,
         getTranslationFor,
         toggleDistribution(index) {
             this.$refs[`dist${index}`][0].classList.toggle('collapsed');
