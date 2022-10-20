@@ -35,8 +35,8 @@ export default {
       return [
         createPage("dataset", true, true),
         createPage("categories"),
-        createPage("similarDatasets"),
-        createPage("quality")
+        createPage("quality"),
+        createPage("similarDatasets")
       ];
     }
   }
