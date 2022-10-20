@@ -147,18 +147,53 @@ const actions = {
     /**
      * 
      */
-    convertToInput({ commit }, { property }) {
+    convertToInput({ commit }, property) {
         commit('saveLinkedDataToStore', property);
     },
-    convertToRDF({ commit }, { property }) {
-        // return RDFdata = toRDF.convert();
+    /**
+     * Merges store data and converts the given input values into RDF format
+     * @param state 
+     * @param property Object containing all values within nested objects for each page of the frontend
+     * @returns Data values in RDF format
+     */
+    convertToRDF({ state }, property) {
+
+        // merging objects with nested objects containing the values of each page into one main object containing all values for the given property
+        const data = {
+            datasets: generalHelper.mergeNestedObjects(state.datasets),
+            distributions: [],
+            catalogues: generalHelper.mergeNestedObjects(state.catalogues)
+        };
+
+        // merging each distribution object within the overall array of distributions
+        if (!isEmpty(state.distributions)) {
+            for (let index = 0; index < state.distributions.length; index += 1) {
+                data.distributions.push(generalHelper.mergeNestedObjects(state.distributions[index]));
+            }
+        }
+
+        const RDFdata = toRDF.convertToRDF(data, property);
+        return RDFdata;
     },
+    /**
+     * Calls mutation to add distribution
+     * @param param0 
+     */
     addDistribution({ commit }) {
         commit('createDistribution');
     },
+    /**
+     * Calls mutation to delte a specific distribution
+     * @param param0 
+     * @param index Index of distribution to delete
+     */
     deleteDistribution({ commit }, index) {
         commit('removeDistribution', index);
     },
+    /**
+     * Calls mutation to clear values and store
+     * @param param0 
+     */
     clearAll({ commit }) {
         commit('resetStore');
     },

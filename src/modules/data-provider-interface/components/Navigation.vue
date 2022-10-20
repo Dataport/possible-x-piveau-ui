@@ -232,9 +232,7 @@ export default {
         submitProperty = this.property;
       }
 
-      const RDFdata = await this.convertToRDF(submitProperty).then((response) => {
-        return response;
-      });
+      const RDFdata = this.convertToRDF(submitProperty);
 
       const rtpToken = this.getUserData.rtpToken;
 
