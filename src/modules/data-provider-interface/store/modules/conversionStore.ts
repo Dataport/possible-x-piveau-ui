@@ -6,6 +6,8 @@ import Vuex from 'vuex';
 import { isEmpty, isNil } from 'lodash';
 
 import generalHelper from '../../utils/general-helper';
+import toRDF from '../../utils/toRDF-helper';
+import toInput from '../../utils/toInput-helper';
 
 Vue.use(Vuex);
 
@@ -110,143 +112,47 @@ const actions = {
         commit('saveFromLocalstorage', property);
     },
     /**
-     * Fetches JSONLD from given backend endpoint with token
+     * Fetches linked data from given backend endpoint with token
      * @param {*} param0
      * @param {*} param1 Object containing endpoint to call and user token
-     * @returns JSON object containing JSONLD data from endpoint
+     * @returns Linked data from endpoint
      */
-    // async fetchJsonld({ commit }, {endpoint, token}) {
-    //     let response;
-    //     let requestOptions;
+    async fetchLinkedData({ commit }, {endpoint, token}) {
+        let response;
+        let requestOptions;
 
-    //     if (token !== '') {
-    //         requestOptions = {
-    //             method: 'GET',
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //             },
-    //             url: endpoint,
-    //         };
-    //     } else {
-    //         requestOptions = {
-    //             method: 'GET',
-    //             url: endpoint,
-    //         };
-    //     }
+        if (token !== '') {
+            requestOptions = {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                url: endpoint,
+            };
+        } else {
+            requestOptions = {
+                method: 'GET',
+                url: endpoint,
+            };
+        }
 
-    //     try {
-    //         response = await axios.request(requestOptions);
-    //     } catch (err) {
-    //         // TODO: Handle (network) errors
-    //         throw Error(`Error occured during fetching endpoint: ${endpoint}`);
-    //     }
-    //     return response.data;
-    // },
-    // /**
-    //  * Requests and commits JSONLD for each property to transfer function
-    //  * @param {*} param0
-    //  * @param {*} param1
-    //  */
-    // async saveJsonldFromBackend({ commit, dispatch }, {endpoint, token, property, id}) {
-    //     const data = await dispatch('fetchJsonld', {endpoint, token}).then((response) => {
-    //         return response;
-    //     });
-
-    //     // the whole jsonld data is located within a graph
-    //     const graphData = data['@graph'];
-
-    //     // nested and grouped data is outsourced into own entries with id
-    //     const nodeData = graphData.filter(dataset => (dataset['@type'] !== 'dcat:Distribution'
-    //     && dataset['@type'] !== 'dcat:Dataset'
-    //     && dataset['@type'] !== 'dcat:Catalog'));
-
-    //     const context = data['@context'];
-
-    //     if (property === 'datasets') {
-    //         // tranfer datasets data into stores state
-    //         const datasetData = graphData.filter(dataset => dataset['@type'] === 'dcat:Dataset')[0]; // there is only one dataset entry
-    //         commit('transferJsonld', {data: datasetData, nodeData, property, id, context});
-
-    //         // transfer distribution data into stores state
-    //         const distributionData = graphData.filter(dataset => dataset['@type'] === 'dcat:Distribution');
-    //         for (let index = 0; index < distributionData.length; index += 1) {
-    //             commit('transferJsonld', {data: distributionData[index], nodeData, property: 'distributions', id: index, context});
-    //         }
-    //     } else if (property === 'catalogues') {
-    //         // transfer catalog data into stores state
-    //         const catalogueData = graphData.filter(dataset => dataset['@type'] === 'dcat:Catalog')[0]; // there is only one catalogue entry
-    //         commit('transferJsonld', {data: catalogueData, nodeData, property, id, context});
-    //     }
-    // },
-    // /**
-    //  * Removes empty entries within JSONLD
-    //  */
-    // removeEmptyEntries({ commit }, jsonld) {
-    //     const propertieNames = Object.keys(jsonld);
-
-    //     for (let index = 0; index < propertieNames.length; index += 1) {
-    //         const name = propertieNames[index];
-
-    //         // some properties must not be deleted (some must remian empty)
-    //         if (name !== '@id' && name !== 'adms:sample') {
-    //             if (isEmpty(jsonld[name])) {
-    //                 delete jsonld[name];
-    //             }
-    //         }
-    //     }
-    // },
-    // /**
-    //  * Merging data and context and compacting JSON-LD
-    //  * @param {*} param0 State containing data for all properties
-    //  * @param {*} property Property string (datasets/catalogues)
-    //  * @returns Compacted JSON-LD object
-    //  */
-    // async finishJsonld({ state, dispatch }, property) {
-    //     let jsonld;
-
-    //     // for datasets also distributions need to be included (if existing)
-    //     if (property === 'datasets') {
-    //         jsonld = [];
-
-    //         const datasetData = {...context, ...state[property]};
-
-    //         // @id has to be an Url
-    //         datasetData['@id'] = `${Vue.prototype.$env.api.hubUrl}${state[property]['@id']}`;
-
-    //         dispatch('removeEmptyEntries', datasetData);
-    //         jsonld.push(datasetData);
-
-    //         if (!isEmpty(state.distributions)) {
-    //             const distNumbers = state.distributions.length;
-    //             for (let num = 0; num < distNumbers; num += 1) {
-    //                 const distData = {...context, ...state.distributions[num]};
-    //                 // distribution id is already set as url on create
-    //                 dispatch('removeEmptyEntries', distData);
-
-    //                 // Copy accessURL to downloadURL, if downloadURL is empty
-    //                 // TODO: is there a more transparent way to do this?
-    //                 if (isEmpty(distData['dcat:downloadURL']) && !isEmpty(distData['dcat:accessURL'])) {
-    //                     // make sure to copy the object and not the reference
-    //                     distData['dcat:downloadURL'] = JSON.parse(JSON.stringify(distData['dcat:accessURL']));
-    //                 }
-
-    //                 jsonld.push(distData);
-    //             }
-    //         }
-    //     } else if (property === 'catalogues') {
-    //         jsonld = {...context, ...state[property]};
-
-    //         // @id has to be an Url
-    //         jsonld['@id'] = `${Vue.prototype.$env.api.hubUrl}${state[property]['@id']}`;
-
-    //         dispatch('removeEmptyEntries', jsonld);
-    //     }
-
-    //     // compacting jsonld with library
-    //     const compactJsonld = await jsonldLib.compact(jsonld, context);
-
-    //     return compactJsonld;
-    // },
+        try {
+            response = await axios.request(requestOptions);
+        } catch (err) {
+            // TODO: Handle (network) errors
+            throw Error(`Error occured during fetching endpoint: ${endpoint}`);
+        }
+        return response.data;
+    },
+    /**
+     * 
+     */
+    convertToInput({ commit }, { property }) {
+        commit('saveLinkedDataToStore', property);
+    },
+    convertToRDF({ commit }, { property }) {
+        // return RDFdata = toRDF.convert();
+    },
     addDistribution({ commit }) {
         commit('createDistribution');
     },
@@ -255,7 +161,7 @@ const actions = {
     },
     clearAll({ commit }) {
         commit('resetStore');
-    }
+    },
 };
   
 const mutations = {
@@ -306,6 +212,13 @@ const mutations = {
                 state.distributions = distributionsData;
             }
         }
+    },
+    /**
+     * 
+     */
+    saveLinkedDataToStore(state, property) {
+        // toInput.whatever()
+        // store <- RDF in input umgewandelt
     },
     /**
     * Creates a new distribution within state

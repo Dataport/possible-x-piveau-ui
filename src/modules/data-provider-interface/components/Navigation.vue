@@ -146,7 +146,7 @@ export default {
       'showSnackbar',
     ]),
     ...mapActions('dpiStore', [
-      'finishJsonld',
+      'convertToRDF',
       'clearAll',
     ]),
     closeModal() {
@@ -232,7 +232,7 @@ export default {
         submitProperty = this.property;
       }
 
-      const jsonld = await this.finishJsonld(submitProperty).then((response) => {
+      const RDFdata = await this.convertToRDF(submitProperty).then((response) => {
         return response;
       });
 
@@ -254,21 +254,21 @@ export default {
       let actionParams = {
         id: datasetId,
         catalog: catalogName,
-        body: jsonld,
+        body: RDFdata,
         title,
         description,
       };
 
       if (mode === 'dataset') {
         uploadUrl = `${this.$env.api.hubUrl}datasets/${datasetId}?catalogue=${catalogName}`;
-        actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
+        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
         actionName = 'auth/createDataset';
       } else if (mode === 'draft') {
         uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
         actionName = 'auth/createUserDraft';
       } else if (mode === 'createcatalogue') {
         uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
-        actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
+        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
         actionName = 'auth/createCatalogue';
       }
 
