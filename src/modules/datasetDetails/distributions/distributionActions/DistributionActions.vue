@@ -26,10 +26,14 @@
       :distribution="distribution"
       class="distribution-action"
     />
+    <app-link class="btn-sm pt-0" :to="{ name: 'DatasetDetailsQuality', query: { locale: $route.query.locale, validate: distribution.id }}">
+        Validate
+    </app-link>
   </div>
 </template>
 
 <script>
+import AppLink from "@/modules/widgets/AppLink";
 import DistributionOptionsDropdown
   from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
 import DistributionDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownload";
@@ -37,7 +41,7 @@ import LinkedDataButtonsDropdown
   from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
 export default {
   name: "DistributionActions",
-  components: {LinkedDataButtonsDropdown, DistributionDownload, DistributionOptionsDropdown},
+  components: {AppLink, LinkedDataButtonsDropdown, DistributionDownload, DistributionOptionsDropdown},
   props: {
     distribution: Object,
     distributions: Object,

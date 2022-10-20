@@ -256,6 +256,7 @@ export default {
       if (fieldId === 'scoring') {
         const qMinScoring = parseInt(this.getMinScoring, 10);
         const minScoringIsSelected = this.$route.query[fieldId];
+        if ( ! minScoringIsSelected || ! qMinScoring) return item.minScoring === 0;
         return minScoringIsSelected && qMinScoring === item.minScoring;
       }
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, fieldId)) {

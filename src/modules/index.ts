@@ -64,6 +64,7 @@ import DatePicker from './data-provider-interface/components/DatePicker';
 import DateTimePicker from './data-provider-interface/components/DateTimePicker';
 
 import usePiwikSuspendFilter from "./mixins/usePiwikSuspendFilter";
+import useRouteMetaBreadcrumbs from "./mixins/useRouteMetaBreadcrumbs";
 
 import { configureModules } from "./configurations/configureModules";
 
@@ -145,6 +146,7 @@ export {
   DateTimePicker,
 
   usePiwikSuspendFilter,
+  useRouteMetaBreadcrumbs,
 
   configureModules,
 

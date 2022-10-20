@@ -1,8 +1,8 @@
 <template>
     <!-- CSV Linter -->
-    <div class="dsd-distribution-quality-csv row">
+    <div class="dsd-distribution-quality-csv row" v-if="showValidation">
         <h4 class="col-12 mt-5 mb-3 font-weight-bold">{{ csvLinter.title }}</h4>
-        <div class="col-8">
+        <div class="col-7">
             <div class="p-3 csv-validation-box" 
                 :class="csvLinter.validation.passed">
                 <div class="row mt-2">  
@@ -18,9 +18,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-5">
             <table class="row mt-4">
-                <tbody class="col-4">
+                <tbody>
                     <tr>
                         <td class="col-12 text-center heading-1 color-red">{{ csvLinter.validation.errors.count }}</td>
                         <td class="col-12 text-center heading-1 color-orange">{{ csvLinter.validation.warnings.count }}</td>
@@ -45,15 +45,16 @@
   
 <script>
 import { mapGetters } from 'vuex';
+import { has } from 'lodash';
 
 export default {
     name: 'datasetDetailsCSVLinter',
     dependencies: 'DatasetService',
+    props: ['validation'],
     data() {
         return {
             // Dummy data -> replace with CSV Linter results
             csvLinter: {
-                endpoint: '/distributions/{id}/validations/csv',
                 title: 'CSV Validation Results',
                 validationTitle: {
                     true: 'Valid CSV',
@@ -61,63 +62,9 @@ export default {
                 },
                 validationDescription: {
                     true: 'However, there are some issues that can be adressed to make it as easy as possible to reuse the data.',
-                    false: 'Your CSV file is not valid ...',
+                    false: 'Your CSV file is not valid!',
                 },
-                validation: {
-                    passed: 'true',
-                    rowCount: 4049,
-                    errors: {
-                        count: 1,
-                        items: [
-                            {
-                                type: 'Error',
-                                indicator: 'error',
-                                message_header: 'Error',
-                                message: 'Your CSV appears to ...',
-                                row: -1,
-                                column: -1,
-                                columnName: '',
-                            },
-                        ],
-                    },
-                    warnings: {
-                        count: 1,
-                        items: [
-                            {
-                                type: 'Warning',
-                                indicator: 'incorrect_encoding',
-                                message_header: 'Incorrect Encoding',
-                                message: 'Your CSV appears to ...',
-                                row: -1,
-                                column: -1,
-                                columnName: '',
-                            },
-                        ],
-                    },
-                    info: {
-                        count: 2,
-                        items: [
-                            {
-                                type: 'Info',
-                                indicator: 'assumed_header',
-                                message_header: 'Assumed Header',
-                                message: 'Your CSV appears to ...',
-                                row: -1,
-                                column: -1,
-                                columnName: '',
-                            },
-                            {
-                                type: 'Info',
-                                indicator: 'line_breaks',
-                                message_header: 'Non-standard Line Breaks on row 1',
-                                message: 'Your CSV appears to ...',
-                                row: -1,
-                                column: -1,
-                                columnName: '',
-                            },
-                        ],
-                    },   
-                },
+                validation: {},
             },
         };
     },
@@ -125,20 +72,30 @@ export default {
         ...mapGetters('datasetDetails', [
             'getDistributions',
         ]),
+        showValidation() {
+            return has(this.csvLinter, 'validation') 
+                && has(this.csvLinter.validation, 'passed') 
+                && has(this.csvLinter.validation, 'errors') 
+                && has(this.csvLinter.validation, 'warnings') 
+                && has(this.csvLinter.validation, 'info');
+        },
         distributionIDs() {
             return this.getDistributions.map(d => d.id);
         },
         validationResults() {
-            this.csvLinter.validation.errors.items.forEach(i => i.type = 'Error');
-            this.csvLinter.validation.warnings.items.forEach(i => i.type = 'Warning');
-            this.csvLinter.validation.info.items.forEach(i => i.type = 'Message');
+            let errors = has(this.csvLinter.validation.errors, 'items') ? this.csvLinter.validation.errors.items : [];
+            let warnings = has(this.csvLinter.validation.warnings, 'items') ? this.csvLinter.validation.errors.items : [];
+            let info = has(this.csvLinter.validation.info, 'items') ? this.csvLinter.validation.errors.items : [];
+            
+            errors.forEach(i => i.type = 'Error');
+            warnings.forEach(i => i.type = 'Warning');
+            info.forEach(i => i.type = 'Message');
 
-            return this.csvLinter.validation.errors.items
-                .concat(this.csvLinter.validation.warnings.items)
-                .concat(this.csvLinter.validation.info.items);
+            return errors.concat(warnings).concat(info);
         }
     },
     methods: {
+        has,
         getValidationResultIcon(status) {
             return status === 'true' ? 'check_circle'
                 : status === 'false' ? 'disabled_by_default'
@@ -157,7 +114,7 @@ export default {
         },
     },
     created() {
-        // TODO: API call on MQA cache
+        this.csvLinter.validation = this.validation;
     },
     mounted() {},
 };

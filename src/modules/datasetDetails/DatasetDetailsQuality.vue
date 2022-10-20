@@ -8,7 +8,7 @@
         </div>
         <div class="space card-columns" v-if="getQualityData.result">
           <div v-for="(value,name) in getQualityData.result.results[0]" :key="`A-${name}`">
-            <div :class="`dimension-card card dimension-${name}`" v-if="name != 'info'">
+            <div :class="`dimension-card card dimension-${name}`" v-if="name != 'info' && name != 'validation'">
               <div class="card-header card-title text-center">
                 <h3>{{ $t(`message.datasetDetails.quality.${name}`) }}</h3>
               </div>
@@ -222,7 +222,7 @@
               >
                 <div class="card-body dist-content">
                   <div class="row" v-for="(value,key) in value[0]" :key="`N-${key}`">
-                    <div class="col-12 space move" v-if="key != 'info'">
+                    <div class="col-12 space move" v-if="key != 'info' && key != 'validation'">
                       <div
                         class="dimension-headline"
                       >{{ $t(`message.datasetDetails.quality.${key}`) }}</div>
@@ -302,9 +302,10 @@
                       </div>
                     </div>
                   </div>
+                  <!-- CSV Linter -->
                   <div class="row accordion-body">
                     <div class="col-12">
-                      <CSVLinter></CSVLinter>
+                      <CSVLinter :validation="qualityDistributionValidation"></CSVLinter>
                     </div> 
                 </div>
                 </div>
@@ -518,8 +519,26 @@
         'getID',
         'getModificationDate',
       ]),
+      qualityDistributionValidation() {
+          if (!this.getQualityDistributionData.result) return;
+
+          let data = this.getQualityDistributionData.result.results[0][0];
+
+          return has(data, 'validation') 
+              ? data.validation
+              : {};
+      },
     },
     methods: {
+      // import store-actions
+      ...mapActions('datasetDetails', [
+        'loadDatasetDetails',
+        'useService',
+        'loadQualityData',
+        'loadQualityDistributionData',
+      ]),
+      has,
+      getTranslationFor,
       isAccessAndDownloadUrlStatusCodeAvailable(key, value) {
         return (key === 'accessUrlStatusCode' && typeof value !== 'object' && value.length !== 0) || (key === 'downloadUrlStatusCode' && typeof value !== 'object' && value.length !== 0);
       },
@@ -530,15 +549,13 @@
           this.activeItem = idx;
         }
       },
-      has,
-      getTranslationFor,
-      // import store-actions
-      ...mapActions('datasetDetails', [
-        'loadDatasetDetails',
-        'useService',
-        'loadQualityData',
-        'loadQualityDistributionData',
-      ]),
+      scrollToElement(id) {
+          document.getElementById(id).scrollIntoView(true);
+      },
+      checkDistributionValidation() {
+          let query = this.$route.query.validate;
+          if (document.getElementById(query)) this.scrollToElement(query)
+      },
     },
     created() {
       this.useService(this.DatasetService);
@@ -573,6 +590,7 @@
           .then(() => {
             this.$Progress.finish();
             this.isLoadingQualityDistributionData = false;
+            this.checkDistributionValidation();
           })
           .catch(() => {
             this.$Progress.fail();
