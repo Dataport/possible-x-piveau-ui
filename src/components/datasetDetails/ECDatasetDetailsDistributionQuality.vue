@@ -49,7 +49,7 @@
                         </button>
                     </h3>
                     <div class="collapsed px-5 ecl-accordion__content ecl-u-border-top ecl-u-border-color-grey-25" :ref="`dist${index}`">
-                        <div class="row dsd-distribution-quality-property" v-for="(qualityElement, index) in qualityDistributionData[index]" :key="index">
+                        <div class="row dsd-distribution-quality-property" v-for="(qualityElement, index) in fullQualityDistributionData[index]" :key="index">
                             <h4 class="col-12 mt-5 font-weight-bold">{{ $t(`message.datasetDetails.quality.${qualityElement.title}`) }}</h4>
                             <div class="col-4 mt-3" v-for="(el, index) in qualityElement.items" :key="index">
                                 <span class="row" v-for="(property, index) in printObject(el)" :key="index">
@@ -98,7 +98,7 @@ export default {
             });
         },
         qualityDistributionData() {
-            if (!this.getQualityDistributionData.result) return;
+            if (!this.getQualityDistributionData.result) return [];
 
             let results = this.getQualityDistributionData.result.results;
 
@@ -114,8 +114,14 @@ export default {
                 });
             });
         },
+        fullQualityDistributionData() {
+            return this.qualityDistributions.map((dist, index) => {
+                if (!this.qualityDistributionData[index]) return [];
+                return this.qualityDistributionData[index];
+            });
+        },
         qualityDistributionValidation() {
-            if (!this.getQualityDistributionData.result) return;
+            if (!this.getQualityDistributionData.result) return [];
 
             let results = this.getQualityDistributionData.result.results;
 
