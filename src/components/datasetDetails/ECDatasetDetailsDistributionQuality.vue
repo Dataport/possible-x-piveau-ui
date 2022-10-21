@@ -49,7 +49,7 @@
                         </button>
                     </h3>
                     <div class="collapsed px-5 ecl-accordion__content ecl-u-border-top ecl-u-border-color-grey-25" :ref="`dist${index}`">
-                        <div class="row dsd-distribution-quality-property" v-for="(qualityElement, index) in qualityDistributionData" :key="index">
+                        <div class="row dsd-distribution-quality-property" v-for="(qualityElement, index) in fullQualityDistributionData[index]" :key="index">
                             <h4 class="col-12 mt-5 font-weight-bold">{{ $t(`message.datasetDetails.quality.${qualityElement.title}`) }}</h4>
                             <div class="col-4 mt-3" v-for="(el, index) in qualityElement.items" :key="index">
                                 <span class="row" v-for="(property, index) in printObject(el)" :key="index">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <!-- CSV Linter -->
-                        <CSVLinter :validation="qualityDistributionValidation"></CSVLinter>
+                        <CSVLinter :validation="qualityDistributionValidation[index]"></CSVLinter>
                     </div>
                 </div>
             </div>
@@ -98,33 +98,55 @@ export default {
             });
         },
         qualityDistributionData() {
-            if (!this.getQualityDistributionData.result) return;
+            if (!this.getQualityDistributionData.result) return [];
 
-            let data = this.getQualityDistributionData.result.results[0][0];
+            let results = this.getQualityDistributionData.result.results;
 
-            let properties = Object.keys(data).filter(prop => prop !== 'info' && prop !== 'validation');
+            return results.map(result => {
+                let data = result[0];
+                let properties = Object.keys(data).filter(prop => prop !== 'info' && prop !== 'validation');
 
-            return properties.map(prop => {
-                return {
-                    title: prop,
-                    items: data[prop],
-                }
+                return properties.map(prop => {
+                    return {
+                        title: prop,
+                        items: data[prop],
+                    }
+                });
+            });
+        },
+        fullQualityDistributionData() {
+            return this.qualityDistributions.map((dist, index) => {
+                if (!this.qualityDistributionData[index]) return [];
+                return this.qualityDistributionData[index];
             });
         },
         qualityDistributionValidation() {
-            if (!this.getQualityDistributionData.result) return;
+            if (!this.getQualityDistributionData.result) return [];
 
-            let data = this.getQualityDistributionData.result.results[0][0];
+            let results = this.getQualityDistributionData.result.results;
 
-            return has(data, 'validation') 
-                ? data.validation
-                : {};
+            return results.map(result => {
+                let data = result[0];
+
+                return has(data, 'validation') 
+                    ? data.validation
+                    : {};
+            });
         },
     },
     methods: {
         has,
         getTranslationFor,
         toggleDistribution(index) {
+            // Close all Distributions
+            this.getDistributions.forEach((dist, i) => {
+                if (i === index) return; 
+                this.$refs[`dist${i}`][0].classList.add('collapsed');
+                this.$refs[`distPlus${i}`][0].classList.remove('collapsed');
+                this.$refs[`distMinus${i}`][0].classList.add('collapsed');
+            });
+
+            // Open current Distribution
             this.$refs[`dist${index}`][0].classList.toggle('collapsed');
             this.$refs[`distPlus${index}`][0].classList.toggle('collapsed');
             this.$refs[`distMinus${index}`][0].classList.toggle('collapsed');
