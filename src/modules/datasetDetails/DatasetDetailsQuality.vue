@@ -305,7 +305,7 @@
                   <!-- CSV Linter -->
                   <div class="row accordion-body">
                     <div class="col-12">
-                      <CSVLinter :validation="qualityDistributionValidation"></CSVLinter>
+                      <CSVLinter :validation="qualityDistributionValidation[key]"></CSVLinter>
                     </div> 
                 </div>
                 </div>
@@ -520,14 +520,18 @@
         'getModificationDate',
       ]),
       qualityDistributionValidation() {
-          if (!this.getQualityDistributionData.result) return;
+          if (!this.getQualityDistributionData.result) return [];
 
-          let data = this.getQualityDistributionData.result.results[0][0];
+          let results = this.getQualityDistributionData.result.results;
 
-          return has(data, 'validation') 
-              ? data.validation
-              : {};
-      },
+          return results.map(result => {
+              let data = result[0];
+
+              return has(data, 'validation') 
+                  ? data.validation
+                  : {};
+          });
+        },
     },
     methods: {
       // import store-actions

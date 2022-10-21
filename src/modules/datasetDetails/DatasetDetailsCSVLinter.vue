@@ -44,7 +44,6 @@
 </template>
   
 <script>
-import { mapGetters } from 'vuex';
 import { has, isNil } from 'lodash';
 
 export default {
@@ -67,18 +66,12 @@ export default {
         };
     },
     computed: {
-        ...mapGetters('datasetDetails', [
-            'getDistributions',
-        ]),
         showValidation() {
             return !isNil(this.validation) 
                 && has(this.validation, 'passed') 
                 && has(this.validation, 'errors') 
                 && has(this.validation, 'warnings') 
                 && has(this.validation, 'infos');
-        },
-        distributionIDs() {
-            return this.getDistributions.map(d => d.id);
         },
         validationResults() {
             let errors = has(this.validation.errors, 'items') ? this.validation.errors.items : [];
