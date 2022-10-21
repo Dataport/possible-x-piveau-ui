@@ -1,4 +1,4 @@
-import context from '../config/context.json';
+import context from '../config/prefixes';
 
 /**
  * Merges multiple Objects nested within an object into one main objects with al key-value-pairs originally located within the nested objects
@@ -42,7 +42,23 @@ function addNamespace(prefix) {
     return fullDescriptor; 
 }
 
+/**
+ * Creates a random string
+ * @param {*} length Length of string to be created
+ * @returns String formed of random characters with given length
+ */
+function makeId(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
 export default {
     mergeNestedObjects,
     addNamespace,
+    makeId,
 };
