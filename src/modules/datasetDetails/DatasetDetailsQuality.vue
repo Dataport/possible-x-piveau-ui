@@ -112,7 +112,7 @@
                         class="col-auto text-right"
                       >{{value[0].percentage}} %</div>
                       <div v-if="key == 'dataset'" class="col-auto text-right dataset-space">
-                        <span v-if="getModificationDate.length == 0">
+                        <span v-if="getModificationDate && getModificationDate.length == 0">
                           <span class="badge-n-a">n/a</span>
                         </span>
                         <span v-else :class="`badge-yes-${name}`">yes</span>
