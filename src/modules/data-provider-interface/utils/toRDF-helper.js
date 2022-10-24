@@ -113,8 +113,8 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 ${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
 
                 RDFdataset.addQuad(N3.DataFactory.quad(
-                    N3.DataFactory.namedNode(mainURI),
-                    N3.namedNode(generalHelper.addNamespace(key)),
+                    mainURI,
+                    N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
                     N3.DataFactory.literal(valueString, '', N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration')))
                 ))
             }
@@ -124,7 +124,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 const currentValue = data[key][valueId];
                 if (has(currentValue, '@value') && !isEmpty(currentValue['@value'])) {
                     RDFdataset.addQuad(N3.DataFactory.quad(
-                        N3.DataFactory.namedNode(mainURI),
+                        mainURI,
                         N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
                         N3.DataFactory.literal(currentValue['@value'])
                     ))
