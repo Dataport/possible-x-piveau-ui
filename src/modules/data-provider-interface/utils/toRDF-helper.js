@@ -108,9 +108,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
 
             if(!isEmpty(data[key])) {
                 const resolutionValues = data[key][0]; // frontend always returns an arry with only one object inside
-                const valueString = `P${resolutionValues.Year ? resolutionValues.Year : 0}Y${resolutionValues.Month ? resolutionValues.Month : 0}M\
-                ${resolutionValues.Day ? resolutionValues.Day : 0}DT${resolutionValues.Hour ? resolutionValues.Hour : 0}H\
-                ${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
+                const valueString = `P${resolutionValues.Year ? resolutionValues.Year : 0}Y${resolutionValues.Month ? resolutionValues.Month : 0}M${resolutionValues.Day ? resolutionValues.Day : 0}DT${resolutionValues.Hour ? resolutionValues.Hour : 0}H${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
 
                 RDFdataset.addQuad(N3.DataFactory.quad(
                     mainURI,
