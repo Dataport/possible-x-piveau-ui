@@ -2,6 +2,13 @@ import { isEmpty } from 'lodash';
 import inputtypes from '../../data-provider-interface/config/input-value-types';
 
 /**
+ * 
+ */
+function convertToInput(state, data, property) {
+    // do conversion
+}
+
+/**
  * Converts array of URIs into Array of strings
  * @param {*} state
  * @param {*} values
@@ -102,4 +109,9 @@ function convertNestedProperties(state, values) {
 
 }
 
-export default { multiUriToString, convertGroupedProperties, typedStringToString };
+export default { 
+    multiUriToString, 
+    convertGroupedProperties, 
+    typedStringToString,
+    convertToInput,
+};

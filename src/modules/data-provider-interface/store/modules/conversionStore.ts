@@ -2,6 +2,8 @@
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import Vue from 'vue';
 import Vuex from 'vuex';
+import N3 from 'n3';
+import axios from 'axios';
 
 import { isEmpty, isNil } from 'lodash';
 
@@ -146,9 +148,23 @@ const actions = {
     },
     /**
      * 
+     * @param param0 
+     * @param param1 
      */
-    convertToInput({ commit }, property) {
-        commit('saveLinkedDataToStore', property);
+    async convertToInput({ commit, dispatch }, { endpoint, token, property }) {
+        const fetchedData = await dispatch('fetchLinkedData', { endpoint, token }).then((response) => {
+            return response;
+        });
+
+        const data = new N3.Store();
+        const parser = new N3.Parser();
+        
+        // write quads into store to be able to query data later
+        parser.parse(fetchedData, (error, quad, prefixes) => {
+            if (quad) data.add(quad);
+        });
+
+        commit('saveLinkedDataToStore', { property, data });
     },
     /**
      * Merges store data and converts the given input values into RDF format
@@ -249,11 +265,12 @@ const mutations = {
         }
     },
     /**
-     * 
+     * Converts RDF data into input form data
+     * @param state 
+     * @param param1 Object containing data and property
      */
-    saveLinkedDataToStore(state, property) {
-        // toInput.whatever()
-        // store <- RDF in input umgewandelt
+    saveLinkedDataToStore(state, { property, data }) {
+        toInput.convertToInput(state, data, property);
     },
     /**
     * Creates a new distribution within state
