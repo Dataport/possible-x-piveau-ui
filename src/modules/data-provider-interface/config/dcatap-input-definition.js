@@ -1329,11 +1329,6 @@ const dcatapProperties = {
       data: {
         url: [
           {
-            name: 'rdf:type',
-            value: 'dct:RightsStatement',
-            type: 'hidden',
-          },
-          {
             name: 'rdfs:label',
             identifier: 'rightsUrl',
             type: 'url',
@@ -1342,11 +1337,6 @@ const dcatapProperties = {
           }
         ],
         str: [
-          {
-            name: 'rdf:type',
-            value: 'dct:RightsStatement',
-            type: 'hidden',
-          },
           {
             name: 'rdfs:label',
             identifier: 'rightsString',
@@ -1689,11 +1679,6 @@ const dcatapProperties = {
       data: {
         url: [
           {
-            name: 'rdf:type',
-            value: 'dct:RightsStatement',
-            type: 'hidden',
-          },
-          {
             name: 'rdfs:label',
             identifier: 'rightsUrl',
             type: 'url',
@@ -1702,11 +1687,6 @@ const dcatapProperties = {
           }
         ],
         str: [
-          {
-            name: 'rdf:type',
-            value: 'dct:RightsStatement',
-            type: 'hidden',
-          },
           {
             name: 'rdfs:label',
             identifier: 'rightsString',
