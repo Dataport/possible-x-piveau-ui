@@ -47,14 +47,14 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     if (setMain) {
         if (property === 'datasets') {
             mainType = generalHelper.addNamespace('dcat:Dataset');
-            mainURI = `https://piveau.eu/set/data/${data.datasetID}`; // datasetID should never be empty because of frontend checking
+            mainURI = N3.DataFactory.namedNode(`https://piveau.eu/set/data/${data.datasetID}`); // datasetID should never be empty because of frontend checking
         } else if (property === 'catalogues') {
             mainType = generalHelper.addNamespace('dcat:Catalog');
-            mainURI = `https://piveau.eu/set/data/${data.datasetID}`; // datasetID should never be empty because of frontend checking
+            mainURI = N3.DataFactory.namedNode(`https://piveau.eu/set/data/${data.datasetID}`); // datasetID should never be empty because of frontend checking
         } else {
             mainType = generalHelper.addNamespace('dcat:Distribution');
             const randomId = generalHelper.makeId(10);
-            mainURI = `https://piveau.eu/set/data/${randomId}`;
+            mainURI = N3.DataFactory.namedNode(`https://piveau.eu/set/data/${randomId}`);
         }
 
         setAdditionalProperties(RDFdataset, data, mainURI, mainType, property);
@@ -120,7 +120,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 const rightsBlankNode = N3.DataFactory.blankNode('');
 
                 RDFdataset.addQuad(N3.DataFactory.quad(
-                    N3.DataFactory.namedNode(mainURI),
+                    mainURI,
                     N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
                     rightsBlankNode
                 ))
@@ -148,16 +148,36 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     rightsValue
                 ))
             }
-        } /*else if (key === 'dct:license') {
+        } else if (key === 'dct:license') {
             // dct:license either provides a singular URI or a group of properties 
             if (!isEmpty(data[key])) {
                 if (typeof data[key] === 'string') {
                     convertSingularURI(RDFdataset, mainURI, data, key);
                 } else {
-                    // license provides an array containing an object with all subproperties ([ { 'dct:title': '...' , 'dct:description': '...', 'url)
+                    // license provides an array containing an object with all subproperties
+                    // Grouped properties need a bank node
+                    const licenceBlankNode = N3.DataFactory.blankNode('');
+
+                    RDFdataset.addQuad(N3.DataFactory.quad(
+                        mainURI,
+                        N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                        licenceBlankNode
+                    ))
+
+                    // add nested properties
+                    convertPropertyValues(RDFdataset, data[key][0], property, licenceBlankNode, mainType, false);
                 }
             }
-        }*/
+        } else if (key === 'rdf:type') {
+            // some properties have additional type information submitted by hidden form inputs
+            if (!isEmpty(data[key])) {
+                RDFdataset.addQuad(N3.DataFactory.quad(
+                    mainURI,
+                    N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
+                    N3.DataFactory.namedNode(generalHelper.addNamespace(data[key]))
+                ))
+            }
+        }
     }
 }
 
@@ -170,7 +190,7 @@ function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property) 
 
     // adding id and type of property
     RDFdataset.addQuad(N3.DataFactory.quad(
-        N3.DataFactory.namedNode(mainURI),
+        mainURI,
         N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
         N3.DataFactory.namedNode(mainType)
     ))
@@ -178,13 +198,13 @@ function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property) 
     // adding sample and catalog for datasets
     if (property === 'datasets') {
         RDFdataset.addQuad(N3.DataFactory.quad(
-            N3.DataFactory.namedNode(mainURI),
+            mainURI,
             N3.DataFactory.namedNode(generalHelper.addNamespace('adms:sample')),
             N3.DataFactory.literal('')
         ))
 
         RDFdataset.addQuad(N3.DataFactory.quad(
-            N3.DataFactory.namedNode(mainURI),
+            mainURI,
             N3.DataFactory.namedNode('dct:catalog'), // no actual vocabulary
             N3.DataFactory.literal(data['dct:catalog']) // hould never be empty because of frontend checking
         ))
@@ -193,7 +213,7 @@ function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property) 
     // catalogues always have to contain the property dct:type with the value 'dcat-ap'
     if (property === 'catalogues') {
         RDFdataset.addQuad(N3.DataFactory.quad(
-            N3.DataFactory.namedNode(mainURI),
+            mainURI,
             N3.DataFactory.namedNode(generalHelper.addNamespace('dct:type')),
             N3.DataFactory.literal('dcat-ap')
         ))
@@ -226,7 +246,7 @@ function convertSingularString(RDFdataset, id, data, key) {
     // what to do with @type???
     if (!isEmpty(data[key])) {
         RDFdataset.addQuad(N3.DataFactory.quad(
-            N3.DataFactory.namedNode(id),
+            id,
             N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
             N3.DataFactory.literal(data[key])
         ))
@@ -252,7 +272,7 @@ function convertSingularURI(RDFdataset, id, data, key) {
             singleURI = data[key];
         }
         RDFdataset.addQuad(N3.DataFactory.quad(
-            N3.DataFactory.namedNode(id),
+            id,
             N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
             N3.DataFactory.namedNode(singleURI)
         ));
@@ -280,7 +300,7 @@ function convertMultipleURI(RDFdataset, id, data, key) {
         }
 
         RDFdataset.addQuad(N3.DataFactory.quad(
-            N3.DataFactory.namedNode(id), 
+            id, 
             N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
             N3.DataFactory.namedNode(currentURI)
         ));
@@ -319,7 +339,7 @@ function convertTypedString(RDFdataset, id, data, key) {
         }
 
         RDFdataset.addQuad(N3.DataFactory.quad(
-            N3.DataFactory.namedNode(id),
+            id,
             N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
             N3.DataFactory.literal(data[key], '', N3.DataFactory.namedNode(valueType)) //why????
         ));
@@ -351,7 +371,7 @@ function convertMultilingual(RDFdataset, id , data, key) {
                     languageTag = currentData['@language'];
                 }
                 RDFdataset.addQuad(N3.DataFactory.quad(
-                    N3.DataFactory.namedNode(id),
+                    id,
                     N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
                     N3.DataFactory.literal(currentData['@value'], languageTag)
                 ))
