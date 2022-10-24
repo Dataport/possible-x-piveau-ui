@@ -57,8 +57,24 @@ function makeId(length) {
     return result;
 }
 
+/**
+ * Methods checks if given string is an Url
+ * @param {*} string String to test
+ * @returns Boolean determining if given string is an Url
+ */
+function isUrl(string) {
+    let url;
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+}
+
 export default {
     mergeNestedObjects,
     addNamespace,
     makeId,
+    isUrl,
 };
