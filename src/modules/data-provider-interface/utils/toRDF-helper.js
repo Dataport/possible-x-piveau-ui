@@ -28,7 +28,7 @@ function convertToRDF(data, property) {
     }
 
     RDFdata.end((error, result) => finishedRDFdata = result);
-    console.log('###', finishedRDFdata);
+    console.log(finishedRDFdata);
     return finishedRDFdata;
 }
 
@@ -81,6 +81,25 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
             convertMultilingual(RDFdataset, mainURI, data, key);
         } else if (RDFtypes.groupedProperties[property].includes(key)) {
             // handle grouped properties (singular and with multiple instances!)
+            if (!isEmpty(data[key])) {
+                // properties are provided within an array (because of grouping in form)
+                for (let groupId = 0; groupId < data[key].length; groupId += 1) {
+                    const currentGroupData = data[key][groupId];
+
+                    if(!isEmpty(currentGroupData)) {
+                        const groupBlankNode = N3.DataFactory.blankNode('');
+
+                        RDFdataset.addQuad(N3.DataFactory.quad(
+                            mainURI,
+                            N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                            groupBlankNode
+                        ))
+
+                        // convert nested properties
+                        convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false);
+                    }
+                }
+            }
         } else if (key === 'dcat:temporalResolution') {
             // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
             // the form provides the data as following: [ { 'Year': '...', 'Month': '...', ... } ]
@@ -341,7 +360,7 @@ function convertTypedString(RDFdataset, id, data, key) {
         RDFdataset.addQuad(N3.DataFactory.quad(
             id,
             N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
-            N3.DataFactory.literal(data[key], '', N3.DataFactory.namedNode(valueType)) //why????
+            N3.DataFactory.literal(data[key], N3.DataFactory.namedNode(valueType))
         ));
     }
 }
