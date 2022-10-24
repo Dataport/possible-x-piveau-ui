@@ -79,7 +79,7 @@ const dcatapProperties = {
         {
           identifier: 'contactPointType',
           type: 'select',
-          name: '@type',
+          name: 'rdf:type',
           options: {
             'vcard:Individual': 'Person',
             'vcard:Organization': 'Organization',
@@ -314,7 +314,7 @@ const dcatapProperties = {
         {
           identifier: 'creatorType',
           type: 'select',
-          name: '@type',
+          name: 'rdf:type',
           options: {
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
@@ -1724,7 +1724,7 @@ const dcatapProperties = {
         {
           identifier: 'creatorType',
           type: 'select',
-          name: '@type',
+          name: 'rdf:type',
           options: {
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
