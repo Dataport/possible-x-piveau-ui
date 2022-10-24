@@ -117,9 +117,36 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 // is not provided within definition file because this would require to add another group-level to the definition but since rights is already 
                 // handled seperated within the converter, the type will be added here (less changes required)
 
-                // 'rdf:type', 'dct:RightsStatement'
-                // rights provides either an URI or a string ( { rdfs:label : 'URL/string' } )
+                const rightsBlankNode = N3.DataFactory.blankNode('');
 
+                RDFdataset.addQuad(N3.DataFactory.quad(
+                    N3.DataFactory.namedNode(mainURI),
+                    N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                    rightsBlankNode
+                ))
+
+                // add additional type declaration
+                RDFdataset.addQuad(N3.DataFactory.quad(
+                    rightsBlankNode,
+                    N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
+                    N3.DataFactory.namedNode(generalHelper.addNamespace('dct:RightsStatement'))
+                ))
+
+                // rights provides either an URI or a string ( { rdfs:label : 'URL/string' } )
+                let rightsValue;
+
+                if (generalHelper.isUrl(data[key])) {
+                    rightsValue = N3.DataFactory.namedNode(data[key]);
+                } else {
+                    rightsValue = N3.DataFactory.literal(data[key]);
+                }
+
+                // add actual value
+                RDFdataset.addQuad(N3.DataFactory.quad(
+                    rightsBlankNode,
+                    N3.DataFactory.namedNode(generalHelper.addNamespace('rdfs:label')),
+                    rightsValue
+                ))
             }
         } /*else if (key === 'dct:license') {
             // dct:license either provides a singular URI or a group of properties 
