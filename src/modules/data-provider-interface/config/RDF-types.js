@@ -160,21 +160,7 @@ const groupedProperties = {
     ]
 };
 
-const conditionalProperties = {
-    datasets: [],
-    distributions: [
-        'dct:license',
-        'dct:rights',
-    ],
-    catalogues: [
-        'dct:license',
-        'dct:rights',
-    ]
-};
-
 // @id
-// identifier
-// temporalResolution
 // additional statements
 
 export default {
@@ -184,5 +170,4 @@ export default {
     singularString,
     multilingualStrings,
     groupedProperties,
-    conditionalProperties,
 };
