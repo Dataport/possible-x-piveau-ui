@@ -18,13 +18,13 @@ function convertToRDF(data, property) {
     let finishedRDFdata;
 
     if (property === 'datasets') {
-        convertPropertyValues(RDFdata, data.datasets, property);
+        convertPropertyValues(RDFdata, data.datasets, property, '', '', true);
         // include distribution data into same graph
         for (let index = 0; index < data.distributions.length; index += 1) {
-            convertPropertyValues(RDFdata, data.distributions[index], 'distributions');
+            convertPropertyValues(RDFdata, data.distributions[index], 'distributions', '', '', true);
         }
     } else { // catalogues
-        convertPropertyValues(RDFdata, data.catalogues, property);
+        convertPropertyValues(RDFdata, data.catalogues, property, '', '', true);
     }
 
     RDFdata.end((error, result) => finishedRDFdata = result);
@@ -38,23 +38,108 @@ function convertToRDF(data, property) {
  * @param {*} data 
  * @param {*} property 
  */
-function convertPropertyValues(RDFdataset, data, property) {
+function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain) {
 
     // at first handle id and type of property (sub properties need id of property)
     let mainURI;
     let mainType;
 
-    if (property === 'datasets') {
-        mainType = generalHelper.addNamespace('dcat:Dataset');
-        mainURI = `https://piveau.eu/set/data/${data.datasetID}`; // datasetID should never be empty because of frontend checking
-    } else if (property === 'catalogues') {
-        mainType = generalHelper.addNamespace('dcat:Catalog');
-        mainURI = `https://piveau.eu/set/data/${data.datasetID}`; // datasetID should never be empty because of frontend checking
+    if (setMain) {
+        if (property === 'datasets') {
+            mainType = generalHelper.addNamespace('dcat:Dataset');
+            mainURI = `https://piveau.eu/set/data/${data.datasetID}`; // datasetID should never be empty because of frontend checking
+        } else if (property === 'catalogues') {
+            mainType = generalHelper.addNamespace('dcat:Catalog');
+            mainURI = `https://piveau.eu/set/data/${data.datasetID}`; // datasetID should never be empty because of frontend checking
+        } else {
+            mainType = generalHelper.addNamespace('dcat:Distribution');
+            const randomId = generalHelper.makeId(10);
+            mainURI = `https://piveau.eu/set/data/${randomId}`;
+        }
+
+        setAdditionalProperties(RDFdataset, data, mainURI, mainType, property);
     } else {
-        mainType = generalHelper.addNamespace('dcat:Distribution');
-        const randomId = generalHelper.makeId(10);
-        mainURI = `https://piveau.eu/set/data/${randomId}`;
+        mainURI = preMainURI;
+        mainType = preMainType;
     }
+    
+    // loop trough all keys within data object and convert values (or nested properties) to RDF
+    const valueKeys = Object.keys(data);
+    for (let index = 0; index < valueKeys.length; index += 1) {
+        const key = valueKeys[index];
+
+        // all properties are sorted by their resulting RDF format (see .../data-provider-interface/config/RDFtypes.js)
+        if (RDFtypes.singularString[property].includes(key)) {
+            convertSingularString(RDFdataset, mainURI, data, key);
+        } else if (RDFtypes.singularURI[property].includes(key)) {
+            convertSingularURI(RDFdataset, mainURI, data, key);
+        } else if (RDFtypes.multipleURI[property].includes(key)) {
+            convertMultipleURI(RDFdataset, mainURI, data, key);
+        } else if (RDFtypes.typedStrings[property].includes(key)) {
+            convertTypedString(RDFdataset, mainURI, data, key);            
+        } else if (RDFtypes.multilingualStrings[property].includes(key)) {
+            convertMultilingual(RDFdataset, mainURI, data, key);
+        } else if (RDFtypes.groupedProperties[property].includes(key)) {
+            // handle grouped properties (singular and with multiple instances!)
+        } else if (key === 'dcat:temporalResolution') {
+            // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
+            // the form provides the data as following: [ { 'Year': '...', 'Month': '...', ... } ]
+            // the final format of this property should look like this: P?Y?M?DT?H?M?S
+            // not all values must be filled and therefore be present -> default behavior if not given: property = 0
+
+            if(!isEmpty(data[key])) {
+                const resolutionValues = data[key][0]; // frontend always returns an arry with only one object inside
+                const valueString = `P${resolutionValues.Year ? resolutionValues.Year : 0}Y${resolutionValues.Month ? resolutionValues.Month : 0}M\
+                ${resolutionValues.Day ? resolutionValues.Day : 0}DT${resolutionValues.Hour ? resolutionValues.Hour : 0}H\
+                ${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
+
+                RDFdataset.addQuad(N3.DataFactory.quad(
+                    N3.DataFactory.namedNode(mainURI),
+                    N3.namedNode(generalHelper.addNamespace(key)),
+                    N3.DataFactory.literal(valueString, '', N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration')))
+                ))
+            }
+        } else if (key === 'dct:identifier') {
+            // form provides data as follows: [ { '@value': 'string1' }, { '@value': 'string2' }, ... ]
+            for (let valueId = 0; valueId < data[key].length; valueId += 1) {
+                const currentValue = data[key][valueId];
+                if (has(currentValue, '@value') && !isEmpty(currentValue['@value'])) {
+                    RDFdataset.addQuad(N3.DataFactory.quad(
+                        N3.DataFactory.namedNode(mainURI),
+                        N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                        N3.DataFactory.literal(currentValue['@value'])
+                    ))
+                }
+            }
+        } else if (key === 'dct:rights') {
+            if (!isEmpty(data[key])) {
+                // rights also have a static type 
+                // is not provided within definition file because this would require to add another group-level to the definition but since rights is already 
+                // handled seperated within the converter, the type will be added here (less changes required)
+
+                // 'rdf:type', 'dct:RightsStatement'
+                // rights provides either an URI or a string ( { rdfs:label : 'URL/string' } )
+
+            }
+        } /*else if (key === 'dct:license') {
+            // dct:license either provides a singular URI or a group of properties 
+            if (!isEmpty(data[key])) {
+                if (typeof data[key] === 'string') {
+                    convertSingularURI(RDFdataset, mainURI, data, key);
+                } else {
+                    // license provides an array containing an object with all subproperties ([ { 'dct:title': '...' , 'dct:description': '...', 'url)
+                }
+            }
+        }*/
+    }
+}
+
+/**
+ * Add additional properties to RDF data
+ * @param {*} mainURI URI of current property
+ * @param {*} mainType Type of current property
+ */
+function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property) {
 
     // adding id and type of property
     RDFdataset.addQuad(N3.DataFactory.quad(
@@ -88,68 +173,13 @@ function convertPropertyValues(RDFdataset, data, property) {
     }
 
     // add distribution id to dataset (dcat:distribution)
-    if (property === 'distributions') {
-        RDFdataset.addQuad(N3.DataFactory.quad(
-            N3.DataFactory.namedNode('datasetid'),
-            N3.DataFactory.namedNode(generalHelper.addNamespace('dcat:distribution')),
-            N3.DataFactory.namedNode(mainURI)
-        ))
-    }
-
-
-    // loop trough all keys within data object and convert values (or nested properties) to RDF
-    const valueKeys = Object.keys(data);
-    for (let index = 0; index < valueKeys.length; index += 1) {
-        const key = valueKeys[index];
-
-        // all properties are sorted by their resulting RDF format (see .../data-provider-interface/config/RDFtypes.js)
-        if (RDFtypes.singularString[property].includes(key)) {
-            convertSingularString(RDFdataset, mainURI, data, key);
-        } else if (RDFtypes.singularURI[property].includes(key)) {
-            convertSingularURI(RDFdataset, mainURI, data, key);
-        } else if (RDFtypes.multipleURI[property].includes(key)) {
-            convertMultipleURI(RDFdataset, mainURI, data, key);
-        } else if (RDFtypes.typedStrings[property].includes(key)) {
-            convertTypedString(RDFdataset, mainURI, data, key);            
-        } else if (RDFtypes.multilingualStrings[property].includes(key)) {
-            convertMultilingual(RDFdataset, mainURI, data, key);            
-        } else if (RDFtypes.conditionalProperties[property].includes(key)) {
-            // license and rights
-        } else if (RDFtypes.groupedProperties[property].includes(key)) {
-            // handle grouped properties (singular and with multiple instances!)
-        } else if (key === 'dcat:temporalResolution') {
-            // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
-            // the form provides the data as following: [ { 'Year': '...', 'Month': '...', ... } ]
-            // the final format of this property should look like this: P?Y?M?DT?H?M?S
-            // not all values must be filled and therefore be present -> default behavior if not given: property = 0
-
-            if(!isEmpty(data[key])) {
-                const resolutionValues = data[key][0]; // frontend always returns an arry with only one object inside
-                const valueString = `P${resolutionValues.Year ? resolutionValues.Year : 0}Y${resolutionValues.Month ? resolutionValues.Month : 0}M\
-                ${resolutionValues.Day ? resolutionValues.Day : 0}DT${resolutionValues.Hour ? resolutionValues.Hour : 0}H\
-                ${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
-
-                RDFdataset.addQuad(N3.DataFactory.quad(
-                    N3.DataFactory.namedNode(mainURI),
-                    N3.namedNode(generalHelper.addNamespace(key)),
-                    N3.DataFactory.literal(valueString, '', N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration')))
-                ))
-            }
-        } else if (key === 'dct:identifier') {
-            // form provides data as follows: [ { '@value': 'string1' }, { '@value': 'string2' }, ... ]
-            for (let valueId = 0; valueId < data[key].length; valueId += 1) {
-                const currentValue = data[key][valueId];
-                if (has(currentValue, '@value') && !isEmpty(currentValue['@value'])) {
-                    RDFdataset.addQuad(N3.DataFactory.quad(
-                        N3.DataFactory.namedNode(mainURI),
-                        N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
-                        N3.DataFactory.literal(currentValue['@value'])
-                    ))
-                }
-            }
-        }
-        // properties with additional statements
-    }
+    // if (property === 'distributions') {
+    //     RDFdataset.addQuad(N3.DataFactory.quad(
+    //         N3.DataFactory.namedNode('datasetid'),
+    //         N3.DataFactory.namedNode(generalHelper.addNamespace('dcat:distribution')),
+    //         N3.DataFactory.namedNode(mainURI)
+    //     ))
+    // }
 }
 
 //-----------------------------------------------------------------------------------------------------
