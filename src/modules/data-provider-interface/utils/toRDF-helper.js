@@ -1,11 +1,11 @@
-import datasetFactory from '@rdfjs/dataset';
-import dataFactory from '@rdfjs/data-model';
-
-import RDFtypes from '../config/RDF-types';
-
-import generalHelper from '../utils/general-helper';
+import N3 from 'n3';
 import { isEmpty } from 'lodash';
 import { has } from 'lodash';
+
+import RDFtypes from '../config/RDF-types';
+import prefixes from '../config/prefixes';
+
+import generalHelper from '../utils/general-helper';
 
 /**
  * 
@@ -14,10 +14,12 @@ import { has } from 'lodash';
  * @returns 
  */
 function convertToRDF(data, property) {
-    const RDFdata = datasetFactory.dataset();
+    const RDFdata = new N3.Writer({prefixes});
+    let finishedRDFdata;
 
     if (property === 'datasets') {
         convertPropertyValues(RDFdata, data.datasets, property);
+        // include distribution data into same graph
         for (let index = 0; index < data.distributions.length; index += 1) {
             convertPropertyValues(RDFdata, data.distributions[index], 'distributions');
         }
@@ -25,7 +27,9 @@ function convertToRDF(data, property) {
         convertPropertyValues(RDFdata, data.catalogues, property);
     }
 
-    return RDFdata;
+    RDFdata.end((error, result) => finishedRDFdata = result);
+    console.log('###', finishedRDFdata);
+    return finishedRDFdata;
 }
 
 /**
@@ -35,34 +39,117 @@ function convertToRDF(data, property) {
  * @param {*} property 
  */
 function convertPropertyValues(RDFdataset, data, property) {
-    // if dataset -> add sample, id, type, distribution
-    // if distribution -> add id, type and id to dataset
-    // if catalogue -> add id und type
 
+    // at first handle id and type of property (sub properties need id of property)
+    let mainURI;
+    let mainType;
+
+    if (property === 'datasets') {
+        mainType = generalHelper.addNamespace('dcat:Dataset');
+        mainURI = `https://piveau.eu/set/data/${data.datasetID}`; // datasetID should never be empty because of frontend checking
+    } else if (property === 'catalogues') {
+        mainType = generalHelper.addNamespace('dcat:Catalog');
+        mainURI = `https://piveau.eu/set/data/${data.datasetID}`; // datasetID should never be empty because of frontend checking
+    } else {
+        mainType = generalHelper.addNamespace('dcat:Distribution');
+        const randomId = generalHelper.makeId(10);
+        mainURI = `https://piveau.eu/set/data/${randomId}`;
+    }
+
+    // adding id and type of property
+    RDFdataset.addQuad(N3.DataFactory.quad(
+        N3.DataFactory.namedNode(mainURI),
+        N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
+        N3.DataFactory.namedNode(mainType)
+    ))
+
+    // adding sample and catalog for datasets
+    if (property === 'datasets') {
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode(mainURI),
+            N3.DataFactory.namedNode(generalHelper.addNamespace('adms:sample')),
+            N3.DataFactory.literal('')
+        ))
+
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode(mainURI),
+            N3.DataFactory.namedNode('dct:catalog'), // no actual vocabulary
+            N3.DataFactory.literal(data['dct:catalog']) // hould never be empty because of frontend checking
+        ))
+    }
+
+    // catalogues always have to contain the property dct:type with the value 'dcat-ap'
+    if (property === 'catalogues') {
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode(mainURI),
+            N3.DataFactory.namedNode(generalHelper.addNamespace('dct:type')),
+            N3.DataFactory.literal('dcat-ap')
+        ))
+    }
+
+    // add distribution id to dataset (dcat:distribution)
+    if (property === 'distributions') {
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode('datasetid'),
+            N3.DataFactory.namedNode(generalHelper.addNamespace('dcat:distribution')),
+            N3.DataFactory.namedNode(mainURI)
+        ))
+    }
+
+
+    // loop trough all keys within data object and convert values (or nested properties) to RDF
     const valueKeys = Object.keys(data);
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index];
 
-        // handling of id, type, distribution, sample and dct:type
-
+        // all properties are sorted by their resulting RDF format (see .../data-provider-interface/config/RDFtypes.js)
         if (RDFtypes.singularString[property].includes(key)) {
-            convertSingularString(RDFdataset, '', data, key);
+            convertSingularString(RDFdataset, mainURI, data, key);
         } else if (RDFtypes.singularURI[property].includes(key)) {
-            convertSungularURI(RDFdataset, '', data, key);
+            convertSingularURI(RDFdataset, mainURI, data, key);
         } else if (RDFtypes.multipleURI[property].includes(key)) {
-            convertMultipleURI(RDFdataset, '', data, key);
+            convertMultipleURI(RDFdataset, mainURI, data, key);
         } else if (RDFtypes.typedStrings[property].includes(key)) {
-            convertTypedString(RDFdataset, '', data, key);            
+            convertTypedString(RDFdataset, mainURI, data, key);            
         } else if (RDFtypes.multilingualStrings[property].includes(key)) {
-            // multilingual fields always provide data as followed
-            // [ { '@value': '....', '@language': '...' }, ... ]
-            
-            // TODO: double language selection or missing language!!!!!!!!!
-            
-            // handle empty value and empty language
+            convertMultilingual(RDFdataset, mainURI, data, key);            
+        } else if (RDFtypes.conditionalProperties[property].includes(key)) {
+            // license and rights
+        } else if (RDFtypes.groupedProperties[property].includes(key)) {
+            // handle grouped properties (singular and with multiple instances!)
+        } else if (key === 'dcat:temporalResolution') {
+            // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
+            // the form provides the data as following: [ { 'Year': '...', 'Month': '...', ... } ]
+            // the final format of this property should look like this: P?Y?M?DT?H?M?S
+            // not all values must be filled and therefore be present -> default behavior if not given: property = 0
+
+            if(!isEmpty(data[key])) {
+                const resolutionValues = data[key][0]; // frontend always returns an arry with only one object inside
+                const valueString = `P${resolutionValues.Year ? resolutionValues.Year : 0}Y${resolutionValues.Month ? resolutionValues.Month : 0}M\
+                ${resolutionValues.Day ? resolutionValues.Day : 0}DT${resolutionValues.Hour ? resolutionValues.Hour : 0}H\
+                ${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
+
+                RDFdataset.addQuad(N3.DataFactory.quad(
+                    N3.DataFactory.namedNode(mainURI),
+                    N3.namedNode(generalHelper.addNamespace(key)),
+                    N3.DataFactory.literal(valueString, '', N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration')))
+                ))
+            }
+        } else if (key === 'dct:identifier') {
+            // form provides data as follows: [ { '@value': 'string1' }, { '@value': 'string2' }, ... ]
+            for (let valueId = 0; valueId < data[key].length; valueId += 1) {
+                const currentValue = data[key][valueId];
+                if (has(currentValue, '@value') && !isEmpty(currentValue['@value'])) {
+                    RDFdataset.addQuad(N3.DataFactory.quad(
+                        N3.DataFactory.namedNode(mainURI),
+                        N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                        N3.DataFactory.literal(currentValue['@value'])
+                    ))
+                }
+            }
         }
+        // properties with additional statements
     }
-    console.log('###', RDFdataset);
 }
 
 //-----------------------------------------------------------------------------------------------------
@@ -81,10 +168,10 @@ function convertPropertyValues(RDFdataset, data, property) {
 function convertSingularString(RDFdataset, id, data, key) {
     // what to do with @type???
     if (!isEmpty(data[key])) {
-        RDFdataset.add(dataFactory.quad(
-            dataFactory.namedNode(id),
-            dataFactory.namedNode(generalHelper.addNamespace(key)),
-            dataFactory.literal(data[key])
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode(id),
+            N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+            N3.DataFactory.literal(data[key])
         ))
     }
 }
@@ -96,7 +183,7 @@ function convertSingularString(RDFdataset, id, data, key) {
  * @param {*} data 
  * @param {*} key 
  */
-function convertSungularURI(RDFdataset, id, data, key) {
+function convertSingularURI(RDFdataset, id, data, key) {
     // URIs can either be a normal URL or an email address
     if (!isEmpty(data[key])) {
         let singleURI;
@@ -107,10 +194,10 @@ function convertSungularURI(RDFdataset, id, data, key) {
             // normal URL
             singleURI = data[key];
         }
-        RDFdataset.add(dataFactory.quad(
-            dataFactory.namedNode(id),
-            dataFactory.namedNode(generalHelper.addNamespace(key)),
-            dataFactory.namedNode(singleURI)
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode(id),
+            N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+            N3.DataFactory.namedNode(singleURI)
         ));
     }
 }
@@ -135,10 +222,10 @@ function convertMultipleURI(RDFdataset, id, data, key) {
             currentURI = data[key][uriIndex]['@id'];
         }
 
-        RDFdataset.add(dataFactory.quad(
-            dataFactory.namedNode(id), 
-            dataFactory.namedNode(generalHelper.addNamespace(key)),
-            dataFactory.namedNode(currentURI)
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode(id), 
+            N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+            N3.DataFactory.namedNode(currentURI)
         ));
     }
 }
@@ -174,11 +261,45 @@ function convertTypedString(RDFdataset, id, data, key) {
             valueType = generalHelper.addNamespace('xsd:decimal');
         }
 
-        RDFdataset.add(dataFactory.quad(
-            dataFactory.namedNode(id),
-            dataFactory.namedNode(generalHelper.addNamespace(key)),
-            dataFactory.literal(data[key], '', dataFactory.namedNode(valueType)) //why????
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode(id),
+            N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+            N3.DataFactory.literal(data[key], '', N3.DataFactory.namedNode(valueType)) //why????
         ));
+    }
+}
+
+/**
+ * 
+ * @param {*} RDFdataset 
+ * @param {*} id 
+ * @param {*} data 
+ * @param {*} key 
+ */
+function convertMultilingual(RDFdataset, id , data, key) {
+    // multilingual fields always provide data as followed
+    // [ { '@value': '....', '@language': '...' }, ... ]
+
+    if (!isEmpty(data[key])) {
+        for (let langIndex = 0; langIndex < data[key].length; langIndex += 1) {
+            const currentData = data[key][langIndex];
+            // only save data if a values is given (forntend provides preselected language which don't need to be saved if there is no actaul value)
+            if (!isEmpty(currentData) && has(currentData, '@value') && !isEmpty(currentData['@value'])) {
+                // if there is no langauge given, take current locale
+                let languageTag;
+
+                if (!has(currentData, '@language') || isEmpty(currentData, '@language')) {
+                    languageTag = 'en'; // change to current locale selected
+                } else {
+                    languageTag = currentData['@language'];
+                }
+                RDFdataset.addQuad(N3.DataFactory.quad(
+                    N3.DataFactory.namedNode(id),
+                    N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                    N3.DataFactory.literal(currentData['@value'], languageTag)
+                ))
+            }
+        }
     }
 }
 

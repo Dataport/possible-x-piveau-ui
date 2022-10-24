@@ -184,4 +184,5 @@ export default {
     singularString,
     multilingualStrings,
     groupedProperties,
+    conditionalProperties,
 };

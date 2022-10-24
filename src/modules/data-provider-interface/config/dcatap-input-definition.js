@@ -270,6 +270,11 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
+          name: 'rdf:type',
+          value: 'dct:PeriodOfTime',
+          type: 'hidden',
+        },
+        {
           identifier: 'temporalStart',
           type: 'datetime-picker',
           name: 'dcat:startDate',
@@ -347,6 +352,11 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
+          name: 'rdf:type',
+          value: 'dct:Standard',
+          type: 'hidden',
+        },
+        {
           identifier: 'conformsToTitle',
           type: 'text',
           name: 'rdfs:label',
@@ -369,6 +379,11 @@ const dcatapProperties = {
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
+        {
+          name: 'rdf:type',
+          value: 'foaf:Document',
+          type: 'hidden',
+        },
         {
           identifier: 'pageTitle',
           type: 'text',
@@ -525,6 +540,11 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
+          name: 'rdf:type',
+          value: 'adms:Identifier',
+          type: 'hidden',
+        },
+        {
           identifier: 'admsIdentifierUrl',
           type: 'url',
           name: '@id',
@@ -561,6 +581,11 @@ const dcatapProperties = {
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
+        {
+          name: 'rdf:type',
+          value: 'dct:ProvenanceStatement',
+          type: 'hidden',
+        },
         {
           identifier: 'provenance',
           type: 'text',
@@ -814,6 +839,11 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
+          name: 'rdf:type',
+          value: 'dext:MetadataExtension',
+          type: 'hidden',
+        },
+        {
           type: 'url',
           identifier: 'isUsedBy',
           validation: 'optional|url',
@@ -935,6 +965,11 @@ const dcatapProperties = {
             '@change': true,
             children: [
               {
+                name: 'rdf:type',
+                value: 'dct:LicenseDocument',
+                type: 'hidden',
+              },
+              {
                 identifier: 'licenceTitle',
                 type: 'text',
                 name: 'dct:title',
@@ -1019,6 +1054,11 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
+          name: 'rdf:type',
+          value: 'dcat:DataService',
+          type: 'hidden',
+        },
+        {
           identifier: 'accessServiceEndpointURL',
           type: 'url',
           name: 'dcat:endpointURL',
@@ -1096,6 +1136,11 @@ const dcatapProperties = {
       class: 'property',
       children: [
         {
+          name: 'rdf:type',
+          value: 'spdx:Checksum',
+          type: 'hidden',
+        },
+        {
           identifier: 'checksum',
           type: 'text',
           name: 'spdx:checksumValue',
@@ -1134,6 +1179,11 @@ const dcatapProperties = {
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
+        {
+          name: 'rdf:type',
+          value: 'foaf:Document',
+          type: 'hidden',
+        },
         {
           identifier: 'pageTitle',
           type: 'text',
@@ -1196,6 +1246,11 @@ const dcatapProperties = {
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
+        {
+          name: 'rdf:type',
+          value: 'dct:Standard',
+          type: 'hidden',
+        },
         {
           identifier: 'conformsToTitle',
           type: 'text',
@@ -1274,6 +1329,11 @@ const dcatapProperties = {
       data: {
         url: [
           {
+            name: 'rdf:type',
+            value: 'dct:RightsStatement',
+            type: 'hidden',
+          },
+          {
             name: 'rdfs:label',
             identifier: 'rightsUrl',
             type: 'url',
@@ -1282,6 +1342,11 @@ const dcatapProperties = {
           }
         ],
         str: [
+          {
+            name: 'rdf:type',
+            value: 'dct:RightsStatement',
+            type: 'hidden',
+          },
           {
             name: 'rdfs:label',
             identifier: 'rightsString',
@@ -1487,6 +1552,11 @@ const dcatapProperties = {
             '@change': true,
             children: [
               {
+                name: 'rdf:type',
+                value: 'dct:LicenseDocument',
+                type: 'hidden',
+              },
+              {
                 identifier: 'licenceTitle',
                 type: 'text',
                 name: 'dct:title',
@@ -1619,6 +1689,11 @@ const dcatapProperties = {
       data: {
         url: [
           {
+            name: 'rdf:type',
+            value: 'dct:RightsStatement',
+            type: 'hidden',
+          },
+          {
             name: 'rdfs:label',
             identifier: 'rightsUrl',
             type: 'url',
@@ -1627,6 +1702,11 @@ const dcatapProperties = {
           }
         ],
         str: [
+          {
+            name: 'rdf:type',
+            value: 'dct:RightsStatement',
+            type: 'hidden',
+          },
           {
             name: 'rdfs:label',
             identifier: 'rightsString',
