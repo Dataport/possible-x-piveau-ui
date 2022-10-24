@@ -50,7 +50,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'title',
-          type: 'textarea',
+          type: 'text',
           name: '@value',
           validation: 'required',
           class: 'row1 column1',
@@ -386,15 +386,61 @@ const dcatapProperties = {
         },
         {
           identifier: 'pageTitle',
-          type: 'text',
+          type: 'group',
           name: 'dct:title',
           '@change': true,
+          class: 'property grid1r2c',
+          repeatable: true,
+          '@repeatableRemoved': true,
+          children: [
+            {
+              identifier: 'title',
+              type: 'text',
+              name: '@value',
+              validation: 'required',
+              class: 'row1 column1',
+              '@change': true,
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              type: 'select',
+              validation: 'required',
+              options: language,
+              name: '@language',
+              class: 'row1 column2',
+              '@change': true,
+            },
+          ]
         },
         {
           identifier: 'pageDescription',
-          type: 'textarea',
+          type: 'group',
           name: 'dct:description',
           '@change': true,
+          class: 'property grid1r2c',
+          repeatable: true,
+          '@repeatableRemoved': true,
+          children: [
+            {
+              identifier: 'description',
+              type: 'textarea',
+              name: '@value',
+              validation: 'required',
+              class: 'row1 column1',
+              '@change': true,
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              type: 'select',
+              validation: 'required',
+              options: language,
+              name: '@language',
+              class: 'row1 column2',
+              '@change': true,
+            },
+          ]
         },
         {
           identifier: 'pageFormat',
@@ -1186,15 +1232,61 @@ const dcatapProperties = {
         },
         {
           identifier: 'pageTitle',
-          type: 'text',
+          type: 'group',
           name: 'dct:title',
           '@change': true,
+          class: 'property grid1r2c',
+          repeatable: true,
+          '@repeatableRemoved': true,
+          children: [
+            {
+              identifier: 'title',
+              type: 'text',
+              name: '@value',
+              validation: 'required',
+              class: 'row1 column1',
+              '@change': true,
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              type: 'select',
+              validation: 'required',
+              options: language,
+              name: '@language',
+              class: 'row1 column2',
+              '@change': true,
+            },
+          ]
         },
         {
           identifier: 'pageDescription',
-          type: 'textarea',
+          type: 'group',
           name: 'dct:description',
           '@change': true,
+          class: 'property grid1r2c',
+          repeatable: true,
+          '@repeatableRemoved': true,
+          children: [
+            {
+              identifier: 'description',
+              type: 'textarea',
+              name: '@value',
+              validation: 'required',
+              class: 'row1 column1',
+              '@change': true,
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              type: 'select',
+              validation: 'required',
+              options: language,
+              name: '@language',
+              class: 'row1 column2',
+              '@change': true,
+            },
+          ]
         },
         {
           identifier: 'pageFormat',
