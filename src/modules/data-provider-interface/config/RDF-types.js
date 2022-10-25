@@ -5,6 +5,7 @@ const singularURI = {
         "dct:accrualPeriodicity",
         "dct:spatial",
         "dct:accessRights",
+        "dct:type",
         // singular URIs nested within other properties
         'vcard:hasEmail', // contact point
         'vcard:hasURL', // contect point
@@ -44,7 +45,6 @@ const multipleURI = {
         "dct:language", 
         "dct:subject",  
         "dcat:theme",
-        "dct:type",
         "dct:source",
         "dcat:landingPage",
         "dct:relation",
@@ -159,6 +159,16 @@ const groupedProperties = {
     ]
 };
 
+const additionalPropertyTypes = {
+    'dct:temporal': 'dct:PeriodOfTime',
+    'dct:conformsTo': 'dct:Standard',
+    'foaf:page': 'foaf:Document',
+    'dct:provenance': 'dct:ProvenanceStatement',
+    'dext:metadataExtension': 'dext:MetadataExtension',
+    'spdx:checksum': 'spdx:Checksum',
+    'dcat:accessService': 'dcat:DataService',
+}
+
 // @id
 
 export default {
@@ -168,4 +178,5 @@ export default {
     singularString,
     multilingualStrings,
     groupedProperties,
+    additionalPropertyTypes,
 };
