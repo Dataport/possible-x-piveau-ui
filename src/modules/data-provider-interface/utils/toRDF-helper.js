@@ -90,7 +90,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                         let groupBlankNode;
 
                         // page and adms.Identifier have a @id-field to provide an URI
-                        if ((key === 'foaf:page' || key === 'adms:identifier') && has(currentGroupData, '@id')) groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id'])
+                        if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id')) groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id'])
                         else groupBlankNode = N3.DataFactory.blankNode('');
 
                         RDFdataset.addQuad(N3.DataFactory.quad(
