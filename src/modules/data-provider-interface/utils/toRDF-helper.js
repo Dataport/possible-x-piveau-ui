@@ -76,6 +76,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
         } else if (RDFtypes.multipleURI[property].includes(key)) {
             convertMultipleURI(RDFdataset, mainURI, data, key);
         } else if (RDFtypes.typedStrings[property].includes(key)) {
+            console.log('#####', key);
             convertTypedString(RDFdataset, mainURI, data, key);            
         } else if (RDFtypes.multilingualStrings[property].includes(key)) {
             convertMultilingual(RDFdataset, mainURI, data, key);
@@ -95,6 +96,16 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             groupBlankNode
                         ))
 
+                        // some properties provide additional types
+                        // not provided via hidden inputs because this seems not to work reliable
+                        if (has(RDFtypes.additionalPropertyTypes, key)) {
+                            RDFdataset.addQuad(N3.DataFactory.quad(
+                                groupBlankNode,
+                                N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
+                                N3.DataFactory.namedNode(generalHelper.addNamespace(RDFtypes.additionalPropertyTypes[key]))
+                            ))
+                        }
+
                         // convert nested properties
                         convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false);
                     }
@@ -113,7 +124,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 RDFdataset.addQuad(N3.DataFactory.quad(
                     mainURI,
                     N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
-                    N3.DataFactory.literal(valueString, '', N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration')))
+                    N3.DataFactory.literal(valueString, N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration')))
                 ))
             }
         } else if (key === 'dct:identifier') {
@@ -179,6 +190,13 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                         mainURI,
                         N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
                         licenceBlankNode
+                    ))
+
+                    // add additional type
+                    RDFdataset.addQuad(N3.DataFactory.quad(
+                        licenceBlankNode,
+                        N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
+                        N3.DataFactory.namedNode(generalHelper.addNamespace('dct:LicenseDocument'))
                     ))
 
                     // add nested properties
