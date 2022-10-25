@@ -101,7 +101,6 @@ const singularString = {
         "vcard:street_address", // hasAddress
         'rdfs:label', // conformsTo and provenance
         'foaf:name', // creator
-        '@type', // adms:identifier
     ],
     distributions: [
         // nested singular string
@@ -145,6 +144,7 @@ const groupedProperties = {
         'dct:conformsTo',
         'foaf:page',
         'dct:temporal',
+        'adms:identifier',
         // nested grouped properties
         'vcard:hasAddress',
         'skos:notation',
@@ -168,8 +168,6 @@ const additionalPropertyTypes = {
     'spdx:checksum': 'spdx:Checksum',
     'dcat:accessService': 'dcat:DataService',
 }
-
-// @id
 
 export default {
     singularURI,

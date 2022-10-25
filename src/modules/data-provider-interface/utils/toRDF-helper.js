@@ -76,7 +76,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
         } else if (RDFtypes.multipleURI[property].includes(key)) {
             convertMultipleURI(RDFdataset, mainURI, data, key);
         } else if (RDFtypes.typedStrings[property].includes(key)) {
-            console.log('#####', key);
             convertTypedString(RDFdataset, mainURI, data, key);            
         } else if (RDFtypes.multilingualStrings[property].includes(key)) {
             convertMultilingual(RDFdataset, mainURI, data, key);
@@ -88,7 +87,11 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     const currentGroupData = data[key][groupId];
 
                     if(!isEmpty(currentGroupData)) {
-                        const groupBlankNode = N3.DataFactory.blankNode('');
+                        let groupBlankNode;
+
+                        // page and adms.Identifier have a @id-field to provide an URI
+                        if ((key === 'foaf:page' || key === 'adms:identifier') && has(currentGroupData, '@id')) groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id'])
+                        else groupBlankNode = N3.DataFactory.blankNode('');
 
                         RDFdataset.addQuad(N3.DataFactory.quad(
                             mainURI,
@@ -104,6 +107,23 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                 N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
                                 N3.DataFactory.namedNode(generalHelper.addNamespace(RDFtypes.additionalPropertyTypes[key]))
                             ))
+                        }
+
+                        if (key === 'skos:notation') {
+                            if (has(currentGroupData, '@value') && !isEmpty(currentGroupData['@value'])) {
+                                let notationValue;
+
+                                if (has(currentGroupData, '@type') && !isEmpty(currentGroupData['@type'])) {
+                                    notationValue = N3.DataFactory.literal(currentGroupData['@value'], N3.DataFactory.namedNode(currentGroupData['@type']));
+                                } else {
+                                    notationValue = N3.DataFactory.literal(currentGroupData['@value']);
+                                }
+                                RDFdataset.addQuad(N3.DataFactory.quad(
+                                    groupBlankNode,
+                                    N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                                    notationValue
+                                ))
+                            }
                         }
 
                         // convert nested properties
