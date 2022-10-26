@@ -72,9 +72,46 @@ function isUrl(string) {
     return url.protocol === "http:" || url.protocol === "https:";
 }
 
+/**
+ * Fetches data from given endpoint using token and returns data
+ * @param {*} url Endpoint from where to fetch the data
+ * @param {*} token User token for authentication (if needed)
+ * @returns Returns promise of fetched data
+ */
+async function fetchLinkedData(url, token) {
+    return fetch(url)
+        .then(response => {
+            const reader = response?.body?.getReader();
+            return new ReadableStream({
+                start(controller) {
+                    // The following function handles each data chunk
+                    function push() {
+                        // "done" is a Boolean and value a "Uint8Array"
+                        reader?.read().then(({done, value}) => {
+                            // If there is no more data to read
+                            if (done) {
+                                controller.close();
+                                return;
+                            }
+                            // Get the data and send it to the browser via the controller
+                            controller.enqueue(value);
+                            // Check chunks by logging to the console
+                            push();
+                        });
+                    }
+
+                    push();
+                },
+            });
+        }).then((stream) =>
+            new Response(stream, {headers: {'Content-Type': 'text/html'}}).text()
+        )
+}
+
 export default {
     mergeNestedObjects,
     addNamespace,
     makeId,
     isUrl,
+    fetchLinkedData,
 };
