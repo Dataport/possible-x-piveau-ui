@@ -16,15 +16,16 @@ import generalHelper from '../utils/general-helper';
 function convertToRDF(data, property) {
     const RDFdata = new N3.Writer({prefixes});
     let finishedRDFdata;
+    const datasetURI = `https://piveau.eu/set/data/${data.datasets.datasetID}`; // datasetURI also needed for distribution creation (add distributionURI to dataset (dcat:distribution))
 
     if (property === 'datasets') {
-        convertPropertyValues(RDFdata, data.datasets, property, '', '', true);
+        convertPropertyValues(RDFdata, data.datasets, property, '', '', true, datasetURI);
         // include distribution data into same graph
         for (let index = 0; index < data.distributions.length; index += 1) {
-            convertPropertyValues(RDFdata, data.distributions[index], 'distributions', '', '', true);
+            convertPropertyValues(RDFdata, data.distributions[index], 'distributions', '', '', true, datasetURI);
         }
     } else { // catalogues
-        convertPropertyValues(RDFdata, data.catalogues, property, '', '', true);
+        convertPropertyValues(RDFdata, data.catalogues, property, '', '', true, datasetURI);
     }
 
     RDFdata.end((error, result) => finishedRDFdata = result);
@@ -38,7 +39,7 @@ function convertToRDF(data, property) {
  * @param {*} data 
  * @param {*} property 
  */
-function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain) {
+function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI) {
 
     // at first handle id and type of property (sub properties need id of property)
     let mainURI;
@@ -47,7 +48,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     if (setMain) {
         if (property === 'datasets') {
             mainType = generalHelper.addNamespace('dcat:Dataset');
-            mainURI = N3.DataFactory.namedNode(`https://piveau.eu/set/data/${data.datasetID}`); // datasetID should never be empty because of frontend checking
+            mainURI = N3.DataFactory.namedNode(datasetURI); // datasetID should never be empty because of frontend checking
         } else if (property === 'catalogues') {
             mainType = generalHelper.addNamespace('dcat:Catalog');
             mainURI = N3.DataFactory.namedNode(`https://piveau.eu/set/data/${data.datasetID}`); // datasetID should never be empty because of frontend checking
@@ -57,7 +58,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
             mainURI = N3.DataFactory.namedNode(`https://piveau.eu/set/data/${randomId}`);
         }
 
-        setAdditionalProperties(RDFdataset, data, mainURI, mainType, property);
+        setAdditionalProperties(RDFdataset, data, mainURI, mainType, property, datasetURI);
     } else {
         mainURI = preMainURI;
         mainType = preMainType;
@@ -241,7 +242,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
  * @param {*} mainURI URI of current property
  * @param {*} mainType Type of current property
  */
-function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property) {
+function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property, datasetURI) {
 
     // adding id and type of property
     RDFdataset.addQuad(N3.DataFactory.quad(
@@ -275,13 +276,13 @@ function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property) 
     }
 
     // add distribution id to dataset (dcat:distribution)
-    // if (property === 'distributions') {
-    //     RDFdataset.addQuad(N3.DataFactory.quad(
-    //         N3.DataFactory.namedNode('datasetid'),
-    //         N3.DataFactory.namedNode(generalHelper.addNamespace('dcat:distribution')),
-    //         N3.DataFactory.namedNode(mainURI)
-    //     ))
-    // }
+    if (property === 'distributions') {
+        RDFdataset.addQuad(N3.DataFactory.quad(
+            N3.DataFactory.namedNode(datasetURI),
+            N3.DataFactory.namedNode(generalHelper.addNamespace('dcat:distribution')),
+            N3.DataFactory.namedNode(mainURI)
+        ))
+    }
 }
 
 //-----------------------------------------------------------------------------------------------------
