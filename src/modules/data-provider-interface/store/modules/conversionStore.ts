@@ -3,9 +3,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import N3 from 'n3';
-import axios from 'axios';
 
 import { isEmpty, isNil } from 'lodash';
+import datasetFactory from '@rdfjs/dataset';
 
 import generalHelper from '../../utils/general-helper';
 import toRDF from '../../utils/toRDF-helper';
@@ -114,49 +114,16 @@ const actions = {
         commit('saveFromLocalstorage', property);
     },
     /**
-     * Fetches linked data from given backend endpoint with token
-     * @param {*} param0
-     * @param {*} param1 Object containing endpoint to call and user token
-     * @returns Linked data from endpoint
-     */
-    async fetchLinkedData({ commit }, {endpoint, token}) {
-        let response;
-        let requestOptions;
-
-        if (token !== '') {
-            requestOptions = {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                url: endpoint,
-            };
-        } else {
-            requestOptions = {
-                method: 'GET',
-                url: endpoint,
-            };
-        }
-
-        try {
-            response = await axios.request(requestOptions);
-        } catch (err) {
-            // TODO: Handle (network) errors
-            throw Error(`Error occured during fetching endpoint: ${endpoint}`);
-        }
-        return response.data;
-    },
-    /**
      * 
      * @param param0 
      * @param param1 
      */
     async convertToInput({ commit, dispatch }, { endpoint, token, property }) {
-        const fetchedData = await dispatch('fetchLinkedData', { endpoint, token }).then((response) => {
-            return response;
-        });
-
-        const data = new N3.Store();
+        const url = "https://data.europa.eu/api/hub/repo/datasets/f1f43587-3552-47c5-99f6-a53ea2936c8a.ttl?useNormalizedId=true&locale=en";
+       
+        const fetchedData = await generalHelper.fetchLinkedData(url, token).then((response) => { return response; });
+                
+        const data = datasetFactory.dataset();
         const parser = new N3.Parser();
         
         // write quads into store to be able to query data later
