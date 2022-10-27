@@ -173,7 +173,7 @@
         <div v-if="getQualityDistributionData.result" id="YEAH">
           <div id="accordion" class="space" v-if="showLess">
             <div
-              v-for="(value, key) in getQualityDistributionData.result.results.slice(0, 4)"
+              v-for="(value, key) in getQualityDistributionData.result.results"
               class="card"
               :key="`B-${key}`"
             >
@@ -305,7 +305,7 @@
                   <!-- CSV Linter -->
                   <div class="row accordion-body">
                     <div class="col-12">
-                      <CSVLinter :validation="qualityDistributionValidation[key]"></CSVLinter>
+                      <CSVLinter v-if="qualityDistributionValidation[key]" :validation="qualityDistributionValidation[key]"></CSVLinter>
                     </div> 
                 </div>
                 </div>

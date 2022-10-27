@@ -121,8 +121,6 @@ export default {
                 : 'bg-white';
         },
     },
-    created() {},
-    mounted() {},
 };
 </script>
 
