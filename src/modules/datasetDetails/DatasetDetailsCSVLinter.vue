@@ -4,16 +4,16 @@
         <h4 class="col-12 mt-5 mb-3 font-weight-bold">{{ csvLinter.title }}</h4>
         <div class="col-7">
             <div class="p-3 csv-validation-box" 
-                :class="csvLinter.validation.passed">
+                :class="getValidationStatus(validation.passed)">
                 <div class="row mt-2">  
                     <div class="col-1 mt-4">
-                        <i class="material-icons" :class="csvLinter.validation.passed">
-                            {{ getValidationResultIcon(csvLinter.validation.passed) }}
+                        <i class="material-icons" :class="getValidationStatus(validation.passed)">
+                            {{ getValidationResultIcon(validation.passed) }}
                         </i>
                     </div>
                     <div class="col-11">
-                        <h5 class="font-weight-bold">{{ csvLinter.validationTitle[csvLinter.validation.passed] }}</h5>
-                        <p>{{ csvLinter.validationDescription[csvLinter.validation.passed] }}</p>
+                        <h5 class="font-weight-bold">{{ csvLinter.validationTitle[validation.passed] }}</h5>
+                        <p>{{ csvLinter.validationDescription[validation.passed] }}</p>
                     </div>
                 </div>
             </div>
@@ -22,9 +22,9 @@
             <table class="row mt-4">
                 <tbody>
                     <tr>
-                        <td class="col-12 text-center heading-1 color-red">{{ csvLinter.validation.errors.count }}</td>
-                        <td class="col-12 text-center heading-1 color-orange">{{ csvLinter.validation.warnings.count }}</td>
-                        <td class="col-12 text-center heading-1 color-blue">{{ csvLinter.validation.info.count }}</td>
+                        <td class="col-12 text-center heading-1 color-red">{{ validationCount['errors'] }}</td>
+                        <td class="col-12 text-center heading-1 color-orange">{{ validationCount['warnings'] }}</td>
+                        <td class="col-12 text-center heading-1 color-blue">{{ validationCount['infos'] }}</td>
                     </tr>
                     <tr>
                         <td class="col-12 text-center heading-4 color-red">Errors</td>
@@ -34,7 +34,7 @@
                 </tbody>
             </table>
         </div>
-        <span class="col-12 mt-3">Total Rows Processed: <strong>{{ csvLinter.validation.rowCount }}</strong></span>
+        <span class="col-12 mt-3">Total Rows Processed: <strong>{{ validation.rowCount }}</strong></span>
         <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in validationResults" :key="index">
             <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
             <h5 class="font-weight-bold">{{ csvResult.message_header }}</h5>
@@ -44,8 +44,7 @@
 </template>
   
 <script>
-import { mapGetters } from 'vuex';
-import { has } from 'lodash';
+import { has, isNil } from 'lodash';
 
 export default {
     name: 'datasetDetailsCSVLinter',
@@ -53,7 +52,6 @@ export default {
     props: ['validation'],
     data() {
         return {
-            // Dummy data -> replace with CSV Linter results
             csvLinter: {
                 title: 'CSV Validation Results',
                 validationTitle: {
@@ -64,41 +62,51 @@ export default {
                     true: 'However, there are some issues that can be adressed to make it as easy as possible to reuse the data.',
                     false: 'Your CSV file is not valid!',
                 },
-                validation: {},
             },
         };
     },
     computed: {
-        ...mapGetters('datasetDetails', [
-            'getDistributions',
-        ]),
         showValidation() {
-            return has(this.csvLinter, 'validation') 
-                && has(this.csvLinter.validation, 'passed') 
-                && has(this.csvLinter.validation, 'errors') 
-                && has(this.csvLinter.validation, 'warnings') 
-                && has(this.csvLinter.validation, 'info');
-        },
-        distributionIDs() {
-            return this.getDistributions.map(d => d.id);
+            return !isNil(this.validation) 
+                && has(this.validation, 'passed') 
+                && has(this.validation, 'errors') 
+                && has(this.validation, 'warnings') 
+                && has(this.validation, 'infos');
         },
         validationResults() {
-            let errors = has(this.csvLinter.validation.errors, 'items') ? this.csvLinter.validation.errors.items : [];
-            let warnings = has(this.csvLinter.validation.warnings, 'items') ? this.csvLinter.validation.errors.items : [];
-            let info = has(this.csvLinter.validation.info, 'items') ? this.csvLinter.validation.errors.items : [];
+            let errors = has(this.validation.errors, 'items') ? this.validation.errors.items : [];
+            let warnings = has(this.validation.warnings, 'items') ? this.validation.warnings.items : [];
+            let infos = has(this.validation.infos, 'items') ? this.validation.infos.items : [];
             
             errors.forEach(i => i.type = 'Error');
             warnings.forEach(i => i.type = 'Warning');
-            info.forEach(i => i.type = 'Message');
+            infos.forEach(i => i.type = 'Message');
 
-            return errors.concat(warnings).concat(info);
-        }
+            return errors.concat(warnings).concat(infos);
+        },
+        validationCount() {
+            let errors = has(this.validation.errors, 'count') ? this.validation.errors.count : 0;
+            let warnings = has(this.validation.warnings, 'count') ? this.validation.warnings.count : 0;
+            let infos = has(this.validation.infos, 'count') ? this.validation.infos.count : 0;
+
+            return {
+                errors,
+                warnings,
+                infos,
+            };
+        },
     },
     methods: {
         has,
+        isNil,
         getValidationResultIcon(status) {
-            return status === 'true' ? 'check_circle'
-                : status === 'false' ? 'disabled_by_default'
+            return status === true ? 'check_circle'
+                : status === false ? 'disabled_by_default'
+                : 'info'
+        },
+        getValidationStatus(status) {
+            return status === true ? 'success'
+                : status === false ? 'error'
                 : 'info'
         },
         getBorderStyle(index) {
@@ -113,9 +121,7 @@ export default {
                 : 'bg-white';
         },
     },
-    created() {
-        this.csvLinter.validation = this.validation;
-    },
+    created() {},
     mounted() {},
 };
 </script>
@@ -167,18 +173,18 @@ export default {
         background-color: #FFFFFF;
         border: 2px solid #000000;
         
-        &.true {
+        &.success {
             border-color: #467A39;
         }
-        &.false {
+        &.error {
             border-color: #DA2131;
         }
 
         .material-icons {
-            &.true {
+            &.success {
                 color: #467A39;
             }
-            &.false {
+            &.error {
                 color: #DA2131;
             }
         }
