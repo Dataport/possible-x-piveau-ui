@@ -35,25 +35,36 @@
             </table>
         </div>
         <span class="col-12 mt-3">Total Rows Processed: <strong>{{ validation.rowCount }}</strong></span>
-        <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in validationResults" :key="index">
+        <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in displayedValidationResults" :key="index">
             <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
             <h5 class="font-weight-bold">{{ csvResult.message_header }}</h5>
             <p>{{ csvResult.message }}</p>
         </div>
+        <ECMore class="col-12 text-primary mb-3 mt-2"
+            v-if="useECMore"
+            :label="csvLinter.displayAll ? 'Show less' : 'Show more'"
+            :upArrow="csvLinter.displayAll"
+            :action="() => toggleDisplayAll()"></ECMore>
     </div>
 </template>
   
 <script>
 import { has, isNil } from 'lodash';
+import ECMore from "@/components/ECMore";
 
 export default {
     name: 'datasetDetailsCSVLinter',
+    components: {
+        ECMore,
+    },
     dependencies: 'DatasetService',
     props: ['validation'],
     data() {
         return {
             csvLinter: {
                 title: 'CSV Validation Results',
+                displayAll: this.$env.datasetDetails.quality.csvLinter.displayAll,
+                numberOfDisplayedValidationResults: this.$env.datasetDetails.quality.csvLinter.numberOfDisplayedValidationResults,
                 validationTitle: {
                     true: 'Valid CSV',
                     false: 'CSV not valid',
@@ -72,6 +83,14 @@ export default {
                 && has(this.validation, 'errors') 
                 && has(this.validation, 'warnings') 
                 && has(this.validation, 'infos');
+        },
+        useECMore() {
+            return this.validationResults.length > this.csvLinter.numberOfDisplayedQualityDistributions;
+        },
+        displayedValidationResults() {
+            return this.csvLinter.displayAll
+                ? this.validationResults
+                : this.validationResults.slice(0, this.csvLinter.numberOfDisplayedValidationResults);
         },
         validationResults() {
             let errors = has(this.validation.errors, 'items') ? this.validation.errors.items : [];
@@ -99,6 +118,9 @@ export default {
     methods: {
         has,
         isNil,
+        toggleDisplayAll() {
+            this.csvLinter.displayAll = !this.csvLinter.displayAll;
+        },
         getValidationResultIcon(status) {
             return status === true ? 'check_circle'
                 : status === false ? 'disabled_by_default'

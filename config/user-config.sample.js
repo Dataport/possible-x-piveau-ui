@@ -332,6 +332,19 @@ const glueConfig = {
       // Timeout for axios request
       TIMEOUT_MS: 10000,
     },
+    quality: {
+      // If true, always display all distributions
+      displayAll: false,
+      // Number of distributions to be shown
+      numberOfDisplayedQualityDistributions: 5,
+      // CSV Linter Validation Results
+      csvLinter: {
+        // If true, always display all results
+        displayAll: false,
+        // Number of results to be shown
+        numberOfDisplayedValidationResults: 5,
+      },
+    }
   },
   // Leaflet map configuration
   maps: {
