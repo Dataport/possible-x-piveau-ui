@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <div class="col-12 ecl-accordion" data-ecl-auto-init="Accordion" data-ecl-accordion="">
-                <div class="ecl-accordion__item" v-for="(distribution, index) in qualityDistributions" :key="index" :id="distribution.id">
+                <div class="ecl-accordion__item" v-for="(distribution, index) in displayedQualityDistributions" :key="index" :id="distribution.id">
                     <!-- Distribution Quality -->
                     <h3 class="ecl-accordion__title" @click="toggleDistribution(index)">
                         <button 
@@ -59,9 +59,14 @@
                             </div>
                         </div>
                         <!-- CSV Linter -->
-                        <CSVLinter :validation="qualityDistributionValidation[distribution.id]"></CSVLinter>
+                        <CSVLinter v-if="showCSVLinter(distribution)" :validation="qualityDistributionValidation[distribution.id]"></CSVLinter>
                     </div>
                 </div>
+                <ECMore class="col-12 text-primary mt-4"
+                    v-if="useECMore"
+                    :label="displayAll ? 'Show less' : 'Show more'"
+                    :upArrow="displayAll"
+                    :action="() => toggleDisplayAll()"></ECMore>
             </div>
         </div>
     </div>
@@ -71,6 +76,7 @@
 import { mapGetters } from 'vuex';
 import { has } from 'lodash';
 import { helpers, PvBadge, CSVLinter } from '@piveau/piveau-hub-ui-modules';
+import ECMore from "@/components/ECMore";
 
 const { getTranslationFor } = helpers;
 
@@ -80,9 +86,13 @@ export default {
     components: {
         PvBadge,
         CSVLinter,
+        ECMore,
     },
     data() {
-        return {};
+        return {
+            displayAll: this.$env.datasetDetails.quality.displayAll,
+            numberOfDisplayedQualityDistributions: this.$env.datasetDetails.quality.numberOfDisplayedQualityDistributions,
+        };
     },
     computed: {
         ...mapGetters('datasetDetails', [
@@ -90,6 +100,14 @@ export default {
             'getDistributions',
             'getQualityDistributionData',
         ]),
+        useECMore() {
+            return this.qualityDistributions.length > this.numberOfDisplayedQualityDistributions;
+        },
+        displayedQualityDistributions() {
+            return this.displayAll
+                ? this.qualityDistributions
+                : this.qualityDistributions.slice(0, this.numberOfDisplayedQualityDistributions);
+        },
         qualityDistributions() {
             return this.getDistributions.map(dist => {
                 let d = dist;
@@ -158,6 +176,9 @@ export default {
     methods: {
         has,
         getTranslationFor,
+        toggleDisplayAll() {
+            this.displayAll = !this.displayAll;
+        },
         toggleDistribution(index) {
             // Close all Distributions
             this.getDistributions.forEach((dist, i) => {
@@ -182,6 +203,12 @@ export default {
                 : value === 'false' ? 'no'
                 : value === '{}' ? 'n/a'
                 : value;
+        },
+        showCSVLinter(distribution) {
+            if (!has(distribution, 'id') || !has(distribution, 'format') || !has(distribution.format, 'id')) return false
+            let id = distribution.id;
+            let format = distribution.format.id === 'CSV';
+            return this.qualityDistributionValidation[id] && format;
         },
     },
     created() {},

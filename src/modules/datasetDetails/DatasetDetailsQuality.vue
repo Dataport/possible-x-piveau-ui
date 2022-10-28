@@ -305,7 +305,7 @@
                   <!-- CSV Linter -->
                   <div class="row accordion-body">
                     <div class="col-12">
-                      <CSVLinter v-if="qualityDistributionValidation[key]" :validation="qualityDistributionValidation[key]"></CSVLinter>
+                      <CSVLinter v-if="showCSVLinter(key, value[0].info['distribution-id'])" :validation="qualityDistributionValidation[key]"></CSVLinter>
                     </div> 
                 </div>
                 </div>
@@ -559,6 +559,13 @@
       checkDistributionValidation() {
           let query = this.$route.query.validate;
           if (document.getElementById(query)) this.scrollToElement(query)
+      },
+      showCSVLinter(key, id) {
+        let distributions = this.getDistributions.filter(dist => dist.id === id)
+        let format = distributions.length > 0
+          ? distributions[0].format.id === 'CSV'
+          : false
+        return this.qualityDistributionValidation[key] && format;
       },
     },
     created() {
