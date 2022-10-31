@@ -14,7 +14,7 @@ import generalHelper from '../utils/general-helper';
  * @returns 
  */
 function convertToRDF(data, property) {
-    const RDFdata = new N3.Writer({prefixes});
+    const RDFdata = new N3.Writer({prefixes: prefixes, format: 'N-Triples'});
     let finishedRDFdata;
     const datasetURI = `https://piveau.eu/set/data/${data.datasets.datasetID}`; // datasetURI also needed for distribution creation (add distributionURI to dataset (dcat:distribution))
 
