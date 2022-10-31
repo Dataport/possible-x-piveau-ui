@@ -4,7 +4,7 @@ import Router from 'vue-router';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import {
   DatasetDetailsCategories,
-  DatasetDetailsQuality,
+  // DatasetDetailsQuality,
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
   DatasetDetails,
@@ -28,7 +28,7 @@ import {
 } from "@piveau/piveau-hub-ui-modules";
 import ECDatasets from "../src/components/ECDatasets.vue"
 import ECCatalogues from "../src/components/ECCatalogues.vue"
-// import DatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetDetailsQuality.vue"
+import DatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetDetailsQuality.vue"
 
 // const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
 // const MapBoundsReceiver = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/MapBoundsReceiver');
