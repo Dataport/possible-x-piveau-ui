@@ -110,7 +110,6 @@
       },
       findFacetTitle(fieldId, facetId) {
         try {
-          // if (fieldId === 'country' && facetId === 'io') fieldId = 'dataScope';
           const facetTitle = this.getAllAvailableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
           return getFacetTranslation(fieldId, facetId, this.$route.query.locale, facetTitle);
         } catch {
