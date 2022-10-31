@@ -130,11 +130,13 @@ const actions = {
       method: 'PUT',
       url: actionParams.url,
       headers: {
-        'Content-Type': 'application/ld+json',
+        'Content-Type': 'application/x-turtle',
         Authorization: `Bearer ${actionParams.token}`,
       },
       data: actionParams.data,
     };
+
+    console.log('****', requestOptions);
 
     const result = await axios.request(requestOptions);
 
@@ -264,7 +266,7 @@ const actions = {
       method: 'PUT',
       url: actionParams.url,
       headers: {
-        'Content-Type': 'application/ld+json',
+        'Content-Type': 'application/x-turtle',
         Authorization: `Bearer ${actionParams.token}`,
       },
       data: actionParams.data,
