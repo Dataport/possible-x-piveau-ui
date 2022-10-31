@@ -41,7 +41,7 @@
             <p>{{ csvResult.message }}</p>
             <small>{{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}, {{ $t('message.datasetDetails.quality.column') }}: {{ csvResult.column }}</small>
         </div>
-        <ECMore class="col-12 text-primary mb-3 mt-2"
+        <ECMore class="col-12 text-primary mb-3 mt-5"
             v-if="useECMore"
             :label="csvLinter.displayAll ? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
             :upArrow="csvLinter.displayAll"
@@ -86,7 +86,7 @@ export default {
                 && has(this.validation, 'infos');
         },
         useECMore() {
-            return this.validationResults.length > this.csvLinter.numberOfDisplayedQualityDistributions;
+            return this.validationResults.length > this.csvLinter.numberOfDisplayedValidationResults;
         },
         displayedValidationResults() {
             return this.csvLinter.displayAll
