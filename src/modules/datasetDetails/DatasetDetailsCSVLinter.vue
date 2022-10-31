@@ -43,7 +43,7 @@
         </div>
         <ECMore class="col-12 text-primary mb-3 mt-2"
             v-if="useECMore"
-            :label="csvLinter.displayAll ? 'Show less' : 'Show more'"
+            :label="csvLinter.displayAll ? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
             :upArrow="csvLinter.displayAll"
             :action="() => toggleDisplayAll()"></ECMore>
     </div>
