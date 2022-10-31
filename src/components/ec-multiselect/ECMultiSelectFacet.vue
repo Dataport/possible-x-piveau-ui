@@ -98,7 +98,7 @@ export default {
   methods: {
     getFacetTranslation,
     getTitle(item) {
-      return Vue.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
+      return this.fieldId === 'dataScope' && Vue.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
         Vue.i18n.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
         : this.getFacetTranslationWrapper(this.fieldId, item.id, this.$route.query.locale, item.title);
     },

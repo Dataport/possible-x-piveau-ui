@@ -313,6 +313,7 @@ export default {
     },
     clearFacets() {
       if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
+        this.setMinScoring(0);
         this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
           .catch(error => { console.log(error); });
       }
@@ -338,7 +339,6 @@ export default {
       let newScoring = item.minScoring;
       if (newScoring === this.getMinScoring) newScoring = 0;
       this.setMinScoring(newScoring);
-      localStorage.setItem('minScoring', JSON.stringify(newScoring));
       this.resetPage();
       window.scrollTo(0, 0);
     },
@@ -369,14 +369,16 @@ export default {
       } else this.showCatalogDetails = false;
     },
     initMinScoring() {
-      if (this.getMinScoring > 0) {
+      let currentScoring = this.$route.query.scoring;
+      if (currentScoring && currentScoring.length > 0) {
         let scoringFacets = this.$env.datasets.facets.scoringFacets.defaultScoringFacets;
-        let currentScore = Object.keys(scoringFacets).filter(score => scoringFacets[score].minScoring === this.getMinScoring);
-        this.$router.push(
-          { query: Object.assign({}, this.$route.query, { scoring: currentScore }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        Object.keys(scoringFacets).forEach(score => {
+          if (score === currentScoring) {
+            this.setMinScoring(scoringFacets[score].minScoring);
+          }
+        });
+      } else {
+        this.setMinScoring(0);
       }
     },
   },
