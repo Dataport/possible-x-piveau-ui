@@ -29,7 +29,6 @@ function convertToRDF(data, property) {
     }
 
     RDFdata.end((error, result) => finishedRDFdata = result);
-    console.log(finishedRDFdata);
     return finishedRDFdata;
 }
 
