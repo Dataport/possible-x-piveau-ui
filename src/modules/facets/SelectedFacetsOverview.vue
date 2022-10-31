@@ -110,7 +110,7 @@
       },
       findFacetTitle(fieldId, facetId) {
         try {
-          if (fieldId === 'country' && facetId === 'io') fieldId = 'dataScope';
+          // if (fieldId === 'country' && facetId === 'io') fieldId = 'dataScope';
           const facetTitle = this.getAllAvailableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
           return getFacetTranslation(fieldId, facetId, this.$route.query.locale, facetTitle);
         } catch {
@@ -142,7 +142,6 @@
           routerObject = { query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) };
         } else if (field === 'scoring') {
           this.setMinScoring(0);
-          localStorage.setItem('minScoring', JSON.stringify(0));
           routerObject = { query: Object.assign({}, this.$route.query, { scoring: [], page: 1 }) };
         } else if (field === 'dataScope') {
           routerObject = { query: Object.assign({}, this.$route.query, { country: [], dataScope: [], page: 1 }) };
