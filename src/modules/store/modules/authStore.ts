@@ -136,8 +136,6 @@ const actions = {
       data: actionParams.data,
     };
 
-    console.log('****', requestOptions);
-
     const result = await axios.request(requestOptions);
 
     if (result.status === 201 || result.status === 204) {
