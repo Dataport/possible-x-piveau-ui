@@ -28,24 +28,7 @@ import {
 } from "@piveau/piveau-hub-ui-modules";
 import ECDatasets from "../src/components/ECDatasets.vue"
 import ECCatalogues from "../src/components/ECCatalogues.vue"
-
-// const Datasets = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/Datasets');
-// const MapBoundsReceiver = () => import(/* webpackChunkName: "Datasets" */ /* webpackPreload: true */'@/components/MapBoundsReceiver');
-// const DatasetDetails = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails');
-// const DatasetDetailsDataset = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-dataset');
-// const DatasetDetailsCategories = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-categories');
-// const DatasetDetailsSimilarDatasets = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-similarDatasets');
-// const DatasetDetailsQuality = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-quality');
-// const DatasetDetailsActivityStream = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DEU-datasetDetails-activityStream');
-// const DistributionDetails = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/DistributionDetails');
-// const MapBasic = () => import(/* webpackChunkName: "DatasetDetails" */ /* webpackPrefetch: true */'@/components/MapBasic');
-// const Catalogues = () => import(/* webpackChunkName: "Catalogues" */'@/components/Catalogues');
-// const Home = () => import(/* webpackChunkName: "Home" */'@/components/Home');
-// const Imprint = () => import(/* webpackChunkName: "Imprint" */'@/components/Imprint');
-// const PrivacyPolicy = () => import(/* webpackChunkName: "PrivacyPolicy" */'@/components/PrivacyPolicy');
-// const Auth = () => import(/* webpackChunkName: "Auth" */'@/components/Auth');
-// const NotFound = () => import(/* webpackChunkName: "NotFound" */'@/components/NotFoundDeu');
-// const SparqlSearch = () => import(/* webpackChunkName: "SparqlSearch" */'@/components/SparqlSearch');
+import ECDatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetDetailsQuality.vue"
 
 import { ecStyle } from '../config/user-config';
 
@@ -116,7 +99,7 @@ const router = new Router({
           path: 'quality',
           name: 'DatasetDetailsQuality',
           components: {
-            datasetDetailsSubpages: DatasetDetailsQuality,
+            datasetDetailsSubpages: ecStyle ? ECDatasetDetailsQuality : DatasetDetailsQuality,
           },
           meta: {
             title,
