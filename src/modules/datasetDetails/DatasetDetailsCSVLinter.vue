@@ -27,18 +27,19 @@
                         <td class="col-12 text-center heading-1 color-blue">{{ validationCount['infos'] }}</td>
                     </tr>
                     <tr>
-                        <td class="col-12 text-center heading-4 color-red">Errors</td>
-                        <td class="col-12 text-center heading-4 color-orange">Warnings</td>
-                        <td class="col-12 text-center heading-4 color-blue">Messages</td>
+                        <td class="col-12 text-center heading-4 color-red">{{ $tc('message.datasetDetails.quality.error', 2) }}</td>
+                        <td class="col-12 text-center heading-4 color-orange">{{ $tc('message.datasetDetails.quality.warning', 2) }}</td>
+                        <td class="col-12 text-center heading-4 color-blue">{{ $tc('message.datasetDetails.quality.message', 2) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <span class="col-12 mt-3">Total Rows Processed: <strong>{{ validation.rowCount }}</strong></span>
+        <span class="col-12 mt-3">{{ $t('message.datasetDetails.quality.totalRows') }}: <strong>{{ validation.rowCount }}</strong></span>
         <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in displayedValidationResults" :key="index">
             <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
             <h5 class="font-weight-bold">{{ csvResult.message_header }}</h5>
             <p>{{ csvResult.message }}</p>
+            <small>{{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}, {{ $t('message.datasetDetails.quality.column') }}: {{ csvResult.column }}</small>
         </div>
         <ECMore class="col-12 text-primary mb-3 mt-2"
             v-if="useECMore"
@@ -66,12 +67,12 @@ export default {
                 displayAll: this.$env.datasetDetails.quality.csvLinter.displayAll,
                 numberOfDisplayedValidationResults: this.$env.datasetDetails.quality.csvLinter.numberOfDisplayedValidationResults,
                 validationTitle: {
-                    true: 'Valid CSV',
-                    false: 'CSV not valid',
+                    true: this.$t('message.datasetDetails.quality.validationTitle.success'),
+                    false: this.$t('message.datasetDetails.quality.validationTitle.error'),
                 },
                 validationDescription: {
-                    true: 'However, there are some issues that can be adressed to make it as easy as possible to reuse the data.',
-                    false: 'Your CSV file is not valid!',
+                    true: this.$t('message.datasetDetails.quality.validationDescription.success'),
+                    false: this.$t('message.datasetDetails.quality.validationDescription.error'),
                 },
             },
         };
@@ -97,9 +98,9 @@ export default {
             let warnings = has(this.validation.warnings, 'items') ? this.validation.warnings.items : [];
             let infos = has(this.validation.infos, 'items') ? this.validation.infos.items : [];
             
-            errors.forEach(i => i.type = 'Error');
-            warnings.forEach(i => i.type = 'Warning');
-            infos.forEach(i => i.type = 'Message');
+            errors.forEach(i => i.type = this.$tc('message.datasetDetails.quality.error', 1));
+            warnings.forEach(i => i.type = this.$tc('message.datasetDetails.quality.warning', 1));
+            infos.forEach(i => i.type = this.$tc('message.datasetDetails.quality.message', 1));
 
             return errors.concat(warnings).concat(infos);
         },
