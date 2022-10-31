@@ -279,7 +279,7 @@ function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property, 
         RDFdataset.addQuad(N3.DataFactory.quad(
             N3.DataFactory.namedNode(datasetURI),
             N3.DataFactory.namedNode(generalHelper.addNamespace('dcat:distribution')),
-            N3.DataFactory.namedNode(mainURI)
+            mainURI
         ))
     }
 }
