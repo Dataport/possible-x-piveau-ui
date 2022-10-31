@@ -86,9 +86,6 @@ export default {
                 && has(this.validation, 'infos');
         },
         useECMore() {
-            console.log(this.validationResults.length);
-            console.log(this.csvLinter.numberOfDisplayedValidationResults);
-            console.log(this.validationResults.length > this.csvLinter.numberOfDisplayedValidationResults);
             return this.validationResults.length > this.csvLinter.numberOfDisplayedValidationResults;
         },
         displayedValidationResults() {
