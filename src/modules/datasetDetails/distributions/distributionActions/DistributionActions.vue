@@ -26,9 +26,11 @@
       :distribution="distribution"
       class="distribution-action"
     />
-    <app-link class="btn-sm pt-0" :to="{ name: 'DatasetDetailsQuality', query: { locale: $route.query.locale, validate: distribution.id }}">
-        Validate
-    </app-link>
+    <div>
+      <app-link class="btn-sm pt-0" :to="{ name: 'DatasetDetailsQuality', query: { locale: $route.query.locale, validate: distribution.id }}">
+          Validate
+      </app-link>
+    </div>
   </div>
 </template>
 
