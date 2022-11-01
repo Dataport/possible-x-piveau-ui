@@ -370,7 +370,12 @@ export default {
     },
     initMinScoring() {
       let currentScoring = this.$route.query.scoring;
-      if (currentScoring && currentScoring.length > 0) {
+      currentScoring = isArray(currentScoring) && currentScoring.length > 0
+        ? currentScoring[0]
+        : isArray(currentScoring) && currentScoring.length === 0
+          ? ''
+          : currentScoring;
+      if (currentScoring) {
         let scoringFacets = this.$env.datasets.facets.scoringFacets.defaultScoringFacets;
         Object.keys(scoringFacets).forEach(score => {
           if (score === currentScoring) {
