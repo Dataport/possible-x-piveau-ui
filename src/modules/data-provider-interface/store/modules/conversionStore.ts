@@ -114,22 +114,23 @@ const actions = {
         commit('saveFromLocalstorage', property);
     },
     /**
-     * 
+     * Fetches data, writes it to a dataset and calls method for actual conversion to input format
      * @param param0 
-     * @param param1 
+     * @param param1 Object containing endpoint and token for data fetching as well as property
      */
-    async convertToInput({ commit, dispatch }, { endpoint, token, property }) {
-        const url = "https://data.europa.eu/api/hub/repo/datasets/f1f43587-3552-47c5-99f6-a53ea2936c8a.ttl?useNormalizedId=true&locale=en";
+    async convertToInput({ commit }, { endpoint, token, property }) {
        
-        const fetchedData = await generalHelper.fetchLinkedData(url, token).then((response) => { return response; });
-                
-        const data = datasetFactory.dataset();
-        const parser = new N3.Parser();
-        
-        // write quads into store to be able to query data later
-        parser.parse(fetchedData, (error, quad, prefixes) => {
-            if (quad) data.add(quad);
+        const fetchedData = await generalHelper.fetchLinkedData(endpoint, token).then((response) => {
+            return response;
         });
+
+        const parser = new N3.Parser();
+        const data = datasetFactory.dataset();
+
+        // adding quads to dataset
+        await parser.parse(fetchedData, (error, quad, prefixes) => {
+            if (quad) data.add(quad);
+        })
 
         commit('saveLinkedDataToStore', { property, data });
     },
@@ -234,10 +235,10 @@ const mutations = {
     /**
      * Converts RDF data into input form data
      * @param state 
-     * @param param1 Object containing data and property
+     * @param param1 Object containing data and property and state
      */
-    saveLinkedDataToStore(state, { property, data }) {
-        toInput.convertToInput(state, data, property);
+    async saveLinkedDataToStore(state, { property, data }) {
+        await toInput.convertToInput(state, property, data);
     },
     /**
     * Creates a new distribution within state

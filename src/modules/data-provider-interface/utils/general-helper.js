@@ -78,8 +78,28 @@ function isUrl(string) {
  * @param {*} token User token for authentication (if needed)
  * @returns Returns promise of fetched data
  */
-async function fetchLinkedData(url, token) {
-    return fetch(url)
+async function fetchLinkedData(endpoint, token) {
+    let response;
+    let requestOptions;
+
+    // if token is given, provide token (for drafts and other non-public elements)
+    if (token !== '') {
+        requestOptions = {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            url: endpoint,
+        };
+    } else {
+        requestOptions = {
+            method: 'GET',
+            url: endpoint,
+        };
+    }
+
+    try {
+        response = fetch(endpoint, requestOptions)
         .then(response => {
             const reader = response?.body?.getReader();
             return new ReadableStream({
@@ -105,7 +125,12 @@ async function fetchLinkedData(url, token) {
             });
         }).then((stream) =>
             new Response(stream, {headers: {'Content-Type': 'text/html'}}).text()
-        )
+        );
+    } catch (err) {
+        // TODO: Handle (network) errors
+        throw Error(`Error occured during fetching endpoint: ${endpoint}`);
+    }
+    return response;
 }
 
 export default {
