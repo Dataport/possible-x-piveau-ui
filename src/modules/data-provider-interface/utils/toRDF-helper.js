@@ -74,7 +74,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
         } else if (RDFtypes.singularURI[property].includes(key)) {
             convertSingularURI(RDFdataset, mainURI, data, key);
         } else if (RDFtypes.multipleURI[property].includes(key)) {
-            convertMultipleURI(RDFdataset, mainURI, data, key);
+            convertMultipleURI(RDFdataset, mainURI, data, key, property);
         } else if (RDFtypes.typedStrings[property].includes(key)) {
             convertTypedString(RDFdataset, mainURI, data, key);            
         } else if (RDFtypes.multilingualStrings[property].includes(key)) {
@@ -341,16 +341,16 @@ function convertSingularURI(RDFdataset, id, data, key) {
  * @param {*} data 
  * @param {*} key 
  */
-function convertMultipleURI(RDFdataset, id, data, key) {
+function convertMultipleURI(RDFdataset, id, data, key, property) {
     // there are two different formats the frontend delivers multiple URIs
     // 1: [ "URI1", "URI2" ]
     // 2: [ { "@id": "URI1" }, { "@id": "URI2" } ]
     for (let uriIndex = 0; uriIndex < data[key].length; uriIndex += 1) {
 
         let currentURI;
-        if (typeof data[key][uriIndex] === 'string' && !isEmpty(data[key][uriIndex])) {
+        if (RDFtypes.multiURIarray[property].includes(key) && !isEmpty(data[key][uriIndex])) {
             currentURI = data[key][uriIndex];
-        } else if (typeof data[key][uriIndex] === 'object' && has(data[key][uriIndex], '@id') && !isEmpty(data[key][uriIndex])) {
+        } else if (RDFtypes.multiURIobjects[property].includes(key) && has(data[key][uriIndex], '@id') && !isEmpty(data[key][uriIndex])) {
             currentURI = data[key][uriIndex]['@id'];
         }
 
