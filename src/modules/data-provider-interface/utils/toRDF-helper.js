@@ -2,7 +2,7 @@ import N3 from 'n3';
 import { isEmpty } from 'lodash';
 import { has } from 'lodash';
 
-import RDFtypes from '../config/RDF-types';
+import formatTypes from '../config/format-types';
 import prefixes from '../config/prefixes';
 
 import generalHelper from '../utils/general-helper';
@@ -69,17 +69,17 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
         const key = valueKeys[index];
 
         // all properties are sorted by their resulting RDF format (see .../data-provider-interface/config/RDFtypes.js)
-        if (RDFtypes.singularString[property].includes(key)) {
+        if (formatTypes.singularString[property].includes(key)) {
             convertSingularString(RDFdataset, mainURI, data, key);
-        } else if (RDFtypes.singularURI[property].includes(key)) {
+        } else if (formatTypes.singularURI[property].includes(key)) {
             convertSingularURI(RDFdataset, mainURI, data, key);
-        } else if (RDFtypes.multipleURI[property].includes(key)) {
+        } else if (formatTypes.multipleURI[property].includes(key)) {
             convertMultipleURI(RDFdataset, mainURI, data, key, property);
-        } else if (RDFtypes.typedStrings[property].includes(key)) {
+        } else if (formatTypes.typedStrings[property].includes(key)) {
             convertTypedString(RDFdataset, mainURI, data, key);            
-        } else if (RDFtypes.multilingualStrings[property].includes(key)) {
+        } else if (formatTypes.multilingualStrings[property].includes(key)) {
             convertMultilingual(RDFdataset, mainURI, data, key);
-        } else if (RDFtypes.groupedProperties[property].includes(key)) {
+        } else if (formatTypes.groupedProperties[property].includes(key)) {
             // handle grouped properties (singular and with multiple instances!)
             if (!isEmpty(data[key])) {
                 // properties are provided within an array (because of grouping in form)
@@ -101,11 +101,11 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
 
                         // some properties provide additional types
                         // not provided via hidden inputs because this seems not to work reliable
-                        if (has(RDFtypes.additionalPropertyTypes, key)) {
+                        if (has(formatTypes.additionalPropertyTypes, key)) {
                             RDFdataset.addQuad(N3.DataFactory.quad(
                                 groupBlankNode,
                                 N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
-                                N3.DataFactory.namedNode(generalHelper.addNamespace(RDFtypes.additionalPropertyTypes[key]))
+                                N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key]))
                             ))
                         }
 
@@ -348,9 +348,9 @@ function convertMultipleURI(RDFdataset, id, data, key, property) {
     for (let uriIndex = 0; uriIndex < data[key].length; uriIndex += 1) {
 
         let currentURI;
-        if (RDFtypes.multiURIarray[property].includes(key) && !isEmpty(data[key][uriIndex])) {
+        if (formatTypes.multiURIarray[property].includes(key) && !isEmpty(data[key][uriIndex])) {
             currentURI = data[key][uriIndex];
-        } else if (RDFtypes.multiURIobjects[property].includes(key) && has(data[key][uriIndex], '@id') && !isEmpty(data[key][uriIndex])) {
+        } else if (formatTypes.multiURIobjects[property].includes(key) && has(data[key][uriIndex], '@id') && !isEmpty(data[key][uriIndex])) {
             currentURI = data[key][uriIndex]['@id'];
         }
 

@@ -1,5 +1,5 @@
 import generalHelper from "./general-helper";
-import RDFtypes from '../config/RDF-types';
+import formatType from '../config/format-types';
 import formDefinitions from '../config/dcatap-input-definition';
 import pageContent from '../config/page-content-config';
 
@@ -68,17 +68,17 @@ function convertProperties(property, state, id, data, propertyKeys) {
         const key = propertyKeys[index];
         const subData = data.match(id, generalHelper.addNamespace(key), null, null);
 
-        if (RDFtypes.singularString[property].includes(key)) {
+        if (formatType.singularString[property].includes(key)) {
             convertSingularStrings(subData, state, key);
-        } else if (RDFtypes.singularURI[property].includes(key)) {
+        } else if (formatType.singularURI[property].includes(key)) {
             convertSingularURI(subData, state, key);
-        } else if (RDFtypes.multipleURI[property].includes(key)) {
+        } else if (formatType.multipleURI[property].includes(key)) {
             convertMultipleURI(subData, state, key, property);
-        } else if (RDFtypes.typedStrings[property].includes(key)) {
+        } else if (formatType.typedStrings[property].includes(key)) {
             convertTypedString(subData, state, key);
-        } else if (RDFtypes.multilingualStrings[property].includes(key)) {
+        } else if (formatType.multilingualStrings[property].includes(key)) {
             convertMultilingual(subData, state,  key);   
-        } else if (RDFtypes.groupedProperties[property].includes(key)) {
+        } else if (formatType.groupedProperties[property].includes(key)) {
             if (subData.size > 0) {
                 state[key] = [];
                 // there could be multiple nodes with data for a property
@@ -237,9 +237,9 @@ function convertMultipleURI(data, state, key, property) {
     if (data.size > 0) {
         state[key] = [];
         for (let el of data) {
-            if (RDFtypes.multiURIarray[property].includes(key)) {
+            if (formatType.multiURIarray[property].includes(key)) {
                 state[key].push(el.object.value);
-            } else if (RDFtypes.multiURIobjects[property].includes(key)) {
+            } else if (formatType.multiURIobjects[property].includes(key)) {
                 state[key].push({'@id': el.object.value});
             }
         }        
