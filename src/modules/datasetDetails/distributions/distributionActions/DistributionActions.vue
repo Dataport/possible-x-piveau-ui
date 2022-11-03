@@ -26,7 +26,7 @@
       :distribution="distribution"
       class="distribution-action"
     />
-    <app-link class="btn-sm pt-0" :to="{ name: 'DatasetDetailsQuality', query: { locale: $route.query.locale, validate: distribution.id }}">
+    <app-link v-if="showValidateButton" class="btn-sm pt-0" :to="{ name: 'DatasetDetailsQuality', query: { locale: $route.query.locale, validate: distribution.id }}">
         Validate
     </app-link>
   </div>
@@ -56,7 +56,12 @@ export default {
     isOnlyOneUrl: Function,
     trackGoto: Function,
     getDistributionFormat: Function,
-    replaceHttp: Function
+    replaceHttp: Function,
+  },
+  computed: {
+    showValidateButton() {
+      return this.$env?.datasetDetails?.distributions?.showValidationButton;
+    }
   }
 }
 </script>

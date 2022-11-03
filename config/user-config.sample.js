@@ -275,6 +275,7 @@ const glueConfig = {
       incrementSteps: [10, 50],
       descriptionMaxLines: 3,
       descriptionMaxChars: 250,
+      showValidationButton: false,
     },
     pages: {
       isVisible: false,
