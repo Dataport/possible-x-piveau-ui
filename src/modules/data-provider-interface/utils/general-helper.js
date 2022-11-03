@@ -43,6 +43,43 @@ function addNamespace(prefix) {
 }
 
 /**
+ * Removes long namespace and replaces it with the abbreviation of the namespace
+ * @param {*} longValue Long value with long namespace (e.g. https://....#type)
+ * @returns Returns value with short namespace (e.g. rdf:type)
+ */
+function removeNamespace(longValue) {
+    let lastIndex;
+
+    // long namespace either ends with an # or a \
+    if (longValue.includes('#')) {
+        lastIndex = longValue.lastIndexOf('#')
+    } else {
+        lastIndex = longValue.lastIndexOf('/')
+    }
+
+    const shortValue = longValue.substr(lastIndex + 1);
+    const longPrefix = longValue.substr(0, lastIndex + 1);
+    const shortPrefix = Object.keys(context).find(key => context[key] === longPrefix);
+
+    return `${shortPrefix}:${shortValue}`;
+}
+
+/**
+ * Returns list of keys as shortned version from given data
+ * @param {*} data An array of quads with keys as predicate
+ * @returns Array of shortened keys
+ */
+function getNestedKeys(data) {
+    const keys = [];
+
+    for (let el of data) {
+        keys.push(removeNamespace(el.predicate.value));
+    }
+
+    return keys;
+}
+
+/**
  * Creates a random string
  * @param {*} length Length of string to be created
  * @returns String formed of random characters with given length
@@ -133,10 +170,39 @@ async function fetchLinkedData(endpoint, token) {
     return response;
 }
 
+/**
+ * Exracts keynames (e.g. dct:title) using the page-content-config for each element
+ * @param {*} property Property (datasets/distributions/catalogues)
+ * @param {*} formDefinitions Form definition of properties including name
+ * @param {*} pageContent Config file containing definition of which property will be displayed on which page
+ * @returns Object containing keys of properties for each page
+ */
+function getPagePrefixedNames(property, formDefinitions, pageContent) {
+
+    const prefixedNames = {
+        datasets: {},
+        distributions: {},
+        catalogues: {}
+      };
+
+    // get property keys for each page
+    for (let pageName in pageContent[property]) {
+        prefixedNames[property][pageName] = [];
+        for (let propertyName in pageContent[property][pageName]) {
+            const prefixedName = formDefinitions[property][propertyName].name; // form definition includes name-property which contains key
+            prefixedNames[property][pageName].push(prefixedName);
+        }
+    }
+
+    return prefixedNames;
+}
+
 export default {
     mergeNestedObjects,
     addNamespace,
     makeId,
     isUrl,
     fetchLinkedData,
+    getPagePrefixedNames,
+    getNestedKeys,
 };
