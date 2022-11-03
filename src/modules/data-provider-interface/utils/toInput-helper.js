@@ -1,117 +1,290 @@
-import { isEmpty } from 'lodash';
-import inputtypes from '../../data-provider-interface/config/input-value-types';
+import generalHelper from "./general-helper";
+import RDFtypes from '../config/RDF-types';
+import formDefinitions from '../config/dcatap-input-definition';
+import pageContent from '../config/page-content-config';
+
+/**
+ * Converts given data for given property into input form format
+ * @param {*} state state from store
+ * @param {*} property Property to convert data for (datasets/catalogues)
+ * @param {*} data Linked data within a dataset
+ */
+async function convertToInput(state, property, data) {
+
+    let generalID;
+    let namespaceKeys;
+
+    let propertyQuads;
+
+    if (property === 'datasets') {
+        propertyQuads = data.match(null, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://www.w3.org/ns/dcat#Dataset', null);
+    } else {
+        propertyQuads = data.match(null, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://www.w3.org/ns/dcat#Catalog', null);
+    }
+        
+    // extract data for datasets/catalogues
+    namespaceKeys = generalHelper.getPagePrefixedNames(property, formDefinitions, pageContent);
+    state[property] = {};
+    for (let el of propertyQuads) {
+        // there should be only one dataset id
+        generalID = el.subject.value;
+
+        for (let pageName in namespaceKeys[property]) {
+            state[property][pageName] = {};
+            convertProperties(property, state.datasets[pageName], generalID, data, namespaceKeys[property][pageName]);
+        }
+        
+    }
+
+    // also add distribution data
+    if (property === 'datasets') {
+        const distributionQuads = data.match(generalID, 'http://www.w3.org/ns/dcat#distribution', null, null);
+        namespaceKeys = generalHelper.getPagePrefixedNames('distributions', formDefinitions, pageContent);
+        state.distributions = [];
+        for (let el of distributionQuads) {
+            const currentDistribution = {};
+            
+            const distributionId = el.object.value;
+            for (let pageName in namespaceKeys['distributions']) {
+                currentDistribution[pageName] = {};
+                convertProperties('distributions', currentDistribution, distributionId, data, namespaceKeys['distributions'][pageName]);
+            }  
+            state.distributions.push(currentDistribution);
+        }
+    }
+}
+
+/**
+ * Converts value for given property from RDF into input form format
+ * @param {*} property Parent property of given value (datasets/distributions/catalogues)
+ * @param {*} state State from store
+ * @param {*} id Id of parent node which serves as subject
+ * @param {*} data Linked data
+ * @param {*} propertyKeys Keys of properties to check
+ */
+function convertProperties(property, state, id, data, propertyKeys) {
+
+    for (let index = 0; index < propertyKeys.length; index += 1) {
+        const key = propertyKeys[index];
+        const subData = data.match(id, generalHelper.addNamespace(key), null, null);
+
+        if (RDFtypes.singularString[property].includes(key)) {
+            convertSingularStrings(subData, state, key);
+        } else if (RDFtypes.singularURI[property].includes(key)) {
+            convertSingularURI(subData, state, key);
+        } else if (RDFtypes.multipleURI[property].includes(key)) {
+            convertMultipleURI(subData, state, key, property);
+        } else if (RDFtypes.typedStrings[property].includes(key)) {
+            convertTypedString(subData, state, key);
+        } else if (RDFtypes.multilingualStrings[property].includes(key)) {
+            convertMultilingual(subData, state,  key);   
+        } else if (RDFtypes.groupedProperties[property].includes(key)) {
+            if (subData.size > 0) {
+                state[key] = [];
+                // there could be multiple nodes with data for a property
+                for (let el of subData) {
+                    const currentState = {}
+                    if (key === 'skos:notation') {
+                        // skos notation behaves differently
+                        // there should be a typed literal given which should be seperated into @value and @type
+                        if (el.object.value) currentState['@value'] = el.object.value;
+                        if (el.object.datatypeString) currentState['@type'] = el.object.datatypeString;
+                    } else {
+                        // some properties have a named node containing data, the value of this named node also is a value form the input form (typically @id)
+                        if (el.object.termType === 'NamedNode') currentState['@id'] = el.object.value;
+                        // get keys of node properties
+                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null));
+                        convertProperties(property, currentState, el.object, data, nestedKeys);
+                    }
+                    state[key].push(currentState);
+                }
+            }
+        } else if (key === 'dcat:temporalResolution') {
+            // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
+            // the form provides the data as following: [ { 'Year': '...', 'Month': '...', ... } ]
+            // the linked data format of this property looks like this: P?Y?M?DT?H?M?S
+            if (data.size > 0) {
+
+                state[key] = [{}];
+
+                const shorts = ['Y', 'M', 'D', 'H', 'M', 'S'];
+                const forms = {
+                0: 'Year',
+                1: 'Month',
+                2: 'Day',
+                3: 'Hour',
+                4: 'Minute',
+                5: 'Second',
+                };
+
+                // should be oly one quad
+                let resolutionValue;
+                for (let el of subData) {
+                    resolutionValue = el.object.value;
+                }
+
+                // find index of letter for time period
+                // extract substring until this index
+                // extract number from string and set as according value for input
+                for (let tempIndex = 0; tempIndex < shorts.length; tempIndex += 1) {
+                    const position = resolutionValue.indexOf(shorts[tempIndex]); // position of duration letter
+                    const subDuration = resolutionValue.substring(0, position); // substring until position of duration letter
+                    const value = subDuration.match(/\d+/g)[0]; // extract number
+                    resolutionValue = resolutionValue.substring(position); // overwrite resolution string with shortened version (missing the extracted part)
+                    state[key][0][forms[tempIndex]] = value; // write to result object
+                }
+            }
+        } else if (key === 'dct:identifier') {
+            if (subData.size > 0) {
+                // identifier should be provided as array of strings
+                // [{'@value': '...'}, {'@value': '...'}, ...]
+                state[key] = [];
+
+                for (let el of subData) {
+                    state[key].push({'@value': el.object.value});
+                }
+            }
+        } else if (key === 'dct:rights') {
+            //
+        } else if (key === 'dct:license') {
+            //
+        } else if (key === 'datasetID' && property !== 'datatsets') {
+            // id is given as complete URI
+            // dataset-/catalogue-id is string following the last /
+            state[key] = id.substr(id.lastIndexOf('/') + 1);
+            state['hidden_datasetIDFormHidden'] = id.substr(id.lastIndexOf('/') + 1);
+        } else if (key === 'dct:catalog' && property === 'datasets') {
+            // datasets also have a property called dct:catalog (not valid DCAT-AP)
+            // property is needed to determine catalog the dataset belongs to
+            if (data.size > 0) {
+                state[key] = '';
+
+                // there should only be one catalog
+                for (let cat of subData) {
+                    state[key] = cat.object.value;
+                }
+            }
+        } else if (key === 'rdf:type') {
+            // some properties have a type which can be selected
+            // the type also has a namespace and therefore need to be shortened ( e.g. from https://...Individual to vcard:Individual)
+            if (data.size > 0) {
+                state[key] = '';
+
+                // typically there is only on type provided for each property instance
+                for (let el of subData) {
+                    state[key] = generalHelper.removeNamespace(el.object.value);
+                }
+            }
+        }
+    }
+}
+
+//-----------------------------------------------------------------------------------------------------
+//                  basic conversion methods for different categories of data
+//-----------------------------------------------------------------------------------------------------
+// seems at first to be unnecessary but if we want to convert nested properties as well, we need these 
+// methods (especially to provide the correct parent URI)
 
 /**
  * 
- */
-function convertToInput(state, data, property) {
-    // do conversion
-}
-
-/**
- * Converts array of URIs into Array of strings
- * @param {*} state
- * @param {*} values
- * @param {*} key
- */
-function multiUriToString(state, values, key) {
-    const stringArray = [];
-
-    for (let arrayIndex = 0; arrayIndex < values.length; arrayIndex += 1) {
-        const currentValue = values[arrayIndex];
-        stringArray.push(currentValue['@id']);
-    }
-    state[key] = stringArray;
-}
-
-/**
- * Converts typed strings into a singular string
+ * @param {*} data 
  * @param {*} state 
- * @param {*} values 
  * @param {*} key 
  */
-function typedStringToString(state, values, key) {
-    state[key] = values['@value'];
-}
+function convertSingularStrings(data, state, key) {
+    if (data.size > 0) {
+        state[key] = '';
 
-/**
- * Conerted JSONLD grouped values into input grouped values matching form input format
- * @param {*} state
- * @param {*} values
- * @param {*} key
- */
-function convertGroupedProperties(state, values, key) {
-
-    if (key === 'spdx:checksum') {
-        state[key] = {};
-        convertNestedProperties(state[key], values);
-    } else {
-        state[key] = [];
-        for (let arrayIndex = 0; arrayIndex < values.length; arrayIndex += 1) {
-            state[key][arrayIndex] = {};
-            convertNestedProperties(state[key][arrayIndex], values[arrayIndex]);
+        for (let el of data) {
+            state[key] = el.object.value;
         }
     }
-
 }
 
 /**
- * Converts nested properties to input format
- * @param {*} state
- * @param {*} values
+ * 
+ * @param {*} data 
+ * @param {*} state 
+ * @param {*} key 
  */
-function convertNestedProperties(state, values) {
-    const objectKeys = Object.keys(values);
+function convertSingularURI(data, state, key) {
+    if (data.size > 0) {
+        state[key] = '';
 
-    for (let keyIndex = 0; keyIndex < objectKeys.length; keyIndex += 1) {
-        const key = objectKeys[keyIndex];
+        for (let el of data) {
+            const value = el.object.value;
 
-        if (inputtypes.nestedSingularURIs.includes(key)) {
-            if (!isEmpty(values[key]) && !Array.isArray(values[key]['@id'])) {
-                // mail addresse are extended with mailto: which needs to be removed for the input
-                // normally nested URIs shouldn't be within an array
-                if (values[key]['@id'].startsWith('mailto:')) {
-                    state[key] = values[key]['@id'].replace('mailto:', '');
-                } else {
-                    state[key] = values[key]['@id'];
-                }
-            }
-        } else if (key === 'skos:notation') {
-            state[key] = [{}];
-            const subKeyArray = Object.keys(values[key]);
-            for (let subIndex = 0; subIndex < subKeyArray.length; subIndex += 1) {
-                const subkey = subKeyArray[subIndex];
-                if (!isEmpty(values[key][subkey])) {
-                    state[key][0][subkey] = values[key][subkey];
-                }
-            }
-        } else if (key === 'vcard:hasAddress') {
-            state[key] = [{}];
-            const subKeyArray = Object.keys(values[key]);
-            for (let subkeyIndex = 0; subkeyIndex < subKeyArray.length; subkeyIndex += 1) {
-                const subkey = subKeyArray[subkeyIndex];
-                if (!isEmpty(values[key][subkey])) {
-                    state[key][0][subkey] = values[key][subkey];
-                }
-            }
-        } else if (key === 'dct:title' || key === 'dct:description') {
-            if (Array.isArray(values[key])) {
-                state[key] = values[key];
+            if (value.startsWith('mailto:')) {
+                state[key] = value.replace('mailto:', '');
             } else {
-                state[key] = [values[key]];
-            }
-        } else {
-            if (!isEmpty(values[key])) {
-                state[key] = values[key];
+                state[key] = value;
             }
         }
     }
+}
 
+/**
+ * 
+ * @param {*} data 
+ * @param {*} state 
+ * @param {*} key 
+ */
+function convertMultipleURI(data, state, key, property) {
+    // there are two different formats the frontend need to deliver multiple URIs
+    // 1: [ "URI1", "URI2" ]
+    // 2: [ { "@id": "URI1" }, { "@id": "URI2" } ]
+
+    if (data.size > 0) {
+        state[key] = [];
+        for (let el of data) {
+            if (RDFtypes.multiURIarray[property].includes(key)) {
+                state[key].push(el.object.value);
+            } else if (RDFtypes.multiURIobjects[property].includes(key)) {
+                state[key].push({'@id': el.object.value});
+            }
+        }        
+    }
+}
+
+/**
+ * 
+ * @param {*} data 
+ * @param {*} state 
+ * @param {*} key 
+ */
+function convertTypedString(data, state, key) {
+    // some properties have a type
+    // normally this type is not used within the forntend form and therefore won't be saved to frontend values
+    if (data.size > 0) {
+        state[key] = '';
+        for (let el of data) {
+            state[key] = el.object.value;
+        }
+    }
+    
+}
+
+/**
+ * Converts and writes multilingual data to store
+ * @param {*} data DatasetCore containing an array of quads
+ * @param {*} state State for current key
+ * @param {*} key Name of current property (e.g: 'dct:title')
+ */
+function convertMultilingual(data, state, key) {
+    // multilingual data is always stored within an array containing object with the value and it's language
+    // [ {'@value': '...', '@language': '...'}, ...]
+    if (data.size > 0) {
+        state[key] = [];
+
+        for (let el of data) {
+            const currentElement = {};
+            currentElement['@value'] = el.object.value; // actual value
+            currentElement['@language'] = el.object.language; // language of value
+            state[key].push(currentElement);
+        }
+    }
 }
 
 export default { 
-    multiUriToString, 
-    convertGroupedProperties, 
-    typedStringToString,
     convertToInput,
 };

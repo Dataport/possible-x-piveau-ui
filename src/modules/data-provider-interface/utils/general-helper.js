@@ -205,4 +205,5 @@ export default {
     fetchLinkedData,
     getPagePrefixedNames,
     getNestedKeys,
+    removeNamespace,
 };
