@@ -239,6 +239,11 @@ const mutations = {
      */
     async saveLinkedDataToStore(state, { property, data }) {
         await toInput.convertToInput(state, property, data);
+
+        if (property === 'datasets') {
+            localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));
+        }
+        localStorage.setItem(`dpi_${property}`, JSON.stringify(state[property]));
     },
     /**
     * Creates a new distribution within state
