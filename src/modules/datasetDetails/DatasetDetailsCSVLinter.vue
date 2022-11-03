@@ -27,40 +27,52 @@
                         <td class="col-12 text-center heading-1 color-blue">{{ validationCount['infos'] }}</td>
                     </tr>
                     <tr>
-                        <td class="col-12 text-center heading-4 color-red">Errors</td>
-                        <td class="col-12 text-center heading-4 color-orange">Warnings</td>
-                        <td class="col-12 text-center heading-4 color-blue">Messages</td>
+                        <td class="col-12 text-center heading-4 color-red">{{ $tc('message.datasetDetails.quality.error', 2) }}</td>
+                        <td class="col-12 text-center heading-4 color-orange">{{ $tc('message.datasetDetails.quality.warning', 2) }}</td>
+                        <td class="col-12 text-center heading-4 color-blue">{{ $tc('message.datasetDetails.quality.message', 2) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <span class="col-12 mt-3">Total Rows Processed: <strong>{{ validation.rowCount }}</strong></span>
-        <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in validationResults" :key="index">
+        <span class="col-12 mt-3">{{ $t('message.datasetDetails.quality.totalRows') }}: <strong>{{ validation.rowCount }}</strong></span>
+        <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in displayedValidationResults" :key="index">
             <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
             <h5 class="font-weight-bold">{{ csvResult.message_header }}</h5>
             <p>{{ csvResult.message }}</p>
+            <small>{{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}, {{ $t('message.datasetDetails.quality.column') }}: {{ csvResult.column }}</small>
         </div>
+        <ECMore class="col-12 text-primary mb-3 mt-5"
+            v-if="useECMore"
+            :label="csvLinter.displayAll ? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
+            :upArrow="csvLinter.displayAll"
+            :action="() => toggleDisplayAll()"></ECMore>
     </div>
 </template>
   
 <script>
 import { has, isNil } from 'lodash';
+import ECMore from "@/components/ECMore";
 
 export default {
     name: 'datasetDetailsCSVLinter',
+    components: {
+        ECMore,
+    },
     dependencies: 'DatasetService',
     props: ['validation'],
     data() {
         return {
             csvLinter: {
                 title: 'CSV Validation Results',
+                displayAll: this.$env.datasetDetails.quality.csvLinter.displayAll,
+                numberOfDisplayedValidationResults: this.$env.datasetDetails.quality.csvLinter.numberOfDisplayedValidationResults,
                 validationTitle: {
-                    true: 'Valid CSV',
-                    false: 'CSV not valid',
+                    true: this.$t('message.datasetDetails.quality.validationTitle.success'),
+                    false: this.$t('message.datasetDetails.quality.validationTitle.error'),
                 },
                 validationDescription: {
-                    true: 'However, there are some issues that can be adressed to make it as easy as possible to reuse the data.',
-                    false: 'Your CSV file is not valid!',
+                    true: this.$t('message.datasetDetails.quality.validationDescription.success'),
+                    false: this.$t('message.datasetDetails.quality.validationDescription.error'),
                 },
             },
         };
@@ -73,14 +85,22 @@ export default {
                 && has(this.validation, 'warnings') 
                 && has(this.validation, 'infos');
         },
+        useECMore() {
+            return this.validationResults.length > this.csvLinter.numberOfDisplayedValidationResults;
+        },
+        displayedValidationResults() {
+            return this.csvLinter.displayAll
+                ? this.validationResults
+                : this.validationResults.slice(0, this.csvLinter.numberOfDisplayedValidationResults);
+        },
         validationResults() {
             let errors = has(this.validation.errors, 'items') ? this.validation.errors.items : [];
             let warnings = has(this.validation.warnings, 'items') ? this.validation.warnings.items : [];
             let infos = has(this.validation.infos, 'items') ? this.validation.infos.items : [];
             
-            errors.forEach(i => i.type = 'Error');
-            warnings.forEach(i => i.type = 'Warning');
-            infos.forEach(i => i.type = 'Message');
+            errors.forEach(i => i.type = this.$tc('message.datasetDetails.quality.error', 1));
+            warnings.forEach(i => i.type = this.$tc('message.datasetDetails.quality.warning', 1));
+            infos.forEach(i => i.type = this.$tc('message.datasetDetails.quality.message', 1));
 
             return errors.concat(warnings).concat(infos);
         },
@@ -99,6 +119,9 @@ export default {
     methods: {
         has,
         isNil,
+        toggleDisplayAll() {
+            this.csvLinter.displayAll = !this.csvLinter.displayAll;
+        },
         getValidationResultIcon(status) {
             return status === true ? 'check_circle'
                 : status === false ? 'disabled_by_default'
@@ -121,8 +144,6 @@ export default {
                 : 'bg-white';
         },
     },
-    created() {},
-    mounted() {},
 };
 </script>
 

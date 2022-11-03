@@ -28,7 +28,7 @@
         :label="expanded ? 'Show less' : 'Show more'"
         :upArrow="expanded"
         :action="() => toggleDistribution(distribution.id)"
-        class="row text-primary mb-3 mt-2"
+        class="row ecl-button--secondary ecl-tabs__toggle text-primary mb-3 mt-2"
       />
     </div>
   </div>
@@ -41,6 +41,7 @@ import {
 } from '@piveau/piveau-hub-ui-modules';
 
 import ECMore from "@/components/ECMore";
+
 export default {
   name: "ECDistributionDetails",
   components: {

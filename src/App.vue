@@ -13,7 +13,7 @@
       />
       <router-view
           class="content"
-          :key="`${$route.fullPath}${minScoring}`"
+          :key="`${$route.fullPath}`"
       />
       <deu-footer
           :enable-authentication="$env.useAuthService"
@@ -78,26 +78,6 @@ export default {
       'getRTPToken',
       'getKeycloak',
     ]),
-    ...mapGetters('datasets', [
-      'getMinScoring',
-    ]),
-    minScoring() {
-      if (this.$env.datasets.facets.scoringFacets.useScoringFacets) {
-        // Check local storage value
-        let minScoring = localStorage.getItem('minScoring');
-        if (minScoring && minScoring !== "undefined") {
-          minScoring = parseInt(JSON.parse(minScoring), 10);
-          if (isNumber(minScoring)) this.setMinScoring(minScoring);
-        }
-        // Check existing store value
-        if (!isNumber(this.getMinScoring)) {
-          minScoring = parseInt(this.$env.datasets.facets.scoringFacets.defaultMinScore, 10);
-          this.setMinScoring(minScoring);
-        }
-        return `&minScoring=${minScoring}`;
-      }
-      return '';
-    },
   },
   methods: {
     ...mapActions('auth', [
@@ -105,9 +85,6 @@ export default {
       'authLogout',
       'rtpToken',
       'setKeycloak',
-    ]),
-    ...mapActions('datasets', [
-      'setMinScoring',
     ]),
     resume() {
       if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
