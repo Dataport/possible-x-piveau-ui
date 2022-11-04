@@ -51,8 +51,8 @@ async function convertToInput(state, property, data) {
             }  
             state.distributions.push(currentDistribution);
         }
-        console.log('####', state.distributions);
     }
+    console.log(state);
 }
 
 /**
@@ -146,9 +146,42 @@ function convertProperties(property, state, id, data, propertyKeys) {
                 }
             }
         } else if (key === 'dct:rights') {
-            //
+            // rights is conditional and gets either a string or an URI ({'@id': '...'})
+            // rights always includes a type so everything is located within a blank node
+            // also rights is a singular property
+            if (subData.size > 0) {
+                let nodeData;
+                // get id of blank node and associated label data
+                for (let el of subData) {
+                    nodeData = data.match(el.object, generalHelper.addNamespace('rdfs:label'), null, null);
+                    for (let label of nodeData) {
+                        if (label.object.termType === 'Literal') {
+                            state[key] = label.object.value;
+                        } else if (label.object.termType === 'NamedNode') {
+                            state[key] = {'@id': label.object.value};
+                        }
+                    }
+                }
+            }
         } else if (key === 'dct:license') {
-            //
+            // licence can either be a simple URI or an additional node containing a title, description and url
+            // detailed input format: []
+            if (subData.size > 0) {
+                // for both cases the parent node is singular (either object is namedNode or blankNode)
+                for (let el of subData) {
+                    if (el.object.termType === 'NamedNode') {
+                        state[key] = el.object.value;
+                    } else if (el.object.termType === "BlankNode") {
+                        state[key] = []; // grouped values are stored within an array
+                        // get keys for nested values
+                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null));
+                        const licenceProperties = {};
+                        // convert nested values
+                        convertProperties(property, licenceProperties, el.object, data, nestedKeys);
+                        state[key].push(licenceProperties);
+                    }
+                }
+            }            
         } else if (key === 'datasetID' && property !== 'datatsets') {
             // id is given as complete URI
             // dataset-/catalogue-id is string following the last /
