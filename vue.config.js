@@ -22,7 +22,7 @@ module.exports = defineConfig({
   css: { extract: false },
   publicPath: buildConfig.BASE_PATH,
   configureWebpack: {
-    devtool: process.env === 'production' ? 'source-map' : 'eval-source-map',
+    devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
     plugins: [
       new webpack.DefinePlugin({
         'process.env.buildconf': JSON.stringify(buildConfig)
