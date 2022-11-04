@@ -205,14 +205,24 @@
     margin-top: 1.5rem;
   }
 
-  .dsd-features {
+  .dsd-distributions {
     order: 4;
     grid-column: span 2;
-    margin-bottom: 3rem;
   }
 
-  .dsd-distributions {
+  .dsd-features {
     order: 5;
     grid-column: span 2;
+    margin-bottom: 3rem;
+
+      
+    .dsd-map {
+      order: 1;
+    }
+
+    .dsd-keywords {
+      margin-top: 3rem !important;
+      order: 2;
+    }
   }
 }

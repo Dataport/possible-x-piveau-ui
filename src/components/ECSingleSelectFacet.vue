@@ -66,7 +66,7 @@ export default {
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-        ? `${Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)}${facetId === 'sufficientScoring' || facetId === 'goodScoring' ? '+' : ''}`
+        ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     onChange() {

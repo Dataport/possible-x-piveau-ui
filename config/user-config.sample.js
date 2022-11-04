@@ -349,6 +349,7 @@ const glueConfig = {
   },
   // Leaflet map configuration
   maps: {
+    mapVisible: true,
     useAnimation: true,
     urlTemplate: 'https://gisco-services.ec.europa.eu/maps/wmts/1.0.0/WMTSCapabilities.xml/wmts/OSMCartoComposite/EPSG3857/{z}/{x}/{y}.png',
     options: {

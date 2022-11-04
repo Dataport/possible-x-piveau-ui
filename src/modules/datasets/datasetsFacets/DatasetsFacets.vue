@@ -141,6 +141,7 @@ export default {
     ...mapGetters('datasets', [
       'getAllAvailableFacets',
       'getDatasetsCount',
+      'getFacets',
       'getFacetOperator',
       'getFacetGroupOperator',
       'getDataServices',
@@ -176,20 +177,29 @@ export default {
     },
     getSortedFacets() {
       const availableFacets = this.getAllAvailableFacets;
-      const sortedFacets = [];
+      const activeFacets = [];
+      const inactiveFacets = [];
+
+      let activeFields = Object.keys(this.getFacets).filter(key => this.getFacets[key].length > 0);
 
       this.defaultFacetOrder.forEach((facet) => {
         availableFacets.forEach((field) => {
-          if (facet === field.id
-            && field.items.length > 0
+          if (facet === field.id && field.items.length > 0
             && (field.id !== 'country' || this.dataScope)
             && (field.id !== 'catalog' || this.useCatalogFacets)
             && (field.id !== 'scoring' || this.useScoringFacets)
-            && (field.id !== 'dataScope' || this.useDataScopeFacets)) sortedFacets.push(field);
+            && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
+              if(activeFields.includes(field.id)) activeFacets.push(field);
+              else inactiveFacets.push(field);
+            }
         });
       });
+
+      const sortedFacets = activeFacets.concat(inactiveFacets);
+
       if (this.cutoff > 0) {
-        return sortedFacets.slice(0, this.cutoff - 1); // -1 because we always show the settings facet
+        if (this.cutoff < activeFacets.length) this.cutoff = activeFacets.length;
+        return sortedFacets.slice(0, this.cutoff);
       } else {
         return sortedFacets;
       }
@@ -239,7 +249,7 @@ export default {
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-        ? `${this.$t(`message.datasetFacets.facets.scoring.${facetId}`)}${facetId === 'sufficientScoring' || facetId === 'goodScoring' ? '+' : ''}`
+        ? this.$t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     sortByCount(items, fieldId) {
