@@ -47,10 +47,11 @@ async function convertToInput(state, property, data) {
             const distributionId = el.object.value;
             for (let pageName in namespaceKeys['distributions']) {
                 currentDistribution[pageName] = {};
-                convertProperties('distributions', currentDistribution, distributionId, data, namespaceKeys['distributions'][pageName]);
+                convertProperties('distributions', currentDistribution[pageName], distributionId, data, namespaceKeys['distributions'][pageName]);
             }  
             state.distributions.push(currentDistribution);
         }
+        console.log('####', state.distributions);
     }
 }
 
