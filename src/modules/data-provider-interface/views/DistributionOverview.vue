@@ -94,7 +94,7 @@ export default {
     },
     getDistributionFormat(dist) {
       if (!isEmpty(dist['dct:format'])) {
-        return dist['dct:format']['@id'].substring(dist['dct:format']['@id'].lastIndexOf('/') + 1);
+        return dist['dct:format'].substring(dist['dct:format'].lastIndexOf('/') + 1);
       } else {
         return 'UNKNOWN';
       }
