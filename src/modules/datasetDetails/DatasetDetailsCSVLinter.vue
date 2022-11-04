@@ -36,10 +36,16 @@
         </div>
         <span class="col-12 mt-3">{{ $t('message.datasetDetails.quality.totalRows') }}: <strong>{{ validation.rowCount }}</strong></span>
         <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in displayedValidationResults" :key="index">
-            <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
-            <h5 class="font-weight-bold">{{ csvResult.message_header }}</h5>
-            <p>{{ csvResult.message }}</p>
-            <small>{{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}, {{ $t('message.datasetDetails.quality.column') }}: {{ csvResult.column }}</small>
+            <div class="row">
+                <div class="col-3">
+                    <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
+                </div>
+                <div class="col-9">
+                    <h5 class="font-weight-bold mt-3">{{ csvResult.message_header }}</h5>
+                    <div>{{ csvResult.message }}</div>
+                    <div class="small">{{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}, {{ $t('message.datasetDetails.quality.column') }}: {{ csvResult.column }}</div>
+                </div>
+            </div>
         </div>
         <ECMore class="col-12 text-primary mb-3 mt-5"
             v-if="useECMore"

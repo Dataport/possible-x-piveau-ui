@@ -19,7 +19,7 @@
             <e-c-checkbox
               :id="`${fieldId}_${itemTitles[index]}`"
               :label="itemTitles[index]"
-              :label-right="item.count"
+              :label-right="item.count.toLocaleString('fi')"
               :checked="facetIsSelected(fieldId, item)"
               :onClick="() => facetClicked(fieldId, item)"
             />
