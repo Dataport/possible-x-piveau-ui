@@ -1,6 +1,6 @@
 # piveau-hub-ui-modules
 
-> Please use node version >= 14. Recommended is version 17.6.0.
+> Please use node version >= 16. Recommended is version 17.x.
 
 This is a space to develop Vanilla piveau-hub-ui components. 
 The contents of the modules folder can be published as an npm package to our npm registry
