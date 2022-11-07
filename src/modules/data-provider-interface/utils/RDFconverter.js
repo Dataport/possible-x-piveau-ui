@@ -5,7 +5,7 @@ import { has } from 'lodash';
 import formatTypes from '../config/format-types';
 import prefixes from '../config/prefixes';
 
-import generalHelper from '../utils/general-helper';
+import generalHelper from './general-helper';
 
 /**
  * Converts all properties for given data from form input data into RDF (N-Triples)

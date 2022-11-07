@@ -8,8 +8,8 @@ import { isEmpty, isNil } from 'lodash';
 import datasetFactory from '@rdfjs/dataset';
 
 import generalHelper from '../../utils/general-helper';
-import toRDF from '../../utils/toRDF-helper';
-import toInput from '../../utils/toInput-helper';
+import toRDF from '../../utils/RDFconverter';
+import toInput from '../../utils/inputConverter';
 
 Vue.use(Vuex);
 
