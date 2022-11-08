@@ -145,20 +145,17 @@ function convertProperties(property, state, id, data, propertyKeys) {
                 }
             }
         } else if (key === 'dct:rights') {
-            // rights is conditional and gets either a string or an URI ({'@id': '...'})
+            // rights is conditional and gets a string
             // rights always includes a type so everything is located within a blank node
             // also rights is a singular property
             if (subData.size > 0) {
                 let nodeData;
                 // get id of blank node and associated label data
                 for (let el of subData) {
-                    nodeData = data.match(el.object, generalHelper.addNamespace('rdfs:label'), null, null);
+                    const rightsBlankNode = el.object;
+                    nodeData = data.match(rightsBlankNode, generalHelper.addNamespace('rdfs:label'), null, null);
                     for (let label of nodeData) {
-                        if (label.object.termType === 'Literal') {
-                            state[key] = label.object.value;
-                        } else if (label.object.termType === 'NamedNode') {
-                            state[key] = {'@id': label.object.value};
-                        }
+                        state[key] = label.object.value;
                     }
                 }
             }
