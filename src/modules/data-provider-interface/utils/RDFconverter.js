@@ -295,6 +295,23 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                         N3.DataFactory.namedNode(generalHelper.addNamespace('dct:LicenseDocument'))
                     ))
 
+                    // licence includes 'dct:title' which exceptionally isn't a multilingual field
+                    // multilingual method doesn't handle singular strings and therefore dosn't set the licence title
+                    // therefore we can set it here and it won't get overwritten
+
+                    // licence data is grouped and therefore the from returns the values within an object stored within an array
+                    // licenceis singular so we only have on object
+                    const licenceData = data[key][0];
+
+                    if (has(licenceData, 'dct:title') && !isEmpty(licenceData['dct:title'])) {
+                        console.log('es gibt einen titel');
+                        RDFdataset.addQuad(N3.DataFactory.quad(
+                            licenceBlankNode,
+                            N3.DataFactory.namedNode(generalHelper.addNamespace('dct:title')),
+                            N3.DataFactory.literal(licenceData['dct:title'])
+                        ))
+                    }
+
                     // add nested properties as quadruples using the blank node as subject
                     convertPropertyValues(RDFdataset, data[key][0], property, licenceBlankNode, mainType, false);
                 }
