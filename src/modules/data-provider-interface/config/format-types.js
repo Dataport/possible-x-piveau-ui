@@ -152,6 +152,7 @@ const groupedProperties = {
     distributions: [
         'foaf:page',
         'dcat:accessService',
+        'spdx:checksum',
     ],
     catalogues: [
         'dct:creator',
