@@ -118,7 +118,7 @@ export default {
                   ...{
                     message: 'Are you sure you want to delete this dataset? This can not be reverted.',
                     confirm: 'Delete dataset (irreversible)',
-                    confirmHandler: () => this.handleDelete({ id: this.getID, property: 'datasets' }),
+                    confirmHandler: () => this.handleDelete({ id: this.getID, property: 'datasets', catalog: this.getCatalog.id }),
                   },
                 };
                 $('#DPIMenuModal').modal({ show: true });
@@ -198,7 +198,7 @@ export default {
                   ...{
                     message: 'Are you sure you want to delete this catalogue? This can not be reverted!',
                     confirm: 'Delete catlogue (irreversible)',
-                    confirmHandler: () => this.handleDelete({ id: this.$route.query.catalog, property: 'catalogues' }),
+                    confirmHandler: () => this.handleDelete({ id: this.$route.query.catalog, property: 'catalogues', catalog: this.$route.query.catalog }),
                   },
                 };
                 $('#DPIMenuModal').modal({ show: true });
@@ -382,16 +382,15 @@ export default {
 
       this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
     },
-    async handleDelete({ id, property }) {
+    async handleDelete({ id, property, catalog }) {
       // todo: create user dataset api (and maybe integrate to store)
-
       // For now, do request manually using axios
       this.modal.loading = true;
       this.$Progress.start();
       try {
         let endpoint;
         if (property === 'datasets') {
-          endpoint = `${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true`;
+          endpoint = `${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true&catalogue=${catalog}`;
         } else if (property === 'catalogues') {
           endpoint = `${this.$env.api.hubUrl}catalogues/${id}`
         }
