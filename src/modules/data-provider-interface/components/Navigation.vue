@@ -260,7 +260,7 @@ export default {
       };
 
       if (mode === 'dataset') {
-        uploadUrl = `${this.$env.api.hubUrl}datasets/${datasetId}?catalogue=${catalogName}`;
+        uploadUrl = `${this.$env.api.hubUrl}datasets?id=${datasetId}&catalogue=${catalogName}`;
         actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
         actionName = 'auth/createDataset';
       } else if (mode === 'draft') {
