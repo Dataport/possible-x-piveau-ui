@@ -52,7 +52,6 @@ async function convertToInput(state, property, data) {
             state.distributions.push(currentDistribution);
         }
     }
-    console.log(state);
 }
 
 /**
@@ -67,7 +66,7 @@ function convertProperties(property, state, id, data, propertyKeys) {
 
     for (let index = 0; index < propertyKeys.length; index += 1) {
         const key = propertyKeys[index];
-        const subData = data.match(id, generalHelper.addNamespace(key), null, null);
+        let subData = data.match(id, generalHelper.addNamespace(key), null, null);
 
         if (formatType.singularString[property].includes(key)) {
             convertSingularStrings(subData, state, key);
@@ -104,7 +103,7 @@ function convertProperties(property, state, id, data, propertyKeys) {
             // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
             // the form provides the data as following: [ { 'Year': '...', 'Month': '...', ... } ]
             // the linked data format of this property looks like this: P?Y?M?DT?H?M?S
-            if (data.size > 0) {
+            if (subData.size > 0) {
 
                 state[key] = [{}];
 
@@ -190,18 +189,22 @@ function convertProperties(property, state, id, data, propertyKeys) {
         } else if (key === 'dct:catalog' && property === 'datasets') {
             // datasets also have a property called dct:catalog (not valid DCAT-AP)
             // property is needed to determine catalog the dataset belongs to
-            if (data.size > 0) {
-                state[key] = '';
+            if (!(subData.size > 0)) {
+                // bceause dct:catalog is no valid DCAT-AP it is possible that the prefix is not resolved
+                // therefore it is also possible to get the data by using the shortned key
+                subData = data.match(id, 'dct:catalog', null, null);
+            }
+               
+            state[key] = '';
 
-                // there should only be one catalog
-                for (let cat of subData) {
-                    state[key] = cat.object.value;
-                }
+            // there should only be one catalog
+            for (let cat of subData) {
+                state[key] = cat.object.value;
             }
         } else if (key === 'rdf:type') {
             // some properties have a type which can be selected
             // the type also has a namespace and therefore need to be shortened ( e.g. from https://...Individual to vcard:Individual)
-            if (data.size > 0) {
+            if (subData.size > 0) {
                 state[key] = '';
 
                 // typically there is only on type provided for each property instance
