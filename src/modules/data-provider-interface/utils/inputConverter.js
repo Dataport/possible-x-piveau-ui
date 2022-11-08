@@ -172,10 +172,17 @@ function convertProperties(property, state, id, data, propertyKeys) {
                         state[key] = el.object.value;
                     } else if (el.object.termType === "BlankNode") {
                         state[key] = []; // grouped values are stored within an array
-                        // get keys for nested values
-                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null));
+                        // get keys for nested values without dct'title (special format)
+                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null)).filter(el => el !== 'dct:title');
                         const licenceProperties = {};
                         // convert nested values
+
+                        const licenceTitleQuad = data.match(el.object, generalHelper.addNamespace('dct:title'), null, null);
+                        for (let el of licenceTitleQuad) {
+                            licenceProperties['dct:title'] = el.object.value;
+
+                        }
+
                         convertProperties(property, licenceProperties, el.object, data, nestedKeys);
                         state[key].push(licenceProperties);
                     }
