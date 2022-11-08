@@ -117,44 +117,10 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     const currentGroupData = data[key][groupId];
 
                     if(!isEmpty(currentGroupData)) {
-                        let groupBlankNode;
-
-                        // because grouped properties have a list of nested properties we need an initial quadruple stating the parent property
-                        // using a blank node as object which later serves as subject for the nested properties
-                        // RDF example:
-                        // datasetID  dct:contactPoint  blankNodeId
-                        //   blankNodeId foaf:mbox  email@exmaple.com
-                        //   blankNodeId  fn:name  InsitutionName ...
-
-                        // some form fields provide an URL which should serves as namedNode for other nested values (e.g. conformsTo)
-                        // RDF example:
-                        // datasetID  dct:conformsTo  conformsToURI
-                        //  conformsToURI  dct:title  conformsTitle
-                        if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id')) groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id'])
-                        // all properties that don't provide an URL serving as namedNode for nested values need to define a blank node
-                        else groupBlankNode = N3.DataFactory.blankNode('');
-
-                        // save inital quadruple using the named or blank node as object
-                        // e.g.  datasetId  dct:contactPoint  blankNode/namedNode
-                        RDFdataset.addQuad(N3.DataFactory.quad(
-                            mainURI,
-                            N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
-                            groupBlankNode
-                        ))
-
-                        // some properties provide additional types
-                        if (has(formatTypes.additionalPropertyTypes, key)) {
-                            RDFdataset.addQuad(N3.DataFactory.quad(
-                                groupBlankNode,
-                                N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
-                                N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key]))
-                            ))
-                        }
-
-                        // property skos:notation work a littl ebit different then other properties
-                        // the form provides a value and a type from two seperated fields ({'@value': '...', '@type': '...'})
-                        // the resulting RDF should merge these values into a typed literal (value^^type)
                         if (key === 'skos:notation') {
+                            // property skos:notation work a little bit different then other properties
+                            // the form provides a value and a type from two seperated fields ({'@value': '...', '@type': '...'})
+                            // the resulting RDF should merge these values into a typed literal (value^^type)
                             if (has(currentGroupData, '@value') && !isEmpty(currentGroupData['@value'])) {
                                 let notationValue;
 
@@ -166,17 +132,63 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                     notationValue = N3.DataFactory.literal(currentGroupData['@value']);
                                 }
 
+                                // add type for adms:identifier
+                                RDFdataset.addQuad(N3.DataFactory.quad(
+                                    mainURI,
+                                    N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
+                                    N3.DataFactory.namedNode(generalHelper.addNamespace('adms:Identifier'))
+                                ))
+
                                 // save quadruple with typed or untyped literal
                                 RDFdataset.addQuad(N3.DataFactory.quad(
-                                    groupBlankNode,
+                                    mainURI,
                                     N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
                                     notationValue
                                 ))
-                            }
-                        }
 
-                        // convert all nested values provided by form
-                        convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false);
+                                // resulting rdf quads should look like this:
+                                // datasetId  adms:identifier  admsIdentifierUtl
+                                //  admsIdentifierUrl  rdf:type  adms:Identifier
+                                //  admsIdentifierUrl  skos:notation  value^^type
+                            }
+                        } else {
+                            let groupBlankNode;
+
+                            // because grouped properties have a list of nested properties we need an initial quadruple stating the parent property
+                            // using a blank node as object which later serves as subject for the nested properties
+                            // RDF example:
+                            // datasetID  dct:contactPoint  blankNodeId
+                            //   blankNodeId foaf:mbox  email@exmaple.com
+                            //   blankNodeId  fn:name  InsitutionName ...
+
+                            // some form fields provide an URL which should serves as namedNode for other nested values (e.g. conformsTo)
+                            // RDF example:
+                            // datasetID  dct:conformsTo  conformsToURI
+                            //  conformsToURI  dct:title  conformsTitle
+                            if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id')) groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id'])
+                            // all properties that don't provide an URL serving as namedNode for nested values need to define a blank node
+                            else groupBlankNode = N3.DataFactory.blankNode('');
+
+                            // save inital quadruple using the named or blank node as object
+                            // e.g.  datasetId  dct:contactPoint  blankNode/namedNode
+                            RDFdataset.addQuad(N3.DataFactory.quad(
+                                mainURI,
+                                N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                                groupBlankNode
+                            ))
+
+                            // some properties provide additional types
+                            if (has(formatTypes.additionalPropertyTypes, key)) {
+                                RDFdataset.addQuad(N3.DataFactory.quad(
+                                    groupBlankNode,
+                                    N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
+                                    N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key]))
+                                ))
+                            }
+
+                            // convert all nested values provided by form
+                            convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false);
+                        }                        
                     }
                 }
             }
