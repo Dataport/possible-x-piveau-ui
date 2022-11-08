@@ -40,7 +40,7 @@
             :getFacetTranslationWrapper="getFacetTranslationWrapper"
             :facetIsSelected="facetIsSelected"
             :facetClicked="facetClicked"
-            :multiSelect="field.id !== 'scoring'"
+            :multiSelect="isMultiSelect(field.id)"
             class="col pr-0"
           />
         </div>
@@ -396,6 +396,9 @@ export default {
         this.setMinScoring(0);
       }
     },
+    isMultiSelect(fieldID) {
+      return fieldID !== 'scoring';
+    }
   },
   watch: {
     facetGroupOperatorWatcher: {
