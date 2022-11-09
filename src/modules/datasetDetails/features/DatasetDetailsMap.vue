@@ -9,7 +9,8 @@
     <div class="mt-3 w-100 h-100">
       <div id="collapse-geo-info"
            ref="geocollapse"
-           class="collapse show"
+           class="collapse"
+           :class="{ 'show': mapVisible }"
            data-cy="geo-info">
         <div class="map">
           <map-basic
@@ -36,7 +37,7 @@ export default {
   components: {DatasetDetailsFeatureHeader, MapBasic},
   data() {
     return {
-      mapVisible: true,
+      mapVisible: this.$env.maps.mapVisible,
       maps: {
         location: this.$env.maps.location,
         spatialType: this.$env.maps.spatialType,
