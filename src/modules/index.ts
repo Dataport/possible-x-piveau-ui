@@ -10,6 +10,10 @@ import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimila
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
+import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
+import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
+import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
+
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
 import MapBasic from "./map/MapBasic.vue";
@@ -60,8 +64,22 @@ import DatePicker from './data-provider-interface/components/DatePicker';
 import DateTimePicker from './data-provider-interface/components/DateTimePicker';
 
 import usePiwikSuspendFilter from "./mixins/usePiwikSuspendFilter";
+import useRouteMetaBreadcrumbs from "./mixins/useRouteMetaBreadcrumbs";
 
 import { configureModules } from "./configurations/configureModules";
+
+import fileTypes from './utils/fileTypes';
+import DatasetsFacets from './datasets/datasetsFacets/DatasetsFacets.vue';
+import Pagination from './widgets/Pagination';
+import SelectedFacetsOverview from './facets/SelectedFacetsOverview';
+import getTranslationFor from './utils/helpers';
+import truncate from './utils/helpers';
+import getImg from './utils/helpers';
+import DatasetsTopControls from "./datasets/DatasetsTopControls";
+import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
+import SubNavigation from './navigation/SubNavigation.vue';
+import getCountryFlagImg from './utils/helpers';
+import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
 export {
   AppLink,
@@ -74,6 +92,10 @@ export {
   DatasetDetailsDataset,
   DatasetDetails,
 
+  DistributionDescription,
+  DistributionExpandedContent,
+  DistributionVisibleContent,
+
   CSVLinter,
 
   MapBasic,
@@ -85,6 +107,7 @@ export {
   SparqlSearch,
 
   Datasets,
+  DatasetsFilters,
   Catalogues,
 
   PvDataInfoBox,
@@ -123,8 +146,22 @@ export {
   DateTimePicker,
 
   usePiwikSuspendFilter,
+  useRouteMetaBreadcrumbs,
 
-  configureModules
+  configureModules,
+
+  fileTypes,
+  DatasetsFacets,
+  Pagination,
+  CataloguesFacets,
+  SubNavigation,
+  SelectedFacetsOverview,
+  DatasetsTopControls,
+  getTranslationFor,
+  truncate,
+  getImg,
+  getCountryFlagImg
+
 };
 
 // @ts-ignore

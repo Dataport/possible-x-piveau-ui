@@ -68,10 +68,9 @@ import {
   FileUpload,
   DatePicker,
   DateTimePicker,
-  configureModules
+  configureModules,
+  SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
-
-
 
 Vue.config.devtools = true;
 
@@ -87,6 +86,11 @@ import ECButton from "./components/ECButton.vue";
 import ECInfo from "./components/ECInfo.vue";
 import ECLinkButton from "./components/ECLinkButton.vue";
 import ECDataInfoBox from "./components/ECDataInfoBox.vue";
+import ECDatasets from "./components/ECDatasets.vue";
+import ECDatasetsFilters from "./components/ECDatasetsFilters.vue";
+import ECCatalogues from "./components/ECCatalogues.vue";
+import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
+import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
 
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
@@ -96,6 +100,11 @@ const components = ecStyle ? {
   PvBanner: ECInfo,
   PvDataInfoBox: ECDataInfoBox,
   DatasetDetailsNavigationPage: ECLinkButton,
+  Datasets: ECDatasets,
+  DatasetsFilters: ECDatasetsFilters,
+  Catalogues: ECCatalogues,
+  DistributionsHeader: ECDistributionsHeader,
+  DistributionDetails: ECDistributionDetails
 } : {};
 
 configureModules({
@@ -127,6 +136,9 @@ Vue.component('DateTimePicker', DateTimePicker);
 // Vue.component('AppToast', AppToast);
 Vue.component('AppSnackbar', AppSnackbar);
 Vue.component('AppConfirmationDialog', AppConfirmationDialog);
+
+// DEU Redesign Components
+Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const VueCookie = require('vue-cookie');
@@ -248,7 +260,6 @@ require('bootstrap');
 require('./styles/styles.scss');
 
 if (ecStyle) {
-  require('@ecl/preset-ec/dist/styles/ecl-ec.css');
   require('./styles/ec-style.scss');
 }
 

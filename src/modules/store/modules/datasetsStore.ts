@@ -9,12 +9,8 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-// Module Constants
-/**
- * @description The Default amount of Datasets per page.
- * @type {number}
- */
-const RESULTS_PER_PAGE = 15;
+const RESULTS_PER_PAGE = 10;
+// const RESULTS_PER_PAGE = GLUE_CONFIG.pagination.defaultItemsPerPage;
 
 // Datasets Module State
 const state = {
@@ -219,7 +215,7 @@ const actions = {
    * @param state
    * @param {number} amount - The amount of datasets to add.
    */
-  loadAdditionalDatasets({ commit, state } /*, amount = RESULTS_PER_PAGE */) {
+  loadAdditionalDatasets({ commit, state }) {
     const page = GETTERS.getPage(state);
     // const datasetsCount = GETTERS.getDatasetsCount(state);
     actions.loadDatasets({ commit, state }, { page, append: true });
@@ -323,15 +319,8 @@ const actions = {
   setSort({ commit }, sort) {
     commit('SET_SORT', sort);
   },
-  /**
-   * @description Increases the limit that is stored in the state
-   * @param commit
-   * @param state
-   * @param amount {Number} - The amount to add to the current state limit
-   */
-  incLimit({ commit, state, getters }, amount = RESULTS_PER_PAGE) {
-    const limit = getters.getLimit(state) + amount;
-    commit('SET_LIMIT', limit);
+  setLimit({ commit }, amount = RESULTS_PER_PAGE) {
+    commit('SET_LIMIT', amount);
   },
   setDatasetGeoBounds({ commit }, bounds) {
     commit('SET_DATASET_GEO_BOUNDS', bounds);

@@ -1,6 +1,3 @@
-@import "../../../node_modules/bootstrap/scss/functions";
-@import '../custom_theme.scss';
-
 .pv-badge {
   border-radius: 0;
    
@@ -14,7 +11,7 @@
     }
   
     &-warning {
-      background-color: #FFD617   ;
+      background-color: #F29527   ;
     }
   
     &-secondary {

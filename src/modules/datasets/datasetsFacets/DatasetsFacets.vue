@@ -6,6 +6,7 @@
           :showCatalogDetails="showCatalogDetails"
         />
         <catalog-details-facet
+          class="catalog-details"
           v-if="showCatalogDetails"
           :catalog="catalog"
           :catalogLanguageIds="catalogLanguageIds"
@@ -39,7 +40,7 @@
             :getFacetTranslationWrapper="getFacetTranslationWrapper"
             :facetIsSelected="facetIsSelected"
             :facetClicked="facetClicked"
-            :multiSelect="field.id !== 'scoring'"
+            :multiSelect="isMultiSelect(field.id)"
             class="col pr-0"
           />
         </div>
@@ -49,13 +50,13 @@
             :label="cutoff >= 0? 'More filters' : 'Less filters'"
             :upArrow="cutoff === -1"
             :action="toggleCutoff"
-            class="p-0 row"
+            class="p-0 row facets-show-more"
           />
         </div>
         <pv-button
           v-if="showClearButton"
           label="Clear filters"
-          class="row mt-5"
+          class="row mt-5 facets-clear"
           :action="clearFacets"
         />
       </div>
@@ -140,6 +141,7 @@ export default {
     ...mapGetters('datasets', [
       'getAllAvailableFacets',
       'getDatasetsCount',
+      'getFacets',
       'getFacetOperator',
       'getFacetGroupOperator',
       'getDataServices',
@@ -175,20 +177,29 @@ export default {
     },
     getSortedFacets() {
       const availableFacets = this.getAllAvailableFacets;
-      const sortedFacets = [];
+      const activeFacets = [];
+      const inactiveFacets = [];
+
+      let activeFields = Object.keys(this.getFacets).filter(key => this.getFacets[key].length > 0);
 
       this.defaultFacetOrder.forEach((facet) => {
         availableFacets.forEach((field) => {
-          if (facet === field.id
-            && field.items.length > 0
+          if (facet === field.id && field.items.length > 0
             && (field.id !== 'country' || this.dataScope)
             && (field.id !== 'catalog' || this.useCatalogFacets)
             && (field.id !== 'scoring' || this.useScoringFacets)
-            && (field.id !== 'dataScope' || this.useDataScopeFacets)) sortedFacets.push(field);
+            && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
+              if(activeFields.includes(field.id)) activeFacets.push(field);
+              else inactiveFacets.push(field);
+            }
         });
       });
+
+      const sortedFacets = activeFacets.concat(inactiveFacets);
+
       if (this.cutoff > 0) {
-        return sortedFacets.slice(0, this.cutoff - 1); // -1 because we always show the settings facet
+        if (this.cutoff < activeFacets.length) this.cutoff = activeFacets.length;
+        return sortedFacets.slice(0, this.cutoff);
       } else {
         return sortedFacets;
       }
@@ -238,7 +249,7 @@ export default {
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-        ? `${this.$t(`message.datasetFacets.facets.scoring.${facetId}`)}${facetId === 'sufficientScoring' || facetId === 'goodScoring' ? '+' : ''}`
+        ? this.$t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     sortByCount(items, fieldId) {
@@ -255,6 +266,7 @@ export default {
       if (fieldId === 'scoring') {
         const qMinScoring = parseInt(this.getMinScoring, 10);
         const minScoringIsSelected = this.$route.query[fieldId];
+        if ( ! minScoringIsSelected || ! qMinScoring) return item.minScoring === 0;
         return minScoringIsSelected && qMinScoring === item.minScoring;
       }
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, fieldId)) {
@@ -311,6 +323,7 @@ export default {
     },
     clearFacets() {
       if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
+        this.setMinScoring(0);
         this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
           .catch(error => { console.log(error); });
       }
@@ -336,7 +349,6 @@ export default {
       let newScoring = item.minScoring;
       if (newScoring === this.getMinScoring) newScoring = 0;
       this.setMinScoring(newScoring);
-      localStorage.setItem('minScoring', JSON.stringify(newScoring));
       this.resetPage();
       window.scrollTo(0, 0);
     },
@@ -367,16 +379,26 @@ export default {
       } else this.showCatalogDetails = false;
     },
     initMinScoring() {
-      if (this.getMinScoring > 0) {
+      let currentScoring = this.$route.query.scoring;
+      currentScoring = isArray(currentScoring) && currentScoring.length > 0
+        ? currentScoring[0]
+        : isArray(currentScoring) && currentScoring.length === 0
+          ? ''
+          : currentScoring;
+      if (currentScoring) {
         let scoringFacets = this.$env.datasets.facets.scoringFacets.defaultScoringFacets;
-        let currentScore = Object.keys(scoringFacets).filter(score => scoringFacets[score].minScoring === this.getMinScoring);
-        this.$router.push(
-          { query: Object.assign({}, this.$route.query, { scoring: currentScore, page: 1 }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        Object.keys(scoringFacets).forEach(score => {
+          if (score === currentScoring) {
+            this.setMinScoring(scoringFacets[score].minScoring);
+          }
+        });
+      } else {
+        this.setMinScoring(0);
       }
     },
+    isMultiSelect(fieldID) {
+      return fieldID !== 'scoring';
+    }
   },
   watch: {
     facetGroupOperatorWatcher: {

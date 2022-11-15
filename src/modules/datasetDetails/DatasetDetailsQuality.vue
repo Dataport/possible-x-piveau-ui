@@ -8,7 +8,7 @@
         </div>
         <div class="space card-columns" v-if="getQualityData.result">
           <div v-for="(value,name) in getQualityData.result.results[0]" :key="`A-${name}`">
-            <div :class="`dimension-card card dimension-${name}`" v-if="name != 'info'">
+            <div :class="`dimension-card card dimension-${name}`" v-if="name != 'info' && name != 'validation'">
               <div class="card-header card-title text-center">
                 <h3>{{ $t(`message.datasetDetails.quality.${name}`) }}</h3>
               </div>
@@ -112,7 +112,7 @@
                         class="col-auto text-right"
                       >{{value[0].percentage}} %</div>
                       <div v-if="key == 'dataset'" class="col-auto text-right dataset-space">
-                        <span v-if="getModificationDate.length == 0">
+                        <span v-if="getModificationDate && getModificationDate.length == 0">
                           <span class="badge-n-a">n/a</span>
                         </span>
                         <span v-else :class="`badge-yes-${name}`">yes</span>
@@ -173,7 +173,7 @@
         <div v-if="getQualityDistributionData.result" id="YEAH">
           <div id="accordion" class="space" v-if="showLess">
             <div
-              v-for="(value, key) in getQualityDistributionData.result.results.slice(0, 4)"
+              v-for="(value, key) in getQualityDistributionData.result.results"
               class="card"
               :key="`B-${key}`"
             >
@@ -222,7 +222,7 @@
               >
                 <div class="card-body dist-content">
                   <div class="row" v-for="(value,key) in value[0]" :key="`N-${key}`">
-                    <div class="col-12 space move" v-if="key != 'info'">
+                    <div class="col-12 space move" v-if="key != 'info' && key != 'validation'">
                       <div
                         class="dimension-headline"
                       >{{ $t(`message.datasetDetails.quality.${key}`) }}</div>
@@ -302,9 +302,10 @@
                       </div>
                     </div>
                   </div>
+                  <!-- CSV Linter -->
                   <div class="row accordion-body">
                     <div class="col-12">
-                      <CSVLinter></CSVLinter>
+                      <CSVLinter v-if="showCSVLinter(key, value[0].info['distribution-id'])" :validation="qualityDistributionValidation[key]"></CSVLinter>
                     </div> 
                 </div>
                 </div>
@@ -518,8 +519,30 @@
         'getID',
         'getModificationDate',
       ]),
+      qualityDistributionValidation() {
+          if (!this.getQualityDistributionData.result) return [];
+
+          let results = this.getQualityDistributionData.result.results;
+
+          return results.map(result => {
+              let data = result[0];
+
+              return has(data, 'validation') 
+                  ? data.validation
+                  : {};
+          });
+        },
     },
     methods: {
+      // import store-actions
+      ...mapActions('datasetDetails', [
+        'loadDatasetDetails',
+        'useService',
+        'loadQualityData',
+        'loadQualityDistributionData',
+      ]),
+      has,
+      getTranslationFor,
       isAccessAndDownloadUrlStatusCodeAvailable(key, value) {
         return (key === 'accessUrlStatusCode' && typeof value !== 'object' && value.length !== 0) || (key === 'downloadUrlStatusCode' && typeof value !== 'object' && value.length !== 0);
       },
@@ -530,15 +553,20 @@
           this.activeItem = idx;
         }
       },
-      has,
-      getTranslationFor,
-      // import store-actions
-      ...mapActions('datasetDetails', [
-        'loadDatasetDetails',
-        'useService',
-        'loadQualityData',
-        'loadQualityDistributionData',
-      ]),
+      scrollToElement(id) {
+          document.getElementById(id).scrollIntoView(true);
+      },
+      checkDistributionValidation() {
+          let query = this.$route.query.validate;
+          if (document.getElementById(query)) this.scrollToElement(query)
+      },
+      showCSVLinter(key, id) {
+        let distributions = this.getDistributions.filter(dist => dist.id === id)
+        let format = distributions.length > 0
+          ? distributions[0].format.id === 'CSV'
+          : false
+        return this.qualityDistributionValidation[key] && format;
+      },
     },
     created() {
       this.useService(this.DatasetService);
@@ -573,6 +601,7 @@
           .then(() => {
             this.$Progress.finish();
             this.isLoadingQualityDistributionData = false;
+            this.checkDistributionValidation();
           })
           .catch(() => {
             this.$Progress.fail();

@@ -1,5 +1,6 @@
 <template>
-  <table class="col-12 table table-borderless table-responsive small pl-0 mt-2 mb-1" v-show="distributionIsExpanded(distribution.id)">
+  <table class="col-12 table table-borderless table-responsive small pl-0 mt-2 mb-1 distribution-details-table"
+         v-show="distributionIsExpanded(distribution.id)">
     <tr>
       <td class="w-25 font-weight-bold">
         <tooltip :title="$t('message.tooltip.datasetDetails.distributions.licence')">
@@ -257,7 +258,7 @@ import {
   has,
   isNil
 } from 'lodash';
-import { truncate, formatDatetime } from '../../utils/helpers';
+import { truncate, formatDatetime } from '../../../utils/helpers';
 import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 export default {

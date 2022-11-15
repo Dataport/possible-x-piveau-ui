@@ -1,11 +1,16 @@
 //
 // EC restyle settings
 //
+@use "../../node_modules/@ecl/preset-ec/dist/styles/ecl-ec.css";
 
 body {
   font: normal normal 400 1rem/1.5rem arial,sans-serif;
 
-  --dsd-right-column-width: 36%;
+  --dsd-right-column-width: 40%;
+}
+
+a:active {
+  border: 2px solid #FFD617;
 }
 
 .show-more {
@@ -13,194 +18,23 @@ body {
   font-weight: initial;
 }
 
-// dataset details
-
-.dsd-header-info, .dsd-header-title {
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 16px;
-  padding-left: 0;
-  padding-right: 0;
-}
-.dsd-content {
-  .row {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .sub-navigation {
-    box-shadow: none;
-  }
+body .content.container-fluid {
+  @extend .ecl-container;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
 }
 
-.dsd-item {
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 16px;
-  padding-left: 0;
-  padding-right: 0;
-  max-width: 100%;
-  //flex: 0 0 100%;
-  flex: 1;
-  h1, h2, h3, .h4 {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  .keywords__item {
-    margin-left: 0;
-    margin-right: 0;
-    span {
-      padding-left: 0 !important;
-      padding-right: 8px !important;
-    }
-  }
-}
-
-.dsd-feature .heading {
-  .col-1 {
-    padding-left: 0 !important;
-    flex: 0 0 auto !important;
-    width: initial !important;
-  }
-  .col-11 {
-    padding-left: 0;
-    flex: 0 0 auto !important;
-    width: initial !important;
-    max-width: initial !important;
-  }
-}
-
-.dsd-header-title > h1 {
+.page-title {
+  font-size: 2rem !important;
+  color: #404040 !important;
   font-weight: bold !important;
 }
 
-.dsd-feature-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.sub-navigation {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.dsd-nav {
-  flex-wrap: nowrap !important;
-}
-
-.dsd-nav-links {
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.dsd-nav-button {
-  margin-right: 20px !important;
-}
-
-.dsd-dataset {
-  display: block;
-}
-
-.dsd-properties .show-more {
-  display: initial;
-}
-
-.dsd-header-catalogue > img {
-  border: none !important;
-}
-
-.dsd-banners .ecl-message__close {
-  display: none;
-}
-
-.dsd-nav-links .nav-link {
-  text-decoration: none;
-}
-
-.dsd-title-tag {
-  display: block !important;
-}
-
-@media screen and (max-width: 991px) { // less than lg
-  .dsd-nav-button button {
-    min-width: 200px !important;
-    margin-bottom: 8px !important;
-  }
-
-  .dsd-feature .heading .col-11 {
-    flex: 1 !important;
-  }
-
-  .dsd-properties .heading .col-11 {
-    padding-left: 0 !important;
-  }
-}
-
-@media screen and (min-width: 992px) { // at least lg
-
-  .dsd-nav-links {
-    display: flex;
-    flex: 0 0 var(--dsd-right-column-width);
-    ul {
-      border-bottom: 1px solid #ccc;
-      width: 100%;
-      flex-wrap: wrap;
-    }
-  }
-
-  .dsd-dataset {
-    display: grid;
-    grid-template-columns: auto var(--dsd-right-column-width);
-    grid-template-rows: auto 1fr auto auto;
-    grid-auto-flow: row dense;
-  }
-
-  .dsd-description {
-    order: 1;
-    grid-row: span 2;
-  }
-
-  .dsd-description-content {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 40px !important;
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  .dsd-properties {
-    order: 2;
-    margin-top: 1.5rem !important;
-    .heading {
-      display: none !important;
-    }
-    .additional-information {
-      margin-left: 0 !important;
-      margin-bottom: 0 !important;
-    }
-    > div {
-      padding: 0 !important;
-    }
-    table {
-      margin-bottom: 0 !important;
-    }
-  }
-
-  .dsd-banners {
-    order: 3;
-    margin-top: 1.5rem;
-  }
-
-  .dsd-features {
-    order: 4;
-    grid-column: span 2;
-    margin-bottom: 3rem;
-  }
-
-  .dsd-distributions {
-    order: 5;
-    grid-column: span 2;
-  }
-}
-
-@import "./components/data_info_box";
-@import "./components/dataset_details_similar_datasets";
+@import "./components-ec-style/dataset_details";
+@import "./components-ec-style/data_info_box";
+@import "./components-ec-style/dataset_details_similar_datasets";
+@import "./components-ec-style/datasets";
+@import "./components-ec-style/distributions";
+@import "./components-ec-style/facets";
+@import "./components-ec-style/catalogue_details";
+@import "./components-ec-style/pagination";

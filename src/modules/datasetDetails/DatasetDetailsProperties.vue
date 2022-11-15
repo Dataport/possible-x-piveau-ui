@@ -7,7 +7,7 @@
         tag="additional-information-toggle"
         :onClick="toggleInfo"
       />
-      <div class="dsd-item additional-information"
+      <div class="position-relative dsd-item additional-information"
            data-cy="additional-information"
            v-show="infoVisible">
         <table class="table table-borderless table-responsive bg-light" ref="dsdProperties" id="myTab" role="tablist">
@@ -358,7 +358,6 @@
             </td>
             <td>{{ getTranslationFor(getVersionNotes) }}</td>
           </tr>
-
           <tr v-if="showObject(getCatalogRecord)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.catalogRecord')" >
@@ -559,10 +558,11 @@
             </td>
           </tr>
         </table>
+        <div class="additional-information-overlay" ref="overlay" v-show="showMoreVisible && !expanded"></div>
       </div>
     </div>
     <pv-show-more
-      v-if="initialHeight > restrictedHeight"
+      v-if="showMoreVisible"
       :label="expanded? 'Show less' : 'Show more'"
       :upArrow="expanded"
       :action="toggleExpanded"
@@ -618,6 +618,7 @@ export default {
       'getIdentifiers',
       'getIsVersionOf',
       'getIsReferencedBy',
+      'getLandingPages',
       'getLanguages',
       'getModificationDate',
       'getNumSeries',
@@ -646,6 +647,13 @@ export default {
     getLandingPagesResource() {
       return isArray(this.getLandingPages) && this.getLandingPages.map(value => value && value.resource);
     },
+    // Returns the label property of accrual periodicity
+    getAccrualPeriodicityLabel() {
+      return !isNil(this.getAccrualPeriodicity) && has(this.getAccrualPeriodicity, 'label') ? this.getAccrualPeriodicity.label : '';
+    },
+    showMoreVisible() {
+      return this.initialHeight > this.restrictedHeight;
+    }
   },
   methods: {
     isNil,
@@ -662,11 +670,6 @@ export default {
     showContactPoint(contactPoints) {
       return Object.keys(contactPoints[0]).filter(contactPoint => contactPoint !== 'resource' && contactPoint !== 'type').length > 0;
     },
-    // Returns the label property of accrual periodicity
-    getAccrualPeriodicityLabel() {
-      return (this.getAccrualPeriodicity && this.getAccrualPeriodicity.label)
-        || this.getAccrualPeriodicity;
-    },
     toggleExpanded() {
       this.expanded = ! this.expanded;
       this.adaptHeight();
@@ -679,6 +682,7 @@ export default {
   },
   mounted() {
     this.initialHeight = this.$refs.dsdProperties.clientHeight;
+    this.$refs.overlay.style.bottom = (this.$refs.dsdProperties.offsetHeight - this.$refs.dsdProperties.clientHeight) + "px";
     this.adaptHeight();
   }
 }
@@ -687,5 +691,14 @@ export default {
 <style scoped lang="scss">
 .arrow {
   cursor: pointer;
+}
+
+.additional-information-overlay {
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  left: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0, white 100%);
+  pointer-events: none;
 }
 </style>

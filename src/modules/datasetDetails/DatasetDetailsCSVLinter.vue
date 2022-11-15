@@ -1,147 +1,141 @@
 <template>
     <!-- CSV Linter -->
-    <div class="dsd-distribution-quality-csv row">
+    <div class="dsd-distribution-quality-csv row" v-if="showValidation">
         <h4 class="col-12 mt-5 mb-3 font-weight-bold">{{ csvLinter.title }}</h4>
-        <div class="col-8">
+        <div class="col-7">
             <div class="p-3 csv-validation-box" 
-                :class="csvLinter.validation.passed">
+                :class="getValidationStatus(validation.passed)">
                 <div class="row mt-2">  
                     <div class="col-1 mt-4">
-                        <i class="material-icons" :class="csvLinter.validation.passed">
-                            {{ getValidationResultIcon(csvLinter.validation.passed) }}
+                        <i class="material-icons" :class="getValidationStatus(validation.passed)">
+                            {{ getValidationResultIcon(validation.passed) }}
                         </i>
                     </div>
                     <div class="col-11">
-                        <h5 class="font-weight-bold">{{ csvLinter.validationTitle[csvLinter.validation.passed] }}</h5>
-                        <p>{{ csvLinter.validationDescription[csvLinter.validation.passed] }}</p>
+                        <h5 class="font-weight-bold">{{ csvLinter.validationTitle[validation.passed] }}</h5>
+                        <p>{{ csvLinter.validationDescription[validation.passed] }}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-5">
             <table class="row mt-4">
-                <tbody class="col-4">
+                <tbody>
                     <tr>
-                        <td class="col-12 text-center heading-1 color-red">{{ csvLinter.validation.errors.count }}</td>
-                        <td class="col-12 text-center heading-1 color-orange">{{ csvLinter.validation.warnings.count }}</td>
-                        <td class="col-12 text-center heading-1 color-blue">{{ csvLinter.validation.info.count }}</td>
+                        <td class="col-12 text-center heading-1 color-red">{{ validationCount['errors'] }}</td>
+                        <td class="col-12 text-center heading-1 color-orange">{{ validationCount['warnings'] }}</td>
+                        <td class="col-12 text-center heading-1 color-blue">{{ validationCount['infos'] }}</td>
                     </tr>
                     <tr>
-                        <td class="col-12 text-center heading-4 color-red">Errors</td>
-                        <td class="col-12 text-center heading-4 color-orange">Warnings</td>
-                        <td class="col-12 text-center heading-4 color-blue">Messages</td>
+                        <td class="col-12 text-center heading-4 color-red">{{ $tc('message.datasetDetails.quality.error', 2) }}</td>
+                        <td class="col-12 text-center heading-4 color-orange">{{ $tc('message.datasetDetails.quality.warning', 2) }}</td>
+                        <td class="col-12 text-center heading-4 color-blue">{{ $tc('message.datasetDetails.quality.message', 2) }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <span class="col-12 mt-3">Total Rows Processed: <strong>{{ csvLinter.validation.rowCount }}</strong></span>
-        <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in validationResults" :key="index">
-            <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
-            <h5 class="font-weight-bold">{{ csvResult.message_header }}</h5>
-            <p>{{ csvResult.message }}</p>
+        <span class="col-12 mt-3">{{ $t('message.datasetDetails.quality.totalRows') }}: <strong>{{ validation.rowCount }}</strong></span>
+        <div class="col-12 csv-result-details" :class="getBorderStyle(index)" v-for="(csvResult, index) in displayedValidationResults" :key="index">
+            <div class="row">
+                <div class="col-3">
+                    <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
+                </div>
+                <div class="col-9">
+                    <h5 class="font-weight-bold mt-3">{{ csvResult.message_header }}</h5>
+                    <div>{{ csvResult.message }}</div>
+                    <div class="small">{{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}, {{ $t('message.datasetDetails.quality.column') }}: {{ csvResult.column }}</div>
+                </div>
+            </div>
         </div>
+        <ECMore class="col-12 text-primary mb-3 mt-5"
+            v-if="useECMore"
+            :label="csvLinter.displayAll ? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
+            :upArrow="csvLinter.displayAll"
+            :action="() => toggleDisplayAll()"></ECMore>
     </div>
 </template>
   
 <script>
-import { mapGetters } from 'vuex';
+import { has, isNil } from 'lodash';
+import ECMore from "@/components/ECMore";
 
 export default {
     name: 'datasetDetailsCSVLinter',
+    components: {
+        ECMore,
+    },
     dependencies: 'DatasetService',
+    props: ['validation'],
     data() {
         return {
-            // Dummy data -> replace with CSV Linter results
             csvLinter: {
-                endpoint: '/distributions/{id}/validations/csv',
                 title: 'CSV Validation Results',
+                displayAll: this.$env.datasetDetails.quality.csvLinter.displayAll,
+                numberOfDisplayedValidationResults: this.$env.datasetDetails.quality.csvLinter.numberOfDisplayedValidationResults,
                 validationTitle: {
-                    true: 'Valid CSV',
-                    false: 'CSV not valid',
+                    true: this.$t('message.datasetDetails.quality.validationTitle.success'),
+                    false: this.$t('message.datasetDetails.quality.validationTitle.error'),
                 },
                 validationDescription: {
-                    true: 'However, there are some issues that can be adressed to make it as easy as possible to reuse the data.',
-                    false: 'Your CSV file is not valid ...',
-                },
-                validation: {
-                    passed: 'true',
-                    rowCount: 4049,
-                    errors: {
-                        count: 1,
-                        items: [
-                            {
-                                type: 'Error',
-                                indicator: 'error',
-                                message_header: 'Error',
-                                message: 'Your CSV appears to ...',
-                                row: -1,
-                                column: -1,
-                                columnName: '',
-                            },
-                        ],
-                    },
-                    warnings: {
-                        count: 1,
-                        items: [
-                            {
-                                type: 'Warning',
-                                indicator: 'incorrect_encoding',
-                                message_header: 'Incorrect Encoding',
-                                message: 'Your CSV appears to ...',
-                                row: -1,
-                                column: -1,
-                                columnName: '',
-                            },
-                        ],
-                    },
-                    info: {
-                        count: 2,
-                        items: [
-                            {
-                                type: 'Info',
-                                indicator: 'assumed_header',
-                                message_header: 'Assumed Header',
-                                message: 'Your CSV appears to ...',
-                                row: -1,
-                                column: -1,
-                                columnName: '',
-                            },
-                            {
-                                type: 'Info',
-                                indicator: 'line_breaks',
-                                message_header: 'Non-standard Line Breaks on row 1',
-                                message: 'Your CSV appears to ...',
-                                row: -1,
-                                column: -1,
-                                columnName: '',
-                            },
-                        ],
-                    },   
+                    true: this.$t('message.datasetDetails.quality.validationDescription.success'),
+                    false: this.$t('message.datasetDetails.quality.validationDescription.error'),
                 },
             },
         };
     },
     computed: {
-        ...mapGetters('datasetDetails', [
-            'getDistributions',
-        ]),
-        distributionIDs() {
-            return this.getDistributions.map(d => d.id);
+        showValidation() {
+            return !isNil(this.validation) 
+                && has(this.validation, 'passed') 
+                && has(this.validation, 'errors') 
+                && has(this.validation, 'warnings') 
+                && has(this.validation, 'infos');
+        },
+        useECMore() {
+            return this.validationResults.length > this.csvLinter.numberOfDisplayedValidationResults;
+        },
+        displayedValidationResults() {
+            return this.csvLinter.displayAll
+                ? this.validationResults
+                : this.validationResults.slice(0, this.csvLinter.numberOfDisplayedValidationResults);
         },
         validationResults() {
-            this.csvLinter.validation.errors.items.forEach(i => i.type = 'Error');
-            this.csvLinter.validation.warnings.items.forEach(i => i.type = 'Warning');
-            this.csvLinter.validation.info.items.forEach(i => i.type = 'Message');
+            let errors = has(this.validation.errors, 'items') ? this.validation.errors.items : [];
+            let warnings = has(this.validation.warnings, 'items') ? this.validation.warnings.items : [];
+            let infos = has(this.validation.infos, 'items') ? this.validation.infos.items : [];
+            
+            errors.forEach(i => i.type = this.$tc('message.datasetDetails.quality.error', 1));
+            warnings.forEach(i => i.type = this.$tc('message.datasetDetails.quality.warning', 1));
+            infos.forEach(i => i.type = this.$tc('message.datasetDetails.quality.message', 1));
 
-            return this.csvLinter.validation.errors.items
-                .concat(this.csvLinter.validation.warnings.items)
-                .concat(this.csvLinter.validation.info.items);
-        }
+            return errors.concat(warnings).concat(infos);
+        },
+        validationCount() {
+            let errors = has(this.validation.errors, 'count') ? this.validation.errors.count : 0;
+            let warnings = has(this.validation.warnings, 'count') ? this.validation.warnings.count : 0;
+            let infos = has(this.validation.infos, 'count') ? this.validation.infos.count : 0;
+
+            return {
+                errors,
+                warnings,
+                infos,
+            };
+        },
     },
     methods: {
+        has,
+        isNil,
+        toggleDisplayAll() {
+            this.csvLinter.displayAll = !this.csvLinter.displayAll;
+        },
         getValidationResultIcon(status) {
-            return status === 'true' ? 'check_circle'
-                : status === 'false' ? 'disabled_by_default'
+            return status === true ? 'check_circle'
+                : status === false ? 'disabled_by_default'
+                : 'info'
+        },
+        getValidationStatus(status) {
+            return status === true ? 'success'
+                : status === false ? 'error'
                 : 'info'
         },
         getBorderStyle(index) {
@@ -156,10 +150,6 @@ export default {
                 : 'bg-white';
         },
     },
-    created() {
-        // TODO: API call on MQA cache
-    },
-    mounted() {},
 };
 </script>
 
@@ -179,50 +169,50 @@ export default {
 
     .color {
         &-red {
-            color: red;
+            color: #DA2131;
         }
 
         &-orange {
-            color: orange;
+            color: #F29527;
         }
 
         &-blue {
-            color: lightblue;
+            color: #4073AF;
         } 
     }
 
     .bg {
         &-red {
-            background-color: red;
+            background-color: #DA2131;
         }
 
         &-orange {
-            background-color: orange;
+            background-color: #F29527;
         }
 
         &-blue {
-            background-color: lightblue;
+            background-color: #4073AF;
         } 
     }
 
     .csv-validation-box {
         color: black; 
-        background-color: white;
-        border: 2px solid black;
+        background-color: #FFFFFF;
+        border: 2px solid #000000;
         
-        &.true {
-            border-color: green;
+        &.success {
+            border-color: #467A39;
         }
-        &.false {
-            border-color: red;
+        &.error {
+            border-color: #DA2131;
         }
 
         .material-icons {
-            &.true {
-                color: green;
+            &.success {
+                color: #467A39;
             }
-            &.false {
-                color: red;
+            &.error {
+                color: #DA2131;
             }
         }
     }
@@ -231,14 +221,14 @@ export default {
 
         &.border {
             &-top {
-                border-top: 1px solid grey;
+                border-top: 1px solid #9F9F9F;
             }
         }
 
         .tag {
             display: inline-flex;
             align-items: center;
-            color: white;
+            color: #FFFFFF;
             font-size: 1rem;
             padding: 0.5rem 0.75rem;
             border-radius: 1rem;

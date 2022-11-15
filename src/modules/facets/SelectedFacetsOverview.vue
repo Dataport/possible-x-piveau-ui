@@ -4,7 +4,7 @@
       <span>
         {{ `${findFacetFieldTitle(facet.field)}:` }}
       </span>
-      <span v-for="(facetId, i) in facet.facets" :key="i" class="badge badge-pill badge-highlight mr-1">
+      <span v-for="(facetId, i) in facet.facets" :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
         {{ findFacetTitle(facet.field, facetId) }}
         <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
       </span>
@@ -27,7 +27,6 @@
     data() {
       return {
         availableFacets: [],
-        showCatalogDetails: false,
         defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       };
     },
@@ -39,6 +38,7 @@
         const orderedFacets = [];
 
         this.defaultFacetOrder.forEach((facet) => {
+          if (this.showCatalogDetails && facet === 'catalog') return;
           Object.keys(this.getSelectedFacets).forEach((field) => { 
             if (facet === field && this.getSelectedFacets[field].length > 0) orderedFacets.push({
               field,
@@ -71,7 +71,7 @@
 
           if (this.$route.query.dataScope === 'countryData') newSelectedFacets.dataScope = ['countryData'];
 
-          this.routerPush({ query: Object.assign({}, this.$route.query, { page: 1 }) });
+          this.routerPush({ query: Object.assign({}, this.$route.query) });
 
           return newSelectedFacets;
 
@@ -97,9 +97,6 @@
 
         } else return this.selectedFacets;
       },
-      showCatalogDetailsWatcher() {
-        return this.$route.query.showcatalogdetails;
-      },
     },
     methods: {
       ...mapActions('datasets', [
@@ -113,7 +110,6 @@
       },
       findFacetTitle(fieldId, facetId) {
         try {
-          if (fieldId === 'country' && facetId === 'io') fieldId = 'dataScope';
           const facetTitle = this.getAllAvailableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
           return getFacetTranslation(fieldId, facetId, this.$route.query.locale, facetTitle);
         } catch {
@@ -145,7 +141,6 @@
           routerObject = { query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) };
         } else if (field === 'scoring') {
           this.setMinScoring(0);
-          localStorage.setItem('minScoring', JSON.stringify(0));
           routerObject = { query: Object.assign({}, this.$route.query, { scoring: [], page: 1 }) };
         } else if (field === 'dataScope') {
           routerObject = { query: Object.assign({}, this.$route.query, { country: [], dataScope: [], page: 1 }) };
@@ -176,23 +171,11 @@
 
         return this.routerPush(routerObject);
       },
-      initShowCatalogDetails() {
-        const showCatalogDetails = this.$route.query.showcatalogdetails;
-        if (showCatalogDetails === 'true') {
-          this.showCatalogDetails = true;
-        } else this.showCatalogDetails = false;
+      showCatalogDetails() {
+        return this.$route.query.showcatalogdetails === 'true';
       },
     },
-    watch: {
-      showCatalogDetailsWatcher: {
-        handler(showCatalogDetails) {
-          this.showCatalogDetails = showCatalogDetails;
-        },
-      },
-    },
-    created() {
-      this.initShowCatalogDetails();
-    },
+    created() {},
   };
 </script>
 

@@ -19,7 +19,7 @@
             <e-c-checkbox
               :id="`${fieldId}_${itemTitles[index]}`"
               :label="itemTitles[index]"
-              :label-right="item.count"
+              :label-right="item.count.toLocaleString('fi')"
               :checked="facetIsSelected(fieldId, item)"
               :onClick="() => facetClicked(fieldId, item)"
             />
@@ -98,13 +98,13 @@ export default {
   methods: {
     getFacetTranslation,
     getTitle(item) {
-      return Vue.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
+      return this.fieldId === 'dataScope' && Vue.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
         Vue.i18n.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
         : this.getFacetTranslationWrapper(this.fieldId, item.id, this.$route.query.locale, item.title);
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-        ? `${Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)}${facetId === 'sufficientScoring' || facetId === 'goodScoring' ? '+' : ''}`
+        ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     away() {

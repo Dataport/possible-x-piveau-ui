@@ -1,6 +1,6 @@
 <template>
-  <div class="position-relative d-inline-block ml-1">
-      <button @click="open=true" class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color"
+  <div class="position-relative d-inline-block ml-1 text-nowrap mb-1">
+      <button @click="open=true" class="d-flex justify-content-between btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button"
               type="button"
               aria-haspopup="true"
               aria-expanded="false">
@@ -9,7 +9,7 @@
           data-placement="top">
           {{ message }}
         </span>
-        <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>
+        <i class="d-inline text-nowrap material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>
       </button>
     <div v-if="open" v-on-clickaway="away" class="dropdownMenu" :class="{ bglight: bgLight }">
      <slot></slot>

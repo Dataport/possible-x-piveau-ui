@@ -1,83 +1,50 @@
-    <template>
-  <div class="distributions__item">
-    <div class="row">
+<template>
+  <div class="position-relative">
+    <div class="mb-3 d-flex flex-row flex-wrap flex-md-nowrap distributions__item">
       <distribution-format
         :distribution="distribution"
         :getDistributionFormat="getDistributionFormat"
         :distributionFormatTruncated="distributionFormatTruncated"
       />
-      <div class="col-10 col-md-11">
-        <div class="row">
-          <!-- DISTRIBUTION TITLE -->
-          <span class="d-inline-block col-12">
-            <h3 class="m-0 text-break">{{ getDistributionTitle(distribution) }}</h3>
-          </span>
-          <span class="d-inline-block col-12 col-md-9 col-lg-7">
-            <distribution-description
-              :distribution="distribution"
-              :distributions="distributions"
-              :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
-              :getDistributionDescription="getDistributionDescription"
-              :toggleDistributionDescription="toggleDistributionDescription"
-              :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
-            />
-            <distribution-expanded-content
-              :distribution="distribution"
-              :distributionIsExpanded="distributionIsExpanded"
-              :showLicensingAssistant="showLicensingAssistant"
-              :showLicence="showLicence"
-              :filterDateFormatEU="filterDateFormatEU"
-              :showArray="showArray"
-              :showNumber="showNumber"
-              :showObject="showObject"
-              :showObjectArray="showObjectArray"
-              :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
-            />
-            <distribution-visible-content
-              :distribution="distribution"
-              :distributionIsExpanded="distributionIsExpanded"
-              :showObject="showObject"
-              :showLicence="showLicence"
-              :showLicensingAssistant="showLicensingAssistant"
-              :filterDateFormatEU="filterDateFormatEU"
-            />
-            <distribution-expand
-              :distribution="distribution"
-              :distributionCanShowMore="distributionCanShowMore"
-              :toggleDistribution="toggleDistribution"
-              :distributionIsExpanded="distributionIsExpanded"
-            />
-          </span>
-          <div class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
-            <distribution-options-dropdown
-              v-if="showOptionsDropdown(distribution)"
-              :showTooltipVisualiseButton="showTooltipVisualiseButton"
-              :isUrlInvalid="isUrlInvalid"
-              :getVisualisationLink="getVisualisationLink"
-              :distribution="distribution"
-              :openIfValidUrl="openIfValidUrl"
-              :previewLinkCallback="previewLinkCallback"
-              :showVisualisationLink="showVisualisationLink"
-              :getGeoLink="getGeoLink"
-              :showGeoLink="showGeoLink"
-            />
-            <distribution-download
-              v-if="showDownloadDropdown(distribution)"
-              :getDownloadUrl="getDownloadUrl"
-              :showAccessUrls="showAccessUrls"
-              :isOnlyOneUrl="isOnlyOneUrl"
-              :trackGoto="trackGoto"
-              :getDistributionFormat="getDistributionFormat"
-              :replaceHttp="replaceHttp"
-              :distribution="distribution"
-            />
-            <linked-data-buttons-dropdown
-              :distributions="distributions"
-              :distribution="distribution"
-            />
-          </div>
-        </div>
-      </div>
+      <distribution-details
+        :getDistributionTitle="getDistributionTitle"
+        :distribution="distribution"
+        :distributions="distributions"
+        :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
+        :getDistributionDescription="getDistributionDescription"
+        :toggleDistributionDescription="toggleDistributionDescription"
+        :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
+        :distributionIsExpanded="distributionIsExpanded"
+        :showLicensingAssistant="showLicensingAssistant"
+        :showLicence="showLicence"
+        :filterDateFormatEU="filterDateFormatEU"
+        :showArray="showArray"
+        :showNumber="showNumber"
+        :showObject="showObject"
+        :showObjectArray="showObjectArray"
+        :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
+        :distributionCanShowMore="distributionCanShowMore"
+        :toggleDistribution="toggleDistribution"
+      />
+      <distribution-added
+        :date="addedDate"
+      />
+      <distribution-actions
+        :distribution="distribution"
+        :distributions="distributions"
+        :isUrlInvalid="isUrlInvalid"
+        :getVisualisationLink="getVisualisationLink"
+        :showTooltipVisualiseButton="showTooltipVisualiseButton"
+        :previewLinkCallback="previewLinkCallback"
+        :openIfValidUrl="openIfValidUrl"
+        :showDownloadDropdown="showDownloadDropdown"
+        :getDownloadUrl="getDownloadUrl"
+        :showAccessUrls="showAccessUrls"
+        :isOnlyOneUrl="isOnlyOneUrl"
+        :trackGoto="trackGoto"
+        :getDistributionFormat="getDistributionFormat"
+        :replaceHttp="replaceHttp"
+      />
     </div>
     <fading-distribution-overlay
       v-if="fading"
@@ -85,9 +52,7 @@
       :setDistributionsDisplayCount="setDistributionsDisplayCount"
       :increaseNumDisplayedDistributions="increaseNumDisplayedDistributions"
       :nonOverflowingIncrementsForDistributions="nonOverflowingIncrementsForDistributions"
-      :getDistributions="getDistributions"
     />
-    <hr class="mt-1">
   </div>
 </template>
 
@@ -97,34 +62,30 @@ import {
   isNil
 } from 'lodash';
 import { truncate } from '../../utils/helpers';
-import LinkedDataButtonsDropdown
-  from "@/modules/datasetDetails/distributions/LinkedDataButtonsDropdown";
-import DistributionDownload from "@/modules/datasetDetails/distributions/DistributionDownload";
-import DistributionOptionsDropdown
-  from "@/modules/datasetDetails/distributions/DistributionOptionsDropdown";
-import DistributionExpand from "@/modules/datasetDetails/distributions/DistributionExpand";
+import DistributionExpand from "@/modules/datasetDetails/distributions/distributionDetails/DistributionExpand";
 import DistributionVisibleContent
-  from "@/modules/datasetDetails/distributions/DistributionVisibleContent";
+  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionVisibleContent";
 import DistributionExpandedContent
-  from "@/modules/datasetDetails/distributions/DistributionExpandedContent";
+  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionExpandedContent";
 import DistributionDescription
-  from "@/modules/datasetDetails/distributions/DistributionDescription";
+  from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDescription";
 import DistributionFormat from "@/modules/datasetDetails/distributions/DistributionFormat";
 import FadingDistributionOverlay
   from "@/modules/datasetDetails/distributions/FadingDistributionOverlay";
+import DistributionActions from "@/modules/datasetDetails/distributions/distributionActions/DistributionActions";
+import DistributionAdded from "@/modules/datasetDetails/distributions/DistributionAdded";
 
 export default {
   name: 'Distribution',
   components: {
+    DistributionAdded,
+    DistributionActions,
     FadingDistributionOverlay,
     DistributionFormat,
     DistributionDescription,
     DistributionExpandedContent,
     DistributionVisibleContent,
-    DistributionExpand,
-    DistributionOptionsDropdown,
-    DistributionDownload,
-    LinkedDataButtonsDropdown
+    DistributionExpand
   },
   props: {
     fading: Boolean,
@@ -132,7 +93,6 @@ export default {
     distributions: Object,
     setDistributionsDisplayCount: Function,
     openModal: Function,
-    getDistributions: Array,
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,
@@ -143,16 +103,13 @@ export default {
     showObject: Function,
     showNumber: Function,
     distributionCanShowMore: Function,
-    showOptionsDropdown: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,
     filterDateFormatEU: Function,
     showArray: Function,
     showObjectArray: Function,
-    showVisualisationLink: Function,
     getVisualisationLink: Function,
-    showGeoLink: Function,
     isOnlyOneUrl: Function,
     getDownloadUrl: Function,
     trackGoto: Function,
@@ -160,7 +117,6 @@ export default {
     replaceHttp: Function,
     previewLinkCallback: Function,
     toggleDistribution: Function,
-    getGeoLink: Function,
     toggleDistributionDescription: Function,
     increaseNumDisplayedDistributions: Function,
     nonOverflowingIncrementsForDistributions: Function,
@@ -168,6 +124,14 @@ export default {
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
     appendCurrentLocaleToURL: Function,
+  },
+  computed: {
+    addedDate() {
+      if (has(this.distribution, 'releaseDate') && !isNil(this.distribution.releaseDate)) {
+        return this.filterDateFormatEU(this.distribution.releaseDate);
+      }
+      return "";
+    }
   },
   methods: {
     has,
@@ -210,10 +174,9 @@ button:focus {
 }
 
 .distributions__item {
-  position: relative;
+  //position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.mt-4 {
-  margin-top: 1.5rem !important;
-}
+
 </style>

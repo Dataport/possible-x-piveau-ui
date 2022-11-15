@@ -15,7 +15,7 @@
             "relatedResources": "Related Resources",
             "pageDescriptionPublisher": "Add publisher type, name and homepage to your dataset!",
             "tooltipTitle": "Enter the title of your dataset here!",
-            "linkedData": "Linked Data",
+            "linkedData": "Linked data",
             "numSeries": "Number of data series",
             "releaseDate": "Release Date",
             "yes": "Yes",
@@ -94,7 +94,7 @@
             "dimensions": "Dimensions",
             "addDistribution": "Add Distribution",
             "name": "Name",
-            "metadataQuality": "Metadata Quality",
+            "metadataQuality": "Metadata quality",
             "provenances": "Provenance",
             "enterKeywords": "Enter Keywords",
             "landingPage": "Landing Page",
@@ -1246,7 +1246,7 @@
         "datasetDetails": {
             "subnav": {
                 "quality": "Quality",
-                "similarDatasets": "Similar Datasets",
+                "similarDatasets": "Similar datasets",
                 "categories": "Categories",
                 "dataset": "Dataset",
                 "activityStream": "Activity Stream"
@@ -1271,7 +1271,7 @@
                 "accessUrlStatusCode": "Most frequent accessURL status codes",
                 "downloadUrlStatusCode": "Most frequent downloadURL status codes",
                 "formatMediaTypeVocabularyAlignment": "Format / Media type from vocabulary",
-                "metaDataQuality": "Metadata Quality",
+                "metaDataQuality": "Metadata quality",
                 "downloadUrlAvailability": "Download URL",
                 "dataQuality": "Data Quality",
                 "categoryAvailability": "Categories",
@@ -1284,7 +1284,21 @@
                 "distributionQuality": "Distribution Quality",
                 "publisherAvailability": "Publisher",
                 "keywordAvailability": "Keyword usage",
-                "rightsAvailability": "Rights"
+                "rightsAvailability": "Rights",
+                "validationDescription": {
+                    "error": "Your CSV file is not valid!",
+                    "success": "However, there are some issues that can be adressed to make it as easy as possible to reuse the data."
+                },
+                "validationTitle": {
+                    "error": "CSV not valid",
+                    "success": "Valid CSV"
+                },
+                "message": "Message | Messages",
+                "warning": "Warning | Warnings",
+                "error": "Error | Errors",
+                "totalRows": "Total Rows processed",
+                "column": "Column",
+                "row": "Row"
             },
             "follow": "Follow",
             "accessURLTooltip": "This link can contain information about how to get the referenced file or is a direct link to the referenced file.",
@@ -1318,7 +1332,7 @@
                 "leavePageWindow": {
                     "text": "Do you really want to leave? The Download will be stopped when you leave!"
                 },
-                "downloadAll": "Download All"
+                "downloadAll": "Download all"
             },
             "translation": {
                 "update": "An updated translation of this dataset is in progress.",
@@ -1337,7 +1351,7 @@
                 "metadataQuality": "The Metadata Quality Assurance is intended to help data providers and data portals to check their metadata against various indicators. For information on which metrics we use for indicator measurements, please have a look at our <a href='/mqa/methodology?locale={locale}'>methodology page</a>."
             },
             "about": "about",
-            "datasetFeed": "Dataset Feed",
+            "datasetFeed": "Dataset feed",
             "delete": "Delete",
             "openResource": "Go to resource",
             "visualisation": "Open Visualisation",
@@ -1351,7 +1365,7 @@
             "edit": "Edit",
             "menu": "Menu",
             "manage": "Manage ",
-            "geoInfo": "Dataset Extent",
+            "geoInfo": "Dataset extent",
             "options": "Options"
         },
         "tooltip": {
@@ -1428,7 +1442,9 @@
                 "wasGeneratedBy": "This property refers to activities that generated, or provides the business context for, the creation of the dataset.",
                 "qualifiedAttribution": "This property refers to a link to agents having some form of responsibility for the resource.",
                 "isReferencedBy": "This property is about a related resources, such as a publications, that references, cites, or otherwise points to the dataset.",
-                "temporalResolution": "This property refers to the minimum time period resolvable in the dataset distribution."
+                "temporalResolution": "This property refers to the minimum time period resolvable in the dataset distribution.",
+                "cite": "Cite this dataset in your publication or other resources.",
+                "datasetFeed": "See the latest changes on this dataset as RSS feed."
             },
             "quality": {
                 "keywordAvailability": "Keywords directly support the search and thus increase the findability of the data dataset.<br><br> The system checks whether keywords are defined. The number of keywords has no impact to the score.",
@@ -1498,12 +1514,12 @@
             "connectedLineChartExplain": "It is a connected scatterplot is basically an hybrid between a scatterplot and a lineplot. You have to chose xAxis to render it."
         },
         "sort": {
-            "lastCreated": "Last Created",
-            "lastUpdated": "Last Modified",
-            "nameZA": "Name Descending",
+            "lastCreated": "Last created",
+            "lastUpdated": "Last modified",
+            "nameZA": "Name descending",
             "relevance": "Relevance",
             "sortBy": "Order by",
-            "nameAZ": "Name Ascending"
+            "nameAZ": "Name ascending"
         },
         "distributionLicense": {
             "openLA": "Open Licence Assistant",
@@ -1515,10 +1531,10 @@
         "catalogs": {
             "countMessageSingular": "catalogue found",
             "geoBoundsMessagePre": "Your Search has been limited to:",
-            "downloadAsLinkedData": "Catalogue Metadata as Linked Data",
+            "downloadAsLinkedData": "Catalogue metadata as linked data",
             "countMessageNoResult": "No catalogues found",
             "searchBar": {
-                "placeholder": "Search catalogues..."
+                "placeholder": "Search"
             },
             "countMessage": "catalogues found",
             "loadingMessage": "Loading catalogues...",
@@ -1533,7 +1549,7 @@
                 },
                 "datascope": "Data scope",
                 "dataServices": {
-                    "dataServicesOnly": "Data services only"
+                    "dataServicesOnly": "Data services"
                 },
                 "country": "Provenance",
                 "format": "Formats",
@@ -1563,13 +1579,13 @@
             "navigation": {
                 "data": {
                     "euInternationalData": "EU and international data",
-                    "datasets": "Datasets",
+                    "datasets": "Quick search",
                     "catalogs": "Catalogues",
-                    "metadataquality": "Metadata Quality",
+                    "metadataquality": "Metadata quality dashboard",
                     "sparqleditor": "SPARQL Editor",
                     "statistics": "Statistics",
-                    "sparqlsearch": "SPARQL Search",
-                    "title": "Data",
+                    "sparqlsearch": "Graph search",
+                    "title": "Datasets",
                     "euVocabularies": " EU Vocabularies",
                     "persistentUris": " Persistent URIs"
                 },
@@ -1577,12 +1593,12 @@
                     "opendataimpact": "Open Data Impact",
                     "tellUsYourStory": "Tell us your story",
                     "studies": "Studies",
-                    "opendatamaturity": "Open Data Maturity",
+                    "opendatamaturity": "Open data maturity",
                     "countryInsights": "Country Insights",
-                    "useCases": "Use Cases",
+                    "useCases": "Use cases",
                     "title": "Impact & Studies",
                     "overview": "Overview",
-                    "countyInsights": "Country Insights"
+                    "countyInsights": "Country insights"
                 },
                 "training": {
                     "licensingAssistant": "Licensing Assistant",
@@ -1616,7 +1632,7 @@
                 "newsletter": "Newsletter",
                 "cookies": "Cookies",
                 "login": "Login",
-                "contact": "Contact",
+                "contact": "Contact us",
                 "search": "Search",
                 "logout": "Logout",
                 "legalNotice": "Legal notice",
@@ -1651,7 +1667,7 @@
             "noResult": "No datasets found",
             "findLocation": "Filter by location",
             "searchBar": {
-                "placeholder": "Search datasets"
+                "placeholder": "Search"
             },
             "createCatalogue": "Create Catalogue",
             "saveQuery": "Save Query"
@@ -1681,10 +1697,10 @@
             "scoring": "data.europa.eu measures the quality of all datasets and services. In the Data/Metadata Quality section we have a methodology page that describes the process. Each dataset and service is also represented by a quality score. This score can be sufficient, good or excellent. If the filter \"Sufficient+\" is set, all datasets and services that have a sufficient score or better would be shown. The same applies for \"Good\". \"Excellent\" only shows excellent datasets and services.",
             "license": "A licence describes the legal conditions on how a dataset can be used.",
             "dataScope": "EU data holds datasets and services from EU institutions. International data holds datasets and services that comes from beyond the EU. Country data holds datasets and services from the member states of the EU.",
-            "format": "Each dataset has references to files or services. The format describes the file type or service type of these references. Not every file type can serve for all purposes, e.g. a calculation can better be done with a CSV file instead of a PDF.",
-            "catalog": "A catalogue or repository that hosts datasets and services. A catalogue mostly represents a portal where the datasets where collected from.",
+            "format": "Each dataset has references to files or data services. The format describes the file type or service type of these references. Not every file type can serve for all purposes, e.g. a calculation can better be done with a CSV file instead of a PDF.",
+            "catalog": "A catalogue or repository that hosts datasets and data services. A catalogue mostly represents a portal where the datasets where collected from.",
             "settings": "Decide whether your filter selection is exclusive or not. If you select AND all the search results must match all filters. OR means that at least one filter has to match.",
-            "categories": "A category groups datasets that share a common topic.",
+            "categories": "A category groups datasets sharing a common topic.",
             "publisher": "A publisher is an entity (e.g. organisation) that is responsible for making the Dataset available.",
             "keywords": "Keywords are ideas and topics that define what the content is about."
         },
@@ -1724,15 +1740,15 @@
         "statistics": {
             "statistics": "Statistics",
             "datasetsPerCatalog": "Datasets per Catalogue",
-            "currentState": "Current State",
-            "datasetsPerCountry": "Datasets per Country",
+            "currentState": "Current state",
+            "datasetsPerCountry": "Datasets per origin",
             "selectType": "Select the Statistic Type",
             "datasetsPerCountryAndCatalog": "Datasets per Country and Catalogue",
-            "evolution": "Evolution",
+            "evolution": "Evolution over time",
             "evolutionStartEnd": "Evolution of the total number of Datasets between {start_date} and {end_date}",
             "increaseStartEnd": "Increase of {dataset_model} in % between {start_date} and {end_date}",
             "totalNumber": "Total Number of Datasets",
-            "datasetsPerCategory": "Datasets per Category",
+            "datasetsPerCategory": "Datasets by data theme",
             "selectTimePeriod": "Select the Time Period",
             "evolutionNumber": "Evolution of the number of {dataset_model} between {start_date} and {end_date}",
             "numberDate": "Number of {dataset_model} as of {date}"
@@ -1793,7 +1809,7 @@
             "similarDatasets": "Similar Datasets"
         },
         "searchTabs": {
-            "editorialContent": "Editorial Content"
+            "editorialContent": "Editorial content"
         },
         "visualisation": {
             "loading": "Visualisation is loading...",

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="settings-facet">
     <radio-facet
       :title="title"
       :toolTipTitle="toolTipTitle"

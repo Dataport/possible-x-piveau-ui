@@ -119,6 +119,13 @@ const glueConfig = {
     },
     bottom: {}
   },
+  pagination: {
+    usePagination: true,
+    usePaginationArrows: false,
+    useItemsPerPage: true,
+    defaultItemsPerPage: 10,
+    defaultItemsPerPageOptions: [5, 10, 25, 50],
+  },
   images: {
     top: [
       {
@@ -151,12 +158,12 @@ const glueConfig = {
       ],
     },
     facets: {
-      cutoff: ecStyle ? 4 : -1,
+      cutoff: ecStyle ? 5 : -1,
       showClearButton: ecStyle,
       showFacetsTitle: ecStyle, // Title on top of the facets
       useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
-      useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
-      defaultFacetOrder: ['dataScope', 'country', 'catalog', 'categories', 'publisher', 'keywords', 'dataServices', 'scoring', 'format', 'license'],
+      useDatasetFacetsMap: false, // Enable / Disable the map on the Datasets page
+      defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'],
       scoringFacets: {
         useScoringFacets: true, // Enable / Disable the scoring facets
         defaultMinScore: 0, // Set the default mininimum score, the value should be one of the below listed minScores
@@ -211,7 +218,7 @@ const glueConfig = {
   },
   catalogs: {
     facets: {
-      cutoff: ecStyle ? 4 : -1,
+      cutoff: ecStyle ? 5 : -1,
       showClearButton: ecStyle,
       showFacetsTitle: ecStyle, // Title on top of the facets
       // Enable / Disable the facets on the Catalogues page
@@ -268,6 +275,7 @@ const glueConfig = {
       incrementSteps: [10, 50],
       descriptionMaxLines: 3,
       descriptionMaxChars: 250,
+      showValidationButton: false,
     },
     pages: {
       isVisible: false,
@@ -325,9 +333,23 @@ const glueConfig = {
       // Timeout for axios request
       TIMEOUT_MS: 10000,
     },
+    quality: {
+      // If true, always display all distributions
+      displayAll: false,
+      // Number of distributions to be shown
+      numberOfDisplayedQualityDistributions: 5,
+      // CSV Linter Validation Results
+      csvLinter: {
+        // If true, always display all results
+        displayAll: false,
+        // Number of results to be shown
+        numberOfDisplayedValidationResults: 5,
+      },
+    }
   },
   // Leaflet map configuration
   maps: {
+    mapVisible: true,
     useAnimation: true,
     urlTemplate: 'https://gisco-services.ec.europa.eu/maps/wmts/1.0.0/WMTSCapabilities.xml/wmts/OSMCartoComposite/EPSG3857/{z}/{x}/{y}.png',
     options: {
