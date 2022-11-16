@@ -145,7 +145,7 @@
                     </div>
                     <hr>
                 </div>
-                <selectedFacetsOverview :selected-facets="getFacets"></selectedFacetsOverview>
+                <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getAvailableFacets"></selectedFacetsOverview>
                 <pv-data-info-box v-for="catalog in getCatalogs" :key="`data-info-box@${catalog.id}`" catalog-mode
                     :to="{name: 'Datasets', query: {catalog: catalog.id, showcatalogdetails: true, locale: $route.query.locale}}"
                     :src="getImg(getCatalogImage(catalog))" :dataset="{
@@ -188,7 +188,7 @@ import {
 const { getImg, getCountryFlagImg, getTranslationFor } = helpers;
 
 export default {
-    name: 'eccatalogs',
+    name: 'ECCatalogues',
     dependencies: ['catalogService'],
     components: {
         SelectedFacetsOverview,

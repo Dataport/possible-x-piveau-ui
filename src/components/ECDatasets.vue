@@ -43,7 +43,7 @@
               </button>
             </div>
             -->
-          <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" />
+            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getAllAvailableFacets"></selectedFacetsOverview>
           <template v-if="!getLoading">
             <pv-data-info-box v-for="dataset in getDatasets" :key="dataset.id" :to="`/datasets/${dataset.id}`"
               :src="getImg(getCatalogImage(dataset.catalog))" :dataset="{
@@ -157,6 +157,7 @@ export default {
       'getPage',
       'getPageCount',
       'getAvailableFacets',
+      'getAllAvailableFacets',
       'getMinScoring',
     ]),
     showCatalogDetails() {
