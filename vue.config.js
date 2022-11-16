@@ -70,18 +70,18 @@ module.exports = defineConfig({
     //     },
     //   ],)
 
-    config
-      .plugin('copy')
-      .use(copy, [
-        {
-          patterns: [
-            {
-              from: path.resolve(__dirname, 'src/modules/dist/scss'),
-              to: path.resolve(__dirname, 'dist/scss'),
-              toType: 'dir',
-            }],
-        },
-      ]);
+    // config
+    //   .plugin('copy')
+    //   .use(copy, [
+    //     {
+    //       patterns: [
+    //         {
+    //           from: path.resolve(__dirname, 'src/modules/dist/scss'),
+    //           to: path.resolve(__dirname, 'dist/scss'),
+    //           toType: 'dir',
+    //         }],
+    //     },
+    //   ]);
 
     // config.resolve.symlinks(false);
     // config.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'));

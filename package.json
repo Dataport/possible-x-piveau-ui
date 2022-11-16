@@ -1,12 +1,12 @@
 {
-  "name": "@piveau/piveau-hub-ui-modules",
-  "version": "1.0.3",
+  "name": "piveau-hub-ui",
+  "version": "1.0.0",
+  "private": true,
   "files": [
-    "dist/*"
+    "dist"
   ],
-  "main": "./dist/piveau-hub-ui-modules.umd.min.js",
   "scripts": {
-    "serve": "node scripts/ensure_module.js && vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     "dev": "npm run serve",
     "link-module": "node scripts/localuninstall.js && node scripts/create_module_symlink.js",
     "build": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts",
@@ -32,6 +32,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "@piveau/dcatap-frontend": "^2.5.0",
+    "@piveau/piveau-header-footer": "^3.13.0",
+    "@piveau/piveau-hub-ui-modules": "^1.7.0",
     "@piveau/piveau-universal-piwik": "^2.5.0",
     "@triply/yasgui": "^4.2.25",
     "@triply/yasqe": "^4.2.23",
@@ -129,30 +131,7 @@
     "vuex-router-sync": "^5.0.0",
     "webpack-merge": "^4.2.2"
   },
-  "release": {
-    "branches": [
-      {
-        "name": "master"
-      },
-      {
-        "name": "next",
-        "channel": "next"
-      },
-      {
-        "name": "develop",
-        "prerelease": true
-      }
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
-      [
-        "@semantic-release/gitlab",
-        {
-          "gitlabUrl": "https://gitlab.fokus.fraunhofer.de"
-        }
-      ]
-    ]
+  "volta": {
+    "node": "16.18.1"
   }
 }

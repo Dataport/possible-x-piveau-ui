@@ -37,7 +37,7 @@ Vue.use(Router);
 const title = GLUE_CONFIG.title;
 
 const router = new Router({
-  base: GLUE_CONFIG.routerOptions.base,
+  base: '/',
   mode: GLUE_CONFIG.routerOptions.mode,
   linkActiveClass: 'active',
   scrollBehavior(to, from, savedPosition) {

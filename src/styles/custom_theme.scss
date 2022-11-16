@@ -46,9 +46,9 @@ $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 $medium-blue: #4A82FA !default;
 $green-fraunhofer: #009374 !default;
-$deu-blue:#001D85 !default;
+$piveau-color: #6610f2 !default;
 $secondary-blue: #202272 !default;
-$deu-orange: #f9a01b !default;
+$highlight-orange: #f9a01b !default;
 $dark-orange: #DC5149 !default;
 $badge-green: #00997A !default;
 $badge-black: #4D4F5C !default;
@@ -73,9 +73,9 @@ $colors: map-merge((
   "gray":       $gray-600,
   "gray-dark":  $gray-800,
   "green-fraunhofer": $green-fraunhofer,
-  "deu-blue":   $deu-blue,
+  "piveau-color":   $piveau-color,
   "secondary-blue": $secondary-blue,
-  "deu-orange": $deu-orange,
+  "highlight-orange": $highlight-orange,
   "dark-orange": $dark-orange,
   "medium-blue": $medium-blue,
   "badge-green": $badge-green,
@@ -89,16 +89,16 @@ $colors: map-merge((
 // Logo colors with gradient
 $deu-logo-medium-blue-gradient:  $medium-blue, #4F86FA, #558AFA, #5C8EFA, #6292FA;
 $deu-badge-green-gradient:  $badge-green, #00A382, #00AD8A, #00B893, #00C29B;
-$deu-logo-blue-gradient:  $deu-blue, #001F8F, #00219A, #0023A5, #0025AF;
+$deu-logo-blue-gradient:  $piveau-color, #001F8F, #00219A, #0023A5, #0025AF;
 $deu-dark-orange-gradient:  $dark-orange, #E7554D, #F15950, #FC5D54, #FF6259;
 $deu-logo-yellow-gradient:  $yellow, #ffce06, #ffd00c, #ffd212, #ffd418;
 $deu-badge-black-gradient:  $badge-black, #565967, #5f6272, #676b7c, #707587;
 
-$primary:       $deu-blue !default;
-$primary-light: lighten($deu-blue, 20%);
-$primary-dark:  darken($deu-blue, 7.5%);
+$primary:       $piveau-color !default;
+$primary-light: lighten($piveau-color, 20%);
+$primary-dark:  darken($piveau-color, 7.5%);
 $secondary:     $gray-600 !default;
-$highlight:     $deu-orange;
+$highlight:     $highlight-orange;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
@@ -106,8 +106,6 @@ $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
 
-// $data-info-box-header-font-size: 1rem;
-// $format-color-csv: black;
 
 $theme-colors: () !default;
 $theme-colors: map-merge((
@@ -265,8 +263,7 @@ $transition-collapse:         height .35s ease !default;
 // Font, line-height, and color for body text, headings, and more.
 
 // stylelint-disable value-keyword-case
-//$font-family-sans-serif:      Arial, sans-serif !default;
-$font-family-sans-serif:      "Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 $font-family-base:            $font-family-sans-serif !default;
 // stylelint-enable value-keyword-case
@@ -589,7 +586,7 @@ $dropdown-link-disabled-color:      $gray-600 !default;
 
 $dropdown-item-padding-y:           .25rem !default;
 $dropdown-item-padding-x:           1.5rem !default;
-$dropdown-item-active-bg:            #001D85 !default;
+$dropdown-item-active-bg:            $piveau-color !default;
 
 $dropdown-header-color:             $gray-600 !default;
 
@@ -806,7 +803,6 @@ $alert-border-radius:               $border-radius !default;
 $alert-link-font-weight:            $font-weight-bold !default;
 $alert-border-width:                $border-width !default;
 
-
 // Progress bars
 
 $progress-height:                   1rem !default;
@@ -916,4 +912,3 @@ $kbd-bg:                            $gray-900 !default;
 
 $pre-color:                         $gray-900 !default;
 $pre-scrollable-max-height:         340px !default;
-

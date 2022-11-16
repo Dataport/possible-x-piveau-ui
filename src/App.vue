@@ -3,27 +3,35 @@
     <div class="app-snackbar position-fixed fixed-bottom m-3 m-md-5 py-5 d-flex justify-content-center w-100">
       <app-snackbar />
     </div>
-    <cookie-consent :piwik-instance="$piwik" />
+    <!-- <cookie-consent :piwik-instance="$piwik" /> -->
     <vue-progress-bar />
     <div class="site-wrapper">
-      <deu-header
-          project="hub"
-          active-menu-item="data"
-          :showSparql="showSparql"
+      <piveau-header
+        :show-catalogues="true"
+        :show-metadata-quality="false"
+        enable-authentication
+        :authenticated="keycloak.authenticated"
+        @login="login"
+        @logout="logout"
       />
+
       <router-view
           class="content"
           :key="`${$route.fullPath}`"
       />
-      <deu-footer
-          :enable-authentication="$env.useAuthService"
-          :authenticated="keycloak && keycloak.authenticated"
-          @login="login"
-          @logout="logout"
-          @click-follow-link="handleFollowClick"/>
+      <piveau-footer
+        enable-authentication
+        :authenticated="keycloak.authenticated"
+        @login="login"
+        @logout="logout"
+      >
+        hello world
+      </piveau-footer>
+      <!-- <div class="bg-primary text-light p-3">
+        Put a footer here. Made with <span class="text-danger">♥</span> by <a href="https://www.piveau.eu" class="text-light">piveau</a>.
+      </div> -->
     </div>
     <dpi-menu v-if="keycloak && keycloak.authenticated"></dpi-menu>
-
   </div>
 
 </template>
@@ -32,8 +40,8 @@
 /* eslint-disable no-underscore-dangle */
 import { mapGetters, mapActions } from 'vuex';
 import { isNumber } from 'lodash';
-import CookieConsent from '@deu/deu-cookie-consent';
-import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
+// import CookieConsent from '@deu/deu-cookie-consent';
+// import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
 import {
   DpiMenu,
   usePiwikSuspendFilter,
@@ -42,7 +50,7 @@ import {
 export default {
   name: 'app',
   components: {
-    CookieConsent,
+    // CookieConsent,
     DpiMenu,
   },
   mixins: [
@@ -51,10 +59,10 @@ export default {
   metaInfo() {
     return {
       titleTemplate(chunk) {
-        return chunk ? `${chunk} - data.europa.eu` : 'data.europa.eu';
+        return chunk ? `${chunk} - piveau Hub-UI` : 'piveau Hub-UI';
       },
       meta: [
-        { name: 'description', vmid: 'description', content: 'data.europa.eu' },
+        { name: 'description', vmid: 'description', content: 'piveau Hub-UI' },
         { name: 'keywords', vmid: 'keywords', content: this.$env.keywords },
       ],
       htmlAttrs: {

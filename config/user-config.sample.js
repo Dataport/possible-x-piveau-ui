@@ -11,9 +11,9 @@ import i18n from './i18n';
 export const ecStyle = false;
 
 const glueConfig = {
-  title: 'data.europa.eu',
-  description: 'data.europa.eu',
-  keywords: 'DEU',
+  title: 'piveau Hub-UI',
+  description: 'A modern and customizable web application for data management of extensive data catalogs.',
+  keywords: 'Open Data',
   api: {
     baseUrl: 'https://data.europa.eu/api/hub/search/',
     // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',

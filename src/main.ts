@@ -15,7 +15,7 @@ import Vue from 'vue';
 import Meta from 'vue-meta';
 import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
-import DeuHeaderFooter from '@deu/deu-header-footer';
+import PiveauHeaderFooter from '@piveau/piveau-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
 // import AppToast from '@/components/AppToast';
 // Import v-select
@@ -270,7 +270,7 @@ $(() => {
 
 require('@fortawesome/fontawesome-free/css/all.css');
 
-require('@deu/deu-header-footer/dist/deu-header-footer.css');
+require('@piveau/piveau-header-footer/dist/piveau-header-footer.css');
 
 // OpenStreetMaps popup styles
 require('leaflet/dist/leaflet.css');
@@ -295,7 +295,7 @@ Vue.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 // Vue-inject setup
 Vue.use(injector, { components: true });
 
-Vue.use(DeuHeaderFooter);
+Vue.use(PiveauHeaderFooter);
 
 Vue.use(VuePositionSticky);
 
