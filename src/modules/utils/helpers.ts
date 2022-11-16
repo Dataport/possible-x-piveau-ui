@@ -6,7 +6,6 @@
  */
 
 /* eslint-disable no-undef */
-/* eslint-disable global-require */
 /* eslint-disable no-nested-ternary */
 import {
   has,
@@ -17,11 +16,20 @@ import {
 } from 'lodash';
 import { getName, registerLocale } from 'i18n-iso-countries';
 
+// Import all images.
+// eager loading of images is needed for now for better compatibility.
+// See https://vitejs.dev/guide/features.html#glob-import
+const imageModules = import.meta.globEager('/src/assets/img/*/*.png');
+const localeModules = import.meta.globEager('/config/i18n/iso-countries/langs/*.json');
+const RELATIVE_PATH_TO_IMAGES = '/src/assets/img';
+
 // ga and mt missing, nb for no
 const languageList = ['bg', 'cs', 'da', 'de', 'el', 'es', 'et', 'fr', 'hr', 'hu', 'it', 'lt', 'lv', 'nl', 'nb', 'pl', 'pt', 'ro', 'sk', 'sl', 'fi', 'sv'];
-languageList.forEach((lang) => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  registerLocale(require(`i18n-iso-countries/langs/${lang}.json`));
+languageList.forEach( (lang) => {
+  const locale = localeModules[`/config/i18n/iso-countries/langs/${lang}.json`];
+  if (locale) {
+    registerLocale(locale.default);
+  }
 });
 
 
@@ -49,16 +57,21 @@ function unique(prop, array) {
  * @param { String }    defaultFallbackImage - The path to the default fallback image from /assets/img without fileending e.g. "/flags/eu"
  * @returns { String }  An image, represented by its absolute path.
  */
-function getImg(image, defaultFallbackImage) {
+ function getImg(image = '', defaultFallbackImage = '') {
+  const maybeImageFrontSlash = image.startsWith('/') ? image : `/${image}`;
+  const maybeFallbackImageFrontSlash = defaultFallbackImage.startsWith('/') ? defaultFallbackImage : `/${defaultFallbackImage}`;
   let img;
+
   try {
-    img = require(`../assets/img${image}.png`);
+    img = imageModules[`${RELATIVE_PATH_TO_IMAGES}${maybeImageFrontSlash}.png`];
   } catch (err) {
-    if (defaultFallbackImage) img = require(`../assets/img${defaultFallbackImage}.png`);
-    else img = require('../assets/img/img-not-available.png');
+    if (defaultFallbackImage) img = imageModules[`${RELATIVE_PATH_TO_IMAGES}${maybeFallbackImageFrontSlash}.png`];
+    else img = imageModules[`${RELATIVE_PATH_TO_IMAGES}/img-not-available.png`];
   }
-  return img;
+
+  return img.default;
 }
+
 
 
 /**
@@ -69,12 +82,13 @@ function getImg(image, defaultFallbackImage) {
 function getCountryFlagImg(countryId) {
   let img;
   try {
-    img = require(`../assets/img/flags/${countryId.toLowerCase()}.png`);
+    img = imageModules[`${RELATIVE_PATH_TO_IMAGES}/flags/${countryId.toLowerCase()}.png`];
   } catch (err) {
-    img = require('../assets/img/flags/eu.png');
+    img = imageModules[`${RELATIVE_PATH_TO_IMAGES}/flags/eu.png`];
   }
-  return img;
+  return img.default;
 }
+
 
 function getRepresentativeLocaleOf(prop, userLocale, fallbacks) {
   if (!prop || isNil(prop) || (!isObject(prop) && !isString(prop))) return undefined;

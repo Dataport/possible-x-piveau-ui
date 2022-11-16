@@ -3,7 +3,7 @@
 import Keycloak from 'keycloak-js';
 import qs from 'qs';
 import axios from 'axios';
-import { store } from "../store";
+import store from "../store";
 
 let installed = false;
 let rtpToken = null;
