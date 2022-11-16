@@ -128,7 +128,7 @@
           </div>
           <div class="loading-spinner ml-3" v-if="getLoading"></div>
         </div>
-        <selectedFacetsOverview :selected-facets="getFacets"></selectedFacetsOverview>
+        <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getAvailableFacets"></selectedFacetsOverview>
         <pv-data-info-box
           v-for="catalog in getCatalogs"
           :key="`data-info-box@${catalog.id}`"

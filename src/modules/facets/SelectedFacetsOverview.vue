@@ -23,17 +23,16 @@
       selectedFacets: {
         required: true,
       },
+      availableFacets: {
+        required: true,
+      },
     },
     data() {
       return {
-        availableFacets: [],
         defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       };
     },
     computed: {
-      ...mapGetters('datasets', [
-        'getAllAvailableFacets',
-      ]),
       getSelectedFacetsOrdered() {
         const orderedFacets = [];
 
@@ -97,6 +96,9 @@
 
         } else return this.selectedFacets;
       },
+      showCatalogDetails() {
+        return this.$route.query.showcatalogdetails === 'true';
+      },
     },
     methods: {
       ...mapActions('datasets', [
@@ -110,7 +112,7 @@
       },
       findFacetTitle(fieldId, facetId) {
         try {
-          const facetTitle = this.getAllAvailableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
+          const facetTitle = this.availableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
           return getFacetTranslation(fieldId, facetId, this.$route.query.locale, facetTitle);
         } catch {
           return facetId;
@@ -118,7 +120,7 @@
       },
       findFacetFieldTitle(fieldId) {
         try {
-          return this.getAllAvailableFacets.find(field => field.id === fieldId).title;
+          return this.availableFacets.find(field => field.id === fieldId).title;
         } catch {
           return fieldId;
         }
@@ -170,9 +172,6 @@
         }
 
         return this.routerPush(routerObject);
-      },
-      showCatalogDetails() {
-        return this.$route.query.showcatalogdetails === 'true';
       },
     },
     created() {},
