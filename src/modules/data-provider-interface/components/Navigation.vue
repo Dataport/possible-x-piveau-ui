@@ -258,13 +258,8 @@ export default {
       };
 
       if (mode === 'dataset') {
-<<<<<<< HEAD
-        uploadUrl = `${this.$env.api.hubUrl}datasets/${datasetId}?catalogue=${catalogName}`;
-        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
-=======
         uploadUrl = `${this.$env.api.hubUrl}datasets?id=${datasetId}&catalogue=${catalogName}`;
         actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
->>>>>>> develop
         actionName = 'auth/createDataset';
       } else if (mode === 'draft') {
         uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
