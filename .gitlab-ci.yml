@@ -4,7 +4,10 @@ cache:
 
 stages:
   - build
-  # - publish
+  - register
+  - deploy
+  - publish
+
 
 build-asset:
   stage: build
@@ -14,20 +17,124 @@ build-asset:
     - develop
   script:
     - npm ci
+    - cp config/user-config.sample.js config/user-config.js
     - npm run build
   artifacts:
     paths:
       - dist
 
-# publish package to npm repository:
+################################################
+# NO MORE MODIFICATIONS BELOW THIS COMMENT !!! #
+################################################
+
+register develop as latest:
+  stage: register
+  tags:
+    - dind
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+  only:
+    - develop
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE":latest .
+    - docker push "$CI_REGISTRY_IMAGE":latest
+
+register master as prerelease:
+  stage: register
+  tags:
+    - dind
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+  only:
+    - master
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE":prerelease .
+    - docker push "$CI_REGISTRY_IMAGE":prerelease
+
+
+register tag as release:
+  stage: register
+  tags:
+    - dind
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    GITLAB_COM_REGISTRY_IMAGE: $GITLAB_COM_REGISTRY/piveau/hub/$CI_PROJECT_NAME
+  services:
+    - docker:dind
+  only:
+    - tags
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE":$CI_COMMIT_TAG .
+    - docker push "$CI_REGISTRY_IMAGE":$CI_COMMIT_TAG
+    - docker login -u "$GITLAB_COM_USERNAME" -p "$GITLAB_COM_TOKEN" $GITLAB_COM_REGISTRY
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG $GITLAB_COM_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker push $GITLAB_COM_REGISTRY_IMAGE:$CI_COMMIT_TAG
+    - docker tag $GITLAB_COM_REGISTRY_IMAGE:$CI_COMMIT_TAG $GITLAB_COM_REGISTRY_IMAGE:latest
+    - docker push $GITLAB_COM_REGISTRY_IMAGE:latest
+
+deploy to openshift:
+  stage: deploy
+  image: ebits/openshift-client
+  only:
+    refs:
+      - develop
+    variables:
+      - $OPENSHIFT_SERVER
+      - $OPENSHIFT_TOKEN
+      - $OPENSHIFT_DOMAIN
+  tags:
+    - vst
+  environment:
+    name: Testing
+  script:
+    - oc login "$OPENSHIFT_SERVER" --token="$OPENSHIFT_TOKEN" --insecure-skip-tls-verify
+    - oc import-image $CI_PROJECT_NAME --from=$CI_REGISTRY_IMAGE --confirm
+    - oc get services $CI_PROJECT_NAME 2> /dev/null || oc new-app --name=$CI_PROJECT_NAME --image-stream=$CI_PROJECT_NAME
+    - oc get routes $CI_PROJECT_NAME 2> /dev/null || oc create route edge --service=$CI_PROJECT_NAME --hostname=$CI_PROJECT_NAME-$OPENSHIFT_DOMAIN --insecure-policy=Redirect --port=8080
+
+downstream triggers:
+  stage: deploy
+  image: appropriate/curl
+  only:
+    - develop
+    - master
+    - tags
+  allow_failure: true
+  script:
+    - export FINAL_REF=$( [[ -z $CI_COMMIT_TAG ]] && echo $CI_COMMIT_REF_NAME || echo "master" )
+
+# publish to gitlab.com:
 #   stage: publish
-#   image: node:lts-buster-slim
-#   before_script:
-#     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
-#     - npm install --only=dev
+#   image: ubuntu:20.04
+#   allow_failure: true
 #   only:
-#     refs:
-#       - master
-#       - develop
+#     - tags
+#   except:
+#     - branches
+#   tags:
+#     - vst
 #   script:
-#     - npm run semantic-release
+#     - apt-get update
+#     - apt-get install -y git python3-pip python3-dev
+#     - git config --global user.name "$GITLAB_USER_NAME"
+#     - git config --global user.email "$GITLAB_USER_EMAIL"
+#     - ln -s /usr/bin/python3 /usr/local/bin/python
+#     - pip3 install --upgrade pip
+#     - pip3 install git-filter-repo
+#     - git checkout master
+#     - git filter-repo --invert-paths --force --path .gitlab-ci.yml
+#     - git clone https://$GITLAB_COM_USERNAME:$GITLAB_COM_TOKEN@gitlab.com/piveau/hub/$CI_PROJECT_NAME target-repo
+#     - cd target-repo
+#     - git remote add modified-source ..
+#     - git pull modified-source master --allow-unrelated-histories --tags --force
+#     - git push origin master --tags --force
