@@ -17,7 +17,7 @@ RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx /var/cache/nginx/client
 COPY runtimeconfig.sh /
 
 RUN chmod +x /runtimeconfig.sh
-RUN chmod a+rw /usr/share/nginx/html/static/js
-RUN chmod a+rw /usr/share/nginx/html/static/js/*
+RUN chmod a+rw /usr/share/nginx/html/js
+RUN chmod a+rw /usr/share/nginx/html/js/*
 
 CMD [ "/runtimeconfig.sh" ]
