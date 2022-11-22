@@ -115,9 +115,15 @@ export default {
 // Normalizes default css rules. See: https://github.com/necolas/normalize.css
 @import './styles/utils/normalize.css';
 
-@font-face {
-  font-family: "Ubuntu";
-  src: local("Ubuntu"), url(../public/static/fonts/Ubuntu/Ubuntu-Regular.ttf) format("truetype");
+// @font-face {
+//   font-family: "Ubuntu";
+//   src: local("Ubuntu"), url(../public/static/fonts/Ubuntu/Ubuntu-Regular.ttf) format("truetype");
+// }
+
+// Hides 'editorial content' tab.
+// todo: remove this when it is configurable in modules.
+#myTab > div.d-flex.cursor-pointer > li:nth-child(3) > a {
+  display: none;
 }
 
 * {
