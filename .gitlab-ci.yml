@@ -4,7 +4,7 @@ cache:
 
 stages:
   - build
-  - publish
+  # - publish
 
 build-asset:
   stage: build
@@ -14,21 +14,20 @@ build-asset:
     - develop
   script:
     - npm ci
-    - npm run link-module
     - npm run build
   artifacts:
     paths:
       - dist
 
-publish package to npm repository:
-  stage: publish
-  image: node:lts-buster-slim
-  before_script:
-    - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
-    - npm install --only=dev
-  only:
-    refs:
-      - master
-      - develop
-  script:
-    - npm run semantic-release
+# publish package to npm repository:
+#   stage: publish
+#   image: node:lts-buster-slim
+#   before_script:
+#     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
+#     - npm install --only=dev
+#   only:
+#     refs:
+#       - master
+#       - develop
+#   script:
+#     - npm run semantic-release
