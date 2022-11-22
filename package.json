@@ -9,7 +9,7 @@
     "serve": "vue-cli-service serve",
     "dev": "npm run serve",
     "link-module": "node scripts/localuninstall.js && node scripts/create_module_symlink.js",
-    "build": "cross-env BUILD_MODE=lib vue-cli-service build --target lib --name piveau-hub-ui-modules src/modules/index.ts",
+    "build": "vue-cli-service build",
     "localdeploy": "node scripts/localuninstall.js && npm run build && node scripts/localinstall.js",
     "deploy": "npm run build && npm publish",
     "test:unit": "vue-cli-service test:unit",
