@@ -162,7 +162,7 @@ const glueConfig = {
       showClearButton: ecStyle,
       showFacetsTitle: ecStyle, // Title on top of the facets
       useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
-      useDatasetFacetsMap: false, // Enable / Disable the map on the Datasets page
+      useDatasetFacetsMap: !ecStyle, // Enable / Disable the map on the Datasets page
       defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'],
       scoringFacets: {
         useScoringFacets: true, // Enable / Disable the scoring facets
