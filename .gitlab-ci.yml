@@ -113,28 +113,28 @@ downstream triggers:
   script:
     - export FINAL_REF=$( [[ -z $CI_COMMIT_TAG ]] && echo $CI_COMMIT_REF_NAME || echo "master" )
 
-publish to gitlab.com:
-  stage: publish
-  image: ubuntu:20.04
-  allow_failure: true
-  only:
-    - tags
-  except:
-    - branches
-  tags:
-    - vst
-  script:
-    - apt-get update
-    - apt-get install -y git python3-pip python3-dev
-    - git config --global user.name "$GITLAB_USER_NAME"
-    - git config --global user.email "$GITLAB_USER_EMAIL"
-    - ln -s /usr/bin/python3 /usr/local/bin/python
-    - pip3 install --upgrade pip
-    - pip3 install git-filter-repo
-    - git checkout master
-    - git filter-repo --invert-paths --force --path .gitlab-ci.yml
-    - git clone https://$GITLAB_COM_USERNAME:$GITLAB_COM_TOKEN@gitlab.com/piveau/hub/$CI_PROJECT_NAME target-repo
-    - cd target-repo
-    - git remote add modified-source ..
-    - git pull modified-source master --allow-unrelated-histories --tags --force
-    - git push origin master --tags --force
+# publish to gitlab.com:
+#   stage: publish
+#   image: ubuntu:20.04
+#   allow_failure: true
+#   only:
+#     - tags
+#   except:
+#     - branches
+#   tags:
+#     - vst
+#   script:
+#     - apt-get update
+#     - apt-get install -y git python3-pip python3-dev
+#     - git config --global user.name "$GITLAB_USER_NAME"
+#     - git config --global user.email "$GITLAB_USER_EMAIL"
+#     - ln -s /usr/bin/python3 /usr/local/bin/python
+#     - pip3 install --upgrade pip
+#     - pip3 install git-filter-repo
+#     - git checkout master
+#     - git filter-repo --invert-paths --force --path .gitlab-ci.yml
+#     - git clone https://$GITLAB_COM_USERNAME:$GITLAB_COM_TOKEN@gitlab.com/piveau/hub/$CI_PROJECT_NAME target-repo
+#     - cd target-repo
+#     - git remote add modified-source ..
+#     - git pull modified-source master --allow-unrelated-histories --tags --force
+#     - git push origin master --tags --force
