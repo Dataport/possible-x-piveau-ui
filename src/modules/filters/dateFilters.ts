@@ -4,7 +4,6 @@
  * @description Contains filters to format Dates.
  */
 
-
 import dayjs from 'dayjs';
 
 /**
@@ -55,7 +54,8 @@ const dateFilters = {
   fromNow(date : string) {
     if (date === undefined) return INVALID_DATE_STRING;
     const m = dayjs(String(date));
-    if (m.isValid()) return m.fromNow();
+    // @ts-ignore
+    if (m.isValid()) return m.fromNow;
     return INVALID_DATE_STRING;
   },
 };
