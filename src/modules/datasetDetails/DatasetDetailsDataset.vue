@@ -80,7 +80,7 @@
 <script lang="ts">
   // @ts-nocheck
   /* eslint-disable no-confusing-arrow, no-nested-ternary, no-return-assign, no-confusing-arrow */
-  import $ from 'jquery';
+  import $ from 'jquery/dist/jquery.slim.min.js';
   import { mapActions, mapGetters } from 'vuex';
   import {
     has,

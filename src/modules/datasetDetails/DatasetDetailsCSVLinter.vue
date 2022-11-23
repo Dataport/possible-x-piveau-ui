@@ -3,9 +3,9 @@
     <div class="dsd-distribution-quality-csv row" v-if="showValidation">
         <h4 class="col-12 mt-5 mb-3 font-weight-bold">{{ csvLinter.title }}</h4>
         <div class="col-7">
-            <div class="p-3 csv-validation-box" 
+            <div class="p-3 csv-validation-box"
                 :class="getValidationStatus(validation.passed)">
-                <div class="row mt-2">  
+                <div class="row mt-2">
                     <div class="col-1 mt-4">
                         <i class="material-icons" :class="getValidationStatus(validation.passed)">
                             {{ getValidationResultIcon(validation.passed) }}
@@ -54,9 +54,9 @@
             :action="() => toggleDisplayAll()"></ECMore>
     </div>
 </template>
-  
+
 <script>
-import { has, isNil } from 'lodash';
+import { has, isNil } from 'lodash-es';
 import ECMore from "@/components/ECMore";
 
 export default {
@@ -85,10 +85,10 @@ export default {
     },
     computed: {
         showValidation() {
-            return !isNil(this.validation) 
-                && has(this.validation, 'passed') 
-                && has(this.validation, 'errors') 
-                && has(this.validation, 'warnings') 
+            return !isNil(this.validation)
+                && has(this.validation, 'passed')
+                && has(this.validation, 'errors')
+                && has(this.validation, 'warnings')
                 && has(this.validation, 'infos');
         },
         useECMore() {
@@ -103,7 +103,7 @@ export default {
             let errors = has(this.validation.errors, 'items') ? this.validation.errors.items : [];
             let warnings = has(this.validation.warnings, 'items') ? this.validation.warnings.items : [];
             let infos = has(this.validation.infos, 'items') ? this.validation.infos.items : [];
-            
+
             errors.forEach(i => i.type = this.$tc('message.datasetDetails.quality.error', 1));
             warnings.forEach(i => i.type = this.$tc('message.datasetDetails.quality.warning', 1));
             infos.forEach(i => i.type = this.$tc('message.datasetDetails.quality.message', 1));
@@ -178,7 +178,7 @@ export default {
 
         &-blue {
             color: #4073AF;
-        } 
+        }
     }
 
     .bg {
@@ -192,14 +192,14 @@ export default {
 
         &-blue {
             background-color: #4073AF;
-        } 
+        }
     }
 
     .csv-validation-box {
-        color: black; 
+        color: black;
         background-color: #FFFFFF;
         border: 2px solid #000000;
-        
+
         &.success {
             border-color: #467A39;
         }
@@ -217,7 +217,7 @@ export default {
         }
     }
 
-    .csv-result-details {  
+    .csv-result-details {
 
         &.border {
             &-top {

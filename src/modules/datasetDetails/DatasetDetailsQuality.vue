@@ -306,7 +306,7 @@
                   <div class="row accordion-body">
                     <div class="col-12">
                       <CSVLinter v-if="showCSVLinter(key, value[0].info['distribution-id'])" :validation="qualityDistributionValidation[key]"></CSVLinter>
-                    </div> 
+                    </div>
                 </div>
                 </div>
               </div>
@@ -470,9 +470,9 @@
 </template>
 
 <script>
-  import $ from 'jquery';
+  import $ from 'jquery/dist/jquery.slim.min.js';
   import { mapActions, mapGetters } from 'vuex';
-  import { has } from 'lodash';
+  import { has } from 'lodash-es';
   import { getTranslationFor } from "../utils/helpers";
 
   import CSVLinter from './DatasetDetailsCSVLinter.vue';
@@ -527,7 +527,7 @@
           return results.map(result => {
               let data = result[0];
 
-              return has(data, 'validation') 
+              return has(data, 'validation')
                   ? data.validation
                   : {};
           });

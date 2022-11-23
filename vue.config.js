@@ -42,6 +42,12 @@ module.exports = defineConfig({
     }
   },
 
+  // pluginOptions: {
+  //   webpackBundleAnalyzer: {
+  //     openAnalyzer: true
+  //   }
+  // },
+
   chainWebpack: (config) => {
     // Preserve whitespaces between element tags if it contains new lines.
     // This fixes minor visual layout differences.

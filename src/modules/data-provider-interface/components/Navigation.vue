@@ -14,12 +14,12 @@
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || mandatoryFieldsFilled({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
-        
+
         <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateNewDataset" class="mr-2">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
           {{ $t('message.dataupload.publishdataset') }}
         </FormulateInput>
-        
+
         <!-- SAVE NEW DATASET AS DRAFT -->
         <FormulateInput type="button" @click="submit('draft')" v-if="showCreateNewDraft" class="mr-2">
           <span v-if="uploading.draft" class="loading-spinner"></span>
@@ -53,7 +53,7 @@
 
 <script>
 /* eslint-disable */
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.slim.min.js';
 import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Navigation',
@@ -241,7 +241,7 @@ export default {
       if (!this.mandatoryFieldsFilled({ property: this.property, id: this.id })) {
         this.$Progress.fail();
         this.showSnackbar({ message: 'Mandatory Properties missing', variant: 'error' });
-        return; 
+        return;
       }
 
       const datasetId = this.getData(submitProperty)['@id'];

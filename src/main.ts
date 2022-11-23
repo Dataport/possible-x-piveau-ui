@@ -72,6 +72,12 @@ import {
   SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
 
+import dayjs from 'dayjs';
+// import relativetime plugin
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+
+
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });

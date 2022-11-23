@@ -57,7 +57,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.slim.min.js';
 import AppLink from "@/modules/widgets/AppLink";
 
 export default {

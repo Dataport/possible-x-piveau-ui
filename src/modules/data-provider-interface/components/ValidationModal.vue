@@ -26,7 +26,7 @@
     </div>
 </template>
 <script>
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.slim.min.js';
 
 export default {
   props: {
@@ -50,5 +50,5 @@ export default {
   font-family: "Ubuntu";
   padding: 0.75em;
   font-weight: 100;
-}  
+}
 </style>

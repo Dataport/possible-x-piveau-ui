@@ -41,7 +41,7 @@
 /* eslint-disable,arrow-parens,no-param-reassign */
 import axios from 'axios';
 import { mapGetters } from 'vuex';
-import { isNil } from 'lodash';
+import { isNil } from 'lodash-es';
 
 export default {
   props: {
