@@ -40,10 +40,15 @@
                 <div class="col-3">
                     <div class="my-4 px-5 tag" :class="getBGStyle(csvResult.type)">{{ csvResult.type }}</div>
                 </div>
-                <div class="col-9">
-                    <h5 class="font-weight-bold mt-3">{{ csvResult.message_header }}</h5>
+                <div class="col-9 mt-3">
+                    <h5 class="font-weight-bold mt-1">{{ csvResult.message_header }}</h5>
                     <div>{{ csvResult.message }}</div>
-                    <div class="small">{{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}, {{ $t('message.datasetDetails.quality.column') }}: {{ csvResult.column }}</div>
+                    <div class="small" v-if="csvResult.row > -1 && csvResult.column > -1">
+                        {{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}, {{ $t('message.datasetDetails.quality.column') }}: {{ csvResult.column }}
+                    </div>
+                    <div class="small" v-else-if="csvResult.row > -1 && csvResult.column === -1">
+                        {{ $t('message.datasetDetails.quality.row') }}: {{ csvResult.row }}
+                    </div>
                 </div>
             </div>
         </div>
