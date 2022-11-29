@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import $ from 'jquery/dist/jquery.slim.min.js';
+import $ from 'jquery';
 import { isEmpty, has } from 'lodash-es';
 import { mapActions, mapGetters } from 'vuex';
 import { truncate } from '../../utils/helpers';

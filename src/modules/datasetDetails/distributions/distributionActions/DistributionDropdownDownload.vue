@@ -32,7 +32,7 @@
 
 <script>
 /* eslint-disable */
-import $ from 'jquery/dist/jquery.slim.min.js';
+import $ from 'jquery';
 import { mixin as clickaway } from 'vue-clickaway';
 import { replaceHttp } from '../../../utils/helpers';
 import AppLink from "../../../widgets/AppLink";

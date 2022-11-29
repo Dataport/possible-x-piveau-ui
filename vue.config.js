@@ -81,10 +81,6 @@ module.exports = defineConfig({
     // warning: this is a silent replacement
     config.resolve.alias.set('lodash', 'lodash-es');
 
-    // replace jquery imports with jquery/dist/jquery.slim
-    // warning: this is a silent replacement
-    config.resolve.alias.set('jquery', 'jquery/dist/jquery.slim.min.js');
-
     config
       .plugin('copy')
       .use(copy, [

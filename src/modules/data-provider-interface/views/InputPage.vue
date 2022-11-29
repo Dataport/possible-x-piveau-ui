@@ -25,7 +25,7 @@
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
 import { mapActions, mapGetters } from 'vuex';
-import $ from 'jquery/dist/jquery.slim.min.js';
+import $ from 'jquery';
 import {
   has,
   isNil,

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import $ from 'jquery/dist/jquery.slim.min.js';
+import $ from 'jquery';
 
 export default {
   props: {
