@@ -161,6 +161,7 @@ export default {
       }
     },
     getClearPath() {
+      // Create path to first page with clear query param
       let firstStep;
       let path;
 
