@@ -173,7 +173,10 @@ export default {
       return this.$route.query.query;
     },
     showMoreFacetsShown() {
-      return this.$env.datasets.facets.cutoff > 0 && this.$env.datasets.facets.cutoff < this.getAllAvailableFacets.length;
+      return this.$env.datasets.facets.cutoff > 0 && this.$env.datasets.facets.cutoff < this.getAllVisibleFacets.length;
+    },
+    getAllVisibleFacets() {
+      return this.getAllAvailableFacets.filter(facet => facet.items.length > 0);
     },
     getSortedFacets() {
       const availableFacets = this.getAllAvailableFacets;
