@@ -165,7 +165,7 @@
 </template>
 
 <script>
-  import $ from 'jquery/dist/jquery.slim.min.js';
+  import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
   import { debounce, has } from 'lodash-es';
   import fileTypes from '../utils/fileTypes';

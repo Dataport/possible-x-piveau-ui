@@ -57,7 +57,7 @@
 
 <script>
 import axios from 'axios';
-import $ from 'jquery/dist/jquery.slim.min.js';
+import $ from 'jquery';
 import { has, isEmpty } from 'lodash-es';
 import { mapGetters, mapActions } from 'vuex';
 import Dropup from './components/Dropup';
