@@ -245,7 +245,7 @@ if (GLUE_CONFIG.upload.useUpload) {
     name: "DataProviderInterface",
     component: DataProviderInterface,
     meta: {
-      requiresAuth: true,
+      // requiresAuth: true,
     },
     children: [
       {
