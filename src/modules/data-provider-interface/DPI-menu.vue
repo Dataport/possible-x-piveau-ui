@@ -57,8 +57,8 @@
 
 <script>
 import axios from 'axios';
-import $ from 'jquery';
-import { has, isEmpty } from 'lodash';
+import $ from 'jquery/dist/jquery.slim.min.js';
+import { has, isEmpty } from 'lodash-es';
 import { mapGetters, mapActions } from 'vuex';
 import Dropup from './components/Dropup';
 
@@ -183,10 +183,10 @@ export default {
           items: [
             {
               name: 'Create Catalogue',
-              to: { 
+              to: {
                 name: 'DataProviderInterface-Home',
                 query: { locale: this.$route.query.locale, edit: false },
-                params: { property: 'catalogues' } 
+                params: { property: 'catalogues' }
               },
             },
             {
@@ -274,7 +274,7 @@ export default {
       const permissions = this.getUserData && this.getUserData.permissions;
       const catalogId = this.$route.query.catalog;
       const hasPermission = permissions.find(permission => permission.rsname === catalogId);
-      
+
       // does user have permission on current catalogue
       return hasPermission && isOnRightPage;
     }
@@ -408,7 +408,7 @@ export default {
         } else if (property === 'catalogues') {
           successMessage = this.$te('message.snackbar.deleteCatalog.success') ? this.$t('message.snackbar.deleteCatalog.success') : 'Catalog successfully deleted';
         }
-        
+
 
         this.showSnackbar({
           message: successMessage,

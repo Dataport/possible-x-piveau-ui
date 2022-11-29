@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.slim.min.js';
 
 export default {
   name: 'Toast',

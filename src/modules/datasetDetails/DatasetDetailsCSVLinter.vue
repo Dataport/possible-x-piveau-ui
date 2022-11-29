@@ -61,7 +61,7 @@
 </template>
   
 <script>
-import { has, isNil } from 'lodash';
+import { has, isNil } from 'lodash-es';
 import ECMore from "@/components/ECMore";
 
 export default {

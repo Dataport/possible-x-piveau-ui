@@ -31,7 +31,7 @@
 <script>
 /* eslint-disable no-underscore-dangle */
 import { mapGetters, mapActions } from 'vuex';
-import { isNumber } from 'lodash';
+import { isNumber } from 'lodash-es';
 import CookieConsent from '@deu/deu-cookie-consent';
 import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
 import {

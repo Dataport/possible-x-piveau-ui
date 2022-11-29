@@ -20,7 +20,7 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
-  import { has } from 'lodash';
+  import { has } from 'lodash-es';
   import { getTranslationFor } from '../utils/helpers';
   import AppLink from "../widgets/AppLink.vue";
 

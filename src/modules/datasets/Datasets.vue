@@ -93,7 +93,7 @@
     toPairs,
     isArray,
   } from 'lodash';
-  import $ from 'jquery';
+  import $ from 'jquery/dist/jquery.slim.min.js';
   import fileTypes from '../utils/fileTypes';
   import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
   import Pagination from '../widgets/Pagination.vue';

@@ -4,10 +4,10 @@
         <distribution-quality></distribution-quality>
     </div>
 </template>
-  
+
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { has, isArray, isEmpty } from 'lodash';
+import { has, isArray, isEmpty } from 'lodash-es';
 import { helpers } from '@piveau/piveau-hub-ui-modules';
 const { getTranslationFor } = helpers;
 
@@ -66,7 +66,7 @@ export default {
             this.$Progress.start();
             this.isLoadingQualityData = true;
             this.isLoadingQualityDistributionData = true;
-            
+
             this.loadDatasetDetails(this.$route.params.ds_id)
                 .then(() => {
                     this.$Progress.finish();

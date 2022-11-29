@@ -30,7 +30,7 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
-  import { has } from 'lodash';
+  import { has } from 'lodash-es';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
 
   import PvBadge from "../PvBadge/PvBadge.vue";

@@ -84,7 +84,7 @@ import {
   toPairs,
   isArray,
 } from 'lodash';
-import $ from 'jquery';
+import $ from 'jquery/dist/jquery.slim.min.js';
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
 import {
   DatasetsTopControls,
