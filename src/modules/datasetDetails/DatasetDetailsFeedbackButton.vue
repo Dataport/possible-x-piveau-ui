@@ -19,7 +19,7 @@
   // Import Actions and Getters from Store Module
   import { mapGetters } from 'vuex';
   // Import custom helpers
-  import { has } from 'lodash';
+  import { has } from 'lodash-es';
   import { getTranslationFor } from "../utils/helpers";
   // Import components used in template
   import AppLink from "../widgets/AppLink.vue";

@@ -37,10 +37,10 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { mapGetters } from 'vuex';
-import { has, isArray } from 'lodash';
+import { has, isArray } from 'lodash-es';
 
 export default {
     name: 'datasetDetailsMetadataQuality',
@@ -75,7 +75,7 @@ export default {
                         // TODO: Skipping sub properties here
                         if (pdki === 'dataset' || pdki === 'distributions') {
                             propDataID = Object.keys(pdi[pdki][0])[0];
-                            propDataKeysItems = isArray(pdi[pdki][0][propDataID]) 
+                            propDataKeysItems = isArray(pdi[pdki][0][propDataID])
                                 ? pdi[pdki][0][propDataID][0]
                                 : pdi[pdki][0][propDataID];
                         }

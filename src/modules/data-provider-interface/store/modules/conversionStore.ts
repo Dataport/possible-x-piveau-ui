@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
-import { has, isEmpty, isNil, cloneDeep } from 'lodash';
+import { has, isEmpty, isNil, cloneDeep } from 'lodash-es';
 import * as jsonldLib from 'jsonld';
 
 // config defining which properties are displayed on which page
@@ -33,7 +33,7 @@ const state = {
     distributions: [],
     catalogues: cloneDeep(jsonlddefinitions.catalogues),
 };
-  
+
 const getters = {
     getData: (state) => (property) => {
         return state[property];
@@ -58,7 +58,7 @@ const getters = {
         }
     }
 };
-  
+
 const actions = {
     /**
      * Saving values from input form into JSON-LD object
@@ -367,7 +367,7 @@ const actions = {
         commit('resetStore');
     }
 };
-  
+
 const mutations = {
     /**
      * Saving values from input form into JSON-LD representation stored within the state

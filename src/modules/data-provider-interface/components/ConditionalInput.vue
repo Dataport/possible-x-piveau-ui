@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { isEmpty, has } from 'lodash';
+import { isEmpty, has } from 'lodash-es';
 
 export default {
   props: {

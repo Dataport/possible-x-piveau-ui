@@ -898,25 +898,25 @@ export default {
       return dateFilters.formatEU(date);
     },
     showString(property) {
-      return isString(property) && !isNil(property);
+      return isString(property) && !isNil(property) && !isEmpty(property);
     },
     showElementValue(property, value) {
-      return has(property, value) && !isNil(property[value]) && this.showString(property[value]);
-    },
-    showObjectValue(property, object, value) {
-      return has(this.values, property) && has(this.values[property], object) && has(this.values[property][object], value) && !isNil(this.values[property][object][value]) && this.showString(this.values[property][object][value]);
+      return has(property, value) && this.showString(property[value]);
     },
     showObjectElementValue(property, object, value) {
-      return has(property, object) && has(property[object], value) && !isNil(property[object][value]) && this.showString(property[object][value]);
+      return has(property, object) && has(property[object], value) && this.showString(property[object][value]);
+    },
+    showObjectValue(property, object, value) {
+      return has(this.values, property) && has(this.values[property], object) && has(this.values[property][object], value) && this.showString(this.values[property][object][value]);
     },
     showProperty(property, name) {
       return has(this.values, property) && has(this.values[property], name) && !isNil(this.values[property][name]) && !isEmpty(this.values[property][name]);
     },
     showStringArray(property, name) {
-      return has(this.values, property) && has(this.values[property], name) && isArray(this.values[property][name]);
+      return this.showProperty(property, name) && this.showString(this.values[property][name]) && isArray(this.values[property][name]);
     },
     showObjectArray(property, name) {
-      return has(this.values, property) && has(this.values[property], name) && isArray(this.values[property][name]);
+      return this.showProperty(property, name) && isArray(this.values[property][name]);
     },
     showLanguageArray(property, name) {
       return this.showObjectArray(property, name) && this.values[property][name].filter(el => has(el, '@value') && has(el, '@language')).length > 0;
@@ -976,7 +976,9 @@ export default {
     },
     checkDatasetMandatory() {
       // Check if mandatory dataset properties are set
-      if (!this.showProperty('datasets', 'dct:title') || !this.showProperty('datasets', 'dct:description') || !this.showProperty('datasets', 'dct:catalog')) {
+      if (this.values.datasets['dct:title'].filter(title => this.showElementValue(title, '@value')).length === 0 
+      || this.values.datasets['dct:description'].filter(title => this.showElementValue(title, '@value')).length === 0
+      || !this.showProperty('datasets', 'dct:catalog')) {
         this.$router.push({ 
           name: 'DataProviderInterface-Input', 
           params: { 
@@ -1001,7 +1003,7 @@ export default {
             page: 'distoverview',
           },
           query: {
-            error: 'mandatoryDist',
+            error: 'mandatoryDistribution',
             locale: this.$route.query.locale
           },
         });
@@ -1009,7 +1011,10 @@ export default {
     },
     checkCatalogueMandatory() {
       // Check if mandatory catalogue properties are set
-      if (!this.showProperty('catalogues', 'dct:title') || !this.showProperty('catalogues', 'dct:description') || !this.showProperty('catalogues', 'dct:publisher') || !this.showProperty('catalogues', 'dct:language')) {
+      if (this.values.catalogues['dct:title'].filter(title => this.showElementValue(title, '@value')).length === 0 
+      || this.values.catalogues['dct:description'].filter(title => this.showElementValue(title, '@value')).length === 0
+      || !this.showProperty('catalogues', 'dct:publisher')
+      || !this.showProperty('catalogues', 'dct:language')) {
         this.$router.push({ 
           name: 'DataProviderInterface-Input', 
           params: { 

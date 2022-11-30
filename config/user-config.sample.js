@@ -177,14 +177,14 @@ const glueConfig = {
           },
           goodScoring: {
             id: 'goodScoring',
-            title: 'Good+',
+            title: 'Good',
             count: 0,
             minScoring: 221,
             maxScoring: 350,
           },
           sufficientScoring: {
             id: 'sufficientScoring',
-            title: 'Sufficient+',
+            title: 'Sufficient',
             count: 0,
             minScoring: 121,
             maxScoring: 220,

@@ -6,7 +6,7 @@
  */
 
  import axios from 'axios';
- import { has, isNil, isArray } from 'lodash';
+ import { has, isNil, isArray } from 'lodash-es';
 
  import dataGetters from './getters/data-getters';
 

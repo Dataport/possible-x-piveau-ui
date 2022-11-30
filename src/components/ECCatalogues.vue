@@ -162,7 +162,7 @@
         </div>
         <div class="row">
             <div class="column col-12 col-md-9 offset-md-3">
-                <pagination class="mt-3" 
+                <pagination class="mt-3"
                     :items-count="getCatalogsCount"
                     :items-per-page="getLimit"
                     :get-page="getPage"
@@ -176,7 +176,7 @@
 <script>
 import $ from 'jquery';
 import { mapActions, mapGetters } from 'vuex';
-import { debounce, has } from 'lodash';
+import { debounce, has } from 'lodash-es';
 import {
   CataloguesFacets,
   Pagination,
