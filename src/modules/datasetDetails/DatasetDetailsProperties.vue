@@ -579,11 +579,11 @@ import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 import DatasetDetailsFeatureHeader
   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
-import PvShowMore from "@/modules/widgets/PvShowMore";
+// import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsProperties",
-  components: {PvShowMore, DatasetDetailsFeatureHeader, Tooltip, AppLink},
+  components: {DatasetDetailsFeatureHeader, Tooltip, AppLink},
   props: {
     filterDateFormatEU: Function,
     showObjectArray: Function,

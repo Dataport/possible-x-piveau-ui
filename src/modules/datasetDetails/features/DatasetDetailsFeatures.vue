@@ -9,6 +9,7 @@
       v-if="showObjectArray(getSubject)"
     />
 
+    <!-- Documentation -->
     <dataset-details-pages
       v-if="showObjectArray(getPages)"
       :pages="pages"
