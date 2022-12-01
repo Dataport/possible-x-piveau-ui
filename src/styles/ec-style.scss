@@ -13,6 +13,10 @@ a:active {
   border: 2px solid #FFD617;
 }
 
+.dsd-nav-button a:active {
+  border: 0 !important;
+}
+
 .show-more {
   padding-left: 0 !important;
   font-weight: initial;
