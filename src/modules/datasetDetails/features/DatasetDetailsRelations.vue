@@ -7,14 +7,14 @@
       :onClick="toggleRelatedResources"
     />
     <span v-if="relatedResources.isVisible" class="list list-unstyled col-12">
-        <hr>
-          <ul class="sectionList" v-if="getRelations.length != null || getRelations != undefined ">
-              <li v-for="(link, i) in getRelations" :key="i">
-                <a :href="link" target="_blank">{{link}}</a>
-              </li>
-          </ul>
-        <hr>
-      </span>
+      <hr>
+        <ul class="sectionList" v-if="getRelations.length != null || getRelations != undefined ">
+          <li v-for="(link, i) in getRelations" :key="i">
+            <a :href="link" target="_blank">{{link}}</a>
+          </li>
+        </ul>
+      <hr>
+    </span>
   </div>
 </template>
 

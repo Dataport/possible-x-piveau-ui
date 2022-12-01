@@ -23,9 +23,7 @@
           @click-follow-link="handleFollowClick"/>
     </div>
     <dpi-menu v-if="keycloak && keycloak.authenticated"></dpi-menu>
-
   </div>
-
 </template>
 
 <script>
