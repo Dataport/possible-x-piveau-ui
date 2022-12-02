@@ -4,12 +4,7 @@
    </span>
 </template>
 <script>
-import {
-  isObject,
-  isArray,
-  isEmpty,
-} from 'lodash';
-import axios from 'axios';
+import { isEmpty } from 'lodash';
 import { mapActions } from 'vuex'
 
 export default {

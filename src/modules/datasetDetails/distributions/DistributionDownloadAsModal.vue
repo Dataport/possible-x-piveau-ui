@@ -46,7 +46,7 @@
                           </span>
                           <span>
                             <p class="font-weight-bold ml-3">File conversion failed</p>
-                            <p>{{ errorMsg }}</p>
+                            <p class="ml-3">{{ errorMsg }}</p>
                           </span>
                        </div>
                      </div>
@@ -110,13 +110,13 @@ export default {
         ])
     },
     mounted() {
-      const scope = this;
-      $('#downloadAsModal').on('hide.bs.modal', () => {
-        scope.selected = scope.errorMsg = '';
-        scope.converting = scope.converted = scope.readyForDownload = scope.error = false;
-        scope.progress = '0';
-        scope.downloadBtnText = 'Download';
-      })
+        const scope = this;
+        $('#downloadAsModal').on('hide.bs.modal', () => {
+            scope.selected = scope.errorMsg = '';
+            scope.converting = scope.converted = scope.readyForDownload = scope.error = false;
+            scope.progress = '0';
+            scope.downloadBtnText = 'Download';
+        })
     },
     methods: {
         download() {
@@ -142,37 +142,38 @@ export default {
                     }
                     this.progress = '34'
                     axios({
-                        url: `https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert/${this.getDistributionDownloadAs.format.id.toLowerCase()}/${this.selected}/`,
-                        method: 'GET',
-                        params: {
-                            "url": url
-                        },
-                        responseType: 'blob',
-                    }).then((res) => {
-                        this.progress = '83'
-                        this.converted = true;
-                        this.downloadBtnText = 'Downloading...'
-                        setTimeout(() => {
-                            this.progress = '100'
-                            this.readyForDownload = true;
-                            const locale = this.$route.query.locale
-                            var FILE = window.URL.createObjectURL(new Blob([res.data]));
+                            url: `https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert/${this.getDistributionDownloadAs.format.id.toLowerCase()}/${this.selected}/`,
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/octet-stream; charset=UTF-8'
+                            },
+                            params: {
+                                "url": url
+                            },
+                        }).then((res) => {
+                            this.progress = '83'
+                            this.converted = true;
+                            this.downloadBtnText = 'Downloading...'
+                            setTimeout(() => {
+                                this.progress = '100'
+                                this.readyForDownload = true;
+                                const locale = this.$route.query.locale
+                                const FILE = window.URL.createObjectURL(new Blob([res.data]));
+                                let docUrl = document.createElement('a');
+                                docUrl.href = FILE;
+                                docUrl.setAttribute('download', `${this.getTitle[locale]}.${this.selected}`);
+                                document.body.appendChild(docUrl);
+                                this.downloadBtnText = 'Done'
+                                docUrl.click();
+                            }, 3000)
+                        })
+                        .catch((e) => {
+                            if (e.response) this.errorMsg = e.response.data;
 
-                            var docUrl = document.createElement('a');
-                            docUrl.href = FILE;
-                            docUrl.setAttribute('download', `${this.getTitle[locale]}.${this.selected}`);
-                            document.body.appendChild(docUrl);
-                             this.downloadBtnText = 'Done'
-                            docUrl.click();
-                        }, 3000)
-                    }).catch((e) => {
-                        console.log(e)
-                        this.converting = false;
-                        this.error = true;
-                        this.downloadBtnText = 'Download'
-                    });
-                } else {
-                    // neither of urls is present on distribution
+                            this.converting = false;
+                            this.error = true;
+                            this.downloadBtnText = 'Download'
+                        });
                 }
             }
         }
@@ -239,5 +240,11 @@ export default {
     padding: 1rem;
     display: flex;
   }
+}
+.progress-bar {
+-webkit-transition : width 1s ease;
+   -moz-transition : width 1s ease;
+     -o-transition : width 1s ease;
+        transition : width 1s ease;
 }
 </style>
