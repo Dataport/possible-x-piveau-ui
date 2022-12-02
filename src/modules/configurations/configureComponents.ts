@@ -10,6 +10,7 @@ import Datasets from "@/modules/datasets/Datasets.vue";
 import DistributionsHeader from "@/modules/datasetDetails/distributions/DistributionsHeader.vue";
 import DistributionDetails from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDetails.vue";
 import SelectedFacetsOverview from "@/modules/facets/SelectedFacetsOverview.vue"
+import SubNavigation from "@/modules/navigation/SubNavigation.vue";
 
 export type ComponentMap = { [key: string]: any };
 
@@ -24,7 +25,8 @@ const defaultComponents: ComponentMap = {
   Datasets,
   DistributionsHeader,
   DistributionDetails,
-  SelectedFacetsOverview
+  SelectedFacetsOverview,
+  SubNavigation
 };
 
 export function configureComponents(components?: ComponentMap) {
