@@ -62,23 +62,25 @@
           />
         </div>
       </div>
+      <download-as-modal />
     </div>
 </template>
 
 <script>
 
 import Distribution from './Distribution.vue';
-import DownloadAllDistributions
-  from "../../datasetDetails/distributions/DownloadAllDistributions";
+import DownloadAllDistributions from "../../datasetDetails/distributions/DownloadAllDistributions";
 import {has, isNil} from "lodash";
 import {getTranslationFor} from "@/modules/utils/helpers";
 import { mapGetters } from "vuex";
+import DownloadAsModal from "../../datasetDetails/distributions/DistributionDownloadAsModal";
 
 export default {
   name: 'Distributions',
   components: {
     DownloadAllDistributions,
-    Distribution
+    Distribution,
+    DownloadAsModal
   },
   props: {
     openModal: Function,
