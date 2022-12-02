@@ -90,7 +90,7 @@
   display: initial;
 }
 
-.dsd-header-catalogue > img {
+.dsd-header-catalogue img {
   border: none !important;
 }
 
@@ -107,7 +107,7 @@
 }
 
 .dsd-title-tag {
-  display: block !important;
+  display: block;
   background-color: #006FB4 !important;
 }
 
@@ -129,6 +129,16 @@
 .dsd-feature-header-arrow-container {
   width: unset !important;
   padding-left: 0 !important;
+}
+
+.dsd-title-tag {
+  background-color: steelblue;
+  font-size: smaller;
+  color: white;
+  font-weight: bold;
+  padding: 0.2rem 1.5rem;
+  margin-right: 1rem;
+  margin-bottom: 0.4rem;
 }
 
 @media screen and (max-width: 991px) { // less than lg
