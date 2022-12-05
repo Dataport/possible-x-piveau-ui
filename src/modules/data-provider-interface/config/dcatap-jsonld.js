@@ -5,7 +5,6 @@
 const datasets = {
     "@id": "", // ""
     "@type": "dcat:Dataset",
-    "adms:sample": "", // will remain empty and filled by backend 
     "dcat:distribution": [], // [{"@id": ""}]
     "dct:title": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }] 
     "dct:description": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }]

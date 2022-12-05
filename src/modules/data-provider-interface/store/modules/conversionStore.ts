@@ -298,9 +298,40 @@ const actions = {
             const name = propertieNames[index];
 
             // some properties must not be deleted (some must remian empty)
-            if (name !== '@id' && name !== 'adms:sample') {
+            if (name !== '@id') {
                 if (isEmpty(jsonld[name])) {
                     delete jsonld[name];
+                } else {
+                    // multilingual properties always have an array with one object containing at least an empty value string and a preselected language tag
+                    const multilinguals = dcataptypes.multiLang['catalogues'].concat(dcataptypes.multiLang['datasets'], dcataptypes.multiLang['distributions']);
+                    if (multilinguals.includes(name)) {
+                        for (let id = 0; id < jsonld[name].length; id += 1) {
+                            if (isEmpty(jsonld[name][id]['@value'])) delete jsonld[name][id]; // remove all entries with empty value field
+                        }
+                        if (jsonld[name][0] === undefined) delete jsonld[name]; // if there are no values anymore delete whole property from jsonld
+                    }
+
+                    // accessservice has also title and description which are multilingual fields with a preselected language tag
+                    if (name === 'dcat:accessService') {
+                        for (let accessId = 0; accessId < jsonld[name].length; accessId += 1) {
+
+                            // deleting empty titles
+                            for (let tid = 0; tid < jsonld[name][accessId]['dct:title'].length; tid += 1) {
+                                if (isEmpty(jsonld[name][accessId]['dct:title'][tid]['@value'])) delete jsonld[name][accessId]['dct:title'][tid]; // remove all empty titles
+                            }
+                            if (jsonld[name][accessId]['dct:title'][0] === undefined) delete jsonld[name][accessId]['dct:title']; // remove title object if no titles left
+
+                            //deleting empty descriptions
+                            for (let tid = 0; tid < jsonld[name][accessId]['dct:description'].length; tid += 1) {
+                                if (isEmpty(jsonld[name][accessId]['dct:description'][tid]['@value'])) delete jsonld[name][accessId]['dct:description'][tid]; // remove all empty descriptions
+                            }
+                            if (jsonld[name][accessId]['dct:description'][0] === undefined) delete jsonld[name][accessId]['dct:description']; // remove description property if nor descriptions left
+
+                            if (isEmpty(jsonld[name][accessId])) delete jsonld[name][accessId]; // remove accessservice if no properties given
+                        }
+                        if (jsonld[name][0] === undefined) delete jsonld[name]; // remove whole property if no values given
+                    }
+
                 }
             }
         }
