@@ -3,7 +3,7 @@
     <div id="nav" class="d-flex justify-content-between">
       <div class="left-form-nav">
         <!-- PREVIOUS STEP -->
-        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" :disabled="disablePrevious" class="prev-btn mr-2"></FormulateInput>
+        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious" class="prev-btn mr-2"></FormulateInput>
 
         <!-- CLEAR FORM -->
         <FormulateInput type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn"></FormulateInput>
@@ -106,8 +106,8 @@ export default {
     datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
     distributionMandatoryError() { return this.$route.query.error === 'mandatoryDistribution' },
     catalogMandatoryError() { return this.$route.query.error === 'mandatoryCatalog' },
-    disablePrevious() {
-      return !this.isPreviousPage && !this.property === 'distributions';
+    showPrevious() {
+      return this.isPreviousPage || this.property === 'distributions';
     },
     showCreateNewDataset() {
       return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
