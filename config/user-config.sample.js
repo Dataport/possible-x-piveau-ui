@@ -46,6 +46,7 @@ const glueConfig = {
     'verify-token-audience': true,
     'use-resource-role-mappings': true,
     'confidential-port': 0,
+    loginRedirectUri: '/data',
     logoutRedirectUri: '/data',
   },
   rtp: {
@@ -117,7 +118,13 @@ const glueConfig = {
         },
       },
     },
-    bottom: {}
+    bottom: {
+      login: {
+        useLogin: true,
+        loginURL: '/login',
+        logoutURL: '/logout',
+      }
+    }
   },
   pagination: {
     usePagination: true,

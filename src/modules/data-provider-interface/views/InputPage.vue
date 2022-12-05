@@ -167,9 +167,8 @@ export default {
       let allowedPaths = [
         `${this.$env.upload.basePath}/datasets/${this.getNavSteps.datasets[0]}`,
         `${this.$env.upload.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`,
-        `${this.$env.upload.basePath}/datasets/distoverview`,
       ];
-      return allowedPaths.filter(el => to.path.startsWith(el) && (from.path === null || to.path.startsWith(from.path))).length > 0;
+      return allowedPaths.filter(el => to.path.startsWith(el)).length > 0;
     },
     createDatasetID() {
       if ((this.property === 'datasets' || this.property === 'catalogues') && this.page === this.getNavSteps[this.property][0]) {
@@ -231,8 +230,14 @@ export default {
   beforeRouteEnter(to, from, next) {
     // Always clear storage when entering DPI
     next(vm => {
-      if (from.name !== null && !from.name.startsWith('DataProviderInterface')) vm.clear();
-      if (from.name === null || (from.name !== null && !from.name.startsWith('DataProviderInterface'))) vm.jumpToFirstPage();
+      if (from.name !== null && !from.name.startsWith('DataProviderInterface')) {
+        vm.clear();
+        vm.jumpToFirstPage();
+      }
+      if (from.name === null && !vm.mandatoryFieldsFilled({property: vm.property, id: vm.id})) {
+        vm.jumpToFirstPage();
+        $('#mandatoryModal').modal({ show: true });
+      }
     });
   },
   beforeRouteUpdate(to, from, next) {

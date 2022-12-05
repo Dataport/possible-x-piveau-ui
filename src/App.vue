@@ -16,10 +16,10 @@
           :key="`${$route.fullPath}`"
       />
       <deu-footer
-          :enable-authentication="$env.useAuthService"
+          :use-login="$env.navigation.bottom.login.useLogin"
           :authenticated="keycloak && keycloak.authenticated"
-          @login="login"
-          @logout="logout"
+          :login="$env.navigation.bottom.login.loginURL"
+          :logout="$env.navigation.bottom.login.logoutURL"
           @click-follow-link="handleFollowClick"/>
     </div>
     <dpi-menu v-if="keycloak && keycloak.authenticated"></dpi-menu>
@@ -28,7 +28,6 @@
 
 <script>
 /* eslint-disable no-underscore-dangle */
-import { mapGetters, mapActions } from 'vuex';
 import { isNumber } from 'lodash-es';
 import CookieConsent from '@deu/deu-cookie-consent';
 import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
@@ -70,32 +69,14 @@ export default {
       showSparql: this.$env.navigation.top.main.data.sparql.show,
     };
   },
-  computed: {
-    ...mapGetters('auth', [
-      'securityAuth',
-      'getRTPToken',
-      'getKeycloak',
-    ]),
-  },
+  computed: {},
   methods: {
-    ...mapActions('auth', [
-      'authLogin',
-      'authLogout',
-      'rtpToken',
-      'setKeycloak',
-    ]),
-    resume() {
-      if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
-    },
     isNumber,
-    login() {
-      this.$keycloak.loginFn();
-    },
-    logout() {
-      this.$keycloak.logoutFn();
-    },
     handleFollowClick(url) {
       if (typeof this.$piwik?.resume === "function") this.$piwik.trackOutlink(url);
+    },
+    resume() {
+      if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
     },
   },
 };
