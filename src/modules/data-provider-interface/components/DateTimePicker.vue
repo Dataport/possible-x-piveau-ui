@@ -8,7 +8,8 @@ export default {
     return {
       type: 'datetime',
       format: 'YYYY-MM-DD HH:mm',
-      valueType: 'YYYY-MM-DDThh:mm',
+      valueType: 'YYYY-MM-DDTHH:mm',
+      use12h: false,
     };
   },
 }
