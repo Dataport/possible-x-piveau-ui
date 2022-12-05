@@ -100,7 +100,28 @@ const actions = {
 
                 // values with identical structure for JSONLD and input form
                 if (inputtypes.sameFormatProperties[property].includes(propertyKey)) {
-                    if (!isEmpty(stateValues)) formData[propertyKey] = stateValues;
+                    if (!isEmpty(stateValues)) {
+                        // exclude machien translated title and description
+                        if (propertyKey === 'dct:title' || propertyKey === 'dct:description') {
+                            formData[propertyKey] = [];
+                            for (let pid = 0; pid < stateValues.length; pid += 1) {
+                                // only save actual values
+                                if (stateValues[pid]['@value'] !== "" && stateValues[pid]['@value'] !== undefined) {
+                                    if (!isEmpty(stateValues[pid]['@language'])) {
+                                        // only save non-machine-translated values
+                                        if (!stateValues[pid]['@language'].includes('mtec')) {
+                                            formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': stateValues[pid]['@language'] });
+                                        }
+                                    } else {
+                                        // if no language is given, preselect englisch
+                                        formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': 'en' });
+                                    }
+                                }
+                            }
+                        } else {
+                            formData[propertyKey] = stateValues;
+                        }
+                    }
                 } else if (inputtypes.typedStrings[property].includes(propertyKey)) {
                     if (!isEmpty(stateValues)) toInputConverter.typedStringToString(formData, stateValues, propertyKey);
                 } else if (inputtypes.multiURIs[property].includes(propertyKey)) {
