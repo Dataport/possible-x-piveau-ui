@@ -60,7 +60,7 @@ const distributions = {
     "dct:modified": {}, // {'@value': '', '@type': ''}
     "dct:type": {}, // {"@id": ""}
     "dcat:mediaType": {}, // {"@id": ""}
-    "dcat:availability": {}, // {"@id": ""}
+    "dcatap:availability": {}, // {"@id": ""}
     "dcat:byteSize": "", // ""
     "spdx:checksum": {}, // {"@type": "spdx:Checksum", "spdx:algorithm": {"@id": ""}, "spdx:checksumValue": ""}
     "dcat:compressFormat": {}, // {"@id": ""}
