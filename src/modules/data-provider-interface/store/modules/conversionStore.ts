@@ -105,17 +105,14 @@ const actions = {
                         if (propertyKey === 'dct:title' || propertyKey === 'dct:description') {
                             formData[propertyKey] = [];
                             for (let pid = 0; pid < stateValues.length; pid += 1) {
-                                // only save actual values
-                                if (stateValues[pid]['@value'] !== "" && stateValues[pid]['@value'] !== undefined) {
-                                    if (!isEmpty(stateValues[pid]['@language'])) {
-                                        // only save non-machine-translated values
-                                        if (!stateValues[pid]['@language'].includes('mtec')) {
-                                            formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': stateValues[pid]['@language'] });
-                                        }
-                                    } else {
-                                        // if no language is given, preselect englisch
-                                        formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': 'en' });
+                                if (!isEmpty(stateValues[pid]['@language'])) {
+                                    // only save non-machine-translated values
+                                    if (!stateValues[pid]['@language'].includes('mtec')) {
+                                        formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': stateValues[pid]['@language'] });
                                     }
+                                } else {
+                                    // if no language is given, preselect englisch
+                                    formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': 'en' });
                                 }
                             }
                         } else {
