@@ -447,6 +447,7 @@ const mutations = {
                 } else if (dcataptypes.singularURI[property].includes(key)) {
                     // properties which value is a singulare URI
                     if(!isEmpty(values[key])) toJsonldConverter.convertSingularURI(storedata[key], values[key]);
+                    else storedata[key] = "";
                 } else if (dcataptypes.multipleURI[property].includes(key)) {
                     // properties which value is an array of URIs
                     if(!isEmpty(values[key])) {
