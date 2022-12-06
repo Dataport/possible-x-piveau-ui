@@ -1,19 +1,31 @@
 <template>
-  <div class="col-12" :key="loadingComplete">
+  <div class="col-12">
     <div class="mb-3" v-if="showDatasetsOverview">
-
+      <!-- LANGUAGE SELECTOR -->
+      <div class="mt-5 mb-0" >
+        <div class="row">
+          <div class="col-10 offset-1">
+            Select Display Language:
+            <LanguageSelector class="ml-1" v-model="dpiLocale"></LanguageSelector>
+          </div>
+        </div>
+      </div>
       <!-- DATASET ID && CATALOG -->
       <div class="mt-5 mb-0" >
         <div class="row">
 
           <!-- DATASET ID -->
           <div class="col-5 offset-1" v-if="showValue(getDataset, '@id')">
-            <p class="mb-0">Dataset ID: {{ getValue(getDataset, '@id') }}</p>
+            <p class="mb-0">
+              <span class="font-weight-bold">Dataset ID:</span>
+              {{ getValue(getDataset, '@id') }}</p>
           </div>
 
           <!-- CATALOG -->
-          <div class="col-5 offset-1" v-if="showValue(getDataset, 'dct:catalog')">
-            <p class="mb-0">Catalog: {{ getValue(getDataset, 'dct:catalog') }}</p>
+          <div class="col-5" v-if="showValue(getDataset, 'dct:catalog')">
+            <p class="mb-0">
+              <span class="font-weight-bold">Catalog:</span>
+              {{ getValue(getDataset, 'dct:catalog') }}</p>
           </div>
         </div>
         <hr>
@@ -946,17 +958,19 @@ import {
   isObject,
 } from 'lodash';
 import { getTranslationFor, truncate, addPrecedingZero, formatDatetime } from '../../utils/helpers';
+import LanguageSelector from '../components/LanguageSelector';
 import AppLink from "@/modules/widgets/AppLink";
 import dateFilters from "@/modules/filters/dateFilters";
 
 export default {
   components: {
-    AppLink
+    AppLink,
+    LanguageSelector,
   },
   props: ['property'],
   data() {
     return {
-      loadingComplete: false,
+      dpiLocale: 'en',
     };
   },
   computed: {
@@ -1051,7 +1065,7 @@ export default {
     },
     /*** Overview Page display functionality ***/
     showLanguage(element) {
-      return has(element, '@language') && element['@language'] === this.$route.query.locale;
+      return has(element, '@language') && element['@language'] === this.dpiLocale;
     },
     showValue(property, value) {
       return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
@@ -1150,7 +1164,17 @@ export default {
           .then((isUniqueID) => {
             if (!isUniqueID) {
               // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
-              this.$router.push({ name: 'DataProviderInterface-Input', params: { property: property, page: 'step1' }, query: { error: 'id', locale: this.$route.query.locale } });
+              this.$router.push({ 
+                name: 'DataProviderInterface-Input',
+                params: { 
+                  property: property, 
+                  page: 'step1' 
+                }, 
+                query: { 
+                  error: 'id', 
+                  locale: this.$route.query.locale 
+                } 
+              });
             }
           });
       }
@@ -1186,7 +1210,6 @@ export default {
   },
   mounted(){
     this.saveExistingJsonld(this.property);
-    this.loadingComplete = true;
   }
 };
 </script>
