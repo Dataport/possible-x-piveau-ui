@@ -21,10 +21,12 @@
       />
 
       <deu-footer
-        :use-login="$env.navigation.bottom.login.useLogin"
         :authenticated="keycloak && keycloak.authenticated"
+        :use-login="$env.navigation.bottom.login.useLogin"
         :login="$env.navigation.bottom.login.loginURL"
+        :login-title="$env.navigation.bottom.login.loginTitle"
         :logout="$env.navigation.bottom.login.logoutURL"
+        :logout-title="$env.navigation.bottom.login.logoutTitle"
         @click-follow-link="handleFollowClick"/>
     </div>
     <dpiMenu v-if="keycloak && keycloak.authenticated"></dpiMenu>

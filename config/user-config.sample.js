@@ -54,7 +54,6 @@ const glueConfig = {
     audience: 'piveau-hub-repo',
   },
   languages: {
-    useLanguageSelector: true,
     locale: 'en',
     fallbackLocale: 'en',
   },
@@ -82,7 +81,7 @@ const glueConfig = {
         data: {
           show: true,
           sparql: {
-            show: false,
+            show: true,
           },
         },
         maps: {
@@ -122,7 +121,9 @@ const glueConfig = {
       login: {
         useLogin: true,
         loginURL: '/login',
+        loginTitle: 'Data Provider Interface Login',
         logoutURL: '/logout',
+        logoutTitle: 'Data Provider Interface Logout',
       }
     }
   },
