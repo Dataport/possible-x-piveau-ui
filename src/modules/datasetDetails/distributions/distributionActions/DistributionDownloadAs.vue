@@ -1,6 +1,6 @@
 <template>
    <span v-if="ifFormatMatches" class="dropdown-item d-block px-3 d-flex justify-content-end align-items-center">
-      <a @click="openModal()" class="download-btn text-dark text-decoration-none px-2" data-toggle="modal" data-target="#downloadAsModal">Download as</a>
+      <a @click="openModal()" class="download-btn text-dark text-decoration-none px-2" data-toggle="modal" data-target="#downloadAsModal">{{ $t('message.datasetDetails.datasets.modal.downloadAs') }}</a>
    </span>
 </template>
 <script>
@@ -69,7 +69,7 @@ export default {
       ]
     }
   },
-  created() {
+  mounted() {
     this.ifMatchesFormat(this.distribution.format.id);
   },
   methods: {
@@ -89,9 +89,9 @@ export default {
      }
     },
     openModal() {
-      const distribution = this.distribution
-      const selectOptions = this.selectOptions
-      this.selectDistributionForDownloadAs({distribution, selectOptions})
+      const distribution = this.distribution;
+      const selectOptions = this.selectOptions;
+      this.selectDistributionForDownloadAs({distribution, selectOptions});
     }
   },
 }
