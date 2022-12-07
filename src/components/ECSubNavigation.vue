@@ -5,7 +5,7 @@
       <div class="col d-flex d-lg-none justify-content-end flex-wrap px-0">
         <button class="btn btn-primary mb-3 text-right text-white text-nowrap more-button" data-toggle="collapse" data-target="#subNavigation"
                 aria-controls="subNavigation" aria-expanded="false" aria-label="Toggle navigation"
-                data-cy="btn-filter-toggle" @click="contentVisible = !contentVisible">
+                data-cy="subnavigation-toggle" @click="contentVisible = !contentVisible">
             More
           <i class="material-icons small-icon align-bottom" v-if="contentVisible">arrow_drop_up</i>
           <i class="material-icons small-icon align-bottom" v-else>arrow_drop_down</i>

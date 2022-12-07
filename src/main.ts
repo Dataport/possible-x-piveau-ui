@@ -93,7 +93,6 @@ import ECLinkButton from "./components/ECLinkButton.vue";
 import ECDataInfoBox from "./components/ECDataInfoBox.vue";
 import ECDatasets from "./components/ECDatasets.vue";
 import ECDatasetsFilters from "./components/ECDatasetsFilters.vue";
-import ECCatalogues from "./components/ECCatalogues.vue";
 import ECSubNavigation from "./components/ECSubNavigation.vue";
 import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
 import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
@@ -108,7 +107,6 @@ const components = ecStyle ? {
   DatasetDetailsNavigationPage: ECLinkButton,
   Datasets: ECDatasets,
   DatasetsFilters: ECDatasetsFilters,
-  Catalogues: ECCatalogues,
   DistributionsHeader: ECDistributionsHeader,
   DistributionDetails: ECDistributionDetails,
   SubNavigation: ECSubNavigation

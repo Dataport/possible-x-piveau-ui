@@ -83,7 +83,7 @@ import {
   uniqBy,
   toPairs,
   isArray,
-} from 'lodash';
+} from 'lodash-es';
 import $ from 'jquery';
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
 import {
