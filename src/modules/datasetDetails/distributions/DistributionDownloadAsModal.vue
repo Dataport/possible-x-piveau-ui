@@ -3,9 +3,9 @@
       <div class="modal-dialog  modal-dialog-centered modal-lg" role="document"  style="z-index: 1100;">
          <div class="modal-content rounded-0">
             <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Download as ...</h5>
+               <h5 class="modal-title" id="exampleModalLabel">{{ $t('message.datasetDetails.datasets.modal.downloadAs') }} ...</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  Close
+                  {{ $t('message.datasetDetails.datasets.modal.close') }}
                   <span aria-hidden="true" class="close-icon rounded-circle">
                      <svg xmlns="http://www.w3.org/2000/svg" fill="white" xmlns:xlink="http://www.w3.org/1999/xlink" height="8" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="8" xml:space="preserve">
                         <path d="M443.6,387.1L312.4,255.4l131.5-130c5.4-5.4,5.4-14.2,0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4  L256,197.8L124.9,68.3c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4L68,105.9c-5.4,5.4-5.4,14.2,0,19.6l131.5,130L68.4,387.1  c-2.6,2.6-4.1,6.1-4.1,9.8c0,3.7,1.4,7.2,4.1,9.8l37.4,37.6c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1L256,313.1l130.7,131.1  c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1l37.4-37.6c2.6-2.6,4.1-6.1,4.1-9.8C447.7,393.2,446.2,389.7,443.6,387.1z"/>
@@ -18,16 +18,13 @@
                   <div>
                      <div class="ecl-form-group">
                         <div class="ecl-select__container ecl-select__container--m">
-                           <select  v-model="selected" class="ecl-select" id="select-default"
+                           <select  v-model="selected" class="ecl-select coursor-pointer" id="select-default"
                               required="">
-                              <option value="" disabled hidden>- select a file format -</option>
+                              <option value="" disabled hidden>- {{ $t('message.datasetDetails.datasets.modal.selectFileFormat') }} -</option>
                               <option v-for="(option, index) in getDistributionDownloadAsOptions" :key="index" :value="option" v-text="option.toUpperCase()"></option>
                            </select>
                            <div class="ecl-select__icon">
-                              <svg class="ecl-icon ecl-icon--s ecl-icon--rotate-180 ecl-select__icon-shape"
-                                 focusable="false" aria-hidden="true">
-                                 <use fill="white" xlink:href="@/assets/img/ecl/icons.svg#corner-arrow"></use>
-                              </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="16" height="8" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 298.04"><path fill="#ffffff" fill-rule="nonzero" d="M12.08 70.78c-16.17-16.24-16.09-42.54.15-58.7 16.25-16.17 42.54-16.09 58.71.15L256 197.76 441.06 12.23c16.17-16.24 42.46-16.32 58.71-.15 16.24 16.16 16.32 42.46.15 58.7L285.27 285.96c-16.24 16.17-42.54 16.09-58.7-.15L12.08 70.78z"/></svg>
                            </div>
                         </div>
                      </div>
@@ -45,14 +42,14 @@
                               </svg>
                           </span>
                           <span>
-                            <p class="font-weight-bold ml-3">File conversion failed</p>
+                            <p class="font-weight-bold ml-3">{{ $t('message.datasetDetails.datasets.modal.fileConversionFail') }}</p>
                             <p class="ml-3">{{ errorMsg }}</p>
                           </span>
                        </div>
                      </div>
                      <div v-if="converting">
                         <div class="d-flex mt-4">
-                           <p class="m-0">1 Converting the file to <span class="font-weight-bold">{{selected.toUpperCase()}}</span></p>
+                           <p class="m-0">1 {{ $t('message.datasetDetails.datasets.modal.fileConversionTo') }} <span class="font-weight-bold">{{selected.toUpperCase()}}</span></p>
                            <i v-if="converted" class="success rounded-circle">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check" viewBox="0 0 16 16">
                                  <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
@@ -60,7 +57,7 @@
                            </i>
                         </div>
                         <div class="d-flex mt-2">
-                           <p :class="{ active: converted }" class="m-0" style="color:#A8A8A8;">2 Downloading</p>
+                           <p :class="{ active: converted }" class="m-0" style="color:#A8A8A8;">2 {{ $t('message.datasetDetails.datasets.modal.downloading') }} </p>
                            <i v-if="readyForDownload" class="success rounded-circle">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-check" viewBox="0 0 16 16">
                                  <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
@@ -76,7 +73,8 @@
                </div>
             </div>
             <div class="modal-footer justify-content-start">
-               <button @click="download" type="button" class="ecl-button ecl-button--secondary" v-text="downloadBtnText"></button>
+               <button v-if="!done" @click="download" type="button" class="ecl-button ecl-button--secondary" v-text="downloadBtnText"></button>
+               <button v-if="done" type="button" class="ecl-button ecl-button--secondary" data-dismiss="modal" aria-label="Close">Done</button>
             </div>
          </div>
       </div>
@@ -97,6 +95,7 @@ export default {
             converted: false,
             readyForDownload: false,
             error: false,
+            done: false,
             progress: '0',
             downloadBtnText: 'Download',
             errorMsg: '',
@@ -113,7 +112,7 @@ export default {
         const scope = this;
         $('#downloadAsModal').on('hide.bs.modal', () => {
             scope.selected = scope.errorMsg = '';
-            scope.converting = scope.converted = scope.readyForDownload = scope.error = false;
+            scope.converting = scope.converted = scope.readyForDownload = scope.error = scope.done = false;
             scope.progress = '0';
             scope.downloadBtnText = 'Download';
         })
@@ -127,18 +126,22 @@ export default {
             if (this.selected.toLowerCase() === this.getDistributionDownloadAs.format.id.toLowerCase()) {
                 if (ifDownloadUrl) {
                     window.open(this.getDistributionDownloadAs.downloadUrls[0]);
+                    this.done = true;
                 } else if (ifAccessUrl) {
                     window.open(this.getDistributionDownloadAs.accessUrl[0]);
+                    this.done = true;
                 }
+
             } else {
                 this.converting = true;
                 this.downloadBtnText = 'Converting...'
+
                 if (ifDownloadUrl || ifAccessUrl) {
                     let url = '';
                     if (ifDownloadUrl) {
-                        url = this.getDistributionDownloadAs.downloadUrls[0]
+                        url = this.getDistributionDownloadAs.downloadUrls[0];
                     } else if (!ifDownloadUrl && ifAccessUrl) {
-                        url = this.getDistributionDownloadAs.accessUrl[0]
+                        url = this.getDistributionDownloadAs.accessUrl[0];
                     }
                     this.progress = '34'
                     axios({
@@ -163,7 +166,8 @@ export default {
                                 docUrl.href = FILE;
                                 docUrl.setAttribute('download', `${this.getTitle[locale]}.${this.selected}`);
                                 document.body.appendChild(docUrl);
-                                this.downloadBtnText = 'Done'
+                                this.done = true;
+
                                 docUrl.click();
                             }, 3000)
                         })
@@ -204,7 +208,7 @@ export default {
   border: 3px solid #1C3D66;
 }
 .modal-header {
-   padding: 1rem 1.5rem;
+  padding: 1.5rem 1.5rem 0rem 1.5rem;
   border-bottom: none;
 }
 .modal-body {
@@ -218,6 +222,7 @@ export default {
   font-size: 16px;
   color: #1C3D66;
   opacity: 1;
+  padding: 0.5rem!important;
   .close-icon {
     color:white;
     background: #1C3D66;
@@ -246,5 +251,8 @@ export default {
    -moz-transition : width 1s ease;
      -o-transition : width 1s ease;
         transition : width 1s ease;
+}
+.ecl-select {
+  cursor: pointer;
 }
 </style>
