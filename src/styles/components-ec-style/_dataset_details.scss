@@ -83,7 +83,8 @@
 }
 
 .dsd-dataset {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .dsd-properties .show-more {
@@ -146,6 +147,30 @@
   padding-right: 0 !important;
 }
 
+// Orders in less than large:
+
+.dsd-description {
+  order: 0;
+}
+
+.dsd-banners {
+  order: 1;
+}
+
+.dsd-distributions {
+  order: 2;
+}
+
+.dsd-features {
+  order: 3;
+}
+
+.dsd-properties {
+  order: 4;
+}
+
+//
+
 @media screen and (max-width: 991px) { // less than lg
   .dsd-nav-button button {
     min-width: 200px !important;
@@ -196,7 +221,7 @@
   }
 
   .dsd-dataset {
-    display: grid;
+    display: grid !important;
     grid-template-columns: auto var(--dsd-right-column-width);
     grid-template-rows: auto 1fr auto auto;
     grid-auto-flow: row dense;
