@@ -2,8 +2,8 @@
   <nav class="col-12 navbar navbar-expand-lg navbar-light px-4 pb-3 mt-0 sub-navigation">
     <div class="d-flex flex-row flex-nowrap w-100">
       <h1 class="d-inline-block d-lg-none title px-0 mb-0 text-break">{{ title }}</h1>
-      <div class="col d-flex d-md-none justify-content-end flex-wrap px-0">
-        <button class="btn btn-primary mb-3 text-right text-white text-nowrap" data-toggle="collapse" data-target="#subNavigation"
+      <div class="col d-flex d-lg-none justify-content-end flex-wrap px-0">
+        <button class="btn btn-primary mb-3 text-right text-white text-nowrap more-button" data-toggle="collapse" data-target="#subNavigation"
                 aria-controls="subNavigation" aria-expanded="false" aria-label="Toggle navigation"
                 data-cy="btn-filter-toggle" @click="contentVisible = !contentVisible">
             More
@@ -12,7 +12,7 @@
         </button>
       </div>
     </div>
-    <div class="col-12 collapse navbar-collapse px-0" id="subNavigation">
+    <div class="col-12 collapse navbar-collapse px-0 mt-3 mt-0-lg" id="subNavigation">
       <slot/>
     </div>
   </nav>
@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .sub-navigation {
   background-color: white !important;
   box-shadow: 0 2px 4px -4px grey;
@@ -58,5 +58,9 @@ export default {
   font-weight: 500;
   line-height: 1.2;
   color: inherit;
+}
+
+.more-button {
+  max-height: 3rem;
 }
 </style>
