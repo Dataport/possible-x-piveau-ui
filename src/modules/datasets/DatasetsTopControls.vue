@@ -30,12 +30,15 @@
 
 <script>
 import AppLink from "@/modules/widgets/AppLink";
-import SubNavigation from "@/modules/navigation/SubNavigation";
+// import SubNavigation from "@/modules/navigation/SubNavigation";
 import {mapGetters} from "vuex";
 
 export default {
   name: "DataSetsTopControls",
-  components: {SubNavigation, AppLink},
+  components: {
+    // SubNavigation,
+    AppLink
+  },
   props: [
     "facets",
     "getPage",
