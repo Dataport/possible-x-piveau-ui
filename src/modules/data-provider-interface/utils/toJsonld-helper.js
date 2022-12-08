@@ -1,3 +1,4 @@
+import { clone } from "cypress/types/lodash";
 import { has, isEmpty, cloneDeep } from "lodash";
 import dcataptypes from '../../data-provider-interface/config/dcatap-jsonld-types';
 import namespacedKeys from "../../data-provider-interface/config/dcatap-namespace";
@@ -63,13 +64,12 @@ function convertSingularURI(state, values) {
 function convertMultipleURIs(state, values) {
     const arrayLength = values.length;
     for (let arrayIndex = 0; arrayIndex < arrayLength; arrayIndex += 1) {
-        state[arrayIndex] = { '@id': '' };
 
         // the array can either contain objects with the actual value or the values directly
-        if (typeof values[arrayIndex] === 'string') {
-            state[arrayIndex]['@id'] = values[arrayIndex];
-        } else if (typeof values[arrayIndex] === 'object') {
-            state[arrayIndex]['@id'] = values[arrayIndex]['@id'];
+        if (typeof values[arrayIndex] === 'string' && (values[arrayIndex] !== "" && values[arrayIndex] !== undefined)) {
+            state[arrayIndex] = { '@id': values[arrayIndex] };
+        } else if (typeof values[arrayIndex] === 'object' && has(values[arrayIndex], '@id') && values[arrayIndex]['@id'] !== "") {
+            state[arrayIndex] = { '@id': values[arrayIndex]['@id'] };
         }
     }
 }
@@ -216,7 +216,7 @@ function addGroupedValues(state, values, definition, parentKey) {
             // property with singular URI
             //-------------------------------------------------
             if (dcataptypes.nestedSingularURIs.includes(key)) {
-                if (values[key]) {
+                if (!isEmpty(values[key])) {
                     state[key] = {};
                     convertSingularURI(state[key], values[key]);
                 }
@@ -226,7 +226,7 @@ function addGroupedValues(state, values, definition, parentKey) {
             // property with singular string value
             //-------------------------------------------------
             } else if (dcataptypes.nestedSingularString.includes(key)) {
-                if (values[key]) convertSingularString(state, values[key], key);
+                if (!isEmpty(values[key])) convertSingularString(state, values[key], key);
             //-------------------------------------------------
             // nested property vcard:hasAddress (dct:contactPoint) has also grouped input
             //-------------------------------------------------
@@ -243,7 +243,6 @@ function addGroupedValues(state, values, definition, parentKey) {
                         if (values[key][0][subKey]) convertSingularString(state[key], values[key][0][subKey], subKey);
                     }
                 }
-
             //-------------------------------------------------
             // conditional conversion of title and description based on parent property
             //-------------------------------------------------
@@ -259,7 +258,7 @@ function addGroupedValues(state, values, definition, parentKey) {
             // nested property skos:notation (adms:identifier) has also grouped input
             //-------------------------------------------------
             } else if (key === 'skos:notation') {
-                if (values[key]) {
+                if (!isEmpty(values[key])) {
                     state[key] = {};
                     // the values of skos notation are grouped and therefore stored in an array
                     // because the skos-values aren't repeatbale the array has only one element -> object containing values
