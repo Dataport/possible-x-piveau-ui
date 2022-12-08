@@ -81,6 +81,7 @@ const dcatapProperties = {
           type: 'select',
           name: '@type',
           options: {
+            '': '---',
             'vcard:Individual': 'Person',
             'vcard:Organization': 'Organization',
           },
@@ -311,6 +312,7 @@ const dcatapProperties = {
           type: 'select',
           name: '@type',
           options: {
+            '': '---',
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
           },
@@ -614,17 +616,8 @@ const dcatapProperties = {
         {
           identifier: 'qualifiedRelationUrl',
           type: 'url',
-          name: 'dct:relation',
-          validation: 'required|url',
-          class: 'main',
-          '@change': true,
-        },
-        {
-          identifier: 'qualifiedRelationHadRole',
-          type: 'text',
-          name: 'dcat:hadRole',
-          validation: 'required',
-          class: 'main',
+          name: '@id',
+          validation: 'optional|url',
           '@change': true,
         },
       ],
@@ -1675,6 +1668,7 @@ const dcatapProperties = {
           type: 'select',
           name: '@type',
           options: {
+            '': '---',
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
           },
