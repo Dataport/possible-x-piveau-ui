@@ -1,4 +1,3 @@
-import { clone } from "cypress/types/lodash";
 import { has, isEmpty, cloneDeep } from "lodash";
 import dcataptypes from '../../data-provider-interface/config/dcatap-jsonld-types';
 import namespacedKeys from "../../data-provider-interface/config/dcatap-namespace";
