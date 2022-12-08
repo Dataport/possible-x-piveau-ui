@@ -105,17 +105,14 @@ const actions = {
                         if (propertyKey === 'dct:title' || propertyKey === 'dct:description') {
                             formData[propertyKey] = [];
                             for (let pid = 0; pid < stateValues.length; pid += 1) {
-                                // only save actual values
-                                if (stateValues[pid]['@value'] !== "" && stateValues[pid]['@value'] !== undefined) {
-                                    if (!isEmpty(stateValues[pid]['@language'])) {
-                                        // only save non-machine-translated values
-                                        if (!stateValues[pid]['@language'].includes('mtec')) {
-                                            formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': stateValues[pid]['@language'] });
-                                        }
-                                    } else {
-                                        // if no language is given, preselect englisch
-                                        formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': 'en' });
+                                if (!isEmpty(stateValues[pid]['@language'])) {
+                                    // only save non-machine-translated values
+                                    if (!stateValues[pid]['@language'].includes('mtec')) {
+                                        formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': stateValues[pid]['@language'] });
                                     }
+                                } else {
+                                    // if no language is given, preselect englisch
+                                    formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': 'en' });
                                 }
                             }
                         } else {
@@ -443,16 +440,22 @@ const mutations = {
                 // properties which value is a single string
                 if (dcataptypes.singularString[property].includes(key)) {
                     if(!isEmpty(values[key])) toJsonldConverter.convertSingularString(storedata, values[key], key);
+                    else storedata[key] = "";
                 } else if (dcataptypes.typedStrings[property].includes(key)) {
                     if (!isEmpty(values[key])) toJsonldConverter.convertTypedStrings(storedata, values[key], key);
+                    else storedata[key] = "";
                 } else if (dcataptypes.singularURI[property].includes(key)) {
                     // properties which value is a singulare URI
                     if(!isEmpty(values[key])) toJsonldConverter.convertSingularURI(storedata[key], values[key]);
+                    else storedata[key] = "";
                 } else if (dcataptypes.multipleURI[property].includes(key)) {
                     // properties which value is an array of URIs
                     if(!isEmpty(values[key])) {
                         storedata[key] = []; // overwriting existing array so removed values will be deleted
                         toJsonldConverter.convertMultipleURIs(storedata[key], values[key]);
+                    } else {
+                        // reset saved properties if values were emptied
+                        storedata[key] = [];
                     }
                 } else if (dcataptypes.multiLang[property].includes(key)) {
                     // properties with a language selection
@@ -463,6 +466,7 @@ const mutations = {
                 } else if (dcataptypes.conditionalValues[property].includes(key)) {
                     // properties with conditional input formats (license and rights)
                     if(!isEmpty(values[key])) toJsonldConverter.convertConditional(storedata, values[key], key);
+                    else storedata[key] = "";
                 } else if (dcataptypes.groupedProperties.includes(key)) {
                     // a group of properties (or an array of groups)
                     if(!isEmpty(values[key])) {
@@ -476,7 +480,7 @@ const mutations = {
 
                     for (let idIndex = 0; idIndex < identifierLength; idIndex += 1) {
                         // the form privdes identifier data like this: [{'@value': ''}, ...]
-                        storedata[key][idIndex] = values[key][idIndex]['@value'];
+                        if (values[key][idIndex]['@value'] !== '' &&values[key][idIndex]['@value'] !== undefined) storedata[key][idIndex] = values[key][idIndex]['@value'];
                     }
                 } else if (key === 'dcat:temporalResolution') {
                     // merge values of temporal resolution
@@ -486,6 +490,8 @@ const mutations = {
                     const resultionValues = values[key][0];
                     storedata[key] = {'@value': '', '@type': 'xsd:duration'};
                     storedata[key]['@value'] = `P${resultionValues.Year ? resultionValues.Year : 0}Y${resultionValues.Month ? resultionValues.Month : 0}M${resultionValues.Day ? resultionValues.Day : 0}DT${resultionValues.Hour ? resultionValues.Hour : 0}H${resultionValues.Minute ? resultionValues.Minute : 0}M${resultionValues.Second ? resultionValues.Second : 0}S`
+                    // remove 'empty' (all zero) values
+                    if (Object.values(resultionValues).every(el => el === 0 || el === '' || el === '0')) storedata[key] = '';
                 } else if (key === 'spdx:checksum') {
                     const actualValues = values[key][0]; // checksum is a grouped property and therefore stored within an array (with only one entry because it is not repeatable)
                     if (!isEmpty(actualValues)) {
