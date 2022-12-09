@@ -293,3 +293,8 @@
     }
   }
 }
+@media screen and (max-width: 480px) { // less than sm
+  .dsd-nav {
+    flex-wrap: wrap !important;
+  }
+}

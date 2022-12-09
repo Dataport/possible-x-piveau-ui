@@ -5,7 +5,7 @@
         <i class="material-icons dsd-feature-header-arrow">{{ arrowDown ? "keyboard_arrow_down" : "keyboard_arrow_up" }}</i>
     </div>
     <div class="col-11 py-2 bg-white">
-      <span class="dsd-feature-title text-nowrap"
+      <span class="dsd-feature-title"
           :data-cy="tag"
           @click="onClick()">{{ title }}</span>
     </div>
