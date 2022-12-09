@@ -39,7 +39,7 @@
     <div v-if="getUserData.userName">
       <small class="text-white">Logged in as {{ getUserData.userName }}</small><br>
         <button type="button" class="btn btn-default logout">
-          <a href="#" @click="$keycloak && $keycloak.logoutFn('/')">Logout</a>
+          <router-link :to="{ name: 'Logout'}">Logout</router-link>
         </button>
     </div>
   </nav>

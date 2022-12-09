@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between" :key="property">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi" :key="property">
     <!-- TOP -->
     <div>
       <h1 class="small-headline">{{ mode }}</h1>

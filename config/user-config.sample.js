@@ -46,6 +46,7 @@ const glueConfig = {
     'verify-token-audience': true,
     'use-resource-role-mappings': true,
     'confidential-port': 0,
+    loginRedirectUri: '/data',
     logoutRedirectUri: '/data',
   },
   rtp: {
@@ -53,7 +54,6 @@ const glueConfig = {
     audience: 'piveau-hub-repo',
   },
   languages: {
-    useLanguageSelector: true,
     locale: 'en',
     fallbackLocale: 'en',
   },
@@ -81,7 +81,7 @@ const glueConfig = {
         data: {
           show: true,
           sparql: {
-            show: false,
+            show: true,
           },
         },
         maps: {
@@ -117,7 +117,15 @@ const glueConfig = {
         },
       },
     },
-    bottom: {}
+    bottom: {
+      login: {
+        useLogin: true,
+        loginURL: '/login',
+        loginTitle: 'Data Provider Interface Login',
+        logoutURL: '/logout',
+        logoutTitle: 'Data Provider Interface Logout',
+      }
+    }
   },
   pagination: {
     usePagination: true,

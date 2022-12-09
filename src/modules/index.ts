@@ -4,6 +4,8 @@ import AppLink from "./widgets/AppLink.vue";
 import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
 
+import Auth from './auth/Auth.vue';
+
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
 import DatasetDetailsQuality from "./datasetDetails/DatasetDetailsQuality.vue";
 import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets.vue";
@@ -86,6 +88,8 @@ export {
   AppSnackbar,
   AppConfirmationDialog,
 
+  Auth,
+  
   DatasetDetailsCategories,
   DatasetDetailsQuality,
   DatasetDetailsSimilarDatasets,
