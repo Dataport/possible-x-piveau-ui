@@ -129,7 +129,7 @@ const glueConfig = {
   },
   pagination: {
     usePagination: true,
-    usePaginationArrows: false,
+    usePaginationArrows: ecStyle,
     useItemsPerPage: true,
     defaultItemsPerPage: 10,
     defaultItemsPerPageOptions: [5, 10, 25, 50],
