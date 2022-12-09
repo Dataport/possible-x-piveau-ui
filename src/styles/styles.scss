@@ -73,8 +73,21 @@
   margin-bottom: 0.5rem;
 }
 
-.dsd-title-tag {
-  display: none;
+@media screen and (max-width: 768px) {
+
+  .dataset-info-box-body{
+    padding: 0;
+  }
+  .ecl-select__icon-shape{
+    fill: #0b4498 !important;
+  }
+  .ecl-select__icon{
+
+    background-color: #fff !important;
+  }
+  .page-title{
+    color: var(--primary) !important;
+  }
 }
 
 @media screen and (max-width: 991px) { // less than lg

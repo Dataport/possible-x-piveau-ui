@@ -266,6 +266,8 @@ require('./styles/styles.scss');
 
 if (ecStyle) {
   require('./styles/ec-style.scss');
+} else {
+  require('./styles/old-deu-style.scss');
 }
 
 $(() => {
