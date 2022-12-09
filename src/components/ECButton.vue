@@ -1,7 +1,7 @@
 <template>
   <button
-    class="justify-content-center"
-    :class="`d-flex ecl-button ecl-button--${primary? 'primary' : 'secondary'}`"
+    class="justify-content-center d-none d-md-flex "
+    :class="` ecl-button ecl-button--${primary? 'primary' : 'secondary'}`"
     @click="onClick()"
     :title="tooltip"
   >

@@ -24,7 +24,7 @@
     "@citation-js/plugin-csl": "^0.5.7",
     "@citation-js/plugin-doi": "^0.5.7",
     "@deu/deu-cookie-consent": "^2.1.0",
-    "@deu/deu-header-footer": "^4.22.13",
+    "@deu/deu-header-footer": "^4.22.15",
     "@ecl/preset-ec": "^3.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
     "@fortawesome/free-brands-svg-icons": "^5.11.2",

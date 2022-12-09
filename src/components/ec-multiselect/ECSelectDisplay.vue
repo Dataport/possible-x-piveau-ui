@@ -27,6 +27,7 @@
 export default {
   name: "ECSelectDisplay",
   props: {
+    title: String,
     text: String,
     placeholder: String,
     showOptions: Function,
@@ -57,8 +58,6 @@ export default {
   }
 }
 
-.empty {
-  color: grey;
-}
+
 
 </style>
