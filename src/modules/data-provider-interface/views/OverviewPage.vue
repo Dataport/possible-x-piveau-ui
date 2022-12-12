@@ -1,15 +1,17 @@
 <template>
   <div class="col-12">
-    <div class="mb-3" v-if="showDatasetsOverview">
-      <!-- LANGUAGE SELECTOR -->
-      <div class="mt-5 mb-0" >
-        <div class="row">
-          <div class="col-10 offset-1">
-            Select Display Language:
-            <LanguageSelector class="ml-1" v-model="dpiLocale"></LanguageSelector>
-          </div>
+    
+    <!-- LANGUAGE SELECTOR -->
+    <div class="mt-5 mb-0" >
+      <div class="row">
+        <div class="col-10 offset-1">
+          Select Display Language:
+          <LanguageSelector class="ml-1" v-model="dpiLocale"></LanguageSelector>
         </div>
       </div>
+    </div>
+
+    <div class="mb-3" v-if="showDatasetsOverview">
       <!-- DATASET ID && CATALOG -->
       <div class="mt-5 mb-0" >
         <div class="row">
@@ -1071,7 +1073,7 @@ export default {
       return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
     },
     showString(property) {
-      return isString(property) && this.showValue(property);
+      return isString(property) && !isNil(property) && !isEmpty(property);
     },
     showObjectElementValue(property, object, value) {
       return has(property, object) && this.showValue(property[object], value);
