@@ -26,11 +26,7 @@ import {
   UserCataloguesPage,
   decode,
 } from "@piveau/piveau-hub-ui-modules";
-import ECDatasets from "../src/components/ECDatasets.vue"
-import ECCatalogues from "../src/components/ECCatalogues.vue"
-import ECDatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetDetailsQuality.vue"
 
-import { ecStyle } from '../config/user-config';
 
 Vue.use(Router);
 
@@ -56,7 +52,7 @@ const router = new Router({
     {
       path: '/datasets',
       name: 'Datasets',
-      component: ecStyle ? ECDatasets : Datasets,
+      component: Datasets,
       meta: {
         title,
       },
@@ -99,7 +95,7 @@ const router = new Router({
           path: 'quality',
           name: 'DatasetDetailsQuality',
           components: {
-            datasetDetailsSubpages: ecStyle ? ECDatasetDetailsQuality : DatasetDetailsQuality,
+            datasetDetailsSubpages: DatasetDetailsQuality,
           },
           meta: {
             title,
@@ -131,7 +127,7 @@ const router = new Router({
     {
       path: '/catalogues',
       name: 'Catalogues',
-      component: ecStyle ? ECCatalogues : Catalogues,
+      component: Catalogues,
       meta: {
         title,
       },

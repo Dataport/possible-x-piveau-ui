@@ -1,5 +1,3 @@
-import {ecStyle} from "./user-config.sample";
-
 /**
  * Configuration template file to bind specific properties to environment variables.
  * All values must have the prefix $VUE_APP_.
