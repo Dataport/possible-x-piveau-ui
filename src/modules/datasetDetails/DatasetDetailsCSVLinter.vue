@@ -2,6 +2,9 @@
     <!-- CSV Linter -->
     <div class="dsd-distribution-quality-csv row" v-if="showValidation">
         <h4 class="col-12 mt-5 mb-3 font-weight-bold">{{ csvLinter.title }}</h4>
+        <div class="col-12">
+            <pv-banner>{{ csvLinter.banner }}</pv-banner>
+        </div>
         <div class="col-7">
             <div class="p-3 csv-validation-box" 
                 :class="getValidationStatus(validation.passed)">
@@ -52,6 +55,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-12" v-if="showLimit">
+            <pv-banner>{{ `${csvLinter.limit} ${validation.limit}` }}</pv-banner>
+        </div>
         <ECMore class="col-12 text-primary mb-3 mt-5"
             v-if="useECMore"
             :label="csvLinter.displayAll ? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
@@ -63,18 +69,22 @@
 <script>
 import { has, isNil } from 'lodash-es';
 import ECMore from "@/components/ECMore";
+import PvBanner from "@/modules/widgets/PvBanner";
 
 export default {
     name: 'datasetDetailsCSVLinter',
     components: {
         ECMore,
+        PvBanner,
     },
     dependencies: 'DatasetService',
     props: ['validation'],
     data() {
         return {
             csvLinter: {
-                title: 'CSV Validation Results',
+                title: this.$t('message.datasetDetails.quality.title'),
+                banner: this.$t('message.datasetDetails.quality.banner'),
+                limit: this.$t('message.datasetDetails.quality.limit'),
                 displayAll: this.$env.datasetDetails.quality.csvLinter.displayAll,
                 numberOfDisplayedValidationResults: this.$env.datasetDetails.quality.csvLinter.numberOfDisplayedValidationResults,
                 validationTitle: {
@@ -89,6 +99,9 @@ export default {
         };
     },
     computed: {
+        showLimit() {
+            return has(this.validation, 'limit') && !isNil(this.validation.limit);
+        },
         showValidation() {
             return !isNil(this.validation) 
                 && has(this.validation, 'passed') 
