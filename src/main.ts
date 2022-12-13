@@ -77,38 +77,7 @@ Vue.config.devtools = true;
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = Vue.prototype.$env;
 
-import { ecStyle } from '../config/user-config.js';
-
-import ECSelectFacet from "./components/ECSelectFacet.vue";
-import ECRadioFacet from "./components/ECRadioFacet.vue";
-import ECMore from "./components/ECMore.vue";
-import ECButton from "./components/ECButton.vue";
-import ECInfo from "./components/ECInfo.vue";
-import ECLinkButton from "./components/ECLinkButton.vue";
-import ECDataInfoBox from "./components/ECDataInfoBox.vue";
-import ECDatasets from "./components/ECDatasets.vue";
-import ECDatasetsFilters from "./components/ECDatasetsFilters.vue";
-import ECCatalogues from "./components/ECCatalogues.vue";
-import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
-import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
-
-const components = ecStyle ? {
-  SelectFacet: ECSelectFacet,
-  RadioFacet: ECRadioFacet,
-  PvShowMore: ECMore,
-  PvButton: ECButton,
-  PvBanner: ECInfo,
-  PvDataInfoBox: ECDataInfoBox,
-  DatasetDetailsNavigationPage: ECLinkButton,
-  Datasets: ECDatasets,
-  DatasetsFilters: ECDatasetsFilters,
-  Catalogues: ECCatalogues,
-  DistributionsHeader: ECDistributionsHeader,
-  DistributionDetails: ECDistributionDetails
-} : {};
-
 configureModules({
-  components,
   services: GLUE_CONFIG.services,
   serviceParams: {
     baseUrl: env.api.baseUrl,
@@ -259,9 +228,6 @@ require('bootstrap');
 
 require('./styles/styles.scss');
 
-if (ecStyle) {
-  require('./styles/ec-style.scss');
-}
 
 $(() => {
   $('[data-toggle="popover"]').popover({ container: 'body' });

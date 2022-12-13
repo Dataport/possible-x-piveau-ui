@@ -7,9 +7,6 @@ import {
 
 import i18n from './i18n';
 
-// export const ecStyle = true;
-export const ecStyle = false;
-
 const glueConfig = {
   title: 'piveau Hub-UI',
   description: 'A modern and customizable web application for data management of extensive data catalogs.',
@@ -158,11 +155,11 @@ const glueConfig = {
       ],
     },
     facets: {
-      cutoff: ecStyle ? 5 : -1,
-      showClearButton: ecStyle,
-      showFacetsTitle: ecStyle, // Title on top of the facets
+      cutoff: 5 ,
+      showClearButton: false,
+      showFacetsTitle: false, // Title on top of the facets
       useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
-      useDatasetFacetsMap: !ecStyle, // Enable / Disable the map on the Datasets page
+      useDatasetFacetsMap: true, // Enable / Disable the map on the Datasets page
       defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'],
       scoringFacets: {
         useScoringFacets: true, // Enable / Disable the scoring facets
@@ -218,9 +215,9 @@ const glueConfig = {
   },
   catalogs: {
     facets: {
-      cutoff: ecStyle ? 5 : -1,
-      showClearButton: ecStyle,
-      showFacetsTitle: ecStyle, // Title on top of the facets
+      cutoff: 5,
+      showClearButton: false,
+      showFacetsTitle: false, // Title on top of the facets
       // Enable / Disable the facets on the Catalogues page
       useCatalogFacets: true,
       defaultFacetOrder: ['country'],
@@ -252,12 +249,12 @@ const glueConfig = {
   },
   datasetDetails: {
     header: {
-      navigation: ecStyle ? "below" : "top", // "top", "below"
-      hidePublisher: ecStyle,
-      hideDate: ecStyle
+      navigation: "top", // "top", "below"
+      hidePublisher: false,
+      hideDate: false
     },
     keywords: {
-      showTitle: ecStyle
+      showTitle: false
     },
     description: {
       // If true, parses dataset description as Markdown formatted text content.
@@ -323,7 +320,7 @@ const glueConfig = {
       isVisible: false,
     },
     bulkDownload: {
-      buttonPosition: ecStyle ? "bottom" : "top", // bottom or top
+      buttonPosition: "top", // bottom or top
       // Maximum length for a file title before being truncated
       MAX_FILE_TITLE_LENGTH: 80,
       // Maximum parallel axios requests
