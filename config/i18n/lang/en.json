@@ -1304,7 +1304,10 @@
                 "error": "Error | Errors",
                 "totalRows": "Total Rows processed",
                 "column": "Column",
-                "row": "Row"
+                "row": "Row",
+                "limit": "Too many results. Max number of results shown:",
+                "banner": "This system is currently in a test phase.",
+                "title": "CSV Validation Results"
             },
             "follow": "Follow",
             "accessURLTooltip": "This link can contain information about how to get the referenced file or is a direct link to the referenced file.",
