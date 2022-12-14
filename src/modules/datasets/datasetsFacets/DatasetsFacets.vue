@@ -361,7 +361,6 @@ export default {
       this.setFacetGroupOperator(op);
     },
     changeDataServices(dataServices) {
-      console.log("changeDataServices", { dataServices })
       this.setDataServices(dataServices);
       // this.setRouteQuery({ dataServices: (dataServices ? 'true' : undefined), page: 1 });
       const query = Object.assign({}, this.$route.query, { dataServices, page: 1 });
