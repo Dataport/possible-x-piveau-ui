@@ -73,8 +73,7 @@ import {
   has,
   isNil,
   isNumber,
-} from 'lodash';
-// import Facet from '../../facets/SelectFacet.vue';
+} from 'lodash-es';
 import Vue from 'vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
@@ -264,6 +263,21 @@ export default {
         return 1;
       });
     },
+    setRouteQuery(query, mode) {
+      if (mode === "replace") {
+        return this.$router.replace(
+          { query: Object.assign({}, this.$route.query, query) }
+        ).catch(
+          error => { console.log(error); }
+        );
+      } else {
+        return this.$router.push(
+          { query: Object.assign({}, this.$route.query, query) }
+        ).catch(
+          error => { console.log(error); }
+        );
+      }
+    },
     facetIsSelected(fieldId, item) {
       const facet = item.id;
       if (fieldId === 'scoring') {
@@ -296,11 +310,7 @@ export default {
     },
     toggleFacet(field, facet) {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-        return this.$router.push(
-          { query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        return this.setRouteQuery({ [field]: [], page: 1 });
       }
       let facets = this.$route.query[field].slice();
       if (!Array.isArray(facets)) facets = [facets];
@@ -308,21 +318,19 @@ export default {
         // Ignore Case for categories
         facet.toUpperCase();
         facets = facets.map(f => f.toUpperCase());
-      } else if (field === 'scoring') {
+      }
+      if (field === 'scoring') {
         // Empty facets as scoring facets are disjoint
-        facets = [];
-      }
-      const index = facets.indexOf(facet);
-      if (index > -1) {
-        facets.splice(index, 1);
+        facets = (facet === 'badScoring') ? [] : [facet];
       } else {
-        facets.push(facet);
+        const index = facets.indexOf(facet);
+        if (index > -1) {
+          facets.splice(index, 1);
+        } else {
+          facets.push(facet);
+        }
       }
-      return this.$router.push(
-        { query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }
-      ).catch(
-        error => { console.log(error); }
-      );
+      return this.setRouteQuery({ [field]: facets, page: 1 });
     },
     clearFacets() {
       if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
@@ -333,19 +341,11 @@ export default {
     },
     dataScopeFacetClicked(dataScope) {
       if (this.$route.query.dataScope === dataScope) {
-        this.$router.push(
-          { query: Object.assign({}, this.$route.query, { dataScope: [], country: [], page: 1 }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        this.setRouteQuery({ dataScope: [], country: [], page: 1 });
       } else {
         const country = [];
         country.push(dataScope);
-        this.$router.push(
-          { query: Object.assign({}, this.$route.query, { dataScope, country, page: 1 }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        this.setRouteQuery({ dataScope, country, page: 1 });
       }
     },
     scoringFacetClicked(item) {
@@ -360,15 +360,17 @@ export default {
       op = op === this.FACET_GROUP_OPERATORS.and ? this.FACET_GROUP_OPERATORS.or : this.FACET_GROUP_OPERATORS.and;
       this.setFacetGroupOperator(op);
     },
-    changeDataServices(ds) {
-      this.setDataServices(ds);
+    changeDataServices(dataServices) {
+      this.setDataServices(dataServices);
+      // this.setRouteQuery({ dataServices: (dataServices ? 'true' : undefined), page: 1 });
+      const query = Object.assign({}, this.$route.query, { dataServices, page: 1 });
+      if (dataServices === 'false') {
+        delete query.dataServices;
+      }
+      this.$router.replace({ query });
     },
     resetPage() {
-      this.$router.replace(
-        { query: Object.assign({}, this.$route.query, { page: 1 }) }
-      ).catch(
-        error => { console.log(error); }
-      );
+      this.setRouteQuery({ page: 1 }, "replace");
     },
     getFacetCount(field, facet) {
       if (field.id === 'scoring') return '';
@@ -406,20 +408,16 @@ export default {
   watch: {
     facetGroupOperatorWatcher: {
       handler(facetGroupOperator) {
-        this.$router.replace(
-          { query: Object.assign({}, this.$route.query, { facetGroupOperator }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        this.setRouteQuery({ facetGroupOperator }, "replace");
       },
     },
-    getDataServices(dataServices) {
-      this.$router.replace(
-        { query: Object.assign({}, this.$route.query, { dataServices }) }
-      ).catch(
-        error => { console.log(error); }
-      );
-    },
+    // getDataServices(dataServices) {
+    //   this.$router.replace(
+    //     { query: Object.assign({}, this.$route.query, { dataServices }) }
+    //   ).catch(
+    //     error => { console.log(error); }
+    //   );
+    // },
     '$route.query.showcatalogdetails'(showCatalogDetails) {
       this.showCatalogDetails = showCatalogDetails;
     },
