@@ -129,11 +129,11 @@ const glueConfig = {
       login: {
         useLogin: true,
         loginURL: '/login',
-        loginTitle: 'Data Provider Interface Login',
+        loginTitle: 'Login',
         logoutURL: '/logout',
-        logoutTitle: 'Data Provider Interface Logout',
-      }
-    }
+        logoutTitle: 'Logout',
+      },
+    },
   },
   pagination: {
     usePagination: true,
@@ -367,7 +367,7 @@ const glueConfig = {
         verySimilar: { start: 0, end: 20 },
         similar: { start: 20, end: 25 },
         lessSimilar: { start: 25, end: 35 },
-      }
+      },
     },
   },
   // Leaflet map configuration
