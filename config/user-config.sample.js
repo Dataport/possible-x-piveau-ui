@@ -16,17 +16,25 @@ const glueConfig = {
   keywords: 'DEU',
   api: {
     baseUrl: 'https://data.europa.eu/api/hub/search/',
+    // baseUrl: 'https://ppe.data.europa.eu/api/hub/search/',
     // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
+    // qualityBaseUrl: 'https://ppe.data.europa.eu/api/mqa/cache/',
+    // qualityBaseUrl: 'https://piveau-metrics-cache-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
-    gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
+    // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
+    // similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     hubUrl: 'https://data.europa.eu/api/hub/repo/',
+    // hubUrl: 'https://ppe.data.europa.eu/api/hub/repo/',
     // hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
+    // fileUploadUrl: 'https://ppe.data.europa.eu/api/hub/store/',
+    // fileUploadUrl: 'https://piveau-hub-store-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
     catalogBaseUrl: 'https://europeandataportal.eu/',
-    authToken: '',
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
     sparqlUrl: 'https://data.europa.eu/sparql',
-    fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
+    authToken: '',
   },
   tracker: {
     // Matomo/PiwikPro analytics config
@@ -353,7 +361,14 @@ const glueConfig = {
         // Number of results to be shown
         numberOfDisplayedValidationResults: 5,
       },
-    }
+    },
+    similarDatasets: {
+      breakpoints: {
+        verySimilar: { start: 0, end: 20 },
+        similar: { start: 20, end: 25 },
+        lessSimilar: { start: 25, end: 35 },
+      }
+    },
   },
   // Leaflet map configuration
   maps: {
