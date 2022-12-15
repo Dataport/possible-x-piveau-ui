@@ -15,9 +15,9 @@
                 <small>{{ getTranslationFor(similarDataset.description, $route.query.locale, getLanguages) }}</small>
               </p>
               <div class="mb-3">
-                <PvBadge v-if="similarDataset.distance <= 20" class="p-1 ml-1 badge-success text-center text-white" :value="{ label: $t('message.similarDatasets.verySimilar') }"></PvBadge>
-                <PvBadge v-else-if="similarDataset.distance > 20 && similarDataset.distance <= 30" class="p-1 ml-1 badge-info text-center text-white" :value="{ label: $t('message.similarDatasets.similar') }"></PvBadge>
-                <PvBadge v-else-if="similarDataset.distance > 30 && similarDataset.distance <= 40" class="p-1 ml-1 badge-warning text-center text-white" :value="{ label: $t('message.similarDatasets.lessSimilar') }"></PvBadge>
+                <PvBadge v-if="showSimilarbadge(similarDataset.distance, 'verySimilar')" class="p-1 ml-1 badge-success text-center text-white" :value="{ label: $t('message.similarDatasets.verySimilar') }"></PvBadge>
+                <PvBadge v-else-if="showSimilarbadge(similarDataset.distance, 'similar')" class="p-1 ml-1 badge-info text-center text-white" :value="{ label: $t('message.similarDatasets.similar') }"></PvBadge>
+                <PvBadge v-else-if="showSimilarbadge(similarDataset.distance, 'lessSimilar')" class="p-1 ml-1 badge-warning text-center text-white" :value="{ label: $t('message.similarDatasets.lessSimilar') }"></PvBadge>
                 <PvBadge v-else class="p-1 ml-1 badge-secondary text-center text-white" :value="{ label: $t('message.similarDatasets.marginalSimilar') }"></PvBadge>
               </div>
             </div>
@@ -62,6 +62,7 @@
       return {
         similarDatasetsFetched: false,
         similarDatasetsPresent: false,
+        breakpoints: this.$env.datasetDetails.similarDatasets.breakpoints,
       };
     },
     computed: {
@@ -98,6 +99,9 @@
        */
       getDatasetDetails(similarDataset) {
         this.loadSimilarDatasetDetails(similarDataset.id);
+      },
+      showSimilarbadge(distance, similarType) {
+        return distance > this.breakpoints[similarType].start && distance <= this.breakpoints[similarType].end;
       },
     },
     created() {
