@@ -59,7 +59,7 @@ export default {
   metaInfo() {
     return {
       titleTemplate(chunk) {
-        return chunk ? `${chunk} - piveau Hub-UI` : 'piveau Hub-UI';
+        return chunk ? `${chunk} - ${this.$env.title}` : this.$env.title;
       },
       meta: [
         { name: 'description', vmid: 'description', content: 'piveau Hub-UI' },
