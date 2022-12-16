@@ -52,48 +52,11 @@ module.exports = defineConfig({
         .use('vue-loader')
         .loader('vue-loader')
         .tap(options => {
+            if (options && options.compilerOptions) {
               options.compilerOptions.whitespace = 'preserve';
               return options;
             }
+          }
         );
-
-    // config
-    //   .module
-    //   .rule('image-inline')
-    //   .test(/\\.(png|jpg|gif)$/i)
-    //   .use([
-    //     {
-    //       loader: 'url-loader',
-    //       options: {
-    //         limit: 8192,
-    //       }
-    //     },
-    //   ],)
-
-    // config
-    //   .plugin('copy')
-    //   .use(copy, [
-    //     {
-    //       patterns: [
-    //         {
-    //           from: path.resolve(__dirname, 'src/modules/dist/scss'),
-    //           to: path.resolve(__dirname, 'dist/scss'),
-    //           toType: 'dir',
-    //         }],
-    //     },
-    //   ]);
-
-    // config.resolve.symlinks(false);
-    // config.resolve.alias.set( 'vue', path.resolve('./node_modules/vue'));
-
-    // Declare all package.json dependencies as external (i.e. "peer dependencies") when we run the build script
-    if (process.env.BUILD_MODE === 'lib') {
-      const dependencyKeys = Object.keys(package.dependencies);
-      const dependenciesObject = dependencyKeys.reduce((acc, curr) => {
-        acc[curr] = curr;
-        return acc;
-      }, {});
-      config.externals(dependenciesObject);
-    }
   }
 });
