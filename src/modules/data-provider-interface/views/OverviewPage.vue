@@ -1003,7 +1003,7 @@ export default {
       return this.getDistributions.length > 0;
     },
     showTable() {
-      /* eslint-disable semi-style */
+      /* eslint-disable semi-style */ 
       let tableProperties = [
         'dct:publisher',
         'dcat:contactPoint',
