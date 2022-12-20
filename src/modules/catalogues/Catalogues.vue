@@ -507,10 +507,6 @@
   .cursor-pointer {
     cursor: pointer;
   }
-  .button-color-grey {
-    background-color: rgba(0, 29, 133,0.1) !important;
-    color: black !important;
-  }
   .custom-button {
     border: 1px solid black;
     background-color: white;
@@ -527,6 +523,10 @@
     padding: 0;
     background-color: white;
     outline: none;
+  }
+  .button-color-grey {
+    background-color: rgba(0, 29, 133,0.1);
+    color: black;
   }
   .inactive-styles {
     color: rgba(0, 0, 0, 0.5);
