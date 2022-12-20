@@ -211,13 +211,13 @@
                           </span>
                         </span>
                         <!-- DISTRIBUTIONS AVAILABILITY -->
-                        <span class="mt-2 text-left" v-if="showValue(distribution, 'dcat:availability')">
+                        <span class="mt-2 text-left" v-if="showValue(distribution, 'dcatap:availability')">
                           <span class="d-block">
                             <small class="pr-1">
                               <span class="font-weight-bold">
                                 {{ $t('message.metadata.availability') }}:
                               </span> 
-                              {{ getObjectValue(distribution, 'dcat:availability', ['@id']) }}
+                              {{ getObjectValue(distribution, 'dcatap:availability', ['@id']) }}
                             </small>
                           </span>
                         </span>
@@ -271,7 +271,7 @@
                               <span class="font-weight-bold">
                                 {{ $t('message.metadata.spatialResolutionInMeters.label') }}:
                               </span> 
-                              {{ $t('message.metadata.spatialResolutionInMeters.label', { number: getObjectValue(distribution, 'dcat:spatialResolutionInMeters', ['@value'])}) }}
+                              {{ $t('message.metadata.spatialResolutionInMeters.value', { number: getObjectValue(distribution, 'dcat:spatialResolutionInMeters', ['@value'])}) }}
                             </small>
                           </span>
                         </span>
@@ -719,7 +719,7 @@
               <tr v-if="showValue(getDataset, 'dcat:spatialResolutionInMeters')">
                 <td class="w-25 font-weight-bold">{{ $t('message.dataupload.datasets.spatialResolutionInMeters.label') }}</td>
                 <td v-if="showObjectElementValue(getDataset, 'dcat:spatialResolutionInMeters', '@value')">
-                  {{ getObjectValue(getDataset, 'dcat:spatialResolutionInMeters', '@value') }}
+                  {{ $t('message.metadata.spatialResolutionInMeters.value', { number: getObjectValue(getDataset, 'dcat:spatialResolutionInMeters', '@value')}) }}
                 </td>
               </tr>
 
