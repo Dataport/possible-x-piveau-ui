@@ -9,8 +9,8 @@
       <piveau-header
         :show-catalogues="true"
         :show-metadata-quality="false"
-        enable-authentication
-        :authenticated="keycloak.authenticated"
+        :enable-authentication="authEnabled"
+        :authenticated="isAuthenticated"
         @login="login"
         @logout="logout"
       />
@@ -20,8 +20,8 @@
           :key="`${$route.fullPath}`"
       />
       <piveau-footer
-        enable-authentication
-        :authenticated="keycloak.authenticated"
+        :enable-authentication="authEnabled"
+        :authenticated="isAuthenticated"
         @login="login"
         @logout="logout"
       >
@@ -31,7 +31,7 @@
         Put a footer here. Made with <span class="text-danger">♥</span> by <a href="https://www.piveau.eu" class="text-light">piveau</a>.
       </div> -->
     </div>
-    <dpi-menu v-if="keycloak && keycloak.authenticated"></dpi-menu>
+    <dpi-menu v-if="isAuthenticated"></dpi-menu>
   </div>
 
 </template>
@@ -86,6 +86,12 @@ export default {
       'getRTPToken',
       'getKeycloak',
     ]),
+    authEnabled() {
+      return this.$env?.useAuthService && this.$env.keycloak?.enableLogin;
+    },
+    isAuthenticated() {
+      return this.authEnabled && this.keycloak?.authenticated;
+    }
   },
   methods: {
     ...mapActions('auth', [
