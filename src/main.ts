@@ -17,6 +17,7 @@ import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
+import VueSkeletonLoader from 'skeleton-loader-vue';
 // import AppToast from '@/components/AppToast';
 // Import v-select
 // Import i18n validation messages for vueformulate
@@ -144,6 +145,9 @@ Vue.component('AppConfirmationDialog', AppConfirmationDialog);
 
 // DEU Redesign Components
 Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
+
+
+Vue.component('vue-skeleton-loader', VueSkeletonLoader);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const VueCookie = require('vue-cookie');

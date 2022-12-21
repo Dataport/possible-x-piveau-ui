@@ -232,7 +232,6 @@
                       )} (${getCatalogsCount.toLocaleString("fi")})`
                 }}
               </div>
-              <!-- <div class="loading-spinner ml-3" v-if="getLoading"></div> -->
             </div>
             <!-- SORT Dropdown  -->
             <div class="ec-sort mr-md-2 mt-0 mt-md-3 ">
@@ -346,44 +345,49 @@
           :selected-facets="getFacets"
           :available-facets="getAvailableFacets"
         ></selectedFacetsOverview>
-        <pv-data-info-box
-          v-for="catalog in getCatalogs"
-          :key="`data-info-box@${catalog.id}`"
-          catalog-mode
-          :to="{
-            name: 'Datasets',
-            query: {
-              catalog: catalog.id,
-              showcatalogdetails: true,
-              locale: $route.query.locale,
-            },
-          }"
-          :src="getImg(getCatalogImage(catalog))"
-          :dataset="{
-            title: getTranslationFor(
-              catalog.title,
-              $route.query.locale,
-              getCatalogLanguages(catalog)
-            ),
-            description: getTranslationFor(
-              catalog.description,
-              $route.query.locale,
-              getCatalogLanguages(catalog)
-            ),
-            catalog: getTranslationFor(
-              catalog.title,
-              $route.query.locale,
-              getCatalogLanguages(catalog)
-            ),
-            createdDate: null,
-            updatedDate: null,
-            formats: [],
-          }"
-          :description-max-length="1000"
-          :data-cy="`catalog@${catalog.id}`"
-          class="mt-3"
-        />
-        <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
+        <!-- <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div> -->
+        <div v-if="getLoading">
+          <dataset-details-skeleton></dataset-details-skeleton>
+        </div>
+        <template v-if="!getLoading">
+          <pv-data-info-box
+            v-for="catalog in getCatalogs"
+            :key="`data-info-box@${catalog.id}`"
+            catalog-mode
+            :to="{
+              name: 'Datasets',
+              query: {
+                catalog: catalog.id,
+                showcatalogdetails: true,
+                locale: $route.query.locale,
+              },
+            }"
+            :src="getImg(getCatalogImage(catalog))"
+            :dataset="{
+              title: getTranslationFor(
+                catalog.title,
+                $route.query.locale,
+                getCatalogLanguages(catalog)
+              ),
+              description: getTranslationFor(
+                catalog.description,
+                $route.query.locale,
+                getCatalogLanguages(catalog)
+              ),
+              catalog: getTranslationFor(
+                catalog.title,
+                $route.query.locale,
+                getCatalogLanguages(catalog)
+              ),
+              createdDate: null,
+              updatedDate: null,
+              formats: [],
+            }"
+            :description-max-length="1000"
+            :data-cy="`catalog@${catalog.id}`"
+            class="mt-3"
+          />
+        </template>
       </section>
     </div>
     <div class="row">
@@ -406,6 +410,7 @@ import $ from "jquery";
 import { mapActions, mapGetters } from "vuex";
 import { debounce, has } from "lodash-es";
 import {
+  DatasetDetailsSkeleton,
   CataloguesFacets,
   Pagination,
   SelectedFacetsOverview,

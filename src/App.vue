@@ -16,10 +16,9 @@
         :showSparql="showSparql"
       />
       <router-view
-         class="content"
+        class="content"
         :key="`${$route.fullPath}`"
       />
-
       <deu-footer
         :authenticated="keycloak && keycloak.authenticated"
         :use-login="$env.navigation.bottom.login.useLogin"
@@ -138,5 +137,9 @@ export default {
 .app-snackbar {
   z-index: 9999;
   pointer-events: none;
+}
+
+[v-cloak] {
+  display: none;
 }
 </style>

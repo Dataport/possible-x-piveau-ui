@@ -61,6 +61,7 @@
     "merge-anything": "^2.4.1",
     "popper.js": "^1.14.3",
     "qs": "^6.10.3",
+    "skeleton-loader-vue": "^1.0.10",
     "vee-validate": "^2.2.6",
     "vue": ">=2.x",
     "vue-clickaway": "^2.2.2",
