@@ -130,6 +130,11 @@ export default {
       INTERVAL_MS: "$VUE_APP_DATASETDETAILS_BULKDOWNLOAD_INTERVAL_MS",
       TIMEOUT_MS: "$VUE_APP_DATASETDETAILS_BULKDOWNLOAD_TIMEOUT_MS",
     },
+    quality: {
+      csvLinter: {
+        enable: "$VUE_APP_DATASETDETAILS_QUALITY_CSV_LINTER_ENABLE",
+      },
+    },
   },
   maps: {
     useAnimation: "$VUE_APP_MAPS_USE_ANIMATION",
