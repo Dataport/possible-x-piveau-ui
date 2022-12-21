@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <!-- CSV Linter -->
-                        <CSVLinter v-if="showCSVLinter(distribution)" :validation="qualityDistributionValidation[distribution.id]"></CSVLinter>
+                        <CSVLinter v-if="enableCSVLinter && showCSVLinter(distribution)" :validation="qualityDistributionValidation[distribution.id]"></CSVLinter>
                     </div>
                 </div>
                 <ECMore class="col-12 text-primary mt-4"
@@ -92,6 +92,7 @@ export default {
         return {
             displayAll: this.$env.datasetDetails.quality.displayAll,
             numberOfDisplayedQualityDistributions: this.$env.datasetDetails.quality.numberOfDisplayedQualityDistributions,
+            enableCSVLinter: this.$env.datasetDetails.quality.csvLinter.enable,
         };
     },
     computed: {

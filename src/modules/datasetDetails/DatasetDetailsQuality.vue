@@ -305,7 +305,7 @@
                   <!-- CSV Linter -->
                   <div class="row accordion-body">
                     <div class="col-12">
-                      <CSVLinter v-if="showCSVLinter(key, value[0].info['distribution-id'])" :validation="qualityDistributionValidation[key]"></CSVLinter>
+                      <CSVLinter v-if="enableCSVLinter && showCSVLinter(key, value[0].info['distribution-id'])" :validation="qualityDistributionValidation[key]"></CSVLinter>
                     </div>
                 </div>
                 </div>
@@ -504,6 +504,7 @@
         showLess: true,
         isLoadingQualityData: false,
         isLoadingQualityDistributionData: false,
+        enableCSVLinter: this.$env.datasetDetails.quality.csvLinter.enable,
       };
     },
     computed: {

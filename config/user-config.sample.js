@@ -356,6 +356,7 @@ const glueConfig = {
       numberOfDisplayedQualityDistributions: 5,
       // CSV Linter Validation Results
       csvLinter: {
+        enable: false,
         // If true, always display all results
         displayAll: false,
         // Number of results to be shown
