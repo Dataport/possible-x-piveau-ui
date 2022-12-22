@@ -596,7 +596,7 @@ export default {
     return {
       infoVisible: true,
       initialHeight: 0,
-      restrictedHeight: 500,
+      restrictedHeight: 200,
       expanded: false
     };
   },
