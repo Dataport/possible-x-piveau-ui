@@ -9,7 +9,7 @@
       <dataset-details-header />
       <dataset-details-navigation v-if="!topTitle" :dataset-id="getID"/>
       <hr v-if="topTitle" />
-      <router-view name="datasetDetailsSubpages" />
+      <router-view name="datasetDetailsSubpages"></router-view>
     </div>
   </div>
 </template>
@@ -25,8 +25,6 @@ export default {
   components: {
     DatasetDetailsHeader,
     DatasetDetailsNavigation,
-    // datasetDetailsDataset: DatasetDetailsDataset
-    // datasetDetailsSimilarDatasets: DatasetDetailsSimilarDatasets
   },
   metaInfo() {
     const datasetTitleTranslated = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
@@ -60,7 +58,7 @@ export default {
   methods: {
     getRepresentativeLocaleOf,
     getTranslationFor,
-  }
+  },
 };
 </script>
 

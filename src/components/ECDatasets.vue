@@ -143,6 +143,10 @@
             :selected-facets="getFacets"
             :available-facets="getAllAvailableFacets"
           ></selectedFacetsOverview>
+          <!-- <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div> -->
+          <div v-if="getLoading">
+            <dataset-details-skeleton type="Datasets"></dataset-details-skeleton>
+          </div>
           <template v-if="!getLoading">
             <pv-data-info-box
               v-for="dataset in getDatasets"
@@ -177,10 +181,6 @@
               class="mt-3"
             />
           </template>
-          <div
-            class="loading-spinner mx-auto mt-3 mb-3"
-            v-if="getLoading"
-          ></div>
         </section>
       </div>
       <div class="row">
@@ -206,6 +206,7 @@ import { debounce, has, groupBy, uniqBy, toPairs, isArray } from "lodash-es";
 import $ from "jquery";
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
 import {
+  DatasetDetailsSkeleton,
   DatasetsTopControls,
   AppLink,
   SelectedFacetsOverview,
@@ -220,6 +221,7 @@ export default {
   name: "ECDatasets",
   dependencies: ["DatasetService"],
   components: {
+    DatasetDetailsSkeleton,
     DatasetsTopControls,
     AppLink,
     SelectedFacetsOverview,

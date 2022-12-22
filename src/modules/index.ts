@@ -10,6 +10,7 @@ import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.
 import DatasetDetailsQuality from "./datasetDetails/DatasetDetailsQuality.vue";
 import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets.vue";
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
+import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
 import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
@@ -94,6 +95,7 @@ export {
   DatasetDetailsQuality,
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
+  DatasetDetailsSkeleton,
   DatasetDetails,
 
   DistributionDescription,
