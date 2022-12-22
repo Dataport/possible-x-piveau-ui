@@ -182,7 +182,7 @@ export default {
         },
         toggleDistribution(index) {
             // Close all Distributions
-            this.getDistributions.forEach((dist, i) => {
+            this.displayedQualityDistributions.forEach((dist, i) => {
                 if (i === index) return;
                 this.$refs[`dist${i}`][0].classList.add('collapsed');
                 this.$refs[`distPlus${i}`][0].classList.remove('collapsed');
