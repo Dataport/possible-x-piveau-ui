@@ -4,7 +4,7 @@
     <span property="dc:issued" :content="getReleaseDate"></span>
     <span property="dc:modified" :content="getModificationDate"></span>
     <div v-if="loadingDatasetDetails">
-      <DatasetDetailsSkeleton></DatasetDetailsSkeleton>
+      <dataset-details-skeleton type="DatasetDetails"></dataset-details-skeleton>
     </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
       <dataset-details-banners

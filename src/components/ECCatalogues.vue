@@ -347,7 +347,7 @@
         ></selectedFacetsOverview>
         <!-- <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div> -->
         <div v-if="getLoading">
-          <dataset-details-skeleton></dataset-details-skeleton>
+          <dataset-details-skeleton type="Catalogues"></dataset-details-skeleton>
         </div>
         <template v-if="!getLoading">
           <pv-data-info-box
@@ -424,6 +424,7 @@ export default {
   name: "ECCatalogues",
   dependencies: ["catalogService"],
   components: {
+    DatasetDetailsSkeleton,
     SelectedFacetsOverview,
     CataloguesFacets,
     Pagination,
