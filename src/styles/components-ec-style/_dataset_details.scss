@@ -264,6 +264,10 @@
     table {
       margin-bottom: 0 !important;
       overflow-y: hidden;
+
+      tr {
+        display: block;
+      }
     }
   }
 
