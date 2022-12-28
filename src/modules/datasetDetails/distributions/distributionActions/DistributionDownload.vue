@@ -44,7 +44,7 @@
         </app-link>
         <!-- <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.downloadURLTooltip')">help_outline</i> -->
     </span>
-   <distribution-download-as v-if="active" :distribution="distribution" />
+   <distribution-download-as :distribution="distribution" />
   </distribution-dropdown-download>
 </template>
 
@@ -68,11 +68,6 @@ export default {
     DistributionDropdownDownload,
     DistributionDownloadAs,
     AppLink
-  },
-  data() {
-    return {
-      active: true,
-    }
   },
   methods: {
     setClipboard(value) {

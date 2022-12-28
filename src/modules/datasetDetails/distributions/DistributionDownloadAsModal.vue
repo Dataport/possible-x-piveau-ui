@@ -106,7 +106,6 @@ export default {
         ...mapGetters('datasetDetails', [
             'getDistributionDownloadAsOptions',
             'getDistributionDownloadAs',
-            'getTitle'
         ])
     },
     mounted() {
@@ -135,7 +134,7 @@ export default {
 
             } else {
                 this.converting = true;
-                this.downloadBtnText = 'Converting...'
+                this.downloadBtnText = 'Converting...';
 
                 if (ifDownloadUrl || ifAccessUrl) {
                     let url = '';
@@ -144,7 +143,7 @@ export default {
                     } else if (!ifDownloadUrl && ifAccessUrl) {
                         url = this.getDistributionDownloadAs.accessUrl[0];
                     }
-                    this.progress = '3' + this.randomNumber()
+                    this.progress = '3' + this.randomNumber();
 
                     const uri = encodeURIComponent(`https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert/${this.getDistributionDownloadAs.format.id.toLowerCase()}/${this.selected}`);
                     const downloadOrAccessUrl = encodeURIComponent(url);
@@ -156,17 +155,17 @@ export default {
                                 'Content-Type': 'application/octet-stream; charset=UTF-8'
                             },
                         }).then((res) => {
-                            this.progress = '8' + this.randomNumber()
+                            this.progress = '8' + this.randomNumber();
                             this.converted = true;
-                            this.downloadBtnText = 'Downloading...'
+                            this.downloadBtnText = 'Downloading...';
                             setTimeout(() => {
-                                this.progress = '100'
+                                this.progress = '100';
                                 this.readyForDownload = true;
-                                const locale = this.$route.query.locale
+                                const locale = this.$route.query.locale;
                                 const FILE = window.URL.createObjectURL(new Blob([res.data]));
                                 let docUrl = document.createElement('a');
                                 docUrl.href = FILE;
-                                docUrl.setAttribute('download', `${this.getTitle[locale]}.${this.selected}`);
+                                docUrl.setAttribute('download', this.setFileName(locale));
                                 document.body.appendChild(docUrl);
                                 this.done = true;
 
@@ -178,19 +177,26 @@ export default {
 
                             this.converting = false;
                             this.error = true;
-                            this.downloadBtnText = 'Download'
+                            this.downloadBtnText = 'Download';
                         });
                 }
             }
         },
         onChange() {
-          this.done = this.converted = this.converting = this.readyForDownload = false;
+          this.done = this.converted = this.converting = this.readyForDownload = this.error = false;
           this.downloadBtnText = 'Download';
         },
         // 0 - 9
         randomNumber() {
           const max = 10;
           return Math.floor(Math.random() * max);
+        },
+        setFileName(locale) {
+          if (this.getDistributionDownloadAs.title[locale]) {
+            return this.getDistributionDownloadAs.title[locale].split('.')[0] + '.' + this.selected;
+          } else {
+            return Object.values(this.getDistributionDownloadAs.title)[0].split('.')[0] + '.' + this.selected;
+          }
         }
 
     }
