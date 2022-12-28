@@ -18,7 +18,7 @@
                   <div>
                      <div class="ecl-form-group">
                         <div class="ecl-select__container ecl-select__container--m">
-                           <select  v-model="selected" class="ecl-select coursor-pointer" id="select-default"
+                           <select v-model="selected" @change="onChange()" class="ecl-select coursor-pointer" id="select-default"
                               required="">
                               <option value="" disabled hidden>- {{ $t('message.datasetDetails.datasets.modal.selectFileFormat') }} -</option>
                               <option v-for="(option, index) in getDistributionDownloadAsOptions" :key="index" :value="option" v-text="option.toUpperCase()"></option>
@@ -47,6 +47,7 @@
                           </span>
                        </div>
                      </div>
+
                      <div v-if="converting">
                         <div class="d-flex mt-4">
                            <p class="m-0">1 {{ $t('message.datasetDetails.datasets.modal.fileConversionTo') }} <span class="font-weight-bold">{{selected.toUpperCase()}}</span></p>
@@ -143,18 +144,19 @@ export default {
                     } else if (!ifDownloadUrl && ifAccessUrl) {
                         url = this.getDistributionDownloadAs.accessUrl[0];
                     }
-                    this.progress = '34'
+                    this.progress = '3' + this.randomNumber()
+
+                    const uri = encodeURIComponent(`https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert/${this.getDistributionDownloadAs.format.id.toLowerCase()}/${this.selected}`);
+                    const downloadOrAccessUrl = encodeURIComponent(url);
+
                     axios({
-                            url: `https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert/${this.getDistributionDownloadAs.format.id.toLowerCase()}/${this.selected}/`,
+                            url: `https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de/?uri=${uri}/?url=${downloadOrAccessUrl}`,
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/octet-stream; charset=UTF-8'
                             },
-                            params: {
-                                "url": url
-                            },
                         }).then((res) => {
-                            this.progress = '83'
+                            this.progress = '8' + this.randomNumber()
                             this.converted = true;
                             this.downloadBtnText = 'Downloading...'
                             setTimeout(() => {
@@ -180,6 +182,15 @@ export default {
                         });
                 }
             }
+        },
+        onChange() {
+          this.done = this.converted = this.converting = this.readyForDownload = false;
+          this.downloadBtnText = 'Download';
+        },
+        // 0 - 9
+        randomNumber() {
+          const max = 10;
+          return Math.floor(Math.random() * max);
         }
 
     }
