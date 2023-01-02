@@ -106,6 +106,16 @@ export default defineConfig({
           vue: 'Vue'
         },
 
+        entryFileNames: (chunkInfo) => {
+          // if chunkInfo.name starts with node_modules, replace with external
+          if (chunkInfo.name.startsWith('node_modules')) {
+            return chunkInfo.name.replace('node_modules', 'external');
+          }
+          return '[name].mjs';
+        },
+
+        assetFileNames: 'piveau-hub-ui-modules.[ext]',
+
         preserveModules: true,
         preserveModulesRoot: 'src/modules',
       },
