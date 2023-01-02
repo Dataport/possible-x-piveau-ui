@@ -1,8 +1,8 @@
 <template>
   <nav>
     <ul class="menu m-0 list-inline list-unstyled navbar-nav mr-auto">
-      <li v-for="(page, index) in pages" :key="index"
-        class="mr-2 list-inline-item nav-item text-nowrap dsd-nav-button"
+      <li v-for="(page, index) in pages" :key="index" 
+        class="mr-2 list-inline-item nav-item text-nowrap dsd-nav-button" :class="page.exact"
       >
         <dataset-details-navigation-page
           :path="page.path"
@@ -34,7 +34,7 @@ export default {
       });
       return [
         createPage("dataset", true, true),
-        createPage("categories"),
+        createPage("categories", false, "dsd-nav-cat"),
         createPage("quality"),
         createPage("similarDatasets")
       ];
