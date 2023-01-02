@@ -7,7 +7,7 @@
             :key="i"
             class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 px-1"
           >
-            <app-link v-if="showKeyword(keyword)" :to="getKeywordLink(keyword)" :rel="followKeywordLinks">
+          <app-link v-if="showKeyword(keyword)" :to="getKeywordLink(keyword)" :rel="followKeywordLinks">
               <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
                      :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
                      :data-placement="keywordTruncated(keyword) ? 'top' : false"
