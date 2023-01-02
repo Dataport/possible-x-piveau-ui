@@ -1,53 +1,47 @@
 <template>
-  <div class="dsd-feature">
-    <div class="row">
-      <div class="">
-        <div>
-        <pv-show-more
-          v-if="getCategories.length > defaultDisplayCount"
-          :label="isCategoriesAllDisplayed? 'Show less' : 'Show more'"
-          :upArrow="isCategoriesAllDisplayed"
-          :action="toggleDisplayCount"
-          class="row text-primary"
-        />
-      </div>
-        <h2 class="mb-4 h4 font-weight-bold">
+  <div class="row mt-2 flex-column dsd-item dsd-keywords">
+        <span class="mb-4 h4 font-weight-bold">
           {{ $t("message.datasetDetails.subnav.categories") }} ({{
             getCategories.length
           }})
-        </h2>
-        <div class="keywords__item row" v-if="catCollapsed">
+        </span>
+        <div class="categories__item row" v-if="catCollapsed">
           <span
             v-for="(category, i) in getCategories"
             :key="i"
-            class="col-6 col-sm-5 col-md-3 mt-md-0 mt-3 mb-2 px-1"
+            class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 px-1"
           >
             <app-link
               :to="getCategoryLink(category)"
               v-if="showCategory(category)"
-              ><small
+              ><!-- <small
                 class=" d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color">
                 {{ getTranslationFor(category.title, $route.query.locale) }}
+              </small> -->
+              <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
+                     :data-toggle="categoryTruncated(category) ? 'tooltip' : false"
+                     :data-placement="categoryTruncated(category) ? 'top' : false"
+                     :title="categoryTruncated(category) ? category.title : false">
+                {{ truncate(category.title, maxKeywordLength, false) }}
               </small>
             </app-link>
           </span>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import {truncate} from "@/modules/utils/helpers";
 import { mapActions, mapGetters } from "vuex";
 import { has } from "lodash-es";
 import { getTranslationFor } from "@/modules/utils/helpers";
-import PvShowMore from "@/modules/widgets/PvShowMore";
+
 import AppLink from "@/modules/widgets/AppLink";
 
 export default {
   name: "datasetDetailsCategoriesKey",
   dependencies: "DatasetService",
-  components: {PvShowMore,AppLink},
+  components: {AppLink},
   metaInfo() {
     return {
       title: this.$t("message.metadata.categories"),
@@ -77,7 +71,8 @@ export default {
   },
   data() {
     return {
-      catCollapsed:Boolean
+      catCollapsed:Boolean,
+      maxKeywordLength: this.$env.datasets.maxKeywordLength
     };
     
   },
@@ -94,6 +89,7 @@ export default {
     }
   },
   methods: {
+    truncate,
     has,
     getTranslationFor,
     // import store-actions
@@ -108,6 +104,9 @@ export default {
         query: Object.assign({}, { locale: this.$route.query.locale }),
       };
     },
+    categoryTruncated(category) {
+      return category.title.length > this.maxKeywordLength;
+    }
   },
   created() {
     this.useService(this.DatasetService);
@@ -142,9 +141,5 @@ export default {
 <style scoped lang="scss">
 .tag-color {
   background-color: var(--primary);
-}
-.keywords__item > div {
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
 }
 </style>

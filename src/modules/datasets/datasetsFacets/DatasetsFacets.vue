@@ -339,6 +339,7 @@ export default {
         this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
           .catch(error => { console.log(error); });
       }
+      sessionStorage.clear();
     },
     dataScopeFacetClicked(dataScope) {
       if (this.$route.query.dataScope === dataScope) {
@@ -434,10 +435,8 @@ export default {
     this.initShowCatalogDetails();
     this.initMinScoring();
     for(var i in sessionStorage){
-      console.log(this.cutoff);
-
       if(sessionStorage.length > 0 && i =="Filter") this.toggleCutoff();
-      if(sessionStorage.length != 0) this.cutoff = 0; this.toggleCutoff();
+      
     }
     /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
     /* fill in here */
