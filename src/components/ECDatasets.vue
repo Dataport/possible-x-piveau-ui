@@ -492,6 +492,8 @@ export default {
       }
     },
     initDatasets() {
+    /* needed to add the following line so that every tooltip gets recognized as one (after all the asynchronous loads) ###loadtime??### */      
+    $('body').tooltip({selector: '[data-toggle="tooltip"]'});
       this.$nextTick(() => {
         this.$nextTick(() => {
           this.$Progress.start();
