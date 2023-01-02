@@ -32,6 +32,9 @@
     "dist/*",
     "dist/node_modules"
   ],
+  "sideEffects": [
+    "*.css"
+  ],
   "dependencies": {
     "@braid/vue-formulate": "^2.5.3",
     "@citation-js/core": "^0.5.7",
