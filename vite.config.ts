@@ -1,5 +1,6 @@
 import { defineConfig, PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue2';
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import copy from 'rollup-plugin-copy';
 import path from 'path';
 import config from './config';
@@ -34,6 +35,9 @@ export default defineConfig({
     vue(
       { template: { compilerOptions: { whitespace: 'preserve' } } }
     ),
+    cssInjectedByJsPlugin({
+      topExecutionPriority: false,
+    }),
     copy({
       targets: [
         { src: 'src/modules/dist/scss', dest: 'dist' }
@@ -105,6 +109,16 @@ export default defineConfig({
         globals: {
           vue: 'Vue'
         },
+
+        entryFileNames: (chunkInfo) => {
+          // if chunkInfo.name starts with node_modules, replace with external
+          if (chunkInfo.name.startsWith('node_modules')) {
+            return chunkInfo.name.replace('node_modules', 'external');
+          }
+          return '[name].mjs';
+        },
+
+        assetFileNames: 'piveau-hub-ui-modules.[ext]',
 
         preserveModules: true,
         preserveModulesRoot: 'src/modules',
