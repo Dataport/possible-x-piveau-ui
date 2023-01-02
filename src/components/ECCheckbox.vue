@@ -38,6 +38,9 @@ export default {
   methods: {
     handleClick() {
       this.onClick(this.state);
+      if(!this.state){
+        sessionStorage.setItem("Filter","active");
+      }
     }
   }
 }
