@@ -21,7 +21,7 @@
         <span data-toggle="tooltip"
               data-placement="center"
               class="ml-2">
-          {{ header }}
+              {{ header }}
         </span>
         <div class="dropdown-icon"></div>
 <!--        <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>-->
@@ -85,6 +85,7 @@ export default {
       return `facet-${this.id}`;
     },
     itemTitles() {
+
       // const maxLength = this.items.reduce((curr, item) => Math.max(curr, item.title.length));
       return this.items.map(item => {
         const title = this.getTitle(item);
@@ -107,7 +108,7 @@ export default {
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-        ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
+      ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     away() {

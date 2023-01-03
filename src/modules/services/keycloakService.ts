@@ -105,7 +105,6 @@ function init(config, watch, options) {
 
     watch.logoutFn = () => {
       clearInterval(updateTokenInterval);
-      keycloak.logout(options.logout || { redirectUri: `${window.location.origin}${config.logoutRedirectUri}${window.location.search}` });
     };
   };
 
@@ -161,8 +160,8 @@ function init(config, watch, options) {
     });
   }
 
-  function loginFn() {
-    keycloak.login()
+  function loginFn(options) {
+    keycloak.login(options)
     .then(() => {
       store.dispatch('auth/setKeycloak', keycloak);
       store.dispatch('auth/authLogin', keycloak.authenticated);
@@ -172,11 +171,17 @@ function init(config, watch, options) {
     });
   }
 
+  function logoutFn(options) {
+    keycloak.logout(options);
+  }
+
   function updateWatchVariables(isAuthenticated = false) {
     watch.authenticated = isAuthenticated;
     watch.loginFn = loginFn;
     watch.login = keycloak.login;
     watch.createLoginUrl = keycloak.createLoginUrl;
+    watch.logoutFn = logoutFn;
+    watch.logout = keycloak.logout;
     watch.createLogoutUrl = keycloak.createLogoutUrl;
     watch.createRegisterUrl = keycloak.createRegisterUrl;
     watch.register = keycloak.register;

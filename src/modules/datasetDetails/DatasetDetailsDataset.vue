@@ -3,6 +3,9 @@
     <resource-access-popup ref="externalResourceModal" />
     <span property="dc:issued" :content="getReleaseDate"></span>
     <span property="dc:modified" :content="getModificationDate"></span>
+    <div v-if="loadingDatasetDetails">
+      <dataset-details-skeleton type="DatasetDetails"></dataset-details-skeleton>
+    </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
       <dataset-details-banners
         :dateIncorrect="dateIncorrect"
@@ -105,11 +108,13 @@
   import DatasetDetailsExtendedMetaData
     from "@/modules/datasetDetails/features/DatasetDetailsIsUsedBy.vue";
   import DatasetDetailsFeatures from "@/modules/datasetDetails/features/DatasetDetailsFeatures.vue";
+  import DatasetDetailsSkeleton from "@/modules/datasetDetails/DatasetDetailsSkeleton.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
+      DatasetDetailsSkeleton,
       DatasetDetailsFeatures,
       DatasetDetailsExtendedMetaData,
       DatasetDetailsProperties,

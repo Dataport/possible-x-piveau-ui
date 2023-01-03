@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import inputtypes from '../../data-provider-interface/config/input-value-types';
 
 /**
@@ -19,9 +19,9 @@ function multiUriToString(state, values, key) {
 
 /**
  * Converts typed strings into a singular string
- * @param {*} state 
- * @param {*} values 
- * @param {*} key 
+ * @param {*} state
+ * @param {*} values
+ * @param {*} key
  */
 function typedStringToString(state, values, key) {
     state[key] = values['@value'];

@@ -40,9 +40,9 @@
 
 .dsd-feature .heading {
   .col-1 {
-    padding-left: 0 !important;
+    //padding-left: 0 !important;
     flex: 0 0 auto !important;
-    width: initial !important;
+    //width: initial !important;
   }
   .col-11 {
     padding-left: 0;
@@ -83,14 +83,15 @@
 }
 
 .dsd-dataset {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .dsd-properties .show-more {
   display: initial;
 }
 
-.dsd-header-catalogue > img {
+.dsd-header-catalogue img {
   border: none !important;
 }
 
@@ -107,7 +108,7 @@
 }
 
 .dsd-title-tag {
-  display: block !important;
+  display: block;
   background-color: #006FB4 !important;
 }
 
@@ -126,6 +127,50 @@
   margin-right: 0.3rem;
 }
 
+.dsd-feature-header-arrow-container {
+  width: unset !important;
+  padding-left: 0 !important;
+}
+
+.dsd-title-tag {
+  background-color: steelblue;
+  font-size: smaller;
+  color: white;
+  font-weight: bold;
+  padding: 0.2rem 1.5rem;
+  margin-right: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.dsd-description-content {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+// Orders in less than large:
+
+.dsd-description {
+  order: 0;
+}
+
+.dsd-banners {
+  order: 1;
+}
+
+.dsd-distributions {
+  order: 2;
+}
+
+.dsd-features {
+  order: 3;
+}
+
+.dsd-properties {
+  order: 4;
+}
+
+//
+
 @media screen and (max-width: 991px) { // less than lg
   .dsd-nav-button button {
     min-width: 200px !important;
@@ -138,6 +183,28 @@
 
   .dsd-properties .heading .col-11 {
     padding-left: 0 !important;
+  }
+
+  .dsd-feature-header-arrow-container {
+    padding-right: 0 !important;
+  }
+}
+
+@media screen and (max-width: 767px) { // less than md
+  .dsd-download-all-distributions-button,
+  .dsd-download-all-distributions-button > button,
+  .distributions-show-more-button {
+    width: 100%;
+  }
+
+  .dsd-download-all-distributions-button {
+    margin-bottom: 2rem;
+  }
+
+  .dsd-content {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
   }
 }
 
@@ -154,7 +221,7 @@
   }
 
   .dsd-dataset {
-    display: grid;
+    display: grid !important;
     grid-template-columns: auto var(--dsd-right-column-width);
     grid-template-rows: auto 1fr auto auto;
     grid-auto-flow: row dense;
@@ -197,6 +264,11 @@
     table {
       margin-bottom: 0 !important;
       overflow-y: hidden;
+
+      td:nth-child(2) {
+        display: inline-block;
+        word-break: break-word;
+      }
     }
   }
 
@@ -215,7 +287,7 @@
     grid-column: span 2;
     margin-bottom: 3rem;
 
-      
+
     .dsd-map {
       order: 1;
     }
@@ -224,5 +296,10 @@
       margin-top: 3rem !important;
       order: 2;
     }
+  }
+}
+@media screen and (max-width: 480px) { // less than sm
+  .dsd-nav {
+    flex-wrap: wrap !important;
   }
 }

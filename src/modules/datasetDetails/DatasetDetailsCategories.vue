@@ -20,7 +20,7 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
-  import { has } from 'lodash';
+  import { has } from 'lodash-es';
   import { getTranslationFor } from '../utils/helpers';
   import AppLink from "../widgets/AppLink.vue";
 
@@ -95,3 +95,12 @@
   };
 </script>
 
+<style scoped lang="scss">
+.tag-color {
+  background-color: var(--tag-color);
+}
+.keywords__item > div {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+</style>

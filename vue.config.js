@@ -42,6 +42,13 @@ module.exports = defineConfig({
     }
   },
 
+  // pluginOptions: {
+  //   webpackBundleAnalyzer: {
+  //     openAnalyzer: true
+  //   }
+  // },
+
+
   chainWebpack: (config) => {
     // Preserve whitespaces between element tags if it contains new lines.
     // This fixes minor visual layout differences.
@@ -69,6 +76,10 @@ module.exports = defineConfig({
     //       }
     //     },
     //   ],)
+
+    // replace lodash with lodash-es
+    // warning: this is a silent replacement
+    config.resolve.alias.set('lodash', 'lodash-es');
 
     config
       .plugin('copy')

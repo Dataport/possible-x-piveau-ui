@@ -14,6 +14,7 @@
 </template>
 
 <script>
+
 export default {
   name: "ECFacetHeader",
   props: {
@@ -21,10 +22,13 @@ export default {
     tooltip: String
   }
 }
+
 </script>
 
 <style scoped>
-
+.tooltip-icon{
+  cursor: default;
+}
 .tooltip-icon {
   font-size: 15px;
 }

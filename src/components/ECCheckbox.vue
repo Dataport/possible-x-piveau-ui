@@ -1,5 +1,5 @@
 <template>
-  <div :class="`ecl-checkbox${ disabled ? ' ecl-checkbox--disabled' : ''}`" @click="() => onClick(state)">
+  <div :class="`ecl-checkbox${ disabled ? ' ecl-checkbox--disabled' : ''}`" @click.prevent="handleClick">
     <input type="checkbox" :name="id" class="ecl-checkbox__input" v-model="state" :id="id"
            :disabled="disabled" />
     <label :for="id" class="ecl-checkbox__label">
@@ -33,6 +33,14 @@ export default {
   data() {
     return {
       state: this.checked
+    }
+  },
+  methods: {
+    handleClick() {
+      this.onClick(this.state);
+      if(!this.state){
+        sessionStorage.setItem("Filter","active");
+      }
     }
   }
 }

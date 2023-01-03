@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between" :key="property">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi" :key="property">
     <!-- TOP -->
     <div>
       <h1 class="small-headline">{{ mode }}</h1>
@@ -29,7 +29,7 @@
       </StepProgress>
     </div>
     <!-- CONTENT -->
-    <router-view @error="jumpToFirstPage" :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
+    <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
       <div id="subStepperBox">
         <StepProgress
           id="stepper"
@@ -139,7 +139,7 @@ export default {
     getTranslatedStepNamesByProperty(property) {
       const names = this.steps[property].map(s => this.$t(`message.dataupload.${property}.stepper.${s}.name`));
       if (property !== 'distributions') {
-        // use right translation for overview page
+        // use correct translation for overview page
         const overviewIndex = names.length - 1;
         names[overviewIndex] = this.$t(`message.dataupload.${property}.stepper.overview`);
       }
@@ -153,7 +153,7 @@ export default {
       this.$refs.view.clear();
 
       // Jump to first page and compare path start because of possible query params
-      if (!this.$route.fullPath.startsWith(this.getFirstPath())) {
+      if (!this.getClearPath().startsWith(this.$route.path)) {
         this.jumpToFirstPage();
       } else {
         // Hacky solution which accepts a reload to solve the datasetID and preselected languages bug
@@ -162,7 +162,8 @@ export default {
         this.$router.go();
       }
     },
-    getFirstPath() {
+    getClearPath() {
+      // Create path to first page with clear query param
       let firstStep;
       let path;
 
@@ -176,7 +177,7 @@ export default {
       return path;
     },
     jumpToFirstPage() {
-      this.$router.push(this.getFirstPath()).catch(() => {});
+      this.$router.push(this.getClearPath()).catch(() => {});
     },
     addStepperLinks() {
       // Direct stepper access - hacky solution

@@ -4,10 +4,13 @@ import AppLink from "./widgets/AppLink.vue";
 import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
 
+import Auth from './auth/Auth.vue';
+
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
 import DatasetDetailsQuality from "./datasetDetails/DatasetDetailsQuality.vue";
 import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets.vue";
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
+import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
 import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
@@ -83,10 +86,13 @@ export {
   AppSnackbar,
   AppConfirmationDialog,
 
+  Auth,
+  
   DatasetDetailsCategories,
   DatasetDetailsQuality,
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
+  DatasetDetailsSkeleton,
   DatasetDetails,
 
   DistributionDescription,

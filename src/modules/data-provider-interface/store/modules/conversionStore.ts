@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
-import { has, isEmpty, isNil, cloneDeep } from 'lodash';
+import { has, isEmpty, isNil, cloneDeep } from 'lodash-es';
 import * as jsonldLib from 'jsonld';
 
 // config defining which properties are displayed on which page
@@ -33,7 +33,7 @@ const state = {
     distributions: [],
     catalogues: cloneDeep(jsonlddefinitions.catalogues),
 };
-  
+
 const getters = {
     getData: (state) => (property) => {
         return state[property];
@@ -58,7 +58,7 @@ const getters = {
         }
     }
 };
-  
+
 const actions = {
     /**
      * Saving values from input form into JSON-LD object
@@ -100,7 +100,25 @@ const actions = {
 
                 // values with identical structure for JSONLD and input form
                 if (inputtypes.sameFormatProperties[property].includes(propertyKey)) {
-                    if (!isEmpty(stateValues)) formData[propertyKey] = stateValues;
+                    if (!isEmpty(stateValues)) {
+                        // exclude machien translated title and description
+                        if (propertyKey === 'dct:title' || propertyKey === 'dct:description') {
+                            formData[propertyKey] = [];
+                            for (let pid = 0; pid < stateValues.length; pid += 1) {
+                                if (!isEmpty(stateValues[pid]['@language'])) {
+                                    // only save non-machine-translated values
+                                    if (!stateValues[pid]['@language'].includes('mtec')) {
+                                        formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': stateValues[pid]['@language'] });
+                                    }
+                                } else {
+                                    // if no language is given, preselect englisch
+                                    formData[propertyKey].push({ '@value': stateValues[pid]['@value'], '@language': 'en' });
+                                }
+                            }
+                        } else {
+                            formData[propertyKey] = stateValues;
+                        }
+                    }
                 } else if (inputtypes.typedStrings[property].includes(propertyKey)) {
                     if (!isEmpty(stateValues)) toInputConverter.typedStringToString(formData, stateValues, propertyKey);
                 } else if (inputtypes.multiURIs[property].includes(propertyKey)) {
@@ -298,9 +316,40 @@ const actions = {
             const name = propertieNames[index];
 
             // some properties must not be deleted (some must remian empty)
-            if (name !== '@id' && name !== 'adms:sample') {
+            if (name !== '@id') {
                 if (isEmpty(jsonld[name])) {
                     delete jsonld[name];
+                } else {
+                    // multilingual properties always have an array with one object containing at least an empty value string and a preselected language tag
+                    const multilinguals = dcataptypes.multiLang['catalogues'].concat(dcataptypes.multiLang['datasets'], dcataptypes.multiLang['distributions']);
+                    if (multilinguals.includes(name)) {
+                        for (let id = 0; id < jsonld[name].length; id += 1) {
+                            if (isEmpty(jsonld[name][id]['@value'])) delete jsonld[name][id]; // remove all entries with empty value field
+                        }
+                        if (jsonld[name][0] === undefined) delete jsonld[name]; // if there are no values anymore delete whole property from jsonld
+                    }
+
+                    // accessservice has also title and description which are multilingual fields with a preselected language tag
+                    if (name === 'dcat:accessService') {
+                        for (let accessId = 0; accessId < jsonld[name].length; accessId += 1) {
+
+                            // deleting empty titles
+                            for (let tid = 0; tid < jsonld[name][accessId]['dct:title'].length; tid += 1) {
+                                if (isEmpty(jsonld[name][accessId]['dct:title'][tid]['@value'])) delete jsonld[name][accessId]['dct:title'][tid]; // remove all empty titles
+                            }
+                            if (jsonld[name][accessId]['dct:title'][0] === undefined) delete jsonld[name][accessId]['dct:title']; // remove title object if no titles left
+
+                            //deleting empty descriptions
+                            for (let tid = 0; tid < jsonld[name][accessId]['dct:description'].length; tid += 1) {
+                                if (isEmpty(jsonld[name][accessId]['dct:description'][tid]['@value'])) delete jsonld[name][accessId]['dct:description'][tid]; // remove all empty descriptions
+                            }
+                            if (jsonld[name][accessId]['dct:description'][0] === undefined) delete jsonld[name][accessId]['dct:description']; // remove description property if nor descriptions left
+
+                            if (isEmpty(jsonld[name][accessId])) delete jsonld[name][accessId]; // remove accessservice if no properties given
+                        }
+                        if (jsonld[name][0] === undefined) delete jsonld[name]; // remove whole property if no values given
+                    }
+
                 }
             }
         }
@@ -367,7 +416,7 @@ const actions = {
         commit('resetStore');
     }
 };
-  
+
 const mutations = {
     /**
      * Saving values from input form into JSON-LD representation stored within the state
@@ -391,16 +440,22 @@ const mutations = {
                 // properties which value is a single string
                 if (dcataptypes.singularString[property].includes(key)) {
                     if(!isEmpty(values[key])) toJsonldConverter.convertSingularString(storedata, values[key], key);
+                    else storedata[key] = "";
                 } else if (dcataptypes.typedStrings[property].includes(key)) {
                     if (!isEmpty(values[key])) toJsonldConverter.convertTypedStrings(storedata, values[key], key);
+                    else storedata[key] = "";
                 } else if (dcataptypes.singularURI[property].includes(key)) {
                     // properties which value is a singulare URI
                     if(!isEmpty(values[key])) toJsonldConverter.convertSingularURI(storedata[key], values[key]);
+                    else storedata[key] = "";
                 } else if (dcataptypes.multipleURI[property].includes(key)) {
                     // properties which value is an array of URIs
                     if(!isEmpty(values[key])) {
                         storedata[key] = []; // overwriting existing array so removed values will be deleted
                         toJsonldConverter.convertMultipleURIs(storedata[key], values[key]);
+                    } else {
+                        // reset saved properties if values were emptied
+                        storedata[key] = [];
                     }
                 } else if (dcataptypes.multiLang[property].includes(key)) {
                     // properties with a language selection
@@ -411,6 +466,7 @@ const mutations = {
                 } else if (dcataptypes.conditionalValues[property].includes(key)) {
                     // properties with conditional input formats (license and rights)
                     if(!isEmpty(values[key])) toJsonldConverter.convertConditional(storedata, values[key], key);
+                    else storedata[key] = "";
                 } else if (dcataptypes.groupedProperties.includes(key)) {
                     // a group of properties (or an array of groups)
                     if(!isEmpty(values[key])) {
@@ -424,7 +480,7 @@ const mutations = {
 
                     for (let idIndex = 0; idIndex < identifierLength; idIndex += 1) {
                         // the form privdes identifier data like this: [{'@value': ''}, ...]
-                        storedata[key][idIndex] = values[key][idIndex]['@value'];
+                        if (values[key][idIndex]['@value'] !== '' &&values[key][idIndex]['@value'] !== undefined) storedata[key][idIndex] = values[key][idIndex]['@value'];
                     }
                 } else if (key === 'dcat:temporalResolution') {
                     // merge values of temporal resolution
@@ -434,6 +490,8 @@ const mutations = {
                     const resultionValues = values[key][0];
                     storedata[key] = {'@value': '', '@type': 'xsd:duration'};
                     storedata[key]['@value'] = `P${resultionValues.Year ? resultionValues.Year : 0}Y${resultionValues.Month ? resultionValues.Month : 0}M${resultionValues.Day ? resultionValues.Day : 0}DT${resultionValues.Hour ? resultionValues.Hour : 0}H${resultionValues.Minute ? resultionValues.Minute : 0}M${resultionValues.Second ? resultionValues.Second : 0}S`
+                    // remove 'empty' (all zero) values
+                    if (Object.values(resultionValues).every(el => el === 0 || el === '' || el === '0')) storedata[key] = '';
                 } else if (key === 'spdx:checksum') {
                     const actualValues = values[key][0]; // checksum is a grouped property and therefore stored within an array (with only one entry because it is not repeatable)
                     if (!isEmpty(actualValues)) {

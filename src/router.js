@@ -3,6 +3,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import {
+  Auth,
   DatasetDetailsCategories,
   DatasetDetailsQuality,
   DatasetDetailsSimilarDatasets,
@@ -137,14 +138,6 @@ const router = new Router({
         title,
       },
     },
-    // {
-    //   path: '/home',
-    //   name: 'Home',
-    //   component: Home,
-    //   meta: {
-    //     title,
-    //   },
-    // },
     {
       path: '/imprint',
       name: 'Imprint',
@@ -175,15 +168,22 @@ const router = new Router({
         title,
       },
     },
-    // {
-    //   path: '/login',
-    //   name: 'login',
-    //   component: Auth,
-    //   meta: {
-    //     title,
-    //     requiresAuth: true,
-    //   },
-    // },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Auth,
+      meta: {
+        title,
+      },
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Auth,
+      meta: {
+        title,
+      },
+    },
     {
       path: '/404',
       alias: '*',

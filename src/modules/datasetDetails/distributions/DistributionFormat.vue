@@ -5,7 +5,7 @@
          :data-toggle="distributionFormatTruncated(distribution) ? 'tooltip' : false"
          :data-placement="distributionFormatTruncated(distribution) ? 'top' : false"
          :title="distributionFormatTruncated(distribution) ? getDistributionFormat(distribution) : false">
-      <span>{{ truncate(getDistributionFormat(distribution), 4, true) }}</span>
+      <span>{{ truncate(getDistributionFormat(distribution), 5, true) }}</span>
     </div>
   </div>
 </template>
@@ -24,4 +24,4 @@ export default {
   }
 }
 </script>
-
+ 

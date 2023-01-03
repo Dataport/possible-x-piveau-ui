@@ -5,7 +5,6 @@
 const datasets = {
     "@id": "", // ""
     "@type": "dcat:Dataset",
-    "adms:sample": "", // will remain empty and filled by backend 
     "dcat:distribution": [], // [{"@id": ""}]
     "dct:title": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }] 
     "dct:description": [{ "@value": "", "@language": "en" }], // [{ "@value": "", "@language": "" }]
@@ -60,7 +59,7 @@ const distributions = {
     "dct:modified": {}, // {'@value': '', '@type': ''}
     "dct:type": {}, // {"@id": ""}
     "dcat:mediaType": {}, // {"@id": ""}
-    "dcat:availability": {}, // {"@id": ""}
+    "dcatap:availability": {}, // {"@id": ""}
     "dcat:byteSize": "", // ""
     "spdx:checksum": {}, // {"@type": "spdx:Checksum", "spdx:algorithm": {"@id": ""}, "spdx:checksumValue": ""}
     "dcat:compressFormat": {}, // {"@id": ""}

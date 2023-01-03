@@ -30,7 +30,6 @@ import {
   has,
   isNil,
   isArray,
-  isEmpty,
 } from 'lodash';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
@@ -148,6 +147,29 @@ export default {
     handleSubmit() {
       this.$root.$emit('go-to-next');
     },
+    getFirstPath() {
+      let firstStep;
+      let path;
+
+      if (this.property === 'distributions') {
+        firstStep = this.getNavSteps.datasets[0];
+        path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
+      } else {
+        firstStep = this.getNavSteps[this.property][0];
+        path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
+      }
+      return path;
+    },
+    jumpToFirstPage() {
+      this.$router.push(this.getFirstPath()).catch(() => {});
+    },
+    checkPathAllowed(to, from) {
+      let allowedPaths = [
+        `${this.$env.upload.basePath}/datasets/${this.getNavSteps.datasets[0]}`,
+        `${this.$env.upload.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`,
+      ];
+      return allowedPaths.filter(el => to.path.startsWith(el)).length > 0;
+    },
     createDatasetID() {
       if ((this.property === 'datasets' || this.property === 'catalogues') && this.page === this.getNavSteps[this.property][0]) {
         // Create Dataset ID from title if not existing
@@ -210,19 +232,17 @@ export default {
     next(vm => {
       if (from.name !== null && !from.name.startsWith('DataProviderInterface')) {
         vm.clear();
+        vm.jumpToFirstPage();
+      }
+      if (from.name === null && !vm.mandatoryFieldsFilled({property: vm.property, id: vm.id})) {
+        vm.jumpToFirstPage();
+        $('#mandatoryModal').modal({ show: true });
       }
     });
   },
   beforeRouteUpdate(to, from, next) {
-
-    // from within the DPI: checks if next route within the DPI is a route which does not require mandatory checking
-    let allowedPaths = [
-      `${this.$env.upload.basePath}/datasets/distoverview`,
-      `${this.$env.upload.basePath}/datasets/${this.getNavSteps.datasets[0]}`,
-      `${this.$env.upload.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`
-    ];
-
-    if (to.query.clear !== 'true' && isEmpty(allowedPaths.filter(el => el.startsWith(to.path))) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+    // Checks if next route within the DPI is a route which does not require mandatory checking
+    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
       $('#mandatoryModal').modal({ show: true });
     } else {
       next();

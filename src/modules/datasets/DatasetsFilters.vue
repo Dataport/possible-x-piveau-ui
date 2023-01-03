@@ -325,10 +325,7 @@ export default {
 .cursor-pointer {
   cursor: pointer;
 }
-.button-color-grey {
-  background-color: rgba(0, 29, 133,0.1) !important;
-  color: black !important;
-}
+
 .custom-button {
   border: 1px solid black;
   background-color: white;
@@ -339,6 +336,10 @@ export default {
   border-left: none;
   background-color: white;
   outline: none;
+}
+.button-color-grey {
+  background-color: rgba(0, 29, 133,0.1);
+  color: black;
 }
 
 .search-button {

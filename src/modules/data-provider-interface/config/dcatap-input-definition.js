@@ -81,6 +81,7 @@ const dcatapProperties = {
           type: 'select',
           name: '@type',
           options: {
+            '': '---',
             'vcard:Individual': 'Person',
             'vcard:Organization': 'Organization',
           },
@@ -311,6 +312,7 @@ const dcatapProperties = {
           type: 'select',
           name: '@type',
           options: {
+            '': '---',
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
           },
@@ -868,7 +870,7 @@ const dcatapProperties = {
       identifier: 'availability',
       type: 'autocomplete-input',
       voc: 'planned-availability',
-      name: 'dcat:availability',
+      name: 'dcatap:availability',
       class: 'property',
       '@change': true,
     },
@@ -1666,6 +1668,7 @@ const dcatapProperties = {
           type: 'select',
           name: '@type',
           options: {
+            '': '---',
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
           },

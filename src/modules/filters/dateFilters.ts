@@ -4,8 +4,7 @@
  * @description Contains filters to format Dates.
  */
 
-// @ts-nocheck
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 /**
  * The String to display when the given String is a invalid date String.
@@ -15,16 +14,16 @@ const INVALID_DATE_STRING = '';
 
 const dateFilters = {
   setLocale(locale = 'en', formatOptions = {}) {
-    moment.updateLocale(locale, formatOptions);
+    dayjs.locale('en');
   },
   /**
    * @description Transforms the given date into a US Date Format String
    * @param {date} date - The given date
    * @returns {String}
    */
-  formatUS(date) {
+  formatUS(date : string) {
     if (date === undefined) return INVALID_DATE_STRING;
-    const m = moment(String(date));
+    const m = dayjs(String(date));
     const splittedDate = date.split('T');
     if (m.isValid()) {
       if (splittedDate.length === 1) return m.format('MM/DD/YYYY');
@@ -37,9 +36,9 @@ const dateFilters = {
    * @param {date} date - The given date
    * @returns {String}
    */
-  formatEU(date) {
+  formatEU(date : string) {
     if (date === undefined) return INVALID_DATE_STRING;
-    const m = moment(String(date));
+    const m = dayjs(String(date));
     const splittedDate = date.split('T');
     if (m.isValid()) {
       if (splittedDate.length === 1) return m.format('DD.MM.YYYY');
@@ -52,10 +51,11 @@ const dateFilters = {
    * @param {date} date - The given date
    * @returns {String}
    */
-  fromNow(date) {
+  fromNow(date : string) {
     if (date === undefined) return INVALID_DATE_STRING;
-    const m = moment(String(date));
-    if (m.isValid()) return m.fromNow();
+    const m = dayjs(String(date));
+    // @ts-ignore
+    if (m.isValid()) return m.fromNow;
     return INVALID_DATE_STRING;
   },
 };

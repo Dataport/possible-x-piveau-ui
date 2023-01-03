@@ -59,7 +59,7 @@ const namespacedKeys = {
     'compressFormat': 'dcat:compressFormat',
     'byteSize': 'dcat:byteSize',
     'mediaType': 'dcat:mediaType',
-    'availability': 'dcat:availability',
+    'availability': 'dcatap:availability',
     'status': 'adms:status',
     'downloadURL': 'dcat:downloadURL',
     'accessURL': 'dcat:accessURL',

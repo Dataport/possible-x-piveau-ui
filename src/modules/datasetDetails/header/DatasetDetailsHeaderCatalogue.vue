@@ -1,13 +1,20 @@
 <template>
   <div class="d-flex align-items-center dsd-header-catalogue">
-    <img v-if="showCountryFlag(getCountry)" class="mr-2 border border-dark flag" :class="{ 'io': getCountry.id === 'io' }" :src="getCountryFlagImg(getCountry.id)" alt="Catalog Flag">
-    <app-link
-      :to="getCatalogLink(getCatalog)"
-      :title="$t('message.tooltip.datasetDetails.catalogue')"
-      data-toggle="tooltip"
-      data-placement="top">
-      {{ getTranslationFor(getCatalog.title, $route.query.locale, getLanguages) }}
-    </app-link>
+    <div class="d-lg-none dsd-title-tag">
+      <span>
+        Dataset
+      </span>
+    </div>
+    <div>
+      <img v-if="showCountryFlag(getCountry)" class="mr-2 border border-dark flag" :class="{ 'io': getCountry.id === 'io' }" :src="getCountryFlagImg(getCountry.id)" alt="Catalog Flag">
+      <app-link
+        :to="getCatalogLink(getCatalog)"
+        :title="$t('message.tooltip.datasetDetails.catalogue')"
+        data-toggle="tooltip"
+        data-placement="top">
+        {{ getTranslationFor(getCatalog.title, $route.query.locale, getLanguages) }}
+      </app-link>
+    </div>
   </div>
 </template>
 

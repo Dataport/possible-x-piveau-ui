@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <!-- CSV Linter -->
-                        <CSVLinter v-if="showCSVLinter(distribution)" :validation="qualityDistributionValidation[distribution.id]"></CSVLinter>
+                        <CSVLinter v-if="enableCSVLinter && showCSVLinter(distribution)" :validation="qualityDistributionValidation[distribution.id]"></CSVLinter>
                     </div>
                 </div>
                 <ECMore class="col-12 text-primary mt-4"
@@ -74,7 +74,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { has } from 'lodash';
+import { has } from 'lodash-es';
 import { helpers, PvBadge, CSVLinter } from '@piveau/piveau-hub-ui-modules';
 import ECMore from "@/components/ECMore";
 
@@ -92,6 +92,7 @@ export default {
         return {
             displayAll: this.$env.datasetDetails.quality.displayAll,
             numberOfDisplayedQualityDistributions: this.$env.datasetDetails.quality.numberOfDisplayedQualityDistributions,
+            enableCSVLinter: this.$env.datasetDetails.quality.csvLinter.enable,
         };
     },
     computed: {
@@ -181,7 +182,7 @@ export default {
         },
         toggleDistribution(index) {
             // Close all Distributions
-            this.getDistributions.forEach((dist, i) => {
+            this.displayedQualityDistributions.forEach((dist, i) => {
                 if (i === index) return;
                 this.$refs[`dist${i}`][0].classList.add('collapsed');
                 this.$refs[`distPlus${i}`][0].classList.remove('collapsed');
