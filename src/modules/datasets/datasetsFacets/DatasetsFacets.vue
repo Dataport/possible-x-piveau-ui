@@ -193,7 +193,7 @@ export default {
             && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
               if(activeFields.includes(field.id)) activeFacets.push(field);
               else inactiveFacets.push(field);
-            }
+              }
         });
       });
 
@@ -297,8 +297,9 @@ export default {
         facet.toUpperCase();
         qField = qField.map(f => f.toUpperCase());
       }
+      
       return qField.indexOf(facet) > -1;
-    },
+      },
     facetClicked(field, item) {
       const facet = item.id;
       if (field === "dataScope") {
@@ -338,6 +339,7 @@ export default {
         this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
           .catch(error => { console.log(error); });
       }
+      sessionStorage.clear();
     },
     dataScopeFacetClicked(dataScope) {
       if (this.$route.query.dataScope === dataScope) {
@@ -432,6 +434,12 @@ export default {
     this.useCatalogService(this.catalogService);
     this.initShowCatalogDetails();
     this.initMinScoring();
+    for(var i in sessionStorage){
+      if(sessionStorage.length > 0 && i =="Filter") this.toggleCutoff();
+      
+    }
+    /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
+    /* fill in here */
   }
 };
 </script>

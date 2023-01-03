@@ -37,7 +37,7 @@ export default {
     activate() {
       this.showOptions();
       this.$refs["value-display"].focus();
-    }
+    }   
   }
 }
 </script>

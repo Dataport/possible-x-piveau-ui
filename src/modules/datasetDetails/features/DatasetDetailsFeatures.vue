@@ -4,7 +4,11 @@
       v-if="showObjectArray(getKeywords)"
       :showKeyword="showKeyword"
     />
-
+    <dataset-details-categories-key
+      class="dsdCategoryFeature"
+      v-if="showObjectArray(getCategories)"
+      :trackGoto="trackGoto"
+    />
     <dataset-details-subject
       v-if="showObjectArray(getSubject)"
     />
@@ -54,6 +58,8 @@ import DatasetDetailsDataServices from "@/modules/datasetDetails/features/Datase
 import DatasetDetailsIsUsedBy from "@/modules/datasetDetails/features/DatasetDetailsIsUsedBy";
 import DatasetDetailsRelations from "@/modules/datasetDetails/features/DatasetDetailsRelations";
 import DatasetDetailsMap from "@/modules/datasetDetails/features/DatasetDetailsMap";
+import DatasetDetailsCategoriesKey from "@/modules/datasetDetails/features/DatasetDetailsCategoriesKey";
+
 import {mapGetters} from "vuex";
 import {has, isEmpty} from "lodash";
 
@@ -61,6 +67,7 @@ export default {
   name: "DatasetDetailsFeatures",
   components: {
     DatasetDetailsMap,
+    DatasetDetailsCategoriesKey,
     DatasetDetailsRelations,
     DatasetDetailsIsUsedBy,
     DatasetDetailsDataServices,
@@ -88,6 +95,7 @@ export default {
       'getDistributions',
       'getExtendedMetadata',
       'getRelations',
+      'getCategories',
       'getSpatial'
     ]),
     getDataServices() {

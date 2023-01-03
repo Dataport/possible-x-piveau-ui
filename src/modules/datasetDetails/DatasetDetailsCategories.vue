@@ -95,3 +95,12 @@
   };
 </script>
 
+<style scoped lang="scss">
+.tag-color {
+  background-color: var(--tag-color);
+}
+.keywords__item > div {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+</style>
