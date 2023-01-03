@@ -131,7 +131,7 @@
                   {{ $t('message.metadata.address') }}:
                   {{contactPoint.address}}
                 </div>
-                <div v-if="has(contactPoint, 'url') && showArray(contactPoint.url)" class="d-flex">
+                <div v-if="has(contactPoint, 'url') && showArray(contactPoint.url)">
                   URL:
                   <div class="ml-1">
                     <div v-for="(url, i) of contactPoint.url" :key="i">

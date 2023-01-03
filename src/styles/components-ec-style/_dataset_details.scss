@@ -264,6 +264,11 @@
     table {
       margin-bottom: 0 !important;
       overflow-y: hidden;
+
+      td:nth-child(2) {
+        display: inline-block;
+        word-break: break-word;
+      }
     }
   }
 
