@@ -16,6 +16,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "isolatedModules": true,
+    "rootDir": ".",
+    "allowJs": true,
     "types": [
       "vite/client",
       "webpack-env",
@@ -43,5 +45,11 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "vueCompilerOptions": {
+    "target": 2.7,
+    "extensions:": [
+      ".vue" 
+    ]
+  }
 }
