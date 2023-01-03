@@ -265,8 +265,9 @@
       margin-bottom: 0 !important;
       overflow-y: hidden;
 
-      tr {
-        display: block;
+      td:nth-child(2) {
+        display: inline-block;
+        word-break: break-word;
       }
     }
   }
