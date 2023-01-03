@@ -318,8 +318,8 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../../../styles/bootstrap_theme';
-  @import '../../../styles/utils/css-animations';
+  // @import '../../../styles/bootstrap_theme';
+  // @import '../../../styles/utils/css-animations';
 
 #nav {
   .clear-btn button {
