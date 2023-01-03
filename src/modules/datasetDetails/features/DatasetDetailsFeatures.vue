@@ -5,6 +5,7 @@
       :showKeyword="showKeyword"
     />
     <dataset-details-categories-key
+      class="dsdCategoryFeature"
       v-if="showObjectArray(getCategories)"
       :trackGoto="trackGoto"
     />
