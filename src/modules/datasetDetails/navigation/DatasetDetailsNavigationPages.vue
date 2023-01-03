@@ -2,7 +2,7 @@
   <nav>
     <ul class="menu m-0 list-inline list-unstyled navbar-nav mr-auto">
       <li v-for="(page, index) in pages" :key="index" 
-        class="mr-2 list-inline-item nav-item text-nowrap dsd-nav-button" :class="page.exact"
+        class="mr-2 list-inline-item nav-item text-nowrap dsd-nav-button" :class="page.cName"
       >
         <dataset-details-navigation-page
           :path="page.path"
@@ -26,15 +26,15 @@ export default {
     ]),
     pages() {
       const id = this.getID;
-      const createPage = (key, noPathKey, exact) => ({
+      const createPage = (key, noPathKey, exact, cName) => ({
         path: `/datasets/${id}${noPathKey ? "" : `/${key}`}`,
         title: Vue.i18n.t(`message.datasetDetails.subnav.${key}`),
         tooltip: Vue.i18n.t(`message.tooltip.datasetDetails.${key}`),
-        exact
+        exact,cName
       });
       return [
         createPage("dataset", true, true),
-        createPage("categories", false, "dsd-nav-cat"),
+        createPage("categories", false, false, "dsd-nav-cat"),
         createPage("quality"),
         createPage("similarDatasets")
       ];
