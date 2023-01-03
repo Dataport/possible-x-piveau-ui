@@ -1,13 +1,20 @@
 <template>
-    <div class="row mt-2 flex-column dsd-item dsd-keywords">
-      <span v-if="showTitle" class="mb-4 h4 font-weight-bold">Keywords ({{ getKeywords.length }})</span>
-      <div class="keywords__item row">
+    <div class="row mt-2 flex-column dsd-feature">
+      <div >
+      <dataset-details-feature-header
+      :title="'Keywords '+'(' + getKeywords.length + ')'"
+      :arrowDown="!isKeywordsAllDisplayed"
+      tag="keywords-toggle"
+      :onClick="toggleDisplayCount"
+    />
+      </div>
+      <div v-if="isKeywordsAllDisplayed" class="keywords__item row mt-4">
           <span
             v-for='(keyword, i) in displayedKeywords'
             :key="i"
             class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 px-1"
           >
-          <app-link v-if="showKeyword(keyword)" :to="getKeywordLink(keyword)" :rel="followKeywordLinks">
+          <app-link v-if="showKeyword(keyword) && isKeywordsAllDisplayed" :to="getKeywordLink(keyword)" :rel="followKeywordLinks">
               <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
                      :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
                      :data-placement="keywordTruncated(keyword) ? 'top' : false"
@@ -18,13 +25,6 @@
           </span>
       </div>
       <div>
-        <pv-show-more
-          v-if="getKeywords.length > defaultDisplayCount"
-          :label="isKeywordsAllDisplayed? 'Show less' : 'Show more'"
-          :upArrow="isKeywordsAllDisplayed"
-          :action="toggleDisplayCount"
-          class="row text-primary"
-        />
       </div>
 <!--      <div>-->
 <!--        <div-->
@@ -50,21 +50,23 @@
 <!--            </button>-->
 <!--          </div>-->
 <!--        </div>-->
-<!--      </div>-->
+<!--      </div> -->
     </div>
 </template>
 
 <script>
+import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import {has, isString} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
 import {sortAlphabetically} from "@/modules/datasetDetails/features/utils/sortAlphabetically";
-import PvShowMore from "@/modules/widgets/PvShowMore";
+import $ from "jquery";
+
 
 export default {
   name: "DatasetDetailsKeywords",
-  components: {PvShowMore, AppLink},
+  components: {AppLink,DatasetDetailsFeatureHeader},
   props: {
     showKeyword: Function
   },
@@ -72,7 +74,7 @@ export default {
     return {
       defaultLocale: this.$env.languages.locale,
       showTitle: this.$env.datasetDetails.keywords.showTitle,
-      defaultDisplayCount: 24,
+      defaultDisplayCount: 0,
       keywords: {
         displayAll: false,
         displayCount: 24, // Should never exceed number of keywords
@@ -92,7 +94,7 @@ export default {
         : Object.freeze(this.sortedKeywords.slice(0, this.keywords.displayCount));
     },
     isKeywordsAllDisplayed() {
-      return this.keywords.displayCount >= this.getKeywords.length;
+     return this.keywords.displayAll;
     },
     remainingKeywords() {
       return this.getKeywords.length - this.keywords.displayCount;
@@ -146,11 +148,8 @@ export default {
       return { path: `/datasets?keywords=${keyword.id}`, query: Object.assign({}, { locale: this.$route.query.locale }) };
     },
     toggleDisplayCount() {
-      if (this.keywords.displayCount < this.getKeywords.length) {
-        this.keywords.displayCount = this.getKeywords.length;
-      } else {
-        this.keywords.displayCount = this.defaultDisplayCount;
-      }
+    this.keywords.displayAll = !this.keywords.displayAll;
+    $('body').tooltip({selector: '[data-toggle="tooltip"]'});
     }
   }
 }
