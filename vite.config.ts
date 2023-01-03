@@ -2,8 +2,17 @@ import { defineConfig, PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue2';
 import copy from 'rollup-plugin-copy';
 import path from 'path';
+import { lstatSync } from 'fs';
 import config from './config';
 import pkg from './package.json';
+
+const doesDirectoryExist = (path : string) => {
+  try {
+    return lstatSync(path).isDirectory();
+  } catch (err) {
+    return false;
+  }
+};
 
 let buildMode;
 if (process.env.NODE_ENV === 'production') {
@@ -25,7 +34,7 @@ const externalPackages = [
 // Creating regexes of the packages to make sure subpaths of the
 // packages are also treated as external
 const regexesOfPackages = externalPackages
-  .map(packageName => new RegExp(`^${packageName}(\/.*)?`));
+  .map(packageName => new RegExp(`^${packageName}(/.*)?`));
 
 console.log('externalPackages', externalPackages);
 
@@ -53,8 +62,9 @@ export default defineConfig({
 
   optimizeDeps: {
     include: [
-      'vue-step-progress'
-    ]
+      '@piveau/piveau-hub-ui-modules'
+    ],
+    exclude: []
   },
 
   resolve: {
@@ -72,21 +82,29 @@ export default defineConfig({
         replacement: 'vue/dist/vue.esm.js',
       },
       {
-        // Replace @piveau/piveau-hub-ui-modules with relative path
-        find: '@piveau/piveau-hub-ui-modules',
-        replacement: path.resolve(__dirname, 'src/modules'),
-      },
-      {
         // Use lodash-es instead of lodash
         find: 'lodash',
         replacement: 'lodash-es',
-      }
+      },
+      // Use this as fallback if @piveau/piveau-hub-ui-modules is not found in node_modules
+      ...!doesDirectoryExist(
+        path.resolve(__dirname, 'node_modules/@piveau/piveau-hub-ui-modules')
+      )
+        ? [
+            {
+              // Replace @piveau/piveau-hub-ui-modules with relative path
+              find: '@piveau/piveau-hub-ui-modules',
+              replacement: path.resolve(__dirname, 'src/modules'),
+            },
+        ]
+        : []
     ],
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    preserveSymlinks: false,
   },
   build: {
     chunkSizeWarningLimit: 600,
-    cssCodeSplit: false,
+    cssCodeSplit: true,
     sourcemap: true,
 
     lib: {
