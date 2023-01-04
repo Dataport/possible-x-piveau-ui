@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { plugins } from '@citation-js/core';
 import dgs from './dg';
 
 /**
@@ -127,9 +126,9 @@ function dcatStateToCsl(state) {
   return csl;
 }
 
-// Add custom Vuex DatasetDetails state parser to citation-js
-plugins.input.add('@piveau/dcat-state', {
-  parse: dcatStateToCsl,
-});
-
-export default dcatStateToCsl;
+export default function install(plugins: typeof import('@citation-js/core').plugins) {
+  // Add custom Vuex DatasetDetails state parser to citation-js
+  plugins.input.add('@piveau/dcat-state', {
+    parse: dcatStateToCsl,
+  });
+}

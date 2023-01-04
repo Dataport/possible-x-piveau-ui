@@ -58,23 +58,7 @@
 
 <script>
 import { debounce } from 'lodash-es';
-
 import { mapGetters } from 'vuex';
-
-// Only add necessary libraries and plugins from citation-plugin.js
-// to reduce bundle size
-import { Cite, plugins } from '@citation-js/core';
-import '@citation-js/plugin-csl';
-import '@citation-js/plugin-doi';
-// import '@citation-js/plugin-bibtex';
-import './plugins/dcat-state-to-csl';
-import './plugins/csl-add-accessed';
-
-// Citation styles not available out-of-the-box by citation-js
-// import chicago from './template/chicago';
-// import datacite from './template/datacite';
-import deu from './template/deu';
-
 import { getRepresentativeLocaleOf } from '../utils/helpers';
 
 export default {
@@ -92,6 +76,7 @@ export default {
       required: true,
     },
   },
+  emits: ['ready'],
   data: () => ({
     currentCitationId: null,
     citation: null,
@@ -139,7 +124,6 @@ export default {
       if (!this.citation) {
         return '';
       }
-
       let bibliography = this.citation.format('bibliography', {
         format: 'html',
         template: this.citationStyle || 'apa',
@@ -176,6 +160,7 @@ export default {
       return bibliographyText || '';
     },
     isReady() {
+      this.$emit('ready');
       return !this.getLoading && this.citation && this.bibliographyHtml;
     },
   },
@@ -201,7 +186,15 @@ export default {
       immediate: true,
     },
   },
-  created() {
+  async created() {
+    const { plugins } = await import('@citation-js/core');
+
+    const {default: installDcatStateToCsl} = await import('./plugins/dcat-state-to-csl');
+    const {default: installCslAddAccessed} = await import('./plugins/csl-add-accessed');
+    installDcatStateToCsl(plugins);
+    installCslAddAccessed(plugins);
+
+    const { default: deu } = await import('./template/deu');
     const styleConfig = plugins.config.get('@csl');
     if (styleConfig) {
       // styleConfig.templates.add(chicago.name, chicago.csl);
@@ -239,6 +232,9 @@ export default {
 
       let citation = null;
 
+      const { Cite } = await import('@citation-js/core')
+      await import('@citation-js/plugin-csl');
+      await import('@citation-js/plugin-doi');
       try {
         citation = await Cite.async(...citationParams);
         // eslint-disable-next-line no-param-reassign

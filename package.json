@@ -34,7 +34,7 @@
   ],
   "sideEffects": [
     "*.css",
-    "./dist/citation/*"
+    "*.scss"
   ],
   "dependencies": {
     "@braid/vue-formulate": "^2.5.3",
