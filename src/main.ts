@@ -17,6 +17,7 @@ import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
+import VueSkeletonLoader from 'skeleton-loader-vue';
 // import AppToast from '@/components/AppToast';
 // Import v-select
 // Import i18n validation messages for vueformulate
@@ -72,6 +73,11 @@ import {
   SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+
+
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
@@ -88,7 +94,7 @@ import ECLinkButton from "./components/ECLinkButton.vue";
 import ECDataInfoBox from "./components/ECDataInfoBox.vue";
 import ECDatasets from "./components/ECDatasets.vue";
 import ECDatasetsFilters from "./components/ECDatasetsFilters.vue";
-import ECCatalogues from "./components/ECCatalogues.vue";
+import ECSubNavigation from "./components/ECSubNavigation.vue";
 import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
 import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
 
@@ -102,9 +108,9 @@ const components = ecStyle ? {
   DatasetDetailsNavigationPage: ECLinkButton,
   Datasets: ECDatasets,
   DatasetsFilters: ECDatasetsFilters,
-  Catalogues: ECCatalogues,
   DistributionsHeader: ECDistributionsHeader,
-  DistributionDetails: ECDistributionDetails
+  DistributionDetails: ECDistributionDetails,
+  SubNavigation: ECSubNavigation
 } : {};
 
 configureModules({
@@ -139,6 +145,9 @@ Vue.component('AppConfirmationDialog', AppConfirmationDialog);
 
 // DEU Redesign Components
 Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
+
+
+Vue.component('vue-skeleton-loader', VueSkeletonLoader);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const VueCookie = require('vue-cookie');
@@ -261,6 +270,8 @@ require('./styles/styles.scss');
 
 if (ecStyle) {
   require('./styles/ec-style.scss');
+} else {
+  require('./styles/old-deu-style.scss');
 }
 
 $(() => {

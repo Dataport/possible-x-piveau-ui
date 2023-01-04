@@ -27,6 +27,7 @@
 export default {
   name: "ECSelectDisplay",
   props: {
+    title: String,
     text: String,
     placeholder: String,
     showOptions: Function,
@@ -36,7 +37,7 @@ export default {
     activate() {
       this.showOptions();
       this.$refs["value-display"].focus();
-    }
+    }   
   }
 }
 </script>
@@ -57,8 +58,6 @@ export default {
   }
 }
 
-.empty {
-  color: grey;
-}
+
 
 </style>

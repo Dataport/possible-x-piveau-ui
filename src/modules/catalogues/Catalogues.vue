@@ -128,7 +128,7 @@
           </div>
           <div class="loading-spinner ml-3" v-if="getLoading"></div>
         </div>
-        <selectedFacetsOverview :selected-facets="getFacets"></selectedFacetsOverview>
+        <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getAvailableFacets"></selectedFacetsOverview>
         <pv-data-info-box
           v-for="catalog in getCatalogs"
           :key="`data-info-box@${catalog.id}`"
@@ -153,7 +153,7 @@
     </div>
     <div class="row">
       <div class="column col-12 col-md-9 offset-md-3">
-        <pagination class="mt-3" 
+        <pagination class="mt-3"
           :items-count="getCatalogsCount"
           :items-per-page="getLimit"
           :get-page="getPage"
@@ -167,7 +167,7 @@
 <script>
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
-  import { debounce, has } from 'lodash';
+  import { debounce, has } from 'lodash-es';
   import fileTypes from '../utils/fileTypes';
   import CataloguesFacets from './cataloguesFacets/CataloguesFacets.vue';
   import Pagination from '../widgets/Pagination.vue';
@@ -507,10 +507,6 @@
   .cursor-pointer {
     cursor: pointer;
   }
-  .button-color-grey {
-    background-color: rgba(0, 29, 133,0.1) !important;
-    color: black !important;
-  }
   .custom-button {
     border: 1px solid black;
     background-color: white;
@@ -527,6 +523,10 @@
     padding: 0;
     background-color: white;
     outline: none;
+  }
+  .button-color-grey {
+    background-color: rgba(0, 29, 133,0.1);
+    color: black;
   }
   .inactive-styles {
     color: rgba(0, 0, 0, 0.5);

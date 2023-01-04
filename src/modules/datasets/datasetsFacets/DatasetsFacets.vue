@@ -73,8 +73,7 @@ import {
   has,
   isNil,
   isNumber,
-} from 'lodash';
-// import Facet from '../../facets/SelectFacet.vue';
+} from 'lodash-es';
 import Vue from 'vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
@@ -173,7 +172,10 @@ export default {
       return this.$route.query.query;
     },
     showMoreFacetsShown() {
-      return this.$env.datasets.facets.cutoff > 0 && this.$env.datasets.facets.cutoff < this.getAllAvailableFacets.length;
+      return this.$env.datasets.facets.cutoff > 0 && this.$env.datasets.facets.cutoff < this.getAllVisibleFacets.length;
+    },
+    getAllVisibleFacets() {
+      return this.getAllAvailableFacets.filter(facet => facet.items.length > 0);
     },
     getSortedFacets() {
       const availableFacets = this.getAllAvailableFacets;
@@ -191,7 +193,7 @@ export default {
             && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
               if(activeFields.includes(field.id)) activeFacets.push(field);
               else inactiveFacets.push(field);
-            }
+              }
         });
       });
 
@@ -261,6 +263,21 @@ export default {
         return 1;
       });
     },
+    setRouteQuery(query, mode) {
+      if (mode === "replace") {
+        return this.$router.replace(
+          { query: Object.assign({}, this.$route.query, query) }
+        ).catch(
+          error => { console.log(error); }
+        );
+      } else {
+        return this.$router.push(
+          { query: Object.assign({}, this.$route.query, query) }
+        ).catch(
+          error => { console.log(error); }
+        );
+      }
+    },
     facetIsSelected(fieldId, item) {
       const facet = item.id;
       if (fieldId === 'scoring') {
@@ -280,8 +297,9 @@ export default {
         facet.toUpperCase();
         qField = qField.map(f => f.toUpperCase());
       }
+      
       return qField.indexOf(facet) > -1;
-    },
+      },
     facetClicked(field, item) {
       const facet = item.id;
       if (field === "dataScope") {
@@ -293,11 +311,7 @@ export default {
     },
     toggleFacet(field, facet) {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-        return this.$router.push(
-          { query: Object.assign({}, this.$route.query, { [field]: [], page: 1 }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        return this.setRouteQuery({ [field]: [], page: 1 });
       }
       let facets = this.$route.query[field].slice();
       if (!Array.isArray(facets)) facets = [facets];
@@ -305,21 +319,19 @@ export default {
         // Ignore Case for categories
         facet.toUpperCase();
         facets = facets.map(f => f.toUpperCase());
-      } else if (field === 'scoring') {
+      }
+      if (field === 'scoring') {
         // Empty facets as scoring facets are disjoint
-        facets = [];
-      }
-      const index = facets.indexOf(facet);
-      if (index > -1) {
-        facets.splice(index, 1);
+        facets = (facet === 'badScoring') ? [] : [facet];
       } else {
-        facets.push(facet);
+        const index = facets.indexOf(facet);
+        if (index > -1) {
+          facets.splice(index, 1);
+        } else {
+          facets.push(facet);
+        }
       }
-      return this.$router.push(
-        { query: Object.assign({}, this.$route.query, { [field]: facets, page: 1 }) }
-      ).catch(
-        error => { console.log(error); }
-      );
+      return this.setRouteQuery({ [field]: facets, page: 1 });
     },
     clearFacets() {
       if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
@@ -327,22 +339,15 @@ export default {
         this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
           .catch(error => { console.log(error); });
       }
+      sessionStorage.clear();
     },
     dataScopeFacetClicked(dataScope) {
       if (this.$route.query.dataScope === dataScope) {
-        this.$router.push(
-          { query: Object.assign({}, this.$route.query, { dataScope: [], country: [], page: 1 }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        this.setRouteQuery({ dataScope: [], country: [], page: 1 });
       } else {
         const country = [];
         country.push(dataScope);
-        this.$router.push(
-          { query: Object.assign({}, this.$route.query, { dataScope, country, page: 1 }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        this.setRouteQuery({ dataScope, country, page: 1 });
       }
     },
     scoringFacetClicked(item) {
@@ -357,15 +362,17 @@ export default {
       op = op === this.FACET_GROUP_OPERATORS.and ? this.FACET_GROUP_OPERATORS.or : this.FACET_GROUP_OPERATORS.and;
       this.setFacetGroupOperator(op);
     },
-    changeDataServices(ds) {
-      this.setDataServices(ds);
+    changeDataServices(dataServices) {
+      this.setDataServices(dataServices);
+      // this.setRouteQuery({ dataServices: (dataServices ? 'true' : undefined), page: 1 });
+      const query = Object.assign({}, this.$route.query, { dataServices, page: 1 });
+      if (dataServices === 'false') {
+        delete query.dataServices;
+      }
+      this.$router.replace({ query });
     },
     resetPage() {
-      this.$router.replace(
-        { query: Object.assign({}, this.$route.query, { page: 1 }) }
-      ).catch(
-        error => { console.log(error); }
-      );
+      this.setRouteQuery({ page: 1 }, "replace");
     },
     getFacetCount(field, facet) {
       if (field.id === 'scoring') return '';
@@ -403,20 +410,16 @@ export default {
   watch: {
     facetGroupOperatorWatcher: {
       handler(facetGroupOperator) {
-        this.$router.replace(
-          { query: Object.assign({}, this.$route.query, { facetGroupOperator }) }
-        ).catch(
-          error => { console.log(error); }
-        );
+        this.setRouteQuery({ facetGroupOperator }, "replace");
       },
     },
-    getDataServices(dataServices) {
-      this.$router.replace(
-        { query: Object.assign({}, this.$route.query, { dataServices }) }
-      ).catch(
-        error => { console.log(error); }
-      );
-    },
+    // getDataServices(dataServices) {
+    //   this.$router.replace(
+    //     { query: Object.assign({}, this.$route.query, { dataServices }) }
+    //   ).catch(
+    //     error => { console.log(error); }
+    //   );
+    // },
     '$route.query.showcatalogdetails'(showCatalogDetails) {
       this.showCatalogDetails = showCatalogDetails;
     },
@@ -431,6 +434,12 @@ export default {
     this.useCatalogService(this.catalogService);
     this.initShowCatalogDetails();
     this.initMinScoring();
+    for(var i in sessionStorage){
+      if(sessionStorage.length > 0 && i =="Filter") this.toggleCutoff();
+      
+    }
+    /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
+    /* fill in here */
   }
 };
 </script>

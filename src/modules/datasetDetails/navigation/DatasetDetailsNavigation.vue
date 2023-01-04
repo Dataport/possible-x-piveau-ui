@@ -12,7 +12,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
-import SubNavigation from '../../navigation/SubNavigation.vue';
+// import SubNavigation from '../../navigation/SubNavigation.vue';
 import DatasetCitationModal from '../../citation/DatasetCitationModal.vue';
 import DatasetDetailsNavigationPages
   from "@/modules/datasetDetails/navigation/DatasetDetailsNavigationPages";
@@ -24,7 +24,7 @@ import DatasetDetailsNavigationLinks
     components: {
       DatasetDetailsNavigationLinks,
       DatasetDetailsNavigationPages,
-      SubNavigation,
+      // SubNavigation,
       DatasetCitationModal
     },
     props: {

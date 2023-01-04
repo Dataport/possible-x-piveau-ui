@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div>
       <h1 class="text-primary">{{ $t('message.header.navigation.data.sparqlsearch') }}</h1>
-      <hr>
+      <hr style="margin-left:0 !important;">
       <p v-html="$t('message.sparql.subHeadlineText1')"></p>
       <p v-html="$t('message.sparql.subHeadlineText2', { sample_sparql_queries })"></p>
     </div>

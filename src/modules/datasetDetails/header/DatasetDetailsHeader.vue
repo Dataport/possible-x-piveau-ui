@@ -26,7 +26,7 @@
   // import Actions and Getters from Store Module
   import { mapGetters } from 'vuex';
   // import helper functions
-  import { has, isNil, isObject } from 'lodash';
+  import { has, isNil, isObject } from 'lodash-es';
 
   import AppLink from '../../widgets/AppLink.vue';
   import DatasetDate from '../../datasets/DatasetDate.vue';

@@ -3,7 +3,7 @@
     <div id="nav" class="d-flex justify-content-between">
       <div class="left-form-nav">
         <!-- PREVIOUS STEP -->
-        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" :disabled="disablePrevious" class="prev-btn mr-2"></FormulateInput>
+        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious" class="prev-btn mr-2"></FormulateInput>
 
         <!-- CLEAR FORM -->
         <FormulateInput type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn"></FormulateInput>
@@ -14,12 +14,12 @@
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || mandatoryFieldsFilled({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
-        
+
         <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateNewDataset" class="mr-2">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
           {{ $t('message.dataupload.publishdataset') }}
         </FormulateInput>
-        
+
         <!-- SAVE NEW DATASET AS DRAFT -->
         <FormulateInput type="button" @click="submit('draft')" v-if="showCreateNewDraft" class="mr-2">
           <span v-if="uploading.draft" class="loading-spinner"></span>
@@ -106,8 +106,8 @@ export default {
     datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
     distributionMandatoryError() { return this.$route.query.error === 'mandatoryDistribution' },
     catalogMandatoryError() { return this.$route.query.error === 'mandatoryCatalog' },
-    disablePrevious() {
-      return !this.isPreviousPage && !this.property === 'distributions';
+    showPrevious() {
+      return this.isPreviousPage || this.property === 'distributions';
     },
     showCreateNewDataset() {
       return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
@@ -239,7 +239,7 @@ export default {
       if (!this.mandatoryFieldsFilled({ property: this.property, id: this.id })) {
         this.$Progress.fail();
         this.showSnackbar({ message: 'Mandatory Properties missing', variant: 'error' });
-        return; 
+        return;
       }
 
       const datasetId = this.getData(submitProperty)['datasetID'];

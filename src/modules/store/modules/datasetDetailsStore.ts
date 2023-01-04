@@ -155,6 +155,8 @@
      catalogRecord: {},
      isUsedBy: {},
      extendetMetadata: {},
+     distributionDownloadAs: {},
+     distributionDownloadAsOptions: [],
    },
    activeNavigationTab: 0,
    loading: false,
@@ -229,6 +231,8 @@
    getIsDQVDataRDFAvailable: state => state.dataset.isDQVDataRDFAvailable,
    getCatalogRecord: state => state.dataset.catalogRecord,
    getExtendedMetadata: state => state.dataset.extendetMetadata,
+   getDistributionDownloadAs: state => state.dataset.distributionDownloadAs,
+   getDistributionDownloadAsOptions: state => state.dataset.distributionDownloadAsOptions,
  };
 
  const actions = {
@@ -431,6 +435,16 @@
     */
    useService({ commit }, service) {
      commit('SET_SERVICE', service);
+   },
+    /**
+    * @description Selects distribution for download as (format convertion) service, sets available format options.
+    * @param commit
+    * @param distribution - Selected distribution.
+    * @param selectOptions - Available file formats for convertion
+    */
+    selectDistributionForDownloadAs({ commit }, {distribution, selectOptions}) {
+     commit('SET_DISTRIBUTION_DOWNLOAD_AS', distribution);
+     commit('SET_DISTRIBUTION_DOWNLOAD_AS_OPTIONS', selectOptions);
    },
  };
 
@@ -659,6 +673,12 @@
    SET_EXTENDET_METADATA(state, extendetMetadata) {
      state.dataset.extendetMetadata = extendetMetadata;
    },
+   SET_DISTRIBUTION_DOWNLOAD_AS(state, distribution) {
+     state.dataset.distributionDownloadAs = distribution;
+   },
+   SET_DISTRIBUTION_DOWNLOAD_AS_OPTIONS(state, selectOptions) {
+     state.dataset.distributionDownloadAsOptions = selectOptions;
+   }
  };
 
  const module = {

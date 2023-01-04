@@ -10,6 +10,7 @@
         v-model="autocomplete.text"
         @focus="focusAutocomplete()"
         @input="getAutocompleteSuggestions()">
+        <a role="button" @click="clearAutocomplete" class="custom-remove">Remove</a>
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
           <button
@@ -159,6 +160,14 @@ export default {
         }
       }
     },
+    clearAutocomplete() {
+      if (this.multiple) {
+        this.values = [];
+      }
+      this.context.model = "";
+      this.autocomplete.text = "";
+      this.context.rootEmit('change');
+    }
   },
   directives: {
     'click-outside': {
@@ -185,6 +194,51 @@ export default {
 </script>
 
 <style scoped>
+.custom-remove {
+  position: absolute;
+  display: block;
+  top: calc(50% - 0.15em);
+  width: 1.3em;
+  height: 1.3em;
+  background-color: #cecece;
+  right: 0.85em;
+  border-radius: 1.3em;
+  cursor: pointer;
+  transition: background-color .2s;
+  overflow: hidden;
+  text-indent: -1000px;
+}
+
+.custom-remove::before {
+  content: "";
+  position: absolute;
+  top: calc(50% - 0.1em);
+  left: 0.325em;
+  display: block;
+  width: 0.65em;
+  height: 0.2em;
+  background-color: #fff;
+  transform-origin: center center;
+  transition: transform .25s;
+}
+
+.custom-remove::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 0.1em);
+  left: 0.325em;
+  display: block;
+  width: 0.65em;
+  height: 0.2em;
+  background-color: #fff;
+  transform-origin: center center;
+  transition: transform .25s;
+}
+
+.custom-remove:hover {
+  background-color: red;
+}
+
 .selected-values-div {
   margin-top: 20px;
 }
@@ -211,6 +265,7 @@ export default {
   position: relative;
   top: 0;
   height: 100%;
+  margin-right: 45px !important;
 }
 .suggestion-list-group {
   position: relative;

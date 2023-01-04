@@ -131,7 +131,7 @@
                   {{ $t('message.metadata.address') }}:
                   {{contactPoint.address}}
                 </div>
-                <div v-if="has(contactPoint, 'url') && showArray(contactPoint.url)" class="d-flex">
+                <div v-if="has(contactPoint, 'url') && showArray(contactPoint.url)">
                   URL:
                   <div class="ml-1">
                     <div v-for="(url, i) of contactPoint.url" :key="i">
@@ -579,11 +579,11 @@ import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 import DatasetDetailsFeatureHeader
   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
-import PvShowMore from "@/modules/widgets/PvShowMore";
+// import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsProperties",
-  components: {PvShowMore, DatasetDetailsFeatureHeader, Tooltip, AppLink},
+  components: {DatasetDetailsFeatureHeader, Tooltip, AppLink},
   props: {
     filterDateFormatEU: Function,
     showObjectArray: Function,
@@ -596,7 +596,7 @@ export default {
     return {
       infoVisible: true,
       initialHeight: 0,
-      restrictedHeight: 500,
+      restrictedHeight: 200,
       expanded: false
     };
   },

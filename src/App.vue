@@ -3,35 +3,39 @@
     <div class="app-snackbar position-fixed fixed-bottom m-3 m-md-5 py-5 d-flex justify-content-center w-100">
       <app-snackbar />
     </div>
-    <cookie-consent :piwik-instance="$piwik" />
     <vue-progress-bar />
     <div class="site-wrapper">
       <deu-header
-          project="hub"
-          active-menu-item="data"
-          :showSparql="showSparql"
+        project="hub"
+        active-menu-item="data"
+        enable-authentication
+        use-breadcrumbs
+        use-breadcrumbs-route-meta
+        @login="euLogin"
+        @logout="euLogout"
+        :showSparql="showSparql"
       />
       <router-view
-          class="content"
-          :key="`${$route.fullPath}`"
+        class="content"
+        :key="`${$route.fullPath}`"
       />
       <deu-footer
-          :enable-authentication="$env.useAuthService"
-          :authenticated="keycloak && keycloak.authenticated"
-          @login="login"
-          @logout="logout"
-          @click-follow-link="handleFollowClick"/>
+        :authenticated="keycloak && keycloak.authenticated"
+        :use-login="$env.navigation.bottom.login.useLogin"
+        :login="$env.navigation.bottom.login.loginURL"
+        :login-title="$env.navigation.bottom.login.loginTitle"
+        :logout="$env.navigation.bottom.login.logoutURL"
+        :logout-title="$env.navigation.bottom.login.logoutTitle"
+        @click-follow-link="handleFollowClick"/>
     </div>
-    <dpi-menu v-if="keycloak && keycloak.authenticated"></dpi-menu>
-
+    <dpiMenu v-if="keycloak && keycloak.authenticated"></dpiMenu>
+    <cookie-consent :piwik-instance="$piwik" />
   </div>
-
 </template>
+
 
 <script>
 /* eslint-disable no-underscore-dangle */
-import { mapGetters, mapActions } from 'vuex';
-import { isNumber } from 'lodash';
 import CookieConsent from '@deu/deu-cookie-consent';
 import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
 import {
@@ -72,32 +76,17 @@ export default {
       showSparql: this.$env.navigation.top.main.data.sparql.show,
     };
   },
-  computed: {
-    ...mapGetters('auth', [
-      'securityAuth',
-      'getRTPToken',
-      'getKeycloak',
-    ]),
-  },
+  computed: {},
   methods: {
-    ...mapActions('auth', [
-      'authLogin',
-      'authLogout',
-      'rtpToken',
-      'setKeycloak',
-    ]),
-    resume() {
-      if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
+    euLogin() {
+      window.location.href = "https://data.europa.eu/euodp/data/user/login";
     },
-    isNumber,
-    login() {
-      this.$keycloak.loginFn();
-    },
-    logout() {
-      this.$keycloak.logoutFn();
-    },
+    euLogout() {},
     handleFollowClick(url) {
       if (typeof this.$piwik?.resume === "function") this.$piwik.trackOutlink(url);
+    },
+    resume() {
+      if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
     },
   },
 };
@@ -148,5 +137,9 @@ export default {
 .app-snackbar {
   z-index: 9999;
   pointer-events: none;
+}
+
+[v-cloak] {
+  display: none;
 }
 </style>

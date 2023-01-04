@@ -1,6 +1,7 @@
 <template>
   <button
-    :class="`d-flex ecl-button ecl-button--${primary? 'primary' : 'secondary'}`"
+    class="d-flex justify-content-center"
+    :class="` ecl-button ecl-button--${primary? 'primary' : 'secondary'}`"
     @click="onClick()"
     :title="tooltip"
   >

@@ -109,3 +109,11 @@ hr {
     margin: 0;
   }
 }
+
+@media screen and (max-width: 767px) { // less than md
+  .datasets.content {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+}

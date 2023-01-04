@@ -18,7 +18,7 @@ const state = {
     distributions: [],
     catalogues: {},
 };
-  
+
 const getters = {
     /**
      * Rteurns raw values for given property, page and distribution
@@ -95,7 +95,7 @@ const getters = {
         }
     }
 };
-  
+
 const actions = {
     /**
      * Saves values from input form to vuex store
@@ -182,7 +182,7 @@ const actions = {
         commit('resetStore');
     },
 };
-  
+
 const mutations = {
     /**
      * Saves input values from form into vuex as well as into localStorage of browser

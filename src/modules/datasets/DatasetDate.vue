@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import moment from 'moment';
+  import dayjs from 'dayjs';
   import dateFilters from '../filters/dateFilters';
 
   export default {
@@ -35,14 +35,14 @@
       isIncorrectDate() {
         // Falsy dates are considered as intentionally blank and are correct.
         if (!this.date) return false;
-        const m = moment(String(this.date));
+        const m = dayjs(String(this.date));
         if (!m.isValid()) {
           this.$root.$emit('date-incorrect');
           return true;
         }
 
         // Dates in the future are incorrect.
-        if (moment().diff(m) < 0) {
+        if (dayjs().diff(m) < 0) {
           this.$root.$emit('date-incorrect');
           return true;
         }

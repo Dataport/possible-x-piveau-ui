@@ -5,7 +5,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import createDraftApi from '@/modules/utils/draftApi';
 import createIdentifiersApi from '@/modules/utils/identifiersApi';
 import { decode } from '@/modules/utils/jwt';

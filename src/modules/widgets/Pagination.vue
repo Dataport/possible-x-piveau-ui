@@ -1,9 +1,9 @@
 <template>
-  <div class="row">
+  <div class="d-flex flex-row justify-content-between flex-wrap">
     <!-- PAGINATION -->
-    <div class="col-8 d-flex" v-if="usePagination">
+    <div class="d-flex" v-if="usePagination">
       <ul class="pagination align-self-center mb-0">
-        <li class="page-item" :class="{ 'disabled': !clickedPageValid(getPage - 1) }" @click="pageClickedHandler(getPage - 1)">
+        <li class="page-item page-item-previous" :class="{ 'disabled': !clickedPageValid(getPage - 1) }" @click="pageClickedHandler(getPage - 1)">
           <i class="page-link material-icons" v-if="usePaginationArrows">keyboard_arrow_left</i>
           <button class="page-link prev-button">{{ $t('message.pagination.previousPage') }}</button>
         </li>
@@ -14,15 +14,14 @@
             @click="pageClickedHandler(page)">
           <button class="page-link page-button">{{ page.toLocaleString('fi') }}</button>
         </li>
-        <li class="page-item" :class="{ 'disabled': !clickedPageValid(getPage + 1) }" @click="pageClickedHandler(getPage + 1)">
+        <li class="page-item page-item-next" :class="{ 'disabled': !clickedPageValid(getPage + 1) }" @click="pageClickedHandler(getPage + 1)">
           <button class="page-link next-button">{{ $t('message.pagination.nextPage') }}</button>
           <i class="page-link material-icons" v-if="usePaginationArrows">keyboard_arrow_right</i>
         </li>
       </ul>
     </div>
     <!-- ITEMS PER PAGE -->
-    <div class="col-4" v-if="useItemsPerPage">
-      <div class="items-per-page">
+      <div v-if="useItemsPerPage" class="d-flex flex-row flex-wrap align-items-center items-per-page">
         <div class="d-inline align-middle mr-2">Items per Page:</div>
         <div class="col-right mr-2 d-inline" role="group" aria-label="Items per Page Dropdown">
           <div class="btn-group items-per-page-dropdown" role="group">
@@ -37,17 +36,16 @@
               </div>
             </button>
             <ul class="dropdown-menu ec-ds-dropdown-items" aria-labelledby="itemsPerPageDropdown">
-              <button 
+              <button
                 class="dropdown-item"
-                @click="setPageLimit(item)" 
-                v-for="(item, index) in defaultItemsPerPageOptions" 
+                @click="setPageLimit(item)"
+                v-for="(item, index) in defaultItemsPerPageOptions"
                 :key="index">{{ item }}</button>
             </ul>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -155,7 +153,7 @@ export default {
 
 .items-per-page {
   display: inline;
-  float: right;
+  margin-left: auto;
 
   .items-per-page-dropdown {
     width: 100px;

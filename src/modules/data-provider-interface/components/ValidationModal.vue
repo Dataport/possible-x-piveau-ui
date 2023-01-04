@@ -50,5 +50,5 @@ export default {
   font-family: "Ubuntu";
   padding: 0.75em;
   font-weight: 100;
-}  
+}
 </style>

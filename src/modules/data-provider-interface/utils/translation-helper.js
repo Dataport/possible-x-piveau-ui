@@ -1,6 +1,6 @@
 // import { i18n } from '../../main';
 import Vue from 'vue';
-import { has } from 'lodash';
+import { has } from 'lodash-es';
 
 /**
  * Translation of each translatable parameter within the given structure if a translation is available

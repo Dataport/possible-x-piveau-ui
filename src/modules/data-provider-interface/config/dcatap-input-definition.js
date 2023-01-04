@@ -81,6 +81,7 @@ const dcatapProperties = {
           type: 'select',
           name: 'rdf:type',
           options: {
+            '': '---',
             'vcard:Individual': 'Person',
             'vcard:Organization': 'Organization',
           },
@@ -311,6 +312,7 @@ const dcatapProperties = {
           type: 'select',
           name: 'rdf:type',
           options: {
+            '': '---',
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
           },
@@ -1754,6 +1756,7 @@ const dcatapProperties = {
           type: 'select',
           name: 'rdf:type',
           options: {
+            '': '---',
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
           },
