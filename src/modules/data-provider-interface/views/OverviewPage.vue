@@ -1211,12 +1211,8 @@ export default {
     });
   },
   mounted(){
-<<<<<<< HEAD
     this.saveLocalstorageValues(this.property);
     this.getLocalstorageValues();
-=======
-    this.saveExistingJsonld(this.property);
->>>>>>> develop
   }
 };
 </script>

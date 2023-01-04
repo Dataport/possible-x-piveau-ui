@@ -29,12 +29,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import { isEmpty } from 'lodash';
 import generalHelper from '../utils/general-helper';
-=======
-import { isEmpty, has } from 'lodash-es';
->>>>>>> develop
 
 export default {
   props: {
