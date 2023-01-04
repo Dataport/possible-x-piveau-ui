@@ -20,7 +20,7 @@ import { getName, registerLocale } from 'i18n-iso-countries';
 // eager loading of images is needed for now for better compatibility.
 // See https://vitejs.dev/guide/features.html#glob-import
 const imageModules = import.meta.globEager('/src/assets/img/*/*.png');
-const localeModules = import.meta.globEager('/config/i18n/iso-countries/langs/*.json');
+const localeModules = import.meta.globEager('/config/i18n/iso-countries/langs/{bg,cs,da,de,el,es,et,fr,hr,hu,it,lt,lv,nl,nb,pl,pt,ro,sk,sl,fi,sv}.json');
 const RELATIVE_PATH_TO_IMAGES = '/src/assets/img';
 
 // ga and mt missing, nb for no
