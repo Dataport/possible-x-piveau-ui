@@ -352,12 +352,6 @@ function setAdditionalProperties(RDFdataset, data, mainURI, mainType, property, 
     if (property === 'datasets') {
         RDFdataset.addQuad(N3.DataFactory.quad(
             mainURI,
-            N3.DataFactory.namedNode(generalHelper.addNamespace('adms:sample')),
-            N3.DataFactory.literal('')
-        ))
-
-        RDFdataset.addQuad(N3.DataFactory.quad(
-            mainURI,
             N3.DataFactory.namedNode('dct:catalog'), // no actual vocabulary
             N3.DataFactory.literal(data['dct:catalog']) // hould never be empty because of frontend checking
         ))
