@@ -20,6 +20,7 @@
         :key="`${$route.fullPath}`"
       />
       <deu-footer
+        v-if="isContentLoaded"
         :authenticated="keycloak && keycloak.authenticated"
         :use-login="$env.navigation.bottom.login.useLogin"
         :login="$env.navigation.bottom.login.loginURL"
@@ -68,6 +69,7 @@ export default {
   },
   data() {
     return {
+      isContentLoaded: false,
       tracker: null,
       matomoURL: this.$env.tracker.trackerUrl,
       piwikId: this.$env.tracker.siteId,
@@ -88,6 +90,12 @@ export default {
     resume() {
       if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
     },
+    contentIsLoaded() {
+      this.isContentLoaded = true;
+    }
+  },
+  created() {
+    this.$root.$on('contentLoaded', this.contentIsLoaded);
   },
 };
 </script>
