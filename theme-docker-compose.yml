@@ -1,0 +1,23 @@
+
+version: '3.3'
+services:
+    hub-ui-theme:
+        # working_dir: /app
+        command: sh -c "npm run build && http-server /app/dist"
+        image: 'hub-ui-theme:latest'
+        ports:
+            - '8096:8080'
+        volumes:
+            - 'src:/app/src'
+            - 'public:/app/public'
+            # Alternatively you can mount also dist
+            #- 'dist:/app/dist'
+        restart: always
+        logging:
+            options:
+                max-size: 1g
+
+volumes:
+  src:
+  public:
+  # dist:
