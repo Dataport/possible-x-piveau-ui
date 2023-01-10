@@ -79,7 +79,6 @@ export default {
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
-    border-radius: 0.25rem;
     transform-origin: top right;
     position: absolute;
     right: 0;
