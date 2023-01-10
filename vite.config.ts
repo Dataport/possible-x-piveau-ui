@@ -28,15 +28,12 @@ const buildConfig = {
 
 const externalPackages = [
   ...Object.keys(pkg.dependencies || {}),
-  // ...Object.keys(pkg.peerDependencies || {}),
 ];
 
 // Creating regexes of the packages to make sure subpaths of the
 // packages are also treated as external
 const regexesOfPackages = externalPackages
   .map(packageName => new RegExp(`^${packageName}(/.*)?`));
-
-console.log('externalPackages', externalPackages);
 
 export default defineConfig({
   plugins: [
