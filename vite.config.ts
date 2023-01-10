@@ -49,7 +49,7 @@ export default defineConfig({
       ],
       hook: 'writeBundle',
       verbose: true,
-    }) as PluginOption
+    }) as PluginOption,
   ],
   server: {
     port: 8080
@@ -58,13 +58,6 @@ export default defineConfig({
     // Shim process.env from webpack
     'process.env': {},
     'process.env.buildconf': JSON.stringify(buildConfig)
-  },
-
-  optimizeDeps: {
-    include: [
-      '@piveau/piveau-hub-ui-modules'
-    ],
-    exclude: []
   },
 
   resolve: {
