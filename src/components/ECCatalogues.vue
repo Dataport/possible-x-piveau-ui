@@ -600,7 +600,8 @@ export default {
               container: "body",
             });
           })
-          .catch(() => this.$Progress.fail());
+          .catch(() => this.$Progress.fail())
+          .finally(() => this.$root.$emit('contentLoaded'));
       });
     },
     initInfiniteScrolling() {

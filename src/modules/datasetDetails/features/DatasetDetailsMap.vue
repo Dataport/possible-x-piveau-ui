@@ -89,6 +89,9 @@ export default {
       const type = this.getSpatial[0].type;
       return (!isNil(type) && isString(type)) ? type : this.maps.spatialType;
     }
+  },
+  mounted(){
+    this.mapVisible = !this.mapVisible;
   }
 }
 </script>

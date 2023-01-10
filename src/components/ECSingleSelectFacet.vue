@@ -74,8 +74,8 @@ export default {
     items(newItems) {
       this.selected = newItems.find(item => this.facetIsSelected(this.fieldId, item));
     },
-    selected() {
-      this.facetClicked(this.fieldId, this.selected);
+    selected(next, previous) {
+      if (next.id !== previous.id) this.facetClicked(this.fieldId, this.selected);
     }
   }
 }
