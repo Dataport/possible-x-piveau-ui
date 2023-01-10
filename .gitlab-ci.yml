@@ -12,6 +12,7 @@ build-asset:
   only:
     - master
     - develop
+    - merge_requests
   script:
     - npm ci
     - npm run link-module
