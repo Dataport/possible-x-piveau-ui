@@ -189,6 +189,9 @@ export default {
   async created() {
     const { plugins } = await import('@citation-js/core');
 
+    await import('@citation-js/plugin-csl');
+    await import('@citation-js/plugin-doi');
+
     const {default: installDcatStateToCsl} = await import('./plugins/dcat-state-to-csl');
     const {default: installCslAddAccessed} = await import('./plugins/csl-add-accessed');
     installDcatStateToCsl(plugins);
@@ -233,8 +236,6 @@ export default {
       let citation = null;
 
       const { Cite } = await import('@citation-js/core')
-      await import('@citation-js/plugin-csl');
-      await import('@citation-js/plugin-doi');
       try {
         citation = await Cite.async(...citationParams);
         // eslint-disable-next-line no-param-reassign
