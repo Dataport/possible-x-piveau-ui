@@ -2,8 +2,6 @@
 
 // Import IE Promise polyfill
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-import '@babel/polyfill';
-import 'es6-promise/auto';
 import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
 import VueProgressBar from 'vue-progressbar';
