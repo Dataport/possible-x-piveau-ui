@@ -12,6 +12,7 @@ build-asset:
   only:
     - master
     - develop
+    - next
     - merge_requests
   script:
     - npm ci
@@ -31,5 +32,6 @@ publish package to npm repository:
     refs:
       - master
       - develop
+      - next
   script:
     - npm run semantic-release
