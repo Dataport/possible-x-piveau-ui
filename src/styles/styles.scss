@@ -46,7 +46,7 @@ body::-webkit-scrollbar {
   &[type="CSV"] {
     background-color: var(--badge-green);
   }
-  &[type="XLS"], &[type="Excel XLSX"] {
+  &[type="XLS"], &[type="Excel XLSX"], &[type="Excel XLS"] {
     background-color: #1A6537;
   }
   &[type="ZIP"] {
@@ -113,6 +113,16 @@ body::-webkit-scrollbar {
     }
   }
 }
+
+.distribution-action button:focus{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  }
+.dropdownMenu{
+    border: none !important;
+   
+  }
 
 .mt-4 {
   margin-top: 30px !important;

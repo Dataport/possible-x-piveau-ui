@@ -5,7 +5,7 @@
   >
     <resource-details-linked-data-button
       v-for="format in formats"
-      class="dropdown-item"
+      class="dropdown-item bglight"
       resources="distributions"
       :key="format.id"
       :format="format.id"
