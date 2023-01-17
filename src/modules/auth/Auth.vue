@@ -10,7 +10,6 @@
             this.$keycloak.loginFn({ redirectUri: this.loginRedirect });
         },
         logout() {
-            // TODO: Change to new logout params 
             this.$keycloak.logoutFn({ redirectUri: this.logoutRedirect });
         },
     },
