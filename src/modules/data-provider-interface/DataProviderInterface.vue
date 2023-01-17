@@ -284,20 +284,21 @@ export default {
 
 // Stepper Customizing -------------
 
-.step-progress__step {
-  border: solid white 20px;
-}
+#stepper, #subStepper {
+  .step-progress__step {
+    border: solid white 20px;
+  }
 
-.step-progress__step  span {
-  color: #fff ;
-}
-.step-progress__step--active  .step-progress__step-label {
-  color: rgb(31, 31, 31) ;
-}
+  .step-progress__step  span {
+    color: #fff ;
+  }
+  .step-progress__step--active  .step-progress__step-label {
+    color: rgb(31, 31, 31) ;
+  }
 
-.step-progress__step-icon {
-font-size: 25px;
-
+  .step-progress__step-icon {
+  font-size: 25px;
+  }
 }
 
 // Input Form Margins & Borders ----
@@ -404,16 +405,18 @@ font-size: 25px;
   text-decoration: underline !important;
 }
 
-.step-progress__step span{
-  font-size: 30px;
-  font-weight: bold;
-}
-.step-progress__step::after{
-  height: 40px;
-  width: 40px;
-}
+#stepper, #subStepper {
+  .step-progress__step span{
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .step-progress__step::after{
+    height: 40px;
+    width: 40px;
+  }
 
-.step-progress__step-label {
-  cursor: pointer;
+  .step-progress__step-label {
+    cursor: pointer;
+  }
 }
 </style>
