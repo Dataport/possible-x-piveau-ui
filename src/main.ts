@@ -276,6 +276,8 @@ $(() => {
   $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
 });
 
+import '@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
+
 import '@fortawesome/fontawesome-free/css/all.css';
 
 import '@deu/deu-header-footer/dist/deu-header-footer.css';
