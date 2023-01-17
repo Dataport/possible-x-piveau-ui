@@ -14,7 +14,7 @@
         <div class="modal-body">
           <dataset-citation-table
             v-if="citationStyle && !getLoading && getID"
-            :modal-id="citationModalId"
+            :modal-id="modalId"
             :citation-style="citationStyle"
             :available-citation-styles="availableCitationStyles"
           />
@@ -44,7 +44,7 @@ export default {
   props: {
     modalId: {
       type: String,
-      required: true,
+      default: 'citationModal',
     },
     citationStyle: {
       type: String,
