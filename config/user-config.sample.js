@@ -47,7 +47,7 @@ const glueConfig = {
   keycloak: {
     enableLogin: true,
     realm: 'piveau',
-    url: 'https://keycloak-simtest.apps.osc.fokus.fraunhofer.de',
+    url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
     'ssl-required': 'external',
     clientId: 'piveau-hub-ui',
     'public-client': true,
