@@ -35,17 +35,14 @@ import DatasetDetailsFeatureHeader
   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 
 const MapBasic = defineAsyncComponent({
-  // Lazy-load mapbasic component to favor performance of critical render path
-  loader: async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return import("@/modules/map/MapBasic")
-  },
+  // Lazy-load mapbasic component
+  loader: () => import("@/modules/map/MapBasic"),
   loadingComponent: {
     // Load skeleton while the mapbasic component is loading
     components: { VueSkeletonLoader },
     render: (h) => {
       return h('vue-skeleton-loader',
-      { 
+      {
         props: {
         width: Vue.prototype.$env.maps.width,
         height: Vue.prototype.$env.maps.height,
