@@ -148,12 +148,7 @@ export default {
       handler(isLoading) {
         if (isLoading) return;
         if (this.currentCitationId === this.getID) return;
-
         this.currentCitationId = this.getID;
-
-        // For some reason, IS_LOADING commit is triggered multiple times
-        // and may result in store that is not ready yet.
-        // workaround: debounce to always get the latest dataset.
         this.retrieveCitation(this);
       },
       immediate: false,
@@ -186,7 +181,7 @@ export default {
      * Side-effect: sets vm.citation to the resulting citation object
      * @param vm Vue instance
      */
-    retrieveCitation: debounce(async (vm) => {
+    retrieveCitation: async (vm) => {
       // Deep-clone state to avoid any unintended mutations while citation is generated
       const dataset = JSON.parse(JSON.stringify(vm.$store.state.datasetDetails.dataset));
       Object.freeze(dataset);
@@ -236,7 +231,7 @@ export default {
       }
 
       return citation;
-    }, 500),
+    },
     /**
      * Handle export of the citation
      *
