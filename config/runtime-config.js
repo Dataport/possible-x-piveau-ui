@@ -135,6 +135,9 @@ export default {
         enable: "$VUE_APP_DATASETDETAILS_QUALITY_CSV_LINTER_ENABLE",
       },
     },
+    downloadAs: {
+      enable: "$VUE_APP_DISTRIBUTION_DOWNLOAD_AS_ENABLE",
+    }
   },
   maps: {
     useAnimation: "$VUE_APP_MAPS_USE_ANIMATION",
