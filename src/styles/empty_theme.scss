@@ -1,0 +1,111 @@
+/* Theme File for customization of Piveau */
+
+/* 
+Dataset Details 
+
+This page contains six different Vue.js components. (From top to bottom)
+
+- Datasetdetailsnavigation
+- Datasetdetailsheader
+- Datasetdetailsdataset
+- Distributions
+- Datasetdetailsfeatures
+
+*/
+
+/* ############### Datasetdetailsnavigation ############### START ###############*/
+
+/*Main wrapper for the navigation part*/
+.sub-navigation {
+    ul {
+        /*Contains <li> Tags of "Datasetdetailsnavigationpages.vue" & "Datasetdetailsnavigationlinks.vue"*/
+    }
+
+    .dropdown-menu {
+        /*Contains <a> Tags - gets triggered when a certain <li> Element gets clicked*/
+    }
+}
+
+/* ############### Datasetdetailsnavigation ###############  END  ###############*/
+
+/* ############### DatasetdetailsHeader ###############     START ###############*/
+
+/*Main wrapper for header of the dataset*/
+.dsd-header {
+    .dsd-header-title {
+        .dsd-header-catalogue {
+            .dsd-title-tag {
+                /*Description Tag - normally "Dataset" Is this outdated? TODO*/
+            }
+            img{
+                /* Displays the flag of the origin of the catalogue */
+            }
+        }
+
+        h1 {
+            /*Headline for the Dataset*/
+        }
+
+        .dsd-title-tag {
+            /*Description Tag - normally "Dataset"*/
+        }
+
+        .dsd-header-info {
+            /*Conatins everything underneath the header (e.g. Catalog/ Publisher/ Last update ) */
+        }
+    }
+
+    .dropdown-menu {
+        /*Contains <a> Tags - gets triggered when a certain <li> Element gets clicked*/
+    }
+}
+
+/* ############### DatasetdetailsHeader ###############      END  ###############*/
+
+/* ############### Datasetdetailsdataset ###############    START ###############*/
+
+/*Main wrapper for the whole dataset*/
+.dsd-dataset {
+    .dsd-banners {
+        /*Contains Text/ Icons - normally used to tell users thet the dataset got machine translated */
+    }
+
+    .dataset-description {
+        /*contains paragraphs that hold the description of the Dataset*/
+    }
+}
+
+/* ############### Datasetdetailsdataset ###############     END  ###############*/
+
+/* ############### Distributions ###############    START         ###############*/
+
+/*Main wrapper for the whole dataset*/
+.dsd-distributions {
+    .dsd-item {
+
+        /* Confusing, maybe change the classname TODO */
+        button {
+            /* "Download All" Button in the header of the DSD-Distributions */
+        }
+
+        h2 {
+            /* Header of distributions */
+        }
+    }
+
+    .distributions {
+        .distributions__item {
+
+            /* Wrapper for one distribution item */
+            .distribution-format {}
+        }
+
+        /*Wrapper for all the distributions that relate to this dataset*/
+    }
+
+    .dataset-description {
+        /*contains paragraphs that hold the description of the Dataset*/
+    }
+}
+
+/* ############### Distributions ###############     END           ###############*/
