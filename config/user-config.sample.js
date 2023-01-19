@@ -22,7 +22,6 @@ const glueConfig = {
     catalogBaseUrl: 'https://europeandataportal.eu/',
     authToken: '',
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
-    sparqlUrl: 'https://data.europa.eu/sparql',
     fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
   },
   tracker: {
@@ -43,7 +42,7 @@ const glueConfig = {
     'verify-token-audience': true,
     'use-resource-role-mappings': true,
     'confidential-port': 0,
-    logoutRedirectUri: '/data',
+    logoutRedirectUri: '/',
   },
   rtp: {
     grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
