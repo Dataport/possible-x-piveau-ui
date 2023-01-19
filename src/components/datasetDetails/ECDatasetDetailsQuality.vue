@@ -34,7 +34,7 @@ export default {
                 {
                     name: 'description',
                     vmid: 'description',
-                    content: (`${this.$t('message.datasetDetails.subnav.quality')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - data.europa.eu`)?.substring(0, 4999),
+                    content: (`${this.$t('message.datasetDetails.subnav.quality')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.description}`)?.substring(0, 4999),
                 },
             ],
         };

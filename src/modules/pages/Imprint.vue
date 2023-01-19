@@ -21,7 +21,7 @@
           {
             name: 'description',
             vmid: 'description',
-            content: `${this.$t('message.navigation.navItems.imprint')} - data.europa.eu`
+            content: `${this.$t('message.navigation.navItems.imprint')} - ${this.$env.description}`
           },
           {
             name: 'keywords',

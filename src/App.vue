@@ -56,10 +56,10 @@ export default {
   metaInfo() {
     return {
       titleTemplate(chunk) {
-        return chunk ? `${chunk} - data.europa.eu` : 'data.europa.eu';
+        return chunk ? `${chunk} - ${this.$env.title}` : this.$env.title ;
       },
       meta: [
-        { name: 'description', vmid: 'description', content: 'data.europa.eu' },
+        { name: 'description', vmid: 'description', content: this.$env.description },
         { name: 'keywords', vmid: 'keywords', content: this.$env.keywords },
       ],
       htmlAttrs: {

@@ -69,7 +69,7 @@ export default {
     return {
       title: `${this.$t('message.metadata.upload')} | ${this.$t('message.header.navigation.data.datasets')}`,
       meta: [
-        { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.datasets')}} - data.europa.eu` },
+        { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.datasets')}} - ${this.$env.description}` },
         { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.header.navigation.data.datasets')}}` },
         { name: 'robots', content: 'noindex, follow' },
       ],

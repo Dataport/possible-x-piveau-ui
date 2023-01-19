@@ -24,7 +24,7 @@ export default {
     return {
       title: this.$t('message.metadata.notFound'),
       meta: [
-        { name: 'description', vmid: 'description', content: `${this.$t('message.metadata.notFound')} - data.europa.eu` },
+        { name: 'description', vmid: 'description', content: `${this.$t('message.metadata.notFound')} - ${this.$env.description}` },
         { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.metadata.notFound')}` },
         { name: 'robots', content: 'noindex, follow' },
       ],

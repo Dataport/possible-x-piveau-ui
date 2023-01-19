@@ -19,7 +19,7 @@
           {
             name: 'description',
             vmid: 'description',
-            content: `${this.$t('message.navigation.navItems.privacyPolicy')} - data.europa.eu`
+            content: `${this.$t('message.navigation.navItems.privacyPolicy')} - ${this.$env.description}`
           },
           {
             name: 'keywords',

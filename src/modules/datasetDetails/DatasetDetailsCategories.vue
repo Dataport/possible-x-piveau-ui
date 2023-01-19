@@ -37,7 +37,7 @@
           {
             name: 'description',
             vmid: 'description',
-            content: (`${this.$t('message.metadata.categories')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - data.europa.eu`).substr(0, 4999),
+            content: (`${this.$t('message.metadata.categories')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.description}`).substr(0, 4999),
           },
           {
             name: 'keywords',

@@ -448,16 +448,12 @@ export default {
         {
           name: "description",
           vmid: "description",
-          content: `${this.$t(
-            "message.header.navigation.data.catalogs"
-          )} - data.europa.eu`,
+          content: `${this.$t( "message.header.navigation.data.catalogs")} - ${this.$env.description}`,
         },
         {
           name: "keywords",
           vmid: "keywords",
-          content: `${this.$env.keywords} ${this.$t(
-            "message.header.navigation.data.catalogs"
-          )}`,
+          content: `${this.$env.keywords} ${this.$t("message.header.navigation.data.catalogs")}`,
         },
         { name: "robots", content: "noindex, follow" },
       ],
