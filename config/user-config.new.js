@@ -8,7 +8,7 @@ import {
 import i18n from './i18n';
 
 const glueConfig = {
-  title: 'piveau Hub-UI', // TODO: Do we need this?
+  title: 'piveau Hub-UI',
   description: 'A modern and customizable web application for data management of extensive data catalogs.', // TODO: Do we need this?
   keywords: 'Open Data', // TODO: Do we need this?
   api: { // TODO: Restructure APIs
@@ -116,7 +116,7 @@ const glueConfig = {
   },
   pagination: {  // TODO: Move this into a meaningful property, e.g. content
     usePagination: true, // TODO: Do we need this?
-    usePaginationArrows: false, // TODO: Do we need this?
+    usePaginationArrows: true, // TODO: Do we need this?
     useItemsPerPage: true, // TODO: Do we need this?
     defaultItemsPerPage: 10, // TODO: Do we need this?
     defaultItemsPerPageOptions: [5, 10, 25, 50], // TODO: Do we need this?
