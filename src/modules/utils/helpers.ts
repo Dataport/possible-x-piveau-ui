@@ -19,7 +19,7 @@ import { getName, registerLocale } from 'i18n-iso-countries';
 // Import all images.
 // eager loading of images is needed for now for better compatibility.
 // See https://vitejs.dev/guide/features.html#glob-import
-const imageModules = import.meta.globEager('/src/assets/img/*/*.png');
+const imageModules = import.meta.globEager('/src/assets/img/**/*.png');
 const localeModules = import.meta.globEager('/config/i18n/iso-countries/langs/{bg,cs,da,de,el,es,et,fr,hr,hu,it,lt,lv,nl,nb,pl,pt,ro,sk,sl,fi,sv}.json');
 const RELATIVE_PATH_TO_IMAGES = '/src/assets/img';
 
@@ -57,13 +57,16 @@ function unique(prop, array) {
  * @param { String }    defaultFallbackImage - The path to the default fallback image from /assets/img without fileending e.g. "/flags/eu"
  * @returns { String }  An image, represented by its absolute path.
  */
- function getImg(image = '', defaultFallbackImage = '') {
+function getImg(image = '', defaultFallbackImage = '') {
   const maybeImageFrontSlash = image.startsWith('/') ? image : `/${image}`;
   const maybeFallbackImageFrontSlash = defaultFallbackImage.startsWith('/') ? defaultFallbackImage : `/${defaultFallbackImage}`;
   let img;
 
   try {
     img = imageModules[`${RELATIVE_PATH_TO_IMAGES}${maybeImageFrontSlash}.png`];
+    if (!img) {
+      throw new Error('Image not found');
+    }
   } catch (err) {
     if (defaultFallbackImage) img = imageModules[`${RELATIVE_PATH_TO_IMAGES}${maybeFallbackImageFrontSlash}.png`];
     else img = imageModules[`${RELATIVE_PATH_TO_IMAGES}/img-not-available.png`];
