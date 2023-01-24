@@ -9,8 +9,8 @@ import i18n from './i18n';
 
 const glueConfig = {
   title: 'piveau Hub-UI',
-  description: 'A modern and customizable web application for data management of extensive data catalogs.', // TODO: Do we need this?
-  keywords: 'Open Data', // TODO: Do we need this?
+  description: 'A modern and customizable web application for data management of extensive data catalogs.',
+  keywords: 'Open Data',
   api: { // TODO: Restructure APIs
     baseUrl: 'https://data.europa.eu/api/hub/search/',
     // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
@@ -31,9 +31,8 @@ const glueConfig = {
     siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
     trackerUrl: 'https://opanalytics.containers.piwik.pro/'
   },
-  // TODO: Combine this into property "authentication"
-  useAuthService: true,
-  keycloak: {
+  useAuthService: true, // TODO: Combine useAuthService, keycloak and rtp into property "authentication"
+  keycloak: { // TODO: Combine useAuthService, keycloak and rtp into property "authentication"
     enableLogin: true, // TODO: Move to Header / Footer config
     logoutRedirectUri: '/', // TODO: Move to Header / Footer config
     realm: 'piveau',
@@ -44,8 +43,10 @@ const glueConfig = {
     'verify-token-audience': true, // TODO: Do we need this?
     'use-resource-role-mappings': true, // TODO: Do we need this?
     'confidential-port': 0, // TODO: Do we need this?
+    loginRedirectUri: '/',
+    logoutRedirectUri: '/',
   },
-  rtp: {
+  rtp: { // TODO: Combine useAuthService, keycloak and rtp into property "authentication"
     grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket', // TODO: Do we need this?
     audience: 'piveau-hub-repo', // TODO: Do we need this?
   },
@@ -63,7 +64,7 @@ const glueConfig = {
   themes: {
     header: 'dark', // TODO: Do we need this?
   },
-  routerOptions: {
+  routerOptions: {  // TODO: Move this into a meaningful property, e.g. routing, navigation or api
     base: '/data',
     mode: 'history',
   },
@@ -112,9 +113,17 @@ const glueConfig = {
         },
       },
     },
-    bottom: {}
+    bottom: {
+      login: {
+        useLogin: true,
+        loginURL: '/login',
+        loginTitle: 'Login',
+        logoutURL: '/logout',
+        logoutTitle: 'Logout',
+      },
+    }
   },
-  pagination: {  // TODO: Move this into a meaningful property, e.g. content
+  pagination: {  // TODO: Move this into a meaningful property, e.g. features
     usePagination: true, // TODO: Do we need this?
     usePaginationArrows: true, // TODO: Do we need this?
     useItemsPerPage: true, // TODO: Do we need this?
@@ -132,7 +141,7 @@ const glueConfig = {
     ],
     bottom: [],
   },
-  datasets: {
+  datasets: { // TODO: Restructure, Move this into a meaningful property, e.g. content
     upload: { // TODO: Do we need this?
       availableCategories: [
         'tran',
@@ -202,7 +211,7 @@ const glueConfig = {
     useFeed: true, // TODO: Do we need this?
     useCatalogs: true, // TODO: Do we need this?
   },
-  catalogs: { // TODO: Do we need this?
+  catalogs: { // TODO: Do we need this? Restructure, Move this into a meaningful property, e.g. content
     facets: {
       cutoff: 5,
       showClearButton: false,
@@ -220,7 +229,7 @@ const glueConfig = {
     defaultCatalogCountryID: 'eu',
     defaultCatalogID: 'european-union-open-data-portal',
   },
-  datasetDetails: { // TODO: Do we need this?
+  datasetDetails: { // TODO: Do we need this? Restructure, Move this into a meaningful property, e.g. content
     header: {
       navigation: "top",
       hidePublisher: false,
@@ -286,7 +295,7 @@ const glueConfig = {
       },
     }
   },
-  maps: { // TODO: Do we need this?
+  maps: { // TODO: Do we need this? Restructure, Move this into a meaningful property, e.g. features
     mapVisible: true,
     useAnimation: true,
     urlTemplate: 'https://gisco-services.ec.europa.eu/maps/wmts/1.0.0/WMTSCapabilities.xml/wmts/OSMCartoComposite/EPSG3857/{z}/{x}/{y}.png',
@@ -322,7 +331,7 @@ const glueConfig = {
       attributionPosition: 'topright',
     },
   },
-  upload: {
+  upload: { // TODO: Restructure, Move this into a meaningful property, e.g. features
     useUpload: true,
     buttons: {
       Dataset: true, // TODO: Do we need this?
@@ -330,7 +339,7 @@ const glueConfig = {
     },
     basePath: '/dpi', // TODO: Do we need this?
   },
-  doiRegistrationService: {
+  doiRegistrationService: { // TODO: Restructure, Move this into a meaningful property, e.g. upload
     persistentIdentifierType: 'eu-ra-doi', // TODO: Do we need this?
   }
 };
