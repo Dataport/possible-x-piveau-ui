@@ -4,7 +4,7 @@
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields" @submit="handleSubmit"
-        @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+        @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({property: property, id: id})"
         @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues })">
           <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
         </FormulateForm>
@@ -74,7 +74,7 @@ export default {
     ]),
     ...mapGetters('dpiStore', [
       'getSchema',
-      'mandatoryFieldsFilled',
+      'getMandatoryStatus',
       'getNavSteps',
     ]),
     getFirstTitleFromForm() {
@@ -107,6 +107,7 @@ export default {
       'saveLocalstorageValues',
       'addCatalogOptions',
       'clearAll',
+      'setMandatoryStatus',
     ]),
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
@@ -234,7 +235,7 @@ export default {
         vm.clear();
         vm.jumpToFirstPage();
       }
-      if (from.name === null && !vm.mandatoryFieldsFilled({property: vm.property, id: vm.id})) {
+      if (from.name === null && !vm.getMandatoryStatus({property: vm.property, id: vm.id})) {
         vm.jumpToFirstPage();
         $('#mandatoryModal').modal({ show: true });
       }
@@ -242,7 +243,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     // Checks if next route within the DPI is a route which does not require mandatory checking
-    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({property: this.property, id: this.id})) {
       $('#mandatoryModal').modal({ show: true });
     } else {
       next();

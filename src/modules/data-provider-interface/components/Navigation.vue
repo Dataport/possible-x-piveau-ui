@@ -11,7 +11,7 @@
       <div class="right-form-nav">
 
         <!-- PUBLISH NEW CATALOGUE -->
-        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || mandatoryFieldsFilled({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || getMandatoryStatus({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
 
@@ -100,7 +100,7 @@ export default {
     ...mapGetters('dpiStore', [
       'getData',
       'getNavSteps',
-      'mandatoryFieldsFilled',
+      'getMandatoryStatus'
     ]),
     iDError() { return this.$route.query.error === 'id' },
     datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
@@ -113,13 +113,13 @@ export default {
       return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateNewDraft() {
-      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
+      return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
     },
     showCreateEditedDataset() {
       return this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateEditedDraft() {
-      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
+      return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
     },
     showNextLabel() {
       return !(this.isOverviewPage || this.page === 'distoverview');
@@ -236,7 +236,7 @@ export default {
 
       const rtpToken = this.getUserData.rtpToken;
 
-      if (!this.mandatoryFieldsFilled({ property: this.property, id: this.id })) {
+      if (!this.getMandatoryStatus({ property: this.property, id: this.id })) {
         this.$Progress.fail();
         this.showSnackbar({ message: 'Mandatory Properties missing', variant: 'error' });
         return;
@@ -281,6 +281,10 @@ export default {
         if (mode === 'createcatalogue') this.createCatalogue(datasetId);
         if (mode === 'dataset') this.createDataset(datasetId);
         if (mode === 'draft') this.createDraft();
+
+        // store needs to be reset (especially the mandatoryStatus)
+        this.clearAll();
+
       } catch (err) {
         this.uploading[mode] = false;
         this.$Progress.fail();

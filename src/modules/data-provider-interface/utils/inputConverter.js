@@ -9,12 +9,17 @@ import pageContent from '../config/page-content-config';
  * @param {*} property Property to convert data for (datasets/catalogues)
  * @param {*} data Linked data within a dataset
  */
-async function convertToInput(state, property, data) {
+function convertToInput(state, property, data) {
 
     let generalID;
     let namespaceKeys;
-
     let propertyQuads;
+
+    const mandataoryStatus = {
+        catalogues: false,
+        datasets: false,
+        distributions: []
+    };
 
     if (property === 'datasets') {
         propertyQuads = data.match(null, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://www.w3.org/ns/dcat#Dataset', null);
@@ -36,6 +41,9 @@ async function convertToInput(state, property, data) {
         
     }
 
+    // check mandatory status for datasets/catalogues
+    mandataoryStatus[property] = generalHelper.checkMandatory(generalHelper.mergeNestedObjects(state[property]), property); // datasets or catalogues
+
     // also add distribution data
     if (property === 'datasets') {
         const distributionQuads = data.match(generalID, 'http://www.w3.org/ns/dcat#distribution', null, null);
@@ -50,8 +58,13 @@ async function convertToInput(state, property, data) {
                 convertProperties('distributions', currentDistribution[pageName], distributionId, data, namespaceKeys['distributions'][pageName]);
             }  
             state.distributions.push(currentDistribution);
+
+            // check mandatory status for distributions
+            mandataoryStatus.distributions.push(generalHelper.checkMandatory(generalHelper.mergeNestedObjects(currentDistribution), 'distributions'));
         }
     }
+
+    localStorage.setItem('dpi_mandatory', JSON.stringify(mandataoryStatus));
 }
 
 /**
