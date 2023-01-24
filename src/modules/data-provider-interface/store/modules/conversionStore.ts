@@ -304,7 +304,7 @@ const mutations = {
         state.distributions = [];
         state.mandatoryStatus = {
             datasets: false,
-            cataogues: false,
+            catalogues: false,
             distributions: []
         };
 
