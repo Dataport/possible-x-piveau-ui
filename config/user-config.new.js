@@ -51,15 +51,15 @@ const glueConfig = {
     audience: 'piveau-hub-repo', // TODO: Do we need this?
   },
   languages: {
-    useLanguageSelector: true, // TODO: Do we need this?
+    useLanguageSelector: true, // TODO: Do we use this?
     locale: 'en',
     fallbackLocale: 'en',
   },
   services: {
-    catalogService, // TODO: Do we need this?
-    datasetService, // TODO: Do we need this?
-    gazetteerService, // TODO: Do we need this?
-    uploadService // TODO: Do we need this?
+    catalogService, // TODO: Do we use this?
+    datasetService, // TODO: Do we use this?
+    gazetteerService, // TODO: Do we use this?
+    uploadService // TODO: Do we use this?
   },
   themes: {
     header: 'dark', // TODO: Do we need this?
