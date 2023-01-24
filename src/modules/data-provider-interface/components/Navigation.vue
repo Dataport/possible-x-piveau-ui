@@ -266,7 +266,7 @@ export default {
         actionName = 'auth/createUserDraft';
       } else if (mode === 'createcatalogue') {
         uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
-        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
+        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl, id: datasetId };
         actionName = 'auth/createCatalogue';
       }
 

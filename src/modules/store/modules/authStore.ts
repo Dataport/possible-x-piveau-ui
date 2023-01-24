@@ -5,7 +5,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
-import { get } from 'lodash-es';
+import { cloneDeep, get } from 'lodash-es';
 import createDraftApi from '@/modules/utils/draftApi';
 import createIdentifiersApi from '@/modules/utils/identifiersApi';
 import { decode } from '@/modules/utils/jwt';
@@ -275,6 +275,15 @@ const actions = {
     if (result.status === 201 | result.status === 204 ) {
       commit('CHANGE_IS_EDIT_MODE', false);
       commit('CHANGE_IS_DRAFT', false); // shouldn't be necessary but for safety
+
+      const updatedUserData = cloneDeep(state.userData);
+      const catalogPermission = {
+        rsid: "",
+        rsname: actionParams.id,
+        scopes: ['dataset:update', 'dataset:delete', 'dataset:create'],
+      }
+      updatedUserData.permissions.push(catalogPermission);
+      commit('SET_USER_DATA', updatedUserData);
     }
   }
 };
