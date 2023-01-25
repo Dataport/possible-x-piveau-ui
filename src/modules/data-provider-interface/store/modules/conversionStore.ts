@@ -5,7 +5,7 @@ import Vuex from 'vuex';
 
 import axios from 'axios';
 import { has, isEmpty, isNil, cloneDeep } from 'lodash-es';
-import * as jsonldLib from 'jsonld';
+import { compact } from 'jsonld';
 
 // config defining which properties are displayed on which page
 import dpiconfig from '../../config/page-content-config';
@@ -402,7 +402,7 @@ const actions = {
         }
 
         // compacting jsonld with library
-        const compactJsonld = await jsonldLib.compact(jsonld, context);
+        const compactJsonld = await compact(jsonld, context);
 
         return compactJsonld;
     },

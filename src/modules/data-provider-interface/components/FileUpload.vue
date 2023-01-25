@@ -87,8 +87,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../styles/bootstrap_theme';
-@import '../../../styles/utils/css-animations';
+// @import '../../../styles/bootstrap_theme';
+// @import '../../../styles/utils/css-animations';
 
 .file-div {
   display: flex;

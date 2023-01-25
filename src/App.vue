@@ -106,7 +106,7 @@ export default {
 
 @font-face {
   font-family: "Ubuntu";
-  src: local("Ubuntu"), url(../public/static/fonts/Ubuntu/Ubuntu-Regular.ttf) format("truetype");
+  src: local("Ubuntu"), url("/static/fonts/Ubuntu/Ubuntu-Regular.ttf") format("truetype");
 }
 
 * {

@@ -11,7 +11,6 @@ import {
   DatasetDetails,
   MapBasic,
   MapBoundsReceiver,
-  Datasets,
   Catalogues,
   NotFound,
   SparqlSearch,
@@ -32,6 +31,8 @@ import ECCatalogues from "../src/components/ECCatalogues.vue"
 import ECDatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetDetailsQuality.vue"
 
 import { ecStyle } from '../config/user-config';
+
+const Datasets = () => import(/* webpackChunkName: "datasets" */ '@piveau/piveau-hub-ui-modules');
 
 Vue.use(Router);
 

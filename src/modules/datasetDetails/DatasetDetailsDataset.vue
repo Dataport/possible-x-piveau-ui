@@ -187,8 +187,6 @@
       };
     },
     computed: {
-      // todo: refactor this to refer to store
-      isTrusted: () => process.env.NODE_ENV === 'development',
       // import store-getters
       ...mapGetters('datasetDetails', [
       'getKeywords',
