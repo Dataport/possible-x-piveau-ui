@@ -41,7 +41,7 @@ const singularURI = {
         "dct:format",
         "dct:type",
         "dcat:mediaType",
-        "dcat:availability",
+        "dcatap:availability",
         "dcat:compressFormat",
         "dcat:packageFormat",
         "adms:status",

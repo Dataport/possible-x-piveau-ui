@@ -13,7 +13,7 @@
         :away="away"
       />
       <div v-if="open" v-on-clickaway="away" class="dropdown">
-        <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" v-model="filter"/>
+        <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" v-model="filter" />
         <div class="dropdown-options">
           <div v-for="(item, index) in filteredItems" :key="getTitle(item)+index" class="select-item">
             <e-c-checkbox
@@ -22,6 +22,7 @@
               :label-right="item.count.toLocaleString('fi')"
               :checked="facetIsSelected(fieldId, item)"
               :onClick="() => facetClicked(fieldId, item)"
+              
             />
           </div>
         </div>

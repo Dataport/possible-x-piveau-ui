@@ -4,10 +4,13 @@ import AppLink from "./widgets/AppLink.vue";
 import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
 
+import Auth from './auth/Auth.vue';
+
 import DatasetDetailsCategories from "./datasetDetails/DatasetDetailsCategories.vue";
 import DatasetDetailsQuality from "./datasetDetails/DatasetDetailsQuality.vue";
 import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets.vue";
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
+import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
 import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
@@ -46,22 +49,22 @@ import { decode } from "./utils/jwt";
 
 import store from "./store";
 
-import DataProviderInterface from './data-provider-interface/DataProviderInterface';
-import DataFetchingComponent from './data-provider-interface/components/DataFetchingComponent';
-import OverviewPage from './data-provider-interface/views/OverviewPage';
-import InputPage from './data-provider-interface/views/InputPage';
-import DraftsPage from './data-provider-interface/views/DraftsPage';
-import LinkedDataViewer from './data-provider-interface/views/LinkedDataViewer';
-import UserProfilePage from './data-provider-interface/views/UserProfilePage';
-import UserCataloguesPage from './data-provider-interface/views/UserCataloguesPage';
-import DpiMenu from './data-provider-interface/DPI-menu';
-import InfoSlot from './data-provider-interface/components/InfoSlot';
-import AutocompleteInput from './data-provider-interface/components/AutocompleteInput';
-import ConditionalInput from './data-provider-interface/components/ConditionalInput';
-import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput';
-import FileUpload from './data-provider-interface/components/FileUpload';
-import DatePicker from './data-provider-interface/components/DatePicker';
-import DateTimePicker from './data-provider-interface/components/DateTimePicker';
+import DataProviderInterface from './data-provider-interface/DataProviderInterface.vue';
+import DataFetchingComponent from './data-provider-interface/components/DataFetchingComponent.vue';
+import OverviewPage from './data-provider-interface/views/OverviewPage.vue';
+import InputPage from './data-provider-interface/views/InputPage.vue';
+import DraftsPage from './data-provider-interface/views/DraftsPage.vue';
+import LinkedDataViewer from './data-provider-interface/views/LinkedDataViewer.vue';
+import UserProfilePage from './data-provider-interface/views/UserProfilePage.vue';
+import UserCataloguesPage from './data-provider-interface/views/UserCataloguesPage.vue';
+import DpiMenu from './data-provider-interface/DPI-menu.vue';
+import InfoSlot from './data-provider-interface/components/InfoSlot.vue';
+import AutocompleteInput from './data-provider-interface/components/AutocompleteInput.vue';
+import ConditionalInput from './data-provider-interface/components/ConditionalInput.vue';
+import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput.vue';
+import FileUpload from './data-provider-interface/components/FileUpload.vue';
+import DatePicker from './data-provider-interface/components/DatePicker.vue';
+import DateTimePicker from './data-provider-interface/components/DateTimePicker.vue';
 
 import usePiwikSuspendFilter from "./mixins/usePiwikSuspendFilter";
 import useRouteMetaBreadcrumbs from "./mixins/useRouteMetaBreadcrumbs";
@@ -70,15 +73,12 @@ import { configureModules } from "./configurations/configureModules";
 
 import fileTypes from './utils/fileTypes';
 import DatasetsFacets from './datasets/datasetsFacets/DatasetsFacets.vue';
-import Pagination from './widgets/Pagination';
-import SelectedFacetsOverview from './facets/SelectedFacetsOverview';
-import getTranslationFor from './utils/helpers';
-import truncate from './utils/helpers';
-import getImg from './utils/helpers';
-import DatasetsTopControls from "./datasets/DatasetsTopControls";
+import Pagination from './widgets/Pagination.vue';
+import SelectedFacetsOverview from './facets/SelectedFacetsOverview.vue';
+import { truncate, getImg, getCountryFlagImg, getTranslationFor } from './utils/helpers';
+import DatasetsTopControls from "./datasets/DatasetsTopControls.vue";
 import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
 import SubNavigation from './navigation/SubNavigation.vue';
-import getCountryFlagImg from './utils/helpers';
 import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
 export {
@@ -86,10 +86,13 @@ export {
   AppSnackbar,
   AppConfirmationDialog,
 
+  Auth,
+  
   DatasetDetailsCategories,
   DatasetDetailsQuality,
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
+  DatasetDetailsSkeleton,
   DatasetDetails,
 
   DistributionDescription,

@@ -1,17 +1,6 @@
 <template>
   <div class="position-relative d-inline-block ml-1 mb-1">
-    <app-link @click="openDropdown" v-if="isOnlyOneUrl" class="btn btn-sm btn-primary p-0 pl-2 pr-2 w-100 rounded-lg btn-color dropdown-button distribution-dropdown-download-one-url"
-        :to="replaceHttp(getDownloadUrl(distribution))"
-        :title="title"
-        data-toggle="tooltip"
-        data-placement="top"
-        target="_blank"
-        rel="dcat:distribution noopener"
-        matomo-track-download
-        @after-click="$emit('trackGoto')">
-        {{ message }}
-    </app-link>
-    <div v-else>
+    <div>
         <button @click="openDropdown" class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button d-flex justify-content-between"
           type="button"
           aria-haspopup="true"
@@ -90,7 +79,6 @@ export default {
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
-    border-radius: 0.25rem;
     transform-origin: top right;
     position: absolute;
     right: 0;

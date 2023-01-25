@@ -27,11 +27,32 @@
 </template>
 
 <script>
-import MapBasic from "@/modules/map/MapBasic";
+import Vue, { defineAsyncComponent } from "vue";
 import {isArray, isNil, isString} from "lodash";
 import {mapGetters} from "vuex";
+import VueSkeletonLoader from 'skeleton-loader-vue';
 import DatasetDetailsFeatureHeader
   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+
+const MapBasic = defineAsyncComponent({
+  // Lazy-load mapbasic component
+  loader: () => import("@/modules/map/MapBasic"),
+  loadingComponent: {
+    // Load skeleton while the mapbasic component is loading
+    components: { VueSkeletonLoader },
+    render: (h) => {
+      return h('vue-skeleton-loader',
+      {
+        props: {
+        width: Vue.prototype.$env.maps.width,
+        height: Vue.prototype.$env.maps.height,
+        animation: 'fade',
+        }
+      })
+    }
+  },
+});
+
 export default {
   name: "DatasetDetailsMap",
   components: {DatasetDetailsFeatureHeader, MapBasic},
@@ -65,6 +86,9 @@ export default {
       const type = this.getSpatial[0].type;
       return (!isNil(type) && isString(type)) ? type : this.maps.spatialType;
     }
+  },
+  mounted(){
+    this.mapVisible = !this.mapVisible;
   }
 }
 </script>

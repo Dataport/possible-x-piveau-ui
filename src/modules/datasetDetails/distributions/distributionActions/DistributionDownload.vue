@@ -8,39 +8,49 @@
        @trackGoto="trackGoto"
        bgLight="true"
   >
-    <span class="dropdown-item px-3 d-flex justify-content-end align-items-center"
+    <span class="dropdown-item px-3 d-flex align-items-center"
         v-if="showAccessUrls(distribution)">
-      <app-link class="text-dark text-decoration-none"
+      <app-link class="text-dark text-decoration-none d-flex justify-content-between w-100"
                 :to="replaceHttp(distribution.accessUrl[0])"
                 target="_blank"
                 rel="dcat:distribution noopener"
                 matomo-track-download
                 @after-click="$emit('trackGoto')">
-        <small class="px-2" property="dcat:mediaType" :content="getDistributionFormat">accessURL</small>
-        <i class="material-icons align-bottom">open_in_new</i>
+        <span>
+          <i class="material-icons align-bottom">open_in_new</i>
+          <i class=" copy-text material-icons align-bottom" @click="setClipboard(distribution.accessUrl[0])">file_copy</i>
+        </span>
+        <span>
+          <small class="px-2" property="dcat:mediaType" :content="getDistributionFormat">accessURL</small>
+        </span>
       </app-link>
-      <i class="copy-text material-icons float-right align-bottom" @click="setClipboard(distribution.accessUrl[0])">file_copy</i>
-      <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.accessURLTooltip')">help_outline</i>
+      <!-- <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.accessURLTooltip')">help_outline</i> -->
     </span>
-    <span class="dropdown-item d-block px-3 d-flex justify-content-end align-items-center"
+    <span class="dropdown-item d-block px-3 d-flex align-items-center"
       v-for="(downloadURL, i) in distribution.downloadUrls"
       :key="i">
-        <app-link class="text-dark text-decoration-none"
+        <app-link class="text-dark text-decoration-none d-flex justify-content-between w-100"
                   :to="replaceHttp(downloadURL)"
                   target="_blank"
                   matomo-track-download
                   @after-click="$emit('trackGoto')">
-          <small class="px-2" property="dcat:mediaType">downloadURL</small>
-          <i class="material-icons align-bottom">open_in_new</i>
+          <span>
+            <i class="material-icons align-bottom">open_in_new</i>
+            <i class=" copy-text material-icons align-bottom" @click="setClipboard(downloadURL)">file_copy</i>
+          </span>
+          <span>
+            <small class="px-2" property="dcat:mediaType">downloadURL</small>
+          </span>
         </app-link>
-        <i class="copy-text material-icons float-right align-bottom" @click="setClipboard(downloadURL)">file_copy</i>
-        <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.downloadURLTooltip')">help_outline</i>
+        <!-- <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.downloadURLTooltip')">help_outline</i> -->
     </span>
+   <distribution-download-as v-if="this.$env.datasetDetails.downloadAs.enable" :distribution="distribution" />
   </distribution-dropdown-download>
 </template>
 
 <script>
 import DistributionDropdownDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDropdownDownload";
+import DistributionDownloadAs from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownloadAs";
 import AppLink from "@/modules/widgets/AppLink";
 
 export default {
@@ -56,6 +66,7 @@ export default {
   ],
   components: {
     DistributionDropdownDownload,
+    DistributionDownloadAs,
     AppLink
   },
   methods: {
@@ -67,7 +78,7 @@ export default {
       input.select();
       document.execCommand('copy');
       document.body.removeChild(input);
-    }
+    },
   }
 }
 </script>

@@ -44,7 +44,6 @@ export default {
     audience: "$VUE_APP_RTP_AUDIENCE"
   },
   languages: {
-    useLanguageSelector: "$VUE_APP_LANGUAGES_USE_LANGUAGE_SELECTOR",
     locale: "$VUE_APP_LANGUAGES_LOCALE",
     fallbackLocale: "$VUE_APP_LANGUAGES_FALLBACK_LOCALE"
   },
@@ -60,6 +59,15 @@ export default {
             show: "$VUE_APP_NAVIGATION_TOP_MAIN_DATA_SPARQL_SHOW"
           }
         }
+      }
+    },
+    bottom: {
+      login: {
+        useLogin: "$VUE_APP_NAVIGATION_BOTTOM_LOGIN_USE_LOGIN",
+        loginURL: "$VUE_APP_NAVIGATION_BOTTOM_LOGIN_LOGIN_URL",
+        loginTitle: "$VUE_APP_NAVIGATION_BOTTOM_LOGIN_LOGIN_TITLE",
+        logoutURL: "$VUE_APP_NAVIGATION_BOTTOM_LOGIN_LOGOUT_URL",
+        logoutTitle: "$VUE_APP_NAVIGATION_BOTTOM_LOGIN_LOGOUT_TITLE"
       }
     }
   },
@@ -122,6 +130,14 @@ export default {
       INTERVAL_MS: "$VUE_APP_DATASETDETAILS_BULKDOWNLOAD_INTERVAL_MS",
       TIMEOUT_MS: "$VUE_APP_DATASETDETAILS_BULKDOWNLOAD_TIMEOUT_MS",
     },
+    quality: {
+      csvLinter: {
+        enable: "$VUE_APP_DATASETDETAILS_QUALITY_CSV_LINTER_ENABLE",
+      },
+    },
+    downloadAs: {
+      enable: "$VUE_APP_DISTRIBUTION_DOWNLOAD_AS_ENABLE",
+    }
   },
   maps: {
     useAnimation: "$VUE_APP_MAPS_USE_ANIMATION",

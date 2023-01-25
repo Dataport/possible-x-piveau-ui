@@ -2,14 +2,24 @@
 @import 'bootstrap_theme';
 
 // import full bootstrap framework
-@import "~bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap.scss";
 
 // Import Piveau modules
-@import "~@piveau/piveau-hub-ui-modules/dist/scss/main.scss";
+@import "@piveau/piveau-hub-ui-modules/dist/scss/main.scss";
 
 .distribution-dropdown-download-one-url {
   margin-top: -0.35rem;
   text-align: left;
+}
+
+body {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+
+body::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }
 
 .circle {
@@ -36,7 +46,7 @@
   &[type="CSV"] {
     background-color: var(--badge-green);
   }
-  &[type="XLS"], &[type="Excel XLSX"] {
+  &[type="XLS"], &[type="Excel XLSX"], &[type="Excel XLS"] {
     background-color: #1A6537;
   }
   &[type="ZIP"] {
@@ -73,8 +83,21 @@
   margin-bottom: 0.5rem;
 }
 
-.dsd-properties .show-more {
-  display: none;
+@media screen and (max-width: 768px) {
+
+  .dataset-info-box-body{
+    padding: 0;
+  }
+  .ecl-select__icon-shape{
+    fill: #0b4498 !important;
+  }
+  .ecl-select__icon{
+
+    background-color: #fff !important;
+  }
+  .page-title{
+    color: var(--primary) !important;
+  }
 }
 
 @media screen and (max-width: 991px) { // less than lg
@@ -90,6 +113,16 @@
     }
   }
 }
+
+.distribution-action button:focus{
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  }
+.dropdownMenu{
+    border: none !important;
+   
+  }
 
 .mt-4 {
   margin-top: 30px !important;

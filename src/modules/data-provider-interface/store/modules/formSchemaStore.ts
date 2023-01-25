@@ -3,7 +3,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 // config defining which properties are displayed on which page
 import dpiconfig from '../../config/page-content-config';

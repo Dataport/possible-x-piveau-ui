@@ -6,20 +6,21 @@
     <!-- Render actions on top of it -->
     <div class="distributions__actions pb-md-3">
       <pv-button
+        class="mr-3 distributions-show-more-button"
         v-for="increment in distributions.incrementSteps.filter(nonOverflowingIncrementsForDistributions)"
         :key="increment"
         :small="true"
-        class="mr-1"
         :action="() => increaseNumDisplayedDistributions(increment)"
       >
         <i class="fas fa-chevron-down"/> {{ $t('message.metadata.showXMore', { increment }) }}
       </pv-button>
       <pv-button
+        class="mr-3 distributions-show-more-button"
         :primary="true"
         :small="true"
         :action="() => setDistributionsDisplayCount(getDistributions.length)"
       >
-        <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ getDistributions.length.toLocaleString('fi') }}
+        <i class="fas fa-eye"/> {{ $t('message.metadata.showAll') }} {{ `(${(getDistributions.length.toLocaleString('fi'))})` }}
       </pv-button>
     </div>
   </div>

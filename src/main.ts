@@ -2,8 +2,6 @@
 
 // Import IE Promise polyfill
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-import '@babel/polyfill';
-import 'es6-promise/auto';
 import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
 import VueProgressBar from 'vue-progressbar';
@@ -17,6 +15,7 @@ import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
+import VueSkeletonLoader from 'skeleton-loader-vue';
 // import AppToast from '@/components/AppToast';
 // Import v-select
 // Import i18n validation messages for vueformulate
@@ -72,6 +71,11 @@ import {
   SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+
+
 Vue.config.devtools = true;
 
 Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
@@ -88,9 +92,11 @@ import ECLinkButton from "./components/ECLinkButton.vue";
 import ECDataInfoBox from "./components/ECDataInfoBox.vue";
 import ECDatasets from "./components/ECDatasets.vue";
 import ECDatasetsFilters from "./components/ECDatasetsFilters.vue";
-import ECCatalogues from "./components/ECCatalogues.vue";
+import ECSubNavigation from "./components/ECSubNavigation.vue";
 import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
 import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
+
+import VueCookie from 'vue-cookie';
 
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
@@ -102,9 +108,9 @@ const components = ecStyle ? {
   DatasetDetailsNavigationPage: ECLinkButton,
   Datasets: ECDatasets,
   DatasetsFilters: ECDatasetsFilters,
-  Catalogues: ECCatalogues,
   DistributionsHeader: ECDistributionsHeader,
-  DistributionDetails: ECDistributionDetails
+  DistributionDetails: ECDistributionDetails,
+  SubNavigation: ECSubNavigation
 } : {};
 
 configureModules({
@@ -140,8 +146,8 @@ Vue.component('AppConfirmationDialog', AppConfirmationDialog);
 // DEU Redesign Components
 Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const VueCookie = require('vue-cookie');
+
+Vue.component('vue-skeleton-loader', VueSkeletonLoader);
 
 Vue.use(VueCookie);
 
@@ -253,29 +259,33 @@ Vue.use(Meta, {
 });
 
 // Bootstrap requirements to use js-features of bs-components
-require('popper.js');
+import 'popper.js';
 
-require('bootstrap');
+import 'bootstrap';
 
-require('./styles/styles.scss');
-
-if (ecStyle) {
-  require('./styles/ec-style.scss');
-}
+import './styles/styles.scss';
+// todo: restore this conditional
+// if (ecStyle) {
+//   require('./styles/ec-style.scss');
+// } else {
+//   require('./styles/old-deu-style.scss');
+// }
 
 $(() => {
   $('[data-toggle="popover"]').popover({ container: 'body' });
   $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
 });
 
-require('@fortawesome/fontawesome-free/css/all.css');
+import '@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
 
-require('@deu/deu-header-footer/dist/deu-header-footer.css');
+import '@fortawesome/fontawesome-free/css/all.css';
+
+import '@deu/deu-header-footer/dist/deu-header-footer.css';
 
 // OpenStreetMaps popup styles
-require('leaflet/dist/leaflet.css');
+import 'leaflet/dist/leaflet.css';
 
-require('@piveau/dcatap-frontend/dist/dcatap-frontend.css');
+import '@piveau/dcatap-frontend/dist/dcatap-frontend.css';
 
 // Vue-progressbar setup
 const progressBarOptions = {
@@ -358,6 +368,11 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
 // Attempt to load Vue with Keycloak using recover mechanism
 (async () => {
+
+  if (ecStyle) {
+    await import('./styles/ec-style.scss');
+  }
+
   if (!env.useAuthService) {
     createVueApp().$mount('#app');
     return {};

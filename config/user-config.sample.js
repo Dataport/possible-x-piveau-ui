@@ -16,17 +16,25 @@ const glueConfig = {
   keywords: 'DEU',
   api: {
     baseUrl: 'https://data.europa.eu/api/hub/search/',
+    // baseUrl: 'https://ppe.data.europa.eu/api/hub/search/',
     // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
+    // qualityBaseUrl: 'https://ppe.data.europa.eu/api/mqa/cache/',
+    // qualityBaseUrl: 'https://piveau-metrics-cache-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
-    gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
+    // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
+    // similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     hubUrl: 'https://data.europa.eu/api/hub/repo/',
+    // hubUrl: 'https://ppe.data.europa.eu/api/hub/repo/',
     // hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
+    // fileUploadUrl: 'https://ppe.data.europa.eu/api/hub/store/',
+    // fileUploadUrl: 'https://piveau-hub-store-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+    gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
     catalogBaseUrl: 'https://europeandataportal.eu/',
-    authToken: '',
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
     sparqlUrl: 'https://data.europa.eu/sparql',
-    fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
+    authToken: '',
   },
   tracker: {
     // Matomo/PiwikPro analytics config
@@ -46,6 +54,7 @@ const glueConfig = {
     'verify-token-audience': true,
     'use-resource-role-mappings': true,
     'confidential-port': 0,
+    loginRedirectUri: '/data',
     logoutRedirectUri: '/data',
   },
   rtp: {
@@ -53,7 +62,6 @@ const glueConfig = {
     audience: 'piveau-hub-repo',
   },
   languages: {
-    useLanguageSelector: true,
     locale: 'en',
     fallbackLocale: 'en',
   },
@@ -81,7 +89,7 @@ const glueConfig = {
         data: {
           show: true,
           sparql: {
-            show: false,
+            show: true,
           },
         },
         maps: {
@@ -117,11 +125,19 @@ const glueConfig = {
         },
       },
     },
-    bottom: {}
+    bottom: {
+      login: {
+        useLogin: true,
+        loginURL: '/login',
+        loginTitle: 'Login',
+        logoutURL: '/logout',
+        logoutTitle: 'Logout',
+      },
+    },
   },
   pagination: {
     usePagination: true,
-    usePaginationArrows: false,
+    usePaginationArrows: ecStyle,
     useItemsPerPage: true,
     defaultItemsPerPage: 10,
     defaultItemsPerPageOptions: [5, 10, 25, 50],
@@ -177,14 +193,14 @@ const glueConfig = {
           },
           goodScoring: {
             id: 'goodScoring',
-            title: 'Good+',
+            title: 'Good',
             count: 0,
             minScoring: 221,
             maxScoring: 350,
           },
           sufficientScoring: {
             id: 'sufficientScoring',
-            title: 'Sufficient+',
+            title: 'Sufficient',
             count: 0,
             minScoring: 121,
             maxScoring: 220,
@@ -340,12 +356,25 @@ const glueConfig = {
       numberOfDisplayedQualityDistributions: 5,
       // CSV Linter Validation Results
       csvLinter: {
+        enable: false,
         // If true, always display all results
         displayAll: false,
         // Number of results to be shown
         numberOfDisplayedValidationResults: 5,
       },
-    }
+    },
+    // Distribution download as feature
+    downloadAs: {
+      // If true, enable it
+      enable: false,
+    },
+    similarDatasets: {
+      breakpoints: {
+        verySimilar: { start: 0, end: 20 },
+        similar: { start: 20, end: 25 },
+        lessSimilar: { start: 25, end: 35 },
+      },
+    },
   },
   // Leaflet map configuration
   maps: {

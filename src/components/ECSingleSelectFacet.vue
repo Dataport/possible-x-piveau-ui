@@ -6,7 +6,7 @@
       :tooltip="toolTipTitle"
     />
     <div class="ecl-select__container ecl-select__container--m w-100">
-      <select class="ecl-select" id="select-default" required @change="onChange($event)" v-model="selected">
+      <select class="ecl-select" id="select-default" required v-model="selected">
         <option
           v-for="(item, index) in items"
           :value="item"
@@ -69,13 +69,13 @@ export default {
         ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
-    onChange() {
-      this.facetClicked(this.fieldId, this.selected);
-    }
   },
   watch: {
     items(newItems) {
       this.selected = newItems.find(item => this.facetIsSelected(this.fieldId, item));
+    },
+    selected(next, previous) {
+      if (next.id !== previous.id) this.facetClicked(this.fieldId, this.selected);
     }
   }
 }

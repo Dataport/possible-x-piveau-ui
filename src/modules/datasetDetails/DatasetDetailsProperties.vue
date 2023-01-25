@@ -31,22 +31,6 @@
               </div>
             </td>
           </tr>
-          <tr v-if="showString(getModificationDate)">
-            <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.tooltip.datasetDetails.updated')">
-                {{ $t('message.metadata.updated') }}
-              </tooltip>
-            </td>
-            <td>{{ filterDateFormatEU(getModificationDate) }}</td>
-          </tr>
-          <tr v-if="showString(getReleaseDate)">
-            <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.tooltip.datasetDetails.created')">
-                {{ $t('message.metadata.created') }}
-              </tooltip>
-            </td>
-            <td>{{ filterDateFormatEU(getReleaseDate) }}</td>
-          </tr>
           <tr v-if="showArray(getLanguages)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.language')">
@@ -56,33 +40,6 @@
             <td>
               <div v-for="(language, i) of getLanguages" :key="i">
                 <app-link v-if="!isNil(language) && isString(language.label) && isString(language.resource)" :to="language.resource">{{ language.label }}</app-link>
-              </div>
-            </td>
-          </tr>
-          <tr v-if="showObjectArray(getSpatial)">
-            <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.tooltip.datasetDetails.spatial')">
-                {{ $t('message.metadata.spatial') }}
-              </tooltip>
-            </td>
-            <td>
-              <div v-for="(spatial, i) of getSpatial" :key="i">
-                <div v-if="has(spatial, 'coordinates') && !isNil(spatial.coordinates)">
-                  {{ $t('message.metadata.coordinates') }}:
-                  {{ spatial.coordinates }}
-                </div>
-                <div v-if="has(spatial, 'type') && !isNil(spatial.type)">
-                  {{ $t('message.metadata.type') }}:
-                  {{ spatial.type }}
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr v-if="showArray(getSpatialResource)">
-            <td class="w-25 font-weight-bold">{{ $t('message.metadata.spatialResource') }}</td>
-            <td>
-              <div v-for="(spatialResource, i) of getSpatialResource.map(s => s.resource || '')" :key="i">
-                <app-link v-if="!isNil(spatialResource)" :to="spatialResource">{{ truncate(spatialResource, 75) }}</app-link>
               </div>
             </td>
           </tr>
@@ -131,7 +88,7 @@
                   {{ $t('message.metadata.address') }}:
                   {{contactPoint.address}}
                 </div>
-                <div v-if="has(contactPoint, 'url') && showArray(contactPoint.url)" class="d-flex">
+                <div v-if="has(contactPoint, 'url') && showArray(contactPoint.url)">
                   URL:
                   <div class="ml-1">
                     <div v-for="(url, i) of contactPoint.url" :key="i">
@@ -142,6 +99,60 @@
                   </div>
                 </div>
                 <br>
+              </div>
+            </td>
+          </tr>
+          <tr v-if="showString(getModificationDate)">
+            <td class="w-25 font-weight-bold">
+              <tooltip :title="$t('message.tooltip.datasetDetails.updated')">
+                {{ $t('message.metadata.updated') }}
+              </tooltip>
+            </td>
+            <td>{{ filterDateFormatEU(getModificationDate) }}</td>
+          </tr>
+          <tr v-if="showString(getReleaseDate)">
+            <td class="w-25 font-weight-bold">
+              <tooltip :title="$t('message.tooltip.datasetDetails.created')">
+                {{ $t('message.metadata.created') }}
+              </tooltip>
+            </td>
+            <td>{{ filterDateFormatEU(getReleaseDate) }}</td>
+          </tr>
+          <tr v-if="showObject(getCatalogRecord)">
+            <td class="w-25 font-weight-bold">
+              <tooltip :title="$t('message.tooltip.catalogRecord')" >
+                {{ $t('message.metadata.catalogRecord') }}
+              </tooltip>
+            </td>
+            <td>
+              <div v-if="getCatalogRecord.issued" class="catalogue-label">{{ `${$t('message.metadata.addedToDataEuropaEU')}:\n${filterDateFormatEU(getCatalogRecord.issued)}` }}</div>
+              <div v-if="getCatalogRecord.modified" class="catalogue-label" :class="{'mt-1': getCatalogRecord.issued}">{{ `${$t('message.metadata.updatedOnDataEuropaEU')}:\n${filterDateFormatEU(getCatalogRecord.modified)}` }}</div>
+            </td>
+          </tr>
+          <tr v-if="showObjectArray(getSpatial)">
+            <td class="w-25 font-weight-bold">
+              <tooltip :title="$t('message.tooltip.datasetDetails.spatial')">
+                {{ $t('message.metadata.spatial') }}
+              </tooltip>
+            </td>
+            <td>
+              <div v-for="(spatial, i) of getSpatial" :key="i">
+                <div v-if="has(spatial, 'coordinates') && !isNil(spatial.coordinates)">
+                  {{ $t('message.metadata.coordinates') }}:
+                  {{ spatial.coordinates }}
+                </div>
+                <div v-if="has(spatial, 'type') && !isNil(spatial.type)">
+                  {{ $t('message.metadata.type') }}:
+                  {{ spatial.type }}
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr v-if="showArray(getSpatialResource)">
+            <td class="w-25 font-weight-bold">{{ $t('message.metadata.spatialResource') }}</td>
+            <td>
+              <div v-for="(spatialResource, i) of getSpatialResource.map(s => s.resource || '')" :key="i">
+                <app-link v-if="!isNil(spatialResource)" :to="spatialResource">{{ truncate(spatialResource, 75) }}</app-link>
               </div>
             </td>
           </tr>
@@ -236,6 +247,16 @@
                   </app-link>
                 </div>
               </div>
+            </td>
+          </tr>
+          <tr v-if="showString(getResource)">
+            <td class="w-25 font-weight-bold">
+              <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
+                URIref
+              </tooltip>
+            </td>
+            <td>
+              <a :href="appendCurrentLocaleToURL(getResource)">{{ truncate(getResource, 75) }}</a>
             </td>
           </tr>
           <tr v-if="showArray(getDocumentations)">
@@ -358,17 +379,6 @@
             </td>
             <td>{{ getTranslationFor(getVersionNotes) }}</td>
           </tr>
-          <tr v-if="showObject(getCatalogRecord)">
-            <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.tooltip.catalogRecord')" >
-                {{ $t('message.metadata.catalogRecord') }}
-              </tooltip>
-            </td>
-            <td>
-              <div v-if="getCatalogRecord.issued" class="catalogue-label">{{ `${$t('message.metadata.addedToDataEuropaEU')}:\n${filterDateFormatEU(getCatalogRecord.issued)}` }}</div>
-              <div v-if="getCatalogRecord.modified" class="catalogue-label" :class="{'mt-1': getCatalogRecord.issued}">{{ `${$t('message.metadata.updatedOnDataEuropaEU')}:\n${filterDateFormatEU(getCatalogRecord.modified)}` }}</div>
-            </td>
-          </tr>
           <tr v-if="showArray(getAttributes)">
             <td class="w-25 font-weight-bold">{{ $t('message.metadata.attributes') }}</td>
             <td>
@@ -421,16 +431,6 @@
                   <app-link :to="statUnitMeasure">{{ truncate(statUnitMeasure, 75) }}</app-link>
                 </div>
               </div>
-            </td>
-          </tr>
-          <tr v-if="showString(getResource)">
-            <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
-                URIref
-              </tooltip>
-            </td>
-            <td>
-              <a :href="appendCurrentLocaleToURL(getResource)">{{ truncate(getResource, 75) }}</a>
             </td>
           </tr>
           <tr v-if="showArray(getIsReferencedBy)">
@@ -579,11 +579,11 @@ import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 import DatasetDetailsFeatureHeader
   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
-import PvShowMore from "@/modules/widgets/PvShowMore";
+// import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsProperties",
-  components: {PvShowMore, DatasetDetailsFeatureHeader, Tooltip, AppLink},
+  components: {DatasetDetailsFeatureHeader, Tooltip, AppLink},
   props: {
     filterDateFormatEU: Function,
     showObjectArray: Function,
@@ -596,7 +596,7 @@ export default {
     return {
       infoVisible: true,
       initialHeight: 0,
-      restrictedHeight: 500,
+      restrictedHeight: 200,
       expanded: false
     };
   },

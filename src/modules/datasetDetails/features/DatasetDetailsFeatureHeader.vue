@@ -1,10 +1,8 @@
 <template>
   <div class="d-flex w-100 heading">
-    <div class="col-1 my-auto text-right arrow"
+    <div class="col-1 my-auto text-right arrow dsd-feature-header-arrow-container"
          @click="onClick()">
-      <span class="text-dark">
         <i class="material-icons dsd-feature-header-arrow">{{ arrowDown ? "keyboard_arrow_down" : "keyboard_arrow_up" }}</i>
-      </span>
     </div>
     <div class="col-11 py-2 bg-white">
       <span class="dsd-feature-title"
@@ -34,7 +32,8 @@ export default {
   padding-right: 0;
 }
 @media screen and (max-width: 991px) {
-  .arrow {
+  .dsd-feature-header-arrow-container {
+    width: 48px !important;
     order: 2;
     padding-right: 15px;
   }

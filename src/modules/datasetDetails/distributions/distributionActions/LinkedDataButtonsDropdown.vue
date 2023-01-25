@@ -5,7 +5,7 @@
   >
     <resource-details-linked-data-button
       v-for="format in formats"
-      class="dropdown-item"
+      class="dropdown-item bglight"
       resources="distributions"
       :key="format.id"
       :format="format.id"
@@ -31,8 +31,8 @@ export default {
   data: () => ({
     formats:
       [
-        {id: "rdf", label: "Turtle"},
-        {id: "ttl", label: "RDF/XML"},
+        {id: "rdf", label: "RDF/XML"},
+        {id: "ttl", label: "Turtle"},
         {id: "n3", label: "Notation3"},
         {id: "nt", label: "N-Triples"},
         {id: "jsonld", label: "JSON-LD"}

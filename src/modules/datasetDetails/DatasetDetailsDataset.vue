@@ -3,6 +3,9 @@
     <resource-access-popup ref="externalResourceModal" />
     <span property="dc:issued" :content="getReleaseDate"></span>
     <span property="dc:modified" :content="getModificationDate"></span>
+    <div v-if="loadingDatasetDetails">
+      <dataset-details-skeleton type="DatasetDetails"></dataset-details-skeleton>
+    </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
       <dataset-details-banners
         :dateIncorrect="dateIncorrect"
@@ -105,11 +108,13 @@
   import DatasetDetailsExtendedMetaData
     from "@/modules/datasetDetails/features/DatasetDetailsIsUsedBy.vue";
   import DatasetDetailsFeatures from "@/modules/datasetDetails/features/DatasetDetailsFeatures.vue";
+  import DatasetDetailsSkeleton from "@/modules/datasetDetails/DatasetDetailsSkeleton.vue";
 
   export default {
     name: 'datasetDetailsDataset',
     dependencies: 'DatasetService',
     components: {
+      DatasetDetailsSkeleton,
       DatasetDetailsFeatures,
       DatasetDetailsExtendedMetaData,
       DatasetDetailsProperties,
@@ -182,8 +187,6 @@
       };
     },
     computed: {
-      // todo: refactor this to refer to store
-      isTrusted: () => process.env.NODE_ENV === 'development',
       // import store-getters
       ...mapGetters('datasetDetails', [
       'getKeywords',
@@ -693,7 +696,9 @@
             name: 'NotFound',
             query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
           });
-        });
+        })
+        .finally(() => this.$root.$emit('contentLoaded'));
+
       this.loadQualityData(this.$route.params.ds_id)
         .then(() => {
           this.$Progress.finish();
@@ -701,6 +706,7 @@
         .catch(() => {
           this.$Progress.fail();
         });
+
       this.loadQualityDistributionData(this.$route.params.ds_id)
         .then(() => {
           this.$Progress.finish();
@@ -708,6 +714,7 @@
         .catch(() => {
           this.$Progress.fail();
         });
+        
       this.$root.$on('date-incorrect', () => {
         this.dateIncorrect = true;
       });

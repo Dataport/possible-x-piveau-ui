@@ -137,700 +137,84 @@
             },
             "datasets": {
                 "step2": {
-                    "isReferencedBy": {
-                        "add-label": "Geben Sie Is Referenced bitte an.",
-                        "placeholder": "Datensatz Bezug auf den Text des Platzhalters",
-                        "help": "Bei dieser Immobilie geht es um eine verwandte Ressource.",
-                        "info": "Bei dieser Eigenschaft geht es um eine verwandte Ressource, wie z. B. eine Veröffentlichung, die Verweise, Zitate oder anderweitige Hinweise auf den Datensatz enthält.",
-                        "label": "Ist als Referenz angegeben"
-                    },
-                    "contactPointAddressCity": {
-                        "placeholder": "Datensatz Kontaktpunkt Adresse Platzhalter der Stadt",
-                        "label": "Anschrift Stadt"
-                    },
-                    "source": {
-                        "label": "Quelle",
-                        "help": "Datensatz, aus dem der beschriebene Datensatz abgeleitet wird.",
-                        "info": "Diese Eigenschaft bezieht sich auf einen verbundenen Datensatz, von dem der beschriebene Datensatz abgeleitet ist.",
-                        "placeholder": "Text des Datensatzes Quellplatzhalter",
-                        "add-label": "Quelle hinzufügen"
-                    },
                     "type": {
-                        "label": "Typ",
-                        "help": "Diese Eigenschaft bezieht sich auf die Art des Datensatzes.",
-                        "info": "Diese Eigenschaft bezieht sich auf die Art des Datensatzes. Es ist ein empfohlener Datentyp des kontrollierten Vokabulars vorgesehen.",
                         "placeholder": "Text des Datensatzes Art des Platzhalters"
                     },
-                    "pageUrl": {
-                        "label": "URL",
-                        "placeholder": "Datensatz Seite Url Platzhalter Text"
-                    },
-                    "admsIdentifierSkosNotation": {
-                        "help": "Datensätze ADMS:Identifier Schema Hilfe Text",
-                        "label": "Regelung"
-                    },
-                    "spatialPlace": {
-                        "placeholder": "Datensatz Raumplatzhalter Text",
-                        "label": "Ort"
-                    },
-                    "subject": {
-                        "label": "Gegenstand",
-                        "help": "Eine Kategorie des Datensatzes.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Kategorie des Datensatzes. Ein Datensatz kann mit mehreren Themen verknüpft werden."
-                    },
-                    "qualifiedRelationUrl": {
-                        "placeholder": "Datensatz Qualified Relation Url Platzhalter Text",
-                        "label": "URL"
-                    },
-                    "accrualPeriodicity": {
-                        "info": "Diese Eigenschaft bezieht sich auf die Häufigkeit, mit der der Datensatz aktualisiert wird.",
-                        "label": "Periodizität der Periodenabgrenzung",
-                        "placeholder": "Datensatz Aktual Periodizität Platzhalter Text",
-                        "help": "Diese Eigenschaft bezieht sich auf die Häufigkeit, mit der der Datensatz aktualisiert wird."
-                    },
                     "isReferencedByUrl": {
-                        "label": "URL",
-                        "placeholder": "Datensatz Bezug genommen von Url-Platzhaltertext"
-                    },
-                    "versionNotes": {
-                        "placeholder": "Text des Datensatz-Versionsvermerks „Platzhalter“",
-                        "label": "Anmerkungen in der Fassung",
-                        "help": "Beschreibung der Änderungen in dieser Version im Vergleich zur vorherigen Version des Datensatzes.",
-                        "info": "Diese Eigenschaft enthält eine Beschreibung der Unterschiede zwischen dieser Version und einer früheren Version des Datensatzes. Diese Eigenschaft kann für parallele Sprachfassungen der Versionsvermerke wiederholt werden.",
-                        "add-label": "Anmerkungen zur Version in einer anderen Sprache hinzufügen"
-                    },
-                    "contactPointAddressStreet": {
-                        "label": "Adresse Street",
-                        "placeholder": "Datensatz Contact Point Address Street Platzhalter Text"
-                    },
-                    "relationUrl": {
-                        "label": "URL",
-                        "placeholder": "Datensatz Beziehung Url Platzhalter Text"
-                    },
-                    "isVersionOfUrl": {
-                        "placeholder": "Datensatz Is Version des Url-Platzhaltertexts",
                         "label": "URL"
                     },
                     "conformsTo": {
-                        "label": "Entspricht",
-                        "help": "Diese Eigenschaft bezieht sich auf eine Durchführungsvorschrift oder eine andere Spezifikation.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Durchführungsvorschrift oder eine andere Spezifikation.",
-                        "placeholder": "Datensatz Übereinstimmung mit dem Text des Platzhalters",
-                        "add-label": "Übereinstimmungen hinzufügen"
-                    },
-                    "pageFormat": {
-                        "placeholder": "Datensatz Seite Platzhalter Text des Seitenformats",
-                        "label": "Format"
-                    },
-                    "qualifiedAttributionUrl": {
-                        "placeholder": "Datensatz Qualified Attribution Url Platzhalter Text",
-                        "label": "URL"
-                    },
-                    "isVersionOf": {
-                        "add-label": "Is Version von",
-                        "help": "Datensatz ist eine Version, Ausgabe oder Anpassung.",
-                        "label": "Die Version von",
-                        "info": "Diese Eigenschaft bezieht sich auf einen verbundenen Datensatz, dessen Version, Bearbeitung oder Anpassung der beschriebene Datensatz ist.",
-                        "placeholder": "Datensatz Is Version des Textes des Platzhalters"
-                    },
-                    "relation": {
-                        "placeholder": "Text des Datensatzes Beziehung Platzhalter",
-                        "add-label": "Beziehung hinzufügen",
-                        "help": "Diese Eigenschaft bezieht sich auf eine zugehörige Ressource.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine zugehörige Ressource.",
-                        "label": "Beziehung"
+                        "placeholder": "Datensatz Übereinstimmung mit dem Text des Platzhalters"
                     },
                     "provenance": {
-                        "label": "Herkunft",
-                        "help": "Diese Eigenschaft enthält eine Aussage zur Herkunft eines Datensatzes.",
-                        "add-label": "Verlängerung hinzufügen",
-                        "info": "Diese Eigenschaft enthält eine Aussage zur Herkunft eines Datensatzes.",
-                        "placeholder": "Text des Datensatzes Platzhalter"
-                    },
-                    "language": {
-                        "help": "Durch den Datensatz abgedeckte Sprachen.",
-                        "info": "Durch den Datensatz abgedeckte Sprachen.",
-                        "placeholder": "Text des Datensatzes „Sprachplatzhalter“",
-                        "label": "Sprache"
-                    },
-                    "spatialContinent": {
-                        "placeholder": "Datensatz Geotial Continent Placeholder Text des Platzhalters",
-                        "label": "Kontinent"
-                    },
-                    "spatialResolutionInMeters": {
-                        "help": "Minimale räumliche Trennung, die in einem Datensatz abwicklungsfähig ist.",
-                        "info": "Diese Eigenschaft bezieht sich auf die in Metern gemessene minimale räumliche Trennung, die in einem Datensatz lösbar ist.",
-                        "label": "Räumliche Auflösung in Metern",
-                        "placeholder": "Datensatz Spatial Resolution In Meters Platzhalter Text"
+                        "label": "Herkunft"
                     },
                     "qualifiedAttribution": {
-                        "add-label": "Qualifizierte Attribution hinzufügen",
-                        "help": "Link zu einem Bediensteten, der in irgendeiner Form für die Ressource verantwortlich ist",
-                        "info": "Diese Eigenschaft bezieht sich auf einen Link zu einem Agenten, der in irgendeiner Form für die Ressource verantwortlich ist.",
-                        "label": "Qualifizierte Attribution",
-                        "placeholder": "Datensatz Qualified Attribution Placeholder Text (Qualified Attribution Placeholder text)"
-                    },
-                    "temporal": {
-                        "help": "Diese Eigenschaft bezieht sich auf einen Zeitraum, den der Datensatz abdeckt.",
-                        "info": "Diese Eigenschaft bezieht sich auf einen Zeitraum, den der Datensatz abdeckt.",
-                        "add-label": "Zeitral hinzufügen",
-                        "label": "Zeitlicher Rahmen",
-                        "placeholder": "Datensatz Zeitlicher Platzhaltertext"
-                    },
-                    "temporalResolutionYear": {
-                        "placeholder": "Datensatz Temporale Auflösung Jahr Platzhalter Text",
-                        "label": "Jahr der zeitlichen Abwicklung"
-                    },
-                    "admsIdentifier": {
-                        "add-label": "Fügen Sie eine weitere ADMS:Identifier hinzu",
-                        "label": "ADMS:Identifier",
-                        "help": "Eine Kennung in einem bestimmten Kontext, bestehend aus dem String, der die Kennung ist.",
-                        "info": "Identifikator in einem bestimmten Kontext, bestehend aus dem String, der die Kennung ist; eine fakultative Kennung für das Identifikationsschema; eine optionale Kennung für die Version des Identifikationsschemas; eine optionale Kennung für die Agentur, die das Identifikationsschema verwaltet"
+                        "help": "Link zu einem Bediensteten, der in irgendeiner Form für die Ressource verantwortlich ist"
                     },
                     "accessRights": {
-                        "help": "Zugangsrechte für Datensätze.",
-                        "info": "Diese Eigenschaft bezieht sich auf Informationen, aus denen hervorgeht, ob es sich bei dem Datensatz um offene Daten handelt, ob der Datensatz Zugangsbeschränkungen unterliegt oder nicht öffentlich ist.",
-                        "label": "Zugangsrechte",
-                        "placeholder": "Text des Datensatz-Zugangsrechtsplatzinhabers"
-                    },
-                    "pageDescription": {
-                        "label": "Beschreibung",
-                        "placeholder": "Datensatz Text des Platzhalters der Seitenbeschreibung"
-                    },
-                    "identifier": {
-                        "add-label": "Kennung hinzufügen",
-                        "placeholder": "Text des Datensatzes „Platzhalter“ des Datensatzes",
-                        "label": "Kennung",
-                        "help": "Diese Eigenschaft enthält die Hauptkennung des Datensatzes.",
-                        "info": "Diese Eigenschaft enthält die Hauptkennung des Datensatzes, z. B. den URI oder eine andere eindeutige Kennung im Zusammenhang mit dem Katalog."
-                    },
-                    "creatorName": {
-                        "placeholder": "Text des Datensatzes „Creator Name Name Placeholder“",
-                        "label": "Name des Namens"
-                    },
-                    "hasVersionUrl": {
-                        "label": "URL",
-                        "placeholder": "Datensatz Has Version Url Platzhaltertext"
+                        "info": "Diese Eigenschaft bezieht sich auf Informationen, aus denen hervorgeht, ob es sich bei dem Datensatz um offene Daten handelt, ob der Datensatz Zugangsbeschränkungen unterliegt oder nicht öffentlich ist."
                     },
                     "versionInfo": {
-                        "label": "Version Infos",
-                        "placeholder": "Text des Datensatzes Version Info Platzhalter",
-                        "help": "Versionsnummer des Datensatzes.",
-                        "info": "Diese Eigenschaft enthält eine Versionsnummer oder eine andere Versionsbezeichnung des Datensatzes."
-                    },
-                    "theme": {
-                        "label": "Thema",
-                        "placeholder": "Text zum Thema Platzhalter des Datensatzes",
-                        "help": "EuroVoc-Bereiche für diesen Datensatz.",
-                        "info": "Die für diese Eigenschaft zu verwendenden Werte sind die URI der Begriffe im Vokabular."
-                    },
-                    "hasVersion": {
-                        "placeholder": "Datensatz Has Version Platzhalter Text",
-                        "help": "Dies ist eine Version, Ausgabe oder Anpassung des beschriebenen Datensatzes.",
-                        "info": "Diese Eigenschaft bezieht sich auf einen verbundenen Datensatz, bei dem es sich um eine Version, Bearbeitung oder Anpassung des beschriebenen Datensatzes handelt.",
-                        "add-label": "Version Has hinzufügen",
-                        "label": "Hat Version"
-                    },
-                    "temporalResolution": {
-                        "label": "Zeitliche Entschließung",
-                        "help": "Die Mindestlaufzeit, die im Datensatz abwicklungsfähig ist.",
-                        "info": "Diese Eigenschaft bezieht sich auf die Mindestlaufzeit, die im Datensatz abwicklungsfähig ist.",
-                        "placeholder": "Datensatz Zeitlicher Platzhaltertext für die Auflösung"
+                        "help": "Versionsnummer des Datensatzes."
                     },
                     "wasGeneratedBy": {
-                        "label": "War Generated By",
-                        "add-label": "WAS Generated By hinzufügen",
-                        "placeholder": "Datensatz Was Generated Bby Placeholder text (Datensatz Was Generated Bby Placeholder text)",
-                        "help": "Diese Immobilie bezieht sich auf eine Tätigkeit, die entstanden ist.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Tätigkeit, die die Erstellung des Datensatzes hervorgebracht hat oder den geschäftlichen Rahmen dafür bildet."
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Datensatz Temporale Auflösung Stunde Platzhalter Text",
-                        "label": "Zeitliche Auflösung Stunde"
-                    },
-                    "qualifiedRelation": {
-                        "help": "Diese Eigenschaft bietet einen Link zu einer Beschreibung einer Beziehung zu einer anderen Ressource.",
-                        "info": "Diese Eigenschaft bietet einen Link zu einer Beschreibung einer Beziehung zu einer anderen Ressource.",
-                        "label": "Qualifizierte Beziehung",
-                        "add-label": "Qualifizierte Beziehung hinzufügen",
-                        "placeholder": "Datensatz Qualified Relation Placeholder Text"
-                    },
-                    "pageTitle": {
-                        "placeholder": "Datensatz Seite Titel Platzhalter Text",
-                        "label": "Titel"
-                    },
-                    "landingPageUrl": {
-                        "label": "URL",
-                        "placeholder": "Datensatz Anlandeseite Url, Text des Platzhalters"
+                        "add-label": "WAS Generated By hinzufügen"
                     },
                     "conformsToTitle": {
-                        "placeholder": "Datensatz Übereinstimmung mit dem Text des Titelplatzhalters",
                         "label": "Titel"
                     },
-                    "conformsToUrl": {
-                        "placeholder": "Datensatz Übereinstimmung mit Url Platzhalter Text",
-                        "label": "URL"
-                    },
-                    "landingPage": {
-                        "help": "Diese Eigenschaft bezieht sich auf eine Website, die Zugang zum Datensatz bietet.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Webseite, die Zugang zu dem Datensatz, seinen Distributionen und/oder zusätzlichen Informationen gibt. Es soll auf eine Startseite des ursprünglichen Datenanbieters und nicht auf eine Seite eines Dritten, z. B. eines Aggregators, verwiesen werden.",
-                        "label": "Seite für die Anlandung",
-                        "placeholder": "Datensatz Anlandeplatzhalter Text",
-                        "add-label": "Landungsseite hinzufügen"
-                    },
-                    "creatorType": {
-                        "label": "Typ",
-                        "placeholder": "Text des Datensatzes „Creator Typ Platzhalter“"
-                    },
-                    "contactPointAddressPostcode": {
-                        "label": "Postleitzahl der Anschrift",
-                        "placeholder": "Datensatz Kontaktpunkt Adresse Postleitzahl Platzhalter"
-                    },
-                    "contactPointTelephone": {
-                        "label": "Telefon",
-                        "placeholder": "Datensatz-Kontaktstelle Text des Telefonplatzhalters"
-                    },
                     "spatial": {
-                        "placeholder": "Datensatz Georaumplatzhalter Text",
-                        "help": "Eine geografische Region, die vom Datensatz erfasst wird.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine geografische Region, die vom Datensatz erfasst wird.",
-                        "label": "Räumlicher Raum"
-                    },
-                    "page": {
-                        "label": "Seite",
-                        "help": "Seite oder Dokument zu diesem Datensatz.",
-                        "placeholder": "Datensatz Seite Platzhalter Text",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Seite oder ein Dokument zu diesem Datensatz.",
-                        "add-label": "Seite hinzufügen"
-                    },
-                    "temporalResolutionMonth": {
-                        "placeholder": "Datensatz Temporale Auflösung Monat Platzhalter Text",
-                        "label": "Monat der zeitlichen Abwicklung"
-                    },
-                    "temporalResolutionSecond": {
-                        "placeholder": "Datensatz Befristete Auflösung Zweiter Platzhaltertext",
-                        "label": "Zeitliche Entschließung Zweite"
-                    },
-                    "identifierText": {
-                        "placeholder": "Datensatzkennung Text Platzhalter Text",
-                        "label": "Text"
-                    },
-                    "contactPointAddressCountry": {
-                        "label": "Adressland",
-                        "placeholder": "Datensatz Kontaktstelle Adresse Land Platzhalter Text"
+                        "info": "Diese Eigenschaft bezieht sich auf eine geografische Region, die vom Datensatz erfasst wird."
                     },
                     "contactPointName": {
-                        "placeholder": "Datensatz „Kontaktstelle Name Platzhalter“",
                         "label": "Name des Namens"
                     },
-                    "isUsedBy": {
-                        "help": "Datensatz wird von Hilfetext verwendet",
-                        "label": "Wird verwendet von",
-                        "info": "Datensatz wird von Infotext verwendet",
-                        "placeholder": "Datensatz wird von Platzhaltertext verwendet",
-                        "add-label": "Hinzufügen Ist verwendet von"
-                    },
-                    "contactPointType": {
-                        "label": "Typ",
-                        "placeholder": "Datensatz „Kontaktstelle Typ Platzhalter“"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Datensatz Befristete Auflösung Minute Platzhalter Text",
-                        "label": "Protokoll zur zeitlichen Abwicklung"
-                    },
-                    "sourceUrl": {
-                        "label": "URL",
-                        "placeholder": "Datensatz Quelle Url Platzhaltertext"
-                    },
-                    "spatialCountry": {
-                        "label": "Land",
-                        "placeholder": "Datensatz Geotial Country Platzhalter Text"
-                    },
-                    "creatorEmail": {
-                        "label": "E-Mail",
-                        "placeholder": "Datensatz Creator E-Mail Platzhalter Text"
-                    },
                     "contactPointEmail": {
-                        "label": "E-Mail",
-                        "placeholder": "Datensatz: Text des E-Mail-Platzhalters der Kontaktstelle"
-                    },
-                    "contactPointAddress": {
-                        "label": "Adresse der Kontaktstelle",
-                        "help": "Datensatz Kontaktstelle Adresse Hilfetext"
-                    },
-                    "admsIdentifierUrl": {
-                        "label": "URL",
-                        "placeholder": "Datensatz ADMS:Identifier Url Platzhaltertext"
-                    },
-                    "temporalStart": {
-                        "label": "Beginn"
-                    },
-                    "contactPointOrganisationName": {
-                        "placeholder": "Datensatz „Kontaktstelle Name Placeholder“ der Organisation",
-                        "label": "Name der Organisation"
-                    },
-                    "creator": {
-                        "help": "Diese Eigenschaft bezieht sich auf die Stelle, die für die Erstellung des Datensatzes verantwortlich ist.",
-                        "add-label": "Creator hinzufügen",
-                        "info": "Diese Eigenschaft bezieht sich auf die Stelle, die für die Erstellung des Datensatzes verantwortlich ist.",
-                        "label": "Schöpfer"
+                        "label": "E-Mail"
                     },
                     "contactPoint": {
-                        "label": "Kontaktstelle",
-                        "placeholder": "Text des Datensatzes „Kontaktstellenplatzhalter“",
-                        "add-label": "Kontaktstelle hinzufügen",
-                        "help": "Diese Eigenschaft enthält Kontaktinformationen.",
-                        "info": "Diese Eigenschaft enthält Kontaktinformationen, die für die Übermittlung von Kommentaren zum Datensatz verwendet werden können."
-                    },
-                    "admsIdentifierValue": {
-                        "placeholder": "Datensatz ADMS:Identifier Identifier Platzhaltertext",
-                        "label": "Kennung"
-                    },
-                    "temporalEnd": {
-                        "label": "Ende"
-                    },
-                    "contactPointUrl": {
-                        "label": "URL",
-                        "placeholder": "Text des Datensatzes „Kontaktstelle Url Platzhalter“"
-                    },
-                    "temporalResolutionDay": {
-                        "label": "Tag der zeitlichen Abwicklung",
-                        "placeholder": "Datensatz Temporale Auflösung Tag Platzhalter Text"
-                    },
-                    "creatorHomepage": {
-                        "placeholder": "Datensatz „Creator Homepage Placeholder text“",
-                        "label": "Startseite"
-                    },
-                    "admsIdentifierType": {
-                        "label": "Art"
-                    },
-                    "admsIdentifierCheckbox": {
-                        "label": "ADMS:Identifier Checkbox"
-                    },
-                    "wasGeneratedByUrl": {
-                        "label": "URL",
-                        "placeholder": "Datensatz Was Generated By Url placeholder text (Datensatz Was Generated By Url placeholder text)"
+                        "help": "Diese Eigenschaft enthält Kontaktinformationen."
                     },
                     "provenanceText": {
-                        "label": "Text",
                         "placeholder": "Datensatz Provenance Text Platzhalter Text"
-                    },
-                    "schemeIdentifier": {
-                        "label": "Systemkennung"
                     }
                 },
                 "step1": {
-                    "description": {
-                        "label": "Beschreibung",
-                        "add-label": "Beschreibung in einer anderen Sprache hinzufügen",
-                        "placeholder": "Text des Datensatzes Platzhalter der Beschreibung",
-                        "help": "Allgemeine Beschreibung des Datensatzes.",
-                        "info": "Allgemeine Beschreibung des Datensatzes. Sie wird häufig zusammen mit dem Pakettitel angezeigt. Am Anfang sollte ein kurzer Satz stehen, der den Inhalt des Datensatzes prägnant beschreibt, da in manchen Datensatz-Ansichten unter Umständen nur die ersten Wörter angezeigt werden."
-                    },
-                    "publisherType": {
-                        "label": "Typ",
-                        "placeholder": "Datensatz „Publisher Typ Platzhalter“"
-                    },
-                    "title": {
-                        "add-label": "Titel in einer anderen Sprache hinzufügen",
-                        "placeholder": "Text des Datensatzes Titel Platzhalter",
-                        "help": "Kurzer aussagekräftiger Titel für den Datensatz.",
-                        "info": "Kurzer aussagekräftiger Titel für den Datensatz. Bitte keine vollwertige Beschreibung eintragen; hierfür ist das Feld „Beschreibung“ vorgesehen. Bitte am Ende keinen Punkt setzen und Nicht ausschließlich Großbuchstaben verwenden.",
-                        "label": "Titel"
-                    },
                     "datasetID": {
-                        "help": "Diese Eigenschaft enthält die Hauptkennung für den Datensatz.",
-                        "info": "Diese Eigenschaft enthält die Hauptkennung für den Datensatz, z. B. die URI oder eine andere eindeutige Kennung im Kontext des Katalogs.",
                         "label": "Datensatz-ID"
                     },
-                    "publisherName": {
-                        "placeholder": "Datensatz „Publisher Name Placeholder“",
-                        "label": "Name des Namens"
-                    },
-                    "keyword": {
-                        "add-label": "Schlüsselwort hinzufügen",
-                        "help": "Durch Komma getrennte Begriffe, durch die dieser Datensatz mit ähnlichen Datensätzen verknüpft werden könnte.",
-                        "placeholder": "Datensatz „Stichwort Platzhalter“",
-                        "info": "Durch Komma getrennte Begriffe, durch die dieser Datensatz mit ähnlichen Datensätzen verknüpft werden könnte. Die Stichwörter müssen aus alphanumerischen Zeichen in Kleinbuchstaben oder folgenden Symbolen bestehen: —_. Aus mehreren Wörtern bestehende Begriffe sollten mit Bindestrichen verbunden werden: Verschmutzung, Flüsse, stoffliche-Belastung.",
-                        "label": "Stichwort"
-                    },
-                    "modified": {
-                        "label": "Geändert",
-                        "help": "Letztes Datum, an dem der Datensatz geändert, aktualisiert oder geändert wurde.",
-                        "info": "Letztes Datum, an dem der Datensatz geändert, aktualisiert oder geändert wurde. Zulässige Datumsformate: JJJJ-MM-TT, JJJJ-MM, JJJJ-JJJJ.",
-                        "placeholder": "Datensatz Modifizierter Platzhaltertext"
-                    },
                     "publisher": {
-                        "help": "Für die Bereitstellung des Datensatzes zuständige Stelle (Person, Organisation, Dienst usw.).",
-                        "add-label": "Publisher in einer anderen Sprache hinzufügen",
-                        "info": "Für die Bereitstellung des Datensatzes zuständige Stelle (Person, Organisation, Dienst usw.).",
-                        "placeholder": "Datensatz „Publisher Platzhalter“",
                         "label": "Datenbereitsteller"
                     },
-                    "datetime": {
-                        "label": "Datumszeit"
-                    },
-                    "catalog": {
-                        "placeholder": "Datensatz Katalog Platzhaltertext",
-                        "help": "Der Katalog des Datensatzes.",
-                        "label": "Katalog",
-                        "info": "Der Katalog des Datensatzes."
-                    },
-                    "issued": {
-                        "placeholder": "Datensatz Ausgegebener Platzhalter Text",
-                        "label": "Ausgestellt",
-                        "help": "Datum der förmlichen Ausgabe (z. B. Veröffentlichung) des Datensatzes. Zulässige Datumsformate: JJJJ-MM-TT, JJJJ-MM, JJJJ-JJJJ.",
-                        "info": "Diese Eigenschaft enthält das Datum der förmlichen Ausstellung (z. B. Veröffentlichung) des Datensatzes."
-                    },
-                    "language": {
-                        "placeholder": "Text des Datensatzes „Sprachplatzhalter“",
-                        "label": "Sprache",
-                        "help": "Durch den Datensatz abgedeckte Sprachen.",
-                        "info": "Durch den Datensatz abgedeckte Sprachen."
-                    },
-                    "publisherEmail": {
-                        "placeholder": "Datensatz Publisher E-Mail Platzhalter Text",
-                        "label": "E-Mail"
-                    },
                     "publisherHomepage": {
-                        "label": "Startseite",
-                        "placeholder": "Datensatz „Publisher Homepage“-Platzhaltertext"
-                    },
-                    "date": {
-                        "label": "Datum"
+                        "label": "Startseite"
                     }
                 },
                 "step3": {
-                    "temporalResolution": {
-                        "help": "Die Mindestlaufzeit, die bei der Verteilung des Datensatzes abwicklungsfähig ist.",
-                        "info": "Diese Eigenschaft bezieht sich auf die Mindestlaufzeit, die bei der Verteilung des Datensatzes abwicklungsfähig ist.",
-                        "placeholder": "Verteilung Zeitlicher Wortlaut des Platzhalters für die Auflösung",
-                        "label": "Zeitliche Entschließung",
-                        "add-label": "Zeitliche Entschließung hinzufügen"
-                    },
-                    "spatialResolutionInMeters": {
-                        "help": "Minimale räumliche Trennung, die in einem Datensatz abwicklungsfähig ist.",
-                        "info": "Diese Eigenschaft bezieht sich auf die in Metern gemessene minimale räumliche Trennung, die in einem Datensatz lösbar ist.",
-                        "placeholder": "Verteilung Raumresolution In Meterplatzhalter Text",
-                        "label": "Räumliche Auflösung in Metern"
-                    },
-                    "compressFormat": {
-                        "placeholder": "Text des Platzhalters Compress Format",
-                        "help": "Das Format der Datei, in der die Daten in komprimierter Form enthalten sind.",
-                        "info": "Diese Eigenschaft bezieht sich auf das Format der Datei, in der die Daten in komprimierter Form enthalten sind, z. B. um die Größe der herunterladbaren Datei zu verringern. Sie müssen mittels eines Medientyps ausgedrückt werden, der im amtlichen Register der von der IANA verwalteten Medientypen definiert ist.",
-                        "label": "Format des Kompresses"
-                    },
                     "mediaType": {
-                        "placeholder": "Text des Platzhalters „Verbreitung Medientyp“",
-                        "help": "Das Format der Datei, in der die Daten in komprimierter Form enthalten sind.",
-                        "info": "Diese Eigenschaft bezieht sich auf das Format der Datei, in der die Daten in komprimierter Form enthalten sind, z. B. um die Größe der herunterladbaren Datei zu verringern. Sie müssen mittels eines vom Beamten festgelegten Medientyps ausgedrückt werden.",
-                        "label": "Art der Medien"
-                    },
-                    "pageTitle": {
-                        "label": "Titel",
-                        "placeholder": "Verteilung Seite Titel Platzhalter Text"
-                    },
-                    "language": {
-                        "placeholder": "Text des Platzhalters für die Verteilung Sprachen",
-                        "label": "Sprache",
-                        "help": "Eine in der Verteilung verwendete Sprache.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine in der Verteilung verwendete Sprache. Diese Eigenschaft kann wiederholt werden, wenn die Metadaten in mehreren Sprachen bereitgestellt werden."
-                    },
-                    "packageFormat": {
-                        "placeholder": "Format des Verteilungspakets Platzhalter",
-                        "help": "Das Format der Datei, in der eine oder mehrere Dateien zusammengefasst sind.",
-                        "info": "Diese Eigenschaft bezieht sich auf das Format der Datei, in der eine oder mehrere Dateien zusammengefasst werden, z. B. um das Herunterladen einer Reihe verbundener Dateien zu ermöglichen. Sie müssen mittels eines Medientyps ausgedrückt werden, der im amtlichen Register der von der IANA verwalteten Medientypen definiert ist.",
-                        "label": "Format des Pakets"
+                        "placeholder": "Text des Platzhalters „Verbreitung Medientyp“"
                     },
                     "title": {
-                        "placeholder": "Text des Platzhalters für die Verteilung",
-                        "help": "Diese Eigenschaft enthält einen Namen, der dem Vertrieb zugewiesen wurde.",
-                        "info": "Diese Eigenschaft enthält einen Namen, der dem Vertrieb zugewiesen wurde. Diese Eigenschaft kann für parallele Sprachfassungen der Beschreibung wiederholt werden.",
-                        "add-label": "Titel in einer anderen Sprache hinzufügen",
-                        "label": "Titel"
-                    },
-                    "licenceDescription": {
-                        "label": "Beschreibung der Lizenz",
-                        "placeholder": "Katalog Lizenz Beschreibung Platzhaltertext"
-                    },
-                    "checksumAlgorithm": {
-                        "label": "Prüfsummenalgorithmus"
-                    },
-                    "status": {
-                        "help": "Stand der Verteilung im Zusammenhang mit dem Laufzeitenzyklus.",
-                        "info": "Stand der Verteilung im Zusammenhang mit dem Laufzeitenzyklus. Sie MUSS einen der Werte annehmen, die ausgefüllt, abgewertet, Under Development, zurückgeworfen werden.",
-                        "label": "Status",
-                        "placeholder": "Text des Platzhalters der Verteilungsstatus"
-                    },
-                    "downloadUrl": {
-                        "placeholder": "Verteilung Download Url Platzhalter Text",
-                        "help": "Direkter Link zu einer herunterladbaren Datei in einem bestimmten Format.",
-                        "info": "Diese Eigenschaft enthält eine URL, die einen direkten Link zu einer herunterladbaren Datei in einem bestimmten Format darstellt.",
-                        "label": "Url herunterladen"
+                        "info": "Diese Eigenschaft enthält einen Namen, der dem Vertrieb zugewiesen wurde. Diese Eigenschaft kann für parallele Sprachfassungen der Beschreibung wiederholt werden."
                     },
                     "checksum": {
-                        "help": "Die Prüfsumme bezieht sich auf das DownloadUrl.",
-                        "info": "Diese Eigenschaft stellt einen Mechanismus dar, mit dem überprüft werden kann, ob sich der Inhalt einer Verbreitung nicht verändert hat. Die Prüfsumme bezieht sich auf das DownloadUrl.",
-                        "placeholder": "Text des Platzhalters „Distribution Checksum“",
-                        "label": "Prüfsumme"
-                    },
-                    "licenceTitle": {
-                        "placeholder": "Katalog Lizenz Titel Platzhaltertext",
-                        "label": "Lizenztitel"
-                    },
-                    "type": {
-                        "label": "Art",
-                        "help": "Der Medientyp der Distribution.",
-                        "info": "Diese Eigenschaft bezieht sich auf die Medienart der Distribution, wie sie im offiziellen Register der von IANA verwalteten Medientypen definiert ist."
-                    },
-                    "hasPolicyUrl": {
-                        "label": "URL",
-                        "placeholder": "Verteilung Has Policy Url Platzhalter Text"
-                    },
-                    "accessServiceDescription": {
-                        "add-label": "Datendienstbeschreibung in einer anderen Sprache hinzufügen",
-                        "label": "Beschreibung des Datendienstes"
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Datensatz Temporale Auflösung Tag Platzhalter Text",
-                        "label": "Tag der zeitlichen Abwicklung"
+                        "placeholder": "Text des Platzhalters „Distribution Checksum“"
                     },
                     "page": {
-                        "placeholder": "Verteilung Text des Platzhalters der Seite",
-                        "add-label": "Seite hinzufügen",
-                        "label": "Seite",
-                        "help": "Eine Seite oder ein Dokument zu dieser Verteilung.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Seite oder ein Dokument über diese Verteilung."
-                    },
-                    "accessService": {
-                        "help": "Ein Datendienst, der Zugriff auf die Verteilung des Datensatzes gewährt",
-                        "info": "Diese Eigenschaft bezieht sich auf einen Datendienst, der Zugriff auf die Verteilung des Datensatzes gewährt.",
-                        "add-label": "Einen weiteren Datendienst hinzufügen",
-                        "label": "Datendienst"
-                    },
-                    "availability": {
-                        "help": "Wie lange ist geplant, die Verteilung des Datensatzes verfügbar zu halten?",
-                        "info": "Diese Eigenschaft gibt an, wie lange die Verteilung des Datensatzes verfügbar sein soll.",
-                        "placeholder": "Text des Platzhalters für die Verteilung",
-                        "label": "Verfügbarkeit"
-                    },
-                    "conformsToTitle": {
-                        "placeholder": "Verteilung Übereinstimmung mit dem Text des Titelplatzhalters",
-                        "label": "Titel"
-                    },
-                    "rights": {
-                        "label": "Rechte",
-                        "placeholder": "Text des Platzhalters der Verbreitungsrechte",
-                        "help": "Dieses Eigentum bezieht sich auf eine Erklärung, in der die mit der Verteilung verbundenen Rechte angegeben sind.",
-                        "info": "Dieses Eigentum bezieht sich auf eine Erklärung, in der die mit der Verteilung verbundenen Rechte angegeben sind."
+                        "help": "Eine Seite oder ein Dokument zu dieser Verteilung."
                     },
                     "format": {
-                        "placeholder": "Verteilungsformat „Platzhalter“",
-                        "help": "Das Dateiformat der Verteilung.",
-                        "info": "Diese Eigenschaft bezieht sich auf das Dateiformat der Verteilung.",
-                        "label": "Format"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Übereinstimmung der Verteilung mit dem Text des Platzhalters",
-                        "help": "Ein etabliertes Schema, dem die beschriebene Verteilung entspricht.",
-                        "info": "Diese Eigenschaft bezieht sich auf ein etabliertes Schema, dem die beschriebene Verteilung entspricht.",
-                        "label": "Entspricht",
-                        "add-label": "Übereinstimmungen hinzufügen"
-                    },
-                    "pageDescription": {
-                        "placeholder": "Text des Platzhalters der Seite Seite",
-                        "label": "Beschreibung"
-                    },
-                    "accessServiceTitle": {
-                        "add-label": "Data Service Titel in einer anderen Sprache hinzufügen",
-                        "label": "Titel des Datendienstes"
+                        "placeholder": "Verteilungsformat „Platzhalter“"
                     },
                     "issued": {
-                        "placeholder": "Text des ausgestellten Platzhalters",
-                        "help": "Datum der förmlichen Ausstellung (z. B. Veröffentlichung) des Vertriebs.",
-                        "info": "Diese Immobilie enthält das Datum der förmlichen Ausstellung (z. B. Veröffentlichung) des Vertriebs.",
                         "label": "Ausgestellt"
                     },
-                    "licenceURL": {
-                        "placeholder": "Katalog Lizenz URL Platzhaltertext",
-                        "label": "Lizenz-URL"
-                    },
-                    "modified": {
-                        "label": "Geändert",
-                        "placeholder": "Verteilung Modifizierter Platzhaltertext",
-                        "help": "Datum, an dem die Verteilung geändert oder geändert wurde.",
-                        "info": "Diese Immobilie enthält das letzte Datum, an dem die Verteilung geändert oder geändert wurde."
-                    },
-                    "description": {
-                        "add-label": "Beschreibung in einer anderen Sprache hinzufügen",
-                        "help": "Diese Immobilie enthält ein Freitextkonto für die Verteilung.",
-                        "info": "Diese Immobilie enthält ein Freitextkonto für die Verteilung. Diese Eigenschaft kann für parallele Sprachfassungen der Beschreibung wiederholt werden.",
-                        "placeholder": "Text des Platzhalters der Verteilungsbeschreibung",
-                        "label": "Beschreibung"
-                    },
-                    "datetime": {
-                        "label": "Datumszeit"
-                    },
-                    "temporalResolutionYear": {
-                        "placeholder": "Datensatz Temporale Auflösung Jahr Platzhalter Text",
-                        "label": "Jahr der zeitlichen Abwicklung"
-                    },
                     "hasPolicy": {
-                        "add-label": "„Has Policy“ hinzufügen",
-                        "help": "Die Politik, in der die Rechte zum Ausdruck gebracht werden.",
-                        "info": "Dieses Eigentum bezieht sich auf die Grundsätze, in denen die mit der Verbreitung verbundenen Rechte zum Ausdruck kommen, wenn das ODRL-Vokabular verwendet wird.",
-                        "label": "Hat die Politik"
-                    },
-                    "byteSize": {
-                        "placeholder": "Verteilung Byte Size Platzhalter Text",
-                        "help": "Die Größe einer Verteilung in Bytes.",
-                        "info": "Diese Eigenschaft enthält die Größe einer Verteilung in Bytes.",
-                        "label": "Byte Size"
-                    },
-                    "temporalResolutionMonth": {
-                        "placeholder": "Datensatz Temporale Auflösung Monat Platzhalter Text",
-                        "label": "Monat der zeitlichen Abwicklung"
-                    },
-                    "accessUrl": {
-                        "help": "Diese Eigenschaft enthält eine URL, die Zugang zu einer Verteilung des Datensatzes ermöglicht.",
-                        "info": "Diese Eigenschaft enthält eine URL, die Zugang zu einer Verteilung des Datensatzes ermöglicht. Die Ressource in der Zugriffs-URL kann Informationen darüber enthalten, wie der Datensatz abgerufen werden kann.",
-                        "label": "Zugang zu Url",
-                        "placeholder": "Text des Platzhalters für den Zugang zum Zugang",
-                        "add-label": "Zugang zu Url hinzufügen"
-                    },
-                    "temporalResolutionMinute": {
-                        "label": "Protokoll zur zeitlichen Abwicklung",
-                        "placeholder": "Datensatz Befristete Auflösung Minute Platzhalter Text"
+                        "help": "Die Politik, in der die Rechte zum Ausdruck gebracht werden."
                     },
                     "temporalResolutionHour": {
-                        "placeholder": "Datensatz Temporale Auflösung Stunde Platzhalter Text",
-                        "label": "Zeitliche Auflösung Stunde"
-                    },
-                    "temporalResolutionSecond": {
-                        "label": "Zeitliche Entschließung Zweite",
-                        "placeholder": "Datensatz Befristete Auflösung Zweiter Platzhaltertext"
-                    },
-                    "pageUrl": {
-                        "placeholder": "Verteilung Text des Platzhalters Seite Url",
-                        "label": "URL"
-                    },
-                    "pageFormat": {
-                        "label": "Format",
-                        "placeholder": "Text des Platzhalters des Seitenformats"
-                    },
-                    "licence": {
-                        "help": "Die Lizenz, auf deren Grundlage die Verteilung zur Verfügung gestellt wird.",
-                        "label": "Lizenz",
-                        "placeholder": "Text des Platzhalters der Vertriebslizenz",
-                        "info": "Diese Immobilie bezieht sich auf die Lizenz, auf deren Grundlage die Verteilung zur Verfügung gestellt wird."
-                    },
-                    "accessServiceEndpointURL": {
-                        "placeholder": "Verteilung Datendienst Endpunkt URL Platzhalter Text",
-                        "label": "Datendienst Endpoint URL"
-                    },
-                    "conformsToUrl": {
-                        "placeholder": "Verteilung Übereinstimmung mit dem Text des Platzhalters Url",
-                        "label": "URL"
+                        "placeholder": "Datensatz Temporale Auflösung Stunde Platzhalter Text"
                     },
                     "date": {
                         "label": "Datum"
@@ -853,9 +237,7 @@
                             }
                         }
                     },
-                    "overview": "Übersicht über den Datensatz",
-                    "step1": {},
-                    "step2": {}
+                    "overview": "Übersicht über den Datensatz"
                 },
                 "issued": {
                     "placeholder": "Datensatz Ausgegebener Platzhalter Text",
@@ -939,178 +321,25 @@
             },
             "catalogues": {
                 "step2": {
-                    "rights": {
-                        "placeholder": "Katalog Rechte Platzhaltertext",
-                        "help": "Eine Erklärung, die Rechte im Zusammenhang mit dem Katalog festlegt.",
-                        "label": "Rechte",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Erklärung, die Rechte im Zusammenhang mit dem Katalog spezifiziert."
-                    },
-                    "isPartOf": {
-                        "label": "Ist Teil von",
-                        "placeholder": "Katalog I Teil des Platzhaltertextes",
-                        "help": "Ein zugehöriger Katalog, in dem der beschriebene Katalog physisch oder logisch enthalten ist.",
-                        "info": "Diese Eigenschaft bezieht sich auf einen verwandten Katalog, in dem der beschriebene Katalog physisch oder logisch enthalten ist."
-                    },
-                    "catalog": {
-                        "label": "Katalog",
-                        "help": "Ein Katalog, dessen Inhalt im Kontext dieses Katalogs von Interesse ist.",
-                        "info": "Diese Eigenschaft bezieht sich auf einen Katalog, dessen Inhalt im Kontext dieses Katalogs von Interesse ist.",
-                        "add-label": "Katalog in einer anderen Sprache hinzufügen",
-                        "placeholder": "Katalog Katalog Platzhaltertext"
-                    },
-                    "creatorEmail": {
-                        "label": "E-Mail",
-                        "placeholder": "Katalog Creator E-Mail Platzhalter Text"
-                    },
                     "language": {
-                        "help": "Eine Sprache, die in den textlichen Metadaten verwendet wird, in denen Titel, Beschreibungen usw. beschrieben werden.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Sprache, die in den textlichen Metadaten verwendet wird, in denen Titel, Beschreibungen usw. des Datensatzes beschrieben werden. Diese Eigenschaft kann wiederholt werden, wenn die Metadaten in mehreren Sprachen bereitgestellt werden.",
-                        "label": "Sprache",
-                        "add-label": "Sprache in einer anderen Sprache hinzufügen",
-                        "placeholder": "Text des Platzhalters für die Sprache des Katalogs"
-                    },
-                    "spatialContinent": {
-                        "label": "Kontinent",
-                        "placeholder": "Katalog Geotial Continent Placeholder Text des Platzhalters"
-                    },
-                    "spatial": {
-                        "help": "Diese Eigenschaft bezieht sich auf ein geografisches Gebiet, das unter den Katalog fällt.",
-                        "info": "Diese Eigenschaft bezieht sich auf ein geografisches Gebiet, das unter den Katalog fällt.",
-                        "add-label": "Raum in einer anderen Sprache hinzufügen",
-                        "label": "Räumlicher Raum",
-                        "placeholder": "Text des Raumplatzhalters des Katalogs"
-                    },
-                    "creatorType": {
-                        "placeholder": "Katalog Creator Typ Platzhaltertext",
-                        "label": "Art"
+                        "help": "Eine Sprache, die in den textlichen Metadaten verwendet wird, in denen Titel, Beschreibungen usw. beschrieben werden."
                     },
                     "hasPart": {
-                        "add-label": "Fügen Sie den Teil hinzu.",
-                        "label": "Hat einen Teil",
-                        "help": "Diese Eigenschaft bezieht sich auf einen zugehörigen Katalog, der Teil des beschriebenen Katalogs ist.",
-                        "placeholder": "Katalog Ha Text des Platzhalters",
-                        "info": "Diese Eigenschaft bezieht sich auf einen zugehörigen Katalog, der Teil des beschriebenen Katalogs ist."
-                    },
-                    "spatialCountry": {
-                        "label": "Land",
-                        "placeholder": "Katalog „Platzhalter für Geodaten“ (Cataloge Spatial Country Placeholder)"
-                    },
-                    "creator": {
-                        "help": "Die für die Erstellung des Katalogs zuständige Stelle",
-                        "info": "Diese Eigenschaft bezieht sich auf die Stelle, die für die Erstellung des Katalogs zuständig ist.",
-                        "label": "Schöpfer",
-                        "add-label": "Schöpfer hinzufügen"
-                    },
-                    "hasPartURL": {
-                        "placeholder": "Katalog Has Teil URL Platzhaltertext",
-                        "label": "Hat einen Teil"
-                    },
-                    "spatialPlace": {
-                        "placeholder": "Text des Platzhalters „Cataloge Spatial Place Place“",
-                        "label": "Ort"
-                    },
-                    "creatorHomepage": {
-                        "label": "Homepage",
-                        "placeholder": "Katalog Creator Homepage Platzhaltertext"
+                        "help": "Diese Eigenschaft bezieht sich auf einen zugehörigen Katalog, der Teil des beschriebenen Katalogs ist."
                     },
                     "creatorName": {
-                        "placeholder": "Katalog Creator Name Platzhaltertext",
                         "label": "Name"
                     }
                 },
                 "step1": {
-                    "issued": {
-                        "info": "Diese Eigenschaft enthält das Datum, an dem die Beschreibung des Datensatzes in den Katalog aufgenommen wurde.",
-                        "add-label": "Ausgabe in einer anderen Sprache hinzufügen",
-                        "label": "Ausgestellt",
-                        "placeholder": "Text des Katalogs ausgestellter Platzhalter",
-                        "help": "Diese Eigenschaft enthält das Datum, an dem die Beschreibung des Datensatzes in den Katalog aufgenommen wurde."
-                    },
-                    "title": {
-                        "label": "Titel",
-                        "placeholder": "Text des Titelplatzhalters des Katalogs",
-                        "help": "Die Bezeichnung des Katalogverzeichnisses. ",
-                        "info": "Diese Eigenschaft enthält einen Namen im Katalogverzeichnis. Diese Eigenschaft kann für parallele Sprachfassungen des Namens wiederholt werden.",
-                        "add-label": "Titel in einer anderen Sprache hinzufügen"
-                    },
-                    "catalog": {
-                        "help": "Ein Katalog, dessen Inhalt im Kontext dieses Katalogs von Interesse ist",
-                        "info": "Diese Eigenschaft bezieht sich auf einen Katalog, dessen Inhalt im Kontext dieses Katalogs von Interesse ist",
-                        "label": "Katalog"
-                    },
                     "description": {
-                        "label": "Beschreibung",
-                        "help": "Dieses Eigentum enthält ein Freitextkonto für die Aufzeichnung.",
-                        "info": "Dieses Eigentum enthält ein Freitextkonto für die Aufzeichnung. Diese Eigenschaft kann für parallele Sprachfassungen der Beschreibung wiederholt werden.",
-                        "add-label": "Beschreibung in einer anderen Sprache hinzufügen",
-                        "placeholder": "Text des Platzhalters für Katalogbeschreibung"
-                    },
-                    "publisherName": {
-                        "placeholder": "Text des Platzhalters „Katalog Publisher Name Placeholder“",
-                        "label": "Name des Namens"
-                    },
-                    "licence": {
-                        "help": "Die Lizenz, unter der der Katalog verwendet oder wiederverwendet werden kann.",
-                        "info": "Dieses Eigentum bezieht sich auf die Lizenz, unter der der Katalog verwendet oder wiederverwendet werden kann.",
-                        "label": "Lizenz",
-                        "placeholder": "Text des Platzhalters für Kataloglizenzen"
-                    },
-                    "licenceTitle": {
-                        "label": "Lizenztitel",
-                        "placeholder": "Katalog Lizenz Titel Platzhaltertext"
-                    },
-                    "publisherEmail": {
-                        "label": "E-Mail",
-                        "placeholder": "Text des Platzhalters „Catalog Publisher E-Mail“"
+                        "info": "Dieses Eigentum enthält ein Freitextkonto für die Aufzeichnung. Diese Eigenschaft kann für parallele Sprachfassungen der Beschreibung wiederholt werden."
                     },
                     "modified": {
-                        "help": "Das letzte Datum, an dem der Eintrag im Katalog geändert oder geändert wurde.",
-                        "info": "Diese Eigenschaft enthält das letzte Datum, an dem der Eintrag im Katalog geändert oder geändert wurde.",
-                        "placeholder": "Katalog Modifizierter Platzhaltertext",
-                        "label": "Geändert",
-                        "add-label": "In einer anderen Sprache geändert"
-                    },
-                    "publisher": {
-                        "label": "Herausgeber",
-                        "placeholder": "Text des Platzhalters „Cataloge Publisher“",
-                        "help": "Diese Eigenschaft bezieht sich auf eine Stelle (Organisation), die für die Bereitstellung des Datensatzes verantwortlich ist.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Stelle (Organisation), die für die Bereitstellung des Datensatzes verantwortlich ist."
-                    },
-                    "publisherHomepage": {
-                        "placeholder": "Text des Platzhalters „Catalog Publisher Homepage“",
-                        "label": "Startseite"
-                    },
-                    "licenceDescription": {
-                        "label": "Beschreibung der Lizenz",
-                        "placeholder": "Katalog Lizenz Beschreibung Platzhaltertext"
-                    },
-                    "licenceURL": {
-                        "placeholder": "Katalog Lizenz URL Platzhaltertext",
-                        "label": "Lizenz-URL"
-                    },
-                    "publisherType": {
-                        "label": "Typ",
-                        "placeholder": "Text des Platzhalters „Katalog Publisher Typ“"
+                        "label": "Geändert"
                     },
                     "homepage": {
-                        "placeholder": "Text des Platzhalters der Katalog-Homepage",
-                        "label": "Startseite",
-                        "help": "Eine Website, die als Hauptseite für den Katalog dient.",
-                        "info": "Diese Eigenschaft bezieht sich auf eine Website, die als Hauptseite des Katalogs dient."
-                    },
-                    "datetime": {
-                        "label": "Datumszeit"
-                    },
-                    "language": {
-                        "label": "Sprache",
-                        "placeholder": "Text des Platzhalters für die Sprache des Katalogs"
-                    },
-                    "catalogURL": {
-                        "label": "Katalog-URL",
-                        "placeholder": "Katalog Katalog URL Placeholer Text"
-                    },
-                    "date": {
-                        "label": "Datum"
+                        "help": "Eine Website, die als Hauptseite für den Katalog dient."
                     }
                 },
                 "stepper": {
@@ -1566,7 +795,7 @@
             "newsletterText": "Abonnieren Sie unseren Newsletter",
             "newsletter": "Newsletter",
             "followUs": "Folgen Sie uns",
-            "managedBy": "Verwaltet vom Amt für Veröffentlichungen der Europäischen Union",
+            "managedBy": "Verwaltet vom Amt für Veröffentlichungen der Europäischen Union.",
             "fundedBy": "Gefördert durch die Europäische Union"
         },
         "helpIcon": {

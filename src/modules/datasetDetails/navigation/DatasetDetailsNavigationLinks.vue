@@ -62,7 +62,18 @@
         </div>
       </div>
       <div class="d-inline dropdown dsd-link-cite">
-        <app-link class="nav-item nav-link dropdown-toggle text-nowrap" fragment="#" role="button" id="citationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-cy="citation-dropdown-expand">
+        <app-link
+          class="nav-item nav-link dropdown-toggle text-nowrap"
+          :class="{
+            'disabled': getLoading,
+          }"
+          fragment="#"
+          role="button"
+          id="citationDropdown"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          data-cy="citation-dropdown-expand">
           <span :title="$t('message.tooltip.datasetDetails.cite')" data-toggle="tooltip" data-placement="top"> {{ $t('message.datasetDetails.cite') }}
           </span>
         </app-link>
@@ -103,7 +114,7 @@ import ResourceDetailsLinkedDataButton from "@/modules/widgets/ResourceDetailsLi
 import DatasetDetailsLinkedMetricsButton from "@/modules/datasetDetails/DatasetDetailsLinkedMetricsButton";
 import {mapGetters, mapActions} from "vuex";
 import $ from "jquery";
-import DatasetCitationModal from "@/modules/citation/DatasetCitationModal";
+// import DatasetCitationModal from "@/modules/citation/DatasetCitationModal";
 import {getTranslationFor} from "@/modules/utils/helpers";
 export default {
   name: "DatasetDetailsNavigationLinks",
@@ -115,7 +126,7 @@ export default {
     },
   },
   components: {
-    DatasetCitationModal,
+    DatasetCitationModal: () => import('@/modules/citation/DatasetCitationModal'),
     DatasetDetailsLinkedMetricsButton,
     ResourceDetailsLinkedDataButton,
     DatasetDetailsFeedbackButton,
@@ -126,7 +137,9 @@ export default {
     return {
       baseUrl: this.$env.api.baseUrl,
       citationModalId: 'citationModal',
-      citationStyle: 'deu',
+      // Note: leave citationStyle empty so that the app does not try to load the citation
+      // on navigation to the dataset details page in the background.
+      citationStyle: '',
       availableCitationStyles: {
         deu: 'EU Data Citation',
         apa: 'APA',
@@ -187,6 +200,9 @@ export default {
         })
         .catch(() => {
           this.$Progress.fail();
+        })
+        .finally(() => {
+          console.clear();
         });
     });
   }

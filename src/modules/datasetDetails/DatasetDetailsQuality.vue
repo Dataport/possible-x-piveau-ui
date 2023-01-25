@@ -305,8 +305,8 @@
                   <!-- CSV Linter -->
                   <div class="row accordion-body">
                     <div class="col-12">
-                      <CSVLinter v-if="showCSVLinter(key, value[0].info['distribution-id'])" :validation="qualityDistributionValidation[key]"></CSVLinter>
-                    </div> 
+                      <CSVLinter v-if="enableCSVLinter && showCSVLinter(key, value[0].info['distribution-id'])" :validation="qualityDistributionValidation[key]"></CSVLinter>
+                    </div>
                 </div>
                 </div>
               </div>
@@ -472,7 +472,7 @@
 <script>
   import $ from 'jquery';
   import { mapActions, mapGetters } from 'vuex';
-  import { has } from 'lodash';
+  import { has } from 'lodash-es';
   import { getTranslationFor } from "../utils/helpers";
 
   import CSVLinter from './DatasetDetailsCSVLinter.vue';
@@ -504,6 +504,7 @@
         showLess: true,
         isLoadingQualityData: false,
         isLoadingQualityDistributionData: false,
+        enableCSVLinter: this.$env.datasetDetails.quality.csvLinter.enable,
       };
     },
     computed: {
@@ -527,7 +528,7 @@
           return results.map(result => {
               let data = result[0];
 
-              return has(data, 'validation') 
+              return has(data, 'validation')
                   ? data.validation
                   : {};
           });

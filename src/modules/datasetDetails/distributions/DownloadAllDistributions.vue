@@ -59,7 +59,6 @@
 
 <script>
 import {has, isNil} from "lodash";
-import JSZip from "jszip";
 import axios from "axios";
 import { saveAs } from 'file-saver';
 import $ from "jquery";
@@ -270,6 +269,8 @@ export default {
         .map((distribution, i) => ({
           title: getFileName(distribution, i + 1), ...getUrls(distribution), format: getFormat(distribution), csvReportTitle: getFileNameForCSV(distribution),
         }));
+      
+      const {default: JSZip} = await import('jszip');
       const zip = new JSZip();
       const zipName = `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)}.zip`;
       const folder = zip.folder(this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages));

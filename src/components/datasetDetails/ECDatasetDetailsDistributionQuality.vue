@@ -11,26 +11,26 @@
                 <div class="ecl-accordion__item" v-for="(distribution, index) in displayedQualityDistributions" :key="index" :id="distribution.id">
                     <!-- Distribution Quality -->
                     <h3 class="ecl-accordion__title" @click="toggleDistribution(index)">
-                        <button 
-                            type="button" 
-                            class="ecl-accordion__toggle" 
-                            data-ecl-accordion-toggle="" 
-                            data-ecl-label-expanded="Close" 
-                            data-ecl-label-collapsed="Open" 
+                        <button
+                            type="button"
+                            class="ecl-accordion__toggle"
+                            data-ecl-accordion-toggle=""
+                            data-ecl-label-expanded="Close"
+                            data-ecl-label-collapsed="Open"
                             aria-controls="accordion-example-content">
                             <span class="ecl-accordion__toggle-flex">
                                 <span class="ecl-accordion__toggle-indicator align-center">
-                                    <svg class="ecl-icon ecl-icon--fluid ecl-button__icon ecl-button__icon--after" 
+                                    <svg class="ecl-icon ecl-icon--fluid ecl-button__icon ecl-button__icon--after"
                                         :ref="`distPlus${index}`"
-                                        focusable="false" 
-                                        aria-hidden="true" 
+                                        focusable="false"
+                                        aria-hidden="true"
                                         data-ecl-icon="">
                                         <use xlink:href="@/assets/img/ecl/icons.svg#plus"></use>
                                     </svg>
-                                    <svg class="collapsed ecl-icon ecl-icon--fluid ecl-button__icon ecl-button__icon--after" 
+                                    <svg class="collapsed ecl-icon ecl-icon--fluid ecl-button__icon ecl-button__icon--after"
                                         :ref="`distMinus${index}`"
-                                        focusable="false" 
-                                        aria-hidden="true" 
+                                        focusable="false"
+                                        aria-hidden="true"
                                         data-ecl-icon="">
                                         <use xlink:href="@/assets/img/ecl/icons.svg#minus"></use>
                                     </svg>
@@ -39,9 +39,9 @@
                                     {{ distribution.title }}
                                 </span>
                                 <span class="align-center">
-                                    <PvBadge 
+                                    <PvBadge
                                         class="format-badge"
-                                        v-if="has(distribution, 'format')" 
+                                        v-if="has(distribution, 'format')"
                                         :value="distribution.format"
                                         :type="distribution.format.id"></PvBadge>
                                 </span>
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <!-- CSV Linter -->
-                        <CSVLinter v-if="showCSVLinter(distribution)" :validation="qualityDistributionValidation[distribution.id]"></CSVLinter>
+                        <CSVLinter v-if="enableCSVLinter && showCSVLinter(distribution)" :validation="qualityDistributionValidation[distribution.id]"></CSVLinter>
                     </div>
                 </div>
                 <ECMore class="col-12 text-primary mt-4"
@@ -71,10 +71,10 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 import { mapGetters } from 'vuex';
-import { has } from 'lodash';
+import { has } from 'lodash-es';
 import { helpers, PvBadge, CSVLinter } from '@piveau/piveau-hub-ui-modules';
 import ECMore from "@/components/ECMore";
 
@@ -92,6 +92,7 @@ export default {
         return {
             displayAll: this.$env.datasetDetails.quality.displayAll,
             numberOfDisplayedQualityDistributions: this.$env.datasetDetails.quality.numberOfDisplayedQualityDistributions,
+            enableCSVLinter: this.$env.datasetDetails.quality.csvLinter.enable,
         };
     },
     computed: {
@@ -165,7 +166,7 @@ export default {
                     ? data.info['distribution-id']
                     : '';
 
-                validationResult[id] = has(data, 'validation') 
+                validationResult[id] = has(data, 'validation')
                     ? data.validation
                     : {};
             });
@@ -181,8 +182,8 @@ export default {
         },
         toggleDistribution(index) {
             // Close all Distributions
-            this.getDistributions.forEach((dist, i) => {
-                if (i === index) return; 
+            this.displayedQualityDistributions.forEach((dist, i) => {
+                if (i === index) return;
                 this.$refs[`dist${i}`][0].classList.add('collapsed');
                 this.$refs[`distPlus${i}`][0].classList.remove('collapsed');
                 this.$refs[`distMinus${i}`][0].classList.add('collapsed');

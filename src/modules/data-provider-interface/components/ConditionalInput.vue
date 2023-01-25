@@ -4,15 +4,22 @@
       <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context"/>
     </FormulateSlot>
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
-    <FormulateForm v-model="conditionalValues" key="intern">
-      <FormulateInput type="select" :options="context.options" :name="context.name" :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormulateInput>
-    </FormulateForm>
 
-    <div v-if="conditionalValues === 'file'">
-      <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]" @input="setContext"></FormulateForm>
+    <!-- temporal solution for license only using vocabulary -->
+    <div v-if="context.attributes.name === 'dct:license'">
+      <FormulateForm v-model="inputValues" :schema="data['voc']" @change="setContext"></FormulateForm>
     </div>
     <div v-else>
-      <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]" @change="setContext"></FormulateForm>
+      <FormulateForm v-model="conditionalValues" key="intern">
+      <FormulateInput type="select" :options="context.options" :name="context.name" :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormulateInput>
+      </FormulateForm>
+
+      <div v-if="conditionalValues === 'file'">
+        <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]" @input="setContext"></FormulateForm>
+      </div>
+      <div v-else>
+        <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]" @change="setContext"></FormulateForm>
+      </div>
     </div>
 
     <FormulateSlot name="suffix" :context="context">
@@ -22,7 +29,7 @@
 </template>
 
 <script>
-import { isEmpty, has } from 'lodash';
+import { isEmpty, has } from 'lodash-es';
 
 export default {
   props: {

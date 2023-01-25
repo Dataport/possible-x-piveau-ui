@@ -57,7 +57,7 @@
 
 <script>
 import $ from 'jquery';
-import { isEmpty, has } from 'lodash';
+import { isEmpty, has } from 'lodash-es';
 import { mapActions, mapGetters } from 'vuex';
 import { truncate } from '../../utils/helpers';
 

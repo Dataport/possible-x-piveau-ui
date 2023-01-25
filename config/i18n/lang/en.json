@@ -309,7 +309,7 @@
                 },
                 "admsIdentifier": {
                     "add-label": "Add another adms:Identifier",
-                    "label": "adms:Identifier",
+                    "label": "Other Identifier",
                     "help": "An identifier in a particular context, consisting of the string that is the identifier.",
                     "info": "An identifier in a particular context, consisting of the string that is the identifier; an optional identifier for the identifier scheme; an optional identifier for the version of the identifier scheme; an optional identifier for the agency that manages the identifier scheme"
                 },
@@ -697,6 +697,12 @@
                     "label": "Spatial",
                     "placeholder": "Choose a vocabulary",
                     "help": "Either a continent, a country or a place."
+                },
+                "qualifiedRelationHadRole": {
+                    "placeholder": "Had Role placeholder",
+                    "info": "Had Role info text",
+                    "help": "Had Role help text",
+                    "label": "Had Role"
                 }
             },
             "catalogues": {
@@ -927,7 +933,7 @@
             "validationtitle": "Validation",
             "publishdraft": "Publish Draft",
             "publishcatalogue": "Publish Catalog",
-            "newDistribution": "Add another Distribution",
+            "newDistribution": "Add Distribution",
             "validationerror": "There was an error validating your form!",
             "distributions": {
                 "accessServiceTitle": {
@@ -1298,7 +1304,10 @@
                 "error": "Error | Errors",
                 "totalRows": "Total Rows processed",
                 "column": "Column",
-                "row": "Row"
+                "row": "Row",
+                "limit": "Too many results. Max number of results shown:",
+                "banner": "This system is currently in a test phase.",
+                "title": "CSV Validation Results"
             },
             "follow": "Follow",
             "accessURLTooltip": "This link can contain information about how to get the referenced file or is a direct link to the referenced file.",
@@ -1327,7 +1336,14 @@
                     "cancel": "Cancel",
                     "close": "Close",
                     "coupleOfMinutes": "(this can take a couple of minutes)",
-                    "notDownloadedTooltip": "Details can be found in the enclosed file_report.csv file"
+                    "notDownloadedTooltip": "Details can be found in the enclosed file_report.csv file",
+                    "done": "Done",
+                    "converting": "Converting",
+                    "downloading": "Downloading",
+                    "fileConversionTo": "Converting the file to",
+                    "fileConversionFail": "File conversion failed",
+                    "selectFileFormat": "select a file format",
+                    "downloadAs": "Download as"
                 },
                 "leavePageWindow": {
                     "text": "Do you really want to leave? The Download will be stopped when you leave!"
@@ -1579,12 +1595,12 @@
             "navigation": {
                 "data": {
                     "euInternationalData": "EU and international data",
-                    "datasets": "Quick search",
+                    "datasets": "Datasets",
                     "catalogs": "Catalogues",
-                    "metadataquality": "Metadata quality dashboard",
+                    "metadataquality": "Metadata Quality",
                     "sparqleditor": "SPARQL Editor",
                     "statistics": "Statistics",
-                    "sparqlsearch": "Graph search",
+                    "sparqlsearch": "SPARQL Search",
                     "title": "Datasets",
                     "euVocabularies": " EU Vocabularies",
                     "persistentUris": " Persistent URIs"
@@ -1618,7 +1634,7 @@
                 "newsEvents": {
                     "events": "Events",
                     "news": "News",
-                    "title": "News & Events",
+                    "title": "News & events",
                     "stories": "Data Stories"
                 },
                 "covid-19": {
@@ -1689,7 +1705,7 @@
             "newsletterText": "Subscribe to our newsletter",
             "newsletter": "Newsletter",
             "followUs": "Follow us on",
-            "managedBy": "Managed by the Publications Office of the European Union",
+            "managedBy": "This site is managed by the Publications Office of the European Union.",
             "fundedBy": "Funded by the European Union"
         },
         "helpIcon": {

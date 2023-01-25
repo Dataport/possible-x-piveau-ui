@@ -20,6 +20,24 @@
     &[type="XLS"] {
       background-color: $format-color-xls;
     }
+    &[type="XLSX"] {
+      background-color: $format-color-xls;
+    }
+    &[type=".xlsx"] {
+      background-color: $format-color-xls;
+    }
+    &[type="xslx"] {
+      background-color: $format-color-xls;
+    }
+    &[type="exel"] {
+      background-color: $format-color-xls;
+    }
+    &[type="xls"] {
+      background-color: $format-color-xls;
+    }
+    &[type=".xls"] {
+      background-color: $format-color-xls;
+    }
     &[type="ZIP"] {
       background-color: $format-color-zip;
     }
