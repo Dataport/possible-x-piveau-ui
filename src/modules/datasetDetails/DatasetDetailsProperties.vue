@@ -249,7 +249,7 @@
               </div>
             </td>
           </tr>
-          <tr v-if="showString(getResource)">
+          <tr v-if="showString(getResource)" class="dsd-properties-uriref">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
                 URIref
