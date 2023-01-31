@@ -92,7 +92,7 @@
     uniqBy,
     toPairs,
     isArray,
-  } from 'lodash';
+  } from 'lodash-es';
   import $ from 'jquery';
   import fileTypes from '../utils/fileTypes';
   import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
