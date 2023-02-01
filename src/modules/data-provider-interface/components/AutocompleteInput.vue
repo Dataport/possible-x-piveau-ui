@@ -1,34 +1,53 @@
 <template>
-  <div
-    :class="`formulate-input-element formulate-input-element--${context.type}`"
-    :data-type="context.type"
-    v-on="$listeners"
-  >
+  <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
+    v-on="$listeners">
     <div class="input-group suggestion-input-group mb-3" v-click-outside="hideSuggestions">
-      <input v-model="context.model" @blur="context.blurHandler" hidden>
-      <input type="text" class="form-control suggestion-input" :placeholder="$t('message.dataupload.searchVocabulary')"
-        v-model="autocomplete.text"
-        @focus="focusAutocomplete()"
-        @input="getAutocompleteSuggestions()">
-        <a role="button" @click="clearAutocomplete" class="custom-remove">Remove</a>
+      <input v-model="context.model" @blur="context.blurHandler" hidden />
+      <div class="annifButtonWrap" v-if="annifTheme">
+        <a class="annifItems annifHandleBtn">
+          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event)">Generate suggestions |</a>
+          <select @change="chooseLimitTheme($event)">
+            <option value="" disabled selected>--</option>
+            <option v-for="(limit, i) in themeSuggestionLimit" :key="i" v-bind:value="{ limit: limit }">
+              {{ limit.limit }}
+            </option>
+          </select>
+        </a>
+        <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Search for Theme</a>
+      </div>
+      <input v-if="!annifTheme || manSearch" type="text" class="form-control suggestion-input"
+        :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
+        @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
+      <a v-if="!annifTheme" role="button" @click="clearAutocomplete" class="custom-remove">Remove</a>
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
-          <button
-            class="list-group-item list-group-item-action"
-            v-for="(suggestion, i) in filteredAutocompleteSuggestions"
-            :key="i"
+          <button class="list-group-item list-group-item-action"
+            v-for="(suggestion, i) in filteredAutocompleteSuggestions" :key="i"
             @click="handleAutocompleteSuggestions(suggestion)">
             <p class="m-0 p-0">{{ suggestion.name }}</p>
           </button>
         </ul>
       </div>
+      <div id="suggestedAnnifItemsTheme" v-if="annifTheme && multiple && valueListOfThemes.length && getThSuggestions">
+        <div v-for="(themeValue, i) in valueListOfThemes" :key="i" data-toggle="tooltip" data-placement="top"
+          v-bind:title="themeValue.name" class="annifItems" v-bind:class="{ fadeIn: annifChoicebtnClicked }"
+          @click="handleAnnifClick($event)">
+          <span class="annifPlusIcon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
+              viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+          </span>
+          {{ truncateWords(themeValue.name, 8, true) }} ...
+        </div>
+      </div>
       <div v-if="multiple && values.length > 0" class="selected-values-div">
-        <span
-          v-for="(selectedValue, i) in values"
-          :key="i"
-          class="selected-value">
+        <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
           {{ selectedValue.name }}
-          <span aria-hidden="true" class="delete-selected-value" @click="deleteValue(selectedValue.resource)">&times;</span>
+          <span aria-hidden="true" class="delete-selected-value"
+            @click="deleteValue(selectedValue.resource)">&times;</span>
         </span>
       </div>
     </div>
@@ -36,9 +55,14 @@
 </template>
 
 <script>
+import { values } from "lodash";
 /* eslint-disable,arrow-parens,no-param-reassign, no-lonely-if, no-await-in-loop */
-import { mapActions } from 'vuex';
-import { getTranslationFor } from '../../utils/helpers';
+import { mapActions } from "vuex";
+import { getTranslationFor } from "../../utils/helpers";
+import { truncate } from "../../utils/helpers";
+import $ from "jquery";
+import axios from 'axios';
+import qs from 'qs';
 
 export default {
   props: {
@@ -50,6 +74,10 @@ export default {
       type: String,
       required: true,
     },
+    annifTheme: {
+      type: Boolean,
+      required: false,
+    },
     multiple: {
       type: Boolean,
       required: false,
@@ -58,11 +86,23 @@ export default {
   data() {
     return {
       autocomplete: {
-        text: '',
+        text: "",
         selected: false,
         suggestions: [],
       },
+      themeSuggestionList: {},
+      manSearch: false,
       values: [],
+      valueListOfThemes: [],
+      getThSuggestions: false,
+      thSwitch: false,
+      annifChoicebtnClicked: false,
+      selectedLimitOfSuggestions: 10,
+      themeSuggestionLimit: [
+        { limit: 10 },
+        { limit: 20 },
+        { limit: 30 }
+      ]
     };
   },
   computed: {
@@ -72,21 +112,29 @@ export default {
     },
   },
   methods: {
-    ...mapActions('dpiStore', [
-      'requestFirstEntrySuggestions',
-      'requestAutocompleteSuggestions',
-      'requestResourceName',
+    ...mapActions("dpiStore", [
+      "requestFirstEntrySuggestions",
+      "requestAutocompleteSuggestions",
+      "requestResourceName",
     ]),
+    chooseLimitTheme(e) {
+      this.selectedLimitOfSuggestions = e.target[e.target.selectedIndex].text
+    },
+    truncateWords(word) {
+      return truncate(word, 8, true);
+    },
     getTranslationFor,
     deleteValue(value) {
-      this.values = this.values.filter(dataset => dataset.resource !== value);
-      this.context.model = this.values.filter(dataset => dataset.resource !== value).map(dataset => dataset.resource);
-      this.autocomplete.text = '';
-      this.context.rootEmit('change');
+      this.values = this.values.filter((dataset) => dataset.resource !== value);
+      this.context.model = this.values
+        .filter((dataset) => dataset.resource !== value)
+        .map((dataset) => dataset.resource);
+      this.autocomplete.text = "";
+      this.context.rootEmit("change");
     },
     focusAutocomplete() {
       this.autocomplete.selected = false;
-      this.autocomplete.text = '';
+      this.autocomplete.text = "";
       this.getAutocompleteSuggestions();
     },
     clearAutocompleteSuggestions() {
@@ -102,44 +150,158 @@ export default {
       this.clearAutocompleteSuggestions();
 
       if (this.autocomplete.text.length <= 1) {
-        this.requestFirstEntrySuggestions(voc)
-          .then((response) => {
-            const results = response.data.result.results.map((r) => ({ name: getTranslationFor(r.pref_label, this.$i18n.locale, []), resource: r.resource }));
-            this.autocomplete.suggestions = results;
-          });
+        this.requestFirstEntrySuggestions(voc).then((response) => {
+          const results = response.data.result.results.map((r) => ({
+            name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
+            resource: r.resource,
+          }));
+          this.autocomplete.suggestions = results;
+        });
       } else {
-        this.requestAutocompleteSuggestions({ voc, text })
-          .then((response) => {
-            const results = response.data.result.results.map((r) => ({ name: getTranslationFor(r.pref_label, this.$i18n.locale, []), resource: r.resource }));
-            this.autocomplete.suggestions = results;
-          });
+        this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
+          const results = response.data.result.results.map((r) => ({
+            name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
+            resource: r.resource,
+          }));
+          this.autocomplete.suggestions = results;
+        });
       }
     },
+    animateFadeInOut() {
+      var timer = 100;
+      $("#suggestedAnnifItemsTheme")
+        .children()
+        .each(function () {
+          setTimeout(() => {
+            $(this).addClass("fadeIn");
+          }, timer);
+          timer += 100;
+        });
+    },
+    handleAnnifClick(e) {
+
+      if (e.target.classList.contains('annifItems')) {
+        e.target.classList.toggle('greenBG')
+        e.target.querySelector('svg').classList.toggle('rotate45');
+        // Muss auf jeden Fall in einen TestCase!!!
+
+        for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
+          if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name) {
+            this.valueListOfThemes[i].activeValue = !this.valueListOfThemes[i].activeValue;
+            // this.values.push(this.valueListOfThemes[i]);
+            // console.log(this.selectedLimitOfSuggestions);
+            this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
+          }
+          if (this.valueListOfThemes[i].activeValue == false) {
+            for (var a = 0; a < Object.keys(this.values).length; a++) {
+              if (this.valueListOfThemes[i].resource == this.values[a].resource) {
+                this.deleteValue(this.values[a].resource)
+              }
+            }
+
+          }
+        }
+      }
+      localStorage.setItem("valueListofThemes", JSON.stringify(this.valueListOfThemes))
+    },
+    setTooltip() {
+      setTimeout(() => {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    },
+    handleAnnifSuggestions(e) {
+      if (this.thSwitch) {
+        return;
+      }
+      // gets the dct:description value from localstorage and gives it to the annif theme handler
+      this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets"))["dct:description"][0]["@value"])
+      this.getThSuggestions = !this.getThSuggestions;
+
+      console.log(this.valueListOfThemes);
+      e.target.classList.add("inactiveHandleBtn");
+    },
+    annifHandlerTheme(input) {
+      let query = qs.stringify({
+        'text': input,
+        'limit': this.selectedLimitOfSuggestions
+      });
+      var config = {
+        method: 'post',
+        url: 'https://data.europa.eu/annif/v1/projects/data-theme-nn-ensemble-en/suggest',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        },
+        data: query
+      };
+      let listInLocalhost = JSON.parse(localStorage.getItem("valueListofThemes"));
+      axios(config)
+        .then((response) => {
+          response.data.results.forEach((element, index) => {
+            this.themeSuggestionList[index] = { "name": element.label, "resource": element.uri, "activeValue": false }
+          })
+          if (Object.keys(this.themeSuggestionList).length != Object.keys(this.valueListOfThemes).length) {
+            for (var i = 0; i < Object.keys(this.themeSuggestionList).length; i++) {
+              if (Object.keys(listInLocalhost).length > 0) {
+                for (var q = 0; q < Object.keys(listInLocalhost).length; q++) {
+                  if (listInLocalhost[q].activeValue == true) {
+                    this.themeSuggestionList[q].activeValue = true;
+                  }
+                }
+              }
+              this.valueListOfThemes.push(this.themeSuggestionList[i]);
+            }
+          }
+          localStorage.setItem("valueListofThemes", JSON.stringify(this.valueListOfThemes))
+          // TODO fix animation
+          this.animateFadeInOut();
+          this.thSwitch = true;
+          this.setTooltip();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+    },
     handleAutocompleteSuggestions(suggestion) {
+
       this.autocomplete.selected = true;
 
       if (this.multiple) {
-        if (!this.values.map(dataset => dataset.resource).includes(suggestion.resource)) {
+        if (
+          !this.values
+            .map((dataset) => dataset.resource)
+            .includes(suggestion.resource)
+        ) {
           this.values.push(suggestion);
         }
-        this.autocomplete.text = this.values.map(dataset => dataset.name)[this.values.length - 1];
-        this.context.model = this.values.map(dataset => dataset.resource);
+        this.autocomplete.text = this.values.map((dataset) => dataset.name)[
+          this.values.length - 1
+        ];
+        this.context.model = this.values.map((dataset) => dataset.resource);
       } else {
         this.autocomplete.text = suggestion.name;
         this.context.model = suggestion.resource;
       }
-      this.context.rootEmit('change');
+      this.context.rootEmit("change");
+      this.animateFadeInOut();
     },
     async getResourceName(resource) {
-      let preValues = { name: '', resource: '' };
-      let vocMatch = this.voc === 'iana-media-types' || this.voc === 'spdx-checksum-algorithm';
-      await this.requestResourceName({ voc: this.voc, resource }).then((response) => {
-        let result = vocMatch
-          ? response.data.result.results.filter(dataset => dataset.resource === resource).map(dataset => dataset.pref_label)[0].en
-          : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
-        preValues.name = result;
-        preValues.resource = resource;
-      });
+      let preValues = { name: "", resource: "" };
+      let vocMatch =
+        this.voc === "iana-media-types" ||
+        this.voc === "spdx-checksum-algorithm";
+      await this.requestResourceName({ voc: this.voc, resource }).then(
+        (response) => {
+          let result = vocMatch
+            ? response.data.result.results
+              .filter((dataset) => dataset.resource === resource)
+              .map((dataset) => dataset.pref_label)[0].en
+            : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
+          preValues.name = result;
+          preValues.resource = resource;
+        }
+      );
       return preValues;
     },
     async handleValues() {
@@ -148,7 +310,9 @@ export default {
         if (Array.isArray(this.context.model)) {
           const newValues = [];
           for (let index = 0; index < this.context.model.length; index += 1) {
-            const result = await this.getResourceName(this.context.model[index]);
+            const result = await this.getResourceName(
+              this.context.model[index]
+            );
             newValues.push(result);
             this.autocomplete.text = result.name;
           }
@@ -166,19 +330,20 @@ export default {
       }
       this.context.model = "";
       this.autocomplete.text = "";
-      this.context.rootEmit('change');
-    }
+      this.context.rootEmit("change");
+    },
   },
   directives: {
-    'click-outside': {
+    "click-outside": {
       bind(el, binding, vnode) {
         el.clickOutsideEvent = (event) => {
-          if (!(el === event.target || el.contains(event.target))) vnode.context[binding.expression](event);
+          if (!(el === event.target || el.contains(event.target)))
+            vnode.context[binding.expression](event);
         };
-        document.body.addEventListener('click', el.clickOutsideEvent);
+        document.body.addEventListener("click", el.clickOutsideEvent);
       },
       unbind(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent);
+        document.body.removeEventListener("click", el.clickOutsideEvent);
       },
     },
   },
@@ -187,6 +352,7 @@ export default {
     context: {
       async handler() {
         await this.handleValues();
+        this.annifChoicebtnClicked = true
       },
     },
   },
@@ -204,7 +370,7 @@ export default {
   right: 0.85em;
   border-radius: 1.3em;
   cursor: pointer;
-  transition: background-color .2s;
+  transition: background-color 0.2s;
   overflow: hidden;
   text-indent: -1000px;
 }
@@ -219,7 +385,7 @@ export default {
   height: 0.2em;
   background-color: #fff;
   transform-origin: center center;
-  transition: transform .25s;
+  transition: transform 0.25s;
 }
 
 .custom-remove::after {
@@ -232,7 +398,7 @@ export default {
   height: 0.2em;
   background-color: #fff;
   transform-origin: center center;
-  transition: transform .25s;
+  transition: transform 0.25s;
 }
 
 .custom-remove:hover {
@@ -242,35 +408,40 @@ export default {
 .selected-values-div {
   margin-top: 20px;
 }
+
 .delete-selected-value {
-    margin-left: 10px;
-    font-weight: bold;
-    font-size: 14pt;
-    cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 14pt;
+  cursor: pointer;
 }
 
 .selected-value {
-    background-color: #f5f5f5;
-    padding: 5px;
-    box-shadow: 0 4px 8px rgba(0,0,0,.04);
-    border-radius: 5px;
-    border: solid 0.5px #e1e1e1;
-    display: inline-block;
-    margin: 2px;
+  background-color: #f5f5f5;
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
+  border: solid 0.5px #e1e1e1;
+  display: inline-block;
+  margin: 2px;
 }
+
 .suggestion-input-group {
   position: relative;
 }
+
 .suggestion-input {
   position: relative;
   top: 0;
   height: 100%;
   margin-right: 45px !important;
 }
+
 .suggestion-list-group {
   position: relative;
   width: 100%;
 }
+
 .suggestion-list {
   width: 100%;
   position: absolute;

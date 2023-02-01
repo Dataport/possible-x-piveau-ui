@@ -1,10 +1,10 @@
 <template>
   <div class="form-container">
     <slot></slot>
-    <div class="inputContainer" v-if="isInput">
+      <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields" @submit="handleSubmit"
-        @change="saveToJsonld({property: property, values: formValues, distid: id})"
+        @change="saveToJsonld({property: property, values: formValues, distid: id}), annifCompletion({formValues}), annifSuggestion({property: property})"
         @repeatableRemoved="saveToJsonld({property: property, values: formValues, distid: id})">
           <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
         </FormulateForm>
@@ -33,6 +33,9 @@ import {
 } from 'lodash';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
+import axios from 'axios';
+import qs from 'qs';
+
 
 export default {
   props: {
@@ -60,7 +63,8 @@ export default {
         confirm: '',
         message: 'Mandatory Properties missing',
         callback: $('#modal').modal('hide'),
-      }
+      },
+      
     };
   },
   components: {
@@ -96,7 +100,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('auth', [
+      ...mapActions('auth', [
       'setIsEditMode',
       'setIsDraft',
     ]),
@@ -109,6 +113,69 @@ export default {
       'addCatalogOptions',
       'clearAll',
     ]),
+    annifCompletion(propertyList){
+      this.annifHandlerTheme(propertyList.formValues["dct:description"][0]["@value"])
+      this.annifHandlerSubject(propertyList.formValues["dct:description"][0]["@value"])
+      
+      },
+    annifSuggestion(prop){
+      console.log(prop.property);
+      },
+    annifHandlerSubject(input){
+           
+        let query= qs.stringify({
+          'text': input,
+          'limit': 10
+        });
+        var config = {
+          method: 'post',
+          url: 'https://data.europa.eu/annif/v1/projects/eurovoc-nn-ensemble-eurlex-en/suggest',
+          headers: { 
+            'Content-Type': 'application/x-www-form-urlencoded', 
+            'Accept': 'application/json'
+          },
+          data : query
+        };
+      axios(config)
+      .then(function (response){
+        response.data.results.forEach(e =>{
+          // console.log("Subjects:" + e.label)
+        })
+      })
+      .catch(function (error) {
+         console.log(error);
+      });
+    },
+    annifHandlerTheme(input){
+       
+        let query= qs.stringify({
+          'text': input,
+          'limit': 10
+        });
+        var config = {
+          method: 'post',
+          url: 'https://data.europa.eu/annif/v1/projects/data-theme-nn-ensemble-en/suggest',
+          headers: { 
+            'Content-Type': 'application/x-www-form-urlencoded', 
+            'Accept': 'application/json'
+          },
+          data : query
+        };
+      axios(config)
+      .then(function (response){
+        var store = {};
+        
+        response.data.results.forEach((element, index) =>{
+          // Try to fill the suggested Items boxes?
+              store[index] = {"name": element.label, "resource": element.uri}
+        })
+        localStorage.setItem("ThemeSuggestions",JSON.stringify(store));
+        
+      })
+      .catch(function (error) {
+         console.log(error);
+      });
+    },
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
@@ -195,6 +262,7 @@ export default {
     },
   },
   created() {
+    
     if (this.$route.query.edit === false) {
       this.clear();
     }
@@ -205,7 +273,8 @@ export default {
     }
   },
   mounted() {
-    this.initInputPage();
+     this.initInputPage();
+     
   },
   watch: {
     getFirstTitleFromForm: {

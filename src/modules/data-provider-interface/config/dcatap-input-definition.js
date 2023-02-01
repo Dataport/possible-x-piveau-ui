@@ -1,6 +1,7 @@
 import language from './selector-languages.json';
 import config from './page-content-config';
 
+
 const dcatapProperties = {
   datasets: {
     datasetID: {
@@ -26,6 +27,7 @@ const dcatapProperties = {
           validation: 'required',
           class: 'row1 column1',
           '@change': true,
+          '@annifCompletion':true,
         },
         {
           identifier: 'language',
@@ -156,10 +158,12 @@ const dcatapProperties = {
       identifier: 'subject',
       type: 'autocomplete-input',
       name: 'dct:subject',
+      annifTheme: true,
       class: 'property',
       voc: 'eurovoc',
       multiple: true,
       '@change': true,
+      '@annifSuggestion':true,
     },
     keyword: {
       identifier: 'keyword',
@@ -288,10 +292,12 @@ const dcatapProperties = {
       identifier: 'theme',
       type: 'autocomplete-input',
       multiple: true,
+      annifTheme: true,
       voc: 'data-theme',
       name: 'dcat:theme',
       class: 'property',
       '@change': true,
+      '@annifSuggestion':true,
     },
     accessRights: {
       identifier: 'accessRights',
@@ -1024,6 +1030,14 @@ const dcatapProperties = {
           identifier: 'accessServiceEndpointURL',
           type: 'url',
           name: 'dcat:endpointURL',
+          class: 'main',
+          validation: 'optional|url',
+          '@change': true,
+        },
+        {
+          identifier: 'accessServiceEndpointDescription',
+          type: 'url',
+          name: 'dcat:endpointDescription',
           class: 'main',
           validation: 'optional|url',
           '@change': true,

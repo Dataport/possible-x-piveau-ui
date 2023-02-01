@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import Vue from 'vue';
 import Vuex from 'vuex';
-
 import axios from 'axios';
 
 Vue.use(Vuex);

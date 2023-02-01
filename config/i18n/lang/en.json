@@ -1148,6 +1148,12 @@
                     "placeholder": "Distribution Data Service Endpoint URL placeholder text",
                     "help": "The link to the data service's webpage."
                 },
+                "accessServiceEndpointDescription": {
+                    "label": "Data Service Endpoint Description",
+                    "placeholder": "Distribution Data Service Endpoint Description placeholder text",
+                    "help": "Provides more Details to the data service.",
+                    "info": "Das ist der Tooltip."
+                },
                 "rights": {
                     "info": "This property refers to a statement that specifies rights associated with the Distribution.",
                     "help": "This property refers to a statement that specifies rights associated with the Distribution.",

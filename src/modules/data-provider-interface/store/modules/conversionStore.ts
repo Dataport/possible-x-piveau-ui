@@ -67,6 +67,8 @@ const actions = {
      */
     saveToJsonld({ commit }, {property, values, distid}) {
         commit('populateJsonld', {property, values, distid});
+        
+        
     },
     /**
      * Saves preexisting values from JSONLD to object given as form data to InputPage component
