@@ -27,7 +27,7 @@ export default {
       return this.getNavSteps[this.property][0];
     },
     redirectUri() {
-      return `${this.$env.upload.basePath}/${this.property}/${this.firstStep}?locale=${this.$i18n.locale}`;
+      return `${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.firstStep}?locale=${this.$i18n.locale}`;
     },
   },
   methods: {

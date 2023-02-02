@@ -248,12 +248,12 @@ export default {
         {
           name: "description",
           vmid: "description",
-          content: `${this.$t("message.header.navigation.data.datasets")}} - ${this.$env.description}`,
+          content: `${this.$t("message.header.navigation.data.datasets")}} - ${this.$env.metadata.description}`,
         },
         {
           name: "keywords",
           vmid: "keywords",
-          content: `${this.$env.keywords} ${this.$t("message.header.navigation.data.datasets")}}`,
+          content: `${this.$env.metadata.keywords} ${this.$t("message.header.navigation.data.datasets")}}`,
         },
         { name: "robots", content: "noindex, follow" },
       ],
@@ -268,10 +268,10 @@ export default {
       filterCollapsed: true,
       catalogDetailsMode: this.$route.query.showcatalogdetails === "true",
       catalogAllowed: false,
-      useCreateDatasetButton: this.$env.upload.useCreateDatasetButton,
-      useCreateCatalogueButton: this.$env.upload.useCreateCatalogueButton,
-      useDatasetFacets: this.$env.datasets.facets.useDatasetFacets,
-      // useSort: this.$env.datasets.useSort,
+      useCreateDatasetButton: this.$env.content.dataProviderInterface.useCreateDatasetButton,
+      useCreateCatalogueButton: this.$env.content.dataProviderInterface.useCreateCatalogueButton,
+      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets,
+      // useSort: this.$env.content.datasets.useSort,
     };
   },
   computed: {
@@ -439,7 +439,7 @@ export default {
      * @descritption Initialize the active facets by checking the route parameters
      */
     initFacets() {
-      const fields = this.$env.datasets.facets.defaultFacetOrder;
+      const fields = this.$env.content.datasets.facets.defaultFacetOrder;
       for (const field of fields) {
         this.facetFields.push(field);
         if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
@@ -518,16 +518,16 @@ export default {
       return fileTypes.getFileTypeColor(format);
     },
     getCatalogImage(catalog) {
-      return this.$env.catalogs.useCatalogCountries
-        ? `${this.$env.catalogs.defaultCatalogImagePath}/${
+      return this.$env.content.catalogs.useCatalogCountries
+        ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${
             has(catalog, "country.id")
               ? catalog.country.id
-              : this.$env.catalogs.defaultCatalogCountryID
+              : this.$env.content.catalogs.defaultCatalogCountryID
           }`
-        : `${this.$env.catalogs.defaultCatalogImagePath}/${
+        : `${this.$env.content.catalogs.defaultCatalogImagePath}/${
             has(catalog, "id")
               ? catalog.id
-              : this.$env.catalogs.defaultCatalogID
+              : this.$env.content.catalogs.defaultCatalogID
           }`;
     },
   },

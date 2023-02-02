@@ -72,10 +72,10 @@ export default {
   components: {Tooltip},
   data() {
     return {
-      showTitle: this.$env.datasetDetails.keywords.showTitle,
-      maxSubjectLength: this.$env.datasets.maxKeywordLength,
+      showTitle: this.$env.content.datasetDetails.keywords.showTitle,
+      maxSubjectLength: this.$env.content.datasets.maxKeywordLength,
       defaultDisplayCount: 24,
-      followSubjectLinks: this.$env.datasets.followSubjectLinks,
+      followSubjectLinks: this.$env.content.datasets.followSubjectLinks,
       subject: {
         displayAll: false,
         displayCount: 24, // Should never exceed number of subjects

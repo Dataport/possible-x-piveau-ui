@@ -19,12 +19,12 @@
           {
             name: 'description',
             vmid: 'description',
-            content: `${this.$t('message.navigation.navItems.privacyPolicy')} - ${this.$env.description}`
+            content: `${this.$t('message.navigation.navItems.privacyPolicy')} - ${this.$env.metadata.description}`
           },
           {
             name: 'keywords',
             vmid: 'keywords',
-            content: `${this.$env.keywords} ${this.$t('message.navigation.navItems.privacyPolicy')}`
+            content: `${this.$env.metadata.keywords} ${this.$t('message.navigation.navItems.privacyPolicy')}`
           },
         ]
       }

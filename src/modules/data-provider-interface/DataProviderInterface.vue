@@ -69,8 +69,8 @@ export default {
     return {
       title: `${this.$t('message.metadata.upload')} | ${this.$t('message.header.navigation.data.datasets')}`,
       meta: [
-        { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.datasets')}} - ${this.$env.description}` },
-        { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.header.navigation.data.datasets')}}` },
+        { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.datasets')}} - ${this.$env.metadata.description}` },
+        { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.header.navigation.data.datasets')}}` },
         { name: 'robots', content: 'noindex, follow' },
       ],
     };
@@ -167,10 +167,10 @@ export default {
 
       if (this.property === 'distributions') {
         firstStep = this.getNavSteps.datasets[0];
-        path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
+        path = `${this.$env.content.dataProviderInterface.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
       } else {
         firstStep = this.getNavSteps[this.property][0];
-        path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
+        path = `${this.$env.content.dataProviderInterface.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
       }
       return path;
     },
@@ -183,27 +183,27 @@ export default {
 
         if (this.getNavSteps[this.property][i] === 'overview') {
           // only datasets and catalogues have an overview page
-          s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/${this.property}/overview?locale=${this.$i18n.locale}`).catch(() => {});
+          s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/overview?locale=${this.$i18n.locale}`).catch(() => {});
         } else if (this.getNavSteps[this.property][i] === 'distoverview') {
           // only datasets and distributions have a distoverview page
           if (this.property === 'datasets') {
-            s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
           } else if (this.property === 'distributions') {
             // distribution overview page should have distribution index for back navigation to distirbutions
-            s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/${this.property}/distoverview/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/distoverview/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
           }
         } else {
           if (this.property === 'distributions') {
             // id of distribution needed within navigation
-            s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/${this.property}/${this.getNavSteps[this.property][i]}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
           } else {
-            s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/${this.property}/${this.getNavSteps[this.property][i]}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}?locale=${this.$i18n.locale}`).catch(() => {});
           }
         }
       });
       // stepper links for dataset stepper when distribution form is currently on display
       document.querySelectorAll('#subStepper .step-progress__step-label').forEach((s, i) => {
-        s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => {});
+        s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => {});
       });
     },
   },

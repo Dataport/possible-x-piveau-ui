@@ -29,7 +29,7 @@
     },
     data() {
       return {
-        defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
+        defaultFacetOrder: this.$env.content.datasets.facets.defaultFacetOrder,
       };
     },
     computed: {

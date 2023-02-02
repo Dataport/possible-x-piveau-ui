@@ -372,8 +372,8 @@ export default {
         suggestions: {},
         show: true,
       },
-      useCatalogs: this.$env.datasets.useCatalogs,
-      // useSort: this.$env.datasets.useSort,
+      useCatalogs: this.$env.content.datasets.useCatalogs,
+      // useSort: this.$env.content.datasets.useSort,
       sortSelected: "",
       sortSelectedLabel: this.$t("message.sort.relevance"),
     };

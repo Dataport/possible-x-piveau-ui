@@ -10,7 +10,7 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const RESULTS_PER_PAGE = 10;
-// const RESULTS_PER_PAGE = GLUE_CONFIG.pagination.defaultItemsPerPage;
+// const RESULTS_PER_PAGE = GLUE_CONFIG.routing.pagination.defaultItemsPerPage;
 
 // Catalogs Module State
 const state = {

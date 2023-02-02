@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       relatedResources: {
-        isVisible: this.$env.datasetDetails.relatedResources.isVisible,
+        isVisible: this.$env.content.datasetDetails.relatedResources.isVisible,
       }
     };
   },

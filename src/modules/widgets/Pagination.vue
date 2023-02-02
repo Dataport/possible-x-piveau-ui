@@ -73,10 +73,10 @@ export default {
   data() {
     return {
       pagesDisplayed: [],
-      usePagination: this.$env.pagination.usePagination,
-      usePaginationArrows: this.$env.pagination.usePaginationArrows,
-      useItemsPerPage: this.$env.pagination.useItemsPerPage,
-      defaultItemsPerPageOptions: this.$env.pagination.defaultItemsPerPageOptions,
+      usePagination: this.$env.routing.pagination.usePagination,
+      usePaginationArrows: this.$env.routing.pagination.usePaginationArrows,
+      useItemsPerPage: this.$env.routing.pagination.useItemsPerPage,
+      defaultItemsPerPageOptions: this.$env.routing.pagination.defaultItemsPerPageOptions,
     };
   },
   computed: {},

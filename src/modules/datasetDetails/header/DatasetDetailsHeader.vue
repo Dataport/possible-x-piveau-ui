@@ -50,8 +50,8 @@
     dependencies: 'DatasetService',
     data() {
       return {
-        hidePublisher: this.$env.datasetDetails.header.hidePublisher,
-        hideDate: this.$env.datasetDetails.header.hideDate,
+        hidePublisher: this.$env.content.datasetDetails.header.hidePublisher,
+        hideDate: this.$env.content.datasetDetails.header.hideDate,
       };
     },
     computed: {

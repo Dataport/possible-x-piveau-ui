@@ -44,7 +44,7 @@
         </app-link>
         <!-- <i class="material-icons help-icon ml-3" data-toggle="tooltip" data-placement="bottom" :title="$t('message.datasetDetails.downloadURLTooltip')">help_outline</i> -->
     </span>
-   <distribution-download-as v-if="this.$env.datasetDetails.downloadAs.enable" :distribution="distribution" />
+   <distribution-download-as v-if="this.$env.content.datasetDetails.downloadAs.enable" :distribution="distribution" />
   </distribution-dropdown-download>
 </template>
 

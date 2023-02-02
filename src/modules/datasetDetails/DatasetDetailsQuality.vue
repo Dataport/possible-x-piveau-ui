@@ -491,7 +491,7 @@
           {
             name: 'description',
             vmid: 'description',
-            content: (`${this.$t('message.datasetDetails.subnav.quality')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.description}`)?.substring(0, 4999),
+            content: (`${this.$t('message.datasetDetails.subnav.quality')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.metadata.description}`)?.substring(0, 4999),
           },
         ],
       };
@@ -504,7 +504,7 @@
         showLess: true,
         isLoadingQualityData: false,
         isLoadingQualityDistributionData: false,
-        enableCSVLinter: this.$env.datasetDetails.quality.csvLinter.enable,
+        enableCSVLinter: this.$env.content.datasetDetails.quality.csvLinter.enable,
       };
     },
     computed: {

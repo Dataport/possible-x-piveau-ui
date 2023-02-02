@@ -170,19 +170,19 @@
         expandedDistributionDescriptions: [],
         datasetSchema: {},
         distributions: {
-          displayAll: this.$env.datasetDetails.distributions.displayAll,
-          displayCount: this.$env.datasetDetails.distributions.displayCount,
-          incrementSteps: this.$env.datasetDetails.distributions.incrementSteps,
-          descriptionMaxLines: this.$env.datasetDetails.distributions.descriptionMaxLines,
-          descriptionMaxChars: this.$env.datasetDetails.distributions.descriptionMaxChars,
+          displayAll: this.$env.content.datasetDetails.distributions.displayAll,
+          displayCount: this.$env.content.datasetDetails.distributions.displayCount,
+          incrementSteps: this.$env.content.datasetDetails.distributions.incrementSteps,
+          descriptionMaxLines: this.$env.content.datasetDetails.distributions.descriptionMaxLines,
+          descriptionMaxChars: this.$env.content.datasetDetails.distributions.descriptionMaxChars,
         },
         pages: {
-          isVisible: this.$env.datasetDetails.pages.isVisible,
-          displayAll: this.$env.datasetDetails.pages.displayAll,
-          displayCount: this.$env.datasetDetails.pages.displayCount,
-          incrementSteps: this.$env.datasetDetails.pages.incrementSteps,
-          descriptionMaxLines: this.$env.datasetDetails.pages.descriptionMaxLines,
-          descriptionMaxChars: this.$env.datasetDetails.pages.descriptionMaxChars,
+          isVisible: this.$env.content.datasetDetails.pages.isVisible,
+          displayAll: this.$env.content.datasetDetails.pages.displayAll,
+          displayCount: this.$env.content.datasetDetails.pages.displayCount,
+          incrementSteps: this.$env.content.datasetDetails.pages.incrementSteps,
+          descriptionMaxLines: this.$env.content.datasetDetails.pages.descriptionMaxLines,
+          descriptionMaxChars: this.$env.content.datasetDetails.pages.descriptionMaxChars,
         }
       };
     },
@@ -721,7 +721,7 @@
         this.dateIncorrect = true;
       });
 
-      const distributionsConf = this.$env.datasetDetails && this.$env.datasetDetails.distributions;
+      const distributionsConf = this.$env.content.datasetDetails && this.$env.content.datasetDetails.distributions;
       if (distributionsConf) {
         this.distributions.displayAll = distributionsConf.displayAll || this.distributions.displayAll;
         this.distributions.displayCount = parseInt(distributionsConf.displayCount, 10) || this.distributions.displayCount;
@@ -735,7 +735,7 @@
 
       if (this.distributions.displayAll) this.distributions.displayCount = this.getDistributions.length;
 
-      const pagesConf = this.$env.datasetDetails && this.$env.datasetDetails.pages;
+      const pagesConf = this.$env.content.datasetDetails && this.$env.content.datasetDetails.pages;
       if (pagesConf) {
         this.pages.displayAll = pagesConf.displayAll || this.pages.displayAll;
         this.pages.displayCount = parseInt(pagesConf.displayCount, 10) || this.pages.displayCount;

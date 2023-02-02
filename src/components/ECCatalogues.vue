@@ -448,12 +448,12 @@ export default {
         {
           name: "description",
           vmid: "description",
-          content: `${this.$t( "message.header.navigation.data.catalogs")} - ${this.$env.description}`,
+          content: `${this.$t( "message.header.navigation.data.catalogs")} - ${this.$env.metadata.description}`,
         },
         {
           name: "keywords",
           vmid: "keywords",
-          content: `${this.$env.keywords} ${this.$t("message.header.navigation.data.catalogs")}`,
+          content: `${this.$env.metadata.keywords} ${this.$t("message.header.navigation.data.catalogs")}`,
         },
         { name: "robots", content: "noindex, follow" },
       ],
@@ -471,7 +471,7 @@ export default {
       sortSelected: `relevance desc, modified desc, title.${this.$route.query.locale} asc`,
       sortSelectedLabel: this.$t("message.sort.relevance"),
       currentSearchQuery: this.$route.query.query,
-      useCatalogFacets: this.$env.catalogs.facets.useCatalogFacets,
+      useCatalogFacets: this.$env.content.catalogs.facets.useCatalogFacets,
     };
   },
   computed: {
@@ -571,7 +571,7 @@ export default {
       if (op === "AND" || op === "OR") this.setFacetGroupOperator(op);
     },
     initFacets() {
-      const fields = this.$env.catalogs.facets.defaultFacetOrder;
+      const fields = this.$env.content.catalogs.facets.defaultFacetOrder;
       for (const field of fields) {
         this.facetFields.push(field);
         if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
@@ -692,16 +692,16 @@ export default {
       return `/datasets?catalog=${catalog.id}&showcatalogdetails=true`;
     },
     getCatalogImage(catalog) {
-      return this.$env.catalogs.useCatalogCountries
-        ? `${this.$env.catalogs.defaultCatalogImagePath}/${
+      return this.$env.content.catalogs.useCatalogCountries
+        ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${
             has(catalog, "country.id")
               ? catalog.country.id
-              : this.$env.catalogs.defaultCatalogCountryID
+              : this.$env.content.catalogs.defaultCatalogCountryID
           }`
-        : `${this.$env.catalogs.defaultCatalogImagePath}/${
+        : `${this.$env.content.catalogs.defaultCatalogImagePath}/${
             has(catalog, "id")
               ? catalog.id
-              : this.$env.catalogs.defaultCatalogID
+              : this.$env.content.catalogs.defaultCatalogID
           }`;
     },
     getFooterTags(catalog) {

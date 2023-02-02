@@ -28,7 +28,7 @@ export default {
   },
   metaInfo() {
     const datasetTitleTranslated = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
-    const title = datasetTitleTranslated ? `${datasetTitleTranslated} - ${this.$env.title}` : undefined;
+    const title = datasetTitleTranslated ? `${datasetTitleTranslated} - ${this.$env.metadata.title}` : undefined;
     return {
       titleTemplate(chunk) {
         return chunk ? `${chunk} - ${title}` : title;
@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      topTitle: this.$env.datasetDetails.header.navigation === "top"
+      topTitle: this.$env.content.datasetDetails.header.navigation === "top"
     };
   },
   props: {

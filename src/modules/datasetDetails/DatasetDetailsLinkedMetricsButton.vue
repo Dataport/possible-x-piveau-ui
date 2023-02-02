@@ -7,7 +7,6 @@
 <script>
   // Import components used in template
   import AppLink from "../widgets/AppLink.vue";
-  // Import glue-config.js
 
   export default {
     name: 'DEU-datasetDetailsLinkedMetricsButton',

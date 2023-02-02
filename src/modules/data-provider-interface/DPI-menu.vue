@@ -10,7 +10,7 @@
         :key="`Group${index}`"
         :groupName="group.group"
         :groupItems="group.items"
-        :show="$env.upload.buttons[group.group]"
+        :show="$env.content.dataProviderInterface.buttons[group.group]"
         :isOperator="getUserData.roles.includes('operator')"
         :isCatalog="group.group === 'Catalogue' ? true : false">
       </dropup>
@@ -170,7 +170,7 @@ export default {
                   ...{
                     message: 'Are you sure you want to register a DOI? This can not be reverted.',
                     confirm: 'Register DOI (irreversible)',
-                    confirmHandler: () => this.handleRegisterDoi({ id: this.getID, catalog: this.getCatalog.id, type: this.$env.doiRegistrationService.persistentIdentifierType || 'mock' }),
+                    confirmHandler: () => this.handleRegisterDoi({ id: this.getID, catalog: this.getCatalog.id, type: this.$env.content.dataProviderInterface.doiRegistrationService.persistentIdentifierType || 'mock' }),
                   },
                 };
                 $('#DPIMenuModal').modal({ show: true });
