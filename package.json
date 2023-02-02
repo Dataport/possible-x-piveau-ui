@@ -133,7 +133,7 @@
         "channel": "next"
       },
       {
-        "name": "develop",
+        "name": "configuration",
         "prerelease": true
       }
     ],
