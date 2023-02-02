@@ -7,6 +7,9 @@ import {
 
 import i18n from './i18n';
 
+// export const ecStyle = true;
+export const ecStyle = false;
+
 const glueConfig = {
   api: {
     baseUrl: 'https://data.europa.eu/api/hub/search/',
