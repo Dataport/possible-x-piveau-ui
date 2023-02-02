@@ -56,11 +56,12 @@ const glueConfig = {
       clientId: 'piveau-hub-ui',
       url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
 
-      'ssl-required': 'external', // TODO: Do we need to include these properties? They seem to be default values that never change.
-      'public-client': true, // TODO: Do we need to include these properties? They seem to be default values that never change.
-      'verify-token-audience': true, // TODO: Do we need to include these properties? They seem to be default values that never change.
-      'use-resource-role-mappings': true, // TODO: Do we need to include these properties? They seem to be default values that never change.
-      'confidential-port': 0, // TODO: Do we need to include these properties? They seem to be default values that never change.
+      // TODO: Do we need to include these properties? They seem to be default values that never change.
+      'ssl-required': 'external',
+      'public-client': true, 
+      'verify-token-audience': true, 
+      'use-resource-role-mappings': true, 
+      'confidential-port': 0, 
     },
     rtp: {
       grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
@@ -69,7 +70,7 @@ const glueConfig = {
   },
   routing: {
     routerOptions: {
-      base: '/',
+      base: '/', // TODO: Include piveau-header-footer instead of deu-header-footer to make test app working with default base path
       mode: 'history',
     },
     navigation: { 
@@ -107,7 +108,7 @@ const glueConfig = {
         FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }), 
         defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'], 
         scoringFacets: {
-          useScoringFacets: true, // TODO: Do we need this?
+          useScoringFacets: true, // TODO: Make use of this property
           defaultScoringFacets: { 
             excellentScoring: {
               id: 'excellentScoring',
