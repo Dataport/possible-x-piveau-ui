@@ -178,7 +178,7 @@
       clearFacets() {
         if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
           this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
-            .catch(error => { console.log(error); });
+            .catch(error => { console.error(error); });
         }
       },
       /**
