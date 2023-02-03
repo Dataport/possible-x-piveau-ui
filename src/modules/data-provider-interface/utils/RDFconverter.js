@@ -167,27 +167,42 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             //  conformsToURI  dct:title  conformsTitle
                             if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id')) groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id'])
                             // all properties that don't provide an URL serving as namedNode for nested values need to define a blank node
-                            else groupBlankNode = N3.DataFactory.blankNode('');
+                            else {
+                                // page gets type but also has multilingual fields with preseleted langauge
+                                // don't create blank node if there is not data for page beside the preselected language
+                                let emptyPage = false;
 
-                            // save inital quadruple using the named or blank node as object
-                            // e.g.  datasetId  dct:contactPoint  blankNode/namedNode
-                            RDFdataset.addQuad(N3.DataFactory.quad(
-                                mainURI,
-                                N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
-                                groupBlankNode
-                            ))
+                                if (key === 'foaf:page') {
+                                    const hasNoValueKeys = !currentGroupData['dct:title'].every(el => has(el, '@value')) && !currentGroupData['dct:description'].every(el => has(el, '@value'));
+                                    const hasEmptyValue = currentGroupData['dct:title'].every(el => isEmpty(el['@value'])) && currentGroupData['dct:description'].every(el => isEmpty(el['@value'])); 
+                                    
+                                    if (hasNoValueKeys || hasEmptyValue) emptyPage = true;
+                                }
 
-                            // some properties provide additional types
-                            if (has(formatTypes.additionalPropertyTypes, key)) {
-                                RDFdataset.addQuad(N3.DataFactory.quad(
-                                    groupBlankNode,
-                                    N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
-                                    N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key]))
-                                ))
+                                if (!emptyPage) {
+                                    groupBlankNode = N3.DataFactory.blankNode('');
+
+                                    // save inital quadruple using the named or blank node as object
+                                    // e.g.  datasetId  dct:contactPoint  blankNode/namedNode
+                                    RDFdataset.addQuad(N3.DataFactory.quad(
+                                        mainURI,
+                                        N3.DataFactory.namedNode(generalHelper.addNamespace(key)),
+                                        groupBlankNode
+                                    ))
+
+                                    // some properties provide additional types
+                                    if (has(formatTypes.additionalPropertyTypes, key)) {
+                                        RDFdataset.addQuad(N3.DataFactory.quad(
+                                            groupBlankNode,
+                                            N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type')),
+                                            N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key]))
+                                        ))
+                                    }
+
+                                    // convert all nested values provided by form
+                                    convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false);
+                                }
                             }
-
-                            // convert all nested values provided by form
-                            convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false);
                         }                        
                     }
                 }
