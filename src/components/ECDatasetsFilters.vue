@@ -403,7 +403,7 @@ export default {
           query: Object.assign({}, this.$route.query, { query }, { page: 1 }),
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
       this.setQuery(query);
     },
@@ -417,7 +417,7 @@ export default {
               : `${this.$route.path}/${suggestion.idName}`,
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     initSort() {
@@ -520,7 +520,7 @@ export default {
         this.$router
           .replace({ query: Object.assign({}, this.$route.query, { sort }) })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
         this.setSort(sort);
       },

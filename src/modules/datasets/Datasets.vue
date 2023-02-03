@@ -306,7 +306,7 @@
           if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
             this.$router.replace({
               query: Object.assign({}, this.$route.query, { [field]: [] }),
-            }).catch(error => { console.log(error); });
+            }).catch(error => { console.error(error); });
           } else {
             for (const facet of this.$route.query[field]) {
               // do not add duplicates!

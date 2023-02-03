@@ -452,7 +452,7 @@ export default {
               query: Object.assign({}, this.$route.query, { [field]: [] }),
             })
             .catch((error) => {
-              console.log(error);
+              console.error(error);
             });
         } else {
           for (const facet of this.$route.query[field]) {
@@ -494,7 +494,7 @@ export default {
       }
     },
     initDatasets() {
-    /* needed to add the following line so that every tooltip gets recognized as one (after all the asynchronous loads) ###loadtime??### */      
+    /* needed to add the following line so that every tooltip gets recognized as one (after all the asynchronous loads) ###loadtime??### */
     $('body').tooltip({selector: '[data-toggle="tooltip"]'});
       this.$nextTick(() => {
         this.$nextTick(() => {
