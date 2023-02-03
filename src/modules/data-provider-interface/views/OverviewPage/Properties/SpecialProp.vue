@@ -2,6 +2,7 @@
   <div>
     <!-- CREATOR -->
     <div v-if="property === 'dct:creator'">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1] }}</div>
         <div v-if="showValue(data, 'foaf:name')">{{ $t('message.metadata.name') }}: {{ data['foaf:name'] }}</div>
         <div v-if="showValue(data, 'foaf:mbox')">{{ $t('message.metadata.email') }}: <app-link :to="`mailto:${data['foaf:mbox']}`">{{ data['foaf:mbox'] }}</app-link></div>
@@ -11,6 +12,7 @@
 
     <!-- CONTACT POINT -->
     <div v-if="property === 'dcat:contactPoint'">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1] }}</div>
         <div v-if="showValue(data, 'vcard:fn')">{{ $t('message.metadata.name') }}: {{ data['vcard:fn'] }}</div>
         <div v-if="showValue(data, 'vcard:hasEmail')">{{ $t('message.metadata.email') }}: <app-link :to="`mailto:${data['vcard:hasEmail']}`">{{ data['vcard:hasEmail'] }}</app-link></div>
@@ -26,7 +28,8 @@
     </div>
 
     <!-- ADMS IDENTIEFIER -->
-    <div v-if="property === 'adms:identifier'">
+    <div v-if="property === 'adms:identifier' && Object.keys(data).length > 1">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div v-if="showValue(data, '@id') && property === 'adms:identifier'">{{ $t('message.metadata.url') }}: <app-link :to="data['@id']">{{ data['@id'] }}</app-link></div>
         <div v-if="showValue(data, 'skos:notation') && showValue(data['skos:notation'][0], '@value')">{{ $t('message.metadata.identifier') }}: {{ data['skos:notation'][0]['@value'] }}</div>
         <div v-if="showValue(data, 'skos:notation') && showValue(data['skos:notation'][0], '@type')">{{ $t('message.metadata.type') }}: {{ data['skos:notation'][0]['@type'] }}</div>
@@ -34,6 +37,7 @@
     
     <!-- TEMPORAL -->
     <div v-if="property === 'dct:temporal'">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div v-if="showValue(data, 'dcat:startDate')">{{ filterDateFormatEU(data['dcat:startDate']) }}</div>
         <div v-if="showValue(data, 'dcat:endDate')">{{ filterDateFormatEU(data['dcat:endDate']) }}</div>
     </div>
@@ -41,6 +45,7 @@
 
     <!-- CHECKSUM -->
     <div v-if="property === 'spdx:checksum'">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div v-if="showValue(data, 'spdx:checksumValue')">{{ data['spdx:checksumValue']}}</div>
         <div v-if="showValue(data, 'spdx:algorithm')">{{ data['spdx:algorithm']}}</div>        
     </div>
@@ -48,6 +53,7 @@
 
     <!-- PAGE -->
     <div v-if="property === 'foaf:page'">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div v-if="showValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{ data['dct:title'].filter(el=>el['@language'] === dpiLocale).map(el=>el['@value'])[0] }}</div>
         <div v-if="showValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{ data['dct:description'].filter(el=>el['@language'] === dpiLocale).map(el=>el['@value'])[0] }}</div>
         <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}:{{ data['dct:format'] }}</div>
@@ -56,17 +62,20 @@
 
     <!-- CONFORMS TO -->
     <div v-if="property === 'dct:conformsTo'">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div v-if="showValue(data, 'rdfs:label')">{{ data['rdfs:label'] }}</div>
         <app-link v-if="showValue(data, '@id')" :to="data['@id']">{{ data['@id'] }}</app-link>
     </div>
 
     <!-- TEMPORAL RESOLUTION -->
     <div v-if="property === 'dcat:temporalResolution'">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div>{{ convertTemporalResolution(data) }}</div>
     </div>
 
     <!-- DATA SERVICE -->
     <div v-if="property === 'dcat:accessService'">
+        <td class="w-25 font-weight-bold">{{ $t(`${value.label}`)}}:</td>
         <div v-if="showValue(data, 'dct:title')">
             <span class="font-weight-bold">{{ $t('message.dataupload.distributions.accessServiceTitle.label') }}:</span>
             {{ data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
