@@ -569,11 +569,6 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
-          name: 'rdf:type',
-          value: 'adms:Identifier',
-          type: 'hidden',
-        },
-        {
           identifier: 'admsIdentifierUrl',
           type: 'url',
           name: '@id',
