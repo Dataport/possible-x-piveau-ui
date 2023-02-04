@@ -13,7 +13,8 @@
             </option>
           </select>
         </a>
-        <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Search for Theme</a>
+        <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Search for
+          Theme</a>
       </div>
       <input v-if="!annifTheme || manSearch" type="text" class="form-control suggestion-input"
         :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
@@ -28,13 +29,30 @@
           </button>
         </ul>
       </div>
-      <div id="suggestedAnnifItemsTheme" v-if="annifTheme && multiple && valueListOfThemes.length && getThSuggestions">
-        <div v-for="(themeValue, i) in valueListOfThemes" :key="i" data-toggle="tooltip" data-placement="top"
-          v-bind:title="themeValue.name" class="annifItems" v-bind:class="{ fadeIn: annifChoicebtnClicked }"
+      <div id="suggestedAnnifItemsTheme" v-if="annifTheme && multiple">
+
+
+        <div v-for="(val) in values" :key="val.s" data-toggle="tooltip" data-placement="top" v-bind:title="val.name"
+          class="annifItems" v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: val.activeValue }"
           @click="handleAnnifClick($event)">
           <span class="annifPlusIcon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
-              viewBox="0 0 16 16">
+              viewBox="0 0 16 16" v-bind:class="{ rotate45: val.activeValue }">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+          </span>
+          {{ truncateWords(val.name, 8, true) }} ...
+        </div>
+
+        <div v-for="(themeValue, index) in valueListOfThemes" :key="index" data-toggle="tooltip" data-placement="top"
+          v-bind:title="themeValue.name" class="annifItems"
+          v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: themeValue.activeValue }"
+          @click="handleAnnifClick($event)">
+          <span class="annifPlusIcon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
+              viewBox="0 0 16 16" v-bind:class="{ rotate45: themeValue.activeValue }">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
               <path
                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
@@ -42,6 +60,9 @@
           </span>
           {{ truncateWords(themeValue.name, 8, true) }} ...
         </div>
+
+
+
       </div>
       <div v-if="multiple && values.length > 0" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
@@ -55,7 +76,6 @@
 </template>
 
 <script>
-import { values } from "lodash";
 /* eslint-disable,arrow-parens,no-param-reassign, no-lonely-if, no-await-in-loop */
 import { mapActions } from "vuex";
 import { getTranslationFor } from "../../utils/helpers";
@@ -109,7 +129,11 @@ export default {
     filteredAutocompleteSuggestions() {
       if (this.autocomplete.selected) return [];
       return this.autocomplete.suggestions.slice(0, 10);
-    },
+    }
+  },
+  async mounted() {
+
+
   },
   methods: {
     ...mapActions("dpiStore", [
@@ -179,20 +203,23 @@ export default {
         });
     },
     handleAnnifClick(e) {
-
       if (e.target.classList.contains('annifItems')) {
         e.target.classList.toggle('greenBG')
         e.target.querySelector('svg').classList.toggle('rotate45');
         // Muss auf jeden Fall in einen TestCase!!!
 
-        for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
+        let counter = Object.keys(this.valueListOfThemes).length + Object.keys(this.values).length
+        for (var i = 0; i < counter; i++) {
+          
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name) {
+            
             this.valueListOfThemes[i].activeValue = !this.valueListOfThemes[i].activeValue;
-            // this.values.push(this.valueListOfThemes[i]);
+
             // console.log(this.selectedLimitOfSuggestions);
             this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
           }
           if (this.valueListOfThemes[i].activeValue == false) {
+            console.log("false Click");
             for (var a = 0; a < Object.keys(this.values).length; a++) {
               if (this.valueListOfThemes[i].resource == this.values[a].resource) {
                 this.deleteValue(this.values[a].resource)
@@ -202,7 +229,7 @@ export default {
           }
         }
       }
-      localStorage.setItem("valueListofThemes", JSON.stringify(this.valueListOfThemes))
+
     },
     setTooltip() {
       setTimeout(() => {
@@ -210,17 +237,17 @@ export default {
       });
     },
     handleAnnifSuggestions(e) {
-      if (this.thSwitch) {
-        return;
-      }
+
       // gets the dct:description value from localstorage and gives it to the annif theme handler
       this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets"))["dct:description"][0]["@value"])
       this.getThSuggestions = !this.getThSuggestions;
 
-      console.log(this.valueListOfThemes);
+      // console.log(this.values);
+      // console.log(this.valueListOfThemes);
       e.target.classList.add("inactiveHandleBtn");
     },
-    annifHandlerTheme(input) {
+    async annifHandlerTheme(input) {
+
       let query = qs.stringify({
         'text': input,
         'limit': this.selectedLimitOfSuggestions
@@ -234,26 +261,22 @@ export default {
         },
         data: query
       };
-      let listInLocalhost = JSON.parse(localStorage.getItem("valueListofThemes"));
+      let list = []
+
       axios(config)
-        .then((response) => {
-          response.data.results.forEach((element, index) => {
-            this.themeSuggestionList[index] = { "name": element.label, "resource": element.uri, "activeValue": false }
-          })
-          if (Object.keys(this.themeSuggestionList).length != Object.keys(this.valueListOfThemes).length) {
-            for (var i = 0; i < Object.keys(this.themeSuggestionList).length; i++) {
-              if (Object.keys(listInLocalhost).length > 0) {
-                for (var q = 0; q < Object.keys(listInLocalhost).length; q++) {
-                  if (listInLocalhost[q].activeValue == true) {
-                    this.themeSuggestionList[q].activeValue = true;
-                  }
-                }
-              }
-              this.valueListOfThemes.push(this.themeSuggestionList[i]);
-            }
+        .then(async (response) => {
+          for (let i = 0; i < response.data.results.length; i++) {
+            // let found = false;
+            let item = await this.getResourceName(response.data.results[i].uri);
+            // translate suggestions into locale
+            list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
           }
-          localStorage.setItem("valueListofThemes", JSON.stringify(this.valueListOfThemes))
+          let filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
           // TODO fix animation
+          for (var i = 0; i < filteredList.length; i++) {
+            // this.themeSuggestionList[i] = this.handleAutocompleteSuggestions(this.themeSuggestionList[i]) 
+            this.valueListOfThemes.push(filteredList[i])
+          }
           this.animateFadeInOut();
           this.thSwitch = true;
           this.setTooltip();
@@ -261,19 +284,15 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-
     },
     handleAutocompleteSuggestions(suggestion) {
 
       this.autocomplete.selected = true;
 
       if (this.multiple) {
-        if (
-          !this.values
-            .map((dataset) => dataset.resource)
-            .includes(suggestion.resource)
-        ) {
+        if (!this.values.map((dataset) => dataset.resource).includes(suggestion.resource)) {
           this.values.push(suggestion);
+          console.log("pushed");
         }
         this.autocomplete.text = this.values.map((dataset) => dataset.name)[
           this.values.length - 1
@@ -288,6 +307,7 @@ export default {
     },
     async getResourceName(resource) {
       let preValues = { name: "", resource: "" };
+
       let vocMatch =
         this.voc === "iana-media-types" ||
         this.voc === "spdx-checksum-algorithm";
@@ -302,21 +322,35 @@ export default {
           preValues.resource = resource;
         }
       );
+
       return preValues;
     },
     async handleValues() {
+
       if (this.context.model !== "") {
         // multiple autocomplete input provides always an array of values
         if (Array.isArray(this.context.model)) {
           const newValues = [];
           for (let index = 0; index < this.context.model.length; index += 1) {
+
             const result = await this.getResourceName(
               this.context.model[index]
             );
             newValues.push(result);
             this.autocomplete.text = result.name;
+
           }
           this.values = newValues;
+          if (this.annifTheme) {
+            for (var i = 0; i < Object.keys(this.values).length; i++) {
+              this.values[i].activeValue = true
+            }
+
+            this.animateFadeInOut();
+            this.setTooltip();
+          }
+
+
         } else {
           // singular autocomplete always provides a single value
           const result = await this.getResourceName(this.context.model);
@@ -352,6 +386,7 @@ export default {
     context: {
       async handler() {
         await this.handleValues();
+
         this.annifChoicebtnClicked = true
       },
     },
