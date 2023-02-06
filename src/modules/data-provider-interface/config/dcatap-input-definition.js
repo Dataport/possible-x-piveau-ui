@@ -50,7 +50,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'title',
-          type: 'textarea',
+          type: 'text',
           name: '@value',
           validation: 'required',
           class: 'row1 column1',
@@ -79,7 +79,7 @@ const dcatapProperties = {
         {
           identifier: 'contactPointType',
           type: 'select',
-          name: '@type',
+          name: 'rdf:type',
           options: {
             '': '---',
             'vcard:Individual': 'Person',
@@ -310,7 +310,7 @@ const dcatapProperties = {
         {
           identifier: 'creatorType',
           type: 'select',
-          name: '@type',
+          name: 'rdf:type',
           options: {
             '': '---',
             'foaf:Person': 'Person',
@@ -373,15 +373,57 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'pageTitle',
-          type: 'text',
+          type: 'group',
           name: 'dct:title',
           '@change': true,
+          class: 'property grid1r2c',
+          repeatable: true,
+          '@repeatableRemoved': true,
+          children: [
+            {
+              identifier: 'title',
+              type: 'text',
+              name: '@value',
+              class: 'row1 column1',
+              '@change': true,
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              type: 'select',
+              options: language,
+              name: '@language',
+              class: 'row1 column2',
+              '@change': true,
+            },
+          ]
         },
         {
           identifier: 'pageDescription',
-          type: 'textarea',
+          type: 'group',
           name: 'dct:description',
           '@change': true,
+          class: 'property grid1r2c',
+          repeatable: true,
+          '@repeatableRemoved': true,
+          children: [
+            {
+              identifier: 'description',
+              type: 'textarea',
+              name: '@value',
+              class: 'row1 column1',
+              '@change': true,
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              type: 'select',
+              options: language,
+              name: '@language',
+              class: 'row1 column2',
+              '@change': true,
+            },
+          ]
         },
         {
           identifier: 'pageFormat',
@@ -761,7 +803,6 @@ const dcatapProperties = {
       voc: 'dataset-type',
       name: 'dct:type',
       class: 'property',
-      multiple: true,
       '@change': true,
     },
     versionInfo: {
@@ -1138,15 +1179,57 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'pageTitle',
-          type: 'text',
+          type: 'group',
           name: 'dct:title',
           '@change': true,
+          class: 'property grid1r2c',
+          repeatable: true,
+          '@repeatableRemoved': true,
+          children: [
+            {
+              identifier: 'title',
+              type: 'text',
+              name: '@value',
+              class: 'row1 column1',
+              '@change': true,
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              type: 'select',
+              options: language,
+              name: '@language',
+              class: 'row1 column2',
+              '@change': true,
+            },
+          ]
         },
         {
           identifier: 'pageDescription',
-          type: 'textarea',
+          type: 'group',
           name: 'dct:description',
           '@change': true,
+          class: 'property grid1r2c',
+          repeatable: true,
+          '@repeatableRemoved': true,
+          children: [
+            {
+              identifier: 'description',
+              type: 'textarea',
+              name: '@value',
+              class: 'row1 column1',
+              '@change': true,
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              type: 'select',
+              options: language,
+              name: '@language',
+              class: 'row1 column2',
+              '@change': true,
+            },
+          ]
         },
         {
           identifier: 'pageFormat',
@@ -1666,7 +1749,7 @@ const dcatapProperties = {
         {
           identifier: 'creatorType',
           type: 'select',
-          name: '@type',
+          name: 'rdf:type',
           options: {
             '': '---',
             'foaf:Person': 'Person',

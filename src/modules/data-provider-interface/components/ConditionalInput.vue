@@ -29,7 +29,8 @@
 </template>
 
 <script>
-import { isEmpty, has } from 'lodash-es';
+import { isEmpty } from 'lodash';
+import generalHelper from '../utils/general-helper';
 
 export default {
   props: {
@@ -91,15 +92,14 @@ export default {
         // TODO: implement display of conditional choice when vocabulary was used
 
       } else if (semanticName === 'dct:rights') {
-        if (has(this.context.model, 'rdfs:label') && !isEmpty(this.context.model['rdfs:label'])) {
-          // url and string provided as normal string
-          if (this.context.model['rdfs:label'].startsWith('http') || this.context.model['rdfs:label'].startsWith('www')) {
-            this.conditionalValues[this.context.name] = 'url';
-          } else {
-            this.conditionalValues[this.context.name] = 'str';
-          }
-          this.inputValues = {'rdfs:label': this.context.model['rdfs:label']};
+        console.log(this.context.model);
+        // url and string provided as normal string
+        if (generalHelper.isUrl(this.context.model)) {
+          this.conditionalValues[this.context.name] = 'url';
+        } else {
+          this.conditionalValues[this.context.name] = 'str';
         }
+        this.inputValues = { 'rdfs:label': this.context.model };
       }
     },
   },
