@@ -1,8 +1,8 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
   dev: {
-    env: require('./dev.env'),
+    // env: require('./dev.env'),
     port: 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
@@ -11,7 +11,7 @@ module.exports = {
     cssSourceMap: false
   },
   test: {
-    env: require('./prod.env'),
+    // env: require('./prod.env'),
     port: 8080,
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
@@ -24,7 +24,7 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   },
   build: {
-    env: require('./prod.env'),
+    // env: require('./prod.env'),
     port: 8080,
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),

@@ -187,8 +187,6 @@
       };
     },
     computed: {
-      // todo: refactor this to refer to store
-      isTrusted: () => process.env.NODE_ENV === 'development',
       // import store-getters
       ...mapGetters('datasetDetails', [
       'getKeywords',
@@ -698,7 +696,9 @@
             name: 'NotFound',
             query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
           });
-        });
+        })
+        .finally(() => this.$root.$emit('contentLoaded'));
+
       this.loadQualityData(this.$route.params.ds_id)
         .then(() => {
           this.$Progress.finish();
@@ -706,6 +706,7 @@
         .catch(() => {
           this.$Progress.fail();
         });
+
       this.loadQualityDistributionData(this.$route.params.ds_id)
         .then(() => {
           this.$Progress.finish();
@@ -713,6 +714,7 @@
         .catch(() => {
           this.$Progress.fail();
         });
+        
       this.$root.$on('date-incorrect', () => {
         this.dateIncorrect = true;
       });

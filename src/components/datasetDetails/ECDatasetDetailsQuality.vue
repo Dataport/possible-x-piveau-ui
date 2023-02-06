@@ -1,5 +1,5 @@
 <template>
-    <div class="dsd-quality">
+    <div class="dsd-quality" v-if="isContentLoaded">
         <metadata-quality></metadata-quality>
         <distribution-quality></distribution-quality>
     </div>
@@ -22,7 +22,10 @@ export default {
         DistributionQuality,
     },
     data() {
-        return {};
+        return {
+            isMetadataLoaded: false,
+            isDistributionLoaded: false,
+        };
     },
     metaInfo() {
         return {
@@ -40,6 +43,9 @@ export default {
         ...mapGetters('datasetDetails', [
             'getLanguages',
         ]),
+        isContentLoaded() {
+            return this.isMetadataLoaded && this.isDistributionLoaded;
+        }
     },
     methods: {
         ...mapActions('datasetDetails', [
@@ -64,8 +70,6 @@ export default {
         this.useService(this.DatasetService);
         this.$nextTick(() => {
             this.$Progress.start();
-            this.isLoadingQualityData = true;
-            this.isLoadingQualityDistributionData = true;
 
             this.loadDatasetDetails(this.$route.params.ds_id)
                 .then(() => {
@@ -80,25 +84,17 @@ export default {
                 });
 
             this.loadQualityData(this.$route.params.ds_id)
-                .then(() => {
-                    this.$Progress.finish();
-                    this.isLoadingQualityData = false;
-                })
-                .catch(() => {
-                    this.$Progress.fail();
-                    this.isLoadingQualityData = false;
-                });
+                .then(() => this.$Progress.finish())
+                .catch(() => this.$Progress.fail())
+                .finally(() => this.isMetadataLoaded = true);
 
             this.loadQualityDistributionData(this.$route.params.ds_id)
                 .then(() => {
                     this.$Progress.finish();
-                    this.isLoadingQualityDistributionData = false;
                     this.checkDistributionValidation();
                 })
-                .catch(() => {
-                    this.$Progress.fail();
-                    this.isLoadingQualityDistributionData = false;
-                });
+                .catch(() => this.$Progress.fail())
+                .finally(() => this.isDistributionLoaded = true);
         });
     },
     mounted() {},

@@ -367,7 +367,7 @@
             this.autocompleteData.suggestions = displayedSuggestions;
             this.autocompleteData.show = query.length !== 0;
           })
-          .catch(error => { console.log(error); });
+          .catch(error => { console.error(error); });
       },
       handleSuggestionSelection(suggestion) {
         this.$router.push({ path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` });

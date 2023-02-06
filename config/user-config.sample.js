@@ -363,6 +363,11 @@ const glueConfig = {
         numberOfDisplayedValidationResults: 5,
       },
     },
+    // Distribution download as feature
+    downloadAs: {
+      // If true, enable it
+      enable: false,
+    },
     similarDatasets: {
       breakpoints: {
         verySimilar: { start: 0, end: 20 },

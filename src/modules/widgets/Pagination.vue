@@ -127,7 +127,7 @@ export default {
       return typeof page === 'number' && page > 0 && page <= this.getPageCount;
     },
     changePageTo(page, limit) {
-      this.$router.replace({ query: Object.assign({}, this.$route.query, { page, limit }) }).catch(error => { console.log(error); });
+      this.$router.replace({ query: Object.assign({}, this.$route.query, { page, limit }) }).catch(error => { console.error(error); });
       this.scrollTo(0, 0);
     },
     scrollTo(x, y) {

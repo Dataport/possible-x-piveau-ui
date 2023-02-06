@@ -600,7 +600,8 @@ export default {
               container: "body",
             });
           })
-          .catch(() => this.$Progress.fail());
+          .catch(() => this.$Progress.fail())
+          .finally(() => this.$root.$emit('contentLoaded'));
       });
     },
     initInfiniteScrolling() {
@@ -640,7 +641,7 @@ export default {
           this.autocompleteData.show = query.length !== 0;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     handleSuggestionSelection(suggestion) {
