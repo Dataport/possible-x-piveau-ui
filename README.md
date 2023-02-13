@@ -2,8 +2,8 @@
 
 > Please use node version >= 16. Recommended is version 17.x.
 
-Vanilla Piveau hub-ui using the piveau-hub-ui-modules as a dependency.
-Intended as a template to set up a new project UI.
+Vanilla piveau-hub-ui uses the piveau-hub-ui-modules as a dependency.
+This repository is intended as a template for setting up a new project UI.
 
 ## Project setup
 
@@ -43,9 +43,9 @@ $ docker run -i -p 8080:8080 piveau-hub-ui-2
 
 ## Configurations
 
-**Note:** _Just like the default configuration, **Runtime configurations** (or environment variables) will be loaded client-side. Therefore, it is recommended that you <u>**do not**</u> store sensitive information like passwords or tokens._
+**Note:** _Just like the default configuration, **Runtime configurations** (or environment variables) will be loaded client-side. Therefore, it is recommended that you <ins>**do not**</ins> store sensitive information like passwords or tokens._
 
-_The **Runtime configuration** file MUST be structurally identical to the standard `user-config.js` file. Each value MUST start with the `$VUE_APP_` prefix and SHOULD be followed by their path.
+_The **Runtime configuration** file MUST be structurally identical to the standard `user-config.js` file. Each value MUST start with the `$VUE_APP_` prefix and SHOULD be followed by its path.
 Their corresponding environment variable keys MUST equal that value without the `$` sign_
 
 _Environment variables created by the **Runtime configuration** will always override the corresponding **User configuration** from `user-config.js` when used correctly!_
@@ -96,9 +96,6 @@ Catalog Base URL.
 ## vueAppCorsproxyApiUrl
 URL to CORS Proxy API.
 
-## authToken
-Keycloak Authentication Token.
-
 
 <br><br>
 
@@ -119,6 +116,9 @@ Keycloak configuration values (Realm, ClientID, URL, ...).
 
 ## rtp
 RTP default values.
+
+## authToken
+Keycloak Authentication Token.
 
 
 <br><br>
@@ -285,12 +285,12 @@ const glueConfig = {
 }
 ```
 
-1. We want to make a new property (`API.HUB_URL`) avilable during runtime
-2. We want to change an existing property (`BASE_URL`) during runtime
+1. We want to change an existing property (`API.BASE_URL`) during runtime.
+2. We want to make a new property (`API.HUB_URL`) that already exists in `user-config.js` available during runtime.
 
 Let's go through the steps outlined above:
 
-1.  Add new property `API.HUB_URL` to [runtime-config.js](config/runtime-config.js):
+1.  Add new property `API.HUB_URL` to `runtime-config.js`:
 ```
 export default {
   API: {
