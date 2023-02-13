@@ -48,7 +48,7 @@ export default {
       this.$router.replace(
         { query: Object.assign({}, this.$route.query, { facetOperator: op }) }
       ).catch(
-        error => { console.log(error); }
+        error => { console.error(error); }
       );
     },
     change(op) {

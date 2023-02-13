@@ -162,7 +162,7 @@ export default {
       this.$router.replace(
         { query: Object.assign({}, this.$route.query, { query }, { page: 1 }) }
       ).catch(
-        error => { console.log(error); }
+        error => { console.error(error); }
       );
       this.setQuery(query);
     },
@@ -171,7 +171,7 @@ export default {
       this.$router.push(
         { path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` }
       ).catch(
-        error => { console.log(error); }
+        error => { console.error(error); }
       );
     },
     initSort() {
@@ -241,7 +241,7 @@ export default {
     sortSelected: {
       handler(sort) {
         this.$router.replace({ query: Object.assign({}, this.$route.query, { sort }) })
-          .catch(error => { console.log(error); });
+          .catch(error => { console.error(error); });
         this.setSort(sort);
       },
       deep: true,

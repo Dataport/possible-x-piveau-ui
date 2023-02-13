@@ -2,8 +2,6 @@
 
 // Import IE Promise polyfill
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-import '@babel/polyfill';
-import 'es6-promise/auto';
 import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
 import VueProgressBar from 'vue-progressbar';
@@ -98,6 +96,8 @@ import ECSubNavigation from "./components/ECSubNavigation.vue";
 import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
 import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
 
+import VueCookie from 'vue-cookie';
+
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
   RadioFacet: ECRadioFacet,
@@ -148,9 +148,6 @@ Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
 
 Vue.component('vue-skeleton-loader', VueSkeletonLoader);
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const VueCookie = require('vue-cookie');
 
 Vue.use(VueCookie);
 
@@ -262,31 +259,33 @@ Vue.use(Meta, {
 });
 
 // Bootstrap requirements to use js-features of bs-components
-require('popper.js');
+import 'popper.js';
 
-require('bootstrap');
+import 'bootstrap';
 
-require('./styles/styles.scss');
-
-if (ecStyle) {
-  require('./styles/ec-style.scss');
-} else {
-  require('./styles/old-deu-style.scss');
-}
+import './styles/styles.scss';
+// todo: restore this conditional
+// if (ecStyle) {
+//   require('./styles/ec-style.scss');
+// } else {
+//   require('./styles/old-deu-style.scss');
+// }
 
 $(() => {
   $('[data-toggle="popover"]').popover({ container: 'body' });
   $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
 });
 
-require('@fortawesome/fontawesome-free/css/all.css');
+import '@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
 
-require('@deu/deu-header-footer/dist/deu-header-footer.css');
+import '@fortawesome/fontawesome-free/css/all.css';
+
+import '@deu/deu-header-footer/dist/deu-header-footer.css';
 
 // OpenStreetMaps popup styles
-require('leaflet/dist/leaflet.css');
+import 'leaflet/dist/leaflet.css';
 
-require('@piveau/dcatap-frontend/dist/dcatap-frontend.css');
+import '@piveau/dcatap-frontend/dist/dcatap-frontend.css';
 
 // Vue-progressbar setup
 const progressBarOptions = {
@@ -369,6 +368,11 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
 // Attempt to load Vue with Keycloak using recover mechanism
 (async () => {
+
+  if (ecStyle) {
+    await import('./styles/ec-style.scss');
+  }
+
   if (!env.useAuthService) {
     createVueApp().$mount('#app');
     return {};

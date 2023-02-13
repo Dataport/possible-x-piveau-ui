@@ -11,7 +11,6 @@ import {
   DatasetDetails,
   MapBasic,
   MapBoundsReceiver,
-  Datasets,
   Catalogues,
   NotFound,
   SparqlSearch,
@@ -26,6 +25,7 @@ import {
   UserProfilePage,
   UserCataloguesPage,
   decode,
+  Datasets
 } from "@piveau/piveau-hub-ui-modules";
 import ECDatasets from "../src/components/ECDatasets.vue"
 import ECCatalogues from "../src/components/ECCatalogues.vue"
