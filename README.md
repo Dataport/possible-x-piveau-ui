@@ -61,13 +61,195 @@ The user-config.js file is located at `config/user-config.js` by default. It is 
 <details>
 <summary>Open user-config.js decription</summary>
 
-| Name              | Description |
-| -----------       | ----------- |
-| Key  | Value |
+# api
+
+This property contains information about base URLs and APIs used in piveau-hub-ui.
+
+## baseUrl 
+URL to Hub-Search API.
+
+## hubUrl
+URL to Hub-Repo API.
+
+## qualityBaseUrl
+URL to MQA Cache API.
+
+## similarityBaseUrl
+URL to Similarity API.
+
+## fileUploadUrl
+URL to Hub-Store API.
+
+## sparqlUrl
+SPARQL Base URL.
+
+## gazetteerBaseUrl
+URL to Hub-Search Gazetteer API.
+
+## catalogBaseUrl
+Catalog Base URL.
+
+## vueAppCorsproxyApiUrl
+URL to CORS Proxy API.
+
+## authToken
+Keycloak Authentication Token.
+
+
+<br><br>
+
+
+# authentication
+
+This property contains information about authentication (Login / Logout, Keycloak) used in piveau-hub-ui.
+
+
+## useService 
+Enables the authentication service. To deactivate the authentication, set this value to `false`.
+
+## login
+Login / Logout configuration values.
+
+## keycloak
+Keycloak configuration values (Realm, ClientID, URL, ...).
+
+## rtp
+RTP default values.
+
+
+<br><br>
+
+
+# routing
+
+This property contains information about authentication (Login / Logout, Keycloak) used in piveau-hub-ui.
+
+## routerOptions 
+Vue Router configuration values.
+
+## navigation
+Navigation configuration values.
+
+## pagination
+Pagination configuration values.
+
+
+<br><br>
+
+
+# metadata
+
+This property contains information about metadata used in piveau-hub-ui.
+
+## title 
+Title of the application.
+
+## description
+Description of the application.
+
+## keywords
+Keywords describing the application.
+
+
+<br><br>
+
+
+# content 
+
+This property contains information about the content of views that are available in piveau-hub-ui.
+
+## datasets 
+Contains configuration values that are used on the `Datasets` page.
+
+## catalogs
+Contains configuration values that are used on the `Catalogues` page.
+
+## datasetDetails
+Contains configuration values that are used on the `DatasetDetails` page.
+
+## maps
+Contains configuration values that are used to create the map component.
+
+## dataProviderInterface
+Contains configuration values that are used for the `DataProviderInterface`.
+
+
+<br><br>
+
+
+# languages
+
+This property contains information about languages used in piveau-hub-ui.
+
+## useLanguageSelector 
+_Note: This property is currently not used, but will be used in future versions._
+
+Enables the Language Selector in the Header component.
+
+## locale
+Default Language value on application start _(English)_.
+
+## fallbackLocale
+Default Fallback Language value _(English)_.
+
+
+<br><br>
+
+
+# services
+
+This property contains a list of services used in piveau-hub-ui.
+
+## datasetService
+Service resposible for querying all `Dataset` related data.
+
+## catalogService
+Service resposible for querying all `Catalog` related data.
+
+## uploadService
+Service resposible for uploading data created by the `DataProviderInterface` related data.
+
+## gazetteerService
+Service resposible for querying autocomplete data.
+
+
+<br><br>
+
+
+# themes
+
+This property contains information about themes used in piveau-hub-ui.
+
+## header
+The theme of the `Header` component.
+
+
+<br><br>
+
+
+# tracker
+
+This property contains information tracking software used in piveau-hub-ui.
+
+## isPiwikPro
+Switch between different tracking software tools. <br>
+
+| Value   | Tracking Software     |  
+|---      |-----------------------|
+| true    | Piwik Pro             |  
+| false   | Matomo                |  
+
+<br>
+
+## siteId
+ID for tracking software.
+
+## trackerUrl
+URL to tracking software.
 
 </details>
 
-<br>
+<br><br>
 
 ### Runtime configurations
 The `runtime-config.js` file is located at `config/runtime-config.js` by default. It is a template file, which lists all configurable environment variables that can be changed during runtime.
@@ -89,7 +271,7 @@ const glueConfig = {
 }
 ```
 
-and `process.env` looks like this:
+... and `process.env` looks like this:
 ```
 {
   NODE_ENV: 'production',
@@ -99,7 +281,10 @@ and `process.env` looks like this:
 }
 ```
 
-and we want to be able to change `BASE_URL` and add a new property `API.HUB_URL` during runtime. Let's go through the steps outlined above:
+1. We want to make a new property (`API.HUB_URL`) avilable during runtime
+2. We want to change an existing property (`BASE_URL`) during runtime
+
+Let's go through the steps outlined above:
 
 1.  Add new property `API.HUB_URL` to [runtime-config.js](config/runtime-config.js):
 ```
@@ -110,8 +295,10 @@ export default {
   }
 }
 ```
-2.  Build and deploy.
-3.  Set the environment variables `VUE_APP_API_BASE_URL` and `VUE_APP_API_HUB_URL`:
+
+Build and deploy the application.
+
+2.  Set the environment variables `VUE_APP_API_BASE_URL` and `VUE_APP_API_HUB_URL`:
 ```
 VUE_APP_API_BASE_URL=https://data.europa.eu/newBaseUrl
 VUE_APP_API_HUB_URL=https://data.europa.eu/newHubUrl
