@@ -36,7 +36,6 @@ const glueConfig = {
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
     catalogBaseUrl: 'https://europeandataportal.eu/',
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
-    authToken: '',
   },
   authentication: {
     useService: true, 
@@ -67,6 +66,7 @@ const glueConfig = {
       grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
       audience: 'piveau-hub-repo',
     },
+    authToken: '',
   },
   routing: {
     routerOptions: {

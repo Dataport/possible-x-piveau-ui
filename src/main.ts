@@ -125,7 +125,7 @@ configureModules({
     keycloak: env.authentication.keycloak,
     rtp: env.authentication.rtp,
     useAuthService: env.authentication.useService,
-    authToken: env.api.authToken,
+    authToken: env.authentication.authToken,
     defaultScoringFacets: env.content.datasets.facets.scoringFacets.defaultScoringFacets,
   }
 });
