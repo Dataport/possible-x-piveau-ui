@@ -117,7 +117,7 @@ export default {
       showFacetsTitle: this.$env.datasets.facets.showFacetsTitle,
       defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       useScoringFacets: this.$env.datasets.facets.scoringFacets.useScoringFacets,
-      useDataScopeFacets: this.$route.query.catalog.length === 0,
+      useDataScopeFacets: this.$route.params.ctlg_id.length === 0,
       showCatalogDetails: false,
       catalog: {},
       MIN_FACET_LIMIT: this.$env.datasets.facets.MIN_FACET_LIMIT,
@@ -382,7 +382,7 @@ export default {
       const showCatalogDetails = this.$route.query.showcatalogdetails;
       if (showCatalogDetails === 'true') {
         this.showCatalogDetails = true;
-        this.loadCatalog(this.$route.query.catalog);
+        this.loadCatalog(this.$route.params.ctlg_id);
       } else this.showCatalogDetails = false;
     },
     initMinScoring() {

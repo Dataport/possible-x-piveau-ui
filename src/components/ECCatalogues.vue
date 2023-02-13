@@ -355,11 +355,10 @@
             :key="`data-info-box@${catalog.id}`"
             catalog-mode
             :to="{
-              name: 'Datasets',
+              path: `/catalogues/${catalog.id}`,
               query: {
-                catalog: catalog.id,
                 showcatalogdetails: true,
-                locale: $route.query.locale,
+                locale: $route.query.locale
               },
             }"
             :src="getImg(getCatalogImage(catalog))"
@@ -693,7 +692,7 @@ export default {
       return dateFilters.fromNow(date);
     },
     getCatalogLink(catalog) {
-      return `/datasets?catalog=${catalog.id}&showcatalogdetails=true`;
+      return `/catalogues/${catalog.id}?showcatalogdetails=true`;
     },
     getCatalogImage(catalog) {
       return this.$env.catalogs.useCatalogCountries

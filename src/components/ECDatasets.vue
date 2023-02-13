@@ -446,22 +446,34 @@ export default {
       const fields = this.$env.datasets.facets.defaultFacetOrder;
       for (const field of fields) {
         this.facetFields.push(field);
-        if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-          this.$router
-            .replace({
-              query: Object.assign({}, this.$route.query, { [field]: [] }),
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        } else {
-          for (const facet of this.$route.query[field]) {
-            // do not add duplicates!
-            if (!this.getFacets[field]?.includes(facet)) {
-              this.addFacet({ field, facet });
-            }
-          }
+        // this.addFacet({ field: 'catalog', facet: 'open' });
+        console.log('test', field);
+        // catalog is not in queries anymore, so we have to add differently
+        if (field === 'catalog' && this.$route.params?.ctlg_id) {
+          console.log('add facet', { field, facet: this.$route.params.ctlg_id });
+          this.addFacet({ field, facet: this.$route.params.ctlg_id });
         }
+        // wieder entkommentieren
+        // else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
+        //   console.log('if case field', field);
+        //   this.$router
+        //     .replace({
+        //       query: Object.assign({}, this.$route.query, { [field]: [] }),
+        //     })
+        //     .catch((error) => {
+        //       console.error(error);
+        //     });
+        // } else {
+        //   // not going here, because no catalog in query I guess
+        //   console.log('field', field);
+        //   for (const facet of this.$route.query[field]) {
+        //     console.log('facets', field, facet);
+        //     // do not add duplicates!
+        //     if (!this.getFacets[field]?.includes(facet)) {
+        //       this.addFacet({ field, facet });
+        //     }
+        //   }
+        // }
       }
     },
     initFacetOperator() {
