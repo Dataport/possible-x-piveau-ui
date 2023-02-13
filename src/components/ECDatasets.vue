@@ -312,7 +312,9 @@ export default {
     facets() {
       const facets = {};
       for (const field of this.facetFields) {
-        let urlFacets = this.$route.query[field];
+        let urlFacets;
+        if (field === 'catalog') urlFacets = this.$route.params.ctlg_id;
+        else urlFacets = this.$route.query[field];
         if (!urlFacets) urlFacets = [];
         else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
         facets[field] = urlFacets;
@@ -454,26 +456,22 @@ export default {
           this.addFacet({ field, facet: this.$route.params.ctlg_id });
         }
         // wieder entkommentieren
-        // else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-        //   console.log('if case field', field);
-        //   this.$router
-        //     .replace({
-        //       query: Object.assign({}, this.$route.query, { [field]: [] }),
-        //     })
-        //     .catch((error) => {
-        //       console.error(error);
-        //     });
-        // } else {
-        //   // not going here, because no catalog in query I guess
-        //   console.log('field', field);
-        //   for (const facet of this.$route.query[field]) {
-        //     console.log('facets', field, facet);
-        //     // do not add duplicates!
-        //     if (!this.getFacets[field]?.includes(facet)) {
-        //       this.addFacet({ field, facet });
-        //     }
-        //   }
-        // }
+        else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
+          this.$router
+            .replace({
+              query: Object.assign({}, this.$route.query, { [field]: [] }),
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        } else {
+          for (const facet of this.$route.query[field]) {
+            // do not add duplicates!
+            if (!this.getFacets[field]?.includes(facet)) {
+              this.addFacet({ field, facet });
+            }
+          }
+        }
       }
     },
     initFacetOperator() {
