@@ -20,7 +20,7 @@ cd piveau-hub-ui-2
 npm ci
 ```
 
-### Create user configuration file
+### Create User configuration file
 Make sure you have a configuration file named `user-config.js` in the config folder.
 To start with, you can make a copy of `user-config.sample.js` and rename it to `user-config.js`.
 
@@ -43,23 +43,27 @@ $ docker run -i -p 8080:8080 piveau-hub-ui-2
 
 ## Configurations
 
-**Note:** _Environment variables created by the [Runtime Configurations](#runtime-configurations) will always override the corresponding configurations from `user-config.js` when used correctly!_
+**Note:** _Just like the default configuration, **Runtime configurations** (or environment variables) will be loaded client-side. Therefore, it is recommended that you <u>**do not**</u> store sensitive information like passwords or tokens._
 
-**Note:** _Runtime Configurations are only applied, when running the application via [Docker](#run-it-via-docker)_
+_The **Runtime configuration** file MUST be structurally identical to the standard `user-config.js` file. Each value MUST start with the `$VUE_APP_` prefix and SHOULD be followed by their path.
+Their corresponding environment variable keys MUST equal that value without the `$` sign_
+
+_Environment variables created by the **Runtime configuration** will always override the corresponding **User configuration** from `user-config.js` when used correctly!_
+
+_**Runtime Configurations** are only applied, when running the application via [Docker](#run-it-via-docker)._
 
 
-**Note:** _Just like the default configuration, runtime configurations (or environment variables) will be loaded client-side. Therefore, it is recommended that you **do not** store sensitive information like passwords or tokens._
 
-**Note:**  _The runtime configuration file MUST be structurally identical to the standard user-config.sample.js file. Each value MUST start with the `$VUE_APP_` prefix and SHOULD be followed by their path.
-Their corresponding environment variable keys MUST equal that value without the $ sign_
 
 <br>
 
 ### User configurations
-The user-config.js file is located at `config/user-config.js` by default. It is the main project configuration file. The following table shortly describes the configurable values.
+The User configuration file is located at `config/user-config.js` by default. It is the main project configuration file. The following table shortly describes the configurable values.
 
 <details>
 <summary>Open user-config.js decription</summary>
+
+<br>
 
 # api
 
@@ -252,7 +256,7 @@ URL to tracking software.
 <br><br>
 
 ### Runtime configurations
-The `runtime-config.js` file is located at `config/runtime-config.js` by default. It is a template file, which lists all configurable environment variables that can be changed during runtime.
+The Runtime configuration file is located at `config/runtime-config.js` by default. It is a template file, which lists all configurable environment variables that can be changed during runtime.
 
 We utilize a Vue plugin `RuntimeConfiguration` to configure a web application using environment variables without rebuilding it.
 
