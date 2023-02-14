@@ -138,6 +138,14 @@ const router = new Router({
       },
     },
     {
+      path: '/catalogues/:ctlg_id',
+      name: 'CatalogueDetails',
+      component: ecStyle ? ECDatasets : Datasets,
+      meta: {
+        title,
+      },
+    },
+    {
       path: '/imprint',
       name: 'Imprint',
       component: Imprint,
