@@ -117,7 +117,7 @@ export default {
       showFacetsTitle: this.$env.datasets.facets.showFacetsTitle,
       defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       useScoringFacets: this.$env.datasets.facets.scoringFacets.useScoringFacets,
-      useDataScopeFacets: this.$route.params.ctlg_id.length === 0,
+      useDataScopeFacets: isNil(this.$route.params.ctlg_id),
       showCatalogDetails: false,
       catalog: {},
       MIN_FACET_LIMIT: this.$env.datasets.facets.MIN_FACET_LIMIT,

@@ -202,7 +202,7 @@
 <script>
 /* eslint-disable no-undef */
 import { mapActions, mapGetters } from "vuex";
-import { debounce, has, groupBy, uniqBy, toPairs, isArray } from "lodash-es";
+import { debounce, has, groupBy, uniqBy, toPairs, isArray, isNil } from "lodash-es";
 import $ from "jquery";
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
 import {
@@ -313,7 +313,7 @@ export default {
       const facets = {};
       for (const field of this.facetFields) {
         let urlFacets;
-        if (field === 'catalog') urlFacets = this.$route.params.ctlg_id;
+        if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
         else urlFacets = this.$route.query[field];
         if (!urlFacets) urlFacets = [];
         else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
@@ -343,6 +343,7 @@ export default {
     },
   },
   methods: {
+    isNil,
     ...mapActions("datasets", [
       "loadDatasets",
       "loadAdditionalDatasets",
@@ -448,14 +449,10 @@ export default {
       const fields = this.$env.datasets.facets.defaultFacetOrder;
       for (const field of fields) {
         this.facetFields.push(field);
-        // this.addFacet({ field: 'catalog', facet: 'open' });
-        console.log('test', field);
-        // catalog is not in queries anymore, so we have to add differently
-        if (field === 'catalog' && this.$route.params?.ctlg_id) {
-          console.log('add facet', { field, facet: this.$route.params.ctlg_id });
+        // catalog is not in queries anymore, so we have to add to facets differently
+        if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) {
           this.addFacet({ field, facet: this.$route.params.ctlg_id });
         }
-        // wieder entkommentieren
         else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
           this.$router
             .replace({
