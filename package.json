@@ -129,8 +129,8 @@
         "name": "master"
       },
       {
-        "name": "next",
-        "channel": "next"
+        "name": "develop",
+        "prerelease": true
       },
       {
         "name": "configuration",
