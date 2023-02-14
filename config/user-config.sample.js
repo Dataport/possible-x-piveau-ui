@@ -55,7 +55,7 @@ const glueConfig = {
       clientId: 'piveau-hub-ui',
       url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
 
-      // TODO: Do we need to include these properties? They seem to be default values that never change.
+      // TODO: Do we need to include these properties? They seem to be default values that never change #2763
       'ssl-required': 'external',
       'public-client': true, 
       'verify-token-audience': true, 
@@ -70,7 +70,7 @@ const glueConfig = {
   },
   routing: {
     routerOptions: {
-      base: '/', // TODO: Include piveau-header-footer instead of deu-header-footer to make test app working with default base path
+      base: '/', // TODO: Include piveau-header-footer instead of deu-header-footer to make test app working with default base path #2765
       mode: 'history',
     },
     navigation: { 
@@ -80,7 +80,7 @@ const glueConfig = {
       usePagination: true,
       usePaginationArrows: true,
       useItemsPerPage: true,
-      defaultItemsPerPage: 10, // TODO: Make use of this property
+      defaultItemsPerPage: 10, // TODO: Make use of this property #2764
       defaultItemsPerPageOptions: [5, 10, 25, 50], 
     },
   },
@@ -108,7 +108,7 @@ const glueConfig = {
         FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }), 
         defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'], 
         scoringFacets: {
-          useScoringFacets: true, // TODO: Make use of this property
+          useScoringFacets: true, // TODO: Make use of this property #2764
           defaultScoringFacets: { 
             excellentScoring: {
               id: 'excellentScoring',
@@ -143,7 +143,7 @@ const glueConfig = {
       },
     },
     catalogs: { 
-      useSort: true, // TODO: Make use of this property
+      useSort: true, // TODO: Make use of this property #2764
       useCatalogCountries: true,
       defaultCatalogImagePath: '/flags',
       defaultCatalogCountryID: 'eu',
@@ -178,7 +178,7 @@ const glueConfig = {
         incrementSteps: [10, 50],
         descriptionMaxLines: 3,
         descriptionMaxChars: 250,
-        showValidationButton: false, // TODO: Make use of this property
+        showValidationButton: false, // TODO: Make use of this property #2764
       },
       pages: {
         isVisible: false,
@@ -213,8 +213,8 @@ const glueConfig = {
       bulkDownload: {
         buttonPosition: "top",
         MAX_FILE_TITLE_LENGTH: 80,
-        MAX_REQUESTS_COUNT: 5, // TODO: Make use of this property
-        INTERVAL_MS: 10, // TODO: Make use of this property
+        MAX_REQUESTS_COUNT: 5, // TODO: Make use of this property #2764
+        INTERVAL_MS: 10, // TODO: Make use of this property #2764
         TIMEOUT_MS: 10000,
       },
       quality: {
@@ -276,7 +276,7 @@ const glueConfig = {
     },
   },
   languages: {
-    useLanguageSelector: true, // TODO: Make use of this property by passing it to the Header-Footer in App.vue
+    useLanguageSelector: true, // TODO: Make use of this property by passing it to the Header-Footer in App.vue #2766
     locale: 'en',
     fallbackLocale: 'en',
   },
@@ -290,7 +290,7 @@ const glueConfig = {
     header: 'dark',
   },
   tracker: {
-    // TODO: Implement disable tracker option based on condition
+    // TODO: Implement disable tracker option based on condition #2767
     isPiwikPro: true, // true: PiwikPro | false: Matomo
     siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
     trackerUrl: 'https://opanalytics.containers.piwik.pro/'
