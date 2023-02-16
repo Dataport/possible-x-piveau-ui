@@ -635,7 +635,7 @@ export default {
     border-color: #196fd2;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767.5px) {
   .ec-ds-dropdown-items{
     width: 100% !important;
   }
