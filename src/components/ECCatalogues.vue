@@ -894,7 +894,7 @@ export default {
   top: 0;
   z-index: 100;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767.5px) {
 
   #btnGroupDrop1{
     border: none !important;
