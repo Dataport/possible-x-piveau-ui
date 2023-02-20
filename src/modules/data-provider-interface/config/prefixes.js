@@ -18,7 +18,8 @@ const prefixes = {
   voaf: "http://purl.org/vocommons/voaf#",
   vcard: "http://www.w3.org/2006/vcard/ns#",
   time: "http://www.w3.org/2006/time#",
-  dext: "https://data.europa.eu/ns/ext#"
+  dext: "https://data.europa.eu/ns/ext#",
+  dcatde:"https://www.dcat-ap.de/"
 };
 
 export default prefixes;

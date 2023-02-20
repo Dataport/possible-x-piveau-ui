@@ -36,6 +36,7 @@ const actions = {
         });
     },
     requestResourceName({ commit }, { voc, resource }) {
+                
         const value = resource.substring(resource.lastIndexOf('/') + 1);
         let req;
 

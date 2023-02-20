@@ -33,9 +33,6 @@ import {
 } from 'lodash';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
-import axios from 'axios';
-import qs from 'qs';
-
 
 export default {
   props: {
@@ -118,7 +115,8 @@ export default {
         this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
         const existingValues = this.$store.getters['dpiStore/getRawValues']({property: this.property, page: this.page, id: this.id});
-        // only overwrite empty object if there are values (otherwise the language preselectionis gone)
+        // only overwrite empty object if there are values (otherwise the language preselection is gone)
+        
         if (existingValues) {
           this.formValues = existingValues;
         }

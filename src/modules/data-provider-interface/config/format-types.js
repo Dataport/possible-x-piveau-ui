@@ -6,6 +6,11 @@ const singularURI = {
         "dct:spatial",
         "dct:accessRights",
         "dct:type",
+        "dcatap:availabilityDE",
+        "dcatde:qualityProcessURI",
+        "dct:references",
+
+        
         // singular URIs nested within other properties
         'vcard:hasEmail', // contact point
         'vcard:hasURL', // contect point
@@ -42,6 +47,9 @@ const singularURI = {
 // all properties with multiple URI values
 const multipleURI = {
     datasets: [
+        "dcatde:politicalGeocodingLevelURI",
+        "dcatde:politicalGeocodingURI",
+        "dcatde:contributorID",
         "dct:language", 
         "dct:subject",  
         "dcat:theme",
@@ -123,6 +131,9 @@ const multilingualStrings = {
         "dct:description", // also nested within page
         "dcat:keyword",
         "adms:versionNotes",
+        "geocodingDescription",
+        "dcatde:legalBasis",
+        "dcatde:licenseAttributionByText",
     ],
     distributions: [
         "dct:title", // also nested within page
@@ -148,6 +159,9 @@ const groupedProperties = {
         // nested grouped properties
         'vcard:hasAddress',
         'skos:notation',
+        "dct:contributor",
+        "dcatde:originator",
+        "dcatde:maintainer",
     ],
     distributions: [
         'foaf:page',
@@ -202,6 +216,9 @@ const multiURIarray = {
         "dct:language", 
         "dct:subject",  
         "dcat:theme",
+        "dcatde:politicalGeocodingLevelURI",
+        "dcatde:politicalGeocodingURI",
+        "dcatde:contributorID",
     ],
     distributions: [
         "dct:language",

@@ -703,6 +703,82 @@
                     "info": "Had Role info text",
                     "help": "Had Role help text",
                     "label": "Had Role"
+                },
+                "politicalGeocodingLevelURI": {
+                    "help": "For the coded indication of the respective principle management level from which the data structure was collected and set.",
+                    "info": "For the coded indication of the respective principle management level from which the data structure was collected and set.",
+                    "label": "Political geocoding level URI"
+                },
+                "politicalGeocodingURI": {
+                    "help": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
+                    "info": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
+                    "label": "Political geocoding URI"
+                },
+                "availabilityDE": {
+                    "help": "Scheduled availability of the dataset as a selection from a fixed list of values via DCAT-AP URIs.",
+                    "info": "Scheduled availability of the dataset as a selection from a fixed list of values via DCAT-AP URIs.",
+                    "label": "Availability"
+                },
+                "contributorID": {
+                    "help": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData and is described in more detail in the conventions manual.",
+                    "info": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData and is described in more detail in the conventions manual.",
+                    "label": "Contributor ID"
+                },
+                "geocodingDescription": {
+                    "help": "This property contains the geographical coverage of a dataset, represented by the name of an administrative area or a subject reference as free text.",
+                    "info": "This property contains the geographical coverage of a dataset, represented by the name of an administrative area or a subject reference as free text.",
+                    "label": "Geocoding Description"
+                },
+                "legalBasis": {
+                    "help": "This field optionally documents as free text the legal basis for access to the information (the access opening), i.e. the original legal basis for access to data of the administration.",
+                    "info": "This field optionally documents as free text the legal basis for access to the information (the access opening), i.e. the original legal basis for access to data of the administration.",
+                    "label": "Legal Basis"
+                },
+                "qualityProcessURI": {
+                    "help": "A URI that points to the process for quality assurance of the dataset. This is ideally the URL of a web page.",
+                    "info": "A URI that points to the process for quality assurance of the dataset. This is ideally the URL of a web page.",
+                    "label": "Quality Process URI"
+                },
+                "contributor": {
+                    "help": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData.",
+                    "info": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData.",
+                    "label": "Contributor",
+                    "add-label":"Add more contributor"
+                },
+                "contributorTitle": {
+                    "help": "Title of the contributor",
+                    "info":"Title of the contributor",
+                   "label": "Contributor title"
+                },
+                "contributorEmail": {
+                    "help": "Email adress of the contributor",
+                    "info":"Email adress of the contributor",
+                    "label": "Contributor email adress"
+                 },
+                 "contributorName": {
+                    "help": "Name of the contributor",
+                    "info":"Name of the contributor",
+                    "label": "Contributor name"
+                 },
+                 "contributorHomepage": {
+                    "help": "Homepage of the contributor",
+                    "info":"Homepage of the contributor",
+                    "label": "Contributor Homepage"
+                 },
+                "originator": {
+                    "help": "This property refers to the persons who have copyright in the data set. According to copyright law, a work is protected if it is the personal intellectual creation of its author.",
+                    "info": "This property refers to the persons who have copyright in the data set. According to copyright law, a work is protected if it is the personal intellectual creation of its author.",
+                    "label": "Originator"
+                },
+                "maintainer": {
+                    "help": "This property refers to the bodies or individuals who take responsibility and accountability for the data and its appropriate maintenance.",
+                    "info": "This property refers to the bodies or individuals who take responsibility and accountability for the data and its appropriate maintenance.",
+                    "label": "Maintainer"
+                },
+                "references": {
+                    "help": "This property can be used to refer to reference datasets such as a High Value Dataset (HVD) or a sample dataset of the sample data catalogue.",
+                    "info": "This property can be used to refer to reference datasets such as a High Value Dataset (HVD) or a sample dataset of the sample data catalogue.",
+                    "label": "References"
                 }
             },
             "catalogues": {
@@ -907,6 +983,11 @@
                     "step2": {
                         "name": "Step 2: Define Catalogue properties"
                     }
+                },
+                "politicalGeocodingLevelURI": {
+                    "help": "For the coded indication of the respective principle management level from which the data structure was collected and set.",
+                    "info": "For the coded indication of the respective principle management level from which the data structure was collected and set.",
+                    "label": "Political Geocoding Level URI"
                 }
             },
             "clear": "Clear",
@@ -936,6 +1017,24 @@
             "newDistribution": "Add Distribution",
             "validationerror": "There was an error validating your form!",
             "distributions": {
+                
+                "licenseAttributionByText": {
+                    "help": "This property stores the mandatory naming text for licence details.",
+                    "info": "This property stores the mandatory naming text for licence details.",
+                    "label": "License attribution by text",
+                    "add-label":"Add License attribution by text"
+                },
+                "licenseAttributionByTextTitle": {
+                    "placeholder":"please provide a title",
+                    "help": "Title of License attribution by text",
+                    "info": "Title of License attribution by text",
+                    "label": "Title"
+                },
+                "availabilityDisDE": {
+                    "help": "Availability of the distribution of a dataset, as a selection from a fixed list of values via DCAT-AP URIs.",
+                    "info": "Availability of the distribution of a dataset, as a selection from a fixed list of values via DCAT-AP URIs.",
+                    "label": "Availability"
+                },
                 "accessServiceTitle": {
                     "label": "Data Service Title",
                     "add-label": "Add Data Service Title in another language",
@@ -1147,12 +1246,6 @@
                     "label": "Data Service Endpoint URL",
                     "placeholder": "Distribution Data Service Endpoint URL placeholder text",
                     "help": "The link to the data service's webpage."
-                },
-                "accessServiceEndpointDescription": {
-                    "label": "Data Service Endpoint Description",
-                    "placeholder": "Distribution Data Service Endpoint Description placeholder text",
-                    "help": "Provides more Details to the data service.",
-                    "info": "Das ist der Tooltip."
                 },
                 "rights": {
                     "info": "This property refers to a statement that specifies rights associated with the Distribution.",
@@ -1603,7 +1696,7 @@
                     "euInternationalData": "EU and international data",
                     "datasets": "Datasets",
                     "catalogs": "Catalogues",
-                    "metadataquality": "Metadata Quality",
+                    "metadataquality": "Metadata quality",
                     "sparqleditor": "SPARQL Editor",
                     "statistics": "Statistics",
                     "sparqlsearch": "SPARQL Search",
@@ -1720,7 +1813,7 @@
             "license": "A licence describes the legal conditions on how a dataset can be used.",
             "dataScope": "EU data holds datasets and services from EU institutions. International data holds datasets and services that comes from beyond the EU. Country data holds datasets and services from the member states of the EU.",
             "format": "Each dataset has references to files or data services. The format describes the file type or service type of these references. Not every file type can serve for all purposes, e.g. a calculation can better be done with a CSV file instead of a PDF.",
-            "catalog": "A catalogue or repository that hosts datasets and data services. A catalogue mostly represents a portal where the datasets where collected from.",
+            "catalog": "A catalogue or repository hosts datasets and data services. A catalogue mostly represents a portal where the datasets where collected from.",
             "settings": "Decide whether your filter selection is exclusive or not. If you select AND all the search results must match all filters. OR means that at least one filter has to match.",
             "categories": "A category groups datasets sharing a common topic.",
             "publisher": "A publisher is an entity (e.g. organisation) that is responsible for making the Dataset available.",

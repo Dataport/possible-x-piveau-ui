@@ -181,7 +181,7 @@ Vue.use(VueFormulate, {
       classification: 'text',
       component: 'AutocompleteInput',
       slotProps: {
-        component: ['voc', 'multiple','annifTheme'],
+        component: ['voc', 'multiple','annifTheme','dcatDE'],
       },
     },
     'unique-identifier-input': {
