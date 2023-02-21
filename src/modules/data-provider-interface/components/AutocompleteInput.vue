@@ -57,6 +57,7 @@
           </span>
           {{ truncateWords(themeValue.name, 8, true) }} ...
         </div>
+
       </div>
       <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
@@ -77,6 +78,7 @@ import { truncate } from "../../utils/helpers";
 import $ from "jquery";
 import axios from 'axios';
 import qs from 'qs';
+import { nextTick } from 'vue'
 
 export default {
   props: {
@@ -134,6 +136,13 @@ export default {
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
+  // Need to make this safer! nextTick() maybe? 
+    setTimeout(() => {
+      for (var i = 0; i < Object.keys(this.values).length; i++) {
+      this.valueListOfThemes.push(this.values[i])
+
+    }
+    }, 1000);
 
     // console.log(this.voc);
   },
@@ -239,6 +248,7 @@ export default {
 
       // console.log(this.values);
       // console.log(this.valueListOfThemes);
+
       e.target.classList.add("inactiveHandleBtn");
     },
     async annifHandlerTheme(input) {
@@ -284,18 +294,20 @@ export default {
               list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
             }
             let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-            // TODO fix animation
-            for (var i = 0; i < filteredList.length; i++) {
-              filteredList[i].activeValue = true
-              this.valueListOfThemes.push(filteredList[i])
-            }
-            if (Object.keys(this.values).length > filteredList.length) {
-              let is = this.values.filter((set => item => !set.has(item.resource))(new Set(filteredList.map(item => item.resource))))
-              for (var w = 0; w < is.length; w++) {
-                is[w].activeValue = true
-                this.valueListOfThemes.push(is[w])
-              }
-            }
+           
+            // This Code filters the choosen 
+            // for (var i = 0; i < filteredList.length; i++) {
+            //   filteredList[i].activeValue = true
+            //   this.valueListOfThemes.push(filteredList[i])
+            // }
+            // if (Object.keys(this.values).length > filteredList.length) {
+            //   let is = this.values.filter((set => item => !set.has(item.resource))(new Set(filteredList.map(item => item.resource))))
+            //   for (var w = 0; w < is.length; w++) {
+            //     is[w].activeValue = true
+            //     this.valueListOfThemes.push(is[w])
+            //   }
+            // }
+           
             filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
             for (var q = 0; q < filteredList.length; q++) {
               this.valueListOfThemes.push(filteredList[q])

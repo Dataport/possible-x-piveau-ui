@@ -1240,7 +1240,7 @@ const dcatapProperties = {
           {
             identifier: 'licenceVocabulary',
             type: 'autocomplete-input',
-            voc: 'licence',
+            voc: 'licenses',
             name: '@id',
             '@change': true,
           },

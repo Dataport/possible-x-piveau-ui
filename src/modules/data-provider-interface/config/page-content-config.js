@@ -61,13 +61,14 @@ const config = {
       accessURL: {},
       title: {},
       description: {},
-      licenseAttributionByText: {},
+
     },
     step2: {
       downloadUrl: {},
       format: {},
       mediaType: {},
       licence: {},
+      licenseAttributionByText: {},
       status: {},
       availability: {},
       issued: {},
