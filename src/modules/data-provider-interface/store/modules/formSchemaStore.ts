@@ -31,7 +31,9 @@ const actions = {
      * @param {Object} param1 Object containing property (datasets/catalogues), page (step1/step2/step3) and subpage (distribution1/distribution2/distribution3) of current view
      */
     createSchema({ commit }, { property, page }) {
-
+        
+        
+        
         const pageProperties = Object.keys(dpiconfig[property][page]);
         const propertyDefinitions = dcatapproperties[property];
 

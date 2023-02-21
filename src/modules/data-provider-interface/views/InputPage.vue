@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <slot></slot>
-    <div class="inputContainer" v-if="isInput">
+      <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields" @submit="handleSubmit"
         @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({property: property, id: id})"
@@ -60,7 +60,8 @@ export default {
         confirm: '',
         message: 'Mandatory Properties missing',
         callback: $('#modal').modal('hide'),
-      }
+      },
+      
     };
   },
   components: {
@@ -96,7 +97,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('auth', [
+      ...mapActions('auth', [
       'setIsEditMode',
       'setIsDraft',
     ]),
@@ -109,12 +110,13 @@ export default {
       'clearAll',
       'setMandatoryStatus',
     ]),
-    initInputPage() {
+  initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
         const existingValues = this.$store.getters['dpiStore/getRawValues']({property: this.property, page: this.page, id: this.id});
-        // only overwrite empty object if there are values (otherwise the language preselectionis gone)
+        // only overwrite empty object if there are values (otherwise the language preselection is gone)
+        
         if (existingValues) {
           this.formValues = existingValues;
         }
@@ -196,6 +198,7 @@ export default {
     },
   },
   created() {
+    
     if (this.$route.query.edit === false) {
       this.clear();
     }
@@ -206,7 +209,8 @@ export default {
     }
   },
   mounted() {
-    this.initInputPage();
+     this.initInputPage();
+     
   },
   watch: {
     getFirstTitleFromForm: {
