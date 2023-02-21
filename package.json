@@ -28,7 +28,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "@piveau/dcatap-frontend": "^2.5.0",
     "@piveau/piveau-header-footer": "^3.13.1",
-    "@piveau/piveau-hub-ui-modules": "^1.7.0",
+    "@piveau/piveau-hub-ui-modules": "^1.9.0-develop.4",
     "@piveau/piveau-universal-piwik": "^2.5.0",
     "@triply/yasgui": "^4.2.25",
     "@triply/yasqe": "^4.2.23",
@@ -119,7 +119,7 @@
     "ts-jest": "^27.0.4",
     "typescript": "~4.5.5",
     "url-loader": "^4.1.1",
-    "vue-template-compiler": "^2.6.14",
+    "vue-template-compiler": "^2.7.14",
     "vuex-router-sync": "^5.0.0",
     "webpack-merge": "^4.2.2"
   },

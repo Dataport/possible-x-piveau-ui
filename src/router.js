@@ -132,6 +132,14 @@ const router = new Router({
         title,
       },
     },
+    {
+      path: '/catalogues/:ctlg_id',
+      name: 'CatalogueDetails',
+      component: Datasets,
+      meta: {
+        title,
+      },
+    },
     // {
     //   path: '/home',
     //   name: 'Home',
