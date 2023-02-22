@@ -78,7 +78,7 @@ import { truncate } from "../../utils/helpers";
 import $ from "jquery";
 import axios from 'axios';
 import qs from 'qs';
-import { nextTick } from 'vue'
+
 
 export default {
   props: {
