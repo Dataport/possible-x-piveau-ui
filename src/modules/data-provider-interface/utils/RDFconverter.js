@@ -20,7 +20,7 @@ function convertToRDF(data, property) {
     const RDFdata = new N3.Writer({prefixes: prefixes, format: 'N-Triples'});
     // datasetURI also needed for distribution creation (add distributionURI to dataset (dcat:distribution))
     const datasetURI = `https://piveau.eu/set/data/${data.datasets.datasetID}`; 
-
+    console.log(data)
     // convert values for datasets/catalogues
     convertPropertyValues(RDFdata, data[property], property, '', '', true, datasetURI); // datasets and catalogues
 
@@ -88,7 +88,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     const valueKeys = Object.keys(data);
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index]; // key format: either a normal name for special properties (e.g. datasetID) or namespaced keys (e.g. dct:title)
-
+        console.log(key);
         // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
         // depending on the format the corresponding conversion-method is used, writing the result to the overall RDF-writer
         if (formatTypes.singularString[property].includes(key)) {
@@ -341,7 +341,10 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     N3.DataFactory.namedNode(generalHelper.addNamespace(data[key]))
                 ))
             }
-        }
+        } 
+        // else if(key === 'dcatde:politicalGeocodingLevelURI'){
+        //     console.log("Ich bin der Uwe und bin auch dabei");
+        // }        
     }
 }
 

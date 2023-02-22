@@ -231,9 +231,11 @@ export default {
       } else {
         submitProperty = this.property;
       }
-
+      
       const RDFdata = await this.convertToRDF(submitProperty).then((response) => {return response;});
-
+      
+      console.log(RDFdata);
+      
       const rtpToken = this.getUserData.rtpToken;
 
       if (!this.getMandatoryStatus({ property: this.property, id: this.id })) {
