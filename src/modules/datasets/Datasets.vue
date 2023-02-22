@@ -370,7 +370,8 @@
               })
               .catch(() => {
                 this.$Progress.fail();
-              });
+              })
+              .finally(() => this.$root.$emit('contentLoaded'));
           });
         });
       },
