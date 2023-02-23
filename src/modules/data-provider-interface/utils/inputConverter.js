@@ -29,7 +29,7 @@ function convertToInput(state, property, data) {
     }
         
     // extract data for datasets/catalogues
-    namespaceKeys = generalHelper.getPagePrefixedNames(property, formDefinitions, pageContent);
+    namespaceKeys = generalHelper.getPagePrefixedNames(property, formDefinitions, dpiConfig.pageConent);
     state[property] = {};
     for (let el of propertyQuads) {
         // there should be only one dataset id
@@ -48,7 +48,7 @@ function convertToInput(state, property, data) {
     // also add distribution data
     if (property === 'datasets') {
         const distributionQuads = data.match(generalID, 'http://www.w3.org/ns/dcat#distribution', null, null);
-        namespaceKeys = generalHelper.getPagePrefixedNames('distributions', formDefinitions, pageContent);
+        namespaceKeys = generalHelper.getPagePrefixedNames('distributions', formDefinitions, dpiConfig.pageConent);
         state.distributions = [];
         for (let el of distributionQuads) {
             const currentDistribution = {};
