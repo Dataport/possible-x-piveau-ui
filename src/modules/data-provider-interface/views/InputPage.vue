@@ -1,7 +1,6 @@
 <template>
   <div class="form-container">
     <slot></slot>
-    <pre>{{ formValues }}</pre>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"

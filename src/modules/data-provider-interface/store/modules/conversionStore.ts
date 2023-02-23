@@ -11,6 +11,8 @@ import generalHelper from '../../utils/general-helper';
 import toRDF from '../../utils/RDFconverter';
 import toInput from '../../utils/inputConverter';
 
+import generalDpiConfig from '../../config/dpi-spec-config.js';
+
 Vue.use(Vuex);
 
 const state = {
@@ -254,7 +256,8 @@ const mutations = {
      * @param param1 Object containing data and property and state
      */
     saveLinkedDataToStore(state, { property, data }) {
-        toInput.convertToInput(state, property, data);
+        const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+        toInput.convertToInput(state, property, data, dpiConfig);
 
         if (property === 'datasets') {
             localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));

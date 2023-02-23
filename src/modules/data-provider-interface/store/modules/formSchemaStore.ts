@@ -4,11 +4,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { isEmpty } from 'lodash-es';
+import generalDpiConfig from '../../config/dpi-spec-config.js';
 
-// config defining which properties are displayed on which page
-import dpiconfig from '../../config/page-content-config';
-// form input definition for all properties of each DCAT-AP profile
-import dcatapproperties from '../../config/dcatap-input-definition';
 // external translation method
 import translate from '../../utils/translation-helper';
 
@@ -31,11 +28,10 @@ const actions = {
      * @param {Object} param1 Object containing property (datasets/catalogues), page (step1/step2/step3) and subpage (distribution1/distribution2/distribution3) of current view
      */
     createSchema({ commit }, { property, page }) {
-        
-        
-        
-        const pageProperties = Object.keys(dpiconfig[property][page]);
-        const propertyDefinitions = dcatapproperties[property];
+
+        const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+        const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
+        const propertyDefinitions = dpiConfig.inputDefinition[property];
 
         commit('extractSchema', { pageProperties, propertyDefinitions });
     },
