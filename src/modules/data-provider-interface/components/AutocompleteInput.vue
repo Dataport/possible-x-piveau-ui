@@ -295,7 +295,7 @@ export default {
             }
             let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
            
-            // This Code filters the choosen 
+            
             // for (var i = 0; i < filteredList.length; i++) {
             //   filteredList[i].activeValue = true
             //   this.valueListOfThemes.push(filteredList[i])
