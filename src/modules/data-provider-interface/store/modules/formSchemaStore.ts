@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import { isEmpty } from 'lodash-es';
-import dpiConfig from '../../config/dpi-spec-config.js';
+import generalDpiConfig from '../../config/dpi-spec-config.js';
 
 // external translation method
 import translate from '../../utils/translation-helper';
@@ -28,7 +28,8 @@ const actions = {
      * @param {Object} param1 Object containing property (datasets/catalogues), page (step1/step2/step3) and subpage (distribution1/distribution2/distribution3) of current view
      */
     createSchema({ commit }, { property, page }) {
-        
+
+        const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
         const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
         const propertyDefinitions = dpiConfig.inputDefinition[property];
 

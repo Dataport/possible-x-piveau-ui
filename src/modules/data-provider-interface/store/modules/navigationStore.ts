@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 // config defining which properties are displayed on which page
-import dpiConfig from '../../config/dpi-spec-config';
+import generalDpiConfig from '../../config/dpi-spec-config.js';
 
 Vue.use(Vuex);
 
@@ -18,6 +18,7 @@ const state = {
 
 const getters = {
     getNavSteps(state) {
+        const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
 
         // get names of navigation steps from dpi page configuration
         state.navigation.datasets = Object.keys(dpiConfig.pageConent.datasets).concat('distoverview').concat('overview');

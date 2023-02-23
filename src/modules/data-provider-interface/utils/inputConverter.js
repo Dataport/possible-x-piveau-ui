@@ -1,16 +1,12 @@
 import generalHelper from "./general-helper";
 
-import dpiConfig from '../config/dpi-spec-config';
-const formatType = dpiConfig.formatTypes;
-const formDefinitions = dpiConfig.inputDefinition;
-
 /**
  * Converts given data for given property into input form format
  * @param {*} state state from store
  * @param {*} property Property to convert data for (datasets/catalogues)
  * @param {*} data Linked data within a dataset
  */
-function convertToInput(state, property, data) {
+function convertToInput(state, property, data, dpiConfig) {
 
     let generalID;
     let namespaceKeys;
@@ -29,7 +25,7 @@ function convertToInput(state, property, data) {
     }
         
     // extract data for datasets/catalogues
-    namespaceKeys = generalHelper.getPagePrefixedNames(property, formDefinitions, dpiConfig.pageConent);
+    namespaceKeys = generalHelper.getPagePrefixedNames(property, dpiConfig.inputDefinition, dpiConfig.pageConent);
     state[property] = {};
     for (let el of propertyQuads) {
         // there should be only one dataset id
@@ -37,7 +33,7 @@ function convertToInput(state, property, data) {
 
         for (let pageName in namespaceKeys[property]) {
             state[property][pageName] = {};
-            convertProperties(property, state.datasets[pageName], generalID, data, namespaceKeys[property][pageName]);
+            convertProperties(property, state.datasets[pageName], generalID, data, namespaceKeys[property][pageName], dpiConfig);
         }
         
     }
@@ -48,7 +44,7 @@ function convertToInput(state, property, data) {
     // also add distribution data
     if (property === 'datasets') {
         const distributionQuads = data.match(generalID, 'http://www.w3.org/ns/dcat#distribution', null, null);
-        namespaceKeys = generalHelper.getPagePrefixedNames('distributions', formDefinitions, dpiConfig.pageConent);
+        namespaceKeys = generalHelper.getPagePrefixedNames('distributions', dpiConfig.inputDefinition, dpiConfig.pageConent);
         state.distributions = [];
         for (let el of distributionQuads) {
             const currentDistribution = {};
@@ -56,7 +52,7 @@ function convertToInput(state, property, data) {
             const distributionId = el.object.value;
             for (let pageName in namespaceKeys['distributions']) {
                 currentDistribution[pageName] = {};
-                convertProperties('distributions', currentDistribution[pageName], distributionId, data, namespaceKeys['distributions'][pageName]);
+                convertProperties('distributions', currentDistribution[pageName], distributionId, data, namespaceKeys['distributions'][pageName], dpiConfig);
             }  
             state.distributions.push(currentDistribution);
 
@@ -76,18 +72,20 @@ function convertToInput(state, property, data) {
  * @param {*} data Linked data
  * @param {*} propertyKeys Keys of properties to check
  */
-function convertProperties(property, state, id, data, propertyKeys) {
+function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
+
+    const formatType = dpiConfig.formatTypes;
 
     for (let index = 0; index < propertyKeys.length; index += 1) {
         const key = propertyKeys[index];
-        let subData = data.match(id, generalHelper.addNamespace(key), null, null);
+        let subData = data.match(id, generalHelper.addNamespace(key, dpiConfig), null, null);
 
         if (formatType.singularString[property].includes(key)) {
             convertSingularStrings(subData, state, key);
         } else if (formatType.singularURI[property].includes(key)) {
             convertSingularURI(subData, state, key);
         } else if (formatType.multipleURI[property].includes(key)) {
-            convertMultipleURI(subData, state, key, property);
+            convertMultipleURI(subData, state, key, property, dpiConfig);
         } else if (formatType.typedStrings[property].includes(key)) {
             convertTypedString(subData, state, key);
         } else if (formatType.multilingualStrings[property].includes(key)) {
@@ -107,8 +105,8 @@ function convertProperties(property, state, id, data, propertyKeys) {
                         // some properties have a named node containing data, the value of this named node also is a value form the input form (typically @id)
                         if (el.object.termType === 'NamedNode') currentState['@id'] = el.object.value;
                         // get keys of node properties
-                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null));
-                        convertProperties(property, currentState, el.object, data, nestedKeys);
+                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null), dpiConfig);
+                        convertProperties(property, currentState, el.object, data, nestedKeys, dpiConfig);
                     }
                     state[key].push(currentState);
                 }
@@ -167,7 +165,7 @@ function convertProperties(property, state, id, data, propertyKeys) {
                 // get id of blank node and associated label data
                 for (let el of subData) {
                     const rightsBlankNode = el.object;
-                    nodeData = data.match(rightsBlankNode, generalHelper.addNamespace('rdfs:label'), null, null);
+                    nodeData = data.match(rightsBlankNode, generalHelper.addNamespace('rdfs:label', dpiConfig), null, null);
                     for (let label of nodeData) {
                         state[key] = label.object.value;
                     }
@@ -188,13 +186,13 @@ function convertProperties(property, state, id, data, propertyKeys) {
                         const licenceProperties = {};
                         // convert nested values
 
-                        const licenceTitleQuad = data.match(el.object, generalHelper.addNamespace('dct:title'), null, null);
+                        const licenceTitleQuad = data.match(el.object, generalHelper.addNamespace('dct:title', dpiConfig), null, null);
                         for (let el of licenceTitleQuad) {
                             licenceProperties['dct:title'] = el.object.value;
 
                         }
 
-                        convertProperties(property, licenceProperties, el.object, data, nestedKeys);
+                        convertProperties(property, licenceProperties, el.object, data, nestedKeys, dpiConfig);
                         state[key].push(licenceProperties);
                     }
                 }
@@ -227,7 +225,7 @@ function convertProperties(property, state, id, data, propertyKeys) {
 
                 // typically there is only on type provided for each property instance
                 for (let el of subData) {
-                    state[key] = generalHelper.removeNamespace(el.object.value);
+                    state[key] = generalHelper.removeNamespace(el.object.value, dpiConfig);
                 }
             }
         }
@@ -284,10 +282,12 @@ function convertSingularURI(data, state, key) {
  * @param {*} state 
  * @param {*} key 
  */
-function convertMultipleURI(data, state, key, property) {
+function convertMultipleURI(data, state, key, property, dpiConfig) {
     // there are two different formats the frontend need to deliver multiple URIs
     // 1: [ "URI1", "URI2" ]
     // 2: [ { "@id": "URI1" }, { "@id": "URI2" } ]
+
+    const formatType = dpiConfig.formatTypes;
 
     if (data.size > 0) {
         state[key] = [];

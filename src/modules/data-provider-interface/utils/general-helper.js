@@ -1,5 +1,3 @@
-import dpiConfig from '../config/dpi-spec-config';
-
 import { isEmpty, isNil } from 'lodash';
 
 /**
@@ -20,7 +18,7 @@ function mergeNestedObjects(data) {
  * @param {*} prefix 
  * @returns 
  */
-function addNamespace(prefix) {
+function addNamespace(prefix, dpiConfig) {
     // the prefix had the following format: namespace:property (e.g. dct:title)
     // the short version of the namespace noe should be replaced by the long version (e.g. http://purl.org/dc/terms/title)
 
@@ -49,7 +47,7 @@ function addNamespace(prefix) {
  * @param {*} longValue Long value with long namespace (e.g. https://....#type)
  * @returns Returns value with short namespace (e.g. rdf:type)
  */
-function removeNamespace(longValue) {
+function removeNamespace(longValue, dpiConfig) {
     let lastIndex;
 
     // long namespace either ends with an # or a \
@@ -71,11 +69,11 @@ function removeNamespace(longValue) {
  * @param {*} data An array of quads with keys as predicate
  * @returns Array of shortened keys
  */
-function getNestedKeys(data) {
+function getNestedKeys(data, dpiConfig) {
     const keys = [];
 
     for (let el of data) {
-        keys.push(removeNamespace(el.predicate.value));
+        keys.push(removeNamespace(el.predicate.value, dpiConfig));
     }
 
     return keys;

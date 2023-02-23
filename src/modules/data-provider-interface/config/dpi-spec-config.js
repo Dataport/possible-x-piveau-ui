@@ -1,5 +1,6 @@
 // @ts-nocheck
 // dynamic imports are somehow diffcult so we need to import everything :(
+import Vue from 'vue';
 
 // import for DCAT-AP
 import pageContent from './dcatap/page-content-config';
@@ -14,19 +15,19 @@ import prefixesDCATAPDE from './dcatapde/prefixes';
 import formatTypesDCATAPDE from './dcatapde/format-types';
 
 const config = {
-    "pageConent": pageContent,
-    "inputDefinition": inputDefinition,
-    "formatTypes": formatTypes,
-    "prefixes": prefixes,
+    dcatap: {
+        pageConent: pageContent,
+        inputDefinition: inputDefinition,
+        formatTypes: formatTypes,
+        prefixes: prefixes,
+    },
+    dcatapde: {
+        pageConent: pageContentDCATAPDE,
+        inputDefinition: inputDefinitionDCATAPDE,
+        formatTypes: formatTypesDCATAPDE,
+        prefixes: prefixesDCATAPDE,
+    }
+    
 };
-
-// TODO: get to work
-// overwrite definitions if DCAT-AP.de is selected
-// if (this.$env.upload && this.$env.upload.specification === 'dcatapde') {        
-//     config.pageConent = pageContentDCATAPDE;
-//     config.inputDefinition = inputDefinitionDCATAPDE;
-//     config.formatTypes = formatTypesDCATAPDE;
-//     config.prefixes = prefixesDCATAPDE;
-// }
 
 export default config;
