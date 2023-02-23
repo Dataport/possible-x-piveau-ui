@@ -2,8 +2,8 @@ import N3 from 'n3';
 import { isEmpty } from 'lodash';
 import { has, cloneDeep } from 'lodash';
 
-import formatTypes from '../config/format-types';
-import prefixes from '../config/prefixes';
+import dpiConfig from '../config/dpi-spec-config';
+const formatTypes = dpiConfig.formatTypes;
 
 import generalHelper from './general-helper';
 
@@ -17,7 +17,7 @@ function convertToRDF(data, property) {
     let finishedRDFdata;
 
     // writer for adding data as quads
-    const RDFdata = new N3.Writer({prefixes: prefixes, format: 'N-Triples'});
+    const RDFdata = new N3.Writer({prefixes: dpiConfig.prefixes, format: 'N-Triples'});
     // datasetURI also needed for distribution creation (add distributionURI to dataset (dcat:distribution))
     const datasetURI = `https://piveau.eu/set/data/${data.datasets.datasetID}`; 
     console.log(data)

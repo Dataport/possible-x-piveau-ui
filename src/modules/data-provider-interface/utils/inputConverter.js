@@ -1,7 +1,8 @@
 import generalHelper from "./general-helper";
-import formatType from '../config/format-types';
-import formDefinitions from '../config/dcatap-input-definition';
-import pageContent from '../config/page-content-config';
+
+import dpiConfig from '../config/dpi-spec-config';
+const formatType = dpiConfig.formatTypes;
+const formDefinitions = dpiConfig.inputDefinition;
 
 /**
  * Converts given data for given property into input form format

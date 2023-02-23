@@ -1,4 +1,5 @@
-import context from '../config/prefixes';
+import dpiConfig from '../config/dpi-spec-config';
+
 import { isEmpty, isNil } from 'lodash';
 
 /**
@@ -34,7 +35,7 @@ function addNamespace(prefix) {
         // the long version of the namespace is saved within the context.json (config)
         // there is an object containing the namespace abbreviation(key) and the corresponding value is the long version of the namespace
 
-        const longNamespace = context[namespaceAbbreviation];
+        const longNamespace = dpiConfig.prefixes[namespaceAbbreviation];
         fullDescriptor = `${longNamespace}${propertyName}`;
     } else {
         fullDescriptor = prefix;
@@ -60,7 +61,7 @@ function removeNamespace(longValue) {
 
     const shortValue = longValue.substr(lastIndex + 1);
     const longPrefix = longValue.substr(0, lastIndex + 1);
-    const shortPrefix = Object.keys(context).find(key => context[key] === longPrefix);
+    const shortPrefix = Object.keys(dpiConfig.prefixes).find(key => dpiConfig.prefixes[key] === longPrefix);
 
     return `${shortPrefix}:${shortValue}`;
 }

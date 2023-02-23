@@ -174,6 +174,7 @@ export default {
     },
   },
   upload: {
+    specification: "$VUE_APP_UPLOAD_SPECIFICATION",
     useUpload: "$VUE_APP_UPLOAD_USE_UPLOAD",
     buttons: {
       Dataset: "$VUE_APP_UPLOAD_BUTTONS_DATASET",

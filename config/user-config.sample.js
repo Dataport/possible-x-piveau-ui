@@ -417,6 +417,7 @@ const glueConfig = {
     },
   },
   upload: {
+    specification: "dcatap", // dcatap or dcatapde
     useUpload: true,
     buttons: {
       Dataset: true,
