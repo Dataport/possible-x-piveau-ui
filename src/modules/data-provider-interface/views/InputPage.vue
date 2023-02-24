@@ -1,11 +1,11 @@
 <template>
   <div class="form-container">
     <slot></slot>
-    <div class="inputContainer" v-if="isInput">
+      <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields" @submit="handleSubmit"
-        @change="saveToJsonld({property: property, values: formValues, distid: id})"
-        @repeatableRemoved="saveToJsonld({property: property, values: formValues, distid: id})">
+        @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({property: property, id: id})"
+        @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues })">
           <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
@@ -60,7 +60,8 @@ export default {
         confirm: '',
         message: 'Mandatory Properties missing',
         callback: $('#modal').modal('hide'),
-      }
+      },
+      
     };
   },
   components: {
@@ -74,7 +75,7 @@ export default {
     ]),
     ...mapGetters('dpiStore', [
       'getSchema',
-      'mandatoryFieldsFilled',
+      'getMandatoryStatus',
       'getNavSteps',
     ]),
     getFirstTitleFromForm() {
@@ -96,28 +97,30 @@ export default {
     },
   },
   methods: {
-    ...mapActions('auth', [
+      ...mapActions('auth', [
       'setIsEditMode',
       'setIsDraft',
     ]),
     ...mapActions('dpiStore', [
       'createSchema',
       'translateSchema',
-      'saveToJsonld',
-      'saveToForm',
-      'saveExistingJsonld',
+      'saveFormValues',
+      'saveLocalstorageValues',
       'addCatalogOptions',
       'clearAll',
+      'setMandatoryStatus',
     ]),
-    initInputPage() {
+  initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
-        this.saveExistingJsonld(this.property);
-        this.saveToForm({property: this.property, page: this.page, distid: this.id }).then((response) => {
-          const preexistingValues = response;
-          // vuex returns observer of the data which will not be accepted by the input form so the data gets converted to 'real' data by using JSON conversion functions
-          this.formValues = JSON.parse(JSON.stringify(preexistingValues));
-        });
+        this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
+        const existingValues = this.$store.getters['dpiStore/getRawValues']({property: this.property, page: this.page, id: this.id});
+        // only overwrite empty object if there are values (otherwise the language preselection is gone)
+        
+        if (existingValues) {
+          this.formValues = existingValues;
+        }
+        
         this.$nextTick(() => {
           $('[data-toggle="tooltip"]').tooltip({
             container: 'body',
@@ -195,6 +198,7 @@ export default {
     },
   },
   created() {
+    
     if (this.$route.query.edit === false) {
       this.clear();
     }
@@ -205,7 +209,8 @@ export default {
     }
   },
   mounted() {
-    this.initInputPage();
+     this.initInputPage();
+     
   },
   watch: {
     getFirstTitleFromForm: {
@@ -234,7 +239,7 @@ export default {
         vm.clear();
         vm.jumpToFirstPage();
       }
-      if (from.name === null && !vm.mandatoryFieldsFilled({property: vm.property, id: vm.id})) {
+      if (from.name === null && !vm.getMandatoryStatus({property: vm.property, id: vm.id})) {
         vm.jumpToFirstPage();
         $('#mandatoryModal').modal({ show: true });
       }
@@ -242,7 +247,7 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     // Checks if next route within the DPI is a route which does not require mandatory checking
-    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.mandatoryFieldsFilled({property: this.property, id: this.id})) {
+    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({property: this.property, id: this.id})) {
       $('#mandatoryModal').modal({ show: true });
     } else {
       next();

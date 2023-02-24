@@ -11,7 +11,7 @@
       <div class="right-form-nav">
 
         <!-- PUBLISH NEW CATALOGUE -->
-        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || mandatoryFieldsFilled({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || getMandatoryStatus({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
 
@@ -100,7 +100,7 @@ export default {
     ...mapGetters('dpiStore', [
       'getData',
       'getNavSteps',
-      'mandatoryFieldsFilled',
+      'getMandatoryStatus'
     ]),
     iDError() { return this.$route.query.error === 'id' },
     datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
@@ -113,13 +113,13 @@ export default {
       return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateNewDraft() {
-      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
+      return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
     },
     showCreateEditedDataset() {
       return this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateEditedDraft() {
-      return (this.mandatoryFieldsFilled({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
+      return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
     },
     showNextLabel() {
       return !(this.isOverviewPage || this.page === 'distoverview');
@@ -146,7 +146,7 @@ export default {
       'showSnackbar',
     ]),
     ...mapActions('dpiStore', [
-      'finishJsonld',
+      'convertToRDF',
       'clearAll',
     ]),
     closeModal() {
@@ -231,20 +231,20 @@ export default {
       } else {
         submitProperty = this.property;
       }
-
-      const jsonld = await this.finishJsonld(submitProperty).then((response) => {
-        return response;
-      });
-
+      
+      const RDFdata = await this.convertToRDF(submitProperty).then((response) => {return response;});
+      
+      console.log(RDFdata);
+      
       const rtpToken = this.getUserData.rtpToken;
 
-      if (!this.mandatoryFieldsFilled({ property: this.property, id: this.id })) {
+      if (!this.getMandatoryStatus({ property: this.property, id: this.id })) {
         this.$Progress.fail();
         this.showSnackbar({ message: 'Mandatory Properties missing', variant: 'error' });
         return;
       }
 
-      const datasetId = this.getData(submitProperty)['@id'];
+      const datasetId = this.getData(submitProperty)['datasetID'];
       const title = this.getData(submitProperty)['dct:title'];
       const description = this.getData(submitProperty)['dct:description'];
       const catalogName = this.getData(submitProperty)['dct:catalog'] ? this.getData(submitProperty)['dct:catalog'] : '';
@@ -254,21 +254,21 @@ export default {
       let actionParams = {
         id: datasetId,
         catalog: catalogName,
-        body: jsonld,
+        body: RDFdata,
         title,
         description,
       };
 
       if (mode === 'dataset') {
         uploadUrl = `${this.$env.api.hubUrl}datasets?id=${datasetId}&catalogue=${catalogName}`;
-        actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
+        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
         actionName = 'auth/createDataset';
       } else if (mode === 'draft') {
         uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
         actionName = 'auth/createUserDraft';
       } else if (mode === 'createcatalogue') {
         uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
-        actionParams = { data: jsonld, token: rtpToken, url: uploadUrl };
+        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl, id: datasetId };
         actionName = 'auth/createCatalogue';
       }
 
@@ -283,6 +283,10 @@ export default {
         if (mode === 'createcatalogue') this.createCatalogue(datasetId);
         if (mode === 'dataset') this.createDataset(datasetId);
         if (mode === 'draft') this.createDraft();
+
+        // store needs to be reset (especially the mandatoryStatus)
+        this.clearAll();
+
       } catch (err) {
         this.uploading[mode] = false;
         this.$Progress.fail();

@@ -42,7 +42,7 @@ const RuntimeConfiguration = {
 
     const merged = merge(mergeOptions, opts.baseConfig, runtimeConfig);
     if (opts.debug) {
-      console.log(`Runtime configuration = ${JSON.stringify(merged)}`); // eslint-disable-line
+      console.debug(`Runtime configuration = ${JSON.stringify(merged)}`); // eslint-disable-line
     }
 
     Vue.prototype.$env = merged; // eslint-disable-line

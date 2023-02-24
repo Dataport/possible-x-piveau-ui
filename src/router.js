@@ -25,14 +25,13 @@ import {
   UserProfilePage,
   UserCataloguesPage,
   decode,
+  Datasets
 } from "@piveau/piveau-hub-ui-modules";
 import ECDatasets from "../src/components/ECDatasets.vue"
 import ECCatalogues from "../src/components/ECCatalogues.vue"
 import ECDatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetDetailsQuality.vue"
 
 import { ecStyle } from '../config/user-config';
-
-const Datasets = () => import(/* webpackChunkName: "datasets" */ '@piveau/piveau-hub-ui-modules');
 
 Vue.use(Router);
 
@@ -134,6 +133,14 @@ const router = new Router({
       path: '/catalogues',
       name: 'Catalogues',
       component: ecStyle ? ECCatalogues : Catalogues,
+      meta: {
+        title,
+      },
+    },
+    {
+      path: '/catalogues/:ctlg_id',
+      name: 'CatalogueDetails',
+      component: ecStyle ? ECDatasets : Datasets,
       meta: {
         title,
       },

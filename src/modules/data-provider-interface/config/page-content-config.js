@@ -9,8 +9,12 @@ const config = {
       theme: {},
       issued: {},
       modified: {},
+
     },
     step2: {
+      politicalGeocodingLevelURI: {},
+      politicalGeocodingURI: {},
+      availabilityDE: {},
       keyword: {},
       subject: {},
       contactPoint: {},
@@ -42,6 +46,14 @@ const config = {
       provenance: {},
       qualifiedAttribution: {},
       wasGeneratedBy: {},
+      geocodingDescription: {},
+      legalBasis: {},
+      qualityProcessURI: {},
+      contributor: {},
+      contributorID: {},
+      originator: {},
+      maintainer: {},
+      references: {},
     }
   },
   distributions: {
@@ -49,12 +61,14 @@ const config = {
       accessURL: {},
       title: {},
       description: {},
+
     },
     step2: {
       downloadUrl: {},
       format: {},
       mediaType: {},
       licence: {},
+      licenseAttributionByText: {},
       status: {},
       availability: {},
       issued: {},
@@ -76,6 +90,7 @@ const config = {
     },
     step4: {
       accessService: {},
+      availabilityDisDE: {}
     }
   },
   catalogues: {
@@ -94,7 +109,8 @@ const config = {
       isPartOf: {},
       // rights: {},
       catalog: {},
-      creator: {}, 
+      creator: {},
+      availabilityCatDE: {}
     }
   }
 };

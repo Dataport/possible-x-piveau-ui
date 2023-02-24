@@ -8,27 +8,29 @@ import { has } from 'lodash-es';
  * @param {String} property String defining which property translation should be used
  */
 function translateProperty(propertyDefinition, property) {
-    const translatableParameters = ['label', 'info', 'help', 'placeholder', 'add-label'];
-    const propertyName = propertyDefinition.identifier;
+    if (has(propertyDefinition, 'identifier')) { // hidden fields don't need a label and have no identifier 
+        const translatableParameters = ['label', 'info', 'help', 'placeholder', 'add-label'];
+        const propertyName = propertyDefinition.identifier;
 
-    for (let valueIndex = 0; valueIndex < translatableParameters.length; valueIndex += 1) {
-        let translation = propertyName;
-        const parameter = translatableParameters[valueIndex];
-        const translationExsists = Vue.i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
+        for (let valueIndex = 0; valueIndex < translatableParameters.length; valueIndex += 1) {
+            let translation = propertyName;
+            const parameter = translatableParameters[valueIndex];
+            const translationExsists = Vue.i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
 
-        // Check if translation exists
-        if (!has(property, parameter) ) {
-            if (translationExsists) {
-                translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
-            } else {
-                // if no translation is available, provide english label
-                translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
+            // Check if translation exists
+            if (!has(property, parameter) ) {
+                if (translationExsists) {
+                    translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
+                } else {
+                    // if no translation is available, provide english label
+                    translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
+                }
+            propertyDefinition[parameter] = translation;
             }
-          propertyDefinition[parameter] = translation;
-        }
 
-        // Highlight mandatory fields
-        if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') propertyDefinition[parameter] = `${translation}*`
+            // Highlight mandatory fields
+            if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') propertyDefinition[parameter] = `${translation}*`
+        }
     }
 }
 

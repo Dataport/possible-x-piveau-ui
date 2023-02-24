@@ -355,11 +355,10 @@
             :key="`data-info-box@${catalog.id}`"
             catalog-mode
             :to="{
-              name: 'Datasets',
+              path: `/catalogues/${catalog.id}`,
               query: {
-                catalog: catalog.id,
                 showcatalogdetails: true,
-                locale: $route.query.locale,
+                locale: $route.query.locale
               },
             }"
             :src="getImg(getCatalogImage(catalog))"
@@ -641,7 +640,7 @@ export default {
           this.autocompleteData.show = query.length !== 0;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     handleSuggestionSelection(suggestion) {
@@ -693,7 +692,7 @@ export default {
       return dateFilters.fromNow(date);
     },
     getCatalogLink(catalog) {
-      return `/datasets?catalog=${catalog.id}&showcatalogdetails=true`;
+      return `/catalogues/${catalog.id}?showcatalogdetails=true`;
     },
     getCatalogImage(catalog) {
       return this.$env.catalogs.useCatalogCountries
@@ -895,7 +894,7 @@ export default {
   top: 0;
   z-index: 100;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767.5px) {
 
   #btnGroupDrop1{
     border: none !important;

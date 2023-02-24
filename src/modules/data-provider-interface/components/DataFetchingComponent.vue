@@ -36,7 +36,7 @@ export default {
       'setIsDraft',
     ]),
     ...mapActions('dpiStore', [
-      'saveJsonldFromBackend',
+      'convertToInput',
     ]),
     async setupEditPage() {
       let endpoint;
@@ -44,16 +44,16 @@ export default {
 
       if (this.getIsDraft) {
         this.setIsDraft(true);
-        endpoint = `${this.$env.api.hubUrl}drafts/datasets/${this.id}.jsonld?catalogue=${this.catalog}`;
-        await this.saveJsonldFromBackend({endpoint, token: this.token, property: this.property, id: this.id});
+        endpoint = `${this.$env.api.hubUrl}drafts/datasets/${this.id}.nt?catalogue=${this.catalog}`;
+        await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id});
       } else {
         this.setIsDraft(false);
         if (this.property === 'catalogues') {
-          endpoint = `${this.$env.api.hubUrl}catalogues/${this.catalog}.jsonld`;
-          await this.saveJsonldFromBackend({endpoint, token: this.token, property: this.property, id: this.catalog});
+          endpoint = `${this.$env.api.hubUrl}catalogues/${this.catalog}.nt`;
+          await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.catalog});
         } else {
-          endpoint = `${this.$env.api.hubUrl}datasets/${this.id}.jsonld?useNormalizedId=true`;
-          await this.saveJsonldFromBackend({endpoint, token: this.token, property: this.property, id: this.id});
+          endpoint = `${this.$env.api.hubUrl}datasets/${this.id}.nt?useNormalizedId=true`;
+          await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id});
         } 
       }
 

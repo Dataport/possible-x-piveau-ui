@@ -117,7 +117,7 @@ export default {
       showFacetsTitle: this.$env.datasets.facets.showFacetsTitle,
       defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
       useScoringFacets: this.$env.datasets.facets.scoringFacets.useScoringFacets,
-      useDataScopeFacets: this.$route.query.catalog.length === 0,
+      useDataScopeFacets: isNil(this.$route.params.ctlg_id),
       showCatalogDetails: false,
       catalog: {},
       MIN_FACET_LIMIT: this.$env.datasets.facets.MIN_FACET_LIMIT,
@@ -268,13 +268,13 @@ export default {
         return this.$router.replace(
           { query: Object.assign({}, this.$route.query, query) }
         ).catch(
-          error => { console.log(error); }
+          error => { console.error(error); }
         );
       } else {
         return this.$router.push(
           { query: Object.assign({}, this.$route.query, query) }
         ).catch(
-          error => { console.log(error); }
+          error => { console.error(error); }
         );
       }
     },
@@ -297,7 +297,7 @@ export default {
         facet.toUpperCase();
         qField = qField.map(f => f.toUpperCase());
       }
-      
+
       return qField.indexOf(facet) > -1;
       },
     facetClicked(field, item) {
@@ -337,7 +337,7 @@ export default {
       if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
         this.setMinScoring(0);
         this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
-          .catch(error => { console.log(error); });
+          .catch(error => { console.error(error); });
       }
       sessionStorage.clear();
     },
@@ -382,7 +382,7 @@ export default {
       const showCatalogDetails = this.$route.query.showcatalogdetails;
       if (showCatalogDetails === 'true') {
         this.showCatalogDetails = true;
-        this.loadCatalog(this.$route.query.catalog);
+        this.loadCatalog(this.$route.params.ctlg_id);
       } else this.showCatalogDetails = false;
     },
     initMinScoring() {
@@ -417,7 +417,7 @@ export default {
     //   this.$router.replace(
     //     { query: Object.assign({}, this.$route.query, { dataServices }) }
     //   ).catch(
-    //     error => { console.log(error); }
+    //     error => { console.error(error); }
     //   );
     // },
     '$route.query.showcatalogdetails'(showCatalogDetails) {
@@ -436,7 +436,7 @@ export default {
     this.initMinScoring();
     for(var i in sessionStorage){
       if(sessionStorage.length > 0 && i =="Filter") this.toggleCutoff();
-      
+
     }
     /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
     /* fill in here */
