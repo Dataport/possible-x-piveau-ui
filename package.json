@@ -148,10 +148,6 @@
       {
         "name": "next",
         "prerelease": true
-      },
-      {
-        "name": "develop",
-        "prerelease": true
       }
     ],
     "plugins": [
