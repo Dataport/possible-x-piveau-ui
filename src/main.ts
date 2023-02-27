@@ -13,7 +13,7 @@ import Vue from 'vue';
 import Meta from 'vue-meta';
 import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
-import DeuHeaderFooter from '@deu/deu-header-footer';
+import DeuHeaderFooter, { Header, Footer} from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
 import VueSkeletonLoader from 'skeleton-loader-vue';
 // import AppToast from '@/components/AppToast';
@@ -306,6 +306,8 @@ Vue.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 Vue.use(injector, { components: true });
 
 Vue.use(DeuHeaderFooter);
+Vue.component('deu-header', Header);
+Vue.component('deu-footer', Footer);
 
 Vue.use(VuePositionSticky);
 
