@@ -18,13 +18,10 @@ const dcatapProperties = {
       '@change': true,
     },
     politicalGeocodingURI: {
-      identifier: 'politicalGeocodingURI',
-      type: 'group',
+      type: "group",
       name: 'dcatde:politicalGeocodingURI',
-      class: 'property',
-      '@dcatDE': true,
-      '@change': true,
       repeatable: true,
+      '@change': true,
       '@repeatableRemoved': true,
       children: [
         {
@@ -34,8 +31,6 @@ const dcatapProperties = {
           class: 'property',
           '@dcatDE': true,
           '@change': true,
-          repeatable: true,
-          '@repeatableRemoved': true,
           options: {
             voc: 'Choose from vocabulary',
             man: 'Manually submit information',
@@ -125,7 +120,6 @@ const dcatapProperties = {
           },
         }
       ]
-
     },
     availabilityDE: {
       identifier: 'availabilityDE',

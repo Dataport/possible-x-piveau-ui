@@ -200,8 +200,7 @@ const multiURIobjects = {
         "prov:wasGeneratedBy",
         "dct:isVersionOf",
         "dct:hasVersion",
-        "dcatde:politicalGeocodingLevelURI",
-
+        "dcatde:politicalGeocodingURI",
     ],
     distributions: [
         "dcat:accessURL",
@@ -220,7 +219,8 @@ const multiURIarray = {
         "dct:language",
         "dct:subject",
         "dcat:theme",
-        
+        "dcatde:politicalGeocodingLevelURI",
+        "dcatde:politicalGeocodingURI",
         "dcatde:contributorID",
     ],
     distributions: [
