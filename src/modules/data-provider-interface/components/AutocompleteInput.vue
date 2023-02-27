@@ -193,9 +193,7 @@ export default {
             }));
             this.autocomplete.suggestions = results;
           });
-
         }
-
       } else {
         if (this.autocomplete.text.length <= 1) {
           this.requestFirstEntrySuggestions(voc).then((response) => {

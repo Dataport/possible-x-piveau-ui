@@ -19,100 +19,113 @@ const dcatapProperties = {
     },
     politicalGeocodingURI: {
       identifier: 'politicalGeocodingURI',
-      type: 'conditional-input',
+      type: 'group',
       name: 'dcatde:politicalGeocodingURI',
       class: 'property',
       '@dcatDE': true,
       '@change': true,
       repeatable: true,
       '@repeatableRemoved': true,
-      options: {
-        voc: 'Choose from vocabulary',
-        man: 'Manually submit information',
-      },
-      data: {
-        voc: [
-          {
-            identifier: 'politicalGeocodingURI',
-            type: 'conditional-input',
-            name: 'dcatde:politicalGeocodingURI',
-            options: {
-              municipalityKey: 'Municipality Key',
-              regionalKey: 'Regional Key',
-              municipalAssociationKey: 'Municipal Association Key',
-              districtKey: 'District Key',
-              governmentDistrictKey: 'Government District Key',
-              stateKey: 'State Key'
-            },
-            '@change': true,
-            data: {
-              municipalityKey: [
-                {
-                  identifier: 'politicalGeocodingURI',
-                  type: 'autocomplete-input',
-                  voc: 'political-geocoding-municipality-key',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-              regionalKey: [
-                {
-                  identifier: 'politicalGeocodingURI',
-                  type: 'autocomplete-input',
-                  voc: 'political-geocoding-regional-key',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-              municipalAssociationKey: [
-                {
-                  identifier: 'politicalGeocodingURI',
-                  type: 'autocomplete-input',
-                  voc: 'political-geocoding-municipal-association-key',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-              districtKey: [
-                {
-                  identifier: 'politicalGeocodingURI',
-                  type: 'autocomplete-input',
-                  voc: 'political-geocoding-district-key',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-              governmentDistrictKey: [
-                {
-                  identifier: 'politicalGeocodingURI',
-                  type: 'autocomplete-input',
-                  voc: 'political-geocoding-government-district-key',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-              stateKey: [
-                {
-                  identifier: 'politicalGeocodingURI',
-                  type: 'autocomplete-input',
-                  voc: 'political-geocoding-state-key',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-            },
+      children: [
+        {
+          identifier: 'politicalGeocodingURI',
+          type: 'conditional-input',
+          name: '@id',
+          class: 'property',
+          '@dcatDE': true,
+          '@change': true,
+          repeatable: true,
+          '@repeatableRemoved': true,
+          options: {
+            voc: 'Choose from vocabulary',
+            man: 'Manually submit information',
           },
-        ],
-        man: [
-          {
-            identifier: 'politicalGeocodingURIUrl',
-            type: 'url',
-            name: '@id',
-            validation: 'optional|url',
-            '@change': true,
+          data: {
+            voc: [
+              {
+                identifier: 'politicalGeocodingURI',
+                type: 'conditional-input',
+                name: 'dcatde:politicalGeocodingURI',
+                options: {
+                  municipalityKey: 'Municipality Key',
+                  regionalKey: 'Regional Key',
+                  municipalAssociationKey: 'Municipal Association Key',
+                  districtKey: 'District Key',
+                  governmentDistrictKey: 'Government District Key',
+                  stateKey: 'State Key'
+                },
+                '@change': true,
+                data: {
+                  municipalityKey: [
+                    {
+                      identifier: 'politicalGeocodingURI',
+                      type: 'autocomplete-input',
+                      voc: 'political-geocoding-municipality-key',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                  regionalKey: [
+                    {
+                      identifier: 'politicalGeocodingURI',
+                      type: 'autocomplete-input',
+                      voc: 'political-geocoding-regional-key',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                  municipalAssociationKey: [
+                    {
+                      identifier: 'politicalGeocodingURI',
+                      type: 'autocomplete-input',
+                      voc: 'political-geocoding-municipal-association-key',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                  districtKey: [
+                    {
+                      identifier: 'politicalGeocodingURI',
+                      type: 'autocomplete-input',
+                      voc: 'political-geocoding-district-key',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                  governmentDistrictKey: [
+                    {
+                      identifier: 'politicalGeocodingURI',
+                      type: 'autocomplete-input',
+                      voc: 'political-geocoding-government-district-key',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                  stateKey: [
+                    {
+                      identifier: 'politicalGeocodingURI',
+                      type: 'autocomplete-input',
+                      voc: 'political-geocoding-state-key',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                },
+              },
+            ],
+            man: [
+              {
+                identifier: 'politicalGeocodingURIUrl',
+                type: 'url',
+                name: '@id',
+                validation: 'optional|url',
+                '@change': true,
+              },
+            ],
           },
-        ],
-      },
+        }
+      ]
+
     },
     availabilityDE: {
       identifier: 'availabilityDE',

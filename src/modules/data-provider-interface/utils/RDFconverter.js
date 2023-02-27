@@ -104,9 +104,11 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
             // if no dowloadURL is provided, set accessUrls as downloadUrls
             if (!downloadUrlsProvided && key === 'dcat:accessURL') {
                 // copy accessurl array to donwloadurl array and convert data
+                
                 data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
                 convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
             }
+            console.log(key+"--- "+ JSON.stringify(data) );
             convertMultipleURI(RDFdataset, mainURI, data, key, property, dpiConfig);
         } else if (formatTypes.typedStrings[property].includes(key)) {
             convertTypedString(RDFdataset, mainURI, data, key, dpiConfig);            
@@ -467,7 +469,7 @@ function convertMultipleURI(RDFdataset, id, data, key, property, dpiConfig) {
     const formatTypes = dpiConfig.formatTypes;
 
     for (let uriIndex = 0; uriIndex < data[key].length; uriIndex += 1) {
-
+        console.log(formatTypes.multiURIobjects[property], has(data[key][uriIndex], '@id'));
         let currentURI;
         if (formatTypes.multiURIarray[property].includes(key) && !isEmpty(data[key][uriIndex])) {
             // array of URLs from multi-autocomplete fields
@@ -475,6 +477,7 @@ function convertMultipleURI(RDFdataset, id, data, key, property, dpiConfig) {
         } else if (formatTypes.multiURIobjects[property].includes(key) && has(data[key][uriIndex], '@id') && !isEmpty(data[key][uriIndex])) {
             // array of objects with key-value-pair from repeatable fields
             currentURI = data[key][uriIndex]['@id'];
+           
         }
 
         // save quad to dataset

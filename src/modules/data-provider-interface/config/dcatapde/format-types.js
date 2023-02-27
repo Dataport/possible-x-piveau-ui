@@ -10,7 +10,7 @@ const singularURI = {
         "dcatde:qualityProcessURI",
         "dct:references",
 
-        
+
         // singular URIs nested within other properties
         'vcard:hasEmail', // contact point
         'vcard:hasURL', // contect point
@@ -50,8 +50,8 @@ const multipleURI = {
         "dcatde:politicalGeocodingLevelURI",
         "dcatde:politicalGeocodingURI",
         "dcatde:contributorID",
-        "dct:language", 
-        "dct:subject",  
+        "dct:language",
+        "dct:subject",
         "dcat:theme",
         "dct:source",
         "dcat:landingPage",
@@ -142,8 +142,8 @@ const multilingualStrings = {
         "dct:description", // also nested within page
     ],
     catalogues: [
-        'dct:title', 
-        'dct:description', 
+        'dct:title',
+        'dct:description',
     ],
 };
 
@@ -200,6 +200,8 @@ const multiURIobjects = {
         "prov:wasGeneratedBy",
         "dct:isVersionOf",
         "dct:hasVersion",
+        "dcatde:politicalGeocodingLevelURI",
+
     ],
     distributions: [
         "dcat:accessURL",
@@ -215,11 +217,10 @@ const multiURIobjects = {
 // multiple URIs provided by the form can be also formated as an array of URIs (autocomplete fields)
 const multiURIarray = {
     datasets: [
-        "dct:language", 
-        "dct:subject",  
+        "dct:language",
+        "dct:subject",
         "dcat:theme",
-        "dcatde:politicalGeocodingLevelURI",
-        "dcatde:politicalGeocodingURI",
+        
         "dcatde:contributorID",
     ],
     distributions: [
