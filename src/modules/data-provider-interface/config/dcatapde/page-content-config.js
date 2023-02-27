@@ -15,6 +15,14 @@ const config = {
         politicalGeocodingLevelURI: {},
         politicalGeocodingURI: {},
         availabilityDE: {},
+        contributorID: {},
+        geocodingDescription: {},
+        legalBasis: {},
+        qualityProcessURI: {},
+        references: {},
+        contributor: {},
+        originator: {},
+        maintainer: {},
         keyword: {},
         subject: {},
         contactPoint: {},
@@ -46,14 +54,6 @@ const config = {
         provenance: {},
         qualifiedAttribution: {},
         wasGeneratedBy: {},
-        geocodingDescription: {},
-        legalBasis: {},
-        qualityProcessURI: {},
-        contributor: {},
-        contributorID: {},
-        originator: {},
-        maintainer: {},
-        references: {},
       }
     },
     distributions: {
@@ -64,11 +64,11 @@ const config = {
   
       },
       step2: {
+        license: {},
+        licenseAttributionByText: {},
         downloadUrl: {},
         format: {},
         mediaType: {},
-        licence: {},
-        licenseAttributionByText: {},
         status: {},
         availability: {},
         issued: {},
@@ -96,6 +96,7 @@ const config = {
     catalogues: {
       step1: {
         title: {},
+        availabilityCatDE: {},
         datasetID: {},
         description: {},
         publisher: {},
@@ -110,7 +111,7 @@ const config = {
         // rights: {},
         catalog: {},
         creator: {},
-        availabilityCatDE: {}
+        
       }
     }
   };

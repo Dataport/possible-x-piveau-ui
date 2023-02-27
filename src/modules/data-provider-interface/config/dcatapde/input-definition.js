@@ -19,13 +19,100 @@ const dcatapProperties = {
     },
     politicalGeocodingURI: {
       identifier: 'politicalGeocodingURI',
-      type: 'autocomplete-input',
+      type: 'conditional-input',
       name: 'dcatde:politicalGeocodingURI',
       class: 'property',
-      voc: 'political-geocoding-municipality-key',
-      multiple: true,
       '@dcatDE': true,
       '@change': true,
+      repeatable: true,
+      '@repeatableRemoved': true,
+      options: {
+        voc: 'Choose from vocabulary',
+        man: 'Manually submit information',
+      },
+      data: {
+        voc: [
+          {
+            identifier: 'politicalGeocodingURI',
+            type: 'conditional-input',
+            name: 'dcatde:politicalGeocodingURI',
+            options: {
+              municipalityKey: 'Municipality Key',
+              regionalKey: 'Regional Key',
+              municipalAssociationKey: 'Municipal Association Key',
+              districtKey: 'District Key',
+              governmentDistrictKey: 'Government District Key',
+              stateKey: 'State Key'
+            },
+            '@change': true,
+            data: {
+              municipalityKey: [
+                {
+                  identifier: 'politicalGeocodingURI',
+                  type: 'autocomplete-input',
+                  voc: 'political-geocoding-municipality-key',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              regionalKey: [
+                {
+                  identifier: 'politicalGeocodingURI',
+                  type: 'autocomplete-input',
+                  voc: 'political-geocoding-regional-key',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              municipalAssociationKey: [
+                {
+                  identifier: 'politicalGeocodingURI',
+                  type: 'autocomplete-input',
+                  voc: 'political-geocoding-municipal-association-key',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              districtKey: [
+                {
+                  identifier: 'politicalGeocodingURI',
+                  type: 'autocomplete-input',
+                  voc: 'political-geocoding-district-key',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              governmentDistrictKey: [
+                {
+                  identifier: 'politicalGeocodingURI',
+                  type: 'autocomplete-input',
+                  voc: 'political-geocoding-government-district-key',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+              stateKey: [
+                {
+                  identifier: 'politicalGeocodingURI',
+                  type: 'autocomplete-input',
+                  voc: 'political-geocoding-state-key',
+                  name: '@id',
+                  '@change': true,
+                },
+              ],
+            },
+          },
+        ],
+        man: [
+          {
+            identifier: 'politicalGeocodingURIUrl',
+            type: 'url',
+            name: '@id',
+            validation: 'optional|url',
+            '@change': true,
+          },
+        ],
+      },
     },
     availabilityDE: {
       identifier: 'availabilityDE',
@@ -41,7 +128,6 @@ const dcatapProperties = {
       type: 'group',
       name: 'dcatde:geocodingDescription',
       class: 'property grid1r2c',
-      voc: 'planned-availability',
       '@dcatDE': true,
       '@change': true,
       repeatable: true,
@@ -52,17 +138,14 @@ const dcatapProperties = {
           identifier: 'geocodingDescription',
           type: 'textarea',
           name: '@value',
-          
           class: 'row1 column1',
           '@change': true,
-          '@annifCompletion': true,
         },
         {
           identifier: 'language',
           value: 'en',
           type: 'select',
           options: language,
-          
           name: '@language',
           class: 'row1 column2',
           '@change': true,
@@ -74,7 +157,6 @@ const dcatapProperties = {
       type: 'group',
       name: 'dcatde:legalBasis',
       class: 'property grid1r2c',
-      voc: 'planned-availability',
       '@dcatDE': true,
       '@change': true,
       repeatable: true,
@@ -87,7 +169,7 @@ const dcatapProperties = {
           name: '@value',
           class: 'row1 column1',
           '@change': true,
-          '@annifCompletion': true,
+
         },
         {
           identifier: 'language',
@@ -102,18 +184,19 @@ const dcatapProperties = {
     },
     qualityProcessURI: {
       identifier: 'qualityProcessURI',
-      name: 'dctapde:qualityProcessURI',
+      name: 'dcatde:qualityProcessURI',
       class: 'property',
-      type: 'autocomplete-input',
+      type: 'url',
       voc: 'planned-availability',
       '@change': true,
       '@dcatDE': true,
+
     },
     references: {
       identifier: 'references',
       name: 'dct:references',
       class: 'property',
-      type: 'autocomplete-input',
+      type: 'url',
       voc: 'planned-availability',
       '@change': true,
       '@dcatDE': true,
@@ -128,10 +211,14 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
-          identifier: 'contributorTitle',
-          type: 'text',
-          name: '@value',
-          class: 'row1 column1',
+          identifier: 'contributorType',
+          type: 'select',
+          name: 'rdf:type',
+          options: {
+            '': '---',
+            'vcard:Individual': 'Person',
+            'vcard:Organization': 'Organization',
+          },
           '@change': true,
         },
         {
@@ -162,6 +249,7 @@ const dcatapProperties = {
       name: 'dcatde:contributorID',
       class: 'property',
       voc: 'contributors',
+      multiple: true,
       '@dcatDE': true,
       '@change': true,
     },
@@ -175,10 +263,14 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
-          identifier: 'originatorTitle',
-          type: 'text',
-          name: '@value',
-          class: 'row1 column1',
+          identifier: 'originatorType',
+          type: 'select',
+          name: 'rdf:type',
+          options: {
+            '': '---',
+            'vcard:Individual': 'Person',
+            'vcard:Organization': 'Organization',
+          },
           '@change': true,
         },
         {
@@ -213,10 +305,14 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
-          identifier: 'maintainerTitle',
-          type: 'text',
-          name: '@value',
-          class: 'row1 column1',
+          identifier: 'maintainerType',
+          type: 'select',
+          name: 'rdf:type',
+          options: {
+            '': '---',
+            'vcard:Individual': 'Person',
+            'vcard:Organization': 'Organization',
+          },
           '@change': true,
         },
         {
@@ -1225,56 +1321,13 @@ const dcatapProperties = {
       name: 'dct:format',
       '@change': true,
     },
-    licence: {
+    license: {
       identifier: 'licence',
-      type: 'conditional-input',
+      type: 'autocomplete-input',
       name: 'dct:license',
       '@change': true,
       class: 'property',
-      options: {
-        voc: 'Choose from vocabulary',
-        man: 'Manually submit information',
-      },
-      data: {
-        voc: [
-          {
-            identifier: 'licenceVocabulary',
-            type: 'autocomplete-input',
-            voc: 'licenses',
-            name: '@id',
-            '@change': true,
-          },
-        ],
-        man: [
-          {
-            identifier: 'licenceDetails',
-            type: 'group',
-            name: 'dct:license',
-            '@change': true,
-            children: [
-              {
-                identifier: 'licenceTitle',
-                type: 'text',
-                name: 'dct:title',
-                '@change': true,
-              },
-              {
-                identifier: 'licenceDescription',
-                type: 'textarea',
-                name: 'skos:prefLabel',
-                '@change': true,
-              },
-              {
-                identifier: 'licenceURL',
-                type: 'url',
-                name: 'skos:exactMatch',
-                validation: 'optional|url',
-                '@change': true,
-              },
-            ],
-          },
-        ],
-      },
+      voc: 'licenses'
     },
     title: {
       identifier: 'title',
@@ -1328,7 +1381,7 @@ const dcatapProperties = {
         },
       ],
     },
-      availabilityDisDE: {
+    availabilityDisDE: {
       identifier: 'availabilityDisDE',
       type: 'autocomplete-input',
       name: 'dcatap:availability',

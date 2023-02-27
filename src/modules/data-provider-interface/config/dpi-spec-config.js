@@ -1,6 +1,5 @@
 // @ts-nocheck
 // dynamic imports are somehow diffcult so we need to import everything :(
-import Vue from 'vue';
 
 // import for DCAT-AP
 import pageContent from './dcatap/page-content-config';

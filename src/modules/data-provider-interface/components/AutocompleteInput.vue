@@ -59,7 +59,7 @@
         </div>
 
       </div>
-      <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
+      <div v-if="multiple && values.length > 0 && !annifTheme" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
           {{ selectedValue.name }}
           <span aria-hidden="true" class="delete-selected-value"
@@ -67,7 +67,7 @@
         </span>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -113,7 +113,7 @@ export default {
       themeSuggestionList: {},
       manSearch: false,
       values: [],
-      annifEnv: this.$env.annifIntegration,
+      annifEnv: this.$env.upload.annifIntegration,
       valueListOfThemes: [],
       getThSuggestions: false,
       thSwitch: false,
@@ -136,12 +136,12 @@ export default {
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-  // Need to make this safer! nextTick() maybe? 
+    // Need to make this safer! nextTick() maybe? 
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
-      this.valueListOfThemes.push(this.values[i])
+        this.valueListOfThemes.push(this.values[i])
 
-    }
+      }
     }, 1000);
 
     // console.log(this.voc);
@@ -181,25 +181,40 @@ export default {
     getAutocompleteSuggestions() {
       let voc = this.voc;
       let text = this.autocomplete.text;
-
       this.clearAutocompleteSuggestions();
 
-      if (this.autocomplete.text.length <= 1) {
-        this.requestFirstEntrySuggestions(voc).then((response) => {
-          const results = response.data.result.results.map((r) => ({
-            name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
-            resource: r.resource,
-          }));
-          this.autocomplete.suggestions = results;
-        });
+      if (voc == "political-geocoding-municipality-key" || voc == "political-geocoding-regional-key" || voc == "political-geocoding-municipal-association-key" || voc == "political-geocoding-district-key" ||
+        voc == "political-geocoding-government-district-key" || voc == "political-geocoding-state-key") {
+        if (this.autocomplete.text.length <= 1) {
+          this.requestFirstEntrySuggestions(voc).then((response) => {
+            const results = response.data.result.results.map((r) => ({
+              name: getTranslationFor(r.alt_label, this.$i18n.locale, []),
+              resource: r.resource,
+            }));
+            this.autocomplete.suggestions = results;
+          });
+
+        }
+
       } else {
-        this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
-          const results = response.data.result.results.map((r) => ({
-            name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
-            resource: r.resource,
-          }));
-          this.autocomplete.suggestions = results;
-        });
+        if (this.autocomplete.text.length <= 1) {
+          this.requestFirstEntrySuggestions(voc).then((response) => {
+            const results = response.data.result.results.map((r) => ({
+              name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
+              resource: r.resource,
+            }));
+            this.autocomplete.suggestions = results;
+          });
+        } else {
+          this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
+            const results = response.data.result.results.map((r) => ({
+              name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
+              resource: r.resource,
+            }));
+            this.autocomplete.suggestions = results;
+          });
+        }
+
       }
     },
     animateFadeInOut() {
@@ -239,15 +254,10 @@ export default {
       });
     },
     handleAnnifSuggestions(e, input) {
-
-      // console.log(input);
       // gets the dct:description value from localstorage and gives it to the annif theme handler
 
       this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets")).step1["dct:description"][0]["@value"])
       this.getThSuggestions = !this.getThSuggestions;
-
-      // console.log(this.values);
-      // console.log(this.valueListOfThemes);
 
       e.target.classList.add("inactiveHandleBtn");
     },
@@ -294,8 +304,8 @@ export default {
               list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
             }
             let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-           
-            
+
+
             // for (var i = 0; i < filteredList.length; i++) {
             //   filteredList[i].activeValue = true
             //   this.valueListOfThemes.push(filteredList[i])
@@ -307,7 +317,7 @@ export default {
             //     this.valueListOfThemes.push(is[w])
             //   }
             // }
-           
+
             filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
             for (var q = 0; q < filteredList.length; q++) {
               this.valueListOfThemes.push(filteredList[q])

@@ -99,7 +99,7 @@
             "enterKeywords": "Enter Keywords",
             "landingPage": "Landing Page",
             "tooltipDistributionTitle": "Enter the title of your distribution here!",
-            "license": "Licence",
+            "license": "License",
             "chooseCatalog": "Choose a Catalogue",
             "enterHomepage": "Enter a homepage",
             "tooltipDistributionLicence": "Choose the licence of your distribution here!",
@@ -712,7 +712,18 @@
                 "politicalGeocodingURI": {
                     "help": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
                     "info": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
-                    "label": "Political geocoding URI"
+                    "label": "Political geocoding URI",
+                    "placeholder":"Choose or provide URL to vocabulary"
+                },"politicalGeocodingURIVocabulary": {
+                    "help": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
+                    "info": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
+                    "label": "Choose vocabulary"
+                    
+                },"politicalGeocodingURIMunicipalityKey": {
+                    "help": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
+                    "info": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
+                    "label": "Municipality Key"
+                    
                 },
                 "availabilityDE": {
                     "help": "Scheduled availability of the dataset as a selection from a fixed list of values via DCAT-AP URIs.",
@@ -727,58 +738,118 @@
                 "geocodingDescription": {
                     "help": "This property contains the geographical coverage of a dataset, represented by the name of an administrative area or a subject reference as free text.",
                     "info": "This property contains the geographical coverage of a dataset, represented by the name of an administrative area or a subject reference as free text.",
-                    "label": "Geocoding Description"
+                    "label": "Geocoding Description",
+                    "add-label":"Add more",
+                    "placeholder":"Geocoding Description"
                 },
                 "legalBasis": {
                     "help": "This field optionally documents as free text the legal basis for access to the information (the access opening), i.e. the original legal basis for access to data of the administration.",
                     "info": "This field optionally documents as free text the legal basis for access to the information (the access opening), i.e. the original legal basis for access to data of the administration.",
-                    "label": "Legal Basis"
+                    "label": "Legal Basis",
+                    "add-label":"Add more",
+                    "placeholder":"Legal basis"
                 },
                 "qualityProcessURI": {
                     "help": "A URI that points to the process for quality assurance of the dataset. This is ideally the URL of a web page.",
                     "info": "A URI that points to the process for quality assurance of the dataset. This is ideally the URL of a web page.",
-                    "label": "Quality Process URI"
+                    "label": "Quality Process URI",
+                    "placeholder":"Add an URL"
                 },
                 "contributor": {
                     "help": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData.",
                     "info": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData.",
                     "label": "Contributor",
-                    "add-label":"Add more contributor"
+                    "add-label":"Add more"
                 },
-                "contributorTitle": {
-                    "help": "Title of the contributor",
-                    "info":"Title of the contributor",
-                   "label": "Contributor title"
+                "contributorType": {
+                    "help": "Type of the contributor",
+                    "info":"Type of the contributor",
+                   "label": "Contributor type",
+                   "placeholder": "Please provide a type"
                 },
                 "contributorEmail": {
                     "help": "Email adress of the contributor",
                     "info":"Email adress of the contributor",
-                    "label": "Contributor email adress"
+                    "label": "Contributor email adress",
+                    "placeholder": "Please provide an Email"
                  },
                  "contributorName": {
                     "help": "Name of the contributor",
                     "info":"Name of the contributor",
-                    "label": "Contributor name"
+                    "label": "Contributor name",
+                    "placeholder": "Please provide a name"
                  },
                  "contributorHomepage": {
                     "help": "Homepage of the contributor",
                     "info":"Homepage of the contributor",
-                    "label": "Contributor Homepage"
+                    "label": "Contributor Homepage",
+                    "placeholder": "Please provide a Homepage"
                  },
                 "originator": {
                     "help": "This property refers to the persons who have copyright in the data set. According to copyright law, a work is protected if it is the personal intellectual creation of its author.",
                     "info": "This property refers to the persons who have copyright in the data set. According to copyright law, a work is protected if it is the personal intellectual creation of its author.",
-                    "label": "Originator"
+                    "label": "Originator",
+                    "add-label":"Add more"
                 },
+                "originatorType": {
+                    "help": "Type of the originator",
+                    "info":"Type of the originator",
+                   "label": "Originator type",
+                   "placeholder": "Please provide a type"
+                },
+                "originatorEmail": {
+                    "help": "Email adress of the originator",
+                    "info":"Email adress of the originator",
+                    "label": "Originator email adress",
+                    "placeholder": "Please provide an Email"
+                 },
+                 "originatorName": {
+                    "help": "Name of the originator",
+                    "info":"Name of the originator",
+                    "label": "Originator name",
+                    "placeholder": "Please provide a name"
+                 },
+                 "originatorHomepage": {
+                    "help": "Homepage of the originator",
+                    "info":"Homepage of the originator",
+                    "label": "Originator Homepage",
+                    "placeholder": "Please provide a Homepage"
+                 },
                 "maintainer": {
                     "help": "This property refers to the bodies or individuals who take responsibility and accountability for the data and its appropriate maintenance.",
                     "info": "This property refers to the bodies or individuals who take responsibility and accountability for the data and its appropriate maintenance.",
-                    "label": "Maintainer"
+                    "label": "Maintainer",
+                    "add-label":"Add more"
                 },
+                "maintainerType": {
+                    "help": "Type of the maintainer",
+                    "info":"Type of the maintainer",
+                   "label": "Maintainer type",
+                   "placeholder": "Please provide a type"
+                },
+                "maintainerEmail": {
+                    "help": "Email adress of the maintainer",
+                    "info":"Email adress of the maintainer",
+                    "label": "Maintainer email adress",
+                    "placeholder": "Please provide an Email"
+                 },
+                 "maintainerName": {
+                    "help": "Name of the maintainer",
+                    "info":"Name of the maintainer",
+                    "label": "Maintainer name",
+                    "placeholder": "Please provide a name"
+                 },
+                 "maintainerHomepage": {
+                    "help": "Homepage of the maintainer",
+                    "info":"Homepage of the maintainer",
+                    "label": "Maintainer Homepage",
+                    "placeholder": "Please provide a Homepage"
+                 },
                 "references": {
                     "help": "This property can be used to refer to reference datasets such as a High Value Dataset (HVD) or a sample dataset of the sample data catalogue.",
                     "info": "This property can be used to refer to reference datasets such as a High Value Dataset (HVD) or a sample dataset of the sample data catalogue.",
-                    "label": "References"
+                    "label": "References",
+                    "placeholder":"Add an URL"
                 }
             },
             "catalogues": {
@@ -832,6 +903,12 @@
                     "label": "Spatial",
                     "placeholder": "Choose a vocabulary",
                     "help": ""
+                },
+                "availabilityCatDE":{
+                    "help": "The availability of the catalogue",
+                    "info": "Stands for the availabilty of the catalogue",
+                    "label": "Availability",
+                    "placeholder": "Choose availability"
                 },
                 "spatialUrl": {
                     "label": "SpatialUrl",
@@ -913,27 +990,13 @@
                     "add-label": "Add Description in another language",
                     "placeholder": "Catalogue Description placeholder text"
                 },
-                "licence": {
-                    "help": "The licence under which the Catalogue can be used or reused.",
-                    "info": "This property refers to the licence under which the Catalogue can be used or reused.",
-                    "label": "Licence",
-                    "placeholder": "Catalogue Licence placeholder text"
+                "license": {
+                    "help": "The license under which the Catalogue can be used or reused.",
+                    "info": "This property refers to the license under which the Catalogue can be used or reused.",
+                    "label": "License",
+                    "placeholder": "Catalogue License placeholder text"
                 },
-                "licenceVocabulary": {
-                    "label": "Licence",
-                    "placeholder": "Licence vocabulary",
-                    "help": ""
-                },
-                "licenceDetails": {
-                    "label": "Licence",
-                    "help": ""
-                },
-                "licenceTitle": {
-                    "label": "Licence Title",
-                    "placeholder": "Catalogue Licence Title placeholder text",
-                    "help": "The licence's name."
-                },
-                "modified": {
+                    "modified": {
                     "help": "The most recent date on which the Catalogue entry was changed or modified.",
                     "info": "This property contains the most recent date on which the Catalogue entry was changed or modified.",
                     "placeholder": "Catalogue Modified placeholder text",
@@ -1022,7 +1085,7 @@
                     "help": "This property stores the mandatory naming text for licence details.",
                     "info": "This property stores the mandatory naming text for licence details.",
                     "label": "License attribution by text",
-                    "add-label":"Add License attribution by text"
+                    "add-label":"Add more"
                 },
                 "licenseAttributionByTextTitle": {
                     "placeholder":"please provide a title",
@@ -1060,10 +1123,10 @@
                     "help": ""
                 },
                 "licence": {
-                    "info": "This property refers to the licence under which the Distribution is made available.",
-                    "placeholder": "Distribution Licence placeholder text",
-                    "label": "Licence",
-                    "help": "The licence under which the Distribution is made available."
+                    "info": "This property refers to the license under which the Distribution is made available.",
+                    "placeholder": "Distribution License placeholder text",
+                    "label": "License",
+                    "help": "The license under which the Distribution is made available."
                 },
                 "licenceURL": {
                     "label": "Licence URL",

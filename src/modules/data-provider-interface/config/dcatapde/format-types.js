@@ -6,7 +6,7 @@ const singularURI = {
         "dct:spatial",
         "dct:accessRights",
         "dct:type",
-        "dcatap:availabilityDE",
+        "dcatap:availability",
         "dcatde:qualityProcessURI",
         "dct:references",
 
@@ -68,11 +68,13 @@ const multipleURI = {
         "dcat:downloadURL",
         "dct:language",
         "odrl:hasPolicy",
+        "dcatap:availability",
     ],
     catalogues: [
         "dct:hasPart",
         'dcat:catalog',
         'dct:language',
+        "dcatap:availability",
     ],
 };
 
@@ -131,7 +133,7 @@ const multilingualStrings = {
         "dct:description", // also nested within page
         "dcat:keyword",
         "adms:versionNotes",
-        "geocodingDescription",
+        "dcatde:geocodingDescription",
         "dcatde:legalBasis",
         "dcatde:licenseAttributionByText",
     ],
