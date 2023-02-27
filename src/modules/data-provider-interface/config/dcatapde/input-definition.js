@@ -18,17 +18,18 @@ const dcatapProperties = {
       '@change': true,
     },
     politicalGeocodingURI: {
+      identifier: 'politicalGeocodingURI',
       type: "group",
       name: 'dcatde:politicalGeocodingURI',
       repeatable: true,
       '@change': true,
+      class: 'property',
       '@repeatableRemoved': true,
       children: [
         {
           identifier: 'politicalGeocodingURI',
           type: 'conditional-input',
           name: '@id',
-          class: 'property',
           '@dcatDE': true,
           '@change': true,
           options: {

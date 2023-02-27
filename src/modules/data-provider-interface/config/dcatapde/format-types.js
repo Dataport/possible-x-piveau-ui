@@ -220,7 +220,6 @@ const multiURIarray = {
         "dct:subject",
         "dcat:theme",
         "dcatde:politicalGeocodingLevelURI",
-        "dcatde:politicalGeocodingURI",
         "dcatde:contributorID",
     ],
     distributions: [
