@@ -36,7 +36,7 @@ function convertToInput(state, property, data) {
 
         for (let pageName in namespaceKeys[property]) {
             state[property][pageName] = {};
-            convertProperties(property, state.datasets[pageName], generalID, data, namespaceKeys[property][pageName]);
+            convertProperties(property, state[property][pageName], generalID, data, namespaceKeys[property][pageName]);
         }
         
     }

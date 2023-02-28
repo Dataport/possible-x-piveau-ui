@@ -233,9 +233,7 @@ export default {
       }
       
       const RDFdata = await this.convertToRDF(submitProperty).then((response) => {return response;});
-      
-      console.log(RDFdata);
-      
+            
       const rtpToken = this.getUserData.rtpToken;
 
       if (!this.getMandatoryStatus({ property: this.property, id: this.id })) {
@@ -306,7 +304,7 @@ export default {
     createCatalogue(datasetId) {
       this.clearAll();
       this.showSnackbar({ message: 'Catalogue saved successfully', variant: 'success' });
-      this.$router.push({ name: 'Datasets', query: { catalog: datasetId, showcatalogdetails: true, locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ name: 'CatalogueDetails', query: { showcatalogdetails: true, locale: this.$route.query.locale }, params: {ctlg_id: datasetId}}).catch(() => {});
     }
   },
   mounted() {
