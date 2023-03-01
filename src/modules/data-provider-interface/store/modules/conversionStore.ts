@@ -11,6 +11,8 @@ import generalHelper from '../../utils/general-helper';
 import toRDF from '../../utils/RDFconverter';
 import toInput from '../../utils/inputConverter';
 
+import generalDpiConfig from '../../config/dpi-spec-config.js';
+
 Vue.use(Vuex);
 
 const state = {
@@ -97,7 +99,9 @@ const actions = {
      * @param param1 Object containing property, page, distrbution id and form values
      */
     saveFormValues({ commit }, {property, page, distid, values}) {
+        console.log("Hallo");
         commit('saveFormValuesToStore', {property, page, distid, values});
+        
     },
     /**
      * Saving existing values from localStorage to vuex store
@@ -136,6 +140,8 @@ const actions = {
      */
     convertToRDF({ state }, property) {
 
+       
+        
         // merging objects with nested objects containing the values of each page into one main object containing all values for the given property
         const data = {
             datasets: generalHelper.mergeNestedObjects(state.datasets),
@@ -151,6 +157,7 @@ const actions = {
         }
 
         const RDFdata = toRDF.convertToRDF(data, property);
+        console.log(RDFdata);
         return RDFdata;
     },
     /**
@@ -201,6 +208,8 @@ const mutations = {
      */
     saveFormValuesToStore(state, {property, page, distid, values}) {
 
+        
+        
         if (distid) {
             state[property][distid][page] = values;
             localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
@@ -218,7 +227,7 @@ const mutations = {
     */
     saveFromLocalstorage(state, property) {
         let valueName;
-
+     
         if (property === 'catalogues') {
             valueName = 'dpi_catalogues';
         } else {
@@ -254,7 +263,8 @@ const mutations = {
      * @param param1 Object containing data and property and state
      */
     saveLinkedDataToStore(state, { property, data }) {
-        toInput.convertToInput(state, property, data);
+        const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+        toInput.convertToInput(state, property, data, dpiConfig);
 
         if (property === 'datasets') {
             localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));

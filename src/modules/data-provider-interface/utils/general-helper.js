@@ -1,4 +1,3 @@
-import context from '../config/prefixes';
 import { isEmpty, isNil } from 'lodash';
 
 /**
@@ -19,7 +18,7 @@ function mergeNestedObjects(data) {
  * @param {*} prefix 
  * @returns 
  */
-function addNamespace(prefix) {
+function addNamespace(prefix, dpiConfig) {
     // the prefix had the following format: namespace:property (e.g. dct:title)
     // the short version of the namespace noe should be replaced by the long version (e.g. http://purl.org/dc/terms/title)
 
@@ -34,7 +33,7 @@ function addNamespace(prefix) {
         // the long version of the namespace is saved within the context.json (config)
         // there is an object containing the namespace abbreviation(key) and the corresponding value is the long version of the namespace
 
-        const longNamespace = context[namespaceAbbreviation];
+        const longNamespace = dpiConfig.prefixes[namespaceAbbreviation];
         fullDescriptor = `${longNamespace}${propertyName}`;
     } else {
         fullDescriptor = prefix;
@@ -48,7 +47,7 @@ function addNamespace(prefix) {
  * @param {*} longValue Long value with long namespace (e.g. https://....#type)
  * @returns Returns value with short namespace (e.g. rdf:type)
  */
-function removeNamespace(longValue) {
+function removeNamespace(longValue, dpiConfig) {
     let lastIndex;
 
     // long namespace either ends with an # or a \
@@ -60,7 +59,7 @@ function removeNamespace(longValue) {
 
     const shortValue = longValue.substr(lastIndex + 1);
     const longPrefix = longValue.substr(0, lastIndex + 1);
-    const shortPrefix = Object.keys(context).find(key => context[key] === longPrefix);
+    const shortPrefix = Object.keys(dpiConfig.prefixes).find(key => dpiConfig.prefixes[key] === longPrefix);
 
     return `${shortPrefix}:${shortValue}`;
 }
@@ -70,11 +69,11 @@ function removeNamespace(longValue) {
  * @param {*} data An array of quads with keys as predicate
  * @returns Array of shortened keys
  */
-function getNestedKeys(data) {
+function getNestedKeys(data, dpiConfig) {
     const keys = [];
 
     for (let el of data) {
-        keys.push(removeNamespace(el.predicate.value));
+        keys.push(removeNamespace(el.predicate.value, dpiConfig));
     }
 
     return keys;

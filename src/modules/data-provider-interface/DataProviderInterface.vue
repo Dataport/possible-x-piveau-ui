@@ -22,7 +22,7 @@
         v-if="property === 'distributions'"
         :line-thickness="1"
         :steps="datasetStepNames"
-        :current-step="steps.datasets.length"
+        :current-step="3"
         active-color="#001d85"
         :active-thickness="20"
         :passive-thickness="20">

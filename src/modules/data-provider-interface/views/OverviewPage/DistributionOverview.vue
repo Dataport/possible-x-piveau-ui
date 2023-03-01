@@ -120,7 +120,8 @@ export default {
                 'dct:rights': {type: 'singularString', voc: '', label: 'message.metadata.rights'},
                 'foaf:page': {type: 'special', voc: '', label: 'message.dataupload.datasets.page.label'},
                 'odrl:hasPolicy': {type: 'multiURL', voc: '', label: 'message.metadata.hasPolicy'},
-                'spdx:checksum': {type: 'special', voc: '', label: 'message.metadata.checksum'}
+                'spdx:checksum': {type: 'special', voc: '', label: 'message.metadata.checksum'},
+                'dcatde:licenseAttributionByText': {type: 'multiLingual', voc: '', label: 'message.dataupload.distributions.licenseAttributionByText.label' },
             }
         }
     },

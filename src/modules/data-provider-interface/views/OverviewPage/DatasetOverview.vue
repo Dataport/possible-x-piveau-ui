@@ -64,6 +64,7 @@
 
         <!-- INFO TABLE -->
         <div class="mt-5" v-if="showTable">
+            
             <div class="row">
             <div class="col-10 offset-1 py-2 bg-white">
                 <h2 class="heading">{{ $t('message.datasetDetails.additionalInfo') }}</h2>
@@ -121,7 +122,19 @@ export default {
                 'dext:metadataExtension': { type:'multiURL', voc: '', label:'message.dataupload.datasets.isUsedBy.label' },
                 'dct:hasVersion': { type:'multiURL', voc: '', label:'message.metadata.hasVersion' },
                 'owl:versionInfo': { type: 'singularString', voc: '', label: 'message.metadata.versionInfo' },
-                'adms:versionNotes': { type: 'multiLingual', voc: '', label: 'message.metadata.versionNotes' }
+                'adms:versionNotes': { type: 'multiLingual', voc: '', label: 'message.metadata.versionNotes' },
+                'dcatde:qualityProcessURI': {type: 'singularURI', voc: '', label: 'message.dataupload.datasets.qualityProcessURI.label' },
+                'dct:references': {type: 'singularURI', voc: '', label: 'message.dataupload.datasets.references.label' },
+                'dcatde:legalBasis': {type: 'multiLingual', voc: '', label: 'message.dataupload.datasets.legalBasis.label' }, 
+                'dct:contributor': {type: 'special', voc: '', label: 'message.dataupload.datasets.contributor.label'}, 
+                'dcatde:contributorID': {type: 'multiURI', voc: 'contributors', label: 'message.dataupload.datasets.contributorID.label'},
+                'dcatde:originator': {type: 'special', voc: '', label: 'message.dataupload.datasets.originator.label'},
+                'dcatde:maintainer': {type: 'special', voc: '', label: 'message.dataupload.datasets.maintainer.label'},
+                'dcatap:availability': {type: 'singularURI', voc: 'planned-availability', label: 'message.dataupload.datasets.availabilityDE.label'},
+                'dcatde:geocodingDescription': {type: 'multiLingual', voc: '', label: 'message.dataupload.datasets.geocodingDescription.label' },
+                'dcatde:politicalGeocodingLevelURI': {type: 'multiURI', voc: '', label: 'message.dataupload.datasets.politicalGeocodingLevelURI.label'},
+                'dcatde:politicalGeocodingURI': {type: 'multiURIspecial', voc: '', label: 'message.dataupload.datasets.politicalGeocodingURI.label'},
+                
             }
         }
     },

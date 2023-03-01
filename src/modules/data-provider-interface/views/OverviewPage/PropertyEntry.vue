@@ -10,6 +10,7 @@
             <!-- SPECIAL -->
             <td v-if="value.type === 'special'">
                 <div v-for="(elem, index) in data[property]" :key="index">
+                
                     <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
                 </div>
             </td>

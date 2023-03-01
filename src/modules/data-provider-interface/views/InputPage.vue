@@ -1,11 +1,13 @@
 <template>
   <div class="form-container">
     <slot></slot>
-      <div class="inputContainer" v-if="isInput">
+    
+    <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
-        <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields" @submit="handleSubmit"
-        @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({property: property, id: id})"
-        @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues })">
+        <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
+          @submit="handleSubmit"
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
+          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues })">
           <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
@@ -19,7 +21,7 @@
     <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
       {{ mandatoryModal.message }}
     </app-confirmation-dialog>
-  </div>
+</div>
 </template>
 
 <script>
@@ -61,7 +63,7 @@ export default {
         message: 'Mandatory Properties missing',
         callback: $('#modal').modal('hide'),
       },
-      
+
     };
   },
   components: {
@@ -97,7 +99,7 @@ export default {
     },
   },
   methods: {
-      ...mapActions('auth', [
+    ...mapActions('auth', [
       'setIsEditMode',
       'setIsDraft',
     ]),
@@ -110,17 +112,17 @@ export default {
       'clearAll',
       'setMandatoryStatus',
     ]),
-  initInputPage() {
+    initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
-        this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
+        this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
-        const existingValues = this.$store.getters['dpiStore/getRawValues']({property: this.property, page: this.page, id: this.id});
+        const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, page: this.page, id: this.id });
         // only overwrite empty object if there are values (otherwise the language preselection is gone)
-        
+
         if (existingValues) {
           this.formValues = existingValues;
         }
-        
+
         this.$nextTick(() => {
           $('[data-toggle="tooltip"]').tooltip({
             container: 'body',
@@ -164,7 +166,7 @@ export default {
       return path;
     },
     jumpToFirstPage() {
-      this.$router.push(this.getFirstPath()).catch(() => {});
+      this.$router.push(this.getFirstPath()).catch(() => { });
     },
     checkPathAllowed(to, from) {
       let allowedPaths = [
@@ -177,28 +179,28 @@ export default {
       if ((this.property === 'datasets' || this.property === 'catalogues') && this.page === this.getNavSteps[this.property][0]) {
         // Create Dataset ID from title if not existing
         if (has(this.formValues, 'dct:title')
-        && !isNil(this.formValues['dct:title']
-        && this.formValues['dct:title'].length > 0)
-        && has(this.formValues['dct:title'][0], '@value')
-        && !isNil(this.formValues['dct:title'][0], '@value')
-        && (!has(this.formValues, 'datasetID')
-        || (has(this.formValues, 'datasetID') && this.createIDFromTitle.startsWith(this.formValues.datasetID))
-        || (has(this.formValues, 'datasetID') && this.formValues.datasetID.startsWith(this.createIDFromTitle)))) {
+          && !isNil(this.formValues['dct:title']
+            && this.formValues['dct:title'].length > 0)
+          && has(this.formValues['dct:title'][0], '@value')
+          && !isNil(this.formValues['dct:title'][0], '@value')
+          && (!has(this.formValues, 'datasetID')
+            || (has(this.formValues, 'datasetID') && this.createIDFromTitle.startsWith(this.formValues.datasetID))
+            || (has(this.formValues, 'datasetID') && this.formValues.datasetID.startsWith(this.createIDFromTitle)))) {
           this.formValues.datasetID = this.createIDFromTitle;
         }
 
         if (has(this.formValues, 'dct:title')
-        && isArray(this.formValues['dct:title'])
-        && !isNil(this.formValues['dct:title']
-        && this.formValues['dct:title'].length > 0)
-        && has(this.formValues['dct:title'][0], '@value')
-        && isNil(this.formValues['dct:title'][0], '@value')
-        && has(this.formValues, 'datasetID')) this.formValues.datasetID = '';
+          && isArray(this.formValues['dct:title'])
+          && !isNil(this.formValues['dct:title']
+            && this.formValues['dct:title'].length > 0)
+          && has(this.formValues['dct:title'][0], '@value')
+          && isNil(this.formValues['dct:title'][0], '@value')
+          && has(this.formValues, 'datasetID')) this.formValues.datasetID = '';
       }
     },
   },
   created() {
-    
+
     if (this.$route.query.edit === false) {
       this.clear();
     }
@@ -209,8 +211,8 @@ export default {
     }
   },
   mounted() {
-     this.initInputPage();
-     
+    this.initInputPage();
+
   },
   watch: {
     getFirstTitleFromForm: {
@@ -221,7 +223,7 @@ export default {
     },
     getUserCatalogIds: {
       handler() {
-        this.addCatalogOptions({property: this.property, catalogs: this.getUserCatalogIds});
+        this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
       },
     },
     // the schema is a computed value which gets computed only once so on language change this value must be re-computed
@@ -239,15 +241,16 @@ export default {
         vm.clear();
         vm.jumpToFirstPage();
       }
-      if (from.name === null && !vm.getMandatoryStatus({property: vm.property, id: vm.id})) {
+      if (from.name === null && !vm.getMandatoryStatus({ property: vm.property, id: vm.id })) {
         vm.jumpToFirstPage();
         $('#mandatoryModal').modal({ show: true });
       }
+      let a = { "step1": { "dct:title": [{ "@value": "DcatDE GeschichTE", "@language": "en" }], "datasetID": "a-test", "hidden_datasetIDFormHidden": "a-test", "dct:description": [{ "@value": "Geo'DAE is the national database of external automated defibrillators (DAEs), listed in France.\n\nBarely 1 in 10 citizens survive a cardiac arrest because they have not benefited at the right time of a person’s intervention.\n\nThe national public health plan plans to train 80 % of the population in first aid actions and to improve access to external automated defibrillators on the national territory, by promoting their geolocation and maintenance.\n\nThe creation of a national database, provision of the law of 28 June 2018 on cardiac defibrillator, is part of this ambition. All AED operators must now report their defibrillator data and characteristics in the national database.\n\nThe reporting portal is available at the following link: https://geodae.atlasante.fr/apropos\n\nIf you have any questions, please contact us at: contact@geodae.sante.gouv.fr.\n\nThis sheet presents the extraction of the public data reported by the operators, as provided for in the Decree of 29 October 2019 on the operation of the national database of external automated defibrillators, published in the OJ of 13 November 2019.\n\nThe public or limited dissemination rules are specified in Annexes 1, 2 and 3 to this Order. Only open access data is disseminated in open data.", "@language": "en" }], "dct:catalog": "dpi", "dcat:theme": ["http://publications.europa.eu/resource/authority/data-theme/ENER", "http://publications.europa.eu/resource/authority/data-theme/AGRI", "http://publications.europa.eu/resource/authority/data-theme/ENVI", "http://publications.europa.eu/resource/authority/data-theme/EDUC", "http://publications.europa.eu/resource/authority/data-theme/GOVE", "http://publications.europa.eu/resource/authority/data-theme/JUST", "http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO"], "dct:issued": "2023-02-01T03:03:00", "dct:modified": "2023-02-07" }, "step2": { "dcatde:politicalGeocodingLevelURI": ["http://dcat-ap.de/def/politicalGeocoding/Level/international"], "dcatde:politicalGeocodingURI": ["http://dcat-ap.de/def/politicalGeocoding/municipalityKey/01053121"], "dcat:keyword": [{ "@value": "asdsd", "@language": "de" }], "dct:subject": ["http://eurovoc.europa.eu/2753", "http://eurovoc.europa.eu/3011", "http://eurovoc.europa.eu/688", "http://eurovoc.europa.eu/3577", "http://eurovoc.europa.eu/1085", "http://eurovoc.europa.eu/4488", "http://eurovoc.europa.eu/1460", "http://eurovoc.europa.eu/5042", "http://eurovoc.europa.eu/1074", "http://eurovoc.europa.eu/5334", "http://eurovoc.europa.eu/940"], "dct:spatial": "http://publications.europa.eu/resource/authority/country/BGR", "dct:creator": [{ "rdf:type": "foaf:Person", "foaf:name": "dfgdfgd", "foaf:mbox": "test@tes.de", "foaf:homepage": "https://jena-wissensallmende.apps.osc.fokus.fraunhofer.de/" }] }, "step3": {} }
     });
   },
   beforeRouteUpdate(to, from, next) {
     // Checks if next route within the DPI is a route which does not require mandatory checking
-    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({property: this.property, id: this.id})) {
+    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({ property: this.property, id: this.id })) {
       $('#mandatoryModal').modal({ show: true });
     } else {
       next();
@@ -257,6 +260,7 @@ export default {
 </script>
 <style lang="scss">
 select {
+
   line-height: unset !important;
 }
 
