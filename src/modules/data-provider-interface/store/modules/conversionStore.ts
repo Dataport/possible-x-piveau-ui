@@ -99,7 +99,9 @@ const actions = {
      * @param param1 Object containing property, page, distrbution id and form values
      */
     saveFormValues({ commit }, {property, page, distid, values}) {
+        console.log("Hallo");
         commit('saveFormValuesToStore', {property, page, distid, values});
+        
     },
     /**
      * Saving existing values from localStorage to vuex store
@@ -138,6 +140,8 @@ const actions = {
      */
     convertToRDF({ state }, property) {
 
+       
+        
         // merging objects with nested objects containing the values of each page into one main object containing all values for the given property
         const data = {
             datasets: generalHelper.mergeNestedObjects(state.datasets),
@@ -153,6 +157,7 @@ const actions = {
         }
 
         const RDFdata = toRDF.convertToRDF(data, property);
+        console.log(RDFdata);
         return RDFdata;
     },
     /**
@@ -220,7 +225,7 @@ const mutations = {
     */
     saveFromLocalstorage(state, property) {
         let valueName;
-
+     
         if (property === 'catalogues') {
             valueName = 'dpi_catalogues';
         } else {

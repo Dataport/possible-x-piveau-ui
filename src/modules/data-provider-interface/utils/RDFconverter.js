@@ -14,6 +14,7 @@ import generalHelper from './general-helper';
  * @returns String of converted data in RDF format (N-Triples)
  */
 function convertToRDF(data, property) {
+    
     let finishedRDFdata;
 
     const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
@@ -22,7 +23,7 @@ function convertToRDF(data, property) {
     const RDFdata = new N3.Writer({prefixes: dpiConfig.prefixes, format: 'N-Triples'});
     // datasetURI also needed for distribution creation (add distributionURI to dataset (dcat:distribution))
     const datasetURI = `https://piveau.eu/set/data/${data.datasets.datasetID}`; 
-    console.log(data)
+    
     // convert values for datasets/catalogues
     convertPropertyValues(RDFdata, data[property], property, '', '', true, datasetURI); // datasets and catalogues
 
@@ -50,7 +51,7 @@ function convertToRDF(data, property) {
  * @param {String} datasetURI URI of dataset for use in distribution conversion 
  */
 function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI) {
-
+    
     const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
     const formatTypes = dpiConfig.formatTypes;
 
@@ -93,7 +94,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     const valueKeys = Object.keys(data);
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index]; // key format: either a normal name for special properties (e.g. datasetID) or namespaced keys (e.g. dct:title)
-        console.log(key);
+       
         // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
         // depending on the format the corresponding conversion-method is used, writing the result to the overall RDF-writer
         if (formatTypes.singularString[property].includes(key)) {
@@ -108,7 +109,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
                 convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
             }
-            console.log(key+"--- "+ JSON.stringify(data) );
+            
             convertMultipleURI(RDFdataset, mainURI, data, key, property, dpiConfig);
         } else if (formatTypes.typedStrings[property].includes(key)) {
             convertTypedString(RDFdataset, mainURI, data, key, dpiConfig);            
@@ -349,9 +350,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 ))
             }
         } 
-        // else if(key === 'dcatde:politicalGeocodingLevelURI'){
-        //     console.log("Ich bin der Uwe und bin auch dabei");
-        // }        
+              
     }
 }
 
@@ -469,7 +468,7 @@ function convertMultipleURI(RDFdataset, id, data, key, property, dpiConfig) {
     const formatTypes = dpiConfig.formatTypes;
 
     for (let uriIndex = 0; uriIndex < data[key].length; uriIndex += 1) {
-        console.log(formatTypes.multiURIobjects[property], has(data[key][uriIndex], '@id'));
+        
         let currentURI;
         if (formatTypes.multiURIarray[property].includes(key) && !isEmpty(data[key][uriIndex])) {
             // array of URLs from multi-autocomplete fields

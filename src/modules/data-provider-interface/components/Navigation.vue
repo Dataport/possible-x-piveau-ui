@@ -234,7 +234,7 @@ export default {
       
       const RDFdata = await this.convertToRDF(submitProperty).then((response) => {return response;});
       
-      console.log(RDFdata);
+     
       
       const rtpToken = this.getUserData.rtpToken;
 

@@ -713,7 +713,8 @@
                     "help": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
                     "info": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
                     "label": "Political geocoding URI",
-                    "placeholder":"Choose or provide URL to vocabulary"
+                    "placeholder":"Choose or provide URL to vocabulary",
+                    "add-label": "Add more"
                 },"politicalGeocodingURIVocabulary": {
                     "help": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
                     "info": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",

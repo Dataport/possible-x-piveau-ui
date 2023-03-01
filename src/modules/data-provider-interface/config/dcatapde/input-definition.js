@@ -29,7 +29,7 @@ const dcatapProperties = {
         {
           identifier: 'politicalGeocodingURI',
           type: 'conditional-input',
-          name: '@id',
+          name: 'dcatde:politicalGeocodingURI',
           '@dcatDE': true,
           '@change': true,
           options: {
@@ -195,7 +195,7 @@ const dcatapProperties = {
       name: 'dcatde:qualityProcessURI',
       class: 'property',
       type: 'url',
-      voc: 'planned-availability',
+      
       '@change': true,
       '@dcatDE': true,
 
