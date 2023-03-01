@@ -5,11 +5,11 @@
       <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context" />
     </FormulateSlot>
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
-    <pre>{{ context.attributes.name }}</pre>
+   
 
-    <pre>{{ data['voc'] }}</pre>
+    
     <div v-if="context.attributes.name === 'dcatde:politicalGeocodingURI'">
-        <FormulateForm v-model="inputValues" :schema="data['voc']" @change="setContext"></FormulateForm>
+      
       </div>
 
     <!-- temporal solution for license only using vocabulary -->

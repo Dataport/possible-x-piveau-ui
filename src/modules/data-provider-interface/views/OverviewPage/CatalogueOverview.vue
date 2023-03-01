@@ -60,7 +60,8 @@ export default {
                 'dct:hasPart': {type: 'multiURL', voc: '', label:'message.dataupload.catalogues.hasPart.label'},
                 'dct:isPartOf': {type: 'singularURL', voc: '', label:'message.metadata.isPartOf'},
                 'dcat:catalog': {type: 'multiURL', voc: '', label:'message.dataupload.catalogues.catalog.label'},
-                'dct:rights': {type: 'singularString', voc: '', label:'message.metadata.rights'}
+                'dct:rights': {type: 'singularString', voc: '', label:'message.metadata.rights'},
+                
             }
     }
   },

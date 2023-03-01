@@ -1220,7 +1220,6 @@ const dcatapProperties = {
       type: 'group',
       name: 'dcatde:licenseAttributionByText',
       class: 'property grid1r2c',
-      voc: 'planned-availability',
       '@dcatDE': true,
       '@change': true,
       repeatable: true,
