@@ -163,7 +163,7 @@ export default {
     //   return this.getCatalog;
     // },
     // showCatalogDetailsWatcher() {
-    //   return this.$route.query.showcatalogdetails;
+    //   return !isNil(this.$route.params.ctlg_id);
     // },
     useCatalogFacets() {
       return !this.showCatalogDetails;
@@ -379,8 +379,8 @@ export default {
       return facet.count;
     },
     initShowCatalogDetails() {
-      const showCatalogDetails = this.$route.query.showcatalogdetails;
-      if (showCatalogDetails === 'true') {
+      const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
+      if (showCatalogDetails === true) {
         this.showCatalogDetails = true;
         this.loadCatalog(this.$route.params.ctlg_id);
       } else this.showCatalogDetails = false;
@@ -420,7 +420,7 @@ export default {
     //     error => { console.error(error); }
     //   );
     // },
-    '$route.query.showcatalogdetails'(showCatalogDetails) {
+    '!isNil(this.$route.params.ctlg_id)'(showCatalogDetails) {
       this.showCatalogDetails = showCatalogDetails;
     },
     getDatasetGeoBounds(bounds) {

@@ -357,7 +357,6 @@
             :to="{
               path: `/catalogues/${catalog.id}`,
               query: {
-                showcatalogdetails: true,
                 locale: $route.query.locale
               },
             }"
@@ -692,7 +691,7 @@ export default {
       return dateFilters.fromNow(date);
     },
     getCatalogLink(catalog) {
-      return `/catalogues/${catalog.id}?showcatalogdetails=true`;
+      return `/catalogues/${catalog.id}&locale=${this.$route.query.locale}`;
     },
     getCatalogImage(catalog) {
       return this.$env.catalogs.useCatalogCountries

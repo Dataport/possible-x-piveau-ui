@@ -160,7 +160,7 @@
         'getMinScoring',
       ]),
       showCatalogDetails() {
-        return this.$route.query.showcatalogdetails === 'true';
+        return !isNil(this.$route.params.ctlg_id);
       },
       /**
        * @description Returns the current page.

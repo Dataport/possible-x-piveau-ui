@@ -15,6 +15,7 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
   import { getFacetTranslation } from '../utils/helpers';
+  import { isNil } from 'lodash-es';
 
   export default {
     name: 'SelectedFacetsOverview',
@@ -97,10 +98,11 @@
         } else return this.selectedFacets;
       },
       showCatalogDetails() {
-        return this.$route.query.showcatalogdetails === 'true';
+        return !isNil(this.$route.params.ctlg_id);
       },
     },
     methods: {
+      isNil,
       ...mapActions('datasets', [
         'setMinScoring',
       ]),

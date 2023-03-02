@@ -3,7 +3,7 @@
     <h1 class="small-headline">My Catalogues</h1>
     <ul class="list-group col-md-6 m-auto">
       <li v-for="(catalog, index) in getUserCatalogs" :key="index" class="list-group-item">
-        <app-link :to="{ name: 'CatalogueDetails', query: { showcatalogdetails: true, locale: $route.query.locale }, params: { ctlg_id: catalog.rsname}}">{{ catalog.rsname }}</app-link>
+        <app-link :to="{ name: 'CatalogueDetails', query: { locale: $route.query.locale }, params: { ctlg_id: catalog.rsname}}">{{ catalog.rsname }}</app-link>
         <span class="float-right">
           <!-- Temporarily disabled -->
           <!-- <button type="button" class="btn btn-secondary" @click="handleEdit(catalog.rsname)">Edit</button> -->
