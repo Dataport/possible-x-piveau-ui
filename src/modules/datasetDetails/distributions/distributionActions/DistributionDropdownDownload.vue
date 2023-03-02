@@ -1,20 +1,18 @@
 <template>
   <div class="position-relative d-inline-block ml-1 mb-1">
-    <div>
-        <button @click="openDropdown" class="btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button d-flex justify-content-between"
-          type="button"
-          aria-haspopup="true"
-          aria-expanded="false">
-          <span data-toggle="tooltip"
-            :title="title"
-            data-placement="top">
-          {{ message }}
-          </span>
-          <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>
-        </button>
-        <div v-if="open" v-on-clickaway="away" class="dropdownMenu" :class="{ bglight: bgLight }">
-          <slot></slot>
-        </div>
+    <button @click="openDropdown" class="dsd-action-button btn btn-sm btn-primary p-0 pl-2 w-100 rounded-lg btn-color dropdown-button d-flex justify-content-between"
+      type="button"
+      aria-haspopup="true"
+      aria-expanded="false">
+      <span data-toggle="tooltip"
+        :title="title"
+        data-placement="top">
+      {{ message }}
+      </span>
+      <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>
+    </button>
+    <div v-if="open" v-on-clickaway="away" class="dropdownMenu" :class="{ bglight: bgLight }">
+      <slot></slot>
     </div>
   </div>
 </template>

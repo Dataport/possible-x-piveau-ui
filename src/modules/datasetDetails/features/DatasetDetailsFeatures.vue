@@ -1,20 +1,23 @@
 <template>
   <div class="row flex-column dsd-features">
     <dataset-details-keywords
+      class="dsd-keywords-feature"
       v-if="showObjectArray(getKeywords)"
       :showKeyword="showKeyword"
     />
     <dataset-details-categories-key
-      class="dsdCategoryFeature"
+      class="dsd-categories-feature"
       v-if="showObjectArray(getCategories)"
       :trackGoto="trackGoto"
     />
     <dataset-details-subject
+     class="dsd-subject-feature"
       v-if="showObjectArray(getSubject)"
     />
 
     <!-- Documentation -->
     <dataset-details-pages
+      class="dsd-pages-feature"
       v-if="showObjectArray(getPages)"
       :pages="pages"
       :increaseNumDisplayedPages="increaseNumDisplayedPages"
@@ -23,11 +26,13 @@
     />
 
     <dataset-details-visualisations
+      class="dsd-visualisations-feature"
       v-if="showObjectArray(getVisualisations)"
       :trackGoto="trackGoto"
     />
 
     <dataset-details-data-services
+      class="dsd-data-services-feature"
       v-if="showObjectArray(getDataServices)"
       :getDataServices="getDataServices"
       :nonOverflowingIncrementsForPages="nonOverflowingIncrementsForPages"
@@ -36,14 +41,17 @@
     />
 
     <dataset-details-is-used-by
+      class="dsd-is-used-by"
       v-if="showObject(getExtendedMetadata)"
     />
 
     <dataset-details-relations
+      class="dsd-relations-feature"
       v-if="showArray(getRelations)"
     />
 
     <dataset-details-map
+      class="dsd-map-feature"
       v-if="showObjectArray(getSpatial)"
     />
   </div>

@@ -1,10 +1,10 @@
 <template>
-  <div class="mt-3">
+  <div class="dsd-categories mt-3">
     <div class="row">
       <div class="col-10 offset-1">
         <h2>{{ $t('message.datasetDetails.subnav.categories') }}</h2>
-        <div class="categories mt-4 mb-5">
-          <div v-for="(category, i) in getCategories" :key="i" class="p-2 mt-3 border border-secondary bg-light">
+        <div class="dsd-categories-items mt-4 mb-5">
+          <div v-for="(category, i) in getCategories" :key="i" class="p-2 mt-3 border border-secondary">
             <app-link :to="getCategoryLink(category)" v-if="showCategory(category)">
               {{ getTranslationFor(category.title, $route.query.locale) }}
             </app-link>

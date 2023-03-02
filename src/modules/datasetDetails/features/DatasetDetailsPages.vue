@@ -8,11 +8,11 @@
     />
     <ul v-if="pages.isVisible" class="list list-unstyled col-12" data-cy="documentation">
       <hr>
-      <div class="distributions" :key="`${expandedPages.length}--${expandedPageDescriptions.length}`">
+      <div class="dsd-pages-list" :key="`${expandedPages.length}--${expandedPageDescriptions.length}`">
         <div
           v-for="(page, i) in displayedPages"
           :key="i"
-          class="distributions__item"
+          class="dsd-pages-item"
         >
           <!-- Preview and action overlay -->
           <div
@@ -40,8 +40,8 @@
           </div>
           <li class="row">
             <!-- PAGE FORMAT -->
-            <span class="d-inline-block col-2 col-md-1 pl-1 p-md-3 px-md-4 m-md-0 m-auto">
-                <div class="circle float-md-right text-center text-white"
+            <span class="dsd-pages-item-format d-inline-block col-2 col-md-1 pl-1 p-md-3 px-md-4 m-md-0 m-auto">
+                <div class="circle float-md-right text-center"
                      :type="getPageFormat(page)"
                      :data-toggle="pageFormatTruncated(page) ? 'tooltip' : false"
                      :data-placement="pageFormatTruncated(page) ? 'top' : false"
@@ -49,14 +49,14 @@
                   <span>{{ truncate(getPageFormat(page), 4, true) }}</span>
                 </div>
               </span>
-            <span class="col-10 col-md-11">
+            <span class="dsd-pages-item-content col-10 col-md-11">
                 <span class="row">
                   <!-- PAGE TITLE -->
-                  <span class="d-inline-block col-12">
+                  <span class="dsd-pages-item-title d-inline-block col-12">
                     <h3 class="m-0 text-break" :title="getPageTitle(page)">{{ getPageTitle(page) }}</h3>
                   </span>
-                  <span class="d-inline-block col-12 col-md-9 col-lg-7">
-                    <!-- PAGE DESCRIPTION -->
+                  <!-- PAGE DESCRIPTION -->
+                  <span class="dsd-pages-item-description d-inline-block col-12 col-md-9 col-lg-7">
                     <span class="mt-2 d-block">
                       <small v-if="pageDescriptionIsExpanded(`page-description-toggle-${i}`)">
                         <p class="text-muted">
@@ -80,10 +80,10 @@
                     </span>
                   </span>
                   <!-- PAGE BUTTONS -->
-                  <span class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
+                  <span class="dsd-pages-button col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
                     <!-- PAGE ACCESS -->
-                    <span class="download dropdown d-inline-block">
-                      <app-link class="btn btn-sm btn-primary p-0 pl-2 pr-2 w-100 rounded-lg btn-color"
+                    <span class="d-inline-block">
+                      <app-link class="dsd-action-button btn btn-sm btn-primary p-0 pl-2 pr-2 w-100 rounded-lg btn-color"
                                 :to="page.resource"
                                 target="_blank"
                                 rel="dcat:distribution noopener"

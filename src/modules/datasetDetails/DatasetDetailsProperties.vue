@@ -10,7 +10,7 @@
       <div class="position-relative dsd-item additional-information"
            data-cy="additional-information"
            v-show="infoVisible">
-        <table class="table table-borderless table-responsive bg-light" ref="dsdProperties" id="myTab" role="tablist">
+        <table class="table table-borderless table-responsive" ref="dsdProperties" id="myTab" role="tablist">
           <tr v-if="showArray(getLandingPagesResource)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.landingPage')">
