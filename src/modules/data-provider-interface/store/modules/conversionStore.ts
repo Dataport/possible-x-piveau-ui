@@ -99,7 +99,7 @@ const actions = {
      * @param param1 Object containing property, page, distrbution id and form values
      */
     saveFormValues({ commit }, {property, page, distid, values}) {
-        console.log("Hallo");
+        
         commit('saveFormValuesToStore', {property, page, distid, values});
         
     },
@@ -157,7 +157,7 @@ const actions = {
         }
 
         const RDFdata = toRDF.convertToRDF(data, property);
-        console.log(RDFdata);
+        
         return RDFdata;
     },
     /**
