@@ -192,7 +192,9 @@ export default {
               resource: r.resource,
             }));
             this.autocomplete.suggestions = results;
+            console.log(results);
           });
+         
         }
       } else {
         if (this.autocomplete.text.length <= 1) {
@@ -332,6 +334,7 @@ export default {
 
     },
     handleAutocompleteSuggestions(suggestion) {
+      
       this.autocomplete.selected = true;
 
       if (this.multiple) {
@@ -345,6 +348,9 @@ export default {
       } else {
         this.autocomplete.text = suggestion.name;
         this.context.model = suggestion.resource;
+        this.context.altLabel = suggestion.name;
+        
+
       }
       this.context.rootEmit("change");
       if (this.annifTheme && suggestion.activeValue == undefined) {
