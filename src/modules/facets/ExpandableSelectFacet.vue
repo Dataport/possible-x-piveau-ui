@@ -7,7 +7,7 @@
         :tooltip="toolTipTitle"
       />
       <a
-        class="d-flex d-md-none list-group-item justify-content-between align-items-baseline"
+        class="facet-title-mobile d-flex d-md-none list-group-item justify-content-between align-items-baseline"
         data-toggle="collapse"
         :data-target="`#${myId}`"
         @click="isExpanded = !isExpanded"
@@ -22,7 +22,7 @@
 
     <div
       :id="myId"
-      class="collapse dont-collapse-sm">
+      class="collapse dont-collapse-sm facet-list">
       <template v-if="items && items.length > 0">
         <div
           class="list-item-container"
@@ -40,7 +40,7 @@
         </div>
         <button
           v-if="items.length > minItems"
-          class="d-block btn btn-primary btn-color w-100"
+          class="d-block btn btn-primary btn-color w-100 facet-expand-button"
           @click="handleGrowToggle"
         >
           <i class="material-icons align-bottom expand-more animated">{{ isGrown ? 'expand_less' : 'expand_more' }}</i>
