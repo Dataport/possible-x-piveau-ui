@@ -6,7 +6,7 @@
     >
       <div class="loading-spinner"></div>
     </pv-button>
-    <pv-button v-else class="download-all-btn" :small="small" :rounded="true" :primary="primary" :download="true" :action="() => openModal(downloadAllDistributions, true)">
+    <pv-button v-else class="download-all-btn" :small="small" :rounded="true" :primary="primary" :download="true" :action="() => openModal(trackAndDownloadAllDistributions, true)">
       {{ $t('message.datasetDetails.datasets.downloadAll') }}
     </pv-button>
     <div class="modal fade" id="downloadAllModal" tabindex="-1" role="dialog" aria-labelledby="download progress" aria-hidden="true">
@@ -48,7 +48,7 @@
             <button v-if="!downloadAllSuccess && !downloadAllError" type="button" class="btn btn-danger" data-dismiss="modal" @click="cancelDownloadAll(cancelDownloadAllAxiosRequestSource)">
               {{ $t('message.datasetDetails.datasets.modal.cancel') }}
             </button>
-            <button v-else-if="downloadAllError" type="button" class="btn btn-danger" @click="downloadAllDistributions()">{{ $t('message.datasetDetails.datasets.modal.error') }}</button>
+            <button v-else-if="downloadAllError" type="button" class="btn btn-danger" @click="trackAndDownloadAllDistributions()">{{ $t('message.datasetDetails.datasets.modal.error') }}</button>
             <button v-else-if="downloadAllSuccess" type="button" class="btn btn-success" data-dismiss="modal">{{ $t('message.datasetDetails.datasets.modal.okay') }}</button>
           </div>
         </div>
@@ -82,7 +82,32 @@ export default {
       'getTitle',
       'getCatalog',
       'getLanguages'
-    ])
+    ]),
+    files() {
+      const cutFormatEnding = string => (string.lastIndexOf('.') !== -1 ? string.substring(0, string.lastIndexOf('.')) : string);
+      const getFormat = (distribution) => {
+        if (has(distribution, 'format.id') && !isNil(distribution.format.id)) {
+          const type = distribution.format.id;
+          return type.lastIndexOf('.') === -1 ? type.toLowerCase() : type.substring(type.lastIndexOf('.') + 1, type.length).toLowerCase();
+        }
+        return '';
+      };
+      const getFileName = (distribution, i) =>
+        `${cutFormatEnding(this.getDistributionTitle(distribution)).substring(0, this.bulkDownload.MAX_FILE_TITLE_LENGTH)
+          .replace(/\//g, ' ').trim()}-${i}`
+        || `${cutFormatEnding(this.getDistributionDescription(distribution)).substring(0, this.bulkDownload.MAX_FILE_TITLE_LENGTH)
+          .replace(/\//g, ' ').trim()}-${i}`;
+      const getUrls = distribution => (this.showDownloadUrls(distribution) ?
+        { accessUrl: `${distribution.accessUrl[0]}`, downloadUrl: `${distribution.downloadUrls[0]}` }
+        : { accessUrl: `${distribution.accessUrl[0]}` });
+      const getFileNameForCSV = distribution => this.getDistributionTitle(distribution).replace(/,/g, '')
+        || this.getDistributionDescription(distribution).replace(/,/g, '');
+      const files = this.getDistributions
+        .map((distribution, i) => ({
+          title: getFileName(distribution, i + 1), ...getUrls(distribution), format: getFormat(distribution), csvReportTitle: getFileNameForCSV(distribution),
+        }));
+        return files
+    }
   },
   data() {
     return {
@@ -230,6 +255,12 @@ export default {
       // stops zip operation
       this.isDownloadAllDistributionsCanceled = true;
     },
+    async trackAndDownloadAllDistributions() {
+      if (this.$piwik && this.$piwik.trackDownload) {
+        this.$piwik.trackDownload(window.location.href, { files: JSON.stringify(this.files), downloadAll: 'true' });
+      }
+      return await this.downloadAllDistributions();
+    },
     async downloadAllDistributions() {
       this.downloadedFilesCounter = 0;
       this.downloadProgress = 0;
@@ -241,40 +272,17 @@ export default {
       this.isDownloadAllDistributionsCanceled = false;
       this.downloadAllSuccess = false;
       this.downloadAllError = false;
-      const getFormat = (distribution) => {
-        if (has(distribution, 'format.id') && !isNil(distribution.format.id)) {
-          const type = distribution.format.id;
-          return type.lastIndexOf('.') === -1 ? type.toLowerCase() : type.substring(type.lastIndexOf('.') + 1, type.length).toLowerCase();
-        }
-        return '';
-      };
       const getContentTypeFormat = (contentType) => {
         const startIndex = contentType.lastIndexOf('/') + 1;
         const endIndex = contentType.indexOf(';') !== -1 ? contentType.indexOf(';') : contentType.length;
         return contentType.substring(startIndex, endIndex);
       };
-      const cutFormatEnding = string => (string.lastIndexOf('.') !== -1 ? string.substring(0, string.lastIndexOf('.')) : string);
-      const getFileName = (distribution, i) =>
-        `${cutFormatEnding(this.getDistributionTitle(distribution)).substring(0, this.bulkDownload.MAX_FILE_TITLE_LENGTH)
-          .replace(/\//g, ' ').trim()}-${i}`
-        || `${cutFormatEnding(this.getDistributionDescription(distribution)).substring(0, this.bulkDownload.MAX_FILE_TITLE_LENGTH)
-          .replace(/\//g, ' ').trim()}-${i}`;
-      const getUrls = distribution => (this.showDownloadUrls(distribution) ?
-        { accessUrl: `${distribution.accessUrl[0]}`, downloadUrl: `${distribution.downloadUrls[0]}` }
-        : { accessUrl: `${distribution.accessUrl[0]}` });
-      const getFileNameForCSV = distribution => this.getDistributionTitle(distribution).replace(/,/g, '')
-        || this.getDistributionDescription(distribution).replace(/,/g, '');
 
-      const files = this.getDistributions
-        .map((distribution, i) => ({
-          title: getFileName(distribution, i + 1), ...getUrls(distribution), format: getFormat(distribution), csvReportTitle: getFileNameForCSV(distribution),
-        }));
-      
       const {default: JSZip} = await import('jszip');
       const zip = new JSZip();
       const zipName = `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)}.zip`;
       const folder = zip.folder(this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages));
-      await this.fetchDistributionFiles(zip, files, folder, getContentTypeFormat);
+      await this.fetchDistributionFiles(zip, this.files, folder, getContentTypeFormat);
       await this.generateAndSaveZip(zip, zipName);
     },
     // handle navigation to extern website (cancel bulk download and hide modal)
