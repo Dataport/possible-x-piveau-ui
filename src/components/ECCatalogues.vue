@@ -448,14 +448,14 @@ export default {
           name: "description",
           vmid: "description",
           content: `${this.$t(
-            "message.header.navigation.data.catalogs"
-          )} - data.europa.eu`,
+            "message.catalogs.meta.description"
+          )}`,
         },
         {
           name: "keywords",
           vmid: "keywords",
           content: `${this.$env.keywords} ${this.$t(
-            "message.header.navigation.data.catalogs"
+            "message.catalogs.meta.description"
           )}`,
         },
         { name: "robots", content: "noindex, follow" },
