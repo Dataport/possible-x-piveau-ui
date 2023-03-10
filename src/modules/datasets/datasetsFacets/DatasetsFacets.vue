@@ -105,8 +105,8 @@ export default {
     return {
       title,
       meta: [
-        { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.header.navigation.data.datasets')} - data.europa.eu` },
-        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.keywords} ${this.$t('message.header.navigation.data.catalogs')}` : `${this.$env.keywords} ${this.$t('message.header.navigation.data.datasets')}` },
+        { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.datasets.meta.description')}` },
+        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.keywords} ${this.$t('message.datasets.meta.description')}` : `${this.$env.keywords} ${this.$t('message.datasets.meta.description')}` },
       ],
     };
   },
