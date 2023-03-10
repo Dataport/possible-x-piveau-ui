@@ -420,7 +420,7 @@ export default {
     //     error => { console.error(error); }
     //   );
     // },
-    '!isNil(this.$route.params.ctlg_id)'(showCatalogDetails) {
+    '$route.params.ctlg_id'(showCatalogDetails) {
       this.showCatalogDetails = showCatalogDetails;
     },
     getDatasetGeoBounds(bounds) {
