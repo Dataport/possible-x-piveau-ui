@@ -59,7 +59,7 @@ export default {
         return chunk ? `${chunk} - data.europa.eu` : 'data.europa.eu';
       },
       meta: [
-        { name: 'description', vmid: 'description', content: 'data.europa.eu' },
+        { name: 'description', vmid: 'description', content: this.$t("message.datasets.meta.description") },
         { name: 'keywords', vmid: 'keywords', content: this.$env.keywords },
       ],
       htmlAttrs: {
