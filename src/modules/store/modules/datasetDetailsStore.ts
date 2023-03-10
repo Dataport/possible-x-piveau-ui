@@ -89,6 +89,20 @@
   */
  const state = {
    dataset: {
+    // DCAT-AP.de
+    availability: {},
+    politicalGeocodingLevelURI: [{}],
+    politicalGeocodingURI: [{}],
+    contributorID: [{}],
+    geocodingDescriptionDe: {},
+    legalBasis: {},
+    qualityProcessURI: '',
+    typeDe: '',
+    references: '',
+    contributor: [{}],
+    originator: [{}],
+    maintainer: [{}],
+    //
      accessRights: '',
      accrualPeriodicity: '',
      admsIdentifiers: [],
@@ -164,6 +178,21 @@
  };
 
  const getters = {
+   // DCAT-AP.de
+   getDataset: state => state.dataset,  // For testing only, remove before commit !!!!!!!!!!!!!!!!!!!!!!!!
+   getAvailability: state => state.dataset.availability,
+   getPoliticalGeocodingLevelURI: state => state.dataset.politicalGeocodingLevelURI,
+   getPoliticalGeocodingURI: state => state.dataset.politicalGeocodingURI,
+   getContributorID: state => state.dataset.contributorID,
+   getGeocodingDescriptionDe: state => state.dataset.geocodingDescriptionDe,
+   getLegalBasis: state => state.dataset.legalBasis,
+   getQualityProcessURI: state => state.dataset.qualityProcessURI,
+   getTypeDe: state => state.dataset.typeDe,
+   getReferences: state => state.dataset.references,
+   getContributor: state => state.dataset.contributor,
+   getOriginator: state => state.dataset.originator,
+   getMaintainer: state => state.dataset.maintainer,
+   //
    getAccessRights: state => state.dataset.accessRights,
    getAccrualPeriodicity: state => state.dataset.accrualPeriodicity,
    getAdmsIdentifiers: state => state.dataset.admsIdentifiers,
@@ -248,7 +277,21 @@
        commit('SET_ID', id);
        const service = getters.getService(state);
        service.getSingle(id)
-         .then((response) => {
+       .then((response) => {
+           // DCAT-AP.de
+           commit('SET_AVAILABILITY', response.availability);
+           commit('SET_POLITICAL_GEOCODING_LEVEL_URL', response.politicalGeocodingLevelURI);
+           commit('SET_POLITICAL_GEOCODING_URL', response.politicalGeocodingURI);
+           commit('SET_CONTRIBUTOR_ID', response.contributorID);
+           commit('SET_GEOCODING_DESCRIPTION_DE', response.geocodingDescriptionDe);
+           commit('SET_LEGAL_BASIS', response.legalBasis);
+           commit('SET_QUALITY_PROCESS_URI', response.qualityProcessURI);
+           commit('SET_TYPE_DE', response.typeDe);
+           commit('SET_REFERENCES', response.references);
+           commit('SET_CONTRIBUTER', response.contributor);
+           commit('SET_ORIGINATOR', response.originator);
+           commit('SET_MAINTAINER', response.maintainer);
+           //
            commit('SET_ACCESS_RIGHTS', response.accessRights);
            commit('SET_ACCRUAL_PERIODICITY', response.accrualPeriodicity);
            commit('SET_ATTRIBUTES', response.attributes);
@@ -449,6 +492,44 @@
  };
 
  const mutations = {
+   // DCAT-AP.de
+   SET_AVAILABILITY(state, availability) {
+     state.dataset.availability = availability;
+   },
+   SET_POLITICAL_GEOCODING_LEVEL_URL(state, politicalGeocodingLevelURI) {
+     state.dataset.politicalGeocodingLevelURI = politicalGeocodingLevelURI;
+   },
+   SET_POLITICAL_GEOCODING_URL(state, politicalGeocodingURI) {
+     state.dataset.politicalGeocodingURI = politicalGeocodingURI;
+   },
+   SET_CONTRIBUTOR_ID(state, contributorID) {
+     state.dataset.contributorID = contributorID;
+   },
+   SET_LEGAL_BASIS(state, legalBasis) {
+     state.dataset.legalBasis = legalBasis;
+   },
+   SET_QUALITY_PROCESS_URI(state, qualityProcessURI) {
+     state.dataset.qualityProcessURI = qualityProcessURI;
+   },
+   SET_TYPE_DE(state, typeDe) {
+     state.dataset.typeDe = typeDe;
+   },
+   SET_REFERENCES(state, references) {
+     state.dataset.references = references;
+   },
+   SET_CONTRIBUTER(state, contributor) {
+     state.dataset.contributor = contributor;
+   },
+   SET_GEOCODING_DESCRIPTION_DE(state, geocodingDescriptionDe) {
+     state.dataset.geocodingDescriptionDe = geocodingDescriptionDe;
+   },
+   SET_ORIGINATOR(state, originator) {
+     state.dataset.originator = originator;
+   },
+   SET_MAINTAINER(state, maintainer) {
+     state.dataset.maintainer = maintainer;
+   },
+   //
    SET_ACCESS_RIGHTS(state, accessRights) {
      state.dataset.accessRights = accessRights;
    },
