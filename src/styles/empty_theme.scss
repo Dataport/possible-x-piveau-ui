@@ -406,6 +406,45 @@ This page contains six different Vue.js components. (From top to bottom)
 
 /* ############### Datasetdetailsfeatures ###############    END         ###############*/
 
+/* ############### Datasetdetailsquality ###############    START         ###############*/
+
+.dsd-quality-container {
+    /* Wrapper of Quality Page */
+    .dsd-quality-header {
+        /* Header (Metadata Quality & Distribution Quality) */
+    }
+    .dsd-quality-description {
+        /* Wrapper of description (Metadata Quality & Distribution Quality) */
+        p {
+            /* Description (Metadata Quality & Distribution Quality) */
+        }
+    }
+    .dsd-quality-cards {
+        /* Wrapper of quality cards */
+        .dsd-quality-card {
+            /* Wrapper of quality card */
+            .dimension-card {
+                /* Wrapper of quality card */
+                .card-header {
+                    /* Wrapper of header */
+                    h3 {
+                        /* Header */
+                    }
+                }
+                .dsd-quality-card-list {
+                    /* Wrapper of quality card list */
+                    background-color: antiquewhite;
+                    .dsd-quality-card-list-item {
+                        /* Wrapper of card list item */
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ############### Datasetdetailsquality ###############    END         ###############*/
+
 /* ############### Annif Boxes ###############       START         ###############*/
 .annifItems a{
     background-color:none;

@@ -1,19 +1,19 @@
 <template>
-  <div class="mt-3">
+  <div class="mt-3 dsd-quality-container">
     <div class="row">
       <div class="col-10 offset-1" v-if="getQualityData.result && getQualityDistributionData.result">
-        <h2>{{ $t('message.header.navigation.data.metadataquality') }}</h2>
-        <div class="markdown-content">
+        <h2 class="dsd-quality-header">{{ $t('message.header.navigation.data.metadataquality') }}</h2>
+        <div class="dsd-quality-description markdown-content">
           <p v-html="$t('message.datasetDetails.intro.metadataQuality', { locale: $route.query.locale })"></p>
         </div>
-        <div class="space card-columns" v-if="getQualityData.result">
-          <div v-for="(value,name) in getQualityData.result.results[0]" :key="`A-${name}`">
+        <div class="dsd-quality-cards space card-columns" v-if="getQualityData.result">
+          <div class="dsd-quality-card" v-for="(value,name) in getQualityData.result.results[0]" :key="`A-${name}`">
             <div :class="`dimension-card card dimension-${name}`" v-if="name != 'info' && name != 'validation'">
               <div class="card-header card-title text-center">
                 <h3>{{ $t(`message.datasetDetails.quality.${name}`) }}</h3>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-for="(value, key) in value" :key="`B-${key}`">
+              <ul class="dsd-quality-card-list list-group list-group-flush">
+                <li class="dsd-quality-card-list-item list-group-item" v-for="(value, key) in value" :key="`B-${key}`">
                   <div class="row key-row">
                     <div class="col" v-for="(value, key) in value" :key="`C-${key}`">
                       <div v-if="key == 'dataset'">
@@ -166,8 +166,8 @@
             </div>
           </div>
         </div>
-        <h2 class="mt-5">{{ $t('message.datasetDetails.quality.distributionQuality') }}</h2>
-        <div class="markdown-content">
+        <h2 class="dsd-quality-header mt-5">{{ $t('message.datasetDetails.quality.distributionQuality') }}</h2>
+        <div class="dsd-quality-description markdown-content">
           <p v-html="$t('message.datasetDetails.intro.distribution', { locale: $route.query.locale })" />
         </div>
         <div v-if="getQualityDistributionData.result" id="YEAH">
