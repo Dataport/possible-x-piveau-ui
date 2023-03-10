@@ -249,14 +249,14 @@ export default {
           name: "description",
           vmid: "description",
           content: `${this.$t(
-            "message.header.navigation.data.datasets"
-          )}} - data.europa.eu`,
+            "message.datasets.meta.description"
+          )}`,
         },
         {
           name: "keywords",
           vmid: "keywords",
           content: `${this.$env.keywords} ${this.$t(
-            "message.header.navigation.data.datasets"
+            "message.datasets.meta.description"
           )}}`,
         },
         { name: "robots", content: "noindex, follow" },
