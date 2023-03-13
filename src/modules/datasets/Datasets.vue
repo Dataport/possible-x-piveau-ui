@@ -125,8 +125,8 @@
       return {
         title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.datasets')}`,
         meta: [
-          { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.datasets')}} - data.europa.eu` },
-          { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.header.navigation.data.datasets')}}` },
+          { name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}` },
+          { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.datasets.meta.description')}}` },
           { name: 'robots', content: 'noindex, follow' },
         ],
       };
@@ -160,7 +160,7 @@
         'getMinScoring',
       ]),
       showCatalogDetails() {
-        return this.$route.query.showcatalogdetails === 'true';
+        return !isNil(this.$route.params.ctlg_id);
       },
       /**
        * @description Returns the current page.

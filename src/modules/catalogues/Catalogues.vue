@@ -136,7 +136,6 @@
           :to="{
             path: `/catalogues/${catalog.id}`,
             query: {
-              showcatalogdetails: true,
               locale: $route.query.locale
             },
           }"
@@ -204,8 +203,8 @@
       return {
         title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.catalogs')}`,
         meta: [
-          { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.catalogs')} - data.europa.eu` },
-          { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.header.navigation.data.catalogs')}` },
+          { name: 'description', vmid: 'description', content: `${this.$t('message.catalogs.meta.description')}` },
+          { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.catalogs.meta.description')}` },
           { name: 'robots', content: 'noindex, follow' },
         ],
       };
@@ -419,7 +418,7 @@
         return dateFilters.fromNow(date);
       },
       getCatalogLink(catalog) {
-        return `/catalogues/${catalog.id}?showcatalogdetails=true`;
+        return `/catalogues/${catalog.id}&locale=${this.$route.query.locale}`;
       },
       getCatalogImage(catalog) {
         return this.$env.catalogs.useCatalogCountries

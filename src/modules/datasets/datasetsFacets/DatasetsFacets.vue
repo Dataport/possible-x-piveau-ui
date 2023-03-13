@@ -105,8 +105,8 @@ export default {
     return {
       title,
       meta: [
-        { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.header.navigation.data.datasets')} - data.europa.eu` },
-        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.keywords} ${this.$t('message.header.navigation.data.catalogs')}` : `${this.$env.keywords} ${this.$t('message.header.navigation.data.datasets')}` },
+        { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.datasets.meta.description')}` },
+        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.keywords} ${this.$t('message.datasets.meta.description')}` : `${this.$env.keywords} ${this.$t('message.datasets.meta.description')}` },
       ],
     };
   },
@@ -163,7 +163,7 @@ export default {
     //   return this.getCatalog;
     // },
     // showCatalogDetailsWatcher() {
-    //   return this.$route.query.showcatalogdetails;
+    //   return !isNil(this.$route.params.ctlg_id);
     // },
     useCatalogFacets() {
       return !this.showCatalogDetails;
@@ -379,8 +379,8 @@ export default {
       return facet.count;
     },
     initShowCatalogDetails() {
-      const showCatalogDetails = this.$route.query.showcatalogdetails;
-      if (showCatalogDetails === 'true') {
+      const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
+      if (showCatalogDetails === true) {
         this.showCatalogDetails = true;
         this.loadCatalog(this.$route.params.ctlg_id);
       } else this.showCatalogDetails = false;
@@ -420,7 +420,7 @@ export default {
     //     error => { console.error(error); }
     //   );
     // },
-    '$route.query.showcatalogdetails'(showCatalogDetails) {
+    '$route.params.ctlg_id'(showCatalogDetails) {
       this.showCatalogDetails = showCatalogDetails;
     },
     getDatasetGeoBounds(bounds) {

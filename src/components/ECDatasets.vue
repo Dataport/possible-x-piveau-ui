@@ -249,14 +249,14 @@ export default {
           name: "description",
           vmid: "description",
           content: `${this.$t(
-            "message.header.navigation.data.datasets"
-          )}} - data.europa.eu`,
+            "message.datasets.meta.description"
+          )}`,
         },
         {
           name: "keywords",
           vmid: "keywords",
           content: `${this.$env.keywords} ${this.$t(
-            "message.header.navigation.data.datasets"
+            "message.datasets.meta.description"
           )}}`,
         },
         { name: "robots", content: "noindex, follow" },
@@ -270,7 +270,6 @@ export default {
       facetFields: [],
       lang: this.locale,
       filterCollapsed: true,
-      catalogDetailsMode: this.$route.query.showcatalogdetails === "true",
       catalogAllowed: false,
       useCreateDatasetButton: this.$env.upload.useCreateDatasetButton,
       useCreateCatalogueButton: this.$env.upload.useCreateCatalogueButton,
@@ -294,7 +293,7 @@ export default {
       "getMinScoring",
     ]),
     showCatalogDetails() {
-      return this.$route.query.showcatalogdetails === "true";
+      return !isNil(this.$route.params.ctlg_id);
     },
     /**
      * @description Returns the current page.
@@ -473,7 +472,7 @@ export default {
     },
     initFacetOperator() {
       // Always set facet operator to AND when in catalog details mode
-      if (this.$route.query.showcatalogdetails === "true")
+      if (this.showCatalogDetails)
         this.setFacetOperator("AND");
       else {
         const op = this.$route.query.facetOperator;
@@ -483,7 +482,7 @@ export default {
     initFacetGroupOperator() {
       // The facetGroupOperator should be the same as the facetOperator
       // Always set facet operator to AND when in catalog details mode
-      if (this.$route.query.showcatalogdetails === "true")
+      if (this.showCatalogDetails)
         this.setFacetGroupOperator("AND");
       else {
         const op = this.$route.query.facetOperator;
