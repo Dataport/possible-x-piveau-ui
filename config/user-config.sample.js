@@ -293,7 +293,7 @@ const glueConfig = {
       descriptionMaxChars: 250,
       showValidationButton: false,
       // Available variables: catalog, dataset, distribution, type, lang, accessUrl
-      geoLink: '/geo-viewer/?catalog={catalog}&dataset={dataset}&distribution={distribution}&type={type}&lang={lang}',
+      geoLink: ' https://geoportal.bayern.de/bayernatlas/?layers={type}||{accessUrl}',
     },
     pages: {
       isVisible: false,
