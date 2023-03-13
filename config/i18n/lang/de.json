@@ -352,7 +352,7 @@
                     }
                 }
             },
-            "clear": "Klar",
+            "clear": "Felder zurücksetzen",
             "deletemodal": {
                 "deleteDistribution": "Verteilung löschen",
                 "areyousure": "Sind Sie sicher, dass Sie diese Distribution löschen möchten?"
