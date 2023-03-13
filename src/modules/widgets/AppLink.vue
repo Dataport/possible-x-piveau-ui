@@ -55,10 +55,10 @@ You can/should replace the usage of this component when Vue Router supports exte
         required: false,
       },
       // Use this if you want to track a link explicitly as download instead of an external link.
-      matomoTrackDownload: Boolean,
+      matomoTrackDownload: [Boolean, Object],
       // Use this to manually report clicked links to Matomo
       // Useful for URL destinations, that are on the same domain but not inside this application, so that Matomo is unable to track page views (e.g. RSS feed).
-      matomoTrackPageView: Boolean,
+      matomoTrackPageView: [Boolean, Object],
     },
     computed: {
       readPath: {
@@ -104,10 +104,20 @@ You can/should replace the usage of this component when Vue Router supports exte
 
         if (this.matomoTrackDownload) {
           // window._paq.push(['trackLink', this.url, 'download']);
-          this.$piwik.trackDownload(this.url);
+          this.$piwik.trackDownload(
+            this.url,
+            typeof this.matomoTrackDownload === 'object'
+              ? this.matomoTrackDownload
+              : undefined,
+          );
         } else {
           // window._paq.push(['trackLink', this.url, 'link']);
-          this.$piwik.trackOutlink(this.url);
+          this.$piwik.trackOutlink(
+            this.url,
+            typeof this.matomoTrackPageView === 'object'
+              ? this.matomoTrackPageView
+              : undefined,
+          );
         }
         // Create custom click event
         this.$emit('after-click');

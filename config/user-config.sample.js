@@ -292,6 +292,8 @@ const glueConfig = {
       descriptionMaxLines: 3,
       descriptionMaxChars: 250,
       showValidationButton: false,
+      // Available variables: catalog, dataset, distribution, type, lang, accessUrl
+      geoLink: '/geo-viewer/?catalog={catalog}&dataset={dataset}&distribution={distribution}&type={type}&lang={lang}',
     },
     pages: {
       isVisible: false,
