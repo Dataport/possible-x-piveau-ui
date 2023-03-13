@@ -5,15 +5,6 @@
       <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context" />
     </FormulateSlot>
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
-
-
-
-    <div v-if="context.attributes.name === 'dcatde:politicalGeocodingURI'">
-      <p> {{ context.placeholder }} </p>
-    </div>
-    <div v-else>
-      <p> None </p>
-    </div>
     <!-- temporal solution for license only using vocabulary -->
     <div v-if="context.attributes.name === 'dct:license'">
       <FormulateForm v-model="inputValues" :schema="data['voc']" @change="setContext"></FormulateForm>
