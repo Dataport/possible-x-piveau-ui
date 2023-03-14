@@ -33,7 +33,7 @@ const getters = {
      * @param0 Object containing property, page and distribution id
      * @returns Object conatining form values for given property, distribution and page
      */
-    getRawValues: (state) => ({property, page, id}) => {
+    getRawValues: (state) => ({ property, page, id }) => {
         let data;
 
         if (id) {
@@ -83,7 +83,7 @@ const getters = {
      * @param state 
      * @returns 
      */
-    getMandatoryStatus: (state) => ({property, id}) => {
+    getMandatoryStatus: (state) => ({ property, id }) => {
         if (id) {
             return state.mandatoryStatus.distributions[id];
         } else {
@@ -98,10 +98,10 @@ const actions = {
      * @param param0 
      * @param param1 Object containing property, page, distrbution id and form values
      */
-    saveFormValues({ commit }, {property, page, distid, values}) {
-        
-        commit('saveFormValuesToStore', {property, page, distid, values});
-        
+    saveFormValues({ commit }, { property, page, distid, values }) {
+
+        commit('saveFormValuesToStore', { property, page, distid, values });
+
     },
     /**
      * Saving existing values from localStorage to vuex store
@@ -117,7 +117,7 @@ const actions = {
      * @param param1 Object containing endpoint and token for data fetching as well as property
      */
     async convertToInput({ commit }, { endpoint, token, property }) {
-       
+
         const fetchedData = await generalHelper.fetchLinkedData(endpoint, token).then((response) => {
             return response;
         });
@@ -140,8 +140,8 @@ const actions = {
      */
     convertToRDF({ state }, property) {
 
-       
-        
+
+
         // merging objects with nested objects containing the values of each page into one main object containing all values for the given property
         const data = {
             datasets: generalHelper.mergeNestedObjects(state.datasets),
@@ -157,7 +157,7 @@ const actions = {
         }
 
         const RDFdata = toRDF.convertToRDF(data, property);
-        
+
         return RDFdata;
     },
     /**
@@ -182,12 +182,12 @@ const actions = {
     clearAll({ commit }) {
         commit('resetStore');
     },
-/**
- * Checks mandatory status for given property and calls mutation to set mandatoryStatus
- * @param param0 
- * @param param1 Object containing property and distribution id
- */
-    setMandatoryStatus({ commit }, {property, id}) {
+    /**
+     * Checks mandatory status for given property and calls mutation to set mandatoryStatus
+     * @param param0 
+     * @param param1 Object containing property and distribution id
+     */
+    setMandatoryStatus({ commit }, { property, id }) {
 
         let data;
         if (id) data = generalHelper.mergeNestedObjects(state[property][id]);
@@ -196,7 +196,7 @@ const actions = {
         // check status of given values
         const status = generalHelper.checkMandatory(data, property);
 
-        commit('changeMandatoryStatus', {property, id, status});
+        commit('changeMandatoryStatus', { property, id, status });
     }
 };
 
@@ -206,10 +206,10 @@ const mutations = {
      * @param state 
      * @param param1 Object containing the property, page, distribution id and values of input form
      */
-    saveFormValuesToStore(state, {property, page, distid, values}) {
+    saveFormValuesToStore(state, { property, page, distid, values }) {
 
-        
-        
+
+
         if (distid) {
             state[property][distid][page] = values;
             localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
@@ -227,7 +227,7 @@ const mutations = {
     */
     saveFromLocalstorage(state, property) {
         let valueName;
-     
+
         if (property === 'catalogues') {
             valueName = 'dpi_catalogues';
         } else {
@@ -263,8 +263,15 @@ const mutations = {
      * @param param1 Object containing data and property and state
      */
     saveLinkedDataToStore(state, { property, data }) {
-        const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
-        toInput.convertToInput(state, property, data, dpiConfig);
+        try {
+            const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+            toInput.convertToInput(state, property, data, dpiConfig);
+        } catch (error) {
+            const dpiConfig = generalDpiConfig["dcatap"];
+            toInput.convertToInput(state, property, data, dpiConfig);
+        }
+        // const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+        // toInput.convertToInput(state, property, data, dpiConfig);
 
         if (property === 'datasets') {
             localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));
@@ -327,7 +334,7 @@ const mutations = {
      * @param state 
      * @param param1 Object containing property, id of distribution and status
      */
-    changeMandatoryStatus(state, {property, id, status}) {
+    changeMandatoryStatus(state, { property, id, status }) {
         if (id) {
             // direct changes within the array won't be aren't ractive in vuex (-> change in mandatoryStatus for distributions will not be update after change)
             // overwriting whole array -> will be handled reactively
@@ -336,7 +343,7 @@ const mutations = {
             if (!isEmpty(state.mandatoryStatus.distributions)) {
                 mandatoryArray = cloneDeep(state.mandatoryStatus.distributions);
             } else {
-                mandatoryArray= [];
+                mandatoryArray = [];
             }
             mandatoryArray[id] = status;
             state.mandatoryStatus.distributions = mandatoryArray;

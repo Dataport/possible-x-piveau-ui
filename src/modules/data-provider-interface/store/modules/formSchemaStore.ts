@@ -28,18 +28,24 @@ const actions = {
      * @param {Object} param1 Object containing property (datasets/catalogues), page (step1/step2/step3) and subpage (distribution1/distribution2/distribution3) of current view
      */
     createSchema({ commit }, { property, page }) {
+        try {
+            const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+            const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
+            const propertyDefinitions = dpiConfig.inputDefinition[property]
+            commit('extractSchema', { pageProperties, propertyDefinitions });
+        } catch (error) {
+            const dpiConfig = generalDpiConfig["dcatap"];
+            const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
+            const propertyDefinitions = dpiConfig.inputDefinition[property]
+            commit('extractSchema', { pageProperties, propertyDefinitions });
+        }
 
-        const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
-        const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
-        const propertyDefinitions = dpiConfig.inputDefinition[property];
-
-        commit('extractSchema', { pageProperties, propertyDefinitions });
     },
     /**
      * Calls mutation function for translating translatable properties of schema
      * @param {*} param0
      */
-    translateSchema({ commit }, {property, subpage }) {
+    translateSchema({ commit }, { property, subpage }) {
 
         // if there is a subpage (distribution page) the property 'distribution' needs to be passed to use the right translations
         if (subpage) {
@@ -55,8 +61,8 @@ const actions = {
      * @param {*} param0
      * @param {*} param1 Object containing curren tproperty (datasets/catalogues) and all catalog options the user has permissions for
      */
-    addCatalogOptions({ commit }, {property, catalogs}) {
-        commit('saveCatalogOptions', {property, catalogs});
+    addCatalogOptions({ commit }, { property, catalogs }) {
+        commit('saveCatalogOptions', { property, catalogs });
     },
 };
 
@@ -74,7 +80,7 @@ const mutations = {
             const propertyKey = pageProperties[index];
             try {
                 newSchema.push(propertyDefinitions[propertyKey]);
-            } catch(err) {
+            } catch (err) {
                 console.warn(`DCATAP doens't include a property called: ${propertyKey}`);
             }
         }
@@ -93,11 +99,11 @@ const mutations = {
      * @param {*} state
      * @param {*} param1 Object containing current property and the users catalog options
      */
-    saveCatalogOptions(state, {property, catalogs}) {
+    saveCatalogOptions(state, { property, catalogs }) {
         if (property === 'datasets') {
             const catalogSchema = state.schema.filter(dataset => dataset.identifier === 'catalog');
 
-            if(!isEmpty(catalogSchema)) {
+            if (!isEmpty(catalogSchema)) {
                 const catalogOptions = {};
                 for (let index = 0; index < catalogs.length; index += 1) {
                     const value = catalogs[index];
