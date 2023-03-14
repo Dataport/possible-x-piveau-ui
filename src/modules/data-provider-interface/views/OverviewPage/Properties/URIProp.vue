@@ -13,7 +13,7 @@
     <!-- political geocoding URI -->
     <td v-if="value.type === 'multiURIspecial'">
       <div v-for="(el, index) in data[property]" :key="index">
-        {{ el['@id'] }}
+        {{ el['dcatde:politicalGeocodingURI'] }}
       </div>
     </td>
   </div>

@@ -135,11 +135,12 @@ const multilingualStrings = {
         "adms:versionNotes",
         "dcatde:geocodingDescription",
         "dcatde:legalBasis",
-        "dcatde:licenseAttributionByText",
+        
     ],
     distributions: [
         "dct:title", // also nested within page
         "dct:description", // also nested within page
+        "dcatde:licenseAttributionByText",
     ],
     catalogues: [
         'dct:title',
