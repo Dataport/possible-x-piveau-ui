@@ -19,11 +19,11 @@ This page contains six different Vue.js components. (From top to bottom)
     - Is Used By
     - Related Resources
     - Dataset Extent
+    - Additional Information
+- Datasetdetailscategories
+- Datasetdetailsquality
 
 */
-
-@import "dataset_details_categories";
-@import "datasets_catalogs";
 
 /* ############### Datasetdetails Global ############### START ###############*/
 
@@ -322,7 +322,7 @@ This page contains six different Vue.js components. (From top to bottom)
 /* ############### Visualisations ###############    START         ###############*/
 
 .dsd-visualisations-feature {
-
+    /* Wrapper of Visualisations Feature */
 }
 
 /* ############### Visualisations ###############    END         ###############*/
@@ -406,6 +406,27 @@ This page contains six different Vue.js components. (From top to bottom)
 
 /* ############### Datasetdetailsfeatures ###############    END         ###############*/
 
+/* ############### Datasetdetailscategories ############### START ###############*/
+
+.dsd-categories {
+    /* Wrapper of Categories */
+    h2 {
+        /* Categories header */
+    }
+    .dsd-categories-items {
+        /* Wrapper of Categories item container */
+        div {
+            /* Wrapper of item */
+            background-color: var(--light);
+            a {
+                /* Item link */
+            }
+        }
+    }
+}
+  
+/* ############### Datasetdetailscategories ############### END ###############*/  
+
 /* ############### Datasetdetailsquality ###############    START         ###############*/
 
 .dsd-quality-container {
@@ -419,9 +440,9 @@ This page contains six different Vue.js components. (From top to bottom)
             /* Description (Metadata Quality & Distribution Quality) */
         }
     }
-    .dsd-quality-cards {
+    .dsd-mq-cards {
         /* Wrapper of quality cards */
-        .dsd-quality-card {
+        .dsd-mq-card {
             /* Wrapper of quality card */
             .dimension-card {
                 /* Wrapper of quality card */
@@ -431,11 +452,112 @@ This page contains six different Vue.js components. (From top to bottom)
                         /* Header */
                     }
                 }
-                .dsd-quality-card-list {
+                .dsd-mq-card-list {
                     /* Wrapper of quality card list */
-                    background-color: antiquewhite;
-                    .dsd-quality-card-list-item {
+                    .dsd-mq-card-list-item {
                         /* Wrapper of card list item */
+                        .dsd-mq-card-list-item-left {
+                            /* Wrapper of left card list content */
+                            span, .dataset-space {
+                                /* Icon and text */
+                            }
+                            .dsd-mq-card-info-icon {
+                                /* Info Icon */
+                            }
+                        }
+                        .dsd-mq-card-list-item-right {
+                            /* Wrapper of right card list content */
+                            .badge-no {
+                                /* Badge no */
+                            }
+                            .badge-n-a {
+                                /* Badge n/a */
+                            }
+                            .badge-yes {
+                                /* Badge yes */
+                            }
+                            .badge-yes-interoperability {
+                                /* Badge yes interoperability (use for badge color changes) */
+                            }
+                            .badge-yes-findability {
+                                /* Badge yes findability (use for badge color changes) */
+                            }
+                            .badge-yes-accessibility {
+                                /* Badge yes accessibility (use for badge color changes) */
+                            }
+                            .badge-yes-reusability {
+                                /* Badge yes reusability (use for badge color changes) */
+                            }
+                            .badge-yes-contextuality {
+                                /* Badge yes contextuality (use for badge color changes) */
+                            }
+                        }
+                    }
+                }
+            }
+            .dimension-accessibility {
+                /* Accessibility card (use for background-color changes) */
+            }
+            .dimension-findability {
+                /* Findability card (use for background-color changes) */
+            }
+            .dimension-interoperability {
+                /* Interoperability card (use for background-color changes) */
+            }
+            .dimension-reusability {
+                /* Reusability card (use for background-color changes) */
+            }
+            .dimension-contextuality {
+                /* Contextuality card (use for background-color changes) */
+            }
+            .dimension-scoring {
+                /* Scoring card (use for background-color changes) */
+            }
+        }
+    }
+    .dsd-dq-cards {
+        /* Wrapper of all Distribution Quality cards */
+        .dsd-dq-card {
+            /* Wrapper of Distribution Quality card */
+            .card-header {
+                /* Wrapper of header */
+                h3 {
+                    /* Header */
+                    svg {
+                        /* Collapse arrow */
+                    }
+                }
+            }
+            .dsd-dq-card-body {
+                /* Wrapper of card body */
+                .dsd-dq-dimension {
+                    /* Wrapper of dimension section (e.g. Accessibility, Reusability, ...) */
+                    .dimension-headline {
+                        /* Dimension headline */
+                    }
+                    .dsd-dq-dimension-items {
+                        /* Wrapper of dimension items */
+                        ul {
+                            /* Wrapper of dimension items on left side */
+                            li {
+                                /* Wrapper of dimension item */
+                                .dsd-dq-dimension-item-title {
+                                    /* Dimension item title */
+                                }
+                                .badge-no {
+                                    /* Badge no */
+                                }
+                                .badge-n-a {
+                                    /* Badge n/a */
+                                }
+                                .badge-yes {
+                                    /* Badge yes */
+                                }
+                            }
+                        }
+                        .dsd-dq-dimenison-items-left {
+                            /* Wrapper of dimension items on left side */
+                        }
                     }
                 }
             }
@@ -443,11 +565,13 @@ This page contains six different Vue.js components. (From top to bottom)
     }
 }
 
+// CSV Linter on quality page????
+
 /* ############### Datasetdetailsquality ###############    END         ###############*/
 
 /* ############### Annif Boxes ###############       START         ###############*/
 .annifItems a{
-    background-color:none;
+    background-color: none;
     text-decoration: none;
     color: black;
     &:hover{
