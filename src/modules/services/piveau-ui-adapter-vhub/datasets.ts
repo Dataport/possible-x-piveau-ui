@@ -14,24 +14,24 @@
    const ds = {};
    // New fields from DCAT-AP.de
    // Dataset
-   ds.politicalGeocodingLevelURI = dataGetters.getArrayOfObjects(dataset, 'political_geocoding_level_uri', ['resource', 'label']); // no results x
-   ds.politicalGeocodingURI = dataGetters.getArrayOfObjects(dataset, 'political_geocoding_uri', ['resource', 'label']); // no results x
+   ds.politicalGeocodingLevelURI = dataGetters.getArrayOfObjects(dataset, 'political_geocoding_level_uri', ['resource', 'label']);
+   ds.politicalGeocodingURI = dataGetters.getArrayOfObjects(dataset, 'political_geocoding_uri', ['resource', 'label']);
    ds.availability = dataGetters.getObject(dataset, 'availability', ['resource', 'label']);
-   ds.contributorID = dataGetters.getArrayOfObjects(dataset, 'contributor_id', ['resource', 'label']); // no results x
-   ds.geocodingDescriptionDe = dataGetters.getObject(dataset, 'geocoding_description', ['de']); // works after removing duplicate
-   ds.legalBasis = dataGetters.getObject(dataset, 'legal_basis', ['de']); // no results x
-   ds.qualityProcessURI = dataGetters.getString(dataset, 'quality_process_uri'); // no results
-   ds.typeDe = dataGetters.getString(dataset, 'type'); // TODO getString? check the type
-   ds.references = dataGetters.getString(dataset, 'references'); //
-   ds.contributor = dataGetters.getArrayOfObjects(dataset, 'contributor', ['name', 'type', 'resource', 'email', 'homepage']); //
-   ds.originator = dataGetters.getArrayOfObjects(dataset, 'originator', ['name', 'type', 'resource', 'email', 'homepage']); //
-   ds.maintainer = dataGetters.getArrayOfObjects(dataset, 'maintainer', ['name', 'type', 'resource', 'email', 'homepage']); //
+   ds.contributorID = dataGetters.getArrayOfObjects(dataset, 'contributor_id', ['resource', 'label']);
+   ds.geocodingDescriptionDe = dataGetters.getObject(dataset, 'geocoding_description', ['de']);
+   ds.legalBasis = dataGetters.getObject(dataset, 'legal_basis', ['de']);
+   ds.qualityProcessURI = dataGetters.getString(dataset, 'quality_process_uri');
+   ds.typeDe = dataGetters.getString(dataset, 'type');
+   ds.references = dataGetters.getString(dataset, 'references');
+   ds.contributor = dataGetters.getArrayOfObjects(dataset, 'contributor', ['name', 'type', 'resource', 'email', 'homepage']);
+   ds.originator = dataGetters.getArrayOfObjects(dataset, 'originator', ['name', 'type', 'resource', 'email', 'homepage']);
+   ds.maintainer = dataGetters.getArrayOfObjects(dataset, 'maintainer', ['name', 'type', 'resource', 'email', 'homepage']);
    //
    ds.accessRights = dataGetters.getObject(dataset, 'access_right', ['label', 'resource']);
    ds.accrualPeriodicity = dataGetters.getObject(dataset, 'accrual_periodicity', ['resource', 'label']);
    ds.admsIdentifiers = dataGetters.getArrayOfObjects(dataset, 'adms_identifier', ['identifier', 'schema', 'resource']);
    ds.attributes = dataGetters.getArrayOfStrings(dataset, 'attribute');
-   ds.catalog = dataGetters.getObject(dataset, 'catalog', ['id', 'title', 'description', 'country', 'homepage', 'issued', 'modified', 'language', 'license', 'publisher', 'spatial', 'spatial_resource']);
+   ds.catalog = dataGetters.getObject(dataset, 'catalog', ['id', 'title', 'description', 'country', 'homepage', 'issued', 'modified', 'language', 'license', 'publisher', 'spatial', 'spatial_resource', 'availability']);
    ds.catalogRecord = dataGetters.getObject(dataset, 'catalog_record', ['issued', 'modified']);
    ds.categories = dataGetters.getArrayOfObjects(dataset, 'categories', ['id', 'label']);
    ds.conformsTo = dataGetters.getArrayOfObjects(dataset, 'conforms_to', ['label', 'resource']);
@@ -94,6 +94,7 @@
      distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url']);
      // distribution.accessService = dataGetters.getArrayOfStrings(dist, 'access_service');
      distribution.availability = dataGetters.getObject(dist, 'availability', ['label', 'resource']);
+     distribution.licenseAttributionByText = dataGetters.getObject(dist, 'license_attribution_by_text', ['en']);
      distribution.byteSize = dataGetters.getNumber(dist, 'byte_size');
      distribution.checksum = dataGetters.getObject(dist, 'checksum', ['algorithm', 'checksum_value']);
      distribution.compressFormat = dataGetters.getObject(dist, 'compress_format', ['label', 'resource']);
