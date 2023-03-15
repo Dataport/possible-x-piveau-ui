@@ -453,10 +453,8 @@
       },
       /* SPECIFIC SHOW FUNCTIONS */
       showLicence(licence) {
-        return has(licence, 'id')
-          && has(licence, 'label')
-          && !isNil(licence.id)
-          && !isNil(licence.label)
+        return (has(licence, 'id') && !isNil(licence.id))
+          || (has(licence, 'label') && !isNil(licence.label))
       },
       showLicensingAssistant(distribution) {
         return has(distribution, 'licence.la_url') && this.showString(distribution.licence.la_url);
