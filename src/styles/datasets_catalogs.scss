@@ -87,7 +87,6 @@ This page contains six different Vue.js components. (From top to bottom)
       /* Wrapper of Catalog details information */
       div {
         /* Wrapper of Catalog details information */
-        background-color: aqua !important;
         dl {
           /* Wrapper of information section */
           dt {
@@ -138,7 +137,6 @@ This page contains six different Vue.js components. (From top to bottom)
               /* Header */
               i {
                 /* Information button */
-                color: aqua !important;
               }
             }
           }
@@ -347,7 +345,7 @@ This page contains six different Vue.js components. (From top to bottom)
         /* Wrapper of badges */
         .pv-badge {
           /* Badge */
-          /* Change badge color like this
+          /* Change badge color like this or in styles.scss
           &[type="CSV"] {
             background-color: orange;
           }

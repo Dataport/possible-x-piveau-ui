@@ -180,7 +180,7 @@ This page contains six different Vue.js components. (From top to bottom)
             /* Wrapper of show more distributions buttons */
             .distributions-show-more-button:nth-child(-n+2) {
                 /* First two show more buttons */
-                // background-color: #000c39; löschen?
+                // background-color: #000c39;
             }
             .distributions-show-more-button:last-child {
                 /* Last show more button */
@@ -218,7 +218,7 @@ This page contains six different Vue.js components. (From top to bottom)
         /* Keywords and Categories item */
         small {
             /* Text in Keywords and Categories item */
-            // color: #fff;
+            color: #fff;
         }
     }
 }
@@ -235,7 +235,6 @@ This page contains six different Vue.js components. (From top to bottom)
             /* Keywords item */
             small {
                 /* Text in Keywords item */
-                color: #fff;
             }
         }
     }
@@ -253,7 +252,6 @@ This page contains six different Vue.js components. (From top to bottom)
             /* Keywords item */
             small {
                 /* Text in Keywords item */
-                color: #fff;
             }
         }
     }
@@ -564,8 +562,6 @@ This page contains six different Vue.js components. (From top to bottom)
         }
     }
 }
-
-// CSV Linter on quality page????
 
 /* ############### Datasetdetailsquality ###############    END         ###############*/
 

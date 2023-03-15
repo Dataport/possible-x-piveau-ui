@@ -21,7 +21,7 @@ const glueConfig = {
     qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
     // qualityBaseUrl: 'https://ppe.data.europa.eu/api/mqa/cache/',
     // qualityBaseUrl: 'https://piveau-metrics-cache-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
-    similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
+    similarityBaseUrl: 'https://data.europa.eu/api/mqa/similarities/',
     // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
     // similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
     hubUrl: 'https://data.europa.eu/api/hub/repo/',
