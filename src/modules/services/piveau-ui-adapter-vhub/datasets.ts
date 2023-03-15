@@ -91,9 +91,8 @@
    for (const dist of dataGetters.getDistributions(dataset)) {
      const distribution = {};
      distribution.accessUrl = dataGetters.getArrayOfStrings(dist, 'access_url');
-     distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url']);
+     distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url', 'availability']); // availability field for DCAT-AP.de
      // distribution.accessService = dataGetters.getArrayOfStrings(dist, 'access_service');
-     distribution.availability = dataGetters.getObject(dist, 'availability', ['label', 'resource']);
      distribution.licenseAttributionByText = dataGetters.getObject(dist, 'license_attribution_by_text', ['en']);
      distribution.byteSize = dataGetters.getNumber(dist, 'byte_size');
      distribution.checksum = dataGetters.getObject(dist, 'checksum', ['algorithm', 'checksum_value']);

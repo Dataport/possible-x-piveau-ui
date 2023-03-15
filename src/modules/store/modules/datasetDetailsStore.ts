@@ -178,8 +178,7 @@
  };
 
  const getters = {
-   // DCAT-AP.de
-   getDataset: state => state.dataset,  // For testing only, remove before commit !!!!!!!!!!!!!!!!!!!!!!!!
+   // DCAT-AP.de fields
    getAvailability: state => state.dataset.availability,
    getPoliticalGeocodingLevelURI: state => state.dataset.politicalGeocodingLevelURI,
    getPoliticalGeocodingURI: state => state.dataset.politicalGeocodingURI,

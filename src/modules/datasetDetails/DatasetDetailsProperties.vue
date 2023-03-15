@@ -103,14 +103,7 @@
             </td>
           </tr>
           <!-- Add new fields for DCAT-AP.de -->
-          <!-- TODO: replace strings with i18n translations -->
-          <!-- <tr @click="testLogger(getDataset)">
-            <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.tooltip.datasetDetails.updated')">
-                {{ 'Log Dataset (remove later)' }}
-              </tooltip>
-            </td>
-          </tr> -->
+          <!-- TODO: replace strings/tooltips with i18n translations -->
           <tr v-if="showObjectArray(getPoliticalGeocodingLevelURI)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('Political Geocoding Level URI')">
@@ -162,7 +155,8 @@
               </tooltip>
             </td>
             <td >
-              <div> <b>DE:</b> {{ getGeocodingDescriptionDe.de }}</div>
+              <!-- TODO: get translation instead of .de -->
+              <div> {{ getGeocodingDescriptionDe.de }}</div>
             </td>
           </tr>
           <tr v-if="showObject(getLegalBasis)">
@@ -172,7 +166,8 @@
               </tooltip>
             </td>
             <td >
-              <div> <b>DE:</b> {{ getLegalBasis.de }}</div>
+              <!-- TODO: get translation instead of .de -->
+              <div> {{ getLegalBasis.de }}</div>
             </td>
           </tr>
           <tr v-if="showString(getQualityProcessURI)">
@@ -247,7 +242,7 @@
               <div> <b>Resource:</b> <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
-          <!-- ### END DCAT-AP.de ### -->
+          <!-- ### END DCAT-AP.de fields ### -->
           <tr v-if="showString(getModificationDate)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.updated')">
