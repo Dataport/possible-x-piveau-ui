@@ -1,6 +1,7 @@
 <template>
   <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
     v-on="$listeners">
+    <hr>
     <FormulateSlot name="prefix" :context="context">
       <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context" />
     </FormulateSlot>
@@ -34,7 +35,7 @@
 <script>
 import { isEmpty } from 'lodash';
 import generalHelper from '../utils/general-helper';
-import axios from 'axios';
+
 
 export default {
   props: {

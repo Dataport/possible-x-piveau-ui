@@ -1,16 +1,16 @@
 <template>
     <div>
         <tr v-if="showValue(data, property)">
-            <td class="w-25 font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`)}}:</td>
-
-            <URIProp :property="property" :value="value" :data="data"></URIProp>
+            <td class="w-25 font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
+            
+            <URIProp :property="property" :value="value" :data="data"><p>{{value.type}}</p></URIProp>
             <URLProp :property="property" :value="value" :data="data"></URLProp>
             <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
 
             <!-- SPECIAL -->
             <td v-if="value.type === 'special'">
                 <div v-for="(elem, index) in data[property]" :key="index">
-                
+
                     <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
                 </div>
             </td>

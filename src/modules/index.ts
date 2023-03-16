@@ -61,6 +61,7 @@ import DpiMenu from './data-provider-interface/DPI-menu.vue';
 import InfoSlot from './data-provider-interface/components/InfoSlot.vue';
 import AutocompleteInput from './data-provider-interface/components/AutocompleteInput.vue';
 import ConditionalInput from './data-provider-interface/components/ConditionalInput.vue';
+import Groupedinput from './data-provider-interface/components/Groupedinput.vue';
 import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput.vue';
 import FileUpload from './data-provider-interface/components/FileUpload.vue';
 import DatePicker from './data-provider-interface/components/DatePicker.vue';
@@ -143,6 +144,7 @@ export {
   InfoSlot,
   AutocompleteInput,
   ConditionalInput,
+  Groupedinput,
   UniqueIdentifierInput,
   FileUpload,
   DatePicker,
