@@ -69,32 +69,42 @@ The User configuration file is located at `config/user-config.js` by default. It
 
 This property contains information about base URLs and APIs used in piveau-hub-ui.
 
-## baseUrl 
-URL to Hub-Search API.
 
-## hubUrl
-URL to Hub-Repo API.
 
-## qualityBaseUrl
-URL to MQA Cache API.
+#### baseUrl 
+URL to Hub-Search API
 
-## similarityBaseUrl
-URL to Similarity API.
 
-## fileUploadUrl
-URL to Hub-Store API.
+#### hubUrl
+URL to Hub-Repo API
 
-## sparqlUrl
-SPARQL Base URL.
 
-## gazetteerBaseUrl
-URL to Hub-Search Gazetteer API.
+#### qualityBaseUrl
+URL to MQA Cache API
 
-## catalogBaseUrl
-Catalog Base URL.
 
-## vueAppCorsproxyApiUrl
-URL to CORS Proxy API.
+#### similarityBaseUrl
+URL to Similarity API
+
+
+#### fileUploadUrl
+URL to Hub-Store API
+
+
+#### sparqlUrl
+SPARQL Base URL
+
+
+#### gazetteerBaseUrl
+URL to Hub-Search Gazetteer API
+
+
+#### catalogBaseUrl
+Catalog Base URL
+
+
+#### vueAppCorsproxyApiUrl
+URL to CORS Proxy API
 
 
 <br><br>
@@ -105,20 +115,51 @@ URL to CORS Proxy API.
 This property contains information about authentication (Login / Logout, Keycloak) used in piveau-hub-ui.
 
 
-## useService 
-Enables the authentication service. To deactivate the authentication, set this value to `false`.
+
+#### useService 
+Enables the authentication service. To deactivate the authentication, set this value to `false` (default: `true`).
+
 
 ## login
-Login / Logout configuration values.
+Login / Logout configuration values
+
+| Property          | Description        |  
+| --------          | ------------------ |
+| useLogin          | Enables the login (buttons). To deactivate the login, set this value to `false` (default: `true`). |  
+| loginTitle        | Title of the login button                                                                         |  
+| loginURL          | Relative URL to login page                                                                        | 
+| loginRedirectUri  | Redirect URI used after successful login                                                          | 
+| logoutTitle       | Title of the logout button                                                                        | 
+| logoutURL         | Title of the logout button                                                                        | 
+| logoutRedirectUri | Redirect URI used after successful logout                                                         | 
+
 
 ## keycloak
-Keycloak configuration values (Realm, ClientID, URL, ...).
+Keycloak configuration values (Realm, ClientID, URL, ...)
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| realm                       | The Keycloak realm     |  
+| clientId                    | The Keycloak clientID  |  
+| url                         | The Keycloak URL       | 
+| ssl-required                | ???                    | 
+| public-client               | ???                    | 
+| verify-token-audience       | ???                    | 
+| use-resource-role-mappings  | ???                    | 
+| confidential-port           | ???                    | 
+
 
 ## rtp
-RTP default values.
+RTP default values
 
-## authToken
-Keycloak Authentication Token.
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| grand_type                  | ???                |  
+| audience                    | ???                |  
+
+
+#### authToken
+Keycloak Authentication Token
 
 
 <br><br>
@@ -129,13 +170,32 @@ Keycloak Authentication Token.
 This property contains information about authentication (Login / Logout, Keycloak) used in piveau-hub-ui.
 
 ## routerOptions 
-Vue Router configuration values.
+Vue Router configuration values
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| base                    | Base path of the application                |  
+| mode                    | Routing mode of the application (default: `history`)                | 
+
 
 ## navigation
-Navigation configuration values.
+Navigation configuration values
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| showSparql                    | Enables the link to the SPARQL page. To deactivate the SPARQL link, set this value to `false` (default: `true`).           |  
+
 
 ## pagination
-Pagination configuration values.
+Pagination configuration values
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| usePagination               | Enables the pagination. To deactivate the pagination, set this value to `false` (default: `true`).          |  
+| usePaginationArrows               | Enables the pagination arrows (previous & next). To deactivate the pagination arrows, set this value to `false` (default: `true`).          |  
+| useItemsPerPage               | Enables the items per page dropdown. To deactivate this feature, set this value to `false` (default: `true`).          |  
+| defaultItemsPerPage               | Default amount of items shown on one page          |  
+| defaultItemsPerPageOptions               | Default options for items per page dropdown          |  
 
 
 <br><br>
@@ -145,14 +205,14 @@ Pagination configuration values.
 
 This property contains information about metadata used in piveau-hub-ui.
 
-## title 
-Title of the application.
+#### title 
+Title of the application
 
-## description
-Description of the application.
+#### description
+Description of the application
 
-## keywords
-Keywords describing the application.
+#### keywords
+Keywords describing the application
 
 
 <br><br>
@@ -163,19 +223,32 @@ Keywords describing the application.
 This property contains information about the content of views that are available in piveau-hub-ui.
 
 ## datasets 
-Contains configuration values that are used on the `Datasets` page.
+Contains configuration values that are used on the `Datasets` page
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| useSort               | Enables the sort. To deactivate the sort, set this value to `false` (default: `true`).          |
+| useFeed               | Enables the RSS feed. To deactivate the RSS feed, set this value to `false` (default: `true`).          |
+| useCatalogs               | Enables the usage of catalogs. To deactivate the catalogs, set this value to `false` (default: `true`).          |
+| followKeywordLinks               | Meta tag to indicate, whether search engines should crawl for subsequent links or not (Default: `nofollow`).          |
+| maxKeywordLength               | Maximum length of a keyword. Keywords that exceed this length will be truncated.         |
+| facets               | _see table below_        |
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| facets               | Facet values ...         |
 
 ## catalogs
-Contains configuration values that are used on the `Catalogues` page.
+Contains configuration values that are used on the `Catalogues` page
 
 ## datasetDetails
-Contains configuration values that are used on the `DatasetDetails` page.
+Contains configuration values that are used on the `DatasetDetails` page
 
 ## maps
-Contains configuration values that are used to create the map component.
+Contains configuration values that are used to create the map component
 
 ## dataProviderInterface
-Contains configuration values that are used for the `DataProviderInterface`.
+Contains configuration values that are used for the `DataProviderInterface`
 
 
 <br><br>
@@ -188,13 +261,13 @@ This property contains information about languages used in piveau-hub-ui.
 ## useLanguageSelector 
 _Note: This property is currently not used, but will be used in future versions._
 
-Enables the Language Selector in the Header component.
+Enables the Language Selector in the Header component
 
 ## locale
-Default Language value on application start _(English)_.
+Default Language value on application start _(English)_
 
 ## fallbackLocale
-Default Fallback Language value _(English)_.
+Default Fallback Language value _(English)_
 
 
 <br><br>
@@ -205,16 +278,16 @@ Default Fallback Language value _(English)_.
 This property contains a list of services used in piveau-hub-ui.
 
 ## datasetService
-Service resposible for querying all `Dataset` related data.
+Service resposible for querying all `Dataset` related data
 
 ## catalogService
-Service resposible for querying all `Catalog` related data.
+Service resposible for querying all `Catalog` related data
 
 ## uploadService
-Service resposible for uploading data created by the `DataProviderInterface` related data.
+Service resposible for uploading data created by the `DataProviderInterface` related data
 
 ## gazetteerService
-Service resposible for querying autocomplete data.
+Service resposible for querying autocomplete data
 
 
 <br><br>
@@ -225,7 +298,7 @@ Service resposible for querying autocomplete data.
 This property contains information about themes used in piveau-hub-ui.
 
 ## header
-The theme of the `Header` component.
+The theme of the `Header` component
 
 
 <br><br>
@@ -236,7 +309,7 @@ The theme of the `Header` component.
 This property contains information tracking software used in piveau-hub-ui.
 
 ## isPiwikPro
-Switch between different tracking software tools. <br>
+Switch between different tracking software tools <br>
 
 | Value   | Tracking Software     |  
 |---      |-----------------------|
@@ -246,10 +319,10 @@ Switch between different tracking software tools. <br>
 <br>
 
 ## siteId
-ID for tracking software.
+ID for tracking software
 
 ## trackerUrl
-URL to tracking software.
+URL to tracking software
 
 </details>
 
