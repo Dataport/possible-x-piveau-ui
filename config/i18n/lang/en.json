@@ -1948,7 +1948,8 @@
         },
         "pagination": {
             "nextPage": "Next",
-            "previousPage": "Previous"
+            "previousPage": "Previous",
+            "itemsPerPage": "Items per Page:"
         },
         "navigation": {
             "navItems": {
