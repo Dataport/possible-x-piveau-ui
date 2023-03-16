@@ -11,7 +11,7 @@
         <app-link :to="distribution.licence.resource"
                   target="_blank"
                   @click="$emit('track-link', distribution.licence.resource, 'link')">
-          {{ distribution.licence.label }}
+          {{ distribution.licence.label ? distribution.licence.label : distribution.licence.resource}}
         </app-link>
         <app-link :to="distribution.licence.resource"
                   target="_blank"
