@@ -47,7 +47,7 @@
         <div>
           <pv-show-more
             v-if="showMoreFacetsShown"
-            :label="cutoff >= 0? 'More filters' : 'Less filters'"
+            :label="cutoff >= 0? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.moreFilters')"
             :upArrow="cutoff === -1"
             :action="toggleCutoff"
             class="p-0 row facets-show-more"
