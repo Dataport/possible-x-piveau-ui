@@ -66,7 +66,7 @@
                 </div>
                 <ECMore class="col-12 text-primary mt-4"
                     v-if="useECMore"
-                    :label="displayAll ? 'Show less' : 'Show more'"
+                    :label="displayAll ? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
                     :upArrow="displayAll"
                     :action="() => toggleDisplayAll()"></ECMore>
             </div>

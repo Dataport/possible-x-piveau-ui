@@ -1024,7 +1024,8 @@
         },
         "pagination": {
             "nextPage": "Vor",
-            "previousPage": "Zurück"
+            "previousPage": "Zurück",
+            "itemsPerPage": "Objekte pro Seite:"
         },
         "navigation": {
             "navItems": {

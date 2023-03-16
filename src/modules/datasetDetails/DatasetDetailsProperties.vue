@@ -704,7 +704,7 @@
     </div>
     <pv-show-more
       v-if="showMoreVisible"
-      :label="expanded? 'Show less' : 'Show more'"
+      :label="expanded? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
       :upArrow="expanded"
       :action="toggleExpanded"
       class="row text-primary"

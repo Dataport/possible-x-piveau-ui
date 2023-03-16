@@ -26,7 +26,7 @@
     <div>
       <pv-show-more
         v-if="displayedSubjects.length > defaultDisplayCount"
-        :label="isSubjectAllDisplayed? 'Show less' : 'Show more'"
+        :label="isSubjectAllDisplayed? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
         :upArrow="isSubjectAllDisplayed"
         :action="toggleDisplayCount"
         class="row text-primary"
