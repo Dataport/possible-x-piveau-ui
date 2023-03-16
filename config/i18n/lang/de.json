@@ -831,7 +831,9 @@
             "scoring": "Wertung",
             "or": "oder",
             "europeanCatalogs": "Europäische Kataloge",
-            "operator": "Operator"
+            "operator": "Operator",
+            "moreFilters": "Mehr Filter",
+            "lessFilters": "weniger Filter"
         },
         "header": {
             "navigation": {

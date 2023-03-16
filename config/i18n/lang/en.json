@@ -1751,7 +1751,9 @@
             "scoring": "Scoring",
             "or": "OR",
             "europeanCatalogs": "European Catalogues",
-            "operator": "Operator"
+            "operator": "Operator",
+            "moreFilters": "More filters",
+            "lessFilters": "Less filters"
         },
         "header": {
             "navigation": {
