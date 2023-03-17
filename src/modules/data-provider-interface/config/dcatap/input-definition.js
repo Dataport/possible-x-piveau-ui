@@ -11,7 +11,7 @@ const dcatapProperties = {
       '@change': true,
     },
     description: {
-      identifier: 'description',
+      identifier: 'datasetDescription',
       type: 'group',
       name: 'dct:description',
       class: 'property grid1r2c',
@@ -49,7 +49,7 @@ const dcatapProperties = {
       minimum: 1,
       children: [
         {
-          identifier: 'title',
+          identifier: 'titleLabel',
           type: 'text',
           name: '@value',
           validation: 'required',
@@ -162,7 +162,7 @@ const dcatapProperties = {
       '@change': true,
     },
     keyword: {
-      identifier: 'keyword',
+      identifier: 'keywordHeader',
       type: 'group',
       name: 'dcat:keyword',
       class: 'property grid2r2c',
@@ -381,7 +381,7 @@ const dcatapProperties = {
           '@repeatableRemoved': true,
           children: [
             {
-              identifier: 'title',
+              identifier: 'pageTitleSub',
               type: 'text',
               name: '@value',
               class: 'row1 column1',
@@ -599,7 +599,7 @@ const dcatapProperties = {
     },
     provenance: {
       type: 'group',
-      identifier: 'provenance',
+      identifier: 'provenanceGroup',
       name: 'dct:provenance',
       class: 'property',
       repeatable: true,
