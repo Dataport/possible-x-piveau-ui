@@ -16,14 +16,14 @@
         </button>
       </a>
     </span>
-    <app-link class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-              :path="getGeoLink"
+    <a class="dropdown-item px-3 d-flex justify-content-end align-items-center"
+              :href="getGeoLink"
               target="_blank"
               @click="$emit('track-link', getGeoLink, 'link')"
               v-if="showGeoLink(distribution)">
       <small class="px-2">{{ $t('message.datasetDetails.geoVisualisation') }}</small>
       <i class="material-icons float-right align-bottom">public</i>
-    </app-link>
+    </a>
   </dropdown>
 </template>
 

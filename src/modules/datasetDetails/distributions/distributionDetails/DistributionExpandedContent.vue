@@ -11,7 +11,7 @@
         <app-link :to="distribution.licence.resource"
                   target="_blank"
                   @click="$emit('track-link', distribution.licence.resource, 'link')">
-          {{ distribution.licence.label }}
+          {{ distribution.licence.label ? distribution.licence.label : distribution.licence.resource}}
         </app-link>
         <app-link :to="distribution.licence.resource"
                   target="_blank"
@@ -37,6 +37,16 @@
       <td v-else>
         {{ $t('message.distributionLicense.notProvided') }}
       </td>
+    </tr>
+    <!-- ToDo get correct translation instead of .en -->
+    <tr v-if="has(distribution, 'licenseAttributionByText') && !isNil(distribution.licenseAttributionByText.en)">
+      <td class="w-25 font-weight-bold">
+        <!-- <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')"> -->
+          <!-- {{ $t('message.metadata.updated') }} -->
+          {{ 'License Attribution By Text' }}
+        <!-- </tooltip> -->
+      </td>
+      <td>{{ distribution.licenseAttributionByText.en }}</td>
     </tr>
     <tr v-if="has(distribution, 'modificationDate') && !isNil(distribution.modificationDate)">
       <td class="w-25 font-weight-bold">

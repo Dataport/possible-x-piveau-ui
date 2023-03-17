@@ -72,6 +72,13 @@
                         </p>
                       </small>
                     </span>
+                    <!-- additional field for DCAT-AP.de -->
+                    <span>
+                      <small v-if="getDataServiceResource(dataService)">
+                        <!-- TODO translation -->
+                        Resource: <a :href="getDataServiceResource(dataService) ">{{ getDataServiceResource(dataService) }}</a>
+                      </small>
+                    </span>
                   </span>
                   <!-- DATA SERVICE BUTTONS -->
                   <span class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
@@ -173,6 +180,9 @@ export default {
     },
     getDataServiceDescription(dataService) {
       return (has(dataService, 'description') && !isNil(dataService.description)) ? getTranslationFor(dataService.description, this.$route.query.locale, this.getLanguages) : this.$t('message.catalogsAndDatasets.noDescriptionAvailable');
+    },
+    getDataServiceResource(dataService) {
+      return (has(dataService.availability, 'resource') && !isNil(dataService.availability.resource)) ? dataService.availability.resource : '';
     }
   },
   mounted() {

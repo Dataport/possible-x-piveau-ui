@@ -831,7 +831,9 @@
             "scoring": "Wertung",
             "or": "oder",
             "europeanCatalogs": "Europäische Kataloge",
-            "operator": "Operator"
+            "operator": "Operator",
+            "moreFilters": "Mehr Filter",
+            "lessFilters": "Weniger Filter"
         },
         "header": {
             "navigation": {
@@ -1024,7 +1026,8 @@
         },
         "pagination": {
             "nextPage": "Vor",
-            "previousPage": "Zurück"
+            "previousPage": "Zurück",
+            "itemsPerPage": "Objekte pro Seite:"
         },
         "navigation": {
             "navItems": {

@@ -25,7 +25,7 @@
         :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
       />
       <e-c-more
-        :label="expanded ? 'Show less' : 'Show more'"
+        :label="expanded ? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
         :upArrow="expanded"
         :action="() => toggleDistribution(distribution.id)"
         class="row ecl-button--secondary ecl-tabs__toggle text-primary mb-3 mt-2"
