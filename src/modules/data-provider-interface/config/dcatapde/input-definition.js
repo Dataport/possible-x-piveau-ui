@@ -41,7 +41,7 @@ const dcatapProperties = {
               {
                 identifier: 'politicalGeocodingURI',
                 type: 'conditional-input',
-                name: 'dcatde:politicalGeocodingURI',
+                name: 'geoCodingURIVoc',
                 options: {
                   municipalityKey: 'Municipality Key',
                   regionalKey: 'Regional Key',
@@ -113,7 +113,7 @@ const dcatapProperties = {
               {
                 identifier: 'politicalGeocodingURIUrl',
                 type: 'url',
-                name: '@id',
+                name: 'geoCodingURIMan',
                 validation: 'optional|url',
                 '@change': true,
               },
@@ -354,7 +354,7 @@ const dcatapProperties = {
       '@change': true,
     },
     description: {
-      identifier: 'description',
+      identifier: 'datasetDescription',
       type: 'group',
       name: 'dct:description',
       class: 'property grid1r2c',
@@ -393,7 +393,7 @@ const dcatapProperties = {
       minimum: 1,
       children: [
         {
-          identifier: 'title',
+          identifier: 'titleLabel',
           type: 'text',
           name: '@value',
           validation: 'required',
@@ -508,7 +508,7 @@ const dcatapProperties = {
       '@annifSuggestion': false,
     },
     keyword: {
-      identifier: 'keyword',
+      identifier: 'keywordHeader',
       type: 'group',
       name: 'dcat:keyword',
       class: 'property grid2r2c',

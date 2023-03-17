@@ -18,16 +18,22 @@ const state = {
 
 const getters = {
     getNavSteps(state) {
-        const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
-
-        // get names of navigation steps from dpi page configuration
-        state.navigation.datasets = Object.keys(dpiConfig.pageConent.datasets).concat('distoverview').concat('overview');
-        state.navigation.distributions = Object.keys(dpiConfig.pageConent.distributions).concat('distoverview');
-        state.navigation.catalogues = Object.keys(dpiConfig.pageConent.catalogues).concat('overview');
-
+        try {
+            const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+            setConfig(dpiConfig);
+        } catch (error) {
+            const dpiConfig = generalDpiConfig["dcatap"];
+            console.log(dpiConfig);
+            setConfig(dpiConfig);
+        }
         return state.navigation;
     },
 };
+function setConfig(specification) {
+    state.navigation.datasets = Object.keys(specification.pageConent.datasets).concat('distoverview').concat('overview');
+    state.navigation.distributions = Object.keys(specification.pageConent.distributions).concat('distoverview');
+    state.navigation.catalogues = Object.keys(specification.pageConent.catalogues).concat('overview');
+}
 
 const actions = {};
 const mutations = {};

@@ -64,6 +64,7 @@ import {
   ConditionalInput,
   AutocompleteInput,
   UniqueIdentifierInput,
+  Groupedinput,
   FileUpload,
   DatePicker,
   DateTimePicker,
@@ -133,6 +134,7 @@ configureModules({
 
 Vue.component('InfoSlot', InfoSlot);
 Vue.component('ConditionalInput', ConditionalInput);
+Vue.component('Groupedinput', Groupedinput);
 Vue.component('AutocompleteInput', AutocompleteInput);
 Vue.component('UniqueIdentifierInput', UniqueIdentifierInput);
 Vue.component('FileUpload', FileUpload);
@@ -173,6 +175,13 @@ Vue.use(VueFormulate, {
     'conditional-input': {
       classification: 'text',
       component: 'ConditionalInput',
+      slotProps: {
+        component: ['data'],
+      },
+    },
+    'grouped-input':{
+      classification: 'text',
+      component: 'Groupedinput',
       slotProps: {
         component: ['data'],
       },

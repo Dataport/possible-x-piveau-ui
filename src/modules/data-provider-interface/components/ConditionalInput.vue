@@ -1,17 +1,11 @@
 <template>
   <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
     v-on="$listeners">
+    <hr>
     <FormulateSlot name="prefix" :context="context">
       <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context" />
     </FormulateSlot>
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
-   
-
-    
-    <div v-if="context.attributes.name === 'dcatde:politicalGeocodingURI'">
-      
-      </div>
-
     <!-- temporal solution for license only using vocabulary -->
     <div v-if="context.attributes.name === 'dct:license'">
       <FormulateForm v-model="inputValues" :schema="data['voc']" @change="setContext"></FormulateForm>
@@ -21,7 +15,7 @@
         <FormulateInput type="select" :options="context.options" :name="context.name"
           :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormulateInput>
       </FormulateForm>
-     
+
       <div v-if="conditionalValues === 'file'">
         <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
           @input="setContext"></FormulateForm>
@@ -42,6 +36,7 @@
 import { isEmpty } from 'lodash';
 import generalHelper from '../utils/general-helper';
 
+
 export default {
   props: {
     context: {
@@ -58,6 +53,7 @@ export default {
   },
   computed: {},
   methods: {
+   
     /**
      * Saving changed values to context which will be given to parent form
      */
@@ -104,8 +100,10 @@ export default {
 
       }
       else if (semanticName === 'dcatde:politicalGeocodingURI') {
-
-        console.log("Hallo");
+        // this.conditionalValues[this.context.name] = 'voc';
+        // this.inputValues = { '@id': this.context.model };2
+        this.context.placeholder = this.context.model;
+        console.log(this.context);
 
       } else if (semanticName === 'dct:rights') {
         console.log(this.context.model);
