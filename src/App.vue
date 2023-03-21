@@ -59,11 +59,11 @@ export default {
   metaInfo() {
     return {
       titleTemplate(chunk) {
-        return chunk ? `${chunk} - ${this.$env.title}` : this.$env.title;
+        return chunk ? `${chunk} - ${this.$env.metadata.title}` : this.$env.metadata.title;
       },
       meta: [
         { name: 'description', vmid: 'description', content: 'piveau Hub-UI' },
-        { name: 'keywords', vmid: 'keywords', content: this.$env.keywords },
+        { name: 'keywords', vmid: 'keywords', content: this.$env.metadata.keywords },
       ],
       htmlAttrs: {
         lang: this.$route.query.locale,
@@ -77,7 +77,7 @@ export default {
       piwikId: this.$env.tracker.siteId,
       lastRoute: null,
       keycloak: this.$keycloak,
-      showSparql: this.$env.navigation.top.main.data.sparql.show,
+      showSparql: this.$env.routing.navigation.showSparql,
     };
   },
   computed: {
@@ -87,7 +87,7 @@ export default {
       'getKeycloak',
     ]),
     authEnabled() {
-      return this.$env?.useAuthService && this.$env.keycloak?.enableLogin;
+      return this.$env?.authentication?.useService && this.$env.authentication?.login?.useLogin;
     },
     isAuthenticated() {
       return this.authEnabled && this.keycloak?.authenticated;

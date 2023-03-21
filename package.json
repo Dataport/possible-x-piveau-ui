@@ -28,7 +28,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "@piveau/dcatap-frontend": "^2.5.0",
     "@piveau/piveau-header-footer": "^3.13.1",
-    "@piveau/piveau-hub-ui-modules": "^1.9.0-develop.4",
+    "@piveau/piveau-hub-ui-modules": "2.0.0",
     "@piveau/piveau-universal-piwik": "^2.5.0",
     "@triply/yasgui": "^4.2.25",
     "@triply/yasqe": "^4.2.23",
