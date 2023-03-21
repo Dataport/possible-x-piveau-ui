@@ -71,6 +71,7 @@ import {
   configureModules,
   SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
+import '@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
 
 Vue.config.devtools = true;
 
