@@ -25,7 +25,7 @@
       </p>
       <pv-show-more
         v-if="isDatasetDescriptionExpanded || (datasetDescriptionLength < getDatasetDescriptionLength)"
-        :label="isDatasetDescriptionExpanded? 'Show less' : 'Show more'"
+        :label="isDatasetDescriptionExpanded? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
         :upArrow="isDatasetDescriptionExpanded"
         :action="toggleDatasetDescription"
         class="row text-primary"

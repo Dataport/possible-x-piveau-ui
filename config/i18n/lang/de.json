@@ -317,6 +317,154 @@
                     "info": "Allgemeine Beschreibung des Datensatzes. Sie wird häufig zusammen mit dem Pakettitel angezeigt. Am Anfang sollte ein kurzer Satz stehen, der den Inhalt des Datensatzes prägnant beschreibt, da in manchen Datensatz-Ansichten unter Umständen nur die ersten Wörter angezeigt werden.",
                     "help": "Allgemeine Beschreibung des Datensatzes.",
                     "add-label": "Beschreibung in einer anderen Sprache hinzufügen"
+                },
+                "references": {
+                    "placeholder": "Fügen Sie eine URL hinzu",
+                    "label": "Referenziert",
+                    "info": "Diese Eigenschaft kann verwendet werden, um auf Referenzdatensätze wie ein High Value Dataset (HVD) oder einen Musterdatensatz des Musterdatenkatalogs zu verweisen.",
+                    "help": "Diese Eigenschaft kann verwendet werden, um auf Referenzdatensätze wie ein High Value Dataset (HVD) oder einen Musterdatensatz des Musterdatenkatalogs zu verweisen."
+                },
+                "maintainerHomepage": {
+                    "placeholder": "Bitte tragen Sie eine Homepage ein",
+                    "label": "Homepage der verwaltenden Instanz",
+                    "info": "Homepage der verwaltenden Instanz",
+                    "help": "Homepage der verwaltenden Instanz"
+                },
+                "maintainerName": {
+                    "placeholder": "Bitte tragen Sie einen Namen ein",
+                    "label": "Email-Adresse verwaltenden Instanz",
+                    "info": "Email-Adresse verwaltenden Instanz",
+                    "help": "Name der verwaltenden Instanz"
+                },
+                "maintainerEmail": {
+                    "placeholder": "Bitte tragen Sie eine Email-Adresse ein",
+                    "label": "Email-Adresse verwaltenden Instanz",
+                    "info": "Email-Adresse verwaltenden Instanz",
+                    "help": "Email-Adresse der verwaltenden Instanz"
+                },
+                "maintainerType": {
+                    "label": "Typ der verwaltenden Instanz",
+                    "info": "Typ der verwaltenden Instanz",
+                    "help": "Typ der verwaltenden Instanz",
+                    "placeholder": "Bitte legen Sie einen Typen fest"
+                },
+                "maintainer": {
+                    "label": "Verwaltende Instanz",
+                    "add-label": "Weitere hinzufügen",
+                    "info": "Diese Eigenschaft verweist auf die Stellen oder Personen, die Verantwortung und Rechenschaftspflicht für die Daten und ihre angemessene Pflege übernehmen.",
+                    "help": "Diese Eigenschaft verweist auf die Stellen oder Personen, die Verantwortung und Rechenschaftspflicht für die Daten und ihre angemessene Pflege übernehmen."
+                },
+                "originatorHomepage": {
+                    "placeholder": "Bitte tragen Sie eine Homepage ein",
+                    "label": "Homepage des Urhebers",
+                    "info": "Homepage des Urhebers",
+                    "help": "Homepage des Urhebers"
+                },
+                "originatorName": {
+                    "placeholder": "Bitte tragen Sie einen Namen ein",
+                    "label": "Name des Urhebers",
+                    "info": "Name des Urhebers",
+                    "help": "Name des Urhebers"
+                },
+                "originatorEmail": {
+                    "placeholder": "Bitte tragen Sie eine Email Adresse ein",
+                    "label": "Email-Adresse des Urhebers",
+                    "info": "Email-Adresse des Urhebers",
+                    "help": "Email-Adresse des Urhebers"
+                },
+                "originatorType": {
+                    "placeholder": "Bitte legen Sie einen Typen fest",
+                    "label": "Typ des Urhebers",
+                    "info": "Typ des Urhebers",
+                    "help": "Typ des Urhebers"
+                },
+                "originator": {
+                    "add-label": "Weitere hinzufügen",
+                    "label": "Urheber",
+                    "info": "Diese Eigenschaft verweist auf die Personen, die Urheberrechte am Datensatz haben. Geschützt ist laut Urheberrecht ein Werk, das einer persönlichen geistigen Schöpfung seines Urhebers entspringt.",
+                    "help": "Diese Eigenschaft verweist auf die Personen, die Urheberrechte am Datensatz haben. Geschützt ist laut Urheberrecht ein Werk, das einer persönlichen geistigen Schöpfung seines Urhebers entspringt."
+                },
+                "contributorHomepage": {
+                    "placeholder": "Bitte tragen Sie eine Homepage ein",
+                    "label": "Homepage der bearbeitenden Instanz",
+                    "info": "Homepage der bearbeitenden Instanz",
+                    "help": "Homepage der bearbeitenden Instanz"
+                },
+                "contributorName": {
+                    "placeholder": "Bitte tragen Sie einen Namen ein",
+                    "label": "Name der bearbeitenden Instanz",
+                    "info": "Name der bearbeitenden Instanz",
+                    "help": "Name der bearbeitenden Instanz"
+                },
+                "contributorEmail": {
+                    "placeholder": "Bitte tragen Sie eine Email-Adresse ein",
+                    "label": "Email-Adresse der bearbeitenden Instanz",
+                    "info": "Email-Adresse der bearbeitenden Instanz",
+                    "help": "Email-Adresse der bearbeitenden Instanz"
+                },
+                "contributorType": {
+                    "placeholder": "Bitte wählen Sie einen Typen aus",
+                    "label": "Typ der bearbeitenden Instanz",
+                    "info": "Typ der bearbeitenden Instanz",
+                    "help": "Typ der bearbeitenden Instanz"
+                },
+                "contributor": {
+                    "add-label": "Weitere hinzufügen",
+                    "label": "Bearbeiter",
+                    "info": "Diese Eigenschaft verweist auf Stellen oder Personen, die die Daten bearbeitet haben (z.B. durch Formatierung derselben). Die Verwendung wird im Konventionenhandbuch genauer beschrieben.",
+                    "help": "Diese Eigenschaft verweist auf Stellen oder Personen, die die Daten bearbeitet haben (z.B. durch Formatierung derselben). Die Verwendung wird im Konventionenhandbuch genauer beschrieben."
+                },
+                "qualityProcessURI": {
+                    "placeholder": "Weitere URL hinzufügen",
+                    "label": "Qualitätssicherungsprozess",
+                    "info": "Eine URI, die auf den Prozess zur Qualitätssicherung des Datensatzes verweist. Es handelt sich idealerweise um die URL einer Webseite.",
+                    "help": "Eine URI, die auf den Prozess zur Qualitätssicherung des Datensatzes verweist. Es handelt sich idealerweise um die URL einer Webseite."
+                },
+                "legalBasis": {
+                    "placeholder": "Rechtsgrundlage für die Zugangseröffnung",
+                    "add-label": "Weitere hinzufügen",
+                    "label": "Rechtsgrundlage für die Zugangseröffnung",
+                    "info": "Dieses Feld dokumentiert als Freitext optional die Rechtsgrundlage für den Zugang zu den Informationen (die Zugangseröffnung), d.h. die originäre Rechtsgrundlage für den Zugang zu Daten der Verwaltung. Diese Eigenschaft kann für parallele Sprachversionen wiederholt werden.",
+                    "help": "Dieses Feld dokumentiert als Freitext optional die Rechtsgrundlage für den Zugang zu den Informationen (die Zugangseröffnung), d.h. die originäre Rechtsgrundlage für den Zugang zu Daten der Verwaltung. Diese Eigenschaft kann für parallele Sprachversionen wiederholt werden."
+                },
+                "geocodingDescription": {
+                    "placeholder": "Beschreibung der Abdeckung",
+                    "add-label": "Weitere hinzufügen",
+                    "label": "Beschreibung der Abdeckung",
+                    "info": "Diese Eigenschaft enthält die geografische Abdeckung eines Datensatzes, repräsentiert durch die Bezeichnung eines administrativen Gebiets oder eines fachlichen Bezugs als Freitext.",
+                    "help": "Diese Eigenschaft enthält die geografische Abdeckung eines Datensatzes, repräsentiert durch die Bezeichnung eines administrativen Gebiets oder eines fachlichen Bezugs als Freitext."
+                },
+                "contributorID": {
+                    "label": "Datenbereitsteller ID",
+                    "info": "Diese Eigenschaft übermittelt die ID des Bereitstellers der Daten aus dem jeweils portaleigenem Access- und Identitymanagement (wenn vorhanden). Ihre genaue Verwendung ist nur für die Anlieferung an GovData festgelegt und wird im Konventionenhandbuch genauer beschrieben.",
+                    "help": "Diese Eigenschaft übermittelt die ID des Bereitstellers der Daten aus dem jeweils portaleigenem Access- und Identitymanagement (wenn vorhanden). Ihre genaue Verwendung ist nur für die Anlieferung an GovData festgelegt und wird im Konventionenhandbuch genauer beschrieben."
+                },
+                "availabilityDE": {
+                    "label": "Verfügbarkeit",
+                    "info": "Geplante Verfügbarkeit des Datensatzes als Auswahl aus einer festen Liste von Werten über DCAT-AP URIs.",
+                    "help": "Geplante Verfügbarkeit des Datensatzes als Auswahl aus einer festen Liste von Werten über DCAT-AP URIs."
+                },
+                "politicalGeocodingURIMunicipalityKey": {
+                    "label": "Gemeindeschlüssel",
+                    "info": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI.",
+                    "help": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI."
+                },
+                "politicalGeocodingURIVocabulary": {
+                    "label": "Vokabular aussuchen",
+                    "info": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI.",
+                    "help": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI."
+                },
+                "politicalGeocodingURI": {
+                    "add-label": "Weitere Hinzufügen",
+                    "placeholder": "Vokabular auswählen oder URL angeben",
+                    "label": "Geopolitische Abdeckung",
+                    "info": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI.",
+                    "help": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI."
+                },
+                "politicalGeocodingLevelURI": {
+                    "label": "Ebene der geopolitischen Abdeckung",
+                    "info": "Geopolitische Abdeckung des Datensatzes, etwa durch Kennzeichnung der Verwaltungsebene Bund, Bundesland, Kreis oder Kommune, als dcat-ap.de URI.",
+                    "help": "Geopolitische Abdeckung des Datensatzes, etwa durch Kennzeichnung der Verwaltungsebene Bund, Bundesland, Kreis oder Kommune, als dcat-ap.de URI."
                 }
             },
             "catalogues": {
@@ -352,7 +500,7 @@
                     }
                 }
             },
-            "clear": "Klar",
+            "clear": "Felder zurücksetzen",
             "deletemodal": {
                 "deleteDistribution": "Verteilung löschen",
                 "areyousure": "Sind Sie sicher, dass Sie diese Distribution löschen möchten?"
@@ -683,7 +831,9 @@
             "scoring": "Wertung",
             "or": "oder",
             "europeanCatalogs": "Europäische Kataloge",
-            "operator": "Operator"
+            "operator": "Operator",
+            "moreFilters": "Mehr Filter",
+            "lessFilters": "Weniger Filter"
         },
         "header": {
             "navigation": {
@@ -876,7 +1026,8 @@
         },
         "pagination": {
             "nextPage": "Vor",
-            "previousPage": "Zurück"
+            "previousPage": "Zurück",
+            "itemsPerPage": "Objekte pro Seite:"
         },
         "navigation": {
             "navItems": {

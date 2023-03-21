@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import Vue from 'vue';
 import Vuex from 'vuex';
-
 import axios from 'axios';
 
 Vue.use(Vuex);
@@ -37,6 +36,7 @@ const actions = {
         });
     },
     requestResourceName({ commit }, { voc, resource }) {
+                
         const value = resource.substring(resource.lastIndexOf('/') + 1);
         let req;
 

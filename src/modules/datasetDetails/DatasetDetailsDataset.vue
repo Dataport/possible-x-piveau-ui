@@ -187,8 +187,6 @@
       };
     },
     computed: {
-      // todo: refactor this to refer to store
-      isTrusted: () => process.env.NODE_ENV === 'development',
       // import store-getters
       ...mapGetters('datasetDetails', [
       'getKeywords',
@@ -454,11 +452,11 @@
         return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
       },
       /* SPECIFIC SHOW FUNCTIONS */
+      /* for now show all licences */
       showLicence(licence) {
-        return has(licence, 'id')
-          && has(licence, 'label')
-          && !isNil(licence.id)
-          && !isNil(licence.label)
+        // return (has(licence, 'id') && !isNil(licence.id))
+        //   || (has(licence, 'label') && !isNil(licence.label))
+        return true
       },
       showLicensingAssistant(distribution) {
         return has(distribution, 'licence.la_url') && this.showString(distribution.licence.la_url);

@@ -3,8 +3,6 @@
  * Citation-js plugin to add accessed date to CSL object
  */
 
-import { plugins } from '@citation-js/core';
-
 /**
  * Attaches the current date to the 'accessed' property in a CSL object
  * @param {Array} input the CSL object array
@@ -23,13 +21,13 @@ function addAccessed(input) {
   return input.map(csl => ({ ...csl, accessed }));
 }
 
-plugins.input.add('@piveau/list+csl', {
-  parse: addAccessed,
-  parseType: {
-    dataType: 'Array',
-    elementConstraint: '@csl/object',
-    predicate: input => input.some(item => !item.accessed),
-  },
-});
-
-export default addAccessed;
+export default function install(plugins: typeof import('@citation-js/core').plugins) {
+  plugins.input.add('@piveau/list+csl', {
+    parse: addAccessed,
+    parseType: {
+      dataType: 'Array',
+      elementConstraint: '@csl/object',
+      predicate: input => input.some(item => !item.accessed),
+    },
+  });
+}

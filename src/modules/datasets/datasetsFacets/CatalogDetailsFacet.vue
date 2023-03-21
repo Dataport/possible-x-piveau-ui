@@ -123,6 +123,16 @@
           </dt>
           <dd>{{ formatDate(catalog.modified) }}</dd>
         </dl>
+        <!-- <dl v-if="has(catalog, 'availability') && !isNil(catalog.availability)">
+          <dt :title="$t('message.tooltip.catalogDetails.updated')">
+             <span :title="$t('message.tooltip.catalogDetails.updated')"
+                     data-toggle="tooltip"
+                     data-placement="right">
+              {{ 'Availability' }}
+            </span>
+          </dt>
+          <dd>{{ catalog.availability }}</dd>
+        </dl> -->
         <!-- RIGHTS -->
         <dl v-if="has(catalog, 'rights') && showObject(catalog.rights)">
           <dt>{{ $t('message.metadata.rights') }}</dt>

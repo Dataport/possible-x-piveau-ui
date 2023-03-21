@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     ...mapActions('dpiStore', [
-      'saveExistingJsonld',
+      'saveLocalstorageValues',
     ]),
     async uploadFile(file) {
       this.isLoading = true;
@@ -81,14 +81,14 @@ export default {
     },
   },
   mounted() {
-    this.saveExistingJsonld('datasets');
+    this.saveLocalstorageValues('datasets');
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import '../../../styles/bootstrap_theme';
-@import '../../../styles/utils/css-animations';
+// @import '../../../styles/bootstrap_theme';
+// @import '../../../styles/utils/css-animations';
 
 .file-div {
   display: flex;

@@ -47,7 +47,7 @@
         <div>
           <pv-show-more
             v-if="showMoreFacetsShown"
-            :label="cutoff >= 0? 'More filters' : 'Less filters'"
+            :label="cutoff >= 0? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.lessFilters')"
             :upArrow="cutoff === -1"
             :action="toggleCutoff"
             class="p-0 row facets-show-more"
@@ -105,8 +105,8 @@ export default {
     return {
       title,
       meta: [
-        { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.header.navigation.data.datasets')} - ${this.$env.metadata.description}` },
-        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.metadata.keywords} ${this.$t('message.header.navigation.data.catalogs')}` : `${this.$env.metadata.keywords} ${this.$t('message.header.navigation.data.datasets')}` },
+        { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.datasets.meta.description')}` },
+        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}` : `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}` },
       ],
     };
   },
@@ -117,7 +117,7 @@ export default {
       showFacetsTitle: this.$env.content.datasets.facets.showFacetsTitle,
       defaultFacetOrder: this.$env.content.datasets.facets.defaultFacetOrder,
       useScoringFacets: this.$env.content.datasets.facets.scoringFacets.useScoringFacets,
-      useDataScopeFacets: this.$route.query.catalog.length === 0,
+      useDataScopeFacets: isNil(this.$route.params.ctlg_id),
       showCatalogDetails: false,
       catalog: {},
       MIN_FACET_LIMIT: this.$env.content.datasets.facets.MIN_FACET_LIMIT,
@@ -163,7 +163,7 @@ export default {
     //   return this.getCatalog;
     // },
     // showCatalogDetailsWatcher() {
-    //   return this.$route.query.showcatalogdetails;
+    //   return !isNil(this.$route.params.ctlg_id);
     // },
     useCatalogFacets() {
       return !this.showCatalogDetails;
@@ -268,13 +268,13 @@ export default {
         return this.$router.replace(
           { query: Object.assign({}, this.$route.query, query) }
         ).catch(
-          error => { console.log(error); }
+          error => { console.error(error); }
         );
       } else {
         return this.$router.push(
           { query: Object.assign({}, this.$route.query, query) }
         ).catch(
-          error => { console.log(error); }
+          error => { console.error(error); }
         );
       }
     },
@@ -297,7 +297,7 @@ export default {
         facet.toUpperCase();
         qField = qField.map(f => f.toUpperCase());
       }
-      
+
       return qField.indexOf(facet) > -1;
       },
     facetClicked(field, item) {
@@ -337,7 +337,7 @@ export default {
       if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
         this.setMinScoring(0);
         this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
-          .catch(error => { console.log(error); });
+          .catch(error => { console.error(error); });
       }
       sessionStorage.clear();
     },
@@ -379,10 +379,10 @@ export default {
       return facet.count;
     },
     initShowCatalogDetails() {
-      const showCatalogDetails = this.$route.query.showcatalogdetails;
-      if (showCatalogDetails === 'true') {
+      const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
+      if (showCatalogDetails === true) {
         this.showCatalogDetails = true;
-        this.loadCatalog(this.$route.query.catalog);
+        this.loadCatalog(this.$route.params.ctlg_id);
       } else this.showCatalogDetails = false;
     },
     initMinScoring() {
@@ -417,10 +417,10 @@ export default {
     //   this.$router.replace(
     //     { query: Object.assign({}, this.$route.query, { dataServices }) }
     //   ).catch(
-    //     error => { console.log(error); }
+    //     error => { console.error(error); }
     //   );
     // },
-    '$route.query.showcatalogdetails'(showCatalogDetails) {
+    '$route.params.ctlg_id'(showCatalogDetails) {
       this.showCatalogDetails = showCatalogDetails;
     },
     getDatasetGeoBounds(bounds) {
@@ -436,7 +436,7 @@ export default {
     this.initMinScoring();
     for(var i in sessionStorage){
       if(sessionStorage.length > 0 && i =="Filter") this.toggleCutoff();
-      
+
     }
     /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
     /* fill in here */

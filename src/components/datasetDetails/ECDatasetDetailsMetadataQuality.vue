@@ -13,21 +13,17 @@
                         <h1 class="ecl-content-block__title ecl-u-type-color-blue">
                             {{ result.title }}
                         </h1>
-                        <div class="row ecl-u-type-color-blue">
-                            <div class="col-3 mt-5" v-for="(item, index) in result.items" :key="index">
-                                <div class="ecl-u-border-bottom ecl-u-border-color-blue">
-                                    <div class="row">
-                                        <div class="col-8 text-truncate" :title="item.title">
-                                            <span class="mr-2">{{ item.title }}</span>
-                                        </div>
-                                        <div class="col-4">
-                                            <span v-if="has(item.items, 'name') && has(item.items, 'percentage') && item.items.name === 'yes'">{{ `${item.items.percentage}%` }}</span>
-                                            <span v-else-if="has(item.items, 'name') && has(item.items, 'percentage') && item.items.name === '200'">{{ item.items.name }}</span>
-                                            <span v-else-if="has(item.items, 'name') && has(item.items, 'percentage')">{{ `${item.items.percentage} : ${item.items.percentage}%` }}</span>
-                                            <span v-else-if="item.items === undefined">n/a</span>
-                                            <span v-else>{{ item.items }}</span>
-                                        </div>
-                                    </div>
+                        <div class="mt-5 quality-list ecl-u-type-color-blue">
+                            <div class="d-flex justify-content-between ecl-u-border-bottom ecl-u-border-color-blue" v-for="(item, index) in result.items" :key="index">
+                                <div class="text-truncate mr-3 ecl-u-type-color-blue-130 ecl-u-pb-m d-block" :title="item.title">
+                                  {{ item.title }}
+                                </div>
+                                <div class="text-nowrap">
+                                    <span v-if="has(item.items, 'name') && has(item.items, 'percentage') && item.items.name === 'yes'">{{ `${item.items.percentage}%` }}</span>
+                                    <span v-else-if="has(item.items, 'name') && has(item.items, 'percentage') && item.items.name === '200'">{{ item.items.name }}</span>
+                                    <span v-else-if="has(item.items, 'name') && has(item.items, 'percentage')">{{ `${item.items.percentage} : ${item.items.percentage}%` }}</span>
+                                    <span v-else-if="item.items === undefined">n/a</span>
+                                    <span v-else>{{ item.items }}</span>
                                 </div>
                             </div>
                         </div>
@@ -117,5 +113,27 @@ export default {
     .ecl-card {
         margin-top: 2%;
     }
+}
+
+.quality-list {
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 30px;
+}
+
+@media screen and (max-width: 1199.5px) {
+  .quality-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 767.5px) {
+  .dsd-metadata-quality {
+    max-width: none !important;
+  }
+  .quality-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
 </style>

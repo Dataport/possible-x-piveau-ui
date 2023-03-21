@@ -79,7 +79,7 @@ export default {
   methods: {
     ...mapActions('dpiStore', [
       'addDistribution',
-      'saveExistingJsonld',
+      'saveLocalstorageValues',
       'deleteDistribution',
     ]),
     truncate,
@@ -94,7 +94,7 @@ export default {
     },
     getDistributionFormat(dist) {
       if (!isEmpty(dist['dct:format'])) {
-        return dist['dct:format']['@id'].substring(dist['dct:format']['@id'].lastIndexOf('/') + 1);
+        return dist['dct:format'].substring(dist['dct:format'].lastIndexOf('/') + 1);
       } else {
         return 'UNKNOWN';
       }
@@ -125,7 +125,7 @@ export default {
   },
   mounted() {
     // saving existing dataset and distrbution data from localStorage to vuex store
-    this.saveExistingJsonld('datasets');
+    this.saveLocalstorageValues('datasets');
   }
 };
 </script>

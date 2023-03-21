@@ -59,7 +59,7 @@ export default {
         return chunk ? `${chunk} - ${this.$env.metadata.title}` : this.$env.metadata.title ;
       },
       meta: [
-        { name: 'description', vmid: 'description', content: this.$env.metadata.description },
+        { name: 'description', vmid: 'description', content: this.$t("message.datasets.meta.description") },
         { name: 'keywords', vmid: 'keywords', content: this.$env.metadata.keywords },
       ],
       htmlAttrs: {
@@ -106,7 +106,7 @@ export default {
 
 @font-face {
   font-family: "Ubuntu";
-  src: local("Ubuntu"), url(../public/static/fonts/Ubuntu/Ubuntu-Regular.ttf) format("truetype");
+  src: local("Ubuntu"), url("/static/fonts/Ubuntu/Ubuntu-Regular.ttf") format("truetype");
 }
 
 * {

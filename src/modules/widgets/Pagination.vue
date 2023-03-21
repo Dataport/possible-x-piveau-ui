@@ -22,7 +22,7 @@
     </div>
     <!-- ITEMS PER PAGE -->
       <div v-if="useItemsPerPage" class="d-flex flex-row flex-wrap align-items-center items-per-page">
-        <div class="d-inline align-middle mr-2">Items per Page:</div>
+        <div class="d-inline align-middle mr-2">{{ $t('message.pagination.itemsPerPage') }}</div>
         <div class="col-right mr-2 d-inline" role="group" aria-label="Items per Page Dropdown">
           <div class="btn-group items-per-page-dropdown" role="group">
             <button
@@ -127,7 +127,7 @@ export default {
       return typeof page === 'number' && page > 0 && page <= this.getPageCount;
     },
     changePageTo(page, limit) {
-      this.$router.replace({ query: Object.assign({}, this.$route.query, { page, limit }) }).catch(error => { console.log(error); });
+      this.$router.replace({ query: Object.assign({}, this.$route.query, { page, limit }) }).catch(error => { console.error(error); });
       this.scrollTo(0, 0);
     },
     scrollTo(x, y) {

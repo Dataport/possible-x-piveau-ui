@@ -133,7 +133,12 @@
           v-for="catalog in getCatalogs"
           :key="`data-info-box@${catalog.id}`"
           catalog-mode
-          :to="{name: 'Datasets', query: {catalog: catalog.id, showcatalogdetails: true, locale: $route.query.locale}}"
+          :to="{
+            path: `/catalogues/${catalog.id}`,
+            query: {
+              locale: $route.query.locale
+            },
+          }"
           :src="getImg(getCatalogImage(catalog))"
           :dataset="{
             title: getTranslationFor(catalog.title, $route.query.locale, getCatalogLanguages(catalog)),
@@ -198,8 +203,13 @@
       return {
         title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.catalogs')}`,
         meta: [
+<<<<<<< HEAD
           { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.catalogs')} - ${this.$env.metadata.description}` },
           { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.header.navigation.data.catalogs')}` },
+=======
+          { name: 'description', vmid: 'description', content: `${this.$t('message.catalogs.meta.description')}` },
+          { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.catalogs.meta.description')}` },
+>>>>>>> master
           { name: 'robots', content: 'noindex, follow' },
         ],
       };
@@ -367,7 +377,7 @@
             this.autocompleteData.suggestions = displayedSuggestions;
             this.autocompleteData.show = query.length !== 0;
           })
-          .catch(error => { console.log(error); });
+          .catch(error => { console.error(error); });
       },
       handleSuggestionSelection(suggestion) {
         this.$router.push({ path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` });
@@ -413,7 +423,7 @@
         return dateFilters.fromNow(date);
       },
       getCatalogLink(catalog) {
-        return `/datasets?catalog=${catalog.id}&showcatalogdetails=true`;
+        return `/catalogues/${catalog.id}&locale=${this.$route.query.locale}`;
       },
       getCatalogImage(catalog) {
         return this.$env.content.catalogs.useCatalogCountries

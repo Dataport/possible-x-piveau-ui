@@ -35,27 +35,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-.sub-navigation {
-  background-color: white !important;
-  box-shadow: 0 2px 4px -4px grey;
-  min-height: 56px;
-}
-.navigation-margin {
-  //or change 60px margin in header to 0px
-  margin-top: -60px;
-}
-
-.title {
-  font-size: 1.5rem;
-  font-family: inherit;
-  font-weight: 500;
-  line-height: 1.2;
-  color: inherit;
-}
-
-.navbar-toggler-icon {
-    font-size: 0.8em;
-}
-</style>

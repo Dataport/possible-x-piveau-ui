@@ -51,11 +51,13 @@
                     <div class="collapsed px-5 ecl-accordion__content ecl-u-border-top ecl-u-border-color-grey-25" :ref="`dist${index}`">
                         <div class="row dsd-distribution-quality-property" v-for="(qualityElement, index) in fullQualityDistributionData[distribution.id]" :key="index">
                             <h4 class="col-12 mt-5 font-weight-bold">{{ $t(`message.datasetDetails.quality.${qualityElement.title}`) }}</h4>
-                            <div class="col-4 mt-3" v-for="(el, index) in qualityElement.items" :key="index">
-                                <span class="row" v-for="(property, index) in printObject(el)" :key="index">
-                                    <span class="col-8 text-truncate" :title="property.key">{{ property.key }}</span>
-                                    <span class="col-4">{{ property.value }}</span>
-                                </span>
+                            <div class="col-12 distribution-quality-items">
+                                <div class="mt-3" v-for="(el, index) in qualityElement.items" :key="index">
+                                    <div class="quality-item" v-for="(property, index) in printObject(el)" :key="index">
+                                        <div class="text-truncate mr-3" :title="property.key">{{ property.key }}</div>
+                                        <div class="text-nowrap">{{ property.value }}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!-- CSV Linter -->
@@ -64,7 +66,7 @@
                 </div>
                 <ECMore class="col-12 text-primary mt-4"
                     v-if="useECMore"
-                    :label="displayAll ? 'Show less' : 'Show more'"
+                    :label="displayAll ? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
                     :upArrow="displayAll"
                     :action="() => toggleDisplayAll()"></ECMore>
             </div>
@@ -226,5 +228,34 @@ export default {
     .align-center {
         align-self: center;
     }
+}
+
+.distribution-quality-items {
+    display: inline-grid;
+    column-gap: 100px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.quality-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media screen and (max-width: 995.5px) {
+  .distribution-quality-items {
+      display: inline-grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 767.5px) {
+  .dsd-distribution-quality {
+    max-width: none !important;
+  }
+  .distribution-quality-items {
+      display: inline-grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
 }
 </style>

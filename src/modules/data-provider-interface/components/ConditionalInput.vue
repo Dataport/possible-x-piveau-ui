@@ -1,35 +1,41 @@
 <template>
-  <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-on="$listeners">
+  <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
+    v-on="$listeners">
+    <hr>
     <FormulateSlot name="prefix" :context="context">
-      <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context"/>
+      <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context" />
     </FormulateSlot>
-    <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
-
+    <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
     <!-- temporal solution for license only using vocabulary -->
     <div v-if="context.attributes.name === 'dct:license'">
       <FormulateForm v-model="inputValues" :schema="data['voc']" @change="setContext"></FormulateForm>
     </div>
     <div v-else>
       <FormulateForm v-model="conditionalValues" key="intern">
-      <FormulateInput type="select" :options="context.options" :name="context.name" :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormulateInput>
+        <FormulateInput type="select" :options="context.options" :name="context.name"
+          :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormulateInput>
       </FormulateForm>
 
       <div v-if="conditionalValues === 'file'">
-        <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]" @input="setContext"></FormulateForm>
+        <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
+          @input="setContext"></FormulateForm>
       </div>
       <div v-else>
-        <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]" @change="setContext"></FormulateForm>
+        <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
+          @change="setContext"></FormulateForm>
       </div>
     </div>
 
     <FormulateSlot name="suffix" :context="context">
-      <component :is="context.slotComponents.suffix" v-if="context.slotComponents.suffix" :context="context"/>
+      <component :is="context.slotComponents.suffix" v-if="context.slotComponents.suffix" :context="context" />
     </FormulateSlot>
   </div>
 </template>
 
 <script>
-import { isEmpty, has } from 'lodash-es';
+import { isEmpty } from 'lodash';
+import generalHelper from '../utils/general-helper';
+
 
 export default {
   props: {
@@ -47,6 +53,7 @@ export default {
   },
   computed: {},
   methods: {
+   
     /**
      * Saving changed values to context which will be given to parent form
      */
@@ -59,6 +66,7 @@ export default {
     },
     fillValues() {
       const semanticName = this.context.attributes.name;
+
       if (semanticName === 'dct:issued' || semanticName === 'dct:modified') {
         //   // date time includes an 'T' to delimit date and time
         if (this.context.model.includes('T')) {
@@ -66,18 +74,18 @@ export default {
         } else {
           this.conditionalValues[this.context.name] = 'date';
         }
-        this.inputValues = {'@value': this.context.model };
+        this.inputValues = { '@value': this.context.model };
       } else if (semanticName === 'dct:license') {
         // either an array with an object containing multiple properties
         if (Array.isArray(this.context.model)) {
           if (!isEmpty(this.context.model[0])) {
             this.conditionalValues[this.context.name] = 'man';
-            this.inputValues = {...this.inputValues, 'dct:license': this.context.model};
+            this.inputValues = { ...this.inputValues, 'dct:license': this.context.model };
           }
         } else {
           // singular URI
           this.conditionalValues[this.context.name] = 'voc';
-          this.inputValues = {'@id': this.context.model };
+          this.inputValues = { '@id': this.context.model };
         }
       } else if (this.context.attributes.identifier === 'accessUrl') {
         this.conditionalValues[this.context.name] = 'url';
@@ -86,20 +94,26 @@ export default {
 
         // both options return an URI
         this.conditionalValues[this.context.name] = 'man';
-        this.inputValues = {'@id': this.context.model };
+        this.inputValues = { '@id': this.context.model };
 
         // TODO: implement display of conditional choice when vocabulary was used
 
+      }
+      else if (semanticName === 'dcatde:politicalGeocodingURI') {
+        // this.conditionalValues[this.context.name] = 'voc';
+        // this.inputValues = { '@id': this.context.model };2
+        this.context.placeholder = this.context.model;
+        console.log(this.context);
+
       } else if (semanticName === 'dct:rights') {
-        if (has(this.context.model, 'rdfs:label') && !isEmpty(this.context.model['rdfs:label'])) {
-          // url and string provided as normal string
-          if (this.context.model['rdfs:label'].startsWith('http') || this.context.model['rdfs:label'].startsWith('www')) {
-            this.conditionalValues[this.context.name] = 'url';
-          } else {
-            this.conditionalValues[this.context.name] = 'str';
-          }
-          this.inputValues = {'rdfs:label': this.context.model['rdfs:label']};
+        console.log(this.context.model);
+        // url and string provided as normal string
+        if (generalHelper.isUrl(this.context.model)) {
+          this.conditionalValues[this.context.name] = 'url';
+        } else {
+          this.conditionalValues[this.context.name] = 'str';
         }
+        this.inputValues = { 'rdfs:label': this.context.model };
       }
     },
   },
@@ -115,6 +129,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

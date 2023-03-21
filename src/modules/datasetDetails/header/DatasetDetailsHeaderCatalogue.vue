@@ -41,7 +41,7 @@ export default {
       return has(country, 'id') && !isNil(country.id);
     },
     getCatalogLink(catalog) {
-      return `/datasets?catalog=${catalog.id}&showcatalogdetails=true&locale=${this.$route.query.locale}`;
+      return `/catalogues/${catalog.id}&locale=${this.$route.query.locale}`;
     }
   }
 }

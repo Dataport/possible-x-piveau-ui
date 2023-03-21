@@ -8,31 +8,31 @@
         </tooltip>
       </td>
       <td  v-if="showObject(distribution.licence) && showLicence(distribution.licence)">
-        <app-link :to="distribution.licence.resource"
-                  target="_blank"
-                  @click="$emit('track-link', distribution.licence.resource, 'link')">
-          {{ distribution.licence.label }}
-        </app-link>
-        <app-link :to="distribution.licence.resource"
-                  target="_blank"
-                  data-toggle="tooltip"
-                  data-placement="top"
-                  :title="distribution.licence.description"
-                  @click="$emit('track-link', distribution.licence.resource, 'link')">
-          <i class="material-icons small-icon align-bottom text-dark" >info</i>
-        </app-link>
-        <app-link :to="distribution.licence.la_url"
-                  target="_blank"
-                  @click="$emit('track-link', distribution.licence.la_url, 'link')"
-                  v-if="showLicensingAssistant(distribution)">
-          {{ $t('message.distributionLicense.licensingAssistant') }}
-        </app-link>
-        <app-link :to="distribution.licence.la_url"
-                  target="_blank"
-                  @click="$emit('track-link', distribution.licence.la_url, 'link')"
-                  v-if="showLicensingAssistant(distribution)">
-          <i class="material-icons small-icon align-bottom text-dark">open_in_new</i>
-        </app-link>
+          <app-link :to="distribution.licence.resource"
+                    target="_blank"
+                    @click="$emit('track-link', distribution.licence.resource, 'link')">
+            {{ distribution.licence.label ? distribution.licence.label : distribution.licence.resource}}
+          </app-link>
+          <app-link :to="distribution.licence.resource"
+                    target="_blank"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    :title="distribution.licence.description"
+                    @click="$emit('track-link', distribution.licence.resource, 'link')">
+            <i class="material-icons small-icon align-bottom text-dark" >info</i>
+          </app-link>
+          <app-link :to="distribution.licence.la_url"
+                    target="_blank"
+                    @click="$emit('track-link', distribution.licence.la_url, 'link')"
+                    v-if="showLicensingAssistant(distribution)">
+            {{ $t('message.distributionLicense.licensingAssistant') }}
+          </app-link>
+          <app-link :to="distribution.licence.la_url"
+                    target="_blank"
+                    @click="$emit('track-link', distribution.licence.la_url, 'link')"
+                    v-if="showLicensingAssistant(distribution)">
+            <i class="material-icons small-icon align-bottom text-dark">open_in_new</i>
+          </app-link>
       </td>
       <td v-else>
         {{ $t('message.distributionLicense.notProvided') }}
@@ -45,6 +45,15 @@
         </tooltip>
       </td>
       <td>{{ filterDateFormatEU(distribution.modificationDate) }}</td>
+    </tr>
+    <tr v-if="has(distribution, 'licenseAttributionByText') && !isNil(distribution.licenseAttributionByText.en)">
+      <td class="w-25 font-weight-bold">
+        <!-- <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')"> -->
+          <!-- {{ $t('message.metadata.updated') }} -->
+          {{ 'License Attribution By Text' }}
+        <!-- </tooltip> -->
+      </td>
+      <td>{{ distribution.licenseAttributionByText.en }}</td>
     </tr>
   </table>
 </template>

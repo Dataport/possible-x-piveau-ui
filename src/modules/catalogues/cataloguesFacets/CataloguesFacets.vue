@@ -25,7 +25,7 @@
         </div>
         <pv-show-more
           v-if="showMoreFacetsShown"
-          :label="cutoff >= 0? 'More filters' : 'Less filters'"
+          :label="cutoff >= 0? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.lessFilters')"
           :upArrow="cutoff === -1"
           :action="toggleCutoff"
           class="p-0 row facets-show-more"
@@ -178,7 +178,7 @@
       clearFacets() {
         if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
           this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
-            .catch(error => { console.log(error); });
+            .catch(error => { console.error(error); });
         }
       },
       /**
