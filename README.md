@@ -61,7 +61,8 @@ _**Runtime Configurations** are only applied, when running the application via [
 The User configuration file is located at `config/user-config.js` by default. It is the main project configuration file. The following table shortly describes the configurable values.
 
 <details>
-<summary>Open user-config.js decription</summary>
+
+<summary>User Configuration example</summary>
 
 <br>
 
@@ -326,18 +327,25 @@ URL to tracking software
 
 </details>
 
+
 <br><br>
 
-### Runtime configurations
-The Runtime configuration file is located at `config/runtime-config.js` by default. It is a template file, which lists all configurable environment variables that can be changed during runtime.
 
+
+
+### Runtime configurations
 We utilize a Vue plugin `RuntimeConfiguration` to configure a web application using environment variables without rebuilding it.
+
+The Runtime configuration file is located at `config/runtime-config.js` by default. It is a template file, which lists all configurable environment variables that can be changed during runtime.
 
 See [runtime-config.js](config/runtime-config.js) for all available runtime variables.
 
 <br>
 
-### Configuration example
+<details>
+
+<summary>Runtime Configuration example</summary>
+
 Let's suppose `user-config.js` looks like this:
 ```
 const glueConfig = {
