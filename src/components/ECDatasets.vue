@@ -255,7 +255,7 @@ export default {
         {
           name: "keywords",
           vmid: "keywords",
-          content: `${this.$env.keywords} ${this.$t(
+          content: `${this.$env.metadata.keywords} ${this.$t(
             "message.datasets.meta.description"
           )}}`,
         },
@@ -271,10 +271,10 @@ export default {
       lang: this.locale,
       filterCollapsed: true,
       catalogAllowed: false,
-      useCreateDatasetButton: this.$env.upload.useCreateDatasetButton,
-      useCreateCatalogueButton: this.$env.upload.useCreateCatalogueButton,
-      useDatasetFacets: this.$env.datasets.facets.useDatasetFacets,
-      // useSort: this.$env.datasets.useSort,
+      useCreateDatasetButton: this.$env.content.dataProviderInterface.useCreateDatasetButton,
+      useCreateCatalogueButton: this.$env.content.dataProviderInterface.useCreateCatalogueButton,
+      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets,
+      // useSort: this.$env.content.datasets.useSort,
     };
   },
   computed: {
@@ -445,7 +445,7 @@ export default {
      * @descritption Initialize the active facets by checking the route parameters
      */
     initFacets() {
-      const fields = this.$env.datasets.facets.defaultFacetOrder;
+      const fields = this.$env.content.datasets.facets.defaultFacetOrder;
       for (const field of fields) {
         this.facetFields.push(field);
         // catalog is not in queries anymore, so we have to add to facets differently
@@ -528,16 +528,16 @@ export default {
       return fileTypes.getFileTypeColor(format);
     },
     getCatalogImage(catalog) {
-      return this.$env.catalogs.useCatalogCountries
-        ? `${this.$env.catalogs.defaultCatalogImagePath}/${
+      return this.$env.content.catalogs.useCatalogCountries
+        ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${
             has(catalog, "country.id")
               ? catalog.country.id
-              : this.$env.catalogs.defaultCatalogCountryID
+              : this.$env.content.catalogs.defaultCatalogCountryID
           }`
-        : `${this.$env.catalogs.defaultCatalogImagePath}/${
+        : `${this.$env.content.catalogs.defaultCatalogImagePath}/${
             has(catalog, "id")
               ? catalog.id
-              : this.$env.catalogs.defaultCatalogID
+              : this.$env.content.catalogs.defaultCatalogID
           }`;
     },
   },

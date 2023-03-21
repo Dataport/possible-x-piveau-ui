@@ -158,10 +158,10 @@ export default {
 
       if (this.property === 'distributions') {
         firstStep = this.getNavSteps.datasets[0];
-        path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
+        path = `${this.$env.content.dataProviderInterface.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
       } else {
         firstStep = this.getNavSteps[this.property][0];
-        path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
+        path = `${this.$env.content.dataProviderInterface.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
       }
       return path;
     },
@@ -170,8 +170,8 @@ export default {
     },
     checkPathAllowed(to, from) {
       let allowedPaths = [
-        `${this.$env.upload.basePath}/datasets/${this.getNavSteps.datasets[0]}`,
-        `${this.$env.upload.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`,
+        `${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps.datasets[0]}`,
+        `${this.$env.content.dataProviderInterface.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`,
       ];
       return allowedPaths.filter(el => to.path.startsWith(el)).length > 0;
     },

@@ -125,7 +125,7 @@ export default {
   },
   data() {
     return {
-      downloadAllTop: this.$env.datasetDetails.bulkDownload.buttonPosition === "top"
+      downloadAllTop: this.$env.content.datasetDetails.bulkDownload.buttonPosition === "top"
     };
   },
   computed: {

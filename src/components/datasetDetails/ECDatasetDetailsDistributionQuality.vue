@@ -92,9 +92,9 @@ export default {
     },
     data() {
         return {
-            displayAll: this.$env.datasetDetails.quality.displayAll,
-            numberOfDisplayedQualityDistributions: this.$env.datasetDetails.quality.numberOfDisplayedQualityDistributions,
-            enableCSVLinter: this.$env.datasetDetails.quality.csvLinter.enable,
+            displayAll: this.$env.content.datasetDetails.quality.displayAll,
+            numberOfDisplayedQualityDistributions: this.$env.content.datasetDetails.quality.numberOfDisplayedQualityDistributions,
+            enableCSVLinter: this.$env.content.datasetDetails.quality.csvLinter.enable,
         };
     },
     computed: {

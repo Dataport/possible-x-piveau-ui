@@ -121,12 +121,12 @@ export default {
       expandedVisualisationDescriptions: [],
       expandedVisualisations: [],
       visualisations: {
-        isVisible: this.$env.datasetDetails.visualisations.isVisible,
-        displayAll: this.$env.datasetDetails.visualisations.displayAll,
-        displayCount: this.$env.datasetDetails.visualisations.displayCount,
-        incrementSteps: this.$env.datasetDetails.visualisations.incrementSteps,
-        descriptionMaxLines: this.$env.datasetDetails.visualisations.descriptionMaxLines,
-        descriptionMaxChars: this.$env.datasetDetails.visualisations.descriptionMaxChars,
+        isVisible: this.$env.content.datasetDetails.visualisations.isVisible,
+        displayAll: this.$env.content.datasetDetails.visualisations.displayAll,
+        displayCount: this.$env.content.datasetDetails.visualisations.displayCount,
+        incrementSteps: this.$env.content.datasetDetails.visualisations.incrementSteps,
+        descriptionMaxLines: this.$env.content.datasetDetails.visualisations.descriptionMaxLines,
+        descriptionMaxChars: this.$env.content.datasetDetails.visualisations.descriptionMaxChars,
       }
     };
   },

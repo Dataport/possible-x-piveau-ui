@@ -123,8 +123,8 @@ export default {
       downloadAllSuccess: false,
       downloadAllError: false,
       bulkDownload: {
-        MAX_FILE_TITLE_LENGTH: this.$env.datasetDetails.bulkDownload.MAX_FILE_TITLE_LENGTH,
-        TIMEOUT_MS: this.$env.datasetDetails.bulkDownload.TIMEOUT_MS,
+        MAX_FILE_TITLE_LENGTH: this.$env.content.datasetDetails.bulkDownload.MAX_FILE_TITLE_LENGTH,
+        TIMEOUT_MS: this.$env.content.datasetDetails.bulkDownload.TIMEOUT_MS,
       }
     }
   },

@@ -123,11 +123,11 @@ configureModules({
     similarityBaseUrl: env.api.similarityBaseUrl,
     gazetteerBaseUrl: env.api.gazetteerBaseUrl,
     hubUrl: env.api.hubUrl,
-    keycloak: env.keycloak,
-    rtp: env.rtp,
-    useAuthService: env.useAuthService,
-    authToken: env.api.authToken,
-    defaultScoringFacets: env.datasets.facets.scoringFacets.defaultScoringFacets,
+    keycloak: env.authentication.keycloak,
+    rtp: env.authentication.rtp,
+    useAuthService: env.authentication.useService,
+    authToken: env.authentication.authToken,
+    defaultScoringFacets: env.content.datasets.facets.scoringFacets.defaultScoringFacets,
   }
 });
 
@@ -350,8 +350,8 @@ const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeo
 const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
   Vue.use(vueKeycloak, {
     config: {
-      rtp: env.rtp,
-      ...env.keycloak,
+      rtp: env.authentication.rtp,
+      ...env.authentication.keycloak,
     },
     init: {
       ...window.Cypress && { checkLoginIframe: !window.Cypress },
@@ -379,12 +379,16 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
 // Attempt to load Vue with Keycloak using recover mechanism
 (async () => {
+<<<<<<< HEAD
+  if (!env.authentication.useService) {
+=======
 
   if (ecStyle) {
     await import('./styles/ec-style.scss');
   }
 
   if (!env.useAuthService) {
+>>>>>>> master
     createVueApp().$mount('#app');
     return {};
   }

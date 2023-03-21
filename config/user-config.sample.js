@@ -11,427 +11,290 @@ import i18n from './i18n';
 export const ecStyle = false;
 
 const glueConfig = {
-  title: 'data.europa.eu',
-  description: 'data.europa.eu',
-  keywords: 'DEU',
   api: {
     baseUrl: 'https://data.europa.eu/api/hub/search/',
     // baseUrl: 'https://ppe.data.europa.eu/api/hub/search/',
     // baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
-    qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
-    // qualityBaseUrl: 'https://ppe.data.europa.eu/api/mqa/cache/',
-    // qualityBaseUrl: 'https://piveau-metrics-cache-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
-    similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
-    // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
-    // similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
     hubUrl: 'https://data.europa.eu/api/hub/repo/',
     // hubUrl: 'https://ppe.data.europa.eu/api/hub/repo/',
     // hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
+    qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
+    // qualityBaseUrl: 'https://ppe.data.europa.eu/api/mqa/cache/',
+    // qualityBaseUrl: 'https://piveau-metrics-cache-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
+    similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
+    // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
+    // similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
     fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
     // fileUploadUrl: 'https://ppe.data.europa.eu/api/hub/store/',
     // fileUploadUrl: 'https://piveau-hub-store-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
+    sparqlUrl: 'https://data.europa.eu/sparql',
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
     catalogBaseUrl: 'https://europeandataportal.eu/',
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
-    sparqlUrl: 'https://data.europa.eu/sparql',
+  },
+  authentication: {
+    useService: true, 
+    login: {
+      useLogin: true,
+
+      loginTitle: 'Login',
+      loginURL: '/login',
+      loginRedirectUri: '/',
+      
+      logoutTitle: 'Logout',
+      logoutURL: '/logout',
+      logoutRedirectUri: '/',
+    },
+    keycloak: {
+      realm: 'piveau',
+      clientId: 'piveau-hub-ui',
+      url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
+
+      // TODO: Do we need to include these properties? They seem to be default values that never change #2763
+      'ssl-required': 'external',
+      'public-client': true, 
+      'verify-token-audience': true, 
+      'use-resource-role-mappings': true, 
+      'confidential-port': 0, 
+    },
+    rtp: {
+      grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
+      audience: 'piveau-hub-repo',
+    },
     authToken: '',
   },
-  tracker: {
-    // Matomo/PiwikPro analytics config
-    // If true, uses PiwikPro, if false, uses Matomo
-    isPiwikPro: true,
-    siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
-    trackerUrl: 'https://opanalytics.containers.piwik.pro/'
+  routing: {
+    routerOptions: {
+      base: '/', // TODO: Include piveau-header-footer instead of deu-header-footer to make test app working with default base path #2765
+      mode: 'history',
+    },
+    navigation: { 
+      showSparql: false,
+    },
+    pagination: {
+      usePagination: true,
+      usePaginationArrows: true,
+      useItemsPerPage: true,
+      defaultItemsPerPage: 10, // TODO: Make use of this property #2764
+      defaultItemsPerPageOptions: [5, 10, 25, 50], 
+    },
   },
-  useAuthService: true,
-  keycloak: {
-    enableLogin: true,
-    realm: 'piveau',
-    url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
-    'ssl-required': 'external',
-    clientId: 'piveau-hub-ui',
-    'public-client': true,
-    'verify-token-audience': true,
-    'use-resource-role-mappings': true,
-    'confidential-port': 0,
-    loginRedirectUri: '/data',
-    logoutRedirectUri: '/data',
+  metadata: {
+    title: 'piveau Hub-UI',
+    description: 'A modern and customizable web application for data management of extensive data catalogs.',
+    keywords: 'Open Data',
   },
-  rtp: {
-    grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
-    audience: 'piveau-hub-repo',
+  content: {
+    datasets: {
+      useSort: true,
+      useFeed: true, 
+      useCatalogs: true,
+      followKeywordLinks: 'nofollow',
+      maxKeywordLength: 15, 
+      facets: {
+        useDatasetFacets: true,
+        useDatasetFacetsMap: true,
+        showClearButton: false, 
+        showFacetsTitle: false, 
+        cutoff: 5 ,
+        MIN_FACET_LIMIT: 10, 
+        MAX_FACET_LIMIT: 50, 
+        FACET_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }), 
+        FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }), 
+        defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'], 
+        scoringFacets: {
+          useScoringFacets: true, // TODO: Make use of this property #2764
+          defaultScoringFacets: { 
+            excellentScoring: {
+              id: 'excellentScoring',
+              title: 'Excellent',
+              count: 0,
+              minScoring: 351,
+              maxScoring: 405,
+            },
+            goodScoring: {
+              id: 'goodScoring',
+              title: 'Good',
+              count: 0,
+              minScoring: 221,
+              maxScoring: 350,
+            },
+            sufficientScoring: {
+              id: 'sufficientScoring',
+              title: 'Sufficient',
+              count: 0,
+              minScoring: 121,
+              maxScoring: 220,
+            },
+            badScoring: {
+              id: 'badScoring',
+              title: 'Any',
+              count: 0,
+              minScoring: 0,
+              maxScoring: 120,
+            },
+          },
+        },
+      },
+    },
+    catalogs: { 
+      useSort: true, // TODO: Make use of this property #2764
+      useCatalogCountries: true,
+      defaultCatalogImagePath: '/flags',
+      defaultCatalogCountryID: 'eu',
+      defaultCatalogID: 'european-union-open-data-portal',
+      facets: {
+        useCatalogFacets: true,
+        showClearButton: false,
+        showFacetsTitle: false,
+        cutoff: 5,
+        MIN_FACET_LIMIT: 50,
+        MAX_FACET_LIMIT: 100,
+        FACET_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
+        FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
+        defaultFacetOrder: ['country'],
+      },
+    },
+    datasetDetails: { 
+      header: {
+        navigation: "top",
+        hidePublisher: false,
+        hideDate: false
+      },
+      keywords: {
+        showTitle: false
+      },
+      description: {
+        enableMarkdownInterpretation: true,
+      },
+      distributions: {
+        displayAll: false,
+        displayCount: 7,
+        incrementSteps: [10, 50],
+        descriptionMaxLines: 3,
+        descriptionMaxChars: 250,
+        showValidationButton: false, // TODO: Make use of this property #2764
+      },
+      pages: {
+        isVisible: false,
+        displayAll: false,
+        displayCount: 7,
+        incrementSteps: [10, 50],
+        descriptionMaxLines: 3,
+        descriptionMaxChars: 250,
+      },
+      visualisations: {
+        isVisible: false,
+        displayAll: false,
+        displayCount: 7,
+        incrementSteps: [10, 50],
+        descriptionMaxLines: 3,
+        descriptionMaxChars: 250,
+      },
+      dataServices: {
+        isVisible: false,
+        displayAll: false,
+        displayCount: 7,
+        incrementSteps: [10, 50],
+        descriptionMaxLines: 3,
+        descriptionMaxChars: 250,
+      },
+      isUsedBy: {
+        isVisible: false,
+      },
+      relatedResources: {
+        isVisible: false,
+      },
+      bulkDownload: {
+        buttonPosition: "top",
+        MAX_FILE_TITLE_LENGTH: 80,
+        MAX_REQUESTS_COUNT: 5, // TODO: Make use of this property #2764
+        INTERVAL_MS: 10, // TODO: Make use of this property #2764
+        TIMEOUT_MS: 10000,
+      },
+      quality: {
+        displayAll: false,
+        numberOfDisplayedQualityDistributions: 5,
+        csvLinter: {
+          enable: true,
+          displayAll: false,
+          numberOfDisplayedValidationResults: 5,
+        },
+      }
+    },
+    maps: { 
+      mapVisible: true,
+      useAnimation: true,
+      location: [[52.526, 13.314], 10],
+      spatialType: 'Point',
+      height: '400px',
+      width: '100%',
+      mapContainerId: 'mapid',
+      urlTemplate: 'https://gisco-services.ec.europa.eu/maps/wmts/1.0.0/WMTSCapabilities.xml/wmts/OSMCartoComposite/EPSG3857/{z}/{x}/{y}.png',
+      geoBoundsId: 'ds-search-bounds',
+      sender: {
+        startBounds: [[34.5970, -9.8437], [71.4691, 41.4843]],
+        height: '200px',
+        width: '100%',
+        mapContainerId: 'modalMap',
+      },
+      receiver: {
+        startBounds: [[34.5970, -9.8437], [71.4691, 41.4843]],
+        height: '250px',
+        width: '100%',
+        mapContainerId: 'mapid',
+        attributionPosition: 'topright',
+      },
+      options: {
+        id: 'mapbox/streets-v11',
+        accessToken: 'pk.eyJ1IjoiZmFiaWFwZmVsa2VybiIsImEiOiJja2x3MzlvZ3UwNG85MnBseXJ6aGI2MHdkIn0.bFs2g4bPMYULlvDSVsetJg',
+        attribution: '&copy; <a href="https://ec.europa.eu/eurostat/web/gisco/">Eurostat - GISCO</a>',
+      },
+      mapStyle: {
+        color: 'red',
+        fillColor: 'red',
+        fillOpacity: 0.5,
+        weight: 2,
+        radius: 1,
+      },
+    },
+    dataProviderInterface: {
+      useService: true,
+      basePath: '/dpi',
+      buttons: {
+        Dataset: true,
+        Catalogue: false, 
+      },
+      doiRegistrationService: { 
+        persistentIdentifierType: 'eu-ra-doi',
+      },
+    },
   },
   languages: {
+    useLanguageSelector: true, // TODO: Make use of this property by passing it to the Header-Footer in App.vue #2766
     locale: 'en',
     fallbackLocale: 'en',
   },
   services: {
-    catalogService,
     datasetService,
+    catalogService,
+    uploadService,
     gazetteerService,
-    uploadService
   },
   themes: {
     header: 'dark',
   },
-  routerOptions: {
-    base: '/data',
-    mode: 'history',
+  tracker: {
+    // TODO: Implement disable tracker option based on condition #2767
+    isPiwikPro: true, // true: PiwikPro | false: Matomo
+    siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
+    trackerUrl: 'https://opanalytics.containers.piwik.pro/'
   },
-  navigation: {
-    top: {
-      main: {
-        home: {
-          // href: 'https://link-to-external-url.com' (optional)
-          // target: ['_self' | '_blank'] (optional)
-          show: true,
-        },
-        data: {
-          show: true,
-          sparql: {
-            show: true,
-          },
-        },
-        maps: {
-          show: false,
-        },
-        about: {
-          show: false,
-        },
-        append: [
-          {
-            href: 'https://www.fokus.fraunhofer.de/datenschutz',
-            target: '_self',
-            title: 'Privacy Policy',
-          },
-          {
-            href: 'https://www.fokus.fraunhofer.de/9663f8cb2d267d4b',
-            target: '_self',
-            title: 'Imprint',
-          },
-        ],
-        icons: false,
-      },
-      sub: {
-        privacyPolicy: {
-          show: false,
-          href: 'https://www.fokus.fraunhofer.de/datenschutz',
-          target: '_self',
-        },
-        imprint: {
-          show: false,
-          href: 'https://www.fokus.fraunhofer.de/9663f8cb2d267d4b',
-          target: '_self',
-        },
-      },
-    },
-    bottom: {
-      login: {
-        useLogin: true,
-        loginURL: '/login',
-        loginTitle: 'Login',
-        logoutURL: '/logout',
-        logoutTitle: 'Logout',
-      },
-    },
-  },
-  pagination: {
-    usePagination: true,
-    usePaginationArrows: ecStyle,
-    useItemsPerPage: true,
-    defaultItemsPerPage: 10,
-    defaultItemsPerPageOptions: [5, 10, 25, 50],
-  },
-  images: {
-    top: [
-      {
-        src: 'https://i.imgur.com/lgtG4zB.png',
-        // href: 'https://my-url.de'(optional)
-        // target: ['_self' | '_blank'] (optional)
-        description: 'Logo data.europa.eu',
-        height: '60px',
-        width: 'auto',
-      },
-    ],
-    bottom: [],
-  },
-  datasets: {
-    upload: {
-      availableCategories: [
-        'tran',
-        'heal',
-        'gove',
-        'envi',
-        'intr',
-        'agri',
-        'soci',
-        'econ',
-        'educ',
-        'ener',
-        'tech',
-        'regi',
-        'just',
-      ],
-    },
-    facets: {
-      cutoff: ecStyle ? 5 : -1,
-      showClearButton: ecStyle,
-      showFacetsTitle: ecStyle, // Title on top of the facets
-      useDatasetFacets: true, // Enable / Disable the facets on the Datasets page
-      useDatasetFacetsMap: false, // Enable / Disable the map on the Datasets page
-      defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'],
-      scoringFacets: {
-        useScoringFacets: true, // Enable / Disable the scoring facets
-        defaultMinScore: 0, // Set the default mininimum score, the value should be one of the below listed minScores
-        defaultScoringFacets: { // Set the properties of the scoring facets
-          excellentScoring: {
-            id: 'excellentScoring',
-            title: 'Excellent',
-            count: 0,
-            minScoring: 351,
-            maxScoring: 405,
-          },
-          goodScoring: {
-            id: 'goodScoring',
-            title: 'Good',
-            count: 0,
-            minScoring: 221,
-            maxScoring: 350,
-          },
-          sufficientScoring: {
-            id: 'sufficientScoring',
-            title: 'Sufficient',
-            count: 0,
-            minScoring: 121,
-            maxScoring: 220,
-          },
-          badScoring: {
-            id: 'badScoring',
-            title: 'Any',
-            count: 0,
-            minScoring: 0,
-            maxScoring: 120,
-          },
-        },
-      },
-      // Set the minimum amount of Dataset facet items to be visible if collapsed
-      MIN_FACET_LIMIT: 10,
-      // Set the maximum amount of Dataset facet items to be visible, overflowing facets will not be shown!!!
-      MAX_FACET_LIMIT: 50,
-      FACET_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
-      FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
-    },
-    // Set the relation of the DatasetDetails keyword links (e.g. rel="nofollow")
-    followKeywordLinks: 'nofollow',
-    // Maximum length for a keyword before being truncated
-    maxKeywordLength: 15,
-    // Enable / Disable the sort dropdown button on the Datasets page
-    useSort: true,
-    // Enable / Disable the RSS & Atom feed dropdown button on the Datasets page
-    useFeed: true,
-    // Enable / Disable the catalogs button on the Datasets page
-    useCatalogs: true,
-  },
-  catalogs: {
-    facets: {
-      cutoff: ecStyle ? 5 : -1,
-      showClearButton: ecStyle,
-      showFacetsTitle: ecStyle, // Title on top of the facets
-      // Enable / Disable the facets on the Catalogues page
-      useCatalogFacets: true,
-      defaultFacetOrder: ['country'],
-      // Set the minimum amount of Catalog facet items to be visible if collapsed
-      MIN_FACET_LIMIT: 50,
-      // Set the maximum amount of Catalog facet items to be visible, overflowing facets will not be shown!!!
-      MAX_FACET_LIMIT: 100,
-      FACET_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
-      FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
-    },
-    // Enable / Disable the sort dropdown button on the Catalogues page
-    useSort: true,
-    // Use this option to achieve a more generic catalog page
-    // If set to true, catalogs will be based on countries and therefore look for a "catalog.country.id" value to compute, which country flag to be used
-    // If set to false, catalogs will not be based on countries and therefore look for a "catalog.id" value to compute, which catalog image to be used
-    useCatalogCountries: true,
-    // Set the default path to the catalog images (ROOT = "/src/assets/img")
-    // If "useCatalogCountries" is set to true, this value should be equal to "/flags"
-    // If "useCatalogCountries" is set to false, this value can be either:
-    //    - an empty string to indicate, that the catalog images can be found inside "/src/assets/img" or
-    //    - any directory name inside "/src/assets/img" starting with a "/"
-    defaultCatalogImagePath: '/flags',
-    // Set the default catalog.country.id of a catalog if not available, only applicable if "useCatalogCountries" is set to true
-    // Country flags can be stored inside the "/flags" directory like "/src/assets/img/flags/<catalog.country.id>.png" with their filenames being equal to their catalog.country.id
-    defaultCatalogCountryID: 'eu',
-    // Set the default catalog.id of a catalog if not available, only applicable if "useCatalogCountries" is set to false
-    // Catalog images can be stored inside any directory in "/src/assets/img/" like "/src/assets/img/catalogs/<catalog.id>.png" with their filenames being equal to their catalog.id
-    defaultCatalogID: 'european-union-open-data-portal',
-  },
-  datasetDetails: {
-    header: {
-      navigation: ecStyle ? "below" : "top", // "top", "below"
-      hidePublisher: ecStyle,
-      hideDate: ecStyle
-    },
-    keywords: {
-      showTitle: ecStyle
-    },
-    description: {
-      // If true, parses dataset description as Markdown formatted text content.
-      enableMarkdownInterpretation: true,
-    },
-    // Configurations that changes the way distributions are displayed.
-    distributions: {
-      // If true, always display all distributions
-      displayAll: false,
-      // Number of first distributions to be shown before more need to be loaded.
-      // Has no effect if displayAll is set to true.
-      displayCount: 7,
-      // Number of increment steps to be shown.
-      // Has no effect if displayAll is set to true.
-      incrementSteps: [10, 50],
-      descriptionMaxLines: 3,
-      descriptionMaxChars: 250,
-      showValidationButton: false,
-      // Available variables: catalog, dataset, distribution, type, lang, accessUrl
-      geoLink: ' https://geoportal.bayern.de/bayernatlas/?layers={type}||{accessUrl}',
-    },
-    pages: {
-      isVisible: false,
-      // If true, always display all pages
-      displayAll: false,
-      // Number of first pages to be shown before more need to be loaded.
-      // Has no effect if displayAll is set to true.
-      displayCount: 7,
-      // Number of increment steps to be shown.
-      // Has no effect if displayAll is set to true.
-      incrementSteps: [10, 50],
-      descriptionMaxLines: 3,
-      descriptionMaxChars: 250,
-    },
-    visualisations: {
-      isVisible: false,
-      // If true, always display all visualisations
-      displayAll: false,
-      // Number of first visualisations to be shown before more need to be loaded.
-      // Has no effect if displayAll is set to true.
-      displayCount: 7,
-      // Number of increment steps to be shown.
-      // Has no effect if displayAll is set to true.
-      incrementSteps: [10, 50],
-      descriptionMaxLines: 3,
-      descriptionMaxChars: 250,
-    },
-    dataServices: {
-      isVisible: false,
-      // If true, always display all pages
-      displayAll: false,
-      // Number of first pages to be shown before more need to be loaded.
-      // Has no effect if displayAll is set to true.
-      displayCount: 7,
-      // Number of increment steps to be shown.
-      // Has no effect if displayAll is set to true.
-      incrementSteps: [10, 50],
-      descriptionMaxLines: 3,
-      descriptionMaxChars: 250,
-    },
-    isUsedBy: {
-      isVisible: false,
-    },
-    relatedResources: {
-      isVisible: false,
-    },
-    bulkDownload: {
-      buttonPosition: ecStyle ? "bottom" : "top", // bottom or top
-      // Maximum length for a file title before being truncated
-      MAX_FILE_TITLE_LENGTH: 80,
-      // Maximum parallel axios requests
-      MAX_REQUESTS_COUNT: 5,
-      // An interval which checks if PENDING_REQUESTS < MAX_REQUESTS_COUNT
-      INTERVAL_MS: 10,
-      // Timeout for axios request
-      TIMEOUT_MS: 10000,
-    },
-    quality: {
-      // If true, always display all distributions
-      displayAll: false,
-      // Number of distributions to be shown
-      numberOfDisplayedQualityDistributions: 5,
-      // CSV Linter Validation Results
-      csvLinter: {
-        enable: false,
-        // If true, always display all results
-        displayAll: false,
-        // Number of results to be shown
-        numberOfDisplayedValidationResults: 5,
-      },
-    },
-    // Distribution download as feature
-    downloadAs: {
-      // If true, enable it
-      enable: false,
-    },
-    similarDatasets: {
-      breakpoints: {
-        verySimilar: { start: 0, end: 20 },
-        similar: { start: 20, end: 25 },
-        lessSimilar: { start: 25, end: 35 },
-      },
-    },
-  },
-  // Leaflet map configuration
-  maps: {
-    mapVisible: true,
-    useAnimation: true,
-    urlTemplate: 'https://gisco-services.ec.europa.eu/maps/wmts/1.0.0/WMTSCapabilities.xml/wmts/OSMCartoComposite/EPSG3857/{z}/{x}/{y}.png',
-    options: {
-      id: 'mapbox/streets-v11',
-      accessToken: 'pk.eyJ1IjoiZmFiaWFwZmVsa2VybiIsImEiOiJja2x3MzlvZ3UwNG85MnBseXJ6aGI2MHdkIn0.bFs2g4bPMYULlvDSVsetJg',
-      attribution: '&copy; <a href="https://ec.europa.eu/eurostat/web/gisco/">Eurostat - GISCO</a>',
-    },
-    geoBoundsId: 'ds-search-bounds',
-    // MapBasic
-    location: [[52.526, 13.314], 10],
-    spatialType: 'Point',
-    height: '400px',
-    width: '100%',
-    mapContainerId: 'mapid',
-    mapStyle: {
-      color: 'red',
-      fillColor: 'red',
-      fillOpacity: 0.5,
-      weight: 2,
-      radius: 1,
-    },
-    // MapBoundsSender
-    sender: {
-      startBounds: [[34.5970, -9.8437], [71.4691, 41.4843]],
-      height: '200px',
-      width: '100%',
-      mapContainerId: 'modalMap',
-    },
-    // MapBoundsReceiver
-    receiver: {
-      startBounds: [[34.5970, -9.8437], [71.4691, 41.4843]],
-      height: '250px',
-      width: '100%',
-      mapContainerId: 'mapid',
-      attributionPosition: 'topright',
-    },
-  },
-  upload: {
-    specification: "dcatap", // dcatap or dcatapde
-    useUpload: true,
-    // annifIntegration: false, // Suggest potential Themes/Subjects via the Annif AI
-    buttons: {
-      Dataset: true,
-      Catalogue: false,
-    },
-    basePath: '/dpi',
-  },
-  doiRegistrationService: {
-    // Can be either 'eu-ra-doi' or 'mock'
-    persistentIdentifierType: 'eu-ra-doi',
-  }
 };
 
 export { glueConfig, i18n };

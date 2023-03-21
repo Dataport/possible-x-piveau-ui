@@ -106,24 +106,24 @@ export default {
       title,
       meta: [
         { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.datasets.meta.description')}` },
-        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.keywords} ${this.$t('message.datasets.meta.description')}` : `${this.$env.keywords} ${this.$t('message.datasets.meta.description')}` },
+        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}` : `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}` },
       ],
     };
   },
   data() {
     return {
-      cutoff: this.$env.datasets.facets.cutoff,
-      showClearButton: this.$env.datasets.facets.showClearButton,
-      showFacetsTitle: this.$env.datasets.facets.showFacetsTitle,
-      defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
-      useScoringFacets: this.$env.datasets.facets.scoringFacets.useScoringFacets,
+      cutoff: this.$env.content.datasets.facets.cutoff,
+      showClearButton: this.$env.content.datasets.facets.showClearButton,
+      showFacetsTitle: this.$env.content.datasets.facets.showFacetsTitle,
+      defaultFacetOrder: this.$env.content.datasets.facets.defaultFacetOrder,
+      useScoringFacets: this.$env.content.datasets.facets.scoringFacets.useScoringFacets,
       useDataScopeFacets: isNil(this.$route.params.ctlg_id),
       showCatalogDetails: false,
       catalog: {},
-      MIN_FACET_LIMIT: this.$env.datasets.facets.MIN_FACET_LIMIT,
-      MAX_FACET_LIMIT: this.$env.datasets.facets.MAX_FACET_LIMIT,
-      FACET_OPERATORS: this.$env.datasets.facets.FACET_OPERATORS,
-      FACET_GROUP_OPERATORS: this.$env.datasets.facets.FACET_GROUP_OPERATORS,
+      MIN_FACET_LIMIT: this.$env.content.datasets.facets.MIN_FACET_LIMIT,
+      MAX_FACET_LIMIT: this.$env.content.datasets.facets.MAX_FACET_LIMIT,
+      FACET_OPERATORS: this.$env.content.datasets.facets.FACET_OPERATORS,
+      FACET_GROUP_OPERATORS: this.$env.content.datasets.facets.FACET_GROUP_OPERATORS,
       dataServices: {
         yes: Vue.i18n.t('message.metadata.yes'),
         no: Vue.i18n.t('message.metadata.no'),
@@ -172,7 +172,7 @@ export default {
       return this.$route.query.query;
     },
     showMoreFacetsShown() {
-      return this.$env.datasets.facets.cutoff > 0 && this.$env.datasets.facets.cutoff < this.getAllVisibleFacets.length;
+      return this.$env.content.datasets.facets.cutoff > 0 && this.$env.content.datasets.facets.cutoff < this.getAllVisibleFacets.length;
     },
     getAllVisibleFacets() {
       return this.getAllAvailableFacets.filter(facet => facet.items.length > 0);
@@ -239,7 +239,7 @@ export default {
       'setMinScoring',
     ]),
     toggleCutoff() {
-      this.cutoff = this.cutoff >= 0 ? -1 : this.$env.datasets.facets.cutoff;
+      this.cutoff = this.cutoff >= 0 ? -1 : this.$env.content.datasets.facets.cutoff;
     },
     facetTitle(fieldId) {
       return fieldId === 'scoring' ?
@@ -393,7 +393,7 @@ export default {
           ? ''
           : currentScoring;
       if (currentScoring) {
-        let scoringFacets = this.$env.datasets.facets.scoringFacets.defaultScoringFacets;
+        let scoringFacets = this.$env.content.datasets.facets.scoringFacets.defaultScoringFacets;
         Object.keys(scoringFacets).forEach(score => {
           if (score === currentScoring) {
             this.setMinScoring(scoringFacets[score].minScoring);

@@ -29,9 +29,9 @@
     data() {
       return {
         map: {},
-        mapStyle: this.$env.maps.mapStyle,
-        urlTemplate: this.$env.maps.urlTemplate,
-        options: this.$env.maps.options,
+        mapStyle: this.$env.content.maps.mapStyle,
+        urlTemplate: this.$env.content.maps.urlTemplate,
+        options: this.$env.content.maps.options,
       };
     },
     props: {

@@ -191,13 +191,13 @@ export default {
           const nextPage = this.getNavSteps[this.property][nextIndex];
           // preserve distribution index
           if (this.id) {
-            this.$router.push(`${this.$env.upload.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+            this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
           } else {
-            this.$router.push(`${this.$env.upload.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => {});
+            this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => {});
           }
       } else if (nextIndex === -1 && this.property === 'distributions') {
         // when on the first page of the distributions form the previous button directs to the first distribution overview page
-        this.$router.push(`${this.$env.upload.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
+        this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
       }
     },
     next() {
@@ -209,14 +209,14 @@ export default {
         const nextPage = this.getNavSteps[this.property][nextIndex];
         if (this.id) {
           // preserve distribution id in path
-          this.$router.push(`${this.$env.upload.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
         } else {
-          this.$router.push(`${this.$env.upload.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => {});
+          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => {});
         }
       } else if (nextIndex === numberOfPages) {
         if (this.property === 'distributions') {
           // when within distributions the next button lead to datasets overview page
-          this.$router.push(`${this.$env.upload.basePath}/datasets/overview?locale=${this.$i18n.locale}`).catch(() => {});
+          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/overview?locale=${this.$i18n.locale}`).catch(() => {});
         }
       }
     },

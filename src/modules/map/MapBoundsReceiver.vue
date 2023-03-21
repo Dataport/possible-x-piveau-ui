@@ -20,10 +20,10 @@
     data() {
       return {
         map: {},
-        useAnimation: this.$env.maps.useAnimation,
-        urlTemplate: this.$env.maps.urlTemplate,
-        options: this.$env.maps.options,
-        attributionPosition: this.$env.maps.receiver.attributionPosition,
+        useAnimation: this.$env.content.maps.useAnimation,
+        urlTemplate: this.$env.content.maps.urlTemplate,
+        options: this.$env.content.maps.options,
+        attributionPosition: this.$env.content.maps.receiver.attributionPosition,
         bounds: this.startBounds,
       };
     },

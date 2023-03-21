@@ -124,12 +124,12 @@ export default {
   data() {
     return {
       dataServices: {
-        isVisible: this.$env.datasetDetails.dataServices.isVisible,
-        displayAll: this.$env.datasetDetails.dataServices.displayAll,
-        displayCount: this.$env.datasetDetails.dataServices.displayCount,
-        incrementSteps: this.$env.datasetDetails.dataServices.incrementSteps,
-        descriptionMaxLines: this.$env.datasetDetails.dataServices.descriptionMaxLines,
-        descriptionMaxChars: this.$env.datasetDetails.dataServices.descriptionMaxChars,
+        isVisible: this.$env.content.datasetDetails.dataServices.isVisible,
+        displayAll: this.$env.content.datasetDetails.dataServices.displayAll,
+        displayCount: this.$env.content.datasetDetails.dataServices.displayCount,
+        incrementSteps: this.$env.content.datasetDetails.dataServices.incrementSteps,
+        descriptionMaxLines: this.$env.content.datasetDetails.dataServices.descriptionMaxLines,
+        descriptionMaxChars: this.$env.content.datasetDetails.dataServices.descriptionMaxChars,
       },
       expandedDataServicesDescriptions: [],
       expandedDataServices: [],
@@ -186,7 +186,7 @@ export default {
     }
   },
   mounted() {
-    const dataServicesConf = this.$env.datasetDetails && this.$env.datasetDetails.dataServices;
+    const dataServicesConf = this.$env.content.datasetDetails && this.$env.content.datasetDetails.dataServices;
     if (dataServicesConf) {
       this.dataServices.displayAll = dataServicesConf.displayAll || this.dataServices.displayAll;
       this.dataServices.displayCount = parseInt(dataServicesConf.displayCount, 10) || this.dataServices.displayCount;

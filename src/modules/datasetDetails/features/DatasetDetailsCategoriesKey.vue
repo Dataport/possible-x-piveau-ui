@@ -57,7 +57,7 @@ data() {
       incrementSteps: [12, 60],
     },
     maxCategoryLength: 15,
-    followCategoryLinks: this.$env.datasets.followCategoryLinks
+    followCategoryLinks: this.$env.content.datasets.followCategoryLinks
   }
 },
 computed: {

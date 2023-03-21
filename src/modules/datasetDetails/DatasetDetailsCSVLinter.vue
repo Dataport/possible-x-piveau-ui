@@ -85,8 +85,8 @@ export default {
                 title: this.$t('message.datasetDetails.quality.title'),
                 banner: this.$t('message.datasetDetails.quality.banner'),
                 limit: this.$t('message.datasetDetails.quality.limit'),
-                displayAll: this.$env.datasetDetails.quality.csvLinter.displayAll,
-                numberOfDisplayedValidationResults: this.$env.datasetDetails.quality.csvLinter.numberOfDisplayedValidationResults,
+                displayAll: this.$env.content.datasetDetails.quality.csvLinter.displayAll,
+                numberOfDisplayedValidationResults: this.$env.content.datasetDetails.quality.csvLinter.numberOfDisplayedValidationResults,
                 validationTitle: {
                     true: this.$t('message.datasetDetails.quality.validationTitle.success'),
                     false: this.$t('message.datasetDetails.quality.validationTitle.error'),
