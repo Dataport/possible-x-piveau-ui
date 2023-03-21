@@ -71,13 +71,8 @@ export default {
     return {
       title: `${this.$t('message.metadata.upload')} | ${this.$t('message.header.navigation.data.datasets')}`,
       meta: [
-<<<<<<< HEAD
-        { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.datasets')}} - ${this.$env.metadata.description}` },
-        { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.header.navigation.data.datasets')}}` },
-=======
         { name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}` },
-        { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.datasets.meta.description')}}` },
->>>>>>> master
+        { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}` },
         { name: 'robots', content: 'noindex, follow' },
       ],
     };
