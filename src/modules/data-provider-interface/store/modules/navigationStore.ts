@@ -23,7 +23,6 @@ const getters = {
             setConfig(dpiConfig);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];
-            console.log(dpiConfig);
             setConfig(dpiConfig);
         }
         return state.navigation;

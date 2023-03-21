@@ -421,7 +421,7 @@ const glueConfig = {
   upload: {
     specification: "dcatap", // dcatap or dcatapde
     useUpload: true,
-    annifIntegration: false, // Suggest potential Themes/Subjects via the Annif AI
+    // annifIntegration: false, // Suggest potential Themes/Subjects via the Annif AI
     buttons: {
       Dataset: true,
       Catalogue: false,
