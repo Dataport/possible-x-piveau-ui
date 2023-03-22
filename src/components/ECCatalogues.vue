@@ -441,7 +441,7 @@ export default {
     return {
       title: this.currentSearchQuery
         ? `${this.currentSearchQuery}`
-        : `${this.$t("message.header.navigation.data.catalogs")}`,
+        : `${this.$t("message.catalogs.meta.page.title")}`,
       meta: [
         {
           name: "description",
