@@ -243,7 +243,7 @@ export default {
     return {
       title: this.currentSearchQuery
         ? `${this.currentSearchQuery}`
-        : `${this.$t("message.header.navigation.data.datasets")}`,
+        : `${this.$t("message.datasets.meta.page.title")}`,
       meta: [
         {
           name: "description",
