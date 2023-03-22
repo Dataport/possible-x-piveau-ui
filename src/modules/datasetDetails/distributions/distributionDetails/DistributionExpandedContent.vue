@@ -38,15 +38,14 @@
         {{ $t('message.distributionLicense.notProvided') }}
       </td>
     </tr>
-    <!-- ToDo get correct translation instead of .en -->
-    <tr v-if="has(distribution, 'licenseAttributionByText') && !isNil(distribution.licenseAttributionByText.en)">
+    <tr v-if="has(distribution, 'licenseAttributionByText') && !isNil(distribution.licenseAttributionByText)">
       <td class="w-25 font-weight-bold">
         <!-- <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')"> -->
           <!-- {{ $t('message.metadata.updated') }} -->
           {{ 'License Attribution By Text' }}
         <!-- </tooltip> -->
       </td>
-      <td>{{ distribution.licenseAttributionByText.en }}</td>
+      <td>{{ getTranslationFor(distribution.licenseAttributionByText) }}</td>
     </tr>
     <tr v-if="has(distribution, 'modificationDate') && !isNil(distribution.modificationDate)">
       <td class="w-25 font-weight-bold">
@@ -268,7 +267,7 @@ import {
   has,
   isNil
 } from 'lodash';
-import { truncate, formatDatetime } from '../../../utils/helpers';
+import { truncate, formatDatetime, getTranslationFor } from '../../../utils/helpers';
 import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
 export default {
@@ -291,6 +290,7 @@ export default {
     isNil,
     truncate,
     formatDatetime,
+    getTranslationFor
   }
 }
 </script>
