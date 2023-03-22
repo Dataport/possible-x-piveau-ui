@@ -395,16 +395,23 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | --------                    | ------------------ |
 | displayAll               | Display all distributions on the dataset details quality page (default: `false`).         |
 | numberOfDisplayedQualityDistributions               | Amount of displayed distributions on the dataset details quality page (default: `5`).         |
-| csvLinter               | _see table below_         |
+| csvLinter.enable               | Enables the CSV linter service (default: `true`).             |
+| csvLinter.displayAll               | Display all validation results of the CSV linter (default: `false`).         |
+| csvLinter.numberOfDisplayedValidationResults               | Amount of displayed validation results of the CSV linter (default: `5`).         |
 
-#### datasetDetails.quality.csvLinter
+#### datasetDetails.downloadAs
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
-| enable               | Enables the CSV linter service (default: `true`).             |
-| displayAll               | Display all validation results of the CSV linter (default: `false`).         |
-| numberOfDisplayedValidationResults               | Amount of displayed validation results of the CSV linter (default: `5`).         |
+| enable               | Enables the Download as feature (default: `false`).             |
 
+#### datasetDetails.similarDatasets
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| breakpoints.verySimilar               | Breakpoint for Very Similar rating (0 - 20).             |
+| breakpoints.similar               | Breakpoint for Very Similar rating (20 - 25).             |
+| breakpoints.lessSimilar               | Breakpoint for Very Similar rating (25 - 35).             |
 
 
 ## maps
@@ -493,7 +500,7 @@ Contains configuration values that are used for the `DataProviderInterface`.
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
-| persistentIdentifierType               | ???         |
+| persistentIdentifierType               | Indicates the Persistent Identifier (PID) system that is used for the DOI service (default: `eu-ra-doi`).        |
 
 <br><br>
 
