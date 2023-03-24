@@ -379,16 +379,12 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
 // Attempt to load Vue with Keycloak using recover mechanism
 (async () => {
-<<<<<<< HEAD
-  if (!env.authentication.useService) {
-=======
 
   if (ecStyle) {
     await import('./styles/ec-style.scss');
   }
 
-  if (!env.useAuthService) {
->>>>>>> master
+  if (!env.authentication.useService) {
     createVueApp().$mount('#app');
     return {};
   }
