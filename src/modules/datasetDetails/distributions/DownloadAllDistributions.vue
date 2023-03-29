@@ -257,7 +257,14 @@ export default {
     },
     async trackAndDownloadAllDistributions() {
       if (this.$piwik && this.$piwik.trackDownload) {
-        this.$piwik.trackDownload(window.location.href, { files: JSON.stringify(this.files), downloadAll: 'true' });
+        this.$piwik.trackDownload(
+          window.location.href,
+          {
+            files: JSON.stringify(this.files),
+            downloadAll: 'true',
+            format: 'all',
+          }
+        );
       }
       return await this.downloadAllDistributions();
     },
