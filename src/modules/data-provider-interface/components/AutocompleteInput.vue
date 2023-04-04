@@ -113,7 +113,7 @@ export default {
       themeSuggestionList: {},
       manSearch: false,
       values: [],
-      annifEnv: Vue.prototype.$env.upload.annifIntegration,
+      annifEnv: this.$env.content.dataProviderInterface.annifIntegration,
       valueListOfThemes: [],
       getThSuggestions: false,
       thSwitch: false,
@@ -133,7 +133,7 @@ export default {
     }
   },
   async mounted() {
-    console.log("Annif="+this.annifEnv);
+    console.log(this.annifEnv);
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
