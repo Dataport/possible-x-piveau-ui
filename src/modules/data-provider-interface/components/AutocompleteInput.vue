@@ -133,7 +133,7 @@ export default {
     }
   },
   async mounted() {
-    console.log(this.annifEnv);
+   
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
