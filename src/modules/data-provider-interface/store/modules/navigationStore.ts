@@ -19,7 +19,7 @@ const state = {
 const getters = {
     getNavSteps(state) {
         try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
             setConfig(dpiConfig);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];

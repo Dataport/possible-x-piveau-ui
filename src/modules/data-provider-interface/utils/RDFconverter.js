@@ -18,9 +18,9 @@ function convertToRDF(data, property) {
     let finishedRDFdata;
 
     let dpiConfig;
-    if (generalDpiConfig[Vue.prototype.$env.upload.specification] == undefined) {
+    if (generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification] == undefined) {
         dpiConfig = generalDpiConfig["dcatap"]
-    } else dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification]
+    } else dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification]
 
     // writer for adding data as quads
     const RDFdata = new N3.Writer({ prefixes: dpiConfig.prefixes, format: 'N-Triples' });
@@ -56,9 +56,9 @@ function convertToRDF(data, property) {
 function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI) {
 
     let dpiConfig;
-    if (generalDpiConfig[Vue.prototype.$env.upload.specification] == undefined) {
+    if (generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification] == undefined) {
         dpiConfig = generalDpiConfig["dcatap"]
-    } else dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification]
+    } else dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification]
     
     const formatTypes = dpiConfig.formatTypes;
 
