@@ -16,57 +16,7 @@ export default {
     return {
       ifFormatMatches: false,
       selectOptions: [],
-      convertionFormats: [
-        {
-          sourceFileFormat: 'HTML',
-          targetFileFormat: [
-            'html', 'pdf', 'docx', 'json', 'odt', 'rtf'
-          ]
-        },
-        {
-          sourceFileFormat: 'CSV',
-          targetFileFormat: [
-            'csv', 'docx', 'html', 'json', 'odt', 'rtf', 'xls', 'xlsx', 'xml'
-          ]
-        },
-        {
-          sourceFileFormat: 'JSON',
-          targetFileFormat: [
-            'json', 'xml',
-          ]
-        },
-        {
-          sourceFileFormat: 'ODT',
-          targetFileFormat: [
-            'odt', 'docx', 'html', 'json', 'rtf'
-          ]
-        },
-        {
-          sourceFileFormat: 'DOCX',
-          targetFileFormat: [
-            'docx', 'pptx', 'odt', 'pdf', 'txt', 'html', 'json', 'odt', 'rtf'
-          ]
-        },
-        {
-          sourceFileFormat: 'XLSX',
-          targetFileFormat: [
-            'xlsx', 'csv',
-          ]
-        },
-        {
-          sourceFileFormat: 'XLS',
-          targetFileFormat: [
-            'xls', 'csv',
-          ]
-        },
-        {
-          sourceFileFormat: 'PDF',
-          targetFileFormat: [
-            'pdf', 'txt',
-          ]
-        }
-
-      ]
+      convertionFormats: this.$env.datasetDetails.downloadAs.convertionFormats
     }
   },
   mounted() {
