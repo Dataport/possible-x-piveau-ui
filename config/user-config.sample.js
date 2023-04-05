@@ -266,6 +266,7 @@ const glueConfig = {
     dataProviderInterface: {
       useService: true,
       basePath: '/dpi',
+      annifIntegration: false,
       buttons: {
         Dataset: true,
         Catalogue: false, 
