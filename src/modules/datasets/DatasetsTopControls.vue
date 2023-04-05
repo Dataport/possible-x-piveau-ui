@@ -46,7 +46,7 @@ export default {
   ],
   data() {
     return {
-      useFeed: this.$env.datasets.useFeed,
+      useFeed: this.$env.content.datasets.useFeed,
       baseUrl: this.$env.api.baseUrl,
     }
   },

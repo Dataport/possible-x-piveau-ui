@@ -19,7 +19,7 @@ import {mapActions, mapGetters} from "vuex";
 export default {
   name: "SettingsFacet",
   data() {
-    const ops = this.$env.datasets.facets.FACET_OPERATORS;
+    const ops = this.$env.content.datasets.facets.FACET_OPERATORS;
     return {
       FACET_OPERATORS: ops,
       optionIds: [ops.and, ops.or],
@@ -48,7 +48,7 @@ export default {
       this.$router.replace(
         { query: Object.assign({}, this.$route.query, { facetOperator: op }) }
       ).catch(
-        error => { console.log(error); }
+        error => { console.error(error); }
       );
     },
     change(op) {

@@ -22,7 +22,7 @@
         v-if="property === 'distributions'"
         :line-thickness="1"
         :steps="datasetStepNames"
-        :current-step="steps.datasets.length"
+        :current-step="3"
         active-color="#001d85"
         :active-thickness="20"
         :passive-thickness="20">
@@ -53,15 +53,17 @@
 <script>
 /* eslint-disable no-nested-ternary, no-lonely-if, no-param-reassign */
 import { mapActions, mapGetters } from 'vuex';
-import StepProgress from 'vue-step-progress';
+import StepProgress from 'vue-step-progress/dist/vue-step-progress.min.js';
 import 'vue-step-progress/dist/main.css';
 import Navigation from './components/Navigation';
+
+console.log('stepprogress = ', StepProgress);
 
 export default {
   name: 'DataProviderInterface',
   dependencies: [],
   components: {
-    StepProgress,
+    StepProgress: StepProgress.default || StepProgress,
     Navigation,
   },
   props: ['name'],
@@ -69,8 +71,8 @@ export default {
     return {
       title: `${this.$t('message.metadata.upload')} | ${this.$t('message.header.navigation.data.datasets')}`,
       meta: [
-        { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.datasets')}} - data.europa.eu` },
-        { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.header.navigation.data.datasets')}}` },
+        { name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}` },
+        { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}` },
         { name: 'robots', content: 'noindex, follow' },
       ],
     };
@@ -129,7 +131,7 @@ export default {
   },
   methods: {
     ...mapActions('dpiStore', [
-      'saveExistingJsonld',
+      'saveLocalstorageValues',
     ]),
     ...mapActions('auth', [
       'populateDraftAndEdit',
@@ -167,10 +169,10 @@ export default {
 
       if (this.property === 'distributions') {
         firstStep = this.getNavSteps.datasets[0];
-        path = `${this.$env.upload.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
+        path = `${this.$env.content.dataProviderInterface.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
       } else {
         firstStep = this.getNavSteps[this.property][0];
-        path = `${this.$env.upload.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
+        path = `${this.$env.content.dataProviderInterface.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
       }
       return path;
     },
@@ -183,27 +185,27 @@ export default {
 
         if (this.getNavSteps[this.property][i] === 'overview') {
           // only datasets and catalogues have an overview page
-          s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/${this.property}/overview?locale=${this.$i18n.locale}`).catch(() => {});
+          s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/overview?locale=${this.$i18n.locale}`).catch(() => {});
         } else if (this.getNavSteps[this.property][i] === 'distoverview') {
           // only datasets and distributions have a distoverview page
           if (this.property === 'datasets') {
-            s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
           } else if (this.property === 'distributions') {
             // distribution overview page should have distribution index for back navigation to distirbutions
-            s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/${this.property}/distoverview/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/distoverview/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
           }
         } else {
           if (this.property === 'distributions') {
             // id of distribution needed within navigation
-            s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/${this.property}/${this.getNavSteps[this.property][i]}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
           } else {
-            s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/${this.property}/${this.getNavSteps[this.property][i]}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}?locale=${this.$i18n.locale}`).catch(() => {});
           }
         }
       });
       // stepper links for dataset stepper when distribution form is currently on display
       document.querySelectorAll('#subStepper .step-progress__step-label').forEach((s, i) => {
-        s.onclick = () => this.$router.push(`${this.$env.upload.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => {});
+        s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => {});
       });
     },
   },
@@ -212,7 +214,7 @@ export default {
   },
   mounted() {
     this.addStepperLinks();
-    this.saveExistingJsonld(this.property);
+    this.saveLocalstorageValues(this.property);
   },
 };
 </script>
@@ -282,20 +284,21 @@ export default {
 
 // Stepper Customizing -------------
 
-.step-progress__step {
-  border: solid white 20px;
-}
+#stepper, #subStepper {
+  .step-progress__step {
+    border: solid white 20px;
+  }
 
-.step-progress__step  span {
-  color: #fff ;
-}
-.step-progress__step--active  .step-progress__step-label {
-  color: rgb(31, 31, 31) ;
-}
+  .step-progress__step  span {
+    color: #fff ;
+  }
+  .step-progress__step--active  .step-progress__step-label {
+    color: rgb(31, 31, 31) ;
+  }
 
-.step-progress__step-icon {
-font-size: 25px;
-
+  .step-progress__step-icon {
+  font-size: 25px;
+  }
 }
 
 // Input Form Margins & Borders ----
@@ -402,16 +405,18 @@ font-size: 25px;
   text-decoration: underline !important;
 }
 
-.step-progress__step span{
-  font-size: 30px;
-  font-weight: bold;
-}
-.step-progress__step::after{
-  height: 40px;
-  width: 40px;
-}
+#stepper, #subStepper {
+  .step-progress__step span{
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .step-progress__step::after{
+    height: 40px;
+    width: 40px;
+  }
 
-.step-progress__step-label {
-  cursor: pointer;
+  .step-progress__step-label {
+    cursor: pointer;
+  }
 }
 </style>

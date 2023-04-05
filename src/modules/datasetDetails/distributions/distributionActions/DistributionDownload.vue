@@ -14,7 +14,7 @@
                 :to="replaceHttp(distribution.accessUrl[0])"
                 target="_blank"
                 rel="dcat:distribution noopener"
-                matomo-track-download
+                :matomo-track-download="{ format: distribution?.format?.id }"
                 @after-click="$emit('trackGoto')">
         <span>
           <i class="material-icons align-bottom">open_in_new</i>
@@ -32,7 +32,7 @@
         <app-link class="text-dark text-decoration-none d-flex justify-content-between w-100"
                   :to="replaceHttp(downloadURL)"
                   target="_blank"
-                  matomo-track-download
+                  :matomo-track-download="{ format: distribution?.format?.id }"
                   @after-click="$emit('trackGoto')">
           <span>
             <i class="material-icons align-bottom">open_in_new</i>

@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       isUsedBy: {
-        isVisible: this.$env.datasetDetails.isUsedBy.isVisible,
+        isVisible: this.$env.content.datasetDetails.isUsedBy.isVisible,
       }
     };
   },

@@ -102,6 +102,145 @@
               </div>
             </td>
           </tr>
+          <!-- Add new fields for DCAT-AP.de -->
+          <!-- TODO: replace strings/tooltips with i18n translations -->
+          <tr v-if="showObjectArray(getPoliticalGeocodingLevelURI)">
+            <td class="w-25 font-weight-bold">
+              <tooltip :title="$t('Political Geocoding Level URI')">
+                {{ 'Political Geocoding Level URI' }}
+              </tooltip>
+            </td>
+            <td v-for="(element, i) in getPoliticalGeocodingLevelURI" :key="`PoliticalGeocodingLevelURI-`+i">
+              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+            </td>
+          </tr>
+          <tr v-if="showObjectArray(getPoliticalGeocodingURI)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Political Geocoding URI'>
+                {{ 'Political Geocoding URI' }}
+              </tooltip>
+            </td>
+            <td v-for="(element, i) in getPoliticalGeocodingURI" :key="`PoliticalGeocodingURI-`+i">
+              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+            </td>
+          </tr>
+          <tr v-if="showObject(getAvailability)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Availability'>
+                {{ 'Availability' }}
+              </tooltip>
+            </td>
+            <td>
+              <div> {{ $t('message.metadata.label') }}: {{ getAvailability.label }}</div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="getAvailability.resource">{{ getAvailability.resource }}</a></div>
+            </td>
+          </tr>
+          <tr v-if="showObjectArray(getContributorID)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Contributor ID'>
+                {{ 'Contributor ID' }}
+              </tooltip>
+            </td>
+            <td v-for="(element, i) in getContributorID" :key="`ContributorID-`+i">
+              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+            </td>
+          </tr>
+          <tr v-if="showObject(getGeocodingDescriptionDe)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Geocoding Description'>
+                {{ 'Geocoding Description' }}
+              </tooltip>
+            </td>
+            <td >
+              <div> {{ getTranslationFor(getGeocodingDescriptionDe) }}</div>
+            </td>
+          </tr>
+          <tr v-if="showObject(getLegalBasis)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Legal Basis'>
+                {{ 'Legal Basis' }}
+              </tooltip>
+            </td>
+            <td >
+              <div> {{ getTranslationFor(getLegalBasis) }}</div>
+            </td>
+          </tr>
+          <tr v-if="showString(getQualityProcessURI)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Quality Process URI'>
+                {{ 'Quality Process URI' }}
+              </tooltip>
+            </td>
+            <td>
+              <a :href="getQualityProcessURI">{{ getQualityProcessURI }}</a>
+            </td>
+          </tr>
+          <tr v-if="showString(getTypeDe)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Type'>
+                {{ 'Type' }}
+              </tooltip>
+            </td>
+            <td>
+              {{ getTypeDe }}
+            </td>
+          </tr>
+          <tr v-if="showString(getReferences)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='References'>
+                {{ 'References' }}
+              </tooltip>
+            </td>
+            <td>
+              <a :href="getReferences">{{ getReferences }}</a>
+            </td>
+          </tr>
+          <tr v-if="showObjectArray(getContributor)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Contributor'>
+                {{ 'Contributor' }}
+              </tooltip>
+            </td>
+            <td v-for="(element, i) in getContributor" :key="`Contributor-`+i">
+              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+            </td>
+          </tr>
+          <tr v-if="showObjectArray(getOriginator)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Originator'>
+                {{ 'Originator' }}
+              </tooltip>
+            </td>
+            <td v-for="(element, i) in getOriginator" :key="`Originator-`+i">
+              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+            </td>
+          </tr>
+          <tr v-if="showObjectArray(getMaintainer)">
+            <td class="w-25 font-weight-bold">
+              <tooltip title='Maintainer'>
+                {{ 'Maintainer' }}
+              </tooltip>
+            </td>
+            <td v-for="(element, i) in getMaintainer" :key="`Maintainer-`+i">
+              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+            </td>
+          </tr>
+          <!-- ### END DCAT-AP.de fields ### -->
           <tr v-if="showString(getModificationDate)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.updated')">
@@ -249,7 +388,7 @@
               </div>
             </td>
           </tr>
-          <tr v-if="showString(getResource)">
+          <tr v-if="showString(getResource)" class="dsd-properties-uriref">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
                 URIref
@@ -563,7 +702,7 @@
     </div>
     <pv-show-more
       v-if="showMoreVisible"
-      :label="expanded? 'Show less' : 'Show more'"
+      :label="expanded? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
       :upArrow="expanded"
       :action="toggleExpanded"
       class="row text-primary"
@@ -602,6 +741,21 @@ export default {
   },
   computed: {
     ...mapGetters('datasetDetails', [
+      // DCAT-AP.de
+      'getDataset',
+      'getAvailability',
+      'getPoliticalGeocodingLevelURI',
+      'getPoliticalGeocodingURI',
+      'getContributorID',
+      'getGeocodingDescriptionDe',
+      'getLegalBasis',
+      'getQualityProcessURI',
+      'getTypeDe',
+      'getReferences',
+      'getContributor',
+      'getOriginator',
+      'getMaintainer',
+      //
       'getSources',
       'getAccessRights',
       'getAccrualPeriodicity',

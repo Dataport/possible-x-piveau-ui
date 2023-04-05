@@ -72,6 +72,13 @@
                         </p>
                       </small>
                     </span>
+                    <!-- additional field for DCAT-AP.de -->
+                    <span>
+                      <small v-if="getDataServiceResource(dataService)">
+                        <!-- TODO translation -->
+                        Resource: <a :href="getDataServiceResource(dataService) ">{{ getDataServiceResource(dataService) }}</a>
+                      </small>
+                    </span>
                   </span>
                   <!-- DATA SERVICE BUTTONS -->
                   <span class="col-12 col-md-3 col-lg-5 mt-2 text-md-right text-left">
@@ -117,12 +124,12 @@ export default {
   data() {
     return {
       dataServices: {
-        isVisible: this.$env.datasetDetails.dataServices.isVisible,
-        displayAll: this.$env.datasetDetails.dataServices.displayAll,
-        displayCount: this.$env.datasetDetails.dataServices.displayCount,
-        incrementSteps: this.$env.datasetDetails.dataServices.incrementSteps,
-        descriptionMaxLines: this.$env.datasetDetails.dataServices.descriptionMaxLines,
-        descriptionMaxChars: this.$env.datasetDetails.dataServices.descriptionMaxChars,
+        isVisible: this.$env.content.datasetDetails.dataServices.isVisible,
+        displayAll: this.$env.content.datasetDetails.dataServices.displayAll,
+        displayCount: this.$env.content.datasetDetails.dataServices.displayCount,
+        incrementSteps: this.$env.content.datasetDetails.dataServices.incrementSteps,
+        descriptionMaxLines: this.$env.content.datasetDetails.dataServices.descriptionMaxLines,
+        descriptionMaxChars: this.$env.content.datasetDetails.dataServices.descriptionMaxChars,
       },
       expandedDataServicesDescriptions: [],
       expandedDataServices: [],
@@ -173,10 +180,13 @@ export default {
     },
     getDataServiceDescription(dataService) {
       return (has(dataService, 'description') && !isNil(dataService.description)) ? getTranslationFor(dataService.description, this.$route.query.locale, this.getLanguages) : this.$t('message.catalogsAndDatasets.noDescriptionAvailable');
+    },
+    getDataServiceResource(dataService) {
+      return (has(dataService.availability, 'resource') && !isNil(dataService.availability.resource)) ? dataService.availability.resource : '';
     }
   },
   mounted() {
-    const dataServicesConf = this.$env.datasetDetails && this.$env.datasetDetails.dataServices;
+    const dataServicesConf = this.$env.content.datasetDetails && this.$env.content.datasetDetails.dataServices;
     if (dataServicesConf) {
       this.dataServices.displayAll = dataServicesConf.displayAll || this.dataServices.displayAll;
       this.dataServices.displayCount = parseInt(dataServicesConf.displayCount, 10) || this.dataServices.displayCount;

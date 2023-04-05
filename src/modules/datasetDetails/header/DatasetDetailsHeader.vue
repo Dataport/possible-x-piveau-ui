@@ -1,6 +1,6 @@
 <template>
   <!-- HEADER -->
-  <div>
+  <div class="dsd-header">
     <dataset-details-header-title />
     <div class="d-flex offset-lg-1 col-lg-10 mt-1 px-0 flex-nowrap justify-content-between dsd-header-info">
       <dataset-details-header-catalogue class="mr-2"/>
@@ -39,7 +39,7 @@
   const { getTranslationFor, getCountryFlagImg, truncate } = helpers;
 
   export default {
-    name: 'datasetDetailsDataset',
+    name: 'datasetDetailsHeader',
     components: {
       PropertyValue,
       DatasetDetailsHeaderCatalogue,
@@ -50,8 +50,8 @@
     dependencies: 'DatasetService',
     data() {
       return {
-        hidePublisher: this.$env.datasetDetails.header.hidePublisher,
-        hideDate: this.$env.datasetDetails.header.hideDate,
+        hidePublisher: this.$env.content.datasetDetails.header.hidePublisher,
+        hideDate: this.$env.content.datasetDetails.header.hideDate,
       };
     },
     computed: {

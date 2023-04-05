@@ -79,14 +79,14 @@ export default {
   methods: {
     ...mapActions('dpiStore', [
       'addDistribution',
-      'saveExistingJsonld',
+      'saveLocalstorageValues',
       'deleteDistribution',
     ]),
     truncate,
     deleteDist() {
       this.deleteDistribution(this.distributionToDelete);
       $('#deleteDistributionModal').modal('hide');
-      this.$router.push({ path: `${this.$env.upload.basePath}/datasets/distoverview`, query: { locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ path: `${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview`, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     triggerDeleteModal(index) {
       this.distributionToDelete = index;
@@ -94,14 +94,14 @@ export default {
     },
     getDistributionFormat(dist) {
       if (!isEmpty(dist['dct:format'])) {
-        return dist['dct:format']['@id'].substring(dist['dct:format']['@id'].lastIndexOf('/') + 1);
+        return dist['dct:format'].substring(dist['dct:format'].lastIndexOf('/') + 1);
       } else {
         return 'UNKNOWN';
       }
     },
     redirectToDistributionForm(distributionIndex) {
       const firstDistPage = this.getNavSteps.distributions[0];
-      this.$router.push({ path: `${this.$env.upload.basePath}/distributions/${firstDistPage}/${distributionIndex}`, query: { locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ path: `${this.$env.content.dataProviderInterface.basePath}/distributions/${firstDistPage}/${distributionIndex}`, query: { locale: this.$route.query.locale }}).catch(() => {});
     },
     createDistribution(){
       // create an new distribution within store
@@ -111,7 +111,7 @@ export default {
       const firstDistPage = this.getNavSteps.distributions[0];
 
       // direct to distribution input form
-      this.$router.push(`${this.$env.upload.basePath}/distributions/${firstDistPage}/${distIndex}?locale=${this.$i18n.locale}`);
+      this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/distributions/${firstDistPage}/${distIndex}?locale=${this.$i18n.locale}`);
     },
     titleExists(data){
       return !isEmpty(data['dct:title']) && !isEmpty(data['dct:title'][0]) && has(data['dct:title'][0], '@value') && !isEmpty(data['dct:title'][0]['@value']);
@@ -125,7 +125,7 @@ export default {
   },
   mounted() {
     // saving existing dataset and distrbution data from localStorage to vuex store
-    this.saveExistingJsonld('datasets');
+    this.saveLocalstorageValues('datasets');
   }
 };
 </script>

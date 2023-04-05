@@ -25,7 +25,7 @@
         </div>
         <pv-show-more
           v-if="showMoreFacetsShown"
-          :label="cutoff >= 0? 'More filters' : 'Less filters'"
+          :label="cutoff >= 0? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.lessFilters')"
           :upArrow="cutoff === -1"
           :action="toggleCutoff"
           class="p-0 row facets-show-more"
@@ -62,20 +62,20 @@
     },
     data() {
       return {
-        cutoff: this.$env.catalogs.facets.cutoff,
-        showClearButton: this.$env.catalogs.facets.showClearButton,
-        showFacetsTitle: this.$env.catalogs.facets.showFacetsTitle,
+        cutoff: this.$env.content.catalogs.facets.cutoff,
+        showClearButton: this.$env.content.catalogs.facets.showClearButton,
+        showFacetsTitle: this.$env.content.catalogs.facets.showFacetsTitle,
         showCatalogDetails: false,
         catalog: {},
         browser: {
           /* eslint-disable-next-line */
           isIE: /*@cc_on!@*/false || !!document.documentMode,
         },
-        defaultFacetOrder: this.$env.catalogs.facets.defaultFacetOrder,
-        MIN_FACET_LIMIT: this.$env.catalogs.facets.MIN_FACET_LIMIT,
-        MAX_FACET_LIMIT: this.$env.catalogs.facets.MAX_FACET_LIMIT,
-        FACET_OPERATORS: this.$env.catalogs.facets.FACET_OPERATORS,
-        FACET_GROUP_OPERATORS: this.$env.catalogs.facets.FACET_GROUP_OPERATORS,
+        defaultFacetOrder: this.$env.content.catalogs.facets.defaultFacetOrder,
+        MIN_FACET_LIMIT: this.$env.content.catalogs.facets.MIN_FACET_LIMIT,
+        MAX_FACET_LIMIT: this.$env.content.catalogs.facets.MAX_FACET_LIMIT,
+        FACET_OPERATORS: this.$env.content.catalogs.facets.FACET_OPERATORS,
+        FACET_GROUP_OPERATORS: this.$env.content.catalogs.facets.FACET_GROUP_OPERATORS,
       };
     },
     computed: {
@@ -94,7 +94,7 @@
         return this.getFacetGroupOperator;
       },
       showMoreFacetsShown() {
-        return this.$env.catalogs.facets.cutoff > 0 && this.$env.catalogs.facets.cutoff < this.getAvailableFacets.length;
+        return this.$env.content.catalogs.facets.cutoff > 0 && this.$env.content.catalogs.facets.cutoff < this.getAvailableFacets.length;
       },
       getSortedFacets() {
         const availableFacets = this.getAvailableFacets;
@@ -134,7 +134,7 @@
        * @returns {Array<Object>}
        */
       toggleCutoff() {
-        this.cutoff = this.cutoff >= 0 ? -1 : this.$env.datasets.facets.cutoff;
+        this.cutoff = this.cutoff >= 0 ? -1 : this.$env.content.datasets.facets.cutoff;
       },
       sortByCount(facets, fieldId) {
         if (fieldId === 'scoring') return facets;
@@ -178,7 +178,7 @@
       clearFacets() {
         if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
           this.$router.push({ query: { locale: this.$i18n.locale, page: "1" } })
-            .catch(error => { console.log(error); });
+            .catch(error => { console.error(error); });
         }
       },
       /**

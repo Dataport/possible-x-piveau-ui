@@ -106,6 +106,7 @@ export default {
             endpoint_url: distribution.accessService[0].endpoint_url,
             title: distribution.accessService[0].title,
             description: distribution.accessService[0].description,
+            availability: has(distribution.accessService[0], 'availability') ? distribution.accessService[0].availability : {}   // field added for DCAT-AP.de
           }));
         const uniqueAccessServiceList = [...new Map(
           accessServiceList

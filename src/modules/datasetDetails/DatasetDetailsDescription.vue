@@ -2,7 +2,7 @@
   <div class="row mt-4 mb-4 dsd-description" data-cy="dataset-description">
     <div v-if="getDatasetDescription !== 'No description available'" class="col-12 col-lg-11 offset-lg-1 dsd-description-content" property="dc:description">
       <app-markdown-content
-        v-if="$env.datasetDetails.description.enableMarkdownInterpretation"
+        v-if="$env.content.datasetDetails.description.enableMarkdownInterpretation"
         :text="truncate(getDatasetDescription, datasetDescriptionLength)"
       >
 <!--        <template #after>-->
@@ -25,7 +25,7 @@
       </p>
       <pv-show-more
         v-if="isDatasetDescriptionExpanded || (datasetDescriptionLength < getDatasetDescriptionLength)"
-        :label="isDatasetDescriptionExpanded? 'Show less' : 'Show more'"
+        :label="isDatasetDescriptionExpanded? $t('message.metadata.showLess') : $t('message.metadata.showMore')"
         :upArrow="isDatasetDescriptionExpanded"
         :action="toggleDatasetDescription"
         class="row text-primary"

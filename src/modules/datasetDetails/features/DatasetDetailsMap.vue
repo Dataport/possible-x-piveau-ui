@@ -27,23 +27,44 @@
 </template>
 
 <script>
-import MapBasic from "@/modules/map/MapBasic";
+import Vue, { defineAsyncComponent } from "vue";
 import {isArray, isNil, isString} from "lodash";
 import {mapGetters} from "vuex";
+import VueSkeletonLoader from 'skeleton-loader-vue';
 import DatasetDetailsFeatureHeader
   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+
+const MapBasic = defineAsyncComponent({
+  // Lazy-load mapbasic component
+  loader: () => import("@/modules/map/MapBasic"),
+  loadingComponent: {
+    // Load skeleton while the mapbasic component is loading
+    components: { VueSkeletonLoader },
+    render: (h) => {
+      return h('vue-skeleton-loader',
+      {
+        props: {
+        width: Vue.prototype.$env.maps.width,
+        height: Vue.prototype.$env.maps.height,
+        animation: 'fade',
+        }
+      })
+    }
+  },
+});
+
 export default {
   name: "DatasetDetailsMap",
   components: {DatasetDetailsFeatureHeader, MapBasic},
   data() {
     return {
-      mapVisible: this.$env.maps.mapVisible,
+      mapVisible: this.$env.content.maps.mapVisible,
       maps: {
-        location: this.$env.maps.location,
-        spatialType: this.$env.maps.spatialType,
-        height: this.$env.maps.height,
-        width: this.$env.maps.width,
-        mapContainerId: this.$env.maps.mapContainerId,
+        location: this.$env.content.maps.location,
+        spatialType: this.$env.content.maps.spatialType,
+        height: this.$env.content.maps.height,
+        width: this.$env.content.maps.width,
+        mapContainerId: this.$env.content.maps.mapContainerId,
       }
     }
   },

@@ -10,7 +10,7 @@
         :key="`Group${index}`"
         :groupName="group.group"
         :groupItems="group.items"
-        :show="$env.upload.buttons[group.group]"
+        :show="$env.content.dataProviderInterface.buttons[group.group]"
         :isOperator="getUserData.roles.includes('operator')"
         :isCatalog="group.group === 'Catalogue' ? true : false">
       </dropup>
@@ -170,7 +170,7 @@ export default {
                   ...{
                     message: 'Are you sure you want to register a DOI? This can not be reverted.',
                     confirm: 'Register DOI (irreversible)',
-                    confirmHandler: () => this.handleRegisterDoi({ id: this.getID, catalog: this.getCatalog.id, type: this.$env.doiRegistrationService.persistentIdentifierType || 'mock' }),
+                    confirmHandler: () => this.handleRegisterDoi({ id: this.getID, catalog: this.getCatalog.id, type: this.$env.content.dataProviderInterface.doiRegistrationService.persistentIdentifierType || 'mock' }),
                   },
                 };
                 $('#DPIMenuModal').modal({ show: true });
@@ -198,7 +198,7 @@ export default {
                   ...{
                     message: 'Are you sure you want to delete this catalogue? This can not be reverted!',
                     confirm: 'Delete catlogue (irreversible)',
-                    confirmHandler: () => this.handleDelete({ id: this.$route.query.catalog, property: 'catalogues', catalog: this.$route.query.catalog }),
+                    confirmHandler: () => this.handleDelete({ id: this.$route.params.ctlg_id, property: 'catalogues', catalog: this.$route.params.ctlg_id }),
                   },
                 };
                 $('#DPIMenuModal').modal({ show: true });
@@ -211,7 +211,7 @@ export default {
               to: {
                 name: 'DataProviderInterface-Edit',
                 params: {
-                  catalog: this.$route.query.catalog ? this.$route.query.catalog : 'undefined',
+                  catalog: this.$route.params.ctlg_id ? this.$route.params.ctlg_id : 'undefined',
                   property: 'catalogues',
                   id: this.getID || 'undefined',
                 },
@@ -265,18 +265,15 @@ export default {
       if (this.getLoading) return false;
 
       // is the user located on the correct page?
-      const onDatasetPage = this.$route.name === 'Datasets';
-      const queryCatalogProperty = has(this.$route.query, 'catalog') && !isEmpty(this.$route.query.catalog);
-      const catalogDetailsShown = has(this.$route.query, 'showcatalogdetails') && this.$route.query.showcatalogdetails === 'true';
-      const isOnRightPage = onDatasetPage && queryCatalogProperty && catalogDetailsShown;
-      if (!(isOnRightPage)) return false;
+      const onCatalogPage = this.$route.name === 'CatalogueDetails';
+      if (!onCatalogPage) return false;
+      const catalogId = onCatalogPage && this.$route.params.ctlg_id;
 
       const permissions = this.getUserData && this.getUserData.permissions;
-      const catalogId = this.$route.query.catalog;
       const hasPermission = permissions.find(permission => permission.rsname === catalogId);
 
       // does user have permission on current catalogue
-      return hasPermission && isOnRightPage;
+      return hasPermission && onCatalogPage;
     }
   },
   methods: {

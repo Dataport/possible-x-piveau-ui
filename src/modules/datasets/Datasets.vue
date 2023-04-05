@@ -92,7 +92,8 @@
     uniqBy,
     toPairs,
     isArray,
-  } from 'lodash';
+    isNil,
+  } from 'lodash-es';
   import $ from 'jquery';
   import fileTypes from '../utils/fileTypes';
   import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
@@ -124,8 +125,8 @@
       return {
         title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.datasets')}`,
         meta: [
-          { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.datasets')}} - data.europa.eu` },
-          { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.header.navigation.data.datasets')}}` },
+          { name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}` },
+          { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}` },
           { name: 'robots', content: 'noindex, follow' },
         ],
       };
@@ -138,7 +139,7 @@
         lang: this.locale,
         filterCollapsed: true,
         catalogAllowed: false,
-        useDatasetFacets: this.$env.datasets.facets.useDatasetFacets
+        useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets
       };
     },
     computed: {
@@ -159,7 +160,7 @@
         'getMinScoring',
       ]),
       showCatalogDetails() {
-        return this.$route.query.showcatalogdetails === 'true';
+        return !isNil(this.$route.params.ctlg_id);
       },
       /**
        * @description Returns the current page.
@@ -177,7 +178,9 @@
       facets() {
         const facets = {};
         for (const field of this.facetFields) {
-          let urlFacets = this.$route.query[field];
+          let urlFacets;
+          if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
+          else urlFacets = this.$route.query[field];
           if (!urlFacets) urlFacets = [];
           else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
           facets[field] = urlFacets;
@@ -198,6 +201,7 @@
       },
     },
     methods: {
+      isNil,
       ...mapActions('datasets', [
         'loadDatasets',
         'loadAdditionalDatasets',
@@ -300,13 +304,21 @@
        * @descritption Initialize the active facets by checking the route parameters
        */
       initFacets() {
-        const fields = this.$env.datasets.facets.defaultFacetOrder;
+        const fields = this.$env.content.datasets.facets.defaultFacetOrder;
         for (const field of fields) {
           this.facetFields.push(field);
-          if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-            this.$router.replace({
-              query: Object.assign({}, this.$route.query, { [field]: [] }),
-            }).catch(error => { console.log(error); });
+          // catalog is not in queries anymore, so we have to add to facets differently
+          if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) {
+            this.addFacet({ field, facet: this.$route.params.ctlg_id });
+          }
+          else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
+            this.$router
+              .replace({
+                query: Object.assign({}, this.$route.query, { [field]: [] }),
+              })
+              .catch((error) => {
+                console.error(error);
+              });
           } else {
             for (const facet of this.$route.query[field]) {
               // do not add duplicates!
@@ -358,7 +370,8 @@
               })
               .catch(() => {
                 this.$Progress.fail();
-              });
+              })
+              .finally(() => this.$root.$emit('contentLoaded'));
           });
         });
       },
@@ -369,9 +382,9 @@
         return fileTypes.getFileTypeColor(format);
       },
       getCatalogImage(catalog) {
-        return this.$env.catalogs.useCatalogCountries
-          ? `${this.$env.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.catalogs.defaultCatalogCountryID}`
-          : `${this.$env.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.catalogs.defaultCatalogID}`;
+        return this.$env.content.catalogs.useCatalogCountries
+          ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.content.catalogs.defaultCatalogCountryID}`
+          : `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.content.catalogs.defaultCatalogID}`;
       }
     },
     watch: {

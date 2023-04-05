@@ -83,9 +83,9 @@ export default {
       id: null,
       isExpanded: false,
       isGrown: false,
-      numItemsAllowed: this.$env.datasets.facets.MIN_FACET_LIMIT || 5,
-      minItems: this.$env.datasets.facets.MIN_FACET_LIMIT || 5,
-      maxItems: this.$env.datasets.facets.MAX_FACET_LIMIT || 50
+      numItemsAllowed: this.$env.content.datasets.facets.MIN_FACET_LIMIT || 5,
+      minItems: this.$env.content.datasets.facets.MIN_FACET_LIMIT || 5,
+      maxItems: this.$env.content.datasets.facets.MAX_FACET_LIMIT || 50
     };
   },
   computed: {

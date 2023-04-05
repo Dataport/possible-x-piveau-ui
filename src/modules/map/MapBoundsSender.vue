@@ -26,9 +26,9 @@
       return {
         map: {},
         rectangle: false,
-        useAnimation: this.$env.maps.useAnimation,
-        urlTemplate: this.$env.maps.urlTemplate,
-        options: this.$env.maps.options,
+        useAnimation: this.$env.content.maps.useAnimation,
+        urlTemplate: this.$env.content.maps.urlTemplate,
+        options: this.$env.content.maps.options,
         bounds: this.startBounds,
       };
     },

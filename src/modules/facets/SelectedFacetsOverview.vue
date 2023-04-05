@@ -15,6 +15,7 @@
 <script>
   import { mapActions, mapGetters } from 'vuex';
   import { getFacetTranslation } from '../utils/helpers';
+  import { isNil } from 'lodash-es';
 
   export default {
     name: 'SelectedFacetsOverview',
@@ -29,7 +30,7 @@
     },
     data() {
       return {
-        defaultFacetOrder: this.$env.datasets.facets.defaultFacetOrder,
+        defaultFacetOrder: this.$env.content.datasets.facets.defaultFacetOrder,
       };
     },
     computed: {
@@ -38,11 +39,11 @@
 
         this.defaultFacetOrder.forEach((facet) => {
           if (this.showCatalogDetails && facet === 'catalog') return;
-          Object.keys(this.getSelectedFacets).forEach((field) => { 
+          Object.keys(this.getSelectedFacets).forEach((field) => {
             if (facet === field && this.getSelectedFacets[field].length > 0) orderedFacets.push({
               field,
               facets: this.getSelectedFacets[field],
-            }); 
+            });
           });
         });
 
@@ -97,15 +98,16 @@
         } else return this.selectedFacets;
       },
       showCatalogDetails() {
-        return this.$route.query.showcatalogdetails === 'true';
+        return !isNil(this.$route.params.ctlg_id);
       },
     },
     methods: {
+      isNil,
       ...mapActions('datasets', [
         'setMinScoring',
       ]),
       routerPush(object) {
-        return this.$router.push(object).catch(error => { console.log(error) });
+        return this.$router.push(object).catch(error => { console.error(error) });
       },
       showSelectedFacet(facet) {
         return facet.facets.length > 0

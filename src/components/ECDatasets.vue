@@ -202,7 +202,7 @@
 <script>
 /* eslint-disable no-undef */
 import { mapActions, mapGetters } from "vuex";
-import { debounce, has, groupBy, uniqBy, toPairs, isArray } from "lodash-es";
+import { debounce, has, groupBy, uniqBy, toPairs, isArray, isNil } from "lodash-es";
 import $ from "jquery";
 import ECDatasetsFilters from "@/components/ECDatasetsFilters";
 import {
@@ -243,20 +243,20 @@ export default {
     return {
       title: this.currentSearchQuery
         ? `${this.currentSearchQuery}`
-        : `${this.$t("message.header.navigation.data.datasets")}`,
+        : `${this.$t("message.datasets.meta.page.title")}`,
       meta: [
         {
           name: "description",
           vmid: "description",
           content: `${this.$t(
-            "message.header.navigation.data.datasets"
-          )}} - data.europa.eu`,
+            "message.datasets.meta.description"
+          )}`,
         },
         {
           name: "keywords",
           vmid: "keywords",
-          content: `${this.$env.keywords} ${this.$t(
-            "message.header.navigation.data.datasets"
+          content: `${this.$env.metadata.keywords} ${this.$t(
+            "message.datasets.meta.description"
           )}}`,
         },
         { name: "robots", content: "noindex, follow" },
@@ -270,12 +270,11 @@ export default {
       facetFields: [],
       lang: this.locale,
       filterCollapsed: true,
-      catalogDetailsMode: this.$route.query.showcatalogdetails === "true",
       catalogAllowed: false,
-      useCreateDatasetButton: this.$env.upload.useCreateDatasetButton,
-      useCreateCatalogueButton: this.$env.upload.useCreateCatalogueButton,
-      useDatasetFacets: this.$env.datasets.facets.useDatasetFacets,
-      // useSort: this.$env.datasets.useSort,
+      useCreateDatasetButton: this.$env.content.dataProviderInterface.useCreateDatasetButton,
+      useCreateCatalogueButton: this.$env.content.dataProviderInterface.useCreateCatalogueButton,
+      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets,
+      // useSort: this.$env.content.datasets.useSort,
     };
   },
   computed: {
@@ -294,7 +293,7 @@ export default {
       "getMinScoring",
     ]),
     showCatalogDetails() {
-      return this.$route.query.showcatalogdetails === "true";
+      return !isNil(this.$route.params.ctlg_id);
     },
     /**
      * @description Returns the current page.
@@ -312,7 +311,9 @@ export default {
     facets() {
       const facets = {};
       for (const field of this.facetFields) {
-        let urlFacets = this.$route.query[field];
+        let urlFacets;
+        if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
+        else urlFacets = this.$route.query[field];
         if (!urlFacets) urlFacets = [];
         else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
         facets[field] = urlFacets;
@@ -341,6 +342,7 @@ export default {
     },
   },
   methods: {
+    isNil,
     ...mapActions("datasets", [
       "loadDatasets",
       "loadAdditionalDatasets",
@@ -443,16 +445,20 @@ export default {
      * @descritption Initialize the active facets by checking the route parameters
      */
     initFacets() {
-      const fields = this.$env.datasets.facets.defaultFacetOrder;
+      const fields = this.$env.content.datasets.facets.defaultFacetOrder;
       for (const field of fields) {
         this.facetFields.push(field);
-        if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
+        // catalog is not in queries anymore, so we have to add to facets differently
+        if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) {
+          this.addFacet({ field, facet: this.$route.params.ctlg_id });
+        }
+        else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
           this.$router
             .replace({
               query: Object.assign({}, this.$route.query, { [field]: [] }),
             })
             .catch((error) => {
-              console.log(error);
+              console.error(error);
             });
         } else {
           for (const facet of this.$route.query[field]) {
@@ -466,7 +472,7 @@ export default {
     },
     initFacetOperator() {
       // Always set facet operator to AND when in catalog details mode
-      if (this.$route.query.showcatalogdetails === "true")
+      if (this.showCatalogDetails)
         this.setFacetOperator("AND");
       else {
         const op = this.$route.query.facetOperator;
@@ -476,7 +482,7 @@ export default {
     initFacetGroupOperator() {
       // The facetGroupOperator should be the same as the facetOperator
       // Always set facet operator to AND when in catalog details mode
-      if (this.$route.query.showcatalogdetails === "true")
+      if (this.showCatalogDetails)
         this.setFacetGroupOperator("AND");
       else {
         const op = this.$route.query.facetOperator;
@@ -494,7 +500,7 @@ export default {
       }
     },
     initDatasets() {
-    /* needed to add the following line so that every tooltip gets recognized as one (after all the asynchronous loads) ###loadtime??### */      
+    /* needed to add the following line so that every tooltip gets recognized as one (after all the asynchronous loads) ###loadtime??### */
     $('body').tooltip({selector: '[data-toggle="tooltip"]'});
       this.$nextTick(() => {
         this.$nextTick(() => {
@@ -522,16 +528,16 @@ export default {
       return fileTypes.getFileTypeColor(format);
     },
     getCatalogImage(catalog) {
-      return this.$env.catalogs.useCatalogCountries
-        ? `${this.$env.catalogs.defaultCatalogImagePath}/${
+      return this.$env.content.catalogs.useCatalogCountries
+        ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${
             has(catalog, "country.id")
               ? catalog.country.id
-              : this.$env.catalogs.defaultCatalogCountryID
+              : this.$env.content.catalogs.defaultCatalogCountryID
           }`
-        : `${this.$env.catalogs.defaultCatalogImagePath}/${
+        : `${this.$env.content.catalogs.defaultCatalogImagePath}/${
             has(catalog, "id")
               ? catalog.id
-              : this.$env.catalogs.defaultCatalogID
+              : this.$env.content.catalogs.defaultCatalogID
           }`;
     },
   },

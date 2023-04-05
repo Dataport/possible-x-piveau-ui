@@ -133,7 +133,12 @@
           v-for="catalog in getCatalogs"
           :key="`data-info-box@${catalog.id}`"
           catalog-mode
-          :to="{name: 'Datasets', query: {catalog: catalog.id, showcatalogdetails: true, locale: $route.query.locale}}"
+          :to="{
+            path: `/catalogues/${catalog.id}`,
+            query: {
+              locale: $route.query.locale
+            },
+          }"
           :src="getImg(getCatalogImage(catalog))"
           :dataset="{
             title: getTranslationFor(catalog.title, $route.query.locale, getCatalogLanguages(catalog)),
@@ -198,8 +203,8 @@
       return {
         title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.catalogs')}`,
         meta: [
-          { name: 'description', vmid: 'description', content: `${this.$t('message.header.navigation.data.catalogs')} - data.europa.eu` },
-          { name: 'keywords', vmid: 'keywords', content: `${this.$env.keywords} ${this.$t('message.header.navigation.data.catalogs')}` },
+          { name: 'description', vmid: 'description', content: `${this.$t('message.catalogs.meta.description')}` },
+          { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.catalogs.meta.description')}` },
           { name: 'robots', content: 'noindex, follow' },
         ],
       };
@@ -216,7 +221,7 @@
         sortSelected: `relevance desc, modified desc, title.${this.$route.query.locale} asc`,
         sortSelectedLabel: this.$t('message.sort.relevance'),
         currentSearchQuery: this.$route.query.query,
-        useCatalogFacets: this.$env.catalogs.facets.useCatalogFacets,
+        useCatalogFacets: this.$env.content.catalogs.facets.useCatalogFacets,
       };
     },
     computed: {
@@ -311,7 +316,7 @@
         if (op === 'AND' || op === 'OR') this.setFacetGroupOperator(op);
       },
       initFacets() {
-        const fields = this.$env.catalogs.facets.defaultFacetOrder;
+        const fields = this.$env.content.catalogs.facets.defaultFacetOrder;
         for (const field of fields) {
           this.facetFields.push(field);
           if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
@@ -367,7 +372,7 @@
             this.autocompleteData.suggestions = displayedSuggestions;
             this.autocompleteData.show = query.length !== 0;
           })
-          .catch(error => { console.log(error); });
+          .catch(error => { console.error(error); });
       },
       handleSuggestionSelection(suggestion) {
         this.$router.push({ path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` });
@@ -413,12 +418,12 @@
         return dateFilters.fromNow(date);
       },
       getCatalogLink(catalog) {
-        return `/datasets?catalog=${catalog.id}&showcatalogdetails=true`;
+        return `/catalogues/${catalog.id}&locale=${this.$route.query.locale}`;
       },
       getCatalogImage(catalog) {
-        return this.$env.catalogs.useCatalogCountries
-          ? `${this.$env.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.catalogs.defaultCatalogCountryID}`
-          : `${this.$env.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.catalogs.defaultCatalogID}`;
+        return this.$env.content.catalogs.useCatalogCountries
+          ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.content.catalogs.defaultCatalogCountryID}`
+          : `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.content.catalogs.defaultCatalogID}`;
       },
       getFooterTags(catalog) {
         return [`${has(catalog, 'count') ? catalog.count : 0}`];

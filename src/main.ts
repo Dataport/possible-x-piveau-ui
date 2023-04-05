@@ -2,8 +2,6 @@
 
 // Import IE Promise polyfill
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-import '@babel/polyfill';
-import 'es6-promise/auto';
 import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
 import VueProgressBar from 'vue-progressbar';
@@ -15,7 +13,7 @@ import Vue from 'vue';
 import Meta from 'vue-meta';
 import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
-import DeuHeaderFooter from '@deu/deu-header-footer';
+import DeuHeaderFooter, { Header, Footer} from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
 import VueSkeletonLoader from 'skeleton-loader-vue';
 // import AppToast from '@/components/AppToast';
@@ -66,6 +64,7 @@ import {
   ConditionalInput,
   AutocompleteInput,
   UniqueIdentifierInput,
+  Groupedinput,
   FileUpload,
   DatePicker,
   DateTimePicker,
@@ -98,6 +97,8 @@ import ECSubNavigation from "./components/ECSubNavigation.vue";
 import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
 import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
 
+import VueCookie from 'vue-cookie';
+
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
   RadioFacet: ECRadioFacet,
@@ -122,17 +123,18 @@ configureModules({
     similarityBaseUrl: env.api.similarityBaseUrl,
     gazetteerBaseUrl: env.api.gazetteerBaseUrl,
     hubUrl: env.api.hubUrl,
-    keycloak: env.keycloak,
-    rtp: env.rtp,
-    useAuthService: env.useAuthService,
-    authToken: env.api.authToken,
-    defaultScoringFacets: env.datasets.facets.scoringFacets.defaultScoringFacets,
+    keycloak: env.authentication.keycloak,
+    rtp: env.authentication.rtp,
+    useAuthService: env.authentication.useService,
+    authToken: env.authentication.authToken,
+    defaultScoringFacets: env.content.datasets.facets.scoringFacets.defaultScoringFacets,
   }
 });
 
 
 Vue.component('InfoSlot', InfoSlot);
 Vue.component('ConditionalInput', ConditionalInput);
+Vue.component('Groupedinput', Groupedinput);
 Vue.component('AutocompleteInput', AutocompleteInput);
 Vue.component('UniqueIdentifierInput', UniqueIdentifierInput);
 Vue.component('FileUpload', FileUpload);
@@ -148,9 +150,6 @@ Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
 
 Vue.component('vue-skeleton-loader', VueSkeletonLoader);
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const VueCookie = require('vue-cookie');
 
 Vue.use(VueCookie);
 
@@ -180,11 +179,18 @@ Vue.use(VueFormulate, {
         component: ['data'],
       },
     },
+    'grouped-input':{
+      classification: 'text',
+      component: 'Groupedinput',
+      slotProps: {
+        component: ['data'],
+      },
+    },
     'autocomplete-input': {
       classification: 'text',
       component: 'AutocompleteInput',
       slotProps: {
-        component: ['voc', 'multiple'],
+        component: ['voc', 'multiple','annifTheme','dcatDE'],
       },
     },
     'unique-identifier-input': {
@@ -262,31 +268,33 @@ Vue.use(Meta, {
 });
 
 // Bootstrap requirements to use js-features of bs-components
-require('popper.js');
+import 'popper.js';
 
-require('bootstrap');
+import 'bootstrap';
 
-require('./styles/styles.scss');
-
-if (ecStyle) {
-  require('./styles/ec-style.scss');
-} else {
-  require('./styles/old-deu-style.scss');
-}
+import './styles/styles.scss';
+// todo: restore this conditional
+// if (ecStyle) {
+//   require('./styles/ec-style.scss');
+// } else {
+//   require('./styles/old-deu-style.scss');
+// }
 
 $(() => {
   $('[data-toggle="popover"]').popover({ container: 'body' });
   $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
 });
 
-require('@fortawesome/fontawesome-free/css/all.css');
+import '@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
 
-require('@deu/deu-header-footer/dist/deu-header-footer.css');
+import '@fortawesome/fontawesome-free/css/all.css';
+
+import '@deu/deu-header-footer/dist/deu-header-footer.css';
 
 // OpenStreetMaps popup styles
-require('leaflet/dist/leaflet.css');
+import 'leaflet/dist/leaflet.css';
 
-require('@piveau/dcatap-frontend/dist/dcatap-frontend.css');
+import '@piveau/dcatap-frontend/dist/dcatap-frontend.css';
 
 // Vue-progressbar setup
 const progressBarOptions = {
@@ -307,6 +315,8 @@ Vue.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 Vue.use(injector, { components: true });
 
 Vue.use(DeuHeaderFooter);
+Vue.component('deu-header', Header);
+Vue.component('deu-footer', Footer);
 
 Vue.use(VuePositionSticky);
 
@@ -340,8 +350,8 @@ const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeo
 const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
   Vue.use(vueKeycloak, {
     config: {
-      rtp: env.rtp,
-      ...env.keycloak,
+      rtp: env.authentication.rtp,
+      ...env.authentication.keycloak,
     },
     init: {
       ...window.Cypress && { checkLoginIframe: !window.Cypress },
@@ -369,7 +379,12 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
 // Attempt to load Vue with Keycloak using recover mechanism
 (async () => {
-  if (!env.useAuthService) {
+
+  if (ecStyle) {
+    await import('./styles/ec-style.scss');
+  }
+
+  if (!env.authentication.useService) {
     createVueApp().$mount('#app');
     return {};
   }

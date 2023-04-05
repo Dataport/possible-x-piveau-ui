@@ -16,14 +16,14 @@
         </button>
       </a>
     </span>
-    <app-link class="dropdown-item px-3 d-flex justify-content-end align-items-center"
-              :path="getGeoLink"
+    <a class="dropdown-item px-3 d-flex justify-content-end align-items-center"
+              :href="getGeoLink"
               target="_blank"
               @click="$emit('track-link', getGeoLink, 'link')"
               v-if="showGeoLink(distribution)">
       <small class="px-2">{{ $t('message.datasetDetails.geoVisualisation') }}</small>
       <i class="material-icons float-right align-bottom">public</i>
-    </app-link>
+    </a>
   </dropdown>
 </template>
 
@@ -59,7 +59,8 @@ export default {
         geojson: 'GeoJSON',
         fiware_cb: 'fiware_cb',
         'fiware-cb': 'fiware_cb',
-      }
+      },
+      geoLink: this.$env?.datasetDetails?.distributions?.geoLink,
     };
   },
   computed: {
@@ -72,9 +73,25 @@ export default {
       let f = format.toLowerCase();
       // Use correct Case Sensitive strings
       f = this.geoLinkFormats[f];
-      // Return Geo Visualisation Link
-      return `/geo-viewer/?catalog=${this.getCatalog.id}&dataset=${this.getID}&distribution=${this.distribution.id}&type=${f}&lang=${this.$route.query.locale}`
-      // return `/geo-viewer/?dataset=${distributionID}&type=${f}&lang=${this.$route.query.locale}`;
+      if (this.geoLink) {
+        const geoLinkVariables = {
+          catalog: this.getCatalog.id,
+          dataset: this.getID,
+          distribution: this.distribution.id,
+          type: f,
+          lang: this.$route.query.locale,
+          accessUrl: this.distribution?.accessUrl[0],
+        }
+        // Inject variables into geo link
+        for (let linkVariable in geoLinkVariables) {
+          this.geoLink = this.geoLink.replace(`{${linkVariable}}`, geoLinkVariables[linkVariable]);
+        }
+        // Return Geo Visualisation Link
+        return this.geoLink;
+        // return `/geo-viewer/?dataset=${distributionID}&type=${f}&lang=${this.$route.query.locale}`;
+      }
+      // Return default Geo Visualisation Link if no link in user-config provided
+      return `/geo-viewer/?catalog=${this.getCatalog.id}&dataset=${this.getID}&distribution=${this.distribution.id}&type=${f}&lang=${this.$route.query.locale}`;
     }
   },
   methods: {
@@ -82,7 +99,7 @@ export default {
       return this.showVisualisationLink(distribution) || this.showGeoLink(distribution);
     },
     showGeoLink(distribution) {
-      if (!has(distribution, 'format.label') || isNil(distribution.format.label) || !has(distribution, 'id') || isNil(distribution.id)) return false;
+      if (!has(distribution, 'format.label') || isNil(distribution.format.label) || !has(distribution, 'id') || isNil(distribution.id) || !has(distribution, 'accessUrl[0]')) return false;
       const f = distribution.format.label.toLowerCase();
       return Object.keys(this.geoLinkFormats).includes(f);
     },

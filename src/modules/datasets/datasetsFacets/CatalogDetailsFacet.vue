@@ -123,6 +123,16 @@
           </dt>
           <dd>{{ formatDate(catalog.modified) }}</dd>
         </dl>
+        <!-- <dl v-if="has(catalog, 'availability') && !isNil(catalog.availability)">
+          <dt :title="$t('message.tooltip.catalogDetails.updated')">
+             <span :title="$t('message.tooltip.catalogDetails.updated')"
+                     data-toggle="tooltip"
+                     data-placement="right">
+              {{ 'Availability' }}
+            </span>
+          </dt>
+          <dd>{{ catalog.availability }}</dd>
+        </dl> -->
         <!-- RIGHTS -->
         <dl v-if="has(catalog, 'rights') && showObject(catalog.rights)">
           <dt>{{ $t('message.metadata.rights') }}</dt>
@@ -223,9 +233,9 @@ export default {
       return dateFilters.formatEU(date);
     },
     getCatalogImage(catalog) {
-      return this.$env.catalogs.useCatalogCountries
-        ? `${this.$env.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.catalogs.defaultCatalogCountryID}`
-        : `${this.$env.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.catalogs.defaultCatalogID}`;
+      return this.$env.content.catalogs.useCatalogCountries
+        ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.content.catalogs.defaultCatalogCountryID}`
+        : `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.content.catalogs.defaultCatalogID}`;
     },
     showObject(object) {
       return !isNil(object) && isObject(object) && !Object.values(object).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true);
