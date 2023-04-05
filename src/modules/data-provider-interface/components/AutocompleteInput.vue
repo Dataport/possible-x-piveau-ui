@@ -78,7 +78,7 @@ import { truncate } from "../../utils/helpers";
 import $ from "jquery";
 import axios from 'axios';
 import qs from 'qs';
-
+import Vue from 'vue';
 
 export default {
   props: {
@@ -113,7 +113,7 @@ export default {
       themeSuggestionList: {},
       manSearch: false,
       values: [],
-      annifEnv: this.$env.upload.annifIntegration,
+      annifEnv: this.$env.content.dataProviderInterface.annifIntegration,
       valueListOfThemes: [],
       getThSuggestions: false,
       thSwitch: false,
@@ -133,6 +133,7 @@ export default {
     }
   },
   async mounted() {
+   
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
@@ -143,8 +144,6 @@ export default {
 
       }
     }, 1000);
-
-    // console.log(this.voc);
   },
   methods: {
     ...mapActions("dpiStore", [

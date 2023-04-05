@@ -14,16 +14,19 @@ import generalHelper from './general-helper';
  * @returns String of converted data in RDF format (N-Triples)
  */
 function convertToRDF(data, property) {
-    
+
     let finishedRDFdata;
 
-    const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+    let dpiConfig;
+    if (generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification] == undefined) {
+        dpiConfig = generalDpiConfig["dcatap"]
+    } else dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification]
 
     // writer for adding data as quads
-    const RDFdata = new N3.Writer({prefixes: dpiConfig.prefixes, format: 'N-Triples'});
+    const RDFdata = new N3.Writer({ prefixes: dpiConfig.prefixes, format: 'N-Triples' });
     // datasetURI also needed for distribution creation (add distributionURI to dataset (dcat:distribution))
-    const datasetURI = `https://piveau.eu/set/data/${data.datasets.datasetID}`; 
-    
+    const datasetURI = `https://piveau.eu/set/data/${data.datasets.datasetID}`;
+
     // convert values for datasets/catalogues
     convertPropertyValues(RDFdata, data[property], property, '', '', true, datasetURI); // datasets and catalogues
 
@@ -51,8 +54,12 @@ function convertToRDF(data, property) {
  * @param {String} datasetURI URI of dataset for use in distribution conversion 
  */
 function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI) {
+
+    let dpiConfig;
+    if (generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification] == undefined) {
+        dpiConfig = generalDpiConfig["dcatap"]
+    } else dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification]
     
-    const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
     const formatTypes = dpiConfig.formatTypes;
 
     // method can be called recursively for nested properties
@@ -89,30 +96,30 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     // distributions may have download URLs, if no downloadURL is provided -> provided accessUrls will be also set as downloadUrls
     // accessUrl is a required property and therefore always provided (made sure by the frontend)
     const downloadUrlsProvided = has(data, 'dcat:downloadURL') && !isEmpty(data['dcat:downloadURL']) && data['dcat:downloadURL'].map(el => !isEmpty(el['@id'])).reduce((a, b) => b);
-    
+
     // loop trough all keys within data object and convert values (or nested values) to RDF
     const valueKeys = Object.keys(data);
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index]; // key format: either a normal name for special properties (e.g. datasetID) or namespaced keys (e.g. dct:title)
-       
+
         // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
         // depending on the format the corresponding conversion-method is used, writing the result to the overall RDF-writer
         if (formatTypes.singularString[property].includes(key)) {
-            convertSingularString(RDFdataset, mainURI, data, key, dpiConfig); 
+            convertSingularString(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.singularURI[property].includes(key)) {
             convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.multipleURI[property].includes(key)) {
             // if no dowloadURL is provided, set accessUrls as downloadUrls
             if (!downloadUrlsProvided && key === 'dcat:accessURL') {
                 // copy accessurl array to donwloadurl array and convert data
-                
+
                 data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
                 convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
             }
-            
+
             convertMultipleURI(RDFdataset, mainURI, data, key, property, dpiConfig);
         } else if (formatTypes.typedStrings[property].includes(key)) {
-            convertTypedString(RDFdataset, mainURI, data, key, dpiConfig);            
+            convertTypedString(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.multilingualStrings[property].includes(key)) {
             convertMultilingual(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.groupedProperties[property].includes(key)) {
@@ -124,7 +131,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 for (let groupId = 0; groupId < data[key].length; groupId += 1) {
                     const currentGroupData = data[key][groupId];
 
-                    if(!isEmpty(currentGroupData)) {
+                    if (!isEmpty(currentGroupData)) {
                         if (key === 'skos:notation') {
                             // property skos:notation work a little bit different then other properties
                             // the form provides a value and a type from two seperated fields ({'@value': '...', '@type': '...'})
@@ -182,8 +189,8 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
 
                                 if (key === 'foaf:page') {
                                     const hasNoValueKeys = !currentGroupData['dct:title'].every(el => has(el, '@value')) && !currentGroupData['dct:description'].every(el => has(el, '@value'));
-                                    const hasEmptyValue = currentGroupData['dct:title'].every(el => isEmpty(el['@value'])) && currentGroupData['dct:description'].every(el => isEmpty(el['@value'])); 
-                                    
+                                    const hasEmptyValue = currentGroupData['dct:title'].every(el => isEmpty(el['@value'])) && currentGroupData['dct:description'].every(el => isEmpty(el['@value']));
+
                                     if (hasNoValueKeys || hasEmptyValue) emptyPage = true;
                                 }
 
@@ -211,7 +218,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                     convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false, dpiConfig);
                                 }
                             }
-                        }                        
+                        }
                     }
                 }
             }
@@ -221,7 +228,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
             // the final format of this property should look like this: P?Y?M?DT?H?M?S
             // not all values must be filled and therefore be present -> default behavior if not given: value = 0
 
-            if(!isEmpty(data[key])) {
+            if (!isEmpty(data[key])) {
                 const resolutionValues = data[key][0]; // frontend always returns an arry with only one object inside
                 const valueString = `P${resolutionValues.Year ? resolutionValues.Year : 0}Y${resolutionValues.Month ? resolutionValues.Month : 0}M${resolutionValues.Day ? resolutionValues.Day : 0}DT${resolutionValues.Hour ? resolutionValues.Hour : 0}H${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
 
@@ -348,8 +355,8 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     N3.DataFactory.namedNode(generalHelper.addNamespace(data[key], dpiConfig))
                 ))
             }
-        } 
-              
+        }
+
     }
 }
 
@@ -467,7 +474,7 @@ function convertMultipleURI(RDFdataset, id, data, key, property, dpiConfig) {
     const formatTypes = dpiConfig.formatTypes;
 
     for (let uriIndex = 0; uriIndex < data[key].length; uriIndex += 1) {
-        
+
         let currentURI;
         if (formatTypes.multiURIarray[property].includes(key) && !isEmpty(data[key][uriIndex])) {
             // array of URLs from multi-autocomplete fields
@@ -475,12 +482,12 @@ function convertMultipleURI(RDFdataset, id, data, key, property, dpiConfig) {
         } else if (formatTypes.multiURIobjects[property].includes(key) && has(data[key][uriIndex], '@id') && !isEmpty(data[key][uriIndex])) {
             // array of objects with key-value-pair from repeatable fields
             currentURI = data[key][uriIndex]['@id'];
-           
+
         }
 
         // save quad to dataset
         RDFdataset.addQuad(N3.DataFactory.quad(
-            id, 
+            id,
             N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
             N3.DataFactory.namedNode(currentURI)
         ));
@@ -534,7 +541,7 @@ function convertTypedString(RDFdataset, id, data, key, dpiConfig) {
  * @param {Array} data Array of objects containing data and language converted into literal with language for quad
  * @param {String} key Name of current value (e.g. dct:title) used as predicate in quads
  */
-function convertMultilingual(RDFdataset, id , data, key, dpiConfig) {
+function convertMultilingual(RDFdataset, id, data, key, dpiConfig) {
     // multilingual fields always provide data as followed
     // [ { '@value': '....', '@language': '...' }, ... ]
 

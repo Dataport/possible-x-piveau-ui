@@ -94,7 +94,7 @@ export default {
   ],
   data() {
     return {
-      useDatasetFacetsMap: this.$env.datasets.facets.useDatasetFacetsMap,
+      useDatasetFacetsMap: this.$env.content.datasets.facets.useDatasetFacetsMap,
       gazetteer: {
         searchbarText: '',
         suggestions: [],
@@ -103,18 +103,18 @@ export default {
       },
       map: {
         sender: {
-          startBounds: this.$env.maps.sender.startBounds,
-          height: this.$env.maps.sender.height,
-          width: this.$env.maps.sender.width,
-          mapContainerId: this.$env.maps.sender.mapContainerId,
+          startBounds: this.$env.content.maps.sender.startBounds,
+          height: this.$env.content.maps.sender.height,
+          width: this.$env.content.maps.sender.width,
+          mapContainerId: this.$env.content.maps.sender.mapContainerId,
         },
         receiver: {
-          startBounds: this.$env.maps.receiver.startBounds,
-          height: this.$env.maps.receiver.height,
-          width: this.$env.maps.receiver.width,
-          mapContainerId: this.$env.maps.receiver.mapContainerId,
+          startBounds: this.$env.content.maps.receiver.startBounds,
+          height: this.$env.content.maps.receiver.height,
+          width: this.$env.content.maps.receiver.width,
+          mapContainerId: this.$env.content.maps.receiver.mapContainerId,
         },
-        geoBoundsId: this.$env.maps.geoBoundsId,
+        geoBoundsId: this.$env.content.maps.geoBoundsId,
       },
       browser: {
         /* eslint-disable-next-line */

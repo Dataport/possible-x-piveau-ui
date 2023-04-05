@@ -58,13 +58,13 @@ export default {
   components: {DatasetDetailsFeatureHeader, MapBasic},
   data() {
     return {
-      mapVisible: this.$env.maps.mapVisible,
+      mapVisible: this.$env.content.maps.mapVisible,
       maps: {
-        location: this.$env.maps.location,
-        spatialType: this.$env.maps.spatialType,
-        height: this.$env.maps.height,
-        width: this.$env.maps.width,
-        mapContainerId: this.$env.maps.mapContainerId,
+        location: this.$env.content.maps.location,
+        spatialType: this.$env.content.maps.spatialType,
+        height: this.$env.content.maps.height,
+        width: this.$env.content.maps.width,
+        mapContainerId: this.$env.content.maps.mapContainerId,
       }
     }
   },
