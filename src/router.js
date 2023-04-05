@@ -35,11 +35,11 @@ import { ecStyle } from '../config/user-config';
 
 Vue.use(Router);
 
-const title = GLUE_CONFIG.title;
+const title = GLUE_CONFIG.metadata.title;
 
 const router = new Router({
-  base: GLUE_CONFIG.routerOptions.base,
-  mode: GLUE_CONFIG.routerOptions.mode,
+  base: GLUE_CONFIG.routing.routerOptions.base,
+  mode: GLUE_CONFIG.routing.routerOptions.mode,
   linkActiveClass: 'active',
   scrollBehavior(to, from, savedPosition) {
     if (to.matched.some(route => route.meta.scrollTop)) return { x: 0, y: 0 };
@@ -208,7 +208,7 @@ const router = new Router({
   ]
 });
 
-if (GLUE_CONFIG.upload.useUpload) {
+if (GLUE_CONFIG.content.dataProviderInterface.useService) {
   router.addRoute({
     path: '/dpi/draft',
     name: 'DataProviderInterface-Draft',
@@ -292,7 +292,7 @@ router.beforeEach((to, from, next) => {
   // Fixes https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/432
   if (to?.redirectedFrom?.substring(0, 3) === '/#/') {
     let path = to.redirectedFrom.substring(2);
-    const base = `${GLUE_CONFIG.routerOptions.base}/`;
+    const base = `${GLUE_CONFIG.routing.routerOptions.base}/`;
     if (path.startsWith(base)) {
       // Restore standard Vue behavior when navigated to '/#/base'
       // so you are redirected to '/base' instead of '/base/base'
@@ -317,7 +317,7 @@ router.beforeEach((to, from, next) => {
     let returnPath = to.path.replace('/api', '')
       .replace(/(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/, '')
       .replace('?useNormalizedId=true', '');
-    window.location = `${window.location.protocol}//${window.location.host}${GLUE_CONFIG.routerOptions.base}${returnPath}${locale}`;
+    window.location = `${window.location.protocol}//${window.location.host}${GLUE_CONFIG.routing.routerOptions.base}${returnPath}${locale}`;
   }
 
   if (isLinkedDataRequest) {
@@ -331,7 +331,7 @@ router.beforeEach((to, from, next) => {
 
   // Authentication
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const auth = router.app.$env.useAuthService
+    const auth = router.app.$env.authentication.useService
       ? router.app.$keycloak.authenticated
       : null;
     if (!auth) {

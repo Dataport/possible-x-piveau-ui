@@ -111,8 +111,8 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getPoliticalGeocodingLevelURI" :key="`PoliticalGeocodingLevelURI-`+i">
-              <div> <b>Label:</b> {{ element.label }}</div>
-              <div> <b>Ressource:</b> <a :href="element.resource">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObjectArray(getPoliticalGeocodingURI)">
@@ -122,8 +122,8 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getPoliticalGeocodingURI" :key="`PoliticalGeocodingURI-`+i">
-              <div> <b>Label:</b> {{ element.label }}</div>
-              <div> <b>Ressource:</b> <a :href="element.resource">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObject(getAvailability)">
@@ -133,8 +133,8 @@
               </tooltip>
             </td>
             <td>
-              <div> <b>Label:</b> {{ getAvailability.label }}</div>
-              <div> <b>Ressource:</b> <a :href="getAvailability.resource">{{ getAvailability.resource }}</a></div>
+              <div> {{ $t('message.metadata.label') }}: {{ getAvailability.label }}</div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="getAvailability.resource">{{ getAvailability.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObjectArray(getContributorID)">
@@ -144,8 +144,8 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getContributorID" :key="`ContributorID-`+i">
-              <div> <b>Label:</b> {{ element.label }}</div>
-              <div> <b>Ressource:</b> <a :href="element.resource">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObject(getGeocodingDescriptionDe)">
@@ -155,8 +155,7 @@
               </tooltip>
             </td>
             <td >
-              <!-- TODO: get translation instead of .de -->
-              <div> {{ getGeocodingDescriptionDe.de }}</div>
+              <div> {{ getTranslationFor(getGeocodingDescriptionDe) }}</div>
             </td>
           </tr>
           <tr v-if="showObject(getLegalBasis)">
@@ -166,8 +165,7 @@
               </tooltip>
             </td>
             <td >
-              <!-- TODO: get translation instead of .de -->
-              <div> {{ getLegalBasis.de }}</div>
+              <div> {{ getTranslationFor(getLegalBasis) }}</div>
             </td>
           </tr>
           <tr v-if="showString(getQualityProcessURI)">
@@ -207,11 +205,11 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getContributor" :key="`Contributor-`+i">
-              <div> <b>Name:</b> {{ element.name }}</div>
-              <div> <b>Type:</b> {{ element.type }}</div>
-              <div> <b>Homepage:</b> <a :href="element.homepage">{{ element.resource }}</a></div>
-              <div> <b>E-mail:</b> <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
-              <div> <b>Resource:</b> <a :href="element.resource">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObjectArray(getOriginator)">
@@ -221,11 +219,11 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getOriginator" :key="`Originator-`+i">
-              <div> <b>Name:</b> {{ element.name }}</div>
-              <div> <b>Type:</b> {{ element.type }}</div>
-              <div> <b>Homepage:</b> <a :href="element.homepage">{{ element.resource }}</a></div>
-              <div> <b>E-mail:</b> <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
-              <div> <b>Resource:</b> <a :href="element.resource">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObjectArray(getMaintainer)">
@@ -235,11 +233,11 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getMaintainer" :key="`Maintainer-`+i">
-              <div> <b>Name:</b> {{ element.name }}</div>
-              <div> <b>Type:</b> {{ element.type }}</div>
-              <div> <b>Homepage:</b> <a :href="element.homepage">{{ element.resource }}</a></div>
-              <div> <b>E-mail:</b> <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
-              <div> <b>Resource:</b> <a :href="element.resource">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
+              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <!-- ### END DCAT-AP.de fields ### -->

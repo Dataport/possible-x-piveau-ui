@@ -15,13 +15,13 @@
     },
     computed: {
         loginRedirect() {
-            return this.$env.keycloak.loginRedirectUri
-                ? `${window.location.origin}${this.$env.keycloak.loginRedirectUri}${window.location.search}`
+            return this.$env.authentication.login.loginRedirectUri
+                ? `${window.location.origin}${this.$env.authentication.login.loginRedirectUri}${window.location.search}`
                 : `${window.location.href}`
         },
         logoutRedirect() {
-            return this.$env.keycloak.logoutRedirectUri
-                ? `${window.location.origin}${this.$env.keycloak.logoutRedirectUri}${window.location.search}`
+            return this.$env.authentication.login.logoutRedirectUri
+                ? `${window.location.origin}${this.$env.authentication.login.logoutRedirectUri}${window.location.search}`
                 : `${window.location.href}`
         },
     },

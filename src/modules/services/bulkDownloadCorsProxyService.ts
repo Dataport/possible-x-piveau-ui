@@ -16,12 +16,12 @@ const BulkDownloadAxiosInstance = {
     let PENDING_REQUESTS = 0;
     bulkDownloadAxiosInstance.interceptors.request.use(config => new Promise((resolve) => {
       const interval = setInterval(() => {
-        if (PENDING_REQUESTS < glueConfig.datasetDetails.bulkDownload.MAX_REQUESTS_COUNT) {
+        if (PENDING_REQUESTS < glueConfig.content.datasetDetails.bulkDownload.MAX_REQUESTS_COUNT) {
           PENDING_REQUESTS += 1;
           clearInterval(interval);
           resolve(config);
         }
-      }, glueConfig.datasetDetails.bulkDownload.INTERVAL_MS);
+      }, glueConfig.content.datasetDetails.bulkDownload.INTERVAL_MS);
     }));
 
     bulkDownloadAxiosInstance.interceptors.response.use((response) => {

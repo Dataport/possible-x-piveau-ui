@@ -73,15 +73,15 @@ export default {
   data() {
     return {
       defaultLocale: this.$env.languages.locale,
-      showTitle: this.$env.datasetDetails.keywords.showTitle,
+      showTitle: this.$env.content.datasetDetails.keywords.showTitle,
       defaultDisplayCount: 0,
       keywords: {
         displayAll: false,
         displayCount: 24, // Should never exceed number of keywords
         incrementSteps: [12, 60],
       },
-      maxKeywordLength: this.$env.datasets.maxKeywordLength,
-      followKeywordLinks: this.$env.datasets.followKeywordLinks
+      maxKeywordLength: this.$env.content.datasets.maxKeywordLength,
+      followKeywordLinks: this.$env.content.datasets.followKeywordLinks
     }
   },
   computed: {

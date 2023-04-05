@@ -48,7 +48,7 @@
           {
             name: 'description',
             vmid: 'description',
-            content: (`${this.$t('message.similarDatasets.similarDatasets')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - data.europa.eu`)?.substring(0, 4999),
+            content: (`${this.$t('message.similarDatasets.similarDatasets')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.metadata.description}`)?.substring(0, 4999),
           },
           {
             name: 'keywords',
@@ -62,7 +62,7 @@
       return {
         similarDatasetsFetched: false,
         similarDatasetsPresent: false,
-        breakpoints: this.$env.datasetDetails.similarDatasets.breakpoints,
+        breakpoints: this.$env.content.datasetDetails.similarDatasets.breakpoints,
       };
     },
     computed: {

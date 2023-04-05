@@ -183,7 +183,7 @@ export default {
   metaInfo() {
     return {
       link: [{
-        rel: 'alternate', type: 'application/rss+xml', title: `data.europa.eu - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)}`, href: `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/de/feeds/datasets/${this.getID}.rss`,
+        rel: 'alternate', type: 'application/rss+xml', title: `${this.$env.metadata.title} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)}`, href: `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/de/feeds/datasets/${this.getID}.rss`,
       }],
     };
   },

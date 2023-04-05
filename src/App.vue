@@ -22,11 +22,11 @@
       <deu-footer
         v-if="isContentLoaded"
         :authenticated="keycloak && keycloak.authenticated"
-        :use-login="$env.navigation.bottom.login.useLogin"
-        :login="$env.navigation.bottom.login.loginURL"
-        :login-title="$env.navigation.bottom.login.loginTitle"
-        :logout="$env.navigation.bottom.login.logoutURL"
-        :logout-title="$env.navigation.bottom.login.logoutTitle"
+        :use-login="$env.authentication.login.useLogin"
+        :login="$env.authentication.login.loginURL"
+        :login-title="$env.authentication.login.loginTitle"
+        :logout="$env.authentication.login.logoutURL"
+        :logout-title="$env.authentication.login.logoutTitle"
         @click-follow-link="handleFollowClick"/>
     </div>
     <dpiMenu v-if="keycloak && keycloak.authenticated"></dpiMenu>
@@ -56,11 +56,11 @@ export default {
   metaInfo() {
     return {
       titleTemplate(chunk) {
-        return chunk ? `${chunk} - data.europa.eu` : 'data.europa.eu';
+        return chunk ? `${chunk} - ${this.$env.metadata.title}` : this.$env.metadata.title ;
       },
       meta: [
         { name: 'description', vmid: 'description', content: this.$t("message.datasets.meta.description") },
-        { name: 'keywords', vmid: 'keywords', content: this.$env.keywords },
+        { name: 'keywords', vmid: 'keywords', content: this.$env.metadata.keywords },
       ],
       htmlAttrs: {
         lang: this.$route.query.locale,
@@ -75,7 +75,7 @@ export default {
       piwikId: this.$env.tracker.siteId,
       lastRoute: null,
       keycloak: this.$keycloak,
-      showSparql: this.$env.navigation.top.main.data.sparql.show,
+      showSparql: this.$env.routing.navigation.showSparql,
     };
   },
   computed: {},
