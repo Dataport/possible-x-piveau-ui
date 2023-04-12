@@ -288,6 +288,33 @@ if (GLUE_CONFIG.content.dataProviderInterface.useService) {
 }
 
 router.beforeEach((to, from, next) => {
+  // Use a named group to match the file extension
+  const fileExtension = `(?:${import.meta.env.MODE === 'development' ? '--' : '\\.'}(rdf|n3|jsonld|ttl|nt))`;
+
+  // Use a named group to match the dataset ID
+  const datasetId = `([a-z0-9-_]+)`;
+
+  // Use the named groups to form the regular expression
+  const regexString = `^\\/datasets\\/${datasetId}${fileExtension}`;
+
+  // Create the regular expression object
+  const datasetIdRegex = new RegExp(regexString);
+
+  // Check if the URL matches the regular expression
+  const match = to.path.match(datasetIdRegex);
+  // if the URL matches the regular expression then console.log the dataset ID
+  if (match) {
+    const datasetId = match[1];
+    const format = match[2];
+    // redirect to the dataset details page with query dl={format}
+    next({ path: `/datasets/${datasetId}`, query: { dl: format } });
+    return;
+  }
+
+  next();
+})
+
+router.beforeEach((to, from, next) => {
   // Hash mode backward-compatibility
   // Fixes https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/432
   if (to?.redirectedFrom?.substring(0, 3) === '/#/') {
@@ -299,33 +326,6 @@ router.beforeEach((to, from, next) => {
       path = '/';
     }
     next({ path, replace: true });
-    return;
-  }
-
-  let isLinkedDataRequest = false;
-
-  // RDF|N3|JSON-LD redirects
-  if (/^\/(data\/)?datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {
-    isLinkedDataRequest = true;
-    let locale = to.query.locale ? `&locale=${to.query.locale}` : '';
-    window.location = `${router.app.$env.api.hubUrl}${to.path}?useNormalizedId=true${locale}`;
-  }
-
-  if (/^\/(data\/)?api\/datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {
-    isLinkedDataRequest = true;
-    let locale = to.query.locale ? `?locale=${to.query.locale}` : '';
-    let returnPath = to.path.replace('/api', '')
-      .replace(/(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/, '')
-      .replace('?useNormalizedId=true', '');
-    window.location = `${window.location.protocol}//${window.location.host}${GLUE_CONFIG.routing.routerOptions.base}${returnPath}${locale}`;
-  }
-
-  if (isLinkedDataRequest) {
-    // Redirect to the same page but without linked data file ending suffix
-    // to prevent the 404 redirection due to app trying to fetch the wrong dataset id
-    const datasetIdWithoutSuffix = to.params?.ds_id.replace(/(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/, '');
-    const newRoute = { ...to, params: { ...to.params, ds_id: datasetIdWithoutSuffix } };
-    next(newRoute);
     return;
   }
 

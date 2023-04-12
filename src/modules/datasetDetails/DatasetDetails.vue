@@ -19,6 +19,8 @@ import { mapGetters } from 'vuex';
 import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue';
 import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue';
 import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
+import { useDownloadDatasetOnMount } from '@/modules/composables/useDownloadDatasetOnMount';
+import { getCurrentInstance } from 'vue';
 
 export default {
   name: 'datasetDetails',
@@ -59,6 +61,12 @@ export default {
     getRepresentativeLocaleOf,
     getTranslationFor,
   },
+  setup() {
+    const vm = getCurrentInstance();
+    const router = vm.proxy.$router;
+    const hubUrl = vm.proxy.$env.api.hubUrl;
+    useDownloadDatasetOnMount({ router, hubUrl });
+  }
 };
 </script>
 
