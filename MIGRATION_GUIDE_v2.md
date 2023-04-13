@@ -535,12 +535,12 @@ export default {
 ### 4. In `package.json` make use of the latest v2 release of piveau-hub-ui-modules:
 
 ```js
-"@piveau/piveau-hub-ui-modules": "2.0.12"
+"@piveau/piveau-hub-ui-modules": "2.x.x"
 ```
 
 ### 5. Update usages of the adjusted configuration values
 
-**Note:** _If the piveau-hub-ui user configuration of your project was extended with new values before upgrading to version 2.0.0 of the piveau-hub-ui-modules, additional changes may be required that are not listed in this migration guide!_
+**Note:** _If the piveau-hub-ui user configuration of your project was extended with new values before upgrading to piveau-hub-ui-modules version `2.0.0`, additional changes may be required that are not listed in this migration guide!_
 
 <br>
 
