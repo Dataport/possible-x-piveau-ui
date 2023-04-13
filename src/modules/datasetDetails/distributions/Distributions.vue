@@ -68,7 +68,7 @@
 
 <script>
 
-import Distribution from './Distribution.vue';
+// import Distribution from './Distribution.vue';
 import DownloadAllDistributions from "../../datasetDetails/distributions/DownloadAllDistributions";
 import {has, isNil} from "lodash";
 import {getTranslationFor} from "@/modules/utils/helpers";
@@ -79,7 +79,7 @@ export default {
   name: 'Distributions',
   components: {
     DownloadAllDistributions,
-    Distribution,
+    // Distribution,
     DownloadAsModal
   },
   props: {

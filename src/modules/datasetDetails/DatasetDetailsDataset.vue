@@ -103,7 +103,7 @@
   } from '../utils/helpers';
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
   import DatasetDetailsBanners from "@/modules/datasetDetails/DatasetDetailsBanners.vue";
-  import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
+  // import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
   import DatasetDetailsProperties from "@/modules/datasetDetails/DatasetDetailsProperties.vue";
   import DatasetDetailsExtendedMetaData
     from "@/modules/datasetDetails/features/DatasetDetailsIsUsedBy.vue";
@@ -118,7 +118,7 @@
       DatasetDetailsFeatures,
       DatasetDetailsExtendedMetaData,
       DatasetDetailsProperties,
-      DatasetDetailsDescription,
+      // DatasetDetailsDescription,
       DatasetDetailsBanners,
       AppLink,
       Tooltip,

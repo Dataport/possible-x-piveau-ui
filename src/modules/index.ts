@@ -13,6 +13,8 @@ import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
+import DistributionAdded from "./datasetDetails/distributions/DistributedAdded.vue";
+import DistributionFormat  from "./datasetDetails/distributions/DistributionFormat.vue";
 import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
@@ -95,6 +97,8 @@ export {
   DatasetDetailsSkeleton,
   DatasetDetails,
 
+  DistributionAdded,
+  DistributionFormat,
   DistributionDescription,
   DistributionExpandedContent,
   DistributionVisibleContent,
