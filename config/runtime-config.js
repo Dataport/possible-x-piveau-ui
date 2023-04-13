@@ -37,7 +37,9 @@ export default {
       "verify-token-audience": "$VUE_APP_AUTHENTICATION_KEYCLOAK_VERIFY_TOKEN_AUDIENCE",
       "use-resource-role-mappings": "$VUE_APP_AUTHENTICATION_KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS",
       "confidential-port": "$VUE_APP_AUTHENTICATION_KEYCLOAK_CONFIDENTIAL_PORT",
-      pkceMethod: "$VUE_APP_KEYCLOAK_PKCE_METHOD",
+    },
+    keycloakInit: {
+      pkceMethod: "$VUE_APP_AUTHENTICATION_KEYCLOAK_PKCE_METHOD",
     },
     rtp: {
       grand_type: "$VUE_APP_AUTHENTICATION_RTP_GRAND_TYPE",

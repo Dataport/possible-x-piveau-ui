@@ -61,6 +61,8 @@ const glueConfig = {
       'verify-token-audience': true,
       'use-resource-role-mappings': true,
       'confidential-port': 0,
+    },
+    keycloakInit: {
       // To activate PKCE set the following variable to 'S256'
       pkceMethod: '',
     },
