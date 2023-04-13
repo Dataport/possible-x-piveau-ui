@@ -13,6 +13,7 @@ import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimila
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
+import AppMarkdownContent from './datasetDetails/AppMarkdownContent.vue';
 
 import DistributionAdded from "./datasetDetails/distributions/DistributionAdded.vue";
 import DistributionFormat  from "./datasetDetails/distributions/DistributionFormat.vue";
@@ -99,6 +100,8 @@ export {
   DatasetDetailsDataset,
   DatasetDetailsSkeleton,
   DatasetDetails,
+  AppMarkdownContent,
+
 
   DistributionAdded,
   DistributionFormat,
