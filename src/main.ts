@@ -357,6 +357,7 @@ const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
       ...window.Cypress && { checkLoginIframe: !window.Cypress },
       onLoad: 'check-sso',
       silentCheckSsoRedirectUri: `${window.location.origin}${process.env.buildconf.BASE_PATH}static/silent-check-sso.html`,
+      ...env.authentication.keycloakInit,
     },
     onReady: () => {
       resolve();

@@ -112,7 +112,7 @@ function init(config, watch, options) {
     updateWatchVariables(true);
   };
 
-  keycloak.init(options.config)
+  keycloak.init(options.init)
   .catch((err) => {
     typeof options.onInitError === 'function' && options.onInitError(err);
   });
