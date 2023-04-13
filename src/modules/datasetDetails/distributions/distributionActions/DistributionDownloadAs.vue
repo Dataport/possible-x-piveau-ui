@@ -16,7 +16,7 @@ export default {
     return {
       ifFormatMatches: false,
       selectOptions: [],
-      convertionFormats: this.$env.datasetDetails.downloadAs.convertionFormats
+      conversionFormats: this.$env.content.datasetDetails.downloadAs.conversionFormats
     }
   },
   mounted() {
@@ -30,7 +30,7 @@ export default {
       if (isEmpty(format)) {
         return false
       } else {
-        this.convertionFormats.forEach(convertionFormat => {
+        this.conversionFormats.forEach(convertionFormat => {
           if (convertionFormat.sourceFileFormat.toLowerCase() === format.toLowerCase()) {
             this.ifFormatMatches = true;
             this.selectOptions = convertionFormat.targetFileFormat;

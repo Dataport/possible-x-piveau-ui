@@ -44,8 +44,8 @@ const MapBasic = defineAsyncComponent({
       return h('vue-skeleton-loader',
       {
         props: {
-        width: Vue.prototype.$env.maps.width,
-        height: Vue.prototype.$env.maps.height,
+        width: Vue.prototype.$env.content.maps.width,
+        height: Vue.prototype.$env.content.maps.height,
         animation: 'fade',
         }
       })

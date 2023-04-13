@@ -145,11 +145,11 @@ export default {
                     }
                     this.progress = '3' + this.randomNumber();
 
-                    const uri = encodeURIComponent(`${this.$env.datasetDetails.downloadAs.url}/${this.getDistributionDownloadAs.format.id.toLowerCase()}/${this.selected}`);
+                    const uri = encodeURIComponent(`${this.$env.content.datasetDetails.downloadAs.url}/${this.getDistributionDownloadAs.format.id.toLowerCase()}/${this.selected}`);
                     const downloadOrAccessUrl = encodeURIComponent(url);
 
                     axios({
-                            url: `${this.$env.datasetDetails.downloadAs.proxyUrl}/?uri=${uri}/?url=${downloadOrAccessUrl}`,
+                            url: `${this.$env.content.datasetDetails.downloadAs.proxyUrl}/?uri=${uri}/?url=${downloadOrAccessUrl}`,
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/octet-stream; charset=UTF-8'

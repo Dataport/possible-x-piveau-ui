@@ -180,6 +180,33 @@ const glueConfig = {
         descriptionMaxChars: 250,
         showValidationButton: false, // TODO: Make use of this property #2764
       },
+      // Distribution download as feature
+      downloadAs: {
+        // If true, enable it
+        enable: true,
+        // Corsproxy url
+        proxyUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
+        // Convertion url
+        url: 'https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert',
+        // Converion formats
+        conversionFormats: [
+          { sourceFileFormat: 'HTML', targetFileFormat: [ 'html', 'pdf', 'docx', 'json', 'odt', 'rtf' ]},
+          { sourceFileFormat: 'CSV', targetFileFormat: [ 'csv', 'docx', 'html', 'json', 'odt', 'rtf', 'xls', 'xlsx', 'xml']},
+          { sourceFileFormat: 'JSON', targetFileFormat: [ 'json', 'xml', ]},
+          { sourceFileFormat: 'ODT', targetFileFormat: [ 'odt', 'docx', 'html', 'json', 'rtf' ]},
+          { sourceFileFormat: 'DOCX', targetFileFormat: [ 'docx', 'pptx', 'odt', 'pdf', 'txt', 'html', 'json', 'odt', 'rtf']},
+          { sourceFileFormat: 'XLSX', targetFileFormat: [ 'xlsx', 'csv',]},
+          { sourceFileFormat: 'XLS', targetFileFormat: [ 'xls', 'csv',]},
+          { sourceFileFormat: 'PDF', targetFileFormat: [ 'pdf', 'txt',]}
+        ]
+      },
+      similarDatasets: {
+        breakpoints: {
+          verySimilar: { start: 0, end: 20 },
+          similar: { start: 20, end: 25 },
+          lessSimilar: { start: 25, end: 35 },
+        },
+      },  
       pages: {
         isVisible: false,
         displayAll: false,
@@ -266,6 +293,7 @@ const glueConfig = {
     dataProviderInterface: {
       useService: true,
       basePath: '/dpi',
+      annifIntegration: false,
       buttons: {
         Dataset: true,
         Catalogue: false, 
