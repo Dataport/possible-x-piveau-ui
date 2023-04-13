@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center dsd-header-catalogue">
     <div class="d-lg-none dsd-title-tag">
       <span>
-        Dataset
+        {{$t('message.metadata.dataset')}}
       </span>
     </div>
     <div>

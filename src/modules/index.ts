@@ -1,5 +1,6 @@
 // @ts-nocheck
 import AppLink from "./widgets/AppLink.vue";
+import PropertyValue from "./widgets/PropertyValue.vue";
 
 import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
@@ -30,6 +31,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy.vue";
 import SparqlSearch from "./pages/SparqlSearch.vue";
 
 import Datasets from "./datasets/Datasets.vue";
+import DatasetDate from "./datasets/DatasetDate.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
 
 import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
@@ -85,6 +87,7 @@ import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
 export {
   AppLink,
+  PropertyValue,
   AppSnackbar,
   AppConfirmationDialog,
 
@@ -114,6 +117,7 @@ export {
   SparqlSearch,
 
   Datasets,
+  DatasetDate,
   DatasetsFilters,
   Catalogues,
 
