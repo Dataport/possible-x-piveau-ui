@@ -293,6 +293,7 @@ const glueConfig = {
     dataProviderInterface: {
       useService: true,
       basePath: '/dpi',
+      specification:"dcatap",
       annifIntegration: false,
       buttons: {
         Dataset: true,

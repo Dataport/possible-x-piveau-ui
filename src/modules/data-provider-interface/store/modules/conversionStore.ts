@@ -264,13 +264,13 @@ const mutations = {
      */
     saveLinkedDataToStore(state, { property, data }) {
         try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
             toInput.convertToInput(state, property, data, dpiConfig);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];
             toInput.convertToInput(state, property, data, dpiConfig);
         }
-        // const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+        // const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
         // toInput.convertToInput(state, property, data, dpiConfig);
 
         if (property === 'datasets') {
