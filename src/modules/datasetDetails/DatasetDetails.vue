@@ -16,7 +16,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue';
+// import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue';
 import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue';
 import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
 import { useDownloadDatasetOnMount } from '@/modules/composables/useDownloadDatasetOnMount';
@@ -25,7 +25,7 @@ import { getCurrentInstance } from 'vue';
 export default {
   name: 'datasetDetails',
   components: {
-    DatasetDetailsHeader,
+    // DatasetDetailsHeader,
     DatasetDetailsNavigation,
   },
   metaInfo() {
