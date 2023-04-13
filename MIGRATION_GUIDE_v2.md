@@ -303,6 +303,7 @@ const glueConfig = {
     dataProviderInterface: {
       useService: true,
       basePath: '/dpi',
+      specification: 'dcatap',
       annifIntegration: false,
       buttons: {
         Dataset: true,
@@ -540,7 +541,7 @@ export default {
 
 ### 5. Update usages of the adjusted configuration values
 
-**Note:** _If the piveau-hub-ui user configuration of your project was extended with new values before upgrading to piveau-hub-ui-modules version `2.0.0`, additional changes may be required that are not listed in this migration guide!_
+**Note:** _If the piveau-hub-ui user configuration of your project was extended with new values before upgrading to piveau-hub-ui-modules version `2.x.x`, additional changes may be required that are not listed in this migration guide!_
 
 <br>
 
