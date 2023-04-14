@@ -21,6 +21,12 @@ import DistributionDescription from "./datasetDetails/distributions/distribution
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
 
+import DistributionOptionsDropdown
+  from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
+import DistributionDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownload";
+import LinkedDataButtonsDropdown
+  from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
+
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
 import MapBasic from "./map/MapBasic.vue";
@@ -109,6 +115,10 @@ export {
   DistributionDescription,
   DistributionExpandedContent,
   DistributionVisibleContent,
+
+  DistributionDownload,
+  DistributionOptionsDropdown,
+  LinkedDataButtonsDropdown,
 
   CSVLinter,
 
