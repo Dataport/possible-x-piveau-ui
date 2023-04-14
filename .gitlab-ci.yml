@@ -33,3 +33,12 @@ publish package to npm repository:
       - next
   script:
     - npm run semantic-release
+
+publish to gitlab.com:
+  stage: publish
+  image: appropriate/curl
+  only:
+    - master
+  script:
+    # Publish code to GitLab.com
+    - curl -X POST -F token=$PIVEAU_PUBLISH_TOKEN -F ref=master -F "variables[VAR_PROJECT_PATH]=$CI_PROJECT_PATH " -F "variables[VAR_PROJECT_NAME]=$CI_PROJECT_NAME" https://gitlab.fokus.fraunhofer.de/api/v4/projects/9624/trigger/pipeline
