@@ -137,12 +137,13 @@ Keycloak configuration values (Realm, ClientID, URL, ...)
 | --------                    | ------------------ |
 | realm                       | The Keycloak realm (default: `piveau`).        |  
 | clientId                    | The Keycloak clientID (default: `piveau-hub-ui`).     |  
-| url                         | The Keycloak URL (default: `https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth`).          | 
-| ssl-required                | ???                    | 
-| public-client               | ???                    | 
-| verify-token-audience       | ???                    | 
-| use-resource-role-mappings  | ???                    | 
-| confidential-port           | ???                    | 
+| url                         | The Keycloak URL (default: `https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth`).          |
+| ssl-required                | ???                    |
+| public-client               | ???                    |
+| verify-token-audience       | ???                    |
+| use-resource-role-mappings  | ???                    |
+| confidential-port           | ???                    |
+| pkceMethod                  | To activate PKCE set this variable to 'S256'          | 
 
 
 ## rtp
