@@ -14,6 +14,7 @@ import SubNavigation from "@/modules/navigation/SubNavigation.vue";
 import DatasetDetailsHeader  from "@/modules/datasetDetails/header/DatasetDetailsHeader.vue";
 import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
 import Distribution from "@/modules/datasetDetails/distributions/Distribution.vue";
+import DistributionActions from "@/modules/datasetDetails/distributions/distributionActions/DistributionActions.vue";
 
 export type ComponentMap = { [key: string]: any };
 
@@ -32,7 +33,8 @@ const defaultComponents: ComponentMap = {
   SubNavigation,
   DatasetDetailsHeader,
   DatasetDetailsDescription,
-  Distribution
+  Distribution,
+  DistributionActions
 };
 
 export function configureComponents(components?: ComponentMap) {
