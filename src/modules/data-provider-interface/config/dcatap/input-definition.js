@@ -28,7 +28,7 @@ const dcatapProperties = {
           '@change': true,
         },
         {
-          identifier: 'language',
+          identifier: 'descriptionLanguage',
           value: 'en',
           type: 'select',
           options: language,
@@ -412,14 +412,14 @@ const dcatapProperties = {
           '@repeatableRemoved': true,
           children: [
             {
-              identifier: 'descriptionLanguage',
+              identifier: 'description',
               type: 'textarea',
               name: '@value',
               class: 'row1 column1',
               '@change': true,
             },
             {
-              identifier: 'language',
+              identifier: 'descriptionLanguage',
               value: 'en',
               type: 'select',
               options: language,
