@@ -28,7 +28,7 @@ const dcatapProperties = {
           '@change': true,
         },
         {
-          identifier: 'language',
+          identifier: 'descriptionLanguage',
           value: 'en',
           type: 'select',
           options: language,
@@ -419,7 +419,7 @@ const dcatapProperties = {
               '@change': true,
             },
             {
-              identifier: 'language',
+              identifier: 'descriptionLanguage',
               value: 'en',
               type: 'select',
               options: language,
@@ -936,7 +936,7 @@ const dcatapProperties = {
           '@change': true,
         },
         {
-          identifier: 'language',
+          identifier: 'descriptionLanguage',
           value: 'en',
           type: 'select',
           options: language,
@@ -1117,7 +1117,7 @@ const dcatapProperties = {
               '@change': true,
             },
             {
-              identifier: 'language',
+              identifier: 'descriptionLanguage',
               value: 'en',
               type: 'select',
               name: '@language',
@@ -1225,7 +1225,7 @@ const dcatapProperties = {
               '@change': true,
             },
             {
-              identifier: 'language',
+              identifier: 'descriptionLanguage',
               value: 'en',
               type: 'select',
               options: language,
@@ -1517,7 +1517,7 @@ const dcatapProperties = {
           '@change': true,
         },
         {
-          identifier: 'language',
+          identifier: 'descriptionLanguage',
           value: 'en',
           type: 'select',
           options: language,
