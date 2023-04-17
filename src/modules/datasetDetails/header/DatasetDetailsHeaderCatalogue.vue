@@ -41,7 +41,7 @@ export default {
       return has(country, 'id') && !isNil(country.id);
     },
     getCatalogLink(catalog) {
-      return `/catalogues/${catalog.id}&locale=${this.$route.query.locale}`;
+      return { name: 'CatalogueDetails', params: { ctlg_id: catalog?.id }, query: { locale: this.$route.query.locale } };
     }
   }
 }
