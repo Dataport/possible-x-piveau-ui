@@ -9,8 +9,8 @@
       <piveau-header
         :show-catalogues="true"
         :show-metadata-quality="false"
-        enable-authentication
-        :authenticated="keycloak.authenticated"
+        :enable-authentication="authEnabled"
+        :authenticated="isAuthenticated"
         @login="login"
         @logout="logout"
       />
@@ -20,8 +20,8 @@
           :key="`${$route.fullPath}`"
       />
       <piveau-footer
-        enable-authentication
-        :authenticated="keycloak.authenticated"
+        :enable-authentication="authEnabled"
+        :authenticated="isAuthenticated"
         @login="login"
         @logout="logout"
       >
@@ -31,7 +31,7 @@
         Put a footer here. Made with <span class="text-danger">♥</span> by <a href="https://www.piveau.eu" class="text-light">piveau</a>.
       </div> -->
     </div>
-    <dpi-menu v-if="keycloak && keycloak.authenticated"></dpi-menu>
+    <dpi-menu v-if="isAuthenticated"></dpi-menu>
   </div>
 
 </template>
@@ -59,11 +59,11 @@ export default {
   metaInfo() {
     return {
       titleTemplate(chunk) {
-        return chunk ? `${chunk} - piveau Hub-UI` : 'piveau Hub-UI';
+        return chunk ? `${chunk} - ${this.$env.metadata.title}` : this.$env.metadata.title;
       },
       meta: [
         { name: 'description', vmid: 'description', content: 'piveau Hub-UI' },
-        { name: 'keywords', vmid: 'keywords', content: this.$env.keywords },
+        { name: 'keywords', vmid: 'keywords', content: this.$env.metadata.keywords },
       ],
       htmlAttrs: {
         lang: this.$route.query.locale,
@@ -77,7 +77,7 @@ export default {
       piwikId: this.$env.tracker.siteId,
       lastRoute: null,
       keycloak: this.$keycloak,
-      showSparql: this.$env.navigation.top.main.data.sparql.show,
+      showSparql: this.$env.routing.navigation.showSparql,
     };
   },
   computed: {
@@ -86,6 +86,12 @@ export default {
       'getRTPToken',
       'getKeycloak',
     ]),
+    authEnabled() {
+      return this.$env?.authentication?.useService && this.$env.authentication?.login?.useLogin;
+    },
+    isAuthenticated() {
+      return this.authEnabled && this.keycloak?.authenticated;
+    }
   },
   methods: {
     ...mapActions('auth', [
