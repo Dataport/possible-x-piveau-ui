@@ -15,6 +15,7 @@
         <!-- PUBLISH EDITED CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
 
+        <!-- PUBLISH NEW DATASET -->
         <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateNewDataset" class="mr-2">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
           {{ $t('message.dataupload.publishdataset') }}
@@ -110,7 +111,7 @@ export default {
       return this.isPreviousPage || this.property === 'distributions';
     },
     showCreateNewDataset() {
-      return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
+      return this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
     },
     showCreateNewDraft() {
       return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
