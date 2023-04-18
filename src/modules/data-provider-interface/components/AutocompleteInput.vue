@@ -133,7 +133,7 @@ export default {
     }
   },
   async mounted() {
-   
+
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
@@ -178,6 +178,7 @@ export default {
       this.autocomplete.selected = true;
     },
     getAutocompleteSuggestions() {
+
       let voc = this.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
@@ -193,7 +194,7 @@ export default {
             this.autocomplete.suggestions = results;
             console.log(results);
           });
-         
+
         }
       } else {
         if (this.autocomplete.text.length <= 1) {
@@ -203,6 +204,7 @@ export default {
               resource: r.resource,
             }));
             this.autocomplete.suggestions = results;
+            this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" })
           });
         } else {
           this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
@@ -333,24 +335,26 @@ export default {
 
     },
     handleAutocompleteSuggestions(suggestion) {
-      
+
       this.autocomplete.selected = true;
-
-      if (this.multiple) {
-        if (!this.values.map((dataset) => dataset.resource).includes(suggestion.resource)) {
-          this.values.push(suggestion);
-        }
-        this.autocomplete.text = this.values.map((dataset) => dataset.name)[
-          this.values.length - 1
-        ];
-        this.context.model = this.values.map((dataset) => dataset.resource);
-      } else {
-        this.autocomplete.text = suggestion.name;
-        this.context.model = suggestion.resource;
-        this.context.altLabel = suggestion.name;
-        
-
+      if (suggestion.resource =="None"){
+        return;
       }
+        if (this.multiple) {
+          if (!this.values.map((dataset) => dataset.resource).includes(suggestion.resource)) {
+            this.values.push(suggestion);
+          }
+          this.autocomplete.text = this.values.map((dataset) => dataset.name)[
+            this.values.length - 1
+          ];
+          this.context.model = this.values.map((dataset) => dataset.resource);
+        } else {
+          this.autocomplete.text = suggestion.name;
+          this.context.model = suggestion.resource;
+          this.context.altLabel = suggestion.name;
+
+
+        }
       this.context.rootEmit("change");
       if (this.annifTheme && suggestion.activeValue == undefined) {
 
