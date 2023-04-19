@@ -1,6 +1,5 @@
 // @ts-nocheck
 import AppLink from "./widgets/AppLink.vue";
-import PropertyValue from "./widgets/PropertyValue.vue";
 
 import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
@@ -13,6 +12,8 @@ import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimila
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
+
+import FadingDistributionOverlay from "./datasetDetails/distributions/FadingDistributionOverlay";
 import AppMarkdownContent from './datasetDetails/AppMarkdownContent.vue';
 
 import FadingDistributionOverlay from "./datasetDetails/distributions/FadingDistributionOverlay";
@@ -22,12 +23,6 @@ import DistributionFormat  from "./datasetDetails/distributions/DistributionForm
 import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
-
-import DistributionOptionsDropdown
-  from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
-import DistributionDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownload";
-import LinkedDataButtonsDropdown
-  from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
 
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
@@ -40,7 +35,6 @@ import PrivacyPolicy from "./pages/PrivacyPolicy.vue";
 import SparqlSearch from "./pages/SparqlSearch.vue";
 
 import Datasets from "./datasets/Datasets.vue";
-import DatasetDate from "./datasets/DatasetDate.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
 
 import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
@@ -97,7 +91,6 @@ import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
 export {
   AppLink,
-  PropertyValue,
   AppSnackbar,
   AppConfirmationDialog,
 
@@ -109,19 +102,15 @@ export {
   DatasetDetailsDataset,
   DatasetDetailsSkeleton,
   DatasetDetails,
-  AppMarkdownContent,
 
   FadingDistributionOverlay,
+  AppMarkdownContent,
 
   DistributionAdded,
   DistributionFormat,
   DistributionDescription,
   DistributionExpandedContent,
   DistributionVisibleContent,
-
-  DistributionDownload,
-  DistributionOptionsDropdown,
-  LinkedDataButtonsDropdown,
 
   CSVLinter,
 
@@ -134,7 +123,6 @@ export {
   SparqlSearch,
 
   Datasets,
-  DatasetDate,
   DatasetsFilters,
   Catalogues,
 
