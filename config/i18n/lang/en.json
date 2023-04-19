@@ -1963,7 +1963,7 @@
             "findLocation": "Filter by location",
             "searchBar": {
                 "placeholder": "Search",
-                "icon": "Search"
+                "icon": "search"
             },
             "createCatalogue": "Create Catalogue",
             "saveQuery": "Save Query"

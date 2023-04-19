@@ -11,7 +11,7 @@
                 @click="autocompleteData.show = autocompleteData.suggestions.length > 0 && query.length > 0 ? !autocompleteData.show : false">
           <div class="input-group-append ml-2">
             <button class="btn btn-sm btn-primary d-flex align-items-center search-button ds-input" type="button" @click="changeQuery(query)">
-              <i class="material-icons align-bottom">{{ $t('message.datasets.searchBar.placeholder') }}</i>
+              <i class="material-icons align-bottom">{{ $t('message.datasets.searchBar.icon') }}</i>
             </button>
           </div>
           <div class="suggestion-list-group" v-if="autocompleteData.show">

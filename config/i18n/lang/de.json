@@ -393,7 +393,8 @@
             "downloadAsLinkedData": "Katalog Metadaten als verknüpfte Daten",
             "countMessageNoResult": "Kein Katalog gefunden für ",
             "searchBar": {
-                "placeholder": "Kataloge durchsuchen"
+                "placeholder": "Kataloge durchsuchen",
+                "icon": "suchen"
             },
             "countMessage": "Kataloge gefunden für ",
             "loadingMessage": "Kataloge werden geladen…",
@@ -524,7 +525,8 @@
             "noResult": "Keine Datensätze gefunden für {query}",
             "findLocation": "Nach Ort filtern",
             "searchBar": {
-                "placeholder": "Nach Datensätzen suchen"
+                "placeholder": "Nach Datensätzen suchen",
+                "icon": "suchen"
             },
             "createCatalogue": "Katalog erstellen",
             "saveQuery": "Suchanfrage speichern"
