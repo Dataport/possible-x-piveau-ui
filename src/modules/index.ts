@@ -15,6 +15,8 @@ import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue"
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 import AppMarkdownContent from './datasetDetails/AppMarkdownContent.vue';
 
+import FadingDistributionOverlay from "./datasetDetails/distributions/FadingDistributionOverlay";
+
 import DistributionAdded from "./datasetDetails/distributions/DistributionAdded.vue";
 import DistributionFormat  from "./datasetDetails/distributions/DistributionFormat.vue";
 import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
@@ -109,6 +111,7 @@ export {
   DatasetDetails,
   AppMarkdownContent,
 
+  FadingDistributionOverlay,
 
   DistributionAdded,
   DistributionFormat,
