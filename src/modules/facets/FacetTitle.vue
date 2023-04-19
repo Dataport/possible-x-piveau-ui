@@ -1,6 +1,6 @@
 <template>
   <div class="d-none d-md-block list-group-item facet-title">
-    <h2 class="h5 mb-0 float-left">{{ title }}</h2>
+    <h2 class="h5 mb-0 float-left" :id="titleId">{{ title }}</h2>
     <i v-if="tooltip"
        class="tooltip-icon material-icons small-icon align-right text-dark pl-1"
        ref="tooltip-icon"
@@ -14,11 +14,16 @@
 
 <script>
 
+
 export default {
   name: "FacetTitle",
   props: {
     title: String,
-    tooltip: String
+    tooltip: String,
+    titleId: {
+      type: String,
+      default: null,
+    },
   }
 }
 </script>
