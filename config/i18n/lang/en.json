@@ -1962,7 +1962,8 @@
             "noResult": "No datasets found",
             "findLocation": "Filter by location",
             "searchBar": {
-                "placeholder": "Search"
+                "placeholder": "Search",
+                "icon": "Search"
             },
             "createCatalogue": "Create Catalogue",
             "saveQuery": "Save Query"
