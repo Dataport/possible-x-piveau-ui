@@ -102,6 +102,16 @@ deploy to openshift:
     - oc get services $CI_PROJECT_NAME 2> /dev/null || oc new-app --name=$CI_PROJECT_NAME --image-stream=$CI_PROJECT_NAME
     - oc get routes $CI_PROJECT_NAME 2> /dev/null || oc create route edge --service=$CI_PROJECT_NAME --hostname=$CI_PROJECT_NAME-$OPENSHIFT_DOMAIN --insecure-policy=Redirect --port=8080
 
+publish to gitlab.com:
+  image: appropriate/curl
+  stage: publish
+  only:
+    - master
+  script:
+    # Publish code to GitLab.com
+    - curl -X POST -F token=$PIVEAU_PUBLISH_TOKEN -F ref=master -F "variables[VAR_PROJECT_PATH]=$CI_PROJECT_PATH " -F "variables[VAR_PROJECT_NAME]=$CI_PROJECT_NAME" https://gitlab.fokus.fraunhofer.de/api/v4/projects/9624/trigger/pipeline
+
+
 downstream triggers:
   stage: deploy
   image: appropriate/curl

@@ -71,6 +71,7 @@ import {
   configureModules,
   SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
+import '@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
 
 Vue.config.devtools = true;
 
@@ -85,11 +86,11 @@ configureModules({
     similarityBaseUrl: env.api.similarityBaseUrl,
     gazetteerBaseUrl: env.api.gazetteerBaseUrl,
     hubUrl: env.api.hubUrl,
-    keycloak: env.keycloak,
-    rtp: env.rtp,
-    useAuthService: env.useAuthService,
-    authToken: env.api.authToken,
-    defaultScoringFacets: env.datasets.facets.scoringFacets.defaultScoringFacets,
+    keycloak: env.authentication.keycloak,
+    rtp: env.authentication.rtp,
+    useAuthService: env.authentication.useService,
+    authToken: env.authentication.authToken,
+    defaultScoringFacets: env.content.datasets.facets.scoringFacets.defaultScoringFacets,
   }
 });
 
@@ -295,13 +296,14 @@ const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeo
 const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
   Vue.use(vueKeycloak, {
     config: {
-      rtp: env.rtp,
-      ...env.keycloak,
+      rtp: env.authentication.rtp,
+      ...env.authentication.keycloak,
     },
     init: {
       ...window.Cypress && { checkLoginIframe: !window.Cypress },
       onLoad: 'check-sso',
       silentCheckSsoRedirectUri: `${window.location.origin}${process.env.buildconf.BASE_PATH}static/silent-check-sso.html`,
+      ...env.authentication.keycloakInit,
     },
     onReady: () => {
       resolve();
@@ -324,7 +326,7 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
 // Attempt to load Vue with Keycloak using recover mechanism
 (async () => {
-  if (!env.useAuthService) {
+  if (!env.authentication.useService) {
     createVueApp().$mount('#app');
     return {};
   }
