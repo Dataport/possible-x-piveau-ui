@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+// DatasetDetailsFeatureHeader is imported globally
+// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import AppLink from "@/modules/widgets/AppLink";
@@ -44,7 +45,10 @@ import $ from "jquery";
 
 export default {
 name: "DatasetDetailsCategoriesKey",
-components: {AppLink,DatasetDetailsFeatureHeader},
+components: {
+  AppLink,
+  // DatasetDetailsFeatureHeader
+},
 props: {
   showCategory: Function
 },
