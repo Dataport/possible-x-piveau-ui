@@ -63,9 +63,14 @@ export default {
         this.voc === "spdx-checksum-algorithm";
       try {
         if (voc !== undefined) {
-
-          // this is a temporary fix - it should be investiated why country has no vocabulary set!
-          if (voc == "") { voc = "country" }
+          // console.log(URI);
+          // this is a temporary fix - it should be investiated why country(e.g.) has no vocabulary set!
+          if (voc == "") {
+            
+            var arr = URI.split('/');
+            // console.log(arr);
+            voc = arr[arr.length - 2]
+          }
 
           await this.requestResourceName({ voc: voc, resource: URI }).then(
             (response) => {
@@ -89,7 +94,7 @@ export default {
           return
         }
       } catch (error) {
-        return
+        this.nameOfProperty = URI
       }
 
     }
