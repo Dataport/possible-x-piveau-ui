@@ -32,7 +32,7 @@ build-asset:
 #
 
 register develop as latest:
-  stage: register
+  stage: build
   tags:
     - dind
   image: docker:latest
