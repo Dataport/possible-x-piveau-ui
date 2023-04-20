@@ -59,7 +59,7 @@
         </div>
 
       </div>
-      <div v-if="multiple && values.length > 0 && !annifTheme" class="selected-values-div">
+      <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
           {{ selectedValue.name }}
           <span aria-hidden="true" class="delete-selected-value"
