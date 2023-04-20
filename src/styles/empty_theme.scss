@@ -213,15 +213,11 @@ margin: 0 0 1rem 0;
 }
   
   @keyframes fadeLeft {
-    10%
-     {
-      margin-left: 5%;
-      opacity: 0;
-    }
   
-    50%
+  
+    30%
      {
-        margin-left: -5px;
+        margin-left: 0.25rem;
         opacity: 0.2;
     }
   
@@ -249,6 +245,17 @@ margin: 0 0 1rem 0;
 }
 .dpiSpecialPropWrap td{
 
-    padding: 0.75rem 0 0.75rem 0;
+    
 
+}
+.table-responsive{
+tr{
+   display: flex;
+
+}
+}
+.dpiSpecialPropWrap{
+    tr{
+       display: flex;
+    }
 }
