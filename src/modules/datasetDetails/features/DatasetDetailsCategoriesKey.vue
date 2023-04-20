@@ -20,6 +20,7 @@
             <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
                    :data-toggle="categoryTruncated(category) ? 'tooltip' : false"
                    :data-placement="categoryTruncated(category) ? 'top' : false"
+                   :aria-label="getTranslationFor(category.title, $route.query.locale)"
                    :title="categoryTruncated(category) ? getTranslationFor(category.title, $route.query.locale) : false">
               {{ truncate(getTranslationFor(category.title, $route.query.locale), maxCategoryLength, false) }}
             </small>
@@ -67,7 +68,7 @@ computed: {
   isCategoriesAllDisplayed() {
     // return this.categories.displayCount >= this.getCategories.length;
     return this.categories.displayAll;
-  } 
+  }
 },
 methods: {
   truncate,
@@ -83,9 +84,9 @@ methods: {
     return this.categories.displayCount + incrementStep <= this.getCategories.length;
   },
   categoryTruncated(category) {
-    
+
     return getTranslationFor(category.title, this.defaultLocale).length > this.maxCategoryLength;
-    
+
   },
   clamp(n, min, max) {
     return Math.min(Math.max(n, min), max);

@@ -18,6 +18,7 @@
               <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
                      :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
                      :data-placement="keywordTruncated(keyword) ? 'top' : false"
+                     :aria-label="keyword.title"
                      :title="keywordTruncated(keyword) ? keyword.title : false">
                 {{ truncate(keyword.title, maxKeywordLength, false) }}
               </small>
