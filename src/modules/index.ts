@@ -13,7 +13,11 @@ import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimila
 import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
+
+import FadingDistributionOverlay from "./datasetDetails/distributions/FadingDistributionOverlay";
 import AppMarkdownContent from './datasetDetails/AppMarkdownContent.vue';
+
+import FadingDistributionOverlay from "./datasetDetails/distributions/FadingDistributionOverlay";
 
 import DistributionAdded from "./datasetDetails/distributions/DistributionAdded.vue";
 import DistributionFormat  from "./datasetDetails/distributions/DistributionFormat.vue";
@@ -21,11 +25,10 @@ import DistributionDescription from "./datasetDetails/distributions/distribution
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
 
-import DistributionOptionsDropdown
-  from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
+import DistributionOptionsDropdown from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
 import DistributionDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownload";
-import LinkedDataButtonsDropdown
-  from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
+import LinkedDataButtonsDropdown from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
+
 
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
@@ -109,6 +112,7 @@ export {
   DatasetDetails,
   AppMarkdownContent,
 
+  FadingDistributionOverlay,
 
   DistributionAdded,
   DistributionFormat,

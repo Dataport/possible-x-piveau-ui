@@ -15,6 +15,7 @@ import DatasetDetailsHeader  from "@/modules/datasetDetails/header/DatasetDetail
 import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
 import Distribution from "@/modules/datasetDetails/distributions/Distribution.vue";
 import DistributionActions from "@/modules/datasetDetails/distributions/distributionActions/DistributionActions.vue";
+import DatasetDetailsProperties from "@/modules/datasetDetails/DatasetDetailsProperties.vue";
 
 export type ComponentMap = { [key: string]: any };
 
@@ -34,7 +35,8 @@ const defaultComponents: ComponentMap = {
   DatasetDetailsHeader,
   DatasetDetailsDescription,
   Distribution,
-  DistributionActions
+  DistributionActions,
+  DatasetDetailsProperties
 };
 
 export function configureComponents(components?: ComponentMap) {
