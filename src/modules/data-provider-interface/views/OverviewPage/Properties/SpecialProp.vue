@@ -1,8 +1,55 @@
 <template>
     <div class="dpiSpecialPropWrap">
-        
+
         <!-- CREATOR -->
-        <div v-if="property === 'dct:creator'">
+        <tr v-if="property === 'dct:creator'" class="marginBot">
+
+            <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+            <td>
+                <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1]
+                }}
+                </div>
+                <div v-if="showValue(data, 'foaf:name')">{{ $t('message.metadata.name') }}: {{ data['foaf:name'] }}</div>
+                <div v-if="showValue(data, 'foaf:mbox')">{{ $t('message.metadata.email') }}: <app-link
+                        :to="`mailto:${data['foaf:mbox']}`">{{ data['foaf:mbox'] }}</app-link></div>
+                <div v-if="showValue(data, 'foaf:homepage')">{{ $t('message.metadata.homepage') }}: <app-link
+                        :to="data['foaf:homepage']">{{ data['foaf:homepage'] }}</app-link>
+                </div>
+            </td>
+
+
+        </tr>
+
+        <!-- CONTACT POINT -->
+        <tr v-if="property === 'dcat:contactPoint'">
+            <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+            <td>
+                <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1]
+                }}
+                </div>
+                <div v-if="showValue(data, 'vcard:fn')">{{ $t('message.metadata.name') }}: {{ data['vcard:fn'] }}</div>
+                <div v-if="showValue(data, 'vcard:hasEmail')">{{ $t('message.metadata.email') }}: <app-link
+                        :to="`mailto:${data['vcard:hasEmail']}`">{{ data['vcard:hasEmail'] }}</app-link></div>
+                <div v-if="showValue(data, 'vcard:hasOrganizationName')">{{ $t('message.metadata.organizationName') }}: {{
+                    data['vcard:hasOrganizationName'] }}</div>
+                <div v-if="showValue(data, 'vcard:hasTelephone')">{{ $t('message.metadata.telephone') }}: {{
+                    data['vcard:hasTelephone'] }}</div>
+                <div v-if="showValue(data, 'vcard:hasURL')">{{ $t('message.metadata.url') }}: <app-link
+                        :to="data['vcard:hasURL']">{{ data['vcard:hasURL'] }}</app-link></div>
+                <div v-if="showValue(data, 'vcard:hasAddress')">{{ $t('message.metadata.address') }}:
+                    <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:street_address')">{{
+                        data['vcard:hasAddress'][0]['vcard:street_address'] }}</span>,
+                    <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:postal_code')">{{
+                        data['vcard:hasAddress'][0]['vcard:postal_code'] }}</span>
+                    <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:locality')">{{
+                        data['vcard:hasAddress'][0]['vcard:locality'] }}</span>,
+                    <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:country_name')">{{
+                        data['vcard:hasAddress'][0]['vcard:country_name'] }}</span>
+                </div>
+            </td>
+        </tr>
+        <!-- CONTRIBUTOR / MAINTAINER / ORIGINATOR-->
+        <div v-if="property === 'dct:contributor' || property === 'dcatde:maintainer' || property === 'dcatde:originator'">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1] }}
             </div>
@@ -14,45 +61,7 @@
             </div>
         </div>
 
-        <!-- CONTACT POINT -->
-        <div v-if="property === 'dcat:contactPoint'">
-            <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1] }}
-            </div>
-            <div v-if="showValue(data, 'vcard:fn')">{{ $t('message.metadata.name') }}: {{ data['vcard:fn'] }}</div>
-            <div v-if="showValue(data, 'vcard:hasEmail')">{{ $t('message.metadata.email') }}: <app-link
-                    :to="`mailto:${data['vcard:hasEmail']}`">{{ data['vcard:hasEmail'] }}</app-link></div>
-            <div v-if="showValue(data, 'vcard:hasOrganizationName')">{{ $t('message.metadata.organizationName') }}: {{
-                data['vcard:hasOrganizationName'] }}</div>
-            <div v-if="showValue(data, 'vcard:hasTelephone')">{{ $t('message.metadata.telephone') }}: {{
-                data['vcard:hasTelephone'] }}</div>
-            <div v-if="showValue(data, 'vcard:hasURL')">{{ $t('message.metadata.url') }}: <app-link
-                    :to="data['vcard:hasURL']">{{ data['vcard:hasURL'] }}</app-link></div>
-            <div v-if="showValue(data, 'vcard:hasAddress')">{{ $t('message.metadata.address') }}:
-                <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:street_address')">{{
-                    data['vcard:hasAddress'][0]['vcard:street_address'] }}</span>,
-                <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:postal_code')">{{
-                    data['vcard:hasAddress'][0]['vcard:postal_code'] }}</span>
-                <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:locality')">{{
-                    data['vcard:hasAddress'][0]['vcard:locality'] }}</span>,
-                <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:country_name')">{{
-                    data['vcard:hasAddress'][0]['vcard:country_name'] }}</span>
-            </div>
-        </div>
-        <!-- CONTRIBUTOR / MAINTAINER / ORIGINATOR-->
-        <div v-if="property === 'dct:contributor' || property === 'dcatde:maintainer' || property === 'dcatde:originator' ">
-            <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1] }}
-            </div>
-            <div v-if="showValue(data, 'foaf:name')">{{ $t('message.metadata.name') }}: {{ data['foaf:name'] }}</div>
-            <div v-if="showValue(data, 'foaf:mbox')">{{ $t('message.metadata.email') }}: <app-link
-                    :to="`mailto:${data['foaf:mbox']}`">{{ data['foaf:mbox'] }}</app-link></div>
-            <div v-if="showValue(data, 'foaf:homepage')">{{ $t('message.metadata.homepage') }}: <app-link
-                    :to="data['foaf:homepage']">{{ data['foaf:homepage'] }}</app-link>
-            </div>
-        </div>
-       
-        <!-- ADMS IDENTIEFIER -->
+        <!-- ADMS IDENTIFIER -->
         <div v-if="property === 'adms:identifier' && Object.keys(data).length > 1">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <div v-if="showValue(data, '@id') && property === 'adms:identifier'">{{ $t('message.metadata.url') }}: <app-link
@@ -64,11 +73,14 @@
         </div>
 
         <!-- TEMPORAL -->
-        <div v-if="property === 'dct:temporal'">
+        <tr v-if="property === 'dct:temporal'">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div v-if="showValue(data, 'dcat:startDate')">{{ filterDateFormatEU(data['dcat:startDate']) }}</div>
-            <div v-if="showValue(data, 'dcat:endDate')">{{ filterDateFormatEU(data['dcat:endDate']) }}</div>
-        </div>
+            <td class="d-flex">
+                <div v-if="showValue(data, 'dcat:startDate')">From: {{ filterDateFormatEU(data['dcat:startDate']) }}&nbsp;
+                </div>
+                <div v-if="showValue(data, 'dcat:endDate')">to: {{ filterDateFormatEU(data['dcat:endDate']) }}</div>
+            </td>
+        </tr>
 
 
         <!-- CHECKSUM -->
@@ -99,10 +111,12 @@
         </div>
 
         <!-- TEMPORAL RESOLUTION -->
-        <div v-if="property === 'dcat:temporalResolution'">
+        <tr v-if="property === 'dcat:temporalResolution'">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div>{{ convertTemporalResolution(data) }}</div>
-        </div>
+            <td>
+                <div>{{ convertTemporalResolution(data) }}</div>
+            </td>
+        </tr>
 
         <!-- DATA SERVICE -->
         <div v-if="property === 'dcat:accessService'">
@@ -183,3 +197,11 @@ export default {
 
 }
 </script>
+<style>
+
+.dpiSpecialPropWrap div {
+   
+        margin-bottom: 0.5rem;
+ 
+}
+</style>

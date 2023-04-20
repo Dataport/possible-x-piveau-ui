@@ -245,6 +245,17 @@ margin: 0 0 1rem 0;
 }
 .dpiSpecialPropWrap td{
 
-    padding: 0.75rem 0 0.75rem 0;
+    
 
+}
+.table-responsive{
+tr{
+   display: flex;
+
+}
+}
+.dpiSpecialPropWrap{
+    tr{
+       display: flex;
+    }
 }
