@@ -5,12 +5,12 @@
     :title="`${$t('message.datasetDetails.subnav.categories')} (${
           getCategories ? getCategories.length.toLocaleString('fi') : 0
         })`"
-    :arrowDown="isCategoriesAllDisplayed"
+    :arrowDown="!isCategoriesAllDisplayed"
     tag="keywords-toggle"
     :onClick="toggleDisplayCount"
   />
     </div>
-    <div v-if="!isCategoriesAllDisplayed"  class="keywords__item row mt-4">
+    <div v-if="isCategoriesAllDisplayed"  class="keywords__item row mt-4">
         <span
           v-for='(category, i) in getCategories'
           :key="i"
@@ -52,7 +52,7 @@ data() {
     defaultLocale: this.$env.languages.locale,
     defaultDisplayCount: 0,
     categories: {
-      displayAll: false,
+      displayAll: this.$env.content.datasetDetails.categoriesKey.collapsed,
       displayCount: 24, // Should never exceed number of keywords
       incrementSteps: [12, 60],
     },
@@ -65,7 +65,8 @@ computed: {
       "getCategories"
   ]),
   isCategoriesAllDisplayed() {
-    return this.categories.displayCount >= this.getCategories.length;
+    // return this.categories.displayCount >= this.getCategories.length;
+    return this.categories.displayAll;
   } 
 },
 methods: {
@@ -103,7 +104,7 @@ methods: {
     } else {
       this.categories.displayCount = this.defaultDisplayCount;
     }
-    
+    this.categories.displayAll = !this.categories.displayAll;
   }
 }
 }

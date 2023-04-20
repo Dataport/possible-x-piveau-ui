@@ -68,7 +68,7 @@ export default {
   name: "DatasetDetailsKeywords",
   components: {AppLink,DatasetDetailsFeatureHeader},
   props: {
-    showKeyword: Function
+    showKeyword: Function,
   },
   data() {
     return {
@@ -76,7 +76,7 @@ export default {
       showTitle: this.$env.content.datasetDetails.keywords.showTitle,
       defaultDisplayCount: 0,
       keywords: {
-        displayAll: false,
+        displayAll: this.$env.content.datasetDetails.keywords.collapsed ? this.$env.content.datasetDetails.keywords.collapsed : false,
         displayCount: 24, // Should never exceed number of keywords
         incrementSteps: [12, 60],
       },
@@ -94,7 +94,7 @@ export default {
         : Object.freeze(this.sortedKeywords.slice(0, this.keywords.displayCount));
     },
     isKeywordsAllDisplayed() {
-     return this.keywords.displayAll;
+      return this.keywords.displayAll;
     },
     remainingKeywords() {
       return this.getKeywords.length - this.keywords.displayCount;
