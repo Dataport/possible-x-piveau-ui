@@ -117,10 +117,13 @@ RUN cd /App && \
 # BUILD END
 #
 
+#
+# NGINX START
+#
+
+
 EXPOSE 8080
-# ADD dist /usr/share/nginx/html/
 COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
-#COPY runtimeconfig.sh /
 
 # The following steps are needed because of the OpenShift security constraints
 # Create some temp folders for later permission granting and
@@ -135,6 +138,9 @@ RUN mkdir /var/cache/nginx/uwsgi_temp && \
     chmod a+rw /usr/share/nginx/html/js && \
     chmod a+rw /usr/share/nginx/html/js/*
 
+#
+# NGINX END
+#
 
 # Rebuilds the application on start
 CMD [ "/bin/sh", "-c", "cd /App && cp -a src original_src && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist && rm -r node_modules && /App/runtimeconfig.sh" ]

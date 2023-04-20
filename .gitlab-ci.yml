@@ -27,6 +27,31 @@ build-asset:
 # NO MORE MODIFICATIONS BELOW THIS COMMENT !!! #
 ################################################
 
+#
+# Theme start
+#
+
+register develop as latest:
+  stage: register
+  tags:
+    - dind
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+  only:
+    - theme-docker
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -t "${CI_REGISTRY_IMAGE}-theme":latest .
+    - docker push "${CI_REGISTRY_IMAGE}-theme":latest
+
+#
+# Theme end
+#
+
+
 register develop as latest:
   stage: register
   tags:
