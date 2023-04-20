@@ -85,9 +85,12 @@
 
         <!-- CHECKSUM -->
         <div v-if="property === 'spdx:checksum'">
-            <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div v-if="showValue(data, 'spdx:checksumValue')">{{ data['spdx:checksumValue'] }}</div>
-            <div v-if="showValue(data, 'spdx:algorithm')">{{ data['spdx:algorithm'] }}</div>
+            <!-- weird behaviour with the width here TODO-->
+            <td class="font-weight-bold" style="width:36%">{{ $t(`${value.label}`) }}:</td>
+            <td>
+                <div v-if="showValue(data, 'spdx:checksumValue')">{{ data['spdx:checksumValue'] }}</div>
+                <div v-if="showValue(data, 'spdx:algorithm')">{{ data['spdx:algorithm'] }}</div>
+            </td>
         </div>
 
 
@@ -121,20 +124,23 @@
         <!-- DATA SERVICE -->
         <div v-if="property === 'dcat:accessService'">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div v-if="showValue(data, 'dct:title')">
-                <span class="font-weight-bold">{{ $t('message.dataupload.distributions.accessServiceTitle.label') }}:</span>
-                {{ data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
-            </div>
-            <div v-if="showValue(data, 'dct:description')">
-                <span class="font-weight-bold">{{ $t('message.dataupload.distributions.accessServiceDescription.label')
-                }}:</span>
-                {{ data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
-            </div>
-            <div v-if="showValue(data, 'dcat:endpointURL')" class="pr-1">
-                <span class="font-weight-bold">{{ $t('message.dataupload.distributions.accessServiceEndpointURL.label')
-                }}:</span>
-                <app-link :to="data['dcat:endpointURL']">{{ data['dcat:endpointURL'] }}</app-link>
-            </div>
+            <td>
+                <div v-if="showValue(data, 'dct:title')">
+                    <span class="">{{ $t('message.dataupload.distributions.accessServiceTitle.label')
+                    }}:</span>
+                    {{ data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
+                </div>
+                <div v-if="showValue(data, 'dct:description')">
+                    <span class="">{{ $t('message.dataupload.distributions.accessServiceDescription.label')
+                    }}:</span>
+                    {{ data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
+                </div>
+                <div v-if="showValue(data, 'dcat:endpointURL')" class="pr-1">
+                    <span class="">{{ $t('message.dataupload.distributions.accessServiceEndpointURL.label')
+                    }}:</span>
+                    <app-link class="w-100" :to="data['dcat:endpointURL']">{{ data['dcat:endpointURL'] }}</app-link>
+                </div>
+            </td>
         </div>
 
     </div>
@@ -198,10 +204,9 @@ export default {
 }
 </script>
 <style>
-
 .dpiSpecialPropWrap div {
-   
-        margin-bottom: 0.5rem;
- 
+
+    margin-bottom: 0.5rem;
+
 }
 </style>
