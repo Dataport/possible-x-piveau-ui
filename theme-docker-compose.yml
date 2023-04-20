@@ -1,20 +1,21 @@
-
 version: '3.3'
 services:
     hub-ui-theme:
         # working_dir: /app
-        command: sh -c "npm run build && http-server /app/dist"
-        image: 'hub-ui-theme:latest'
+        # command: sh -c "npm run build && http-server /app/dist"
+        image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui-2/theme:theme'
         ports:
             - '17080:8080'
         volumes:
-            - 'src:/app/src'
-            - 'public:/app/public'
+            - 'src:/App/src'
+            - 'public:/App/public'
             # Alternatively you can mount also dist
         restart: always
         logging:
             options:
                 max-size: 1g
+        environment:
+          - VUE_APP_METADATA_TITLE="My dataportal"
 
 volumes:
   src:
