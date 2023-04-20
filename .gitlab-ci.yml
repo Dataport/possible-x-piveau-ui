@@ -31,7 +31,7 @@ build-asset:
 # Theme start
 #
 
-register develop as latest:
+register theme-docker as latest:
   stage: build
   tags:
     - dind
