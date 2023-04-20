@@ -63,12 +63,12 @@ export default {
         this.voc === "spdx-checksum-algorithm";
       try {
         if (voc !== undefined) {
-          console.log(URI);
+          // console.log(URI);
           // this is a temporary fix - it should be investiated why country(e.g.) has no vocabulary set!
           if (voc == "") {
             
             var arr = URI.split('/');
-            console.log(arr);
+            // console.log(arr);
             voc = arr[arr.length - 2]
           }
 
