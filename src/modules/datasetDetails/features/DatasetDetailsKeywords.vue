@@ -56,7 +56,8 @@
 </template>
 
 <script>
-import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+// DatasetDetailsFeatureHeader is imported globally
+// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import {has, isString} from "lodash";
@@ -67,7 +68,9 @@ import $ from "jquery";
 
 export default {
   name: "DatasetDetailsKeywords",
-  components: {AppLink,DatasetDetailsFeatureHeader},
+  components: {AppLink,
+    // DatasetDetailsFeatureHeader
+  },
   props: {
     showKeyword: Function,
   },
