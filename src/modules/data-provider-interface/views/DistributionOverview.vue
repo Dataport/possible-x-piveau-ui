@@ -167,6 +167,13 @@ export default {
 
     &-button {
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    &-button:hover {
+      opacity: 0.5;
+      transform: scale(1.1);
+      color: green;
+      transition: all 0.2s ease;
     }
   }
 
@@ -185,7 +192,14 @@ export default {
   &-delete {
     &-button {
       cursor: pointer;
+      transition: all 0.2s ease;
       
+    }
+    &-button:hover {
+      transform: scale(1.1);
+      opacity: 0.5;
+      color: red;
+      transition: all 0.2s ease;
     }
   }
 }

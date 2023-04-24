@@ -1,12 +1,12 @@
 <template>
   <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-on="$listeners">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
-    <div class="file-div">
+    <div class="file-div position-relative">
       <input type="file" @change="uploadFile($event.target.files[0])">
-      <div class="upload-feedback">
-        <div v-if="isLoading" class="loading-spinner"></div>
-        <div v-if="success"><i class="material-icons check-icon">check_circle</i></div>
-        <div v-if="fail"><i class="material-icons close-icon">error</i></div>
+      <div class="upload-feedback position-absolute d-flex" style="right: 0">
+        <div v-if="isLoading" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div v-if="success"><i class="material-icons d-flex check-icon">check_circle</i></div>
+        <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@ export default {
         this.context.model = `${this.$env.api.fileUploadUrl}${path}`;
         this.isLoading = false;
         this.success = true;
-        this.context.rootEmit('change');
+        // this.context.rootEmit('change');
       } catch (err) {
         this.isLoading = false;
         this.fail = true;
@@ -114,4 +114,39 @@ export default {
     @extend %modal-icon;
     color: red;
   }
+  .lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border: 8px solid lightgray;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: lightgray transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>
