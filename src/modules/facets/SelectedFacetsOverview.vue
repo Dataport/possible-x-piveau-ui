@@ -123,7 +123,12 @@
       },
       findFacetFieldTitle(fieldId) {
         try {
-          return this.availableFacets.find(field => field.id === fieldId).title;
+          const title = fieldId === 'scoring' ?
+            this.$t('message.header.navigation.data.metadataquality')
+            : this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+
+          return !title.includes("@: message.metadata")? title : this.availableFacets.find(field => field.id === fieldId).title;
+
         } catch {
           return fieldId;
         }
