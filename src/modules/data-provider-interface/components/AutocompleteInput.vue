@@ -29,10 +29,18 @@
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Search for
           Subject</a>
       </div>
-      <input v-if="!annifTheme || manSearch" type="text" class="form-control suggestion-input"
-        :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text" @focus="focusAutocomplete()"
-        @input="getAutocompleteSuggestions()" />
-      <a v-if="!annifTheme" role="button" @click="clearAutocomplete" class="custom-remove">Remove</a>
+      <div class="position-relative d-flex align-items-center justify-content-center w-100">
+        <input v-if="!annifTheme || manSearch" type="text" class="form-control"
+          :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
+          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
+        <svg v-if="choice" xmlns="http://www.w3.org/2000/svg" @click="clearAutocomplete" width="16" height="16"
+          fill="currentColor" class="position-absolute bi bi-x-circle m-2 innerX" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+          <path
+            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </div>
+      <!-- <a v-if="!annifTheme" role="button" @click="clearAutocomplete" class="custom-remove">Remove</a> -->
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
           <button class="list-group-item list-group-item-action"
@@ -109,7 +117,9 @@ export default {
         text: "",
         selected: false,
         suggestions: [],
+       
       },
+      choice:false,
       themeSuggestionList: {},
       manSearch: false,
       values: [],
@@ -172,13 +182,14 @@ export default {
       this.getAutocompleteSuggestions();
     },
     clearAutocompleteSuggestions() {
+      
       this.autocomplete.suggestions = [];
     },
     hideSuggestions() {
       this.autocomplete.selected = true;
     },
     getAutocompleteSuggestions() {
-
+      this.choice= true
       let voc = this.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
@@ -337,24 +348,24 @@ export default {
     handleAutocompleteSuggestions(suggestion) {
 
       this.autocomplete.selected = true;
-      if (suggestion.resource =="None"){
+      if (suggestion.resource == "None") {
         return;
       }
-        if (this.multiple) {
-          if (!this.values.map((dataset) => dataset.resource).includes(suggestion.resource)) {
-            this.values.push(suggestion);
-          }
-          this.autocomplete.text = this.values.map((dataset) => dataset.name)[
-            this.values.length - 1
-          ];
-          this.context.model = this.values.map((dataset) => dataset.resource);
-        } else {
-          this.autocomplete.text = suggestion.name;
-          this.context.model = suggestion.resource;
-          this.context.altLabel = suggestion.name;
-
-
+      if (this.multiple) {
+        if (!this.values.map((dataset) => dataset.resource).includes(suggestion.resource)) {
+          this.values.push(suggestion);
         }
+        this.autocomplete.text = this.values.map((dataset) => dataset.name)[
+          this.values.length - 1
+        ];
+        this.context.model = this.values.map((dataset) => dataset.resource);
+      } else {
+        this.autocomplete.text = suggestion.name;
+        this.context.model = suggestion.resource;
+        this.context.altLabel = suggestion.name;
+
+
+      }
       this.context.rootEmit("change");
       if (this.annifTheme && suggestion.activeValue == undefined) {
 
@@ -419,6 +430,7 @@ export default {
       }
     },
     clearAutocomplete() {
+      this.choice = false
       if (this.multiple) {
         this.values = [];
       }
@@ -469,7 +481,18 @@ export default {
   overflow: hidden;
   text-indent: -1000px;
 }
-
+.innerX{
+  right:0; 
+  cursor: pointer;
+  opacity: 0.3;
+  transition: all 0.3s ease-in-out;
+}
+.innerX:hover{
+ 
+  color: red;
+  transform: scale(1.1);
+  opacity: 0.8;
+}
 .custom-remove::before {
   content: "";
   position: absolute;
