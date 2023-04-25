@@ -160,6 +160,40 @@ body::-webkit-scrollbar {
 #navbar-toggle {
   margin-bottom: 0 !important;
 }
-
+.formulate-input-group-repeatable{
+  
+ 
+}
+.formulate-input-group-repeatable-remove{
+  height: 100% !important;
+  top: 0 !important;
+  right: 0 !important;
+  border-radius: 0 !important;
+  transition: width 0.2s ease-in-out !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  :before{
+    left:0 !important;
+  }
+  :after{
+    left:0 !important;
+  }
+  
+}
+.formulate-input-group-repeatable-remove:hover:after{
+  left:unset !important;
+}
+.formulate-input-group-repeatable-remove:hover:before{
+  left:unset !important;
+}
+.formulate-input-group-repeatable-remove:hover{
+ width: 2.5% !important
+}
+.formulate-input-element{
+  input{
+   
+  }
+}
 // import empty theme after styles are loaded
 @import "empty_theme";
