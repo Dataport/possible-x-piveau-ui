@@ -143,8 +143,13 @@ Keycloak configuration values (Realm, ClientID, URL, ...)
 | verify-token-audience       | ???                    |
 | use-resource-role-mappings  | ???                    |
 | confidential-port           | ???                    |
-| pkceMethod                  | To activate PKCE set this variable to 'S256'          | 
 
+## keycloakInit
+Keycloak initialization values (Realm, ClientID, URL, ...)
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| pkceMethod                  | To activate PKCE set this variable to 'S256'          | 
 
 ## rtp
 RTP default values
@@ -296,6 +301,8 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | keywords               | _see table below_        |
 | description               | _see table below_        |
 | distributions               | _see table below_        |
+| downloadAs               | _see table below_        |
+| similarDatasets               | _see table below_        |
 | pages               | _see table below_        |
 | visualisations               | _see table below_        |
 | dataServices               | _see table below_        |
@@ -334,6 +341,23 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | descriptionMaxLines                  | Maximum amount of lines in a description. Descriptions that exceed this amount will be truncated (default: `3`). |
 | descriptionMaxChars                  | Maximum length of a description. Descriptions that exceed this length will be truncated (default: `250`).          |
 | showValidationButton                  | Enables the distribution validation button (default: `false`).             |
+
+#### datasetDetails.downloadAs
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| enable               | Enables the Download as feature (default: `false`).             |
+| proxyUrl               | URL to Corsproxy service (default: `https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de`).             |
+| url               | URL to Conversion service (default: `https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert`).             |
+| conversionFormats               | List of possible conversion formats for each source file format.             |
+
+#### datasetDetails.similarDatasets
+
+| Property                    | Description        |  
+| --------                    | ------------------ |
+| breakpoints.verySimilar               | Breakpoint for Very Similar rating (0 - 20).             |
+| breakpoints.similar               | Breakpoint for Very Similar rating (20 - 25).             |
+| breakpoints.lessSimilar               | Breakpoint for Very Similar rating (25 - 35).             |
 
 #### datasetDetails.pages 
 
@@ -399,20 +423,6 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | csvLinter.enable               | Enables the CSV linter service (default: `true`).             |
 | csvLinter.displayAll               | Display all validation results of the CSV linter (default: `false`).         |
 | csvLinter.numberOfDisplayedValidationResults               | Amount of displayed validation results of the CSV linter (default: `5`).         |
-
-#### datasetDetails.downloadAs
-
-| Property                    | Description        |  
-| --------                    | ------------------ |
-| enable               | Enables the Download as feature (default: `false`).             |
-
-#### datasetDetails.similarDatasets
-
-| Property                    | Description        |  
-| --------                    | ------------------ |
-| breakpoints.verySimilar               | Breakpoint for Very Similar rating (0 - 20).             |
-| breakpoints.similar               | Breakpoint for Very Similar rating (20 - 25).             |
-| breakpoints.lessSimilar               | Breakpoint for Very Similar rating (25 - 35).             |
 
 
 ## maps
@@ -487,6 +497,8 @@ Contains configuration values that are used for the `DataProviderInterface`.
 | --------                    | ------------------ |
 | useService               | Enables the Data Provider Interface service (default: `true`).          |
 | basePath               | The base path of the Data Provider Interface (default: `true`).          |
+| specification               |  Defines the DCAT specification used (default: `dcatap`).          |
+| annifIntegration               | Enables the usage of Annif for autocompletion in Data Provider Interface (default: `false`).          |
 | buttons               | _see table below_        |
 | doiRegistrationService               | _see table below_        |
 
