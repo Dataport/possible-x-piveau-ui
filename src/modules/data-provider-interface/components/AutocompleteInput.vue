@@ -174,6 +174,12 @@ export default {
         .map((dataset) => dataset.resource);
       this.autocomplete.text = "";
       this.context.rootEmit("change");
+
+      // diable delete button
+      if (this.values.length === 0) {
+        console.log('######');
+        this.choice = false;
+      }
     },
     focusAutocomplete() {
       this.autocomplete.selected = false;
@@ -420,11 +426,15 @@ export default {
             this.setTooltip();
           }
 
-
+          // enabling delete button if there are values
+          if (this.values.length > 0) this.choice = true;
         } else {
           // singular autocomplete always provides a single value
           const result = await this.getResourceName(this.context.model);
           this.autocomplete.text = result.name;
+
+          // enabling delete button
+          this.choice = true;
         }
       }
     },
