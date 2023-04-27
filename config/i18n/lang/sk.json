@@ -136,168 +136,6 @@
                 "information": "Informácie"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Zdroj"
-                    },
-                    "type": {
-                        "placeholder": "Dátový súbor Druh priekopníckeho textu"
-                    },
-                    "subject": {
-                        "help": "Kategória súboru údajov."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL adresa"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Súbor údajov Kontaktné miesto Address Street"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Súbor údajov Zhoda textov"
-                    },
-                    "isVersionOf": {
-                        "label": "Je verzia"
-                    },
-                    "provenance": {
-                        "label": "Miesto pôvodu"
-                    },
-                    "language": {
-                        "label": "Jazyk"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Odkaz na zástupcu, ktorý má určitú formu zodpovednosti za zdroj"
-                    },
-                    "temporal": {
-                        "placeholder": "Časovo ohraničený text dátového súboru"
-                    },
-                    "accessRights": {
-                        "info": "Táto vlastnosť sa vzťahuje na informácie, ktoré naznačujú, či je súbor údajov otvorenými údajmi, či má obmedzenia prístupu alebo nie je verejný."
-                    },
-                    "identifier": {
-                        "help": "Táto vlastnosť obsahuje hlavný identifikátor súboru údajov."
-                    },
-                    "versionInfo": {
-                        "help": "Číslo verzie súboru údajov."
-                    },
-                    "hasVersion": {
-                        "info": "Táto vlastnosť odkazuje na súvisiacu množinu údajov, ktorá je verziou, vydaním alebo úpravou opisovanej množiny údajov."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Pridať cestu vygenerovanú pomocou"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Kvalifikovaný vzťah"
-                    },
-                    "conformsToTitle": {
-                        "label": "Názov"
-                    },
-                    "creatorType": {
-                        "label": "Typ"
-                    },
-                    "spatial": {
-                        "info": "Táto vlastnosť sa vzťahuje na geografický región, na ktorý sa vzťahuje súbor údajov."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Časová rezolúcia Mesiac"
-                    },
-                    "contactPointName": {
-                        "label": "Názov"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Súbor údajov Časové rozlíšenie Minútový text držiaka miesta"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-mail"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Názov organizácie"
-                    },
-                    "contactPoint": {
-                        "help": "Táto vlastnosť obsahuje kontaktné informácie."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Súbor údajov Časové rozlíšenie Dňa umiestnenia text"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Súbor dát Provenance Text (Odstránenie textu)"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Dátový súbor Uverejnený typ"
-                    },
-                    "datasetID": {
-                        "label": "ID súboru údajov"
-                    },
-                    "modified": {
-                        "label": "Upravené"
-                    },
-                    "publisher": {
-                        "label": "Vydavateľ"
-                    },
-                    "issued": {
-                        "help": "Dátum formálneho vydania (napr. uverejnenie) súboru údajov. Prijateľné formáty dátumov: RRRR-MM-DD, RRRR-MM, RRRR."
-                    },
-                    "publisherHomepage": {
-                        "label": "Domovská stránka"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minimálne priestorové oddelenie rozlíšiteľné v súbore údajov."
-                    },
-                    "mediaType": {
-                        "placeholder": "Odkaz na miesto vyhradené pre druh distribučného média"
-                    },
-                    "language": {
-                        "help": "Jazyk používaný pri distribúcii."
-                    },
-                    "title": {
-                        "info": "Táto vlastnosť obsahuje názov priradený distribúcii. Táto vlastnosť sa môže opakovať pri paralelných jazykových verziách opisu."
-                    },
-                    "status": {
-                        "label": "Stav"
-                    },
-                    "checksum": {
-                        "placeholder": "Text týkajúci sa miesta vyhradeného na kontrolu distribúcie"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Distribúcia má text, ktorý je v súlade s politikou Url."
-                    },
-                    "page": {
-                        "help": "Stránka alebo dokument o tejto distribúcii."
-                    },
-                    "availability": {
-                        "placeholder": "Odkaz na miesto vyhradené pre disponibilitu distribúcie"
-                    },
-                    "format": {
-                        "placeholder": "Text týkajúci sa miesta vyhradeného pre distribučné formáty"
-                    },
-                    "conformsTo": {
-                        "add-label": "Pridať zhodu do"
-                    },
-                    "issued": {
-                        "label": "Vydané"
-                    },
-                    "description": {
-                        "help": "Táto nehnuteľnosť obsahuje účet distribúcie s voľným textom."
-                    },
-                    "hasPolicy": {
-                        "help": "Politika vyjadrujúca práva."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Časová rezolúcia Mesiac"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Dátový súbor Časové rozlíšenie Hour držiak miesta text"
-                    },
-                    "licence": {
-                        "help": "Licencia, na základe ktorej je distribúcia k dispozícii."
-                    },
-                    "date": {
-                        "label": "Dátum"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Táto vlastnosť sa vzťahuje na súvisiaci katalóg, v ktorom je opísaný katalóg fyzicky alebo logicky zahrnutý."
-                    },
-                    "language": {
-                        "help": "Jazyk použitý v textových metaúdajoch opisujúcich názvy, opisy atď."
-                    },
-                    "spatial": {
-                        "info": "Táto vlastnosť sa vzťahuje na zemepisnú oblasť, na ktorú sa vzťahuje katalóg."
-                    },
-                    "hasPart": {
-                        "help": "Táto vlastnosť sa vzťahuje na súvisiaci katalóg, ktorý je súčasťou opísaného katalógu."
-                    },
-                    "creator": {
-                        "add-label": "Pridať tvorcu"
-                    },
-                    "creatorName": {
-                        "label": "Názov"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Názov katalógového záznamu. "
-                    },
-                    "description": {
-                        "info": "Táto vlastnosť obsahuje účet záznamu s ľubovoľným textom. Táto vlastnosť sa môže opakovať pri paralelných jazykových verziách opisu."
-                    },
-                    "licence": {
-                        "placeholder": "Odkaz na miesto vyhradené pre katalógovú licenciu"
-                    },
-                    "modified": {
-                        "label": "Upravené"
-                    },
-                    "licenceDescription": {
-                        "label": "Opis licencie"
-                    },
-                    "homepage": {
-                        "help": "Webová stránka, ktorá slúži ako hlavná stránka katalógu."
-                    }
-                },
                 "stepper": {
                     "overview": "Prehľad katalógu",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Sťahovanie súborov",
-                    "zipNumberOfFiles": "Súbory zipsu",
+                    "zipNumberOfFiles": "Súbory zipsu {number}",
                     "waitingForDownload": "(čaká sa na stiahnutie)",
                     "downloadProgress": "Stiahnuť pokrok",
                     "notDownloaded": "Nestiahnuté",
@@ -664,7 +462,13 @@
             },
             "countMessage": "nájdené katalógy pre",
             "loadingMessage": "Načítavajú sa katalógy...",
-            "geoBoundsMessageRemove": "Na odstránenie obmedzenia zatvorte toto oznámenie alebo použite funkciu obnovenia."
+            "geoBoundsMessageRemove": "Na odstránenie obmedzenia zatvorte toto oznámenie alebo použite funkciu obnovenia.",
+            "meta": {
+                "page": {
+                    "title": "Katalógy otvorených súborov údajov | data.europa.eu"
+                },
+                "description": "Sťahovanie, zdieľanie a analýza súborov údajov podľa jednotlivých katalógov. Viac ako 80 katalógov údajov z oficiálnych inštitúcií v Európe."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Dobré",
                     "excellentScoring": "Výborné"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Vydavateľ",
                 "license": "Licencie",
                 "keywords": "Kľúčové slová",
                 "categories": "Kategórie",
@@ -777,7 +581,11 @@
             "countMessage": "našli sa datasety pre ",
             "foundDatasetsSingular": "1 súbor údajov nájdený",
             "meta": {
-                "translationNotComplete": "Preklad nie je dokončený"
+                "translationNotComplete": "Preklad nie je dokončený",
+                "page": {
+                    "title": "Otvoriť dátové súbory EÚ | Oficiálny portál pre údaje EÚ"
+                },
+                "description": "Najväčší portál otvorených súborov údajov v Európe. Súbory údajov EÚ podľa jednotlivých krajín, inštitúcií, katalógov, kategórií, kľúčových slov atď."
             },
             "geoBoundsMessageRemove": "Ak chcete odstrániť obmedzenie alebo použiť funkciu resetovania, zatvorte toto oznámenie.",
             "createDataset": "Vytvoriť Dataset",

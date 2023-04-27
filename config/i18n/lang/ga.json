@@ -136,168 +136,6 @@
                 "information": "Faisnéis"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Foinse"
-                    },
-                    "type": {
-                        "placeholder": "Tacar sonraí ionadchoinneálaí cineál téacs"
-                    },
-                    "subject": {
-                        "help": "Catagóir den Tacar Sonraí."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Pointe Teagmhála an tSeoltóra Seoladh téacs ionadchoinneálaí sráide"
-                    },
-                    "conformsTo": {
-                        "placeholder": "An tacar sonraí Comhréiríonn téacs ionadchoinneálaí"
-                    },
-                    "isVersionOf": {
-                        "label": "An bhfuil an leagan seo den"
-                    },
-                    "provenance": {
-                        "label": "Bunáitíocht"
-                    },
-                    "language": {
-                        "label": "Teanga"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Nasc le Gníomhaire a bhfuil cineál éigin freagrachta aige as an acmhainn"
-                    },
-                    "temporal": {
-                        "placeholder": "Tacar sonraí téacs ionadchoinneálaí ama"
-                    },
-                    "accessRights": {
-                        "info": "Tagraíonn an t-airí seo d’fhaisnéis a thugann le fios an sonraí oscailte atá sa tacar sonraí, an bhfuil srianta ar rochtain ann nó nach bhfuil."
-                    },
-                    "identifier": {
-                        "help": "Tá príomhaitheantóir an Tacar Sonraí san airí seo."
-                    },
-                    "versionInfo": {
-                        "help": "Uimhir leagain an tacair sonraí."
-                    },
-                    "hasVersion": {
-                        "info": "Tagraíonn an t-airí seo do Thacar sonraí gaolmhar ar leagan, eagrán nó oiriúnú den Tacar sonraí a bhfuil cur síos air é."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Cuir Leis Gineadh de réir"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Caidreamh Cáilithe"
-                    },
-                    "conformsToTitle": {
-                        "label": "Teideal"
-                    },
-                    "creatorType": {
-                        "label": "Cineál"
-                    },
-                    "spatial": {
-                        "info": "Tagraíonn an t-airí seo do réigiún geografach atá cumhdaithe ag an Tacar Sonraí."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Mí Réitigh Ama"
-                    },
-                    "contactPointName": {
-                        "label": "Ainm"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Tacar sonraí Rún Temporal Miontuairisc téacs ionadchoinneálaí"
-                    },
-                    "contactPointEmail": {
-                        "label": "Ríomhphost"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Ainm na hEagraíochta"
-                    },
-                    "contactPoint": {
-                        "help": "Tá sonraí teagmhála sa mhaoin seo."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Tacar sonraí téacs ionadchoinneálaí an Lae Réitigh Temporal"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Tacar Sonraí Provenance Téacs ionadchoinneálaí téacs"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Tacar sonraí Foilsitheoir téacs ionadchoinneálaí Cineál"
-                    },
-                    "datasetID": {
-                        "label": "Aitheantas an tacair sonraí"
-                    },
-                    "modified": {
-                        "label": "Mionathraithe"
-                    },
-                    "publisher": {
-                        "label": "Foilsitheoir"
-                    },
-                    "issued": {
-                        "help": "Dáta eisiúna fhoirmiúil (e.g. foilsiú) an tacair sonraí. Formáidí dáta inghlactha: BBBB-MM-LL, BBBB-MM, BBBB."
-                    },
-                    "publisherHomepage": {
-                        "label": "Leathanach baile"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Deighilt spásúil íosta inréitithe i dtacar sonraí."
-                    },
-                    "mediaType": {
-                        "placeholder": "Dáileadh téacs ionadchoinneálaí Cineál na Meán"
-                    },
-                    "language": {
-                        "help": "Teanga a úsáidtear sa Dáileadh."
-                    },
-                    "title": {
-                        "info": "Tá an t-ainm a thugtar ar an Dáileadh ar an maoin seo. Is féidir an t-airí seo a athdhéanamh i gcás leaganacha comhthreomhara teanga den tuairisc."
-                    },
-                    "status": {
-                        "label": "Stádas"
-                    },
-                    "checksum": {
-                        "placeholder": "Dáileadh Seiceáil téacs ionadchoinneálaí"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Dáileadh An bhfuil Beartas Url téacs ionadchoinneálaí"
-                    },
-                    "page": {
-                        "help": "Leathanach nó doiciméad faoin Dáileadh seo."
-                    },
-                    "availability": {
-                        "placeholder": "Téacs ionadchoinneálaí infhaighteachta dáilte"
-                    },
-                    "format": {
-                        "placeholder": "Leagan Formáid an logchoinneálaí téacs"
-                    },
-                    "conformsTo": {
-                        "add-label": "Cuir Comhlíonta le"
-                    },
-                    "issued": {
-                        "label": "Eisithe"
-                    },
-                    "description": {
-                        "help": "Tá cuntas saor-téacs ar an Dáileadh san airí seo."
-                    },
-                    "hasPolicy": {
-                        "help": "Cuireann an beartas na cearta in iúl."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Mí Réitigh Ama"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Tacar sonraí téacs ionadchoinneálaí Temporal Réiteach Uair"
-                    },
-                    "licence": {
-                        "help": "An ceadúnas faoina gcuirtear an Dáil ar fáil."
-                    },
-                    "date": {
-                        "label": "Dáta"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Tagraíonn an t-airí seo do Chatalóg ghaolmhar ina n-áirítear an Chatalóg cur síos uirthi go fisiciúil nó go loighciúil."
-                    },
-                    "language": {
-                        "help": "Teanga a úsáidtear sna meiteashonraí téacsúla ina ndéantar cur síos ar theidil, cur síos, srl."
-                    },
-                    "spatial": {
-                        "info": "Tagraíonn an t-airí seo do limistéar geografach a chumhdaítear leis an gCatalóg."
-                    },
-                    "hasPart": {
-                        "help": "Tagraíonn an t-airí seo do Chatalóg ghaolmhar atá mar chuid den Chatalóg cur síos air"
-                    },
-                    "creator": {
-                        "add-label": "Cuir Cruthaitheoir leis"
-                    },
-                    "creatorName": {
-                        "label": "Ainm"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Ainm a thugtar ar an Taifead Catalóige. "
-                    },
-                    "description": {
-                        "info": "Tá cuntas saor-téacs ar an taifead sa mhaoin seo. Is féidir an t-airí seo a athdhéanamh i gcás leaganacha comhthreomhara teanga den tuairisc."
-                    },
-                    "licence": {
-                        "placeholder": "Téacs ionadchoinneálaí Catalóige an Cheadúnas"
-                    },
-                    "modified": {
-                        "label": "Mionathraithe"
-                    },
-                    "licenceDescription": {
-                        "label": "Cur síos ar an gCeadúnas"
-                    },
-                    "homepage": {
-                        "help": "Leathanach gréasáin a ghníomhaíonn mar phríomhleathanach na Catalóige."
-                    }
-                },
                 "stepper": {
                     "overview": "Forléargas ar an gCatalóg",
                     "step1": {
@@ -664,7 +462,13 @@
             },
             "countMessage": "catalóga aimsithe do ",
             "loadingMessage": "Catalóga á lódáil...",
-            "geoBoundsMessageRemove": "Dún an fógra seo chun an teorainn a bhaint nó úsáid an fheidhm athshocraithe."
+            "geoBoundsMessageRemove": "Dún an fógra seo chun an teorainn a bhaint nó úsáid an fheidhm athshocraithe.",
+            "meta": {
+                "page": {
+                    "title": "Catalóga Tacar Sonraí Oscailte | data.europa.eu"
+                },
+                "description": "Íoslódáil, comhroinn agus anailísigh na tacair sonraí de réir catalóige. Féach níos mó ná 80 catalóg sonraí ó institiúidí oifigiúla san Eoraip."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Go maith",
                     "excellentScoring": "Sármhaith"
                 },
-                "publisher": "@:message.metadata.foilsitheoir",
+                "publisher": "Foilsitheoir",
                 "license": "Ceadúnais",
                 "keywords": "Eochairfhocail",
                 "categories": "Catagóirí",
@@ -777,7 +581,11 @@
             "countMessage": "tacair shonraí aimsithe maidir le ",
             "foundDatasetsSingular": "Aimsíodh 1 tacar sonraí",
             "meta": {
-                "translationNotComplete": "Aistriúchán neamhiomlán"
+                "translationNotComplete": "Aistriúchán neamhiomlán",
+                "page": {
+                    "title": "Tacair sonraí oscailte an Aontais Eorpaigh | data.europa.eu"
+                },
+                "description": "An tairseach is mó de thacair sonraí oscailte san Eoraip. Féach tacair sonraí an Aontais de réir tíre, institiúide, catalóige, catagóirí, eochairfhocal, agus go leor eile."
             },
             "geoBoundsMessageRemove": "Dún an fógra seo chun an teorainn a bhaint nó úsáid an fheidhm athshocraithe.",
             "createDataset": "Cruthaigh tacar sonraí",

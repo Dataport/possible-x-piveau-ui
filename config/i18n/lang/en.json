@@ -1646,7 +1646,8 @@
                     "fileConversionTo": "Converting the file to",
                     "fileConversionFail": "File conversion failed",
                     "selectFileFormat": "select a file format",
-                    "downloadAs": "Download as"
+                    "downloadAs": "Download as",
+                    "downloadPopup": "If you continue, you are loading content from external services. These external services are not maintained by the European Commission and therefore we have no influence on their availability/stability/security."
                 },
                 "leavePageWindow": {
                     "text": "Do you really want to leave? The Download will be stopped when you leave!"

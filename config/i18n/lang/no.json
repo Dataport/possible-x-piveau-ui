@@ -136,168 +136,6 @@
                 "information": "Informasjon"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Kilde"
-                    },
-                    "type": {
-                        "placeholder": "Datasett Type plassholdertekst"
-                    },
-                    "subject": {
-                        "help": "En kategori av datasettet."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "Norsk"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Datasett Kontaktpunkt Adresse Gate plassholder tekst"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Datasett Konformerer Til plassholdertekst"
-                    },
-                    "isVersionOf": {
-                        "label": "Den er versjon av"
-                    },
-                    "provenance": {
-                        "label": "Opprinnelse"
-                    },
-                    "language": {
-                        "label": "Språk"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Link til en agent som har noen form for ansvar for ressursen"
-                    },
-                    "temporal": {
-                        "placeholder": "Datasett Temporal plassholdertekst"
-                    },
-                    "accessRights": {
-                        "info": "Denne egenskapen refererer til informasjon som angir om datasettet er åpne data, har tilgangsbegrensninger eller ikke er offentlig."
-                    },
-                    "identifier": {
-                        "help": "Denne egenskapen inneholder hovedidentifikatoren for datasettet."
-                    },
-                    "versionInfo": {
-                        "help": "Versjonsnummer for datasettet."
-                    },
-                    "hasVersion": {
-                        "info": "Denne egenskapen refererer til et relatert datasett som er en versjon, utgave eller tilpasning av det beskrevne datasettet."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Legg til ble generert av"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Kvalifisert forhold"
-                    },
-                    "conformsToTitle": {
-                        "label": "Overskrift"
-                    },
-                    "creatorType": {
-                        "label": "Type"
-                    },
-                    "spatial": {
-                        "info": "Denne egenskapen refererer til et geografisk område som er dekket av datasettet."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Timelig løsningsmåned"
-                    },
-                    "contactPointName": {
-                        "label": "Navn"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Datasett Temporal oppløsning Minutt plassholdertekst"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-post"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Organisasjonsnavn"
-                    },
-                    "contactPoint": {
-                        "help": "Dette overnattingsstedet inneholder kontaktinformasjon."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Datasett Temporal oppløsning Dag plassholder tekst"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Datasett Provenance Tekst plassholder tekst"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Datasett Publisher Type plassholdertekst"
-                    },
-                    "datasetID": {
-                        "label": "Datasett-ID"
-                    },
-                    "modified": {
-                        "label": "Modifisert"
-                    },
-                    "publisher": {
-                        "label": "Utgiver"
-                    },
-                    "issued": {
-                        "help": "Dato for formell utstedelse (f.eks. publisering) av datasettet. Akseptable datoformater: YYY-MM-DD, YYYY-MM, YYYYY."
-                    },
-                    "publisherHomepage": {
-                        "label": "Norsk bokmål"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minste romlig separasjon kan løses i et datasett."
-                    },
-                    "mediaType": {
-                        "placeholder": "Distribusjon Media Type plassholdertekst"
-                    },
-                    "language": {
-                        "help": "Et språk som brukes i distribusjonen."
-                    },
-                    "title": {
-                        "info": "Denne egenskapen inneholder et navn gitt til distribusjonen. Denne egenskapen kan gjentas for parallelle språkversjoner av beskrivelsen."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Distribusjon Checksum plassholder tekst"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Distribusjon Has Policy Url plassholder tekst"
-                    },
-                    "page": {
-                        "help": "En side eller et dokument om denne distribusjonen."
-                    },
-                    "availability": {
-                        "placeholder": "Distribusjon Tilgjengelighet plassholder tekst"
-                    },
-                    "format": {
-                        "placeholder": "Distribusjon Format plassholder tekst"
-                    },
-                    "conformsTo": {
-                        "add-label": "Legg til samsvar til"
-                    },
-                    "issued": {
-                        "label": "Utstedt"
-                    },
-                    "description": {
-                        "help": "Denne egenskapen inneholder en fritekstkonto av Distribusjonen."
-                    },
-                    "hasPolicy": {
-                        "help": "Politikken som uttrykker rettighetene."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Timelig løsningsmåned"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Datasett Temporal oppløsning Time plassholder tekst"
-                    },
-                    "licence": {
-                        "help": "Lisensen som distribusjonen gjøres tilgjengelig under."
-                    },
-                    "date": {
-                        "label": "Dato"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Denne egenskapen refererer til en relatert katalog der den beskrevne katalogen er fysisk eller logisk inkludert."
-                    },
-                    "language": {
-                        "help": "Et språk som brukes i de tekstlige metadataene som beskriver titler, beskrivelser osv."
-                    },
-                    "spatial": {
-                        "info": "Denne egenskapen refererer til et geografisk område som omfattes av katalogen."
-                    },
-                    "hasPart": {
-                        "help": "Denne egenskapen refererer til en relatert katalog som er en del av den beskrevne katalogen"
-                    },
-                    "creator": {
-                        "add-label": "Legg til skaper"
-                    },
-                    "creatorName": {
-                        "label": "Navn"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Et navn gitt til katalogen. "
-                    },
-                    "description": {
-                        "info": "Denne egenskapen inneholder en fritekstkonto av posten. Denne egenskapen kan gjentas for parallelle språkversjoner av beskrivelsen."
-                    },
-                    "licence": {
-                        "placeholder": "Katalog Lisens plassholdertekst"
-                    },
-                    "modified": {
-                        "label": "Modifisert"
-                    },
-                    "licenceDescription": {
-                        "label": "Lisensbeskrivelse"
-                    },
-                    "homepage": {
-                        "help": "En nettside som fungerer som hovedsiden for katalogen."
-                    }
-                },
                 "stepper": {
                     "overview": "Katalogoversikt",
                     "step1": {
@@ -664,7 +462,12 @@
             },
             "countMessage": "kataloger funnet for",
             "loadingMessage": "Laster kataloger …",
-            "geoBoundsMessageRemove": "Lukk dette varselet for å fjerne begrensningen eller bruke tilbakestillingsfunksjonen."
+            "geoBoundsMessageRemove": "Lukk dette varselet for å fjerne begrensningen eller bruke tilbakestillingsfunksjonen.",
+            "meta": {
+                "page": {
+                    "title": "Kataloger for åpne poster | data.europa.eu"
+                }
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +488,7 @@
                     "goodScoring": "Bra",
                     "excellentScoring": "Ypperlig"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Forlegger",
                 "license": "Lisenser",
                 "keywords": "Nøkkelord",
                 "categories": "Kategorier",
@@ -777,7 +580,10 @@
             "countMessage": "datasett funnet for ",
             "foundDatasetsSingular": "1 datasett funnet",
             "meta": {
-                "translationNotComplete": "Oversetting ikke fullført"
+                "translationNotComplete": "Oversetting ikke fullført",
+                "page": {
+                    "title": "Åpne EU-datasett | Offisiell portal for EU-data | data.europa.eu"
+                }
             },
             "geoBoundsMessageRemove": "Lukk dette varselet for å fjerne begrensningen eller bruke tilbakestillingsfunksjonen.",
             "createDataset": "Opprett datasett",
