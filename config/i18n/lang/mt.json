@@ -772,6 +772,10 @@
         },
         "imprint": {
             "msg": "DAĦĦAL IL-MARKA HAWN"
+        },
+        "cookieConsent": {
+            "accept": "Accepteren",
+            "text": "Aħna nużaw il-cookies fuq dan is-sit sabiex insaħħu l-esperjenza tiegħek ta' utent"
         }
     }
 }

@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "SISESTAGE ILMUMISANDMED SIIA"
+        },
+        "cookieConsent": {
+            "text": "Kasutuskogemuse parandamiseks kasutame küpsiseid"
         }
     }
 }

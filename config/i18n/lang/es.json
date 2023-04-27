@@ -772,6 +772,12 @@
         },
         "imprint": {
             "msg": "INSERTAR CRÉDITOS AQUÍ"
+        },
+        "cookieConsent": {
+            "accept": "Aceptar",
+            "decline": "Aceptar solo las cookies esenciales",
+            "more": "Más info",
+            "text": "Usamos cookies en esta página para mejorar la experiencia del usuario"
         }
     }
 }

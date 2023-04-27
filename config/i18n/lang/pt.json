@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "INSERIR IMPRESSÃO AQUI"
+        },
+        "cookieConsent": {
+            "text": "Este sítio utiliza cookies (testemunhos de conexão) para facilitar a navegação"
         }
     }
 }

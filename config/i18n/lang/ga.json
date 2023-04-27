@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "IONSÁIGH INPHRIONTA ANSEO"
+        },
+        "cookieConsent": {
+            "text": "Úsáidimid fianáin ar an suíomh seo chun d’eispéireas úsáideora a fheabhsú"
         }
     }
 }

@@ -394,8 +394,7 @@
             "downloadAsLinkedData": "Katalog Metadaten als verknüpfte Daten",
             "countMessageNoResult": "Kein Katalog gefunden für ",
             "searchBar": {
-                "placeholder": "Kataloge durchsuchen",
-                "icon": "suchen"
+                "placeholder": "Kataloge durchsuchen"
             },
             "countMessage": "Kataloge gefunden für ",
             "loadingMessage": "Kataloge werden geladen…",
@@ -534,8 +533,7 @@
             "noResult": "Keine Datensätze gefunden für {query}",
             "findLocation": "Nach Ort filtern",
             "searchBar": {
-                "placeholder": "Nach Datensätzen suchen",
-                "icon": "suchen"
+                "placeholder": "Nach Datensätzen suchen"
             },
             "createCatalogue": "Katalog erstellen",
             "saveQuery": "Suchanfrage speichern"
@@ -710,6 +708,20 @@
         },
         "imprint": {
             "msg": "HIER IMPRESSUM EINFÜGEN"
+        },
+        "cookieConsent": {
+            "decline": "Nein, danke",
+            "more": "Weitere Informationen",
+            "text": "Wir verwenden Cookies zur Verbesserung der Benutzererfahrung.",
+            "accept": "Akzeptieren"
+        },
+        "notFound": {
+            "requested": {
+                "parttwo": "Datensätze such Seite.",
+                "partone": "Die angeforderte Seite wurde nicht gefunden. Sie können wieder von hier aus versuchen:"
+            },
+            "error": "Fehler",
+            "contactUsAbout": "Kontaktieren Sie uns bezüglich dieser Fehlermeldung."
         }
     }
 }

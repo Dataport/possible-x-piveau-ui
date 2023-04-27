@@ -772,6 +772,16 @@
         },
         "imprint": {
             "msg": "INSÉRER L'EMPREINTE ICI"
+        },
+        "cookieConsent": {
+            "accept": "Accepter",
+            "decline": "Non, merci.",
+            "text": "Nous utilisons des cookies sur ce site pour améliorer l’expérience utilisateur.",
+            "more": "En savoir plus"
+        },
+        "notFound": {
+            "error": "Erreur",
+            "contactUsAbout": "Prenez contact avec nous à propos de ce message d'erreur."
         }
     }
 }

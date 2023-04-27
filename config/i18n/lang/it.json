@@ -772,6 +772,10 @@
         },
         "imprint": {
             "msg": "INSERIRE IMPRINT QUI"
+        },
+        "cookieConsent": {
+            "more": "Maggiori informazioni",
+            "text": "Usiamo i cookie su questo sito per migliorare l'esperienza dell'utente"
         }
     }
 }
