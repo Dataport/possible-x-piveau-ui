@@ -1520,10 +1520,37 @@
                 }
             },
             "createDataset": "Create Dataset",
+            "createNewDataset": "Create a new Dataset",
+            "createNewCatalogue": "Create a new Catalogue",
             "defineDatasetProperties": "Define Dataset properties",
             "createDistributions": "Create Distributions",
             "generalInformation": "General Information",
-            "additionalInformation": "Additional Information"
+            "additionalInformation": "Additional Information",
+            "menu": {
+                "loggedInAs": "Logged in as",
+                "deleteDataset": "Delete Dataset",
+                "editDataset": "Edit Dataset",
+                "editCatalogue": "Edit Catalogue",
+                "setToDraft": "Set to draft",
+                "registerDoi": "Register DOI",
+                "logout": "Logout",
+                "dpi": "Data Provider Interface",
+                "draftDatasets": "Draft Datasets",
+                "datasetDeletion":
+                {
+                    "message": "Are you sure you want to delete this dataset? This can not be reverted.",
+                    "confirm": "Delete dataset (irreversible)"
+                },
+                "markAsDraft": {
+                    "message": "Are you sure you want to mark this dataset as draft?",
+                    "confirm": "Set to draft"
+                },
+                "registerADoi": {
+                    "message": "Are you sure you want to register a DOI? This can not be reverted.",
+                    "confirm": "Register DOI (irreversible)"
+                }
+            }
+
         },
         "datasetDetails": {
             "subnav": {
