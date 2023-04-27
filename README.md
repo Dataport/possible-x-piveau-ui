@@ -1,3 +1,5 @@
+![banner](./images/piveau-hub-ui-banner.png "Image Title")
+
 # piveau-hub-ui
 
 > Please use node version >= 16. Recommended is version 17.x.
@@ -10,13 +12,13 @@ This repository is intended as a template for setting up a new project UI.
 ### Download the repository
 
 ```bash
-git clone https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui-2.git
+git clone https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui.git
 ```
 
 ### Install the dependencies
 
 ```bash
-cd piveau-hub-ui-2
+cd piveau-hub-ui
 npm ci
 ```
 
@@ -37,8 +39,8 @@ npm run build
 ### Run it via Docker
 
 ```
-$ docker build -t piveau-hub-ui-2 .
-$ docker run -i -p 8080:8080 piveau-hub-ui-2
+$ docker build -t piveau-hub-ui .
+$ docker run -i -p 8080:8080 piveau-hub-ui
 ```
 
 ## Configurations
