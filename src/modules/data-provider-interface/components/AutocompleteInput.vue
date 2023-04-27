@@ -220,7 +220,7 @@ export default {
               resource: r.resource,
             }));
             this.autocomplete.suggestions = results;
-            this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" })
+            this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
           });
         } else {
           this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
@@ -228,7 +228,8 @@ export default {
               name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
               resource: r.resource,
             }));
-            this.autocomplete.suggestions = results;
+            if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
+            else this.autocomplete.suggestions = results;
           });
         }
 
@@ -402,6 +403,9 @@ export default {
       return preValues;
     },
     async handleValues() {
+
+      // TODO: disable delete button for invaid content edge case
+      // when submitting unsupported values (which are not saved) the delete button stay enabled
 
       if (this.context.model !== "") {
         // multiple autocomplete input provides always an array of values
