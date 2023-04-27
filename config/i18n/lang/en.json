@@ -1520,10 +1520,37 @@
                 }
             },
             "createDataset": "Create Dataset",
+            "createNewDataset": "Create a new Dataset",
+            "createNewCatalogue": "Create a new Catalogue",
             "defineDatasetProperties": "Define Dataset properties",
             "createDistributions": "Create Distributions",
             "generalInformation": "General Information",
-            "additionalInformation": "Additional Information"
+            "additionalInformation": "Additional Information",
+            "menu": {
+                "loggedInAs": "Logged in as",
+                "deleteDataset": "Delete Dataset",
+                "editDataset": "Edit Dataset",
+                "editCatalogue": "Edit Catalogue",
+                "setToDraft": "Set to draft",
+                "registerDoi": "Register DOI",
+                "logout": "Logout",
+                "dpi": "Data Provider Interface",
+                "draftDatasets": "Draft Datasets",
+                "datasetDeletion":
+                {
+                    "message": "Are you sure you want to delete this dataset? This can not be reverted.",
+                    "confirm": "Delete dataset (irreversible)"
+                },
+                "markAsDraft": {
+                    "message": "Are you sure you want to mark this dataset as draft?",
+                    "confirm": "Set to draft"
+                },
+                "registerADoi": {
+                    "message": "Are you sure you want to register a DOI? This can not be reverted.",
+                    "confirm": "Register DOI (irreversible)"
+                }
+            }
+
         },
         "datasetDetails": {
             "subnav": {
@@ -1619,7 +1646,8 @@
                     "fileConversionTo": "Converting the file to",
                     "fileConversionFail": "File conversion failed",
                     "selectFileFormat": "select a file format",
-                    "downloadAs": "Download as"
+                    "downloadAs": "Download as",
+                    "downloadPopup": "If you continue, you are loading content from external services. These external services are not maintained by the European Commission and therefore we have no influence on their availability/stability/security."
                 },
                 "leavePageWindow": {
                     "text": "Do you really want to leave? The Download will be stopped when you leave!"

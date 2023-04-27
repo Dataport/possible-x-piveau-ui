@@ -136,168 +136,6 @@
                 "information": "Informacija"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Šaltinis"
-                    },
-                    "type": {
-                        "placeholder": "Duomenų rinkinys Tipo vietos turėtojo tekstas"
-                    },
-                    "subject": {
-                        "help": "Duomenų rinkinio kategorija."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL adresas"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Duomenų rinkinio kontaktinio centro adresų gatvės tekstas"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Duomenų rinkinio atitiktis Padėti tekstui"
-                    },
-                    "isVersionOf": {
-                        "label": "SV versija"
-                    },
-                    "provenance": {
-                        "label": "Provenencija"
-                    },
-                    "language": {
-                        "label": "Kalba"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Nuoroda į agentą, kuriam tenka kokia nors atsakomybė už išteklius"
-                    },
-                    "temporal": {
-                        "placeholder": "Duomenų rinkinys Temporal placeholder text"
-                    },
-                    "accessRights": {
-                        "info": "Ši savybė susijusi su informacija, rodančia, ar duomenų rinkinys yra atvirieji duomenys, ar jam taikomi prieigos apribojimai, ar jis nėra viešas."
-                    },
-                    "identifier": {
-                        "help": "Ši savybė apima pagrindinį duomenų rinkinio identifikatorių."
-                    },
-                    "versionInfo": {
-                        "help": "Duomenų rinkinio versijos numeris."
-                    },
-                    "hasVersion": {
-                        "info": "Susijęs duomenų rinkinys, kuris yra aprašomo duomenų rinkinio versija, laida arba adaptacija."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Pridėti Was Generated"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Sąlyginiai santykiai"
-                    },
-                    "conformsToTitle": {
-                        "label": "Pavadinimas"
-                    },
-                    "creatorType": {
-                        "label": "Tipas"
-                    },
-                    "spatial": {
-                        "info": "Ši savybė susijusi su geografiniu regionu, kurį apima duomenų rinkinys."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Laiko skiriamosios gebos mėnuo"
-                    },
-                    "contactPointName": {
-                        "label": "Vardas ir pavardė (pavadinimas)"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Duomenų rinkinys Laiko skiriamoji geba Minute placeholder tekstas"
-                    },
-                    "contactPointEmail": {
-                        "label": "E. paštas"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Organizacijos pavadinimas"
-                    },
-                    "contactPoint": {
-                        "help": "Šioje savybėje pateikiama kontaktinė informacija."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Duomenų rinkinys Laiko skiriamoji geba Dienos placeholder tekstas"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Duomenų rinkinys Provencija Text placeholder text text"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Duomenų rinkinys Leidėjo tipo vietos turėtojo tekstas"
-                    },
-                    "datasetID": {
-                        "label": "Duomenų rinkinio ID"
-                    },
-                    "modified": {
-                        "label": "Pakeistas"
-                    },
-                    "publisher": {
-                        "label": "Leidėjas"
-                    },
-                    "issued": {
-                        "help": "Duomenų rinkinio oficialaus išleidimo (pvz., paskelbimo) data. Priimtini datos formatai: MMMM-MM-DD, YYYY-MM-MM."
-                    },
-                    "publisherHomepage": {
-                        "label": "Pradžios puslapis"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Mažiausias erdvinis atskyrimas, kurį galima ištirpinti duomenų rinkinyje."
-                    },
-                    "mediaType": {
-                        "placeholder": "Platinimo terpės tipo tinklavietės tekstas"
-                    },
-                    "language": {
-                        "help": "Platinime vartojama kalba."
-                    },
-                    "title": {
-                        "info": "Šiame turte yra platintojui suteiktas pavadinimas. Šią savybę galima pakartoti lygiagrečiose aprašymo kalbinėse versijose."
-                    },
-                    "status": {
-                        "label": "Statusas"
-                    },
-                    "checksum": {
-                        "placeholder": "Distribucijos kontrolinės vietos turėtojo tekstas"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Platintojo „Hes Policy Url“ tekstas"
-                    },
-                    "page": {
-                        "help": "Puslapis arba dokumentas apie šį platinimą."
-                    },
-                    "availability": {
-                        "placeholder": "Distribucijos prieinamumo vietos tekstas"
-                    },
-                    "format": {
-                        "placeholder": "Platinimo formato vietos turėtojo tekstas"
-                    },
-                    "conformsTo": {
-                        "add-label": "Pridėkite „Atitiktis“"
-                    },
-                    "issued": {
-                        "label": "Išduotas"
-                    },
-                    "description": {
-                        "help": "Ši savybė apima laisvos formos platinimo sąskaitą."
-                    },
-                    "hasPolicy": {
-                        "help": "Politika, kuria išreiškiamos teisės."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Laiko skiriamosios gebos mėnuo"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Duomenų rinkinys Laiko skiriamoji geba Valandos vietos laikiklis tekstas"
-                    },
-                    "licence": {
-                        "help": "Licencija, pagal kurią suteikiama prieiga prie platinimo."
-                    },
-                    "date": {
-                        "label": "Data"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Ši savybė susijusi su susijusiu katalogu, į kurį fiziškai arba logiškai įtraukiamas aprašytas katalogas."
-                    },
-                    "language": {
-                        "help": "Kalba, vartojama tekstiniuose metaduomenyse, kuriuose aprašomi pavadinimai, aprašymai ir t. t."
-                    },
-                    "spatial": {
-                        "info": "Ši savybė susijusi su geografine vietove, kurią apima katalogas."
-                    },
-                    "hasPart": {
-                        "help": "Ši savybė susijusi su susijusiu katalogu, kuris yra aprašyto katalogo dalis."
-                    },
-                    "creator": {
-                        "add-label": "Pridėti kūrėją"
-                    },
-                    "creatorName": {
-                        "label": "Vardas, pavardė"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Katalogo įrašui suteiktas pavadinimas. "
-                    },
-                    "description": {
-                        "info": "Ši savybė apima įrašo laisvos formos įrašą. Šią savybę galima pakartoti lygiagrečiose aprašymo kalbinėse versijose."
-                    },
-                    "licence": {
-                        "placeholder": "Kataloge Licence placeholder tekstas"
-                    },
-                    "modified": {
-                        "label": "Pakeistas"
-                    },
-                    "licenceDescription": {
-                        "label": "Licencijos aprašymas"
-                    },
-                    "homepage": {
-                        "help": "Tinklalapis, kuris yra pagrindinis katalogo puslapis."
-                    }
-                },
                 "stepper": {
                     "overview": "Katalogo apžvalga",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Rinkmenų parsisiųsdinimas",
-                    "zipNumberOfFiles": "Užfiksuotos bylos Nr.",
+                    "zipNumberOfFiles": "Užfiksuotos bylos Nr. {number}",
                     "waitingForDownload": "(laukiama parsisiųsti)",
                     "downloadProgress": "Parsisiųsti „Progress",
                     "notDownloaded": "Nebuvo parsisiųsdinta",
@@ -664,7 +462,13 @@
             },
             "countMessage": "pagal  rasti katalogai",
             "loadingMessage": "Katalogai įkeliami...",
-            "geoBoundsMessageRemove": "Apribojimui pašalinti uždarykite šį pranešimą arba naudokite atkūrimo funkciją."
+            "geoBoundsMessageRemove": "Apribojimui pašalinti uždarykite šį pranešimą arba naudokite atkūrimo funkciją.",
+            "meta": {
+                "page": {
+                    "title": "Atvirųjų duomenų rinkinių katalogai | data.europa.eu"
+                },
+                "description": "Atsisiųskite, dalykitės ir analizuokite kiekvieno katalogo duomenų rinkinius. Susipažinkite su daugiau kaip 80 Europos oficialių institucijų duomenų katalogų."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Geras",
                     "excellentScoring": "Puikus"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Leidėjas",
                 "license": "Licencijos",
                 "keywords": "Raktažodžiai",
                 "categories": "Kategorijos",
@@ -777,7 +581,11 @@
             "countMessage": "duomenų rinkiniai (-ių) rasta pagal ",
             "foundDatasetsSingular": "Rastas 1 duomenų rinkinys",
             "meta": {
-                "translationNotComplete": "Vertimas nebaigtas"
+                "translationNotComplete": "Vertimas nebaigtas",
+                "page": {
+                    "title": "Atvirieji ES duomenų rinkiniai | Oficialus ES duomenų portalas"
+                },
+                "description": "Didžiausias atvirųjų duomenų rinkinių portalas Europoje. Susipažinkite su ES duomenų rinkiniais pagal šalis, institucijas, katalogus, kategorijas, raktažodžius ir daug kitų."
             },
             "geoBoundsMessageRemove": "Apribojimui pašalinti uždarykite šį pranešimą arba naudokite atkūrimo funkciją.",
             "createDataset": "Sukurti duomenų rinkinį",

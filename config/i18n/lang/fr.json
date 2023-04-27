@@ -136,168 +136,6 @@
                 "information": "Informations"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Source"
-                    },
-                    "type": {
-                        "placeholder": "Jeu de données Texte réservé au type de données"
-                    },
-                    "subject": {
-                        "help": "Une catégorie de l’ensemble de données."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Jeu de données Point de contact Address Street placeholder texte"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Jeu de données Conforms to placeholder text"
-                    },
-                    "isVersionOf": {
-                        "label": "Est la version de"
-                    },
-                    "provenance": {
-                        "label": "Provenance"
-                    },
-                    "language": {
-                        "label": "Langue"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Lien vers un agent ayant une certaine forme de responsabilité dans la ressource"
-                    },
-                    "temporal": {
-                        "placeholder": "Jeu de données Temporal placeholder text"
-                    },
-                    "accessRights": {
-                        "info": "Cette propriété fait référence à des informations indiquant si l’ensemble de données est ouvert, s’il est soumis à des restrictions d’accès ou s’il n’est pas public."
-                    },
-                    "identifier": {
-                        "help": "Cette propriété contient l’identifiant principal de l’ensemble de données."
-                    },
-                    "versionInfo": {
-                        "help": "Numéro de version du jeu de données."
-                    },
-                    "hasVersion": {
-                        "info": "Cette propriété renvoie à un jeu de données lié qui est une version, une édition ou une adaptation du jeu de données décrit."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Ajouter le Was généré par"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Relations qualifiées"
-                    },
-                    "conformsToTitle": {
-                        "label": "Titre"
-                    },
-                    "creatorType": {
-                        "label": "Type"
-                    },
-                    "spatial": {
-                        "info": "Cette propriété fait référence à une région géographique couverte par l’ensemble de données."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Mois de résolution temporelle"
-                    },
-                    "contactPointName": {
-                        "label": "Nom"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Jeu de données Résolution Temporelle Texte de l’espace réservé de la minute"
-                    },
-                    "contactPointEmail": {
-                        "label": "Courriel"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Nom de l’organisation"
-                    },
-                    "contactPoint": {
-                        "help": "Ce bien contient des coordonnées."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Jeu de données Résolution Temporale Texte de l’espace réservé de la journée"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Jeu de données «Provenance text placeholder text»"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Jeu de données intitulé «Publisher Type text» (texte réservé à l’éditeur)"
-                    },
-                    "datasetID": {
-                        "label": "Identifiant de l’ensemble de données"
-                    },
-                    "modified": {
-                        "label": "Modifié"
-                    },
-                    "publisher": {
-                        "label": "Éditeur"
-                    },
-                    "issued": {
-                        "help": "Date de délivrance officielle (par exemple, publication) de l’ensemble de données. Formats de dates acceptables: AAAA-MM-JJ, AAAA-MM, AAAA."
-                    },
-                    "publisherHomepage": {
-                        "label": "Page d’accueil"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Séparation spatiale minimale résolvable dans un ensemble de données."
-                    },
-                    "mediaType": {
-                        "placeholder": "Espace réservé à la diffusion du type de média"
-                    },
-                    "language": {
-                        "help": "Langue utilisée dans la distribution."
-                    },
-                    "title": {
-                        "info": "Ce bien contient un nom donné à la Distribution. Cette propriété peut être répétée pour les versions linguistiques parallèles de la description."
-                    },
-                    "status": {
-                        "label": "Statut"
-                    },
-                    "checksum": {
-                        "placeholder": "Diffusion Checksum placeholder texte"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Espace réservé à la distribution Has Policy Url"
-                    },
-                    "page": {
-                        "help": "Une page ou un document sur cette distribution."
-                    },
-                    "availability": {
-                        "placeholder": "Diffusion Disponibilité placeholder texte"
-                    },
-                    "format": {
-                        "placeholder": "Format de diffusion texte réservé à l’espace réservé à la distribution"
-                    },
-                    "conformsTo": {
-                        "add-label": "Ajouter des formulaires à"
-                    },
-                    "issued": {
-                        "label": "Délivré"
-                    },
-                    "description": {
-                        "help": "Ce bien contient un compte en texte libre de la Distribution."
-                    },
-                    "hasPolicy": {
-                        "help": "La politique d’expression des droits."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Mois de résolution temporelle"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Jeu de données Résolution Temporale Texte de l’espace réservé de l’heure"
-                    },
-                    "licence": {
-                        "help": "La licence au titre de laquelle la distribution est mise à disposition."
-                    },
-                    "date": {
-                        "label": "Date"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Ce bien fait référence à un catalogue connexe dans lequel le catalogue décrit est physiquement ou logiquement inclus."
-                    },
-                    "language": {
-                        "help": "Une langue utilisée dans les métadonnées textuelles décrivant les titres, les descriptions, etc."
-                    },
-                    "spatial": {
-                        "info": "Ce bien fait référence à une zone géographique couverte par le catalogue."
-                    },
-                    "hasPart": {
-                        "help": "Cette propriété fait référence à un catalogue connexe qui fait partie du catalogue décrit."
-                    },
-                    "creator": {
-                        "add-label": "Ajouter un créateur"
-                    },
-                    "creatorName": {
-                        "label": "Nom"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Un nom donné au registre du catalogue. "
-                    },
-                    "description": {
-                        "info": "Cette propriété contient un compte en texte libre de l’enregistrement. Cette propriété peut être répétée pour les versions linguistiques parallèles de la description."
-                    },
-                    "licence": {
-                        "placeholder": "Texte réservé au catalogue du titulaire de la licence"
-                    },
-                    "modified": {
-                        "label": "Modifié"
-                    },
-                    "licenceDescription": {
-                        "label": "Description de la licence"
-                    },
-                    "homepage": {
-                        "help": "Une page web qui sert de page principale pour le catalogue."
-                    }
-                },
                 "stepper": {
                     "overview": "Vue d’ensemble du catalogue",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Téléchargement de fichiers",
-                    "zipNumberOfFiles": "Fichiers zip {Numérol",
+                    "zipNumberOfFiles": "{number} Fichiers zip",
                     "waitingForDownload": "(en attente de téléchargement)",
                     "downloadProgress": "Télécharger Progress",
                     "notDownloaded": "Non téléchargé",
@@ -664,7 +462,13 @@
             },
             "countMessage": " catalogues trouvés pour ",
             "loadingMessage": "Chargement des catalogues…",
-            "geoBoundsMessageRemove": "Fermer cette notification pour supprimer la limitation ou utiliser la fonction de réinitialisation."
+            "geoBoundsMessageRemove": "Fermer cette notification pour supprimer la limitation ou utiliser la fonction de réinitialisation.",
+            "meta": {
+                "page": {
+                    "title": "Catalogues des jeux de données ouvertes | data.europa.eu"
+                },
+                "description": "Vous pouvez télécharger, partager et analyser des jeux de données par catalogue. Explorez des données issues de plus de 80 catalogues de données provenant d’institutions officielles en Europe."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Bon",
                     "excellentScoring": "Excellent"
                 },
-                "publisher": "@: message.metadata.éditeur",
+                "publisher": "Éditeur",
                 "license": "Licences",
                 "keywords": "Mots-clés",
                 "categories": "Catégories",
@@ -777,7 +581,11 @@
             "countMessage": "jeux de données trouvés pour ",
             "foundDatasetsSingular": "1 ensemble de données trouvé",
             "meta": {
-                "translationNotComplete": "Traduction inachevée"
+                "translationNotComplete": "Traduction inachevée",
+                "page": {
+                    "title": "Jeux de données ouvertes de l'UE | data.europa.eu"
+                },
+                "description": "Le plus grand portail de jeux de données ouvertes en Europe. Explorez les jeux de données de l’UE par pays, par institution, par catalogue, par catégorie, par mot-clé, etc."
             },
             "geoBoundsMessageRemove": "Fermez cette notification pour supprimer la limitation ou utiliser la fonction de réinitialisation",
             "createDataset": "Créer un jeu de donnes",
