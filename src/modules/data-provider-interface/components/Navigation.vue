@@ -10,6 +10,9 @@
       </div>
       <div class="right-form-nav">
 
+        <!-- DELETE DISTRIBUTION -->
+        <FormulateInput type="button" label="Delete Distribution" @click="handleDeleteDistribution()" v-if="isDistribution" class="mr-2"></FormulateInput>
+
         <!-- PUBLISH NEW CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || getMandatoryStatus({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
@@ -86,6 +89,11 @@ export default {
           message: 'Are your sure you want to clear the form?',
           callback: this.clearStorage,
         },
+        deleteDistribution: {
+          confirm: 'Delete Distribution',
+          message: 'Are you sure you want to delete the distribution? The whole content will be deleted permanently!',
+          callback: this.deleteCurrentDistribution,
+        }
       },
       property: this.$route.params.property,
       page: this.$route.params.page,
@@ -136,6 +144,10 @@ export default {
       // overview part of url not given as route parameter
       const path = this.$route.path;
       return path.includes('/overview');
+    },
+    isDistribution() {
+      const isDistribution = this.property === 'distributions';
+      return isDistribution;
     }
   },
   methods: {
@@ -149,6 +161,7 @@ export default {
     ...mapActions('dpiStore', [
       'convertToRDF',
       'clearAll',
+      'deleteDistribution',
     ]),
     closeModal() {
       $('#modal').modal('hide');
@@ -173,9 +186,18 @@ export default {
       this.modal = this.modals.clear;
       $('#modal').modal({ show: true });
     },
+    handleDeleteDistribution() {
+      this.modal = this.modals.deleteDistribution;
+      $('#modal').modal({ show: true });
+    },
     clearStorage() {
       this.closeModal();
       this.$emit('clearStorage'); // clear gets called within main DPI component
+    },
+    deleteCurrentDistribution(){
+      this.distDelete = true;
+      this.deleteDistribution(this.id);
+      this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
     },
     previous() {
       let currentPage;
