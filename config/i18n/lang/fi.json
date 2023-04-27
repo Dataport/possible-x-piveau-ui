@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "SYÖTÄ JULKAISUTIEDOT TÄHÄN"
+        },
+        "cookieConsent": {
+            "text": "Käytämme evästeitä tällä sivustolla parantaaksemme käyttäjäkokemusta"
         }
     }
 }

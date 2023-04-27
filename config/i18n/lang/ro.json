@@ -772,6 +772,10 @@
         },
         "imprint": {
             "msg": "INTRODUCEȚI MARCAREA AICI"
+        },
+        "cookieConsent": {
+            "text": "Acest site folosește cookie-uri pentru a îmbunătăți experiența dumneavoastră de utilizator",
+            "more": "Mai multe informații"
         }
     }
 }

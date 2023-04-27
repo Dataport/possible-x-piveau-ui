@@ -772,6 +772,10 @@
         },
         "imprint": {
             "msg": "SEM VLOŽTE TIRÁŽ"
+        },
+        "cookieConsent": {
+            "text": "V rámci zkvalitňování našich služeb uživatelům na těchto stránkách používáme cookies",
+            "more": "Více informací"
         }
     }
 }

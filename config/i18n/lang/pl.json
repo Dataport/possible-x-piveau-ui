@@ -772,6 +772,14 @@
         },
         "imprint": {
             "msg": "WSTAW ODCISK TUTAJ"
+        },
+        "cookieConsent": {
+            "more": "Więcej informacji",
+            "text": "Używamy plików cookie, aby zoptymalizować korzystanie z tej strony",
+            "accept": "Akceptuj"
+        },
+        "notFound": {
+            "error": "Błąd"
         }
     }
 }

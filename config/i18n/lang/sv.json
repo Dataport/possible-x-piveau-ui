@@ -772,6 +772,11 @@
         },
         "imprint": {
             "msg": "INFOGA IMPRESSUM HÄR"
+        },
+        "cookieConsent": {
+            "accept": "Accepterar",
+            "decline": "Nej, tack",
+            "text": "På den här sidan använder vi cookies för att förbättra din upplevelse."
         }
     }
 }

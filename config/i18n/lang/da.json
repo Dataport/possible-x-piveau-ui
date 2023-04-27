@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "INDSÆT IMPRESSUM HER"
+        },
+        "cookieConsent": {
+            "text": "Vi benytter cookies på dette website for at forbedre din brugeroplevelse"
         }
     }
 }
