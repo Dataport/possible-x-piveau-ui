@@ -57,7 +57,7 @@ const dcatapProperties = {
           '@change': true,
         },
         {
-          identifier: 'language',
+          identifier: 'dctTitle',
           value: 'en',
           type: 'select',
           validation: 'required',

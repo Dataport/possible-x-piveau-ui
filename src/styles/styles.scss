@@ -323,7 +323,7 @@ body::-webkit-scrollbar {
   }
 
   .selectLangField {
-
+    width: 20%;
     span {
       display: none !important;
     }
@@ -364,9 +364,9 @@ body::-webkit-scrollbar {
       display: none !important
     }
 
-    // .formulate-input-help {
-    //   display: none !important;
-    // }
+    .formulate-input-help {
+      position: absolute;
+    }
   }
 
 }
