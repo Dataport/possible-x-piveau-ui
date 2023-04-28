@@ -533,7 +533,8 @@
             "noResult": "Keine Datensätze gefunden für {query}",
             "findLocation": "Nach Ort filtern",
             "searchBar": {
-                "placeholder": "Nach Datensätzen suchen"
+                "placeholder": "Nach Datensätzen suchen",
+                "icon": "suchen"
             },
             "createCatalogue": "Katalog erstellen",
             "saveQuery": "Suchanfrage speichern"
@@ -685,7 +686,8 @@
         "catalog": {
             "loadingMessage": "Kataloge werden abgerufen...",
             "searchBar": {
-                "placeholder": "Suche nach Katalogen"
+                "placeholder": "Suche nach Katalogen",
+                "icon": "suchen"
             },
             "geoBoundsMessageRemove": "Schließen Sie diese Meldung, um die Einschränkung zu entfernen \noder benutzen Sie die Reset Funktion.",
             "countMessage": "Kataloge gefunden"
