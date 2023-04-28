@@ -3,7 +3,7 @@
         v-on="$listeners" class="w-100">
 
         <div class="d-flex w-100 langStringWrap">
-            <a class="p-1 pl-3 d-flex align-items-center">
+            <!-- <a class="p-1 pl-3 d-flex align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                     class="bi bi-globe-americas" viewBox="0 0 16 16">
                     <path
@@ -12,7 +12,8 @@
                 <select v-model="locale">
                     <option v-for="lang in Object.keys(languages)" :key="lang" :value="lang">{{ languages[lang] }}</option>
                 </select>
-            </a>
+            </a> -->
+            
             <FormulateInput type="text" :options="context.options" :name="context.name"
                 :placeholder="context.attributes.placeholder" class="">
             </FormulateInput>

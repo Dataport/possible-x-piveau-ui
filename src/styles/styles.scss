@@ -185,6 +185,7 @@ body::-webkit-scrollbar {
 #navbar-toggle {
   margin-bottom: 0 !important;
 }
+
 // New Styles !!!
 .formulate-input-group-repeatable {}
 
@@ -253,19 +254,18 @@ body::-webkit-scrollbar {
 
   }
 
-  button:hover {
-    
-  }
+  button:hover {}
+
   button:hover::after {
     // transform: rotate(45deg);
     // right: 40%;
-   scale: 1.2;
+    scale: 1.1;
   }
 
   button:hover::before {
     // transform: rotate(-45deg);
     // right: 15%;
-    scale: 1.2;
+    scale: 1.1;
   }
 
   button {
@@ -282,20 +282,94 @@ body::-webkit-scrollbar {
     display: none !important;
   }
 }
-.langStringWrap{
-  .formulate-input{
-    
-    
+
+.langStringWrap {
+  .formulate-input {
+
+
     width: 100% !important
   }
-  input{
+
+  input {
     border-radius: 0 5px 5px 0 !important;
-    border-left:none !important; 
+    border-left: none !important;
   }
-  .formulate-input-element{
+
+  .formulate-input-element {
     margin: 0 !important;
     height: 100%
   }
-} 
+}
+
+.langStringInput {
+  .formulate-input-group-repeatable {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .inputTextfield {
+    input {
+      border-left: none !important;
+      border-radius: 0 5px 5px 0 !important;
+    }
+
+    span {
+      display: none !important;
+    }
+
+    .formulate-input-help {
+      display: none !important;
+    }
+  }
+
+  .selectLangField {
+
+    span {
+      display: none !important;
+    }
+
+    div:before {
+      display: none !important
+    }
+
+    .formulate-input-element--select {
+      border-radius: 5px 0 0 5px !important;
+      border: 1px solid #cecece;
+      padding-left: 2.5em !important;
+      
+    }
+
+    select {
+      border: none !important;
+
+      font-size: 0.8em !important;
+      padding-right: 0 !important;
+
+    }
+    .formulate-input-element--select:after {
+      content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 20%;
+      left: 10%;
+    }
+
+    .formulate-input-element--text {
+      margin-bottom: 0 !important;
+
+    }
+
+    .infoButton {
+      display: none !important
+    }
+
+    // .formulate-input-help {
+    //   display: none !important;
+    // }
+  }
+
+}
+
 // import empty theme after styles are loaded
 @import "empty_theme";
