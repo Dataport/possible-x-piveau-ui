@@ -26,10 +26,11 @@ import DistributionDescription from "./datasetDetails/distributions/distribution
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
 
-import DistributionOptionsDropdown from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
-import DistributionDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownload";
-import LinkedDataButtonsDropdown from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
+import DistributionOptionsDropdown from "./datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
+import DistributionDownload from "./datasetDetails/distributions/distributionActions/DistributionDownload";
+import LinkedDataButtonsDropdown from "./datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
 
+import DatasetDetailsNavigation from './datasetDetails/navigation/DatasetDetailsNavigation.vue'
 
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
@@ -188,6 +189,7 @@ export {
   DatasetsFacets,
   Pagination,
   CataloguesFacets,
+  DatasetDetailsNavigation,
   SubNavigation,
   SelectedFacetsOverview,
   DatasetsTopControls,
