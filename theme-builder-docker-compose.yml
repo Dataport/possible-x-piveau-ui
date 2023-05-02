@@ -1,12 +1,16 @@
 version: '3.3'
 services:
     hub-ui-theme-builder:
-        image:            'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui-2/theme-builder:latest'
+        image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/theme-builder:latest'
         volumes:
             - 'src:/App/src'
             - 'public:/App/public'
             - 'html:/usr/share/nginx/html/'
         restart: "no"
+        deploy:
+          restart_policy:
+            condition: on-failure
+            max_attempts: 3
         logging:
             options:
                 max-size: 1g

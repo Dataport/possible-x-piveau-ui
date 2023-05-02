@@ -56,21 +56,21 @@ register theme-builder as latest:
 # Theme builder start
 #
 
-register theme-docker as latest:
-  stage: build
-  tags:
-    - dind
-  image: docker:latest
-  variables:
-    DOCKER_DRIVER: overlay2
-  services:
-    - docker:dind
-  only:
-    - theme-docker
-  script:
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - docker build --pull -f theme-dockerfile -t "${CI_REGISTRY_IMAGE}/theme":latest .
-    - docker push "${CI_REGISTRY_IMAGE}/theme":latest
+# register theme-docker as latest:
+#   stage: build
+#   tags:
+#     - dind
+#   image: docker:latest
+#   variables:
+#     DOCKER_DRIVER: overlay2
+#   services:
+#     - docker:dind
+#   only:
+#     - theme-docker
+#   script:
+#     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+#     - docker build --pull -f theme-dockerfile -t "${CI_REGISTRY_IMAGE}/theme":latest .
+#     - docker push "${CI_REGISTRY_IMAGE}/theme":latest
 
 #
 # Theme builder end
