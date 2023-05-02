@@ -1,7 +1,7 @@
 version: '3.3'
 services:
     hub-ui-theme-builder:
-        image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/theme-builder:latest'
+        image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui/theme-builder:latest'
         volumes:
             - 'src:/App/src'
             - 'public:/App/public'
