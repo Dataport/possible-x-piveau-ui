@@ -1520,37 +1520,35 @@
                 }
             },
             "createDataset": "Create Dataset",
-            "createNewDataset": "Create a new Dataset",
-            "createNewCatalogue": "Create a new Catalogue",
             "defineDatasetProperties": "Define Dataset properties",
             "createDistributions": "Create Distributions",
             "generalInformation": "General Information",
             "additionalInformation": "Additional Information",
             "menu": {
-                "loggedInAs": "Logged in as",
-                "deleteDataset": "Delete Dataset",
-                "editDataset": "Edit Dataset",
-                "editCatalogue": "Edit Catalogue",
-                "setToDraft": "Set to draft",
-                "registerDoi": "Register DOI",
-                "logout": "Logout",
-                "dpi": "Data Provider Interface",
-                "draftDatasets": "Draft Datasets",
-                "datasetDeletion":
-                {
-                    "message": "Are you sure you want to delete this dataset? This can not be reverted.",
-                    "confirm": "Delete dataset (irreversible)"
+                "registerADoi": {
+                    "confirm": "Register DOI (irreversible)",
+                    "message": "Are you sure you want to register a DOI? This can not be reverted."
                 },
                 "markAsDraft": {
-                    "message": "Are you sure you want to mark this dataset as draft?",
-                    "confirm": "Set to draft"
+                    "confirm": "Set to draft",
+                    "message": "Are you sure you want to mark this dataset as draft?"
                 },
-                "registerADoi": {
-                    "message": "Are you sure you want to register a DOI? This can not be reverted.",
-                    "confirm": "Register DOI (irreversible)"
-                }
-            }
-
+                "datasetDeletion": {
+                    "confirm": "Delete dataset (irreversible)",
+                    "message": "Are you sure you want to delete this dataset? This can not be reverted."
+                },
+                "draftDatasets": "Draft Datasets",
+                "dpi": "Data Provider Interface",
+                "registerDoi": "Register DOI",
+                "logout": "Logout",
+                "setToDraft": "Set to draft",
+                "editCatalogue": "Edit Catalogue",
+                "editDataset": "Edit Dataset",
+                "deleteDataset": "Delete Dataset",
+                "loggedInAs": "Logged in as"
+            },
+            "createNewCatalogue": "Create a new Catalogue",
+            "createNewDataset": "Create a new Dataset"
         },
         "datasetDetails": {
             "subnav": {
@@ -2000,7 +1998,8 @@
             "noResult": "No datasets found",
             "findLocation": "Filter by location",
             "searchBar": {
-                "placeholder": "Search"
+                "placeholder": "Search",
+                "icon": "search"
             },
             "createCatalogue": "Create Catalogue",
             "saveQuery": "Save Query"
@@ -2156,7 +2155,8 @@
         "catalog": {
             "loadingMessage": "Catalogs are being retrieved...",
             "searchBar": {
-                "placeholder": "Search for catalogues"
+                "placeholder": "Search for catalogues",
+                "icon": "search"
             },
             "geoBoundsMessageRemove": "Close this notification to remove the limitation or use the reset function.",
             "countMessage": "Catalogues found"
@@ -2179,6 +2179,20 @@
         },
         "imprint": {
             "msg": "INSERT IMPRINT HERE"
+        },
+        "cookieConsent": {
+            "more": "More info",
+            "text": "We use cookies on this site to enhance your user experience",
+            "decline": "Accept only essential cookies",
+            "accept": "Accept all cookies"
+        },
+        "notFound": {
+            "contactUsAbout": "Contact us about this error message.",
+            "requested": {
+                "parttwo": "dataset search page",
+                "partone": "The requested resource has not been found. You can start again from the"
+            },
+            "error": "Error"
         }
     }
 }

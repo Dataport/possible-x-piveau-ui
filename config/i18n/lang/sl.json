@@ -773,6 +773,9 @@
         },
         "imprint": {
             "msg": "ODTIS VSTAVITE TUKAJ"
+        },
+        "cookieConsent": {
+            "text": "Na tej strani uporabljamo piškotke, da bi izboljšali vašo uporabniško izkušnjo"
         }
     }
 }

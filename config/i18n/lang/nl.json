@@ -773,6 +773,11 @@
         },
         "imprint": {
             "msg": "AFDRUK HIER INVOEGEN"
+        },
+        "cookieConsent": {
+            "accept": "Accepteren",
+            "more": "Meer informatie",
+            "text": "Op deze website gebruiken wij cookies om uw gebruikservaring te verbeteren"
         }
     }
 }

@@ -772,6 +772,12 @@
         },
         "imprint": {
             "msg": "KOLOFON BESZÚRÁSA IDE"
+        },
+        "cookieConsent": {
+            "accept": "Elfogadás",
+            "decline": "Köszönöm, nem",
+            "text": "Ez az oldal cookie-kat (sütiket) használ a felhasználói élmény javítása érdekében",
+            "more": "További információk"
         }
     }
 }

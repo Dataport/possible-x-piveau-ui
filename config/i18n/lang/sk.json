@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "SEM VLOŽTE PEČIATKU"
+        },
+        "cookieConsent": {
+            "text": "Na zlepšenie používateľského zážitku využívame súbory cookies."
         }
     }
 }

@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "OVDJE UMETNITE OTISAK"
+        },
+        "cookieConsent": {
+            "text": "Koristimo kolačiće na ovoj stranici kako bismo poboljšali vaše korisničko iskustvo"
         }
     }
 }

@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "LEIDIMO DUOMENIS ĮRAŠYKITE ČIA"
+        },
+        "cookieConsent": {
+            "text": "Naudojame slapukus siekdami užtikrinti, kad jūsų patirtis šioje svetainėje būtų geriausia"
         }
     }
 }

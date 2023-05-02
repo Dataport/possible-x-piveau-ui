@@ -772,6 +772,9 @@
         },
         "imprint": {
             "msg": "IEVIETOJIET NOSPIEDUMU ŠEIT"
+        },
+        "cookieConsent": {
+            "text": "Mēs šajā vietnē izmantojam sīkdatnes, lai padarītu to ērtāku lietotājiem"
         }
     }
 }
