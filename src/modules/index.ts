@@ -94,6 +94,7 @@ import SelectedFacetsOverview from './facets/SelectedFacetsOverview.vue';
 import { truncate, getImg, getCountryFlagImg, getTranslationFor } from './utils/helpers';
 import DatasetsTopControls from "./datasets/DatasetsTopControls.vue";
 import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
+import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue'
 import SubNavigation from './navigation/SubNavigation.vue';
 import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
@@ -186,6 +187,7 @@ export {
   DatasetsFacets,
   Pagination,
   CataloguesFacets,
+  DatasetDetailsNavigation,
   SubNavigation,
   SelectedFacetsOverview,
   DatasetsTopControls,
