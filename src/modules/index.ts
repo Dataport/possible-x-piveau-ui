@@ -1,5 +1,6 @@
 // @ts-nocheck
 import AppLink from "./widgets/AppLink.vue";
+import Tooltip from "./widgets/Tooltip.vue";
 import PropertyValue from "./widgets/PropertyValue.vue";
 
 import AppSnackbar from './modal/AppSnackbar.vue';
@@ -99,6 +100,7 @@ import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
 export {
   AppLink,
+  Tooltip,
   PropertyValue,
   AppSnackbar,
   AppConfirmationDialog,
