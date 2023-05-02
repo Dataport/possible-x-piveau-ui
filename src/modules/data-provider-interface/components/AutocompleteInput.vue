@@ -137,13 +137,11 @@ export default {
       if (this.autocomplete.selected) return [];
       return this.autocomplete.suggestions.slice(0, 10);
     }
-    
+
   },
   async mounted() {
-    console.log(this.autocomplete.text);
-    if (this.autocomplete.text != "") {
-      this.choice = true;
-    }
+
+
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
@@ -208,7 +206,6 @@ export default {
               resource: r.resource,
             }));
             this.autocomplete.suggestions = results;
-            // console.log(results);
           });
 
         }
