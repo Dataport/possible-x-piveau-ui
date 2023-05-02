@@ -7,7 +7,7 @@ Such theme consists of a reduced set of files that can be modified with a minima
 
 In this case this is achieved by encapsulating most of the needed vue.js files into a docker image. Users only need to modify the folders "src" and "public". Everything else will be automatically delivered through the docker images.
 
-## How does it followKeywordLinks
+## How does it work 
 
 1. Use the theme-builder-docker-compose.yml to launch the needed containers with the correspoinding volumes.
 2. An instance of piveau-hub-ui will be launched in the port 17080.
