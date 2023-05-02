@@ -26,10 +26,11 @@ import DistributionDescription from "./datasetDetails/distributions/distribution
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
 
-import DistributionOptionsDropdown from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
-import DistributionDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownload";
-import LinkedDataButtonsDropdown from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
+import DistributionOptionsDropdown from "./datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
+import DistributionDownload from "./datasetDetails/distributions/distributionActions/DistributionDownload";
+import LinkedDataButtonsDropdown from "./datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
 
+import DatasetDetailsNavigation from './datasetDetails/navigation/DatasetDetailsNavigation.vue'
 
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
@@ -94,7 +95,6 @@ import SelectedFacetsOverview from './facets/SelectedFacetsOverview.vue';
 import { truncate, getImg, getCountryFlagImg, getTranslationFor } from './utils/helpers';
 import DatasetsTopControls from "./datasets/DatasetsTopControls.vue";
 import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
-import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue'
 import SubNavigation from './navigation/SubNavigation.vue';
 import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
