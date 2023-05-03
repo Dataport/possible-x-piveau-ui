@@ -129,7 +129,14 @@ export default {
       return !this.isOverviewPage && this.page === 'distoverview';
     },
     isPreviousPage() {
-      const currentPageIndex = this.getNavSteps[this.property].indexOf(this.page);
+      let currentPageIndex;
+      if (this.page) {
+        currentPageIndex = this.getNavSteps[this.property].indexOf(this.page);
+      } else {
+        // overview page has no 'page' parameter -> index would be -1
+        // set to > 0 to enable previous button
+        if (this.$route.path.endsWith('overview')) currentPageIndex = 99;
+      }      
       return currentPageIndex > 0;
     },
     isOverviewPage() {
