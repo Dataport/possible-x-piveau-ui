@@ -98,10 +98,12 @@ export default {
       'addDistribution',
       'saveLocalstorageValues',
       'deleteDistribution',
+      'setDeleteDistributionInline',
     ]),
     truncate,
     deleteDist() {
       this.deleteDistribution(this.distributionToDelete);
+      this.setDeleteDistributionInline(true);
       $('#deleteDistributionModal').modal('hide');
       this.$router.push({ path: `${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview`, query: { locale: this.$route.query.locale } }).catch(() => { });
     },
