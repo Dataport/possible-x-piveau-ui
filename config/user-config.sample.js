@@ -190,13 +190,13 @@ const glueConfig = {
         descriptionMaxChars: 250,
         showValidationButton: false, // TODO: Make use of this property #2764
       },
-      // Distribution download as feature
+      // Distribution file conversion feature
       downloadAs: {
         // If true, enable it
         enable: true,
         // Corsproxy url
         proxyUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
-        // Convertion url
+        // Conversion url
         url: 'https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert',
         // Converion formats
         conversionFormats: [
@@ -216,7 +216,7 @@ const glueConfig = {
           similar: { start: 20, end: 25 },
           lessSimilar: { start: 25, end: 35 },
         },
-      },  
+      },
       pages: {
         isVisible: false,
         displayAll: false,

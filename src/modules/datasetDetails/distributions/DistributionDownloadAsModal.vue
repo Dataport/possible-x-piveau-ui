@@ -4,7 +4,7 @@
          <div class="modal-content rounded-0">
             <div class="modal-header">
                <h5 class="modal-title" id="exampleModalLabel">{{ $t('message.datasetDetails.datasets.modal.downloadAs') }} ...</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <button type="button" id="modal-close-btn" data-dismiss="modal" class="close" aria-label="Close">
                   {{ $t('message.datasetDetails.datasets.modal.close') }}
                   <span aria-hidden="true" class="close-icon rounded-circle">
                      <svg xmlns="http://www.w3.org/2000/svg" fill="white" xmlns:xlink="http://www.w3.org/1999/xlink" height="8" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="8" xml:space="preserve">
@@ -82,9 +82,11 @@
    </div>
 </template>
 
-<script>
+<script >
 import $ from 'jquery'
-import { mapGetters } from 'vuex'
+import {
+    mapGetters
+} from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -100,6 +102,7 @@ export default {
             progress: '0',
             downloadBtnText: 'Download',
             errorMsg: '',
+            source: null,
         }
     },
     computed: {
@@ -109,6 +112,13 @@ export default {
         ])
     },
     mounted() {
+        // Add a listener to the modal close button
+        document.getElementById('modal-close-btn').addEventListener('click', () => {
+            if (this.source) {
+                // Cancel the ongoing request
+                this.source.cancel('Download was canceled by user');
+            }
+        });
         const scope = this;
         $('#downloadAsModal').on('hide.bs.modal', () => {
             scope.selected = scope.errorMsg = '';
@@ -131,7 +141,6 @@ export default {
                     window.open(this.getDistributionDownloadAs.accessUrl[0]);
                     this.done = true;
                 }
-
             } else {
                 this.converting = true;
                 this.downloadBtnText = 'Converting...';
@@ -148,57 +157,63 @@ export default {
                     const uri = encodeURIComponent(`${this.$env.content.datasetDetails.downloadAs.url}/${this.getDistributionDownloadAs.format.id.toLowerCase()}/${this.selected}`);
                     const downloadOrAccessUrl = encodeURIComponent(url);
 
+                    // Create a cancel token
+                    const CancelToken = axios.CancelToken;
+                    this.source = CancelToken.source();
+
                     axios({
                             url: `${this.$env.content.datasetDetails.downloadAs.proxyUrl}/?uri=${uri}/?url=${downloadOrAccessUrl}`,
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/octet-stream; charset=UTF-8'
                             },
+                            // Add the cancel token to the request config
+                            cancelToken: this.source.token,
                         }).then((res) => {
                             this.progress = '8' + this.randomNumber();
                             this.converted = true;
                             this.downloadBtnText = 'Downloading...';
-                            setTimeout(() => {
-                                this.progress = '100';
-                                this.readyForDownload = true;
-                                const locale = this.$route.query.locale;
-                                const FILE = window.URL.createObjectURL(new Blob([res.data]));
-                                let docUrl = document.createElement('a');
-                                docUrl.href = FILE;
-                                docUrl.setAttribute('download', this.setFileName(locale));
-                                document.body.appendChild(docUrl);
-                                this.done = true;
 
-                                docUrl.click();
-                            }, 3000)
+                            this.progress = '100';
+                            this.readyForDownload = true;
+                            const locale = this.$route.query.locale;
+                            const FILE = window.URL.createObjectURL(new Blob([res.data]));
+                            let docUrl = document.createElement('a');
+                            docUrl.href = FILE;
+                            docUrl.setAttribute('download', this.setFileName(locale));
+                            document.body.appendChild(docUrl);
+                            this.done = true;
+
+                            docUrl.click();
                         })
                         .catch((e) => {
-                            if (e.response) this.errorMsg = e.response.data;
-
-                            this.converting = false;
-                            this.error = true;
-                            this.downloadBtnText = 'Download';
+                            if (axios.isCancel(e)) {
+                                console.log('Request canceled:', e.message);
+                            } else {
+                                if (e.response) this.errorMsg = e.response.data;
+                                this.error = true;
+                                this.downloadBtnText = 'Download';
+                            }
                         });
                 }
             }
         },
         onChange() {
-          this.done = this.converted = this.converting = this.readyForDownload = this.error = false;
-          this.downloadBtnText = 'Download';
+            this.done = this.converted = this.converting = this.readyForDownload = this.error = false;
+            this.downloadBtnText = 'Download';
         },
         // 0 - 9
         randomNumber() {
-          const max = 10;
-          return Math.floor(Math.random() * max);
+            const max = 10;
+            return Math.floor(Math.random() * max);
         },
         setFileName(locale) {
-          if (this.getDistributionDownloadAs.title[locale]) {
-            return this.getDistributionDownloadAs.title[locale].split('.')[0] + '.' + this.selected;
-          } else {
-            return Object.values(this.getDistributionDownloadAs.title)[0].split('.')[0] + '.' + this.selected;
-          }
+            if (this.getDistributionDownloadAs.title[locale]) {
+                return this.getDistributionDownloadAs.title[locale].split('.')[0] + '.' + this.selected;
+            } else {
+                return Object.values(this.getDistributionDownloadAs.title)[0].split('.')[0] + '.' + this.selected;
+            }
         }
-
     }
 }
 </script>
