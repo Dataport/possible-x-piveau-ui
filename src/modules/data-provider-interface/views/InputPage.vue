@@ -79,6 +79,7 @@ export default {
       'getSchema',
       'getMandatoryStatus',
       'getNavSteps',
+      'getDeleteDistributionInline',
     ]),
     getFirstTitleFromForm() {
       return has(this.formValues, 'dct:title')
@@ -111,6 +112,7 @@ export default {
       'addCatalogOptions',
       'clearAll',
       'setMandatoryStatus',
+      'setDeleteDistributionInline',
     ]),
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
@@ -251,8 +253,18 @@ export default {
   beforeRouteUpdate(to, from, next) {
     // Checks if next route within the DPI is a route which does not require mandatory checking
     if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({ property: this.property, id: this.id })) {
-      $('#mandatoryModal').modal({ show: true });
+        // for singular distribution: when deleteing from inline the mandatory check would return false leading to the display of the mandatory-modal
+        // since the distribution is already deleted the mandatory check would alwaysreturn false so by determining if an inline delete happens 
+        // (by checking getDeleteDistributionInline) we skip the display of the modal and grant redirect 
+        if (this.property === 'distributions' && this.getDeleteDistributionInline) {
+          this.setDeleteDistributionInline(false)
+          next();
+        }
+        else $('#mandatoryModal').modal({ show: true });  
     } else {
+      // if there are multiple distributions, the mandatory checker might return true so we don't have to skip the modal display
+      // but we have to set the deleteDistributionInline value to false again
+      this.setDeleteDistributionInline(false)
       next();
     }
   },

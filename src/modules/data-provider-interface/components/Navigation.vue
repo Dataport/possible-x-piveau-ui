@@ -162,6 +162,7 @@ export default {
       'convertToRDF',
       'clearAll',
       'deleteDistribution',
+      'setDeleteDistributionInline',
     ]),
     closeModal() {
       $('#modal').modal('hide');
@@ -195,8 +196,8 @@ export default {
       this.$emit('clearStorage'); // clear gets called within main DPI component
     },
     deleteCurrentDistribution(){
-      this.distDelete = true;
       this.deleteDistribution(this.id);
+      this.setDeleteDistributionInline(true);
       this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
     },
     previous() {
