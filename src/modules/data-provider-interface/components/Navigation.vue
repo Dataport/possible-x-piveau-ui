@@ -15,28 +15,16 @@
         <!-- PUBLISH EDITED CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
 
-        <!-- PUBLISH NEW DATASET -->
-        <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateNewDataset" class="mr-2">
+        <!-- PUBLISH DATASET -->
+        <FormulateInput type="button" @click="submit('dataset')" v-if="showDatasetSavingButton" class="mr-2">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
           {{ $t('message.dataupload.publishdataset') }}
         </FormulateInput>
 
-        <!-- SAVE NEW DATASET AS DRAFT -->
-        <FormulateInput type="button" @click="submit('draft')" v-if="showCreateNewDraft" class="mr-2">
+        <!-- SAVE AS DRAFT -->
+        <FormulateInput type="button" @click="submit('draft')" v-if="showDatasetSavingButton" class="mr-2">
           <span v-if="uploading.draft" class="loading-spinner"></span>
           {{ $t('message.dataupload.saveasdraft') }}
-        </FormulateInput>
-
-        <!-- PUBLISH EDITED DATASET -->
-        <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateEditedDataset" class="mr-2">
-          <span v-if="uploading.dataset" class="loading-spinner"></span>
-          {{ $t('message.dataupload.savedataset') }}
-        </FormulateInput>
-
-        <!-- SAVE EDITED DRAFT  -->
-        <FormulateInput type="button" @click="submit('draft')" v-if="showCreateEditedDraft" class="mr-2">
-          <span v-if="uploading.draft" class="loading-spinner"></span>
-          {{ $t('message.dataupload.savedraft') }}
         </FormulateInput>
 
         <!-- NEXT STEP -->
@@ -93,6 +81,10 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('datasetDetails', [
+      'getTitle',
+      'getDescription',
+    ]),
     ...mapGetters('auth', [
       'getIsEditMode',
       'getIsDraft',
@@ -110,17 +102,8 @@ export default {
     showPrevious() {
       return this.isPreviousPage || this.property === 'distributions';
     },
-    showCreateNewDataset() {
-      return this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
-    },
-    showCreateNewDraft() {
-      return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
-    },
-    showCreateEditedDataset() {
-      return this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
-    },
-    showCreateEditedDraft() {
-      return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
+    showDatasetSavingButton() {
+      return this.property !== 'catalogues' && this.getMandatoryStatus({property: this.property, id: this.id});
     },
     showNextLabel() {
       return !(this.isOverviewPage || this.page === 'distoverview');
@@ -247,7 +230,7 @@ export default {
         this.showSnackbar({ message: 'Mandatory Properties missing', variant: 'error' });
         return;
       }
-      console.log("Body data:" + RDFdata);
+
       const datasetId = this.getData(submitProperty)['datasetID'];
       const title = this.getData(submitProperty)['dct:title'];
       const description = this.getData(submitProperty)['dct:description'];
@@ -264,12 +247,30 @@ export default {
       };
 
       if (mode === 'dataset') {
-        uploadUrl = `${this.$env.api.hubUrl}datasets?id=${datasetId}&catalogue=${catalogName}`;
-        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
-        actionName = 'auth/createDataset';
+        // if no edit mode: just publish dataset regularly
+        // if edit mode but no draft: publish/save dataset regularly
+        if (!this.getIsEditMode || (this.getIsEditMode && !this.getIsDraft)) {
+          uploadUrl = `${this.$env.api.hubUrl}datasets?id=${datasetId}&catalogue=${catalogName}`;
+          actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
+          actionName = 'auth/createDataset';
+        } else {
+          // if edit mode and draft: publish user draft (remove from draft database and add to dataset database)-> publishUserDraftById
+          actionParams = {id, catalog };
+          actionName = 'auth/publishUserDraftById';
+        }
+        
       } else if (mode === 'draft') {
-        uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
-        actionName = 'auth/createUserDraft';
+        //if no edit mode: save draft regularly
+        // if edit mode and draft: save draft regularly
+        if (!this.getIsEditMode || (this.getIsEditMode && this.getIsDraft)) {
+          uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
+          actionName = 'auth/createUserDraft';
+        } else {
+          // if edit mode and no draft: save dataset as draft (remove from dataset database and add to draft database)-> putDatasetToDraft
+          actionParams = {id, catalog, title: this.getTitle, description: this.getDescription};
+          actionName = 'auth/putDatasetToDraft';
+        }
+        
       } else if (mode === 'createcatalogue') {
         uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
         actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl, id: datasetId };
