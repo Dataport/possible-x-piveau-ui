@@ -247,7 +247,6 @@ export default {
     async submit(mode) {
       this.uploading[mode] = true;
       this.$Progress.start();
-
       // adapt submit property for case of distributions
       let submitProperty;
       if (this.property === 'distributions') {
@@ -257,9 +256,6 @@ export default {
       }
 
       const RDFdata = await this.convertToRDF(submitProperty).then((response) => {return response;});
-
-
-
       const rtpToken = this.getUserData.rtpToken;
 
       if (!this.getMandatoryStatus({ property: this.property, id: this.id })) {
@@ -267,7 +263,7 @@ export default {
         this.showSnackbar({ message: 'Mandatory Properties missing', variant: 'error' });
         return;
       }
-
+      console.log("Body data:" + RDFdata);
       const datasetId = this.getData(submitProperty)['datasetID'];
       const title = this.getData(submitProperty)['dct:title'];
       const description = this.getData(submitProperty)['dct:description'];

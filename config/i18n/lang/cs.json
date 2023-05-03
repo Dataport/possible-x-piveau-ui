@@ -136,168 +136,6 @@
                 "information": "Informace"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Zdroj"
-                    },
-                    "type": {
-                        "placeholder": "Zástupný text datového souboru"
-                    },
-                    "subject": {
-                        "help": "Kategorie datové sady."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "Adresa URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Kontaktní místo datového souboru Adresa ulice upřednostňovaného textu"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Datový soubor Pozměňovací návrh k umisťovacímu textu"
-                    },
-                    "isVersionOf": {
-                        "label": "Je verze"
-                    },
-                    "provenance": {
-                        "label": "Provenience"
-                    },
-                    "language": {
-                        "label": "Jazyk"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Odkaz na zástupce, který má nějakou formu odpovědnosti za zdroj"
-                    },
-                    "temporal": {
-                        "placeholder": "Datový soubor Časový zástupný text"
-                    },
-                    "accessRights": {
-                        "info": "Tato vlastnost se týká informací, které uvádějí, zda je datový soubor otevřenými daty, má omezení přístupu nebo není veřejný."
-                    },
-                    "identifier": {
-                        "help": "Tato vlastnost obsahuje hlavní identifikátor souboru údajů."
-                    },
-                    "versionInfo": {
-                        "help": "Číslo verze souboru údajů."
-                    },
-                    "hasVersion": {
-                        "info": "Vztahuje se na související datovou sadu, která je verzí, vydáním nebo modifikací uvedené sady."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Přidat Způsobení:"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Kvalifikované vztahy"
-                    },
-                    "conformsToTitle": {
-                        "label": "Název"
-                    },
-                    "creatorType": {
-                        "label": "Typ"
-                    },
-                    "spatial": {
-                        "info": "Tato vlastnost se vztahuje k zeměpisné oblasti, na kterou se datový soubor vztahuje."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Měsíc časového rozlišení"
-                    },
-                    "contactPointName": {
-                        "label": "Název"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Datový soubor Temporal Resolution Minute placeholder text"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-mail"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Název organizace"
-                    },
-                    "contactPoint": {
-                        "help": "Tato vlastnost obsahuje kontaktní údaje."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Datový soubor Temporal Resolution Day placeholder text"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Datový soubor Provenance Text zástupný text"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Datový soubor Publiserový zástupný text typu"
-                    },
-                    "datasetID": {
-                        "label": "ID datového souboru"
-                    },
-                    "modified": {
-                        "label": "Pozměněno"
-                    },
-                    "publisher": {
-                        "label": "Vydavatel"
-                    },
-                    "issued": {
-                        "help": "Datum formálního vydání (např. zveřejnění) datového souboru. Přijatelné formáty dat: RRRR-MM-DD, RRRR-MM, RRRR."
-                    },
-                    "publisherHomepage": {
-                        "label": "Úvodní stránka"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minimální prostorové oddělení, které lze obnovit v datovém souboru."
-                    },
-                    "mediaType": {
-                        "placeholder": "Zástupný text typu distribučního média"
-                    },
-                    "language": {
-                        "help": "Jazyk používaný při distribuci."
-                    },
-                    "title": {
-                        "info": "Tato nemovitost obsahuje jméno přidělené distribuci. Tuto vlastnost lze opakovat u paralelních jazykových verzí popisu."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Distribuční záložný text „Consumsum“"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Distribuce Politika Url placeholder text"
-                    },
-                    "page": {
-                        "help": "Stránka nebo dokument o tomto rozdělení."
-                    },
-                    "availability": {
-                        "placeholder": "Odstupňovaný text k distribuci"
-                    },
-                    "format": {
-                        "placeholder": "Úvodní text ve formátu rozdělení"
-                    },
-                    "conformsTo": {
-                        "add-label": "Přidat Souladu"
-                    },
-                    "issued": {
-                        "label": "Vydané"
-                    },
-                    "description": {
-                        "help": "Tato nemovitost obsahuje volně textový účet distribuce."
-                    },
-                    "hasPolicy": {
-                        "help": "Politika vyjadřující práva."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Měsíc časového rozlišení"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Datový soubor Temporal Resolution Hodina placeholder text"
-                    },
-                    "licence": {
-                        "help": "Licence, na jejímž základě je distribuce poskytována."
-                    },
-                    "date": {
-                        "label": "Datum"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Touto vlastností se rozumí související katalog, v němž je uvedený katalog fyzicky nebo logicky zahrnut."
-                    },
-                    "language": {
-                        "help": "Jazyk používaný v textových metadatech popisujících názvy, popisy atd."
-                    },
-                    "spatial": {
-                        "info": "Tato vlastnost se vztahuje na zeměpisnou oblast, na kterou se vztahuje katalog."
-                    },
-                    "hasPart": {
-                        "help": "Tato vlastnost se týká souvisejícího katalogu, který je součástí popsaného katalogu."
-                    },
-                    "creator": {
-                        "add-label": "Přidat tvůrce"
-                    },
-                    "creatorName": {
-                        "label": "Název"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Název uvedený v katalogovém záznamu. "
-                    },
-                    "description": {
-                        "info": "Tato vlastnost obsahuje volný textový účet záznamu. Tuto vlastnost lze opakovat u paralelních jazykových verzí popisu."
-                    },
-                    "licence": {
-                        "placeholder": "Zástupný text licence na katalog"
-                    },
-                    "modified": {
-                        "label": "Pozměněno"
-                    },
-                    "licenceDescription": {
-                        "label": "Popis licence"
-                    },
-                    "homepage": {
-                        "help": "Internetová stránka, která slouží jako hlavní stránka katalogu."
-                    }
-                },
                 "stepper": {
                     "overview": "Přehled katalogu",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Stahování souborů",
-                    "zipNumberOfFiles": "Zipové číslo souborů",
+                    "zipNumberOfFiles": "Zipové číslo {number} souborů",
                     "waitingForDownload": "(čeká se na stažení)",
                     "downloadProgress": "Stáhněte si pokrok",
                     "notDownloaded": "Nestahováno",
@@ -664,7 +462,13 @@
             },
             "countMessage": "nalezených katalogů pro dotaz ",
             "loadingMessage": "Načítají se katalogy…",
-            "geoBoundsMessageRemove": "Chcete-li omezení odebrat, zavřete toto oznámení nebo použijte funkci resetování."
+            "geoBoundsMessageRemove": "Chcete-li omezení odebrat, zavřete toto oznámení nebo použijte funkci resetování.",
+            "meta": {
+                "page": {
+                    "title": "Katalogy otevřených datových sad | data.europa.eu"
+                },
+                "description": "Stahování, sdílení a analýzy datových sad podle katalogu. Využijte více než 80 datových katalogů z oficiálních institucí v Evropě."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Dobré",
                     "excellentScoring": "Vynikající"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Vydavatel",
                 "license": "Licencí",
                 "keywords": "Klíčová slova",
                 "categories": "Kategorie",
@@ -777,7 +581,11 @@
             "countMessage": "nalezených souborů dat pro dotaz ",
             "foundDatasetsSingular": "1 nalezený datový soubor",
             "meta": {
-                "translationNotComplete": "Překlad není úplný"
+                "translationNotComplete": "Překlad není úplný",
+                "page": {
+                    "title": "Otevřené datové sady EU | Oficiální portál dat EU"
+                },
+                "description": "Největší portál otevřených datových sad v Evropě. Prozkoumejte datové sady EU podle jednotlivých zemí, orgánů a institucí, katalogů, kategorií, klíčových slov atd."
             },
             "geoBoundsMessageRemove": "Chcete-li omezení odebrat, zavřete toto oznámení nebo použijte funkci resetování.",
             "createDataset": "Vytvořit soubor dat",
@@ -964,6 +772,10 @@
         },
         "imprint": {
             "msg": "SEM VLOŽTE TIRÁŽ"
+        },
+        "cookieConsent": {
+            "text": "V rámci zkvalitňování našich služeb uživatelům na těchto stránkách používáme cookies",
+            "more": "Více informací"
         }
     }
 }

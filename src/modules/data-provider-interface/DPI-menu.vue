@@ -1,58 +1,58 @@
 <template>
-<div id="wrapper" data-cy="dpi-menu">
-  <nav v-if="visible">
-    <div>
-      <h4 class="text-white">Data Provider Interface</h4>
-    </div>
+  <div id="wrapper" data-cy="dpi-menu">
+    <nav v-if="visible">
+      <div>
+        <h4 class="text-white">{{$t('message.dataupload.menu.dpi')}}</h4>
+      </div>
 
-    <div style="margin-top:1%;">
-      <dropup v-for="(group, index) in menuGroups"
-        :key="`Group${index}`"
-        :groupName="group.group"
-        :groupItems="group.items"
-        :show="$env.content.dataProviderInterface.buttons[group.group]"
-        :isOperator="getUserData.roles.includes('operator')"
-        :isCatalog="group.group === 'Catalogue' ? true : false">
-      </dropup>
-      <ul>
-        <div class="btn-group dropup">
-          <li v-for="(menuItem, index) in menuItems" :key="`Menu${index}`">
-            <button type="button" class="btn btn-default">
-              <!-- Menu items are either buttons or router-link -->
-              <!-- depending if they have a 'to' or 'handler' property -->
-              <component
-                :is="menuItem.handler ? 'button' : 'router-link'"
-                :class="{ 'disabled': menuItem.disabled }"
-                :to="menuItem.to"
-                @click.native="menuItem.handler ? menuItem.handler() : null"
-              >
-              {{menuItem.handler}}
-                {{ menuItem.name }}
-              </component>
-            </button>
-          </li>
-        </div>
-      </ul>
-    </div>
+      <div style="margin-top:1%;">
+        <dropup v-for="(group, index) in menuGroups"
+                :key="`Group${index}`"
+                :groupName="group.group"
+                :groupItems="group.items"
+                :show="$env.content.dataProviderInterface.buttons[group.group]"
+                :isOperator="getUserData.roles.includes('operator')"
+                :isCatalog="group.group === 'Catalogue' ? true : false">
+        </dropup>
+        <ul>
+          <div class="btn-group dropup">
+            <li v-for="(menuItem, index) in menuItems" :key="`Menu${index}`">
+              <button type="button" class="btn btn-default">
+                <!-- Menu items are either buttons or router-link -->
+                <!-- depending if they have a 'to' or 'handler' property -->
+                <component
+                  :is="menuItem.handler ? 'button' : 'router-link'"
+                  :class="{ 'disabled': menuItem.disabled }"
+                  :to="menuItem.to"
+                  @click.native="menuItem.handler ? menuItem.handler() : null"
+                >
+                  {{menuItem.handler}}
+                  {{ menuItem.name }}
+                </component>
+              </button>
+            </li>
+          </div>
+        </ul>
+      </div>
 
 
-    <div v-if="getUserData.userName">
-      <small class="text-white">Logged in as {{ getUserData.userName }}</small><br>
+      <div v-if="getUserData.userName">
+        <small class="text-white">{{ $t('message.dataupload.menu.loggedInAs')}} {{ getUserData.userName }}</small><br>
         <button type="button" class="btn btn-default logout">
-          <router-link :to="{ name: 'Logout'}">Logout</router-link>
+          <router-link :to="{ name: 'Logout'}">{{$t('message.dataupload.menu.logout')}}</router-link>
         </button>
-    </div>
-  </nav>
+      </div>
+    </nav>
 
-  <app-confirmation-dialog
-    id="DPIMenuModal"
-    :loading="modal.loading"
-    :confirm="modal.confirm"
-    @confirm="modal.confirmHandler"
-  >
-    {{ modal.message }}
-  </app-confirmation-dialog>
-</div>
+    <app-confirmation-dialog
+      id="DPIMenuModal"
+      :loading="modal.loading"
+      :confirm="modal.confirm"
+      @confirm="modal.confirmHandler"
+    >
+      {{ modal.message }}
+    </app-confirmation-dialog>
+  </div>
 </template>
 
 <script>
@@ -102,7 +102,7 @@ export default {
           items: [
             {
               key: 'create-dataset',
-              name: 'Create Dataset',
+              name: this.$t('message.dataupload.createDataset'),
               to: {
                 name: 'DataProviderInterface-Input',
                 query: { locale: this.$route.query.locale, edit: false }, // if edit is false -> reset is triggered
@@ -110,14 +110,14 @@ export default {
               },
             },
             {
-              name: 'Delete Dataset',
+              name: this.$t('message.dataupload.menu.deleteDataset'),
               disabled: !this.isLocatedOnAuthorizedDatasetPage,
               handler: () => {
                 this.modal = {
                   ...this.modal,
                   ...{
-                    message: 'Are you sure you want to delete this dataset? This can not be reverted.',
-                    confirm: 'Delete dataset (irreversible)',
+                    message: this.$t('message.dataupload.menu.datasetDeletion.message'),
+                    confirm: this.$t('message.dataupload.menu.datasetDeletion.confirm'),
                     confirmHandler: () => this.handleDelete({ id: this.getID, property: 'datasets', catalog: this.getCatalog.id }),
                   },
                 };
@@ -126,7 +126,7 @@ export default {
             },
             {
               key: 'edit-dataset',
-              name: 'Edit Dataset',
+              name: this.$t('message.dataupload.menu.editDataset'),
               onlyAuthorizedDatasetPage: true,
               disabled: !this.isLocatedOnAuthorizedDatasetPage,
               to: {
@@ -144,14 +144,14 @@ export default {
             },
             {
               key: 'draft-dataset',
-              name: 'Set to draft',
+              name: this.$t('message.dataupload.menu.setToDraft'),
               disabled: !this.isLocatedOnAuthorizedDatasetPage,
               handler: () => {
                 this.modal = {
                   ...this.modal,
                   ...{
-                    message: 'Are you sure you want to mark this dataset as draft?',
-                    confirm: 'Set to draft',
+                    message: this.$t('message.dataupload.menu.markAsDraft.message'),
+                    confirm: this.$t('message.dataupload.menu.markAsDraft.confirm'),
                     confirmHandler: () => this.handleMarkAsDraft({
                       id: this.getID, catalog: this.getCatalog.id, title: this.getTitle, description: this.getDescription,
                     }),
@@ -162,14 +162,14 @@ export default {
             },
             {
               key: 'register-dataset',
-              name: 'Register DOI',
+              name: this.$t('message.dataupload.menu.registerDoi'),
               disabled: !this.isLocatedOnAuthorizedDatasetPage,
               handler: () => {
                 this.modal = {
                   ...this.modal,
                   ...{
-                    message: 'Are you sure you want to register a DOI? This can not be reverted.',
-                    confirm: 'Register DOI (irreversible)',
+                    message: this.$t('message.dataupload.menu.registerADoi.message'),
+                    confirm: this.$t('message.dataupload.menu.registerADoi.confirm'),
                     confirmHandler: () => this.handleRegisterDoi({ id: this.getID, catalog: this.getCatalog.id, type: this.$env.content.dataProviderInterface.doiRegistrationService.persistentIdentifierType || 'mock' }),
                   },
                 };
@@ -228,7 +228,7 @@ export default {
     menuItems() {
       return [
         {
-          name: 'Draft Datasets',
+          name: this.$t('message.dataupload.menu.draftDatasets'),
           to: { name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale } },
         },
         {
@@ -368,13 +368,13 @@ export default {
       );
     },
     async handleMarkAsDraft({
-      id, catalog, title, description,
-    }) {
+                              id, catalog, title, description,
+                            }) {
       await this.handleConfirm('auth/putDatasetToDraft', {
         id, catalog, title, description,
       }, {
         successMessage: this.$te('message.snackbar.markAsDraft.success') ? this.$t('message.snackbar.markAsDraft.success') : 'Dataset successfully marked as draft',
-        errorMessage: { prefix: this.$te('message.snackbar.doiRegistration.error') ? this.$t('message.snackbar.doiRegistration.error') : 'Failed to mark dataset as draft' },
+        errorMessage: { prefix: this.$te('message.snackbar.markAsDraft.error') ? this.$t('message.snackbar.markAsDraft.error') : 'Failed to mark dataset as draft' },
       });
 
       this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});

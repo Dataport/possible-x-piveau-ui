@@ -72,7 +72,7 @@ export default {
         this.context.model = `${this.$env.api.fileUploadUrl}${path}`;
         this.isLoading = false;
         this.success = true;
-        // this.context.rootEmit('change');
+        this.context.rootEmit('change');
       } catch (err) {
         this.isLoading = false;
         this.fail = true;

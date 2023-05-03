@@ -191,7 +191,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Herunterladen von Dateien",
-                    "zipNumberOfFiles": "Reißverschluss – Anzahl der Dateien",
+                    "zipNumberOfFiles": "Komprimieren – Anzahl der Dateien {number}",
                     "waitingForDownload": "(Warte zum Herunterladen)",
                     "downloadProgress": "Fortschritt herunterladen",
                     "notDownloaded": "Nicht heruntergeladen",
@@ -200,7 +200,8 @@
                     "cancel": "Stornieren",
                     "close": "Schließen",
                     "coupleOfMinutes": "(dies kann einige Minuten in Anspruch nehmen.)",
-                    "notDownloadedTooltip": "Einzelheiten sind der beigefügten Datei_report.csv-Datei zu entnehmen."
+                    "notDownloadedTooltip": "Einzelheiten sind der beigefügten Datei_report.csv-Datei zu entnehmen.",
+                    "downloadPopup": "Wenn Sie fortfahren, laden Sie Inhalte von externen Diensten. Diese externen Dienste werden nicht von der Europäischen Kommission gepflegt und daher haben wir keinen Einfluss auf deren Verfügbarkeit/Stabilität/Sicherheit."
                 },
                 "leavePageWindow": {
                     "text": "Möchten Sie wirklich ausreisen? Das Herunterladen wird nach Ihrer Abreise gestoppt!"
@@ -393,12 +394,17 @@
             "downloadAsLinkedData": "Katalog Metadaten als verknüpfte Daten",
             "countMessageNoResult": "Kein Katalog gefunden für ",
             "searchBar": {
-                "placeholder": "Kataloge durchsuchen",
-                "icon": "suchen"
+                "placeholder": "Kataloge durchsuchen"
             },
             "countMessage": "Kataloge gefunden für ",
             "loadingMessage": "Kataloge werden geladen…",
-            "geoBoundsMessageRemove": "Schließen Sie diese Meldung, um die Einschränkung zu entfernen \noder benutzen Sie die Reset Funktion."
+            "geoBoundsMessageRemove": "Schließen Sie diese Meldung, um die Einschränkung zu entfernen \noder benutzen Sie die Reset Funktion.",
+            "meta": {
+                "page": {
+                    "title": "Kataloge für offene Datensätze | data.europa.eu"
+                },
+                "description": "Datensätze nach Katalogen herunterladen, teilen und analysieren. Sie können über 80 Datenkataloge offizieller Einrichtungen in Europa durchsuchen."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -419,7 +425,7 @@
                     "goodScoring": "Gut",
                     "excellentScoring": "Excellent"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Herausgeber",
                 "license": "Lizenzen",
                 "keywords": "Schlüsselwörter",
                 "categories": "Kategorien",
@@ -433,9 +439,7 @@
             "scoring": "Wertung",
             "or": "oder",
             "europeanCatalogs": "Europäische Kataloge",
-            "operator": "Operator",
-            "moreFilters": "Mehr Filter",
-            "lessFilters": "Weniger Filter"
+            "operator": "Operator"
         },
         "header": {
             "navigation": {
@@ -476,7 +480,7 @@
                 "newsEvents": {
                     "events": "Veranstaltungen",
                     "news": "Meldungen",
-                    "title": "Aktuelle Meldungen und Veranstaltungen",
+                    "title": "Meldungen",
                     "stories": "Datenszenarien"
                 },
                 "covid-19": {
@@ -513,7 +517,11 @@
             "countMessage": "Datensätze gefunden",
             "foundDatasetsSingular": "1 Datensatz gefunden",
             "meta": {
-                "translationNotComplete": "Übersetzung nicht vollständig"
+                "translationNotComplete": "Übersetzung nicht vollständig",
+                "page": {
+                    "title": "Offene Datensätze der EU | Offizielles Portal für EU-Daten"
+                },
+                "description": "Das größte Portal mit offenen Datensätzen in Europa. Sie können EU-Datensätze – nach Ländern, Institutionen, Katalogen, Kategorien, Stichwörtern usw. – einsehen."
             },
             "geoBoundsMessageRemove": "Schließen Sie diese Meldung, um die Einschränkung zu entfernen \noder benutzen Sie die Reset Funktion.",
             "createDataset": "Datensatz erstellen",
@@ -629,8 +637,7 @@
         },
         "pagination": {
             "nextPage": "Vor",
-            "previousPage": "Zurück",
-            "itemsPerPage": "Objekte pro Seite:"
+            "previousPage": "Zurück"
         },
         "navigation": {
             "navItems": {
@@ -679,7 +686,8 @@
         "catalog": {
             "loadingMessage": "Kataloge werden abgerufen...",
             "searchBar": {
-                "placeholder": "Suche nach Katalogen"
+                "placeholder": "Suche nach Katalogen",
+                "icon": "suchen"
             },
             "geoBoundsMessageRemove": "Schließen Sie diese Meldung, um die Einschränkung zu entfernen \noder benutzen Sie die Reset Funktion.",
             "countMessage": "Kataloge gefunden"
@@ -702,6 +710,20 @@
         },
         "imprint": {
             "msg": "HIER IMPRESSUM EINFÜGEN"
+        },
+        "cookieConsent": {
+            "decline": "Nein, danke",
+            "more": "Weitere Informationen",
+            "text": "Wir verwenden Cookies zur Verbesserung der Benutzererfahrung.",
+            "accept": "Akzeptieren"
+        },
+        "notFound": {
+            "requested": {
+                "parttwo": "Datensätze such Seite.",
+                "partone": "Die angeforderte Seite wurde nicht gefunden. Sie können wieder von hier aus versuchen:"
+            },
+            "error": "Fehler",
+            "contactUsAbout": "Kontaktieren Sie uns bezüglich dieser Fehlermeldung."
         }
     }
 }

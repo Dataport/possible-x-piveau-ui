@@ -136,168 +136,6 @@
                 "information": "Informacje"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Źródło"
-                    },
-                    "type": {
-                        "placeholder": "Tekst zbioru danych „Nazwa miejsca”"
-                    },
-                    "subject": {
-                        "help": "Kategoria zestawu danych."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "Adres URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Tekst strony kontaktowej ds. danych Adres ulicy"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Zbiór danych Zgodność tekstu z umiejscowieniem"
-                    },
-                    "isVersionOf": {
-                        "label": "To wersja dokumentu"
-                    },
-                    "provenance": {
-                        "label": "Miejsce pochodzenia"
-                    },
-                    "language": {
-                        "label": "Język"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Link do agenta ponoszącego jakąś formę odpowiedzialności za zasoby"
-                    },
-                    "temporal": {
-                        "placeholder": "Tekst zbioru danych Temporal placeholder text"
-                    },
-                    "accessRights": {
-                        "info": "Właściwość ta odnosi się do informacji, które wskazują, czy zbiór danych jest otwarty, ma ograniczenia dostępu, czy też nie jest publicznie dostępny."
-                    },
-                    "identifier": {
-                        "help": "Właściwość ta zawiera główny identyfikator zbioru danych."
-                    },
-                    "versionInfo": {
-                        "help": "Numer wersji zbioru danych."
-                    },
-                    "hasVersion": {
-                        "info": "Właściwość ta odwołuje się do powiązanego zbioru danych, który jest wersją, wydaniem lub adaptacją opisywanego zbioru danych."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Dodaj Was wygenerowane przez"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Relacja kwalifikowana"
-                    },
-                    "conformsToTitle": {
-                        "label": "Tytuł"
-                    },
-                    "creatorType": {
-                        "label": "Typ"
-                    },
-                    "spatial": {
-                        "info": "Właściwość ta odnosi się do regionu geograficznego objętego zbiorem danych."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Absolutna miesiączka"
-                    },
-                    "contactPointName": {
-                        "label": "Imię i nazwisko"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Dataset data Temporal Reception Minute miejsce"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-mail"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Nazwa organizacji"
-                    },
-                    "contactPoint": {
-                        "help": "Właściwość ta zawiera dane kontaktowe."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Data data data zamknięcia zbierania danych (Dzień Temporal Contion Lekarska)"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Zbiór danych Provenance Text placeholder text text"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Zbiór danych tekst w polu „Nazwa wydawcy”"
-                    },
-                    "datasetID": {
-                        "label": "Zestaw danych ID"
-                    },
-                    "modified": {
-                        "label": "Zmodyfikowano"
-                    },
-                    "publisher": {
-                        "label": "Wydawca"
-                    },
-                    "issued": {
-                        "help": "Data formalnego wydania (np. publikacji) zbioru danych. Akceptowalne formaty dat: YYYY-MM-DD, YYYY-MM, RRRR."
-                    },
-                    "publisherHomepage": {
-                        "label": "Strona główna"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minimalna separacja przestrzenna możliwa do rozwiązania w zbiorze danych."
-                    },
-                    "mediaType": {
-                        "placeholder": "Rozpowszechnianie tekstu „Rodzaj nośnika”"
-                    },
-                    "language": {
-                        "help": "Język używany w dystrybucji."
-                    },
-                    "title": {
-                        "info": "Właściwość ta zawiera nazwę nadaną Dystrybucji. Właściwość tę można powtórzyć dla równoległych wersji językowych opisu."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Tekst „Sprawdzanie miejsca dystrybucji”"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Rozpowszechnianie tekstu „Has Policy Url”"
-                    },
-                    "page": {
-                        "help": "Strona lub dokument na temat tego podziału."
-                    },
-                    "availability": {
-                        "placeholder": "Rozdział Dostępność tekstu w miejscu"
-                    },
-                    "format": {
-                        "placeholder": "Tekst w formacie dystrybucji"
-                    },
-                    "conformsTo": {
-                        "add-label": "Dodaj Zgodność do"
-                    },
-                    "issued": {
-                        "label": "Wydane"
-                    },
-                    "description": {
-                        "help": "Nieruchomość ta zawiera bezpłatny konto dystrybucji."
-                    },
-                    "hasPolicy": {
-                        "help": "Polityka wyrażająca prawa."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Absolutna miesiączka"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Zbiór danych Temporal Receptor Hour place"
-                    },
-                    "licence": {
-                        "help": "Pozwolenie, na podstawie którego udostępniana jest dystrybucja."
-                    },
-                    "date": {
-                        "label": "Data"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Właściwość ta odnosi się do powiązanego katalogu, w którym opisany katalog jest fizycznie lub logicznie zawarty."
-                    },
-                    "language": {
-                        "help": "Język używany w metadanych tekstowych opisujących tytuły, opisy itp."
-                    },
-                    "spatial": {
-                        "info": "Właściwość ta odnosi się do obszaru geograficznego objętego katalogiem."
-                    },
-                    "hasPart": {
-                        "help": "Właściwość ta odnosi się do powiązanego katalogu, który jest częścią opisanego katalogu."
-                    },
-                    "creator": {
-                        "add-label": "Dodatek Creator"
-                    },
-                    "creatorName": {
-                        "label": "Nazwa"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Nazwa nadana zapisowi katalogowemu. "
-                    },
-                    "description": {
-                        "info": "Ta właściwość zawiera konto zapisu na dowolnym koncie tekstowym. Właściwość tę można powtórzyć dla równoległych wersji językowych opisu."
-                    },
-                    "licence": {
-                        "placeholder": "Tekst posiadacza zezwolenia na katalog"
-                    },
-                    "modified": {
-                        "label": "Zmodyfikowano"
-                    },
-                    "licenceDescription": {
-                        "label": "Opis licencji"
-                    },
-                    "homepage": {
-                        "help": "Strona internetowa, która pełni funkcję strony głównej katalogu."
-                    }
-                },
                 "stepper": {
                     "overview": "Przegląd katalogu",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Pobieranie plików",
-                    "zipNumberOfFiles": "Pliki „Zip” (w jęz. angielskim)",
+                    "zipNumberOfFiles": "{number} Pliki „Zip”",
                     "waitingForDownload": "(w oczekiwaniu na pobranie)",
                     "downloadProgress": "Pobierz Progress",
                     "notDownloaded": "Nie pobrano danych",
@@ -664,7 +462,13 @@
             },
             "countMessage": "znalezione katalogi dla",
             "loadingMessage": "Otwieranie katalogów...",
-            "geoBoundsMessageRemove": "Zamknij to powiadomienie, aby usunąć ograniczenie, albo użyj funkcji resetowania."
+            "geoBoundsMessageRemove": "Zamknij to powiadomienie, aby usunąć ograniczenie, albo użyj funkcji resetowania.",
+            "meta": {
+                "page": {
+                    "title": "Katalogi otwartych danych | Europejskie dane | data.europa.eu"
+                },
+                "description": "Pobieranie i analiza zbiorów danych pogrupowanych w katalogi. Ponad 80 katalogów danych z różnych instytucji w Europie."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Dobre",
                     "excellentScoring": "Doskonałe"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Wydawca",
                 "license": "Licencje",
                 "keywords": "Słowa kluczowe",
                 "categories": "Kategorie",
@@ -777,7 +581,11 @@
             "countMessage": "znalezione katalogi dla ",
             "foundDatasetsSingular": "Znaleziono 1 zbiór danych",
             "meta": {
-                "translationNotComplete": "Tłumaczenie nie jest kompletne"
+                "translationNotComplete": "Tłumaczenie nie jest kompletne",
+                "page": {
+                    "title": "Otwarte zbiory danych UE | Portal danych UE | data.europa.eu"
+                },
+                "description": "Pobieranie i analiza zbiorów danych pogrupowanych w katalogi. Ponad 80 katalogów danych z różnych instytucji w Europie."
             },
             "geoBoundsMessageRemove": "Zamknij to powiadomienie, aby usunąć ograniczenie, albo użyj funkcji resetowania.",
             "createDataset": "Utwórz zbiór danych",
@@ -964,6 +772,14 @@
         },
         "imprint": {
             "msg": "WSTAW ODCISK TUTAJ"
+        },
+        "cookieConsent": {
+            "more": "Więcej informacji",
+            "text": "Używamy plików cookie, aby zoptymalizować korzystanie z tej strony",
+            "accept": "Akceptuj"
+        },
+        "notFound": {
+            "error": "Błąd"
         }
     }
 }

@@ -33,14 +33,11 @@
         <input v-if="!annifTheme || manSearch" type="text" class="form-control"
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
           @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
-        <svg v-if="choice" xmlns="http://www.w3.org/2000/svg" @click="clearAutocomplete" width="16" height="16"
-          fill="currentColor" class="position-absolute bi bi-x-circle m-2 innerX" viewBox="0 0 16 16">
-          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-          <path
-            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-        </svg>
+        <div class="position-relative h-100" @click="clearAutocomplete">
+          <a class="custom-remove" v-bind:class="{ remBG: choice }"></a>
+        </div>
+
       </div>
-      <!-- <a v-if="!annifTheme" role="button" @click="clearAutocomplete" class="custom-remove">Remove</a> -->
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
           <button class="list-group-item list-group-item-action"
@@ -86,7 +83,6 @@ import { truncate } from "../../utils/helpers";
 import $ from "jquery";
 import axios from 'axios';
 import qs from 'qs';
-import Vue from 'vue';
 
 export default {
   props: {
@@ -117,9 +113,9 @@ export default {
         text: "",
         selected: false,
         suggestions: [],
-       
+
       },
-      choice:false,
+      choice: false,
       themeSuggestionList: {},
       manSearch: false,
       values: [],
@@ -141,8 +137,10 @@ export default {
       if (this.autocomplete.selected) return [];
       return this.autocomplete.suggestions.slice(0, 10);
     }
+
   },
   async mounted() {
+
 
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
@@ -151,7 +149,6 @@ export default {
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
         this.valueListOfThemes.push(this.values[i])
-
       }
     }, 1000);
   },
@@ -175,6 +172,12 @@ export default {
         .map((dataset) => dataset.resource);
       this.autocomplete.text = "";
       this.context.rootEmit("change");
+
+      // diable delete button
+      if (this.values.length === 0) {
+        console.log('######');
+        this.choice = false;
+      }
     },
     focusAutocomplete() {
       this.autocomplete.selected = false;
@@ -182,14 +185,14 @@ export default {
       this.getAutocompleteSuggestions();
     },
     clearAutocompleteSuggestions() {
-      
+
       this.autocomplete.suggestions = [];
     },
     hideSuggestions() {
       this.autocomplete.selected = true;
     },
     getAutocompleteSuggestions() {
-      this.choice= true
+      this.choice = true
       let voc = this.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
@@ -203,7 +206,6 @@ export default {
               resource: r.resource,
             }));
             this.autocomplete.suggestions = results;
-            console.log(results);
           });
 
         }
@@ -215,7 +217,7 @@ export default {
               resource: r.resource,
             }));
             this.autocomplete.suggestions = results;
-            this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" })
+            this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
           });
         } else {
           this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
@@ -223,7 +225,8 @@ export default {
               name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
               resource: r.resource,
             }));
-            this.autocomplete.suggestions = results;
+            if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
+            else this.autocomplete.suggestions = results;
           });
         }
 
@@ -398,6 +401,9 @@ export default {
     },
     async handleValues() {
 
+      // TODO: disable delete button for invaid content edge case
+      // when submitting unsupported values (which are not saved) the delete button stay enabled
+
       if (this.context.model !== "") {
         // multiple autocomplete input provides always an array of values
         if (Array.isArray(this.context.model)) {
@@ -421,11 +427,15 @@ export default {
             this.setTooltip();
           }
 
-
+          // enabling delete button if there are values
+          if (this.values.length > 0) this.choice = true;
         } else {
           // singular autocomplete always provides a single value
           const result = await this.getResourceName(this.context.model);
           this.autocomplete.text = result.name;
+
+          // enabling delete button
+          this.choice = true;
         }
       }
     },
@@ -467,60 +477,69 @@ export default {
 </script>
 
 <style scoped>
+.form-control {
+  border-radius: 0 !important;
+  border-right: none !important;
+}
+
 .custom-remove {
-  position: absolute;
+  height: 100%;
   display: block;
-  top: calc(50% - 0.15em);
   width: 1.3em;
-  height: 1.3em;
-  background-color: #cecece;
-  right: 0.85em;
-  border-radius: 1.3em;
+  background-color: #cecece38;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease-in-out;
   overflow: hidden;
   text-indent: -1000px;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #cecece;
 }
-.innerX{
-  right:0; 
-  cursor: pointer;
-  opacity: 0.3;
-  transition: all 0.3s ease-in-out;
-}
-.innerX:hover{
- 
-  color: red;
-  transform: scale(1.1);
-  opacity: 0.8;
-}
+
 .custom-remove::before {
   content: "";
   position: absolute;
-  top: calc(50% - 0.1em);
-  left: 0.325em;
+  top: 47%;
+  right: 5px;
   display: block;
   width: 0.65em;
   height: 0.2em;
   background-color: #fff;
   transform-origin: center center;
-  transition: transform 0.25s;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-remove:hover::before {
+  width: 0.75em;
+  right: 10px !important;
+  transform: rotate(45deg);
+
+}
+
+.custom-remove:hover::after {
+  width: 0.75em;
+  right: 10px !important;
+  transform: rotate(-45deg);
+
 }
 
 .custom-remove::after {
   content: "";
   position: absolute;
-  top: calc(50% - 0.1em);
-  left: 0.325em;
+  top: 47%;
+  right: 5px;
   display: block;
   width: 0.65em;
   height: 0.2em;
   background-color: #fff;
   transform-origin: center center;
-  transition: transform 0.25s;
+  transition: all 0.2s ease-in-out;
 }
 
 .custom-remove:hover {
   background-color: red;
+  width: 2em;
 }
 
 .selected-values-div {
@@ -565,5 +584,9 @@ export default {
   position: absolute;
   top: 0;
   z-index: 100;
+}
+
+.remBG {
+  background-color: #cecece;
 }
 </style>

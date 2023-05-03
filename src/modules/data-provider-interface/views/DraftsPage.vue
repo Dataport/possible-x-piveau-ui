@@ -1,8 +1,9 @@
 <template>
+  <!-- TODO Add a Mobile Version of that overview (pref with Icons)-->
   <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content">
-    <h1 class="small-headline">Draft datasets</h1>
-    <div class="col-12 col-md-8 m-auto">
-      <table class="table">
+    <h1 class="small-headline text-center">Draft datasets</h1>
+    <div class="d-flex align-items-center justify-content-center">
+      <table class="table w-75">
         <thead>
           <tr>
             <th scope="col">Dataset ID</th>

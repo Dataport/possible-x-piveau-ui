@@ -95,7 +95,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
 
     // distributions may have download URLs, if no downloadURL is provided -> provided accessUrls will be also set as downloadUrls
     // accessUrl is a required property and therefore always provided (made sure by the frontend)
-    const downloadUrlsProvided = has(data, 'dcat:downloadURL') && !isEmpty(data['dcat:downloadURL']) && data['dcat:downloadURL'].map(el => !isEmpty(el['@id'])).reduce((a, b) => b);
+    // const downloadUrlsProvided = has(data, 'dcat:downloadURL') && !isEmpty(data['dcat:downloadURL']) && data['dcat:downloadURL'].map(el => !isEmpty(el['@id'])).reduce((a, b) => b);
 
     // loop trough all keys within data object and convert values (or nested values) to RDF
     const valueKeys = Object.keys(data);
@@ -110,12 +110,12 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
             convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.multipleURI[property].includes(key)) {
             // if no dowloadURL is provided, set accessUrls as downloadUrls
-            if (!downloadUrlsProvided && key === 'dcat:accessURL') {
-                // copy accessurl array to donwloadurl array and convert data
+            // if (!downloadUrlsProvided && key === 'dcat:accessURL') {
+            //     // copy accessurl array to donwloadurl array and convert data
 
-                data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
-                convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
-            }
+            //     data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
+            //     convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
+            // }
 
             convertMultipleURI(RDFdataset, mainURI, data, key, property, dpiConfig);
         } else if (formatTypes.typedStrings[property].includes(key)) {

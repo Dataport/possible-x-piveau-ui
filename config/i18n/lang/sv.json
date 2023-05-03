@@ -136,168 +136,6 @@
                 "information": "Information"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Källa"
-                    },
-                    "type": {
-                        "placeholder": "Text för datatyp platshållare"
-                    },
-                    "subject": {
-                        "help": "En kategori av datauppsättningen."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "Webbadress"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Text för dataset Contact Point Address Street placeholder text"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Dataset Konform för platshållarens text"
-                    },
-                    "isVersionOf": {
-                        "label": "Är version av"
-                    },
-                    "provenance": {
-                        "label": "Härkomst"
-                    },
-                    "language": {
-                        "label": "Språk"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Länk till en agent som har någon form av ansvar för resursen"
-                    },
-                    "temporal": {
-                        "placeholder": "Dataset Temporal placeholder text"
-                    },
-                    "accessRights": {
-                        "info": "Denna egenskap avser information som anger om databasen är öppna data, har åtkomstbegränsningar eller inte är offentlig."
-                    },
-                    "identifier": {
-                        "help": "Denna egenskap innehåller den huvudsakliga identifieringskoden för databasen."
-                    },
-                    "versionInfo": {
-                        "help": "Datasets versionsnummer."
-                    },
-                    "hasVersion": {
-                        "info": "Hänvisning till en relaterad datamängd som är en version, utgåva eller anpassning av den beskrivna datamängden."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Lägg till genererad was genom"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Kvalificerat förhållande"
-                    },
-                    "conformsToTitle": {
-                        "label": "Titel"
-                    },
-                    "creatorType": {
-                        "label": "Typ"
-                    },
-                    "spatial": {
-                        "info": "Denna egenskap avser en geografisk region som omfattas av databasen."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Tidsupplösningsmånad"
-                    },
-                    "contactPointName": {
-                        "label": "Namn"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Dataset Temporal Resolution Minute platshållare text"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-post"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Organisationens namn"
-                    },
-                    "contactPoint": {
-                        "help": "Den här egenskapen innehåller kontaktuppgifter."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Dataset Temporal Resolution Day platshållare text"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Dataset Provenance Tidshållare text"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Dataset Publisher Typ placeholder text"
-                    },
-                    "datasetID": {
-                        "label": "ID för datauppsättning"
-                    },
-                    "modified": {
-                        "label": "Ändrad"
-                    },
-                    "publisher": {
-                        "label": "Utgivare"
-                    },
-                    "issued": {
-                        "help": "Datum för formellt utfärdande (t.ex. offentliggörande) av datauppsättningen. Godtagbara format för datum: ÅÅÅÅ-MM-DD, ÅÅÅÅ-MM, ÅÅÅÅ."
-                    },
-                    "publisherHomepage": {
-                        "label": "Startsida"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minsta möjliga rumsliga separation som kan upplösas i en datamängd."
-                    },
-                    "mediaType": {
-                        "placeholder": "Text från Distribution Media Type placeholder (text med platshållare)"
-                    },
-                    "language": {
-                        "help": "Ett språk som används i distributionen."
-                    },
-                    "title": {
-                        "info": "Denna fastighet innehåller ett namn som ges till distributionen. Denna egenskap kan upprepas för parallella språkversioner av beskrivningen."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Distribution Checksum placeholder text"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Distribution Has Policy Url placeholder text"
-                    },
-                    "page": {
-                        "help": "En sida eller ett dokument om denna distribution."
-                    },
-                    "availability": {
-                        "placeholder": "Distribution Tillgänglighet platshållare"
-                    },
-                    "format": {
-                        "placeholder": "Text med platshållare i distributionsformat"
-                    },
-                    "conformsTo": {
-                        "add-label": "Lägg till konform till"
-                    },
-                    "issued": {
-                        "label": "Utfärdat"
-                    },
-                    "description": {
-                        "help": "Denna fastighet innehåller ett fritt textkonto för distributionen."
-                    },
-                    "hasPolicy": {
-                        "help": "Den politik som ger uttryck för rättigheterna."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Tidsupplösningsmånad"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Dataset Temporal Upplösning Hour Placeholder text"
-                    },
-                    "licence": {
-                        "help": "Den licens enligt vilken distributionen görs tillgänglig."
-                    },
-                    "date": {
-                        "label": "Datum"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Denna egenskap avser en relaterad katalog i vilken den beskrivna katalogen ingår fysiskt eller logiskt."
-                    },
-                    "language": {
-                        "help": "Ett språk som används i textmetadata som beskriver titlar, beskrivningar osv."
-                    },
-                    "spatial": {
-                        "info": "Denna egenskap avser ett geografiskt område som omfattas av katalogen."
-                    },
-                    "hasPart": {
-                        "help": "Denna egenskap avser en relaterad katalog som ingår i den beskrivna katalogen."
-                    },
-                    "creator": {
-                        "add-label": "Lägg till skapare"
-                    },
-                    "creatorName": {
-                        "label": "Namn"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Ett namn på katalogregistret. "
-                    },
-                    "description": {
-                        "info": "Denna egenskap innehåller ett fritextkonto för posten. Denna egenskap kan upprepas för parallella språkversioner av beskrivningen."
-                    },
-                    "licence": {
-                        "placeholder": "Text till innehavaren av kataloglicensen"
-                    },
-                    "modified": {
-                        "label": "Ändrad"
-                    },
-                    "licenceDescription": {
-                        "label": "Beskrivning av licensen"
-                    },
-                    "homepage": {
-                        "help": "En webbsida som fungerar som huvudsida för katalogen."
-                    }
-                },
                 "stepper": {
                     "overview": "Översikt över katalogen",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Ladda ner filer",
-                    "zipNumberOfFiles": "Zip ű number – filerna",
+                    "zipNumberOfFiles": "Zip ű {number} – filerna",
                     "waitingForDownload": "(väntar på nedladdning)",
                     "downloadProgress": "Ladda ner Progress",
                     "notDownloaded": "Ej överförd",
@@ -664,7 +462,13 @@
             },
             "countMessage": "kataloger hittades för",
             "loadingMessage": "Läser in kataloger ...",
-            "geoBoundsMessageRemove": "Stäng den här aviseringen för att ta bort begränsningen eller använd återställningsfunktionen.\neller använd återställningsfunktionen."
+            "geoBoundsMessageRemove": "Stäng den här aviseringen för att ta bort begränsningen eller använd återställningsfunktionen.\neller använd återställningsfunktionen.",
+            "meta": {
+                "page": {
+                    "title": "Kataloger med öppna datamängder | data.europa.eu"
+                },
+                "description": "Hämta, dela och analysera datamängder per katalog. Utforska över 80 datakataloger från officiella institutioner i Europa."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Bra",
                     "excellentScoring": "Utmärkt"
                 },
-                "publisher": "@: message.metadata.utgivare",
+                "publisher": "Utgivare",
                 "license": "Licenser",
                 "keywords": "Nyckelord",
                 "categories": "Kategorier",
@@ -777,7 +581,11 @@
             "countMessage": "dataset hittades för",
             "foundDatasetsSingular": "1 dataset hittades",
             "meta": {
-                "translationNotComplete": "Ofullständig översättning"
+                "translationNotComplete": "Ofullständig översättning",
+                "page": {
+                    "title": "Öppna datamängder i EU | Officiell portal för EU-data"
+                },
+                "description": "Den största portalen för öppna datamängder i Europa. Sök EU-datamängder per land, institution, katalog, kategori, sökord och med många andra kriterier."
             },
             "geoBoundsMessageRemove": "Stäng den här aviseringen för att ta bort begränsningen eller använd återställningsfunktionen.",
             "createDataset": "Skapa dataset",
@@ -964,6 +772,11 @@
         },
         "imprint": {
             "msg": "INFOGA IMPRESSUM HÄR"
+        },
+        "cookieConsent": {
+            "accept": "Accepterar",
+            "decline": "Nej, tack",
+            "text": "På den här sidan använder vi cookies för att förbättra din upplevelse."
         }
     }
 }

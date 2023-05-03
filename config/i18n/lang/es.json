@@ -136,90 +136,6 @@
                 "information": "Información"
             },
             "datasets": {
-                "step2": {
-                    "type": {
-                        "placeholder": "Texto del conjunto de datos Tipo de espacio reservado"
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Conjunto de datos Conform to placeholder text"
-                    },
-                    "provenance": {
-                        "label": "Procedencia"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Enlace a un agente que tenga algún tipo de responsabilidad sobre el recurso"
-                    },
-                    "accessRights": {
-                        "info": "Esta propiedad se refiere a información que indica si el conjunto de datos es abierto, tiene restricciones de acceso o no es público."
-                    },
-                    "versionInfo": {
-                        "help": "Número de versión del conjunto de datos."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Añadir Was generadas por"
-                    },
-                    "conformsToTitle": {
-                        "label": "Título"
-                    },
-                    "spatial": {
-                        "info": "Esta propiedad se refiere a una región geográfica cubierta por el conjunto de datos."
-                    },
-                    "contactPointName": {
-                        "label": "Nombre"
-                    },
-                    "contactPointEmail": {
-                        "label": "Correo electrónico"
-                    },
-                    "contactPoint": {
-                        "help": "Esta propiedad contiene información de contacto."
-                    },
-                    "provenanceText": {
-                        "placeholder": "Texto de la serie de datos «Provenance text placeholder»"
-                    }
-                },
-                "step1": {
-                    "datasetID": {
-                        "label": "Identificador del conjunto de datos"
-                    },
-                    "publisher": {
-                        "label": "Editor"
-                    },
-                    "publisherHomepage": {
-                        "label": "Página de inicio"
-                    }
-                },
-                "step3": {
-                    "mediaType": {
-                        "placeholder": "Texto del espacio reservado para el espacio reservado a los medios de distribución"
-                    },
-                    "title": {
-                        "info": "Esta propiedad contiene un nombre dado a la distribución. Esta propiedad puede repetirse para versiones lingüísticas paralelas de la descripción."
-                    },
-                    "checksum": {
-                        "placeholder": "Distribución: texto de la suma de comprobación del espacio reservado"
-                    },
-                    "page": {
-                        "help": "Una página o documento sobre esta distribución."
-                    },
-                    "format": {
-                        "placeholder": "Texto del formato de distribución del espacio reservado"
-                    },
-                    "issued": {
-                        "label": "Expedido"
-                    },
-                    "hasPolicy": {
-                        "help": "La política que expresa los derechos."
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Conjunto de datos: texto de la Hora de la resolución temporal"
-                    },
-                    "date": {
-                        "label": "Fecha"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -241,28 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "language": {
-                        "help": "Una lengua utilizada en los metadatos textuales que describen títulos, descripciones, etc."
-                    },
-                    "hasPart": {
-                        "help": "Esta propiedad se refiere a un catálogo relacionado que forma parte del catálogo descrito."
-                    },
-                    "creatorName": {
-                        "label": "Nombre"
-                    }
-                },
-                "step1": {
-                    "description": {
-                        "info": "Esta propiedad contiene una cuenta de texto libre del registro. Esta propiedad puede repetirse para versiones lingüísticas paralelas de la descripción."
-                    },
-                    "modified": {
-                        "label": "Modificado"
-                    },
-                    "homepage": {
-                        "help": "Página web que sirve de página principal del Catálogo."
-                    }
-                },
                 "stepper": {
                     "overview": "Resumen del catálogo",
                     "step1": {
@@ -362,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Descarga de ficheros",
-                    "zipNumberOfFiles": "Zip «Número de archivo»",
+                    "zipNumberOfFiles": "Zip «Número de archivo» {number}",
                     "waitingForDownload": "(a la espera de descarga)",
                     "downloadProgress": "Descargar el progreso",
                     "notDownloaded": "Sin descargar",
@@ -568,7 +462,13 @@
             },
             "countMessage": "catálogos encontrados para ",
             "loadingMessage": "Cargando catálogos…",
-            "geoBoundsMessageRemove": "Cierre esta notificación para eliminar la limitación o utilice la función de reinicio."
+            "geoBoundsMessageRemove": "Cierre esta notificación para eliminar la limitación o utilice la función de reinicio.",
+            "meta": {
+                "page": {
+                    "title": "Catálogos de conjuntos de datos abiertos | data.europa.eu"
+                },
+                "description": "Descargue, comparta y analice conjuntos de datos por catálogo. Consulte más de 80 catálogos de datos de instituciones oficiales en Europa."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -589,7 +489,7 @@
                     "goodScoring": "Buena",
                     "excellentScoring": "Excelente"
                 },
-                "publisher": "@: message.metadata.editor",
+                "publisher": "Editor",
                 "license": "Licencias",
                 "keywords": "Palabras clave ",
                 "categories": "Categorías",
@@ -681,7 +581,11 @@
             "countMessage": "conjuntos de datos hallados para ",
             "foundDatasetsSingular": "Se ha encontrado un conjunto de datos de 1",
             "meta": {
-                "translationNotComplete": "Traducción incompleta"
+                "translationNotComplete": "Traducción incompleta",
+                "page": {
+                    "title": "Conjuntos de datos abiertos de la UE | data.europa.eu"
+                },
+                "description": "Consulte conjuntos de datos abiertos de la UE por país, institución, catálogo, categorías, palabras clave y muchas otras posibilidades."
             },
             "geoBoundsMessageRemove": "Cierre esta notificación para eliminar la limitación o utilice la función de reinicio.",
             "createDataset": "Crear Conjunto de Datos",
@@ -868,6 +772,12 @@
         },
         "imprint": {
             "msg": "INSERTAR CRÉDITOS AQUÍ"
+        },
+        "cookieConsent": {
+            "accept": "Aceptar",
+            "decline": "Aceptar solo las cookies esenciales",
+            "more": "Más info",
+            "text": "Usamos cookies en esta página para mejorar la experiencia del usuario"
         }
     }
 }

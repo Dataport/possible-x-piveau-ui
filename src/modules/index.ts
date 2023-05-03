@@ -1,5 +1,6 @@
 // @ts-nocheck
 import AppLink from "./widgets/AppLink.vue";
+import Tooltip from "./widgets/Tooltip.vue";
 import PropertyValue from "./widgets/PropertyValue.vue";
 
 import AppSnackbar from './modal/AppSnackbar.vue';
@@ -25,10 +26,11 @@ import DistributionDescription from "./datasetDetails/distributions/distribution
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
 
-import DistributionOptionsDropdown from "@/modules/datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
-import DistributionDownload from "@/modules/datasetDetails/distributions/distributionActions/DistributionDownload";
-import LinkedDataButtonsDropdown from "@/modules/datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
+import DistributionOptionsDropdown from "./datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
+import DistributionDownload from "./datasetDetails/distributions/distributionActions/DistributionDownload";
+import LinkedDataButtonsDropdown from "./datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
 
+import DatasetDetailsNavigation from './datasetDetails/navigation/DatasetDetailsNavigation.vue'
 
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
@@ -74,6 +76,7 @@ import UserCataloguesPage from './data-provider-interface/views/UserCataloguesPa
 import DpiMenu from './data-provider-interface/DPI-menu.vue';
 import InfoSlot from './data-provider-interface/components/InfoSlot.vue';
 import AutocompleteInput from './data-provider-interface/components/AutocompleteInput.vue';
+import LangStringInput from './data-provider-interface/components/LangStringInput.vue';
 import ConditionalInput from './data-provider-interface/components/ConditionalInput.vue';
 import Groupedinput from './data-provider-interface/components/Groupedinput.vue';
 import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput.vue';
@@ -98,6 +101,7 @@ import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
 export {
   AppLink,
+  Tooltip,
   PropertyValue,
   AppSnackbar,
   AppConfirmationDialog,
@@ -168,6 +172,7 @@ export {
   DpiMenu,
   InfoSlot,
   AutocompleteInput,
+  LangStringInput,
   ConditionalInput,
   Groupedinput,
   UniqueIdentifierInput,
@@ -184,6 +189,7 @@ export {
   DatasetsFacets,
   Pagination,
   CataloguesFacets,
+  DatasetDetailsNavigation,
   SubNavigation,
   SelectedFacetsOverview,
   DatasetsTopControls,
