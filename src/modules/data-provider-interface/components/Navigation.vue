@@ -81,10 +81,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('datasetDetails', [
-      'getTitle',
-      'getDescription',
-    ]),
     ...mapGetters('auth', [
       'getIsEditMode',
       'getIsDraft',
@@ -255,7 +251,7 @@ export default {
           actionName = 'auth/createDataset';
         } else {
           // if edit mode and draft: publish user draft (remove from draft database and add to dataset database)-> publishUserDraftById
-          actionParams = {id, catalog };
+          actionParams = {id: datasetId, catalog: catalogName };
           actionName = 'auth/publishUserDraftById';
         }
         
@@ -267,7 +263,7 @@ export default {
           actionName = 'auth/createUserDraft';
         } else {
           // if edit mode and no draft: save dataset as draft (remove from dataset database and add to draft database)-> putDatasetToDraft
-          actionParams = {id, catalog, title: this.getTitle, description: this.getDescription};
+          actionParams = {id: datasetId, catalog: catalogName, title, description};
           actionName = 'auth/putDatasetToDraft';
         }
         
