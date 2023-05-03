@@ -95,22 +95,26 @@
 
 
         <!-- PAGE -->
-        <div v-if="property === 'foaf:page'">
+        <div v-if="property === 'foaf:page'" class="w-100 d-flex">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div v-if="showValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
+            <td>
+                <div v-if="showValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
                 data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }} Hallo</div>
             <div v-if="showValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
                 data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
             <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}:{{ data['dct:format'] }}</div>
             <div v-if="showValue(data, '@id')">{{ $t('message.metadata.url') }}: <app-link :to="data['@id']">{{ data['@id']
             }}</app-link></div>
+            </td> 
         </div>
 
         <!-- CONFORMS TO -->
-        <div v-if="property === 'dct:conformsTo'">
+        <div v-if="property === 'dct:conformsTo'" class="w-100 d-flex">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div v-if="showValue(data, 'rdfs:label')">{{ data['rdfs:label'] }}</div>
-            <app-link v-if="showValue(data, '@id')" :to="data['@id']">{{ data['@id'] }}</app-link>
+            <td>
+                <div v-if="showValue(data, 'rdfs:label')">{{ data['rdfs:label'] }}</div>
+                <app-link v-if="showValue(data, '@id')" :to="data['@id']">{{ data['@id'] }}</app-link>
+            </td>
         </div>
 
         <!-- TEMPORAL RESOLUTION -->

@@ -555,7 +555,7 @@ export default {
 
 .selected-value {
   background-color: #f5f5f5;
-  padding: 5px;
+  padding: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
   border-radius: 5px;
   border: solid 0.5px #e1e1e1;
