@@ -778,6 +778,14 @@
             "accept": "Accepteren",
             "more": "Meer informatie",
             "text": "Op deze website gebruiken wij cookies om uw gebruikservaring te verbeteren"
+        },
+        "notFound": {
+            "contactUsAbout": "Neem contact met ons op over deze foutmelding.",
+            "requested": {
+                "parttwo": "Datasæt søgeside",
+                "page": "de door u opgevraagde pagina is niet gevonden. Begin opnieuw vanaf de startpagina."
+            },
+            "error": "Error"
         }
     }
 }

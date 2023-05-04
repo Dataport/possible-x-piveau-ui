@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Úsáidimid fianáin ar an suíomh seo chun d’eispéireas úsáideora a fheabhsú"
+        },
+        "notFound": {
+            "contactUsAbout": "Déan teagmháil linn faoin teachtaireacht earráide seo.",
+            "requested": {
+                "parttwo": "Leathanach cuardaigh tacar sonraí",
+                "page": "Ní bhfuarthas an leathanach iarrtha. Is féidir leat tosú arís ón leathanach baile."
+            },
+            "error": "Earráid"
         }
     }
 }

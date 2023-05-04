@@ -357,10 +357,10 @@
                     "placeholder": "Dataset Access Rights placeholder text"
                 },
                 "pageDescription": {
-                    "label": "Test",
-                    "placeholder": "Dataset Page Description placeholder text",
-                    "help": "test",
-                    "info": "test",
+                    "label": "Page description",
+                    "placeholder": "Please provide a page description",
+                    "help": "Please describe the page as accurately as possible",
+                    "info": "",
                     "add-label": "Add more"
                 },
                 "identifier": {
@@ -429,14 +429,14 @@
                 },
                 "pageTitle": {
                     "placeholder": "Dataset Page Title placeholder text",
-                    "label": "Test",
-                    "help": "Test",
-                    "info": "Test",
+                    "label": "Page title",
+                    "help": "A descriptive title for the page",
+                    "info": "",
                     "add": "Add another page title",
                     "add-label": "Add more"
                 },
                 "pageTitleSub": {
-                    "placeholder": "Pleaase provide a descriptive title",
+                    "placeholder": "Please provide a descriptive title",
                     "label": "Title text",
                     "help": "Text for the page title.",
                     "info": ""
@@ -656,7 +656,7 @@
                     "label": "Description text",
                     "add-label": "Add Description in another language",
                     "placeholder": "Dataset Description placeholder text",
-                    "help": "The main description of the dataset.",
+                    "help": "Please select a language and provide a description of the dataset.",
                     "info": ""
                 },
                 "publisherType": {
@@ -938,6 +938,16 @@
                     "placeholder": "Choose the language",
                     "label": "Language",
                     "help": "Select the language of the stated description"
+                },
+                "dctTitle": {
+                    "placeholder": "Select language",
+                    "help": "Please provide a title in your chosen language"
+                },
+                "pageTitlelang": {
+                    "placeholder": "Select language"
+                },
+                "page-desc": {
+                    "placeholder": "Select language"
                 }
             },
             "catalogues": {
@@ -1476,7 +1486,6 @@
                     "info": ""
                 },
                 "pageDescription": {
-                    "info": "This property refers to a page or document about this Distribution.",
                     "label": "Description",
                     "placeholder": "Distribution Page Description placeholder text",
                     "help": "The page's description.",
@@ -1491,8 +1500,8 @@
                 },
                 "pageTitle": {
                     "placeholder": "Distribution Page Title placeholder text",
-                    "label": "Title",
-                    "help": "Title of the page.",
+                    "label": "Page title",
+                    "help": "A descriptive title for the page",
                     "info": "Title of the page.",
                     "add-label": "Add more"
                 },
@@ -2191,7 +2200,8 @@
             "contactUsAbout": "Contact us about this error message.",
             "requested": {
                 "parttwo": "dataset search page",
-                "partone": "The requested resource has not been found. You can start again from the"
+                "partone": "The requested resource has not been found. You can start again from the",
+                "page": "The requested page has not been found. You can start again from the homepage."
             },
             "error": "Error"
         }

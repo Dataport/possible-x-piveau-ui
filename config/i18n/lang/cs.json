@@ -776,6 +776,14 @@
         "cookieConsent": {
             "text": "V rámci zkvalitňování našich služeb uživatelům na těchto stránkách používáme cookies",
             "more": "Více informací"
+        },
+        "notFound": {
+            "contactUsAbout": "O této chybové zprávě nás informujte.",
+            "requested": {
+                "parttwo": "Stránka vyhledávání datové sady",
+                "page": "Požadovaná stránka nebyla nalezena. Můžete začít znovu z domovské stránky."
+            },
+            "error": "Chyba"
         }
     }
 }

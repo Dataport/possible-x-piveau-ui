@@ -777,6 +777,13 @@
             "accept": "Accepterar",
             "decline": "Nej, tack",
             "text": "På den här sidan använder vi cookies för att förbättra din upplevelse."
+        },
+        "notFound": {
+            "contactUsAbout": "Kontakta oss om det här felmeddelandet.",
+            "requested": {
+                "parttwo": "Dataset söksida",
+                "page": "Den begärda sidan hittades inte. Du kan börja om från startsidan."
+            }
         }
     }
 }

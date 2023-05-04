@@ -770,6 +770,13 @@
         },
         "imprint": {
             "msg": "SETT INN AVTRYKK HER"
+        },
+        "notFound": {
+            "contactUsAbout": "Kontakt oss angående denne feilmeldingen.",
+            "requested": {
+                "parttwo": "Datasett søkeside"
+            },
+            "error": "Feil"
         }
     }
 }
