@@ -778,6 +778,14 @@
             "decline": "Aceptar solo las cookies esenciales",
             "more": "Más info",
             "text": "Usamos cookies en esta página para mejorar la experiencia del usuario"
+        },
+        "notFound": {
+            "contactUsAbout": "Comuníquenos este mensaje de error",
+            "requested": {
+                "parttwo": "Página de búsqueda de conjunto de datos",
+                "page": "No se ha encontrado la página solicitada. Puede volver a la portada."
+            },
+            "error": "Error"
         }
     }
 }

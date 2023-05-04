@@ -779,7 +779,12 @@
             "accept": "Akceptuj"
         },
         "notFound": {
-            "error": "Błąd"
+            "error": "Błąd",
+            "contactUsAbout": "Skontaktuj się z nami w sprawie tego komunikatu o błędzie.",
+            "requested": {
+                "parttwo": "Strona wyszukiwania zestawu danych",
+                "page": "Żądana strona nie została znaleziona. Możesz zacząć ponownie od strony głównej."
+            }
         }
     }
 }

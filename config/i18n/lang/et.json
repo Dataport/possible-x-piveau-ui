@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Kasutuskogemuse parandamiseks kasutame küpsiseid"
+        },
+        "notFound": {
+            "contactUsAbout": "Selle veateate korral võtke meiega ühendust.",
+            "requested": {
+                "parttwo": "Andmekogumi otsingu leht",
+                "page": "soovitud lehekülge ei leitud. Võite esilehelt uuesti alustada."
+            },
+            "error": "Viga"
         }
     }
 }

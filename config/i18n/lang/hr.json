@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Koristimo kolačiće na ovoj stranici kako bismo poboljšali vaše korisničko iskustvo"
+        },
+        "notFound": {
+            "contactUsAbout": "Kontaktirajte nas o ovoj poruci o grešci.",
+            "requested": {
+                "parttwo": "Stranica za pretraživanje skupa podataka",
+                "page": "Tražena stranica nije pronađena. Možete ponovno početi s početne stranice."
+            },
+            "error": "Greška"
         }
     }
 }

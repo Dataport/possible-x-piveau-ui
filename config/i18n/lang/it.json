@@ -776,6 +776,14 @@
         "cookieConsent": {
             "more": "Maggiori informazioni",
             "text": "Usiamo i cookie su questo sito per migliorare l'esperienza dell'utente"
+        },
+        "notFound": {
+            "contactUsAbout": "Si invita a contattarci riguardo a questo messaggio di errore.",
+            "requested": {
+                "parttwo": "Pagina di ricerca del set di dati",
+                "page": "la pagina richiesta non è stata trovata. È possibile iniziare di nuovo dalla home page."
+            },
+            "error": "Errore"
         }
     }
 }

@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Vi benytter cookies på dette website for at forbedre din brugeroplevelse"
+        },
+        "notFound": {
+            "contactUsAbout": "Kontakt os vedrørende denne fejlmeddelelse",
+            "requested": {
+                "parttwo": "Datasæt søgeside",
+                "page": "Den ønskede side blev ikke fundet. Du kan starte igen fra forsiden."
+            },
+            "error": "Fejl"
         }
     }
 }

@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Na zlepšenie používateľského zážitku využívame súbory cookies."
+        },
+        "notFound": {
+            "contactUsAbout": "Kontaktujte nás v súvislosti s touto správou o chybe.",
+            "requested": {
+                "parttwo": "Stránka vyhľadávania množiny údajov",
+                "page": "Požadovaná stránka sa nenašla. Môžete začať odznova na domovskej stránke."
+            },
+            "error": "Chyba"
         }
     }
 }

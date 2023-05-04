@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Este sítio utiliza cookies (testemunhos de conexão) para facilitar a navegação"
+        },
+        "notFound": {
+            "contactUsAbout": "Contacte-nos a respeito desta mensagem de erro.",
+            "requested": {
+                "parttwo": "Página de pesquisa do conjunto de dados",
+                "page": "A página que procura não existe. Comece de novo a partir da página inicial."
+            },
+            "error": "Erro"
         }
     }
 }

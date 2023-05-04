@@ -778,6 +778,14 @@
             "decline": "Köszönöm, nem",
             "text": "Ez az oldal cookie-kat (sütiket) használ a felhasználói élmény javítása érdekében",
             "more": "További információk"
+        },
+        "notFound": {
+            "contactUsAbout": "Vegye fel velünk a kapcsolatot ezzel a hibaüzenettel kapcsolatban.",
+            "requested": {
+                "parttwo": "Adatkészlet-kereső oldal",
+                "page": "A kért oldal nem található. Újrakezdheti a kezdőlapról."
+            },
+            "error": "Hiba"
         }
     }
 }

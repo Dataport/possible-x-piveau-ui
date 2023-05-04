@@ -6,7 +6,7 @@
       <div class="col-10 offset-1">
         <slot>
           <h1>{{ $t('message.notFound.error') }} 404</h1>
-          <p>{{ $t('message.notFound.requested.partone')}} <app-link :to="{name: 'Datasets'}"> {{ $t('message.notFound.requested.parttwo')}} </app-link></p>
+          <p><app-link :to="{name: 'Datasets'}"> {{ $t('message.notFound.requested.page')}} </app-link></p>
           <p><app-link :href="`/${$route.query.locale || 'en'}/feedback/form`">{{ $t('message.notFound.contactUsAbout')}}</app-link></p>
         </slot>
       </div>

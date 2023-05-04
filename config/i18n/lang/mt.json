@@ -776,6 +776,14 @@
         "cookieConsent": {
             "accept": "Accepteren",
             "text": "Aħna nużaw il-cookies fuq dan is-sit sabiex insaħħu l-esperjenza tiegħek ta' utent"
+        },
+        "notFound": {
+            "contactUsAbout": "Ikkuntattjana dwar dan il-messaġġ ta' żball.",
+            "requested": {
+                "parttwo": "Paġna tat-tfittxija tas-sett tad-dejta",
+                "page": "Il-paġna mitluba ma nstabitx. Inti tista' terġa' tibda mill-paġna ewlenija."
+            },
+            "error": "Żball"
         }
     }
 }

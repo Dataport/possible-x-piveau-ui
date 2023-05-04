@@ -781,7 +781,11 @@
         },
         "notFound": {
             "error": "Erreur",
-            "contactUsAbout": "Prenez contact avec nous à propos de ce message d'erreur."
+            "contactUsAbout": "Prenez contact avec nous à propos de ce message d'erreur.",
+            "requested": {
+                "parttwo": "Page de recherche d'ensembles de données",
+                "page": "Impossible de trouver la page demandée. Vous pouvez recommencer depuis la page d'accueil."
+            }
         }
     }
 }

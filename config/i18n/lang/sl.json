@@ -776,6 +776,13 @@
         },
         "cookieConsent": {
             "text": "Na tej strani uporabljamo piškotke, da bi izboljšali vašo uporabniško izkušnjo"
+        },
+        "notFound": {
+            "contactUsAbout": "Obrnite se na nas glede tega sporočila o napaki.",
+            "requested": {
+                "parttwo": "Stran za iskanje nabora podatkov"
+            },
+            "error": "Napaka"
         }
     }
 }
