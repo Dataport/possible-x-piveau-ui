@@ -23,7 +23,7 @@
         <!-- CONTACT POINT -->
         <tr v-if="property === 'dcat:contactPoint'">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <td>
+            <td class="w-75">
                 <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1]
                 }}
                 </div>

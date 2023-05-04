@@ -11,7 +11,7 @@
       <div class="right-form-nav">
 
         <!-- DELETE DISTRIBUTION -->
-        <FormulateInput type="button" label="Delete Distribution" @click="handleDeleteDistribution()" v-if="isDistribution" class="mr-2"></FormulateInput>
+        <FormulateInput type="button"  label="Delete Distribution" @click="handleDeleteDistribution()" v-if="isDistribution" class="mr-2 delDisBtn"></FormulateInput>
 
         <!-- PUBLISH NEW CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || getMandatoryStatus({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
