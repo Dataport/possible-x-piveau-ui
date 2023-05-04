@@ -301,12 +301,14 @@ body::-webkit-scrollbar {
       justify-content: end;
     }
   }
-  .selectLangFieldScnd{
+
+  .selectLangFieldScnd {
     width: 100%;
 
     div:before {
       display: none !important
     }
+
     .formulate-input-element--select {
       border-radius: 5px 5px 0 0 !important;
       border: 1px solid #cecece;
@@ -349,6 +351,7 @@ body::-webkit-scrollbar {
       display: none !important;
     }
   }
+
   .selectLangField {
     width: 100%;
 
@@ -359,6 +362,7 @@ body::-webkit-scrollbar {
     div:before {
       display: none !important
     }
+
     .formulate-input-element--select {
       border-radius: 5px 5px 0 0 !important;
       border: 1px solid #cecece;
@@ -410,10 +414,20 @@ body::-webkit-scrollbar {
   }
 
   .inputTextfield {
-    label{ display: none !important;}
-    .btn{
+    .formulate-input-element--text {
+      input {
+        height: 4vh;
+      }
+    }
+
+    label {
       display: none !important;
-    } 
+    }
+
+    .btn {
+      display: none !important;
+    }
+
     input {
       border-left: none !important;
       border-radius: 0 5px 5px 0 !important;
@@ -435,11 +449,20 @@ body::-webkit-scrollbar {
   }
 
   .selectLangField {
-    .formulate-input-error{
+    .formulate-input-element--select {
+      height: 4vh;
+    }
+
+    .formulate-input-error {
       margin-top: 1.9rem;
     }
+
     width: 20%;
-    label{ display: none !important;}
+
+    label {
+      display: none !important;
+    }
+
     span {
       display: none !important;
     }
@@ -491,18 +514,30 @@ body::-webkit-scrollbar {
   }
 
 }
-.formulate-input-element--conditional-input, .formulate-input-element--autocomplete-input, .formulate-input-group-repeatable{
+
+.formulate-input-element--conditional-input,
+.formulate-input-element--autocomplete-input,
+.formulate-input-group-repeatable {
   border: 1px solid #efefef;
   border-radius: 5px;
   padding: 1em 3em 1em 1em;
   margin-bottom: 0.5rem !important;
 }
-.property, .selected-value{
+
+.property,
+.selected-value {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
 }
-.form-container{
+
+.form-container {
   background-color: #efefef;
   padding-top: 0 !important;
+}
+
+#subStepperBox {
+  .step-progress__step {
+    border: solid #efefef 20px !important;
+  }
 }
 
 // import empty theme after styles are loaded

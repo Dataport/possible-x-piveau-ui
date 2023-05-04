@@ -357,10 +357,10 @@
                     "placeholder": "Dataset Access Rights placeholder text"
                 },
                 "pageDescription": {
-                    "label": "",
+                    "label": "Test",
                     "placeholder": "Dataset Page Description placeholder text",
-                    "help": "",
-                    "info": "",
+                    "help": "test",
+                    "info": "test",
                     "add-label": "Add more"
                 },
                 "identifier": {
@@ -429,9 +429,9 @@
                 },
                 "pageTitle": {
                     "placeholder": "Dataset Page Title placeholder text",
-                    "label": "",
-                    "help": "",
-                    "info": "",
+                    "label": "Test",
+                    "help": "Test",
+                    "info": "Test",
                     "add": "Add another page title",
                     "add-label": "Add more"
                 },
@@ -1476,6 +1476,7 @@
                     "info": ""
                 },
                 "pageDescription": {
+                    "info": "This property refers to a page or document about this Distribution.",
                     "label": "Description",
                     "placeholder": "Distribution Page Description placeholder text",
                     "help": "The page's description.",
