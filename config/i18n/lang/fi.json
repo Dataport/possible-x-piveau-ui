@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Käytämme evästeitä tällä sivustolla parantaaksemme käyttäjäkokemusta"
+        },
+        "notFound": {
+            "contactUsAbout": "Ota meihin yhteyttä tästä virheviestistä.",
+            "requested": {
+                "parttwo": "Tietojoukon hakusivu",
+                "page": "hakemaasi sivua ei löytynyt. Voit aloittaa alusta etusivulta."
+            },
+            "error": "Virhe"
         }
     }
 }

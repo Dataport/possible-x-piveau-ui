@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Mēs šajā vietnē izmantojam sīkdatnes, lai padarītu to ērtāku lietotājiem"
+        },
+        "notFound": {
+            "contactUsAbout": "Informējiet mūs par šo kļūdas ziņojumu.",
+            "requested": {
+                "parttwo": "Datu kopas meklēšanas lapa",
+                "page": "pieprasītā lapa netika atrasta. Varat sākt vēlreiz sākumlapā."
+            },
+            "error": "Kļūda"
         }
     }
 }

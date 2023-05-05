@@ -775,6 +775,14 @@
         },
         "cookieConsent": {
             "text": "Naudojame slapukus siekdami užtikrinti, kad jūsų patirtis šioje svetainėje būtų geriausia"
+        },
+        "notFound": {
+            "contactUsAbout": "Susisiekite su mumis dėl šio klaidos pranešimo.",
+            "requested": {
+                "parttwo": "Duomenų rinkinio paieškos puslapis",
+                "page": "ieškomas puslapis nerastas. Galite dar kartą pradėti iš pradžios puslapio."
+            },
+            "error": "Klaida"
         }
     }
 }

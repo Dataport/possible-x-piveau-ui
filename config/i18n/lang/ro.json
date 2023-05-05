@@ -776,6 +776,14 @@
         "cookieConsent": {
             "text": "Acest site folosește cookie-uri pentru a îmbunătăți experiența dumneavoastră de utilizator",
             "more": "Mai multe informații"
+        },
+        "notFound": {
+            "contactUsAbout": "Contactați-ne în legătură cu acest mesaj de eroare.",
+            "requested": {
+                "parttwo": "Pagina de căutare a setului de date",
+                "page": "Pagina solicitată nu a fost găsită. Puteți încerca din nou accesând pagina principală."
+            },
+            "error": "Eroare"
         }
     }
 }

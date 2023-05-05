@@ -719,8 +719,9 @@
         },
         "notFound": {
             "requested": {
-                "parttwo": "Datensätze such Seite.",
-                "partone": "Die angeforderte Seite wurde nicht gefunden. Sie können wieder von hier aus versuchen:"
+                "parttwo": "Datensätze such Seite",
+                "partone": "Die angeforderte Seite wurde nicht gefunden. Sie können wieder von hier aus versuchen:",
+                "page": "Die angeforderte Seite wurde nicht gefunden. Sie können es erneut von der Homepage aus versuchen."
             },
             "error": "Fehler",
             "contactUsAbout": "Kontaktieren Sie uns bezüglich dieser Fehlermeldung."
