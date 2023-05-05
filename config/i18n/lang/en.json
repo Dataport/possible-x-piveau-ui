@@ -357,7 +357,7 @@
                     "placeholder": "Dataset Access Rights placeholder text"
                 },
                 "pageDescription": {
-                    "label": "Test",
+                    "label": "Page description",
                     "placeholder": "Dataset Page Description placeholder text",
                     "help": "test",
                     "info": "test",
@@ -429,7 +429,7 @@
                 },
                 "pageTitle": {
                     "placeholder": "Dataset Page Title placeholder text",
-                    "label": "Test",
+                    "label": "Page title",
                     "help": "Test",
                     "info": "Test",
                     "add": "Add another page title",

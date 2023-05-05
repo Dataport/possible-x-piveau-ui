@@ -29,7 +29,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'descriptionLanguage',
-          value: 'en',
+          // value: 'en',
           type: 'select',
           options: language,
           validation: 'required',
@@ -392,7 +392,7 @@ const dcatapProperties = {
               '@change': true,
             },
             {
-              identifier: 'pageTitleSub',
+              identifier: 'pageTitlelang',
               // value: 'en',
               type: 'select',
               options: language,

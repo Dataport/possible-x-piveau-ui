@@ -62,14 +62,16 @@
         </div>
 
         <!-- ADMS IDENTIFIER -->
-        <div v-if="property === 'adms:identifier' && Object.keys(data).length > 1">
+        <div v-if="property === 'adms:identifier' && Object.keys(data).length > 1" class="d-flex">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <div v-if="showValue(data, '@id') && property === 'adms:identifier'">{{ $t('message.metadata.url') }}: <app-link
-                    :to="data['@id']">{{ data['@id'] }}</app-link></div>
-            <div v-if="showValue(data, 'skos:notation') && showValue(data['skos:notation'][0], '@value')">{{
-                $t('message.metadata.identifier') }}: {{ data['skos:notation'][0]['@value'] }}</div>
-            <div v-if="showValue(data, 'skos:notation') && showValue(data['skos:notation'][0], '@type')">{{
-                $t('message.metadata.type') }}: {{ data['skos:notation'][0]['@type'] }}</div>
+            <td>
+                <div v-if="showValue(data, '@id') && property === 'adms:identifier'">{{ $t('message.metadata.url') }}:
+                    <app-link :to="data['@id']">{{ data['@id'] }}</app-link></div>
+                <div v-if="showValue(data, 'skos:notation') && showValue(data['skos:notation'][0], '@value')">{{
+                    $t('message.metadata.identifier') }}: {{ data['skos:notation'][0]['@value'] }}</div>
+                <div v-if="showValue(data, 'skos:notation') && showValue(data['skos:notation'][0], '@type')">{{
+                    $t('message.metadata.type') }}: {{ data['skos:notation'][0]['@type'] }}</div>
+            </td>
         </div>
 
         <!-- TEMPORAL -->
@@ -84,10 +86,10 @@
 
 
         <!-- CHECKSUM -->
-        <div v-if="property === 'spdx:checksum'">
+        <div v-if="property === 'spdx:checksum'" class="d-flex">
             <!-- weird behaviour with the width here TODO-->
-            <td class="font-weight-bold" style="width:36%">{{ $t(`${value.label}`) }}:</td>
-            <td>
+            <td class="font-weight-bold w-25">{{ $t(`${value.label}`) }}:</td>
+            <td class="w-75">
                 <div v-if="showValue(data, 'spdx:checksumValue')">{{ data['spdx:checksumValue'] }}</div>
                 <div v-if="showValue(data, 'spdx:algorithm')">{{ data['spdx:algorithm'] }}</div>
             </td>
@@ -99,13 +101,14 @@
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div v-if="showValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
-                data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }} Hallo</div>
-            <div v-if="showValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
-                data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
-            <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}:{{ data['dct:format'] }}</div>
-            <div v-if="showValue(data, '@id')">{{ $t('message.metadata.url') }}: <app-link :to="data['@id']">{{ data['@id']
-            }}</app-link></div>
-            </td> 
+                    data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }} Hallo</div>
+                <div v-if="showValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
+                    data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
+                <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}:{{ data['dct:format'] }}</div>
+                <div v-if="showValue(data, '@id')">{{ $t('message.metadata.url') }}: <app-link :to="data['@id']">{{
+                    data['@id']
+                }}</app-link></div>
+            </td>
         </div>
 
         <!-- CONFORMS TO -->
