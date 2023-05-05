@@ -70,7 +70,7 @@
                 <h2 class="heading">{{ $t('message.datasetDetails.additionalInfo') }}</h2>
             </div>
             <div class="col-10 offset-1">
-                <table class="table table-borderless table-responsive pl-3 bg-light">
+                <table class="table table-borderless table-responsive pl-3 bg-light disOverview">
 
                     <div v-for="(value, name, index) in tableProperties" :key="index">
                         <PropertyEntry :data="getData('datasets')" profile="datasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>

@@ -358,9 +358,9 @@
                 },
                 "pageDescription": {
                     "label": "Page description",
-                    "placeholder": "Please provide a page description",
-                    "help": "Please describe the page as accurately as possible",
-                    "info": "",
+                    "placeholder": "Dataset Page Description placeholder text",
+                    "help": "test",
+                    "info": "test",
                     "add-label": "Add more"
                 },
                 "identifier": {
@@ -429,9 +429,9 @@
                 },
                 "pageTitle": {
                     "placeholder": "Dataset Page Title placeholder text",
-                    "label": "Page title",
-                    "help": "A descriptive title for the page",
-                    "info": "",
+                    "label": "Test",
+                    "help": "Test",
+                    "info": "Test",
                     "add": "Add another page title",
                     "add-label": "Add more"
                 },
