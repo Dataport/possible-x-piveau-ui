@@ -27,6 +27,55 @@ build-asset:
 # NO MORE MODIFICATIONS BELOW THIS COMMENT !!! #
 ################################################
 
+#
+# Theme builder start
+#
+
+register theme-builder as latest:
+  stage: build
+  tags:
+    - dind
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+  only:
+    - theme-docker
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -f theme-builder-dockerfile -t "${CI_REGISTRY_IMAGE}/theme-builder":latest .
+    - docker push "${CI_REGISTRY_IMAGE}/theme-builder":latest
+
+
+register theme-builder tag:
+  stage: build
+  tags:
+    - dind
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+  only:
+    - tags
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -f theme-builder-dockerfile -t "${CI_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG .
+    - docker push "${CI_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG
+    - docker login -u "$GITLAB_COM_USERNAME" -p "$GITLAB_COM_TOKEN" $GITLAB_COM_REGISTRY
+    - docker tag "${CI_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG
+    - docker push "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG
+    - docker tag "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
+    - docker push "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
+
+#
+# Theme builder end
+#
+
+
+
+
 register develop as latest:
   stage: register
   tags:
