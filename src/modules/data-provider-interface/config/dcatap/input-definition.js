@@ -179,8 +179,8 @@ const dcatapProperties = {
           '@change': true,
         },
         {
-          identifier: 'language',
-          value: 'en',
+          identifier: 'keywordsLanguage',
+          // value: 'en',
           type: 'select',
           name: '@language',
           class: 'selectLangField',
@@ -412,7 +412,7 @@ const dcatapProperties = {
           '@repeatableRemoved': true,
           children: [
             {
-              identifier: 'description',
+              identifier: 'pageDesc',
               type: 'textarea',
               name: '@value',
               class: 'inputTextfield w-100',
@@ -1123,7 +1123,7 @@ const dcatapProperties = {
               value: 'en',
               type: 'select',
               name: '@language',
-              class: 'selectLangFieldScnd',
+              class: 'selectLangField',
               options: language,
               '@change': true,
             },
