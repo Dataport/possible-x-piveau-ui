@@ -32,7 +32,7 @@ build-asset:
 #
 
 register theme-builder as latest:
-  stage: build
+  stage: register
   tags:
     - dind
   image: docker:latest
@@ -49,7 +49,7 @@ register theme-builder as latest:
 
 
 register theme-builder tag:
-  stage: build
+  stage: register
   tags:
     - dind
   image: docker:latest
