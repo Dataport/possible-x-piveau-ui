@@ -44,6 +44,23 @@ register theme-builder as latest:
     - theme-docker
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+    - docker build --pull -f theme-builder-dockerfile -t "${CI_REGISTRY_IMAGE}/theme-builder":latest .
+    - docker push "${CI_REGISTRY_IMAGE}/theme-builder":latest
+
+
+register theme-builder tag:
+  stage: build
+  tags:
+    - dind
+  image: docker:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:dind
+  only:
+    - tags
+  script:
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - docker build --pull -f theme-builder-dockerfile -t "${CI_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG .
     - docker push "${CI_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG
     - docker login -u "$GITLAB_COM_USERNAME" -p "$GITLAB_COM_TOKEN" $GITLAB_COM_REGISTRY
