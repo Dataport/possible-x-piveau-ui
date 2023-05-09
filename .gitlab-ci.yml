@@ -55,6 +55,7 @@ register theme-builder tag:
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay2
+    GITLAB_COM_REGISTRY_IMAGE: $GITLAB_COM_REGISTRY/piveau/hub/$CI_PROJECT_NAME
   services:
     - docker:dind
   only:
