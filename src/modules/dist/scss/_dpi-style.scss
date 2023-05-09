@@ -70,11 +70,7 @@
     // }
 }
 
-button {
-    border-radius: 5px !important;
-    font-size: 1em !important;
-    transition: all 0.3s ease-in-out;
-}
+
 
 .formulate-input-element--button {
     position: relative;
@@ -320,9 +316,16 @@ button {
             position: absolute;
         }
     }
+ 
 
 }
-
+.formulate-form{
+    button {
+        border-radius: 5px !important;
+        font-size: 1em !important;
+        transition: all 0.3s ease-in-out;
+    }
+}
 .formulate-input-element--conditional-input,
 .formulate-input-element--autocomplete-input,
 .formulate-input-group-repeatable {
