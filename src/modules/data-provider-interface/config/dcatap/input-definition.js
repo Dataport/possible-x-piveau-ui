@@ -420,7 +420,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'page-desc',
-              value: 'en',
+              // value: 'en',
               type: 'select',
               options: language,
               name: '@language',
