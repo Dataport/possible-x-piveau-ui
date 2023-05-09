@@ -168,6 +168,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             }
                         } else {
                             let groupBlankNode;
+                            console.log('####',key);
 
                             // because grouped properties have a list of nested properties we need an initial quadruple stating the parent property
                             // using a blank node as object which later serves as subject for the nested properties
@@ -190,10 +191,30 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             let emptyPage = false;
 
                             if (key === 'foaf:page') {
-                                const hasNoValueKeys = !currentGroupData['dct:title'].every(el => has(el, '@value')) && !currentGroupData['dct:description'].every(el => has(el, '@value'));
-                                const hasEmptyValue = currentGroupData['dct:title'].every(el => isEmpty(el['@value'])) && currentGroupData['dct:description'].every(el => isEmpty(el['@value']));
 
-                                if (hasNoValueKeys || hasEmptyValue) emptyPage = true;
+                                // if page has title and/or description property given, check if there are values given 
+                                const hasTitle = has(currentGroupData, 'dct:title');
+                                const hasDescription = has(currentGroupData, 'dct:description');
+
+                                let hasNoValueKeysTitle = true;
+                                let hasEmptyValueTitle = true;
+                                let hasNoValueKeysDescription = true;
+                                let hasEmptyValueDescription = true;
+
+                                if (hasTitle) {
+                                    hasNoValueKeysTitle = !currentGroupData['dct:title'].every(el => has(el, '@value'));
+                                    hasEmptyValueTitle = currentGroupData['dct:title'].every(el => isEmpty(el['@value']));
+                                }
+
+                                if (hasDescription) {
+                                    hasNoValueKeysDescription = !currentGroupData['dct:description'].every(el => has(el, '@value'));
+                                    hasEmptyValueDescription = currentGroupData['dct:description'].every(el => isEmpty(el['@value']));
+                                }
+                                
+                                // page should be handled as empty if:
+                                // no title and/or no description given
+                                // if properties given: no value given or value empty
+                                if ((hasNoValueKeysTitle || hasEmptyValueTitle) && (hasNoValueKeysDescription || hasEmptyValueDescription)) emptyPage = true;
                             }
 
                             if (!emptyPage) {
