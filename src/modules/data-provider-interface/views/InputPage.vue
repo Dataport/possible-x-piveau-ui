@@ -7,7 +7,7 @@
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
           @submit="handleSubmit"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
-          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues })">
+          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
           <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
