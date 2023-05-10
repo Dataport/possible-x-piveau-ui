@@ -126,5 +126,8 @@
   },
   "volta": {
     "node": "16.18.1"
+  },
+  "release": {
+    "branches": ["master", "develop"]
   }
 }

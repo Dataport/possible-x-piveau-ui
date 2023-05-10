@@ -67,6 +67,8 @@ register theme-builder tag:
     - docker:dind
   only:
     - tags
+  dependencies:
+    - build-asset
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - docker build --pull -f theme-builder-dockerfile -t "${CI_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG .
@@ -126,6 +128,8 @@ register tag as release:
     - docker:dind
   only:
     - tags
+  dependencies:
+    - build-asset    
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - docker build --pull -t "$CI_REGISTRY_IMAGE":$CI_COMMIT_TAG .
