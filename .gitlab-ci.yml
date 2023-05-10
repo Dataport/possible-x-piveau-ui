@@ -16,6 +16,7 @@ build-asset:
   only:
     - master
     - develop
+    - tags
   script:
     - npm ci
     - cp config/user-config.sample.js config/user-config.js
@@ -27,6 +28,9 @@ build-asset:
 semantic-release:
   image: node:18
   stage: create-tags
+  only:
+    - master
+    - develop
   before_script:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
     - npm install --only=dev
@@ -69,7 +73,7 @@ register theme-builder release:
   services:
     - docker:dind
   only:
-    - master
+    - tags
   needs:
     - job: semantic-release
   script:
@@ -105,7 +109,7 @@ register develop as latest:
 
 
 #
-# Deactivated this job because it is redundant with the next one. 
+# Deactivated this job because it is redundant with the next one.
 #
 # register master as prerelease:
 #   stage: register
@@ -134,7 +138,7 @@ register master as release:
   services:
     - docker:dind
   only:
-    - master
+    - tags
   needs:
     - job: semantic-release
   script:
