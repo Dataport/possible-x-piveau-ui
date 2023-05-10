@@ -1,6 +1,7 @@
 version: '3.3'
 services:
     hub-ui-theme-builder:
+        # image: 'registry.gitlab.com/piveau/hub/piveau-hub-ui/theme-builder:latest'
         image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui/theme-builder:latest'
         volumes:
             - 'src:/App/src'
@@ -14,10 +15,9 @@ services:
         logging:
             options:
                 max-size: 1g
-        environment:
-          - VUE_APP_METADATA_TITLE=My dataportal
 
     hub-ui-theme-server:
+        image: 'registry.gitlab.com/piveau/hub/piveau-hub-ui:latest'
         image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui:latest'
         ports:
             - '17080:8080'
