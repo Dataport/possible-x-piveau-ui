@@ -72,8 +72,6 @@ register theme-builder release:
     - master
   needs:
     - job: semantic-release
-  dependencies:
-    - build-asset
   script:
     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
     - docker build --pull -f theme-builder-dockerfile -t "${CI_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG .
