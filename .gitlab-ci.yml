@@ -70,7 +70,6 @@ register theme-builder release:
     - docker:dind
   only:
     - master
-    - develop
   needs:
     - job: semantic-release
   dependencies:
@@ -106,21 +105,25 @@ register develop as latest:
     - docker build --pull -t "$CI_REGISTRY_IMAGE":latest .
     - docker push "$CI_REGISTRY_IMAGE":latest
 
-register master as prerelease:
-  stage: register
-  tags:
-    - dind
-  image: docker:latest
-  variables:
-    DOCKER_DRIVER: overlay2
-  services:
-    - docker:dind
-  only:
-    - master
-  script:
-    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
-    - docker build --pull -t "$CI_REGISTRY_IMAGE":prerelease .
-    - docker push "$CI_REGISTRY_IMAGE":prerelease
+
+#
+# Deactivated this job because it is redundant with the next one. 
+#
+# register master as prerelease:
+#   stage: register
+#   tags:
+#     - dind
+#   image: docker:latest
+#   variables:
+#     DOCKER_DRIVER: overlay2
+#   services:
+#     - docker:dind
+#   only:
+#     - master
+#   script:
+#     - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+#     - docker build --pull -t "$CI_REGISTRY_IMAGE":prerelease .
+#     - docker push "$CI_REGISTRY_IMAGE":prerelease
 
 register master as release:
   stage: register
