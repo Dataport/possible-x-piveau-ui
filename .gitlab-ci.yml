@@ -4,7 +4,7 @@ cache:
 
 stages:
   - build
-  - tag
+  - create-tags
   - register
   - deploy
   - publish
@@ -26,7 +26,7 @@ build-asset:
 
 semantic-release:
   image: node:18
-  stage: tag
+  stage: create-tags
   before_script:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
     - npm install --only=dev
