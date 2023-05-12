@@ -501,6 +501,7 @@ Contains configuration values that are used for the `DataProviderInterface`.
 | basePath               | The base path of the Data Provider Interface (default: `true`).          |
 | specification               |  Defines the DCAT specification used (default: `dcatap`).          |
 | annifIntegration               | Enables the usage of Annif for autocompletion in Data Provider Interface (default: `false`).          |
+| enableFileUploadReplace      | Enables file replacement when editing existing distribution, instead of creating new ones (default: `false`).          |
 | buttons               | _see table below_        |
 | doiRegistrationService               | _see table below_        |
 
