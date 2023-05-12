@@ -100,14 +100,17 @@ export default {
         const targetDistribution = this.getData('distributions')?.[distributionIndexToReplace];
         const targetFile = targetDistribution?.['dcat:accessURL']?.[fileIndexToReplace];
         const accessUrl = targetFile?.['@id'];
-        const fileUploadUrl = this.$env.api.fileUploadUrl;
+        if (accessUrl) {
+          const fileUploadUrl = this.$env.api.fileUploadUrl;
 
-        const fileId = helper.getFileIdByAccessUrl({ accessUrl, fileUploadUrl })
+          const fileId = helper.getFileIdByAccessUrl({ accessUrl, fileUploadUrl })
 
-        return await this.uploadFile(file, {
-          method: 'PUT',
-          url: `${this.$env.api.fileUploadUrl}data/${fileId}?catalog=${this.getCatalogue}`,
-        });
+          return await this.uploadFile(file, {
+            method: 'PUT',
+            url: `${this.$env.api.fileUploadUrl}data/${fileId}?catalog=${this.getCatalogue}`,
+          });
+        }
+
       }
       return await this.uploadFile(file);
     },
