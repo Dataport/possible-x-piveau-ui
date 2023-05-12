@@ -120,7 +120,13 @@ export default {
     },
     redirectToDistributionForm(distributionIndex) {
       const firstDistPage = this.getNavSteps.distributions[0];
-      this.$router.push({ path: `${this.$env.content.dataProviderInterface.basePath}/distributions/${firstDistPage}/${distributionIndex}`, query: { locale: this.$route.query.locale } }).catch(() => { });
+      this.$router.push({
+        path: `${this.$env.content.dataProviderInterface.basePath}/distributions/${firstDistPage}/${distributionIndex}`,
+        query: {
+          locale: this.$route.query.locale,
+          edit: distributionIndex
+         }
+      }).catch(() => { });
     },
     createDistribution() {
       // create an new distribution within store
@@ -195,7 +201,7 @@ export default {
     &-button {
       cursor: pointer;
       transition: all 0.2s ease;
-      
+
     }
     &-button:hover {
       transform: scale(1.1);

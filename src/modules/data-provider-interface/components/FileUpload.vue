@@ -1,8 +1,8 @@
 <template>
-  <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-on="$listeners">
+  <div ref="fileupload" :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-on="$listeners">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
     <div class="file-div position-relative">
-      <input type="file" @change="uploadFile($event.target.files[0])">
+      <input type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })">
       <div class="upload-feedback position-absolute d-flex" style="right: 0">
         <div v-if="isLoading" class="lds-ring"><div></div><div></div><div></div><div></div></div>
         <div v-if="success"><i class="material-icons d-flex check-icon">check_circle</i></div>
@@ -16,6 +16,7 @@
 /* eslint-disable consistent-return, no-unused-vars */
 import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
+import helper from '../utils/general-helper'
 
 export default {
   props: {
@@ -34,6 +35,7 @@ export default {
   computed: {
     ...mapGetters('auth', [
       'getUserData',
+      'getIsEditMode'
     ]),
     ...mapGetters('dpiStore', [
       'getData',
@@ -47,7 +49,72 @@ export default {
     ...mapActions('dpiStore', [
       'saveLocalstorageValues',
     ]),
-    async uploadFile(file) {
+    // finds the parent input group of a given element.
+    findParentInputGroupOfElement(element) {
+      // Start with the given element.
+      let currentElement = element;
+
+      // Traverse the DOM tree upwards.
+      while (currentElement) {
+        // If the current element is an input group, return it.
+        if (currentElement.classList.contains('formulate-input-group-repeatable')) {
+          return currentElement;
+        }
+        // If not, move to the parent element.
+        currentElement = currentElement.parentElement;
+      }
+
+      // If no input group was found, return null.
+      return null;
+    },
+    // finds the index of the distribution access URL based on the root of this component.
+    findDistributionAccessUrlIndex() {
+      // todo: find a more stable way to find the index of the distribution access URL.
+      // this way uses the DOM tree, which is not stable.
+
+      // Start at the root of this component.
+      const rootElement = this.$refs.fileupload;
+
+      // Find the parent input group of the root element.
+      const parentInputGroup = this.findParentInputGroupOfElement(rootElement);
+      if (!parentInputGroup) return null;
+
+      // Get the parent element of all input groups.
+      const parentOfAllInputGroups = parentInputGroup.parentElement;
+      const allInputGroupsNodeList = parentOfAllInputGroups.querySelectorAll('.formulate-input-group-repeatable');
+      const allInputGroupsArray = Array.from(allInputGroupsNodeList);
+
+      // Find the index of the parent input group within the array of all input groups.
+      const indexOfParentInputGroup = allInputGroupsArray.indexOf(parentInputGroup);
+
+      return indexOfParentInputGroup;
+    },
+    async uploadOrReplaceFile({ file }) {
+      const replaceEnabled = this.$env?.content?.dataProviderInterface?.enableFileUploadReplace || false;
+      const wantsToReplace = this.$route.query?.edit ?? false;
+
+      if (replaceEnabled && wantsToReplace) {
+        const distributionIndexToReplace = this.$route.query?.edit;
+        const fileIndexToReplace = this.findDistributionAccessUrlIndex();
+
+        const targetDistribution = this.getData('distributions')?.[distributionIndexToReplace];
+        const targetFile = targetDistribution?.['dcat:accessURL']?.[fileIndexToReplace];
+        const accessUrl = targetFile?.['@id'];
+        if (accessUrl) {
+          const fileUploadUrl = this.$env.api.fileUploadUrl;
+
+          const fileId = helper.getFileIdByAccessUrl({ accessUrl, fileUploadUrl })
+
+          return await this.uploadFile(file, {
+            method: 'PUT',
+            url: `${this.$env.api.fileUploadUrl}data/${fileId}?catalog=${this.getCatalogue}`,
+          });
+        }
+
+      }
+      return await this.uploadFile(file);
+    },
+    async uploadFile(file, options = {}) {
       this.isLoading = true;
 
       const form = new FormData();
@@ -56,9 +123,15 @@ export default {
       const catalog = this.getCatalogue;
       const token = this.getUserData.rtpToken;
 
-      const requestOptions = {
+      const resolvedOptions = {
         method: 'POST',
         url: `${this.$env.api.fileUploadUrl}data?catalog=${catalog}`,
+        ...options,
+      };
+
+      const requestOptions = {
+        method: resolvedOptions.method,
+        url: resolvedOptions.url,
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
