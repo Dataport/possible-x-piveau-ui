@@ -29,7 +29,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'descriptionLanguage',
-          // value: 'en',
+          value: 'en',
           type: 'select',
           options: language,
           validation: 'required',
@@ -58,7 +58,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'dctTitle',
-          // value: 'en',
+          value: 'en',
           type: 'select',
           validation: 'required',
           options: language,
@@ -180,7 +180,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'keywordsLanguage',
-          // value: 'en',
+          value: 'en',
           type: 'select',
           name: '@language',
           class: 'selectLangField',
@@ -393,7 +393,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'pageTitlelang',
-              // value: 'en',
+              value: 'en',
               type: 'select',
               options: language,
               name: '@language',
@@ -420,7 +420,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'page-desc',
-              // value: 'en',
+              value: 'en',
               type: 'select',
               options: language,
               name: '@language',
