@@ -101,7 +101,7 @@
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div v-if="showValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
-                    data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }} Hallo</div>
+                    data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
                 <div v-if="showValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
                     data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
                 <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}:{{ data['dct:format'] }}</div>

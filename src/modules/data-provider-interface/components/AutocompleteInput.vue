@@ -34,7 +34,7 @@
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
           @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
         <div class="position-relative h-100" @click="clearAutocomplete">
-          <a class="custom-remove" v-bind:class="{ remBG: choice }"></a>
+          <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a>
         </div>
 
       </div>
@@ -175,7 +175,7 @@ export default {
 
       // diable delete button
       if (this.values.length === 0) {
-        console.log('######');
+        // console.log('######');
         this.choice = false;
       }
     },
@@ -261,7 +261,6 @@ export default {
           }
         }
       }
-
     },
     setTooltip() {
       setTimeout(() => {
@@ -319,20 +318,6 @@ export default {
               list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
             }
             let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-
-
-            // for (var i = 0; i < filteredList.length; i++) {
-            //   filteredList[i].activeValue = true
-            //   this.valueListOfThemes.push(filteredList[i])
-            // }
-            // if (Object.keys(this.values).length > filteredList.length) {
-            //   let is = this.values.filter((set => item => !set.has(item.resource))(new Set(filteredList.map(item => item.resource))))
-            //   for (var w = 0; w < is.length; w++) {
-            //     is[w].activeValue = true
-            //     this.valueListOfThemes.push(is[w])
-            //   }
-            // }
-
             filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
             for (var q = 0; q < filteredList.length; q++) {
               this.valueListOfThemes.push(filteredList[q])
