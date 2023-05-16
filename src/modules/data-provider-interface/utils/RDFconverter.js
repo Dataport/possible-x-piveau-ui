@@ -168,7 +168,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             }
                         } else {
                             let groupBlankNode;
-                            console.log('####',key);
 
                             // because grouped properties have a list of nested properties we need an initial quadruple stating the parent property
                             // using a blank node as object which later serves as subject for the nested properties
@@ -243,6 +242,25 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                         }
                     }
                 }
+            }
+        } else if (formatTypes.conditionalProperties[property].includes(key)) {
+            // publisher either is an URI or a group with multiple values (name, homepage, email)
+            if (key === 'dct:publisher') {
+                // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
+                if (typeof data[key] === 'string') {
+                    generalHelper.addKeyToFormatType(key, 'singularURI', property, formatTypes);
+                } else if (Array.isArray(data[key])) {
+                    generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatTypes);
+                }
+                generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatTypes);
+
+                // now conversion run based on newly defined format Type
+                convertPropertyValues(RDFdataset, data, property, mainURI, mainType, false, dpiConfig);
+
+                // to handle changes: undo prior changes back to default behavior (conditional Property)
+                generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatTypes);
+                generalHelper.removeKeyFromFormatType(key, 'singularURI', property, formatTypes);
+                generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatTypes);
             }
         } else if (key === 'dcat:temporalResolution') {
             // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)

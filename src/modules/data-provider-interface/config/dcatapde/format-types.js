@@ -1,7 +1,6 @@
 // all properties which value is a single URI
 const singularURI = {
     datasets: [
-        "dct:publisher",
         "dct:accrualPeriodicity",
         "dct:spatial",
         "dct:accessRights",
@@ -15,8 +14,8 @@ const singularURI = {
         'vcard:hasEmail', // contact point
         'vcard:hasURL', // contect point
         'dext:isUsedBy', // isUsedBy
-        'foaf:mbox', // creator
-        'foaf:homepage', // creator
+        'foaf:mbox', // creator, publisher
+        'foaf:homepage', // creator, publisher
         'dct:format', // page
     ],
     distributions: [
@@ -110,7 +109,7 @@ const singularString = {
         "vcard:postal_code", // hasAddress
         "vcard:street_address", // hasAddress
         'rdfs:label', // conformsTo and provenance
-        'foaf:name', // creator
+        'foaf:name', // creator, publisher
     ],
     distributions: [
         // nested singular string
@@ -178,6 +177,17 @@ const groupedProperties = {
     ]
 };
 
+// some properties provide the ability to choose the input type and therefore the respective fields which will be provided
+const conditionalProperties = {
+    datasets: [
+        'dct:publisher',
+    ],
+    distributions: [],
+    catalogues: [
+        'dct:publisher',
+    ],
+}
+
 // some properties have additional statement included which must be added to the linked data
 const additionalPropertyTypes = {
     'dct:temporal': 'dct:PeriodOfTime',
@@ -187,6 +197,7 @@ const additionalPropertyTypes = {
     'dext:metadataExtension': 'dext:MetadataExtension',
     'spdx:checksum': 'spdx:Checksum',
     'dcat:accessService': 'dcat:DataService',
+    'dct:publisher': 'foaf:Agent',
 }
 
 // multiple URIs provided by the form can be formated as an array of objects containing the URI as value of key '@id'
@@ -241,4 +252,5 @@ export default {
     additionalPropertyTypes,
     multiURIobjects,
     multiURIarray,
+    conditionalProperties,
 };
