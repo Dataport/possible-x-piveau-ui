@@ -89,7 +89,28 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
         } else if (formatType.typedStrings[property].includes(key)) {
             convertTypedString(subData, state, key);
         } else if (formatType.multilingualStrings[property].includes(key)) {
-            convertMultilingual(subData, state,  key);   
+            convertMultilingual(subData, state,  key);
+        } else if (formatType.conditionalProperties[property].includes(key)) {
+            // publisher either is an URI or a group with multiple values (name, homepage, email)
+            if (key === 'dct:publisher') {
+                for (let el of subData) {
+                    // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
+                    if (el.object.termType === 'BlankNode') {
+                        generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatType);
+                    } else if (el.object.termType === 'NamedNode') {
+                        generalHelper.addKeyToFormatType(key, 'singularURI', property, formatType);
+                    }
+                    generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatType);
+
+                    // now conversion run based on newly defined format Type
+                    convertProperties(property, state, id, data, propertyKeys, dpiConfig);
+
+                    // to handle changes: undo prior changes back to default behavior (conditional Property)
+                    generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatType);
+                    generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatType);
+                    generalHelper.removeKeyFromFormatType(key, 'singularURI', property, formatType);
+                }
+            }
         } else if (formatType.groupedProperties[property].includes(key)) {
             if (subData.size > 0) {
                 state[key] = [];
