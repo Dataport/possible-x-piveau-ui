@@ -223,10 +223,13 @@ export default {
     background: $primary;
   }
 
+  #piveau-header{
+    position: relative;
+  }
 
   .piveau-logo{
-    max-width: 8vw;
-    height: auto;
+    max-height: 55px;
+    width: auto;
     padding-top: 10px;
     padding-bottom: 10px;
   }

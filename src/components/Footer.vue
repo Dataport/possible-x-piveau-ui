@@ -2,21 +2,16 @@
 
 <template>
   <div id="piveau-footer">
-    <FooterBottom v-bind="$attrs" v-on="$listeners"><slot /></FooterBottom>
   </div>
 </template>
 
 <script>
-import FooterBottom from './FooterBottom.vue';
 
 export default {
   name: 'PiveauFooter',
-  components: {
-    footerBottom: FooterBottom,
-  },
   inheritAttrs: false,
   props: {
-    
+
   },
 };
 </script>
