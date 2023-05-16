@@ -15,7 +15,9 @@ import Vue from 'vue';
 import Meta from 'vue-meta';
 import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
-import PiveauHeaderFooter from '@piveau/piveau-header-footer';
+import Header from './components/Header.vue'; 
+import Footer from './components/Footer.vue';
+
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
 // import AppToast from '@/components/AppToast';
 // Import v-select
@@ -94,6 +96,9 @@ configureModules({
   }
 });
 
+
+Vue.component('piveau-header', Header);
+Vue.component('piveau-footer', Footer);
 
 Vue.component('InfoSlot', InfoSlot);
 Vue.component('ConditionalInput', ConditionalInput);
@@ -236,8 +241,6 @@ $(() => {
 });
 
 require('@fortawesome/fontawesome-free/css/all.css');
-
-require('@piveau/piveau-header-footer/dist/piveau-header-footer.css');
 
 // OpenStreetMaps popup styles
 require('leaflet/dist/leaflet.css');

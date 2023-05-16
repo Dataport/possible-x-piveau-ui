@@ -1,0 +1,10 @@
+/***********************************
+	LAYOUT & TYPOGRAPHY
+***********************************/
+
+#piveau-footer .container {
+	max-width: 1340px !important;
+}
+#piveau-footer *:not(.far):not(.fas):not(.fab) {
+  font-family: Helvetica,Arial,sans-serif;
+}
