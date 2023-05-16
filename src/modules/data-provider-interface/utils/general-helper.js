@@ -252,6 +252,28 @@ function getFileIdByAccessUrl({ accessUrl, fileUploadUrl }) {
   return null;
 }
 
+/**
+ * Adds given key to format type 
+ * @param {String} key 
+ * @param {String} format 
+ * @param {String} property 
+ * @param {Object} typeDefinition 
+ */
+function addKeyToFormatType(key, format, property, typeDefinition) {
+    typeDefinition[format][property].push(key);
+}
+
+/**
+ * Removes key from format type
+ * @param {String} key 
+ * @param {String} format 
+ * @param {String} property 
+ * @param {Object} typeDefinition 
+ */
+function removeKeyFromFormatType(key, format, property, typeDefinition) {
+    typeDefinition[format][property].splice(typeDefinition[format][property].indexOf(key), 1);
+}
+
 export default {
     mergeNestedObjects,
     addNamespace,
@@ -263,4 +285,6 @@ export default {
     removeNamespace,
     checkMandatory,
     getFileIdByAccessUrl,
+    addKeyToFormatType,
+    removeKeyFromFormatType,
 };
