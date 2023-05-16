@@ -91,7 +91,7 @@ export default {
     data() {
         return {
             tableProperties: {
-                'dct:publisher': {type: 'singularURI', voc: 'corporate-body', label: 'message.metadata.publisher' }, 
+                'dct:publisher': {type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' }, 
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints'},
                 'dct:creator': {type: 'special', voc: '', label: 'message.metadata.creator'},
                 'dct:issued': { type: 'date', label: 'message.metadata.created' },

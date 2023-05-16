@@ -6,6 +6,7 @@
             <URIProp :property="property" :value="value" :data="data"><p>{{value.type}}</p></URIProp>
             <URLProp :property="property" :value="value" :data="data"></URLProp>
             <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
+            <ConditionalProp :property="property" :value="value" :data="data"></ConditionalProp>
 
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
@@ -18,21 +19,21 @@
 </template>
 
 <script>
-import AppLink from "@/modules/widgets/AppLink";
 import URIProp from './Properties/URIProp.vue';
 import URLProp from './Properties/URLProp.vue';
 import StringProp from './Properties/StringProp.vue';
 import SpecialProp from './Properties/SpecialProp.vue';
+import ConditionalProp from './Properties/ConditionalProp';
 
 import { has, isNil, isEmpty } from 'lodash';
 
 export default {
     components: {
-        AppLink,
         URIProp,
         URLProp,
         StringProp,
         SpecialProp,
+        ConditionalProp,
     },
     props: {
         profile: String,
