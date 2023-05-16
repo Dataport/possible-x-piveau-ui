@@ -161,6 +161,13 @@ const groupedProperties = {
     ]
 };
 
+// for properties with dynamic input type
+const conditionalProperties = {
+    datasets: [],
+    distributions: [],
+    catalogues: [],
+}
+
 // some properties have additional statement included which must be added to the linked data
 const additionalPropertyTypes = {
     'dct:temporal': 'dct:PeriodOfTime',
@@ -221,4 +228,5 @@ export default {
     additionalPropertyTypes,
     multiURIobjects,
     multiURIarray,
+    conditionalProperties,
 };
