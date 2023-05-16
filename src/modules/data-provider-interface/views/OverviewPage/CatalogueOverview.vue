@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       tableProperties: {
-                'dct:publisher': {type: 'singularURI', voc: 'corporate-body', label: 'message.metadata.publisher' },
+                'dct:publisher': {type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'foaf:homepage': {type: 'singularURL', voc: '', label: 'message.metadata.homepage'},
                 'dct:language': { type: 'multiURI', voc: 'language', label: 'message.metadata.languages' },
                 'dct:license': {type: 'singularURI', voc: '', label: 'message.metadata.license'},
