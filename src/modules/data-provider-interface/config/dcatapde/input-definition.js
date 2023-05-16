@@ -546,7 +546,7 @@ const dcatapProperties = {
           {
             identifier: 'publisher',
             type: 'autocomplete-input',
-            name: 'dct:publisher',
+            name: '@id',
             voc: 'corporate-body',
             '@change': true,
           }
