@@ -290,6 +290,7 @@ const glueConfig = {
       basePath: '/dpi',
       specification: 'dcatap',
       annifIntegration: false,
+      enableFileUploadReplace: false,
       buttons: {
         Dataset: true,
         Catalogue: false,
