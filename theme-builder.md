@@ -9,8 +9,20 @@ In this case this is achieved by encapsulating most of the needed vue.js files i
 
 ## How does it work
 
-1. Use the theme-builder-docker-compose.yml to launch the needed containers with the correspoinding volumes.
+1. Use the theme-builder-docker-compose.yml to launch the needed containers with the corresponding volumes.
 2. An instance of piveau-hub-ui will be launched in the port 17080.
 3. You can now replace the files in the volumes "public" and "src" with your own files.  
 4. Restart the container "theme-builder". And wait until the process finishes. (See the container logs to see the progress)
 5. Reload the local piveau-hub-ui (localhost:17080)
+
+## Script
+
+```
+git clone https://gitlab.com/piveau/hub/piveau-hub-ui
+cd piveau-hub-ui
+sudo docker-compose -f theme-builder-docker-compose.yml up -d
+```
+
+After this you can visit
+
+[http://localhost:17080](http://localhost:17080)
