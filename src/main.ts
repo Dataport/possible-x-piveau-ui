@@ -15,7 +15,28 @@ import Vue from 'vue';
 import Meta from 'vue-meta';
 import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
-import Header from './components/Header.vue'; 
+
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faHome, faChevronDown, faBars, faTimes, faSearch, faExternalLinkAlt, faUser,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faComments,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faFacebook, faTwitter, faYoutube,
+  faFacebookSquare, faTwitterSquare, faLinkedin, faYoutubeSquare,
+} from '@fortawesome/free-brands-svg-icons';
+
+library.add([
+  faHome, faChevronDown, faBars, faTimes, faSearch, faExternalLinkAlt, faComments, faUser,
+  faFacebook, faTwitter, faYoutube,
+  faFacebookSquare, faTwitterSquare, faLinkedin, faYoutubeSquare,
+]);
+
+
+import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
 
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
@@ -265,7 +286,7 @@ Vue.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 // Vue-inject setup
 Vue.use(injector, { components: true });
 
-Vue.use(PiveauHeaderFooter);
+// Vue.use(PiveauHeaderFooter);
 
 Vue.use(VuePositionSticky);
 

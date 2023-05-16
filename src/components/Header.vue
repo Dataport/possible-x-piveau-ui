@@ -1,6 +1,6 @@
 <template>
   <div class="mb-5">
-    <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" :style="{ background: headerFooterBackground }">
+    <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" >
       <slot name="logo">
         <a class="navbar-brand" href="/"><Logo class="piveau-logo"/></a>
       </slot>
@@ -129,10 +129,13 @@ export default {
       default: undefined,
     },
     languageObject: {
-      default: {},
+      type: Array,
+      default() {
+        return []
+      }
     },
-    headerFooterBackground: {
-      default: '#6610f2',
+    headerBackground: {
+      default: 'linear-gradient(0deg, rgba(0,154,165,1) 0%, rgba(26,52,113,1) 100%)',
     },
     overrideLocale: {
       type: String,
@@ -147,19 +150,17 @@ export default {
       default: false,
     },
   },
-  i18n: {
-    messages: process.i18n,
-  },
   computed: {
     navItems() {
       const navItems = [
+        /** ToDo add route to landing? Add/change weblate translation */
         {
           title: this.$t('message.header.navigation.data.datasets'),
           href: this.hrefDatasets || `/data/datasets?locale=${this.$route.query.locale}`,
           show: this.showDatasets,
         },
         {
-          title: this.$t('message.header.navigation.data.catalogues'),
+          title: this.$t('message.header.navigation.data.catalogs'),
           href: this.hrefCatalogues || `/data/catalogues?locale=${this.$route.query.locale}`,
           show: this.showCatalogues,
         },
@@ -168,11 +169,11 @@ export default {
           href: this.hrefSparql || '/sparql',
           show: this.showSparql,
         },
-        // {
-        //   title: this.$t('message.header.navigation.data.metadataquality'),
-        //   href: this.hrefMetadataQuality || `/mqa?locale=${this.$route.query.locale}`,
-        //   show: this.showMetadataQuality,
-        // },
+        /* {
+          title: this.$t('message.header.navigation.data.metadataquality'),
+          href: this.hrefMetadataQuality || `/mqa?locale=${this.$route.query.locale}`,
+          show: this.showMetadataQuality,
+        }, */
       ];
 
       this.adjustNavItemsToProject(navItems, this.project);
@@ -215,11 +216,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  // @import '../styles/_variables.scss';
+  @import '../styles/custom_theme.scss';
 
-  /* .navbar {
-    background: linear-gradient(to right, #141e30 1%, #243B55 70%)
+  .navbar {
+    background: $primary;
   }
-  */
+
+
+  .piveau-logo{
+    max-width: 8vw;
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 
   .nav-link {
     color: rgba(250, 250, 250, 0.5) !important;

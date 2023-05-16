@@ -62,9 +62,6 @@ export default {
       } : this.languageObject,
     };
   },
-  i18n: {
-    messages: process.i18n,
-  },
   computed: {
     locale: {
       get() {
