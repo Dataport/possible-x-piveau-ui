@@ -25,7 +25,6 @@
         @login="login"
         @logout="logout"
       >
-        hello world
       </piveau-footer>
       <!-- <div class="bg-primary text-light p-3">
         Put a footer here. Made with <span class="text-danger">♥</span> by <a href="https://www.piveau.eu" class="text-light">piveau</a>.

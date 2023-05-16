@@ -1,6 +1,8 @@
+
+
 <template>
   <div id="piveau-footer">
-    <footer-bottom v-bind="$attrs" v-on="$listeners"><slot /></footer-bottom>
+    <FooterBottom v-bind="$attrs" v-on="$listeners"><slot /></FooterBottom>
   </div>
 </template>
 
@@ -14,9 +16,7 @@ export default {
   },
   inheritAttrs: false,
   props: {
-    footerBackground: {
-      default: 'linear-gradient(0deg, rgba(26,52,113,1) 0%, rgba(0,154,165,1) 100%)',
-    },
+    
   },
 };
 </script>
