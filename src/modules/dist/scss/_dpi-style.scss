@@ -114,6 +114,7 @@
         }
 
         .formulate-input-element--select {
+            display: flex;
             border-radius: 5px 5px 0 0 !important;
             border: 1px solid #cecece;
             border-bottom: none;
@@ -168,6 +169,7 @@
         }
 
         .formulate-input-element--select {
+            display: flex !important;
             border-radius: 5px 5px 0 0 !important;
             border: 1px solid #cecece;
             border-bottom: none;
@@ -220,7 +222,7 @@
     .inputTextfield {
         .formulate-input-element--text {
             input {
-                height: 4vh;
+                height: 45px;
             }
         }
 
@@ -254,7 +256,7 @@
 
     .selectLangField {
         .formulate-input-element--select {
-            height: 4vh;
+            height: 45px;
         }
 
         .formulate-input-error {
@@ -276,6 +278,7 @@
         }
 
         .formulate-input-element--select {
+            display: flex !important;
             border-radius: 5px 0 0 5px !important;
             border: 1px solid #cecece;
             padding-left: 2.5em !important;

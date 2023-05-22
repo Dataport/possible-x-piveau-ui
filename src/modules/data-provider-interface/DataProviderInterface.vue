@@ -389,7 +389,7 @@ export default {
 }
 
 .formulate-input-element {
-  display: inline-block !important;
+  
   &--textarea {
     width: 100%;
   }
