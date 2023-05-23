@@ -113,7 +113,7 @@ export default {
         text: "",
         selected: false,
         suggestions: [],
-
+        clicked: false
       },
       choice: false,
       themeSuggestionList: {},
@@ -134,23 +134,24 @@ export default {
   },
   computed: {
     filteredAutocompleteSuggestions() {
+
       if (this.autocomplete.selected) return [];
       return this.autocomplete.suggestions.slice(0, 10);
+
     }
 
   },
-  async mounted() {
-
+  mounted() {
 
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-    // Need to make this safer! nextTick() maybe? 
+    // This is a bit buggy need to to something here!!!
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
         this.valueListOfThemes.push(this.values[i])
       }
-    }, 1000);
+    }, 2000);
   },
   methods: {
     ...mapActions("dpiStore", [
@@ -173,7 +174,7 @@ export default {
       this.autocomplete.text = "";
       this.context.rootEmit("change");
 
-      // diable delete button
+      // disable delete button
       if (this.values.length === 0) {
         // console.log('######');
         this.choice = false;
@@ -244,14 +245,15 @@ export default {
         });
     },
     handleAnnifClick(e) {
+
       if (e.target.classList.contains('annifItems')) {
 
         e.target.classList.toggle('greenBG')
         e.target.querySelector('svg').classList.toggle('rotate45');
-
         for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;
+            console.log(this.valueListOfThemes[i]);
             this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
@@ -259,8 +261,19 @@ export default {
             this.deleteValue(this.valueListOfThemes[i].resource)
             break
           }
+          if (e.target.title == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == true) {
+            this.deleteValue(this.valueListOfThemes[i].resource)
+            break
+          }
+          if (e.target.title == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
+            this.valueListOfThemes[i].activeValue = true;
+            console.log(this.valueListOfThemes[i]);
+            this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
+            break
+          }
         }
       }
+
     },
     setTooltip() {
       setTimeout(() => {
