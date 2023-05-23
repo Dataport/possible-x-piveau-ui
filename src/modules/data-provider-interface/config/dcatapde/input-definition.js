@@ -151,7 +151,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           options: language,
           name: '@language',
@@ -181,7 +181,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           options: language,
           name: '@language',
@@ -373,7 +373,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           options: language,
           validation: 'required',
@@ -402,7 +402,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           validation: 'required',
           options: language,
@@ -524,7 +524,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           name: '@language',
           class: 'row1 column2',
@@ -737,7 +737,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'language',
-              value: 'en',
+              value: 'de',
               type: 'select',
               options: language,
               name: '@language',
@@ -764,7 +764,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'language',
-              value: 'en',
+              value: 'de',
               type: 'select',
               options: language,
               name: '@language',
@@ -1177,7 +1177,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           name: '@language',
           options: language,
@@ -1236,7 +1236,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           options: language,
           name: '@language',
@@ -1310,8 +1310,8 @@ const dcatapProperties = {
           '@change': true,
         },
         {
-          identifier: 'language',
-          value: 'en',
+          identifier: 'descriptionLanguage',
+          value: 'de',
           type: 'select',
           options: language,
           name: '@language',
@@ -1354,7 +1354,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           options: language,
           name: '@language',
@@ -1439,7 +1439,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'language',
-              value: 'en',
+              value: 'de',
               type: 'select',
               name: '@language',
               class: 'sub',
@@ -1466,7 +1466,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'language',
-              value: 'en',
+              value: 'de',
               type: 'select',
               name: '@language',
               class: 'sub',
@@ -1547,7 +1547,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'language',
-              value: 'en',
+              value: 'de',
               type: 'select',
               options: language,
               name: '@language',
@@ -1574,7 +1574,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'language',
-              value: 'en',
+              value: 'de',
               type: 'select',
               options: language,
               name: '@language',
@@ -1846,7 +1846,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           validation: 'required',
           options: language,
@@ -1875,7 +1875,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'language',
-          value: 'en',
+          value: 'de',
           type: 'select',
           options: language,
           validation: 'required',

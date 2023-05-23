@@ -46,11 +46,11 @@
       </td>
       <td>{{ filterDateFormatEU(distribution.modificationDate) }}</td>
     </tr>
-    <tr v-if="has(distribution, 'licenseAttributionByText') && !isNil(distribution.licenseAttributionByText)">
+    <tr v-if="has(distribution, 'licenseAttributionByText') && (!isNil(distribution.licenseAttributionByText) && !isNil(getTranslationFor(distribution.licenseAttributionByText)))">
       <td class="w-25 font-weight-bold">
         <!-- <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')"> -->
           <!-- {{ $t('message.metadata.updated') }} -->
-          {{ 'License Attribution By Text' }}
+          {{ $t('message.dataupload.distributions.licenseAttributionByText.label') }}
         <!-- </tooltip> -->
       </td>
       <td>{{ getTranslationFor(distribution.licenseAttributionByText) }}</td>

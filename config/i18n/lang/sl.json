@@ -136,168 +136,6 @@
                 "information": "Informacije"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Vir"
-                    },
-                    "type": {
-                        "placeholder": "Besedilo vrste mesta podatkovnega niza"
-                    },
-                    "subject": {
-                        "help": "Kategorija nabora podatkov."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "Naslov URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Besedilo „Kontaktna točka za naslov naslov“ Uporaba mesta"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Nabor podatkov je skladen z besedilom imetnika"
-                    },
-                    "isVersionOf": {
-                        "label": "Različica SVZ"
-                    },
-                    "provenance": {
-                        "label": "Izvor"
-                    },
-                    "language": {
-                        "label": "Jezik"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Povezava z agentom, ki je v neki obliki odgovoren za vir"
-                    },
-                    "temporal": {
-                        "placeholder": "Podatkovni niz – Časovni prostor – besedilo imetnika podatkov"
-                    },
-                    "accessRights": {
-                        "info": "Ta lastnost se nanaša na informacije, ki kažejo, ali je nabor podatkov odprt podatek, ali ima omejitve dostopa ali ni javen."
-                    },
-                    "identifier": {
-                        "help": "Ta lastnost vsebuje glavni identifikator nabora podatkov."
-                    },
-                    "versionInfo": {
-                        "help": "Številka različice podatkovnega niza."
-                    },
-                    "hasVersion": {
-                        "info": "Zadeva povezani nabor podatkov, ki je različica, izdaja ali prilagoditev opisanega nabora podatkov."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Dodaj, ki jih je ustvaril"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Razmerje s kvalifikacijo"
-                    },
-                    "conformsToTitle": {
-                        "label": "Naslov"
-                    },
-                    "creatorType": {
-                        "label": "Tip"
-                    },
-                    "spatial": {
-                        "info": "Ta lastnost se nanaša na geografsko regijo, ki jo zajema nabor podatkov."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "ekonomsko analizo – 11. 2021"
-                    },
-                    "contactPointName": {
-                        "label": "Ime"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Statistika v žarišču"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-pošta"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Ime organizacije"
-                    },
-                    "contactPoint": {
-                        "help": "Ta lastnost vsebuje kontaktne podatke."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Okolje in energija"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Podatkovni niz Provenance Text placeholder text"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Besedilo nabora podatkov o tipu mesta izdajatelja"
-                    },
-                    "datasetID": {
-                        "label": "Ta mesečni pregled daje sintetično sliko makroekonomskih razmer v zadnjem času."
-                    },
-                    "modified": {
-                        "label": "Spremenjen"
-                    },
-                    "publisher": {
-                        "label": "Založnik"
-                    },
-                    "issued": {
-                        "help": "Datum uradne izdaje (npr. objava) nabora podatkov. Sprejemljive oblike datuma: LLLL-MM-DD, LLLL-MM, LLLL."
-                    },
-                    "publisherHomepage": {
-                        "label": "Domača stran"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minimalno prostorsko ločevanje, ki ga je mogoče rešiti v naboru podatkov."
-                    },
-                    "mediaType": {
-                        "placeholder": "Besedilo vrste mesta distribucijskega medija"
-                    },
-                    "language": {
-                        "help": "Jezik, ki se uporablja pri distribuciji."
-                    },
-                    "title": {
-                        "info": "Ta lastnost vsebuje ime distribucije. Ta lastnost se lahko ponovi za vzporedne jezikovne različice opisa."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Distribucijsko besedilo „Checksum placeholder“"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Distribucija Has Policy Url placeholder text (besedilo o politiki Url)"
-                    },
-                    "page": {
-                        "help": "Stran ali dokument o tej distribuciji."
-                    },
-                    "availability": {
-                        "placeholder": "Distribucijsko besedilo o razpoložljivosti mesta"
-                    },
-                    "format": {
-                        "placeholder": "Besedilo obrazca za razpošiljanje"
-                    },
-                    "conformsTo": {
-                        "add-label": "Dodaj skladnost k"
-                    },
-                    "issued": {
-                        "label": "Izdan"
-                    },
-                    "description": {
-                        "help": "Ta lastnina vsebuje prostobesedni račun distribucije."
-                    },
-                    "hasPolicy": {
-                        "help": "Politiko, ki izraža pravice."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Podatkovni niz Kontaktni naslov Pomoč besedilo"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Ta lastnost se nanaša na kategorijo nabora podatkov."
-                    },
-                    "licence": {
-                        "help": "Licenca, v skladu s katero je distribucija dana na voljo."
-                    },
-                    "date": {
-                        "label": "Incidenti zaradi COVID-19 JSON"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Ta lastnina se nanaša na s tem povezan katalog, v katerega je fizično ali logično vključen opisani katalog."
-                    },
-                    "language": {
-                        "help": "Jezik, ki se uporablja v besedilnih metapodatkih, ki opisujejo naslove, opise itd."
-                    },
-                    "spatial": {
-                        "info": "Ta lastnost se nanaša na geografsko območje, zajeto v katalogu."
-                    },
-                    "hasPart": {
-                        "help": "Ta nepremičnina se nanaša na s tem povezan katalog, ki je del opisanega kataloga."
-                    },
-                    "creator": {
-                        "add-label": "ekonomsko analizo – kaže razvoj gospodarske dejavnosti v Evropski uniji, euroobmočju in državah članicah."
-                    },
-                    "creatorName": {
-                        "label": "1.."
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Ime kataloškega zapisa. "
-                    },
-                    "description": {
-                        "info": "Ta lastnina vsebuje poljubni račun zapisa. Ta lastnost se lahko ponovi za vzporedne jezikovne različice opisa."
-                    },
-                    "licence": {
-                        "placeholder": "Besedilo kataloškega mesta za izdajo dovoljenja"
-                    },
-                    "modified": {
-                        "label": "Spremenjen"
-                    },
-                    "licenceDescription": {
-                        "label": "Opis licence"
-                    },
-                    "homepage": {
-                        "help": "Spletna stran, ki je glavna stran kataloga."
-                    }
-                },
                 "stepper": {
                     "overview": "Pregled kataloga",
                     "step1": {
@@ -459,7 +257,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Prenos datotek s spleta",
-                    "zipNumberOfFiles": "Zip – Številka datotek",
+                    "zipNumberOfFiles": "Zip – {number} datotek",
                     "waitingForDownload": "(čaka na prenos)",
                     "downloadProgress": "Prenos napredka",
                     "notDownloaded": "Ni preneseno",
@@ -665,7 +463,13 @@
             },
             "countMessage": "najdeni katalogi za ",
             "loadingMessage": "Nalaganje katalogov ...",
-            "geoBoundsMessageRemove": "Zaprite to obvestilo, da odstranite omejitev ali uporabite funkcijo za ponastavitev."
+            "geoBoundsMessageRemove": "Zaprite to obvestilo, da odstranite omejitev ali uporabite funkcijo za ponastavitev.",
+            "meta": {
+                "page": {
+                    "title": "katalogi odprtih naborov podatkov | data.europa.eu"
+                },
+                "description": "Nabori podatkov, urejeni po katalogih, za prenos, deljenje in analizo. Na voljo je več kot 80 podatkovnih katalogov uradnih institucij v Evropi."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -686,7 +490,7 @@
                     "goodScoring": "Dobro",
                     "excellentScoring": "Odlično"
                 },
-                "publisher": "@:message.metadata.izdajatelj",
+                "publisher": "Izdajatelj",
                 "license": "Licence",
                 "keywords": "Ključne besede",
                 "categories": "Kategorije",
@@ -778,7 +582,11 @@
             "countMessage": "najdeni nabori podatkov za ",
             "foundDatasetsSingular": "1 najdeni nabor podatkov",
             "meta": {
-                "translationNotComplete": "Prevod ni dokončan"
+                "translationNotComplete": "Prevod ni dokončan",
+                "page": {
+                    "title": "Odprti nabori podatkov EU | Uradni portal za evropske podatke"
+                },
+                "description": "Največji portal odprtih naborov podatkov v Evropi, ki vam ponuja vpogled v podatkovne nize EU po državah, institucijah, katalogih, kategorijah, ključnih besedah itn."
             },
             "geoBoundsMessageRemove": "Zaprite to obvestilo, da odstranite omejitev ali uporabite funkcijo za ponastavitev.",
             "createDataset": "Ustvari zbirko podatkov",
@@ -965,6 +773,16 @@
         },
         "imprint": {
             "msg": "ODTIS VSTAVITE TUKAJ"
+        },
+        "cookieConsent": {
+            "text": "Na tej strani uporabljamo piškotke, da bi izboljšali vašo uporabniško izkušnjo"
+        },
+        "notFound": {
+            "contactUsAbout": "Obrnite se na nas glede tega sporočila o napaki.",
+            "requested": {
+                "parttwo": "Stran za iskanje nabora podatkov"
+            },
+            "error": "Napaka"
         }
     }
 }

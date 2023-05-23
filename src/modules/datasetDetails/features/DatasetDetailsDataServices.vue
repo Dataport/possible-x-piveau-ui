@@ -109,12 +109,14 @@ import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {has, isNil} from "lodash";
 import AppLink from "@/modules/widgets/AppLink";
 import {mapGetters} from "vuex";
-import DatasetDetailsFeatureHeader
-  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+// DatasetDetailsFeatureHeader is imported globally
+// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 
 export default {
   name: "DatasetDetailsDataServices",
-  components: {DatasetDetailsFeatureHeader, AppLink},
+  components: {
+    // DatasetDetailsFeatureHeader,
+     AppLink},
   props: {
     getDataServices: Array,
     nonOverflowingIncrementsForPages: Function,

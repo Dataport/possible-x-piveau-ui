@@ -29,10 +29,15 @@
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Search for
           Subject</a>
       </div>
-      <input v-if="!annifTheme || manSearch" type="text" class="form-control suggestion-input"
-        :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text" @focus="focusAutocomplete()"
-        @input="getAutocompleteSuggestions()" />
-      <a v-if="!annifTheme" role="button" @click="clearAutocomplete" class="custom-remove">Remove</a>
+      <div class="position-relative d-flex align-items-center justify-content-center w-100">
+        <input v-if="!annifTheme || manSearch" type="text" class="form-control"
+          :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
+          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
+        <div class="position-relative h-100" @click="clearAutocomplete">
+          <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a>
+        </div>
+
+      </div>
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
           <button class="list-group-item list-group-item-action"
@@ -59,7 +64,7 @@
         </div>
 
       </div>
-      <div v-if="multiple && values.length > 0 && !annifTheme" class="selected-values-div">
+      <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
           {{ selectedValue.name }}
           <span aria-hidden="true" class="delete-selected-value"
@@ -78,7 +83,6 @@ import { truncate } from "../../utils/helpers";
 import $ from "jquery";
 import axios from 'axios';
 import qs from 'qs';
-import Vue from 'vue';
 
 export default {
   props: {
@@ -109,7 +113,9 @@ export default {
         text: "",
         selected: false,
         suggestions: [],
+        clicked: false
       },
+      choice: false,
       themeSuggestionList: {},
       manSearch: false,
       values: [],
@@ -128,22 +134,24 @@ export default {
   },
   computed: {
     filteredAutocompleteSuggestions() {
+
       if (this.autocomplete.selected) return [];
       return this.autocomplete.suggestions.slice(0, 10);
+
     }
+
   },
-  async mounted() {
-   
+  mounted() {
+
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-    // Need to make this safer! nextTick() maybe? 
+    // This is a bit buggy need to to something here!!!
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
         this.valueListOfThemes.push(this.values[i])
-
       }
-    }, 1000);
+    }, 2000);
   },
   methods: {
     ...mapActions("dpiStore", [
@@ -165,6 +173,12 @@ export default {
         .map((dataset) => dataset.resource);
       this.autocomplete.text = "";
       this.context.rootEmit("change");
+
+      // disable delete button
+      if (this.values.length === 0) {
+        // console.log('######');
+        this.choice = false;
+      }
     },
     focusAutocomplete() {
       this.autocomplete.selected = false;
@@ -172,12 +186,14 @@ export default {
       this.getAutocompleteSuggestions();
     },
     clearAutocompleteSuggestions() {
+
       this.autocomplete.suggestions = [];
     },
     hideSuggestions() {
       this.autocomplete.selected = true;
     },
     getAutocompleteSuggestions() {
+      this.choice = true
       let voc = this.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
@@ -191,9 +207,8 @@ export default {
               resource: r.resource,
             }));
             this.autocomplete.suggestions = results;
-            console.log(results);
           });
-         
+
         }
       } else {
         if (this.autocomplete.text.length <= 1) {
@@ -203,6 +218,7 @@ export default {
               resource: r.resource,
             }));
             this.autocomplete.suggestions = results;
+            this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
           });
         } else {
           this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
@@ -210,7 +226,8 @@ export default {
               name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
               resource: r.resource,
             }));
-            this.autocomplete.suggestions = results;
+            if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
+            else this.autocomplete.suggestions = results;
           });
         }
 
@@ -228,19 +245,30 @@ export default {
         });
     },
     handleAnnifClick(e) {
+
       if (e.target.classList.contains('annifItems')) {
 
         e.target.classList.toggle('greenBG')
         e.target.querySelector('svg').classList.toggle('rotate45');
-
         for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;
+            console.log(this.valueListOfThemes[i]);
             this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == true) {
             this.deleteValue(this.valueListOfThemes[i].resource)
+            break
+          }
+          if (e.target.title == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == true) {
+            this.deleteValue(this.valueListOfThemes[i].resource)
+            break
+          }
+          if (e.target.title == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
+            this.valueListOfThemes[i].activeValue = true;
+            console.log(this.valueListOfThemes[i]);
+            this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
         }
@@ -303,20 +331,6 @@ export default {
               list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
             }
             let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-
-
-            // for (var i = 0; i < filteredList.length; i++) {
-            //   filteredList[i].activeValue = true
-            //   this.valueListOfThemes.push(filteredList[i])
-            // }
-            // if (Object.keys(this.values).length > filteredList.length) {
-            //   let is = this.values.filter((set => item => !set.has(item.resource))(new Set(filteredList.map(item => item.resource))))
-            //   for (var w = 0; w < is.length; w++) {
-            //     is[w].activeValue = true
-            //     this.valueListOfThemes.push(is[w])
-            //   }
-            // }
-
             filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
             for (var q = 0; q < filteredList.length; q++) {
               this.valueListOfThemes.push(filteredList[q])
@@ -333,9 +347,11 @@ export default {
 
     },
     handleAutocompleteSuggestions(suggestion) {
-      
-      this.autocomplete.selected = true;
 
+      this.autocomplete.selected = true;
+      if (suggestion.resource == "None") {
+        return;
+      }
       if (this.multiple) {
         if (!this.values.map((dataset) => dataset.resource).includes(suggestion.resource)) {
           this.values.push(suggestion);
@@ -348,7 +364,7 @@ export default {
         this.autocomplete.text = suggestion.name;
         this.context.model = suggestion.resource;
         this.context.altLabel = suggestion.name;
-        
+
 
       }
       this.context.rootEmit("change");
@@ -383,6 +399,9 @@ export default {
     },
     async handleValues() {
 
+      // TODO: disable delete button for invaid content edge case
+      // when submitting unsupported values (which are not saved) the delete button stay enabled
+
       if (this.context.model !== "") {
         // multiple autocomplete input provides always an array of values
         if (Array.isArray(this.context.model)) {
@@ -406,15 +425,20 @@ export default {
             this.setTooltip();
           }
 
-
+          // enabling delete button if there are values
+          if (this.values.length > 0) this.choice = true;
         } else {
           // singular autocomplete always provides a single value
           const result = await this.getResourceName(this.context.model);
           this.autocomplete.text = result.name;
+
+          // enabling delete button
+          this.choice = true;
         }
       }
     },
     clearAutocomplete() {
+      this.choice = false
       if (this.multiple) {
         this.values = [];
       }
@@ -451,49 +475,69 @@ export default {
 </script>
 
 <style scoped>
+.form-control {
+  border-radius: 0 !important;
+  border-right: none !important;
+}
+
 .custom-remove {
-  position: absolute;
+  height: 100%;
   display: block;
-  top: calc(50% - 0.15em);
   width: 1.3em;
-  height: 1.3em;
-  background-color: #cecece;
-  right: 0.85em;
-  border-radius: 1.3em;
+  background-color: #cecece38;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease-in-out;
   overflow: hidden;
   text-indent: -1000px;
+  border-top: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-color: #cecece;
 }
 
 .custom-remove::before {
   content: "";
   position: absolute;
-  top: calc(50% - 0.1em);
-  left: 0.325em;
+  top: 47%;
+  right: 5px;
   display: block;
   width: 0.65em;
   height: 0.2em;
   background-color: #fff;
   transform-origin: center center;
-  transition: transform 0.25s;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-remove:hover::before {
+  width: 0.75em;
+  right: 10px !important;
+  transform: rotate(45deg);
+
+}
+
+.custom-remove:hover::after {
+  width: 0.75em;
+  right: 10px !important;
+  transform: rotate(-45deg);
+
 }
 
 .custom-remove::after {
   content: "";
   position: absolute;
-  top: calc(50% - 0.1em);
-  left: 0.325em;
+  top: 47%;
+  right: 5px;
   display: block;
   width: 0.65em;
   height: 0.2em;
   background-color: #fff;
   transform-origin: center center;
-  transition: transform 0.25s;
+  transition: all 0.2s ease-in-out;
 }
 
 .custom-remove:hover {
   background-color: red;
+  width: 2em;
 }
 
 .selected-values-div {
@@ -509,7 +553,7 @@ export default {
 
 .selected-value {
   background-color: #f5f5f5;
-  padding: 5px;
+  padding: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
   border-radius: 5px;
   border: solid 0.5px #e1e1e1;
@@ -538,5 +582,9 @@ export default {
   position: absolute;
   top: 0;
   z-index: 100;
+}
+
+.remBG {
+  background-color: #cecece;
 }
 </style>

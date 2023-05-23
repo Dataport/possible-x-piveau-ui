@@ -136,168 +136,6 @@
                 "information": "Informacije"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Izvor"
-                    },
-                    "type": {
-                        "placeholder": "Vrsta skupa podataka tekst mjesta na kojem se nalazi mjesto"
-                    },
-                    "subject": {
-                        "help": "Kategorija skupa podataka."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Tekst u ulazu mjesta za adresu „adresa za skup podataka”"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Skup podataka u skladu je s tekstom o mjestu"
-                    },
-                    "isVersionOf": {
-                        "label": "Je li verzija inačice"
-                    },
-                    "provenance": {
-                        "label": "Podrijetlo"
-                    },
-                    "language": {
-                        "label": "Jezik"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Poveznica na zastupnika s nekim oblikom odgovornosti za resurse"
-                    },
-                    "temporal": {
-                        "placeholder": "Skup podataka Vremenski tekst mjesta"
-                    },
-                    "accessRights": {
-                        "info": "Ovo se svojstvo odnosi na informacije koje upućuju na to je li skup podataka otvoren, ima li ograničenja pristupa ili nije javan."
-                    },
-                    "identifier": {
-                        "help": "Ovo svojstvo sadržava glavnu identifikacijsku oznaku skupa podataka."
-                    },
-                    "versionInfo": {
-                        "help": "Broj verzije skupa podataka."
-                    },
-                    "hasVersion": {
-                        "info": "Ovo se svojstvo odnosi na povezani skup podataka koji je verzija, izdanje ili prilagodba opisanog skupa podataka."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Dodaj genetski modificirano"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Kvalificirani odnos"
-                    },
-                    "conformsToTitle": {
-                        "label": "Naslov"
-                    },
-                    "creatorType": {
-                        "label": "Vrsta"
-                    },
-                    "spatial": {
-                        "info": "Ovo se svojstvo odnosi na zemljopisno područje obuhvaćeno skupom podataka."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Mjesec vremenske rezolucije"
-                    },
-                    "contactPointName": {
-                        "label": "Naziv"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Serija podataka Vremenska rezolucija Zapisnik mjesta"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-pošta"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Naziv organizacije"
-                    },
-                    "contactPoint": {
-                        "help": "Ovo svojstvo sadržava podatke za kontakt."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Skup podataka Vremenska rezolucija Dnevno mjesto teksta"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Tekst „Provenance Provenance Text” (Provenance Provenance Textholder)"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Tekst mjesta „Publisher” za skup podataka Vrsta mjesta"
-                    },
-                    "datasetID": {
-                        "label": "Identifikacijska oznaka skupa podataka"
-                    },
-                    "modified": {
-                        "label": "Izmijenjeno"
-                    },
-                    "publisher": {
-                        "label": "Izdavač"
-                    },
-                    "issued": {
-                        "help": "Datum službenog izdavanja (npr. objave) skupa podataka. Prihvatljivi formati datuma: GGGG-MM-DD, GGGG-MM I GGGG."
-                    },
-                    "publisherHomepage": {
-                        "label": "Početna stranica"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minimalna prostorna podjela koja se može izdržati u skupu podataka."
-                    },
-                    "mediaType": {
-                        "placeholder": "Distribucijski mediji Vrsta mjesta"
-                    },
-                    "language": {
-                        "help": "Jezik koji se upotrebljava u distribuciji."
-                    },
-                    "title": {
-                        "info": "Ovo svojstvo sadržava naziv dodijeljen distribuciji. Ovo se svojstvo može ponoviti za usporedne jezične verzije opisa."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Distribucija Checksum tekst mjesta"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Distribucija Položaj politike Url tekst o mjestu na kojem se nalazi mjesto"
-                    },
-                    "page": {
-                        "help": "Stranica ili dokument o ovoj distribuciji."
-                    },
-                    "availability": {
-                        "placeholder": "Distribucija Dostupnost teksta o mjestu"
-                    },
-                    "format": {
-                        "placeholder": "Tekst o mjestu na kojem se nalazi format raspodjele"
-                    },
-                    "conformsTo": {
-                        "add-label": "Dodaj sukladnost za"
-                    },
-                    "issued": {
-                        "label": "Izdano"
-                    },
-                    "description": {
-                        "help": "Ovo vlasništvo sadržava slobodni tekst računa za distribuciju."
-                    },
-                    "hasPolicy": {
-                        "help": "Politiku kojom se izražavaju prava."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Mjesec vremenske rezolucije"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Skup podataka Vremenska rezolucija Sat placeholder tekst"
-                    },
-                    "licence": {
-                        "help": "Dozvola na temelju koje se distribucija stavlja na raspolaganje."
-                    },
-                    "date": {
-                        "label": "Datum"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Ovo se svojstvo odnosi na povezani katalog u koji je opisan katalog fizički ili logički uključen."
-                    },
-                    "language": {
-                        "help": "Jezik koji se upotrebljava u tekstualnim metapodacima kojima se opisuju naslovi, opisi itd."
-                    },
-                    "spatial": {
-                        "info": "To se svojstvo odnosi na zemljopisno područje obuhvaćeno Katalogom."
-                    },
-                    "hasPart": {
-                        "help": "Ovo se svojstvo odnosi na povezani katalog koji je dio opisanog Kataloga."
-                    },
-                    "creator": {
-                        "add-label": "Dodaj Stvoritelja"
-                    },
-                    "creatorName": {
-                        "label": "Naziv"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Naziv naveden u Kataloškom zapisniku. "
-                    },
-                    "description": {
-                        "info": "Ovo vlasništvo sadržava slobodni tekst računa za zapis. Ovo se svojstvo može ponoviti za usporedne jezične verzije opisa."
-                    },
-                    "licence": {
-                        "placeholder": "Tekst mjesta za katalošku dozvolu"
-                    },
-                    "modified": {
-                        "label": "Izmijenjeno"
-                    },
-                    "licenceDescription": {
-                        "label": "Opis dozvole"
-                    },
-                    "homepage": {
-                        "help": "Internetska stranica koja služi kao glavna stranica Kataloga."
-                    }
-                },
                 "stepper": {
                     "overview": "Pregled kataloga",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Preuzimanje datoteka",
-                    "zipNumberOfFiles": "Zbirka datoteka",
+                    "zipNumberOfFiles": "Zbirka datoteka {number}",
                     "waitingForDownload": "(čeka se preuzimanje podataka)",
                     "downloadProgress": "Preuzmite napredak",
                     "notDownloaded": "Nije preuzeto",
@@ -664,7 +462,13 @@
             },
             "countMessage": "kataloga pronađeno za ",
             "loadingMessage": "Učitavanje kataloga...",
-            "geoBoundsMessageRemove": "Zatvorite ovu obavijest kako bi se uklonilo ograničenje ili upotrijebite funkciju Ponovno postavi."
+            "geoBoundsMessageRemove": "Zatvorite ovu obavijest kako bi se uklonilo ograničenje ili upotrijebite funkciju Ponovno postavi.",
+            "meta": {
+                "page": {
+                    "title": "Katalozi otvorenih skupova podataka | Europski podaci"
+                },
+                "description": "Preuzmite, dijelite i analizirajte skupove podataka po katalogu. Istražite više od 80 kataloga podataka službenih institucija u Europi."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Dobro",
                     "excellentScoring": "Izvrsno"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Izdavač",
                 "license": "Licence",
                 "keywords": "Ključne riječi",
                 "categories": "Kategorije",
@@ -777,7 +581,11 @@
             "countMessage": "skupova podataka pronađeno za ",
             "foundDatasetsSingular": "Pronađen 1 skup podataka",
             "meta": {
-                "translationNotComplete": "Prijevod nije potpun"
+                "translationNotComplete": "Prijevod nije potpun",
+                "page": {
+                    "title": "Otvoreni skupovi podataka EU-a | data.europa.eu"
+                },
+                "description": "Najveći portal otvorenih skupova podataka u Europi. Istražite skupove podataka EU-a po zemlji, instituciji, katalogu, kategorijama, ključnim riječima i mnogim drugim kriterijima."
             },
             "geoBoundsMessageRemove": "Zatvorite ovu obavijest kako bi se uklonilo ograničenje ili upotrijebite funkciju Ponovno postavi.",
             "createDataset": "Stvori skup podataka",
@@ -964,6 +772,17 @@
         },
         "imprint": {
             "msg": "OVDJE UMETNITE OTISAK"
+        },
+        "cookieConsent": {
+            "text": "Koristimo kolačiće na ovoj stranici kako bismo poboljšali vaše korisničko iskustvo"
+        },
+        "notFound": {
+            "contactUsAbout": "Kontaktirajte nas o ovoj poruci o grešci.",
+            "requested": {
+                "parttwo": "Stranica za pretraživanje skupa podataka",
+                "page": "Tražena stranica nije pronađena. Možete ponovno početi s početne stranice."
+            },
+            "error": "Greška"
         }
     }
 }

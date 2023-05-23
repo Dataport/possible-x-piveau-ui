@@ -1,7 +1,8 @@
 <template>
   <div class="row flex-column dsd-features">
     <dataset-details-keywords
-      v-if="showObjectArray(getKeywords)"
+      v-if="showObjectArray(getKeywords) && keywordsisVisible"
+      class="dsd-features-keywords"
       :showKeyword="showKeyword"
     />
     <dataset-details-categories-key
@@ -10,11 +11,13 @@
       :trackGoto="trackGoto"
     />
     <dataset-details-subject
+      class="dsd-features-subject"
       v-if="showObjectArray(getSubject)"
     />
 
     <!-- Documentation -->
     <dataset-details-pages
+      class="dsd-features-pages"
       v-if="showObjectArray(getPages)"
       :pages="pages"
       :increaseNumDisplayedPages="increaseNumDisplayedPages"
@@ -23,11 +26,13 @@
     />
 
     <dataset-details-visualisations
+      class="dsd-features-visualisations"
       v-if="showObjectArray(getVisualisations)"
       :trackGoto="trackGoto"
     />
 
     <dataset-details-data-services
+      class="dsd-features-data-services"
       v-if="showObjectArray(getDataServices)"
       :getDataServices="getDataServices"
       :nonOverflowingIncrementsForPages="nonOverflowingIncrementsForPages"
@@ -36,14 +41,17 @@
     />
 
     <dataset-details-is-used-by
+      class="dsd-features-is-used-by"
       v-if="showObject(getExtendedMetadata)"
     />
 
     <dataset-details-relations
+      class="dsd-features-relations"
       v-if="showArray(getRelations)"
     />
 
     <dataset-details-map
+      class="dsd-features-map"
       v-if="showObjectArray(getSpatial)"
     />
   </div>
@@ -86,6 +94,11 @@ export default {
     showObjectArray: Function,
     showArray: Function,
     showObject: Function
+  },
+  data() {
+    return {
+      keywordsisVisible: (this.$env.content.datasetDetails.keywords.isVisible === false) ? false : true,
+    }
   },
   computed: {
     ...mapGetters('datasetDetails', [

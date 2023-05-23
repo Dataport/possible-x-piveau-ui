@@ -107,12 +107,15 @@ import {has, isNil} from "lodash";
 import {getTranslationFor, truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import AppLink from "@/modules/widgets/AppLink";
-import DatasetDetailsFeatureHeader
-  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+// DatasetDetailsFeatureHeader is imported globally
+// import DatasetDetailsFeatureHeader
+//   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 
 export default {
   name: "DatasetDetailsVisualisations",
-  components: {DatasetDetailsFeatureHeader, AppLink},
+  components: {
+    // DatasetDetailsFeatureHeader,
+    AppLink},
   props: {
     trackGoto: Function
   },

@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center dsd-header-catalogue">
     <div class="d-lg-none dsd-title-tag">
       <span>
-        Dataset
+        {{$t('message.metadata.dataset')}}
       </span>
     </div>
     <div>
@@ -41,7 +41,7 @@ export default {
       return has(country, 'id') && !isNil(country.id);
     },
     getCatalogLink(catalog) {
-      return `/catalogues/${catalog.id}&locale=${this.$route.query.locale}`;
+      return { name: 'CatalogueDetails', params: { ctlg_id: catalog?.id }, query: { locale: this.$route.query.locale } };
     }
   }
 }

@@ -136,168 +136,6 @@
                 "information": "Informações"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Fonte"
-                    },
-                    "type": {
-                        "placeholder": "Texto do tipo de espaço reservado do conjunto de dados"
-                    },
-                    "subject": {
-                        "help": "Uma categoria do conjunto de dados."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Corpo de dados do Ponto de Contacto Endereço texto do espaço reservado à rua"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Conteúdo do conjunto de dados para o texto do espaço reservado"
-                    },
-                    "isVersionOf": {
-                        "label": "É a versão de"
-                    },
-                    "provenance": {
-                        "label": "Proveniência"
-                    },
-                    "language": {
-                        "label": "Língua"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Ligação a um agente com alguma forma de responsabilidade pelo recurso"
-                    },
-                    "temporal": {
-                        "placeholder": "Conjunto de dados texto do espaço reservado no tempo"
-                    },
-                    "accessRights": {
-                        "info": "Esta propriedade refere-se a informações que indicam se o conjunto de dados é um dado aberto, se tem restrições de acesso ou se não é público."
-                    },
-                    "identifier": {
-                        "help": "Esta propriedade contém o identificador principal do conjunto de dados."
-                    },
-                    "versionInfo": {
-                        "help": "Número da versão do conjunto de dados."
-                    },
-                    "hasVersion": {
-                        "info": "Esta propriedade refere-se a um conjunto de dados que é uma versão, uma alteração ou uma adaptação do conjunto de dados descrito."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Adicionar Was Gerated Py"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Relação com as qualificações"
-                    },
-                    "conformsToTitle": {
-                        "label": "Título"
-                    },
-                    "creatorType": {
-                        "label": "Tipo"
-                    },
-                    "spatial": {
-                        "info": "Esta propriedade refere-se a uma região geográfica abrangida pelo conjunto de dados."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Mês da Resolução Temporal"
-                    },
-                    "contactPointName": {
-                        "label": "Nome"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Dataset Resolução Temporal texto placeholder Minuto"
-                    },
-                    "contactPointEmail": {
-                        "label": "Correio eletrónico"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Nome da organização"
-                    },
-                    "contactPoint": {
-                        "help": "Esta propriedade contém dados de contacto."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Dataset Temporal Resolução Day placeholder texto"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Conjunto de dados «Provenance text text text text»"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Conjunto de dados: texto do tipo de espaço reservado ao editor"
-                    },
-                    "datasetID": {
-                        "label": "ID do conjunto de dados"
-                    },
-                    "modified": {
-                        "label": "Alterado"
-                    },
-                    "publisher": {
-                        "label": "Editor"
-                    },
-                    "issued": {
-                        "help": "Data de emissão formal (p. ex., publicação) do conjunto de dados. Formatos de data aceitáveis: AAAA-MM-DD, AAAA-MM, AAAA."
-                    },
-                    "publisherHomepage": {
-                        "label": "Página inicial"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Separação espacial mínima resolvível num conjunto de dados."
-                    },
-                    "mediaType": {
-                        "placeholder": "Texto do tipo de espaço reservado para os meios de comunicação de distribuição"
-                    },
-                    "language": {
-                        "help": "Uma língua utilizada na distribuição."
-                    },
-                    "title": {
-                        "info": "Esta propriedade contém um nome atribuído à Distribuição. Esta propriedade pode ser repetida para versões linguísticas paralelas da descrição."
-                    },
-                    "status": {
-                        "label": "Estatuto"
-                    },
-                    "checksum": {
-                        "placeholder": "Distribuição Síntese do espaço reservado"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Texto do espaço reservado à política de distribuição (Distribution Has Policy Url)"
-                    },
-                    "page": {
-                        "help": "Uma página ou documento sobre esta distribuição."
-                    },
-                    "availability": {
-                        "placeholder": "Distribuição Disponibilidade texto do espaço reservado"
-                    },
-                    "format": {
-                        "placeholder": "Texto do espaço reservado ao formato de distribuição"
-                    },
-                    "conformsTo": {
-                        "add-label": "Acrescentar Conforms to"
-                    },
-                    "issued": {
-                        "label": "Emitido"
-                    },
-                    "description": {
-                        "help": "Esta propriedade contém uma conta de texto livre da Distribuição."
-                    },
-                    "hasPolicy": {
-                        "help": "A política que exprime os direitos."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Mês da Resolução Temporal"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Dataset Temporal Resolução Hora placeholder texto"
-                    },
-                    "licence": {
-                        "help": "A licença ao abrigo da qual a distribuição é disponibilizada."
-                    },
-                    "date": {
-                        "label": "Data"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Esta propriedade refere-se a um catálogo conexo no qual o catálogo descrito está física ou logicamente incluído."
-                    },
-                    "language": {
-                        "help": "Língua utilizada nos metadados textuais que descrevem títulos, descrições, etc."
-                    },
-                    "spatial": {
-                        "info": "Esta propriedade refere-se a uma área geográfica abrangida pelo Catálogo."
-                    },
-                    "hasPart": {
-                        "help": "Esta propriedade refere-se a um catálogo conexo que faz parte do catálogo descrito."
-                    },
-                    "creator": {
-                        "add-label": "Adicionar Criador"
-                    },
-                    "creatorName": {
-                        "label": "Nome"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Um nome atribuído à ata do Catálogo. "
-                    },
-                    "description": {
-                        "info": "Esta propriedade contém uma conta em texto livre do registo. Esta propriedade pode ser repetida para versões linguísticas paralelas da descrição."
-                    },
-                    "licence": {
-                        "placeholder": "Texto reservado da licença de catálogo"
-                    },
-                    "modified": {
-                        "label": "Alterado"
-                    },
-                    "licenceDescription": {
-                        "label": "Descrição da licença"
-                    },
-                    "homepage": {
-                        "help": "Uma página Web que funciona como página principal do Catálogo."
-                    }
-                },
                 "stepper": {
                     "overview": "Síntese do catálogo",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Descarregar ficheiros",
-                    "zipNumberOfFiles": "Zip {numero_deg. Fichas de acesso",
+                    "zipNumberOfFiles": "Zip {number} Fichas de acesso",
                     "waitingForDownload": "(aguarda descarregamento)",
                     "downloadProgress": "Descarregar Progressos",
                     "notDownloaded": "Não descarregado",
@@ -664,7 +462,13 @@
             },
             "countMessage": "catálogos encontrados para ",
             "loadingMessage": "A carregar catálogos",
-            "geoBoundsMessageRemove": "Feche esta notificação para remover a limitação ou utilizar a função de reinicializar."
+            "geoBoundsMessageRemove": "Feche esta notificação para remover a limitação ou utilizar a função de reinicializar.",
+            "meta": {
+                "page": {
+                    "title": "Catálogos de conjuntos de dados abertos | data.europa.eu"
+                },
+                "description": "Descarregue, partilhe e analise conjuntos de dados por catálogo. Explore mais de 80 catálogos de dados de instituições oficiais na Europa."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Bom",
                     "excellentScoring": "Excelente"
                 },
-                "publisher": "@: Message.metadata.editor",
+                "publisher": "Editor",
                 "license": "Licenças",
                 "keywords": "Palavras-chave",
                 "categories": "Categorias",
@@ -777,7 +581,11 @@
             "countMessage": "conjuntos de dados encontrados para",
             "foundDatasetsSingular": "1 conjunto de dados encontrado",
             "meta": {
-                "translationNotComplete": "Tradução não completa"
+                "translationNotComplete": "Tradução não completa",
+                "page": {
+                    "title": "Conjuntos de dados abertos da UE | data.europa.eu"
+                },
+                "description": "O maior portal de conjuntos de dados abertos na Europa. Explore conjuntos de dados da UE por país, instituição, catálogo, categorias, palavras-chave e muito mais."
             },
             "geoBoundsMessageRemove": "Feche esta notificação para remover a limitação ou utilizar a função de reinicialização.",
             "createDataset": "Criar um conjunto de dados",
@@ -964,6 +772,17 @@
         },
         "imprint": {
             "msg": "INSERIR IMPRESSÃO AQUI"
+        },
+        "cookieConsent": {
+            "text": "Este sítio utiliza cookies (testemunhos de conexão) para facilitar a navegação"
+        },
+        "notFound": {
+            "contactUsAbout": "Contacte-nos a respeito desta mensagem de erro.",
+            "requested": {
+                "parttwo": "Página de pesquisa do conjunto de dados",
+                "page": "A página que procura não existe. Comece de novo a partir da página inicial."
+            },
+            "error": "Erro"
         }
     }
 }

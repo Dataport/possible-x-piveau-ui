@@ -136,168 +136,6 @@
                 "information": "Tájékoztatás a tájékoztatásról"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Forrás"
-                    },
-                    "type": {
-                        "placeholder": "Helymeghatározó adatkészlet szövege"
-                    },
-                    "subject": {
-                        "help": "Az adatkészlet egy kategóriája."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Adatkészlet kapcsolattartó pont címe: Street placeholder text"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Adatkészlet-megfelelőségek Helyreállításra szánt szöveg"
-                    },
-                    "isVersionOf": {
-                        "label": "Az F verziója"
-                    },
-                    "provenance": {
-                        "label": "Származási hely"
-                    },
-                    "language": {
-                        "label": "Nyelv"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Link egy olyan megbízotthoz, aki valamilyen módon felelős az erőforrásért"
-                    },
-                    "temporal": {
-                        "placeholder": "Adatkészlet Időszakos helytartó szöveg"
-                    },
-                    "accessRights": {
-                        "info": "Ez a tulajdonság olyan információkat jelöl, amelyek azt jelzik, hogy az adatkészlet nyílt hozzáférésű adat-e, hozzáférési korlátozással rendelkezik-e, vagy nem nyilvános."
-                    },
-                    "identifier": {
-                        "help": "Ez a tulajdonság az adatkészlet fő azonosítóját tartalmazza."
-                    },
-                    "versionInfo": {
-                        "help": "Az adatkészlet verziószáma."
-                    },
-                    "hasVersion": {
-                        "info": "Ez az adatkészlet a leírt adatkészlet verziója, kiadása vagy adaptációja."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "A megtermelt hulladék hozzáadása"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Minősített kapcsolat"
-                    },
-                    "conformsToTitle": {
-                        "label": "Cím"
-                    },
-                    "creatorType": {
-                        "label": "Típus"
-                    },
-                    "spatial": {
-                        "info": "Ez a tulajdonság az adatkészlet által lefedett földrajzi régióra vonatkozik."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Időbeli felbontás Hónap"
-                    },
-                    "contactPointName": {
-                        "label": "Név"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Adatkészlet Ideiglenes felbontás A helymeghatározó jegyzőkönyv szövege"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-mail-cím"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "A szervezet neve"
-                    },
-                    "contactPoint": {
-                        "help": "Ez a tulajdonság tartalmazza az elérhetőségi adatokat."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Adatkészlet Ideiglenes Szanálási Nap Helymeghatározó szöveg"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Adatkészlet Szervezési Szöveg – Területtári szöveg"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Adatkészlet Kiadói típushelyre vonatkozó szöveg"
-                    },
-                    "datasetID": {
-                        "label": "Adatkészlet azonosítója"
-                    },
-                    "modified": {
-                        "label": "Módosítva"
-                    },
-                    "publisher": {
-                        "label": "Kiadó"
-                    },
-                    "issued": {
-                        "help": "Az adatkészlet hivatalos kibocsátásának (pl. közzététel) dátuma. Elfogadható dátumformátumok: ÉÉÉÉ-HH-NN, ÉÉÉÉ-HH-NN, YYYY."
-                    },
-                    "publisherHomepage": {
-                        "label": "Kezdőlap"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Egy adatkészletben feloldható minimális térbeli elválasztás."
-                    },
-                    "mediaType": {
-                        "placeholder": "Terjesztés – Médiatípus helymeghatározó szöveg"
-                    },
-                    "language": {
-                        "help": "A terjesztésben használt nyelv."
-                    },
-                    "title": {
-                        "info": "Ez a tulajdonság tartalmazza a terjesztés nevét. Ez a tulajdonság megismételhető a leírás párhuzamos nyelvi változatai esetében."
-                    },
-                    "status": {
-                        "label": "Státusz"
-                    },
-                    "checksum": {
-                        "placeholder": "Forgalmazási Checksum placeholder szöveg"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Terjesztés Has Policy Url placeholder text"
-                    },
-                    "page": {
-                        "help": "A terjesztésről szóló oldal vagy dokumentum."
-                    },
-                    "availability": {
-                        "placeholder": "Terjesztés A rendelkezésre állás helye szerinti szöveg"
-                    },
-                    "format": {
-                        "placeholder": "Terjesztés: Format placeholder text (formai helymeghatározó szöveg)"
-                    },
-                    "conformsTo": {
-                        "add-label": "Hozzá kell adni a megfelelőséget a következőhöz:"
-                    },
-                    "issued": {
-                        "label": "Kibocsátották"
-                    },
-                    "description": {
-                        "help": "Ez az ingatlan a terjesztés szabad szöveges számláját tartalmazza."
-                    },
-                    "hasPolicy": {
-                        "help": "A jogokat kifejező politika."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Időbeli felbontás Hónap"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Adatkészlet Ideiglenes felbontás óra helymegőrző szöveg"
-                    },
-                    "licence": {
-                        "help": "Az engedély, amely alapján a forgalmazást rendelkezésre bocsátják."
-                    },
-                    "date": {
-                        "label": "Dátum"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Ez a tulajdonság olyan kapcsolódó katalógusra utal, amelybe a leírt katalógus fizikailag vagy logikusan beletartozik."
-                    },
-                    "language": {
-                        "help": "A címeket, leírásokat stb. leíró szöveges metaadatokban használt nyelv."
-                    },
-                    "spatial": {
-                        "info": "Ez az ingatlan a katalógusban szereplő földrajzi területre vonatkozik."
-                    },
-                    "hasPart": {
-                        "help": "Ez a tulajdonság a leírt katalógus részét képező kapcsolódó katalógusra vonatkozik."
-                    },
-                    "creator": {
-                        "add-label": "Alkotó hozzáadása"
-                    },
-                    "creatorName": {
-                        "label": "Név"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "A katalógusban szereplő név. "
-                    },
-                    "description": {
-                        "info": "Ez az ingatlan a rekord szabad szöveges fiókját tartalmazza. Ez a tulajdonság megismételhető a leírás párhuzamos nyelvi változatai esetében."
-                    },
-                    "licence": {
-                        "placeholder": "Katalógus Licence placeholder text (katalógus engedély helybirtokosának szövege)"
-                    },
-                    "modified": {
-                        "label": "Módosítva"
-                    },
-                    "licenceDescription": {
-                        "label": "Az engedély leírása"
-                    },
-                    "homepage": {
-                        "help": "A katalógus főoldalaként szolgáló weboldal."
-                    }
-                },
                 "stepper": {
                     "overview": "Katalógus áttekintése",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Fájlok letöltése",
-                    "zipNumberOfFiles": "Zip -számmal kapcsolatos fájlok",
+                    "zipNumberOfFiles": "Zip -számmal kapcsolatos fájlok {number}",
                     "waitingForDownload": "(letöltésre vár)",
                     "downloadProgress": "A Progress letöltése",
                     "notDownloaded": "Nem töltötték le",
@@ -664,7 +462,13 @@
             },
             "countMessage": "vonatkozásában talált katalógusok",
             "loadingMessage": "Katalógusok betöltése...",
-            "geoBoundsMessageRemove": "Zárja be ezt az értesítést a korlátozás eltávolításához vagy a visszaállítás funkció használatához."
+            "geoBoundsMessageRemove": "Zárja be ezt az értesítést a korlátozás eltávolításához vagy a visszaállítás funkció használatához.",
+            "meta": {
+                "page": {
+                    "title": "Nyílt hozzáférésű adatkészletek katalógusai | Európai adatok"
+                },
+                "description": "Preuzmite, dijelite i analizirajte skupove podataka po katalogu. Istražite više od 80 kataloga podataka službenih institucija u Europi."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "jó",
                     "excellentScoring": "kitűnő"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Kiadó",
                 "license": "Licencek",
                 "keywords": "Kulcsszavak",
                 "categories": "Kategóriák",
@@ -777,7 +581,11 @@
             "countMessage": "adatkészletek talált",
             "foundDatasetsSingular": "1 adatkészlet található",
             "meta": {
-                "translationNotComplete": "A fordítás nem teljes"
+                "translationNotComplete": "A fordítás nem teljes",
+                "page": {
+                    "title": "Nyílt hozzáférésű uniós adatkészletek | data.europa.eu"
+                },
+                "description": "A nyílt adatkészletek legnagyobb európai portálja. Tekintse meg az uniós adatkészleteket országonként, intézményenként, katalógusonként, illetve kategóriák, kulcsszavak stb. szerint."
             },
             "geoBoundsMessageRemove": "Zárja be ezt az értesítést a korlátozás eltávolításához vagy a visszaállítás funkció használatához.",
             "createDataset": "Adatkészlet létrehozása",
@@ -964,6 +772,20 @@
         },
         "imprint": {
             "msg": "KOLOFON BESZÚRÁSA IDE"
+        },
+        "cookieConsent": {
+            "accept": "Elfogadás",
+            "decline": "Köszönöm, nem",
+            "text": "Ez az oldal cookie-kat (sütiket) használ a felhasználói élmény javítása érdekében",
+            "more": "További információk"
+        },
+        "notFound": {
+            "contactUsAbout": "Vegye fel velünk a kapcsolatot ezzel a hibaüzenettel kapcsolatban.",
+            "requested": {
+                "parttwo": "Adatkészlet-kereső oldal",
+                "page": "A kért oldal nem található. Újrakezdheti a kezdőlapról."
+            },
+            "error": "Hiba"
         }
     }
 }
