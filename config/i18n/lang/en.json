@@ -838,32 +838,32 @@
                     "placeholder": "Add an URL"
                 },
                 "contributor": {
-                    "help": "This property refers to bodies or persons who have edited the data (e.g. by formatting it). Its use is described in more detail in the Manual of Conventions.",
+                    "help": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData.",
                     "info": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData.",
                     "label": "Contributor",
                     "add-label": "Add more"
                 },
                 "contributorType": {
                     "help": "Type of the contributor",
-                    "info": "",
+                    "info": "Type of the contributor",
                     "label": "Contributor type",
                     "placeholder": "Please provide a type"
                 },
                 "contributorEmail": {
                     "help": "Email adress of the contributor",
-                    "info": "",
+                    "info": "Email adress of the contributor",
                     "label": "Contributor email adress",
                     "placeholder": "Please provide an Email"
                 },
                 "contributorName": {
                     "help": "Name of the contributor",
-                    "info": "",
+                    "info": "Name of the contributor",
                     "label": "Contributor name",
                     "placeholder": "Please provide a name"
                 },
                 "contributorHomepage": {
                     "help": "Homepage of the contributor",
-                    "info": "",
+                    "info": "Homepage of the contributor",
                     "label": "Contributor Homepage",
                     "placeholder": "Please provide a Homepage"
                 },
@@ -1191,6 +1191,12 @@
             "newDistribution": "Add Distribution",
             "validationerror": "There was an error validating your form!",
             "distributions": {
+                    "descriptionLanguage": {
+                    "label": "Language",
+                    "placeholder": "Select language",
+                    "help": "The language of the property"
+  
+                  },
                 "licenseAttributionByText": {
                     "help": "This property stores the mandatory naming text for licence details.",
                     "info": "This property stores the mandatory naming text for licence details.",
@@ -1206,7 +1212,7 @@
                 "availabilityDisDE": {
                     "help": "Availability of the distribution of a dataset, as a selection from a fixed list of values via DCAT-AP URIs.",
                     "info": "Availability of the distribution of a dataset, as a selection from a fixed list of values via DCAT-AP URIs.",
-                    "label": "Availability"
+                    "label": "Availability (DEPRECATED)"
                 },
                 "accessServiceTitle": {
                     "label": "Data Service Title",
@@ -1294,7 +1300,7 @@
                 "description": {
                     "label": "Description",
                     "placeholder": "Distribution Description placeholder text",
-                    "info": "",
+                    "info": "This property contains a free-text account of the Distribution. This property can be repeated for parallel language versions of the description.",
                     "help": "This property contains a free-text account of the Distribution.",
                     "add-label": "Add Description in another language"
                 },
@@ -1415,7 +1421,7 @@
                 "availability": {
                     "label": "Availability",
                     "placeholder": "Distribution Availability placeholder text",
-                    "info": "",
+                    "info": "This property indicates how long it is planned to keep the Distribution of the Dataset available.",
                     "help": "How long it is planned to keep the Distribution of the Dataset available."
                 },
                 "byteSize": {
@@ -1507,6 +1513,12 @@
                     "label": "Page",
                     "add-label": "Add Page",
                     "placeholder": "Distribution Page placeholder text"
+                },
+                "accessServiceEndpointDescription": {
+                    "info": "Endpoint description.",
+                    "help": "The descriptioin of the endpoint.",
+                    "label": "Enpoint description",
+                    "placeholder": "Distribution data service endpoint description placeholder text"
                 },
                 "pageTitle": {
                     "placeholder": "Distribution Page Title placeholder text",
@@ -1904,7 +1916,7 @@
                     "goodScoring": "Good",
                     "excellentScoring": "Excellent"
                 },
-                "publisher": "Publisher",
+                "publisher": "@:message.metadata.publisher",
                 "license": "Licences",
                 "keywords": "Keywords",
                 "categories": "Categories",
@@ -2202,10 +2214,10 @@
             "msg": "INSERT IMPRINT HERE"
         },
         "cookieConsent": {
-            "more": "More info",
-            "text": "We use cookies on this site to enhance your user experience",
+            "accept": "Accept all cookies",
             "decline": "Accept only essential cookies",
-            "accept": "Accept all cookies"
+            "text": "We use cookies on this site to enhance your user experience",
+            "more": "More"
         },
         "notFound": {
             "contactUsAbout": "Contact us about this error message.",
