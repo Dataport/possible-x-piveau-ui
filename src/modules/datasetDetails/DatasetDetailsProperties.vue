@@ -106,13 +106,13 @@
           <!-- TODO: replace strings/tooltips with i18n translations -->
           <tr v-if="showObjectArray(getPoliticalGeocodingLevelURI)">
             <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('Political Geocoding Level URI')">
+              <tooltip :title="$t('message.metadata.resource')">
                 {{ 'Political Geocoding Level URI' }}
               </tooltip>
             </td>
             <td v-for="(element, i) in getPoliticalGeocodingLevelURI" :key="`PoliticalGeocodingLevelURI-`+i">
-              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
-              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+              <div v-if="has(element, 'label') && !isNil(element.label)"> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div v-if="has(element, 'resource') && !isNil(element.resource)"> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObjectArray(getPoliticalGeocodingURI)">
@@ -122,8 +122,8 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getPoliticalGeocodingURI" :key="`PoliticalGeocodingURI-`+i">
-              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
-              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+              <div v-if="has(element, 'label') && !isNil(element.label)"> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div v-if="has(element, 'resource') && !isNil(element.resource)"> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObject(getAvailability)">
@@ -133,8 +133,8 @@
               </tooltip>
             </td>
             <td>
-              <div> {{ $t('message.metadata.label') }}: {{ getAvailability.label }}</div>
-              <div> {{ $t('message.metadata.resource') }}: <a :href="getAvailability.resource">{{ getAvailability.resource }}</a></div>
+              <div v-if="has(getAvailability, 'label') && !isNil(getAvailability.label)"> {{ $t('message.metadata.label') }}: {{ getAvailability.label }}</div>
+              <div v-if="has(getAvailability, 'resource') && !isNil(getAvailability.resource)"> {{ $t('message.metadata.resource') }}: <a :href="getAvailability.resource">{{ getAvailability.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObjectArray(getContributorID)">
@@ -144,8 +144,8 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getContributorID" :key="`ContributorID-`+i">
-              <div> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
-              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+              <div v-if="has(element, 'label') && !isNil(element.label)"> {{ $t('message.metadata.label') }}: {{ element.label }}</div>
+              <div v-if="has(element, 'resource') && !isNil(element.resource)"> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObject(getGeocodingDescriptionDe)">
@@ -205,11 +205,11 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getContributor" :key="`Contributor-`+i">
-              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
-              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
-              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
-              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
-              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+              <div v-if="has(element, 'name') && !isNil(element.name)"> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div v-if="has(element, 'type') && !isNil(element.type)"> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div v-if="has(element, 'homepage') && !isNil(element.homepage)"> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.homepage }}</a></div>
+              <div v-if="has(element, 'email') && !isNil(element.email)"> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.email }}</a></div>
+              <div v-if="has(element, 'resource') && !isNil(element.resource)"> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObjectArray(getOriginator)">
@@ -219,11 +219,11 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getOriginator" :key="`Originator-`+i">
-              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
-              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
-              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
-              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
-              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+              <div v-if="has(element, 'name') && !isNil(element.name)"> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div v-if="has(element, 'type') && !isNil(element.type)"> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div v-if="has(element, 'homepage') && !isNil(element.homepage)"> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.homepage }}</a></div>
+              <div v-if="has(element, 'email') && !isNil(element.email)"> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.email }}</a></div>
+              <div v-if="has(element, 'resource') && !isNil(element.resource)"> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <tr v-if="showObjectArray(getMaintainer)">
@@ -233,11 +233,11 @@
               </tooltip>
             </td>
             <td v-for="(element, i) in getMaintainer" :key="`Maintainer-`+i">
-              <div> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
-              <div> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
-              <div> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.resource }}</a></div>
-              <div> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.resource }}</a></div>
-              <div> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
+              <div v-if="has(element, 'name') && !isNil(element.name)"> {{ $t('message.metadata.name') }}: {{ element.name }}</div>
+              <div v-if="has(element, 'type') && !isNil(element.type)"> {{ $t('message.metadata.type') }}: {{ element.type }}</div>
+              <div v-if="has(element, 'homepage') && !isNil(element.homepage)"> {{ $t('message.metadata.homepage') }}: <a :href="element.homepage">{{ element.homepage }}</a></div>
+              <div v-if="has(element, 'email') && !isNil(element.email)"> {{ $t('message.metadata.email') }}: <a :href="'mailto:' + element.email">{{ element.email }}</a></div>
+              <div v-if="has(element, 'resource') && !isNil(element.resource)"> {{ $t('message.metadata.resource') }}: <a :href="element.resource">{{ element.resource }}</a></div>
             </td>
           </tr>
           <!-- ### END DCAT-AP.de fields ### -->
