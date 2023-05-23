@@ -1837,7 +1837,11 @@
                 "datasetFeed": "",
                 "qualifiedAttribution": "",
                 "type": "",
-                "isReferencedBy": ""
+                "isReferencedBy": "",
+                "qualityProcessURI": "",
+                "originator": "",
+                "contributor": "",
+                "legalBasis": ""
             },
             "quality": {
                 "keywordAvailability": "Ключовите думи подпомагат пряко търсенето и по този начин увеличават възможността за намиране на набора от данни. Броят на ключовите думи няма отражение върху оценката.",
