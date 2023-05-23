@@ -1734,7 +1734,8 @@
                 "geocodingDescription": "This property contains the geographical coverage of a dataset, represented by the name of an administrative area or a subject reference as free text.",
                 "contributor": "This property refers to bodies or persons who have edited the data (e.g. by formatting it). Its use is described in more detail in the Manual of Conventions.",
                 "qualityProcessURI": "A URI that points to the process for quality assurance of the dataset. This is ideally the URL of a web page.",
-                "legalBasis": "This field optionally documents as free text the legal basis for access to the information (the access opening), i.e. the original legal basis for access to data of the administration."
+                "legalBasis": "This field optionally documents as free text the legal basis for access to the information (the access opening), i.e. the original legal basis for access to data of the administration.",
+                "originator": "This property refers to the persons who have copyright in the data set. According to copyright law, a work is protected if it is the personal intellectual creation of its author."
             },
             "quality": {
                 "keywordAvailability": "Keywords directly support the search and thus increase the findability of the data dataset.<br><br> The system checks whether keywords are defined. The number of keywords has no impact to the score.",
