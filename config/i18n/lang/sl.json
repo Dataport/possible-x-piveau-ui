@@ -128,7 +128,22 @@
             "isVersionOf": "Verzija",
             "pageDescriptionContactPoint": "Svoji zbirki podatkov dodaj vrsto točke za stik, ime in e-poštni naslov!",
             "goToDataset": "Pojdi na stran zbirk podatkov",
-            "updatedOnDataEuropaEU": "Posodobljeno na spletišču Data.europa.eu"
+            "updatedOnDataEuropaEU": "Posodobljeno na spletišču Data.europa.eu",
+            "hasPolicy": "",
+            "wasGeneratedBy": "",
+            "spatialResolutionInMeters": {
+                "value": "",
+                "label": ""
+            },
+            "qualifiedAttribution": "",
+            "isReferencedBy": "",
+            "qualifiedRelation": "",
+            "temporalResolution": "",
+            "role": "",
+            "packageFormat": "",
+            "compressFormat": "",
+            "relation": "",
+            "sample": ""
         },
         "dataupload": {
             "info": {
@@ -313,9 +328,772 @@
                             "distribution2": {
                                 "name": "Dodatne informacije"
                             }
-                        }
+                        },
+                        "name": ""
                     },
-                    "overview": "Podatkovni niz Pregled"
+                    "overview": "Podatkovni niz Pregled",
+                    "step1": {
+                        "name": ""
+                    },
+                    "essential": {
+                        "name": ""
+                    },
+                    "additional": {
+                        "name": ""
+                    },
+                    "advised": {
+                        "name": ""
+                    },
+                    "distoverview": {
+                        "name": ""
+                    },
+                    "step2": {
+                        "name": ""
+                    }
+                },
+                "pageDescription": {
+                    "help": "",
+                    "info": "",
+                    "add-label": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "pageTitle": {
+                    "label": "",
+                    "add-label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "add": "",
+                    "info": ""
+                },
+                "page": {
+                    "add-label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "maintainerEmail": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "temporalResolution": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "title": {
+                    "add-label": "",
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "source": {
+                    "info": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "label": "",
+                    "help": ""
+                },
+                "temporal": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "hasVersionUrl": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "contactPoint": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "add-label": ""
+                },
+                "qualifiedRelationHadRole": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "legalBasis": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "add-label": ""
+                },
+                "admsIdentifierCheckbox": {
+                    "label": ""
+                },
+                "datasetDescription": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "add-label": ""
+                },
+                "schemeIdentifier": {
+                    "label": ""
+                },
+                "geocodingDescription": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "add-label": ""
+                },
+                "contributorName": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "politicalGeocodingURI": {
+                    "add-label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "admsIdentifierType": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "qualityProcessURI": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": "",
+                    "info": ""
+                },
+                "originatorHomepage": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "politicalGeocodingURIMunicipalityKey": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "sourceUrl": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "publisherHomepage": {
+                    "label": "",
+                    "placeholder": ""
+                },
+                "titleLabel": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "contactPointName": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "originatorName": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "contributorType": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "spatialUrl": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "creatorType": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "isVersionOf": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "temporalResolutionYear": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "conformsTo": {
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "add-label": "",
+                    "help": ""
+                },
+                "contactPointAddressCountry": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "contactPointEmail": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "admsIdentifier": {
+                    "label": "",
+                    "add-label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "datetime": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "contributor": {
+                    "info": "",
+                    "help": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "provenance": {
+                    "add-label": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "landingPage": {
+                    "info": "",
+                    "add-label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "spatialPlace": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "spatialVocabulary": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "temporalResolutionSecond": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "contactPointAddressPostcode": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "identifier": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "keyword": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "add-label": ""
+                },
+                "isVersionOfUrl": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "temporalStart": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "creator": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "add-label": ""
+                },
+                "relation": {
+                    "add-label": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "contactPointAddressCity": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "originatorEmail": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "maintainerHomepage": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "admsIdentifierSkosNotation": {
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "maintainerType": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "pageTitleSub": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "contactPointType": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "admsIdentifierUrl": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": "",
+                    "info": ""
+                },
+                "relationUrl": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "contactPointAddress": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "spatialResolutionInMeters": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "admsIdentifierValue": {
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "qualifiedAttributionUrl": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "references": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "creatorEmail": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "maintainerName": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "modified": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "maintainer": {
+                    "label": "",
+                    "add-label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "politicalGeocodingLevelURI": {
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "availabilityDE": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "creatorHomepage": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "temporalResolutionHour": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "description": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "add-label": "",
+                    "placeholder": ""
+                },
+                "versionNotes": {
+                    "help": "",
+                    "add-label": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "pageUrl": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "qualifiedRelation": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "wasGeneratedBy": {
+                    "add-label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "publisher": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "add-label": ""
+                },
+                "temporalResolutionDay": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "temporalResolutionMonth": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "politicalGeocodingURIVocabulary": {
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "contributorEmail": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "datasetID": {
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "catalog": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "wasGeneratedByUrl": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "identifierText": {
+                    "placeholder": "",
+                    "label": ""
+                },
+                "contributorHomepage": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "contactPointUrl": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "qualifiedRelationUrl": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "contributorID": {
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "publisherName": {
+                    "label": "",
+                    "placeholder": ""
+                },
+                "keywordHeader": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "add-label": ""
+                },
+                "landingPageUrl": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "accessRights": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "provenanceText": {
+                    "placeholder": "",
+                    "label": ""
+                },
+                "hasVersion": {
+                    "info": "",
+                    "add-label": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "isReferencedBy": {
+                    "info": "",
+                    "add-label": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "issued": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "pageFormat": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "temporalEnd": {
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "provenanceGroup": {
+                    "label": "",
+                    "add-label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "contactPointOrganisationName": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "versionInfo": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "contactPointAddressStreet": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "isReferencedByUrl": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "type": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "publisherEmail": {
+                    "placeholder": "",
+                    "label": ""
+                },
+                "language": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "creatorName": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "originatorType": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "isUsedBy": {
+                    "add-label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "contactPointTelephone": {
+                    "placeholder": "",
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "spatialCountry": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "accrualPeriodicity": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "temporalResolutionMinute": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "publisherType": {
+                    "placeholder": "",
+                    "label": ""
+                },
+                "subject": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "theme": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "qualifiedAttribution": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": "",
+                    "add-label": "",
+                    "info": ""
+                },
+                "spatialContinent": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "conformsToUrl": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "originator": {
+                    "help": "",
+                    "add-label": "",
+                    "info": "",
+                    "label": ""
+                },
+                "date": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "conformsToTitle": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "spatial": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
                 }
             },
             "catalogues": {
@@ -367,6 +1145,200 @@
                     "step2": {
                         "name": "Korak 2: Opredelitev lastnosti kataloga"
                     }
+                },
+                "publisher": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "homepage": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "hasPartURL": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "modified": {
+                    "add-label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "politicalGeocodingLevelURI": {
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "issued": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "add-label": ""
+                },
+                "language": {
+                    "placeholder": "",
+                    "add-label": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "description": {
+                    "add-label": "",
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "licenceURL": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "datetime": {
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "creatorEmail": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "licenceDescription": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "rights": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "datasetID": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "rightsUrl": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "rightsString": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "isPartOf": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "catalog": {
+                    "label": "",
+                    "help": "",
+                    "add-label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "spatialVocabulary": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "availabilityCatDE": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "spatialContinent": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "spatialUrl": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "spatial": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "add-label": ""
+                },
+                "creatorType": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "hasPart": {
+                    "add-label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "spatialCountry": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "creator": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "add-label": ""
+                },
+                "creatorHomepage": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "spatialPlace": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "creatorName": {
+                    "label": "",
+                    "placeholder": ""
+                },
+                "title": {
+                    "add-label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "catalogURL": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "license": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "date": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
                 }
             },
             "clear": "Jasen",
@@ -396,7 +1368,358 @@
             "validationerror": "Pri potrditvi vašega obrazca je prišlo do napake!",
             "createDataset": "Ustvari nabor podatkov",
             "defineDatasetProperties": "Opredelitev lastnosti nabora podatkov",
-            "createDistributions": "Ustvarjati razdelitve"
+            "createDistributions": "Ustvarjati razdelitve",
+            "distributions": {
+                "page": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "add-label": "",
+                    "help": ""
+                },
+                "accessServiceTitle": {
+                    "add-label": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "pageTitle": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "add-label": "",
+                    "placeholder": ""
+                },
+                "spatialResolutionInMeters": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "conformsToTitle": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "description": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "add-label": "",
+                    "placeholder": ""
+                },
+                "pageDescription": {
+                    "label": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "help": ""
+                },
+                "licence": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "downloadUrl": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "byteSize": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "stepper": {
+                    "step3": {
+                        "name": ""
+                    },
+                    "additional": {
+                        "name": ""
+                    },
+                    "step1": {
+                        "name": ""
+                    },
+                    "distoverview": {
+                        "name": ""
+                    },
+                    "step4": {
+                        "name": ""
+                    },
+                    "advised": {
+                        "name": ""
+                    },
+                    "step2": {
+                        "name": ""
+                    }
+                },
+                "rightsString": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "hasPolicyUrl": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "format": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "checksumAlgorithm": {
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "accessUrl": {
+                    "info": "",
+                    "help": "",
+                    "add-label": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "temporalResolutionHour": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "accessUrlFile": {
+                    "help": "",
+                    "label": ""
+                },
+                "status": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "rights": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "datetime": {
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "temporalResolutionMonth": {
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "temporalResolutionSecond": {
+                    "placeholder": "",
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "pageUrl": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "accessService": {
+                    "label": "",
+                    "add-label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "title": {
+                    "label": "",
+                    "add-label": "",
+                    "placeholder": "",
+                    "help": "",
+                    "info": ""
+                },
+                "pageFormat": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "mediaType": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "modified": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "language": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "availabilityDisDE": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "accessServiceDescription": {
+                    "label": "",
+                    "add-label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "licenseAttributionByText": {
+                    "info": "",
+                    "add-label": "",
+                    "help": "",
+                    "label": ""
+                },
+                "licenceTitle": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "accessUrlLink": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "licenceURL": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "packageFormat": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "conformsToUrl": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "checksum": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "type": {
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "issued": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "date": {
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "hasPolicy": {
+                    "label": "",
+                    "info": "",
+                    "add-label": "",
+                    "help": ""
+                },
+                "temporalResolution": {
+                    "label": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "rightsUrl": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "conformsTo": {
+                    "add-label": "",
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "temporalResolutionDay": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "availability": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "licenceDescription": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "licenseAttributionByTextTitle": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "compressFormat": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "temporalResolutionMinute": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "accessServiceEndpointURL": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "licenceDetails": {
+                    "help": "",
+                    "label": ""
+                },
+                "licenceVocabulary": {
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "temporalResolutionYear": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                }
+            },
+            "generalInformation": "",
+            "additionalInformation": "",
+            "publishcatalogue": ""
         },
         "datasetDetails": {
             "subnav": {
@@ -439,7 +1762,24 @@
                 "distributionQuality": "Kakovost distribucije",
                 "publisherAvailability": "Objavitelj",
                 "keywordAvailability": "Uporaba ključnih besed",
-                "rightsAvailability": "Pravice"
+                "rightsAvailability": "Pravice",
+                "validationDescription": {
+                    "error": "",
+                    "success": ""
+                },
+                "row": "",
+                "column": "",
+                "validationTitle": {
+                    "success": "",
+                    "error": ""
+                },
+                "totalRows": "",
+                "limit": "",
+                "warning": "",
+                "error": "",
+                "title": "",
+                "banner": "",
+                "message": ""
             },
             "follow": "Sledi",
             "accessURLTooltip": "Ta povezava lahko vsebuje informacije o tem, kako pridobiti referenčno datoteko, ali pa je neposredna povezava do referenčne datoteke.",
@@ -468,7 +1808,14 @@
                     "cancel": "Prekliči",
                     "close": "Zapri",
                     "coupleOfMinutes": "(to lahko traja nekaj minut)",
-                    "notDownloadedTooltip": "Podrobnosti so na voljo v priloženi datoteki_report.csv."
+                    "notDownloadedTooltip": "Podrobnosti so na voljo v priloženi datoteki_report.csv.",
+                    "fileConversionTo": "",
+                    "downloading": "",
+                    "done": "",
+                    "converting": "",
+                    "selectFileFormat": "",
+                    "downloadAs": "",
+                    "fileConversionFail": ""
                 },
                 "leavePageWindow": {
                     "text": "Ali ste prepričani, da želite zapustiti državo? Prenos bo ustavljen, ko boste zapustili državo!"
@@ -543,7 +1890,10 @@
                     "created": "Datum uradne izdaje (npr. objave) distribucije.",
                     "language": "Jezik, ki se uporablja pri distribuciji.",
                     "options": "Odprite predogled distribucije.",
-                    "temporalResolution": "Nanaša se na najkrajše časovno obdobje, ki ga je mogoče rešiti v porazdelitvi podatkovnega niza."
+                    "temporalResolution": "Nanaša se na najkrajše časovno obdobje, ki ga je mogoče rešiti v porazdelitvi podatkovnega niza.",
+                    "compressFormat": "",
+                    "packageFormat": "",
+                    "hasPolicy": ""
                 },
                 "otherIdentifier": "Sekundarni identifikator nabora podatkov, kot so MAST/ADS16, DataCite17, DOI18, EZID19 ali W3ID20.",
                 "numSeries": "Vsebuje število podatkovnih nizov, ki jih vsebuje nabor podatkov.",
@@ -572,7 +1922,21 @@
                 "share": "Ta nabor podatkov ali storitev delite prek družbenih medijev.",
                 "feedback": "Sporočite nam, kaj menite o tem naboru podatkov ali storitvi.",
                 "dqvData": "Možnosti za prenos nabora podatkov ali meritev kakovosti storitev v različnih povezanih predstavitvah podatkov.",
-                "hasVersion": "Povezani nabor podatkov, ki je različica, izdaja ali prilagoditev opisanega nabora podatkov"
+                "hasVersion": "Povezani nabor podatkov, ki je različica, izdaja ali prilagoditev opisanega nabora podatkov",
+                "qualityProcessURI": "",
+                "temporalResolution": "",
+                "legalBasis": "",
+                "isReferencedBy": "",
+                "qualifiedRelation": "",
+                "contributor": "",
+                "sample": "",
+                "type": "",
+                "wasGeneratedBy": "",
+                "datasetFeed": "",
+                "cite": "",
+                "qualifiedAttribution": "",
+                "spatialResolutionInMeters": "",
+                "originator": ""
             },
             "quality": {
                 "keywordAvailability": "Ključne besede neposredno podpirajo iskanje in tako povečujejo najdljivost podatkovnega niza.&br>&br> &br> Sistem preverja, ali so ključne besede opredeljene. Število ključnih besed ne vpliva na oceno.",
@@ -603,7 +1967,8 @@
             "relevance": "Razvrstite nabor podatkov glede na ustreznost. Ustreznost se izračuna na podlagi ujemanja iskanega izraza v naslovu, ključnih besedah in opisu.",
             "contactPoints": "Kontaktni podatki, ki se lahko uporabijo za pošiljanje pripomb o naboru podatkov.",
             "locationFilter": "Za ogled naborov podatkov, povezanih z določeno lokacijo, kliknite zemljevid in izberite ikono svinčnika. Nato kliknite gumb Uporabljaj, če želite filtrirati samo nabore podatkov, ki se nanašajo na izbrano področje. V rezultate iskanja bodo vključeni samo nabori podatkov, ki vključujejo geoinformacijske metapodatke.",
-            "catalogues": "Iskanje po katalogih. Katalog vsebuje nabore podatkov in storitve"
+            "catalogues": "Iskanje po katalogih. Katalog vsebuje nabore podatkov in storitve",
+            "invalidVisualise": ""
         },
         "visualisationDistribution": {
             "barChartExplain": "V paličnem grafu so prikazane številčne vrednosti za ravni kategoričnega elementa kot palice. Ravni so prikazane na eni osi karte, vrednosti pa so prikazane na drugi osi.",
@@ -700,7 +2065,9 @@
             "scoring": "Ocena",
             "or": "ali",
             "europeanCatalogs": "Evropski katalogi",
-            "operator": "Operater"
+            "operator": "Operater",
+            "lessFilters": "",
+            "moreFilters": ""
         },
         "header": {
             "navigation": {
@@ -712,7 +2079,9 @@
                     "sparqleditor": "Urejevalnik SPARQL",
                     "statistics": "Statistike",
                     "sparqlsearch": "Iskanje SPARQL",
-                    "title": "Podatki"
+                    "title": "Podatki",
+                    "euVocabularies": "",
+                    "persistentUris": ""
                 },
                 "impactStudies": {
                     "opendataimpact": "Vpliv odprtih podatkov",
@@ -722,7 +2091,8 @@
                     "countryInsights": "Vpogled po državah",
                     "useCases": "Primeri uporabe",
                     "title": "Vpliv in študije",
-                    "overview": "Pregled"
+                    "overview": "Pregled",
+                    "countyInsights": ""
                 },
                 "training": {
                     "licensingAssistant": "Pomočnik za licence",
@@ -730,7 +2100,8 @@
                     "moreTrainingMaterial": "Več gradiv za usposabljanje",
                     "whatIsOpenData": "Kaj so odprti podatki",
                     "title": "Usposabljanje",
-                    "elearning": "E-učenje"
+                    "elearning": "E-učenje",
+                    "dataEuropaAcademy": ""
                 },
                 "about": {
                     "beHarvestedByUs": "Dovolite nam, da zajamemo vaše podatke",
@@ -893,7 +2264,8 @@
         },
         "pagination": {
             "nextPage": "Naslednji",
-            "previousPage": "Prejšnji"
+            "previousPage": "Prejšnji",
+            "itemsPerPage": ""
         },
         "navigation": {
             "navItems": {
