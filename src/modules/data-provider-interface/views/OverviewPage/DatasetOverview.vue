@@ -70,7 +70,7 @@
                 <h2 class="heading">{{ $t('message.datasetDetails.additionalInfo') }}</h2>
             </div>
             <div class="col-10 offset-1">
-                <table class="table table-borderless table-responsive pl-3 bg-light">
+                <table class="table table-borderless table-responsive pl-3 bg-light disOverview">
 
                     <div v-for="(value, name, index) in tableProperties" :key="index">
                         <PropertyEntry :data="getData('datasets')" profile="datasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
@@ -112,7 +112,7 @@ export default {
                 'dct:relation': { type:'multiURL', voc: '', label:'message.dataupload.datasets.relation.label' },
                 'dcat:qualifiedRelation': { type:'multiURL', voc: '', label:'message.dataupload.datasets.qualifiedRelation.label' },
                 'prov:qualifiedAttribution': { type:'multiURL', voc: '', label:'message.dataupload.datasets.qualifiedAttribution.label' },
-                'dct:spatial': { type: 'singularURI', voc: '', label: 'message.metadata.spatial' },
+                'dct:spatial': { type: 'multiURISpatial', voc: '', label: 'message.metadata.spatial' },
                 'dcat:spatialResolutionInMeters': { type: 'singularString', voc: '', label: 'message.dataupload.datasets.spatialResolutionInMeters.label' },
                 'dct:temporal': { type: 'special', voc: '', label: 'message.metadata.temporal' },
                 'dcat:temporalResolution': { type: 'special', voc: '', label: 'message.dataupload.datasets.temporalResolution.label' },

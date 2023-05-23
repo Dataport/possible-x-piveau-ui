@@ -38,14 +38,14 @@ const glueConfig = {
     vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
   },
   authentication: {
-    useService: true, 
+    useService: true,
     login: {
       useLogin: true,
 
       loginTitle: 'Login',
       loginURL: '/login',
       loginRedirectUri: '/',
-      
+
       logoutTitle: 'Logout',
       logoutURL: '/logout',
       logoutRedirectUri: '/',
@@ -57,10 +57,14 @@ const glueConfig = {
 
       // TODO: Do we need to include these properties? They seem to be default values that never change #2763
       'ssl-required': 'external',
-      'public-client': true, 
-      'verify-token-audience': true, 
-      'use-resource-role-mappings': true, 
-      'confidential-port': 0, 
+      'public-client': true,
+      'verify-token-audience': true,
+      'use-resource-role-mappings': true,
+      'confidential-port': 0,
+    },
+    keycloakInit: {
+      // To activate PKCE set the following variable to 'S256'
+      pkceMethod: '',
     },
     rtp: {
       grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
@@ -73,7 +77,7 @@ const glueConfig = {
       base: '/', // TODO: Include piveau-header-footer instead of deu-header-footer to make test app working with default base path #2765
       mode: 'history',
     },
-    navigation: { 
+    navigation: {
       showSparql: false,
     },
     pagination: {
@@ -81,7 +85,7 @@ const glueConfig = {
       usePaginationArrows: true,
       useItemsPerPage: true,
       defaultItemsPerPage: 10, // TODO: Make use of this property #2764
-      defaultItemsPerPageOptions: [5, 10, 25, 50], 
+      defaultItemsPerPageOptions: [5, 10, 25, 50],
     },
   },
   metadata: {
@@ -92,24 +96,24 @@ const glueConfig = {
   content: {
     datasets: {
       useSort: true,
-      useFeed: true, 
+      useFeed: true,
       useCatalogs: true,
       followKeywordLinks: 'nofollow',
-      maxKeywordLength: 15, 
+      maxKeywordLength: 15,
       facets: {
         useDatasetFacets: true,
         useDatasetFacetsMap: true,
-        showClearButton: false, 
-        showFacetsTitle: false, 
+        showClearButton: false,
+        showFacetsTitle: false,
         cutoff: 5 ,
-        MIN_FACET_LIMIT: 10, 
-        MAX_FACET_LIMIT: 50, 
-        FACET_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }), 
-        FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }), 
-        defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'], 
+        MIN_FACET_LIMIT: 10,
+        MAX_FACET_LIMIT: 50,
+        FACET_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
+        FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
+        defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'],
         scoringFacets: {
           useScoringFacets: true, // TODO: Make use of this property #2764
-          defaultScoringFacets: { 
+          defaultScoringFacets: {
             excellentScoring: {
               id: 'excellentScoring',
               title: 'Excellent',
@@ -142,7 +146,7 @@ const glueConfig = {
         },
       },
     },
-    catalogs: { 
+    catalogs: {
       useSort: true, // TODO: Make use of this property #2764
       useCatalogCountries: true,
       defaultCatalogImagePath: '/flags',
@@ -160,14 +164,20 @@ const glueConfig = {
         defaultFacetOrder: ['country'],
       },
     },
-    datasetDetails: { 
+    datasetDetails: {
       header: {
         navigation: "top",
         hidePublisher: false,
         hideDate: false
       },
       keywords: {
-        showTitle: false
+        isVisible: true,
+        showTitle: false,
+        collapsed: false,  // displayAll
+      },
+      categoriesKey: {
+        isVisible: true,
+        collapsed: false,  // displayAll
       },
       description: {
         enableMarkdownInterpretation: true,
@@ -179,6 +189,33 @@ const glueConfig = {
         descriptionMaxLines: 3,
         descriptionMaxChars: 250,
         showValidationButton: false, // TODO: Make use of this property #2764
+      },
+      // Distribution file conversion feature
+      downloadAs: {
+        // If true, enable it
+        enable: true,
+        // Corsproxy url
+        proxyUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
+        // Conversion url
+        url: 'https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert',
+        // Converion formats
+        conversionFormats: [
+          { sourceFileFormat: 'HTML', targetFileFormat: [ 'html', 'pdf', 'docx', 'json', 'odt', 'rtf' ]},
+          { sourceFileFormat: 'CSV', targetFileFormat: [ 'csv', 'docx', 'html', 'json', 'odt', 'rtf', 'xls', 'xlsx', 'xml']},
+          { sourceFileFormat: 'JSON', targetFileFormat: [ 'json', 'xml', ]},
+          { sourceFileFormat: 'ODT', targetFileFormat: [ 'odt', 'docx', 'html', 'json', 'rtf' ]},
+          { sourceFileFormat: 'DOCX', targetFileFormat: [ 'docx', 'pptx', 'odt', 'pdf', 'txt', 'html', 'json', 'odt', 'rtf']},
+          { sourceFileFormat: 'XLSX', targetFileFormat: [ 'xlsx', 'csv',]},
+          { sourceFileFormat: 'XLS', targetFileFormat: [ 'xls', 'csv',]},
+          { sourceFileFormat: 'PDF', targetFileFormat: [ 'pdf', 'txt',]}
+        ]
+      },
+      similarDatasets: {
+        breakpoints: {
+          verySimilar: { start: 0, end: 20 },
+          similar: { start: 20, end: 25 },
+          lessSimilar: { start: 25, end: 35 },
+        },
       },
       pages: {
         isVisible: false,
@@ -227,7 +264,7 @@ const glueConfig = {
         },
       }
     },
-    maps: { 
+    maps: {
       mapVisible: true,
       useAnimation: true,
       location: [[52.526, 13.314], 10],
@@ -266,12 +303,14 @@ const glueConfig = {
     dataProviderInterface: {
       useService: true,
       basePath: '/dpi',
+      specification: 'dcatap',
       annifIntegration: false,
+      enableFileUploadReplace: false,
       buttons: {
         Dataset: true,
-        Catalogue: false, 
+        Catalogue: false,
       },
-      doiRegistrationService: { 
+      doiRegistrationService: {
         persistentIdentifierType: 'eu-ra-doi',
       },
     },

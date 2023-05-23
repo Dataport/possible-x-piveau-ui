@@ -2,7 +2,7 @@
   <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
     <div class="d-none d-lg-block dsd-title-tag">
       <span>
-        Dataset
+        {{$t('message.metadata.dataset')}}
       </span>
     </div>
     <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>

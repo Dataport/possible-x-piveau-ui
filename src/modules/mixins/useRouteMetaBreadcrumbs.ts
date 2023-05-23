@@ -1,7 +1,7 @@
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 import { getTranslationFor } from '../utils/helpers';
 
-export default Vue.extend({
+export default defineComponent({
   computed: {
     $breadcrumbs() {
       // Go through the route path to build the breadcrumbs

@@ -136,168 +136,6 @@
                 "information": "Informazzjoni"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Sors"
-                    },
-                    "type": {
-                        "placeholder": "Spazju riżervat għat-Tip ta’ Sett ta’ Data"
-                    },
-                    "subject": {
-                        "help": "Kategorija tas-Sett ta’ Data."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Spazju riżervat għall-Punt ta’ Kuntatt tas-Sett ta’ Data tat-Triq"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Sett ta’ data Konformi Għal test bi spazju riżervat"
-                    },
-                    "isVersionOf": {
-                        "label": "Hija Verżjoni ta’ f"
-                    },
-                    "provenance": {
-                        "label": "Provenjenza"
-                    },
-                    "language": {
-                        "label": "Il-lingwa"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Link għal Aġent li għandu xi forma ta’ responsabbiltà għar-riżorsa"
-                    },
-                    "temporal": {
-                        "placeholder": "Sett ta’ data Test ta’ spazju riżervat temporanju"
-                    },
-                    "accessRights": {
-                        "info": "Din il-proprjetà tirreferi għal informazzjoni li tindika jekk is-Sett tad-Data huwiex data miftuħa, għandux restrizzjonijiet fuq l-aċċess jew le."
-                    },
-                    "identifier": {
-                        "help": "Din il-proprjetà fiha l-identifikatur ewlieni għas-Sett tad-Data."
-                    },
-                    "versionInfo": {
-                        "help": "Numru tal-verżjoni tas-Sett ta’ Data."
-                    },
-                    "hasVersion": {
-                        "info": "Din il-karatteristika tirreferi għal sett tad-data relatat li hu verżjoni, edizzjoni, jew adattament tas-sett tad-data deskritt."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Żid Was Ġenerat By"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Relazzjoni Kwalifikata"
-                    },
-                    "conformsToTitle": {
-                        "label": "Titolu"
-                    },
-                    "creatorType": {
-                        "label": "Tip"
-                    },
-                    "spatial": {
-                        "info": "Din il-proprjetà tirreferi għal reġjun ġeografiku li huwa kopert mis-Sett tad-Data."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Xahar ta’ Riżoluzzjoni temporali"
-                    },
-                    "contactPointName": {
-                        "label": "Isem"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Test tad-Detentur tal-Post tal-Minuti tas-sett tad-data"
-                    },
-                    "contactPointEmail": {
-                        "label": "Email"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Isem l-Organizzazzjoni"
-                    },
-                    "contactPoint": {
-                        "help": "Din il-proprjetà fiha informazzjoni ta’ kuntatt."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Test tad-detentur tal-post tas-sett tad-data Jum ta’ Riżoluzzjoni Temporali"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Test tal-pompa għal Test tal-Provenjenza tas-Sett ta’ Data"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Dataset Publisher Type placeholder text"
-                    },
-                    "datasetID": {
-                        "label": "Id tas-sett ta’ data"
-                    },
-                    "modified": {
-                        "label": "Immodifikat"
-                    },
-                    "publisher": {
-                        "label": "Pubblikatur"
-                    },
-                    "issued": {
-                        "help": "Id-data tal-ħruġ formali (eż., il-pubblikazzjoni) tas-sett tad-data. Formati ta’ data aċċettabbli: SSSS-XX-JJ, SSSS-XX, SSSS."
-                    },
-                    "publisherHomepage": {
-                        "label": "Il-paġna ewlenija"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Separazzjoni ġeografika minima riżolvibbli f’sett ta’ data."
-                    },
-                    "mediaType": {
-                        "placeholder": "Spazju riżervat għat-Tip tal-Media ta’ Distribuzzjoni"
-                    },
-                    "language": {
-                        "help": "Lingwa użata fid-Distribuzzjoni."
-                    },
-                    "title": {
-                        "info": "Din il-proprjetà fiha isem mogħti lid-Distribuzzjoni. Din il-proprjetà tista’ tiġi ripetuta għal verżjonijiet lingwistiċi paralleli tad-deskrizzjoni."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Spazju riżervat għall-kontroll tad-distribuzzjoni"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Spazju riżervat għal Url Politika ta’ Distribuzzjoni"
-                    },
-                    "page": {
-                        "help": "Paġna jew dokument dwar din id-Distribuzzjoni."
-                    },
-                    "availability": {
-                        "placeholder": "Spazju riżervat għad-Disponibbiltà tad-Distribuzzjoni"
-                    },
-                    "format": {
-                        "placeholder": "Spazju riżervat għall-Format ta’ Distribuzzjoni"
-                    },
-                    "conformsTo": {
-                        "add-label": "Żid Konformi Biex"
-                    },
-                    "issued": {
-                        "label": "Maħruġ"
-                    },
-                    "description": {
-                        "help": "Din il-proprjetà fiha kont b’test liberu tad-Distribuzzjoni."
-                    },
-                    "hasPolicy": {
-                        "help": "Il-politika li tesprimi d-drittijiet."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Xahar ta’ Riżoluzzjoni temporali"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Test tad-Detentur tal-Post tas-Sett ta’ Data Temporali"
-                    },
-                    "licence": {
-                        "help": "Il-liċenzja li taħtha tkun disponibbli d-Distribuzzjoni."
-                    },
-                    "date": {
-                        "label": "Data"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -319,46 +157,6 @@
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Din il-proprjetà tirreferi għal Katalogu relatat li fih il-Katalogu deskritt huwa fiżikament jew loġikament inkluż."
-                    },
-                    "language": {
-                        "help": "Lingwa użata fil-metadejta testwali li tiddeskrivi t-titli, id-deskrizzjonijiet, eċċ."
-                    },
-                    "spatial": {
-                        "info": "Din il-proprjetà tirreferi għal żona ġeografika koperta mill-Katalogu."
-                    },
-                    "hasPart": {
-                        "help": "Din il-proprjetà tirreferi għal Katalogu relatat li huwa parti mill-Katalogu deskritt"
-                    },
-                    "creator": {
-                        "add-label": "Żid Ħallieq"
-                    },
-                    "creatorName": {
-                        "label": "Isem"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Isem mogħti lir-Reġistru tal-Katalogu. "
-                    },
-                    "description": {
-                        "info": "Din il-proprjetà fiha kont b’test liberu tar-rekord. Din il-proprjetà tista’ tiġi ripetuta għal verżjonijiet lingwistiċi paralleli tad-deskrizzjoni."
-                    },
-                    "licence": {
-                        "placeholder": "Spazju riżervat għal-Liċenzja tal-Katalogu test"
-                    },
-                    "modified": {
-                        "label": "Immodifikat"
-                    },
-                    "licenceDescription": {
-                        "label": "Deskrizzjoni tal-Liċenzja"
-                    },
-                    "homepage": {
-                        "help": "Paġna web li taġixxi bħala l-paġna ewlenija għall-Katalogu."
-                    }
-                },
                 "stepper": {
                     "overview": "Ħarsa ġenerali lejn il-katalogu",
                     "step1": {
@@ -458,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Tniżżil ta’ fajls",
-                    "zipNumberOfFiles": "Zip i-numru tal-faxxikli (zip number)",
+                    "zipNumberOfFiles": "Zip i-numru tal-faxxikli {number}",
                     "waitingForDownload": "(stennija għat-tniżżil)",
                     "downloadProgress": "Niżżel il-Progress",
                     "notDownloaded": "Mhux imniżżel",
@@ -664,7 +462,13 @@
             },
             "countMessage": "katalogi li nstabu għal",
             "loadingMessage": "Qed jillowdja l-katalogi...",
-            "geoBoundsMessageRemove": "Agħlaq din in-notifika biex tneħħi l-limitazzjoni jew uża l-funzjoni tar-risettjar."
+            "geoBoundsMessageRemove": "Agħlaq din in-notifika biex tneħħi l-limitazzjoni jew uża l-funzjoni tar-risettjar.",
+            "meta": {
+                "page": {
+                    "title": "Katalogi ta’ Settijiet ta’ Data Miftuħa | data.europa.eu"
+                },
+                "description": "Iddawlowdja, ixxerja u analizza settijiet ta’ data għal kull katalogu. Esplora iktar minn 80 katalogu ta’ data minn istituzzjonijiet uffiċjali fl-Ewropa."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -685,7 +489,7 @@
                     "goodScoring": "Tajjeb",
                     "excellentScoring": "Eċċellenti"
                 },
-                "publisher": "@: message.metadata.pubblikatur",
+                "publisher": "Pubblikatur",
                 "license": "Liċenzji",
                 "keywords": "Kliem prinċipali",
                 "categories": "Kategoriji",
@@ -707,7 +511,7 @@
                     "euInternationalData": "Data tal-UE u internazzjonali",
                     "datasets": "Settijiet tad-data",
                     "catalogs": "Katalogi",
-                    "metadataquality": "Kwalità tal-Metadata",
+                    "metadataquality": "Katalogi ta’ Settijiet ta’ Data Miftuħa",
                     "sparqleditor": "Editur ta’ SPARQL",
                     "statistics": "Statistiki",
                     "sparqlsearch": "Tiftix SPARQL",
@@ -777,7 +581,11 @@
             "countMessage": "settijiet tad-data li nsabtu għal ",
             "foundDatasetsSingular": "1 sett ta’ data misjub",
             "meta": {
-                "translationNotComplete": "It-traduzzjoni mhix kompluta"
+                "translationNotComplete": "It-traduzzjoni mhix kompluta",
+                "page": {
+                    "title": "Settijiet ta’ data miftuħa tal-UE | Portal Uffiċjali għad-Data tal-UE"
+                },
+                "description": "L-ikbar portal ta’ settijiet ta’ data miftuħa fl-Ewropa. Esplora settijiet ta’ data tal-UE għal kull pajjiż, għal kull istituzzjoni, katalogu, kategoriji, kelmiet ewlenin, u ħafna iktar."
             },
             "geoBoundsMessageRemove": "Agħlaq din in-notifika biex tneħħi l-limitazzjoni jew uża l-funzjoni tar-risettjar.",
             "createDataset": "Oħloq Sett tad-Data",
@@ -964,6 +772,18 @@
         },
         "imprint": {
             "msg": "DAĦĦAL IL-MARKA HAWN"
+        },
+        "cookieConsent": {
+            "accept": "Accepteren",
+            "text": "Aħna nużaw il-cookies fuq dan is-sit sabiex insaħħu l-esperjenza tiegħek ta' utent"
+        },
+        "notFound": {
+            "contactUsAbout": "Ikkuntattjana dwar dan il-messaġġ ta' żball.",
+            "requested": {
+                "parttwo": "Paġna tat-tfittxija tas-sett tad-dejta",
+                "page": "Il-paġna mitluba ma nstabitx. Inti tista' terġa' tibda mill-paġna ewlenija."
+            },
+            "error": "Żball"
         }
     }
 }

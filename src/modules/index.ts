@@ -1,5 +1,7 @@
 // @ts-nocheck
 import AppLink from "./widgets/AppLink.vue";
+import Tooltip from "./widgets/Tooltip.vue";
+import PropertyValue from "./widgets/PropertyValue.vue";
 
 import AppSnackbar from './modal/AppSnackbar.vue';
 import AppConfirmationDialog from './modal/AppConfirmationDialog.vue';
@@ -13,9 +15,22 @@ import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset.vue";
 import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton.vue";
 import DatasetDetails from "./datasetDetails/DatasetDetails.vue";
 
+import FadingDistributionOverlay from "./datasetDetails/distributions/FadingDistributionOverlay";
+import AppMarkdownContent from './datasetDetails/AppMarkdownContent.vue';
+
+import FadingDistributionOverlay from "./datasetDetails/distributions/FadingDistributionOverlay";
+
+import DistributionAdded from "./datasetDetails/distributions/DistributionAdded.vue";
+import DistributionFormat  from "./datasetDetails/distributions/DistributionFormat.vue";
 import DistributionDescription from "./datasetDetails/distributions/distributionDetails/DistributionDescription.vue";
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent.vue";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent.vue";
+
+import DistributionOptionsDropdown from "./datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
+import DistributionDownload from "./datasetDetails/distributions/distributionActions/DistributionDownload";
+import LinkedDataButtonsDropdown from "./datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
+
+import DatasetDetailsNavigation from './datasetDetails/navigation/DatasetDetailsNavigation.vue'
 
 import CSVLinter from "./datasetDetails/DatasetDetailsCSVLinter.vue";
 
@@ -28,6 +43,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy.vue";
 import SparqlSearch from "./pages/SparqlSearch.vue";
 
 import Datasets from "./datasets/Datasets.vue";
+import DatasetDate from "./datasets/DatasetDate.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
 
 import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
@@ -60,6 +76,7 @@ import UserCataloguesPage from './data-provider-interface/views/UserCataloguesPa
 import DpiMenu from './data-provider-interface/DPI-menu.vue';
 import InfoSlot from './data-provider-interface/components/InfoSlot.vue';
 import AutocompleteInput from './data-provider-interface/components/AutocompleteInput.vue';
+import LangStringInput from './data-provider-interface/components/LangStringInput.vue';
 import ConditionalInput from './data-provider-interface/components/ConditionalInput.vue';
 import Groupedinput from './data-provider-interface/components/Groupedinput.vue';
 import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput.vue';
@@ -84,6 +101,8 @@ import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
 
 export {
   AppLink,
+  Tooltip,
+  PropertyValue,
   AppSnackbar,
   AppConfirmationDialog,
 
@@ -95,10 +114,19 @@ export {
   DatasetDetailsDataset,
   DatasetDetailsSkeleton,
   DatasetDetails,
+  AppMarkdownContent,
 
+  FadingDistributionOverlay,
+
+  DistributionAdded,
+  DistributionFormat,
   DistributionDescription,
   DistributionExpandedContent,
   DistributionVisibleContent,
+
+  DistributionDownload,
+  DistributionOptionsDropdown,
+  LinkedDataButtonsDropdown,
 
   CSVLinter,
 
@@ -111,6 +139,7 @@ export {
   SparqlSearch,
 
   Datasets,
+  DatasetDate,
   DatasetsFilters,
   Catalogues,
 
@@ -143,6 +172,7 @@ export {
   DpiMenu,
   InfoSlot,
   AutocompleteInput,
+  LangStringInput,
   ConditionalInput,
   Groupedinput,
   UniqueIdentifierInput,
@@ -159,6 +189,7 @@ export {
   DatasetsFacets,
   Pagination,
   CataloguesFacets,
+  DatasetDetailsNavigation,
   SubNavigation,
   SelectedFacetsOverview,
   DatasetsTopControls,

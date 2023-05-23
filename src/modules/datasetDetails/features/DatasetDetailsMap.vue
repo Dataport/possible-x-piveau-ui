@@ -31,8 +31,8 @@ import Vue, { defineAsyncComponent } from "vue";
 import {isArray, isNil, isString} from "lodash";
 import {mapGetters} from "vuex";
 import VueSkeletonLoader from 'skeleton-loader-vue';
-import DatasetDetailsFeatureHeader
-  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+// DatasetDetailsFeatureHeader is imported globally
+// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 
 const MapBasic = defineAsyncComponent({
   // Lazy-load mapbasic component
@@ -44,8 +44,8 @@ const MapBasic = defineAsyncComponent({
       return h('vue-skeleton-loader',
       {
         props: {
-        width: Vue.prototype.$env.maps.width,
-        height: Vue.prototype.$env.maps.height,
+        width: Vue.prototype.$env.content.maps.width,
+        height: Vue.prototype.$env.content.maps.height,
         animation: 'fade',
         }
       })
@@ -55,7 +55,9 @@ const MapBasic = defineAsyncComponent({
 
 export default {
   name: "DatasetDetailsMap",
-  components: {DatasetDetailsFeatureHeader, MapBasic},
+  components: {
+    // DatasetDetailsFeatureHeader, 
+    MapBasic},
   data() {
     return {
       mapVisible: this.$env.content.maps.mapVisible,
