@@ -194,6 +194,7 @@ export {
   SelectedFacetsOverview,
   DatasetsTopControls,
   getTranslationFor,
+  getFacetTranslation,
   truncate,
   getImg,
   getCountryFlagImg
