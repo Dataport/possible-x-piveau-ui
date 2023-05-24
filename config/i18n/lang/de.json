@@ -1,6 +1,16 @@
 {
     "message": {
         "metadata": {
+            "politicalGeocodingLevelURI": "Ebene der geopolitischen Abdeckung",
+            "politicalGeocodingURI": "Geopolitische Abdeckung",
+            "contributorID": "Datenbereitsteller ID",
+            "geocodingDescription": "Beschreibung der Abdeckung",
+            "legalBasis": "Rechtsgrundlage für die Zugangseröffnung",
+            "qualityProcessURI": "Qualitätssicherungsprozess",
+            "references": "Referenziert",
+            "contributor": "Bearbeiter",
+            "originator": "Urheber",
+            "maintainer": "Verwalter",
             "catalogRecord": "Verzeichnis der Kataloge",
             "deleteItem": "Möchten Sie dieses Element wirklich löschen?",
             "availability": "Verfügbarkeit",
@@ -254,6 +264,17 @@
                 "spatial": "Vom Katalog abgedecktes geografisches Gebiet."
             },
             "datasetDetails": {
+                "politicalGeocodingLevelURI": "Geopolitische Abdeckung des Datensatzes, etwa durch Kennzeichnung der Verwaltungsebene Bund, Bundesland, Kreis oder Kommune, als dcat-ap.de URI.",
+                "politicalGeocodingURI": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI.",
+                "availabilityDE": "Geplante Verfügbarkeit des Datensatzes als Auswahl aus einer festen Liste von Werten via DCAT-AP URIs.",
+                "contributorID": "Diese Eigenschaft übermittelt die ID des Bereitstellers der Daten aus dem jeweils portaleigenem Access- und Identitymanagement (wenn vorhanden).",
+                "geocodingDescription": "Diese Eigenschaft enthält die geografische Abdeckung eines Datensatzes, repräsentiert durch die Bezeichnung eines administrativen Gebiets oder eines fachlichen Bezugs als Freitext.",
+                "legalBasis": "Dieses Feld dokumentiert als Freitext optional die Rechtsgrundlage für den Zugang zu den Informationen (die Zugangseröffnung), d.h. die originäre Rechtsgrundlage für den Zugang zu Daten der Verwaltung.",
+                "qualityProcessURI": "Eine URI, die auf den Prozess zur Qualitätssicherung des Datensatzes verweist. Es handelt sich idealerweise um die URL einer Webseite.",         
+                "contributor": "Diese Eigenschaft verweist auf Stellen oder Personen, die die Daten bearbeitet haben (z.B. durch Formatierung derselben).",
+                "originator": "Diese Eigenschaft verweist auf die Personen, die Urheberrechte am Datensatz haben. Geschützt ist laut Urheberrecht ein Werk, das einer persönlichen geistigen Schöpfung seines Urhebers entspringt.",
+                "references": "Diese Eigenschaft kann verwendet werden, um auf Referenzdatensätze wie ein High Value Dataset (HVD) oder einen Musterdatensatz des Musterdatenkatalogs zu verweisen.",
+                "maintainer": "Diese Eigenschaft verweist auf die Stellen oder Personen, die Verantwortung und Rechenschaftspflicht für die Daten und ihre angemessene Pflege übernehmen.",
                 "frequency": "Häufigkeit der Aktualisierung des Datensatzes.",
                 "dataset": "Angaben zum Datensatz oder zum Dienst.",
                 "updated": "Das letzte Datum, an dem der Datensatz oder der Dienst geändert oder geändert wurde.",
