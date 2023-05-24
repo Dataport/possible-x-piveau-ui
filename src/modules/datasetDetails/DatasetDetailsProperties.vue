@@ -716,16 +716,13 @@ import {mapGetters} from "vuex";
 import {removeMailtoOrTel, truncate, appendCurrentLocaleToURL, getTranslationFor, formatDatetime } from "@/modules/utils/helpers";
 import AppLink from "@/modules/widgets/AppLink";
 import Tooltip from "@/modules/widgets/Tooltip";
-// imported globally
-// import DatasetDetailsFeatureHeader
-//   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+import DatasetDetailsFeatureHeader
+  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 // import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsProperties",
-  components: {
-    // DatasetDetailsFeatureHeader, 
-    Tooltip, AppLink},
+  components: {DatasetDetailsFeatureHeader, Tooltip, AppLink},
   props: {
     filterDateFormatEU: Function,
     showObjectArray: Function,

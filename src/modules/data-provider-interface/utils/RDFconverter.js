@@ -95,7 +95,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
 
     // distributions may have download URLs, if no downloadURL is provided -> provided accessUrls will be also set as downloadUrls
     // accessUrl is a required property and therefore always provided (made sure by the frontend)
-    // const downloadUrlsProvided = has(data, 'dcat:downloadURL') && !isEmpty(data['dcat:downloadURL']) && data['dcat:downloadURL'].map(el => !isEmpty(el['@id'])).reduce((a, b) => b);
+    const downloadUrlsProvided = has(data, 'dcat:downloadURL') && !isEmpty(data['dcat:downloadURL']) && data['dcat:downloadURL'].map(el => !isEmpty(el['@id'])).reduce((a, b) => b);
 
     // loop trough all keys within data object and convert values (or nested values) to RDF
     const valueKeys = Object.keys(data);
@@ -110,12 +110,12 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
             convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.multipleURI[property].includes(key)) {
             // if no dowloadURL is provided, set accessUrls as downloadUrls
-            // if (!downloadUrlsProvided && key === 'dcat:accessURL') {
-            //     // copy accessurl array to donwloadurl array and convert data
+            if (!downloadUrlsProvided && key === 'dcat:accessURL') {
+                // copy accessurl array to donwloadurl array and convert data
 
-            //     data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
-            //     convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
-            // }
+                data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
+                convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
+            }
 
             convertMultipleURI(RDFdataset, mainURI, data, key, property, dpiConfig);
         } else if (formatTypes.typedStrings[property].includes(key)) {
@@ -168,7 +168,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             }
                         } else {
                             let groupBlankNode;
-                            console.log('####',key);
 
                             // because grouped properties have a list of nested properties we need an initial quadruple stating the parent property
                             // using a blank node as object which later serves as subject for the nested properties
@@ -181,64 +180,43 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             // RDF example:
                             // datasetID  dct:conformsTo  conformsToURI
                             //  conformsToURI  dct:title  conformsTitle
-                            if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id'))  {
-                                groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id']);
-                            }
+                            if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id')) groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id'])
                             // all properties that don't provide an URL serving as namedNode for nested values need to define a blank node
-                            
-                            // page gets type but also has multilingual fields with preseleted langauge
-                            // don't create blank node if there is not data for page beside the preselected language
-                            let emptyPage = false;
+                            else {
+                                // page gets type but also has multilingual fields with preseleted langauge
+                                // don't create blank node if there is not data for page beside the preselected language
+                                let emptyPage = false;
 
-                            if (key === 'foaf:page') {
+                                if (key === 'foaf:page') {
+                                    const hasNoValueKeys = !currentGroupData['dct:title'].every(el => has(el, '@value')) && !currentGroupData['dct:description'].every(el => has(el, '@value'));
+                                    const hasEmptyValue = currentGroupData['dct:title'].every(el => isEmpty(el['@value'])) && currentGroupData['dct:description'].every(el => isEmpty(el['@value']));
 
-                                // if page has title and/or description property given, check if there are values given 
-                                const hasTitle = has(currentGroupData, 'dct:title');
-                                const hasDescription = has(currentGroupData, 'dct:description');
-
-                                let hasNoValueKeysTitle = true;
-                                let hasEmptyValueTitle = true;
-                                let hasNoValueKeysDescription = true;
-                                let hasEmptyValueDescription = true;
-
-                                if (hasTitle) {
-                                    hasNoValueKeysTitle = !currentGroupData['dct:title'].every(el => has(el, '@value'));
-                                    hasEmptyValueTitle = currentGroupData['dct:title'].every(el => isEmpty(el['@value']));
+                                    if (hasNoValueKeys || hasEmptyValue) emptyPage = true;
                                 }
 
-                                if (hasDescription) {
-                                    hasNoValueKeysDescription = !currentGroupData['dct:description'].every(el => has(el, '@value'));
-                                    hasEmptyValueDescription = currentGroupData['dct:description'].every(el => isEmpty(el['@value']));
-                                }
-                                
-                                // page should be handled as empty if:
-                                // no title and/or no description given
-                                // if properties given: no value given or value empty
-                                if ((hasNoValueKeysTitle || hasEmptyValueTitle) && (hasNoValueKeysDescription || hasEmptyValueDescription)) emptyPage = true;
-                            }
+                                if (!emptyPage) {
+                                    groupBlankNode = N3.DataFactory.blankNode('');
 
-                            if (!emptyPage) {
-                                if (!groupBlankNode) groupBlankNode = N3.DataFactory.blankNode('');
-
-                                // save inital quadruple using the named or blank node as object
-                                // e.g.  datasetId  dct:contactPoint  blankNode/namedNode
-                                RDFdataset.addQuad(N3.DataFactory.quad(
-                                    mainURI,
-                                    N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
-                                    groupBlankNode
-                                ))
-
-                                // some properties provide additional types
-                                if (has(formatTypes.additionalPropertyTypes, key)) {
+                                    // save inital quadruple using the named or blank node as object
+                                    // e.g.  datasetId  dct:contactPoint  blankNode/namedNode
                                     RDFdataset.addQuad(N3.DataFactory.quad(
-                                        groupBlankNode,
-                                        N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
-                                        N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key], dpiConfig))
+                                        mainURI,
+                                        N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
+                                        groupBlankNode
                                     ))
-                                }
 
-                                // convert all nested values provided by form
-                                convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false, dpiConfig);
+                                    // some properties provide additional types
+                                    if (has(formatTypes.additionalPropertyTypes, key)) {
+                                        RDFdataset.addQuad(N3.DataFactory.quad(
+                                            groupBlankNode,
+                                            N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
+                                            N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key], dpiConfig))
+                                        ))
+                                    }
+
+                                    // convert all nested values provided by form
+                                    convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false, dpiConfig);
+                                }
                             }
                         }
                     }

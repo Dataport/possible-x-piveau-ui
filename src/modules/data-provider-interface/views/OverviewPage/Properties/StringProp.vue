@@ -2,6 +2,7 @@
   <div>
     <!-- MULTISTRING -->
     <td v-if="value.type === 'multiString'">
+        hallo
         <div v-for="(el, index) in data[property]" :key="index">
             {{ Object.values(el)[0] }}
         </div>

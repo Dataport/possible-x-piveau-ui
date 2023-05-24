@@ -97,12 +97,12 @@ export default {
     mode() {
       return this.property === 'catalogues'
         ? this.getIsEditMode
-          ? this.$t('message.dataupload.menu.editCatalogue')
-          : this.$t('message.dataupload.createNewCatalogue')
+          ? 'Edit Catalogue'
+          : 'Create a new Catalogue'
         : this.property === 'datasets'
           ? this.getIsEditMode
-            ? this.$t('message.dataupload.menu.editDataset')
-            : this.$t('message.dataupload.createNewDataset')
+            ? 'Edit Dataset'
+            : 'Create a new Dataset'
           : '';
     },
     isOverviewPage() {
@@ -389,7 +389,7 @@ export default {
 }
 
 .formulate-input-element {
-  
+  display: inline-block !important;
   &--textarea {
     width: 100%;
   }

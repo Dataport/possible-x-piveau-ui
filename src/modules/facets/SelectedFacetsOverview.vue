@@ -4,8 +4,7 @@
       <span>
         {{ `${findFacetFieldTitle(facet.field)}:` }}
       </span>
-      <span v-for="(facetId, i) in facet.facets" :key="i" class="badge badge-pill badge-highlight mr-1 ds-label"
-            tabindex="0" v-on:keyup.enter="removeSelectedFacet(facet.field, facetId)">
+      <span v-for="(facetId, i) in facet.facets" :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
         {{ findFacetTitle(facet.field, facetId) }}
         <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
       </span>
@@ -123,12 +122,7 @@
       },
       findFacetFieldTitle(fieldId) {
         try {
-          const title = fieldId === 'scoring' ?
-            this.$t('message.header.navigation.data.metadataquality')
-            : this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
-
-          return !title.includes("@: message.metadata")? title : this.availableFacets.find(field => field.id === fieldId).title;
-
+          return this.availableFacets.find(field => field.id === fieldId).title;
         } catch {
           return fieldId;
         }

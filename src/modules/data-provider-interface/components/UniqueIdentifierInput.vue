@@ -82,15 +82,11 @@ export default {
           const request = `${this.$env.api.hubUrl}${this.$route.params.property}/${this.uniqueID}?useNormalizedId=true`;
           axios.head(request)
             .then(() => {
-              
               this.isUniqueID = false;
             })
-            .catch((e) => {
-              if (e.response) {
-                console.log(e);
-              }
+            .catch(() => {
               this.isUniqueID = true;
-            } );
+            });
         }
       });
     },

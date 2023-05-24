@@ -29,7 +29,7 @@ const actions = {
      */
     createSchema({ commit }, { property, page }) {
         try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
+            const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
             const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
             const propertyDefinitions = dpiConfig.inputDefinition[property]
             commit('extractSchema', { pageProperties, propertyDefinitions });
