@@ -1,6 +1,16 @@
 {
     "message": {
         "metadata": {
+            "politicalGeocodingLevelURI": "Political Geocoding Level URI",
+            "politicalGeocodingURI": "Political Geocoding URI",
+            "contributorID": "Contributor ID",
+            "geocodingDescription": "Geocoding Description",
+            "legalBasis": "Legal Basis",
+            "qualityProcessURI": "Quality Process URI",
+            "references": "References",
+            "contributor": "Contributor",
+            "originator": "Originator",
+            "maintainer": "Maintainer",
             "catalogRecord": "Catalogue Record",
             "deleteItem": "Are you sure you want to delete this item?",
             "availability": "Availability",
@@ -1719,11 +1729,18 @@
                 "spatial": "Geographical area covered by the Catalogue."
             },
             "datasetDetails": {
+                "politicalGeocodingLevelURI": "For the coded indication of the respective principle management level from which the data structure was collected and set.",
+                "politicalGeocodingURI": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
+                "availabilityDE": "Scheduled availability of the dataset as a selection from a fixed list of values via DCAT-AP URIs.",
+                "contributorID": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData and is described in more detail in the conventions manual.",
+                "references": "This property can be used to refer to reference datasets such as a High Value Dataset (HVD) or a sample dataset of the sample data catalogue.",
+                "maintainer": "This property refers to the bodies or individuals who take responsibility and accountability for the data and its appropriate maintenance.",
                 "frequency": "Frequency at which the Dataset is updated.",
                 "dataset": "Dataset or service details.",
                 "updated": "The most recent date on which the dataset or service was changed or modified.",
                 "versionInfo": "Version number or other version designation of the Dataset.",
                 "distributions": {
+                    "licenseAttributionByText": "This property stores the mandatory naming text for licence details.",
                     "updated": "Most recent date on which the Distribution was changed or modified.",
                     "title": "Name given to the Distribution.",
                     "linkedSchema": "Established schema to which the described Distribution conforms.",

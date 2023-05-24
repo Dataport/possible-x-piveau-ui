@@ -106,8 +106,8 @@
           <!-- TODO: replace strings/tooltips with i18n translations -->
           <tr v-if="showObjectArray(getPoliticalGeocodingLevelURI)">
             <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.metadata.resource')">
-                {{ 'Political Geocoding Level URI' }}
+              <tooltip :title="$t('message.tooltip.datasetDetails.politicalGeocodingLevelURI')">
+                {{ $t('message.metadata.politicalGeocodingLevelURI') }}
               </tooltip>
             </td>
             <td v-for="(element, i) in getPoliticalGeocodingLevelURI" :key="`PoliticalGeocodingLevelURI-`+i">
@@ -117,8 +117,8 @@
           </tr>
           <tr v-if="showObjectArray(getPoliticalGeocodingURI)">
             <td class="w-25 font-weight-bold">
-              <tooltip title='Political Geocoding URI'>
-                {{ 'Political Geocoding URI' }}
+              <tooltip title='message.tooltip.datasetDetails.politicalGeocodingURI'>
+                {{ $t('message.metadata.politicalGeocodingURI') }}
               </tooltip>
             </td>
             <td v-for="(element, i) in getPoliticalGeocodingURI" :key="`PoliticalGeocodingURI-`+i">
@@ -128,8 +128,8 @@
           </tr>
           <tr v-if="showObject(getAvailability)">
             <td class="w-25 font-weight-bold">
-              <tooltip title='Availability'>
-                {{ 'Availability' }}
+              <tooltip title='message.tooltip.datasetDetails.availabilityDE'>
+                {{ $t('message.metadata.availability') }}
               </tooltip>
             </td>
             <td>
@@ -139,8 +139,8 @@
           </tr>
           <tr v-if="showObjectArray(getContributorID)">
             <td class="w-25 font-weight-bold">
-              <tooltip title='Contributor ID'>
-                {{ 'Contributor ID' }}
+              <tooltip title='message.tooltip.datasetDetails.contributorID'>
+                {{ $t('message.metadata.contributorID') }}
               </tooltip>
             </td>
             <td v-for="(element, i) in getContributorID" :key="`ContributorID-`+i">
@@ -150,8 +150,9 @@
           </tr>
           <tr v-if="showObject(getGeocodingDescriptionDe)">
             <td class="w-25 font-weight-bold">
+              <!-- <tooltip title='message.tooltip.datasetDetails.geocodingDescription'> -->
               <tooltip title='Geocoding Description'>
-                {{ 'Geocoding Description' }}
+                {{ $t('message.metadata.geocodingDescription') }}
               </tooltip>
             </td>
             <td >
@@ -160,8 +161,9 @@
           </tr>
           <tr v-if="showObject(getLegalBasis)">
             <td class="w-25 font-weight-bold">
+              <!-- <tooltip title='message.tooltip.datasetDetails.legalBasis'> -->
               <tooltip title='Legal Basis'>
-                {{ 'Legal Basis' }}
+                {{ $t('message.metadata.legalBasis') }}
               </tooltip>
             </td>
             <td >
@@ -170,8 +172,9 @@
           </tr>
           <tr v-if="showString(getQualityProcessURI)">
             <td class="w-25 font-weight-bold">
+              <!-- <tooltip title='message.tooltip.datasetDetails.qualityProcessURI'> -->
               <tooltip title='Quality Process URI'>
-                {{ 'Quality Process URI' }}
+                {{ $t('message.metadata.qualityProcessURI') }}
               </tooltip>
             </td>
             <td>
@@ -180,8 +183,8 @@
           </tr>
           <tr v-if="showString(getTypeDe)">
             <td class="w-25 font-weight-bold">
-              <tooltip title='Type'>
-                {{ 'Type' }}
+              <tooltip title='message.tooltip.datasetDetails.type'>
+                {{ $t('message.metadata.type') }}
               </tooltip>
             </td>
             <td>
@@ -190,8 +193,8 @@
           </tr>
           <tr v-if="showString(getReferences)">
             <td class="w-25 font-weight-bold">
-              <tooltip title='References'>
-                {{ 'References' }}
+              <tooltip title='message.tooltip.datasetDetails.references'>
+                {{ $t('message.metadata.references') }}
               </tooltip>
             </td>
             <td>
@@ -200,8 +203,9 @@
           </tr>
           <tr v-if="showObjectArray(getContributor)">
             <td class="w-25 font-weight-bold">
+              <!-- <tooltip title='message.tooltip.datasetDetails.contributor'> -->
               <tooltip title='Contributor'>
-                {{ 'Contributor' }}
+                {{ $t('message.metadata.contributor') }}
               </tooltip>
             </td>
             <td v-for="(element, i) in getContributor" :key="`Contributor-`+i">
@@ -214,8 +218,9 @@
           </tr>
           <tr v-if="showObjectArray(getOriginator)">
             <td class="w-25 font-weight-bold">
+              <!-- <tooltip title='message.tooltip.datasetDetails.originator'> -->
               <tooltip title='Originator'>
-                {{ 'Originator' }}
+                {{ $t('message.metadata.originator') }}
               </tooltip>
             </td>
             <td v-for="(element, i) in getOriginator" :key="`Originator-`+i">
@@ -228,8 +233,8 @@
           </tr>
           <tr v-if="showObjectArray(getMaintainer)">
             <td class="w-25 font-weight-bold">
-              <tooltip title='Maintainer'>
-                {{ 'Maintainer' }}
+              <tooltip title='message.tooltip.datasetDetails.maintainer'>
+                {{ $t('message.metadata.maintainer') }}
               </tooltip>
             </td>
             <td v-for="(element, i) in getMaintainer" :key="`Maintainer-`+i">
