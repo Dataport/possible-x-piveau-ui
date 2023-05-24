@@ -1,13 +1,13 @@
 <template>
   <div class="form-container">
     <slot></slot>
-
+    
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
           @submit="handleSubmit"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
-          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
+          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues })">
           <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
@@ -21,13 +21,12 @@
     <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
       {{ mandatoryModal.message }}
     </app-confirmation-dialog>
-  </div>
+</div>
 </template>
 
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
 import { mapActions, mapGetters } from 'vuex';
-import axios from 'axios';
 import $ from 'jquery';
 import {
   has,
@@ -64,8 +63,7 @@ export default {
         message: 'Mandatory Properties missing',
         callback: $('#modal').modal('hide'),
       },
-      info: {},
-      catalogues: []
+
     };
   },
   components: {
@@ -81,7 +79,6 @@ export default {
       'getSchema',
       'getMandatoryStatus',
       'getNavSteps',
-      'getDeleteDistributionInline',
     ]),
     getFirstTitleFromForm() {
       return has(this.formValues, 'dct:title')
@@ -114,7 +111,6 @@ export default {
       'addCatalogOptions',
       'clearAll',
       'setMandatoryStatus',
-      'setDeleteDistributionInline',
     ]),
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
@@ -134,27 +130,6 @@ export default {
         });
       }
     },
-    // async initCatalogues() {
-    //   await axios
-    //     .get('https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&limit=100')
-    //     .then(response => (this.info = response))
-    //   this.info.data.result.results.forEach((e) => {
-    //     this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
-    //   });
-    //   this.findcatalogues()
-    //   // need to forceupdate to display the filtered catalogues
-    //   this.$forceUpdate();
-    // },
-    // findcatalogues() {
-    //   for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
-    //     for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
-    //       if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
-    //         this.getUserCatalogIds[i] = this.catalogues[a].title;
-    //         break
-    //       }
-    //     }
-    //   }
-    // },
     clear() {
       this.clearValues();
       this.clearAll();
@@ -237,7 +212,7 @@ export default {
   },
   mounted() {
     this.initInputPage();
-    // this.initCatalogues();
+
   },
   watch: {
     getFirstTitleFromForm: {
@@ -276,18 +251,8 @@ export default {
   beforeRouteUpdate(to, from, next) {
     // Checks if next route within the DPI is a route which does not require mandatory checking
     if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({ property: this.property, id: this.id })) {
-      // for singular distribution: when deleteing from inline the mandatory check would return false leading to the display of the mandatory-modal
-      // since the distribution is already deleted the mandatory check would alwaysreturn false so by determining if an inline delete happens 
-      // (by checking getDeleteDistributionInline) we skip the display of the modal and grant redirect 
-      if (this.property === 'distributions' && this.getDeleteDistributionInline) {
-        this.setDeleteDistributionInline(false)
-        next();
-      }
-      else $('#mandatoryModal').modal({ show: true });
+      $('#mandatoryModal').modal({ show: true });
     } else {
-      // if there are multiple distributions, the mandatory checker might return true so we don't have to skip the modal display
-      // but we have to set the deleteDistributionInline value to false again
-      this.setDeleteDistributionInline(false)
       next();
     }
   },

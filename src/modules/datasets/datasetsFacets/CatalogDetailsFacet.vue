@@ -256,9 +256,3 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .catalog-details-table {
-    overflow: auto;
-    margin-bottom: 15px;
-  }
-</style>

@@ -1,16 +1,15 @@
 <template>
   <!-- Component for a collapsible facet -->
-  <div class="list-group" role="group" :aria-labelledby="myTitleId" >
+  <div class="list-group">
     <template v-if="header">
       <facet-title
         :title="header"
         :tooltip="toolTipTitle"
-        :title-id="myTitleId"
       />
       <a
         class="d-flex d-md-none list-group-item justify-content-between align-items-baseline"
         data-toggle="collapse"
-        :data-target="`#${myListId}`"
+        :data-target="`#${myId}`"
         @click="isExpanded = !isExpanded"
       >
         <h2 class="h5 mb-0">{{ header }}</h2>
@@ -22,7 +21,7 @@
     </template>
 
     <div
-      :id="myListId"
+      :id="myId"
       class="collapse dont-collapse-sm">
       <template v-if="items && items.length > 0">
         <div
@@ -93,14 +92,6 @@ export default {
     myId() {
       // Use Vue generated uid to set give each facet a unique id
       return `facet-${this.id}`;
-    },
-    myListId() {
-      // Use Vue generated uid to set give each facet a unique id
-      return `facet-list-${this.id}`;
-    },
-    myTitleId() {
-      // Use Vue generated uid to set give each facet a unique id
-      return `facet-title-${this.id}`;
     },
   },
   methods: {

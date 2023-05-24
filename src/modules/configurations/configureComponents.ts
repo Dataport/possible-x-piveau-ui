@@ -11,12 +11,6 @@ import DistributionsHeader from "@/modules/datasetDetails/distributions/Distribu
 import DistributionDetails from "@/modules/datasetDetails/distributions/distributionDetails/DistributionDetails.vue";
 import SelectedFacetsOverview from "@/modules/facets/SelectedFacetsOverview.vue"
 import SubNavigation from "@/modules/navigation/SubNavigation.vue";
-import DatasetDetailsHeader  from "@/modules/datasetDetails/header/DatasetDetailsHeader.vue";
-import DatasetDetailsDescription from "@/modules/datasetDetails/DatasetDetailsDescription.vue";
-import Distribution from "@/modules/datasetDetails/distributions/Distribution.vue";
-import DistributionActions from "@/modules/datasetDetails/distributions/distributionActions/DistributionActions.vue";
-import DatasetDetailsProperties from "@/modules/datasetDetails/DatasetDetailsProperties.vue";
-import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader.vue"
 
 export type ComponentMap = { [key: string]: any };
 
@@ -32,13 +26,7 @@ const defaultComponents: ComponentMap = {
   DistributionsHeader,
   DistributionDetails,
   SelectedFacetsOverview,
-  SubNavigation,
-  DatasetDetailsHeader,
-  DatasetDetailsDescription,
-  Distribution,
-  DistributionActions,
-  DatasetDetailsProperties,
-  DatasetDetailsFeatureHeader
+  SubNavigation
 };
 
 export function configureComponents(components?: ComponentMap) {

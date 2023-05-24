@@ -128,7 +128,22 @@
             "isVersionOf": "Ankstesnė versija",
             "pageDescriptionContactPoint": "Pridėkite kontaktinio centro tipą, pavadinimą ir el. pašto adresą prie savo duomenų rinkinio!",
             "goToDataset": "Eiti į duomenų rinkinio puslapį",
-            "updatedOnDataEuropaEU": "Atnaujinta informacija apie duomenis.europa.eu"
+            "updatedOnDataEuropaEU": "Atnaujinta informacija apie duomenis.europa.eu",
+            "compressFormat": "",
+            "spatialResolutionInMeters": {
+                "value": "",
+                "label": ""
+            },
+            "qualifiedRelation": "",
+            "hasPolicy": "",
+            "wasGeneratedBy": "",
+            "qualifiedAttribution": "",
+            "isReferencedBy": "",
+            "relation": "",
+            "packageFormat": "",
+            "temporalResolution": "",
+            "role": "",
+            "sample": ""
         },
         "dataupload": {
             "info": {
@@ -136,6 +151,168 @@
                 "information": "Informacija"
             },
             "datasets": {
+                "step2": {
+                    "source": {
+                        "label": "Šaltinis"
+                    },
+                    "type": {
+                        "placeholder": "Duomenų rinkinys Tipo vietos turėtojo tekstas"
+                    },
+                    "subject": {
+                        "help": "Duomenų rinkinio kategorija."
+                    },
+                    "isReferencedByUrl": {
+                        "label": "URL adresas"
+                    },
+                    "contactPointAddressStreet": {
+                        "placeholder": "Duomenų rinkinio kontaktinio centro adresų gatvės tekstas"
+                    },
+                    "conformsTo": {
+                        "placeholder": "Duomenų rinkinio atitiktis Padėti tekstui"
+                    },
+                    "isVersionOf": {
+                        "label": "SV versija"
+                    },
+                    "provenance": {
+                        "label": "Provenencija"
+                    },
+                    "language": {
+                        "label": "Kalba"
+                    },
+                    "qualifiedAttribution": {
+                        "help": "Nuoroda į agentą, kuriam tenka kokia nors atsakomybė už išteklius"
+                    },
+                    "temporal": {
+                        "placeholder": "Duomenų rinkinys Temporal placeholder text"
+                    },
+                    "accessRights": {
+                        "info": "Ši savybė susijusi su informacija, rodančia, ar duomenų rinkinys yra atvirieji duomenys, ar jam taikomi prieigos apribojimai, ar jis nėra viešas."
+                    },
+                    "identifier": {
+                        "help": "Ši savybė apima pagrindinį duomenų rinkinio identifikatorių."
+                    },
+                    "versionInfo": {
+                        "help": "Duomenų rinkinio versijos numeris."
+                    },
+                    "hasVersion": {
+                        "info": "Susijęs duomenų rinkinys, kuris yra aprašomo duomenų rinkinio versija, laida arba adaptacija."
+                    },
+                    "wasGeneratedBy": {
+                        "add-label": "Pridėti Was Generated"
+                    },
+                    "qualifiedRelation": {
+                        "label": "Sąlyginiai santykiai"
+                    },
+                    "conformsToTitle": {
+                        "label": "Pavadinimas"
+                    },
+                    "creatorType": {
+                        "label": "Tipas"
+                    },
+                    "spatial": {
+                        "info": "Ši savybė susijusi su geografiniu regionu, kurį apima duomenų rinkinys."
+                    },
+                    "temporalResolutionMonth": {
+                        "label": "Laiko skiriamosios gebos mėnuo"
+                    },
+                    "contactPointName": {
+                        "label": "Vardas ir pavardė (pavadinimas)"
+                    },
+                    "temporalResolutionMinute": {
+                        "placeholder": "Duomenų rinkinys Laiko skiriamoji geba Minute placeholder tekstas"
+                    },
+                    "contactPointEmail": {
+                        "label": "E. paštas"
+                    },
+                    "contactPointOrganisationName": {
+                        "label": "Organizacijos pavadinimas"
+                    },
+                    "contactPoint": {
+                        "help": "Šioje savybėje pateikiama kontaktinė informacija."
+                    },
+                    "temporalResolutionDay": {
+                        "placeholder": "Duomenų rinkinys Laiko skiriamoji geba Dienos placeholder tekstas"
+                    },
+                    "provenanceText": {
+                        "placeholder": "Duomenų rinkinys Provencija Text placeholder text text"
+                    }
+                },
+                "step1": {
+                    "publisherType": {
+                        "placeholder": "Duomenų rinkinys Leidėjo tipo vietos turėtojo tekstas"
+                    },
+                    "datasetID": {
+                        "label": "Duomenų rinkinio ID"
+                    },
+                    "modified": {
+                        "label": "Pakeistas"
+                    },
+                    "publisher": {
+                        "label": "Leidėjas"
+                    },
+                    "issued": {
+                        "help": "Duomenų rinkinio oficialaus išleidimo (pvz., paskelbimo) data. Priimtini datos formatai: MMMM-MM-DD, YYYY-MM-MM."
+                    },
+                    "publisherHomepage": {
+                        "label": "Pradžios puslapis"
+                    }
+                },
+                "step3": {
+                    "spatialResolutionInMeters": {
+                        "help": "Mažiausias erdvinis atskyrimas, kurį galima ištirpinti duomenų rinkinyje."
+                    },
+                    "mediaType": {
+                        "placeholder": "Platinimo terpės tipo tinklavietės tekstas"
+                    },
+                    "language": {
+                        "help": "Platinime vartojama kalba."
+                    },
+                    "title": {
+                        "info": "Šiame turte yra platintojui suteiktas pavadinimas. Šią savybę galima pakartoti lygiagrečiose aprašymo kalbinėse versijose."
+                    },
+                    "status": {
+                        "label": "Statusas"
+                    },
+                    "checksum": {
+                        "placeholder": "Distribucijos kontrolinės vietos turėtojo tekstas"
+                    },
+                    "hasPolicyUrl": {
+                        "placeholder": "Platintojo „Hes Policy Url“ tekstas"
+                    },
+                    "page": {
+                        "help": "Puslapis arba dokumentas apie šį platinimą."
+                    },
+                    "availability": {
+                        "placeholder": "Distribucijos prieinamumo vietos tekstas"
+                    },
+                    "format": {
+                        "placeholder": "Platinimo formato vietos turėtojo tekstas"
+                    },
+                    "conformsTo": {
+                        "add-label": "Pridėkite „Atitiktis“"
+                    },
+                    "issued": {
+                        "label": "Išduotas"
+                    },
+                    "description": {
+                        "help": "Ši savybė apima laisvos formos platinimo sąskaitą."
+                    },
+                    "hasPolicy": {
+                        "help": "Politika, kuria išreiškiamos teisės."
+                    },
+                    "temporalResolutionMonth": {
+                        "label": "Laiko skiriamosios gebos mėnuo"
+                    },
+                    "temporalResolutionHour": {
+                        "placeholder": "Duomenų rinkinys Laiko skiriamoji geba Valandos vietos laikiklis tekstas"
+                    },
+                    "licence": {
+                        "help": "Licencija, pagal kurią suteikiama prieiga prie platinimo."
+                    },
+                    "date": {
+                        "label": "Data"
+                    }
+                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -151,12 +328,815 @@
                             "distribution2": {
                                 "name": "Papildoma informacija"
                             }
-                        }
+                        },
+                        "name": ""
                     },
-                    "overview": "Duomenų rinkinio apžvalga"
+                    "overview": "Duomenų rinkinio apžvalga",
+                    "step1": {
+                        "name": ""
+                    },
+                    "essential": {
+                        "name": ""
+                    },
+                    "distoverview": {
+                        "name": ""
+                    },
+                    "additional": {
+                        "name": ""
+                    },
+                    "step2": {
+                        "name": ""
+                    },
+                    "advised": {
+                        "name": ""
+                    }
+                },
+                "contactPointAddressCountry": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "pageTitle": {
+                    "label": "",
+                    "info": "",
+                    "add": "",
+                    "help": "",
+                    "add-label": "",
+                    "placeholder": ""
+                },
+                "maintainerEmail": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "spatial": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "title": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "add-label": ""
+                },
+                "hasVersion": {
+                    "label": "",
+                    "add-label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "temporalResolutionHour": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "legalBasis": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "add-label": ""
+                },
+                "contributor": {
+                    "label": "",
+                    "help": "",
+                    "add-label": "",
+                    "info": ""
+                },
+                "geocodingDescription": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "info": ""
+                },
+                "keyword": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "info": ""
+                },
+                "temporalResolutionYear": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "originatorType": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "keywordHeader": {
+                    "help": "",
+                    "add-label": "",
+                    "label": "",
+                    "info": ""
+                },
+                "temporalEnd": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "originatorName": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "contactPoint": {
+                    "add-label": "",
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "contactPointAddressCity": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "temporalResolutionSecond": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "contactPointEmail": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "admsIdentifierType": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "temporal": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "add-label": ""
+                },
+                "conformsToTitle": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "maintainer": {
+                    "add-label": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "admsIdentifierUrl": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "contactPointAddress": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "issued": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "provenance": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "creator": {
+                    "add-label": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "contributorName": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "contributorType": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "wasGeneratedBy": {
+                    "add-label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "description": {
+                    "add-label": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "maintainerType": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "pageUrl": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "contactPointUrl": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "originatorHomepage": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "page": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "spatialContinent": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "sourceUrl": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "catalog": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "contactPointAddressPostcode": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "isUsedBy": {
+                    "label": "",
+                    "add-label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "landingPageUrl": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "maintainerHomepage": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "qualifiedAttributionUrl": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "spatialCountry": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "conformsToUrl": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": "",
+                    "info": ""
+                },
+                "politicalGeocodingURIMunicipalityKey": {
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "type": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "contactPointAddressStreet": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "contributorID": {
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "maintainerName": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "conformsTo": {
+                    "label": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "creatorType": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "source": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "accessRights": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "qualityProcessURI": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "spatialResolutionInMeters": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "references": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "temporalStart": {
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "contactPointOrganisationName": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "pageTitleSub": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "publisher": {
+                    "placeholder": "",
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "add-label": ""
+                },
+                "identifierText": {
+                    "label": "",
+                    "placeholder": ""
+                },
+                "creatorHomepage": {
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "originatorEmail": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "pageFormat": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "politicalGeocodingURI": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "add-label": ""
+                },
+                "qualifiedAttribution": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "info": ""
+                },
+                "contactPointTelephone": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "datasetID": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "landingPage": {
+                    "help": "",
+                    "add-label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "contributorHomepage": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "provenanceGroup": {
+                    "add-label": "",
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "contributorEmail": {
+                    "help": "",
+                    "label": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "availabilityDE": {
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "relation": {
+                    "add-label": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "accrualPeriodicity": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "qualifiedRelationUrl": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "isReferencedByUrl": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "versionNotes": {
+                    "label": "",
+                    "add-label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "subject": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "isVersionOf": {
+                    "info": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "label": "",
+                    "help": ""
+                },
+                "relationUrl": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "isVersionOfUrl": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "admsIdentifier": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "add-label": ""
+                },
+                "hasVersionUrl": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "identifier": {
+                    "add-label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "versionInfo": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "creatorName": {
+                    "placeholder": "",
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "theme": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "provenanceText": {
+                    "placeholder": "",
+                    "label": ""
+                },
+                "spatialVocabulary": {
+                    "placeholder": "",
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "date": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "spatialUrl": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "publisherEmail": {
+                    "placeholder": "",
+                    "label": ""
+                },
+                "temporalResolutionMinute": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "contactPointType": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "temporalResolution": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "qualifiedRelation": {
+                    "add-label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "admsIdentifierValue": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": "",
+                    "info": ""
+                },
+                "isReferencedBy": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "help": ""
+                },
+                "datasetDescription": {
+                    "help": "",
+                    "info": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "wasGeneratedByUrl": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "titleLabel": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "originator": {
+                    "add-label": "",
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "qualifiedRelationHadRole": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "politicalGeocodingLevelURI": {
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "temporalResolutionMonth": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "publisherName": {
+                    "placeholder": "",
+                    "label": ""
+                },
+                "datetime": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "language": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "politicalGeocodingURIVocabulary": {
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "temporalResolutionDay": {
+                    "placeholder": "",
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "modified": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "schemeIdentifier": {
+                    "label": ""
+                },
+                "publisherType": {
+                    "label": "",
+                    "placeholder": ""
+                },
+                "creatorEmail": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "pageDescription": {
+                    "info": "",
+                    "help": "",
+                    "add-label": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "publisherHomepage": {
+                    "label": "",
+                    "placeholder": ""
+                },
+                "admsIdentifierSkosNotation": {
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "contactPointName": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "spatialPlace": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "admsIdentifierCheckbox": {
+                    "label": ""
                 }
             },
             "catalogues": {
+                "step2": {
+                    "isPartOf": {
+                        "info": "Ši savybė susijusi su susijusiu katalogu, į kurį fiziškai arba logiškai įtraukiamas aprašytas katalogas."
+                    },
+                    "language": {
+                        "help": "Kalba, vartojama tekstiniuose metaduomenyse, kuriuose aprašomi pavadinimai, aprašymai ir t. t."
+                    },
+                    "spatial": {
+                        "info": "Ši savybė susijusi su geografine vietove, kurią apima katalogas."
+                    },
+                    "hasPart": {
+                        "help": "Ši savybė susijusi su susijusiu katalogu, kuris yra aprašyto katalogo dalis."
+                    },
+                    "creator": {
+                        "add-label": "Pridėti kūrėją"
+                    },
+                    "creatorName": {
+                        "label": "Vardas, pavardė"
+                    }
+                },
+                "step1": {
+                    "title": {
+                        "help": "Katalogo įrašui suteiktas pavadinimas. "
+                    },
+                    "description": {
+                        "info": "Ši savybė apima įrašo laisvos formos įrašą. Šią savybę galima pakartoti lygiagrečiose aprašymo kalbinėse versijose."
+                    },
+                    "licence": {
+                        "placeholder": "Kataloge Licence placeholder tekstas"
+                    },
+                    "modified": {
+                        "label": "Pakeistas"
+                    },
+                    "licenceDescription": {
+                        "label": "Licencijos aprašymas"
+                    },
+                    "homepage": {
+                        "help": "Tinklalapis, kuris yra pagrindinis katalogo puslapis."
+                    }
+                },
                 "stepper": {
                     "overview": "Katalogo apžvalga",
                     "step1": {
@@ -165,6 +1145,200 @@
                     "step2": {
                         "name": "2 etapas. Apibrėžti katalogo savybes"
                     }
+                },
+                "licenceDescription": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "creator": {
+                    "help": "",
+                    "label": "",
+                    "add-label": "",
+                    "info": ""
+                },
+                "creatorType": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "homepage": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "description": {
+                    "add-label": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "title": {
+                    "label": "",
+                    "add-label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "creatorEmail": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "license": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "spatialCountry": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "catalogURL": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "creatorHomepage": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "hasPartURL": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "date": {
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "issued": {
+                    "info": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "help": "",
+                    "label": ""
+                },
+                "isPartOf": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "language": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "catalog": {
+                    "add-label": "",
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "spatial": {
+                    "label": "",
+                    "info": "",
+                    "add-label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "rights": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "modified": {
+                    "label": "",
+                    "add-label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "availabilityCatDE": {
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "spatialVocabulary": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "spatialUrl": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "datetime": {
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "hasPart": {
+                    "placeholder": "",
+                    "add-label": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "datasetID": {
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "rightsString": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "spatialPlace": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "spatialContinent": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "rightsUrl": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "publisher": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "creatorName": {
+                    "label": "",
+                    "placeholder": ""
+                },
+                "licenceURL": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "politicalGeocodingLevelURI": {
+                    "help": "",
+                    "info": "",
+                    "label": ""
                 }
             },
             "clear": "Aiškus",
@@ -193,7 +1367,359 @@
             "validationerror": "Tvirtinant jūsų formą įvyko klaida!",
             "createDataset": "Sukurti duomenų rinkinį",
             "defineDatasetProperties": "Apibrėžti duomenų rinkinio savybes",
-            "createDistributions": "Kurti skirstymus"
+            "createDistributions": "Kurti skirstymus",
+            "distributions": {
+                "pageFormat": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "licenceURL": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "stepper": {
+                    "step3": {
+                        "name": ""
+                    },
+                    "distoverview": {
+                        "name": ""
+                    },
+                    "step1": {
+                        "name": ""
+                    },
+                    "step2": {
+                        "name": ""
+                    },
+                    "advised": {
+                        "name": ""
+                    },
+                    "additional": {
+                        "name": ""
+                    },
+                    "step4": {
+                        "name": ""
+                    }
+                },
+                "packageFormat": {
+                    "info": "",
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "conformsToUrl": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "licenseAttributionByTextTitle": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "accessUrlFile": {
+                    "label": "",
+                    "help": ""
+                },
+                "temporalResolutionDay": {
+                    "placeholder": "",
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "type": {
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "licenceVocabulary": {
+                    "info": "",
+                    "label": "",
+                    "help": ""
+                },
+                "hasPolicyUrl": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "description": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "language": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "temporalResolutionHour": {
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "availabilityDisDE": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "title": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": "",
+                    "add-label": ""
+                },
+                "temporalResolutionMinute": {
+                    "label": "",
+                    "help": "",
+                    "info": "",
+                    "placeholder": ""
+                },
+                "accessServiceEndpointURL": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "modified": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "label": ""
+                },
+                "rights": {
+                    "placeholder": "",
+                    "help": "",
+                    "info": "",
+                    "label": ""
+                },
+                "rightsUrl": {
+                    "help": "",
+                    "info": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "accessService": {
+                    "label": "",
+                    "add-label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "licenseAttributionByText": {
+                    "label": "",
+                    "help": "",
+                    "add-label": "",
+                    "info": ""
+                },
+                "licenceTitle": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "accessServiceDescription": {
+                    "help": "",
+                    "add-label": "",
+                    "label": "",
+                    "info": ""
+                },
+                "byteSize": {
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "conformsTo": {
+                    "help": "",
+                    "info": "",
+                    "placeholder": "",
+                    "add-label": "",
+                    "label": ""
+                },
+                "temporalResolution": {
+                    "info": "",
+                    "help": "",
+                    "add-label": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "conformsToTitle": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "accessServiceTitle": {
+                    "label": "",
+                    "add-label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "licence": {
+                    "label": "",
+                    "info": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "accessUrl": {
+                    "help": "",
+                    "label": "",
+                    "add-label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "spatialResolutionInMeters": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "checksum": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "hasPolicy": {
+                    "label": "",
+                    "info": "",
+                    "help": "",
+                    "add-label": ""
+                },
+                "pageTitle": {
+                    "label": "",
+                    "add-label": "",
+                    "help": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "pageUrl": {
+                    "placeholder": "",
+                    "help": "",
+                    "label": "",
+                    "info": ""
+                },
+                "licenceDescription": {
+                    "label": "",
+                    "placeholder": "",
+                    "help": ""
+                },
+                "format": {
+                    "info": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "datetime": {
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "date": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "issued": {
+                    "placeholder": "",
+                    "info": "",
+                    "help": "",
+                    "label": ""
+                },
+                "downloadUrl": {
+                    "info": "",
+                    "help": "",
+                    "label": "",
+                    "placeholder": ""
+                },
+                "checksumAlgorithm": {
+                    "label": "",
+                    "info": "",
+                    "help": ""
+                },
+                "temporalResolutionMonth": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "status": {
+                    "label": "",
+                    "placeholder": "",
+                    "info": "",
+                    "help": ""
+                },
+                "page": {
+                    "info": "",
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "add-label": ""
+                },
+                "mediaType": {
+                    "help": "",
+                    "label": "",
+                    "placeholder": "",
+                    "info": ""
+                },
+                "pageDescription": {
+                    "add-label": "",
+                    "placeholder": "",
+                    "label": "",
+                    "help": ""
+                },
+                "availability": {
+                    "info": "",
+                    "placeholder": "",
+                    "help": "",
+                    "label": ""
+                },
+                "rightsString": {
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "accessUrlLink": {
+                    "help": "",
+                    "placeholder": "",
+                    "label": "",
+                    "info": ""
+                },
+                "compressFormat": {
+                    "help": "",
+                    "placeholder": "",
+                    "info": "",
+                    "label": ""
+                },
+                "temporalResolutionSecond": {
+                    "placeholder": "",
+                    "label": "",
+                    "help": "",
+                    "info": ""
+                },
+                "temporalResolutionYear": {
+                    "info": "",
+                    "label": "",
+                    "help": "",
+                    "placeholder": ""
+                },
+                "licenceDetails": {
+                    "help": "",
+                    "label": ""
+                }
+            },
+            "publishcatalogue": "",
+            "generalInformation": "",
+            "additionalInformation": "",
+            "skipDistribution": ""
         },
         "datasetDetails": {
             "subnav": {
@@ -236,7 +1762,24 @@
                 "distributionQuality": "Platinimo kokybė",
                 "publisherAvailability": "Leidėjas",
                 "keywordAvailability": "Raktažodžių naudojimas",
-                "rightsAvailability": "Teisės"
+                "rightsAvailability": "Teisės",
+                "validationTitle": {
+                    "error": "",
+                    "success": ""
+                },
+                "warning": "",
+                "error": "",
+                "validationDescription": {
+                    "success": "",
+                    "error": ""
+                },
+                "column": "",
+                "title": "",
+                "limit": "",
+                "message": "",
+                "totalRows": "",
+                "banner": "",
+                "row": ""
             },
             "follow": "Sekti",
             "accessURLTooltip": "Šioje nuorodoje gali būti informacijos apie tai, kaip gauti nurodytą rinkmeną, arba yra tiesioginė nuoroda į nurodytą rinkmeną.",
@@ -256,7 +1799,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Rinkmenų parsisiųsdinimas",
-                    "zipNumberOfFiles": "Užfiksuotos bylos Nr. {number}",
+                    "zipNumberOfFiles": "Užfiksuotos bylos Nr.",
                     "waitingForDownload": "(laukiama parsisiųsti)",
                     "downloadProgress": "Parsisiųsti „Progress",
                     "notDownloaded": "Nebuvo parsisiųsdinta",
@@ -265,7 +1808,14 @@
                     "cancel": "Atšaukti",
                     "close": "Uždaryti",
                     "coupleOfMinutes": "(tai gali užtrukti po keletą minučių)",
-                    "notDownloadedTooltip": "Išsamią informaciją galima rasti pridedamoje file_report.csv rinkmenoje"
+                    "notDownloadedTooltip": "Išsamią informaciją galima rasti pridedamoje file_report.csv rinkmenoje",
+                    "selectFileFormat": "",
+                    "downloadAs": "",
+                    "converting": "",
+                    "done": "",
+                    "fileConversionFail": "",
+                    "fileConversionTo": "",
+                    "downloading": ""
                 },
                 "leavePageWindow": {
                     "text": "Ar tikrai norite išvykti? Kai išvyksite, parsisiųsdinimas bus sustabdytas!"
@@ -340,7 +1890,10 @@
                     "created": "Oficialaus platinimo (pvz., paskelbimo) data.",
                     "language": "Platinime vartojama kalba.",
                     "options": "Atidarykite platinimo apžvalgą.",
-                    "temporalResolution": "Reiškia trumpiausią laiką, kurį galima ištirpinti duomenų rinkinio skirstinyje."
+                    "temporalResolution": "Reiškia trumpiausią laiką, kurį galima ištirpinti duomenų rinkinio skirstinyje.",
+                    "hasPolicy": "",
+                    "packageFormat": "",
+                    "compressFormat": ""
                 },
                 "otherIdentifier": "Antrinis duomenų rinkinio identifikatorius, pvz., MAST/ADS16, DataCite17, DOI18, EZID19 arba W3ID20.",
                 "numSeries": "Nurodomas duomenų rinkinyje esančių duomenų eilučių skaičius.",
@@ -369,7 +1922,21 @@
                 "share": "Dalytis šiuo duomenų rinkiniu arba paslauga per socialinius tinklus.",
                 "feedback": "Praneškite mums, ką manote apie šį duomenų rinkinį ar paslaugą.",
                 "dqvData": "Galimybės atsisiųsti duomenų rinkinį arba paslaugų kokybės matavimus įvairiais susietais duomenų pateikimo būdais.",
-                "hasVersion": "Susijęs duomenų rinkinys, kuris yra aprašyto duomenų rinkinio versija, leidimas arba pritaikymas"
+                "hasVersion": "Susijęs duomenų rinkinys, kuris yra aprašyto duomenų rinkinio versija, leidimas arba pritaikymas",
+                "spatialResolutionInMeters": "",
+                "originator": "",
+                "sample": "",
+                "contributor": "",
+                "cite": "",
+                "legalBasis": "",
+                "qualityProcessURI": "",
+                "type": "",
+                "qualifiedRelation": "",
+                "temporalResolution": "",
+                "isReferencedBy": "",
+                "datasetFeed": "",
+                "qualifiedAttribution": "",
+                "wasGeneratedBy": ""
             },
             "quality": {
                 "keywordAvailability": "Raktažodžiai tiesiogiai padeda ieškoti duomenų rinkinio.&br>&br>&br>Sistemoje tikrinama, ar apibrėžti raktažodžiai. Reikšminių žodžių skaičius balui įtakos neturi.",
@@ -400,7 +1967,8 @@
             "relevance": "Surūšiuoti duomenų rinkinį pagal svarbą. Tinkamumas apskaičiuojamas pagal paieškos termino atitikmenis pavadinime, raktažodžiuose ir aprašyme.",
             "contactPoints": "Kontaktinė informacija, kuria galima naudotis siunčiant pastabas apie duomenų rinkinį.",
             "locationFilter": "Norėdami peržiūrėti duomenų rinkinius, susijusius su konkrečia vieta, spustelėkite žemėlapį ir pasinaudokite rašiklio piktograma, kad jį pasirinktumėte. Tada spustelėkite mygtuką „Taikoma“, norėdami filtruoti tik duomenų rinkinius, susijusius su pasirinkta sritimi. Atkreipkite dėmesį, kad į paieškos rezultatus bus įtraukti tik tie duomenų rinkiniai, kuriuose yra geografinės informacijos metaduomenų.",
-            "catalogues": "Katalogų paieška. Kataloge laikomi duomenų rinkiniai ir paslaugos"
+            "catalogues": "Katalogų paieška. Kataloge laikomi duomenų rinkiniai ir paslaugos",
+            "invalidVisualise": ""
         },
         "visualisationDistribution": {
             "barChartExplain": "Juostinėje diagramoje pavaizduotos klasifikacinio elemento lygio skaitinės vertės kaip juostelės. Lygiai pavaizduoti vienoje diagramos ašyje, o vertės – kitoje ašyje.",
@@ -462,13 +2030,7 @@
             },
             "countMessage": "pagal  rasti katalogai",
             "loadingMessage": "Katalogai įkeliami...",
-            "geoBoundsMessageRemove": "Apribojimui pašalinti uždarykite šį pranešimą arba naudokite atkūrimo funkciją.",
-            "meta": {
-                "page": {
-                    "title": "Atvirųjų duomenų rinkinių katalogai | data.europa.eu"
-                },
-                "description": "Atsisiųskite, dalykitės ir analizuokite kiekvieno katalogo duomenų rinkinius. Susipažinkite su daugiau kaip 80 Europos oficialių institucijų duomenų katalogų."
-            }
+            "geoBoundsMessageRemove": "Apribojimui pašalinti uždarykite šį pranešimą arba naudokite atkūrimo funkciją."
         },
         "datasetFacets": {
             "facets": {
@@ -489,7 +2051,7 @@
                     "goodScoring": "Geras",
                     "excellentScoring": "Puikus"
                 },
-                "publisher": "Leidėjas",
+                "publisher": "@:message.metadata.publisher",
                 "license": "Licencijos",
                 "keywords": "Raktažodžiai",
                 "categories": "Kategorijos",
@@ -503,7 +2065,9 @@
             "scoring": "Vertinimas",
             "or": "ARBA",
             "europeanCatalogs": "Europos katalogai",
-            "operator": "Vykdytojas"
+            "operator": "Vykdytojas",
+            "moreFilters": "",
+            "lessFilters": ""
         },
         "header": {
             "navigation": {
@@ -515,7 +2079,9 @@
                     "sparqleditor": "SPARQL redaktorius",
                     "statistics": "Statistika",
                     "sparqlsearch": "SPARQL paieška",
-                    "title": "Duomenys"
+                    "title": "Duomenys",
+                    "persistentUris": "",
+                    "euVocabularies": ""
                 },
                 "impactStudies": {
                     "opendataimpact": "Atvirųjų duomenų poveikis",
@@ -525,7 +2091,8 @@
                     "countryInsights": "Šalių įžvalgos",
                     "useCases": "Naudojimo atvejai",
                     "title": "Poveikis ir tyrimai",
-                    "overview": "Apžvalga"
+                    "overview": "Apžvalga",
+                    "countyInsights": ""
                 },
                 "training": {
                     "licensingAssistant": "Licencijų išdavimo asistentas",
@@ -533,7 +2100,8 @@
                     "moreTrainingMaterial": "Daugiau mokomosios medžiagos",
                     "whatIsOpenData": "Atvirieji duomenys: kas tai?",
                     "title": "Mokymas",
-                    "elearning": "e. mokymasis"
+                    "elearning": "e. mokymasis",
+                    "dataEuropaAcademy": ""
                 },
                 "about": {
                     "beHarvestedByUs": "Mes galime rinkti jūsų duomenis",
@@ -581,11 +2149,7 @@
             "countMessage": "duomenų rinkiniai (-ių) rasta pagal ",
             "foundDatasetsSingular": "Rastas 1 duomenų rinkinys",
             "meta": {
-                "translationNotComplete": "Vertimas nebaigtas",
-                "page": {
-                    "title": "Atvirieji ES duomenų rinkiniai | Oficialus ES duomenų portalas"
-                },
-                "description": "Didžiausias atvirųjų duomenų rinkinių portalas Europoje. Susipažinkite su ES duomenų rinkiniais pagal šalis, institucijas, katalogus, kategorijas, raktažodžius ir daug kitų."
+                "translationNotComplete": "Vertimas nebaigtas"
             },
             "geoBoundsMessageRemove": "Apribojimui pašalinti uždarykite šį pranešimą arba naudokite atkūrimo funkciją.",
             "createDataset": "Sukurti duomenų rinkinį",
@@ -700,7 +2264,8 @@
         },
         "pagination": {
             "nextPage": "Kitas",
-            "previousPage": "Ankstesnis"
+            "previousPage": "Ankstesnis",
+            "itemsPerPage": ""
         },
         "navigation": {
             "navItems": {
@@ -772,17 +2337,6 @@
         },
         "imprint": {
             "msg": "LEIDIMO DUOMENIS ĮRAŠYKITE ČIA"
-        },
-        "cookieConsent": {
-            "text": "Naudojame slapukus siekdami užtikrinti, kad jūsų patirtis šioje svetainėje būtų geriausia"
-        },
-        "notFound": {
-            "contactUsAbout": "Susisiekite su mumis dėl šio klaidos pranešimo.",
-            "requested": {
-                "parttwo": "Duomenų rinkinio paieškos puslapis",
-                "page": "ieškomas puslapis nerastas. Galite dar kartą pradėti iš pradžios puslapio."
-            },
-            "error": "Klaida"
         }
     }
 }
