@@ -1,9 +1,8 @@
 <template>
-  <div class="list-group w-100" role="group" :aria-labelledby="myTitleId">
+  <div class="list-group w-100">
     <facet-title
       :title="title"
       :tooltip="toolTipTitle"
-      :title-id="myTitleId"
     />
     <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
       {{ property }}
@@ -40,10 +39,6 @@ export default {
     myId() {
       // Use Vue generated uid to set give each facet a unique id
       return `facet-${this.id}`;
-    },
-    myTitleId() {
-      // Use Vue generated uid to set give each facet a unique id
-      return `facet-title-${this.id}`;
     }
   },
   methods: {

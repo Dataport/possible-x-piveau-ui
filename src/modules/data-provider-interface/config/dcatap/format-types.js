@@ -3,6 +3,7 @@ const singularURI = {
     datasets: [
         "dct:publisher",
         "dct:accrualPeriodicity",
+        "dct:spatial",
         "dct:accessRights",
         "dct:type",
         // singular URIs nested within other properties
@@ -44,7 +45,6 @@ const multipleURI = {
         "dct:language", 
         "dct:subject",  
         "dcat:theme",
-        "dct:spatial",
         "dct:source",
         "dcat:landingPage",
         "dct:relation",

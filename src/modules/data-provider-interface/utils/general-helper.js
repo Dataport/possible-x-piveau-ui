@@ -14,9 +14,9 @@ function mergeNestedObjects(data) {
 }
 
 /**
- *
- * @param {*} prefix
- * @returns
+ * 
+ * @param {*} prefix 
+ * @returns 
  */
 function addNamespace(prefix, dpiConfig) {
     // the prefix had the following format: namespace:property (e.g. dct:title)
@@ -39,7 +39,7 @@ function addNamespace(prefix, dpiConfig) {
         fullDescriptor = prefix;
     }
 
-    return fullDescriptor;
+    return fullDescriptor; 
 }
 
 /**
@@ -226,32 +226,6 @@ function checkMandatory(data, property) {
     return status;
 }
 
-/**
- * Get file id from accessUrl, if it is a file upload url.
- * accessUrls are file upload urls, iff they start with fileUploadUrl.
- * @param {string} accessUrl
- * @param {string} fileUploadUrl
- * @returns {string|null}
- */
-function getFileIdByAccessUrl({ accessUrl, fileUploadUrl }) {
-  const accessUrlWithTrailingSlash = accessUrl.endsWith('/')
-    ? accessUrl
-    : `${accessUrl}/`;
-  const fileUploadUrlWithTrailingSlash = fileUploadUrl.endsWith('/')
-    ? fileUploadUrl
-    : `${fileUploadUrl}/`;
-
-  // Check if accessUrl starts with fileUploadApi
-  if (accessUrlWithTrailingSlash.startsWith(fileUploadUrlWithTrailingSlash)) {
-    const accessUrlParts = accessUrlWithTrailingSlash.split('/');
-    const fileId = accessUrlParts[accessUrlParts.length - 2];
-
-    return fileId || null;
-  }
-
-  return null;
-}
-
 export default {
     mergeNestedObjects,
     addNamespace,
@@ -262,5 +236,4 @@ export default {
     getNestedKeys,
     removeNamespace,
     checkMandatory,
-    getFileIdByAccessUrl,
 };

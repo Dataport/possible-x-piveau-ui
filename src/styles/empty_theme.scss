@@ -153,10 +153,10 @@ This page contains six different Vue.js components. (From top to bottom)
 
 .annifItems{
 //  Misc
-    border: 1px solid #efefef;
-    padding: 0.8rem;
+    background-color:rgba(235, 235, 235, 0.356);
+    padding: 0.5rem;
     margin: 0.5rem;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
 //  Transition config
     box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%);
@@ -169,7 +169,6 @@ This page contains six different Vue.js components. (From top to bottom)
     color: black;
     text-decoration: none;
     &:hover{
-        
         text-decoration: none; 
         box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
         
@@ -185,7 +184,7 @@ This page contains six different Vue.js components. (From top to bottom)
     opacity: 1;
     .annifItems{
         opacity: 0;
-        width: 140px;
+        width: 110px;
     }
 }
 .annifButtonWrap{
@@ -198,13 +197,7 @@ margin: 0 0 1rem 0;
     }
 }
 .annifPlusIcon{
-    position: relative;
-    margin-right: 30px;
     svg{
-        width: 20px;
-        height: 20px;
-        z-index: -99;
-        position: absolute;
         transform: rotate(0deg);
         transition-duration: 80ms;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -220,11 +213,15 @@ margin: 0 0 1rem 0;
 }
   
   @keyframes fadeLeft {
-  
-  
-    30%
+    10%
      {
-        margin-left: 0.25rem;
+      margin-left: 5%;
+      opacity: 0;
+    }
+  
+    50%
+     {
+        margin-left: -5px;
         opacity: 0.2;
     }
   
@@ -252,17 +249,6 @@ margin: 0 0 1rem 0;
 }
 .dpiSpecialPropWrap td{
 
-    
+    padding: 0.75rem 0 0.75rem 0;
 
-}
-.table-responsive{
-tr{
-   display: flex;
-
-}
-}
-.dpiSpecialPropWrap{
-    tr{
-       display: flex;
-    }
 }

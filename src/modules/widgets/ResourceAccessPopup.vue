@@ -34,7 +34,7 @@ export default {
       checked: false,
       toggleDownloadPopup: false,
       title: 'Loading content from external services',
-      text: this.$t('message.datasetDetails.datasets.modal.downloadPopup'),
+      text: 'If you continue, you are loading content from external services. These external services are not maintained by the European Commission and therefore we have no influence on their availability/stability/security.',
       checkboxText: 'Store the given choice in cookie.',
       callback: '',
       expires: { expires: 1 }, // 1 Day

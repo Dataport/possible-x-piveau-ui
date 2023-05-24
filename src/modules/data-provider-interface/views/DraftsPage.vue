@@ -1,9 +1,8 @@
 <template>
-  <!-- TODO Add a Mobile Version of that overview (pref with Icons)-->
   <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content">
-    <h1 class="small-headline text-center">Draft datasets</h1>
-    <div class="d-flex align-items-center justify-content-center">
-      <table class="table w-75">
+    <h1 class="small-headline">Draft datasets</h1>
+    <div class="col-12 col-md-8 m-auto">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col">Dataset ID</th>
@@ -19,7 +18,7 @@
           >
             <td>{{ id }}</td>
             <td>{{ catalog }}</td>
-            <td class="buttonWrapper">
+            <td>
               <button type="button" class="btn btn-secondary">
                 <app-link
                   class="dropdown-toggle text-nowrap text-decoration-none"
@@ -173,8 +172,5 @@ export default {
 
 #linkedDataDropdown {
   color: #FFFFFF;
-}
-.buttonWrapper button{
-  margin: 0.2rem;
 }
 </style>

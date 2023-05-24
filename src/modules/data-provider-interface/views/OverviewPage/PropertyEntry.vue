@@ -8,11 +8,12 @@
             <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
 
             <!-- SPECIAL -->
-            <div class="w-100" v-if="value.type === 'special'">
+            <td v-if="value.type === 'special'">
                 <div v-for="(elem, index) in data[property]" :key="index">
+
                     <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
                 </div>
-            </div>
+            </td>
         </tr>
     </div>
 </template>

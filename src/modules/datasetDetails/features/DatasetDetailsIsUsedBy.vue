@@ -20,12 +20,12 @@
 
 <script>
 import {mapGetters} from "vuex";
-// DatasetDetailsFeatureHeader is imported globally
-// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+import DatasetDetailsFeatureHeader
+  from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 
 export default {
   name: "DatasetDetailsIsUsedBy",
-  // components: {DatasetDetailsFeatureHeader},
+  components: {DatasetDetailsFeatureHeader},
   data() {
     return {
       isUsedBy: {
