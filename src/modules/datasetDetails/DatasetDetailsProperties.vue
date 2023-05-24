@@ -103,7 +103,6 @@
             </td>
           </tr>
           <!-- Add new fields for DCAT-AP.de -->
-          <!-- TODO: replace strings/tooltips with i18n translations -->
           <tr v-if="showObjectArray(getPoliticalGeocodingLevelURI)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.politicalGeocodingLevelURI')">
@@ -150,8 +149,7 @@
           </tr>
           <tr v-if="showObject(getGeocodingDescriptionDe)">
             <td class="w-25 font-weight-bold">
-              <!-- <tooltip title='message.tooltip.datasetDetails.geocodingDescription'> -->
-              <tooltip title='Geocoding Description'>
+              <tooltip title='message.tooltip.datasetDetails.geocodingDescription'>
                 {{ $t('message.metadata.geocodingDescription') }}
               </tooltip>
             </td>
@@ -161,8 +159,7 @@
           </tr>
           <tr v-if="showObject(getLegalBasis)">
             <td class="w-25 font-weight-bold">
-              <!-- <tooltip title='message.tooltip.datasetDetails.legalBasis'> -->
-              <tooltip title='Legal Basis'>
+              <tooltip title='message.tooltip.datasetDetails.legalBasis'>
                 {{ $t('message.metadata.legalBasis') }}
               </tooltip>
             </td>
@@ -172,8 +169,7 @@
           </tr>
           <tr v-if="showString(getQualityProcessURI)">
             <td class="w-25 font-weight-bold">
-              <!-- <tooltip title='message.tooltip.datasetDetails.qualityProcessURI'> -->
-              <tooltip title='Quality Process URI'>
+              <tooltip title='message.tooltip.datasetDetails.qualityProcessURI'>
                 {{ $t('message.metadata.qualityProcessURI') }}
               </tooltip>
             </td>
@@ -203,8 +199,7 @@
           </tr>
           <tr v-if="showObjectArray(getContributor)">
             <td class="w-25 font-weight-bold">
-              <!-- <tooltip title='message.tooltip.datasetDetails.contributor'> -->
-              <tooltip title='Contributor'>
+              <tooltip title='message.tooltip.datasetDetails.contributor'>
                 {{ $t('message.metadata.contributor') }}
               </tooltip>
             </td>
@@ -218,8 +213,7 @@
           </tr>
           <tr v-if="showObjectArray(getOriginator)">
             <td class="w-25 font-weight-bold">
-              <!-- <tooltip title='message.tooltip.datasetDetails.originator'> -->
-              <tooltip title='Originator'>
+              <tooltip title='message.tooltip.datasetDetails.originator'>
                 {{ $t('message.metadata.originator') }}
               </tooltip>
             </td>
