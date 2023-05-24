@@ -72,15 +72,19 @@ import useRouteMetaBreadcrumbs from "./mixins/useRouteMetaBreadcrumbs";
 
 import { configureModules } from "./configurations/configureModules";
 
+import { truncate, getImg, getCountryFlagImg, getTranslationFor, getFacetTranslation } from './utils/helpers';
 import fileTypes from './utils/fileTypes';
-import DatasetsFacets from './datasets/datasetsFacets/DatasetsFacets.vue';
-import Pagination from './widgets/Pagination.vue';
-import SelectedFacetsOverview from './facets/SelectedFacetsOverview.vue';
-import { truncate, getImg, getCountryFlagImg, getTranslationFor } from './utils/helpers';
-import DatasetsTopControls from "./datasets/DatasetsTopControls.vue";
-import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
 import SubNavigation from './navigation/SubNavigation.vue';
+import Pagination from './widgets/Pagination.vue';
+
 import DatasetsFilters from "@/modules/datasets/DatasetsFilters.vue";
+import DatasetsTopControls from "./datasets/DatasetsTopControls.vue";
+import DatasetsFacets from './datasets/datasetsFacets/DatasetsFacets.vue';
+import CataloguesFacets from './catalogues/cataloguesFacets/CataloguesFacets.vue';
+import SelectedFacetsOverview from './facets/SelectedFacetsOverview.vue';
+import DatasetsMapFacet from './datasets/datasetsFacets/DatasetsMapFacet.vue';
+import SettingsFacet from './datasets/datasetsFacets/SettingsFacet.vue';
+
 
 export {
   AppLink,
@@ -156,17 +160,21 @@ export {
   configureModules,
 
   fileTypes,
-  DatasetsFacets,
-  Pagination,
-  CataloguesFacets,
   SubNavigation,
-  SelectedFacetsOverview,
+  Pagination,
+  
+  DatasetsFacets,
+  CataloguesFacets,
   DatasetsTopControls,
-  getTranslationFor,
+  SelectedFacetsOverview,
+  DatasetsMapFacet,
+  SettingsFacet,
+
   truncate,
   getImg,
-  getCountryFlagImg
-
+  getCountryFlagImg,
+  getTranslationFor,
+  getFacetTranslation,
 };
 
 // @ts-ignore

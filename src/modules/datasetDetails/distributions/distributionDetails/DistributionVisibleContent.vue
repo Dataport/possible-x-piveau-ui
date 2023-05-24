@@ -48,10 +48,16 @@
     </tr>
     <tr v-if="has(distribution, 'licenseAttributionByText') && !isNil(distribution.licenseAttributionByText)">
       <td class="w-25 font-weight-bold">
+<<<<<<< HEAD
         <!-- <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')"> -->
           <!-- {{ $t('message.metadata.updated') }} -->
           {{ 'License Attribution By Text' }}
         <!-- </tooltip> -->
+=======
+        <tooltip :title="$t('message.tooltip.datasetDetails.distributions.licenseAttributionByText')">
+          {{ $t('message.dataupload.distributions.licenseAttributionByText.label') }}
+        </tooltip>
+>>>>>>> master
       </td>
       <td>{{ getTranslationFor(distribution.licenseAttributionByText) }}</td>
     </tr>
