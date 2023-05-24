@@ -128,22 +128,7 @@
             "isVersionOf": "Jest wersją",
             "pageDescriptionContactPoint": "Dodaj do swojego zbioru danych rodzaj, nazwę i adres e-mail punktu kontaktowego!",
             "goToDataset": "Przejdź do strony zbioru danych",
-            "updatedOnDataEuropaEU": "Zaktualizowano dane.europa.eu",
-            "relation": "",
-            "qualifiedRelation": "",
-            "packageFormat": "",
-            "wasGeneratedBy": "",
-            "temporalResolution": "",
-            "sample": "",
-            "qualifiedAttribution": "",
-            "spatialResolutionInMeters": {
-                "value": "",
-                "label": ""
-            },
-            "isReferencedBy": "",
-            "role": "",
-            "hasPolicy": "",
-            "compressFormat": ""
+            "updatedOnDataEuropaEU": "Zaktualizowano dane.europa.eu"
         },
         "dataupload": {
             "info": {
@@ -151,168 +136,6 @@
                 "information": "Informacje"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Źródło"
-                    },
-                    "type": {
-                        "placeholder": "Tekst zbioru danych „Nazwa miejsca”"
-                    },
-                    "subject": {
-                        "help": "Kategoria zestawu danych."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "Adres URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Tekst strony kontaktowej ds. danych Adres ulicy"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Zbiór danych Zgodność tekstu z umiejscowieniem"
-                    },
-                    "isVersionOf": {
-                        "label": "To wersja dokumentu"
-                    },
-                    "provenance": {
-                        "label": "Miejsce pochodzenia"
-                    },
-                    "language": {
-                        "label": "Język"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Link do agenta ponoszącego jakąś formę odpowiedzialności za zasoby"
-                    },
-                    "temporal": {
-                        "placeholder": "Tekst zbioru danych Temporal placeholder text"
-                    },
-                    "accessRights": {
-                        "info": "Właściwość ta odnosi się do informacji, które wskazują, czy zbiór danych jest otwarty, ma ograniczenia dostępu, czy też nie jest publicznie dostępny."
-                    },
-                    "identifier": {
-                        "help": "Właściwość ta zawiera główny identyfikator zbioru danych."
-                    },
-                    "versionInfo": {
-                        "help": "Numer wersji zbioru danych."
-                    },
-                    "hasVersion": {
-                        "info": "Właściwość ta odwołuje się do powiązanego zbioru danych, który jest wersją, wydaniem lub adaptacją opisywanego zbioru danych."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Dodaj Was wygenerowane przez"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Relacja kwalifikowana"
-                    },
-                    "conformsToTitle": {
-                        "label": "Tytuł"
-                    },
-                    "creatorType": {
-                        "label": "Typ"
-                    },
-                    "spatial": {
-                        "info": "Właściwość ta odnosi się do regionu geograficznego objętego zbiorem danych."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Absolutna miesiączka"
-                    },
-                    "contactPointName": {
-                        "label": "Imię i nazwisko"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Dataset data Temporal Reception Minute miejsce"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-mail"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Nazwa organizacji"
-                    },
-                    "contactPoint": {
-                        "help": "Właściwość ta zawiera dane kontaktowe."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Data data data zamknięcia zbierania danych (Dzień Temporal Contion Lekarska)"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Zbiór danych Provenance Text placeholder text text"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Zbiór danych tekst w polu „Nazwa wydawcy”"
-                    },
-                    "datasetID": {
-                        "label": "Zestaw danych ID"
-                    },
-                    "modified": {
-                        "label": "Zmodyfikowano"
-                    },
-                    "publisher": {
-                        "label": "Wydawca"
-                    },
-                    "issued": {
-                        "help": "Data formalnego wydania (np. publikacji) zbioru danych. Akceptowalne formaty dat: YYYY-MM-DD, YYYY-MM, RRRR."
-                    },
-                    "publisherHomepage": {
-                        "label": "Strona główna"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minimalna separacja przestrzenna możliwa do rozwiązania w zbiorze danych."
-                    },
-                    "mediaType": {
-                        "placeholder": "Rozpowszechnianie tekstu „Rodzaj nośnika”"
-                    },
-                    "language": {
-                        "help": "Język używany w dystrybucji."
-                    },
-                    "title": {
-                        "info": "Właściwość ta zawiera nazwę nadaną Dystrybucji. Właściwość tę można powtórzyć dla równoległych wersji językowych opisu."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Tekst „Sprawdzanie miejsca dystrybucji”"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Rozpowszechnianie tekstu „Has Policy Url”"
-                    },
-                    "page": {
-                        "help": "Strona lub dokument na temat tego podziału."
-                    },
-                    "availability": {
-                        "placeholder": "Rozdział Dostępność tekstu w miejscu"
-                    },
-                    "format": {
-                        "placeholder": "Tekst w formacie dystrybucji"
-                    },
-                    "conformsTo": {
-                        "add-label": "Dodaj Zgodność do"
-                    },
-                    "issued": {
-                        "label": "Wydane"
-                    },
-                    "description": {
-                        "help": "Nieruchomość ta zawiera bezpłatny konto dystrybucji."
-                    },
-                    "hasPolicy": {
-                        "help": "Polityka wyrażająca prawa."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Absolutna miesiączka"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Zbiór danych Temporal Receptor Hour place"
-                    },
-                    "licence": {
-                        "help": "Pozwolenie, na podstawie którego udostępniana jest dystrybucja."
-                    },
-                    "date": {
-                        "label": "Data"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -328,815 +151,12 @@
                             "distribution2": {
                                 "name": "Dodatkowe informacje"
                             }
-                        },
-                        "name": ""
+                        }
                     },
-                    "overview": "Przegląd zbioru danych",
-                    "additional": {
-                        "name": ""
-                    },
-                    "step1": {
-                        "name": ""
-                    },
-                    "essential": {
-                        "name": ""
-                    },
-                    "step2": {
-                        "name": ""
-                    },
-                    "distoverview": {
-                        "name": ""
-                    },
-                    "advised": {
-                        "name": ""
-                    }
-                },
-                "pageDescription": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "pageTitle": {
-                    "help": "",
-                    "add-label": "",
-                    "label": "",
-                    "add": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "contributorEmail": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "pageFormat": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "subject": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "qualifiedAttribution": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "add-label": ""
-                },
-                "page": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "add-label": ""
-                },
-                "keyword": {
-                    "info": "",
-                    "help": "",
-                    "add-label": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "description": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "contributorName": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "keywordHeader": {
-                    "label": "",
-                    "info": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "contactPointName": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "contactPointAddressStreet": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "temporalResolutionMonth": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "temporalResolutionMinute": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "admsIdentifierValue": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "language": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "catalog": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "spatialPlace": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "provenance": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "publisherHomepage": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "originatorType": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "originatorHomepage": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "maintainer": {
-                    "add-label": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "originator": {
-                    "label": "",
-                    "add-label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "politicalGeocodingURIVocabulary": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "admsIdentifierUrl": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "title": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "modified": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "politicalGeocodingLevelURI": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "legalBasis": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "geocodingDescription": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "datasetDescription": {
-                    "info": "",
-                    "add-label": "",
-                    "help": "",
-                    "label": ""
-                },
-                "politicalGeocodingURI": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "temporalStart": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "creator": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "identifier": {
-                    "info": "",
-                    "label": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "admsIdentifier": {
-                    "add-label": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "availabilityDE": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "contributorID": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "maintainerType": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "contributorHomepage": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "spatialVocabulary": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "contactPointAddressCity": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "isReferencedByUrl": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "source": {
-                    "help": "",
-                    "label": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "relation": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "contactPointUrl": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "admsIdentifierSkosNotation": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "conformsTo": {
-                    "info": "",
-                    "add-label": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "wasGeneratedBy": {
-                    "placeholder": "",
-                    "label": "",
-                    "add-label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "temporal": {
-                    "placeholder": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": "",
-                    "label": ""
-                },
-                "landingPageUrl": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "publisherEmail": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "publisherName": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "qualifiedAttributionUrl": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "issued": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "isVersionOfUrl": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "temporalResolution": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "references": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "temporalResolutionYear": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "maintainerHomepage": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "contactPointTelephone": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "conformsToUrl": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "landingPage": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "temporalResolutionHour": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "spatialResolutionInMeters": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "contactPointAddressCountry": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "originatorName": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "temporalResolutionDay": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "date": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "theme": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "maintainerName": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "publisher": {
-                    "add-label": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "contactPoint": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "add-label": ""
-                },
-                "versionInfo": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "sourceUrl": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "creatorHomepage": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "conformsToTitle": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "contactPointAddress": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "pageTitleSub": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "spatialCountry": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "spatial": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "admsIdentifierCheckbox": {
-                    "label": ""
-                },
-                "isUsedBy": {
-                    "add-label": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "accrualPeriodicity": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "contactPointOrganisationName": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "creatorEmail": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "relationUrl": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "politicalGeocodingURIMunicipalityKey": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "hasVersion": {
-                    "help": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "qualifiedRelationHadRole": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "datasetID": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "schemeIdentifier": {
-                    "label": ""
-                },
-                "provenanceText": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "versionNotes": {
-                    "add-label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "accessRights": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "isReferencedBy": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "identifierText": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "qualityProcessURI": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "qualifiedRelation": {
-                    "label": "",
-                    "help": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "hasVersionUrl": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "provenanceGroup": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "spatialContinent": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "titleLabel": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "maintainerEmail": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "temporalResolutionSecond": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "admsIdentifierType": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "contributor": {
-                    "add-label": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "contributorType": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "wasGeneratedByUrl": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "type": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "creatorType": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "contactPointEmail": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "isVersionOf": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "originatorEmail": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "publisherType": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "spatialUrl": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "qualifiedRelationUrl": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contactPointType": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "contactPointAddressPostcode": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "datetime": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "temporalEnd": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "pageUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "creatorName": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
+                    "overview": "Przegląd zbioru danych"
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Właściwość ta odnosi się do powiązanego katalogu, w którym opisany katalog jest fizycznie lub logicznie zawarty."
-                    },
-                    "language": {
-                        "help": "Język używany w metadanych tekstowych opisujących tytuły, opisy itp."
-                    },
-                    "spatial": {
-                        "info": "Właściwość ta odnosi się do obszaru geograficznego objętego katalogiem."
-                    },
-                    "hasPart": {
-                        "help": "Właściwość ta odnosi się do powiązanego katalogu, który jest częścią opisanego katalogu."
-                    },
-                    "creator": {
-                        "add-label": "Dodatek Creator"
-                    },
-                    "creatorName": {
-                        "label": "Nazwa"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Nazwa nadana zapisowi katalogowemu. "
-                    },
-                    "description": {
-                        "info": "Ta właściwość zawiera konto zapisu na dowolnym koncie tekstowym. Właściwość tę można powtórzyć dla równoległych wersji językowych opisu."
-                    },
-                    "licence": {
-                        "placeholder": "Tekst posiadacza zezwolenia na katalog"
-                    },
-                    "modified": {
-                        "label": "Zmodyfikowano"
-                    },
-                    "licenceDescription": {
-                        "label": "Opis licencji"
-                    },
-                    "homepage": {
-                        "help": "Strona internetowa, która pełni funkcję strony głównej katalogu."
-                    }
-                },
                 "stepper": {
                     "overview": "Przegląd katalogu",
                     "step1": {
@@ -1145,200 +165,6 @@
                     "step2": {
                         "name": "Etap 2: Określenie właściwości katalogu"
                     }
-                },
-                "homepage": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "spatial": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "publisher": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "date": {
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "spatialPlace": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "spatialContinent": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "licenceDescription": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "issued": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "availabilityCatDE": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "spatialUrl": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "datetime": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "hasPart": {
-                    "placeholder": "",
-                    "add-label": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "rightsString": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "spatialVocabulary": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "catalogURL": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "creatorName": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "catalog": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "rights": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "politicalGeocodingLevelURI": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "creatorHomepage": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "rightsUrl": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "language": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "licenceURL": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "creatorEmail": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "creatorType": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "creator": {
-                    "info": "",
-                    "help": "",
-                    "add-label": "",
-                    "label": ""
-                },
-                "datasetID": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "title": {
-                    "label": "",
-                    "add-label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "spatialCountry": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "isPartOf": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "hasPartURL": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "license": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "modified": {
-                    "help": "",
-                    "label": "",
-                    "add-label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "description": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": ""
                 }
             },
             "clear": "Czytelne",
@@ -1367,359 +193,7 @@
             "validationerror": "Wystąpił błąd przy zatwierdzaniu formularza!",
             "createDataset": "Utwórz zbiór danych",
             "defineDatasetProperties": "Określenie właściwości zbioru danych",
-            "createDistributions": "Utwórz dystrybucję",
-            "distributions": {
-                "title": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "description": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "accessUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "label": "",
-                    "help": ""
-                },
-                "accessUrlFile": {
-                    "help": "",
-                    "label": ""
-                },
-                "licence": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "conformsToUrl": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "compressFormat": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "conformsToTitle": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "licenseAttributionByTextTitle": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "date": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "checksum": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "temporalResolutionHour": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "licenceURL": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "licenceDetails": {
-                    "help": "",
-                    "label": ""
-                },
-                "modified": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "spatialResolutionInMeters": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "accessUrlLink": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "availability": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "language": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "byteSize": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "type": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "rightsUrl": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "temporalResolutionSecond": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "pageDescription": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "temporalResolutionMinute": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "accessService": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "mediaType": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "hasPolicy": {
-                    "label": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "page": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "licenceDescription": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "rightsString": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "accessServiceEndpointURL": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "licenceTitle": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "licenceVocabulary": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "pageTitle": {
-                    "help": "",
-                    "add-label": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "conformsTo": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "rights": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "temporalResolutionYear": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "pageFormat": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "accessServiceDescription": {
-                    "add-label": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "pageUrl": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "temporalResolutionMonth": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "packageFormat": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "status": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "issued": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "accessServiceTitle": {
-                    "add-label": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "datetime": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "stepper": {
-                    "additional": {
-                        "name": ""
-                    },
-                    "step3": {
-                        "name": ""
-                    },
-                    "step2": {
-                        "name": ""
-                    },
-                    "step1": {
-                        "name": ""
-                    },
-                    "advised": {
-                        "name": ""
-                    },
-                    "step4": {
-                        "name": ""
-                    },
-                    "distoverview": {
-                        "name": ""
-                    }
-                },
-                "availabilityDisDE": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "temporalResolution": {
-                    "help": "",
-                    "add-label": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "downloadUrl": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "format": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "licenseAttributionByText": {
-                    "help": "",
-                    "add-label": "",
-                    "label": "",
-                    "info": ""
-                },
-                "checksumAlgorithm": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "temporalResolutionDay": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "hasPolicyUrl": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                }
-            },
-            "publishcatalogue": "",
-            "additionalInformation": "",
-            "generalInformation": "",
-            "skipDistribution": ""
+            "createDistributions": "Utwórz dystrybucję"
         },
         "datasetDetails": {
             "subnav": {
@@ -1762,24 +236,7 @@
                 "distributionQuality": "Jakość dystrybucji",
                 "publisherAvailability": "Wydawca",
                 "keywordAvailability": "Użycie słów kluczowych",
-                "rightsAvailability": "Prawa",
-                "validationDescription": {
-                    "error": "",
-                    "success": ""
-                },
-                "validationTitle": {
-                    "error": "",
-                    "success": ""
-                },
-                "banner": "",
-                "warning": "",
-                "title": "",
-                "limit": "",
-                "error": "",
-                "totalRows": "",
-                "message": "",
-                "column": "",
-                "row": ""
+                "rightsAvailability": "Prawa"
             },
             "follow": "Obserwuj",
             "accessURLTooltip": "Łącze to może zawierać informacje o tym, jak uzyskać dany plik lub jest bezpośrednim łączem do tego pliku.",
@@ -1799,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Pobieranie plików",
-                    "zipNumberOfFiles": "Pliki „Zip” (w jęz. angielskim)",
+                    "zipNumberOfFiles": "{number} Pliki „Zip”",
                     "waitingForDownload": "(w oczekiwaniu na pobranie)",
                     "downloadProgress": "Pobierz Progress",
                     "notDownloaded": "Nie pobrano danych",
@@ -1808,14 +265,7 @@
                     "cancel": "Anuluj",
                     "close": "Zamknij",
                     "coupleOfMinutes": "(może to zająć kilka minut)",
-                    "notDownloadedTooltip": "Szczegółowe informacje można znaleźć w załączonym pliku file_report.csv.",
-                    "selectFileFormat": "",
-                    "fileConversionTo": "",
-                    "downloadAs": "",
-                    "fileConversionFail": "",
-                    "downloading": "",
-                    "done": "",
-                    "converting": ""
+                    "notDownloadedTooltip": "Szczegółowe informacje można znaleźć w załączonym pliku file_report.csv."
                 },
                 "leavePageWindow": {
                     "text": "Czy na pewno chcesz opuścić? Po wyjeździe zaprzestano pobierania danych!"
@@ -1890,10 +340,7 @@
                     "created": "Data formalnego wydania (np. publikacji) dystrybucji.",
                     "language": "Język używany w dystrybucji.",
                     "options": "Otworzyć podgląd dystrybucji.",
-                    "temporalResolution": "Odnosi się do minimalnego okresu, który można poddać restrukturyzacji i uporządkowanej likwidacji w rozkładzie zbioru danych.",
-                    "packageFormat": "",
-                    "hasPolicy": "",
-                    "compressFormat": ""
+                    "temporalResolution": "Odnosi się do minimalnego okresu, który można poddać restrukturyzacji i uporządkowanej likwidacji w rozkładzie zbioru danych."
                 },
                 "otherIdentifier": "Dodatkowy identyfikator zbioru danych, taki jak MAST/ADS16, DataCite17, DOI18, EZID19 lub W3ID20.",
                 "numSeries": "Zawiera liczbę serii danych zawartych w zbiorze danych.",
@@ -1922,21 +369,7 @@
                 "share": "Udostępnij ten zbiór danych lub usługę za pośrednictwem mediów społecznościowych.",
                 "feedback": "Poinformuj nas, co sądzisz o tym zbiorze danych lub o usłudze.",
                 "dqvData": "Opcje pobierania zbioru danych lub pomiarów jakości usług w różnych powiązanych reprezentacjach danych.",
-                "hasVersion": "Powiązany zbiór danych, który stanowi wersję, wydanie lub dostosowanie opisanego zbioru danych",
-                "type": "",
-                "temporalResolution": "",
-                "contributor": "",
-                "spatialResolutionInMeters": "",
-                "wasGeneratedBy": "",
-                "sample": "",
-                "qualifiedRelation": "",
-                "datasetFeed": "",
-                "isReferencedBy": "",
-                "cite": "",
-                "legalBasis": "",
-                "qualifiedAttribution": "",
-                "originator": "",
-                "qualityProcessURI": ""
+                "hasVersion": "Powiązany zbiór danych, który stanowi wersję, wydanie lub dostosowanie opisanego zbioru danych"
             },
             "quality": {
                 "keywordAvailability": "Słowa kluczowe bezpośrednio wspierają wyszukiwanie, a tym samym zwiększają możliwość wyszukiwania zbioru danych.&br>&br> System sprawdza, czy zdefiniowano słowa kluczowe. Liczba słów kluczowych nie ma wpływu na wynik.",
@@ -1967,8 +400,7 @@
             "relevance": "Sortuj zbiór danych według ich znaczenia. Adekwatność oblicza się na podstawie dopasowania wyszukiwanego terminu w tytule, słowach kluczowych i opisie.",
             "contactPoints": "Dane kontaktowe, które można wykorzystać do przesyłania uwag na temat zbioru danych.",
             "locationFilter": "Aby zobaczyć zbiory danych dotyczące konkretnej lokalizacji, należy kliknąć na mapę i użyć ikony długopisu, aby ją wybrać. Następnie kliknij na „Zastosuj”, aby filtrować tylko zbiory danych, które odnoszą się do wybranego obszaru. Należy zauważyć, że tylko zbiory danych zawierające metadane geoinformacyjne zostaną włączone do wyników wyszukiwania.",
-            "catalogues": "Wyszukaj katalogi. Katalog zawiera zbiory danych i usługi",
-            "invalidVisualise": ""
+            "catalogues": "Wyszukaj katalogi. Katalog zawiera zbiory danych i usługi"
         },
         "visualisationDistribution": {
             "barChartExplain": "Na wykresie słupkowym przedstawiono wartości liczbowe dla poziomów cech kategorycznych jako słupki. Poziomy są wykreślane na jednej osi mapy, a wartości są wykreślane na drugiej osi.",
@@ -2030,7 +462,13 @@
             },
             "countMessage": "znalezione katalogi dla",
             "loadingMessage": "Otwieranie katalogów...",
-            "geoBoundsMessageRemove": "Zamknij to powiadomienie, aby usunąć ograniczenie, albo użyj funkcji resetowania."
+            "geoBoundsMessageRemove": "Zamknij to powiadomienie, aby usunąć ograniczenie, albo użyj funkcji resetowania.",
+            "meta": {
+                "page": {
+                    "title": "Katalogi otwartych danych | Europejskie dane | data.europa.eu"
+                },
+                "description": "Pobieranie i analiza zbiorów danych pogrupowanych w katalogi. Ponad 80 katalogów danych z różnych instytucji w Europie."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -2051,7 +489,7 @@
                     "goodScoring": "Dobre",
                     "excellentScoring": "Doskonałe"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Wydawca",
                 "license": "Licencje",
                 "keywords": "Słowa kluczowe",
                 "categories": "Kategorie",
@@ -2065,9 +503,7 @@
             "scoring": "Punktacja",
             "or": "ALBO",
             "europeanCatalogs": "Katalogi europejskie",
-            "operator": "Operator",
-            "lessFilters": "",
-            "moreFilters": ""
+            "operator": "Operator"
         },
         "header": {
             "navigation": {
@@ -2079,9 +515,7 @@
                     "sparqleditor": "Edytor SPARQL",
                     "statistics": "Statystyka",
                     "sparqlsearch": "Wyszukiwanie SPARQL",
-                    "title": "Dane",
-                    "persistentUris": "",
-                    "euVocabularies": ""
+                    "title": "Dane"
                 },
                 "impactStudies": {
                     "opendataimpact": "Oddziaływanie otwartych danych",
@@ -2091,8 +525,7 @@
                     "countryInsights": "Profile krajów",
                     "useCases": "Przykłady wykorzystania",
                     "title": "Oddziaływanie i Opracowania",
-                    "overview": "Przegląd",
-                    "countyInsights": ""
+                    "overview": "Przegląd"
                 },
                 "training": {
                     "licensingAssistant": "Asystent licencjonowania",
@@ -2100,8 +533,7 @@
                     "moreTrainingMaterial": "Więcej materiałów szkoleniowych",
                     "whatIsOpenData": "Czym są otwarte dane",
                     "title": "Szkolenia",
-                    "elearning": "e-szkolenia",
-                    "dataEuropaAcademy": ""
+                    "elearning": "e-szkolenia"
                 },
                 "about": {
                     "beHarvestedByUs": "Gromadzone przez nas",
@@ -2149,7 +581,11 @@
             "countMessage": "znalezione katalogi dla ",
             "foundDatasetsSingular": "Znaleziono 1 zbiór danych",
             "meta": {
-                "translationNotComplete": "Tłumaczenie nie jest kompletne"
+                "translationNotComplete": "Tłumaczenie nie jest kompletne",
+                "page": {
+                    "title": "Otwarte zbiory danych UE | Portal danych UE | data.europa.eu"
+                },
+                "description": "Pobieranie i analiza zbiorów danych pogrupowanych w katalogi. Ponad 80 katalogów danych z różnych instytucji w Europie."
             },
             "geoBoundsMessageRemove": "Zamknij to powiadomienie, aby usunąć ograniczenie, albo użyj funkcji resetowania.",
             "createDataset": "Utwórz zbiór danych",
@@ -2264,8 +700,7 @@
         },
         "pagination": {
             "nextPage": "Dalej",
-            "previousPage": "Poprzedni",
-            "itemsPerPage": ""
+            "previousPage": "Poprzedni"
         },
         "navigation": {
             "navItems": {
@@ -2337,6 +772,19 @@
         },
         "imprint": {
             "msg": "WSTAW ODCISK TUTAJ"
+        },
+        "cookieConsent": {
+            "more": "Więcej informacji",
+            "text": "Używamy plików cookie, aby zoptymalizować korzystanie z tej strony",
+            "accept": "Akceptuj"
+        },
+        "notFound": {
+            "error": "Błąd",
+            "contactUsAbout": "Skontaktuj się z nami w sprawie tego komunikatu o błędzie.",
+            "requested": {
+                "parttwo": "Strona wyszukiwania zestawu danych",
+                "page": "Żądana strona nie została znaleziona. Możesz zacząć ponownie od strony głównej."
+            }
         }
     }
 }

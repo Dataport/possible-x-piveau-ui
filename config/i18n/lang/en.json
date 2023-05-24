@@ -11,16 +11,6 @@
             "contributor": "Contributor",
             "originator": "Originator",
             "maintainer": "Maintainer",
-            "politicalGeocodingLevelURI": "Political Geocoding Level URI",
-            "politicalGeocodingURI": "Political Geocoding URI",
-            "contributorID": "Contributor ID",
-            "geocodingDescription": "Geocoding Description",
-            "legalBasis": "Legal Basis",
-            "qualityProcessURI": "Quality Process URI",
-            "references": "References",
-            "contributor": "Contributor",
-            "originator": "Originator",
-            "maintainer": "Maintainer",
             "catalogRecord": "Catalogue Record",
             "deleteItem": "Are you sure you want to delete this item?",
             "availability": "Availability",
@@ -858,32 +848,32 @@
                     "placeholder": "Add an URL"
                 },
                 "contributor": {
-                    "help": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData.",
+                    "help": "This property refers to bodies or persons who have edited the data (e.g. by formatting it). Its use is described in more detail in the Manual of Conventions.",
                     "info": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData.",
                     "label": "Contributor",
                     "add-label": "Add more"
                 },
                 "contributorType": {
                     "help": "Type of the contributor",
-                    "info": "Type of the contributor",
+                    "info": "",
                     "label": "Contributor type",
                     "placeholder": "Please provide a type"
                 },
                 "contributorEmail": {
                     "help": "Email adress of the contributor",
-                    "info": "Email adress of the contributor",
+                    "info": "",
                     "label": "Contributor email adress",
                     "placeholder": "Please provide an Email"
                 },
                 "contributorName": {
                     "help": "Name of the contributor",
-                    "info": "Name of the contributor",
+                    "info": "",
                     "label": "Contributor name",
                     "placeholder": "Please provide a name"
                 },
                 "contributorHomepage": {
                     "help": "Homepage of the contributor",
-                    "info": "Homepage of the contributor",
+                    "info": "",
                     "label": "Contributor Homepage",
                     "placeholder": "Please provide a Homepage"
                 },
@@ -1211,12 +1201,6 @@
             "newDistribution": "Add Distribution",
             "validationerror": "There was an error validating your form!",
             "distributions": {
-                    "descriptionLanguage": {
-                    "label": "Language",
-                    "placeholder": "Select language",
-                    "help": "The language of the property"
-  
-                  },
                 "licenseAttributionByText": {
                     "help": "This property stores the mandatory naming text for licence details.",
                     "info": "This property stores the mandatory naming text for licence details.",
@@ -1320,7 +1304,7 @@
                 "description": {
                     "label": "Description",
                     "placeholder": "Distribution Description placeholder text",
-                    "info": "This property contains a free-text account of the Distribution. This property can be repeated for parallel language versions of the description.",
+                    "info": "",
                     "help": "This property contains a free-text account of the Distribution.",
                     "add-label": "Add Description in another language"
                 },
@@ -1441,7 +1425,7 @@
                 "availability": {
                     "label": "Availability",
                     "placeholder": "Distribution Availability placeholder text",
-                    "info": "This property indicates how long it is planned to keep the Distribution of the Dataset available.",
+                    "info": "",
                     "help": "How long it is planned to keep the Distribution of the Dataset available."
                 },
                 "byteSize": {
@@ -1533,12 +1517,6 @@
                     "label": "Page",
                     "add-label": "Add Page",
                     "placeholder": "Distribution Page placeholder text"
-                },
-                "accessServiceEndpointDescription": {
-                    "info": "Endpoint description.",
-                    "help": "The descriptioin of the endpoint.",
-                    "label": "Enpoint description",
-                    "placeholder": "Distribution data service endpoint description placeholder text"
                 },
                 "pageTitle": {
                     "placeholder": "Distribution Page Title placeholder text",
@@ -1762,22 +1740,11 @@
                 "originator": "This property refers to the persons who have copyright in the data set. According to copyright law, a work is protected if it is the personal intellectual creation of its author.",
                 "references": "This property can be used to refer to reference datasets such as a High Value Dataset (HVD) or a sample dataset of the sample data catalogue.",
                 "maintainer": "This property refers to the bodies or individuals who take responsibility and accountability for the data and its appropriate maintenance.",
-                "politicalGeocodingLevelURI": "For the coded indication of the respective principle management level from which the data structure was collected and set.",
-                "politicalGeocodingURI": "This property links a dataset to the administrative area of the Federal Republic of Germany that it covers, such as a specific federal state, municipality or district represented by a URI.",
-                "availabilityDE": "Scheduled availability of the dataset as a selection from a fixed list of values via DCAT-AP URIs.",
-                "contributorID": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData and is described in more detail in the conventions manual.",
-                "geocodingDescription": "This property contains the geographical coverage of a dataset, represented by the name of an administrative area or a subject reference as free text.",
-                "legalBasis": "This field optionally documents as free text the legal basis for access to the information (the access opening), i.e. the original legal basis for access to data of the administration.",
-                "qualityProcessURI": "A URI that points to the process for quality assurance of the dataset. This is ideally the URL of a web page.",         
-                "contributor": "This property refers to bodies or persons who have edited the data (e.g. by formatting it). Its use is described in more detail in the Manual of Conventions.",
-                "originator": "This property refers to the persons who have copyright in the data set. According to copyright law, a work is protected if it is the personal intellectual creation of its author.",
-                "references": "This property can be used to refer to reference datasets such as a High Value Dataset (HVD) or a sample dataset of the sample data catalogue.",
-                "maintainer": "This property refers to the bodies or individuals who take responsibility and accountability for the data and its appropriate maintenance.",
                 "frequency": "Frequency at which the Dataset is updated.",
                 "dataset": "Dataset or service details.",
                 "updated": "The most recent date on which the dataset or service was changed or modified.",
                 "versionInfo": "Version number or other version designation of the Dataset.",
-                "distributions": {  
+                "distributions": {
                     "licenseAttributionByText": "This property stores the mandatory naming text for licence details.",
                     "updated": "Most recent date on which the Distribution was changed or modified.",
                     "title": "Name given to the Distribution.",
@@ -2257,10 +2224,10 @@
             "msg": "INSERT IMPRINT HERE"
         },
         "cookieConsent": {
-            "accept": "Accept all cookies",
-            "decline": "Accept only essential cookies",
+            "more": "More info",
             "text": "We use cookies on this site to enhance your user experience",
-            "more": "More"
+            "decline": "Accept only essential cookies",
+            "accept": "Accept all cookies"
         },
         "notFound": {
             "contactUsAbout": "Contact us about this error message.",

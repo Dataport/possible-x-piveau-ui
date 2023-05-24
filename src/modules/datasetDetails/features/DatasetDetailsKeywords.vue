@@ -18,6 +18,7 @@
               <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
                      :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
                      :data-placement="keywordTruncated(keyword) ? 'top' : false"
+                     :aria-label="keyword.title"
                      :title="keywordTruncated(keyword) ? keyword.title : false">
                 {{ truncate(keyword.title, maxKeywordLength, false) }}
               </small>
@@ -55,7 +56,8 @@
 </template>
 
 <script>
-import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+// DatasetDetailsFeatureHeader is imported globally
+// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import {has, isString} from "lodash";
@@ -66,9 +68,11 @@ import $ from "jquery";
 
 export default {
   name: "DatasetDetailsKeywords",
-  components: {AppLink,DatasetDetailsFeatureHeader},
+  components: {AppLink,
+    // DatasetDetailsFeatureHeader
+  },
   props: {
-    showKeyword: Function
+    showKeyword: Function,
   },
   data() {
     return {
@@ -76,7 +80,7 @@ export default {
       showTitle: this.$env.content.datasetDetails.keywords.showTitle,
       defaultDisplayCount: 0,
       keywords: {
-        displayAll: false,
+        displayAll: this.$env.content.datasetDetails.keywords.collapsed ? this.$env.content.datasetDetails.keywords.collapsed : false,
         displayCount: 24, // Should never exceed number of keywords
         incrementSteps: [12, 60],
       },
@@ -94,7 +98,7 @@ export default {
         : Object.freeze(this.sortedKeywords.slice(0, this.keywords.displayCount));
     },
     isKeywordsAllDisplayed() {
-     return this.keywords.displayAll;
+      return this.keywords.displayAll;
     },
     remainingKeywords() {
       return this.getKeywords.length - this.keywords.displayCount;

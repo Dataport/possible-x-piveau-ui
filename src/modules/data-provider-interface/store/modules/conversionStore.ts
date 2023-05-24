@@ -23,7 +23,8 @@ const state = {
         datasets: false,
         catalogues: false,
         distributions: []
-    }
+    },
+    deleteDistributionInline: false,
 };
 
 const getters = {
@@ -89,6 +90,14 @@ const getters = {
         } else {
             return state.mandatoryStatus[property];
         }
+    },
+    /**
+     * Returns boolean value of deleteDistributionInline
+     * @param state 
+     * @returns Boolean
+     */
+    getDeleteDistributionInline: (state) => {
+        return state.deleteDistributionInline;
     }
 };
 
@@ -197,6 +206,14 @@ const actions = {
         const status = generalHelper.checkMandatory(data, property);
 
         commit('changeMandatoryStatus', { property, id, status });
+    },
+    /**
+     * Sets value of deleteDistributionInline to given value
+     * @param param0 
+     * @param value Boolean
+     */
+    setDeleteDistributionInline({ commit }, value) {
+        commit('changeDeleteInlineValue', value);
     }
 };
 
@@ -264,13 +281,13 @@ const mutations = {
      */
     saveLinkedDataToStore(state, { property, data }) {
         try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
             toInput.convertToInput(state, property, data, dpiConfig);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];
             toInput.convertToInput(state, property, data, dpiConfig);
         }
-        // const dpiConfig = generalDpiConfig[Vue.prototype.$env.upload.specification];
+        // const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
         // toInput.convertToInput(state, property, data, dpiConfig);
 
         if (property === 'datasets') {
@@ -352,6 +369,14 @@ const mutations = {
         }
 
         localStorage.setItem('dpi_mandatory', JSON.stringify(state.mandatoryStatus));
+    },
+    /**
+     * Sets value of deleteDistributionInline to given value
+     * @param state 
+     * @param value Boolean
+     */
+    changeDeleteInlineValue(state, value) {
+        state.deleteDistributionInline = value;
     }
 };
 

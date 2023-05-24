@@ -10,32 +10,24 @@
       </div>
       <div class="right-form-nav">
 
+        <!-- DELETE DISTRIBUTION -->
+        <FormulateInput type="button"  label="Delete Distribution" @click="handleDeleteDistribution()" v-if="isDistribution" class="mr-2 delDisBtn"></FormulateInput>
+
         <!-- PUBLISH NEW CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || getMandatoryStatus({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
 
-        <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateNewDataset" class="mr-2">
+        <!-- PUBLISH DATASET -->
+        <FormulateInput type="button" @click="submit('dataset')" v-if="showDatasetSavingButton" class="mr-2">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
           {{ $t('message.dataupload.publishdataset') }}
         </FormulateInput>
 
-        <!-- SAVE NEW DATASET AS DRAFT -->
-        <FormulateInput type="button" @click="submit('draft')" v-if="showCreateNewDraft" class="mr-2">
+        <!-- SAVE AS DRAFT -->
+        <FormulateInput type="button" @click="submit('draft')" v-if="showDatasetSavingButton" class="mr-2">
           <span v-if="uploading.draft" class="loading-spinner"></span>
           {{ $t('message.dataupload.saveasdraft') }}
-        </FormulateInput>
-
-        <!-- PUBLISH EDITED DATASET -->
-        <FormulateInput type="button" @click="submit('dataset')" v-if="showCreateEditedDataset" class="mr-2">
-          <span v-if="uploading.dataset" class="loading-spinner"></span>
-          {{ $t('message.dataupload.savedataset') }}
-        </FormulateInput>
-
-        <!-- SAVE EDITED DRAFT  -->
-        <FormulateInput type="button" @click="submit('draft')" v-if="showCreateEditedDraft" class="mr-2">
-          <span v-if="uploading.draft" class="loading-spinner"></span>
-          {{ $t('message.dataupload.savedraft') }}
         </FormulateInput>
 
         <!-- NEXT STEP -->
@@ -85,6 +77,11 @@ export default {
           message: 'Are your sure you want to clear the form?',
           callback: this.clearStorage,
         },
+        deleteDistribution: {
+          confirm: 'Delete Distribution',
+          message: 'Are you sure you want to delete the distribution? The whole content will be deleted permanently!',
+          callback: this.deleteCurrentDistribution,
+        }
       },
       property: this.$route.params.property,
       page: this.$route.params.page,
@@ -109,17 +106,8 @@ export default {
     showPrevious() {
       return this.isPreviousPage || this.property === 'distributions';
     },
-    showCreateNewDataset() {
-      return this.isOverviewPage && !this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
-    },
-    showCreateNewDraft() {
-      return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && !this.getIsEditMode && !this.getIsDraft && this.property!=='catalogues';
-    },
-    showCreateEditedDataset() {
-      return this.getIsEditMode && !this.getIsDraft && this.property !== 'catalogues';
-    },
-    showCreateEditedDraft() {
-      return (this.getMandatoryStatus({property: this.property, id: this.id}) || this.isOverviewPage) && this.getIsEditMode && this.getIsDraft && this.property !== 'catalogues';
+    showDatasetSavingButton() {
+      return this.property !== 'catalogues' && this.getMandatoryStatus({property: this.property, id: this.id});
     },
     showNextLabel() {
       return !(this.isOverviewPage || this.page === 'distoverview');
@@ -128,13 +116,24 @@ export default {
       return !this.isOverviewPage && this.page === 'distoverview';
     },
     isPreviousPage() {
-      const currentPageIndex = this.getNavSteps[this.property].indexOf(this.page);
+      let currentPageIndex;
+      if (this.page) {
+        currentPageIndex = this.getNavSteps[this.property].indexOf(this.page);
+      } else {
+        // overview page has no 'page' parameter -> index would be -1
+        // set to > 0 to enable previous button
+        if (this.$route.path.endsWith('overview')) currentPageIndex = 99;
+      }      
       return currentPageIndex > 0;
     },
     isOverviewPage() {
       // overview part of url not given as route parameter
       const path = this.$route.path;
       return path.includes('/overview');
+    },
+    isDistribution() {
+      const isDistribution = this.property === 'distributions';
+      return isDistribution;
     }
   },
   methods: {
@@ -148,6 +147,8 @@ export default {
     ...mapActions('dpiStore', [
       'convertToRDF',
       'clearAll',
+      'deleteDistribution',
+      'setDeleteDistributionInline',
     ]),
     closeModal() {
       $('#modal').modal('hide');
@@ -172,9 +173,18 @@ export default {
       this.modal = this.modals.clear;
       $('#modal').modal({ show: true });
     },
+    handleDeleteDistribution() {
+      this.modal = this.modals.deleteDistribution;
+      $('#modal').modal({ show: true });
+    },
     clearStorage() {
       this.closeModal();
       this.$emit('clearStorage'); // clear gets called within main DPI component
+    },
+    deleteCurrentDistribution(){
+      this.deleteDistribution(this.id);
+      this.setDeleteDistributionInline(true);
+      this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
     },
     previous() {
       let currentPage;
@@ -223,7 +233,6 @@ export default {
     async submit(mode) {
       this.uploading[mode] = true;
       this.$Progress.start();
-
       // adapt submit property for case of distributions
       let submitProperty;
       if (this.property === 'distributions') {
@@ -233,9 +242,6 @@ export default {
       }
 
       const RDFdata = await this.convertToRDF(submitProperty).then((response) => {return response;});
-
-
-
       const rtpToken = this.getUserData.rtpToken;
 
       if (!this.getMandatoryStatus({ property: this.property, id: this.id })) {
@@ -260,12 +266,30 @@ export default {
       };
 
       if (mode === 'dataset') {
-        uploadUrl = `${this.$env.api.hubUrl}datasets?id=${datasetId}&catalogue=${catalogName}`;
-        actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
-        actionName = 'auth/createDataset';
+        // if no edit mode: just publish dataset regularly
+        // if edit mode but no draft: publish/save dataset regularly
+        if (!this.getIsEditMode || (this.getIsEditMode && !this.getIsDraft)) {
+          uploadUrl = `${this.$env.api.hubUrl}datasets?id=${datasetId}&catalogue=${catalogName}`;
+          actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl };
+          actionName = 'auth/createDataset';
+        } else {
+          // if edit mode and draft: publish user draft (remove from draft database and add to dataset database)-> publishUserDraftById
+          actionParams = {id: datasetId, catalog: catalogName };
+          actionName = 'auth/publishUserDraftById';
+        }
+        
       } else if (mode === 'draft') {
-        uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
-        actionName = 'auth/createUserDraft';
+        //if no edit mode: save draft regularly
+        // if edit mode and draft: save draft regularly
+        if (!this.getIsEditMode || (this.getIsEditMode && this.getIsDraft)) {
+          uploadUrl = `${this.$env.api.hubUrl}drafts/datasets/${datasetId}?catalogue=${catalogName}`;
+          actionName = 'auth/createUserDraft';
+        } else {
+          // if edit mode and no draft: save dataset as draft (remove from dataset database and add to draft database)-> putDatasetToDraft
+          actionParams = {id: datasetId, catalog: catalogName, title, description};
+          actionName = 'auth/putDatasetToDraft';
+        }
+        
       } else if (mode === 'createcatalogue') {
         uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
         actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl, id: datasetId };

@@ -128,22 +128,7 @@
             "isVersionOf": "Huwa verżjoni ta'",
             "pageDescriptionContactPoint": "Żid tip, isem u indirizz elettroniku ta' punt ta' kuntatt fis-sett tad-data tiegħek! ",
             "goToDataset": "Mur fil-Paġna tas-Sett tad-Data",
-            "updatedOnDataEuropaEU": "Aġġornat fuq data.europa.eu",
-            "spatialResolutionInMeters": {
-                "value": "",
-                "label": ""
-            },
-            "packageFormat": "",
-            "hasPolicy": "",
-            "qualifiedAttribution": "",
-            "relation": "",
-            "temporalResolution": "",
-            "qualifiedRelation": "",
-            "isReferencedBy": "",
-            "wasGeneratedBy": "",
-            "compressFormat": "",
-            "sample": "",
-            "role": ""
+            "updatedOnDataEuropaEU": "Aġġornat fuq data.europa.eu"
         },
         "dataupload": {
             "info": {
@@ -151,168 +136,6 @@
                 "information": "Informazzjoni"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Sors"
-                    },
-                    "type": {
-                        "placeholder": "Spazju riżervat għat-Tip ta’ Sett ta’ Data"
-                    },
-                    "subject": {
-                        "help": "Kategorija tas-Sett ta’ Data."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Spazju riżervat għall-Punt ta’ Kuntatt tas-Sett ta’ Data tat-Triq"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Sett ta’ data Konformi Għal test bi spazju riżervat"
-                    },
-                    "isVersionOf": {
-                        "label": "Hija Verżjoni ta’ f"
-                    },
-                    "provenance": {
-                        "label": "Provenjenza"
-                    },
-                    "language": {
-                        "label": "Il-lingwa"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Link għal Aġent li għandu xi forma ta’ responsabbiltà għar-riżorsa"
-                    },
-                    "temporal": {
-                        "placeholder": "Sett ta’ data Test ta’ spazju riżervat temporanju"
-                    },
-                    "accessRights": {
-                        "info": "Din il-proprjetà tirreferi għal informazzjoni li tindika jekk is-Sett tad-Data huwiex data miftuħa, għandux restrizzjonijiet fuq l-aċċess jew le."
-                    },
-                    "identifier": {
-                        "help": "Din il-proprjetà fiha l-identifikatur ewlieni għas-Sett tad-Data."
-                    },
-                    "versionInfo": {
-                        "help": "Numru tal-verżjoni tas-Sett ta’ Data."
-                    },
-                    "hasVersion": {
-                        "info": "Din il-karatteristika tirreferi għal sett tad-data relatat li hu verżjoni, edizzjoni, jew adattament tas-sett tad-data deskritt."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Żid Was Ġenerat By"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Relazzjoni Kwalifikata"
-                    },
-                    "conformsToTitle": {
-                        "label": "Titolu"
-                    },
-                    "creatorType": {
-                        "label": "Tip"
-                    },
-                    "spatial": {
-                        "info": "Din il-proprjetà tirreferi għal reġjun ġeografiku li huwa kopert mis-Sett tad-Data."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Xahar ta’ Riżoluzzjoni temporali"
-                    },
-                    "contactPointName": {
-                        "label": "Isem"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Test tad-Detentur tal-Post tal-Minuti tas-sett tad-data"
-                    },
-                    "contactPointEmail": {
-                        "label": "Email"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Isem l-Organizzazzjoni"
-                    },
-                    "contactPoint": {
-                        "help": "Din il-proprjetà fiha informazzjoni ta’ kuntatt."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Test tad-detentur tal-post tas-sett tad-data Jum ta’ Riżoluzzjoni Temporali"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Test tal-pompa għal Test tal-Provenjenza tas-Sett ta’ Data"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Dataset Publisher Type placeholder text"
-                    },
-                    "datasetID": {
-                        "label": "Id tas-sett ta’ data"
-                    },
-                    "modified": {
-                        "label": "Immodifikat"
-                    },
-                    "publisher": {
-                        "label": "Pubblikatur"
-                    },
-                    "issued": {
-                        "help": "Id-data tal-ħruġ formali (eż., il-pubblikazzjoni) tas-sett tad-data. Formati ta’ data aċċettabbli: SSSS-XX-JJ, SSSS-XX, SSSS."
-                    },
-                    "publisherHomepage": {
-                        "label": "Il-paġna ewlenija"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Separazzjoni ġeografika minima riżolvibbli f’sett ta’ data."
-                    },
-                    "mediaType": {
-                        "placeholder": "Spazju riżervat għat-Tip tal-Media ta’ Distribuzzjoni"
-                    },
-                    "language": {
-                        "help": "Lingwa użata fid-Distribuzzjoni."
-                    },
-                    "title": {
-                        "info": "Din il-proprjetà fiha isem mogħti lid-Distribuzzjoni. Din il-proprjetà tista’ tiġi ripetuta għal verżjonijiet lingwistiċi paralleli tad-deskrizzjoni."
-                    },
-                    "status": {
-                        "label": "Status"
-                    },
-                    "checksum": {
-                        "placeholder": "Spazju riżervat għall-kontroll tad-distribuzzjoni"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Spazju riżervat għal Url Politika ta’ Distribuzzjoni"
-                    },
-                    "page": {
-                        "help": "Paġna jew dokument dwar din id-Distribuzzjoni."
-                    },
-                    "availability": {
-                        "placeholder": "Spazju riżervat għad-Disponibbiltà tad-Distribuzzjoni"
-                    },
-                    "format": {
-                        "placeholder": "Spazju riżervat għall-Format ta’ Distribuzzjoni"
-                    },
-                    "conformsTo": {
-                        "add-label": "Żid Konformi Biex"
-                    },
-                    "issued": {
-                        "label": "Maħruġ"
-                    },
-                    "description": {
-                        "help": "Din il-proprjetà fiha kont b’test liberu tad-Distribuzzjoni."
-                    },
-                    "hasPolicy": {
-                        "help": "Il-politika li tesprimi d-drittijiet."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Xahar ta’ Riżoluzzjoni temporali"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Test tad-Detentur tal-Post tas-Sett ta’ Data Temporali"
-                    },
-                    "licence": {
-                        "help": "Il-liċenzja li taħtha tkun disponibbli d-Distribuzzjoni."
-                    },
-                    "date": {
-                        "label": "Data"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -328,815 +151,12 @@
                             "distribution2": {
                                 "name": "Informazzjoni Addizzjonali"
                             }
-                        },
-                        "name": ""
+                        }
                     },
-                    "overview": "Ħarsa ġenerali lejn is-sett tad-data",
-                    "step2": {
-                        "name": ""
-                    },
-                    "distoverview": {
-                        "name": ""
-                    },
-                    "additional": {
-                        "name": ""
-                    },
-                    "essential": {
-                        "name": ""
-                    },
-                    "advised": {
-                        "name": ""
-                    },
-                    "step1": {
-                        "name": ""
-                    }
-                },
-                "conformsToTitle": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "pageDescription": {
-                    "label": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "pageTitle": {
-                    "label": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": "",
-                    "add": "",
-                    "placeholder": ""
-                },
-                "isVersionOfUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "conformsTo": {
-                    "add-label": "",
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "originatorType": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "provenanceGroup": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "datasetDescription": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "add-label": ""
-                },
-                "issued": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contributorName": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "originatorEmail": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "politicalGeocodingURI": {
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": "",
-                    "label": ""
-                },
-                "qualifiedRelation": {
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": "",
-                    "label": ""
-                },
-                "politicalGeocodingURIVocabulary": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "politicalGeocodingURIMunicipalityKey": {
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "qualityProcessURI": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "catalog": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "pageTitleSub": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "language": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "datasetID": {
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "identifier": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "title": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": ""
-                },
-                "relation": {
-                    "info": "",
-                    "label": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "spatialUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "hasVersion": {
-                    "add-label": "",
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "date": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "titleLabel": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "landingPage": {
-                    "add-label": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "admsIdentifierType": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "pageFormat": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "datetime": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "references": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "temporalResolution": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "publisher": {
-                    "add-label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "legalBasis": {
-                    "placeholder": "",
-                    "info": "",
-                    "add-label": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contactPointEmail": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "temporalEnd": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "qualifiedRelationHadRole": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "wasGeneratedByUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "sourceUrl": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "contributor": {
-                    "add-label": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "identifierText": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "temporalResolutionMinute": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "admsIdentifierUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "spatialResolutionInMeters": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "originatorName": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "admsIdentifierSkosNotation": {
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "wasGeneratedBy": {
-                    "add-label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "admsIdentifierCheckbox": {
-                    "label": ""
-                },
-                "temporalResolutionYear": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "accessRights": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "isUsedBy": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "isReferencedByUrl": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "qualifiedRelationUrl": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "isVersionOf": {
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": "",
-                    "label": ""
-                },
-                "source": {
-                    "add-label": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "versionInfo": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "contactPointAddressPostcode": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "temporalResolutionMonth": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "availabilityDE": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "maintainerEmail": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "politicalGeocodingLevelURI": {
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "maintainer": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "admsIdentifier": {
-                    "add-label": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "spatialVocabulary": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "versionNotes": {
-                    "add-label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contactPointAddressCity": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "maintainerHomepage": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "type": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "landingPageUrl": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "conformsToUrl": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "contactPointUrl": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "spatialPlace": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "modified": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "temporalResolutionHour": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "originatorHomepage": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "spatialContinent": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "spatial": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "originator": {
-                    "add-label": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "keyword": {
-                    "placeholder": "",
-                    "help": "",
-                    "add-label": "",
-                    "label": "",
-                    "info": ""
-                },
-                "keywordHeader": {
-                    "add-label": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "pageUrl": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "accrualPeriodicity": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "contactPointAddressStreet": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "contributorHomepage": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "qualifiedAttributionUrl": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "provenance": {
-                    "add-label": "",
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "qualifiedAttribution": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "hasVersionUrl": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "temporal": {
-                    "info": "",
-                    "add-label": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "creatorName": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "theme": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "temporalResolutionSecond": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "contactPointTelephone": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "creatorType": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "contactPointAddress": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "contactPointType": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "creator": {
-                    "info": "",
-                    "help": "",
-                    "add-label": "",
-                    "label": ""
-                },
-                "geocodingDescription": {
-                    "help": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "contributorType": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "maintainerType": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "contributorID": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "publisherName": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "temporalStart": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "page": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "contactPointOrganisationName": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "relationUrl": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "spatialCountry": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "contactPoint": {
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "temporalResolutionDay": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "creatorHomepage": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "maintainerName": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "isReferencedBy": {
-                    "add-label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "contactPointName": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contributorEmail": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "subject": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contactPointAddressCountry": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "admsIdentifierValue": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "description": {
-                    "placeholder": "",
-                    "info": "",
-                    "add-label": "",
-                    "help": "",
-                    "label": ""
-                },
-                "publisherEmail": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "publisherHomepage": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "publisherType": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "creatorEmail": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "provenanceText": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "schemeIdentifier": {
-                    "label": ""
+                    "overview": "Ħarsa ġenerali lejn is-sett tad-data"
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Din il-proprjetà tirreferi għal Katalogu relatat li fih il-Katalogu deskritt huwa fiżikament jew loġikament inkluż."
-                    },
-                    "language": {
-                        "help": "Lingwa użata fil-metadejta testwali li tiddeskrivi t-titli, id-deskrizzjonijiet, eċċ."
-                    },
-                    "spatial": {
-                        "info": "Din il-proprjetà tirreferi għal żona ġeografika koperta mill-Katalogu."
-                    },
-                    "hasPart": {
-                        "help": "Din il-proprjetà tirreferi għal Katalogu relatat li huwa parti mill-Katalogu deskritt"
-                    },
-                    "creator": {
-                        "add-label": "Żid Ħallieq"
-                    },
-                    "creatorName": {
-                        "label": "Isem"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Isem mogħti lir-Reġistru tal-Katalogu. "
-                    },
-                    "description": {
-                        "info": "Din il-proprjetà fiha kont b’test liberu tar-rekord. Din il-proprjetà tista’ tiġi ripetuta għal verżjonijiet lingwistiċi paralleli tad-deskrizzjoni."
-                    },
-                    "licence": {
-                        "placeholder": "Spazju riżervat għal-Liċenzja tal-Katalogu test"
-                    },
-                    "modified": {
-                        "label": "Immodifikat"
-                    },
-                    "licenceDescription": {
-                        "label": "Deskrizzjoni tal-Liċenzja"
-                    },
-                    "homepage": {
-                        "help": "Paġna web li taġixxi bħala l-paġna ewlenija għall-Katalogu."
-                    }
-                },
                 "stepper": {
                     "overview": "Ħarsa ġenerali lejn il-katalogu",
                     "step1": {
@@ -1145,200 +165,6 @@
                     "step2": {
                         "name": "Pass 2: Definizzjoni tal-proprjetajiet tal-Katalogu"
                     }
-                },
-                "spatialUrl": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "catalogURL": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "datasetID": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "spatialVocabulary": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "language": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "rightsUrl": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "creatorHomepage": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "homepage": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "hasPart": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "spatialContinent": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "creatorName": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "catalog": {
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "creator": {
-                    "info": "",
-                    "help": "",
-                    "add-label": "",
-                    "label": ""
-                },
-                "title": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "availabilityCatDE": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "date": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "issued": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "licenceDescription": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "creatorEmail": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "description": {
-                    "add-label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "publisher": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "license": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "modified": {
-                    "help": "",
-                    "add-label": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "politicalGeocodingLevelURI": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "spatialPlace": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "isPartOf": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "datetime": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "spatialCountry": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "hasPartURL": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "licenceURL": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "rights": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "creatorType": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "rightsString": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "spatial": {
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
                 }
             },
             "clear": "Ċar",
@@ -1367,359 +193,7 @@
             "validationerror": "Kien hemm żball fil-validazzjoni tal-formola tiegħek!",
             "createDataset": "Oħloq Sett ta’ Data",
             "defineDatasetProperties": "Definizzjoni tal-proprjetajiet tas-Sett ta’ Data",
-            "createDistributions": "Oħloq Distribuzzjoni",
-            "distributions": {
-                "conformsToTitle": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "accessService": {
-                    "add-label": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "hasPolicy": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "stepper": {
-                    "step1": {
-                        "name": ""
-                    },
-                    "distoverview": {
-                        "name": ""
-                    },
-                    "step3": {
-                        "name": ""
-                    },
-                    "additional": {
-                        "name": ""
-                    },
-                    "advised": {
-                        "name": ""
-                    },
-                    "step2": {
-                        "name": ""
-                    },
-                    "step4": {
-                        "name": ""
-                    }
-                },
-                "temporalResolutionMonth": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "temporalResolutionDay": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "temporalResolutionHour": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "pageDescription": {
-                    "help": "",
-                    "label": "",
-                    "add-label": "",
-                    "placeholder": ""
-                },
-                "status": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "page": {
-                    "add-label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "mediaType": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "accessServiceDescription": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "temporalResolution": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "type": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "accessUrl": {
-                    "placeholder": "",
-                    "label": "",
-                    "add-label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "accessUrlLink": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "date": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "description": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "add-label": "",
-                    "placeholder": ""
-                },
-                "rights": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "pageUrl": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "conformsTo": {
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": "",
-                    "label": ""
-                },
-                "checksumAlgorithm": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "licenceURL": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "conformsToUrl": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "compressFormat": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "spatialResolutionInMeters": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "byteSize": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "pageTitle": {
-                    "add-label": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "availability": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "licenseAttributionByTextTitle": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "accessServiceTitle": {
-                    "info": "",
-                    "label": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "datetime": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "language": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "licence": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "accessServiceEndpointURL": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "hasPolicyUrl": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "temporalResolutionMinute": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "packageFormat": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "licenceDetails": {
-                    "label": "",
-                    "help": ""
-                },
-                "licenceDescription": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "modified": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "rightsUrl": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "temporalResolutionSecond": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "licenceTitle": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "licenseAttributionByText": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "add-label": ""
-                },
-                "issued": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "title": {
-                    "info": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "accessUrlFile": {
-                    "help": "",
-                    "label": ""
-                },
-                "checksum": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "pageFormat": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "rightsString": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "downloadUrl": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "licenceVocabulary": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "format": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "temporalResolutionYear": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "availabilityDisDE": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                }
-            },
-            "skipDistribution": "",
-            "publishcatalogue": "",
-            "additionalInformation": "",
-            "generalInformation": ""
+            "createDistributions": "Oħloq Distribuzzjoni"
         },
         "datasetDetails": {
             "subnav": {
@@ -1762,24 +236,7 @@
                 "distributionQuality": "Kwalità ta’ Distribuzzjoni",
                 "publisherAvailability": "Pubblikatur",
                 "keywordAvailability": "Użu ta' kliem ewlieni",
-                "rightsAvailability": "Drittijiet",
-                "message": "",
-                "error": "",
-                "column": "",
-                "validationDescription": {
-                    "error": "",
-                    "success": ""
-                },
-                "title": "",
-                "validationTitle": {
-                    "error": "",
-                    "success": ""
-                },
-                "warning": "",
-                "totalRows": "",
-                "banner": "",
-                "limit": "",
-                "row": ""
+                "rightsAvailability": "Drittijiet"
             },
             "follow": "Segwi",
             "accessURLTooltip": "Din il-link jista’ jkun fiha informazzjoni dwar kif tikseb il-fajl referenzjat jew hija link diretta għall-fajl imsemmi.",
@@ -1799,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Tniżżil ta’ fajls",
-                    "zipNumberOfFiles": "Zip i-numru tal-faxxikli (zip number)",
+                    "zipNumberOfFiles": "Zip i-numru tal-faxxikli {number}",
                     "waitingForDownload": "(stennija għat-tniżżil)",
                     "downloadProgress": "Niżżel il-Progress",
                     "notDownloaded": "Mhux imniżżel",
@@ -1808,14 +265,7 @@
                     "cancel": "Ikkanċella",
                     "close": "Agħlaq",
                     "coupleOfMinutes": "(dan jista’ jieħu ftit minuti)",
-                    "notDownloadedTooltip": "Id-dettalji jistgħu jinstabu fil-fajl mehmuż file_report.csv",
-                    "converting": "",
-                    "downloadAs": "",
-                    "downloading": "",
-                    "done": "",
-                    "fileConversionFail": "",
-                    "selectFileFormat": "",
-                    "fileConversionTo": ""
+                    "notDownloadedTooltip": "Id-dettalji jistgħu jinstabu fil-fajl mehmuż file_report.csv"
                 },
                 "leavePageWindow": {
                     "text": "Żgur li trid titlaq? It-tniżżil se jitwaqqaf meta titlaq!"
@@ -1890,10 +340,7 @@
                     "created": "Data tal-ħruġ formali (eż., pubblikazzjoni) tad-Distribuzzjoni.",
                     "language": "Il-lingwa użata fid-Distribuzzjoni.",
                     "options": "Iftaħ previżjoni tad-distribuzzjoni.",
-                    "temporalResolution": "Tirreferi għall-perjodu ta’ żmien minimu riżolvibbli fid-distribuzzjoni tas-sett ta’ data.",
-                    "hasPolicy": "",
-                    "compressFormat": "",
-                    "packageFormat": ""
+                    "temporalResolution": "Tirreferi għall-perjodu ta’ żmien minimu riżolvibbli fid-distribuzzjoni tas-sett ta’ data."
                 },
                 "otherIdentifier": "Identifikatur sekondarju tas-Sett ta’ Data, bħal MAST/ADS16, DataCite17, DOI18, EZID19 jew W3ID20.",
                 "numSeries": "Fih in-numru ta’ serje ta’ data li tinsab fis-Sett ta’ Data.",
@@ -1922,21 +369,7 @@
                 "share": "Aqsam dan is-sett ta’ data jew servizz permezz tal-midja soċjali.",
                 "feedback": "Għidilna x’taħseb dwar dan is-sett ta’ data jew servizz.",
                 "dqvData": "Għażliet biex tniżżel is-sett tad-data jew il-kejl tal-kwalità tas-servizz f’diversi rappreżentazzjonijiet tad-data llinkjati.",
-                "hasVersion": "Sett tad-Data Relatat li huwa verżjoni, edizzjoni, jew adattament tas-Sett tad-Data deskritt",
-                "wasGeneratedBy": "",
-                "spatialResolutionInMeters": "",
-                "cite": "",
-                "originator": "",
-                "type": "",
-                "qualityProcessURI": "",
-                "datasetFeed": "",
-                "legalBasis": "",
-                "isReferencedBy": "",
-                "temporalResolution": "",
-                "qualifiedAttribution": "",
-                "qualifiedRelation": "",
-                "contributor": "",
-                "sample": ""
+                "hasVersion": "Sett tad-Data Relatat li huwa verżjoni, edizzjoni, jew adattament tas-Sett tad-Data deskritt"
             },
             "quality": {
                 "keywordAvailability": "Il-kliem ewlieni jappoġġa direttament it-tiftix u b’hekk iżid is-sejbien tas-sett tad-data. &br > &br > Is-sistema tivverifika jekk il-kliem ewlieni huwiex definit. L-għadd ta’ kliem ewlieni ma għandu l-ebda impatt fuq il-punteġġ.",
@@ -1967,8 +400,7 @@
             "relevance": "Issortja s-sett ta’ data skont ir-rilevanza. Ir-rilevanza tiġi kkalkulata abbażi ta’ konkordanzi bejn it-termini tat-tiftix fit-titlu, il-kliem ewlieni u d-deskrizzjoni",
             "contactPoints": "Informazzjoni ta’ kuntatt li tista’ tintuża biex jintbagħtu kummenti dwar is-Sett tad-Data.",
             "locationFilter": "Biex tara s-settijiet tad-data relatati ma’ post speċifiku kklikkja fuq il-mappa u uża l-ikona tal-pinna biex tagħżilha. Imbagħad ikklikkja fuq “Applika” biex tiffiltra s-settijiet tad-data biss li jirreferu għaż-żona magħżula. Innota li huma biss is-settijiet tad-data li jinkludu metadata ta’ ġeoinformazzjoni li se jiġu inklużi fir-riżultati tat-tiftix.",
-            "catalogues": "Fittex katalgi. Katalgu jospita settijiet ta’ data u servizzi",
-            "invalidVisualise": ""
+            "catalogues": "Fittex katalgi. Katalgu jospita settijiet ta’ data u servizzi"
         },
         "visualisationDistribution": {
             "barChartExplain": "Bar chart tpinġi l-valuri numeriċi għal-livelli ta’ karatteristika kategorika bħala vireg. Il-livelli huma pplottjati fuq assi tal-mappa waħda, u l-valuri huma pplottjati fuq l-assi l-ieħor.",
@@ -2030,7 +462,13 @@
             },
             "countMessage": "katalogi li nstabu għal",
             "loadingMessage": "Qed jillowdja l-katalogi...",
-            "geoBoundsMessageRemove": "Agħlaq din in-notifika biex tneħħi l-limitazzjoni jew uża l-funzjoni tar-risettjar."
+            "geoBoundsMessageRemove": "Agħlaq din in-notifika biex tneħħi l-limitazzjoni jew uża l-funzjoni tar-risettjar.",
+            "meta": {
+                "page": {
+                    "title": "Katalogi ta’ Settijiet ta’ Data Miftuħa | data.europa.eu"
+                },
+                "description": "Iddawlowdja, ixxerja u analizza settijiet ta’ data għal kull katalogu. Esplora iktar minn 80 katalogu ta’ data minn istituzzjonijiet uffiċjali fl-Ewropa."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -2051,7 +489,7 @@
                     "goodScoring": "Tajjeb",
                     "excellentScoring": "Eċċellenti"
                 },
-                "publisher": "@: message.metadata.pubblikatur",
+                "publisher": "Pubblikatur",
                 "license": "Liċenzji",
                 "keywords": "Kliem prinċipali",
                 "categories": "Kategoriji",
@@ -2065,9 +503,7 @@
             "scoring": "Punteġġ",
             "or": "JEW",
             "europeanCatalogs": "Katalogi Ewropej",
-            "operator": "Operatur",
-            "moreFilters": "",
-            "lessFilters": ""
+            "operator": "Operatur"
         },
         "header": {
             "navigation": {
@@ -2075,13 +511,11 @@
                     "euInternationalData": "Data tal-UE u internazzjonali",
                     "datasets": "Settijiet tad-data",
                     "catalogs": "Katalogi",
-                    "metadataquality": "Kwalità tal-Metadata",
+                    "metadataquality": "Katalogi ta’ Settijiet ta’ Data Miftuħa",
                     "sparqleditor": "Editur ta’ SPARQL",
                     "statistics": "Statistiki",
                     "sparqlsearch": "Tiftix SPARQL",
-                    "title": "Data",
-                    "euVocabularies": "",
-                    "persistentUris": ""
+                    "title": "Data"
                 },
                 "impactStudies": {
                     "opendataimpact": "Impatt tad-data miftuħa",
@@ -2091,8 +525,7 @@
                     "countryInsights": "Informazzjoni speċjalizzata dwa",
                     "useCases": "Uża l-Każijiet",
                     "title": "Impatt u Studji",
-                    "overview": "Ħarsa ġenerali",
-                    "countyInsights": ""
+                    "overview": "Ħarsa ġenerali"
                 },
                 "training": {
                     "licensingAssistant": "Assistent tal-Ħruġ tal-Liċenzji",
@@ -2100,8 +533,7 @@
                     "moreTrainingMaterial": "Aktar Materjal għat-Taħriġ",
                     "whatIsOpenData": "X'inhi data miftuħa",
                     "title": "Taħriġ",
-                    "elearning": "Tagħlim elettroniku",
-                    "dataEuropaAcademy": ""
+                    "elearning": "Tagħlim elettroniku"
                 },
                 "about": {
                     "beHarvestedByUs": "Jinħażen minna",
@@ -2149,7 +581,11 @@
             "countMessage": "settijiet tad-data li nsabtu għal ",
             "foundDatasetsSingular": "1 sett ta’ data misjub",
             "meta": {
-                "translationNotComplete": "It-traduzzjoni mhix kompluta"
+                "translationNotComplete": "It-traduzzjoni mhix kompluta",
+                "page": {
+                    "title": "Settijiet ta’ data miftuħa tal-UE | Portal Uffiċjali għad-Data tal-UE"
+                },
+                "description": "L-ikbar portal ta’ settijiet ta’ data miftuħa fl-Ewropa. Esplora settijiet ta’ data tal-UE għal kull pajjiż, għal kull istituzzjoni, katalogu, kategoriji, kelmiet ewlenin, u ħafna iktar."
             },
             "geoBoundsMessageRemove": "Agħlaq din in-notifika biex tneħħi l-limitazzjoni jew uża l-funzjoni tar-risettjar.",
             "createDataset": "Oħloq Sett tad-Data",
@@ -2264,8 +700,7 @@
         },
         "pagination": {
             "nextPage": "Li Jmiss",
-            "previousPage": "Lura",
-            "itemsPerPage": ""
+            "previousPage": "Lura"
         },
         "navigation": {
             "navItems": {
@@ -2337,6 +772,18 @@
         },
         "imprint": {
             "msg": "DAĦĦAL IL-MARKA HAWN"
+        },
+        "cookieConsent": {
+            "accept": "Accepteren",
+            "text": "Aħna nużaw il-cookies fuq dan is-sit sabiex insaħħu l-esperjenza tiegħek ta' utent"
+        },
+        "notFound": {
+            "contactUsAbout": "Ikkuntattjana dwar dan il-messaġġ ta' żball.",
+            "requested": {
+                "parttwo": "Paġna tat-tfittxija tas-sett tad-dejta",
+                "page": "Il-paġna mitluba ma nstabitx. Inti tista' terġa' tibda mill-paġna ewlenija."
+            },
+            "error": "Żball"
         }
     }
 }

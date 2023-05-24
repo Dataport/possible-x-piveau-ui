@@ -128,22 +128,7 @@
             "isVersionOf": "Ide o verziu",
             "pageDescriptionContactPoint": "Pridajte k svojmu Datasetu kontaktný bod, meno a e-mail!",
             "goToDataset": "Prejsť na stránku Datasetu",
-            "updatedOnDataEuropaEU": "Aktualizované na základe údajov.europa.eu",
-            "packageFormat": "",
-            "hasPolicy": "",
-            "role": "",
-            "relation": "",
-            "qualifiedRelation": "",
-            "spatialResolutionInMeters": {
-                "label": "",
-                "value": ""
-            },
-            "temporalResolution": "",
-            "sample": "",
-            "qualifiedAttribution": "",
-            "wasGeneratedBy": "",
-            "isReferencedBy": "",
-            "compressFormat": ""
+            "updatedOnDataEuropaEU": "Aktualizované na základe údajov.europa.eu"
         },
         "dataupload": {
             "info": {
@@ -151,168 +136,6 @@
                 "information": "Informácie"
             },
             "datasets": {
-                "step2": {
-                    "source": {
-                        "label": "Zdroj"
-                    },
-                    "type": {
-                        "placeholder": "Dátový súbor Druh priekopníckeho textu"
-                    },
-                    "subject": {
-                        "help": "Kategória súboru údajov."
-                    },
-                    "isReferencedByUrl": {
-                        "label": "URL adresa"
-                    },
-                    "contactPointAddressStreet": {
-                        "placeholder": "Súbor údajov Kontaktné miesto Address Street"
-                    },
-                    "conformsTo": {
-                        "placeholder": "Súbor údajov Zhoda textov"
-                    },
-                    "isVersionOf": {
-                        "label": "Je verzia"
-                    },
-                    "provenance": {
-                        "label": "Miesto pôvodu"
-                    },
-                    "language": {
-                        "label": "Jazyk"
-                    },
-                    "qualifiedAttribution": {
-                        "help": "Odkaz na zástupcu, ktorý má určitú formu zodpovednosti za zdroj"
-                    },
-                    "temporal": {
-                        "placeholder": "Časovo ohraničený text dátového súboru"
-                    },
-                    "accessRights": {
-                        "info": "Táto vlastnosť sa vzťahuje na informácie, ktoré naznačujú, či je súbor údajov otvorenými údajmi, či má obmedzenia prístupu alebo nie je verejný."
-                    },
-                    "identifier": {
-                        "help": "Táto vlastnosť obsahuje hlavný identifikátor súboru údajov."
-                    },
-                    "versionInfo": {
-                        "help": "Číslo verzie súboru údajov."
-                    },
-                    "hasVersion": {
-                        "info": "Táto vlastnosť odkazuje na súvisiacu množinu údajov, ktorá je verziou, vydaním alebo úpravou opisovanej množiny údajov."
-                    },
-                    "wasGeneratedBy": {
-                        "add-label": "Pridať cestu vygenerovanú pomocou"
-                    },
-                    "qualifiedRelation": {
-                        "label": "Kvalifikovaný vzťah"
-                    },
-                    "conformsToTitle": {
-                        "label": "Názov"
-                    },
-                    "creatorType": {
-                        "label": "Typ"
-                    },
-                    "spatial": {
-                        "info": "Táto vlastnosť sa vzťahuje na geografický región, na ktorý sa vzťahuje súbor údajov."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Časová rezolúcia Mesiac"
-                    },
-                    "contactPointName": {
-                        "label": "Názov"
-                    },
-                    "temporalResolutionMinute": {
-                        "placeholder": "Súbor údajov Časové rozlíšenie Minútový text držiaka miesta"
-                    },
-                    "contactPointEmail": {
-                        "label": "E-mail"
-                    },
-                    "contactPointOrganisationName": {
-                        "label": "Názov organizácie"
-                    },
-                    "contactPoint": {
-                        "help": "Táto vlastnosť obsahuje kontaktné informácie."
-                    },
-                    "temporalResolutionDay": {
-                        "placeholder": "Súbor údajov Časové rozlíšenie Dňa umiestnenia text"
-                    },
-                    "provenanceText": {
-                        "placeholder": "Súbor dát Provenance Text (Odstránenie textu)"
-                    }
-                },
-                "step1": {
-                    "publisherType": {
-                        "placeholder": "Dátový súbor Uverejnený typ"
-                    },
-                    "datasetID": {
-                        "label": "ID súboru údajov"
-                    },
-                    "modified": {
-                        "label": "Upravené"
-                    },
-                    "publisher": {
-                        "label": "Vydavateľ"
-                    },
-                    "issued": {
-                        "help": "Dátum formálneho vydania (napr. uverejnenie) súboru údajov. Prijateľné formáty dátumov: RRRR-MM-DD, RRRR-MM, RRRR."
-                    },
-                    "publisherHomepage": {
-                        "label": "Domovská stránka"
-                    }
-                },
-                "step3": {
-                    "spatialResolutionInMeters": {
-                        "help": "Minimálne priestorové oddelenie rozlíšiteľné v súbore údajov."
-                    },
-                    "mediaType": {
-                        "placeholder": "Odkaz na miesto vyhradené pre druh distribučného média"
-                    },
-                    "language": {
-                        "help": "Jazyk používaný pri distribúcii."
-                    },
-                    "title": {
-                        "info": "Táto vlastnosť obsahuje názov priradený distribúcii. Táto vlastnosť sa môže opakovať pri paralelných jazykových verziách opisu."
-                    },
-                    "status": {
-                        "label": "Stav"
-                    },
-                    "checksum": {
-                        "placeholder": "Text týkajúci sa miesta vyhradeného na kontrolu distribúcie"
-                    },
-                    "hasPolicyUrl": {
-                        "placeholder": "Distribúcia má text, ktorý je v súlade s politikou Url."
-                    },
-                    "page": {
-                        "help": "Stránka alebo dokument o tejto distribúcii."
-                    },
-                    "availability": {
-                        "placeholder": "Odkaz na miesto vyhradené pre disponibilitu distribúcie"
-                    },
-                    "format": {
-                        "placeholder": "Text týkajúci sa miesta vyhradeného pre distribučné formáty"
-                    },
-                    "conformsTo": {
-                        "add-label": "Pridať zhodu do"
-                    },
-                    "issued": {
-                        "label": "Vydané"
-                    },
-                    "description": {
-                        "help": "Táto nehnuteľnosť obsahuje účet distribúcie s voľným textom."
-                    },
-                    "hasPolicy": {
-                        "help": "Politika vyjadrujúca práva."
-                    },
-                    "temporalResolutionMonth": {
-                        "label": "Časová rezolúcia Mesiac"
-                    },
-                    "temporalResolutionHour": {
-                        "placeholder": "Dátový súbor Časové rozlíšenie Hour držiak miesta text"
-                    },
-                    "licence": {
-                        "help": "Licencia, na základe ktorej je distribúcia k dispozícii."
-                    },
-                    "date": {
-                        "label": "Dátum"
-                    }
-                },
                 "stepper": {
                     "step3": {
                         "children": {
@@ -328,815 +151,12 @@
                             "distribution2": {
                                 "name": "Doplňujúce informácie"
                             }
-                        },
-                        "name": ""
+                        }
                     },
-                    "overview": "Prehľad súboru údajov",
-                    "essential": {
-                        "name": ""
-                    },
-                    "distoverview": {
-                        "name": ""
-                    },
-                    "advised": {
-                        "name": ""
-                    },
-                    "additional": {
-                        "name": ""
-                    },
-                    "step2": {
-                        "name": ""
-                    },
-                    "step1": {
-                        "name": ""
-                    }
-                },
-                "issued": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contactPointAddressCountry": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "pageTitle": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "add": ""
-                },
-                "pageDescription": {
-                    "help": "",
-                    "info": "",
-                    "add-label": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "qualityProcessURI": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "publisherHomepage": {
-                    "placeholder": "",
-                    "label": ""
-                },
-                "date": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "creatorEmail": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "publisherType": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "qualifiedAttributionUrl": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "maintainerName": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "admsIdentifierValue": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "geocodingDescription": {
-                    "add-label": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "datasetDescription": {
-                    "add-label": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "creatorHomepage": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "theme": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "spatialResolutionInMeters": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "maintainerHomepage": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "contactPointName": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "subject": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "politicalGeocodingURI": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "pageTitleSub": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "qualifiedRelationHadRole": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "isVersionOfUrl": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "versionInfo": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "originatorName": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "temporalResolutionMinute": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "contactPointType": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "politicalGeocodingURIMunicipalityKey": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "maintainerType": {
-                    "help": "",
-                    "info": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "contactPointTelephone": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "identifier": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": "",
-                    "placeholder": ""
-                },
-                "spatialVocabulary": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "isReferencedBy": {
-                    "add-label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "politicalGeocodingURIVocabulary": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "keywordHeader": {
-                    "add-label": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "versionNotes": {
-                    "info": "",
-                    "label": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "admsIdentifierCheckbox": {
-                    "label": ""
-                },
-                "qualifiedRelation": {
-                    "info": "",
-                    "label": "",
-                    "add-label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "contributorID": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "conformsToTitle": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "conformsToUrl": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "temporalStart": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "wasGeneratedBy": {
-                    "add-label": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "originatorEmail": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "landingPage": {
-                    "label": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "publisher": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "add-label": ""
-                },
-                "originator": {
-                    "help": "",
-                    "label": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "creator": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "isVersionOf": {
-                    "label": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "provenanceGroup": {
-                    "add-label": "",
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "contactPointAddressCity": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "contactPoint": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "provenance": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "add-label": ""
-                },
-                "source": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "temporalResolutionYear": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "contactPointAddressStreet": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "hasVersion": {
-                    "label": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "spatialPlace": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "isUsedBy": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "label": ""
-                },
-                "page": {
-                    "label": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "admsIdentifierSkosNotation": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "availabilityDE": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "maintainer": {
-                    "help": "",
-                    "label": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "contributorEmail": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "modified": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "publisherEmail": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "title": {
-                    "label": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "accessRights": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contributorHomepage": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "landingPageUrl": {
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "relationUrl": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "admsIdentifier": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "add-label": ""
-                },
-                "qualifiedAttribution": {
-                    "add-label": "",
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "titleLabel": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "contactPointOrganisationName": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "sourceUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "maintainerEmail": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "keyword": {
-                    "add-label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contactPointAddress": {
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "language": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "contributorName": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "temporalResolutionDay": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "creatorName": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "contactPointAddressPostcode": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "temporalResolutionMonth": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "admsIdentifierType": {
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "catalog": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "description": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "creatorType": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "qualifiedRelationUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "temporalResolution": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "accrualPeriodicity": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "originatorType": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "temporal": {
-                    "add-label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": "",
-                    "label": ""
-                },
-                "references": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "spatialUrl": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "temporalResolutionHour": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "admsIdentifierUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "provenanceText": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "conformsTo": {
-                    "label": "",
-                    "add-label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "datasetID": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "pageFormat": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "pageUrl": {
-                    "label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "schemeIdentifier": {
-                    "label": ""
-                },
-                "relation": {
-                    "placeholder": "",
-                    "add-label": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "contributor": {
-                    "add-label": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "legalBasis": {
-                    "info": "",
-                    "add-label": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "politicalGeocodingLevelURI": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "contactPointUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "type": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "datetime": {
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "originatorHomepage": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "hasVersionUrl": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "publisherName": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "temporalResolutionSecond": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": "",
-                    "info": ""
-                },
-                "contributorType": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "wasGeneratedByUrl": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "identifierText": {
-                    "label": "",
-                    "placeholder": ""
-                },
-                "isReferencedByUrl": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "temporalEnd": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "spatialCountry": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "spatialContinent": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "spatial": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "contactPointEmail": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
+                    "overview": "Prehľad súboru údajov"
                 }
             },
             "catalogues": {
-                "step2": {
-                    "isPartOf": {
-                        "info": "Táto vlastnosť sa vzťahuje na súvisiaci katalóg, v ktorom je opísaný katalóg fyzicky alebo logicky zahrnutý."
-                    },
-                    "language": {
-                        "help": "Jazyk použitý v textových metaúdajoch opisujúcich názvy, opisy atď."
-                    },
-                    "spatial": {
-                        "info": "Táto vlastnosť sa vzťahuje na zemepisnú oblasť, na ktorú sa vzťahuje katalóg."
-                    },
-                    "hasPart": {
-                        "help": "Táto vlastnosť sa vzťahuje na súvisiaci katalóg, ktorý je súčasťou opísaného katalógu."
-                    },
-                    "creator": {
-                        "add-label": "Pridať tvorcu"
-                    },
-                    "creatorName": {
-                        "label": "Názov"
-                    }
-                },
-                "step1": {
-                    "title": {
-                        "help": "Názov katalógového záznamu. "
-                    },
-                    "description": {
-                        "info": "Táto vlastnosť obsahuje účet záznamu s ľubovoľným textom. Táto vlastnosť sa môže opakovať pri paralelných jazykových verziách opisu."
-                    },
-                    "licence": {
-                        "placeholder": "Odkaz na miesto vyhradené pre katalógovú licenciu"
-                    },
-                    "modified": {
-                        "label": "Upravené"
-                    },
-                    "licenceDescription": {
-                        "label": "Opis licencie"
-                    },
-                    "homepage": {
-                        "help": "Webová stránka, ktorá slúži ako hlavná stránka katalógu."
-                    }
-                },
                 "stepper": {
                     "overview": "Prehľad katalógu",
                     "step1": {
@@ -1145,200 +165,6 @@
                     "step2": {
                         "name": "Krok 2: Vymedziť vlastnosti katalógu"
                     }
-                },
-                "datetime": {
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "rightsString": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "creator": {
-                    "label": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "licenceDescription": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "licenceURL": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "availabilityCatDE": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "title": {
-                    "add-label": "",
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "rightsUrl": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "catalogURL": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "modified": {
-                    "placeholder": "",
-                    "add-label": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "isPartOf": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "datasetID": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "license": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "description": {
-                    "label": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "politicalGeocodingLevelURI": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "date": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "catalog": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "help": ""
-                },
-                "spatialVocabulary": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "language": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "add-label": "",
-                    "label": ""
-                },
-                "creatorType": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "hasPart": {
-                    "label": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "info": "",
-                    "help": ""
-                },
-                "spatial": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": ""
-                },
-                "spatialCountry": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "spatialContinent": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "hasPartURL": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "spatialPlace": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "creatorHomepage": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "issued": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": ""
-                },
-                "homepage": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "publisher": {
-                    "placeholder": "",
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "spatialUrl": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "rights": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "creatorEmail": {
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "creatorName": {
-                    "placeholder": "",
-                    "label": ""
                 }
             },
             "clear": "Jasné",
@@ -1367,359 +193,7 @@
             "validationerror": "Pri validácii vášho formulára sa vyskytla chyba!",
             "createDataset": "Vytvoriť súbor údajov",
             "defineDatasetProperties": "Definovať vlastnosti súboru údajov",
-            "createDistributions": "Vytvoriť distribúciu",
-            "distributions": {
-                "stepper": {
-                    "step2": {
-                        "name": ""
-                    },
-                    "step3": {
-                        "name": ""
-                    },
-                    "advised": {
-                        "name": ""
-                    },
-                    "step4": {
-                        "name": ""
-                    },
-                    "additional": {
-                        "name": ""
-                    },
-                    "step1": {
-                        "name": ""
-                    },
-                    "distoverview": {
-                        "name": ""
-                    }
-                },
-                "conformsToUrl": {
-                    "info": "",
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "checksum": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "temporalResolutionMonth": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "accessUrl": {
-                    "add-label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "availability": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "page": {
-                    "placeholder": "",
-                    "info": "",
-                    "add-label": "",
-                    "help": "",
-                    "label": ""
-                },
-                "pageDescription": {
-                    "placeholder": "",
-                    "help": "",
-                    "add-label": "",
-                    "label": ""
-                },
-                "licenceDescription": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "pageTitle": {
-                    "placeholder": "",
-                    "help": "",
-                    "add-label": "",
-                    "info": "",
-                    "label": ""
-                },
-                "pageFormat": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "byteSize": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "status": {
-                    "info": "",
-                    "placeholder": "",
-                    "help": "",
-                    "label": ""
-                },
-                "checksumAlgorithm": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "temporalResolutionSecond": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "rights": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "licenseAttributionByText": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "availabilityDisDE": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "rightsUrl": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "modified": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "pageUrl": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "mediaType": {
-                    "label": "",
-                    "help": "",
-                    "info": "",
-                    "placeholder": ""
-                },
-                "compressFormat": {
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "temporalResolutionYear": {
-                    "help": "",
-                    "info": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "licenseAttributionByTextTitle": {
-                    "placeholder": "",
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "accessServiceTitle": {
-                    "help": "",
-                    "label": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "accessServiceDescription": {
-                    "label": "",
-                    "add-label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "temporalResolutionDay": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "temporalResolution": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "language": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "packageFormat": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "rightsString": {
-                    "placeholder": "",
-                    "label": "",
-                    "help": ""
-                },
-                "licenceURL": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "licenceDetails": {
-                    "help": "",
-                    "label": ""
-                },
-                "licenceVocabulary": {
-                    "help": "",
-                    "info": "",
-                    "label": ""
-                },
-                "licenceTitle": {
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "licence": {
-                    "label": "",
-                    "info": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "format": {
-                    "info": "",
-                    "label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "datetime": {
-                    "label": "",
-                    "help": "",
-                    "info": ""
-                },
-                "date": {
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "description": {
-                    "help": "",
-                    "label": "",
-                    "info": "",
-                    "placeholder": "",
-                    "add-label": ""
-                },
-                "downloadUrl": {
-                    "info": "",
-                    "help": "",
-                    "placeholder": "",
-                    "label": ""
-                },
-                "title": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "add-label": "",
-                    "info": ""
-                },
-                "accessUrlLink": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "accessUrlFile": {
-                    "help": "",
-                    "label": ""
-                },
-                "spatialResolutionInMeters": {
-                    "placeholder": "",
-                    "info": "",
-                    "help": "",
-                    "label": ""
-                },
-                "temporalResolutionMinute": {
-                    "placeholder": "",
-                    "help": "",
-                    "label": "",
-                    "info": ""
-                },
-                "temporalResolutionHour": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "placeholder": ""
-                },
-                "conformsTo": {
-                    "label": "",
-                    "info": "",
-                    "add-label": "",
-                    "placeholder": "",
-                    "help": ""
-                },
-                "hasPolicy": {
-                    "info": "",
-                    "label": "",
-                    "help": "",
-                    "add-label": ""
-                },
-                "accessServiceEndpointURL": {
-                    "placeholder": "",
-                    "info": "",
-                    "label": "",
-                    "help": ""
-                },
-                "hasPolicyUrl": {
-                    "label": "",
-                    "help": "",
-                    "placeholder": "",
-                    "info": ""
-                },
-                "issued": {
-                    "help": "",
-                    "placeholder": "",
-                    "label": "",
-                    "info": ""
-                },
-                "type": {
-                    "label": "",
-                    "info": "",
-                    "help": ""
-                },
-                "conformsToTitle": {
-                    "info": "",
-                    "help": "",
-                    "label": "",
-                    "placeholder": ""
-                },
-                "accessService": {
-                    "help": "",
-                    "info": "",
-                    "add-label": "",
-                    "label": ""
-                }
-            },
-            "skipDistribution": "",
-            "additionalInformation": "",
-            "generalInformation": "",
-            "publishcatalogue": ""
+            "createDistributions": "Vytvoriť distribúciu"
         },
         "datasetDetails": {
             "subnav": {
@@ -1762,24 +236,7 @@
                 "distributionQuality": "Kvalita distribúcie",
                 "publisherAvailability": "Vydavateľ",
                 "keywordAvailability": "Používanie kľúčových slov",
-                "rightsAvailability": "Práva",
-                "banner": "",
-                "warning": "",
-                "column": "",
-                "validationDescription": {
-                    "success": "",
-                    "error": ""
-                },
-                "row": "",
-                "message": "",
-                "totalRows": "",
-                "validationTitle": {
-                    "error": "",
-                    "success": ""
-                },
-                "limit": "",
-                "title": "",
-                "error": ""
+                "rightsAvailability": "Práva"
             },
             "follow": "Sledovať",
             "accessURLTooltip": "Tento odkaz môže obsahovať informácie o tom, ako získať referenčný súbor alebo je priamym odkazom na referenčný súbor.",
@@ -1799,7 +256,7 @@
             "datasets": {
                 "modal": {
                     "downloadingFiles": "Sťahovanie súborov",
-                    "zipNumberOfFiles": "Súbory zipsu",
+                    "zipNumberOfFiles": "Súbory zipsu {number}",
                     "waitingForDownload": "(čaká sa na stiahnutie)",
                     "downloadProgress": "Stiahnuť pokrok",
                     "notDownloaded": "Nestiahnuté",
@@ -1808,14 +265,7 @@
                     "cancel": "Zrušiť",
                     "close": "Zavrieť",
                     "coupleOfMinutes": "(môže to trvať niekoľko minút)",
-                    "notDownloadedTooltip": "Podrobnosti možno nájsť v priloženom súbore file_report.csv.",
-                    "done": "",
-                    "downloadAs": "",
-                    "selectFileFormat": "",
-                    "fileConversionFail": "",
-                    "downloading": "",
-                    "fileConversionTo": "",
-                    "converting": ""
+                    "notDownloadedTooltip": "Podrobnosti možno nájsť v priloženom súbore file_report.csv."
                 },
                 "leavePageWindow": {
                     "text": "Naozaj chcete odísť? Sťahovanie sa zastaví, keď odídete!"
@@ -1890,10 +340,7 @@
                     "created": "Dátum formálneho vydania (napr. uverejnenie) distribúcie.",
                     "language": "Jazyk používaný pri distribúcii.",
                     "options": "Otvorte náhľad distribúcie.",
-                    "temporalResolution": "Vzťahuje sa na minimálne časové obdobie riešiteľné v distribúcii súboru údajov.",
-                    "compressFormat": "",
-                    "hasPolicy": "",
-                    "packageFormat": ""
+                    "temporalResolution": "Vzťahuje sa na minimálne časové obdobie riešiteľné v distribúcii súboru údajov."
                 },
                 "otherIdentifier": "Sekundárny identifikátor súboru údajov, ako sú MAST/ADS16, DataCite17, DOI18, EZID19 alebo W3ID20.",
                 "numSeries": "Obsahuje počet sérií údajov obsiahnutých v súbore údajov.",
@@ -1922,21 +369,7 @@
                 "share": "Zdieľajte tento súbor údajov alebo službu prostredníctvom sociálnych médií.",
                 "feedback": "Informujte nás o tom, čo si myslíte o tomto súbore údajov alebo službe.",
                 "dqvData": "Možnosti sťahovania súboru údajov alebo meraní kvality služieb v rôznych prepojených zobrazeniach údajov.",
-                "hasVersion": "Súvisiaci súbor údajov, ktorý je verziou, vydaním alebo úpravou opísaného súboru údajov",
-                "sample": "",
-                "legalBasis": "",
-                "spatialResolutionInMeters": "",
-                "wasGeneratedBy": "",
-                "contributor": "",
-                "type": "",
-                "qualifiedAttribution": "",
-                "isReferencedBy": "",
-                "qualityProcessURI": "",
-                "temporalResolution": "",
-                "qualifiedRelation": "",
-                "cite": "",
-                "originator": "",
-                "datasetFeed": ""
+                "hasVersion": "Súvisiaci súbor údajov, ktorý je verziou, vydaním alebo úpravou opísaného súboru údajov"
             },
             "quality": {
                 "keywordAvailability": "Kľúčové slová priamo podporujú vyhľadávanie, a tým zvyšujú vyhľadateľnosť súboru údajov.&br>&br>Systém kontroluje, či sú vymedzené kľúčové slová. Počet kľúčových slov nemá žiadny vplyv na skóre.",
@@ -1967,8 +400,7 @@
             "relevance": "Zoradiť súbor údajov podľa relevantnosti. Relevantnosť sa vypočíta na základe zhôd hľadaných výrazov v názve, kľúčových slovách a opise.",
             "contactPoints": "Kontaktné údaje, ktoré možno použiť na zasielanie pripomienok k súboru údajov.",
             "locationFilter": "Ak chcete zobraziť súbory údajov týkajúce sa konkrétneho miesta, kliknite na mapu a na jej výber použite ikonu peny. Potom kliknite na „Uplatniť“ a filtrovajte len súbory údajov, ktoré sa týkajú vybranej oblasti. Upozorňujeme, že do výsledkov vyhľadávania budú zahrnuté len súbory údajov, ktoré obsahujú metaúdaje o geoinformáciách.",
-            "catalogues": "Vyhľadávanie katalógov. Katalóg obsahuje súbory údajov a služby",
-            "invalidVisualise": ""
+            "catalogues": "Vyhľadávanie katalógov. Katalóg obsahuje súbory údajov a služby"
         },
         "visualisationDistribution": {
             "barChartExplain": "Čiarový diagram znázorňuje číselné hodnoty úrovní kategorického prvku ako tyče. Úrovne sú znázornené na jednej osi plavebnej mapy a hodnoty sú znázornené na druhej osi.",
@@ -2030,7 +462,13 @@
             },
             "countMessage": "nájdené katalógy pre",
             "loadingMessage": "Načítavajú sa katalógy...",
-            "geoBoundsMessageRemove": "Na odstránenie obmedzenia zatvorte toto oznámenie alebo použite funkciu obnovenia."
+            "geoBoundsMessageRemove": "Na odstránenie obmedzenia zatvorte toto oznámenie alebo použite funkciu obnovenia.",
+            "meta": {
+                "page": {
+                    "title": "Katalógy otvorených súborov údajov | data.europa.eu"
+                },
+                "description": "Sťahovanie, zdieľanie a analýza súborov údajov podľa jednotlivých katalógov. Viac ako 80 katalógov údajov z oficiálnych inštitúcií v Európe."
+            }
         },
         "datasetFacets": {
             "facets": {
@@ -2051,7 +489,7 @@
                     "goodScoring": "Dobré",
                     "excellentScoring": "Výborné"
                 },
-                "publisher": "@:message.metadata.publisher",
+                "publisher": "Vydavateľ",
                 "license": "Licencie",
                 "keywords": "Kľúčové slová",
                 "categories": "Kategórie",
@@ -2065,9 +503,7 @@
             "scoring": "Bodovanie",
             "or": "alebo",
             "europeanCatalogs": "Európske katalógy",
-            "operator": "Operátor",
-            "moreFilters": "",
-            "lessFilters": ""
+            "operator": "Operátor"
         },
         "header": {
             "navigation": {
@@ -2079,9 +515,7 @@
                     "sparqleditor": "Editor SPARQL",
                     "statistics": "Štatistika",
                     "sparqlsearch": "Vyhľadávanie SPARQL",
-                    "title": "Údaje",
-                    "euVocabularies": "",
-                    "persistentUris": ""
+                    "title": "Údaje"
                 },
                 "impactStudies": {
                     "opendataimpact": "Vplyv otvorených dát",
@@ -2091,8 +525,7 @@
                     "countryInsights": "Štatistiky krajín",
                     "useCases": "Prípady použitia",
                     "title": "Vplyv a štúdie",
-                    "overview": "Prehľad",
-                    "countyInsights": ""
+                    "overview": "Prehľad"
                 },
                 "training": {
                     "licensingAssistant": "Sprievodca licenciami",
@@ -2100,8 +533,7 @@
                     "moreTrainingMaterial": "Ďalšie vzdelávacie materiály",
                     "whatIsOpenData": "Čo sú to otvorené dáta",
                     "title": "Školenie",
-                    "elearning": "Elektronické vzdelávanie",
-                    "dataEuropaAcademy": ""
+                    "elearning": "Elektronické vzdelávanie"
                 },
                 "about": {
                     "beHarvestedByUs": "Ako nám poskytnúť vaše dáta",
@@ -2149,7 +581,11 @@
             "countMessage": "našli sa datasety pre ",
             "foundDatasetsSingular": "1 súbor údajov nájdený",
             "meta": {
-                "translationNotComplete": "Preklad nie je dokončený"
+                "translationNotComplete": "Preklad nie je dokončený",
+                "page": {
+                    "title": "Otvoriť dátové súbory EÚ | Oficiálny portál pre údaje EÚ"
+                },
+                "description": "Najväčší portál otvorených súborov údajov v Európe. Súbory údajov EÚ podľa jednotlivých krajín, inštitúcií, katalógov, kategórií, kľúčových slov atď."
             },
             "geoBoundsMessageRemove": "Ak chcete odstrániť obmedzenie alebo použiť funkciu resetovania, zatvorte toto oznámenie.",
             "createDataset": "Vytvoriť Dataset",
@@ -2264,8 +700,7 @@
         },
         "pagination": {
             "nextPage": "Ďalšie",
-            "previousPage": "Predošlé",
-            "itemsPerPage": ""
+            "previousPage": "Predošlé"
         },
         "navigation": {
             "navItems": {
@@ -2337,6 +772,17 @@
         },
         "imprint": {
             "msg": "SEM VLOŽTE PEČIATKU"
+        },
+        "cookieConsent": {
+            "text": "Na zlepšenie používateľského zážitku využívame súbory cookies."
+        },
+        "notFound": {
+            "contactUsAbout": "Kontaktujte nás v súvislosti s touto správou o chybe.",
+            "requested": {
+                "parttwo": "Stránka vyhľadávania množiny údajov",
+                "page": "Požadovaná stránka sa nenašla. Môžete začať odznova na domovskej stránke."
+            },
+            "error": "Chyba"
         }
     }
 }

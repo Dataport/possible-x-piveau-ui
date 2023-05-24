@@ -5,12 +5,12 @@
     :title="`${$t('message.datasetDetails.subnav.categories')} (${
           getCategories ? getCategories.length.toLocaleString('fi') : 0
         })`"
-    :arrowDown="isCategoriesAllDisplayed"
+    :arrowDown="!isCategoriesAllDisplayed"
     tag="keywords-toggle"
     :onClick="toggleDisplayCount"
   />
     </div>
-    <div v-if="!isCategoriesAllDisplayed"  class="keywords__item row mt-4">
+    <div v-if="isCategoriesAllDisplayed"  class="keywords__item row mt-4">
         <span
           v-for='(category, i) in getCategories'
           :key="i"
@@ -20,6 +20,7 @@
             <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
                    :data-toggle="categoryTruncated(category) ? 'tooltip' : false"
                    :data-placement="categoryTruncated(category) ? 'top' : false"
+                   :aria-label="getTranslationFor(category.title, $route.query.locale)"
                    :title="categoryTruncated(category) ? getTranslationFor(category.title, $route.query.locale) : false">
               {{ truncate(getTranslationFor(category.title, $route.query.locale), maxCategoryLength, false) }}
             </small>
@@ -32,7 +33,8 @@
 </template>
 
 <script>
-import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+// DatasetDetailsFeatureHeader is imported globally
+// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import AppLink from "@/modules/widgets/AppLink";
@@ -43,7 +45,10 @@ import $ from "jquery";
 
 export default {
 name: "DatasetDetailsCategoriesKey",
-components: {AppLink,DatasetDetailsFeatureHeader},
+components: {
+  AppLink,
+  // DatasetDetailsFeatureHeader
+},
 props: {
   showCategory: Function
 },
@@ -52,7 +57,7 @@ data() {
     defaultLocale: this.$env.languages.locale,
     defaultDisplayCount: 0,
     categories: {
-      displayAll: false,
+      displayAll: this.$env.content.datasetDetails.categoriesKey.collapsed,
       displayCount: 24, // Should never exceed number of keywords
       incrementSteps: [12, 60],
     },
@@ -65,8 +70,9 @@ computed: {
       "getCategories"
   ]),
   isCategoriesAllDisplayed() {
-    return this.categories.displayCount >= this.getCategories.length;
-  } 
+    // return this.categories.displayCount >= this.getCategories.length;
+    return this.categories.displayAll;
+  }
 },
 methods: {
   truncate,
@@ -82,9 +88,9 @@ methods: {
     return this.categories.displayCount + incrementStep <= this.getCategories.length;
   },
   categoryTruncated(category) {
-    
+
     return getTranslationFor(category.title, this.defaultLocale).length > this.maxCategoryLength;
-    
+
   },
   clamp(n, min, max) {
     return Math.min(Math.max(n, min), max);
@@ -103,7 +109,7 @@ methods: {
     } else {
       this.categories.displayCount = this.defaultDisplayCount;
     }
-    
+    this.categories.displayAll = !this.categories.displayAll;
   }
 }
 }

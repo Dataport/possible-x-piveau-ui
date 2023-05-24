@@ -94,14 +94,14 @@
 
 <script lang="ts">
 import { Dataset } from "types/global";
-import Vue, { PropType } from "vue";
+import Vue, { PropType, defineComponent } from "vue";
 import type RouteLocationRaw from "vue-router";
 
 import PvBadge from "../PvBadge/PvBadge.vue";
 import PvDataInfoBoxFooter from "./PvDataInfoBoxFooter.vue";
 import PvDataInfoBoxDescription from "./PvDataInfoBoxDescription.vue";
 
-export default Vue.extend({
+export default defineComponent({
   name: "PvDataInfoBox",
   components: {
     PvBadge,
@@ -168,7 +168,7 @@ export default Vue.extend({
   },
 
   computed: {
-    datasetOrCatalogTitle() {
+    datasetOrCatalogTitle(): string {
       const { dataset, catalogMode } = this;
       return catalogMode
         ? dataset.title || dataset.catalog || ""
