@@ -12,6 +12,7 @@ import dataGetters from './getters/data-getters';
 
 const getResponseData = (catalog) => {
   const cat = {};
+  cat.availability = dataGetters.getObject(catalog, 'availability', ['resource', 'label'])
   cat.catalog = dataGetters.getArrayOfStrings(catalog, 'catalog');
   cat.count = dataGetters.getCount(catalog);
   cat.country = dataGetters.getObject(catalog, 'country', ['id', 'title']);

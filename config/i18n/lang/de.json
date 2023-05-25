@@ -254,6 +254,7 @@
         },
         "tooltip": {
             "catalogDetails": {
+                "availability": "Geplante Verfügbarkeit des Katalogs als Auswahl aus einer festen Liste von Werten via DCAT-AP URIs.",
                 "created": "Datum der förmlichen Ausstellung (z. B. Veröffentlichung) des Katalogs.",
                 "publisher": "Eine Einrichtung (Organisation), die für die Bereitstellung des Katalogs verantwortlich ist.",
                 "updated": "Das letzte Datum, an dem der Katalog geändert wurde.",

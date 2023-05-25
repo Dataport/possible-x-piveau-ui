@@ -1719,6 +1719,7 @@
         },
         "tooltip": {
             "catalogDetails": {
+                "availability": "Planned availability of the catalog as a selection from a fixed list of values via DCAT-AP URIs.",
                 "created": "The date of formal issuance (e.g. publication) of the catalogue.",
                 "publisher": "An entity (organisation) responsible for making the catalogue available.",
                 "updated": "The most recent date on which the catalogue was modified.",
