@@ -13,7 +13,7 @@ services:
         restart: "no"
         command: /bin/sh -c "cd /App && cp -a src original_src && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run serve"
         ports:
-            - '17086:8080'
+            - '17085:8080'
         deploy:
           restart_policy:
             condition: on-failure
