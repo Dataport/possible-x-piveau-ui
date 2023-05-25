@@ -3,6 +3,36 @@
         <div class="catalog-box">
             <div>
                 <h1 @click="testLogger(getCatalog)">Hi {{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
+
+                <div class="row">
+                    <div class="col-10 mx-auto">
+                        <div class="card" >
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#">Active</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Link</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" href="#">Disabled</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <h5 class="card-header">Header</h5> -->
+                            <img class="flag-img card-img" src="@/assets/img/flags/eu.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                            </div>
+                            <div class="card-footer text-muted">
+                                Footer
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- <dl v-if="has(catalog, 'title') && showObject(catalog.title)">
                     <dt>
                             <span :title="$t('message.tooltip.catalogDetails.title')"
@@ -39,7 +69,7 @@ import {
     export default {
         name: "CatalogPage",
         components: {
-
+            
         },
         props: {
 
@@ -51,7 +81,20 @@ import {
         },
         computed: {
             ...mapGetters('catalogDetails', [
-            'getCatalog',
+                'getCatalog',
+            ]),
+            ...mapGetters('datasets', [
+                'getDatasets',
+                'getDatasetsCount',
+                'getFacets',
+                'getLimit',
+                'getLoading',
+                'getOffset',
+                'getPage',
+                'getPageCount',
+                'getAvailableFacets',
+                'getAllAvailableFacets',
+                'getMinScoring',
             ]),
             ...mapActions('catalogDetails', [
             'loadCatalog',
@@ -87,10 +130,17 @@ import {
             getDatasetGeoBounds(bounds) {
             this.bounds = bounds
             },
-            getCatalog(catalog) {
-            this.catalog = catalog;
-            },
+            // getCatalog(catalog) {
+            // this.catalog = catalog;
+            // },
         },
 
     }
 </script>
+
+<style lang="scss" scoped>
+    .flag-img {
+        width: 150px;
+        height: auto;
+    }
+</style>
