@@ -31,6 +31,28 @@ services:
         environment:
           - VUE_APP_METADATA_TITLE=My dataportal
 
+    # To start an container where you can develop your own theme and see changes instantly, uncomment the followging lines.
+    # A piveau hub-ui instance will be launched at localhost:17085
+
+    # hub-ui-theme-dev:
+    #     image: 'registry.gitlab.com/piveau/hub/piveau-hub-ui/theme-builder:latest'
+    #     volumes:
+    #         - 'src:/App/src'
+    #         - 'public:/App/public'
+    #         - 'html:/usr/share/nginx/html/'
+    #     restart: "no"
+    #     command: /bin/sh -c "cd /App && cp -a src original_src && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run serve"
+    #     ports:
+    #         - '17085:8080'
+    #     deploy:
+    #       restart_policy:
+    #         condition: on-failure
+    #         max_attempts: 3
+    #     logging:
+    #         options:
+    #             max-size: 1g
+
+
 volumes:
   html:
   src:
