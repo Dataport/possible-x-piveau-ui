@@ -85,6 +85,19 @@
           </dt>
           <dd v-for="lang in catalogLanguageIds" :key="lang">{{ lang }}</dd>
         </dl>
+        <!-- Availability -->
+        <dl v-if="has(catalog, 'availability') && showObject(catalog.availability)">
+          <dt>
+            <!-- TODO Tooltip string -->
+            <span :title="$t('message.tooltip.catalogDetails.availability')"
+                data-toggle="tooltip"
+                data-placement="right">
+                {{ $t('message.metadata.availability') }}
+            </span>
+          </dt>
+          <dd v-if="has(catalog.availability, 'label') && !isNil(catalog.availability.label)"> {{ $t('message.metadata.label') }}: {{ catalog.availability.label }}</dd>
+          <dd v-if="has(catalog.availability, 'resource') && !isNil(catalog.availability.resource)"> {{ $t('message.metadata.resource') }}: <a :href="catalog.availability.resource">{{ catalog.availability.resource }}</a></dd>
+        </dl>
         <!-- LICENCE -->
         <dl v-if="has(catalog, 'licence') && showObject(catalog.licence)">
           <dt>{{ $t('message.catalogFacets.facets.licences') }}</dt>
@@ -251,6 +264,9 @@ export default {
     },
     showObjectArray(objectArray) {
       return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
+    },
+    testLogger() {
+      console.log("test", this.catalog)
     }
   }
 }
