@@ -18,8 +18,8 @@
    ds.politicalGeocodingURI = dataGetters.getArrayOfObjects(dataset, 'political_geocoding_uri', ['resource', 'label']);
    ds.availability = dataGetters.getObject(dataset, 'availability', ['resource', 'label']);
    ds.contributorID = dataGetters.getArrayOfObjects(dataset, 'contributor_id', ['resource', 'label']);
-   ds.geocodingDescriptionDe = dataGetters.getObject(dataset, 'geocoding_description', ['de']);
-   ds.legalBasis = dataGetters.getObject(dataset, 'legal_basis', ['de']);
+   ds.geocodingDescriptionDe = dataGetters.getObjectLanguage(dataset, 'geocoding_description');
+   ds.legalBasis = dataGetters.getObjectLanguage(dataset, 'legal_basis');
    ds.qualityProcessURI = dataGetters.getString(dataset, 'quality_process_uri');
    ds.typeDe = dataGetters.getString(dataset, 'type');
    ds.references = dataGetters.getString(dataset, 'references');
@@ -93,7 +93,7 @@
      distribution.accessUrl = dataGetters.getArrayOfStrings(dist, 'access_url');
      distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url', 'availability']); // availability field for DCAT-AP.de
      // distribution.accessService = dataGetters.getArrayOfStrings(dist, 'access_service');
-     distribution.licenseAttributionByText = dataGetters.getObject(dist, 'license_attribution_by_text', ['en']);
+     distribution.licenseAttributionByText = dataGetters.getObjectLanguage(dist, 'license_attribution_by_text');
      distribution.byteSize = dataGetters.getNumber(dist, 'byte_size');
      distribution.checksum = dataGetters.getObject(dist, 'checksum', ['algorithm', 'checksum_value']);
      distribution.compressFormat = dataGetters.getObject(dist, 'compress_format', ['label', 'resource']);

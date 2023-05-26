@@ -34,7 +34,7 @@
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
           @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
         <div class="position-relative h-100" @click="clearAutocomplete">
-          <a class="custom-remove" v-bind:class="{ remBG: choice }"></a>
+          <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a>
         </div>
 
       </div>
@@ -113,7 +113,7 @@ export default {
         text: "",
         selected: false,
         suggestions: [],
-
+        clicked: false
       },
       choice: false,
       themeSuggestionList: {},
@@ -134,23 +134,24 @@ export default {
   },
   computed: {
     filteredAutocompleteSuggestions() {
+
       if (this.autocomplete.selected) return [];
       return this.autocomplete.suggestions.slice(0, 10);
+
     }
 
   },
-  async mounted() {
-
+  mounted() {
 
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-    // Need to make this safer! nextTick() maybe? 
+    // This is a bit buggy need to to something here!!!
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
         this.valueListOfThemes.push(this.values[i])
       }
-    }, 1000);
+    }, 2000);
   },
   methods: {
     ...mapActions("dpiStore", [
@@ -173,9 +174,9 @@ export default {
       this.autocomplete.text = "";
       this.context.rootEmit("change");
 
-      // diable delete button
+      // disable delete button
       if (this.values.length === 0) {
-        console.log('######');
+        // console.log('######');
         this.choice = false;
       }
     },
@@ -244,19 +245,30 @@ export default {
         });
     },
     handleAnnifClick(e) {
+
       if (e.target.classList.contains('annifItems')) {
 
         e.target.classList.toggle('greenBG')
         e.target.querySelector('svg').classList.toggle('rotate45');
-
         for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;
+            console.log(this.valueListOfThemes[i]);
             this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == true) {
             this.deleteValue(this.valueListOfThemes[i].resource)
+            break
+          }
+          if (e.target.title == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == true) {
+            this.deleteValue(this.valueListOfThemes[i].resource)
+            break
+          }
+          if (e.target.title == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
+            this.valueListOfThemes[i].activeValue = true;
+            console.log(this.valueListOfThemes[i]);
+            this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
         }
@@ -319,20 +331,6 @@ export default {
               list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
             }
             let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-
-
-            // for (var i = 0; i < filteredList.length; i++) {
-            //   filteredList[i].activeValue = true
-            //   this.valueListOfThemes.push(filteredList[i])
-            // }
-            // if (Object.keys(this.values).length > filteredList.length) {
-            //   let is = this.values.filter((set => item => !set.has(item.resource))(new Set(filteredList.map(item => item.resource))))
-            //   for (var w = 0; w < is.length; w++) {
-            //     is[w].activeValue = true
-            //     this.valueListOfThemes.push(is[w])
-            //   }
-            // }
-
             filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
             for (var q = 0; q < filteredList.length; q++) {
               this.valueListOfThemes.push(filteredList[q])

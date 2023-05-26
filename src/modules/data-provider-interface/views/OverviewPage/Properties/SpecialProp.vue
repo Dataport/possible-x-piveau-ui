@@ -1,6 +1,7 @@
 <template>
     <div class="dpiSpecialPropWrap">
 
+    
         <!-- CREATOR -->
         <tr v-if="property === 'dct:creator'" class="marginBot">
 
@@ -66,7 +67,8 @@
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div v-if="showValue(data, '@id') && property === 'adms:identifier'">{{ $t('message.metadata.url') }}:
-                    <app-link :to="data['@id']">{{ data['@id'] }}</app-link></div>
+                    <app-link :to="data['@id']">{{ data['@id'] }}</app-link>
+                </div>
                 <div v-if="showValue(data, 'skos:notation') && showValue(data['skos:notation'][0], '@value')">{{
                     $t('message.metadata.identifier') }}: {{ data['skos:notation'][0]['@value'] }}</div>
                 <div v-if="showValue(data, 'skos:notation') && showValue(data['skos:notation'][0], '@type')">{{
@@ -87,7 +89,6 @@
 
         <!-- CHECKSUM -->
         <div v-if="property === 'spdx:checksum'" class="d-flex">
-            <!-- weird behaviour with the width here TODO-->
             <td class="font-weight-bold w-25">{{ $t(`${value.label}`) }}:</td>
             <td class="w-75">
                 <div v-if="showValue(data, 'spdx:checksumValue')">{{ data['spdx:checksumValue'] }}</div>
@@ -101,7 +102,7 @@
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div v-if="showValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
-                    data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }} Hallo</div>
+                    data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
                 <div v-if="showValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
                     data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
                 <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}:{{ data['dct:format'] }}</div>

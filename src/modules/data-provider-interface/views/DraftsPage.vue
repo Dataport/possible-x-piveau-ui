@@ -19,7 +19,7 @@
           >
             <td>{{ id }}</td>
             <td>{{ catalog }}</td>
-            <td>
+            <td class="buttonWrapper">
               <button type="button" class="btn btn-secondary">
                 <app-link
                   class="dropdown-toggle text-nowrap text-decoration-none"
@@ -173,5 +173,8 @@ export default {
 
 #linkedDataDropdown {
   color: #FFFFFF;
+}
+.buttonWrapper button{
+  margin: 0.2rem;
 }
 </style>

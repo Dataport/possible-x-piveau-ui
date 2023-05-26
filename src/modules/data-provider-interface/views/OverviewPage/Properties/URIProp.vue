@@ -15,6 +15,12 @@
         {{ el['dcatde:politicalGeocodingURI'] }}
       </div>
     </td>
+     <!-- Saptial -->
+     <td v-if="value.type === 'multiURISpatial'">
+      <div v-for="(el, index) in data[property]" :key="index">
+        {{ el['@id'] }}
+      </div>
+    </td>
   </div>
 </template>
 

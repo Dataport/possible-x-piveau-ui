@@ -199,69 +199,80 @@ const dcatapProperties = {
     },
     spatial: {
       identifier: 'spatial',
-      type: 'conditional-input',
+      type: 'group',
       name: 'dct:spatial',
       class: 'property',
-      '@change': true,
       repeatable: true,
       '@repeatableRemoved': true,
-      options: {
-        voc: 'Choose from vocabulary',
-        man: 'Manually submit information',
-      },
-      data: {
-        voc: [
-          {
-            identifier: 'spatialVocabulary',
-            type: 'conditional-input',
-            name: 'dct:spatial',
-            options: {
-              continent: 'Continent',
-              country: 'Country',
-              place: 'Place',
-            },
-            '@change': true,
-            data: {
-              continent: [
-                {
-                  identifier: 'spatialContinent',
-                  type: 'autocomplete-input',
-                  voc: 'continent',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-              country: [
-                {
-                  identifier: 'spatialCountry',
-                  type: 'autocomplete-input',
-                  voc: 'country',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-              place: [
-                {
-                  identifier: 'spatialPlace',
-                  type: 'autocomplete-input',
-                  voc: 'place',
-                  name: '@id',
-                  '@change': true,
-                },
-              ],
-            },
+      minimum: 1,
+      children: [
+        {
+          identifier: 'spatial',
+          type: 'conditional-input',
+          name: '@id',
+          class: 'property',
+          '@change': true,
+          repeatable: true,
+          '@repeatableRemoved': true,
+          options: {
+            voc: 'Choose from vocabulary',
+            man: 'Manually submit information',
           },
-        ],
-        man: [
-          {
-            identifier: 'spatialUrl',
-            type: 'url',
-            name: '@id',
-            validation: 'optional|url',
-            '@change': true,
+          data: {
+            voc: [
+              {
+                identifier: 'spatialVocabulary',
+                type: 'conditional-input',
+                name: '@id',
+                options: {
+                  continent: 'Continent',
+                  country: 'Country',
+                  place: 'Place',
+                },
+                '@change': true,
+                data: {
+                  continent: [
+                    {
+                      identifier: 'spatialContinent',
+                      type: 'autocomplete-input',
+                      voc: 'continent',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                  country: [
+                    {
+                      identifier: 'spatialCountry',
+                      type: 'autocomplete-input',
+                      voc: 'country',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                  place: [
+                    {
+                      identifier: 'spatialPlace',
+                      type: 'autocomplete-input',
+                      voc: 'place',
+                      name: '@id',
+                      '@change': true,
+                    },
+                  ],
+                },
+              },
+            ],
+            man: [
+              {
+                identifier: 'spatialUrl',
+                type: 'url',
+                name: '@id',
+                validation: 'optional|url',
+                '@change': true,
+              },
+            ],
           },
-        ],
-      },
+        }
+      ]
     },
     temporal: {
       type: 'group',
@@ -434,7 +445,7 @@ const dcatapProperties = {
           type: 'autocomplete-input',
           voc: 'file-type',
           name: 'dct:format',
-          class:"property",
+          class: "property",
           '@change': true,
         },
         {
@@ -442,7 +453,7 @@ const dcatapProperties = {
           type: 'url',
           name: '@id',
           validation: 'optional|url',
-          class:"property",
+          class: "property",
           '@change': true,
         },
       ],
