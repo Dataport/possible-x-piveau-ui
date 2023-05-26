@@ -33,7 +33,6 @@ const singularURI = {
     ],
     catalogues: [
         'foaf:homepage', // homepage and creator
-        'dct:publisher',
         'dct:spatial',
         'dct:isPartOf',
         // singular URIs nested within other properties
