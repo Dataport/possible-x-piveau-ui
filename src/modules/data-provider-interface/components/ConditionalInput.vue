@@ -97,15 +97,13 @@ export default {
 
         // TODO: implement display of conditional choice when vocabulary was used
 
-      }
-      else if (semanticName === 'dcatde:politicalGeocodingURI') {
+      } else if (semanticName === 'dcatde:politicalGeocodingURI') {
         // this.conditionalValues[this.context.name] = 'voc';
         // this.inputValues = { '@id': this.context.model };2
         this.context.placeholder = this.context.model;
         console.log(this.context);
 
       } else if (semanticName === 'dct:rights') {
-        console.log(this.context.model);
         // url and string provided as normal string
         if (generalHelper.isUrl(this.context.model)) {
           this.conditionalValues[this.context.name] = 'url';
@@ -113,6 +111,17 @@ export default {
           this.conditionalValues[this.context.name] = 'str';
         }
         this.inputValues = { 'rdfs:label': this.context.model };
+      } else if (semanticName === 'dct:publisher') {
+        if (Array.isArray(this.context.model)) {
+          if (!isEmpty(this.context.model[0])) {
+            this.conditionalValues[this.context.name] = 'man';
+            this.inputValues = { ...this.inputValues, 'dct:publisher': this.context.model };
+          }
+        } else {
+          // singular URI
+          this.conditionalValues[this.context.name] = 'voc';
+          this.inputValues = { '@id': this.context.model };
+        }
       }
     },
   },
