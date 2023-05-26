@@ -1,4 +1,3 @@
-import { faTruckMonster } from '@fortawesome/free-solid-svg-icons';
 import language from '../selector-languages.json';
 import config from './page-content-config';
 import Vue from 'vue';
@@ -1929,10 +1928,49 @@ const dcatapProperties = {
       identifier: 'publisher',
       name: 'dct:publisher',
       class: 'property',
-      type: 'autocomplete-input',
-      voc: 'corporate-body',
+      type: 'conditional-input',
       validation: 'required',
       '@change': true,
+      options: {voc: 'Search Vocabulary', man: 'Manually submit information'},
+      data: {
+        voc: [
+          {
+            identifier: 'publisher',
+            type: 'autocomplete-input',
+            name: '@id',
+            voc: 'corporate-body',
+            '@change': true,
+          }
+        ],
+        man: [
+          {
+            identifier: 'publisher',
+            type: 'group',
+            name: 'dct:publisher',
+            '@change': true,
+            children: [
+              {
+                identifier: 'publisherName',
+                type: 'text',
+                name: 'foaf:name',
+                '@change': true,
+              },
+              {
+                identifier: 'publisherEmail',
+                type: 'email',
+                name: 'foaf:mbox',
+                '@change': true,
+              },
+              {
+                identifier: 'publisherHomepage',
+                type: 'url',
+                name: 'foaf:homepage',
+                '@change': true,
+              }
+            ]
+          }
+        ],
+      }
     },
     language: {
       identifier: 'language',
