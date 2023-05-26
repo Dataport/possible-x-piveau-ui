@@ -33,7 +33,7 @@
             <table class="table table-borderless table-responsive pl-3 bg-light">
 
               <div v-for="(value, name, index) in tableProperties" :key="index">
-                  <PropertyEntry profile="catalogues" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
+                  <PropertyEntry :data="getData('catalogues')" profile="catalogues" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
               </div>
 
             </table>
@@ -51,18 +51,17 @@ export default {
   data() {
     return {
       tableProperties: {
-                'dct:publisher': {type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
-                'foaf:homepage': {type: 'singularURL', voc: '', label: 'message.metadata.homepage'},
-                'dct:language': { type: 'multiURI', voc: 'language', label: 'message.metadata.languages' },
-                'dct:license': {type: 'singularURI', voc: '', label: 'message.metadata.license'},
-                'dct:spatial': { type: 'special', voc: '', label: 'message.metadata.spatial' },
-                'dct:creator': {type: 'special', voc: '', label: 'message.metadata.creator'},
-                'dct:hasPart': {type: 'multiURL', voc: '', label:'message.dataupload.catalogues.hasPart.label'},
-                'dct:isPartOf': {type: 'singularURL', voc: '', label:'message.metadata.isPartOf'},
-                'dcat:catalog': {type: 'multiURL', voc: '', label:'message.dataupload.catalogues.catalog.label'},
-                'dct:rights': {type: 'singularString', voc: '', label:'message.metadata.rights'},
-                
-            }
+          'dct:publisher': {type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
+          'foaf:homepage': {type: 'singularURL', voc: '', label: 'message.metadata.homepage'},
+          'dct:language': { type: 'multiURI', voc: 'language', label: 'message.metadata.languages' },
+          'dct:license': {type: 'singularURI', voc: '', label: 'message.metadata.license'},
+          'dct:spatial': { type: 'special', voc: '', label: 'message.metadata.spatial' },
+          'dct:creator': {type: 'special', voc: '', label: 'message.metadata.creator'},
+          'dct:hasPart': {type: 'multiURL', voc: '', label:'message.dataupload.catalogues.hasPart.label'},
+          'dct:isPartOf': {type: 'singularURL', voc: '', label:'message.metadata.isPartOf'},
+          'dcat:catalog': {type: 'multiURL', voc: '', label:'message.dataupload.catalogues.catalog.label'},
+          'dct:rights': {type: 'singularString', voc: '', label:'message.metadata.rights'},
+      }
     }
   },
   props: {
