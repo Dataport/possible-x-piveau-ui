@@ -11,7 +11,8 @@ services:
             - './src:/App/src'
             - './public:/App/public'
         restart: "no"
-        command: /bin/sh -c "cd /App && cp -a src original_src && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run serve"
+        # command: /bin/sh -c "cd /App && cp -a src original_src && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run serve"
+        command: /bin/sh -c "cd /App && apk add gettext && vars=$$(env | grep VUE_ | sed -e 's/^/\$$/') && cp config/runtime-config.js config/runtime-config.tmp && envsubst < config/runtime-config.tmp > config/runtime-config.js && rm config/runtime-config.tmp && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run serve"
         ports:
             - '17085:8080'
         deploy:
