@@ -6,6 +6,7 @@ FROM node:18-alpine
 
 COPY . /App
 
+# Original script, now executed as command "CMD"
 # RUN cd /App && \
 #  cp -a src original_src && \
 #  npm ci && \
@@ -14,7 +15,9 @@ COPY . /App
 #  mv dist/* /usr/share/nginx/html/ && \
 #  rm -r node_modules
 
-RUN mkdir -p /usr/share/nginx/html/
+# Install envsubst adn creates folder for dis files.
+RUN apk add gettext && \
+    mkdir -p /usr/share/nginx/html/
 
 #
 # BUILD END
