@@ -15,7 +15,7 @@ In this case this is achieved by encapsulating most of the needed vue.js files i
 ```
 git clone https://gitlab.com/piveau/hub/piveau-hub-ui
 cd piveau-hub-ui
-sudo docker-compose -f theme-builder-docker-compose-dev.yml up -d
+sudo docker-compose -f theme-builder-docker-compose-dev.yml up
 ```
 
 2. Wait until the server starts. An instance of piveau-hub-ui will be launched in the port 17085.
