@@ -12,6 +12,7 @@ import {
   MapBasic,
   MapBoundsReceiver,
   Catalogues,
+  // CatalogPage,
   NotFound,
   SparqlSearch,
   Imprint,
@@ -25,11 +26,12 @@ import {
   UserProfilePage,
   UserCataloguesPage,
   decode,
-  Datasets
+  Datasets,
 } from "@piveau/piveau-hub-ui-modules";
 import ECDatasets from "../src/components/ECDatasets.vue"
 import ECCatalogues from "../src/components/ECCatalogues.vue"
 import ECDatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetDetailsQuality.vue"
+import CatalogPage from "../src/modules/catalogues/CatalogPage.vue"
 
 import { ecStyle } from '../config/user-config';
 
@@ -140,6 +142,7 @@ const router = new Router({
     {
       path: '/catalogues/:ctlg_id',
       name: 'CatalogueDetails',
+      // component: ecStyle ? ECDatasets : CatalogPage,    // ToDo: SET IT BACK TO Datasets AFTER FINISHING!!!!!!
       component: ecStyle ? ECDatasets : Datasets,
       meta: {
         title,

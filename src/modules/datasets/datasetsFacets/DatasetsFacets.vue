@@ -82,7 +82,7 @@ import CatalogDetailsFacet from "@/modules/datasets/datasetsFacets/CatalogDetail
 import SettingsFacet from "@/modules/datasets/datasetsFacets/SettingsFacet";
 
 export default {
-  name: 'datasetFacets',
+  name: 'datasetsFacets',
   dependencies: ['catalogService'],
   components: {
     SettingsFacet,
