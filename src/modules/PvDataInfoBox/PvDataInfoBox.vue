@@ -46,7 +46,7 @@
           </div>
           <div
             v-if="dataset.formats && dataset.formats.length > 0"
-            class="col-12 mb-3"
+            class="dataset-info-box-badge-container col-12 mb-3"
             :class="{ 'col-md-3': !compact }"
           >
             <PvBadge

@@ -1,5 +1,5 @@
 <template>
-  <div class="text-right" v-if="distributionCanShowMore(distribution)" @click="toggleDistribution(distribution.id)">
+  <div class="distribution-details-show-more" v-if="distributionCanShowMore(distribution)" @click="toggleDistribution(distribution.id)">
     <small class="arrow" v-if="distributionIsExpanded(distribution.id)">
       {{ $t('message.metadata.showLess') }}
       <i class="material-icons align-middle small-icon">keyboard_arrow_up</i>

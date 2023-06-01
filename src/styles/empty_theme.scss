@@ -1,148 +1,12 @@
-/* Theme File for customization of Piveau */
-
-/* 
-Dataset Details 
-
-This page contains six different Vue.js components. (From top to bottom)
-
-- Datasetdetailsnavigation
-- Datasetdetailsheader
-- Datasetdetailsdataset
-- Distributions
-- Datasetdetailsfeatures
-
-*/
-
-/* ############### Datasetdetailsnavigation ############### START ###############*/
-
-/*Main wrapper for the navigation part*/
-.sub-navigation {
-    ul {
-        /*Contains <li> Tags of "Datasetdetailsnavigationpages.vue" & "Datasetdetailsnavigationlinks.vue"*/
-    }
-
-    .dropdown-menu {
-        /*Contains <a> Tags - gets triggered when a certain <li> Element gets clicked*/
-    }
-}
-
-/* ############### Datasetdetailsnavigation ###############  END  ###############*/
-
-/* ############### DatasetdetailsHeader ###############     START ###############*/
-
-/*Main wrapper for header of the dataset*/
-.dsd-header {
-    .dsd-header-title {
-        .dsd-header-catalogue {
-            .dsd-title-tag {
-                /*Description Tag - normally "Dataset" Is this outdated? TODO*/
-            }
-
-            img {
-                /* Displays the flag of the origin of the catalogue */
-            }
-        }
-
-        h1 {
-            /*Headline for the Dataset*/
-        }
-
-        .dsd-title-tag {
-            /*Description Tag - normally "Dataset"*/
-        }
-
-        .dsd-header-info {
-            /*Conatins everything underneath the header (e.g. Catalog/ Publisher/ Last update ) */
-        }
-    }
-
-    .dropdown-menu {
-        /*Contains <a> Tags - gets triggered when a certain <li> Element gets clicked*/
-    }
-}
-
-/* ############### DatasetdetailsHeader ###############      END  ###############*/
-
-/* ############### Datasetdetailsdataset ###############    START ###############*/
-
-/*Main wrapper for the whole dataset*/
-.dsd-dataset {
-    .dsd-banners {
-        /*Contains Text/ Icons - normally used to tell users thet the dataset got machine translated */
-    }
-
-    .dataset-description {
-        /*contains paragraphs that hold the description of the Dataset*/
-    }
-}
-
-/* ############### Datasetdetailsdataset ###############     END  ###############*/
-
-/* ############### Distributions ###############    START         ###############*/
-
-/*Main wrapper for the whole dataset*/
-.dsd-distributions {
-    .dsd-item {
-
-        /* Confusing, maybe change the classname TODO */
-        button {
-            /* "Download All" Button in the header of the DSD-Distributions */
-        }
-
-        h2 {
-            /* Header of distributions */
-        }
-
-    }
-
-    /* Wrapper for the listed Distributions */
-    .distributions {
-        .distributions__item {
-
-
-            /* Wrapper for one distribution item */
-            .distribution-format {
-                /* Icon with info about the format of the distribution */
-            }
-
-            .distribution-details {
-
-                /* Wrapper for the details of one distribution */
-                h3 {
-                    /* Header of Distribution */
-
-                }
-                p {
-                    /* Subtitle of the distribution */
-                    display: none;
-                }
-            }
-            td{
-                span{
-                    
-                }
-                a{
-
-                }
-            }
-        }
-
-
-    }
-
-}
-
-/* ############### Distributions ###############     END           ###############*/
-
 /* ############### Annif Boxes ###############       START         ###############*/
 .annifItems a{
-    background-color:none;
+    background-color: none;
     text-decoration: none;
     color: black;
     &:hover{
-        text-decoration: none; 
+        text-decoration: none;
         box-shadow: none;
-        
+
     }
 }
 .annifItems select{
@@ -159,7 +23,7 @@ This page contains six different Vue.js components. (From top to bottom)
     border-radius: 5px;
     cursor: pointer;
 //  Transition config
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%);
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%);
     transition-duration: 280ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0s;
@@ -169,13 +33,13 @@ This page contains six different Vue.js components. (From top to bottom)
     color: black;
     text-decoration: none;
     &:hover{
-        
-        text-decoration: none; 
-        box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-        
+
+        text-decoration: none;
+        box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+
     }
-    
-} 
+
+}
 
 
 #suggestedAnnifItemsTheme{
@@ -194,7 +58,7 @@ margin: 0 0 1rem 0;
         background-color: rgba(255, 255, 255, 0.363);
         @extend .transitionDefinitionBezier;
             transition-property: background;
-        
+
     }
 }
 .annifPlusIcon{
@@ -211,30 +75,30 @@ margin: 0 0 1rem 0;
         transition-delay: 0s;
         transition-property: transform;
     }
-   
+
 }
 .fadeIn {
     animation: fadeLeft 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-    margin-left: 0.5rem;  
-    
+    margin-left: 0.5rem;
+
 }
-  
+
   @keyframes fadeLeft {
-  
-  
+
+
     30%
      {
         margin-left: 0.25rem;
         opacity: 0.2;
     }
-  
+
     100%
      {
         margin-left: 0.5rem;
         opacity: 1;
     }
-  
-   
+
+
   }
 /* ############### Annif Boxes ###############         END         ###############*/
 /* ############### Prebuilt Animations ###############       START         ###############*/
@@ -252,7 +116,7 @@ margin: 0 0 1rem 0;
 }
 .dpiSpecialPropWrap td{
 
-    
+
 
 }
 .table-responsive{
@@ -266,3 +130,5 @@ tr{
        display: flex;
     }
 }
+
+/* Changing style sheet structure is a breaking change! (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2632) */

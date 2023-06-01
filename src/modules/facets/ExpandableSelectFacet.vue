@@ -8,7 +8,7 @@
         :title-id="myTitleId"
       />
       <a
-        class="d-flex d-md-none list-group-item justify-content-between align-items-baseline"
+        class="facet-title-mobile d-flex d-md-none list-group-item justify-content-between align-items-baseline"
         data-toggle="collapse"
         :data-target="`#${myListId}`"
         @click="isExpanded = !isExpanded"
@@ -41,7 +41,7 @@
         </div>
         <button
           v-if="items.length > minItems"
-          class="d-block btn btn-primary btn-color w-100"
+          class="d-block btn btn-primary btn-color w-100 facet-expand-button"
           @click="handleGrowToggle"
         >
           <i class="material-icons align-bottom expand-more animated">{{ isGrown ? 'expand_less' : 'expand_more' }}</i>

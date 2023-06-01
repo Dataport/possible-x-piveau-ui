@@ -1,7 +1,7 @@
 <template>
   <sub-navigation>
     <div class="container-fluid justify-content-between">
-      <div class="navbar-nav align-items-center justify-content-end">
+      <div class="navbar-datasets-feed navbar-nav align-items-center justify-content-end">
         <div class="nav-item dropdown">
           <div v-if="useFeed" class="nav-link dropdown-toggle cursor-pointer"
                id="dropdown-feeds" data-toggle="dropdown"
