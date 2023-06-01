@@ -1,21 +1,21 @@
 <template>
-  <div class="mt-3">
+  <div class="mt-3 dsd-quality-container">
     <div class="row">
       <div class="col-10 offset-1" v-if="getQualityData.result && getQualityDistributionData.result">
-        <h2>{{ $t('message.header.navigation.data.metadataquality') }}</h2>
-        <div class="markdown-content">
+        <h2 class="dsd-quality-header">{{ $t('message.header.navigation.data.metadataquality') }}</h2>
+        <div class="dsd-quality-description markdown-content">
           <p v-html="$t('message.datasetDetails.intro.metadataQuality', { locale: $route.query.locale })"></p>
         </div>
-        <div class="space card-columns" v-if="getQualityData.result">
-          <div v-for="(value,name) in getQualityData.result.results[0]" :key="`A-${name}`">
+        <div class="dsd-mq-cards space card-columns" v-if="getQualityData.result">
+          <div class="dsd-mq-card" v-for="(value,name) in getQualityData.result.results[0]" :key="`A-${name}`">
             <div :class="`dimension-card card dimension-${name}`" v-if="name != 'info' && name != 'validation'">
               <div class="card-header card-title text-center">
                 <h3>{{ $t(`message.datasetDetails.quality.${name}`) }}</h3>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-for="(value, key) in value" :key="`B-${key}`">
-                  <div class="row key-row">
-                    <div class="col" v-for="(value, key) in value" :key="`C-${key}`">
+              <ul class="dsd-mq-card-list list-group list-group-flush">
+                <li class="dsd-mq-card-list-item list-group-item" v-for="(value, key) in value" :key="`B-${key}`">
+                  <div class="dsd-mq-card-list-item row key-row">
+                    <div class="dsd-mq-card-list-item-left col" v-for="(value, key) in value" :key="`C-${key}`">
                       <div v-if="key == 'dataset'">
                         <div v-for="(value, key) in value" :key="`D-${key}`">
                           <div
@@ -23,7 +23,7 @@
                             class="dataset-space"
                             :key="`E-${key}`"
                           >
-                            <i class="material-icons align-text-bottom small-icon has-tooltip"
+                            <i class="dsd-mq-card-info-icon material-icons align-text-bottom small-icon has-tooltip"
                               data-toggle="tooltip"
                               data-placement="right"
                               data-html="true"
@@ -41,7 +41,7 @@
                             class="dataset-space"
                             :key="`H-${key}`"
                           >
-                            <i class="material-icons align-text-bottom small-icon has-tooltip"
+                            <i class="dsd-mq-card-info-icon material-icons align-text-bottom small-icon has-tooltip"
                               data-toggle="tooltip"
                               data-placement="right"
                               data-html="true"
@@ -53,7 +53,7 @@
                         </div>
                       </div>
                       <span v-else>
-                         <i class="material-icons align-text-bottom small-icon has-tooltip"
+                         <i class="dsd-mq-card-info-icon material-icons align-text-bottom small-icon has-tooltip"
                             data-toggle="tooltip"
                             data-placement="right"
                             data-html="true"
@@ -63,7 +63,7 @@
                         {{ $t(`message.datasetDetails.quality.${key}`) }}
                       </span>
                     </div>
-                    <div v-for="(value, key) in value" :key="`I-${key}`" >
+                    <div class="dsd-mq-card-list-item-right" v-for="(value, key) in value" :key="`I-${key}`" >
                       <div v-if="value.length == 0" class="col-auto text-right">
                         <span class="badge-no">n/a</span>
                       </div>
@@ -166,15 +166,15 @@
             </div>
           </div>
         </div>
-        <h2 class="mt-5">{{ $t('message.datasetDetails.quality.distributionQuality') }}</h2>
-        <div class="markdown-content">
+        <h2 class="dsd-quality-header mt-5">{{ $t('message.datasetDetails.quality.distributionQuality') }}</h2>
+        <div class="dsd-quality-description markdown-content">
           <p v-html="$t('message.datasetDetails.intro.distribution', { locale: $route.query.locale })" />
         </div>
         <div v-if="getQualityDistributionData.result" id="YEAH">
-          <div id="accordion" class="space" v-if="showLess">
+          <div id="accordion" class="dsd-dq-cards space" v-if="showLess">
             <div
               v-for="(value, key) in getQualityDistributionData.result.results"
-              class="card"
+              class="dsd-dq-card card"
               :key="`B-${key}`"
             >
               <div class="card-header distribution" id="headingFirst"
@@ -220,14 +220,14 @@
                 :aria-labelledby="`${value[0].info['distribution-id']}`"
                 data-parent="#accordion"
               >
-                <div class="card-body dist-content">
+                <div class="dsd-dq-card-body card-body dist-content">
                   <div class="row" v-for="(value,key) in value[0]" :key="`N-${key}`">
-                    <div class="col-12 space move" v-if="key != 'info' && key != 'validation'">
+                    <div class="dsd-dq-dimension col-12 space move" v-if="key != 'info' && key != 'validation'">
                       <div
                         class="dimension-headline"
                       >{{ $t(`message.datasetDetails.quality.${key}`) }}</div>
-                      <div class="row">
-                        <div class="col-md-6">
+                      <div class="dsd-dq-dimension-items row">
+                        <div class="dsd-dq-dimenison-items-left col-md-6">
                           <ul class="keys">
                             <li
                               class="list-group-item keys"
@@ -239,8 +239,9 @@
                                 <div class="col" v-for="(value,key) in value" :key="`P-${key}`">
                                   <span
                                     v-if="key == 'accessUrlStatusCode' || key == 'downloadUrlStatusCode'"
+                                    class="dsd-dq-dimension-item-title"
                                   >{{ $t(`message.datasetDetails.quality.distributions.${key}`) }}</span>
-                                  <span v-else>{{ $t(`message.datasetDetails.quality.${key}`) }}</span>
+                                  <span class="dsd-dq-dimension-item-title" v-else>{{ $t(`message.datasetDetails.quality.${key}`) }}</span>
                                 </div>
                                 <div v-for="(value,key) in value" :key="`Q-${key}`">
                                   <div class="col-auto text-right" v-if="value == false">
@@ -275,8 +276,9 @@
                                 <div class="col" v-for="(value,key) in value" :key="`R-${key}`">
                                   <span
                                     v-if="key == 'accessUrlStatusCode' || key == 'downloadUrlStatusCode'"
+                                    class="dsd-dq-dimension-item-title"
                                   >{{ $t(`message.datasetDetails.quality.distributions.${key}`) }}</span>
-                                  <span v-else>{{ $t(`message.datasetDetails.quality.${key}`) }}</span>
+                                  <span class="dsd-dq-dimension-item-title" v-else>{{ $t(`message.datasetDetails.quality.${key}`) }}</span>
                                 </div>
                                 <div v-for="(value,key) in value" :key="`t-${key}`">
                                   <div class="col-auto text-right" v-if="value == false">
@@ -315,10 +317,10 @@
             <button class="btn btn-light mt-3 text-center" @click="showLess = false"> {{ $t(`message.metadata.showMore`) }} <i class="material-icons align-middle small-icon">keyboard_arrow_down</i> </button>
             </div>
           </div>
-          <div id="accordion" class="space" v-else>
+          <div id="accordion" class="dsd-dq-cards space" v-else>
             <div
               v-for="(value, key) in getQualityDistributionData.result.results"
-              class="card"
+              class="dsd-dq-card card"
               :key="`B-${key}`"
             >
               <div
@@ -366,14 +368,14 @@
                 :aria-labelledby="`${value[0].info['distribution-id']}`"
                 data-parent="#accordion"
               >
-                <div class="card-body dist-content">
+                <div class="dsd-dq-card-body card-body dist-content">
                   <div class="row" v-for="(value,key) in value[0]" :key="`N-${key}`">
-                    <div class="col-12 space move" v-if="key != 'info'">
+                    <div class="dsd-dq-dimension col-12 space move" v-if="key != 'info'">
                       <div
                         class="dimension-headline"
                       >{{ $t(`message.datasetDetails.quality.${key}`) }}</div>
-                      <div class="row">
-                        <div class="col-md-6">
+                      <div class="dsd-dq-dimension-items row">
+                        <div class="dsd-dq-dimenison-items-left col-md-6">
                           <ul class="keys">
                             <li
                               class="list-group-item keys"
@@ -385,8 +387,9 @@
                                 <div class="col" v-for="(value,key) in value" :key="`P-${key}`">
                                   <span
                                     v-if="key == 'accessUrlStatusCode' || key == 'downloadUrlStatusCode'"
+                                    class="dsd-dq-dimension-item-title"
                                   >{{ $t(`message.datasetDetails.quality.distributions.${key}`) }}</span>
-                                  <span v-else>{{ $t(`message.datasetDetails.quality.${key}`) }}</span>
+                                  <span class="dsd-dq-dimension-item-title" v-else>{{ $t(`message.datasetDetails.quality.${key}`) }}</span>
                                 </div>
                                 <div v-for="(value,key) in value" :key="`Q-${key}`">
                                   <div class="col-auto text-right" v-if="value == false">
@@ -421,8 +424,9 @@
                                 <div class="col" v-for="(value,key) in value" :key="`R-${key}`">
                                   <span
                                     v-if="key == 'accessUrlStatusCode' || key == 'downloadUrlStatusCode'"
+                                    class="dsd-dq-dimension-item-title"
                                   >{{ $t(`message.datasetDetails.quality.distributions.${key}`) }}</span>
-                                  <span v-else>{{ $t(`message.datasetDetails.quality.${key}`) }}</span>
+                                  <span class="dsd-dq-dimension-item-title" v-else>{{ $t(`message.datasetDetails.quality.${key}`) }}</span>
                                 </div>
                                 <div v-for="(value,key) in value" :key="`t-${key}`">
                                   <div class="col-auto text-right" v-if="value == false">

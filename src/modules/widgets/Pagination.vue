@@ -1,25 +1,23 @@
 <template>
-  <div class="d-flex flex-row justify-content-between flex-wrap">
+  <div class="pagination-container d-flex flex-row justify-content-between flex-wrap">
     <!-- PAGINATION -->
-    <div class="d-flex" v-if="usePagination">
-      <ul class="pagination align-self-center mb-0">
-        <li class="page-item page-item-previous" :class="{ 'disabled': !clickedPageValid(getPage - 1) }" @click="pageClickedHandler(getPage - 1)">
-          <i class="page-link material-icons" v-if="usePaginationArrows">keyboard_arrow_left</i>
-          <button class="page-link prev-button">{{ $t('message.pagination.previousPage') }}</button>
-        </li>
-        <li class="page-item"
-            v-for="(page, i) in getPagesDisplayed(getPage, getPageCount)"
-            :key="i"
-            :class="{ 'active': page === getPage}"
-            @click="pageClickedHandler(page)">
-          <button class="page-link page-button">{{ page.toLocaleString('fi') }}</button>
-        </li>
-        <li class="page-item page-item-next" :class="{ 'disabled': !clickedPageValid(getPage + 1) }" @click="pageClickedHandler(getPage + 1)">
-          <button class="page-link next-button">{{ $t('message.pagination.nextPage') }}</button>
-          <i class="page-link material-icons" v-if="usePaginationArrows">keyboard_arrow_right</i>
-        </li>
-      </ul>
-    </div>
+    <ul v-if="usePagination" class="d-flex pagination align-self-center mb-0">
+      <li class="page-item page-item-previous" :class="{ 'disabled': !clickedPageValid(getPage - 1) }" @click="pageClickedHandler(getPage - 1)">
+        <i class="page-link material-icons" v-if="usePaginationArrows">keyboard_arrow_left</i>
+        <button class="page-link prev-button">{{ $t('message.pagination.previousPage') }}</button>
+      </li>
+      <li class="page-item"
+          v-for="(page, i) in getPagesDisplayed(getPage, getPageCount)"
+          :key="i"
+          :class="{ 'active': page === getPage}"
+          @click="pageClickedHandler(page)">
+        <button class="page-link page-button">{{ page.toLocaleString('fi') }}</button>
+      </li>
+      <li class="page-item page-item-next" :class="{ 'disabled': !clickedPageValid(getPage + 1) }" @click="pageClickedHandler(getPage + 1)">
+        <button class="page-link next-button">{{ $t('message.pagination.nextPage') }}</button>
+        <i class="page-link material-icons" v-if="usePaginationArrows">keyboard_arrow_right</i>
+      </li>
+    </ul>
     <!-- ITEMS PER PAGE -->
       <div v-if="useItemsPerPage" class="d-flex flex-row flex-wrap align-items-center items-per-page">
         <div class="d-inline align-middle mr-2">{{ $t('message.pagination.itemsPerPage') }}</div>

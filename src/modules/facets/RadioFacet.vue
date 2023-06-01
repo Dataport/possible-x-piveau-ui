@@ -1,5 +1,5 @@
 <template>
-  <div class="list-group w-100" role="group" :aria-labelledby="myTitleId">
+  <div class="list-group w-100 radio-facet" role="group" :aria-labelledby="myTitleId">
     <facet-title
       :title="title"
       :tooltip="toolTipTitle"
@@ -60,21 +60,4 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.custom-control {
-  padding-left: 1.5rem;
-  margin-right: 1rem;
-}
-.custom-control-label {
-  &::before {
-    left: -1.5rem !important;
-  }
-  &::after {
-    left: -1.5rem !important;
-  }
-}
-.custom-control-input:checked ~ .custom-control-label::before {
-  border-color: var(--primary);
-  background-color: var(--primary);
-}
 </style>

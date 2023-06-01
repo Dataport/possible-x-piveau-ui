@@ -1,5 +1,5 @@
 <template>
-    <div class="row mt-2 flex-column dsd-feature">
+    <div class="mt-2 flex-column dsd-feature">
       <div >
       <dataset-details-feature-header
       :title="'Keywords '+'(' + getKeywords.length + ')'"
@@ -15,7 +15,7 @@
             class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 px-1"
           >
           <app-link v-if="showKeyword(keyword) && isKeywordsAllDisplayed" :to="getKeywordLink(keyword)" :rel="followKeywordLinks">
-              <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center text-white tag-color"
+              <small class="d-inline-block text-nowrap w-100 py-2 rounded-pill text-center tag-color"
                      :data-toggle="keywordTruncated(keyword) ? 'tooltip' : false"
                      :data-placement="keywordTruncated(keyword) ? 'top' : false"
                      :aria-label="keyword.title"

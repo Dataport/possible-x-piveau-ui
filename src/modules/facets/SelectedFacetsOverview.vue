@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container sfo-container">
     <p v-for="facet in getSelectedFacetsOrdered.filter(facet => showSelectedFacet(facet))" :key="facet.field">
       <span>
         {{ `${findFacetFieldTitle(facet.field)}:` }}

@@ -10,7 +10,7 @@
   >
     <span class="dropdown-item px-3 d-flex align-items-center"
         v-if="showAccessUrls(distribution)">
-      <app-link class="text-dark text-decoration-none d-flex justify-content-between w-100"
+      <app-link class="text-decoration-none d-flex justify-content-between w-100"
                 :to="replaceHttp(distribution.accessUrl[0])"
                 target="_blank"
                 rel="dcat:distribution noopener"
@@ -29,7 +29,7 @@
     <span class="dropdown-item d-block px-3 d-flex align-items-center"
       v-for="(downloadURL, i) in distribution.downloadUrls"
       :key="i">
-        <app-link class="text-dark text-decoration-none d-flex justify-content-between w-100"
+        <app-link class="text-decoration-none d-flex justify-content-between w-100"
                   :to="replaceHttp(downloadURL)"
                   target="_blank"
                   :matomo-track-download="{ format: distribution?.format?.id }"

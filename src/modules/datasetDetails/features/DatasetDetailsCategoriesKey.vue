@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-2 flex-column dsd-feature">
+  <div class="mt-2 flex-column dsd-feature">
     <div>
     <dataset-details-feature-header
     :title="`${$t('message.datasetDetails.subnav.categories')} (${
@@ -33,8 +33,7 @@
 </template>
 
 <script>
-// DatasetDetailsFeatureHeader is imported globally
-// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
 import {truncate} from "@/modules/utils/helpers";
 import {mapGetters} from "vuex";
 import AppLink from "@/modules/widgets/AppLink";
