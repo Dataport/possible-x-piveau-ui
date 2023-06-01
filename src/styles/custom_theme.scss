@@ -2,7 +2,7 @@
 //
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
-
+@import '~bootstrap/scss/functions';
 
 // Color system
 
@@ -46,7 +46,7 @@ $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 $medium-blue: #4A82FA !default;
 $green-fraunhofer: #009374 !default;
-$piveau-color: #6610f2 !default;
+$primary: #f2a310 !default;
 $secondary-blue: #202272 !default;
 $highlight-orange: #f9a01b !default;
 $dark-orange: #DC5149 !default;
@@ -73,7 +73,7 @@ $colors: map-merge((
   "gray":       $gray-600,
   "gray-dark":  $gray-800,
   "green-fraunhofer": $green-fraunhofer,
-  "piveau-color":   $piveau-color,
+  "primary":   $primary,
   "secondary-blue": $secondary-blue,
   "highlight-orange": $highlight-orange,
   "dark-orange": $dark-orange,
@@ -89,14 +89,14 @@ $colors: map-merge((
 // Logo colors with gradient
 $deu-logo-medium-blue-gradient:  $medium-blue, #4F86FA, #558AFA, #5C8EFA, #6292FA;
 $deu-badge-green-gradient:  $badge-green, #00A382, #00AD8A, #00B893, #00C29B;
-$deu-logo-blue-gradient:  $piveau-color, #001F8F, #00219A, #0023A5, #0025AF;
+$deu-logo-blue-gradient:  $primary, #001F8F, #00219A, #0023A5, #0025AF;
 $deu-dark-orange-gradient:  $dark-orange, #E7554D, #F15950, #FC5D54, #FF6259;
 $deu-logo-yellow-gradient:  $yellow, #ffce06, #ffd00c, #ffd212, #ffd418;
 $deu-badge-black-gradient:  $badge-black, #565967, #5f6272, #676b7c, #707587;
 
-$primary:       $piveau-color !default;
-$primary-light: lighten($piveau-color, 20%);
-$primary-dark:  darken($piveau-color, 7.5%);
+$primary:       $primary !default;
+$primary-light: lighten($primary, 20%);
+$primary-dark:  darken($primary, 7.5%);
 $secondary:     $gray-600 !default;
 $highlight:     $highlight-orange;
 $success:       $green !default;
@@ -184,7 +184,7 @@ $body-color:                $gray-900 !default;
 //
 // Style anchor elements.
 
-$link-color:                theme-color("primary") !default;
+$link-color:                $primary !default;
 $link-decoration:           none !default;
 $link-hover-color:          darken($link-color, 15%) !default;
 $link-hover-decoration:     underline !default;
@@ -586,7 +586,7 @@ $dropdown-link-disabled-color:      $gray-600 !default;
 
 $dropdown-item-padding-y:           .25rem !default;
 $dropdown-item-padding-x:           1.5rem !default;
-$dropdown-item-active-bg:            $piveau-color !default;
+$dropdown-item-active-bg:            $primary !default;
 
 $dropdown-header-color:             $gray-600 !default;
 
