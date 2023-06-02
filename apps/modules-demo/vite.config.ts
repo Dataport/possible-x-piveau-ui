@@ -1,18 +1,18 @@
-import { defineConfig, PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue2';
-import copy from 'rollup-plugin-copy';
+import { lstatSync } from 'node:fs';
 import path from 'path';
-import { lstatSync } from 'fs';
+import { defineConfig } from 'vite';
 import config from './config';
 import pkg from './package.json';
 
-const doesDirectoryExist = (path : string) => {
+const isSymlink = (pkg) => {
+  const packagePath = path.resolve('..', '..', 'node_modules', pkg);
   try {
-    return lstatSync(path).isDirectory();
-  } catch (err) {
+    return lstatSync(packagePath).isSymbolicLink();
+  } catch {
     return false;
   }
-};
+}
 
 let buildMode;
 if (process.env.NODE_ENV === 'production') {
@@ -55,6 +55,18 @@ export default defineConfig({
       {
         find: '@',
         replacement: path.resolve(__dirname, 'src')
+      },
+      {
+        find: '@modules-scss',
+        replacement: path.resolve(
+          __dirname,
+          '..',
+          '..',
+          'node_modules',
+          '@piveau/piveau-hub-ui-modules',
+          isSymlink('@piveau/piveau-hub-ui-modules') ? 'lib' : 'dist',
+          'scss'
+        )
       },
       {
         find: /^~(.*)$/,
