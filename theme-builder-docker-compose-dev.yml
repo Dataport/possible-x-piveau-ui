@@ -6,15 +6,18 @@ services:
     # Please note that the folders src and public should contain a "theme"
 
     hub-ui-theme-dev:
-        image: 'registry.gitlab.com/piveau/hub/piveau-hub-ui/theme-builder:latest'
+        # image: 'registry.gitlab.com/piveau/hub/piveau-hub-ui/theme-builder:latest'
+        image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui/theme-builder:latest'
         volumes:
             - './src:/App/src'
             - './public:/App/public'
         restart: "no"
         # command: /bin/sh -c "cd /App && cp -a src original_src && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run serve"
-        command: /bin/sh -c "cd /App && vars=$$(env | grep VUE_ | sed -e 's/^/\$$/') && cp config/runtime-config.js config/runtime-config.tmp && envsubst < config/runtime-config.tmp > config/runtime-config.js && rm config/runtime-config.tmp && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run serve"
+        command: /bin/sh -c "cd /App && vars=$$(env | grep VUE_ | sed -e 's/^/\$$/') && envsubst < config/runtime-config.tmp > config/runtime-config.js && npm --silent ci && npm run serve"
         ports:
             - '17085:8080'
+        environment:
+          - VUE_APP_METADATA_TITLE=My title
         deploy:
           restart_policy:
             condition: on-failure
