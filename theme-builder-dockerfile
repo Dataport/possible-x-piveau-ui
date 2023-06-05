@@ -17,6 +17,9 @@ COPY . /App
 
 # Install envsubst adn creates folder for dis files.
 RUN apk add gettext && \
+    cd /App && \
+    cp config/runtime-config.js config/runtime-config.tmp && \
+    cp config/user-config.sample.js config/user-config.js && \
     mkdir -p /usr/share/nginx/html/
 
 #
