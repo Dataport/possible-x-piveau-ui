@@ -15,7 +15,7 @@ COPY . /App
 #  mv dist/* /usr/share/nginx/html/ && \
 #  rm -r node_modules
 
-# Install envsubst adn creates folder for dis files.
+# Installs envsubst, creates configuration files and folder for distribution files.
 RUN apk add gettext && \
     cd /App && \
     cp config/runtime-config.js config/runtime-config.tmp && \
