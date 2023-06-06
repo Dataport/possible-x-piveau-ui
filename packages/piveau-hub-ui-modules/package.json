@@ -6,15 +6,12 @@
   "types": "./lib/types/global.d.ts",
   "exports": {
     ".": {
-      "development": "./lib/index.ts",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index"
     },
     "./styles": {
-      "development": "./style.css",
       "default": "./dist/piveau-hub-ui-modules.css"
     },
     "./main-styles": {
-      "development": "./lib/scss/main.scss",
       "default": "./dist/scss/main.scss"
     }
   },
@@ -22,12 +19,15 @@
     "dist"
   ],
   "scripts": {
+    "prepare-dev": "node scripts/create_links.js",
     "dev": "watch 'npm run build' ./lib",
     "build": "cross-env BUILD_MODE=lib vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.2.0",
+    "globby": "^13.1.4",
+    "lnk": "^1.1.0",
     "rollup-plugin-copy": "^3.4.0",
     "sass": "^1.62.0",
     "typescript": "^4.9.3",

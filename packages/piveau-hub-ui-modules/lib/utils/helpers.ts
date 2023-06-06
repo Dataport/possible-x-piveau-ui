@@ -19,14 +19,14 @@ import { getName, registerLocale } from 'i18n-iso-countries';
 // Import all images.
 // eager loading of images is needed for now for better compatibility.
 // See https://vitejs.dev/guide/features.html#glob-import
-const imageModules = import.meta.globEager('/lib/assets/img/**/*.png');
-const localeModules = import.meta.globEager('/config/langs/{bg,cs,da,de,el,es,et,fr,hr,hu,it,lt,lv,nl,nb,pl,pt,ro,sk,sl,fi,sv}.json');
-const RELATIVE_PATH_TO_IMAGES = '/lib/assets/img';
+const imageModules = import.meta.globEager('../assets/img/**/*.png');
+const localeModules = import.meta.globEager('../config/langs/{bg,cs,da,de,el,es,et,fr,hr,hu,it,lt,lv,nl,nb,pl,pt,ro,sk,sl,fi,sv}.json');
+const RELATIVE_PATH_TO_IMAGES = '../assets/img';
 
 // ga and mt missing, nb for no
 const languageList = ['bg', 'cs', 'da', 'de', 'el', 'es', 'et', 'fr', 'hr', 'hu', 'it', 'lt', 'lv', 'nl', 'nb', 'pl', 'pt', 'ro', 'sk', 'sl', 'fi', 'sv'];
 languageList.forEach( (lang) => {
-  const locale = localeModules[`/config/langs/${lang}.json`];
+  const locale = localeModules[`../config/langs/${lang}.json`];
   if (locale) {
     registerLocale(locale.default);
   }

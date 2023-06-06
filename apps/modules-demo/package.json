@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "npm run serve",
-    "serve": "vite",
+    "serve": "npm run prepare-dev -w @piveau/piveau-hub-ui-modules && vite",
     "build": "cross-env BUILD_MODE=lib vite build",
     "deploy": "npm run build && npm publish",
     "test:unit": "vue-cli-service test:unit",
@@ -14,7 +14,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs"
+      "import": "./dist/index"
     },
     "./dist/piveau-hub-ui-modules.css": {
       "import": "./dist/piveau-hub-ui-modules.css"
@@ -45,8 +45,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.3.1",
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "@piveau/dcatap-frontend": "^2.5.0",
-    "@piveau/piveau-universal-piwik": "^2.6.0",
     "@piveau/piveau-hub-ui-modules": "^0.0.1",
+    "@piveau/piveau-universal-piwik": "^2.6.0",
     "@rdfjs/dataset": "^2.0.1",
     "@triply/yasgui": "^4.2.25",
     "@triply/yasqe": "^4.2.23",
