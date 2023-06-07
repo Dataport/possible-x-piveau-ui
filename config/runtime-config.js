@@ -1,13 +1,13 @@
 /**
  * Configuration template file to bind specific properties from user-config.js to environment variables.
- * 
+ *
  * This object MUST be structurally identical to the standard user-config.sample.js file.
- * Each value MUST start with the $VUE_APP_ prefix and SHOULD be followed by their path, e.g. 
- * 
+ * Each value MUST start with the $VUE_APP_ prefix and SHOULD be followed by their path, e.g.
+ *
  * api: { baseUrl: '$VUE_APP_API_BASE_URL' }
- * 
+ *
  * Their corresponding environment variable keys MUST equal that value without the $ character, e.g.
- * 
+ *
  * VUE_APP_API_BASE_URL: '/base'
  */
 
@@ -159,7 +159,9 @@ export default {
     dataProviderInterface: {
       useService: "$VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_USE_SERVICE",
       basePath: "$VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_BASE_PATH",
+      annifIntegration: "$VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_ANNIF_INTEGRATION",
       enableFileUploadReplace: "$VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_ENABLE_FILE_UPLOAD_REPLACE",
+      specification: "$VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_SPECIFICATION",
       buttons: {
         Dataset: "$VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_BUTTONS_DATASET",
         Catalogue: "$VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_BUTTONS_CATALOGUE"
@@ -167,7 +169,7 @@ export default {
       doiRegistrationService: {
         persistentIdentifierType: "$VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_DOI_REGISTRATION_SERVICE_PERSISTENT_IDENTIFIER_TYPE",
       },
-    }, 
+    },
   },
   languages: {
     useLanguageSelector: "$VUE_APP_LANGUAGES_USE_LANGUAGE_SELECTOR",
