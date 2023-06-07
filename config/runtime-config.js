@@ -39,7 +39,7 @@ export default {
       "confidential-port": "$VUE_APP_AUTHENTICATION_KEYCLOAK_CONFIDENTIAL_PORT",
     },
     keycloakInit: {
-      pkceMethod: "$VUE_APP_AUTHENTICATION_KEYCLOAK_PKCE_METHOD",
+      pkceMethod: "$VUE_APP_AUTHENTICATION_KEYCLOAK_INIT_PKCE_METHOD",
     },
     rtp: {
       grand_type: "$VUE_APP_AUTHENTICATION_RTP_GRAND_TYPE",
