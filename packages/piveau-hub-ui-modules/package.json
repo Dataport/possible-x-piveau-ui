@@ -1,7 +1,7 @@
 {
   "name": "@piveau/piveau-hub-ui-modules",
   "private": false,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "types": "./lib/types/global.d.ts",
   "exports": {
@@ -14,13 +14,15 @@
   ],
   "scripts": {
     "prepare-dev": "node scripts/create_links.js",
-    "dev": "watch 'npm run build' ./lib",
     "build": "cross-env BUILD_MODE=lib vite build",
-    "preview": "vite preview"
+    "prerelease": "npm run build",
+    "release": "npm publish",
+    "release:patch": "npm version patch && npm run release",
+    "release:minor": "npm version minor && npm run release",
+    "release:major": "npm version major && npm run release"
   },
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.2.0",
-    "globby": "^13.1.4",
     "lnk": "^1.1.0",
     "rollup-plugin-copy": "^3.4.0",
     "sass": "^1.62.0",
