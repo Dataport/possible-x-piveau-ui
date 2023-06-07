@@ -5,15 +5,9 @@
   "type": "module",
   "types": "./lib/types/global.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/index"
-    },
-    "./styles": {
-      "default": "./dist/piveau-hub-ui-modules.css"
-    },
-    "./main-styles": {
-      "default": "./dist/scss/main.scss"
-    }
+    ".": "./dist/index",
+    "./styles": "./dist/piveau-hub-ui-modules.css",
+    "./main-styles": "./dist/scss/main.scss"
   },
   "files": [
     "dist"
