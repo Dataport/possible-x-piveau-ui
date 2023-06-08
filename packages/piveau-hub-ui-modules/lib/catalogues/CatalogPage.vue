@@ -2,58 +2,74 @@
     <div class="catalog-page-container">
         <div class="catalog-box">
             <div>
-                <h1 @click="testLogger(getCatalog)">testLogger {{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
-
+                <button @click="testLogger(getCatalog)">testLogger</button>
                 <div class="row">
-                    <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-end">
+                    <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
                         <div class="catalog-header-info d-flex flex-column">
-                            <!-- TODO: call catalog.titel -->
+                            <!-- TODO: favicon -->
                             <h2 class="catalog-header-titel" aria-label="Catalog name">
-                                *icon* Geoportal Bayern
+                                *i* {{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}
                             </h2>
-                            <!-- TODO: call catalog.homepage -->
                             <h5 class="catalog-header-homepage" aria-label="Homepage">
-                                https://geoportal.bayern.de/geoportalbayern/
+                                <app-link :to="getCatalog.homepage">
+                                    {{ getCatalog.homepage }}
+                                </app-link>
                             </h5>
                         </div>
                         <!-- TODO: call the right logo -->
-                        <img class="catalog-header-logo" src="../../assets/img/geoportal.png" alt="">
+                        <!-- <img class="catalog-header-logo" src="../../assets/img/geoportal.png" alt=""> -->
                     </div>
                     <div class="col-10 mx-auto">
                         <div class="catalog-card card" >
                             <div class="card-header">
                                 <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                                    <li v-for="tab in cardNavTabs" :key="tab.id">
-                                        <a @click.prevent="setActiveTabName(tab.id)" :class="displayContent(tab.id) ? 'nav-link active' : 'nav-link'" :href="`#${tab.id}`" role="tab" :aria-controls="tab.id" :aria-selected="displayContent(tab.id)">{{ tab.displayName }}</a>
+                                    <li v-for="tab in cardNavTabs" :key="tab.id" role="tab" :aria-controls="tab.id" :aria-selected="activeTabName === tab.id">
+                                        <a @click.prevent="setActiveTabName(tab.id)" class="nav-link" :class="{active: tab.id === activeTabName}" :href="`#${tab.id}`" role="tab">
+                                            {{ tab.displayName }}
+                                        </a>
+                                        <!-- <router-link @click="setActiveTabName(tab.id)" 
+                                        class="nav-link" 
+                                        :class="{active: tab.id === activeTabName}" 
+                                        :to="`#${tab.id}`" role="presentation" 
+                                        >
+                                            {{ tab.displayName }}
+                                        </router-link> -->
                                     </li>
                                 </ul>
                             </div>
                             <!-- <h5 class="card-header">Header</h5> -->
                             <!-- <img class="flag-img card-img" src="@/assets/img/flags/eu.png" id="about" alt="Card image cap"> -->
                             <div class="card-body">
-                                <div v-if="displayContent('about')" class="tab-pane active" id="about" role="tabpanel">
-                                    <h5 class="card-title">Über diesen Katalog</h5>
+                                <div v-if="activeTabName === 'about'" class="tab-pane active" id="about" role="tabpanel">
+                                    <h5 class="card-title">
+                                        {{ 
+                                        getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) +
+                                        ": " +
+                                        getTranslationFor(catalog.description, $route.query.locale, catalog.languages)
+                                         }}
+                                    </h5>
                                     <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                     <div class="tab-content mt-3">
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text">where to get rest of the text in Template??</p>
                                     </div>
                                 </div>
-                                    <div v-if="displayContent('dataset-selections')" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
+                                    <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
                                         <h5 class="card-title">Interessante Datensätze</h5>
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                         <div class="tab-content mt-3">
-                                            <p class="card-text">body for Interessante Datensätze.</p>
+                                            <p class="card-text">TBD..</p>
                                         </div>
                                     </div>
-                                    <div v-if="displayContent('dataset-page')" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
+                                    <div v-if="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
                                         <h5 class="card-title">Alle Datensätze</h5>
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                         <div class="tab-content mt-3">
                                             <p class="card-text">body for Interessante Alle Datensätze.</p>
+                                            <Datasets />
                                         </div>
                                         <!-- <Datasets /> -->
                                     </div>
-                                    <div v-if="displayContent('contact')" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                    <div v-if="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                         <h5 class="card-title">Kontakt</h5>
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                         <div class="tab-content mt-3">
@@ -92,6 +108,7 @@
 import $ from 'jquery';
 import Datasets from "../datasets/Datasets.vue"
 import { mapGetters, mapActions } from 'vuex';
+import AppLink from "../widgets/AppLink";
 import {
     debounce,
     has,
@@ -104,8 +121,10 @@ import {
   import { getTranslationFor, truncate, getImg } from '../utils/helpers';
     export default {
         name: "CatalogPage",
+        dependencies: ['catalogService'],
         components: {
             Datasets,
+            AppLink,
         },
         data() {
             return {
@@ -148,7 +167,6 @@ import {
                 'getAllAvailableFacets',
                 'getMinScoring',
             ]),
-
         },
         methods: {
             isNil,
@@ -167,14 +185,29 @@ import {
                 ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.content.catalogs.defaultCatalogCountryID}`
                 : `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.content.catalogs.defaultCatalogID}`;
             },
+            initShowCatalogDetails() {
+                const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
+                if (showCatalogDetails === true) {
+                    this.showCatalogDetails = true;
+                    console.log("ShowCatalogDetails: " + showCatalogDetails)
+                    console.log("ctlg_id: " + this.$route.params.ctlg_id)
+                    this.loadCatalog(this.$route.params.ctlg_id);
+                } else this.showCatalogDetails = false;
+            },
             setActiveTabName(name) {
                 this.activeTabName = name;
+                // this.router.push(name);
             },
-            displayContent(name) {
-                return this.activeTabName === name;
-            },
+            // displayContent(name) {
+            //     return this.activeTabName === name;
+            // },
             testLogger(something) {
                 console.log(something);
+            }
+        },
+        mounted() {
+            if (sessionStorage.activeTabName) {
+            this.activeTabName = sessionStorage.activeTabName;
             }
         },
         watch: {
@@ -192,12 +225,25 @@ import {
             getCatalog(catalog) {
             this.catalog = catalog;
             },
+            activeTabName(activeTab) {
+            sessionStorage.activeTabName = activeTab;
+            },
         },
+        created() {
+            this.useCatalogService(this.catalogService);
+            this.initShowCatalogDetails();
+        }
 
     }
 </script>
 
 <style lang="scss" scoped>
+    .catalog-page-container {
+        // background-image: url("../../assets/img/muster-bg.png");
+        background-repeat: repeat-x;
+        background-position-x: center;
+        // background-size: contain;
+    }
     .flag-img {
         width: 150px;
         height: auto;
@@ -209,7 +255,7 @@ import {
 
     .catalog-header-homepage {
         font-size: 14px;
-        text-align: end;
+        margin-left: 50px
     }
     .catalog-header-logo {
         height: 75px;
@@ -217,5 +263,25 @@ import {
         // margin: 40px 50px;
     }
 
+    .catalog-card.card {
+        border: none;
+        box-shadow: 0 8px 16px rgb(0 0 0 / 25%), 0 2px 4px rgb(0 0 0 / 22%) !important;
+    }
+    .card-header {
+        background-color: transparent;
+    }
+    .nav-link {
+        color: rgba(0, 0, 0, 0.7);
+        border: none;
+        &:hover {
+            color: #175baf;
+            border: none;
+        }
+        &.active{
+            color: #175baf !important;
+            border: none !important;
+            border-bottom: 2px solid #175baf !important;
+        }
+    }
 
 </style>
