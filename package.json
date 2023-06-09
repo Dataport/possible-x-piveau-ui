@@ -1,8 +1,9 @@
 {
-  "name": "piveau-frontend",
-  "version": "1.0.0",
+  "name": "piveau-ui",
+  "private": true,
   "description": "",
   "scripts": {
+    "dev": "npm run dev -w modules-demo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
