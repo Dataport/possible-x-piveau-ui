@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm run dev -w modules-demo",
+    "build": "npm run build --workspace packages/**",
     "release": "esno scripts/release.ts"
   },
   "author": "",
