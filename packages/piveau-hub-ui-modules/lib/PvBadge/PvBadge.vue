@@ -1,7 +1,7 @@
 <template>
 <div class="pv-badge badge">
   <slot>
-    {{ value.label || value.id || }}
+    {{ value.label || value.id }}
   </slot>
 </div>
 </template>
