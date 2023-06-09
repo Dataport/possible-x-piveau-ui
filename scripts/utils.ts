@@ -140,7 +140,7 @@ export async function publishPackage(
   tag?: string,
   provenance?: boolean,
 ): Promise<void> {
-  const publicArgs = ['publish', '--access', 'public']
+  const publicArgs = ['publish']
   if (tag)
     publicArgs.push('--tag', tag)
 
