@@ -94,7 +94,7 @@
 
 <script lang="ts">
 import { Dataset } from "../types/global";
-import Vue, {defineComponent, PropType} from "vue";
+import {defineComponent, PropType} from "vue";
 import type RouteLocationRaw from "vue-router";
 
 import PvBadge from "../PvBadge/PvBadge.vue";
@@ -119,8 +119,8 @@ export default defineComponent({
           title: "",
           description: "",
           catalog: "",
-          createdDate: "12.12.2021",
-          updatedDate: "13.12.2021",
+          createdDate: "12.12.2023",
+          updatedDate: "13.12.2023",
           formats: [],
         } as Dataset),
     },
