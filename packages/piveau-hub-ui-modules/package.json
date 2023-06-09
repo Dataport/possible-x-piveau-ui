@@ -3,7 +3,6 @@
   "private": false,
   "version": "3.0.0",
   "type": "module",
-  "types": "./lib/types/global.d.ts",
   "exports": {
     ".": "./dist/index",
     "./styles": "./dist/piveau-hub-ui-modules.css",
