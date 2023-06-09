@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "npm run dev -w modules-demo",
     "build": "npm run build --workspace packages/**",
-    "release": "esno scripts/release.ts"
+    "release": "esno scripts/release.ts",
+    "ci-publish": "esno scripts/publish-ci.ts"
   },
   "author": "",
   "license": "ISC",
