@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
   dev: {
     env: require('./dev.env'),
     port: 8080,
