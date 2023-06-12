@@ -1,0 +1,3 @@
+[submodule "apps/vanilla-piveau-hub-ui"]
+	path = apps/vanilla-piveau-hub-ui
+	url = https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui.git
