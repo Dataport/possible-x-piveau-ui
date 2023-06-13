@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev": "npm run serve",
-    "serve": "npm run prepare-dev -w @piveau/piveau-hub-ui-modules && vite",
+    "serve": "vite",
     "build": "cross-env BUILD_MODE=lib vite build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
