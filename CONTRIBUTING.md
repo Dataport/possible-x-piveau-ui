@@ -59,3 +59,13 @@ npm run serve -w <myapp>
 Note that for apps containing a config folder with a file `user-config.sample.js`,
 you have to create a copy of that file named `user-config.js` in that same folder
 before running the app.
+
+## Publishing packages
+
+To publish a package, run the command
+
+```sh
+npm run release
+```
+
+This opens a CLI wizard that guides you through the process of publishing a new version.
