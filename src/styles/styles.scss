@@ -5,7 +5,7 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
 // Import Piveau modules
-@import "../../node_modules/@piveau/piveau-hub-ui-modules/dist/scss/main.scss";
+@import "@modules-scss/main.scss";
 
 .distribution-dropdown-download-one-url {
   margin-top: -0.35rem;
@@ -102,3 +102,7 @@
 #navbar-toggle {
   margin-bottom: 0 !important;
 }
+
+// import empty theme after styles are loaded
+@import "empty_theme";
+@import "datasets_catalogs";
