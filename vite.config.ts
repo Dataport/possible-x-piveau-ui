@@ -58,15 +58,9 @@ export default defineConfig({
       },
       {
         find: '@modules-scss',
-        replacement: path.resolve(
-          __dirname,
-          '..',
-          '..',
-          'node_modules',
-          '@piveau/piveau-hub-ui-modules',
-          isSymlink('@piveau/piveau-hub-ui-modules') ? 'lib' : 'dist',
-          'scss'
-        )
+        replacement: isSymlink('@piveau/piveau-hub-ui-modules') ?
+          path.resolve(__dirname, 'node_modules', '..', '..', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
+          : path.resolve(__dirname, 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
       },
       {
         find: /^~(.*)$/,
