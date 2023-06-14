@@ -5,10 +5,11 @@
                 <button @click="testLogger(getCatalog)">testLogger</button>
                 <div class="row">
                     <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
-                        <div class="catalog-header-info d-flex flex-column">
-                            <!-- TODO: favicon -->
+                        <div class="catalog-header-info d-flex flex-column justify-content-center">
                             <h2 class="catalog-header-titel" aria-label="Catalog name">
-                                *i* {{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}
+                                <!-- TODO: favicon -->
+                                <img class="catalog-header-icon" src="../assets/img/favicon_geo.png" alt=""> 
+                                <span>{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</span>
                             </h2>
                             <h5 class="catalog-header-homepage" aria-label="Homepage">
                                 <app-link :to="getCatalog.homepage">
@@ -17,7 +18,8 @@
                             </h5>
                         </div>
                         <!-- TODO: call the right logo -->
-                        <!-- <img class="catalog-header-logo" src="../../assets/img/geoportal.png" alt=""> -->
+                        <img class="catalog-header-logo" src="../assets/img/geoportal_logo.png" alt="">
+                        <!-- <span>*logo*</span> -->
                     </div>
                     <div class="col-10 mx-auto">
                         <div class="catalog-card card" >
@@ -39,19 +41,31 @@
                             </div>
                             <!-- <h5 class="card-header">Header</h5> -->
                             <!-- <img class="flag-img card-img" src="@/assets/img/flags/eu.png" id="about" alt="Card image cap"> -->
-                            <div class="card-body">
-                                <div v-if="activeTabName === 'about'" class="tab-pane active" id="about" role="tabpanel">
-                                    <h5 class="card-title">
-                                        {{ 
-                                        getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) +
-                                        ": " +
-                                        getTranslationFor(catalog.description, $route.query.locale, catalog.languages)
-                                         }}
-                                    </h5>
-                                    <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                    <div class="tab-content mt-3">
-                                        <p class="card-text">where to get rest of the text in Template??</p>
+                            <div class="card-body mx-4 my-5">
+                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-start" id="about" role="tabpanel">
+                                    <div>
+                                        <h5 class="card-title">
+                                            {{ 
+                                            getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) +
+                                            ": " +
+                                            getTranslationFor(catalog.description, $route.query.locale, catalog.languages)
+                                             }}
+                                        </h5>
+                                        <div class="tab-content mt-3 d-flex">
+                                            <p class="card-text">
+                                                where to get rest of the text in Template?? <br><br>
+                                                *muster text* <br><br>
+                                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+                                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
+                                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+                                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, 
+                                                no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                                            </p>
+                                        </div>
                                     </div>
+                                    <!-- TODO call the right -->
+                                    <img class="ml-4" src="../assets/img/hero_pic_geo.png" alt="">
                                 </div>
                                     <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
                                         <h5 class="card-title">Interessante Datensätze</h5>
@@ -61,10 +75,8 @@
                                         </div>
                                     </div>
                                     <div v-if="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
-                                        <h5 class="card-title">Alle Datensätze</h5>
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                         <div class="tab-content mt-3">
-                                            <p class="card-text">body for Interessante Alle Datensätze.</p>
                                             <Datasets />
                                         </div>
                                         <!-- <Datasets /> -->
@@ -239,10 +251,14 @@ import {
 
 <style lang="scss" scoped>
     .catalog-page-container {
-        // background-image: url("../../assets/img/muster-bg.png");
+        // TODO: get the right background
+        background-image: url("../assets/img/bg_geo.png");
         background-repeat: repeat-x;
         background-position-x: center;
         // background-size: contain;
+    }
+    .catalog-box {
+        margin-bottom: 95px;
     }
     .flag-img {
         width: 150px;
@@ -256,6 +272,13 @@ import {
     .catalog-header-homepage {
         font-size: 14px;
         margin-left: 50px
+    }
+    .catalog-header-icon {
+        padding: 5px;
+        border: 1px solid transparent;
+        border-radius: 50px;
+        box-shadow: 0 1px 1px rgb(0 0 0 / 25%), 0 2px 4px rgb(0 0 0 / 22%);
+        background-color: white;
     }
     .catalog-header-logo {
         height: 75px;
