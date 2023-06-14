@@ -153,7 +153,8 @@
                 "label": "Spatial Resolution"
             },
             "role": "Role",
-            "relation": "Relation"
+            "relation": "Relation",
+            "validate": "Validate"
         },
         "dataupload": {
             "info": {
@@ -1675,7 +1676,6 @@
                     "fileConversionFail": "File conversion failed",
                     "selectFileFormat": "select a file format",
                     "downloadAs": "Download as",
-                    "downloadPopup": "If you continue, you are loading content from external services. These external services are not maintained by the European Commission and therefore we have no influence on their availability/stability/security.",
                     "downloadPopup": "If you continue, you are loading content from external services. These external services are not maintained by the European Commission and therefore we have no influence on their availability/stability/security."
                 },
                 "leavePageWindow": {
@@ -1736,7 +1736,7 @@
                 "contributorID": "This property transmits the ID of the provider of the data from the portal's own access and identity management (if available). Its exact use is only defined for delivery to GovData and is described in more detail in the conventions manual.",
                 "geocodingDescription": "This property contains the geographical coverage of a dataset, represented by the name of an administrative area or a subject reference as free text.",
                 "legalBasis": "This field optionally documents as free text the legal basis for access to the information (the access opening), i.e. the original legal basis for access to data of the administration.",
-                "qualityProcessURI": "A URI that points to the process for quality assurance of the dataset. This is ideally the URL of a web page.",         
+                "qualityProcessURI": "A URI that points to the process for quality assurance of the dataset. This is ideally the URL of a web page.",
                 "contributor": "This property refers to bodies or persons who have edited the data (e.g. by formatting it). Its use is described in more detail in the Manual of Conventions.",
                 "originator": "This property refers to the persons who have copyright in the data set. According to copyright law, a work is protected if it is the personal intellectual creation of its author.",
                 "references": "This property can be used to refer to reference datasets such as a High Value Dataset (HVD) or a sample dataset of the sample data catalogue.",
