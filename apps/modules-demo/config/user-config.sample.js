@@ -210,6 +210,11 @@ const glueConfig = {
           { sourceFileFormat: 'PDF', targetFileFormat: [ 'pdf', 'txt',]}
         ]
       },
+      // Distribution validate button
+      validate: {
+        // If true, enable
+        enable: false,
+      },
       similarDatasets: {
         breakpoints: {
           verySimilar: { start: 0, end: 20 },

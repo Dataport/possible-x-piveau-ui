@@ -1,15 +1,14 @@
 <template>
   <div class="d-flex flex-sm-row flex-md-column flex-lg-row justify-content-start
     justify-content-lg-end mt-2 text-md-right col text-left distribution-actions">
-    <distribution-options-dropdown
-      :showTooltipVisualiseButton="showTooltipVisualiseButton"
+     <distribution-preview
       :isUrlInvalid="isUrlInvalid"
       :getVisualisationLink="getVisualisationLink"
       :distribution="distribution"
       :openIfValidUrl="openIfValidUrl"
       :previewLinkCallback="previewLinkCallback"
       class="distribution-action"
-    />
+      />
     <distribution-download
       v-if="showDownloadDropdown(distribution)"
       :getDownloadUrl="getDownloadUrl"
@@ -36,14 +35,13 @@
 
 <script>
 import AppLink from "../../../widgets/AppLink";
-import DistributionOptionsDropdown
-  from "../../../datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
+import DistributionPreview from "../../../datasetDetails/distributions/distributionActions/DistributionPreview";
 import DistributionDownload from "../../../datasetDetails/distributions/distributionActions/DistributionDownload";
 import LinkedDataButtonsDropdown
   from "../../../datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
 export default {
   name: "DistributionActions",
-  components: {AppLink, LinkedDataButtonsDropdown, DistributionDownload, DistributionOptionsDropdown},
+  components: {AppLink, LinkedDataButtonsDropdown, DistributionDownload, DistributionPreview},
   props: {
     distribution: Object,
     distributions: Object,

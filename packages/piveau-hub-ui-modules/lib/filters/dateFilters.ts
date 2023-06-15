@@ -42,7 +42,7 @@ const dateFilters = {
     const splittedDate = date.split('T');
     if (m.isValid()) {
       if (splittedDate.length === 1) return m.format('DD.MM.YYYY');
-      return m.format('DD.MM.YYYY HH:mm');
+      return m.format('DD MMMM YYYY');
     }
     return INVALID_DATE_STRING;
   },
