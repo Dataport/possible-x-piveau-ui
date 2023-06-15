@@ -127,8 +127,8 @@ export default {
   },
   computed: {
     addedDate() {
-      if (has(this.distribution, 'releaseDate') && !isNil(this.distribution.releaseDate)) {
-        return this.filterDateFormatEU(this.distribution.releaseDate);
+      if (has(this.distribution, 'modificationDate') && !isNil(this.distribution.modificationDate)) {
+        return this.filterDateFormatEU(this.distribution.modificationDate);
       }
       return "";
     }

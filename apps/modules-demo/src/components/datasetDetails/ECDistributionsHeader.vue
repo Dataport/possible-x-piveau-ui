@@ -11,7 +11,7 @@
     <div class="d-none d-md-flex distributions-list-top">
       <div id="description"><div><span>Link to the data</span></div></div>
       <div id="format"><div><span>Format</span></div></div>
-      <div id="added" class="d-none d-md-block"><div><span>Distribution added</span></div></div>
+      <div id="added" class="d-none d-md-block"><div><span>{{ $t('message.metadata.updated') }}</span></div></div>
       <div id="actions"><div><span>Actions</span></div></div>
     </div>
   </div>
