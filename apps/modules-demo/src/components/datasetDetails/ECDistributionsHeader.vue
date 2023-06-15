@@ -51,7 +51,7 @@ export default {
 #format {
   flex: 2 0;
   display: flex;
-  justify-content: center;
+  justify-content: start;
 
 }
 
@@ -68,7 +68,9 @@ export default {
 #actions {
   flex: 0 0 200px;
 }
-
+div#format div{
+    padding-left: 0;
+}
 @media (min-width: 992px) { // lg
   #actions {
     flex: 0 0 350px;
