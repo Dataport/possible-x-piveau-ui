@@ -2,7 +2,7 @@
 
 // Import IE Promise polyfill
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-import '@babel/polyfill';
+// import '@babel/polyfill';
 import 'es6-promise/auto';
 import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
@@ -94,7 +94,7 @@ import {
   configureModules,
   SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
-import '@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
+import '@piveau/piveau-hub-ui-modules/styles';
 
 Vue.config.devtools = true;
 
@@ -137,7 +137,7 @@ Vue.component('AppConfirmationDialog', AppConfirmationDialog);
 Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const VueCookie = require('vue-cookie');
+import VueCookie from 'vue-cookie';
 
 Vue.use(VueCookie);
 
@@ -249,11 +249,11 @@ Vue.use(Meta, {
 });
 
 // Bootstrap requirements to use js-features of bs-components
-require('popper.js');
+import 'popper.js';
 
-require('bootstrap');
+import 'bootstrap';
 
-require('./styles/styles.scss');
+import './styles/styles.scss';
 
 
 $(() => {
@@ -261,12 +261,12 @@ $(() => {
   $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
 });
 
-require('@fortawesome/fontawesome-free/css/all.css');
+import '@fortawesome/fontawesome-free/css/all.css';
 
 // OpenStreetMaps popup styles
-require('leaflet/dist/leaflet.css');
+import 'leaflet/dist/leaflet.css';
 
-require('@piveau/dcatap-frontend/dist/dcatap-frontend.css');
+import '@piveau/dcatap-frontend/dist/dcatap-frontend.css';
 
 // Vue-progressbar setup
 const progressBarOptions = {

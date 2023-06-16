@@ -9,7 +9,7 @@ vars=$(env | grep VUE_APP_ | awk -F = '{print "$"$1}')
 vars=$(join_by ',' $vars)
 echo "Found variables $vars"
 
-for file in /usr/share/nginx/html/js/app.*.js;
+for file in /usr/share/nginx/html/assets/index*.js;
 do
   echo "Processing $file ...";
 
