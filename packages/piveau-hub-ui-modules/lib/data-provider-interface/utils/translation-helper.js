@@ -8,6 +8,7 @@ import { has } from 'lodash-es';
  * @param {String} property String defining which property translation should be used
  */
 function translateProperty(propertyDefinition, property) {
+    console.log(propertyDefinition.mandatory);
     if (has(propertyDefinition, 'identifier')) { // hidden fields don't need a label and have no identifier 
         const translatableParameters = ['label', 'info', 'help', 'placeholder', 'add-label'];
         const propertyName = propertyDefinition.identifier;
@@ -29,7 +30,7 @@ function translateProperty(propertyDefinition, property) {
             }
 
             // Highlight mandatory fields
-            if ((propertyDefinition.identifier === 'datasetID' || (has(propertyDefinition, 'validation') && propertyDefinition.validation === 'required')) && parameter === 'label') propertyDefinition[parameter] = `${translation}*`
+            if (propertyDefinition.mandatory) propertyDefinition[parameter] = `${translation}*`
         }
     }
 }
