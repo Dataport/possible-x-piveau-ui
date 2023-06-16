@@ -7,8 +7,9 @@ RUN apk add gettext && \
     cd /App && \
     cp config/runtime-config.js config/runtime-config.tmp && \
     cp config/user-config.sample.js config/user-config.js && \
+    chmod +x theme-run-dev.sh
     mkdir -p /usr/share/nginx/html/
-    
+
 #
 #
 #
