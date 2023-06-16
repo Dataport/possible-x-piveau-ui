@@ -27,17 +27,17 @@ build-asset:
 
 semantic-release:
   image:
-    name: node:18
-    entrypoint: [ '/bin/bash', '-c', 'ln -snf /bin/bash /bin/sh && /bin/bash -c $0' ]
+    name: node:18-buster-slim
+    #entrypoint: [ '/bin/bash', '-c', 'ln -snf /bin/bash /bin/sh && /bin/bash -c $0' ]
   stage: create-tags
   only:
     - master
     - develop
   before_script:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
-    - npm install --only=dev
+    - npm install -g semantic-release @semantic-release/gitlab
   script:
-    - npx semantic-release
+    - semantic-release
 
 ################################################
 # NO MORE MODIFICATIONS BELOW THIS COMMENT !!! #
