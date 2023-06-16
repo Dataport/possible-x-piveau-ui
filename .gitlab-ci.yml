@@ -26,7 +26,9 @@ build-asset:
       - dist
 
 semantic-release:
-  image: node:18
+  image:
+    name: node:18
+    entrypoint: [ '/bin/bash', '-c', 'ln -snf /bin/bash /bin/sh && /bin/bash -c $0' ]
   stage: create-tags
   only:
     - master
