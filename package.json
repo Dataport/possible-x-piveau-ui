@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "dev": "npm run serve",
-    "serve": "vite",
+    "serve": "vite --host",
     "build": "vite build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
