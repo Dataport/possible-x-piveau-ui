@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 import config from './config';
 import pkg from './package.json';
 
-const isSymlink = (pkg) => {
+const isSymlink = (pkg: string) => {
   const packagePath = path.resolve('..', '..', 'node_modules', pkg);
   try {
     return lstatSync(packagePath).isSymbolicLink();
