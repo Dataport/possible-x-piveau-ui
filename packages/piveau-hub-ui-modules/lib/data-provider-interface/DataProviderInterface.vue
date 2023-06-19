@@ -1,52 +1,34 @@
 <template>
   <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi" :key="property">
     <!-- TOP -->
-    <div>
-      <h1 class="small-headline">{{ mode }}</h1>
-      <Navigation @clearStorage="clearStorageAndValues"></Navigation>
+    <div class="stickyStepper">
+      <div class="SSfirstRow">
+        <h1 class="small-headline ml-1 my-0">{{ mode }}</h1>
+        <Navigation @clearStorage="clearStorageAndValues" class="w-100 stickyNav"></Navigation>
+
+      </div>
 
       <!-- if current form is distribution form the main stepper for datasets should be shown also-->
-      <StepProgress
-        id="stepper"
-        v-if="property !== 'distributions'"
-        :line-thickness="1"
-        :steps="stepNames"
-        :current-step="getCurrentStep"
-        active-color="#001d85"
-        :active-thickness="20"
-        :passive-thickness="20">
+      <StepProgress id="stepper" v-if="property !== 'distributions'" :line-thickness="1" :steps="stepNames"
+        :current-step="getCurrentStep" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
       </StepProgress>
 
-      <StepProgress
-        id="subStepper"
-        v-if="property === 'distributions'"
-        :line-thickness="1"
-        :steps="datasetStepNames"
-        :current-step="3"
-        active-color="#001d85"
-        :active-thickness="20"
-        :passive-thickness="20">
+      <StepProgress id="subStepper" v-if="property === 'distributions'" :line-thickness="1" :steps="datasetStepNames"
+        :current-step="3" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
       </StepProgress>
     </div>
     <!-- CONTENT -->
     <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
       <div id="subStepperBox">
-        <StepProgress
-          id="stepper"
-          v-if="showDatasetStepper"
-          :steps="stepNames"
-          :current-step="getCurrentStep"
-          active-color="#343434"
-          :line-thickness="1"
-          :active-thickness="20"
-          :passive-thickness="20">
+        <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
+          active-color="#343434" :line-thickness="1" :active-thickness="20" :passive-thickness="20">
         </StepProgress>
       </div>
     </router-view>
     <!-- BOTTOM -->
-    <div>
+    <!-- <div>
       <Navigation @clearStorage="clearStorageAndValues"></Navigation>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -91,7 +73,7 @@ export default {
     ...mapGetters('dpiStore', [
       'getNavSteps',
     ]),
-    steps(){
+    steps() {
       return this.getNavSteps;
     },
     mode() {
@@ -114,7 +96,7 @@ export default {
     stepNames() {
       return this.getTranslatedStepNamesByProperty(this.property);
     },
-    getCurrentStep(){
+    getCurrentStep() {
       // for some reason overview is not set as page property so must be read from path
       if (this.$route.path.includes('/overview')) {
         return this.steps[this.property].indexOf('overview');
@@ -177,7 +159,7 @@ export default {
       return path;
     },
     jumpToFirstPage() {
-      this.$router.push(this.getClearPath()).catch(() => {});
+      this.$router.push(this.getClearPath()).catch(() => { });
     },
     addStepperLinks() {
       // Direct stepper access - hacky solution
@@ -185,27 +167,27 @@ export default {
 
         if (this.getNavSteps[this.property][i] === 'overview') {
           // only datasets and catalogues have an overview page
-          s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/overview?locale=${this.$i18n.locale}`).catch(() => {});
+          s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/overview?locale=${this.$i18n.locale}`).catch(() => { });
         } else if (this.getNavSteps[this.property][i] === 'distoverview') {
           // only datasets and distributions have a distoverview page
           if (this.property === 'datasets') {
-            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => { });
           } else if (this.property === 'distributions') {
             // distribution overview page should have distribution index for back navigation to distirbutions
-            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/distoverview/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/distoverview/${this.id}?locale=${this.$i18n.locale}`).catch(() => { });
           }
         } else {
           if (this.property === 'distributions') {
             // id of distribution needed within navigation
-            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}/${this.id}?locale=${this.$i18n.locale}`).catch(() => { });
           } else {
-            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}?locale=${this.$i18n.locale}`).catch(() => {});
+            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}?locale=${this.$i18n.locale}`).catch(() => { });
           }
         }
       });
       // stepper links for dataset stepper when distribution form is currently on display
       document.querySelectorAll('#subStepper .step-progress__step-label').forEach((s, i) => {
-        s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => {});
+        s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => { });
       });
     },
   },
@@ -220,12 +202,37 @@ export default {
 </script>
 
 <style lang="scss">
+.stickyStepper {
+
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 8;
+}
+
+.stickyStepper .SSfirstRow {
+  margin: 1vh 0;
+  display: flex;
+  align-items: center;
+}
+
+.stickyStepper .stickyNav {
+  border-left: 1px solid black;
+  margin-left: 1vh;
+  padding-left: 1vh;
+}
+
+#stepper {
+  width: 100% !important;
+}
+
 #input {
   padding: 10px;
 }
 
 .small-headline {
   font-size: 1.5rem;
+  min-width: max-content;
 }
 
 .property {
@@ -253,17 +260,17 @@ export default {
   .input_subpage_nav {
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content: space-between;
     padding: 15px;
   }
 }
 
 .besides {
   .formulate-input-group-repeatable {
-      display:flex;
-      flex-direction: row;
-      background-color: transparent;
-      padding: 0px;
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    padding: 0px;
   }
 }
 
@@ -284,28 +291,126 @@ export default {
 
 // Stepper Customizing -------------
 
-#stepper, #subStepper {
+#stepper,
+#subStepper {
   .step-progress__step {
-    border: solid white 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70%;
+    width: 20%;
+    display: flex;
+    align-items: center;
+
+
+    span {
+      color: grey;
+      font-size: 18px;
+      display: none;
+    }
+
+    div {
+      padding: 1rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      color: white;
+      font-weight: 300;
+
+    }
+    .step-progress__step-label {
+      
+      background: lightgrey;
+      background-size: 400% 400%;
+      background-position: 100% 0%;
+      transition: all 300ms ease-in-out;
+      border-right: 1px white solid
+      
+      
+    }
+    
+
+    .step-progress__step-label:hover {
+       background-position: 65% 0%;
+        color: black;
+    
+    }   
+    
+  }
+  
+  .step-progress__step--active {
+    span {
+      color: black;
+    }
+
+    div {
+      background: white;
+    }
+    .step-progress__step-label {
+     background: linear-gradient(90deg, rgba(0, 235, 0, 0.2) 0%, lightgrey 90%);
+      background-position: 50% 0%;
+      
+    }
+   
   }
 
-  .step-progress__step  span {
-    color: #fff ;
+  .step-progress__step--valid {
+     div {
+      color: white;
+      
+    }
+    .step-progress__step-label {
+      background: rgba(0, 235, 0, 0.2) ;
+      color: lightslategrey;
+      
+      
+    }
+    .step-progress__step-label:hover{
+        color: black;
+    }
   }
-  .step-progress__step--active  .step-progress__step-label {
-    color: rgb(31, 31, 31) ;
+
+  .step-progress__step--active .step-progress__step-label {
+    color: rgb(31, 31, 31);
+  }
+
+  .step-progress__wrapper-after {
+    display: none;
   }
 
   .step-progress__step-icon {
-  font-size: 25px;
+    display: none !important;
+  }
+
+  .step-progress__bar {
+    margin-bottom: 10px;
+    height: 5rem;
+    border-top: 1px solid lightslategray;
+    padding-top: 0.75rem;
+  }
+
+  .step-progress__step-label {
+    position: unset;
+    transform: unset;
+    flex-grow: 1;
+  }
+
+  .step-progress__step {}
+
+  .step-progress__wrapper-before {
+    display: none !important;
+  }
+
+  #stepper .step-progress__step::after {
+    display: none !important;
   }
 }
 
 // Input Form Margins & Borders ----
 
 .formulate-input[data-classification=group] [data-is-repeatable] {
-  border: none ;
-  padding: 1em 1em 1em 0em ;
+  border: none;
+  padding: 1em 1em 1em 0em;
 }
 
 .formulate-input[data-classification=group] [data-is-repeatable] .formulate-input-group-repeatable {
@@ -321,7 +426,7 @@ export default {
 }
 
 .formulate-input[data-classification=button] button[data-ghost] {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .formulate-input-error {
@@ -338,6 +443,7 @@ export default {
         &-element {
           max-width: 100%;
         }
+
         &-error {
           font-weight: bold;
         }
@@ -348,6 +454,7 @@ export default {
   .formulate-input-group-add-more {
     display: flex;
     justify-content: flex-end;
+
     button {
       border: black;
     }
@@ -355,12 +462,13 @@ export default {
 
   .formulate-input {
     &[data-classification="text"] .formulate-input-wrapper {
-    display: flex;
-    flex-direction: column;
+      display: flex;
+      flex-direction: column;
     }
+
     &[data-classification="select"] .formulate-input-wrapper {
-    display: flex;
-    flex-direction: column;
+      display: flex;
+      flex-direction: column;
     }
   }
 
@@ -371,6 +479,7 @@ export default {
         background-color: #001d85;
         border-color: #001d85;
         border-radius: 1.875rem;
+
         &:hover {
           background-color: #196fd2;
           border-color: #196fd2;
@@ -381,7 +490,7 @@ export default {
 }
 
 .formulate-input.besides {
-   border-bottom: 1px solid lightgrey !important;
+  border-bottom: 1px solid lightgrey !important;
 }
 
 .formulate-input-label {
@@ -389,7 +498,7 @@ export default {
 }
 
 .formulate-input-element {
-  
+
   &--textarea {
     width: 100%;
   }
@@ -399,20 +508,18 @@ export default {
   display: block !important;
 }
 
-.formulate-input.besides > .formulate-input-wrapper > .formulate-input-label {
-  font-size: 110% !important;
-  font-weight: 600 !important;
+.formulate-input.besides>.formulate-input-wrapper>.formulate-input-label {
+  
+  
   text-decoration: underline !important;
 }
 
-#stepper, #subStepper {
-  .step-progress__step span{
-    font-size: 30px;
-    font-weight: bold;
-  }
-  .step-progress__step::after{
-    height: 40px;
-    width: 40px;
+#stepper,
+#subStepper {
+
+
+  .step-progress__step::after {
+    display: none;
   }
 
   .step-progress__step-label {

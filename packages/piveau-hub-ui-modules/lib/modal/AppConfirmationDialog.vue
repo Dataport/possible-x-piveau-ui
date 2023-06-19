@@ -1,6 +1,7 @@
 <template>
   <!-- Modals -->
-  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel" aria-hidden="true" data-backdrop="false" data-cy="create-doi-modal">
+  <div v-show="onLoad" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
+    aria-hidden="true" data-backdrop="false" data-cy="create-doi-modal">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -22,17 +23,8 @@
           <!-- <div class="alert alert-danger mr-auto" v-if="modal.error">
             {{ modal.error.message || "An unexpected network error occured." }}
           </div> -->
-          <button
-            class="btn btn-link"
-            @click="$emit('confirm')"
-            :disabled="loading"
-          >
-            <span
-              v-show="loading"
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            />
+          <button class="btn btn-link" @click="$emit('confirm')" :disabled="loading">
+            <span v-show="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
             {{ confirm }}
           </button>
           <button class="btn btn-secondary" data-dismiss="modal" :disabled="loading">Close</button>
@@ -55,5 +47,19 @@ export default {
       default: false,
     },
   },
+  data() {
+    return{
+      onLoad: false
+    }
+   
+  },
+  mounted() {
+    console.log(this.onLoad);
+    setTimeout(() => {
+      this.onLoad = true
+      console.log(this.onLoad);
+
+    }, 500);
+  }
 };
 </script>
