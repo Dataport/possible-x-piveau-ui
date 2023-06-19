@@ -4,9 +4,12 @@
   "version": "3.0.6",
   "type": "module",
   "exports": {
-    ".": "./dist/index",
-    "./styles": "./dist/piveau-hub-ui-modules.css",
-    "./main-styles": "./dist/scss/main.scss"
+    ".": {
+      "import": "./dist/index"
+    },
+    "./styles": {
+      "import": "./dist/piveau-hub-ui-modules.css"
+    }
   },
   "files": [
     "dist"
