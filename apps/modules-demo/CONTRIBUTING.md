@@ -19,7 +19,7 @@ import { MyComponent } from '@piveau/piveau-hub-ui-modules';
 The workflow is as follows:
 
 * Develop your component in `src/modules`
-* Export the component in `src/modules/index.ts`
+* Export the component in `src/modules/index.mjs`
 * Import the component in the test app from `@piveau/piveau-hub-ui-modules`
 * When a new version should be published, do ONE of the following:
   * Merge your feature branch into the develop branch. The CI will create a new version on the registry that can be imported as

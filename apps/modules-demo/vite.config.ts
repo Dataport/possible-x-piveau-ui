@@ -41,9 +41,6 @@ export default defineConfig({
       { template: { compilerOptions: { whitespace: 'preserve' } } }
     ),
   ],
-  server: {
-    port: 8080
-  },
   define: {
     // Shim process.env from webpack
     'process.env': {},
