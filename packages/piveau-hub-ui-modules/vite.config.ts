@@ -162,7 +162,7 @@ export default defineConfig({
     sourcemap: true,
 
     lib: {
-      entry: path.resolve(__dirname, 'lib/index.ts'),
+      entry: path.resolve(__dirname, 'lib/index.mjs'),
       name: 'piveau-hub-ui-modules',
       fileName: 'piveau-hub-ui-modules',
       formats: ['es'],
