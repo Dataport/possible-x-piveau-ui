@@ -1,10 +1,18 @@
 FROM node:18-alpine
 
-#
-# BUILD START
-#
-
 COPY . /App
+
+# Installs envsubst, creates configuration files and folder for distribution files.
+RUN apk add gettext && \
+    cd /App && \
+    cp config/runtime-config.js config/runtime-config.tmp && \
+    cp config/user-config.sample.js config/user-config.js && \
+    chmod +x theme-run-dev.sh && \
+    mkdir -p /usr/share/nginx/html/
+
+#
+#
+#
 
 # Original script, now executed as command "CMD"
 # RUN cd /App && \
@@ -15,16 +23,6 @@ COPY . /App
 #  mv dist/* /usr/share/nginx/html/ && \
 #  rm -r node_modules
 
-# Installs envsubst, creates configuration files and folder for distribution files.
-RUN apk add gettext && \
-    cd /App && \
-    cp config/runtime-config.js config/runtime-config.tmp && \
-    cp config/user-config.sample.js config/user-config.js && \
-    mkdir -p /usr/share/nginx/html/
-
-#
-# BUILD END
-#
 
 # Rebuilds the application on start
 CMD [ "/bin/sh", "-c", "cd /App && cp -a src original_src && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist && rm -r node_modules" ]
