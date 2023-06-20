@@ -61,7 +61,7 @@ export default {
       failedFields: [],
       mandatoryModal: {
         confirm: '',
-        message: 'Mandatory Properties missing',
+        message: 'Mandatory Properties missing - make sure to fill out every field marked with an *',
         callback: $('#modal').modal('hide'),
       },
       info: {},

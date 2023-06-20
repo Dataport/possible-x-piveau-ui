@@ -1,6 +1,6 @@
 <template>
   <!-- Modals -->
-  <div v-show="onLoad" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
+  <div  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
     aria-hidden="true" data-backdrop="false" data-cy="create-doi-modal">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -47,19 +47,5 @@ export default {
       default: false,
     },
   },
-  data() {
-    return{
-      onLoad: false
-    }
-   
-  },
-  mounted() {
-    console.log(this.onLoad);
-    setTimeout(() => {
-      this.onLoad = true
-      console.log(this.onLoad);
-
-    }, 500);
-  }
 };
 </script>
