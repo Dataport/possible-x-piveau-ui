@@ -116,3 +116,9 @@ Git commands in a submodule must be executed inside their folder. If you want to
 support, you may have to open the submodule folder in a new IDE window. You then commit, pull and push
 just like in any other repo. The monorepo's Git versioning is unaware of changes inside the submodules.
 It only knows about the existence of it's submodules, as stored in the `.gitmodules` file.
+
+### References
+
+[Here](https://git-scm.com/book/en/v2/Git-Tools-Submodules) is an excellent, detailed guide how to work
+with Git submodules, and [here](https://manpages.ubuntu.com/manpages/xenial/man1/git-submodule.1.html) is
+a good command reference.
