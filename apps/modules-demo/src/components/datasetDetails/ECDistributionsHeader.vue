@@ -11,7 +11,7 @@
     <div class="d-none d-md-flex distributions-list-top">
       <div id="description"><div><span>Link to the data</span></div></div>
       <div id="format"><div><span>Format</span></div></div>
-      <div id="added" class="d-none d-md-block"><div><span>Distribution added</span></div></div>
+      <div id="added" class="d-none d-md-block"><div><span>{{ $t('message.metadata.updated') }}</span></div></div>
       <div id="actions"><div><span>Actions</span></div></div>
     </div>
   </div>
@@ -51,7 +51,7 @@ export default {
 #format {
   flex: 2 0;
   display: flex;
-  justify-content: center;
+  justify-content: start;
 
 }
 
@@ -68,7 +68,9 @@ export default {
 #actions {
   flex: 0 0 200px;
 }
-
+div#format div{
+    padding-left: 0;
+}
 @media (min-width: 992px) { // lg
   #actions {
     flex: 0 0 350px;

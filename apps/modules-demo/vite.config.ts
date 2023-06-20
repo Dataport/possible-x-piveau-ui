@@ -41,9 +41,6 @@ export default defineConfig({
       { template: { compilerOptions: { whitespace: 'preserve' } } }
     ),
   ],
-  server: {
-    port: 8080
-  },
   define: {
     // Shim process.env from webpack
     'process.env': {},
@@ -80,44 +77,5 @@ export default defineConfig({
     ],
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     preserveSymlinks: false
-  },
-  build: {
-    chunkSizeWarningLimit: 600,
-    cssCodeSplit: false,
-    sourcemap: true,
-
-    lib: {
-      entry: path.resolve(__dirname, 'src/modules/index.ts'),
-      name: 'piveau-hub-ui-modules',
-      fileName: 'piveau-hub-ui-modules',
-      formats: ['es'],
-    },
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
-    rollupOptions: {
-      external: ['vue', ...regexesOfPackages],
-
-      output: {
-        // Provide global variables to use in the UMD build
-        // for externalized deps
-        globals: {
-          vue: 'Vue'
-        },
-
-        entryFileNames: (chunkInfo) => {
-          // if chunkInfo.name starts with node_modules, replace with external
-          if (chunkInfo.name.startsWith('node_modules')) {
-            return chunkInfo.name.replace('node_modules', 'external');
-          }
-          return '[name].mjs';
-        },
-
-        assetFileNames: 'piveau-hub-ui-modules.[ext]',
-
-        preserveModules: true,
-        preserveModulesRoot: 'src/modules',
-      },
-    }
   }
 });

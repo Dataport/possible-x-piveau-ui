@@ -353,10 +353,12 @@ function convertMultilingual(data, state, key) {
         state[key] = [];
 
         for (let el of data) {
-            const currentElement = {};
-            currentElement['@value'] = el.object.value; // actual value
-            currentElement['@language'] = el.object.language; // language of value
-            state[key].push(currentElement);
+            if (!el.object.language.includes("-")) { // machine translation language tags look like this "fi-t-en-t0-mtec" and should not be included
+                const currentElement = {};
+                currentElement['@value'] = el.object.value; // actual value
+                currentElement['@language'] = el.object.language; // language of value
+                state[key].push(currentElement);
+            }
         }
     }
 }

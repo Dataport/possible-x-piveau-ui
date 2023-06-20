@@ -1,23 +1,20 @@
 <template>
-  <div class="distribution-added p-3">
+  <div class="distribution-added pl-2">
     <span>
-      {{ date }}
+     {{ date }}
     </span>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "DistributionAdded",
   props: [
-    "date"
-  ]
+    'date',
+  ],
 }
 </script>
 
 <style lang="scss" scoped>
-
-.distribution-added {
-  display: none;
-}
 </style>

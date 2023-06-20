@@ -259,6 +259,16 @@
         </div>
       </td>
     </tr>
+    <tr>
+        <td v-if="this.$env.content.datasetDetails.validate.enable">
+          <app-link
+            class="ecl-button--secondary row pt-0 pb-0 pl-4 pr-4 mt-2 text-decoration-none"
+            :to="{ path: `${getID}/quality/`, query: Object.assign({}, { locale: $route.query.locale }) }"
+          >
+            {{ $t('message.metadata.validate') }}
+          </app-link>
+        </td>
+    </tr>
   </table>
 </template>
 
@@ -267,6 +277,7 @@ import {
   has,
   isNil
 } from 'lodash';
+import {mapGetters} from "vuex";
 import { truncate, formatDatetime, getTranslationFor } from '../../../utils/helpers';
 import AppLink from "../../../widgets/AppLink.vue";
 import Tooltip from "../../../widgets/Tooltip.vue";
@@ -285,6 +296,11 @@ export default {
     'showObjectArray',
     'appendCurrentLocaleToURL',
   ],
+  computed: {
+    ...mapGetters('datasetDetails', [
+      'getID'
+    ]),
+  },
   methods: {
     has,
     isNil,

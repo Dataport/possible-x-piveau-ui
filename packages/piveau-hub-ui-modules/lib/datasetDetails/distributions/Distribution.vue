@@ -127,8 +127,9 @@ export default {
   },
   computed: {
     addedDate() {
-      if (has(this.distribution, 'releaseDate') && !isNil(this.distribution.releaseDate)) {
-        return this.filterDateFormatEU(this.distribution.releaseDate);
+      //change the "Distribution added" label to "updated" in the Distributions table
+      if (has(this.distribution, 'modificationDate') && !isNil(this.distribution.modificationDate)) {
+        return this.filterDateFormatEU(this.distribution.modificationDate);
       }
       return "";
     }
