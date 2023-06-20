@@ -4,30 +4,11 @@
     <div class="input-group suggestion-input-group mb-3" v-click-outside="hideSuggestions">
       <input v-model="context.model" @blur="context.blurHandler" hidden />
       <div class="annifButtonWrap" v-if="annifTheme && annifEnv">
-        <a class="annifItems annifHandleBtn">
-          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'theme')">Generate suggestions |</a>
-          <select @change="chooseLimitTheme($event)">
-            <option value="" disabled selected>--</option>
-            <option v-for="(limit, i) in themeSuggestionLimit" :key="i" v-bind:value="{ limit: limit }">
-              {{ limit.limit }}
-            </option>
-          </select>
+         <a class="annifItems annifHandleBtn">
+          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'theme')">Generate description based suggestions</a>
         </a>
-        <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Search for
-          Theme</a>
-      </div>
-      <div class="annifButtonWrap" v-if="subject && annifEnv">
-        <a class="annifItems annifHandleBtn">
-          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'sub')">Generate suggestions |</a>
-          <select @change="chooseLimitTheme($event)">
-            <option value="" disabled selected>--</option>
-            <option v-for="(limit, i) in themeSuggestionLimit" :key="i" v-bind:value="{ limit: limit }">
-              {{ limit.limit }}
-            </option>
-          </select>
-        </a>
-        <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Search for
-          Subject</a>
+        <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
+        
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
         <input v-if="!annifTheme || manSearch" type="text" class="form-control"
@@ -36,7 +17,6 @@
         <div class="position-relative h-100" @click="clearAutocomplete">
           <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a>
         </div>
-
       </div>
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
@@ -52,17 +32,18 @@
           v-bind:title="themeValue.name" class="annifItems"
           v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: themeValue.activeValue }"
           @click="handleAnnifClick($event)">
-          <span class="annifPlusIcon">
+          <!-- <span class="annifPlusIcon">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
               viewBox="0 0 16 16" v-bind:class="{ rotate45: themeValue.activeValue }">
               <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
               <path
                 d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
             </svg>
-          </span>
+          </span> -->
           {{ truncateWords(themeValue.name, 8, true) }} ...
         </div>
-
+        <p class="ml-2 mb-0" style="font-size: 12px">This field can be auto generated. If you click the generate button, it will suggest the most fitting properties based on the dataset-description you provided.</p>
+       
       </div>
       <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
@@ -123,13 +104,7 @@ export default {
       valueListOfThemes: [],
       getThSuggestions: false,
       thSwitch: false,
-      annifChoicebtnClicked: false,
-      selectedLimitOfSuggestions: 10,
-      themeSuggestionLimit: [
-        { limit: 10 },
-        { limit: 20 },
-        { limit: 30 }
-      ]
+      annifChoicebtnClicked: false
     };
   },
   computed: {
@@ -159,10 +134,7 @@ export default {
       "requestAutocompleteSuggestions",
       "requestResourceName",
     ]),
-    chooseLimitTheme(e) {
-      this.selectedLimitOfSuggestions = e.target[e.target.selectedIndex].text
-    },
-    truncateWords(word) {
+       truncateWords(word) {
       return truncate(word, 8, true);
     },
     getTranslationFor,
@@ -286,7 +258,7 @@ export default {
       this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets")).step1["dct:description"][0]["@value"])
       this.getThSuggestions = !this.getThSuggestions;
 
-      e.target.classList.add("inactiveHandleBtn");
+      // e.target.classList.add("inactiveHandleBtn");
     },
     async annifHandlerTheme(input) {
       if (this.thSwitch) {
@@ -295,7 +267,7 @@ export default {
       else {
         let query = qs.stringify({
           'text': input,
-          'limit': this.selectedLimitOfSuggestions
+          'limit': 10
         });
         var config
         if (this.voc == "eurovoc") {

@@ -1,38 +1,38 @@
 <template>
   <div>
-    <div id="nav" class="d-flex justify-content-between">
-      <div class="left-form-nav">
+    <div id="nav" class="d-flex ">
+      <div class="left-form-nav w-25">
         <!-- PREVIOUS STEP -->
-        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious" class="prev-btn mr-2"></FormulateInput>
+        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious" class="prev-btn mx-1 my-0"></FormulateInput>
 
         <!-- CLEAR FORM -->
         <FormulateInput type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn"></FormulateInput>
       </div>
-      <div class="right-form-nav">
+      <div class="right-form-nav w-75">
 
         <!-- DELETE DISTRIBUTION -->
-        <FormulateInput type="button"  label="Delete Distribution" @click="handleDeleteDistribution()" v-if="isDistribution" class="mr-2 delDisBtn"></FormulateInput>
+        <FormulateInput type="button"  label="Delete Distribution" @click="handleDeleteDistribution()" v-if="isDistribution" class="mx-1 my-0 delDisBtn"></FormulateInput>
 
         <!-- PUBLISH NEW CATALOGUE -->
         <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || getMandatoryStatus({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
-        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
 
         <!-- PUBLISH DATASET -->
-        <FormulateInput type="button" @click="submit('dataset')" v-if="showDatasetSavingButton" class="mr-2">
+        <FormulateInput type="button" @click="submit('dataset')" v-if="showDatasetSavingButton" class="mx-1 my-0">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
           {{ $t('message.dataupload.publishdataset') }}
         </FormulateInput>
 
         <!-- SAVE AS DRAFT -->
-        <FormulateInput type="button" @click="submit('draft')" v-if="showDatasetSavingButton" class="mr-2">
+        <FormulateInput type="button" @click="submit('draft')" v-if="showDatasetSavingButton" class="mx-1 my-0">
           <span v-if="uploading.draft" class="loading-spinner"></span>
           {{ $t('message.dataupload.saveasdraft') }}
         </FormulateInput>
 
         <!-- NEXT STEP -->
         <!-- label triggers form submit and therefore handles error mesaages if required values are missing -->
-        <label for="submit-form" v-if="showNextLabel" class="submit-label">{{ $t('message.dataupload.next') }}</label>
+        <label for="submit-form" v-if="showNextLabel" class="submit-label mx-1 my-0">{{ $t('message.dataupload.next') }}</label>
         <FormulateInput type="button" :label="$t('message.dataupload.next')" @click="next()" v-if="showNext"></FormulateInput>
       </div>
     </div>
@@ -170,6 +170,7 @@ export default {
       $('#modal').modal({ show: true });
     },
     handleClear() {
+      console.log(this.modals.clear);
       this.modal = this.modals.clear;
       $('#modal').modal({ show: true });
     },
@@ -393,10 +394,8 @@ export default {
     font-weight: 100;
     display: inline-flex;
     align-items: center;
-    margin-bottom: 0px;
-    margin-left: auto;
     height: 50px;
-    margin-top: 10px;
+    
   }
 }
 
@@ -407,6 +406,7 @@ export default {
 
 .right-form-nav {
   display: flex;
+  justify-content: end;
 }
 
 .submit-label {
