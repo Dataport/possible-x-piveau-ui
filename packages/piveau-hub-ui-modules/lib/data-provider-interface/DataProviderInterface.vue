@@ -207,7 +207,7 @@ export default {
   position: sticky;
   top: 0;
   background: #ffffff;
-  z-index: 8;
+  z-index: 7;
 }
 
 .stickyStepper .SSfirstRow {
@@ -301,6 +301,7 @@ export default {
     width: 20%;
     display: flex;
     align-items: center;
+    z-index: 1;
 
 
     span {
@@ -318,27 +319,36 @@ export default {
       font-weight: 300;
 
     }
+
     .step-progress__step-label {
-      
+
       background: lightgrey;
       background-size: 400% 400%;
       background-position: 100% 0%;
       transition: all 300ms ease-in-out;
-      border-right: 1px white solid
-      
-      
+      border-right: 1px white solid;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+
     }
-    
+
 
     .step-progress__step-label:hover {
-       background-position: 65% 0%;
-        color: black;
-    
-    }   
-    
+      background-position: 65% 0%;
+      color: black;
+
+    }
+
   }
-  
+
   .step-progress__step--active {
+
+    z-index: 7 !important;
+
+
     span {
       color: black;
     }
@@ -346,27 +356,33 @@ export default {
     div {
       background: white;
     }
+
     .step-progress__step-label {
-     background: linear-gradient(90deg, rgba(0, 235, 0, 0.2) 0%, lightgrey 90%);
+      background: rgb(236, 236, 236);
       background-position: 50% 0%;
-      
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
+      transform: scale(1.1);
+      z-index: 8;
+      font-size: 16px;
     }
-   
+
   }
 
   .step-progress__step--valid {
-     div {
+    div {
       color: white;
-      
+
     }
+
     .step-progress__step-label {
-      background: rgba(0, 235, 0, 0.2) ;
+      background: rgba(0, 235, 0, 0.2);
       color: lightslategrey;
-      
-      
+
+
     }
-    .step-progress__step-label:hover{
-        color: black;
+
+    .step-progress__step-label:hover {
+      color: black;
     }
   }
 
@@ -383,7 +399,7 @@ export default {
   }
 
   .step-progress__bar {
-    margin-bottom: 10px;
+    margin: 0;
     height: 5rem;
     border-top: 1px solid lightslategray;
     padding-top: 0.75rem;
@@ -509,8 +525,8 @@ export default {
 }
 
 .formulate-input.besides>.formulate-input-wrapper>.formulate-input-label {
-  
-  
+
+
   text-decoration: underline !important;
 }
 
