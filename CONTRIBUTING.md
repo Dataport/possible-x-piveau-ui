@@ -108,7 +108,22 @@ git submodule update --remote
 ```
 
 This command is especially useful when you have a fresh clone of the monorepo and
-want to pull the submodule's sources. 
+want to checkout the submodule's sources. 
+
+An alternative way to incorporate remote changes into your submodule would be 
+to pull the changes and merge them into your current work:
+
+```
+git submodule update --remote --merge
+```
+
+The effect is the same as doing the command without `--merge`, then checking
+out your working branch in the submodule and then merging the main branch
+(usually develop) into it.
+
+### Push your submodule changes to remote
+
+
 
 ### Development
 
