@@ -2,7 +2,8 @@
     <div class="catalog-page-container">
         <div class="catalog-box">
             <div>
-                <button @click="testLogger(getCatalog)">testLogger</button>
+                <button @click="testLogger(getCatalog)">catalog logger</button>
+                <button @click="testLogger(getDatasets)">datasets logger</button>
                 <div class="row">
                     <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
@@ -68,10 +69,28 @@
                                     <img class="ml-4" src="../assets/img/hero_pic_geo.png" alt="">
                                 </div>
                                     <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
-                                        <h5 class="card-title">Interessante Datensätze</h5>
+                                        <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                         <div class="tab-content mt-3">
-                                            <p class="card-text">TBD..</p>
+                                            <p class="card-text">*Work in progress..*</p>
+                                            <pv-data-info-box
+                                            v-for="dataset in getDatasets.slice(0, 3)"
+                                            :key="dataset.id"
+                                            :to="`/datasets/${dataset.id}`"
+                                            :src="getImg(getCatalogImage(dataset.catalog))"
+                                            :dataset="{
+                                                title: getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id,
+                                                description:
+                                                getTranslationFor(dataset.description, $route.query.locale, dataset.languages),
+                                                catalog: getTranslationFor(dataset.catalog.title, $route.query.locale, []),
+                                                createdDate: dataset.releaseDate,
+                                                updatedDate: dataset.modificationDate,
+                                                formats: removeDuplicatesOf(dataset.distributionFormats).filter((format) => format.id || format.label),
+                                            }"
+                                            :description-max-length="1000"
+                                            :data-cy="`dataset@${dataset.id}`"
+                                            class="mt-3"
+                                            />
                                         </div>
                                     </div>
                                     <div v-if="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
@@ -133,7 +152,7 @@ import {
   import { getTranslationFor, truncate, getImg } from '../utils/helpers';
     export default {
         name: "CatalogPage",
-        dependencies: ['catalogService'],
+        dependencies: ['catalogService', 'DatasetService'],
         components: {
             Datasets,
             AppLink,
@@ -192,6 +211,10 @@ import {
             'loadCatalog',
             'useCatalogService',
             ]),
+            ...mapActions('datasets', [
+                'loadDatasets',
+                'useService',
+            ]),
             getCatalogImage(catalog) {
                 return this.$env.content.catalogs.useCatalogCountries
                 ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.content.catalogs.defaultCatalogCountryID}`
@@ -201,10 +224,47 @@ import {
                 const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
                 if (showCatalogDetails === true) {
                     this.showCatalogDetails = true;
-                    console.log("ShowCatalogDetails: " + showCatalogDetails)
-                    console.log("ctlg_id: " + this.$route.params.ctlg_id)
                     this.loadCatalog(this.$route.params.ctlg_id);
                 } else this.showCatalogDetails = false;
+            },
+            initDatasets() {
+                this.$nextTick(() => {
+                this.$nextTick(() => {
+                    this.$Progress.start();
+                    this.loadDatasets({ locale: this.$route.query.locale })
+                    .then(() => {
+                        this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
+                        this.$Progress.finish();
+                        $('[data-toggle="tooltip"]').tooltip({
+                        container: 'body',
+                        });
+                    })
+                    .catch(() => {
+                        this.$Progress.fail();
+                    })
+                    .finally(() => this.$root.$emit('contentLoaded'));
+                });
+                });
+            },
+            getBadgeFormat(label) {
+                return this.truncate(label, 8, true);
+            },
+            removeDuplicatesOf(array) {
+                const correctedFormatArray = array.map(format => (
+                {
+                    ...format,
+                    id: this.getBadgeFormat(format.id),
+                    label: this.getBadgeFormat(format.label),
+                }
+                ));
+                // sorts after # of occurences (highest occurence first)
+                // possibility #1
+                const sortedArray = toPairs(groupBy(correctedFormatArray, 'id')).sort((a, b) => b[1].length - a[1].length);
+                const onlyFormatObjectsArray = sortedArray.map(arr => arr[1][0]);
+                // lodash uniqBy funtion removes duplicate id´s from array of objects
+                const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
+                const uniqByIdAndLabel = uniqBy(uniqById, 'label');
+                return uniqByIdAndLabel;
             },
             setActiveTabName(name) {
                 this.activeTabName = name;
@@ -242,8 +302,10 @@ import {
             },
         },
         created() {
+            this.useService(this.DatasetService);
             this.useCatalogService(this.catalogService);
             this.initShowCatalogDetails();
+            this.initDatasets();
         }
 
     }
@@ -251,7 +313,6 @@ import {
 
 <style lang="scss" scoped>
     .catalog-page-container {
-        // TODO: get the right background
         background-image: url("../assets/img/bg_geo.png");
         background-repeat: repeat-x;
         background-position-x: center;
