@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
                                     <!-- TODO call the right -->
-                                    <img class="ml-4" src="../assets/img/img-not-available.png" alt="">
+                                    <img class="ml-4" :src="getCatalog.catalogueProfile" alt="">
                                 </div>
                                     <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
                                         <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
