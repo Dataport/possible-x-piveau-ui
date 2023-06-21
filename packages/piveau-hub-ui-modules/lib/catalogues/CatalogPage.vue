@@ -43,7 +43,7 @@
                             <!-- <h5 class="card-header">Header</h5> -->
                             <!-- <img class="flag-img card-img" src="@/assets/img/flags/eu.png" id="about" alt="Card image cap"> -->
                             <div class="card-body mx-4 my-5">
-                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-start" id="about" role="tabpanel">
+                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-between" id="about" role="tabpanel">
                                     <div>
                                         <!-- <h5 class="card-title"></h5> -->
                                         <div class="tab-content d-flex">
