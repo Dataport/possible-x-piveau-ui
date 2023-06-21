@@ -1,9 +1,9 @@
 <template>
-    <div class="catalog-page-container">
+    <div class="catalog-page-container" :style="{ backgroundImage: 'url(' + getCatalog.catalogueBackground + ')' }">
         <div class="catalog-box">
             <div>
-                <!-- <button @click="testLogger(getCatalog)">catalog logger</button>
-                <button @click="testLogger(getDatasets)">datasets logger</button> -->
+                <!-- <button @click="testLogger(getCatalog)">catalog logger</button> -->
+                <!-- <button @click="testLogger(getDatasets)">datasets logger</button> -->
                 <div class="row">
                     <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
@@ -47,9 +47,9 @@
                                     <div>
                                         <!-- <h5 class="card-title"></h5> -->
                                         <div class="tab-content d-flex">
-                                            <p class="card-text">
+                                            <div class="card-text">
                                                 {{ getTranslationFor(catalog.description, $route.query.locale, catalog.languages) }}
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- TODO call the right -->
@@ -59,7 +59,7 @@
                                         <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                         <div class="tab-content mt-3">
-                                            <p class="card-text">*Work in progress..*</p>
+                                            <!-- <p class="card-text">*Work in progress..*</p> -->
                                             <pv-data-info-box
                                             v-for="dataset in getDatasets.slice(0, 3)"
                                             :key="dataset.id"
@@ -104,6 +104,9 @@
                                                     </app-link>
                                                 </dd>
                                             </dl>
+                                            <span v-else>
+                                                Keine Kontaktinformationen verfügbar.
+                                            </span>
                                         <!-- <p class="card-text">body for Interessante Kontakt.</p> -->
                                         </div>
                                     </div>
@@ -330,7 +333,7 @@ import {
 
 <style lang="scss" scoped>
     .catalog-page-container {
-        background-image: url("../assets/img/bg_geo.png");
+        // background-image: url("../assets/img/bg_geo.png");
         background-repeat: repeat-x;
         background-position-x: center;
         // background-size: contain;
@@ -357,6 +360,7 @@ import {
         border-radius: 50px;
         box-shadow: 0 1px 1px rgb(0 0 0 / 25%), 0 2px 4px rgb(0 0 0 / 22%);
         background-color: white;
+        height: 35px;
     }
     .catalog-header-logo {
         height: 75px;
