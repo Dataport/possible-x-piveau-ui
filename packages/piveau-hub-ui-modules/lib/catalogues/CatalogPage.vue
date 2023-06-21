@@ -2,14 +2,14 @@
     <div class="catalog-page-container">
         <div class="catalog-box">
             <div>
-                <button @click="testLogger(getCatalog)">catalog logger</button>
-                <button @click="testLogger(getDatasets)">datasets logger</button>
+                <!-- <button @click="testLogger(getCatalog)">catalog logger</button>
+                <button @click="testLogger(getDatasets)">datasets logger</button> -->
                 <div class="row">
                     <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
                             <h2 class="catalog-header-titel" aria-label="Catalog name">
                                 <!-- TODO: favicon -->
-                                <img class="catalog-header-icon" src="../assets/img/favicon_geo.png" alt=""> 
+                                <img class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
                                 <span>{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</span>
                             </h2>
                             <h5 class="catalog-header-homepage" aria-label="Homepage">
@@ -19,7 +19,7 @@
                             </h5>
                         </div>
                         <!-- TODO: call the right logo -->
-                        <img class="catalog-header-logo" src="../assets/img/geoportal_logo.png" alt="">
+                        <img class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="">
                         <!-- <span>*logo*</span> -->
                     </div>
                     <div class="col-10 mx-auto">
@@ -45,28 +45,15 @@
                             <div class="card-body mx-4 my-5">
                                 <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-start" id="about" role="tabpanel">
                                     <div>
-                                        <h5 class="card-title">
-                                            {{ 
-                                            getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) +
-                                            ": " +
-                                            getTranslationFor(catalog.description, $route.query.locale, catalog.languages)
-                                             }}
-                                        </h5>
-                                        <div class="tab-content mt-3 d-flex">
+                                        <!-- <h5 class="card-title"></h5> -->
+                                        <div class="tab-content d-flex">
                                             <p class="card-text">
-                                                where to get rest of the text in Template?? <br><br>
-                                                *muster text* <br><br>
-                                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
-                                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
-                                                Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
-                                                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
-                                                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, 
-                                                no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                                                {{ getTranslationFor(catalog.description, $route.query.locale, catalog.languages) }}
                                             </p>
                                         </div>
                                     </div>
                                     <!-- TODO call the right -->
-                                    <img class="ml-4" src="../assets/img/hero_pic_geo.png" alt="">
+                                    <img class="ml-4" :src="getCatalog.catalogueProfile" alt="">
                                 </div>
                                     <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
                                         <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
@@ -101,10 +88,23 @@
                                         <!-- <Datasets /> -->
                                     </div>
                                     <div v-if="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                        <h5 class="card-title">Kontakt</h5>
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content mt-3">
-                                        <p class="card-text">body for Interessante Kontakt.</p>
+                                        <div class="tab-content">
+                                            <!-- PUBLISHER -->
+                                            <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher)">
+                                                <dt v-if="has(getCatalog, 'publisher.name')  && showString(getCatalog.publisher.name)">{{ getCatalog.publisher.name }}</dt>
+                                                <dd>
+                                                    <app-link v-if="has(getCatalog, 'publisher.homepage') && showString(getCatalog.publisher.homepage)" :to="getCatalog.publisher.homepage">
+                                                    {{ getCatalog.publisher.homepage }}
+                                                    </app-link>
+                                                </dd>
+                                                <dd>
+                                                    <app-link v-if="has(getCatalog, 'publisher.email') && showString(getCatalog.publisher.email)" :to="getCatalog.publisher.email">
+                                                    {{ getCatalog.publisher.email }}
+                                                    </app-link>
+                                                </dd>
+                                            </dl>
+                                        <!-- <p class="card-text">body for Interessante Kontakt.</p> -->
                                         </div>
                                     </div>
                                 </div>
@@ -148,6 +148,8 @@ import {
     toPairs,
     isArray,
     isNil,
+    isObject, 
+    isString
   } from 'lodash-es';
   import { getTranslationFor, truncate, getImg } from '../utils/helpers';
     export default {
@@ -273,6 +275,21 @@ import {
             // displayContent(name) {
             //     return this.activeTabName === name;
             // },
+            showObject(object) {
+                return !isNil(object) && isObject(object) && !Object.values(object).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true);
+            },
+            showArrayOfStrings(stringArray) {
+                return this.showArray(stringArray) && stringArray.every(currentString => this.showString(currentString));
+            },
+            showString(string) {
+                return !isNil(string) && isString(string);
+            },
+            showArray(array) {
+                return !isNil(array) && isArray(array) && array.length > 0;
+            },
+            showObjectArray(objectArray) {
+                return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
+            },
             testLogger(something) {
                 console.log(something);
             }
