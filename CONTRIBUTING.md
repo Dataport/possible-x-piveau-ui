@@ -1,8 +1,12 @@
 # Development workflow
 
-## Node
+## Preparations before using this repository
 
-Please use a minimum node version of 16 and npm version at least 8.
+* Please use a minimum node version of 16 and npm version at least 8.
+* After a fresh clone, run the command `npm run initialize` on the root level. This does the following:
+  * Checkout all the submodules
+  * run an npm install for everything
+  * Create user-config.js files for all the apps that need one
 
 ## General structure
 This repository uses a monorepo structure based on [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
