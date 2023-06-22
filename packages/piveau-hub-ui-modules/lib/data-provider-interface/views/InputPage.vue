@@ -4,10 +4,12 @@
 
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
+       
         <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
           @submit="handleSubmit"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
+          
           <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
         </FormulateForm>
         <FormulateInput type="hidden" class="display-none"></FormulateInput>
@@ -29,6 +31,8 @@
 import { mapActions, mapGetters } from 'vuex';
 import axios from 'axios';
 import $ from 'jquery';
+import Vue from 'vue';
+import VueFormulate from '@braid/vue-formulate';
 import {
   has,
   isNil,
@@ -57,6 +61,7 @@ export default {
   },
   data() {
     return {
+      
       formValues: {},
       failedFields: [],
       mandatoryModal: {
@@ -291,6 +296,7 @@ export default {
       next();
     }
   },
+
 };
 </script>
 <style lang="scss">

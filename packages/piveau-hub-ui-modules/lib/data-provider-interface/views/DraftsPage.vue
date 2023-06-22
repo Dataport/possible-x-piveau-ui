@@ -1,6 +1,6 @@
 <template>
   <!-- TODO Add a Mobile Version of that overview (pref with Icons)-->
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content draftsWrapper">
     <h1 class="small-headline text-center">Draft datasets</h1>
     <div class="d-flex align-items-center justify-content-center">
       <table class="table w-75">
@@ -12,33 +12,33 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="{id, catalog} in getUserDrafts"
-            :key="`draft@${id}`"
-            :data-cy="`draft@${id}`"
-          >
+          <tr v-for="{ id, catalog } in getUserDrafts" :key="`draft@${id}`" :data-cy="`draft@${id}`">
             <td>{{ id }}</td>
             <td>{{ catalog }}</td>
             <td class="buttonWrapper">
               <button type="button" class="btn btn-secondary">
-                <app-link
-                  class="dropdown-toggle text-nowrap text-decoration-none"
-                  fragment="#" role="button" id="linkedDataDropdown"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false">
-                  <span :title="$t('message.metadata.linkedData')"
-                        data-toggle="tooltip"
-                        data-placement="top">
-                        {{ $t('message.metadata.linkedData') }}
+                <app-link class="dropdown-toggle text-nowrap text-decoration-none" fragment="#" role="button"
+                  id="linkedDataDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span :title="$t('message.metadata.linkedData')" data-toggle="tooltip" data-placement="top">
+                    {{ $t('message.metadata.linkedData') }}
                   </span>
                 </app-link>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="linkedDataDropdown">
-                  <app-link :to="createLinkedMetricsURL(id, catalog, 'rdf')" target="_blank" class="dropdown-item"><div class="px-2 py-1">RDF/XML</div></app-link>
-                  <app-link :to="createLinkedMetricsURL(id, catalog, 'ttl')" target="_blank" class="dropdown-item"><div class="px-2 py-1">Turtle</div></app-link>
-                  <app-link :to="createLinkedMetricsURL(id, catalog, 'n3')" target="_blank" class="dropdown-item"><div class="px-2 py-1">Notation3</div></app-link>
-                  <app-link :to="createLinkedMetricsURL(id, catalog, 'nt')" target="_blank" class="dropdown-item"><div class="px-2 py-1">N-Triples</div></app-link>
-                  <app-link :to="createLinkedMetricsURL(id, catalog, 'jsonld')" target="_blank" class="dropdown-item"><div class="px-2 py-1">JSON-LD</div></app-link>
+                  <app-link :to="createLinkedMetricsURL(id, catalog, 'rdf')" target="_blank" class="dropdown-item">
+                    <div class="px-2 py-1">RDF/XML</div>
+                  </app-link>
+                  <app-link :to="createLinkedMetricsURL(id, catalog, 'ttl')" target="_blank" class="dropdown-item">
+                    <div class="px-2 py-1">Turtle</div>
+                  </app-link>
+                  <app-link :to="createLinkedMetricsURL(id, catalog, 'n3')" target="_blank" class="dropdown-item">
+                    <div class="px-2 py-1">Notation3</div>
+                  </app-link>
+                  <app-link :to="createLinkedMetricsURL(id, catalog, 'nt')" target="_blank" class="dropdown-item">
+                    <div class="px-2 py-1">N-Triples</div>
+                  </app-link>
+                  <app-link :to="createLinkedMetricsURL(id, catalog, 'jsonld')" target="_blank" class="dropdown-item">
+                    <div class="px-2 py-1">JSON-LD</div>
+                  </app-link>
                 </div>
               </button>
               <button type="button" class="btn btn-secondary" @click="handleEdit(id, catalog)">Edit</button>
@@ -50,7 +50,8 @@
       </table>
     </div>
 
-    <app-confirmation-dialog id="draftsModal" confirm="Confirm" :loading="modalProps.loading" @confirm="modalProps.confirm">
+    <app-confirmation-dialog id="draftsModal" confirm="Confirm" :loading="modalProps.loading"
+      @confirm="modalProps.confirm">
       {{ modalProps.message }}
     </app-confirmation-dialog>
   </div>
@@ -101,7 +102,7 @@ export default {
     },
     handleEdit(id, catalog) {
       this.setIsDraft(true);
-      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     async handleDelete(id, catalog) {
       await this.doRequest('auth/deleteUserDraftById', { id, catalog });
@@ -118,7 +119,7 @@ export default {
         message: 'Draft successfully published',
         variant: 'success',
       });
-      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: id }, query: { locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: id }, query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     handleConfirmPublish(id, catalog) {
       this.$set(this.modalProps, 'message', 'Are you sure you want to publish this draft?');
@@ -156,6 +157,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media (min-width: 1140px) {
+  .draftsWrapper {
+    min-width: 75vw;
+  }
+}
+
 .nav-link {
   text-decoration: underline;
 }
@@ -174,7 +181,8 @@ export default {
 #linkedDataDropdown {
   color: #FFFFFF;
 }
-.buttonWrapper button{
+
+.buttonWrapper button {
   margin: 0.2rem;
 }
 </style>
