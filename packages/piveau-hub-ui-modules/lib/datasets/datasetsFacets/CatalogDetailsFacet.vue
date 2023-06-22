@@ -265,9 +265,6 @@ export default {
     showObjectArray(objectArray) {
       return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
     },
-    testLogger() {
-      console.log("test", this.catalog)
-    }
   }
 }
 </script>
