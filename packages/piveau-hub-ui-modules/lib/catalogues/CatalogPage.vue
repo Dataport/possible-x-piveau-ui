@@ -9,6 +9,7 @@
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
                             <h2 class="catalog-header-titel" aria-label="Catalog name">
                                 <!-- TODO: favicon -->
+                                <!-- <img class="catalog-header-icon" src="../assets/img/favicon.png" alt="">  -->
                                 <img class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
                                 <span>{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</span>
                             </h2>
@@ -19,6 +20,7 @@
                             </h5>
                         </div>
                         <!-- TODO: call the right logo -->
+                        <!-- <img class="catalog-header-logo" src="../assets/img/logo.png" alt=""> -->
                         <img class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="">
                         <!-- <span>*logo*</span> -->
                     </div>
@@ -41,9 +43,8 @@
                                 </ul>
                             </div>
                             <!-- <h5 class="card-header">Header</h5> -->
-                            <!-- <img class="flag-img card-img" src="@/assets/img/flags/eu.png" id="about" alt="Card image cap"> -->
                             <div class="card-body mx-4 my-5">
-                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-between" id="about" role="tabpanel">
+                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-between justify-content-between" id="about" role="tabpanel">
                                     <div>
                                         <!-- <h5 class="card-title"></h5> -->
                                         <div class="tab-content d-flex">
@@ -53,6 +54,7 @@
                                         </div>
                                     </div>
                                     <!-- TODO call the right -->
+                                    <!-- <img class="ml-4 catalog-hero-pic" src="../assets/img/hero.png" alt=""> -->
                                     <img class="ml-4" :src="getCatalog.catalogueProfile" alt="">
                                 </div>
                                     <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
@@ -333,7 +335,7 @@ import {
 
 <style lang="scss" scoped>
     .catalog-page-container {
-        // background-image: url("../assets/img/bg_geo.png");
+        // background-image: url("../assets/img/bg.png");
         background-repeat: repeat-x;
         background-position-x: center;
         // background-size: contain;
@@ -387,6 +389,10 @@ import {
             border: none !important;
             border-bottom: 2px solid #175baf !important;
         }
+    }
+
+    .catalog-hero-pic {
+        max-width: 300px;
     }
 
 </style>
