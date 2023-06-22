@@ -36,6 +36,11 @@ const getResponseData = (catalog) => {
   cat.spatialResource = dataGetters.getArrayOfObjects(catalog, 'spatial_resource', ['label', 'resource']);
   cat.themeTaxonomy = dataGetters.getArrayOfStrings(catalog, 'theme_taxonomy');
   cat.title = dataGetters.getObjectLanguage(catalog, 'title', 'No title available');
+  cat.catalogueBackground = dataGetters.getArrayOfStrings(catalog, 'catalogueBackground');
+  cat.catalogueLogo = dataGetters.getArrayOfStrings(catalog, 'catalogueLogo');
+  cat.catalogueFavIcon = dataGetters.getArrayOfStrings(catalog, 'catalogueFavIcon');
+  cat.catalogueProfile = dataGetters.getArrayOfStrings(catalog, 'catalogueProfile');
+
   return cat;
 };
 

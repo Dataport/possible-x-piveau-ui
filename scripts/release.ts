@@ -167,6 +167,7 @@ release({
       '-i',
       'CHANGELOG.md',
       '-s',
+      '-r 0',
       '--commit-path',
       '.',
     ]
