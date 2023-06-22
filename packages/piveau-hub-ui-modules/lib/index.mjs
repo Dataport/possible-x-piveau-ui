@@ -43,7 +43,7 @@ import SparqlSearch from "./pages/SparqlSearch.vue";
 import Datasets from "./datasets/Datasets.vue";
 import DatasetDate from "./datasets/DatasetDate.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
-// import CataloguesPage from "./catalogues/CatalogPage.vue";
+import CatalogPage from "./catalogues/CatalogPage.vue";
 
 import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
 
@@ -75,7 +75,7 @@ import UserCataloguesPage from './data-provider-interface/views/UserCataloguesPa
 import DpiMenu from './data-provider-interface/DPI-menu.vue';
 import InfoSlot from './data-provider-interface/components/InfoSlot.vue';
 import AutocompleteInput from './data-provider-interface/components/AutocompleteInput.vue';
-import LangStringInput from './data-provider-interface/components/LangStringInput.vue';
+import CustomURL from './data-provider-interface/components/CustomURL.vue';
 import ConditionalInput from './data-provider-interface/components/ConditionalInput.vue';
 import Groupedinput from './data-provider-interface/components/Groupedinput.vue';
 import UniqueIdentifierInput from './data-provider-interface/components/UniqueIdentifierInput.vue';
@@ -145,7 +145,7 @@ export {
   DatasetDate,
   DatasetsFilters,
   Catalogues,
-  // CataloguesPage,
+  CatalogPage,
 
   PvDataInfoBox,
 
@@ -176,7 +176,7 @@ export {
   DpiMenu,
   InfoSlot,
   AutocompleteInput,
-  LangStringInput,
+  CustomURL,
   ConditionalInput,
   Groupedinput,
   UniqueIdentifierInput,
