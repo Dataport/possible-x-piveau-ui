@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi" :key="property">
     <!-- TOP -->
-    <div class="stickyStepper">
+    <div id="stepperAnchor" class="stickyStepper">
       <div class="SSfirstRow">
         <h1 class="small-headline ml-1 my-0">{{ mode }}</h1>
         <Navigation @clearStorage="clearStorageAndValues" class="w-100 stickyNav"></Navigation>
@@ -190,20 +190,34 @@ export default {
         s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => { });
       });
     },
+    handleScroll(){    
+      if (document.getElementById("stepperAnchor").offsetTop >= 35){
+        document.getElementById("stepperAnchor").classList.add("border-bottom-lightgray");
+      }
+      else{
+        document.getElementById("stepperAnchor").classList.remove("border-bottom-lightgray");
+      }
+    }
   },
   created() {
+    window.addEventListener('scroll', this.handleScroll);
     this.populateDraftAndEdit();
   },
   mounted() {
     this.addStepperLinks();
     this.saveLocalstorageValues(this.property);
   },
+  unmounted () {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
 };
 </script>
 
 <style lang="scss">
+.border-bottom-lightgray{
+  border-bottom: 1px solid lightgray;
+}
 .stickyStepper {
-
   position: sticky;
   top: 0;
   background: #ffffff;
@@ -402,7 +416,7 @@ export default {
     margin: 0;
     height: 5rem;
     border-top: 1px solid lightslategray;
-    padding-top: 0.75rem;
+   
   }
 
   .step-progress__step-label {

@@ -79,6 +79,8 @@ export default {
 
 .catWrap .annifItems {
   background: #ECECEC;
+  flex-grow: 1;
+  text-align: center;
 }
 .subline{
   font-size: 12px;
