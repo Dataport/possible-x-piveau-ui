@@ -17,6 +17,7 @@ In particular: commit messages for bug fixes should start with `fix:` and for fe
   * Create user-config.js files for all the apps that need one
 
 ## General repository structure
+
 This repository uses a monorepo structure based on [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 The root package.json contains a field "workspaces" designating the locations
 of the individual workspaces (apps and packages).
