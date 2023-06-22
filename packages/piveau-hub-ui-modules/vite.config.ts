@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue2';
 import copy from 'rollup-plugin-copy';
 import path from 'path';
 import { lstatSync } from 'fs';
+import Components from 'unplugin-vue-components/vite'
 
 const peerDependencies = {
   "@braid/vue-formulate": "^2.5.3",
@@ -98,9 +99,10 @@ const externalPackages = [
 // packages are also treated as external
 const regexesOfPackages = externalPackages
     .map(packageName => new RegExp(`^${packageName}(/.*)?`));
-
+    
 export default defineConfig({
   plugins: [
+    Components({ /* options */ }),
     vue(
         { template: { compilerOptions: { whitespace: 'preserve' } } }
     ),
