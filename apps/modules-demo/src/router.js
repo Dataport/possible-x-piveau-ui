@@ -12,7 +12,7 @@ import {
   MapBasic,
   MapBoundsReceiver,
   Catalogues,
-  CatalogPage,
+  // CatalogPage,
   NotFound,
   SparqlSearch,
   Imprint,
@@ -142,7 +142,7 @@ const router = new Router({
     {
       path: '/catalogues/:ctlg_id',
       name: 'CatalogueDetails',
-      // component: ecStyle ? ECDatasets : CatalogPage,    // ToDo: SET IT BACK TO Datasets AFTER FINISHING!!!!!!
+      // component: ecStyle ? ECDatasets : CataloguesPage,    // ToDo: SET IT BACK TO Datasets AFTER FINISHING!!!!!!
       component: ecStyle ? ECDatasets : Datasets,
       meta: {
         title,
