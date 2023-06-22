@@ -42,11 +42,11 @@ To install all dependencies for the workspaces all at once, run:
 npm install
 ```
 
- Note:
+Note:
 
 * This is already taken care of, if you run `npm run initialize` after cloning the repo.
 * Whenever dependencies change, you can re-run this command.
-* Dependencies are generally installed in the `node_modules` folder at the 
+* Dependencies are generally installed in the `node_modules` folder at the
   root level and in this way shared accross multiple workspaces. In some
   cases, dependencies are placed in a workspace's `node_modules` folder.
 * When a package or app depends on another package that package will be symlinked
@@ -135,9 +135,9 @@ it is a change on the monorepo level that should be comitted and pushed!).
 ### Development in a submodule
 
 By default, a submodule will be initialized with a detached head. You have to checkout a branch or create a
-new feature branch to work with it. Git commands inside a submodule must be executed inside their folder. 
-If you want to use your IDE's Git support, you may have to open the submodule folder in a new IDE window. 
-You then commit and push just like in any other repo. 
+new feature branch to work with it. Git commands inside a submodule must be executed inside their folder.
+If you want to use your IDE's Git support, you may have to open the submodule folder in a new IDE window.
+You then commit and push just like in any other repo.
 The monorepo's Git versioning is essentially unaware of changes inside the submodules.
 It only knows about the existence of it's submodules, as stored in the `.gitmodules` file.
 
@@ -146,15 +146,15 @@ It only knows about the existence of it's submodules, as stored in the `.gitmodu
 This is not essential for development, but may help for a clearer understanding:
 
 * The monorepo stores information about its submodules in a file called `.gitmodules` which is the basis for
-various submodule commands on the root level
+  various submodule commands on the root level
 * A submodule has a `.git` file (not a folder). The actual Git data is stored in the root-level's `.git/modules`
-folder, to which this file points.
+  folder, to which this file points.
 * The monorepo stores a specific commit hash for each submodule. That commit will be pulled when you
-execute `git submodule update` (without --remote!). When you execute `git submodule update --remote`, the
-most recent changes (of the main branch) will be pulled and the commit hash will be updated.
+  execute `git submodule update` (without --remote!). When you execute `git submodule update --remote`, the
+  most recent changes (of the main branch) will be pulled and the commit hash will be updated.
 * Alternatively to using `git submodule update --remote`, you can also pull changes on the submodule level. This
-should also update the commit hash of the submodule
-(see [this post](https://stackoverflow.com/questions/19619747/git-submodule-update-remote-vs-git-pull)).
+  should also update the commit hash of the submodule
+  (see [this post](https://stackoverflow.com/questions/19619747/git-submodule-update-remote-vs-git-pull)).
 
 ### References
 
