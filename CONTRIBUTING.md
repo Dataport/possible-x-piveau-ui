@@ -3,6 +3,11 @@
 Please note that all commands listed in this guide should be run on the repository root level,
 unless stated otherwise.
 
+Also, in order to ensure our automated changelog generation works properly, you should
+use the Angular commit message convention as described [here](https://www.npmjs.com/package/semantic-release).
+In particular: commit messages for bug fixes should start with `fix:` and for features they should start with
+`feat:`.
+
 ## Preparations before using this repository
 
 * Please use a minimum node version of 16 and npm version at least 8.
