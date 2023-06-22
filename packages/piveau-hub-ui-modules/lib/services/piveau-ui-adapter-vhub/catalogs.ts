@@ -40,6 +40,7 @@ const getResponseData = (catalog) => {
   cat.catalogueLogo = dataGetters.getArrayOfStrings(catalog, 'catalogueLogo');
   cat.catalogueFavIcon = dataGetters.getArrayOfStrings(catalog, 'catalogueFavIcon');
   cat.catalogueProfile = dataGetters.getArrayOfStrings(catalog, 'catalogueProfile');
+
   return cat;
 };
 

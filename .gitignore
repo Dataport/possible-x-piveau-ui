@@ -30,6 +30,4 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-# Workspaces
 
-# apps/vanilla-piveau-hub-ui
