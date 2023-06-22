@@ -1,10 +1,22 @@
-# Development workflow
+# Development guide
 
-## Node
+Please note that all commands listed in this guide should be run on the repository root level,
+unless stated otherwise.
 
-Please use a minimum node version of 16 and npm version at least 8.
+Also, in order to ensure our automated changelog generation works properly, you should
+use the Angular commit message convention as described [here](https://www.npmjs.com/package/semantic-release).
+In particular: commit messages for bug fixes should start with `fix:` and for features they should start with
+`feat:`.
 
-## General structure
+## Preparations before using this repository
+
+* Please use a minimum node version of 16 and npm version at least 8.
+* After a fresh clone, run the command `npm run initialize` on the root level. This will do the following:
+  * Checkout all the submodules
+  * run an npm install for everything
+  * Create user-config.js files for all the apps that need one
+
+## General repository structure
 This repository uses a monorepo structure based on [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces).
 The root package.json contains a field "workspaces" designating the locations
 of the individual workspaces (apps and packages).
@@ -22,18 +34,17 @@ npm <command> -w <workspace-name>
 
 The workspace name is always the name given in the `package.json` of the workspace.
 
+## Dependency management
 
-## Basic work flow
-
-All commands described here should be run at the root level. After 
-cloning the repository, run the command
+To install all dependencies for the workspaces all at once, run:
 
 ```
 npm install
 ```
 
-This installs all dependencies for the workspaces all at once. Note:
+ Note:
 
+* This is already taken care of, if you run `npm run initialize` after cloning the repo.
 * Whenever dependencies change, you can re-run this command.
 * Dependencies are generally installed in the `node_modules` folder at the 
   root level and in this way shared accross multiple workspaces. In some
@@ -58,7 +69,7 @@ npm run serve -w <myapp>
 
 Note that for apps containing a config folder with a file `user-config.sample.js`,
 you have to create a copy of that file named `user-config.js` in that same folder
-before running the app.
+before running the app (already taken care of by running `npm run initialize` after cloning the repository).
 
 ## Publishing packages
 
