@@ -43,7 +43,7 @@ import SparqlSearch from "./pages/SparqlSearch.vue";
 import Datasets from "./datasets/Datasets.vue";
 import DatasetDate from "./datasets/DatasetDate.vue";
 import Catalogues from "./catalogues/Catalogues.vue";
-import CatalogPage from "./catalogues/CatalogPage.vue";
+// import CataloguesPage from "./catalogues/CatalogPage.vue";
 
 import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox.vue";
 
@@ -145,7 +145,7 @@ export {
   DatasetDate,
   DatasetsFilters,
   Catalogues,
-  CatalogPage,
+  // CataloguesPage,
 
   PvDataInfoBox,
 
