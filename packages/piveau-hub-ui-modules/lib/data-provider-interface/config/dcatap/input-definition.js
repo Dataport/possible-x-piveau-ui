@@ -374,9 +374,11 @@ const dcatapProperties = {
         },
         {
           identifier: 'conformsToUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
+          // validationRules:'{myUrl: ({ value }) => ["foo", "bar"].includes(value)}',
+          // validationMessages: '{ required: "Please pick your favorite food", in: "Oh, that food isn’t very good..."}',
           '@change': true,
         },
       ],
