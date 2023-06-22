@@ -136,7 +136,7 @@ You then commit and push just like in any other repo.
 The monorepo's Git versioning is essentially unaware of changes inside the submodules.
 It only knows about the existence of it's submodules, as stored in the `.gitmodules` file.
 
-### The relationship between the monorepo and one of its submodules
+### Understanding the relationship between the monorepo and its submodules
 
 This is not essential for development, but may help for a clearer understanding:
 
