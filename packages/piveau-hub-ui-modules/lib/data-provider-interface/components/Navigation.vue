@@ -355,7 +355,7 @@ export default {
     background-color: #ffffff;
     border-color: #949494;
     color: rgb(79, 79, 79);
-    border-bottom:1px solid lightgray
+    
   }
   .dist-btn button {
     background-color: #ffffff;

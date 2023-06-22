@@ -767,7 +767,7 @@ const dcatapProperties = {
       identifier: 'temporalResolution',
       type: 'group',
       name: 'dcat:temporalResolution',
-      class: 'property',
+      class: 'property tempResWrapper',
       '@change': true,
       children: [
         {
