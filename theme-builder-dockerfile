@@ -10,11 +10,11 @@ RUN apk add gettext && \
     chmod +x theme-run-dev.sh && \
     mkdir -p /usr/share/nginx/html/
 
+
 #
-#
+# Original script, now executed as command "CMD"
 #
 
-# Original script, now executed as command "CMD"
 # RUN cd /App && \
 #  cp -a src original_src && \
 #  npm ci && \
@@ -23,6 +23,13 @@ RUN apk add gettext && \
 #  mv dist/* /usr/share/nginx/html/ && \
 #  rm -r node_modules
 
+#
+# Install node modules to speed up development
+#
+RUN cd /App && \
+ npm --silent ci && \
+ cp config/user-config.sample.js config/user-config.js
+
 
 # Rebuilds the application on start
-CMD [ "/bin/sh", "-c", "cd /App && cp -a src original_src && npm --silent ci && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist && rm -r node_modules" ]
+CMD [ "/bin/sh", "-c", "cd /App && cp -a src original_src && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist && rm -r node_modules" ]
