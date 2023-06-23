@@ -8,6 +8,7 @@ import {
   getPackageInfo,
   getVersionChoices,
   isDryRun,
+  packagesFolder,
   run,
   runIfNotDry,
   step,
@@ -16,6 +17,7 @@ import {
 import type { release as def } from './types'
 
 import { logRecentCommits, updateTemplateVersions } from './releaseUtils'
+import fs from "fs";
 
 export const release: typeof def = async ({
   repo,
@@ -149,9 +151,9 @@ https://gitlab.fokus.fraunhofer.de/piveau/ui/${repo}/-/pipelines`,
   console.log()
 }
 
-release({
+const callRelease = (packages) => release({
   repo: 'piveau-ui',
-  packages: ['piveau-hub-ui-modules'],
+  packages,
   toTag: (pkg, version) =>
     pkg === 'piveau-hub-ui-modules' ? `v${version}` : `${pkg}@${version}`,
   logChangelog: pkg => logRecentCommits(pkg),
@@ -175,3 +177,15 @@ release({
     await run('npx', changelogArgs, { cwd: `packages/${pkgName}` })
   },
 })
+
+fs.readdir('packages',  (error, files) => {
+  if (error) {
+    console.error(error);
+  } else {
+    const packages = files.filter(file => { // Filter out directories
+      return fs.statSync(`${packagesFolder}/${file}`).isDirectory();
+    });
+    callRelease(packages);
+  }
+});
+
