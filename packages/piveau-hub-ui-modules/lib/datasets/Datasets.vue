@@ -28,14 +28,22 @@
           <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></datasets-facets>
           <section class="col-md-9 col-12">
             <datasets-filters />
-            <div class="datasets-found alert alert-primary mt-3 d-flex flex-row" role="status"
-                :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
-              <div>
-                {{ getLoading ? $t('message.datasets.loadingMessage'):`${getDatasetsCount.toLocaleString('fi')}
-                ${$t('message.datasets.countMessage')}`}}
+            <slot name="datasets-found" :data="{
+              loading: getLoading,
+              datasetsCount: getDatasetsCount,
+              datasetsCountFormatted: getDatasetsCount.toLocaleString('fi'),
+              loadingMessage: $t('message.datasets.loadingMessage'),
+              countMessage: $t('message.datasets.countMessage'),
+            }">
+              <div class="datasets-found alert alert-primary mt-3 d-flex flex-row" role="status"
+                  :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
+                <div>
+                  {{ getLoading ? $t('message.datasets.loadingMessage'):`${getDatasetsCount.toLocaleString('fi')}
+                  ${$t('message.datasets.countMessage')}`}}
+                </div>
+                <div class="loading-spinner ml-3" v-if="getLoading"></div>
               </div>
-              <div class="loading-spinner ml-3" v-if="getLoading"></div>
-            </div>
+            </slot>
             <div class="alert alert-warning mt-3 d-flex flex-row" v-if="showScoreDisclaimer">
               <i18n path="message.datasets.scoreDisclaimer" tag="span">
                 <app-link path="/mqa" :query="{ locale: $route.query.locale }" target="_blank">
