@@ -11,12 +11,14 @@
         <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
         <h1 class="row col-12 page-title text-primary" v-else>{{ $t('message.header.navigation.data.datasets') }}</h1>
       </slot>
-      <slot name="content" :data="{
-        datasets: getDatasets,
-        datasetsCount: getDatasetsCount,
-        loading: getLoading,
-        useDatasetFacets,
-      }">
+      <slot
+        name="content"
+        :datasets-count="getDatasetsCount"
+        :datasets="getDatasets"
+        :locale="$route.query.locale"
+        :loading="getLoading"
+        :use-dataset-facets="useDatasetFacets"
+      >
         <div class="row">
           <div class="col d-flex d-md-none justify-content-end flex-wrap">
             <button class="btn btn-primary mb-3 text-right text-white" data-toggle="collapse" data-target="#datasetFacets" data-cy="btn-filter-toggle" @click="filterCollapsed = !filterCollapsed">
