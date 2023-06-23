@@ -74,29 +74,30 @@ export function getVersionChoices(currentVersion: string): VersionChoice[] {
 
   let versionChoices: VersionChoice[] = [
     {
-      title: 'next',
+      // title: 'next',
+      title: 'patch',
       value: inc(isStable ? 'patch' : 'prerelease'),
     },
   ]
 
   if (isStable) {
     versionChoices.push(
-      {
-        title: 'beta-minor',
-        value: inc('preminor'),
-      },
-      {
-        title: 'beta-major',
-        value: inc('premajor'),
-      },
-      {
-        title: 'alpha-minor',
-        value: inc('preminor', 'alpha'),
-      },
-      {
-        title: 'alpha-major',
-        value: inc('premajor', 'alpha'),
-      },
+      // {
+      //   title: 'beta-minor',
+      //   value: inc('preminor'),
+      // },
+      // {
+      //   title: 'beta-major',
+      //   value: inc('premajor'),
+      // },
+      // {
+      //   title: 'alpha-minor',
+      //   value: inc('preminor', 'alpha'),
+      // },
+      // {
+      //   title: 'alpha-major',
+      //   value: inc('premajor', 'alpha'),
+      // },
       {
         title: 'minor',
         value: inc('minor'),
