@@ -44,6 +44,9 @@ export default {
       "use-resource-role-mappings": "$VUE_APP_AUTHENTICATION_KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS",
       "confidential-port": "$VUE_APP_AUTHENTICATION_KEYCLOAK_CONFIDENTIAL_PORT"
     },
+    keycloakInit: {
+      pkceMethod: "$VUE_APP_AUTHENTICATION_KEYCLOAK_INIT_PKCE_METHOD",
+    },    
     rtp: {
       grand_type: "$VUE_APP_AUTHENTICATION_RTP_GRAND_TYPE",
       audience: "$VUE_APP_AUTHENTICATION_RTP_AUDIENCE"
