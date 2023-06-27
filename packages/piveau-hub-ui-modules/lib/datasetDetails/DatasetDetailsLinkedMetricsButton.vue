@@ -35,7 +35,8 @@
     computed: {},
     methods: {
       createLinkedMetricsURL(format, datasetId) {
-        return `${this.$env.api.hubUrl}metrics/${datasetId}.${format}?useNormalizedId=true&locale=${this.$route.query.locale}`;
+        //
+        return `${this.$env.api.hubUrl}datasets/${datasetId}.${format}/metrics`;
       },
     },
   };
