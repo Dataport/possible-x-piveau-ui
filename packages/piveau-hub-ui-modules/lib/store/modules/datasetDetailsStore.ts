@@ -14,6 +14,7 @@ import {
 } from 'lodash';
 
 import { mirrorPropertyFn } from '../../utils/helpers';
+import { SimilarDatasetsQuery } from 'lib/services/piveau-ui-adapter-vhub/datasets';
 
 // The helper functions below stabilize the store against API changes without changing everything
 // throughout the whole project.
@@ -388,14 +389,26 @@ const actions = {
     },
     /**
      * @description Fetches similar datasets of the provided dataset id
-     * @param id {Int} - The given dataset id
+     * @param idOrPayload {string | LoadSimilarDatasetsPayload} - id or payload
      */
-    loadSimilarDatasets({ commit }, id) {
+    loadSimilarDatasets({ commit }, idOrPayload: string | LoadSimilarDatasetsPayload) {
+        let id;
+        let query;
+        if (typeof idOrPayload === "string") {
+            id = idOrPayload;
+            query = {};
+        } else if (isObject(idOrPayload)) {
+            id = idOrPayload.id;
+            query = idOrPayload.query;
+        } else {
+            throw new Error('invalid payload argument passed to method loadSimilarDatasets: '
+              + JSON.stringify(payload))
+        }
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
             const service = getters.getService(state);
-            service.getSimilarDatasets(id)
+            service.getSimilarDatasets(id, query)
                 .then((response) => {
                     commit('SET_SIMILAR_DATASETS', response.data);
                     commit('SET_LOADING', false);
@@ -770,3 +783,8 @@ const module = {
 };
 
 export default module;
+
+export interface LoadSimilarDatasetsPayload {
+    id: string,
+    query: SimilarDatasetsQuery
+}
