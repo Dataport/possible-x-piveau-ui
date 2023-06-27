@@ -376,6 +376,7 @@ const actions = {
                 .then((response) => {
                     commit('SET_SD_DESCRIPTION', { id, description: response.description });
                     commit('SET_SD_TITLE', { id, title: response.title });
+                    commit('SET_SD_DISTRIBUTION_FORMATS', { id, distributionFormats: response.distributionFormats })
                     commit('SET_LOADING', false);
                     resolve(response);
                 })
@@ -690,6 +691,18 @@ const mutations = {
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
                 if (isObject(similarDataset)) Vue.set(similarDataset, 'title', title);
+            }
+        }
+    },
+    SET_SD_DISTRIBUTION_FORMATS(state, payload) {
+        if (has(payload, 'id') && has(payload, 'distributionFormats')) {
+            const id = payload.id;
+            const distributionFormats = payload.distributionFormats;
+            if (isArray(state.dataset.similarDatasets)) {
+                const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
+                if (isObject(similarDataset)) {
+                    Vue.set(similarDataset, 'distributionFormats', distributionFormats);
+                }
             }
         }
     },
