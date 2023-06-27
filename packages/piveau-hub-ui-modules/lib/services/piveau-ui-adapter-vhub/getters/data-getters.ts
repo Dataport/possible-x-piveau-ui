@@ -65,7 +65,7 @@ const getters = {
     // Return the value or an empty object
     return object;
   },
-  getObjectLanguage: (parent, property, placeholder) => {
+  getObjectLanguage: (parent, property, placeholder?) => {
     // Declare object
     let object;
 
