@@ -8,8 +8,6 @@
  import { has, isNil, isArray } from 'lodash-es';
 
  import dataGetters from './getters/data-getters';
-import prompts from "prompts";
-import number = prompts.prompts.number;
 
  const getResponseData = (dataset) => {
    const ds: {[key: string]: unknown} = {};
