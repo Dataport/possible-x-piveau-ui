@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* eslint-disable no-console */
 /**
  * @author Dennis ritter
@@ -9,9 +8,11 @@
  import { has, isNil, isArray } from 'lodash-es';
 
  import dataGetters from './getters/data-getters';
+import prompts from "prompts";
+import number = prompts.prompts.number;
 
  const getResponseData = (dataset) => {
-   const ds = {};
+   const ds: {[key: string]: unknown} = {};
    // New fields from DCAT-AP.de
    // Dataset
    ds.politicalGeocodingLevelURI = dataGetters.getArrayOfObjects(dataset, 'political_geocoding_level_uri', ['resource', 'label']);
@@ -89,7 +90,7 @@
    ds.visualisations = [];
    ds.wasGeneratedBy = dataGetters.getArrayOfStrings(dataset, 'was_generated_by');
    for (const dist of dataGetters.getDistributions(dataset)) {
-     const distribution = {};
+     const distribution : {[key: string]: unknown} = {};
      distribution.accessUrl = dataGetters.getArrayOfStrings(dist, 'access_url');
      distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url', 'availability']); // availability field for DCAT-AP.de
      // distribution.accessService = dataGetters.getArrayOfStrings(dist, 'access_service');
@@ -150,6 +151,13 @@
  };
 
  export default class Datasets {
+
+   private readonly baseUrl: string;
+   private readonly similarityBaseUrl: string;
+   private readonly defaultScoringFacets: any[];
+   private readonly qualityBaseUrl: string;
+   private readonly hubUrl: string;
+
    constructor(baseUrl, similarityBaseUrl, defaultScoringFacets, qualityBaseUrl, hubUrl) {
      this.baseUrl = baseUrl;
      this.similarityBaseUrl = similarityBaseUrl;
@@ -214,6 +222,12 @@
        dataServices,
        includes: `id,title.${locale},description.${locale},languages,modified,issued,catalog.id,catalog.title,catalog.country.id,distributions.id,distributions.format.label,distributions.format.id`,
        facets,
+       minScoring: 0,
+       countryData: false,
+       bboxMinLat: undefined,
+       bboxMaxLat: undefined,
+       bboxMinLon: undefined,
+       bboxMaxLon: undefined
      };
 
      // Check if minScoring is set
@@ -270,7 +284,7 @@
               if (has(field, 'id') && has(field, 'title') && has(field, 'items')) {
                 const items = [];
                 for (const facet of field.items) {
-                  const item = {};
+                  const item: {id?, title?, count?, minScoring?, maxScoring?} = {};
                   // Check for required facet/item keys
                   if (has(facet, 'id') && has(facet, 'title') && has(facet, 'count')) {
                     item.id = facet.id;
@@ -279,11 +293,11 @@
                   }
                   // Handle Scoring Facets
                   if (has(facet, 'from') && has(facet, 'to')) {
-                    const currentScoringFacet = this.defaultScoringFacets[facet.id];
+                    const currentScoringFacet: {id?, title?, count?, minScoring?, maxScoring?} = this.defaultScoringFacets[facet.id];
                     item.minScoring = facet.from;
                     item.maxScoring = facet.to;
 
-                    // Use config values to overwrite the default values form the backend
+                    // Use config values to overwrite the default values from the backend
                     if (currentScoringFacet.title) item.title = currentScoringFacet.title;
                     if (currentScoringFacet.minScoring) item.minScoring = currentScoringFacet.minScoring;
                     if (currentScoringFacet.maxScoring) item.maxScoring = currentScoringFacet.maxScoring;
@@ -378,6 +392,7 @@
 
     getDQVDataHead(id, format, locale) {
       return new Promise((resolve, reject) => {
+        // const reqStr = `${this.hubUrl}/datasets${id}/metrics`;
         const reqStr = `${this.hubUrl}metrics/${id}.${format}?useNormalizedId=true&locale=${locale}`;
         axios.head(reqStr, {
         })
