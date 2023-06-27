@@ -1,9 +1,7 @@
 <template>
   <component :is="as">
     <template v-for="dataset in computedDatasets">
-      <slot :data="{
-        dataset: dataset
-      }">
+      <slot :dataset="dataset">
         <pv-data-info-box
           :key="dataset.id"
           :to="`/datasets/${dataset.id}`"
