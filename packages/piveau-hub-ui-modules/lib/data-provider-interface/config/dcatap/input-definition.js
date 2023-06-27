@@ -455,7 +455,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'pageUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           class: "property",
@@ -566,7 +566,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'landingPageUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -767,19 +767,20 @@ const dcatapProperties = {
       identifier: 'temporalResolution',
       type: 'group',
       name: 'dcat:temporalResolution',
-      class: 'property',
+      class: 'property tempResWrapper',
       '@change': true,
       children: [
         {
           identifier: 'temporalResolutionYear',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
+          max: 2023,
           '@change': true,
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 12,
           '@change': true,
@@ -787,7 +788,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionDay',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 31,
           '@change': true,
@@ -795,7 +796,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionHour',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 23,
           '@change': true,
@@ -803,7 +804,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionMinute',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 59,
           '@change': true,
@@ -811,7 +812,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionSecond',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 59,
           '@change': true,
@@ -1799,7 +1800,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'creatorHomepage',
-          type: 'url',
+          type: 'custom-url',
           name: 'foaf:homepage',
           validation: 'optional|url',
           '@change': true,
