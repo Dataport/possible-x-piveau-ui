@@ -454,7 +454,6 @@ const actions = {
     loadDQVData({ commit }, { id, formats, locale }) {
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
-            console.log("XXXXX", state)
             const service = getters.getService(state);
             formats.forEach(format => service.getDQVDataHead(id, format, locale)
                 .then((response) => {
@@ -463,6 +462,7 @@ const actions = {
                     resolve(response);
                 })
                 .catch((err) => {
+                    console.log(err)
                     commit(`SET_IS_DQV_DATA_${format.toUpperCase()}_AVAILABLE`, false);
                     reject(err);
                 }));
