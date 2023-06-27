@@ -159,6 +159,7 @@ import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton";
 // Import datasets 
 import DatasetDate from "./datasets/DatasetDate";
 import Datasets from "./datasets/Datasets";
+import DatasetList from "./datasets/DatasetList";
 import DatasetsFilters from "./datasets/DatasetsFilters";
 import DatasetsTopControls from "./datasets/DatasetsTopControls";
 
@@ -336,7 +337,8 @@ export {
   DatasetDetailsSkeleton,
 
   DatasetDate, 
-  Datasets, 
+  Datasets,
+  DatasetList,
   DatasetsFilters, 
   DatasetsTopControls,
   CatalogDetailsFacet, 
