@@ -221,7 +221,7 @@ export default {
   position: sticky;
   top: 0;
   background: #ffffff;
-  z-index: 7;
+  z-index: 10;
 }
 
 .stickyStepper .SSfirstRow {
