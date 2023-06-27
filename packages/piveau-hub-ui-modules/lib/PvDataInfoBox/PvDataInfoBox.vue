@@ -49,19 +49,21 @@
             class="dataset-info-box-badge-container col-12 mb-3"
             :class="{ 'col-md-3': !compact }"
           >
-            <PvBadge
-              v-for="(format, i) in dataset.formats.slice(0, 10)"
-              :key="`badge@${i}`"
-              class="mr-1 format-badge"
-              :value="format"
-              data-toggle="tooltip"
-              data-placement="top"
-              :type="format.id"
-              :title="$t('message.tooltip.datasetDetails.format')"
-            >
-              {{ format.label || format.id || "UNKNOWN" }}
-            </PvBadge>
-            <span v-if="dataset.formats.length >= 10">...</span>
+            <slot name="right" :formats="dataset.formats">
+              <PvBadge
+                v-for="(format, i) in dataset.formats.slice(0, 10)"
+                :key="`badge@${i}`"
+                class="mr-1 format-badge"
+                :value="format"
+                data-toggle="tooltip"
+                data-placement="top"
+                :type="format.id"
+                :title="$t('message.tooltip.datasetDetails.format')"
+              >
+                {{ format.label || format.id || "UNKNOWN" }}
+              </PvBadge>
+              <span v-if="dataset.formats.length >= 10">...</span>
+            </slot>
           </div>
           <slot name="footer" :dataset="dataset" v-if="compact">
             <PvDataInfoBoxFooter
