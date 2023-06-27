@@ -462,7 +462,6 @@ const actions = {
                     resolve(response);
                 })
                 .catch((err) => {
-                    console.log(err)
                     commit(`SET_IS_DQV_DATA_${format.toUpperCase()}_AVAILABLE`, false);
                     reject(err);
                 }));

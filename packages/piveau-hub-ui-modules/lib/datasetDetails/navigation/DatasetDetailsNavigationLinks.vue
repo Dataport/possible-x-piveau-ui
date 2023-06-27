@@ -202,7 +202,7 @@ export default {
           this.$Progress.fail();
         })
         .finally(() => {
-          console.clear();
+          // console.clear();
         });
     });
   }
