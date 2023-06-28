@@ -65,7 +65,6 @@ import Dropup from "./data-provider-interface/components/Dropup";
 import FileUpload from "./data-provider-interface/components/FileUpload";
 import Groupedinput from "./data-provider-interface/components/Groupedinput";
 import InfoSlot from "./data-provider-interface/components/InfoSlot";
-import LangStringInput from "./data-provider-interface/components/LangStringInput";
 import LanguageSelector from "./data-provider-interface/components/LanguageSelector";
 import Navigation from "./data-provider-interface/components/Navigation";
 import UniqueIdentifierInput from "./data-provider-interface/components/UniqueIdentifierInput";
@@ -264,7 +263,6 @@ export {
   FileUpload, 
   Groupedinput, 
   InfoSlot, 
-  LangStringInput, 
   LanguageSelector, 
   Navigation,
   UniqueIdentifierInput, 
