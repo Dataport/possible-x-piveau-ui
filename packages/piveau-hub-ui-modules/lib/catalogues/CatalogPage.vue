@@ -60,9 +60,9 @@
                                     <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
                                         <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content mt-3">
+                                        <div class="tab-content d-flex flex-wrap justify-content-center mt-3">
                                             <!-- <p class="card-text">*Work in progress..*</p> -->
-                                            <pv-data-info-box
+                                            <!-- <pv-data-info-box
                                             v-for="dataset in getDatasets.slice(0, 3)"
                                             :key="dataset.id"
                                             :to="`/datasets/${dataset.id}`"
@@ -78,6 +78,18 @@
                                             }"
                                             :description-max-length="1000"
                                             :data-cy="`dataset@${dataset.id}`"
+                                            class="mt-3"
+                                            /> -->
+                                            <DatasetCard 
+                                            v-for="(dataset, i) in getDatasets.slice(0, 3)"
+                                            :key="dataset.id"
+                                            :to="`/datasets/${dataset.id}`"
+                                            :datasetTitle="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
+                                            :datasetDescription="getTranslationFor(dataset.description, $route.query.locale, dataset.languages)"
+                                            :datasetCatalog="getTranslationFor(dataset.catalog.title, $route.query.locale, [])"
+                                            :descriptionMaxLength="150"
+                                            :data-cy="`dataset@${dataset.id}`"
+                                            :card-icon="cardIcons[i]"
                                             class="mt-3"
                                             />
                                         </div>
@@ -145,6 +157,7 @@ import $ from 'jquery';
 import Datasets from "../datasets/Datasets.vue"
 import { mapGetters, mapActions } from 'vuex';
 import AppLink from "../widgets/AppLink";
+import DatasetCard from "./CatalogPageDatasetCard.vue"
 import {
     debounce,
     has,
@@ -162,6 +175,7 @@ import {
         dependencies: ['catalogService', 'DatasetService'],
         components: {
             Datasets,
+            DatasetCard,
             AppLink,
         },
         data() {
@@ -185,6 +199,11 @@ import {
                         id: 'contact',
                         displayName: 'Kontakt',
                     },
+                ],
+                cardIcons: [
+                    "icon-cartogram_64x64.png",
+                    "icon-castle_64x64.png",
+                    "icon-tap_64x64.png",
                 ]
             };
         },
