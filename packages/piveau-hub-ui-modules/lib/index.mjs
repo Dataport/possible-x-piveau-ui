@@ -173,7 +173,6 @@ import SettingsFacet from "./datasets/datasetsFacets/SettingsFacet";
 import ExpandableSelectFacet from "./facets/ExpandableSelectFacet";
 import Facet from "./facets/Facet";
 import FacetTitle from "./facets/FacetTitle";
-import Radiofacet from "./facets/Radiofacet";
 import SelectedFacetsOverview from "./facets/SelectedFacetsOverview";
 
 // Import map 
@@ -348,7 +347,6 @@ export {
   ExpandableSelectFacet, 
   Facet, 
   FacetTitle, 
-  Radiofacet, 
   SelectedFacetsOverview,
 
   MapBasic, 
