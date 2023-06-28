@@ -9,7 +9,8 @@
     "dev": "npm run dev -w modules-demo",
     "build": "npm run build --workspace packages/**",
     "release": "esno scripts/release.ts",
-    "ci-publish": "esno scripts/publish-ci.ts"
+    "ci-publish": "esno scripts/publish-ci.ts",
+    "initialize": "git submodule update --init && npm ci && esno scripts/initialize.ts"
   },
   "author": "",
   "license": "ISC",

@@ -260,7 +260,7 @@
       </td>
     </tr>
     <tr>
-        <td v-if="this.$env.content.datasetDetails.validate.enable">
+        <td v-if="this.$env.content.datasetDetails.distributions.showValidationButton">
           <app-link
             class="ecl-button--secondary row pt-0 pb-0 pl-4 pr-4 mt-2 text-decoration-none"
             :to="{ path: `${getID}/quality/`, query: Object.assign({}, { locale: $route.query.locale }) }"

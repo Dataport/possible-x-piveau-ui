@@ -63,7 +63,8 @@ import {
   InfoSlot,
   ConditionalInput,
   AutocompleteInput,
-  LangStringInput,
+  CustomURL,
+  CustomNumber,
   UniqueIdentifierInput,
   Groupedinput,
   FileUpload,
@@ -137,7 +138,8 @@ Vue.component('InfoSlot', InfoSlot);
 Vue.component('ConditionalInput', ConditionalInput);
 Vue.component('Groupedinput', Groupedinput);
 Vue.component('AutocompleteInput', AutocompleteInput);
-Vue.component('LangStringInput', LangStringInput);
+Vue.component('CustomURL', CustomURL);
+Vue.component('CustomNumber', CustomNumber);
 Vue.component('UniqueIdentifierInput', UniqueIdentifierInput);
 Vue.component('FileUpload', FileUpload);
 Vue.component('DatePicker', DatePicker);
@@ -188,11 +190,18 @@ Vue.use(VueFormulate, {
         component: ['data'],
       },
     },
-    'langString-input':{
+    'custom-url':{
       classification: 'text',
-      component: 'LangStringInput',
+      component: 'CustomURL',
       slotProps: {
         component: ['voc', 'multiple'],
+      },
+    },
+    'custom-number':{
+      classification: 'text',
+      component: 'CustomNumber',
+      slotProps: {
+        component: ['min', 'max'],
       },
     },
     'autocomplete-input': {

@@ -12,7 +12,7 @@ import {
   MapBasic,
   MapBoundsReceiver,
   Catalogues,
-  CatalogPage,
+  // CatalogPage,
   NotFound,
   SparqlSearch,
   Imprint,

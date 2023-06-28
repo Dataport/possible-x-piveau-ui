@@ -1,14 +1,15 @@
 <template>
-    <div class="catalog-page-container">
+    <div class="catalog-page-container" :style="{ backgroundImage: 'url(' + getCatalog.catalogueBackground + ')' }">
         <div class="catalog-box">
             <div>
-                <!-- <button @click="testLogger(getCatalog)">catalog logger</button>
-                <button @click="testLogger(getDatasets)">datasets logger</button> -->
+                <!-- <button @click="testLogger(getCatalog)">catalog logger</button> -->
+                <!-- <button @click="testLogger(getDatasets)">datasets logger</button> -->
                 <div class="row">
                     <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
                             <h2 class="catalog-header-titel" aria-label="Catalog name">
                                 <!-- TODO: favicon -->
+                                <!-- <img class="catalog-header-icon" src="../assets/img/favicon.png" alt="">  -->
                                 <img class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
                                 <span>{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</span>
                             </h2>
@@ -19,6 +20,7 @@
                             </h5>
                         </div>
                         <!-- TODO: call the right logo -->
+                        <!-- <img class="catalog-header-logo" src="../assets/img/logo.png" alt=""> -->
                         <img class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="">
                         <!-- <span>*logo*</span> -->
                     </div>
@@ -41,26 +43,26 @@
                                 </ul>
                             </div>
                             <!-- <h5 class="card-header">Header</h5> -->
-                            <!-- <img class="flag-img card-img" src="@/assets/img/flags/eu.png" id="about" alt="Card image cap"> -->
                             <div class="card-body mx-4 my-5">
-                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-start" id="about" role="tabpanel">
+                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-between justify-content-between" id="about" role="tabpanel">
                                     <div>
                                         <!-- <h5 class="card-title"></h5> -->
                                         <div class="tab-content d-flex">
-                                            <p class="card-text">
+                                            <div class="card-text">
                                                 {{ getTranslationFor(catalog.description, $route.query.locale, catalog.languages) }}
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- TODO call the right -->
+                                    <!-- <img class="ml-4 catalog-hero-pic" src="../assets/img/hero.png" alt=""> -->
                                     <img class="ml-4" :src="getCatalog.catalogueProfile" alt="">
                                 </div>
                                     <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
                                         <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
                                         <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content mt-3">
-                                            <p class="card-text">*Work in progress..*</p>
-                                            <pv-data-info-box
+                                        <div class="tab-content d-flex flex-wrap justify-content-center mt-3">
+                                            <!-- <p class="card-text">*Work in progress..*</p> -->
+                                            <!-- <pv-data-info-box
                                             v-for="dataset in getDatasets.slice(0, 3)"
                                             :key="dataset.id"
                                             :to="`/datasets/${dataset.id}`"
@@ -76,6 +78,18 @@
                                             }"
                                             :description-max-length="1000"
                                             :data-cy="`dataset@${dataset.id}`"
+                                            class="mt-3"
+                                            /> -->
+                                            <DatasetCard 
+                                            v-for="(dataset, i) in getDatasets.slice(0, 3)"
+                                            :key="dataset.id"
+                                            :to="`/datasets/${dataset.id}`"
+                                            :datasetTitle="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
+                                            :datasetDescription="getTranslationFor(dataset.description, $route.query.locale, dataset.languages)"
+                                            :datasetCatalog="getTranslationFor(dataset.catalog.title, $route.query.locale, [])"
+                                            :descriptionMaxLength="150"
+                                            :data-cy="`dataset@${dataset.id}`"
+                                            :card-icon="cardIcons[i]"
                                             class="mt-3"
                                             />
                                         </div>
@@ -104,6 +118,9 @@
                                                     </app-link>
                                                 </dd>
                                             </dl>
+                                            <span v-else>
+                                                Keine Kontaktinformationen verfügbar.
+                                            </span>
                                         <!-- <p class="card-text">body for Interessante Kontakt.</p> -->
                                         </div>
                                     </div>
@@ -140,6 +157,7 @@ import $ from 'jquery';
 import Datasets from "../datasets/Datasets.vue"
 import { mapGetters, mapActions } from 'vuex';
 import AppLink from "../widgets/AppLink";
+import DatasetCard from "./CatalogPageDatasetCard.vue"
 import {
     debounce,
     has,
@@ -157,6 +175,7 @@ import {
         dependencies: ['catalogService', 'DatasetService'],
         components: {
             Datasets,
+            DatasetCard,
             AppLink,
         },
         data() {
@@ -180,6 +199,11 @@ import {
                         id: 'contact',
                         displayName: 'Kontakt',
                     },
+                ],
+                cardIcons: [
+                    "icon-cartogram_64x64.png",
+                    "icon-castle_64x64.png",
+                    "icon-tap_64x64.png",
                 ]
             };
         },
@@ -330,7 +354,7 @@ import {
 
 <style lang="scss" scoped>
     .catalog-page-container {
-        background-image: url("../assets/img/bg_geo.png");
+        // background-image: url("../assets/img/bg.png");
         background-repeat: repeat-x;
         background-position-x: center;
         // background-size: contain;
@@ -357,6 +381,7 @@ import {
         border-radius: 50px;
         box-shadow: 0 1px 1px rgb(0 0 0 / 25%), 0 2px 4px rgb(0 0 0 / 22%);
         background-color: white;
+        height: 35px;
     }
     .catalog-header-logo {
         height: 75px;
@@ -383,6 +408,10 @@ import {
             border: none !important;
             border-bottom: 2px solid #175baf !important;
         }
+    }
+
+    .catalog-hero-pic {
+        max-width: 300px;
     }
 
 </style>

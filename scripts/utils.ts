@@ -7,6 +7,8 @@ import type { ReleaseType } from 'semver'
 import semver from 'semver'
 import minimist from 'minimist'
 
+export const packagesFolder = 'packages';
+
 export const args = minimist(process.argv.slice(2))
 
 export const isDryRun = !!args.dry
@@ -18,7 +20,7 @@ if (isDryRun) {
 
 export function getPackageInfo(
   pkgName: string,
-  getPkgDir: ((pkg: string) => string) | undefined = pkg => `packages/${pkg}`,
+  getPkgDir: ((pkg: string) => string) = pkg => `${packagesFolder}/${pkg}`,
 ) {
   const pkgDir = getPkgDir(pkgName)
   const pkgPath = path.resolve(pkgDir, 'package.json')
@@ -74,29 +76,30 @@ export function getVersionChoices(currentVersion: string): VersionChoice[] {
 
   let versionChoices: VersionChoice[] = [
     {
-      title: 'next',
+      // title: 'next',
+      title: 'patch',
       value: inc(isStable ? 'patch' : 'prerelease'),
     },
   ]
 
   if (isStable) {
     versionChoices.push(
-      {
-        title: 'beta-minor',
-        value: inc('preminor'),
-      },
-      {
-        title: 'beta-major',
-        value: inc('premajor'),
-      },
-      {
-        title: 'alpha-minor',
-        value: inc('preminor', 'alpha'),
-      },
-      {
-        title: 'alpha-major',
-        value: inc('premajor', 'alpha'),
-      },
+      // {
+      //   title: 'beta-minor',
+      //   value: inc('preminor'),
+      // },
+      // {
+      //   title: 'beta-major',
+      //   value: inc('premajor'),
+      // },
+      // {
+      //   title: 'alpha-minor',
+      //   value: inc('preminor', 'alpha'),
+      // },
+      // {
+      //   title: 'alpha-major',
+      //   value: inc('premajor', 'alpha'),
+      // },
       {
         title: 'minor',
         value: inc('minor'),

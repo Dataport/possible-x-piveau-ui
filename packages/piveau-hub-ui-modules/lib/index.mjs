@@ -55,6 +55,8 @@ import DatasetCitationTable from "./citation/DatasetCitationTable";
 
 // Import data-provider-interface components
 import AutocompleteInput from "./data-provider-interface/components/AutocompleteInput";
+import CustomURL from './data-provider-interface/components/CustomURL.vue';
+import CustomNumber from './data-provider-interface/components/CustomNumber.vue';
 import ConditionalInput from "./data-provider-interface/components/ConditionalInput";
 import DataFetchingComponent from "./data-provider-interface/components/DataFetchingComponent";
 import DatePicker from "./data-provider-interface/components/DatePicker";
@@ -252,6 +254,8 @@ export {
   DatasetCitationTable,
 
   AutocompleteInput, 
+  CustomURL,
+  CustomNumber,
   ConditionalInput, 
   DataFetchingComponent, 
   DatePicker, 

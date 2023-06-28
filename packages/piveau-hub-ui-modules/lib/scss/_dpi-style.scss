@@ -319,16 +319,18 @@
             position: absolute;
         }
     }
- 
+
 
 }
-.formulate-form{
+
+.formulate-form {
     button {
         border-radius: 5px !important;
         font-size: 1em !important;
         transition: all 0.3s ease-in-out;
     }
 }
+
 .formulate-input-element--conditional-input,
 .formulate-input-element--autocomplete-input,
 .formulate-input-group-repeatable {
@@ -349,8 +351,17 @@
 }
 
 #subStepperBox {
-    .step-progress__step {
-        border: solid #efefef 20px !important;
+    .step-progress__step {}
+
+    .step-progress__bar {
+        border-top: none !important;
+    }
+
+    .step-progress__step--active {
+        .step-progress__step-label {
+            background-color: lightsteelblue;
+        }
+
     }
 }
 
@@ -388,5 +399,15 @@
             border: 1px solid red;
             // box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)
         }
+    }
+}
+
+.tempResWrapper {
+    .formulate-input-group-repeatable {
+        display: flex;
+    }
+
+    .formulate-input {
+        margin: 0 6px;
     }
 }
