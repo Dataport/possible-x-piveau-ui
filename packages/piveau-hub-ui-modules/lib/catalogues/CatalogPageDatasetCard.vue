@@ -76,7 +76,7 @@ import AppLink from "../widgets/AppLink";
   .cp-dataset-card {
     padding: 25px;
     margin: 10px;
-    height: 480px;
+    height: 500px;
     width: 300px;
     border-radius: 12px;
     background-color: #F0EDED;
