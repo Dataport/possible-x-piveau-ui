@@ -209,7 +209,7 @@
      delete facets.dataServices; // ...
 
      // The request parameters
-     const params = {
+     const params: {[key: string]: unknown} = {
        q,
        filter: 'dataset',
        limit,
@@ -220,12 +220,6 @@
        dataServices,
        includes: `id,title.${locale},description.${locale},languages,modified,issued,catalog.id,catalog.title,catalog.country.id,distributions.id,distributions.format.label,distributions.format.id`,
        facets,
-       minScoring: 0,
-       countryData: false,
-       bboxMinLat: undefined,
-       bboxMaxLat: undefined,
-       bboxMinLon: undefined,
-       bboxMaxLon: undefined
      };
 
      // Check if minScoring is set
