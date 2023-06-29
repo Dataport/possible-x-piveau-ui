@@ -11,7 +11,7 @@
     </slot>
 
     <!-- Body slot -->
-    <slot name="body">
+    <slot name="body" :dataset="dataset">
       <div class="dataset-info-box-body">
         <div class="row">
           <div v-if="catalogMode && !compact" class="col-12 col-md-2">
