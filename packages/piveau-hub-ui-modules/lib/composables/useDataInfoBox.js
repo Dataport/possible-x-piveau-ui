@@ -55,6 +55,7 @@ export function useDataInfoBox({ datasets, locale }) {
 
     return dsList.map((ds) => {
       return {
+        id: ds.id,
         src: getImg(getCatalogImage(ds.catalog)),
         dataset: {
           title: getTranslationFor(ds.title, l, ds.languages) || ds.id,
