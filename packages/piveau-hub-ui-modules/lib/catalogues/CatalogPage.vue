@@ -10,7 +10,7 @@
                             <h2 class="catalog-header-titel" aria-label="Catalog name">
                                 <!-- TODO: favicon -->
                                 <!-- <img class="catalog-header-icon" src="../assets/img/favicon.png" alt="">  -->
-                                <img class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
+                                <img v-if="showArray(getCatalog.catalogueFavIcon)" class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
                                 <span>{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</span>
                             </h2>
                             <h5 class="catalog-header-homepage" aria-label="Homepage">
@@ -44,23 +44,25 @@
                             </div>
                             <!-- <h5 class="card-header">Header</h5> -->
                             <div class="card-body mx-4 my-5">
-                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-between justify-content-between" id="about" role="tabpanel">
+                                <!-- "ÜBER DIESEN KATALOG" -->
+                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-start justify-content-between" id="about" role="tabpanel">
                                     <div>
                                         <!-- <h5 class="card-title"></h5> -->
                                         <div class="tab-content d-flex">
-                                            <div class="card-text">
-                                                {{ getTranslationFor(catalog.description, $route.query.locale, catalog.languages) }}
-                                            </div>
+                                            <app-markdown-content class="card-text" tag="div" :text="getTranslationFor(catalog.description, $route.query.locale, catalog.languages)" />
                                         </div>
                                     </div>
                                     <!-- TODO call the right -->
                                     <!-- <img class="ml-4 catalog-hero-pic" src="../assets/img/hero.png" alt=""> -->
                                     <img class="ml-4" :src="getCatalog.catalogueProfile" alt="">
                                 </div>
-                                    <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
-                                        <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
-                                        <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content d-flex flex-wrap justify-content-center mt-3">
+
+                                <!-- "INTERESSANTE DATENSÄTZE" -->
+                                <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
+                                    <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
+                                    <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
+                                    <div class="tab-content d-flex flex-column align-items-center mt-3">
+                                        <div class=" d-flex flex-wrap justify-content-center">
                                             <!-- <p class="card-text">*Work in progress..*</p> -->
                                             <!-- <pv-data-info-box
                                             v-for="dataset in getDatasets.slice(0, 3)"
@@ -80,6 +82,7 @@
                                             :data-cy="`dataset@${dataset.id}`"
                                             class="mt-3"
                                             /> -->
+
                                             <DatasetCard 
                                             v-for="(dataset, i) in getDatasets.slice(0, 3)"
                                             :key="dataset.id"
@@ -93,39 +96,46 @@
                                             class="mt-3"
                                             />
                                         </div>
-                                    </div>
-                                    <div v-if="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
-                                        <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content mt-3">
-                                            <Datasets />
-                                        </div>
-                                        <!-- <Datasets /> -->
-                                    </div>
-                                    <div v-if="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                        <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content">
-                                            <!-- PUBLISHER -->
-                                            <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher)">
-                                                <dt v-if="has(getCatalog, 'publisher.name')  && showString(getCatalog.publisher.name)">{{ getCatalog.publisher.name }}</dt>
-                                                <dd>
-                                                    <app-link v-if="has(getCatalog, 'publisher.homepage') && showString(getCatalog.publisher.homepage)" :to="getCatalog.publisher.homepage">
-                                                    {{ getCatalog.publisher.homepage }}
-                                                    </app-link>
-                                                </dd>
-                                                <dd>
-                                                    <app-link v-if="has(getCatalog, 'publisher.email') && showString(getCatalog.publisher.email)" :to="getCatalog.publisher.email">
-                                                    {{ getCatalog.publisher.email }}
-                                                    </app-link>
-                                                </dd>
-                                            </dl>
-                                            <span v-else>
-                                                Keine Kontaktinformationen verfügbar.
-                                            </span>
-                                        <!-- <p class="card-text">body for Interessante Kontakt.</p> -->
-                                        </div>
+                                        
+                                        <button @click.prevent="setActiveTabName('dataset-page')" class="fol-button primary-button" role="button">Mehr Daten entdecken</button>
                                     </div>
                                 </div>
-                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+
+                                <!-- "ALLE DATENSÄTZE" -->
+                                <div v-if="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
+                                    <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
+                                    <div class="tab-content mt-3">
+                                        <Datasets />
+                                    </div>
+                                    <!-- <Datasets /> -->
+                                </div>
+
+                                <!-- "KONTAKT" -->
+                                <div v-if="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                    <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
+                                    <div class="tab-content">
+                                        <!-- PUBLISHER -->
+                                        <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher)">
+                                            <dt v-if="has(getCatalog, 'publisher.name')  && showString(getCatalog.publisher.name)">{{ getCatalog.publisher.name }}</dt>
+                                            <dd>
+                                                <app-link v-if="has(getCatalog, 'publisher.homepage') && showString(getCatalog.publisher.homepage)" :to="getCatalog.publisher.homepage">
+                                                {{ getCatalog.publisher.homepage }}
+                                                </app-link>
+                                            </dd>
+                                            <dd>
+                                                <app-link v-if="has(getCatalog, 'publisher.email') && showString(getCatalog.publisher.email)" :to="getCatalog.publisher.email">
+                                                {{ getCatalog.publisher.email }}
+                                                </app-link>
+                                            </dd>
+                                        </dl>
+                                        <span v-else>
+                                            Keine Kontaktinformationen verfügbar.
+                                        </span>
+                                    <!-- <p class="card-text">body for Interessante Kontakt.</p> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                             <!-- <div class="card-footer text-muted">
                                 Footer
                             </div> -->
@@ -158,6 +168,7 @@ import Datasets from "../datasets/Datasets.vue"
 import { mapGetters, mapActions } from 'vuex';
 import AppLink from "../widgets/AppLink";
 import DatasetCard from "./CatalogPageDatasetCard.vue"
+import AppMarkdownContent from "../datasetDetails/AppMarkdownContent.vue"
 import {
     debounce,
     has,
@@ -177,9 +188,15 @@ import {
             Datasets,
             DatasetCard,
             AppLink,
+            AppMarkdownContent,
         },
         data() {
             return {
+                // TODO: remove these after finishing
+                testBackground: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/bg.png"],
+                testFavicon: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/favicon.png"],
+                testLogo: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/logo.png"],
+                testProfile: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/profile.png"],
                 catalog: {},
                 activeTabName: 'about',
                 cardNavTabs: [
