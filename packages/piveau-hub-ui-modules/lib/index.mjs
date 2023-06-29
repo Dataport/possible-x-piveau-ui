@@ -202,6 +202,8 @@ import PvBadge from "./PvBadge/PvBadge";
 import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox";
 import PvDataInfoBoxDescription from "./PvDataInfoBox/PvDataInfoBoxDescription";
 import PvDataInfoBoxFooter from "./PvDataInfoBox/PvDataInfoBoxFooter";
+import PvDataInfoBoxFormats from "./PvDataInfoBox/PvDataInfoBoxFormats";
+
 
 // Import widgets 
 import AppLink from "./widgets/AppLink";
@@ -371,6 +373,7 @@ export {
   PvDataInfoBox, 
   PvDataInfoBoxDescription, 
   PvDataInfoBoxFooter,
+  PvDataInfoBoxFormats,
 
   AppLink, 
   Dropdown, 
