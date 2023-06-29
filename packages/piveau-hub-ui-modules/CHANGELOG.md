@@ -1,3 +1,12 @@
+## [3.2.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.2.0...v3.2.1) (2023-06-29)
+
+
+### Bug Fixes
+
+* **PvDataInfoBox:** fix undefined router link target path ([cf70d14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/cf70d14e4cb61989635bbd433f9b97891ecfdbdc))
+
+
+
 # [3.2.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.1.2...v3.2.0) (2023-06-29)
 
 
