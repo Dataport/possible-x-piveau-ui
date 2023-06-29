@@ -1,3 +1,12 @@
+# [3.3.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.2.1...v3.3.0) (2023-06-29)
+
+
+### Features
+
+* **DatasetList:** add raw-dataset and index slot props ([df275db](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/df275db172b6c68084f1579e3bf8201326fd12cb))
+
+
+
 ## [3.2.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.2.0...v3.2.1) (2023-06-29)
 
 
