@@ -27,6 +27,12 @@ export default {
     useService: "$VUE_APP_AUTHENTICATION_USE_SERVICE",
     login: {
       useLogin: "$VUE_APP_AUTHENTICATION_LOGIN_USE_LOGIN",
+      loginTitle: "$VUE_APP_AUTHENTICATION_LOGIN_LOGIN_TITLE",
+      loginURL: "$VUE_APP_AUTHENTICATION_LOGIN_LOGIN_URL",
+      loginRedirectUri: "$VUE_APP_AUTHENTICATION_LOGIN_LOGIN_REDIRECT_URI",
+      logoutTitle: "$VUE_APP_AUTHENTICATION_LOGIN_LOGOUT_TITLE",
+      logoutURL: "$VUE_APP_AUTHENTICATION_LOGIN_LOGOUT_URL",
+      logoutRedirectUri: "$VUE_APP_AUTHENTICATION_LOGIN_LOGOUT_REDIRECT_URI",
     },
     keycloak: {
       realm: "$VUE_APP_AUTHENTICATION_KEYCLOAK_REALM",
@@ -36,11 +42,11 @@ export default {
       "public-client": "$VUE_APP_AUTHENTICATION_KEYCLOAK_PUBLIC_CLIENT",
       "verify-token-audience": "$VUE_APP_AUTHENTICATION_KEYCLOAK_VERIFY_TOKEN_AUDIENCE",
       "use-resource-role-mappings": "$VUE_APP_AUTHENTICATION_KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS",
-      "confidential-port": "$VUE_APP_AUTHENTICATION_KEYCLOAK_CONFIDENTIAL_PORT",
+      "confidential-port": "$VUE_APP_AUTHENTICATION_KEYCLOAK_CONFIDENTIAL_PORT"
     },
     keycloakInit: {
       pkceMethod: "$VUE_APP_AUTHENTICATION_KEYCLOAK_INIT_PKCE_METHOD",
-    },
+    },    
     rtp: {
       grand_type: "$VUE_APP_AUTHENTICATION_RTP_GRAND_TYPE",
       audience: "$VUE_APP_AUTHENTICATION_RTP_AUDIENCE"
@@ -121,6 +127,17 @@ export default {
         INTERVAL_MS: "$VUE_APP_CONTENT_DATASETDETAILS_BULKDOWNLOAD_INTERVAL_MS",
         TIMEOUT_MS: "$VUE_APP_CONTENT_DATASETDETAILS_BULKDOWNLOAD_TIMEOUT_MS",
       },
+      quality: {
+        csvLinter: {
+          enable: "$VUE_APP_CONTENT_DATASETDETAILS_QUALITY_CSV_LINTER_ENABLE",
+        },
+      },
+      downloadAs: {
+        enable: "$VUE_APP_CONTENT_DATASETDETAILS_DOWNLOAD_AS_ENABLE",
+        proxyUrl: "$VUE_APP_CONTENT_DATASETDETAILS_DOWNLOAD_AS_PROXY_URL",
+        url: "$VUE_APP_CONTENT_DATASETDETAILS_DOWNLOAD_AS_URL",
+        conversionFormats: "$VUE_APP_CONTENT_DATASETDETAILS_DOWNLOAD_AS_CONVERSION_FORMATS",
+      }
     },
     maps: {
       useAnimation: "$VUE_APP_CONTENT_MAPS_USE_ANIMATION",
