@@ -159,6 +159,7 @@ import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton";
 // Import datasets 
 import DatasetDate from "./datasets/DatasetDate";
 import Datasets from "./datasets/Datasets";
+import DatasetList from "./datasets/DatasetList";
 import DatasetsFilters from "./datasets/DatasetsFilters";
 import DatasetsTopControls from "./datasets/DatasetsTopControls";
 
@@ -201,6 +202,8 @@ import PvBadge from "./PvBadge/PvBadge";
 import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox";
 import PvDataInfoBoxDescription from "./PvDataInfoBox/PvDataInfoBoxDescription";
 import PvDataInfoBoxFooter from "./PvDataInfoBox/PvDataInfoBoxFooter";
+import PvDataInfoBoxFormats from "./PvDataInfoBox/PvDataInfoBoxFormats";
+
 
 // Import widgets 
 import AppLink from "./widgets/AppLink";
@@ -336,7 +339,8 @@ export {
   DatasetDetailsSkeleton,
 
   DatasetDate, 
-  Datasets, 
+  Datasets,
+  DatasetList,
   DatasetsFilters, 
   DatasetsTopControls,
   CatalogDetailsFacet, 
@@ -369,6 +373,7 @@ export {
   PvDataInfoBox, 
   PvDataInfoBoxDescription, 
   PvDataInfoBoxFooter,
+  PvDataInfoBoxFormats,
 
   AppLink, 
   Dropdown, 

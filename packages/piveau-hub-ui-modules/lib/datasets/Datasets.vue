@@ -7,66 +7,68 @@
       class="datasets-top-controls"
     />
     <div class="container-fluid datasets content">
-      <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
-      <h1 class="row col-12 page-title text-primary" v-else>{{ $t('message.header.navigation.data.datasets') }}</h1>
-      <div class="row">
-        <div class="col d-flex d-md-none justify-content-end flex-wrap">
-          <button class="btn btn-primary mb-3 text-right text-white" data-toggle="collapse" data-target="#datasetFacets" data-cy="btn-filter-toggle" @click="filterCollapsed = !filterCollapsed">
-            {{ $t('message.datasetFacets.title') }}
-            <i class="material-icons small-icon align-bottom" v-if="filterCollapsed">arrow_drop_up</i>
-            <i class="material-icons small-icon align-bottom" v-else>arrow_drop_down</i>
-          </button>
-        </div>
-        <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></datasets-facets>
-        <section class="col-md-9 col-12">
-          <datasets-filters />
-          <div class="datasets-found alert alert-primary mt-3 d-flex flex-row" role="status"
-              :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
-            <div>
-              {{ getLoading ? $t('message.datasets.loadingMessage'):`${getDatasetsCount.toLocaleString('fi')}
-              ${$t('message.datasets.countMessage')}`}}
-            </div>
-            <div class="loading-spinner ml-3" v-if="getLoading"></div>
-          </div>
-          <div class="alert alert-warning mt-3 d-flex flex-row" v-if="showScoreDisclaimer">
-            <i18n path="message.datasets.scoreDisclaimer" tag="span">
-              <app-link path="/mqa" :query="{ locale: $route.query.locale }" target="_blank">
-                <i18n path="message.metadata.methodologyPage"></i18n>
-              </app-link>
-            </i18n>
-          </div>
-          <!--
-          <div class="alert alert-info mt-3" v-if="getGeoBoundsById('modal-map')">
-            {{`${$t('message.datasets.geoBoundsMessagePre')}`}}<strong>{{getGeoBoundsById('modal-map')}}</strong>{{`. ${$t('message.datasets.geoBoundsMessageRemove')}`}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="resetGeoBounds('modal-map'); loadDatasets({})">
-              <span aria-hidden="true">&times;</span>
+      <slot name="title">
+        <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
+        <h1 class="row col-12 page-title text-primary" v-else>{{ $t('message.header.navigation.data.datasets') }}</h1>
+      </slot>
+      <slot
+        name="content"
+        :datasets-count="getDatasetsCount"
+        :datasets="getDatasets"
+        :locale="$route.query.locale"
+        :loading="getLoading"
+        :use-dataset-facets="useDatasetFacets"
+      >
+        <div class="row">
+          <div class="col d-flex d-md-none justify-content-end flex-wrap">
+            <button class="btn btn-primary mb-3 text-right text-white" data-toggle="collapse" data-target="#datasetFacets" data-cy="btn-filter-toggle" @click="filterCollapsed = !filterCollapsed">
+              {{ $t('message.datasetFacets.title') }}
+              <i class="material-icons small-icon align-bottom" v-if="filterCollapsed">arrow_drop_up</i>
+              <i class="material-icons small-icon align-bottom" v-else>arrow_drop_down</i>
             </button>
           </div>
-          -->
-          <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getAllAvailableFacets"></selectedFacetsOverview>
-          <template v-if="!getLoading">
-            <pv-data-info-box
-              v-for="dataset in getDatasets"
-              :key="dataset.id"
-              :to="`/datasets/${dataset.id}`"
-              :src="getImg(getCatalogImage(dataset.catalog))"
-              :dataset="{
-                title: getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id,
-                description:
-                  getTranslationFor(dataset.description, $route.query.locale, dataset.languages),
-                catalog: getTranslationFor(dataset.catalog.title, $route.query.locale, []),
-                createdDate: dataset.releaseDate,
-                updatedDate: dataset.modificationDate,
-                formats: removeDuplicatesOf(dataset.distributionFormats).filter((format) => format.id || format.label),
-              }"
-              :description-max-length="1000"
-              :data-cy="`dataset@${dataset.id}`"
-              class="mt-3"
-            />
-          </template>
-          <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
-        </section>
-      </div>
+          <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></datasets-facets>
+          <section class="col-md-9 col-12">
+            <datasets-filters />
+            <slot name="datasets-found" :data="{
+              loading: getLoading,
+              datasetsCount: getDatasetsCount,
+              datasetsCountFormatted: getDatasetsCount.toLocaleString('fi'),
+              loadingMessage: $t('message.datasets.loadingMessage'),
+              countMessage: $t('message.datasets.countMessage'),
+            }">
+              <div class="datasets-found alert alert-primary mt-3 d-flex flex-row" role="status"
+                  :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
+                <div>
+                  {{ getLoading ? $t('message.datasets.loadingMessage'):`${getDatasetsCount.toLocaleString('fi')}
+                  ${$t('message.datasets.countMessage')}`}}
+                </div>
+                <div class="loading-spinner ml-3" v-if="getLoading"></div>
+              </div>
+            </slot>
+            <div class="alert alert-warning mt-3 d-flex flex-row" v-if="showScoreDisclaimer">
+              <i18n path="message.datasets.scoreDisclaimer" tag="span">
+                <app-link path="/mqa" :query="{ locale: $route.query.locale }" target="_blank">
+                  <i18n path="message.metadata.methodologyPage"></i18n>
+                </app-link>
+              </i18n>
+            </div>
+            <!--
+            <div class="alert alert-info mt-3" v-if="getGeoBoundsById('modal-map')">
+              {{`${$t('message.datasets.geoBoundsMessagePre')}`}}<strong>{{getGeoBoundsById('modal-map')}}</strong>{{`. ${$t('message.datasets.geoBoundsMessageRemove')}`}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="resetGeoBounds('modal-map'); loadDatasets({})">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            -->
+            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getAllAvailableFacets"></selectedFacetsOverview>
+            <template v-if="!getLoading">
+              <dataset-list :datasets="getDatasets" :locale="$route.query.locale || 'en'"></dataset-list>
+            </template>
+            <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
+          </section>
+        </div>
+      </slot>
       <div class="row">
         <div class="column col-12 col-md-9 offset-md-3">
           <pagination class="mt-3"
@@ -103,6 +105,7 @@
   import { getTranslationFor, truncate, getImg } from '../utils/helpers';
   import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
   import DatasetsFilters from "../datasets/DatasetsFilters.vue";
+  import DatasetList from './DatasetList.vue'
 
   export default {
     name: 'Datasets',
@@ -114,6 +117,7 @@
       selectedFacetsOverview: SelectedFacetsOverview,
       datasetsFacets: DatasetsFacets,
       pagination: Pagination,
+      DatasetList,
     },
     props: {
       infiniteScrolling: {
@@ -252,35 +256,6 @@
             });
         });
       },
-      /**
-       * @description Cuts badge format string (max 8 chars)
-       * @param label {String} - badge label or id (e.g. csv)
-       */
-      getBadgeFormat(label) {
-        return this.truncate(label, 8, true);
-      },
-      /**
-       * @description Removes the duplicates of the given array
-       * @param array {Array} - The array to remove duplicates from
-       * @returns {Array}
-       */
-      removeDuplicatesOf(array) {
-        const correctedFormatArray = array.map(format => (
-          {
-            ...format,
-            id: this.getBadgeFormat(format.id),
-            label: this.getBadgeFormat(format.label),
-          }
-        ));
-        // sorts after # of occurences (highest occurence first)
-        // possibility #1
-        const sortedArray = toPairs(groupBy(correctedFormatArray, 'id')).sort((a, b) => b[1].length - a[1].length);
-        const onlyFormatObjectsArray = sortedArray.map(arr => arr[1][0]);
-        // lodash uniqBy funtion removes duplicate id´s from array of objects
-        const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
-        const uniqByIdAndLabel = uniqBy(uniqById, 'label');
-        return uniqByIdAndLabel;
-      },
       initLimit() {
         const limit = parseInt(this.$route.query.limit, 10);
         if (limit > 0) this.setLimit(limit);
@@ -381,11 +356,6 @@
       getFileTypeColor(format) {
         return fileTypes.getFileTypeColor(format);
       },
-      getCatalogImage(catalog) {
-        return this.$env.content.catalogs.useCatalogCountries
-          ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.content.catalogs.defaultCatalogCountryID}`
-          : `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.content.catalogs.defaultCatalogID}`;
-      }
     },
     watch: {
       /**
