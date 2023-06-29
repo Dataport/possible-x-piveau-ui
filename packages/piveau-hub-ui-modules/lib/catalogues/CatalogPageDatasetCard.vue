@@ -1,5 +1,5 @@
 <template>
-    <div class="cp-dataset-card pink d-flex flex-column justify-content-between">
+    <div class="cp-dataset-card d-flex flex-column justify-content-between">
         <div class="cp-dataset-card-image">
         <img :src="getImageUrl()" alt="">
         </div>
@@ -79,18 +79,10 @@ import AppLink from "../widgets/AppLink";
     height: 480px;
     width: 300px;
     border-radius: 12px;
+    background-color: #F0EDED;
   }
   .cp-dataset-card-image {
     margin-bottom: 70px;
-  }
-  .cp-dataset-card.blue {
-    background-color: #E4F5FF;
-  }
-  .cp-dataset-card.yellow {
-    background-color: #FFF9D0;
-  }
-  .cp-dataset-card.pink {
-    background-color: #F0EDED;
   }
 
   .cp-dataset-card-text {
