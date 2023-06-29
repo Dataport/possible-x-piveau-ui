@@ -1,3 +1,19 @@
+## [3.1.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.1.1...v3.1.2) (2023-06-29)
+
+
+### Bug Fixes
+
+* datasets.ts ([b7e7654](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7e7654348ef905b9f5c485b114c209c34a48dfc))
+* merge conflicts ([ac01265](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ac01265ca1907eb643b3de7e74f00908b8cca349))
+* remove Radiofacet import ([62b6a24](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/62b6a24a0e6e51368000a7ec49986e011ae8ee6d))
+
+
+### Features
+
+* Export all Vue components from modules in index.mjs ([32efbe3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/32efbe3c62d0a2d5ab880ed0ddca4e18973624ad))
+
+
+
 ## [3.1.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.1.0...v3.1.1) (2023-06-28)
 
 
