@@ -1,3 +1,18 @@
+# [3.2.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.1.2...v3.2.0) (2023-06-29)
+
+
+### Features
+
+* add PvDataInfoBoxFormats component ([b85f736](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b85f736cd93359c754522ae8152d31b0ed08b138))
+* **DatasetList:** export new component DatasetList ([5c7c0fa](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5c7c0faaee7c9e43ac69ac5a312926827754aeaa))
+* **Datasets:** implement Datasets slots for customizable layouts; refactor PvDataInfoBox related logic to dedicated composable ([3339fc7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3339fc79715f621fe93155b4c1d17021b4824c95))
+* **Datasets:** implement slot for dataset search results message box ([498cbc4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/498cbc4ddc6342ae690510eb52220aba527f16dc))
+* export all PvDataInfoBox related components ([762e058](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/762e058bdd1ab91732b46f57013d2a4475a5ca9b))
+* **PvDataInfoBox:** add slot for badge column ([ebb29e0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ebb29e086f85f18b4c0fd283c06500127151463f))
+* **PvDataInfoBox:** expose dataset slot prop ([29a8a52](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/29a8a528fa12b8a40b68ccca65b677afdbf343d2))
+
+
+
 ## [3.1.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.1.1...v3.1.2) (2023-06-29)
 
 
