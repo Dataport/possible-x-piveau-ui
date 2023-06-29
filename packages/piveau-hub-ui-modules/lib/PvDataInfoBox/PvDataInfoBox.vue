@@ -50,19 +50,7 @@
             :class="{ 'col-md-3': !compact }"
           >
             <slot name="right" :formats="dataset.formats">
-              <PvBadge
-                v-for="(format, i) in dataset.formats.slice(0, 10)"
-                :key="`badge@${i}`"
-                class="mr-1 format-badge"
-                :value="format"
-                data-toggle="tooltip"
-                data-placement="top"
-                :type="format.id"
-                :title="$t('message.tooltip.datasetDetails.format')"
-              >
-                {{ format.label || format.id || "UNKNOWN" }}
-              </PvBadge>
-              <span v-if="dataset.formats.length >= 10">...</span>
+              <PvDataInfoBoxFormats :formats="dataset.formats"></PvDataInfoBoxFormats>
             </slot>
           </div>
           <slot name="footer" :dataset="dataset" v-if="compact">
@@ -102,6 +90,7 @@ import type RouteLocationRaw from "vue-router";
 import PvBadge from "../PvBadge/PvBadge.vue";
 import PvDataInfoBoxFooter from "./PvDataInfoBoxFooter.vue";
 import PvDataInfoBoxDescription from "./PvDataInfoBoxDescription.vue";
+import PvDataInfoBoxFormats from "./PvDataInfoBoxFormats.vue"
 
 export default defineComponent({
   name: "PvDataInfoBox",
@@ -109,6 +98,7 @@ export default defineComponent({
     PvBadge,
     PvDataInfoBoxFooter,
     PvDataInfoBoxDescription,
+    PvDataInfoBoxFormats,
   },
   props: {
     /**
