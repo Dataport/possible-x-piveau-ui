@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-5 dsd-properties">
+  <div class="mt-5 dsd-properties">
     <div class="col-12 mb-2 p-0 dsd-properties-list">
       <dataset-details-feature-header
         :title="$t('message.datasetDetails.additionalInfo')"
