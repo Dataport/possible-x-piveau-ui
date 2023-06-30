@@ -229,7 +229,7 @@
 
   .dsd-description {
     order: 1;
-    grid-row: span 2;
+    grid-row: span 1;
   }
 
   .dsd-description-content {
@@ -275,6 +275,7 @@
   .dsd-banners {
     order: 3;
     margin-top: 1.5rem;
+    padding-right: 40px;
   }
 
   .dsd-distributions {

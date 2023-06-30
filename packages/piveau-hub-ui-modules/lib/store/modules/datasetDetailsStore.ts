@@ -172,6 +172,7 @@ const state = {
         extendetMetadata: {},
         distributionDownloadAs: {},
         distributionDownloadAsOptions: [],
+        descriptionHeight: 0,
     },
     activeNavigationTab: 0,
     loading: false,
@@ -262,6 +263,7 @@ const getters = {
     getExtendedMetadata: state => state.dataset.extendetMetadata,
     getDistributionDownloadAs: state => state.dataset.distributionDownloadAs,
     getDistributionDownloadAsOptions: state => state.dataset.distributionDownloadAsOptions,
+    getDatasetDescriptionHeight: state => state.dataset.descriptionHeight,
 };
 
 const actions = {
@@ -502,6 +504,14 @@ const actions = {
         commit('SET_DISTRIBUTION_DOWNLOAD_AS', distribution);
         commit('SET_DISTRIBUTION_DOWNLOAD_AS_OPTIONS', selectOptions);
     },
+    /** 
+    * @description Sets datasetDescription height
+    * @param commit
+    * @param height 
+    */
+    setDatasetDescriptionHeight({ commit }, height) {
+      commit('SET_DATASET_DESCRIPTION_HEIGHT', height)
+    }
 };
 
 const mutations = {
@@ -784,7 +794,10 @@ const mutations = {
     },
     SET_DISTRIBUTION_DOWNLOAD_AS_OPTIONS(state, selectOptions) {
         state.dataset.distributionDownloadAsOptions = selectOptions;
-    }
+    },
+    SET_DATASET_DESCRIPTION_HEIGHT (state, height) {
+     state.dataset.descriptionHeight = height;
+   }
 };
 
 const module = {
