@@ -350,20 +350,26 @@
     padding-top: 0 !important;
 }
 
-#subStepperBox {
-    .step-progress__step {}
+// #subStepperBox {
+//     position: sticky;
+//     top: 155px;
+//     z-index: 10;
+//     width: 100%;
+//     padding: 0 10%;
+  
+//     .step-progress__step {}
 
-    .step-progress__bar {
-        border-top: none !important;
-    }
+//     .step-progress__bar {
+//         border-top: none !important;
+//     }
 
-    .step-progress__step--active {
-        .step-progress__step-label {
-            background-color: lightsteelblue;
-        }
+//     .step-progress__step--active {
+//         .step-progress__step-label {
+//                 background-color: lightsteelblue;
+//         }
 
-    }
-}
+//     }
+// }
 
 #nav {
     .right-form-nav {

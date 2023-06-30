@@ -3,7 +3,7 @@
         v-on="$listeners" class="w-100">
         <div class="d-flex w-100 ">
             <FormulateInput type="url" :name="context.name" :placeholder="context.attributes.placeholder" v-model="urlInput"
-                :validation="myUrl" :validation-rules="myUrlRules" :validation-messages="myUrlMessages" class="w-100">
+                :validation="myUrl" :validation-rules="myUrlRules" :validation-messages="myUrlMessages" @input="handleInput" class="w-100">
             </FormulateInput>
         </div>
 
@@ -45,7 +45,7 @@ export default {
         return {
             urlInput: '',
             myUrl: 'optional|myUrl',
-            myUrlRules: { myUrl: () => /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/.test(this.urlInput) },
+            myUrlRules: { myUrl: () => /[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)+/.test(this.urlInput) },
             myUrlMessages: { myUrl: 'Please enter a valid URL (e.g.: "https:// ..." or "www. ...")' }
         };
     },
@@ -73,6 +73,14 @@ export default {
                 this.urlInput = this.context.model;
             }
         },
+        handleInput(){
+            if(this.urlInput.includes("https://") || this.urlInput.includes("http://")){
+                
+            }
+            else{
+                this.urlInput = "https://"+this.urlInput
+            }
+        }
     },
     watch: {
 
