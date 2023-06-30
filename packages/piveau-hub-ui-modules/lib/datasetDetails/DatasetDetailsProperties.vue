@@ -11,6 +11,22 @@
            data-cy="additional-information"
            v-show="infoVisible">
         <table class="table table-borderless table-responsive" ref="dsdProperties" id="myTab" role="tablist">
+          <tr v-if="showString(getReleaseDate)">
+            <td class="w-25 font-weight-bold">
+              <tooltip :title="$t('message.tooltip.datasetDetails.created')">
+                {{ $t('message.metadata.created') }}
+              </tooltip>
+            </td>
+            <td>{{ filterDateFormatEU(getReleaseDate) }}</td>
+          </tr>
+          <tr v-if="showString(getModificationDate)">
+            <td class="w-25 font-weight-bold">
+              <tooltip :title="$t('message.tooltip.datasetDetails.updated')">
+                {{ $t('message.metadata.updated') }}
+              </tooltip>
+            </td>
+            <td>{{ filterDateFormatEU(getModificationDate) }}</td>
+          </tr>
           <tr v-if="showArray(getLandingPagesResource)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.landingPage')">
@@ -240,22 +256,6 @@
             </td>
           </tr>
           <!-- ### END DCAT-AP.de fields ### -->
-          <tr v-if="showString(getModificationDate)">
-            <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.tooltip.datasetDetails.updated')">
-                {{ $t('message.metadata.updated') }}
-              </tooltip>
-            </td>
-            <td>{{ filterDateFormatEU(getModificationDate) }}</td>
-          </tr>
-          <tr v-if="showString(getReleaseDate)">
-            <td class="w-25 font-weight-bold">
-              <tooltip :title="$t('message.tooltip.datasetDetails.created')">
-                {{ $t('message.metadata.created') }}
-              </tooltip>
-            </td>
-            <td>{{ filterDateFormatEU(getReleaseDate) }}</td>
-          </tr>
           <tr v-if="showObject(getCatalogRecord)">
             <td class="w-25 font-weight-bold">
               <tooltip :title="$t('message.tooltip.catalogRecord')" >
@@ -737,7 +737,7 @@ export default {
     return {
       infoVisible: true,
       initialHeight: 0,
-      restrictedHeight: 200,
+      restrictedHeight: 100,
       expanded: false
     };
   },
@@ -796,7 +796,8 @@ export default {
       'getVersionNotes',
       'getQualifiedAttributions',
       'getQualifiedRelations',
-      'getWasGeneratedBy'
+      'getWasGeneratedBy',
+      'getDatasetDescriptionHeight'
     ]),
     // Provides resource data only of landing pages
     // Example: [{ format: 'bar', resource: 'foo' }, ...] -> ['foo']
@@ -839,6 +840,12 @@ export default {
   mounted() {
     this.initialHeight = this.$refs.dsdProperties.clientHeight;
     this.$refs.overlay.style.bottom = (this.$refs.dsdProperties.offsetHeight - this.$refs.dsdProperties.clientHeight) + "px";
+    if (this.getDatasetDescriptionHeight >= this.initialHeight) {
+      this.restrictedHeight = this.getDatasetDescriptionHeight;
+      this.toggleExpanded()
+    } else if ((this.getDatasetDescriptionHeight >= this.restrictedHeight) && (this.getDatasetDescriptionHeight <= this.initialHeight)) {
+      this.restrictedHeight = this.getDatasetDescriptionHeight
+    }
     this.adaptHeight();
   }
 }
@@ -851,10 +858,13 @@ export default {
 
 .additional-information-overlay {
   width: 100%;
-  height: 200px;
+  height: 100px;
   position: absolute;
   left: 0;
   background: linear-gradient(to bottom, rgba(0,0,0,0) 0, white 100%);
   pointer-events: none;
+}
+table {
+  background: #F5F5F5;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-4 mb-4 dsd-description" data-cy="dataset-description">
+  <div ref="datasetDescription" class="mt-4 mb-4 dsd-description" data-cy="dataset-description">
     <div v-if="getDatasetDescription !== 'No description available'" class="col-12 col-lg-11 offset-lg-1 dsd-description-content" property="dc:description">
       <app-markdown-content
         v-if="$env.content.datasetDetails.description.enableMarkdownInterpretation"
@@ -36,6 +36,11 @@
         {{ $t('message.catalogsAndDatasets.noDescriptionAvailable') }}
       </p>
     </div>
+    <dataset-details-banners
+      :dateIncorrect="dateIncorrect"
+      :machineTranslated="machineTranslated"
+      :translationNotAvailable="translationNotAvailable"
+    />
   </div>
 </template>
 
@@ -43,11 +48,17 @@
 import AppMarkdownContent from "../datasetDetails/AppMarkdownContent";
 import filtersMixin from "../mixins/filters";
 import {getTranslationFor, truncate} from "../utils/helpers";
-import {mapGetters} from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import DatasetDetailsBanners from "../datasetDetails/DatasetDetailsBanners.vue";
 export default {
   name: "DatasetDetailsDescription",
-  components: {AppMarkdownContent},
+  components: {AppMarkdownContent, DatasetDetailsBanners},
   mixins: [filtersMixin],
+  props: {
+    dateIncorrect: Boolean,
+    machineTranslated: Boolean,
+    translationNotAvailable: Boolean
+  },
   data() {
     return {
       isDatasetDescriptionExpanded: false,
@@ -69,12 +80,21 @@ export default {
     }
   },
   methods: {
+     ...mapActions('datasetDetails', [
+      'setDatasetDescriptionHeight'
+    ]),
     truncate,
     toggleDatasetDescription() {
       this.isDatasetDescriptionExpanded = !this.isDatasetDescriptionExpanded;
       if (this.datasetDescriptionLength === this.INITIAL_DATASET_DESCRIPTION_LENGTH) this.datasetDescriptionLength = this.MAX_DATASET_DESCRIPTION_LENGTH;
       else this.datasetDescriptionLength = this.INITIAL_DATASET_DESCRIPTION_LENGTH;
+    },
+    calculateDatasetDescriptionHeight() {
+      return this.$refs.datasetDescription.querySelector('.dsd-description-content').clientHeight;
     }
+  },
+  mounted() {
+    this.setDatasetDescriptionHeight(this.calculateDatasetDescriptionHeight());
   }
 }
 </script>
