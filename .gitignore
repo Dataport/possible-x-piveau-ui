@@ -2,6 +2,7 @@
 node_modules
 dist
 storage
+local
 
 config/*.env.js
 config/user-config.js
