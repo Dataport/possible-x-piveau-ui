@@ -351,7 +351,7 @@
                 },
                 "temporalResolutionYear": {
                     "placeholder": "Year",
-                    "label": "Temporal Resolution Year",
+                    "label": "Year",
                     "help": "Year of the temporal resolution.",
                     "info": ""
                 },
@@ -701,7 +701,7 @@
                     "label": "Modified",
                     "help": "Most recent date on which the dataset was changed, updated or modified.",
                     "info": "Most recent date on which the dataset was changed, updated or modified. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
-                    "placeholder": "Dataset Modified placeholder text"
+                    "placeholder": "Modified"
                 },
                 "publisher": {
                     "help": "An entity, such as a person, organisation, or service, that is responsible for making the dataset available.",
@@ -1119,7 +1119,7 @@
                 "modified": {
                     "help": "The most recent date on which the Catalogue entry was changed or modified.",
                     "info": "This property contains the most recent date on which the Catalogue entry was changed or modified.",
-                    "placeholder": "Catalogue Modified placeholder text",
+                    "placeholder": "Modified",
                     "label": "Modified",
                     "add-label": "Add Modified in another language"
                 },
@@ -1270,14 +1270,14 @@
                 "modified": {
                     "info": "This property contains the most recent date on which the Distribution was changed or modified.",
                     "help": "Date on which the Distribution was changed or modified.",
-                    "placeholder": "Distribution Modified placeholder text",
+                    "placeholder": "Modified",
                     "label": "Modified"
                 },
                 "issued": {
                     "label": "Issued",
                     "info": "This property contains the date of formal issuance (e.g., publication) of the Distribution.",
                     "help": "The date of formal issuance (e.g., publication) of the Distribution.",
-                    "placeholder": "Distribution Issued placeholder text"
+                    "placeholder": "Issued"
                 },
                 "date": {
                     "label": "Date",
