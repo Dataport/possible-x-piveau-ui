@@ -349,7 +349,12 @@
     background-color: #efefef;
     padding-top: 0 !important;
 }
-
+.startEndDate{
+    .formulate-input-group-repeatable{
+        justify-content: space-between;
+    }
+   
+}
 // #subStepperBox {
 //     position: sticky;
 //     top: 155px;

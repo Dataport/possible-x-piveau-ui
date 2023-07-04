@@ -1142,7 +1142,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'temporalResolutionYear',
-          type: 'custom-number'',
+          type: 'custom-number',
           min: 0,
           '@change': true,
           name: 'Year',
