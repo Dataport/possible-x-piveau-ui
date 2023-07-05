@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
-                            <h2 class="catalog-header-titel" aria-label="Catalog name">
+                            <h2 class="catalog-header-titel" aria-label="Katalogtitel">
                                 <!-- <img class="catalog-header-icon" src="../assets/img/favicon.png" alt="">  -->
                                 <img v-if="showArray(getCatalog.catalogueFavIcon)" class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
                                 <span>{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</span>
@@ -17,29 +17,23 @@
                             </h5>
                         </div>
                         <!-- <img class="catalog-header-logo" src="../assets/img/logo.png" alt=""> -->
-                        <img class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="">
+                        <img class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="" aria-label="logo">
                     </div>
                     <div class="col-10 mx-auto">
                         <div class="catalog-card card" >
                             <div class="card-header">
                                 <!-- CARD NAV -->
-                                <ul class="nav nav-tabs card-header-tabs" role="tablist" aria-label="Navigation bar">
+                                <ul class="nav nav-tabs card-header-tabs" role="tablist" aria-label="Navigationsleiste">
                                     <li v-for="tab in cardNavTabs" :key="tab.id" role="tab" :aria-controls="tab.id" :aria-selected="activeTabName === tab.id" :aria-label="tab.displayName">
                                         <a @click.prevent="setActiveTabName(tab.id)" class="nav-link" :class="{active: tab.id === activeTabName}" :href="`#${tab.id}`" role="tab">
                                             {{ tab.displayName }}
                                         </a>
-                                        <!-- <router-link @click="setActiveTabName(tab.id)" 
-                                        class="nav-link" 
-                                        :class="{active: tab.id === activeTabName}" 
-                                        :to="`#${tab.id}`" role="presentation" 
-                                        >
-                                            {{ tab.displayName }}
-                                        </router-link> -->
                                     </li>
                                 </ul>
                             </div>
                             <!-- CARD CONTENT -->
                             <div class="card-body mx-4 my-5">
+
                                 <!-- "ÜBER DIESEN KATALOG" -->
                                 <div v-if="activeTabName === 'about'" class="tab-pane active catalog-about-tab d-flex align-items-start justify-content-between" id="about" role="tabpanel">
                                     <div>
@@ -71,22 +65,22 @@
                                         
                                         <button @click.prevent="setActiveTabName('dataset-page')" class="fol-button primary-button" role="button">Mehr Daten entdecken</button>
                                     </div>
+
+                                    <span v-else>
+                                        Es sind keine Datensätze verfügbar.
+                                    </span>
                                 </div>
 
                                 <!-- "ALLE DATENSÄTZE" -->
                                 <div v-show="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
-                                    <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                     <div class="tab-content mt-3">
                                         <Datasets />
                                     </div>
-                                    <!-- <Datasets /> -->
                                 </div>
 
                                 <!-- "KONTAKT" -->
                                 <div v-show="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                    <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                     <div class="tab-content">
-                                        <!-- PUBLISHER -->
                                         <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher)">
                                             <dt v-if="has(getCatalog, 'publisher.name')  && showString(getCatalog.publisher.name)">{{ getCatalog.publisher.name }}</dt>
                                             <dd>
@@ -101,34 +95,14 @@
                                             </dd>
                                         </dl>
                                         <span v-else>
-                                            Keine Kontaktinformationen verfügbar.
+                                            Es sind keine Kontaktinformationen verfügbar.
                                         </span>
-                                    <!-- <p class="card-text">body for Interessante Kontakt.</p> -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                            <!-- <div class="card-footer text-muted">
-                                Footer
-                            </div> -->
                         </div>
                     </div>
                 </div>
-                <!-- <dl v-if="has(catalog, 'title') && showObject(catalog.title)">
-                    <dt>
-                            <span :title="$t('message.tooltip.catalogDetails.title')"
-                                    data-toggle="tooltip"
-                                    data-placement="right">
-                                    {{ $t('message.metadata.title') }}
-                            </span>
-                    </dt>
-                    <dd>{{ getTranslationFor(catalog.title, $route.query.locale, catalog.languages) }}</dd>
-                    <dd>
-                        <app-link :to="catalog.homepage">
-                        {{ catalog.homepage }}
-                        </app-link>
-                    </dd>
-                </dl> -->
             </div>
         </div>
     </div>
@@ -142,7 +116,6 @@ import AppLink from "../widgets/AppLink";
 import DatasetCard from "./CatalogPageDatasetCard.vue"
 import AppMarkdownContent from "../datasetDetails/AppMarkdownContent.vue"
 import {
-    debounce,
     has,
     groupBy,
     uniqBy,
@@ -152,7 +125,7 @@ import {
     isObject, 
     isString
   } from 'lodash-es';
-  import { getTranslationFor, truncate, getImg } from '../utils/helpers';
+  import { getTranslationFor, truncate } from '../utils/helpers';
     export default {
         name: "CatalogPage",
         dependencies: ['catalogService', 'DatasetService'],
@@ -165,10 +138,10 @@ import {
         data() {
             return {
                 // TODO: remove these after finishing
-                testBackground: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/bg.png"],
-                testFavicon: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/favicon.png"],
-                testLogo: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/logo.png"],
-                testProfile: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/profile.png"],
+                // testBackground: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/bg.png"],
+                // testFavicon: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/favicon.png"],
+                // testLogo: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/logo.png"],
+                // testProfile: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/profile.png"],
                 // catalog: {},
                 activeTabName: 'about',
                 cardNavTabs: [
@@ -189,6 +162,7 @@ import {
                         displayName: 'Kontakt',
                     },
                 ],
+                // TODO: remove
                 cardIcons: [
                     "icon-cartogram_64x64.png",
                     "icon-castle_64x64.png",
@@ -203,15 +177,15 @@ import {
             ...mapGetters('datasets', [
                 'getDatasets',
                 'getDatasetsCount',
-                'getFacets',
-                'getLimit',
+                // 'getFacets',
+                // 'getLimit',
                 'getLoading',
                 'getOffset',
-                'getPage',
-                'getPageCount',
-                'getAvailableFacets',
-                'getAllAvailableFacets',
-                'getMinScoring',
+                // 'getPage',
+                // 'getPageCount',
+                // 'getAvailableFacets',
+                // 'getAllAvailableFacets',
+                // 'getMinScoring',
             ]),
         },
         methods: {
@@ -221,61 +195,53 @@ import {
             isArray,
             truncate,
             getTranslationFor,
-            getImg,
             ...mapActions('catalogDetails', [
             'loadCatalog',
             'useCatalogService',
             ]),
             ...mapActions('datasets', [
                 'loadDatasets',
-                'useService',
+                // 'useService',
             ]),
-            // initShowCatalogDetails() {
-            //     const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
-            //     if (showCatalogDetails === true) {
-            //         this.showCatalogDetails = true;
-            //         this.loadCatalog(this.$route.params.ctlg_id);
-            //     } else this.showCatalogDetails = false;
+            // initDatasets() {
+            //     this.$nextTick(() => {
+            //     this.$nextTick(() => {
+            //         this.$Progress.start();
+            //         this.loadDatasets({ locale: this.$route.query.locale })
+            //         .then(() => {
+            //             this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
+            //             this.$Progress.finish();
+            //             $('[data-toggle="tooltip"]').tooltip({
+            //             container: 'body',
+            //             });
+            //         })
+            //         .catch(() => {
+            //             this.$Progress.fail();
+            //         })
+            //         .finally(() => this.$root.$emit('contentLoaded'));
+            //     });
+            //     });
             // },
-            initDatasets() {
-                this.$nextTick(() => {
-                this.$nextTick(() => {
-                    this.$Progress.start();
-                    this.loadDatasets({ locale: this.$route.query.locale })
-                    .then(() => {
-                        this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
-                        this.$Progress.finish();
-                        $('[data-toggle="tooltip"]').tooltip({
-                        container: 'body',
-                        });
-                    })
-                    .catch(() => {
-                        this.$Progress.fail();
-                    })
-                    .finally(() => this.$root.$emit('contentLoaded'));
-                });
-                });
-            },
-            getBadgeFormat(label) {
-                return this.truncate(label, 8, true);
-            },
-            removeDuplicatesOf(array) {
-                const correctedFormatArray = array.map(format => (
-                {
-                    ...format,
-                    id: this.getBadgeFormat(format.id),
-                    label: this.getBadgeFormat(format.label),
-                }
-                ));
-                // sorts after # of occurences (highest occurence first)
-                // possibility #1
-                const sortedArray = toPairs(groupBy(correctedFormatArray, 'id')).sort((a, b) => b[1].length - a[1].length);
-                const onlyFormatObjectsArray = sortedArray.map(arr => arr[1][0]);
-                // lodash uniqBy funtion removes duplicate id´s from array of objects
-                const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
-                const uniqByIdAndLabel = uniqBy(uniqById, 'label');
-                return uniqByIdAndLabel;
-            },
+            // getBadgeFormat(label) {
+            //     return this.truncate(label, 8, true);
+            // },
+            // removeDuplicatesOf(array) {
+            //     const correctedFormatArray = array.map(format => (
+            //     {
+            //         ...format,
+            //         id: this.getBadgeFormat(format.id),
+            //         label: this.getBadgeFormat(format.label),
+            //     }
+            //     ));
+            //     // sorts after # of occurences (highest occurence first)
+            //     // possibility #1
+            //     const sortedArray = toPairs(groupBy(correctedFormatArray, 'id')).sort((a, b) => b[1].length - a[1].length);
+            //     const onlyFormatObjectsArray = sortedArray.map(arr => arr[1][0]);
+            //     // lodash uniqBy funtion removes duplicate id´s from array of objects
+            //     const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
+            //     const uniqByIdAndLabel = uniqBy(uniqById, 'label');
+            //     return uniqByIdAndLabel;
+            // },
             setActiveTabName(name) {
                 this.activeTabName = name;
                 // this.router.push(name);
@@ -305,22 +271,22 @@ import {
             }
         },
         watch: {
-            facetGroupOperatorWatcher: {
-            handler(facetGroupOperator) {
-                this.setRouteQuery({ facetGroupOperator }, "replace");
-            },
-            },
-            '$route.params.ctlg_id'(showCatalogDetails) {
-            this.showCatalogDetails = showCatalogDetails;
-            },
-            getDatasetGeoBounds(bounds) {
-            this.bounds = bounds
-            },
+            // facetGroupOperatorWatcher: {
+            //     handler(facetGroupOperator) {
+            //         this.setRouteQuery({ facetGroupOperator }, "replace");
+            //     },
+            // },
+            // '$route.params.ctlg_id'(showCatalogDetails) {
+            //     this.showCatalogDetails = showCatalogDetails;
+            // },
+            // getDatasetGeoBounds(bounds) {
+            //     this.bounds = bounds
+            // },
             getCatalog(catalog) {
-            this.catalog = catalog;
+                this.catalog = catalog;
             },
             activeTabName(activeTab) {
-            sessionStorage.activeTabName = activeTab;
+                sessionStorage.activeTabName = activeTab;
             },
         },
         created() {
@@ -368,7 +334,6 @@ import {
     .catalog-header-logo {
         height: 75px;
         width: auto;
-        // margin: 40px 50px;
     }
 
     .catalog-card.card {
@@ -404,7 +369,6 @@ import {
         .catalog-about-tab {
             flex-wrap: wrap;
             flex-direction: column-reverse;
-            // align-items: center !important;
             margin-left: 0 !important;
         }
         .ml-4.catalog-hero-pic {
