@@ -2,13 +2,10 @@
     <div class="catalog-page-container" :style="{ backgroundImage: 'url(' + getCatalog.catalogueBackground + ')' }">
         <div class="catalog-box">
             <div>
-                <!-- <button @click="testLogger(getCatalog)">catalog logger</button> -->
-                <!-- <button @click="testLogger(getDatasets)">datasets logger</button> -->
                 <div class="row">
                     <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
                             <h2 class="catalog-header-titel" aria-label="Catalog name">
-                                <!-- TODO: favicon -->
                                 <!-- <img class="catalog-header-icon" src="../assets/img/favicon.png" alt="">  -->
                                 <img v-if="showArray(getCatalog.catalogueFavIcon)" class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
                                 <span>{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</span>
@@ -19,16 +16,15 @@
                                 </app-link>
                             </h5>
                         </div>
-                        <!-- TODO: call the right logo -->
                         <!-- <img class="catalog-header-logo" src="../assets/img/logo.png" alt=""> -->
                         <img class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="">
-                        <!-- <span>*logo*</span> -->
                     </div>
                     <div class="col-10 mx-auto">
                         <div class="catalog-card card" >
                             <div class="card-header">
-                                <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                                    <li v-for="tab in cardNavTabs" :key="tab.id" role="tab" :aria-controls="tab.id" :aria-selected="activeTabName === tab.id">
+                                <!-- CARD NAV -->
+                                <ul class="nav nav-tabs card-header-tabs" role="tablist" aria-label="Navigation bar">
+                                    <li v-for="tab in cardNavTabs" :key="tab.id" role="tab" :aria-controls="tab.id" :aria-selected="activeTabName === tab.id" :aria-label="tab.displayName">
                                         <a @click.prevent="setActiveTabName(tab.id)" class="nav-link" :class="{active: tab.id === activeTabName}" :href="`#${tab.id}`" role="tab">
                                             {{ tab.displayName }}
                                         </a>
@@ -42,47 +38,23 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!-- <h5 class="card-header">Header</h5> -->
+                            <!-- CARD CONTENT -->
                             <div class="card-body mx-4 my-5">
                                 <!-- "ÜBER DIESEN KATALOG" -->
-                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-start justify-content-between" id="about" role="tabpanel">
+                                <div v-if="activeTabName === 'about'" class="tab-pane active catalog-about-tab d-flex align-items-start justify-content-between" id="about" role="tabpanel">
                                     <div>
-                                        <!-- <h5 class="card-title"></h5> -->
                                         <div class="tab-content d-flex">
                                             <app-markdown-content class="card-text" tag="div" :text="getTranslationFor(catalog.description, $route.query.locale, catalog.languages)" />
                                         </div>
                                     </div>
-                                    <!-- TODO call the right -->
-                                    <!-- <img class="ml-4 catalog-hero-pic" src="../assets/img/hero.png" alt=""> -->
+                                    <!-- <img class="catalog-hero-pic ml-4 img-fluid" :src="testProfile" alt=""> -->
                                     <img class="ml-4" :src="getCatalog.catalogueProfile" alt="">
                                 </div>
 
                                 <!-- "INTERESSANTE DATENSÄTZE" -->
-                                <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
-                                    <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
-                                    <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                    <div class="tab-content d-flex flex-column align-items-center mt-3">
+                                <div v-show="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
+                                    <div v-if="showArray(getDatasets)" class="tab-content d-flex flex-column align-items-center mt-3">
                                         <div class=" d-flex flex-wrap justify-content-center">
-                                            <!-- <p class="card-text">*Work in progress..*</p> -->
-                                            <!-- <pv-data-info-box
-                                            v-for="dataset in getDatasets.slice(0, 3)"
-                                            :key="dataset.id"
-                                            :to="`/datasets/${dataset.id}`"
-                                            :src="getImg(getCatalogImage(dataset.catalog))"
-                                            :dataset="{
-                                                title: getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id,
-                                                description:
-                                                getTranslationFor(dataset.description, $route.query.locale, dataset.languages),
-                                                catalog: getTranslationFor(dataset.catalog.title, $route.query.locale, []),
-                                                createdDate: dataset.releaseDate,
-                                                updatedDate: dataset.modificationDate,
-                                                formats: removeDuplicatesOf(dataset.distributionFormats).filter((format) => format.id || format.label),
-                                            }"
-                                            :description-max-length="1000"
-                                            :data-cy="`dataset@${dataset.id}`"
-                                            class="mt-3"
-                                            /> -->
-
                                             <DatasetCard 
                                             v-for="(dataset, i) in getDatasets.slice(0, 3)"
                                             :key="dataset.id"
@@ -102,7 +74,7 @@
                                 </div>
 
                                 <!-- "ALLE DATENSÄTZE" -->
-                                <div v-if="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
+                                <div v-show="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
                                     <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                     <div class="tab-content mt-3">
                                         <Datasets />
@@ -111,7 +83,7 @@
                                 </div>
 
                                 <!-- "KONTAKT" -->
-                                <div v-if="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                <div v-show="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
                                     <div class="tab-content">
                                         <!-- PUBLISHER -->
@@ -197,7 +169,7 @@ import {
                 testFavicon: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/favicon.png"],
                 testLogo: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/logo.png"],
                 testProfile: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/profile.png"],
-                catalog: {},
+                // catalog: {},
                 activeTabName: 'about',
                 cardNavTabs: [
                     {
@@ -258,18 +230,13 @@ import {
                 'loadDatasets',
                 'useService',
             ]),
-            getCatalogImage(catalog) {
-                return this.$env.content.catalogs.useCatalogCountries
-                ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.content.catalogs.defaultCatalogCountryID}`
-                : `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.content.catalogs.defaultCatalogID}`;
-            },
-            initShowCatalogDetails() {
-                const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
-                if (showCatalogDetails === true) {
-                    this.showCatalogDetails = true;
-                    this.loadCatalog(this.$route.params.ctlg_id);
-                } else this.showCatalogDetails = false;
-            },
+            // initShowCatalogDetails() {
+            //     const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
+            //     if (showCatalogDetails === true) {
+            //         this.showCatalogDetails = true;
+            //         this.loadCatalog(this.$route.params.ctlg_id);
+            //     } else this.showCatalogDetails = false;
+            // },
             initDatasets() {
                 this.$nextTick(() => {
                 this.$nextTick(() => {
@@ -331,9 +298,6 @@ import {
             showObjectArray(objectArray) {
                 return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
             },
-            testLogger(something) {
-                console.log(something);
-            }
         },
         mounted() {
             if (sessionStorage.activeTabName) {
@@ -360,10 +324,11 @@ import {
             },
         },
         created() {
-            this.useService(this.DatasetService);
             this.useCatalogService(this.catalogService);
-            this.initShowCatalogDetails();
-            this.initDatasets();
+            // this.useService(this.DatasetService);
+            // this.initShowCatalogDetails();
+            this.loadCatalog(this.$route.params.ctlg_id);
+            // this.initDatasets();
         }
 
     }
