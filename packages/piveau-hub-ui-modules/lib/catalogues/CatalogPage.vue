@@ -17,7 +17,7 @@
                             </h5>
                         </div>
                         <!-- <img class="catalog-header-logo" src="../assets/img/logo.png" alt=""> -->
-                        <img class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="" aria-label="logo">
+                        <img v-if="showArray(getCatalog.catalogueLogo)" class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="" aria-label="logo">
                     </div>
                     <div class="col-10 mx-auto">
                         <div class="catalog-card card" >
@@ -41,7 +41,7 @@
                                             <app-markdown-content class="card-text" tag="div" :text="getTranslationFor(catalog.description, $route.query.locale, catalog.languages)" />
                                         </div>
                                     </div>
-                                    <img class="catalog-hero-pic ml-4 img-fluid" :src="getCatalog.catalogueProfile" alt="">
+                                    <img v-if="showArray(getCatalog.catalogueProfile)" class="catalog-hero-pic ml-4 img-fluid" :src="getCatalog.catalogueProfile" alt="">
                                     <!-- <img class="ml-4" :src="testProfile" alt=""> -->
                                 </div>
 
