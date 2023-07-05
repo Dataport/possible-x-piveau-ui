@@ -7,12 +7,11 @@
       <dataset-details-skeleton type="DatasetDetails"></dataset-details-skeleton>
     </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
-      <dataset-details-banners
+      <dataset-details-description 
         :dateIncorrect="dateIncorrect"
         :machineTranslated="machineTranslated"
         :translationNotAvailable="translationNotAvailable"
       />
-      <dataset-details-description />
       <distributions
         :openModal="openModal"
         :getDistributions="getDistributions"
@@ -102,7 +101,6 @@
     getTranslationFor, getCountryFlagImg, truncate, replaceHttp, appendCurrentLocaleToURL
   } from '../utils/helpers';
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
-  import DatasetDetailsBanners from "../datasetDetails/DatasetDetailsBanners.vue";
   // import DatasetDetailsDescription from "../datasetDetails/DatasetDetailsDescription.vue";
   // import DatasetDetailsProperties from "../datasetDetails/DatasetDetailsProperties.vue";
   import DatasetDetailsExtendedMetaData
@@ -119,7 +117,7 @@
       DatasetDetailsExtendedMetaData,
       // DatasetDetailsProperties,
       // DatasetDetailsDescription,
-      DatasetDetailsBanners,
+      // DatasetDetailsBanners,
       AppLink,
       Tooltip,
       Distributions,
