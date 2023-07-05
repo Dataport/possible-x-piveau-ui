@@ -47,8 +47,8 @@
                                             <app-markdown-content class="card-text" tag="div" :text="getTranslationFor(catalog.description, $route.query.locale, catalog.languages)" />
                                         </div>
                                     </div>
-                                    <!-- <img class="catalog-hero-pic ml-4 img-fluid" :src="testProfile" alt=""> -->
-                                    <img class="ml-4" :src="getCatalog.catalogueProfile" alt="">
+                                    <img class="catalog-hero-pic ml-4 img-fluid" :src="getCatalog.catalogueProfile" alt="">
+                                    <!-- <img class="ml-4" :src="testProfile" alt=""> -->
                                 </div>
 
                                 <!-- "INTERESSANTE DATENSÄTZE" -->
@@ -393,7 +393,22 @@ import {
     }
 
     .catalog-hero-pic {
-        max-width: 300px;
+        max-width: 250px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 25px;
+        
     }
 
+    @media screen and (max-width: 991px) {
+        .catalog-about-tab {
+            flex-wrap: wrap;
+            flex-direction: column-reverse;
+            // align-items: center !important;
+            margin-left: 0 !important;
+        }
+        .ml-4.catalog-hero-pic {
+            margin-left: 0 !important;
+        }
+    }
 </style>
