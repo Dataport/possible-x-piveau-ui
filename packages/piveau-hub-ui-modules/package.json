@@ -4,12 +4,13 @@
   "version": "3.3.3",
   "type": "module",
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": "./dist/index",
     "./styles": "./dist/piveau-hub-ui-modules.css"
   },
   "files": [
     "dist"
   ],
+  "types": "dist/piveau-hub-ui-modules.d.ts",
   "scripts": {
     "prepare-dev": "node scripts/create_links.js",
     "build": "cross-env BUILD_MODE=lib vite build",
@@ -27,6 +28,7 @@
     "sass": "^1.62.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
+    "vite-plugin-dts": "^3.0.3",
     "vue-i18n": "^8.28.2",
     "vue-tsc": "^1.2.0"
   },

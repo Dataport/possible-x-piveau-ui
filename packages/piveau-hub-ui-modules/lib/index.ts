@@ -388,4 +388,4 @@ export {
 };
 
 // @ts-ignore
-export * as helpers from "./utils/helpers.ts";
+export * as helpers from "./utils/helpers";

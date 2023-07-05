@@ -1,6 +1,7 @@
 import { defineConfig, PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue2';
 import copy from 'rollup-plugin-copy';
+import dts from 'vite-plugin-dts';
 import path from 'path';
 import { lstatSync } from 'fs';
 import Components from 'unplugin-vue-components/vite'
@@ -113,6 +114,10 @@ export default defineConfig({
       hook: 'writeBundle',
       verbose: true,
     }) as PluginOption,
+    dts({
+      insertTypesEntry: true,
+      copyDtsFiles: true,
+    })
   ],
   server: {
     port: 8080
@@ -164,7 +169,7 @@ export default defineConfig({
     sourcemap: true,
 
     lib: {
-      entry: path.resolve(__dirname, 'lib/index.mjs'),
+      entry: path.resolve(__dirname, 'lib/index'),
       name: 'piveau-hub-ui-modules',
       fileName: 'piveau-hub-ui-modules',
       formats: ['es'],
