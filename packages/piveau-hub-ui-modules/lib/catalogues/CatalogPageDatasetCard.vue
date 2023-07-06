@@ -1,25 +1,25 @@
 <template>
-    <div class="cp-dataset-card d-flex flex-column justify-content-between">
-        <div class="cp-dataset-card-image">
-        <img :src="getImageUrl()" alt="">
-        </div>
-        <div class="cp-dataset-card-text">
-          <span class="cp-dataset-card-header">{{ datasetTitle }}</span><br>
-          <span class="cp-dataset-card-subheader">{{ datasetCatalog }}</span><br><br>
-
-          <p v-if="datasetDescription" class="cp-dataset-card-subtitle">
-            {{ descriptionMaxLength ? truncatedDescription : datasetDescription }}
-          </p>
-          <span v-else>
-            <p class="cp-dataset-card-subtitle text-muted font-italic m-0" data-cy="dataset-description">
-              {{ $t("message.catalogsAndDatasets.noDescriptionAvailable") }}
+    <div class="cp-dataset-card d-flex flex-column">
+      <div class="cp-dataset-card-caption">
+        <em>Empfehlung vom Datenbereitsteller</em>
+      </div>
+      <div class="cp-dataset-card-container d-flex flex-column justify-content-between">
+          <div class="cp-dataset-card-text">
+            <span class="cp-dataset-card-header">{{ datasetTitle }}</span><br>
+  
+            <p v-if="datasetDescription" class="cp-dataset-card-subtitle">
+              {{ descriptionMaxLength ? truncatedDescription : datasetDescription }}
             </p>
-          </span>
-        </div>
-        <div class="cp-dataset-card-icon" role="button">
-          <app-link :to="to">
-            <img src="../assets/icon/icon-nextcircled.svg" alt="Zum Datensatz">
-          </app-link>
+            <span v-else class="cp-dataset-card-subtitle text-muted font-italic m-0" data-cy="dataset-description">
+                {{ $t("message.catalogsAndDatasets.noDescriptionAvailable") }}
+            </span>
+          </div>
+          <div class="cp-dataset-card-icon" role="button">
+            <app-link :to="to">
+              <img src="../assets/icon/icon-nextcircled.svg" alt="Zum Datensatz">
+            </app-link>
+          </div>
+
         </div>
     </div>
 </template>
@@ -65,9 +65,6 @@ import AppLink from "../widgets/AppLink";
       },
       methods: {
           getTranslationFor,
-          getImageUrl() {
-            return new URL(`../assets/img/${this.cardIcon}`, import.meta.url)
-          },
       },
     }
 </script>
@@ -81,24 +78,22 @@ import AppLink from "../widgets/AppLink";
     border-radius: 12px;
     background-color: #F0EDED;
   }
-  .cp-dataset-card-image {
-    margin-bottom: 70px;
+  .cp-dataset-card-caption {
+    font-size: 13px;
   }
 
+  .cp-dataset-card-container {
+    height: calc(100% - 20px);
+  }
   .cp-dataset-card-text {
-    /* margin-top: 60px; */
+    margin-top: 80px;
+    overflow: auto;
+    margin-bottom: 15px;
   }
 
   .cp-dataset-card-header {
-    font-family: 'Noto Sans Bold';
     font-size: 24px;
     line-height: 125%;
-  }
-
-  .cp-dataset-card-subheader {
-    font-family: 'Noto Sans Italic';
-    font-size: 13px;
-    line-height: 150%;
   }
 
   .cp-dataset-card-subtitle {
@@ -106,11 +101,10 @@ import AppLink from "../widgets/AppLink";
   }
 
   .cp-dataset-card-icon {
-    align-self: flex-end;
-  
+    text-align: end;
   }
   .cp-dataset-card-icon img {
-    width: 150%;
-    filter: invert(15%) sepia(70%) saturate(2488%) hue-rotate(188deg) brightness(95%) contrast(102%);
+    width: 25px;
+    // filter: invert(15%) sepia(70%) saturate(2488%) hue-rotate(188deg) brightness(95%) contrast(102%);
   }
 </style>
