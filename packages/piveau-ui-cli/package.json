@@ -13,7 +13,7 @@
     }
   },
   "bin": {
-    "piveau-ui": "./dist/cli.mjs"
+    "piveau-ui-cli": "./dist/cli.cjs"
   },
   "type": "module",
   "files": [
