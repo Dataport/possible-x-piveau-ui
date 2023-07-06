@@ -56,9 +56,8 @@
                                             :datasetTitle="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
                                             :datasetDescription="getTranslationFor(dataset.description, $route.query.locale, dataset.languages)"
                                             :datasetCatalog="getTranslationFor(dataset.catalog.title, $route.query.locale, [])"
-                                            :descriptionMaxLength="150"
+                                            :descriptionMaxLength="200"
                                             :data-cy="`dataset@${dataset.id}`"
-                                            :card-icon="cardIcons[i]"
                                             class="mt-3"
                                             />
                                         </div>
@@ -162,12 +161,6 @@ import {
                         displayName: 'Kontakt',
                     },
                 ],
-                // TODO: remove
-                cardIcons: [
-                    "icon-cartogram_64x64.png",
-                    "icon-castle_64x64.png",
-                    "icon-tap_64x64.png",
-                ]
             };
         },
         computed: {
