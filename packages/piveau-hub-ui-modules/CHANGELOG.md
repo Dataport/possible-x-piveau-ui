@@ -1,3 +1,12 @@
+## [3.5.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.3...v3.5.4) (2023-07-06)
+
+
+### Bug Fixes
+
+* CatalogPage minor styling ([f2d5f88](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f2d5f88095522c6117e21cce6945dd10827094c1))
+
+
+
 ## [3.5.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.2...v3.5.3) (2023-07-06)
 
 
