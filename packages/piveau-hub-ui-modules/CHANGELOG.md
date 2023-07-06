@@ -1,3 +1,12 @@
+## [3.5.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.0...v3.5.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* catalogPage: adjust CatalogPageDatasetCard.vue according to OP redesign ([1550dd0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1550dd0c43de9624063b1741b2417c99b99add86))
+
+
+
 # [3.5.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.4.0...v3.5.0) (2023-07-06)
 
 
