@@ -7,10 +7,10 @@
           <div class="cp-dataset-card-text">
             <span class="cp-dataset-card-header">{{ datasetTitle }}</span><br>
   
-            <p v-if="datasetDescription" class="cp-dataset-card-subtitle">
+            <p v-if="datasetDescription" class="cp-dataset-card-description">
               {{ descriptionMaxLength ? truncatedDescription : datasetDescription }}
             </p>
-            <span v-else class="cp-dataset-card-subtitle text-muted font-italic m-0" data-cy="dataset-description">
+            <span v-else class="cp-dataset-card-description text-muted font-italic m-0" data-cy="dataset-description">
                 {{ $t("message.catalogsAndDatasets.noDescriptionAvailable") }}
             </span>
           </div>
@@ -69,7 +69,7 @@ import AppLink from "../widgets/AppLink";
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .cp-dataset-card {
     padding: 25px;
     margin: 10px;
@@ -96,8 +96,9 @@ import AppLink from "../widgets/AppLink";
     line-height: 125%;
   }
 
-  .cp-dataset-card-subtitle {
+  .cp-dataset-card-description {
     font-size: 16px;
+    margin-top: 10px;
   }
 
   .cp-dataset-card-icon {
