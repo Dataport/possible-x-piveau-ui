@@ -44,11 +44,19 @@ cli
 
     const config = await import(userConfigFilePath).catch((err) => {
       logger.error(err)
-      logger.error('Failed to load config schema. Did you make sure that the config file exports glueConfig?')
+      logger.error('Failed to load config schema.')
       process.exit(1)
     })
 
-    const parsedConfig = configSchema.safeParse(config.glueConfig)
+    // Use glueConfig export if available, otherwise try default export
+    const resolvedConfig = config.glueConfig || config.default || config
+
+    if (!resolvedConfig) {
+      logger.error('Config file is empty.')
+      process.exit(1)
+    }
+
+    const parsedConfig = configSchema.safeParse(resolvedConfig)
 
     const startupDurationString = startTime
       ? colors.dim(
