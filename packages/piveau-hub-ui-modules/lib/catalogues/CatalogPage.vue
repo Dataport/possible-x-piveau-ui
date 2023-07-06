@@ -48,7 +48,7 @@
                                 <!-- "INTERESSANTE DATENSÄTZE" -->
                                 <div v-show="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
                                     <div v-if="showArray(getDatasets)" class="tab-content d-flex flex-column align-items-center mt-3">
-                                        <div class=" d-flex flex-wrap justify-content-center">
+                                        <div class="d-flex flex-wrap justify-content-center mb-5">
                                             <DatasetCard 
                                             v-for="(dataset, i) in getDatasets.slice(0, 3)"
                                             :key="dataset.id"
@@ -293,7 +293,7 @@ import {
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .catalog-page-container {
         // background-image: url("../assets/img/bg.png");
         background-repeat: repeat-x;
