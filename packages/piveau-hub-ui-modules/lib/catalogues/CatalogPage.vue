@@ -141,7 +141,7 @@ import {
                 // testFavicon: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/favicon.png"],
                 // testLogo: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/logo.png"],
                 // testProfile: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/profile.png"],
-                // catalog: {},
+                catalog: {},
                 activeTabName: 'about',
                 cardNavTabs: [
                     {
