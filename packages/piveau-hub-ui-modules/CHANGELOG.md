@@ -1,3 +1,12 @@
+## [3.5.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.1...v3.5.2) (2023-07-06)
+
+
+### Bug Fixes
+
+* fix console errors in CatalogPage ([fdcf398](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fdcf398829f1807a3309547cc7ce7c00a63da8fb))
+
+
+
 ## [3.5.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.0...v3.5.1) (2023-07-06)
 
 
