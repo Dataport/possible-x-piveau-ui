@@ -1,3 +1,13 @@
+## [3.5.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.2...v3.5.3) (2023-07-06)
+
+
+### Bug Fixes
+
+* catalogPage styling ([08e3e57](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/08e3e57012e31170bec74b5cbcacf8a1eb8b984a))
+* expand distribution can show more checks ([df0f9f4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/df0f9f4e7b48e3030896e1d7a8375d2729eb1f51))
+
+
+
 ## [3.5.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.1...v3.5.2) (2023-07-06)
 
 
