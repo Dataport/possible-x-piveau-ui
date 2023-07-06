@@ -1,3 +1,13 @@
+# [3.4.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.3.4...v3.4.0) (2023-07-06)
+
+
+### Features
+
+* generate and export type declaration files ([de153b1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/de153b105b2cdee5da760368ddf317c5ba46b1b6))
+* implement config schema ([f1f6f35](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f1f6f35d70df5a89def93d3aff5210efe1c7b1a0))
+
+
+
 ## [3.3.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.3.3...v3.3.4) (2023-07-05)
 
 
