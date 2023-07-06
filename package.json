@@ -7,7 +7,7 @@
   "scripts": {
     "serve:vanilla": "npm run prepare-dev -w @piveau/piveau-hub-ui-modules && npm run serve -w vanilla-piveau-hub-ui",
     "dev": "npm run dev -w modules-demo",
-    "build": "npm run build --workspace packages/**",
+    "build": "npm run build -w @piveau/piveau-hub-ui-modules -w @piveau/piveau-ui-cli",
     "release": "esno scripts/release.ts",
     "ci-publish": "esno scripts/publish-ci.ts",
     "initialize": "git submodule update --init && npm ci && esno scripts/initialize.ts"
