@@ -168,8 +168,14 @@ export default defineConfig({
     cssCodeSplit: false,
     sourcemap: true,
 
+    // https://vitejs.dev/guide/build.html#library-mode
     lib: {
-      entry: path.resolve(__dirname, 'lib/index'),
+      entry: {
+        'index': path.resolve(__dirname, 'lib/index'),
+        // We build config schema as a separate module due to side effects in the main modules
+        // for those who want to use consume the config schema in isolation
+        'configSchema': path.resolve(__dirname, 'lib/configurations/config-schema/index'),
+      },
       name: 'piveau-hub-ui-modules',
       fileName: 'piveau-hub-ui-modules',
       formats: ['es'],

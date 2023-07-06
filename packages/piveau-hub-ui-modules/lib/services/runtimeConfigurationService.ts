@@ -4,8 +4,15 @@
  */
 
 import merge from 'merge-anything';
+import { configSchema, type ResolvedConfig } from '../configurations/config-schema';
 // The configuration object that contains symbols for overwriting during runtime
 // import config from '../../config/runtime-config';
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $env: ResolvedConfig;
+  }
+}
 
 // Takes a base configuration (e.g., process.env) and a runtime configuration
 // and merges the runtime configuration over the base configuration to overwrite it.
@@ -15,6 +22,7 @@ const RuntimeConfiguration = {
     const defaultOptions = {
       debug: true,
       baseConfig: process.env,
+      useExperimentalRuntimeParser: false,
     };
     const opts = Object.assign({}, defaultOptions, options);
 
@@ -43,6 +51,15 @@ const RuntimeConfiguration = {
     const merged = merge(mergeOptions, opts.baseConfig, runtimeConfig);
     if (opts.debug) {
       console.debug(`Runtime configuration = ${JSON.stringify(merged)}`); // eslint-disable-line
+    }
+
+    if (opts.useExperimentalRuntimeParser) {
+      // Validate the merged configuration
+      const { success, error } = configSchema.safeParse(merged)
+      if (!success) {
+        console.warn('Invalid runtime configuration detected. This application may not run as intended.'); // eslint-disable-line
+        console.warn(error); // eslint-disable-line
+      }
     }
 
     Vue.prototype.$env = merged; // eslint-disable-line
