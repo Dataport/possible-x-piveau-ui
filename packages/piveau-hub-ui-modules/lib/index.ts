@@ -389,3 +389,4 @@ export {
 
 // @ts-ignore
 export * as helpers from "./utils/helpers";
+export { defineUserConfig } from "./configurations/config-schema";
