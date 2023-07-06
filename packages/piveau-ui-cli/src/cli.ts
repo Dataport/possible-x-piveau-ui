@@ -9,7 +9,7 @@ import { fromZodError } from 'zod-validation-error'
 import { createLogger } from './logger.js'
 import { VERSION } from './constants.js'
 
-import { configSchema } from '@piveau/piveau-hub-ui-modules/configSchema'
+import { configSchema } from '../../piveau-hub-ui-modules/lib/configurations/config-schema'
 
 const startTime = performance.now()
 const logger = createLogger('info', { prefix: '[piveau-ui-cli]' })
