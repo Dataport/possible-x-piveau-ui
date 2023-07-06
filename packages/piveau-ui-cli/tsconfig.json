@@ -13,6 +13,7 @@
     "paths": {
       "@piveau/piveau-hub-ui-modules": ["../piveau-hub-ui-modules/lib/index.ts"],
       "@piveau/piveau-hub-ui-modules/configSchema": ["../piveau-hub-ui-modules/lib/configurations/configSchema/index.ts"],
+      "aaa": ["../piveau-hub-ui-modules/lib/configurations/configSchema/index.ts"],
 
     }
   }
