@@ -1,6 +1,6 @@
 {
   "name": "@piveau/piveau-ui-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Command Line Interface (CLI) for piveau-ui related tasks",
   "main": "./dist/cli.cjs",
   "module": "./dist/cli.mjs",
