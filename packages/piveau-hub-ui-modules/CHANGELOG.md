@@ -1,3 +1,12 @@
+# [3.5.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.4.0...v3.5.0) (2023-07-06)
+
+
+### Features
+
+* export defineUserConfig util function from main package ([22676c1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/22676c13a38099bc30db5a344db094b7b6da5ca6))
+
+
+
 # [3.4.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.3.4...v3.4.0) (2023-07-06)
 
 
