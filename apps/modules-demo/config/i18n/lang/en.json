@@ -971,7 +971,8 @@
                 },
                 "temporalRange": {
                     "help": "\"\"",
-                    "label": "Time period of temporal"
+                    "label": "Time period of temporal",
+                    "info": "\"\""
                 }
             },
             "catalogues": {
