@@ -722,7 +722,7 @@
                     "info": "The catalog of the dataset."
                 },
                 "issued": {
-                    "placeholder": "Dataset Issued placeholder text",
+                    "placeholder": "Issued",
                     "label": "Issued",
                     "help": "Date of formal issuance (e.g., publication) of the dataset. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
                     "info": "This property contains the date of formal issuance (e.g., publication) of the Dataset."
@@ -1097,7 +1097,7 @@
                     "info": "This property contains the date on which the description of the Dataset was included in the Catalogue.",
                     "add-label": "Add Issued in another language",
                     "label": "Issued",
-                    "placeholder": "Catalogue Issued placeholder text",
+                    "placeholder": "Issued",
                     "help": "This property contains the date on which the description of the Dataset was included in the Catalogue."
                 },
                 "title": {
