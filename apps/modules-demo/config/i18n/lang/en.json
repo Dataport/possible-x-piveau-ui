@@ -970,7 +970,7 @@
                     "help": "Select a language an provide descriptive keywords for the dataset"
                 },
                 "temporalRange": {
-                    "help": "\"\"",
+                    "help": "",
                     "label": "Time period of temporal",
                     "info": "\"\""
                 }
