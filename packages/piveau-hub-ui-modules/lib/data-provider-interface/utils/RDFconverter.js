@@ -59,7 +59,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     if (generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification] == undefined) {
         dpiConfig = generalDpiConfig["dcatap"]
     } else dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification]
-    
+
     const formatTypes = dpiConfig.formatTypes;
 
     // method can be called recursively for nested properties
@@ -132,6 +132,9 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     const currentGroupData = data[key][groupId];
 
                     if (!isEmpty(currentGroupData)) {
+                        if(key === 'dct:temporal') {
+                            console.log("Hallo lösch mich");
+                        }
                         if (key === 'skos:notation') {
                             // property skos:notation work a little bit different then other properties
                             // the form provides a value and a type from two seperated fields ({'@value': '...', '@type': '...'})
@@ -180,11 +183,11 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             // RDF example:
                             // datasetID  dct:conformsTo  conformsToURI
                             //  conformsToURI  dct:title  conformsTitle
-                            if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id'))  {
+                            if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id')) {
                                 groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id']);
                             }
                             // all properties that don't provide an URL serving as namedNode for nested values need to define a blank node
-                            
+
                             // page gets type but also has multilingual fields with preseleted langauge
                             // don't create blank node if there is not data for page beside the preselected language
                             let emptyPage = false;
@@ -209,7 +212,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                     hasNoValueKeysDescription = !currentGroupData['dct:description'].every(el => has(el, '@value'));
                                     hasEmptyValueDescription = currentGroupData['dct:description'].every(el => isEmpty(el['@value']));
                                 }
-                                
+
                                 // page should be handled as empty if:
                                 // no title and/or no description given
                                 // if properties given: no value given or value empty
@@ -560,6 +563,8 @@ function convertTypedString(RDFdataset, id, data, key, dpiConfig) {
         } else if (key === 'dcat:endDate' || key === 'dcat:startDate') {
             // dcat:endDate and dcat:startDate are xsd:dateTime
             valueType = generalHelper.addNamespace('xsd:dateTime', dpiConfig);
+        } else if (key === 'xds:dateTime') {
+          
         } else if (key === 'dcat:spatialResolutionInMeters' || key === "dcat:byteSize") {
             // dcat:spatialResolutionInMeters and dcat:byteSize are xsd:decimal
             valueType = generalHelper.addNamespace('xsd:decimal', dpiConfig);

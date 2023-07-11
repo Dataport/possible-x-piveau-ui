@@ -192,20 +192,17 @@ export default {
       });
     },
     handleScroll() {
-      if (document.getElementById("stepperAnchor").offsetTop >= 35) {
-        document.getElementById("stepperAnchor").classList.add("border-bottom-lightgray");
+      try {
+        if (document.getElementById("stepperAnchor").offsetTop >= 35) {
+          document.getElementById("stepperAnchor").classList.add("border-bottom-lightgray");
+        }
+        else {
+          document.getElementById("stepperAnchor").classList.remove("border-bottom-lightgray");
+        }
+      } catch (error) {
       }
-      else {
-        document.getElementById("stepperAnchor").classList.remove("border-bottom-lightgray");
-      }
-      // if (document.getElementById("subStepperBox").offsetTop >= 218) {
-      //   document.getElementById("subStepperBox").classList.add("border-substepper");
-      // }
-      // if (document.getElementById("subStepperBox").offsetTop <= 218) {
-      //   document.getElementById("subStepperBox").classList.remove("border-substepper");
-      // }
-
     }
+
   },
   created() {
     window.addEventListener('scroll', this.handleScroll);
@@ -586,4 +583,5 @@ export default {
   .step-progress__step-label {
     cursor: pointer;
   }
-}</style>
+}
+</style>

@@ -286,21 +286,32 @@ const dcatapProperties = {
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
-        {
-          identifier: 'temporalStart',
-          type: 'datetime-picker',
-          name: 'dcat:startDate',
-          end: 'dct:temporal',
-          '@change': true,
-        },
-        {
-          identifier: 'temporalEnd',
-          type: 'datetime-picker',
-          name: 'dcat:endDate',
-          start: 'dct:temporal',
-          '@change': true,
-        },
-      ],
+          {
+            identifier: 'temporalRange',
+            type: 'datetime-picker',
+            name: 'dct:periodOfTime',
+            property:'dct:temporal',
+            end: 'dct:temporal',
+            '@change': true,
+          }]
+      // children: [
+      //   {
+      //     identifier: 'temporalStart',
+      //     type: 'datetime-picker',
+      //     name: 'dcat:startDate',
+      //     property:'dct:temporal',
+      //     end: 'dct:temporal',
+      //     '@change': true,
+      //   },
+      //   {
+      //     identifier: 'temporalEnd',
+      //     type: 'datetime-picker',
+      //     name: 'dcat:endDate',
+      //     property:'dct:temporal',
+      //     start: 'dct:temporal',
+      //     '@change': true,
+      //   },
+      // ],
     },
     theme: {
       identifier: 'theme',
@@ -713,6 +724,7 @@ const dcatapProperties = {
       data: {
         date: [
           {
+            handler:'issued',
             name: '@value',
             identifier: 'date',
             type: 'date-picker',
@@ -721,6 +733,7 @@ const dcatapProperties = {
         ],
         datetime: [
           {
+            handler:'issued',
             name: '@value',
             identifier: 'datetime',
             type: 'datetime-picker',
@@ -739,6 +752,7 @@ const dcatapProperties = {
       data: {
         date: [
           {
+            handler:'modified',
             name: '@value',
             identifier: 'date',
             type: 'date-picker',
@@ -747,6 +761,7 @@ const dcatapProperties = {
         ],
         datetime: [
           {
+            handler:'modified',
             name: '@value',
             identifier: 'datetime',
             type: 'datetime-picker',
