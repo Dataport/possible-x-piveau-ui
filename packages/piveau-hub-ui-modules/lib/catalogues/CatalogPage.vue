@@ -89,7 +89,7 @@
                                             </dd>
                                             <dd>
                                                 <app-link v-if="has(getCatalog, 'publisher.email') && showString(getCatalog.publisher.email)" :to="getCatalog.publisher.email">
-                                                {{ getCatalog.publisher.email }}
+                                                {{ getCatalog.publisher.email.startsWith("mailto:") ? getCatalog.publisher.email.slice(7) : getCatalog.publisher.email }}
                                                 </app-link>
                                             </dd>
                                         </dl>
@@ -116,9 +116,9 @@ import DatasetCard from "./CatalogPageDatasetCard.vue"
 import AppMarkdownContent from "../datasetDetails/AppMarkdownContent.vue"
 import {
     has,
-    groupBy,
-    uniqBy,
-    toPairs,
+    // groupBy,
+    // uniqBy,
+    // toPairs,
     isArray,
     isNil,
     isObject, 
