@@ -700,7 +700,7 @@
                 "modified": {
                     "label": "Modified",
                     "help": "Most recent date on which the dataset was changed, updated or modified.",
-                    "info": "Most recent date on which the dataset was changed, updated or modified. Acceptable date formats: YYYY-MM-DD, YYYY-MM, YYYY.",
+                    "info": "Most recent date on which the dataset was changed, updated or modified.",
                     "placeholder": "Modified"
                 },
                 "publisher": {
@@ -972,7 +972,7 @@
                 "temporalRange": {
                     "help": "",
                     "label": "Time period of temporal",
-                    "info": "\"\""
+                    "info": ""
                 }
             },
             "catalogues": {
