@@ -1,3 +1,12 @@
+## [3.5.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.4...v3.5.5) (2023-07-11)
+
+
+### Bug Fixes
+
+* CatalogPage: fix email addresses starting with 'mailto:' ([d2754ba](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d2754baa9d27cc69bab9dc2aabfc80b717ad4bf9))
+
+
+
 ## [3.5.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.3...v3.5.4) (2023-07-06)
 
 
