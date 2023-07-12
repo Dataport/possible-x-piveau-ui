@@ -123,6 +123,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
         } else if (formatTypes.multilingualStrings[property].includes(key)) {
             convertMultilingual(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.groupedProperties[property].includes(key)) {
+
             // grouped properties are properties provided by the form which consist of multiple properties (e.g contactPoint)
             // the properties values are stored within an object located within an array
             // for repeatable properties there are multiple objects in this array, otherwise there is just one
@@ -132,9 +133,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     const currentGroupData = data[key][groupId];
 
                     if (!isEmpty(currentGroupData)) {
-                        if(key === 'dct:temporal') {
-                            console.log("Hallo lösch mich");
-                        }
                         if (key === 'skos:notation') {
                             // property skos:notation work a little bit different then other properties
                             // the form provides a value and a type from two seperated fields ({'@value': '...', '@type': '...'})
@@ -398,8 +396,18 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     N3.DataFactory.namedNode(generalHelper.addNamespace(data[key], dpiConfig))
                 ))
             }
-        }
+        } else if (key === 'dct:periodOfTime') {
+            // temporal includes two values nested within 'dct:periodOfTime': startDate and endDate given under periodOfTime
+            // temporal data always provided using this format: { dct:periodOfTime: [startDate, endDate] }
 
+            if ( !isEmpty(data[key])) {
+                const startDate = { 'dcat:startDate': data[key][0] }; 
+                const endDate = { 'dcat:endDate': data[key][1] };
+
+                convertTypedString(RDFdataset, mainURI, startDate, 'dcat:startDate', dpiConfig);
+                convertTypedString(RDFdataset, mainURI, endDate, 'dcat:endDate', dpiConfig);
+            }
+        }
     }
 }
 
