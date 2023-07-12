@@ -100,10 +100,10 @@ export default {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       
-      if (new Date(date) < today) {
-        
-        alert("The date of issued lies before the current date, is that intended?")
-      }
+      // if (new Date(date) < today) {
+      //   alert("The date of issued lies before the current date, is that intended?")
+      // }
+
       return date < today
     }
     // compareStartEnd(date) {
