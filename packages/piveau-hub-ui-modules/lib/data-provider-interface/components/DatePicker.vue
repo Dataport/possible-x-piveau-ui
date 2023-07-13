@@ -98,12 +98,14 @@ export default {
     },
     validateIssued(date) {
       const today = new Date();
+      const chosenDate = new Date(date);
+    
       
-      
-      if (new Date(date) < today + 1) {
+      if (chosenDate < new Date(Date.now() - ( 3600 * 1000 * 24))) {
+        
         alert("The date of issued lies before the current date, is that intended?")
       }
-      if (new Date(date) > today - 1) {
+      if (chosenDate > new Date(Date.now() + ( 3600 * 1000 * 12)) ) {
         alert("The date of issued lies after the current date, is that intended?")
       }
       
