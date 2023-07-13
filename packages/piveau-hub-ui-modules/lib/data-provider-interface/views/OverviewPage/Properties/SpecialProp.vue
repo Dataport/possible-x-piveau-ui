@@ -101,9 +101,9 @@
         <div v-if="property === 'foaf:page'" class="w-100 d-flex">
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
-                <div v-if="showValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
+                <div v-if="showMultilingualValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
                     data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
-                <div v-if="showValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
+                <div v-if="showMultilingualValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
                     data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
                 <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}:{{ data['dct:format'] }}</div>
                 <div v-if="showValue(data, '@id')">{{ $t('message.metadata.url') }}: <app-link :to="data['@id']">{{
@@ -139,8 +139,7 @@
                     {{ data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
                 </div>
                 <div v-if="showValue(data, 'dct:description')">
-                    <span class="">{{ $t('message.dataupload.distributions.accessServiceDescription.label')
-                    }}:</span>
+                    <span class="">{{ $t('message.dataupload.distributions.accessServiceDescription.label')}}:</span>
                     {{ data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
                 </div>
                 <div v-if="showValue(data, 'dcat:endpointURL')" class="pr-1">
@@ -170,6 +169,20 @@ export default {
         AppLink,
     },
     methods: {
+        showMultilingualValue(property, value) {
+            const nonEmptyProperty = has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
+
+            // there should only be one value for each language (so only one item within the array)
+            const localeValues = property[value].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
+            const otherLocaleValues = property[value].filter(el => el['@language'] !== this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
+            
+            const existingLocalValues = localeValues.length > 0;
+            const existingOtherValues = otherLocaleValues.length > 0;
+
+            // if values for other languages are available, that will be noted
+
+            return nonEmptyProperty && (existingLocalValues || existingOtherValues);
+        },
         showValue(property, value) {
             return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
         },
