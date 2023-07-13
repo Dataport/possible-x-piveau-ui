@@ -60,14 +60,13 @@ export default {
   computed: {
   },
   mounted(){
-    setTimeout(() => {
-      if (this.context.attributes.handler === "issued") this.validateIssued(this.context.model);
-    }, 1500);
+   
     
   },
   methods: {
     onInput() {
       this.context.rootEmit('change');
+      if (this.context.attributes.handler === "issued") this.validateIssued(this.context.model);
     },
     newField() {
       if (this.context.attributes.handler === "modified") this.compareWithIssued(this.context.model);
@@ -94,17 +93,20 @@ export default {
       } catch (error) {
 
       }
-      return date < today || date < issued || date > new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+      if(this.context.attributes.handler === "modified") return date < today || date < issued || date > new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+      else return
     },
     validateIssued(date) {
       const today = new Date();
-      today.setHours(0, 0, 0, 0);
       
-      // if (new Date(date) < today) {
-      //   alert("The date of issued lies before the current date, is that intended?")
-      // }
-
-      return date < today
+      
+      if (new Date(date) < today + 1) {
+        alert("The date of issued lies before the current date, is that intended?")
+      }
+      if (new Date(date) > today - 1) {
+        alert("The date of issued lies after the current date, is that intended?")
+      }
+      
     }
     // compareStartEnd(date) {
 
