@@ -110,7 +110,7 @@ export default {
         alert("The date of issued lies after the current date, is that intended?")
       }
       
-    }
+    },
     // compareStartEnd(date) {
 
     //   const today = new Date();
