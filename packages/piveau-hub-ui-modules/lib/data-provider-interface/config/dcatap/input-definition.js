@@ -289,7 +289,7 @@ const dcatapProperties = {
           {
             identifier: 'temporalRange',
             type: 'datetime-picker',
-            name: 'dct:periodOfTime',
+            name: 'dct:temporal',
             property:'dct:temporal',
             end: 'dct:temporal',
             '@change': true,

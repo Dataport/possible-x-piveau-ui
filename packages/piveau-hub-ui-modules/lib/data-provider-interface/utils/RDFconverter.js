@@ -123,18 +123,16 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
         } else if (formatTypes.multilingualStrings[property].includes(key)) {
             convertMultilingual(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.groupedProperties[property].includes(key)) {
+
             // grouped properties are properties provided by the form which consist of multiple properties (e.g contactPoint)
             // the properties values are stored within an object located within an array
             // for repeatable properties there are multiple objects in this array, otherwise there is just one
             if (!isEmpty(data[key])) {
                 // looping trough all existing objects within the array
                 for (let groupId = 0; groupId < data[key].length; groupId += 1) {
-                    const currentGroupData = data[key][groupId];
+                    let currentGroupData = data[key][groupId];
 
                     if (!isEmpty(currentGroupData)) {
-                        if(key === 'dct:temporal') {
-                            console.log("Hallo lösch mich");
-                        }
                         if (key === 'skos:notation') {
                             // property skos:notation work a little bit different then other properties
                             // the form provides a value and a type from two seperated fields ({'@value': '...', '@type': '...'})
@@ -237,6 +235,13 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                         N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
                                         N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key], dpiConfig))
                                     ))
+                                }
+
+                                // temporal values nested inside another object: "dct:temporal": [{ "dct:temporal": { "dcat:startDate": "...", "dcat:endDate": "..." } }] 
+                                if (key === 'dct:temporal') {
+                                    if (has(currentGroupData, 'dct:temporal')) {
+                                        currentGroupData = currentGroupData['dct:temporal'];
+                                    }
                                 }
 
                                 // convert all nested values provided by form
@@ -399,7 +404,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 ))
             }
         }
-
     }
 }
 
