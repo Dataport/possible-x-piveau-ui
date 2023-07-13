@@ -12,7 +12,8 @@ Fixes the issue where the default datetime-local input is not supported well on 
         :editable="false" :disabled-date="disabledDates" />
     </div>
     <div v-else>
-      <vue-date-picker v-model="context.model" :type="type"
+      <input v-model="context.model" hidden/>
+      <vue-date-picker v-model="dateValues" :type="type"
         :class="`formulate-input-element formulate-input-element--${context.type} d-block w-100`" :clearable="false"
         :show-second="false" :format="format" :value-type="valueType" @input="onInput" :default-value="new Date()"
         range />
@@ -26,7 +27,7 @@ import { nextTick } from 'vue';
 // https://github.com/mengxiong10/vue2-datepicker
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
-
+import { has } from 'lodash';
 
 export default {
   name: "DatePicker",
@@ -38,6 +39,7 @@ export default {
       type: 'date',
       format: 'YYYY-MM-DD',
       valueType: 'YYYY-MM-DD',
+      dateValues: [],
     };
   },
   props: {
@@ -67,6 +69,7 @@ export default {
   },
   methods: {
     onInput() {
+      if (!this.notRange) this.context.model = {'dcat:startDate': this.dateValues[0], 'dcat:endDate': this.dateValues[1] };
       this.context.rootEmit('change');
     },
     newField() {
@@ -105,7 +108,7 @@ export default {
       // }
 
       return date < today
-    }
+    },
     // compareStartEnd(date) {
 
     //   const today = new Date();
@@ -130,7 +133,23 @@ export default {
     //     return date < startDate || date > endDate;
     //   }
     // },
+    fillValues() {
+      if (this.context.attributes.name === 'dct:temporal') {
+        if (has(this.context.model, 'dcat:startDate') && has(this.context.model, 'dcat:endDate')) {
+          this.dateValues = [this.context.model['dcat:startDate'], this.context.model['dcat:endDate']];
+        }
+      }
+    }
   },
+  watch: {
+    context: {
+      handler() {
+        if (this.context.model !== "") {
+          this.fillValues();
+        }
+      }
+    }
+  }
 
 }
 </script>

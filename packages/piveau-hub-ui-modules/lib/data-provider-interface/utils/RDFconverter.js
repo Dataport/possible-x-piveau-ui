@@ -130,7 +130,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
             if (!isEmpty(data[key])) {
                 // looping trough all existing objects within the array
                 for (let groupId = 0; groupId < data[key].length; groupId += 1) {
-                    const currentGroupData = data[key][groupId];
+                    let currentGroupData = data[key][groupId];
 
                     if (!isEmpty(currentGroupData)) {
                         if (key === 'skos:notation') {
@@ -235,6 +235,13 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                         N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
                                         N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key], dpiConfig))
                                     ))
+                                }
+
+                                // temporal values nested inside another object: "dct:temporal": [{ "dct:temporal": { "dcat:startDate": "...", "dcat:endDate": "..." } }] 
+                                if (key === 'dct:temporal') {
+                                    if (has(currentGroupData, 'dct:temporal')) {
+                                        currentGroupData = currentGroupData['dct:temporal'];
+                                    }
                                 }
 
                                 // convert all nested values provided by form
@@ -395,17 +402,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
                     N3.DataFactory.namedNode(generalHelper.addNamespace(data[key], dpiConfig))
                 ))
-            }
-        } else if (key === 'dct:periodOfTime') {
-            // temporal includes two values nested within 'dct:periodOfTime': startDate and endDate given under periodOfTime
-            // temporal data always provided using this format: { dct:periodOfTime: [startDate, endDate] }
-
-            if ( !isEmpty(data[key])) {
-                const startDate = { 'dcat:startDate': data[key][0] }; 
-                const endDate = { 'dcat:endDate': data[key][1] };
-
-                convertTypedString(RDFdataset, mainURI, startDate, 'dcat:startDate', dpiConfig);
-                convertTypedString(RDFdataset, mainURI, endDate, 'dcat:endDate', dpiConfig);
             }
         }
     }
