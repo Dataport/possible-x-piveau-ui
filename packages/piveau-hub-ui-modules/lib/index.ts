@@ -161,6 +161,7 @@ import DatasetDate from "./datasets/DatasetDate";
 import Datasets from "./datasets/Datasets";
 import DatasetList from "./datasets/DatasetList";
 import DatasetsFilters from "./datasets/DatasetsFilters";
+import DatasetsFiltersTabs from "./datasets/DatasetsFiltersTabs";
 import DatasetsTopControls from "./datasets/DatasetsTopControls";
 
 // Import datasetsFacets
@@ -341,7 +342,8 @@ export {
   DatasetDate, 
   Datasets,
   DatasetList,
-  DatasetsFilters, 
+  DatasetsFilters,
+  DatasetsFiltersTabs,
   DatasetsTopControls,
   CatalogDetailsFacet, 
   DatasetsFacets,
