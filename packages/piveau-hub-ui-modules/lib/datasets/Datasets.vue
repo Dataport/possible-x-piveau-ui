@@ -18,6 +18,8 @@
         :locale="$route.query.locale"
         :loading="getLoading"
         :use-dataset-facets="useDatasetFacets"
+        :facets="getFacets"
+        :available-facets="getAvailableFacets"
       >
         <div class="row">
           <div class="col d-flex d-md-none justify-content-end flex-wrap">
@@ -29,7 +31,9 @@
           </div>
           <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></datasets-facets>
           <section class="col-md-9 col-12">
-            <datasets-filters />
+            <slot name="datasets-filters">
+              <datasets-filters />
+            </slot>
             <slot name="datasets-found" :data="{
               loading: getLoading,
               datasetsCount: getDatasetsCount,
