@@ -15,7 +15,7 @@ Fixes the issue where the default datetime-local input is not supported well on 
       <input v-model="context.model" hidden/>
       <vue-date-picker v-model="dateValues" :type="type"
         :class="`formulate-input-element formulate-input-element--${context.type} d-block w-100`" :clearable="false"
-        :show-second="false" :format="format" :value-type="valueType" @input="onInput" :default-value="new Date()"
+        :show-second="false" :format="format" :value-type="valueType" @input="onInput" :editable="false" :default-value="new Date()"
         range />
     </div>
 
@@ -23,7 +23,6 @@ Fixes the issue where the default datetime-local input is not supported well on 
 </template>
 
 <script>
-import { nextTick } from 'vue';
 // https://github.com/mengxiong10/vue2-datepicker
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
@@ -89,54 +88,22 @@ export default {
       let currentPage = this.$route.params.page;
       let currentProperty = this.$route.params.property;
       let issued = ""
-
-      console.log();
       try {
         issued = new Date(JSON.parse(localStorage.getItem("dpi_" + currentProperty))[currentPage]["dct:issued"]);
       } catch (error) {
-
       }
       if(this.context.attributes.handler === "modified") return date < today || date < issued || date > new Date(new Date().setFullYear(new Date().getFullYear() + 1));
       else return
     },
     validateIssued(date) {
-      const today = new Date();
-      const chosenDate = new Date(date);
-    
-      
-      if (chosenDate < new Date(Date.now() - ( 3600 * 1000 * 24))) {
-        
+      const chosenDate = new Date(date);  
+      if (chosenDate < new Date(Date.now() - ( 3600 * 1000 * 24))) {    
         alert("The date of issued lies before the current date, is that intended?")
       }
       if (chosenDate > new Date(Date.now() + ( 3600 * 1000 * 12)) ) {
         alert("The date of issued lies after the current date, is that intended?")
       }
-      
     },
-    // compareStartEnd(date) {
-
-    //   const today = new Date();
-    //   today.setHours(0, 0, 0, 0);
-    //   let currentPage = this.$route.params.page;
-    //   let currentProperty = this.$route.params.property;
-    //   let endDate, startDate = "";
-
-    //   try {
-    //     endDate = new Date(JSON.parse(localStorage.getItem("dpi_" + currentProperty))[currentPage][this.context.attributes.end][0]["dcat:endDate"]);
-    //   } catch (error) {
-    //   }
-    //   try {
-    //     startDate = new Date(JSON.parse(localStorage.getItem("dpi_" + currentProperty))[currentPage][this.context.attributes.start][0]["dcat:startDate"]);
-    //   } catch (error) {
-    //   }
-    //   if (this.context.attributes.end != undefined) {
-    //     return date < today || date > endDate;
-    //   }
-
-    //   if (this.context.attributes.start != undefined) {
-    //     return date < startDate || date > endDate;
-    //   }
-    // },
     fillValues() {
       if (this.context.attributes.name === 'dct:temporal') {
         if (has(this.context.model, 'dcat:startDate') && has(this.context.model, 'dcat:endDate')) {
