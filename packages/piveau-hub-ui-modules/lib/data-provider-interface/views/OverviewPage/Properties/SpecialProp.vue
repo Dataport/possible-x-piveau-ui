@@ -78,11 +78,12 @@
 
         <!-- TEMPORAL -->
         <tr v-if="property === 'dct:temporal'">
+            
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td class="d-flex">
-                <div v-if="showValue(data, 'dcat:startDate')">From: {{ filterDateFormatEU(data['dcat:startDate']) }}&nbsp;
+                <div v-if="showValue(data, 'dct:temporal')"><b>From:</b>  {{new Date(data['dct:temporal']['dcat:startDate'])}}&nbsp;
                 </div>
-                <div v-if="showValue(data, 'dcat:endDate')">to: {{ filterDateFormatEU(data['dcat:endDate']) }}</div>
+                <div v-if="showValue(data, 'dct:temporal')"><b>to:</b> {{new Date(data['dct:temporal']['dcat:endDate'])}}</div>
             </td>
         </tr>
 
