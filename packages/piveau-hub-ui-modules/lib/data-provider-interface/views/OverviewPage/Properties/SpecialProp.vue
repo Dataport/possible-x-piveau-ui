@@ -139,7 +139,8 @@
                     {{ data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
                 </div>
                 <div v-if="showValue(data, 'dct:description')">
-                    <span class="">{{ $t('message.dataupload.distributions.accessServiceDescription.label')}}:</span>
+                    <span class="">{{ $t('message.dataupload.distributions.accessServiceDescription.label')
+                    }}:</span>
                     {{ data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
                 </div>
                 <div v-if="showValue(data, 'dcat:endpointURL')" class="pr-1">
