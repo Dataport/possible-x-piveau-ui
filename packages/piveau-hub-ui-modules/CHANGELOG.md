@@ -1,3 +1,13 @@
+# [3.6.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.5...v3.6.0) (2023-07-14)
+
+
+### Features
+
+* **adapter:** append 'distributions.license,categories.label,publisher' to the includes query when searching for datasets ([9e96bbb](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/9e96bbb726769afc79d3b875faa5487221221db9))
+* **Datasets:** introduce dataset filters related slots; exports DatasetFiltersTabs ([1a90543](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1a9054346c9eab6ba284565be3ca2e3c4de7baa6))
+
+
+
 ## [3.5.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.4...v3.5.5) (2023-07-11)
 
 
