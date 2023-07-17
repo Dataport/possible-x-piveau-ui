@@ -95,9 +95,9 @@
             <div class="overviewHeader">
                 <div class="firstRow d-flex ">
                     <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
-                    <h1 class="dsTitle"> {{ getData('datasets')['dct:title'].filter(el => el['@language'] ===
+                    <!-- <h1 class="dsTitle"> {{ getData('datasets')['dct:title'].filter(el => el['@language'] ===
                         dpiLocale).map(el =>
-                            el['@value'])[0] }}</h1>
+                            el['@value'])[0] }}</h1> -->
                 </div>
                 <div class="secondRow d-flex justify-content-between">
                     <div class="dsCatalogue ">
@@ -110,8 +110,8 @@
                     <div class="dsPublisher ">
                         <span><b>Publisher:</b></span>
                         <a href="">
-                            <!-- {{ getData('datasets')['dct:publisher'] }} -->
-                            TODO - Refactor URI
+                            {{ getData('datasets')['dct:publisher']}}
+                            
                         </a>
                     </div>
                     <div class="dsUpdated ">
@@ -173,7 +173,7 @@
             <div class="dsKeywords b-top my-2">
                 <h2 class="my-4">Keywords <span>({{ getData('datasets')['dcat:keyword'].length }})</span></h2>
                 <div class="d-flex">
-                    <span class=""
+                    <span class="mx-1"
                         v-for="(element, index) in getData('datasets')['dcat:keyword'].filter(el => el['@language'] === dpiLocale)"
                         :key="index">
                         <small :title="element"

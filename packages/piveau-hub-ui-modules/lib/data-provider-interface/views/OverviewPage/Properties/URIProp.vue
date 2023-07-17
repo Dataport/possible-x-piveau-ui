@@ -103,7 +103,7 @@ export default {
           return
         }
       } catch (error) {
-        //  console.log("Hallo");
+         
         this.nameOfProperty = URI
       }
 

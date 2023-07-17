@@ -243,7 +243,6 @@ export default {
       if (e.target.classList.contains('annifItems')) {
 
         e.target.classList.toggle('greenBG')
-        e.target.querySelector('svg').classList.toggle('rotate45');
         for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;

@@ -36,23 +36,29 @@ const actions = {
         });
     },
     requestResourceName({ commit }, { voc, resource }) {
-                
+        // Catching invalid URI's
+        if(voc === undefined) return
+        if(voc === "application") return 
+             
         const value = resource.substring(resource.lastIndexOf('/') + 1);
         let req;
 
         // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
         if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
             req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}`;
+           
         } else {
             req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}/${value}`;
+            
         }
         return new Promise((resolve, reject) => {
             axios.get(req)
-            .then((res) => {
+            .then((res) => {              
                 resolve(res);
             })
-            .catch((err) => {
+            .catch((err) => {             
                 reject(err);
+                 
             });
         });
     },
