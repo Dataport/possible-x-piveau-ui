@@ -2,7 +2,8 @@
 node_modules
 dist
 storage
-local
+local/*
+!local/.gitkeep
 
 config/*.env.js
 config/user-config.js
