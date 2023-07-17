@@ -500,7 +500,7 @@
                     "help": "A geographic region that is covered by the Dataset.",
                     "info": "This property refers to a geographic region that is covered by the Dataset.",
                     "label": "Spatial",
-                    "add-label": "Add more"
+                    "add-label": "Add Spatial"
                 },
                 "page": {
                     "label": "Page",
