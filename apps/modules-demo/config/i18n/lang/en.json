@@ -499,7 +499,8 @@
                     "placeholder": "Please choose",
                     "help": "A geographic region that is covered by the Dataset.",
                     "info": "This property refers to a geographic region that is covered by the Dataset.",
-                    "label": "Spatial"
+                    "label": "Spatial",
+                    "add-label": "Add Spatial"
                 },
                 "page": {
                     "label": "Page",
@@ -1553,6 +1554,11 @@
                     "step4": {
                         "name": "@:message.metadata.dataServices"
                     }
+                },
+                "descriptionLanguage": {
+                    "info": "This property refers to a language used in the description of the distribution. This property can be repeated if the metadata is provided in multiple languages.",
+                    "label": "Language",
+                    "help": "The language the description of the distribution is in"
                 }
             },
             "createDataset": "Create Dataset",
