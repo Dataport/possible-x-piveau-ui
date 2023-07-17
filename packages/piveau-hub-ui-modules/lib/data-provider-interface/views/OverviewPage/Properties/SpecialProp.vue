@@ -80,7 +80,7 @@
         <tr v-if="property === 'dct:temporal'">
             
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <td class="d-flex">
+            <td class="d-flex flex-column">
                 <div v-if="showValue(data, 'dct:temporal')"><b>From:</b>  {{new Date(data['dct:temporal']['dcat:startDate'])}}&nbsp;
                 </div>
                 <div v-if="showValue(data, 'dct:temporal')"><b>to:</b> {{new Date(data['dct:temporal']['dcat:endDate'])}}</div>
@@ -124,7 +124,7 @@
 
         <!-- TEMPORAL RESOLUTION -->
         <tr v-if="property === 'dcat:temporalResolution'">
-            <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+            <td class="w-25 flex-column font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div>{{ convertTemporalResolution(data) }}</div>
             </td>

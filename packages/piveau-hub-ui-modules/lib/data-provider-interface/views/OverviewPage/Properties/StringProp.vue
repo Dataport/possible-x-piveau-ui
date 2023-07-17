@@ -12,10 +12,10 @@
                 v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span></td>
 
         <!-- DATES-->
-        <td v-if="value.type === 'date'">{{ filterDateFormatEU(data[property]) }}</td>
+        <td v-if="value.type === 'date'" class="flex-column">{{ filterDateFormatEU(data[property]) }}</td>
 
         <!-- MULTILINGUAL -->
-        <td v-if="value.type === 'multiLingual'">
+        <td v-if="value.type === 'multiLingual'" class="flex-column">
             <div v-for="(el, index) in data[property].filter(elem => elem['@language'] === this.dpiLocale)" :key="index">
                 {{ el['@value'] }}
             </div>
