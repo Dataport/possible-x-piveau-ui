@@ -167,7 +167,9 @@ const glueConfig = {
         hideDate: false
       },
       keywords: {
-        showTitle: false
+        isVisible: true,
+        showTitle: false,
+        collapsed: false,  // displayAll
       },
       description: {
         enableMarkdownInterpretation: true,
