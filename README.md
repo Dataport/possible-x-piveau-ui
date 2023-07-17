@@ -69,7 +69,7 @@ This property contains information about base URLs and APIs used in piveau-hub-u
 
 
 
-#### baseUrl 
+#### baseUrl
 URL to the Hub-Search API (default: `https://data.europa.eu/api/hub/search/`).
 
 
@@ -114,7 +114,7 @@ This property contains information about authentication (Login / Logout, Keycloa
 
 
 
-#### useService 
+#### useService
 Enables the authentication service (default: `true`).
 
 
@@ -125,11 +125,11 @@ Login / Logout configuration values
 | --------          | ------------------ |
 | useLogin          | Enables the login (buttons) (default: `true`). |  
 | loginTitle        | Title of the login button (default: `Login`).                                                                         |  
-| loginURL          | Relative URL to login page (default: `/login`).                                                                         | 
-| loginRedirectUri  | Redirect URI used after successful login (default: `/`).                                                           | 
-| logoutTitle       | Title of the logout button (default: `Logout`).                                                                         | 
-| logoutURL         | Title of the logout button (default: `/logout`).                                                                         | 
-| logoutRedirectUri | Redirect URI used after successful logout (default: `/`).                                                          | 
+| loginURL          | Relative URL to login page (default: `/login`).                                                                         |
+| loginRedirectUri  | Redirect URI used after successful login (default: `/`).                                                           |
+| logoutTitle       | Title of the logout button (default: `Logout`).                                                                         |
+| logoutURL         | Title of the logout button (default: `/logout`).                                                                         |
+| logoutRedirectUri | Redirect URI used after successful logout (default: `/`).                                                          |
 
 
 ## keycloak
@@ -151,7 +151,7 @@ Keycloak initialization values (Realm, ClientID, URL, ...)
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
-| pkceMethod                  | To activate PKCE set this variable to 'S256'          | 
+| pkceMethod                  | To activate PKCE set this variable to 'S256'          |
 
 ## rtp
 RTP default values
@@ -173,13 +173,13 @@ Keycloak Authentication Token
 
 This property contains information about authentication (Login / Logout, Keycloak) used in piveau-hub-ui.
 
-## routerOptions 
+## routerOptions
 Vue Router configuration values
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
 | base                    | Base path of the application (default: `/`).                |  
-| mode                    | Routing mode of the application (default: `history`).                | 
+| mode                    | Routing mode of the application (default: `history`).                |
 
 
 ## navigation
@@ -209,7 +209,7 @@ Pagination configuration values
 
 This property contains information about metadata used in piveau-hub-ui.
 
-#### title 
+#### title
 Title of the application (default: `piveau Hub-UI`).  
 
 #### description
@@ -222,12 +222,12 @@ Keywords describing the application (default: `Open Data`).
 <br><br>
 
 
-# content 
+# content
 
 This property contains information about the content of views that are available in piveau-hub-ui.
 
 
-## datasets 
+## datasets
 Contains configuration values that are used on the `Datasets` page.
 
 | Property                    | Description        |  
@@ -239,7 +239,7 @@ Contains configuration values that are used on the `Datasets` page.
 | maxKeywordLength               | Maximum length of a keyword. Keywords that exceed this length will be truncated (default: `15`).       |
 | facets               | _see table below_        |
 
-#### datasets.facets 
+#### datasets.facets
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -279,7 +279,7 @@ Contains configuration values that are used on the `Catalogues` page.
 | defaultCatalogID               | Set the default `catalog.id` of a catalog if not available, only applicable if `useCatalogCountries` is set to `false`. Catalog images can be stored inside any directory in `/src/assets/img/` like `/src/assets/img/catalogs/<catalog.id>.png` with their filenames being equal to their `catalog.id` (default: `european-union-open-data-portal`).             |
 | facets               | _see table below_        |
 
-#### catalogs.facets 
+#### catalogs.facets
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -313,7 +313,7 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | bulkDownload               | _see table below_        |
 | quality               | _see table below_        |
 
-#### datasetDetails.header 
+#### datasetDetails.header
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -321,19 +321,21 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | hidePublisher               | Hides the dataset details publisher value (default: `false`).           |
 | hideDate               | Hides the dataset details date (default: `false`).         |
 
-#### datasetDetails.keywords 
+#### datasetDetails.keywords
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
 | showTitle               | Enables the usage of keyword titles (default: `false`).         |
+| isVisible               | Shows or hides the keywords section (default: `true`).         |
+| collapsed               | Collapses the keywords in the dataset detail view (default: `false`).         |
 
-#### datasetDetails.description 
+#### datasetDetails.description
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
 | enableMarkdownInterpretation               | Enables the interpretation of markdown in the dataset details description (default: `false`).      |
 
-#### datasetDetails.distributions 
+#### datasetDetails.distributions
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -361,7 +363,7 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | breakpoints.similar               | Breakpoint for Very Similar rating (20 - 25).             |
 | breakpoints.lessSimilar               | Breakpoint for Very Similar rating (25 - 35).             |
 
-#### datasetDetails.pages 
+#### datasetDetails.pages
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -372,7 +374,7 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | descriptionMaxLines                  | Maximum amount of lines in a description. Descriptions that exceed this amount will be truncated (default: `3`). |
 | descriptionMaxChars                  | Maximum length of a description. Descriptions that exceed this length will be truncated (default: `250`).          |
 
-#### datasetDetails.visualisations 
+#### datasetDetails.visualisations
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -383,7 +385,7 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | descriptionMaxLines                  | Maximum amount of lines in a description. Descriptions that exceed this amount will be truncated (default: `3`). |
 | descriptionMaxChars                  | Maximum length of a description. Descriptions that exceed this length will be truncated (default: `250`).          |
 
-#### datasetDetails.dataServices 
+#### datasetDetails.dataServices
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -394,19 +396,19 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | descriptionMaxLines                  | Maximum amount of lines in a description. Descriptions that exceed this amount will be truncated (default: `3`). |
 | descriptionMaxChars                  | Maximum length of a description. Descriptions that exceed this length will be truncated (default: `250`).          |
 
-#### datasetDetails.isUsedBy 
+#### datasetDetails.isUsedBy
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
 | isVisible                  | Show the dataset details isUsedBy section (default: `false`).             |
 
-#### datasetDetails.relatedResources 
+#### datasetDetails.relatedResources
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
 | isVisible                  | Show the dataset details relatedResources section (default: `false`).             |
 
-#### datasetDetails.bulkDownload 
+#### datasetDetails.bulkDownload
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -416,7 +418,7 @@ Contains configuration values that are used on the `DatasetDetails` page.
 | INTERVAL_MS               | Timeout interval between requests (default: `10`).         |
 | TIMEOUT_MS               | Position of the download button (default: `10000`).         |
 
-#### datasetDetails.quality 
+#### datasetDetails.quality
 
 | Property                    | Description        |  
 | --------                    | ------------------ |
@@ -525,7 +527,7 @@ Contains configuration values that are used for the `DataProviderInterface`.
 
 This property contains information about languages used in piveau-hub-ui.
 
-#### useLanguageSelector 
+#### useLanguageSelector
 _Note: This property is currently not used, but will be used in future versions._
 
 Enables the Language Selector in the Header component (default: `true`).
