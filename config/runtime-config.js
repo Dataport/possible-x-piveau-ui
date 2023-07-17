@@ -46,7 +46,7 @@ export default {
     },
     keycloakInit: {
       pkceMethod: "$VUE_APP_AUTHENTICATION_KEYCLOAK_INIT_PKCE_METHOD",
-    },    
+    },
     rtp: {
       grand_type: "$VUE_APP_AUTHENTICATION_RTP_GRAND_TYPE",
       audience: "$VUE_APP_AUTHENTICATION_RTP_AUDIENCE"
@@ -91,7 +91,9 @@ export default {
         hideDate: "$VUE_APP_CONTENT_DATASETDETAILS_HEADER_HIDE_DATE"
       },
       keywords: {
-        showTitle: "$VUE_APP_CONTENT_DATASETDETAILS_KEYWORDS_SHOW_TITLE"
+        showTitle: "$VUE_APP_CONTENT_DATASETDETAILS_KEYWORDS_SHOW_TITLE",
+        isVisible: "$VUE_APP_CONTENT_DATASETDETAILS_KEYWORDS_IS_VISIBLE",
+        collapsed: "$VUE_APP_CONTENT_DATASETDETAILS_KEYWORDS_COLLAPSED"
       },
       description: {
         enableMarkdownInterpretation: "$VUE_APP_CONTENT_DATASETDETAILS_DESCRIPTION_ENABLE_MARKDOWN_INTERPRETATION"
