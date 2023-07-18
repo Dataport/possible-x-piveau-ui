@@ -1,9 +1,14 @@
 <template>
-    <div class="catalog-page-container" :style="{ backgroundImage: 'url(' + getCatalog.catalogueBackground + ')' }">
+    <div class="catalog-page-container">
+        <div v-if="showArray(getCatalog.catalogueBackground)" class="catalog-page-background" ref="catBackground" :style="`margin-bottom: ${catalogHeaderMargin};`">
+            <img class="" :src="getCatalog.catalogueBackground" alt="">
+            <!-- <img class="" src="../assets/img/bg_255.png" alt=""> -->
+        </div>
+        <div v-else class="catalog-page-background-default"></div>
         <div class="catalog-box">
             <div>
                 <div class="row">
-                    <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
+                    <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center" ref="catHeader">
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
                             <h2 class="catalog-header-titel" aria-label="Katalogtitel">
                                 <!-- <img class="catalog-header-icon" src="../assets/img/favicon.png" alt="">  -->
@@ -50,7 +55,7 @@
                                     <div v-if="showArray(getDatasets)" class="tab-content d-flex flex-column align-items-center mt-3">
                                         <div class="d-flex flex-wrap justify-content-center mb-5">
                                             <DatasetCard 
-                                            v-for="(dataset, i) in getDatasets.slice(0, 3)"
+                                            v-for="dataset in getDatasets.slice(0, 3)"
                                             :key="dataset.id"
                                             :to="`/datasets/${dataset.id}`"
                                             :datasetTitle="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
@@ -80,16 +85,22 @@
                                 <!-- "KONTAKT" -->
                                 <div v-show="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="tab-content">
-                                        <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher)">
+                                        <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher) && (showString(getCatalog.publisher.email) || showString(getCatalog.publisher.homepage))">
+                                            <h4 class="catalog-contact-header">Fragen zu dieser Open Data Präsenz?</h4>
+                                            <!-- publisher name -->
                                             <dt v-if="has(getCatalog, 'publisher.name')  && showString(getCatalog.publisher.name)">{{ getCatalog.publisher.name }}</dt>
+                                            <!-- email -->
                                             <dd>
-                                                <app-link v-if="has(getCatalog, 'publisher.homepage') && showString(getCatalog.publisher.homepage)" :to="getCatalog.publisher.homepage">
-                                                {{ getCatalog.publisher.homepage }}
+                                                <!-- E-Mail:  -->
+                                                <app-link v-if="has(getCatalog, 'publisher.email') && showString(getCatalog.publisher.email)" :to="getCatalog.publisher.email">
+                                                    {{ getCatalog.publisher.email.startsWith("mailto:") ? getCatalog.publisher.email.slice(7) : getCatalog.publisher.email }}
                                                 </app-link>
                                             </dd>
+                                            <!-- homepage -->
                                             <dd>
-                                                <app-link v-if="has(getCatalog, 'publisher.email') && showString(getCatalog.publisher.email)" :to="getCatalog.publisher.email">
-                                                {{ getCatalog.publisher.email.startsWith("mailto:") ? getCatalog.publisher.email.slice(7) : getCatalog.publisher.email }}
+                                                <!-- Website:  -->
+                                                <app-link v-if="has(getCatalog, 'publisher.homepage') && showString(getCatalog.publisher.homepage)" :to="getCatalog.publisher.homepage">
+                                                {{ getCatalog.publisher.homepage }}
                                                 </app-link>
                                             </dd>
                                         </dl>
@@ -136,11 +147,7 @@ import {
         },
         data() {
             return {
-                // TODO: remove these after finishing
-                // testBackground: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/bg.png"],
-                // testFavicon: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/favicon.png"],
-                // testLogo: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/logo.png"],
-                // testProfile: ["https://open-data-bayern.apps.osc.fokus.fraunhofer.de/static/catalogs/geo_bayern/profile.png"],
+                catalogHeaderMargin: '0',
                 catalog: {},
                 activeTabName: 'about',
                 cardNavTabs: [
@@ -239,9 +246,6 @@ import {
                 this.activeTabName = name;
                 // this.router.push(name);
             },
-            // displayContent(name) {
-            //     return this.activeTabName === name;
-            // },
             showObject(object) {
                 return !isNil(object) && isObject(object) && !Object.values(object).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true);
             },
@@ -257,11 +261,22 @@ import {
             showObjectArray(objectArray) {
                 return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
             },
+            determineCardMargin() {
+                let backgroundHeight = parseInt(this.$refs.catBackground.clientHeight);
+                let headerHeight = parseInt(this.$refs.catHeader.clientHeight);
+                // If background is too small, margin by the height of background (to avoid card getting too high)
+                this.catalogHeaderMargin = (headerHeight > (backgroundHeight/2)) ? -backgroundHeight : -((backgroundHeight/2) + headerHeight);
+                this. catalogHeaderMargin += 'px';
+            },
         },
         mounted() {
             if (sessionStorage.activeTabName) {
             this.activeTabName = sessionStorage.activeTabName;
             }
+            // TODO find better way to initiate the method after the page fully rendered (wait for pics to load)
+            setTimeout(() => {
+                this.determineCardMargin();
+            }, 700);
         },
         watch: {
             // facetGroupOperatorWatcher: {
@@ -295,11 +310,26 @@ import {
 
 <style lang="scss">
     .catalog-page-container {
-        // background-image: url("../assets/img/bg.png");
-        background-repeat: repeat-x;
-        background-position-x: center;
-        // background-size: contain;
     }
+    
+    .catalog-page-background {
+        max-height: 360px;
+        margin-left: -30px;
+        margin-right: -30px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .catalog-page-background-default {
+        height: 360px;
+        background-color: #F4F8FA;
+        margin-bottom: -335px;
+        margin-left: -30px;
+        margin-right: -30px;
+        text-align: center;
+        overflow: hidden;
+    }
+
     .catalog-box {
         margin-bottom: 95px;
     }
@@ -341,21 +371,38 @@ import {
         border: none;
         &:hover {
             color: #175baf;
-            border: none;
+            border: none !important;
+            margin: 1px;
         }
         &.active{
             color: #175baf !important;
             border: none !important;
             border-bottom: 2px solid #175baf !important;
+            &:hover {
+                margin: 0;
+                margin-bottom: -1px;
+            }
         }
     }
 
     .catalog-hero-pic {
-        max-width: 250px;
+        max-width: 250px !important;
         width: 100%;
         height: auto;
         margin-bottom: 25px;
         
+    }
+
+    .catalog-contact-header {
+        font-size: 18px;
+        margin-bottom: 34px;
+    }
+
+    .tab-content dt {
+        margin-bottom: 8px;
+    }
+    .tab-content dd {
+        margin-bottom: 0;
     }
 
     @media screen and (max-width: 991px) {
