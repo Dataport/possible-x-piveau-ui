@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="d-none">
+        <div class="">
             <!-- DATASET ID && CATALOG -->
             <div class="mt-5 mb-0">
                 <div class="row">
@@ -91,13 +91,13 @@
         </div>
 
 
-        <div class="mt-2">
+        <div class="mt-2 d-none">
             <div class="overviewHeader">
                 <div class="firstRow d-flex ">
                     <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
-                    <!-- <h1 class="dsTitle"> {{ getData('datasets')['dct:title'].filter(el => el['@language'] ===
+                    <h1 class="dsTitle"> {{ getData('datasets')['dct:title'].filter(el => el['@language'] ===
                         dpiLocale).map(el =>
-                            el['@value'])[0] }}</h1> -->
+                            el['@value'])[0] }}</h1>
                 </div>
                 <div class="secondRow d-flex justify-content-between">
                     <div class="dsCatalogue ">
@@ -107,11 +107,10 @@
                         </a>
 
                     </div>
-                    <div class="dsPublisher ">
+                    <div class="dsPublisher">
                         <span><b>Publisher:</b></span>
                         <a href="">
-                            {{ getData('datasets')['dct:publisher']}}
-                            
+                            {{ getData('datasets')['dct:publisher'] }}
                         </a>
                     </div>
                     <div class="dsUpdated ">
