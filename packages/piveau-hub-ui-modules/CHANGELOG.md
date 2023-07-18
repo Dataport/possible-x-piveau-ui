@@ -1,3 +1,12 @@
+## [3.6.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.0...v3.6.1) (2023-07-18)
+
+
+### Bug Fixes
+
+* CatalogPage ([d56760d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d56760d6894a00490b002ae6d0df801a2c849955))
+
+
+
 # [3.6.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.5...v3.6.0) (2023-07-14)
 
 
