@@ -14,7 +14,13 @@ In particular: commit messages for bug fixes should start with `fix:` and for fe
 * After a fresh clone, run the command `npm run initialize` on the root level. This will do the following:
   * Checkout all the submodules
   * run an npm install for everything
-  * Create user-config.js files for all the apps that need one
+  * Create user-config.js files for all the apps that need one (located inside either the app or the local folder)
+
+## Running a workspace app from the root level
+
+```
+  npm run serve -- <workspace-name>
+```
 
 ## General repository structure
 
