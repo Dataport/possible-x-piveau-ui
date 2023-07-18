@@ -73,7 +73,8 @@ export default {
         useDatasetFacetsMap: "$VUE_APP_CONTENT_DATASETS_FACETS_USE_DATASET_FACETS_MAP",
         cutoff: "$VUE_APP_CONTENT_DATASETS_FACETS_CUTOFF",
         showClearButton: "$VUE_APP_CONTENT_DATASETS_FACETS_SHOW_CLEAR_BUTTON",
-        showFacetsTitle: "$VUE_APP_CONTENT_DATASETS_FACETS_SHOW_FACETS_TITLE"
+        showFacetsTitle: "$VUE_APP_CONTENT_DATASETS_FACETS_SHOW_FACETS_TITLE",
+        defaultFacetOrder: "$VUE_APP_CONTENT_DATASETS_FACETS_DEFAULT_FACET_ORDER"
       }
     },
     catalogs: {
@@ -82,7 +83,7 @@ export default {
         cutoff: "$VUE_APP_CONTENT_CATALOGS_FACETS_CUTOFF",
         showClearButton: "$VUE_APP_CONTENT_CATALOGS_FACETS_SHOW_CLEAR_BUTTON",
         showFacetsTitle: "$VUE_APP_CONTENT_CATALOGS_FACETS_SHOW_FACETS_TITLE",
-        defaultFacetOrder: "$VUE_APP_CONTENT_DATASETS_FACETS_DEFAULT_FACET_ORDER"
+        defaultFacetOrder: "$VUE_APP_CONTENT_CATALOGS_FACETS_DEFAULT_FACET_ORDER"
       }
     },
     datasetDetails: {
