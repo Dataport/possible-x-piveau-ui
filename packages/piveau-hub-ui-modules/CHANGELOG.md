@@ -1,3 +1,18 @@
+## [3.6.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.1...v3.6.2) (2023-07-19)
+
+
+### Bug Fixes
+
+* adapted RDF converter to handle temporal period ([dbed6af](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/dbed6afd19e193bb182e762258f10b37c8736ed0))
+* added missing comma ([eda2afa](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/eda2afa3b37d931d6b589697dbac89a706e6ebd2))
+* added note for other available languages for page properties on overview page ([d6fd925](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d6fd925f4612abd7a79e987369826624ea96adf3))
+* fixed temporal to handle time periods ([d0adcf9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d0adcf937e1c31cccef7b623325e2bc9d5e65af1))
+* handling of page title and description on overview page ([8a3e417](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8a3e4171b234eb12c954c623faf653425f957990))
+* proper display of page title or description ([aea2f96](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/aea2f96070e0860c4fa2590c659f293b911cb1f7))
+* URL Validation added // also updated the DCATAP.DE Specification ([21b4a23](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/21b4a23df40664a2ee4563e5866fc0b6bbdec2a0))
+
+
+
 ## [3.6.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.0...v3.6.1) (2023-07-18)
 
 
