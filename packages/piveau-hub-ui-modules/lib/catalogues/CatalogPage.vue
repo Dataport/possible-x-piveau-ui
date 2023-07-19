@@ -54,14 +54,15 @@
                                 <div v-show="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
                                     <div v-if="showArray(getDatasets)" class="tab-content d-flex flex-column align-items-center mt-3">
                                         <div class="d-flex flex-wrap justify-content-center mb-5">
+                                            
                                             <DatasetCard 
-                                            v-for="dataset in interestingDatasets.slice(0, 3)"
+                                            v-for="dataset in (interestingDatasets.length > 0) ? interestingDatasets.slice(0, 3) : getDatasets.slice(0, 3)"
                                             :key="dataset.id"
                                             :to="`/datasets/${dataset.id}`"
                                             :datasetTitle="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
                                             :datasetDescription="getTranslationFor(dataset.description, $route.query.locale, dataset.languages)"
                                             :datasetCatalog="getTranslationFor(dataset.catalog.title, $route.query.locale, [])"
-                                            :descriptionMaxLength="200"
+                                            :descriptionMaxLength="175"
                                             :data-cy="`dataset@${dataset.id}`"
                                             class="mt-3"
                                             />
@@ -178,15 +179,24 @@ import {
                 'getLoading',
                 'getOffset',
             ]),
+            
+            backgroundHeight() {
+                let bgHeight = this.$refs.catBackground.clientHeight ? this.$refs.catBackground.clientHeight : 0;
+                console.log("bg height is: ",bgHeight);
+                return parseInt(bgHeight);
+            },
+
+            headerHeight() {
+                let headerHeight = this.$refs.catHeader.clientHeight ? this.$refs.catHeader.clientHeight : 0;
+                console.log("header height is: ",headerHeight);
+                return parseInt(headerHeight);
+            },
 
             setCatalogHeaderMargin() {
-                let backgroundHeight = this.$refs.catBackground.clientHeight ? this.$refs.catBackground.clientHeight : 0;
-                backgroundHeight = parseInt(backgroundHeight);
-                let headerHeight = this.$refs.catHeader.clientHeight ? this.$refs.catHeader.clientHeight : 0;
-                headerHeight = parseInt(headerHeight);
-                let margin = (headerHeight > (backgroundHeight/2)) ? -backgroundHeight : -((backgroundHeight/2) + headerHeight);
+                let margin = (this.headerHeight > (this.backgroundHeight/2)) ? -this.backgroundHeight : -((this.backgroundHeight/2) + this.headerHeight);
+                // console.log(`Numbers: ${this.headerHeight}, ${this.backgroundHeight}`);
+                // console.log("margin is: ", margin);
                 margin += 'px';
-
                 this.catalogHeaderMargin = margin;
                 return margin;
             }
@@ -234,7 +244,7 @@ import {
                     )
                     .catch(error => console.log('error: ', error));
                 }
-            }
+            },
         },
         mounted() {
             if (sessionStorage.activeTabName) {
