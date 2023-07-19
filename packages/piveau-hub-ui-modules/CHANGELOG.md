@@ -1,3 +1,14 @@
+## [3.6.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.2...v3.6.3) (2023-07-19)
+
+
+### Bug Fixes
+
+* CatalogPage cleanup ([4bf0e03](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/4bf0e0345f786a482e636f5353f369a170e9b5fe))
+* CatalogPage: allow chosing custom 'Interesting datasets' in frontend ([40b0f35](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/40b0f353334f8909d13bdb20402a0aea7fab273a))
+* CatalogPage: calculate background height/margin ([39f0b9e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/39f0b9edf18e33b7193f8322aba1bc1ffd159215))
+
+
+
 ## [3.6.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.1...v3.6.2) (2023-07-19)
 
 
