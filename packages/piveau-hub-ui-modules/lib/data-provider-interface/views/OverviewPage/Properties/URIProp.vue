@@ -42,7 +42,6 @@ export default {
   },
   created() {
     try {
-      // console.log(info[info.length - 1] + " " + info[info.length - 2] + " property:" + this.data[this.property]);
       this.displayURIName(this.value.voc, this.data[this.property])
       if (this.value.type == "multiURI") {
         for (let index = 0; index < this.data[this.property].length; index++) {
@@ -52,7 +51,7 @@ export default {
       }
     }
     catch (error) {
-      return
+     
     }
   },
   methods: {
@@ -77,6 +76,10 @@ export default {
             // console.log(arr);
             voc = arr[arr.length - 2]
           }
+          if(voc === undefined){
+            // console.log(URI);
+
+          }
 
           await this.requestResourceName({ voc: voc, resource: URI }).then(
             (response) => {
@@ -100,6 +103,7 @@ export default {
           return
         }
       } catch (error) {
+         
         this.nameOfProperty = URI
       }
 

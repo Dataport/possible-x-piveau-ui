@@ -1,25 +1,27 @@
 <template>
-  <div>
-    <!-- MULTISTRING -->
-    <td v-if="value.type === 'multiString'">
-        <div v-for="(el, index) in data[property]" :key="index">
-            {{ Object.values(el)[0] }}
-        </div>
-    </td>
+    <div>
+        <!-- MULTISTRING -->
+        <td v-if="value.type === 'multiString'">
+            <div v-for="(el, index) in data[property]" :key="index">
+                {{ Object.values(el)[0] }}
+            </div>
+        </td>
 
-    <!-- SINGULAR STRING -->
-    <td v-if="value.type === 'singularString'">{{ data[property] }} <span v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span></td>
+        <!-- SINGULAR STRING -->
+        <td v-if="value.type === 'singularString'">{{ data[property] }} <span
+                v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span></td>
 
-    <!-- DATES-->
-    <td v-if="value.type === 'date'">{{ filterDateFormatEU(data[property]) }}</td>
+        <!-- DATES-->
+        <td v-if="value.type === 'date'" class="flex-column">{{ filterDateFormatEU(data[property]) }}</td>
 
-    <!-- MULTILINGUAL -->
-    <td v-if="value.type === 'multiLingual'">
-        <div v-for="(el, index) in data[property].filter(elem => elem['@language'] === this.dpiLocale)" :key="index">
-            {{ el['@value'] }}
-        </div>
-    </td>
-  </div>
+        <!-- MULTILINGUAL -->
+        <td v-if="value.type === 'multiLingual'" class="flex-column">
+            <div v-for="(el, index) in data[property].filter(elem => elem['@language'] === this.dpiLocale)" :key="index">
+                {{ el['@value'] }}
+            </div>
+            <div class="multilang">This property is available in: <span v-for="(el, index) in data[property]" :key="index">({{ el['@language'] }}) </span></div>
+        </td>
+    </div>
 </template>
 
 <script>
@@ -32,6 +34,18 @@ export default {
         data: Object,
         dpiLocale: String,
     },
+    data() {
+        return {
+            availableInLocale: false,
+            availableLang: [],
+        }
+    },
+    mounted(){
+        
+        if(this.value.type === "multiLingual"){
+            this.availableLang.push(this.data[this.property][0]['@language'])
+        }
+    },
     methods: {
         filterDateFormatEU(date) {
             return dateFilters.formatEU(date);
@@ -40,3 +54,8 @@ export default {
 
 }
 </script>
+<style>
+.multilang{
+    font-size: 0.8rem;
+}
+</style>

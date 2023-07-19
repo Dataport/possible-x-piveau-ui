@@ -87,7 +87,7 @@ export default {
             if (this.context.name === "Second") return 'optional|minute';
 
         }, chooseValidationRule() {
-            if (this.context.name === "Year") return { year: () => /^(19[5-9]\d|20[0-4]\d|2050)$/.test(this.urlInput) };
+            if (this.context.name === "Year") return { year: () => /^(19[5-9]\d|20[0-4]\d|2100)$/.test(this.urlInput) };
             if (this.context.name === "Month") return { month: () => /(^0?[1-9]$)|(^1[0-2]$)/.test(this.urlInput) };
             if (this.context.name === "Day") return { day: () => /^([0-2]?[1-9]|3[01]|10|20)$/.test(this.urlInput) };
             if (this.context.name === "Hour") return { hour: () => /^([0-9]|1[0-9]|2[0-3])$/.test(this.urlInput) };

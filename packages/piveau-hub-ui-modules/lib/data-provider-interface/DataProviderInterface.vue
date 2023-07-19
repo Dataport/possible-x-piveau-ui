@@ -20,6 +20,7 @@
     <!-- CONTENT -->
     <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
       <div id="subStepperBox">
+        <div id="blur" class="position-absolute w-100 h-100"></div>
         <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
           active-color="#343434" :line-thickness="1" :active-thickness="20" :passive-thickness="20">
         </StepProgress>
@@ -85,7 +86,7 @@ export default {
           ? this.getIsEditMode
             ? this.$t('message.dataupload.menu.editDataset')
             : this.$t('message.dataupload.createNewDataset')
-          : '';
+          : 'Edit Distribution';
     },
     isOverviewPage() {
       return this.$route.name === 'DataProviderInterface-Overview';
@@ -190,14 +191,18 @@ export default {
         s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => { });
       });
     },
-    handleScroll(){    
-      if (document.getElementById("stepperAnchor").offsetTop >= 35){
-        document.getElementById("stepperAnchor").classList.add("border-bottom-lightgray");
-      }
-      else{
-        document.getElementById("stepperAnchor").classList.remove("border-bottom-lightgray");
+    handleScroll() {
+      try {
+        if (document.getElementById("stepperAnchor").offsetTop >= 35) {
+          document.getElementById("stepperAnchor").classList.add("border-bottom-lightgray");
+        }
+        else {
+          document.getElementById("stepperAnchor").classList.remove("border-bottom-lightgray");
+        }
+      } catch (error) {
       }
     }
+
   },
   created() {
     window.addEventListener('scroll', this.handleScroll);
@@ -207,16 +212,24 @@ export default {
     this.addStepperLinks();
     this.saveLocalstorageValues(this.property);
   },
-  unmounted () {
+  unmounted() {
     window.removeEventListener('scroll', this.handleScroll);
   },
 };
 </script>
 
 <style lang="scss">
-.border-bottom-lightgray{
+.border-bottom-lightgray {
   border-bottom: 1px solid lightgray;
 }
+
+#blur {
+  left: 0;
+  top: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
 .stickyStepper {
   position: sticky;
   top: 0;
@@ -299,9 +312,24 @@ export default {
 }
 
 #subStepperBox {
-  width: 80%;
-  margin: 0 auto;
+  position: sticky;
+  top: 154px;
+  z-index: 10;
+  width: 100%;
+  padding: 0 10%;
+
+  .step-progress__bar {
+    border-top: none !important;
+  }
+
+  .step-progress__step--active {
+    .step-progress__step-label {
+      background-color: lightsteelblue !important;
+    }
+
+  }
 }
+
 
 // Stepper Customizing -------------
 
@@ -416,7 +444,7 @@ export default {
     margin: 0;
     height: 5rem;
     border-top: 1px solid lightslategray;
-   
+
   }
 
   .step-progress__step-label {

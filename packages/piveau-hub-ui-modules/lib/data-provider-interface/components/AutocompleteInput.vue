@@ -4,11 +4,12 @@
     <div class="input-group suggestion-input-group mb-3" v-click-outside="hideSuggestions">
       <input v-model="context.model" @blur="context.blurHandler" hidden />
       <div class="annifButtonWrap" v-if="annifTheme && annifEnv">
-         <a class="annifItems annifHandleBtn">
-          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'theme')">Generate description based suggestions</a>
+        <a class="annifItems annifHandleBtn">
+          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'theme')">Generate description based
+            suggestions</a>
         </a>
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
-        
+
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
         <input v-if="!annifTheme || manSearch" type="text" class="form-control"
@@ -42,8 +43,9 @@
           </span> -->
           {{ truncateWords(themeValue.name, 8, true) }} ...
         </div>
-        <p class="ml-2 mb-0" style="font-size: 12px">This field can be auto generated. If you click the generate button, it will suggest the most fitting properties based on the dataset-description you provided.</p>
-       
+        <p class="ml-2 mb-0" style="font-size: 12px">This field can be auto generated. If you click the generate button,
+          it will suggest the most fitting properties based on the dataset-description you provided.</p>
+
       </div>
       <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
@@ -111,6 +113,7 @@ export default {
     filteredAutocompleteSuggestions() {
 
       if (this.autocomplete.selected) return [];
+      this.autocomplete.suggestions = this.sortAlpabetically(this.autocomplete.suggestions);
       return this.autocomplete.suggestions.slice(0, 10);
 
     }
@@ -134,8 +137,23 @@ export default {
       "requestAutocompleteSuggestions",
       "requestResourceName",
     ]),
-       truncateWords(word) {
+    truncateWords(word) {
       return truncate(word, 8, true);
+    },
+    // small function to sort alphabetically
+    sortAlpabetically(arr) {
+      let sortedArray = [...arr];
+      sortedArray.sort((a, b) => {
+        let comparison = 0;
+        if (a.name < b.name) {
+          comparison = -1;
+        } else if (a.name > b.name) {
+          comparison = 1;
+        }
+
+        return comparison;
+      });
+      return sortedArray;
     },
     getTranslationFor,
     deleteValue(value) {
@@ -165,10 +183,12 @@ export default {
       this.autocomplete.selected = true;
     },
     getAutocompleteSuggestions() {
+
       this.choice = true
       let voc = this.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
+
 
       if (voc == "political-geocoding-municipality-key" || voc == "political-geocoding-regional-key" || voc == "political-geocoding-municipal-association-key" || voc == "political-geocoding-district-key" ||
         voc == "political-geocoding-government-district-key" || voc == "political-geocoding-state-key") {
@@ -194,10 +214,12 @@ export default {
           });
         } else {
           this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
+
             const results = response.data.result.results.map((r) => ({
-              name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
+              name: getTranslationFor(r.pref_label, this.$i18n.locale, []) + " (" + r.id + ")",
               resource: r.resource,
             }));
+
             if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
             else this.autocomplete.suggestions = results;
           });
@@ -221,7 +243,6 @@ export default {
       if (e.target.classList.contains('annifItems')) {
 
         e.target.classList.toggle('greenBG')
-        e.target.querySelector('svg').classList.toggle('rotate45');
         for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;
@@ -319,7 +340,6 @@ export default {
 
     },
     handleAutocompleteSuggestions(suggestion) {
-
       this.autocomplete.selected = true;
       if (suggestion.resource == "None") {
         return;

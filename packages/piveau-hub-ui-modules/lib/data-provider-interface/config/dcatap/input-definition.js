@@ -142,7 +142,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'contactPointUrl',
-          type: 'url',
+          type: 'custom-url',
           name: 'vcard:hasURL',
           validation: 'optional|url',
           '@change': true,
@@ -267,7 +267,7 @@ const dcatapProperties = {
             man: [
               {
                 identifier: 'spatialUrl',
-                type: 'url',
+                type: 'custom-url',
                 name: '@id',
                 validation: 'optional|url',
                 '@change': true,
@@ -281,24 +281,37 @@ const dcatapProperties = {
       type: 'group',
       name: 'dct:temporal',
       identifier: 'temporal',
-      class: 'property besides',
+      class: 'property besides startEndDate',
       '@change': true,
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
-        {
-          identifier: 'temporalStart',
-          type: 'datetime-picker',
-          name: 'dcat:startDate',
-          '@change': true,
-        },
-        {
-          identifier: 'temporalEnd',
-          type: 'datetime-picker',
-          name: 'dcat:endDate',
-          '@change': true,
-        },
-      ],
+          {
+            identifier: 'temporalRange',
+            type: 'datetime-picker',
+            name: 'dct:temporal',
+            property:'dct:temporal',
+            end: 'dct:temporal',
+            '@change': true,
+          }]
+      // children: [
+      //   {
+      //     identifier: 'temporalStart',
+      //     type: 'datetime-picker',
+      //     name: 'dcat:startDate',
+      //     property:'dct:temporal',
+      //     end: 'dct:temporal',
+      //     '@change': true,
+      //   },
+      //   {
+      //     identifier: 'temporalEnd',
+      //     type: 'datetime-picker',
+      //     name: 'dcat:endDate',
+      //     property:'dct:temporal',
+      //     start: 'dct:temporal',
+      //     '@change': true,
+      //   },
+      // ],
     },
     theme: {
       identifier: 'theme',
@@ -351,7 +364,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'creatorHomepage',
-          type: 'url',
+          type: 'custom-url',
           name: 'foaf:homepage',
           validation: 'optional|url',
           '@change': true,
@@ -377,8 +390,6 @@ const dcatapProperties = {
           type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
-          // validationRules:'{myUrl: ({ value }) => ["foo", "bar"].includes(value)}',
-          // validationMessages: '{ required: "Please pick your favorite food", in: "Oh, that food isn’t very good..."}',
           '@change': true,
         },
       ],
@@ -482,7 +493,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'hasVersionUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -499,7 +510,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'isVersionOfUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -517,7 +528,7 @@ const dcatapProperties = {
         {
           name: '@id',
           identifier: 'sourceUrl',
-          type: 'url',
+          type: 'custom-url',
           validation: 'optional|url',
           '@change': true,
         },
@@ -549,7 +560,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'isReferencedByUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -592,7 +603,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'admsIdentifierUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -645,7 +656,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'qualifiedAttributionUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -662,7 +673,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'wasGeneratedByUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -679,7 +690,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'qualifiedRelationUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -696,7 +707,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'relationUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -713,6 +724,7 @@ const dcatapProperties = {
       data: {
         date: [
           {
+            handler:'issued',
             name: '@value',
             identifier: 'date',
             type: 'date-picker',
@@ -721,6 +733,7 @@ const dcatapProperties = {
         ],
         datetime: [
           {
+            handler:'issued',
             name: '@value',
             identifier: 'datetime',
             type: 'datetime-picker',
@@ -739,6 +752,7 @@ const dcatapProperties = {
       data: {
         date: [
           {
+            handler:'modified',
             name: '@value',
             identifier: 'date',
             type: 'date-picker',
@@ -747,6 +761,7 @@ const dcatapProperties = {
         ],
         datetime: [
           {
+            handler:'modified',
             name: '@value',
             identifier: 'datetime',
             type: 'datetime-picker',
@@ -881,7 +896,7 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
-          type: 'url',
+          type: 'custom-url',
           identifier: 'isUsedBy',
           validation: 'optional|url',
           '@change': true,
@@ -899,6 +914,7 @@ const dcatapProperties = {
       repeatable: true,
       '@repeatableRemoved': true,
       validation: 'required',
+      mandatory: true,
       minimum: 1,
       class: 'property',
       children: [
@@ -912,7 +928,7 @@ const dcatapProperties = {
             url: [
               {
                 identifier: 'accessUrlLink',
-                type: 'url',
+                type: 'custom-url',
                 name: '@id',
                 '@change': true,
                 validation: 'required|url',
@@ -1015,7 +1031,7 @@ const dcatapProperties = {
               },
               {
                 identifier: 'licenceURL',
-                type: 'url',
+                type: 'custom-url',
                 name: 'skos:exactMatch',
                 validation: 'optional|url',
                 '@change': true,
@@ -1070,7 +1086,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'downloadUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1087,7 +1103,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'accessServiceEndpointURL',
-          type: 'url',
+          type: 'custom-url',
           name: 'dcat:endpointURL',
           class: 'property ',
           validation: 'optional|url',
@@ -1264,7 +1280,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'pageUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1281,7 +1297,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'hasPolicyUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1314,7 +1330,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'conformsToUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1385,7 +1401,7 @@ const dcatapProperties = {
           {
             name: 'rdfs:label',
             identifier: 'rightsUrl',
-            type: 'url',
+            type: 'custom-url',
             '@change': true,
             validation: 'optional|url'
           }
@@ -1413,19 +1429,20 @@ const dcatapProperties = {
       identifier: 'temporalResolution',
       type: 'group',
       name: 'dcat:temporalResolution',
-      class: 'property',
+      class: 'property tempResWrapper',
       '@change': true,
       children: [
         {
           identifier: 'temporalResolutionYear',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
+          max: 2023,
           '@change': true,
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 12,
           '@change': true,
@@ -1433,7 +1450,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionDay',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 31,
           '@change': true,
@@ -1441,7 +1458,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionHour',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 23,
           '@change': true,
@@ -1449,7 +1466,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionMinute',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 59,
           '@change': true,
@@ -1457,7 +1474,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionSecond',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 59,
           '@change': true,
@@ -1613,7 +1630,7 @@ const dcatapProperties = {
               },
               {
                 identifier: 'licenceURL',
-                type: 'url',
+                type: 'custom-url',
                 name: 'skos:exactMatch',
                 validation: 'optional|url',
                 '@change': true,
@@ -1681,7 +1698,7 @@ const dcatapProperties = {
         man: [
           {
             identifier: 'spatialUrl',
-            type: 'url',
+            type: 'custom-url',
             name: '@id',
             validation: 'optional|url',
             '@change': true,
@@ -1691,7 +1708,7 @@ const dcatapProperties = {
     },
     homepage: {
       identifier: 'homepage',
-      type: 'url',
+      type: 'custom-url',
       name: 'foaf:homepage',
       class: 'property',
       validation: 'optional|url',
@@ -1707,7 +1724,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'hasPartURL',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1718,7 +1735,7 @@ const dcatapProperties = {
       identifier: 'isPartOf',
       name: 'dct:isPartOf',
       class: 'property',
-      type: 'url',
+      type: 'custom-url',
       validation: 'optional|url',
       '@change': true
     },
@@ -1734,7 +1751,7 @@ const dcatapProperties = {
           {
             name: 'rdfs:label',
             identifier: 'rightsUrl',
-            type: 'url',
+            type: 'custom-url',
             '@change': true,
             validation: 'optional|url'
           }
@@ -1761,7 +1778,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'catalogURL',
-          type: 'url',
+          type: 'custom-url',
           validation: 'optional|url',
           '@change': true,
           name: '@id',

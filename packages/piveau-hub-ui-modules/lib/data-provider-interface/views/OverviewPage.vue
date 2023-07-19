@@ -4,7 +4,7 @@
     <!-- LANGUAGE SELECTOR -->
     <div class="mt-5 mb-0" >
       <div class="row">
-        <div class="col-10 offset-1">
+        <div class="col-10 ">
           Select Display Language:
           <LanguageSelector class="ml-1" v-model="dpiLocale"></LanguageSelector>
         </div>

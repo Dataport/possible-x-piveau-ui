@@ -1,7 +1,7 @@
 <template>
   <!-- Modals -->
-  <div  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
-    aria-hidden="true" data-backdrop="false" data-cy="create-doi-modal">
+  <div class="modal fade modalWrapper" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
+    data-backdrop="false" data-cy="create-doi-modal">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -27,7 +27,7 @@
             <span v-show="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" />
             {{ confirm }}
           </button>
-          <button class="btn btn-secondary" data-dismiss="modal" :disabled="loading">Close</button>
+          <button class="btn btn-secondary" data-dismiss="modal" @click="handleHeader" :disabled="loading">Close</button>
         </div>
       </div>
     </div>
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 export default {
   name: 'ConfirmationDialog',
   props: {
@@ -47,5 +48,18 @@ export default {
       default: false,
     },
   },
+  methods:{
+    handleHeader(){
+      $('#navbar-toggle').css("z-index", "99")
+    }
+  }
 };
 </script>
+<style>
+.modalWrapper {
+  backdrop-filter: brightness(0.5);
+  display: block;
+  align-items: center;
+  z-index: 100;
+}
+</style>
