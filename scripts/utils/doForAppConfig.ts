@@ -13,12 +13,14 @@ const appConfigAction = (app: string, folder: string, action: (app: string, stat
     });
 };
 
+// Do and action inside an app's config folder
 export const doForAppConfig = (app: string, action: (app: string, appStats: Stats, folder: string) => void) => {
     doForApp(app, (stats: Stats, folder: string) => {
         appConfigAction(app, folder, action);
     });
 };
 
+// Do an action in all app's config folders
 export const doForAllAppConfigs = (action: (app: string, appStats: Stats, folder: string) => void) => {
     doForApps(action);
 }
