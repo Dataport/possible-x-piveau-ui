@@ -55,7 +55,7 @@
                                     <div v-if="showArray(getDatasets)" class="tab-content d-flex flex-column align-items-center mt-3">
                                         <div class="d-flex flex-wrap justify-content-center mb-5">
                                             <DatasetCard 
-                                            v-for="dataset in getDatasets.slice(0, 3)"
+                                            v-for="dataset in interestingDatasets.slice(0, 3)"
                                             :key="dataset.id"
                                             :to="`/datasets/${dataset.id}`"
                                             :datasetTitle="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
@@ -127,9 +127,6 @@ import DatasetCard from "./CatalogPageDatasetCard.vue"
 import AppMarkdownContent from "../datasetDetails/AppMarkdownContent.vue"
 import {
     has,
-    // groupBy,
-    // uniqBy,
-    // toPairs,
     isArray,
     isNil,
     isObject, 
@@ -149,6 +146,7 @@ import {
             return {
                 catalogHeaderMargin: '0',
                 catalog: {},
+                interestingDatasets: [],
                 activeTabName: 'about',
                 cardNavTabs: [
                     {
@@ -177,16 +175,21 @@ import {
             ...mapGetters('datasets', [
                 'getDatasets',
                 'getDatasetsCount',
-                // 'getFacets',
-                // 'getLimit',
                 'getLoading',
                 'getOffset',
-                // 'getPage',
-                // 'getPageCount',
-                // 'getAvailableFacets',
-                // 'getAllAvailableFacets',
-                // 'getMinScoring',
             ]),
+
+            setCatalogHeaderMargin() {
+                let backgroundHeight = this.$refs.catBackground.clientHeight ? this.$refs.catBackground.clientHeight : 0;
+                backgroundHeight = parseInt(backgroundHeight);
+                let headerHeight = this.$refs.catHeader.clientHeight ? this.$refs.catHeader.clientHeight : 0;
+                headerHeight = parseInt(headerHeight);
+                let margin = (headerHeight > (backgroundHeight/2)) ? -backgroundHeight : -((backgroundHeight/2) + headerHeight);
+                margin += 'px';
+
+                this.catalogHeaderMargin = margin;
+                return margin;
+            }
         },
         methods: {
             isNil,
@@ -203,48 +206,8 @@ import {
                 'loadDatasets',
                 // 'useService',
             ]),
-            // initDatasets() {
-            //     this.$nextTick(() => {
-            //     this.$nextTick(() => {
-            //         this.$Progress.start();
-            //         this.loadDatasets({ locale: this.$route.query.locale })
-            //         .then(() => {
-            //             this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
-            //             this.$Progress.finish();
-            //             $('[data-toggle="tooltip"]').tooltip({
-            //             container: 'body',
-            //             });
-            //         })
-            //         .catch(() => {
-            //             this.$Progress.fail();
-            //         })
-            //         .finally(() => this.$root.$emit('contentLoaded'));
-            //     });
-            //     });
-            // },
-            // getBadgeFormat(label) {
-            //     return this.truncate(label, 8, true);
-            // },
-            // removeDuplicatesOf(array) {
-            //     const correctedFormatArray = array.map(format => (
-            //     {
-            //         ...format,
-            //         id: this.getBadgeFormat(format.id),
-            //         label: this.getBadgeFormat(format.label),
-            //     }
-            //     ));
-            //     // sorts after # of occurences (highest occurence first)
-            //     // possibility #1
-            //     const sortedArray = toPairs(groupBy(correctedFormatArray, 'id')).sort((a, b) => b[1].length - a[1].length);
-            //     const onlyFormatObjectsArray = sortedArray.map(arr => arr[1][0]);
-            //     // lodash uniqBy funtion removes duplicate id´s from array of objects
-            //     const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
-            //     const uniqByIdAndLabel = uniqBy(uniqById, 'label');
-            //     return uniqByIdAndLabel;
-            // },
             setActiveTabName(name) {
                 this.activeTabName = name;
-                // this.router.push(name);
             },
             showObject(object) {
                 return !isNil(object) && isObject(object) && !Object.values(object).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true);
@@ -261,37 +224,27 @@ import {
             showObjectArray(objectArray) {
                 return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
             },
-            determineCardMargin() {
-                let backgroundHeight = parseInt(this.$refs.catBackground.clientHeight);
-                let headerHeight = parseInt(this.$refs.catHeader.clientHeight);
-                // If background is too small, margin by the height of background (to avoid card getting too high)
-                this.catalogHeaderMargin = (headerHeight > (backgroundHeight/2)) ? -backgroundHeight : -((backgroundHeight/2) + headerHeight);
-                this. catalogHeaderMargin += 'px';
-            },
+            getCatInterestingDatasets() {
+                for (let id of this.catalog.catalogueInterestingDatasets ) {
+                    this.DatasetService.getSingle(id)
+                    .then(response => 
+                        { 
+                            this.interestingDatasets.push(response);
+                        }
+                    )
+                    .catch(error => console.log('error: ', error));
+                }
+            }
         },
         mounted() {
             if (sessionStorage.activeTabName) {
             this.activeTabName = sessionStorage.activeTabName;
             }
-            // TODO find better way to initiate the method after the page fully rendered (wait for pics to load)
-            setTimeout(() => {
-                this.determineCardMargin();
-            }, 700);
         },
         watch: {
-            // facetGroupOperatorWatcher: {
-            //     handler(facetGroupOperator) {
-            //         this.setRouteQuery({ facetGroupOperator }, "replace");
-            //     },
-            // },
-            // '$route.params.ctlg_id'(showCatalogDetails) {
-            //     this.showCatalogDetails = showCatalogDetails;
-            // },
-            // getDatasetGeoBounds(bounds) {
-            //     this.bounds = bounds
-            // },
             getCatalog(catalog) {
                 this.catalog = catalog;
+                this.getCatInterestingDatasets();
             },
             activeTabName(activeTab) {
                 sessionStorage.activeTabName = activeTab;
@@ -299,10 +252,6 @@ import {
         },
         created() {
             this.useCatalogService(this.catalogService);
-            // this.useService(this.DatasetService);
-            // this.initShowCatalogDetails();
-            this.loadCatalog(this.$route.params.ctlg_id);
-            // this.initDatasets();
         }
 
     }
