@@ -1221,7 +1221,7 @@ const dcatapProperties = {
           type: 'group',
           name: 'dct:title',
           '@change': true,
-          class: 'property grid1r2c',
+          class: 'property langStringInput',
           repeatable: true,
           '@repeatableRemoved': true,
           children: [
@@ -1229,7 +1229,7 @@ const dcatapProperties = {
               identifier: 'title',
               type: 'text',
               name: '@value',
-              class: 'row1 column1',
+              class: 'w-100 inputTextfield',
               '@change': true,
             },
             {
@@ -1238,7 +1238,7 @@ const dcatapProperties = {
               type: 'select',
               options: language,
               name: '@language',
-              class: 'row1 column2',
+              class: 'selectLangField',
               '@change': true,
             },
           ]
@@ -1248,7 +1248,7 @@ const dcatapProperties = {
           type: 'group',
           name: 'dct:description',
           '@change': true,
-          class: 'property grid1r2c',
+          class: 'property langDescriptionInput',
           repeatable: true,
           '@repeatableRemoved': true,
           children: [
@@ -1256,7 +1256,7 @@ const dcatapProperties = {
               identifier: 'description',
               type: 'textarea',
               name: '@value',
-              class: 'row1 column1',
+              class: 'inputTextfield w-100',
               '@change': true,
             },
             {
@@ -1265,7 +1265,7 @@ const dcatapProperties = {
               type: 'select',
               options: language,
               name: '@language',
-              class: 'row1 column2',
+              class: 'selectLangField',
               '@change': true,
             },
           ]

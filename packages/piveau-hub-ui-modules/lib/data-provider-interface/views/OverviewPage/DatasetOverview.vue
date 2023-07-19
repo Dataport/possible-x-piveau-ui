@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mt-2" v-if="pageLoaded">
-            <div class="overviewHeader">
+            <div class="overviewHeader p-3">
                 <div class="firstRow d-flex ">
                     <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
                     <h1 class="dsTitle"> {{ getData('datasets')['dct:title'][0]['@value'] }}</h1>
@@ -10,33 +10,38 @@
                     <div class="dsCatalogue ">
                         <span><b>Catalog:</b></span>
                         <a href="">
-                            {{ getData('datasets')['dct:catalog'] }}
+                            {{ checkIfSet(getData('datasets')['dct:catalog']) }}
                         </a>
 
                     </div>
                     <div class="dsPublisher">
                         <span><b>Publisher:</b></span>
                         <a href="">
-                            {{ getData('datasets')['dct:publisher'] }}
+                            {{ checkIfSet(getData('datasets')['dct:publisher']) }}
+
                         </a>
                     </div>
                     <div class="dsUpdated ">
                         <span><b>Updated:</b></span>
-                        <a>{{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }}</a>
+                        <a>
+                            {{ checkIfSet(new Date(getData('datasets')['dct:modified'])).toISOString().split('T')[0] }}
+                            <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
+                        </a>
+
                     </div>
                 </div>
             </div>
-            <div class="dsMainWrap d-flex flex-column mt-4">
+            <div class="dsMainWrap d-flex flex-column mt-3">
                 <div class="">
-                    <p class="dsDesc px-4">
-                        {{ getData('datasets')['dct:description'].filter(el => el['@language'] === dpiLocale).map(el =>
-                            el['@value'])[0] }}
+                    <p class="dsDesc px-3">
+                        {{ getData('datasets')['dct:description'].filter(el => el['@language'] ===
+                            dpiLocale).map(el =>
+                                el['@value'])[0] }}
                     </p>
 
                 </div>
                 <div class="">
-                    <table class="table table-borderless table-responsive  bg-light disOverview p-4">
-
+                    <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                         <div v-for="(value, name, index) in tableProperties" :key="index">
                             <PropertyEntry :data="getData('datasets')" profile="datasets" :property="name" :value="value"
                                 :dpiLocale="dpiLocale"></PropertyEntry>
@@ -44,8 +49,9 @@
                     </table>
                 </div>
             </div>
-            <div class="dsDist b-top">
-                <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('distributions').length }})</h2>
+            <div class="dsDist b-top p-3" v-if="getData('distributions').length > 0">
+                <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('distributions').length
+                }})</h2>
                 <table class="w-100">
                     <tr class="">
                         <th class="">Link to the Data</th>
@@ -74,9 +80,9 @@
                         </td>
                     </tr>
                 </table>
-
             </div>
-            <div class="dsKeywords b-top my-2">
+            <div class="dsKeywords b-top my-2 p-3"
+                v-if="getData('datasets')['dcat:keyword'] != undefined && getData('datasets')['dcat:keyword'][0]['@language'] != undefined && getData('datasets')['dcat:keyword'].length > 0">
                 <h2 class="my-4">Keywords <span>({{ getData('datasets')['dcat:keyword'].length }})</span></h2>
                 <div class="d-flex">
                     <span class="mx-1"
@@ -93,8 +99,6 @@
                 <h2 class="my-4">Documentation <span>({{ }})</span></h2>
             </div> -->
         </div>
-
-
     </div>
 </template>
 
@@ -107,6 +111,7 @@ export default {
     data() {
         return {
             pageLoaded: false,
+            pageData: {},
             tableProperties: {
                 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
@@ -170,14 +175,26 @@ export default {
             return Object.keys(this.tableProperties).filter(prop => this.getData('datasets')[prop]).length > 0;
         }
     },
-    mounted(){
-        this.pageLoaded = true
+    mounted() {
+        this.$nextTick(() => {
+            // console.log(this.getData('datasets')['dcat:keyword']);
+            this.pageLoaded = true
+        })
+    },
+    methods: {
+        checkIfSet(data) {
+            // console.log(data);
+            if (data != undefined) return data
+            else return "unset"
+
+
+        }
     }
 }
 </script>
 <style>
 .overviewHeader {
-    padding: 1rem;
+   
     border-bottom: 1px solid lightgray
 }
 
