@@ -187,6 +187,29 @@ import {
                 // 'getAllAvailableFacets',
                 // 'getMinScoring',
             ]),
+
+            // backgroundHeight() {
+            //     let bgHeight = this.$refs?.catBackground?.clientHeight ? this.$refs?.catBackground?.clientHeight : 0;
+            //     console.log("bg height is: ",bgHeight);
+            //     return parseInt(bgHeight);
+            // },
+
+            // headerHeight() {
+            //     let headerHeight = this.$refs?.catHeader?.clientHeight ? this.$refs?.catHeader?.clientHeight : 0;
+            //     return parseInt(headerHeight);
+            // },
+
+            setCatalogHeaderMargin() {
+                let backgroundHeight = this.$refs.catBackground.clientHeight ? this.$refs.catBackground.clientHeight : 0;
+                backgroundHeight = parseInt(backgroundHeight);
+                let headerHeight = this.$refs.catHeader.clientHeight ? this.$refs.catHeader.clientHeight : 0;
+                headerHeight = parseInt(headerHeight);
+                let margin = (headerHeight > (backgroundHeight/2)) ? -backgroundHeight : -((backgroundHeight/2) + headerHeight);
+                margin += 'px';
+
+                this.catalogHeaderMargin = margin;
+                return margin;
+            }
         },
         methods: {
             isNil,
@@ -261,22 +284,34 @@ import {
             showObjectArray(objectArray) {
                 return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
             },
-            determineCardMargin() {
-                let backgroundHeight = parseInt(this.$refs.catBackground.clientHeight);
-                let headerHeight = parseInt(this.$refs.catHeader.clientHeight);
-                // If background is too small, margin by the height of background (to avoid card getting too high)
-                this.catalogHeaderMargin = (headerHeight > (backgroundHeight/2)) ? -backgroundHeight : -((backgroundHeight/2) + headerHeight);
-                this. catalogHeaderMargin += 'px';
-            },
+            // determineCardMargin() {
+            //     // let backgroundHeight = parseInt(this.$refs.catBackground.clientHeight);
+            //     // let headerHeight = parseInt(this.$refs.catHeader.clientHeight);
+            //     // If background is too small, margin by the height of background (to avoid card getting too high)
+            //     // this.catalogHeaderMargin = (this.headerHeight > (this.backgroundHeight/2)) ? -this.backgroundHeight : -((this.backgroundHeight/2) + this.headerHeight);
+            //     this.catalogHeaderMargin = (this.headerHeight > (this.backgroundHeight/2)) ? -this.backgroundHeight : -((this.backgroundHeight/2) + this.headerHeight);
+            //     // this.catalogHeaderMargin = this.setCatalogHeaderMargin;
+            //     this. catalogHeaderMargin += 'px';
+            //     console.log("detirmend with backgroundHeight: ", this.backgroundHeight)
+            // },
         },
         mounted() {
             if (sessionStorage.activeTabName) {
             this.activeTabName = sessionStorage.activeTabName;
             }
+            // document.onreadystatechange = () => {
+            //     if (document.readyState == "complete") {
+            //     console.log('please say 360!' ,this.$refs.catBackground.clientHeight);
+            //     // fetch to next page or some code
+            //     }
+            // }   
+            // window.addEventListener("load", () => {console.log("FINISHED LOADING")});
+            // window.addEventListener("load", this.determineCardMargin());
             // TODO find better way to initiate the method after the page fully rendered (wait for pics to load)
-            setTimeout(() => {
-                this.determineCardMargin();
-            }, 700);
+            // setTimeout(() => {
+            // this.determineCardMargin();
+            // }, 700);
+            // this.determineCardMargin();
         },
         watch: {
             // facetGroupOperatorWatcher: {
@@ -292,10 +327,23 @@ import {
             // },
             getCatalog(catalog) {
                 this.catalog = catalog;
+                // let interestingDatasets = {};
+                // for (let id of this.catalog.catalogueInterestingDatasets ) {
+                //     this.DatasetService.getSingle(id)
+                //     .then(response => 
+                //     { interestingDatasets = {...interestingDatasets, response};
+                //     console.log('interesting datasets: ', interestingDatasets);}
+                //     )
+                //     .catch(error => console.log('error: ', error));
+                // }
+                
             },
             activeTabName(activeTab) {
                 sessionStorage.activeTabName = activeTab;
             },
+            // setCatalogHeaderMargin(newval, oldval) {
+            //     console.log(`header margin was ${oldval}n and now it is ${newval} `);
+            // }
         },
         created() {
             this.useCatalogService(this.catalogService);
@@ -303,6 +351,11 @@ import {
             // this.initShowCatalogDetails();
             this.loadCatalog(this.$route.params.ctlg_id);
             // this.initDatasets();
+
+            // HEEEREEEE
+            // this.DatasetService.getSingle('264bf43b-1083-4914-a6e8-f11e108bc60a')
+            //     .then(response => console.log('response: ', response))
+            //     .catch(error => console.log('error: ', error));
         }
 
     }
