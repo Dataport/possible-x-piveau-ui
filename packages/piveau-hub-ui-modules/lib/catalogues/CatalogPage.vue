@@ -127,9 +127,6 @@ import DatasetCard from "./CatalogPageDatasetCard.vue"
 import AppMarkdownContent from "../datasetDetails/AppMarkdownContent.vue"
 import {
     has,
-    // groupBy,
-    // uniqBy,
-    // toPairs,
     isArray,
     isNil,
     isObject, 
@@ -178,15 +175,8 @@ import {
             ...mapGetters('datasets', [
                 'getDatasets',
                 'getDatasetsCount',
-                // 'getFacets',
-                // 'getLimit',
                 'getLoading',
                 'getOffset',
-                // 'getPage',
-                // 'getPageCount',
-                // 'getAvailableFacets',
-                // 'getAllAvailableFacets',
-                // 'getMinScoring',
             ]),
 
             setCatalogHeaderMargin() {
@@ -216,48 +206,8 @@ import {
                 'loadDatasets',
                 // 'useService',
             ]),
-            // initDatasets() {
-            //     this.$nextTick(() => {
-            //     this.$nextTick(() => {
-            //         this.$Progress.start();
-            //         this.loadDatasets({ locale: this.$route.query.locale })
-            //         .then(() => {
-            //             this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
-            //             this.$Progress.finish();
-            //             $('[data-toggle="tooltip"]').tooltip({
-            //             container: 'body',
-            //             });
-            //         })
-            //         .catch(() => {
-            //             this.$Progress.fail();
-            //         })
-            //         .finally(() => this.$root.$emit('contentLoaded'));
-            //     });
-            //     });
-            // },
-            // getBadgeFormat(label) {
-            //     return this.truncate(label, 8, true);
-            // },
-            // removeDuplicatesOf(array) {
-            //     const correctedFormatArray = array.map(format => (
-            //     {
-            //         ...format,
-            //         id: this.getBadgeFormat(format.id),
-            //         label: this.getBadgeFormat(format.label),
-            //     }
-            //     ));
-            //     // sorts after # of occurences (highest occurence first)
-            //     // possibility #1
-            //     const sortedArray = toPairs(groupBy(correctedFormatArray, 'id')).sort((a, b) => b[1].length - a[1].length);
-            //     const onlyFormatObjectsArray = sortedArray.map(arr => arr[1][0]);
-            //     // lodash uniqBy funtion removes duplicate id´s from array of objects
-            //     const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
-            //     const uniqByIdAndLabel = uniqBy(uniqById, 'label');
-            //     return uniqByIdAndLabel;
-            // },
             setActiveTabName(name) {
                 this.activeTabName = name;
-                // this.router.push(name);
             },
             showObject(object) {
                 return !isNil(object) && isObject(object) && !Object.values(object).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true);
@@ -285,47 +235,13 @@ import {
                     .catch(error => console.log('error: ', error));
                 }
             }
-            // determineCardMargin() {
-            //     // let backgroundHeight = parseInt(this.$refs.catBackground.clientHeight);
-            //     // let headerHeight = parseInt(this.$refs.catHeader.clientHeight);
-            //     // If background is too small, margin by the height of background (to avoid card getting too high)
-            //     // this.catalogHeaderMargin = (this.headerHeight > (this.backgroundHeight/2)) ? -this.backgroundHeight : -((this.backgroundHeight/2) + this.headerHeight);
-            //     this.catalogHeaderMargin = (this.headerHeight > (this.backgroundHeight/2)) ? -this.backgroundHeight : -((this.backgroundHeight/2) + this.headerHeight);
-            //     // this.catalogHeaderMargin = this.setCatalogHeaderMargin;
-            //     this. catalogHeaderMargin += 'px';
-            //     console.log("detirmend with backgroundHeight: ", this.backgroundHeight)
-            // },
         },
         mounted() {
             if (sessionStorage.activeTabName) {
             this.activeTabName = sessionStorage.activeTabName;
             }
-            // document.onreadystatechange = () => {
-            //     if (document.readyState == "complete") {
-            //     console.log('please say 360!' ,this.$refs.catBackground.clientHeight);
-            //     // fetch to next page or some code
-            //     }
-            // }   
-            // window.addEventListener("load", () => {console.log("FINISHED LOADING")});
-            // window.addEventListener("load", this.determineCardMargin());
-            // TODO find better way to initiate the method after the page fully rendered (wait for pics to load)
-            // setTimeout(() => {
-            // this.determineCardMargin();
-            // }, 700);
-            // this.determineCardMargin();
         },
         watch: {
-            // facetGroupOperatorWatcher: {
-            //     handler(facetGroupOperator) {
-            //         this.setRouteQuery({ facetGroupOperator }, "replace");
-            //     },
-            // },
-            // '$route.params.ctlg_id'(showCatalogDetails) {
-            //     this.showCatalogDetails = showCatalogDetails;
-            // },
-            // getDatasetGeoBounds(bounds) {
-            //     this.bounds = bounds
-            // },
             getCatalog(catalog) {
                 this.catalog = catalog;
                 this.getCatInterestingDatasets();
@@ -333,16 +249,9 @@ import {
             activeTabName(activeTab) {
                 sessionStorage.activeTabName = activeTab;
             },
-            // setCatalogHeaderMargin(newval, oldval) {
-            //     console.log(`header margin was ${oldval}n and now it is ${newval} `);
-            // }
         },
         created() {
             this.useCatalogService(this.catalogService);
-            // this.useService(this.DatasetService);
-            // this.initShowCatalogDetails();
-            // this.loadCatalog(this.$route.params.ctlg_id);
-            // this.initDatasets();
         }
 
     }
