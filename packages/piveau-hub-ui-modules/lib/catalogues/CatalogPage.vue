@@ -55,7 +55,7 @@
                                     <div v-if="showArray(getDatasets)" class="tab-content d-flex flex-column align-items-center mt-3">
                                         <div class="d-flex flex-wrap justify-content-center mb-5">
                                             <DatasetCard 
-                                            v-for="dataset in getDatasets.slice(0, 3)"
+                                            v-for="dataset in interestingDatasets.slice(0, 3)"
                                             :key="dataset.id"
                                             :to="`/datasets/${dataset.id}`"
                                             :datasetTitle="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
@@ -149,6 +149,7 @@ import {
             return {
                 catalogHeaderMargin: '0',
                 catalog: {},
+                interestingDatasets: [],
                 activeTabName: 'about',
                 cardNavTabs: [
                     {
@@ -187,17 +188,6 @@ import {
                 // 'getAllAvailableFacets',
                 // 'getMinScoring',
             ]),
-
-            // backgroundHeight() {
-            //     let bgHeight = this.$refs?.catBackground?.clientHeight ? this.$refs?.catBackground?.clientHeight : 0;
-            //     console.log("bg height is: ",bgHeight);
-            //     return parseInt(bgHeight);
-            // },
-
-            // headerHeight() {
-            //     let headerHeight = this.$refs?.catHeader?.clientHeight ? this.$refs?.catHeader?.clientHeight : 0;
-            //     return parseInt(headerHeight);
-            // },
 
             setCatalogHeaderMargin() {
                 let backgroundHeight = this.$refs.catBackground.clientHeight ? this.$refs.catBackground.clientHeight : 0;
@@ -284,6 +274,17 @@ import {
             showObjectArray(objectArray) {
                 return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
             },
+            getCatInterestingDatasets() {
+                for (let id of this.catalog.catalogueInterestingDatasets ) {
+                    this.DatasetService.getSingle(id)
+                    .then(response => 
+                        { 
+                            this.interestingDatasets.push(response);
+                        }
+                    )
+                    .catch(error => console.log('error: ', error));
+                }
+            }
             // determineCardMargin() {
             //     // let backgroundHeight = parseInt(this.$refs.catBackground.clientHeight);
             //     // let headerHeight = parseInt(this.$refs.catHeader.clientHeight);
@@ -327,16 +328,7 @@ import {
             // },
             getCatalog(catalog) {
                 this.catalog = catalog;
-                // let interestingDatasets = {};
-                // for (let id of this.catalog.catalogueInterestingDatasets ) {
-                //     this.DatasetService.getSingle(id)
-                //     .then(response => 
-                //     { interestingDatasets = {...interestingDatasets, response};
-                //     console.log('interesting datasets: ', interestingDatasets);}
-                //     )
-                //     .catch(error => console.log('error: ', error));
-                // }
-                
+                this.getCatInterestingDatasets();
             },
             activeTabName(activeTab) {
                 sessionStorage.activeTabName = activeTab;
@@ -349,13 +341,8 @@ import {
             this.useCatalogService(this.catalogService);
             // this.useService(this.DatasetService);
             // this.initShowCatalogDetails();
-            this.loadCatalog(this.$route.params.ctlg_id);
+            // this.loadCatalog(this.$route.params.ctlg_id);
             // this.initDatasets();
-
-            // HEEEREEEE
-            // this.DatasetService.getSingle('264bf43b-1083-4914-a6e8-f11e108bc60a')
-            //     .then(response => console.log('response: ', response))
-            //     .catch(error => console.log('error: ', error));
         }
 
     }
