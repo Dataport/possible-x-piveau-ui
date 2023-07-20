@@ -109,7 +109,7 @@ register develop as latest:
 
 
 
-register master as release:
+register releases:
   stage: register
   tags:
     - dind
