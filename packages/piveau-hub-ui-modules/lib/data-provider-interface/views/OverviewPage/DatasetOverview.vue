@@ -17,7 +17,7 @@
                     <div class="dsPublisher">
                         <span><b>Publisher:</b></span>
                         <a href="">
-                            {{ checkIfSet(getData('datasets')['dct:publisher']) }}
+                            {{ reqName("CMT_CONJOIN") }}
 
                         </a>
                     </div>
@@ -54,7 +54,7 @@
                 }})</h2>
                 <table class="w-100">
                     <tr class="">
-                        <th class="">Link to the Data</th>
+                        <th class="">Name of the Distribution</th>
                         <th class="">Format</th>
                         <th class="">Updated</th>
                         <th class="">Actions</th>
@@ -95,9 +95,6 @@
                     </span>
                 </div>
             </div>
-            <!-- <div class="dsDocumentation b-top">
-                <h2 class="my-4">Documentation <span>({{ }})</span></h2>
-            </div> -->
         </div>
     </div>
 </template>
@@ -105,13 +102,16 @@
 <script>
 import PropertyEntry from './PropertyEntry.vue';
 import DistributionOverview from './DistributionOverview.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+import Vue from 'vue';
+import axios from 'axios';
 
 export default {
     data() {
         return {
             pageLoaded: false,
             pageData: {},
+            URIcache:{},
             tableProperties: {
                 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
@@ -160,6 +160,13 @@ export default {
             }
         }
     },
+    methods: {
+        ...mapActions("dpiStore", [
+            "requestFirstEntrySuggestions",
+            "requestAutocompleteSuggestions",
+            "requestResourceName",
+        ]),
+    },
     props: {
         dpiLocale: String,
     },
@@ -171,30 +178,59 @@ export default {
         ...mapGetters('dpiStore', [
             'getData',
         ]),
+
         showTable() {
             return Object.keys(this.tableProperties).filter(prop => this.getData('datasets')[prop]).length > 0;
         }
+
     },
     mounted() {
         this.$nextTick(() => {
-            // console.log(this.getData('datasets')['dcat:keyword']);
             this.pageLoaded = true
         })
+        // this.reqName("CMT_CONJOIN"); 
     },
     methods: {
         checkIfSet(data) {
-            // console.log(data);
             if (data != undefined) return data
             else return "unset"
+        },
+        async reqName(URI) {
+            let voc = "corporate-body"
+            let req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}/${URI}`
+            let translatedUriName
 
+             new Promise((resolve, reject) => {
+                axios.get(req)
+                    .then((res) => {
+                        resolve(res);
+                        translatedUriName = res['data']['result']['pref_label'][this.dpiLocale]
+                        // console.log(res['data']['result']['pref_label'][this.dpiLocale]);
+                    })
+                    .catch((err) => {
+                        reject(err);
 
+                    });
+                    
+            });
+            return translatedUriName
+            // await this.requestResourceName({ voc: voc, resource: URI }).then(
+            //     (response) => {
+            //   let result = vocMatch
+            //     ? response.data.result.results
+            //       .filter((dataset) => dataset.resource === URI)
+            //       .map((dataset) => dataset.pref_label)[0].en
+            //     : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
+            //     console.log(result);
+            // }
+        //   );
         }
     }
 }
 </script>
 <style>
 .overviewHeader {
-   
+
     border-bottom: 1px solid lightgray
 }
 
