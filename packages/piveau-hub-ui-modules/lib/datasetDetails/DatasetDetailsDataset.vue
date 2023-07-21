@@ -7,12 +7,11 @@
       <dataset-details-skeleton type="DatasetDetails"></dataset-details-skeleton>
     </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
-      <dataset-details-banners
+      <dataset-details-description 
         :dateIncorrect="dateIncorrect"
         :machineTranslated="machineTranslated"
         :translationNotAvailable="translationNotAvailable"
       />
-      <dataset-details-description />
       <distributions
         :openModal="openModal"
         :getDistributions="getDistributions"
@@ -102,7 +101,6 @@
     getTranslationFor, getCountryFlagImg, truncate, replaceHttp, appendCurrentLocaleToURL
   } from '../utils/helpers';
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
-  import DatasetDetailsBanners from "../datasetDetails/DatasetDetailsBanners.vue";
   // import DatasetDetailsDescription from "../datasetDetails/DatasetDetailsDescription.vue";
   // import DatasetDetailsProperties from "../datasetDetails/DatasetDetailsProperties.vue";
   import DatasetDetailsExtendedMetaData
@@ -119,7 +117,7 @@
       DatasetDetailsExtendedMetaData,
       // DatasetDetailsProperties,
       // DatasetDetailsDescription,
-      DatasetDetailsBanners,
+      // DatasetDetailsBanners,
       AppLink,
       Tooltip,
       Distributions,
@@ -492,17 +490,16 @@
       },
       distributionCanShowMore(distribution) {
         return (has(distribution, 'releaseDate') && !isNil(distribution.releaseDate))
-            || (has(distribution, 'availability') && !isNil(distribution.availability))
-            || (has(distribution, 'status') && !isNil(distribution.status))
+            || (has(distribution, 'availability') && this.showObject(distribution.availability) && !isNil(distribution.availability.label))
+            || (has(distribution, 'status') && this.showObject(distribution.status))
             || (has(distribution, 'rights') && this.showObject(distribution.rights))
             || (has(distribution, 'mediaType') && !isNil(distribution.mediaType))
             || (has(distribution, 'byteSize') && !isNil(distribution.byteSize))
             || (has(distribution, 'checksum') && !isNil(distribution.checksum) && has(distribution.checksum, 'algorithm') && !isNil(distribution.checksum.algorithm) && has(distribution.checksum, 'checksum_value') && !isNil(distribution.checksum.checksum_value))
-            || (has(distribution, 'pages') && this.showArray(distribution.pages))
+            || (has(distribution, 'pages') && this.showObjectArray(distribution.pages))
             || (has(distribution, 'languages') && this.showArray(distribution.languages))
-            || (has(distribution, 'conformsTo') && this.showArray(distribution.conformsTo))
-            || (has(distribution, 'compressFormat') && !isNil(distribution.compressFormat))
-            || (has(distribution, 'packageFormat') && !isNil(distribution.packageFormat))
+            || (has(distribution, 'compressFormat') && this.showObject(distribution.compressFormat))
+            || (has(distribution, 'packageFormat') && this.showObject(distribution.packageFormat))
             || (has(distribution, 'hasPolicy') && !isNil(distribution.hasPolicy))
             || (has(distribution, 'conformsTo') && this.showObjectArray(distribution.conformsTo))
             || (has(distribution, 'spatialResolutionInMeters') && this.showArray(distribution.spatialResolutionInMeters))

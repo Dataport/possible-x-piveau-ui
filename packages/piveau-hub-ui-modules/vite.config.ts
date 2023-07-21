@@ -1,8 +1,10 @@
 import { defineConfig, PluginOption } from 'vite';
 import vue from '@vitejs/plugin-vue2';
 import copy from 'rollup-plugin-copy';
+import dts from 'vite-plugin-dts';
 import path from 'path';
 import { lstatSync } from 'fs';
+import Components from 'unplugin-vue-components/vite'
 
 const peerDependencies = {
   "@braid/vue-formulate": "^2.5.3",
@@ -98,9 +100,10 @@ const externalPackages = [
 // packages are also treated as external
 const regexesOfPackages = externalPackages
     .map(packageName => new RegExp(`^${packageName}(/.*)?`));
-
+    
 export default defineConfig({
   plugins: [
+    Components({ /* options */ }),
     vue(
         { template: { compilerOptions: { whitespace: 'preserve' } } }
     ),
@@ -111,6 +114,10 @@ export default defineConfig({
       hook: 'writeBundle',
       verbose: true,
     }) as PluginOption,
+    dts({
+      insertTypesEntry: true,
+      copyDtsFiles: true,
+    })
   ],
   server: {
     port: 8080
@@ -161,8 +168,14 @@ export default defineConfig({
     cssCodeSplit: false,
     sourcemap: true,
 
+    // https://vitejs.dev/guide/build.html#library-mode
     lib: {
-      entry: path.resolve(__dirname, 'lib/index.mjs'),
+      entry: {
+        'index': path.resolve(__dirname, 'lib/index'),
+        // We build config schema as a separate module due to side effects in the main modules
+        // for those who want to use consume the config schema in isolation
+        'configSchema': path.resolve(__dirname, 'lib/configurations/config-schema/index'),
+      },
       name: 'piveau-hub-ui-modules',
       fileName: 'piveau-hub-ui-modules',
       formats: ['es'],

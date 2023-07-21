@@ -46,13 +46,13 @@
       </td>
       <td>{{ getTranslationFor(distribution.licenseAttributionByText) }}</td>
     </tr>
-    <tr v-if="has(distribution, 'modificationDate') && !isNil(distribution.modificationDate)">
+    <tr v-if="has(distribution, 'modificationDate') || !isNil(distribution.releaseDate)">
       <td class="w-25 font-weight-bold">
         <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')">
           {{ $t('message.metadata.updated') }}
         </tooltip>
       </td>
-      <td>{{ filterDateFormatEU(distribution.modificationDate) }}</td>
+      <td>{{ updatedDate }}</td>
     </tr>
     <tr v-if="has(distribution, 'releaseDate') && !isNil(distribution.releaseDate)">
       <td class="w-25 font-weight-bold">
@@ -307,6 +307,15 @@ export default {
     truncate,
     formatDatetime,
     getTranslationFor
+  },
+  computed: {
+    updatedDate() {
+       if (this.has(this.distribution, 'modificationDate') && !this.isNil(this.distribution.modificationDate)) {
+        return this.filterDateFormatEU(this.distribution.modificationDate);
+      } else {
+        return this.filterDateFormatEU(this.distribution.releaseDate);
+      }
+    }
   }
 }
 </script>

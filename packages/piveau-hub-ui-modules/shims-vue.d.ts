@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueI8n from 'vue-i18n'
 
+import type { ResolvedConfig } from './lib/configurations/config-schema'
+
 declare module '*.vue' {
   import Vue from 'vue'
 
@@ -15,6 +17,8 @@ declare module 'vue/types/vue' {
     $te: typeof VueI18n.prototype.te;
     $d: typeof VueI18n.prototype.d;
     $n: typeof VueI18n.prototype.n;
+
+    $env: ResolvedConfig;
   }
 }
 

@@ -14,6 +14,7 @@ import {
 } from 'lodash';
 
 import { mirrorPropertyFn } from '../../utils/helpers';
+import { SimilarDatasetsQuery } from 'lib/services/piveau-ui-adapter-vhub/datasets';
 
 // The helper functions below stabilize the store against API changes without changing everything
 // throughout the whole project.
@@ -171,6 +172,7 @@ const state = {
         extendetMetadata: {},
         distributionDownloadAs: {},
         distributionDownloadAsOptions: [],
+        descriptionHeight: 0,
     },
     activeNavigationTab: 0,
     loading: false,
@@ -261,6 +263,7 @@ const getters = {
     getExtendedMetadata: state => state.dataset.extendetMetadata,
     getDistributionDownloadAs: state => state.dataset.distributionDownloadAs,
     getDistributionDownloadAsOptions: state => state.dataset.distributionDownloadAsOptions,
+    getDatasetDescriptionHeight: state => state.dataset.descriptionHeight,
 };
 
 const actions = {
@@ -376,6 +379,7 @@ const actions = {
                 .then((response) => {
                     commit('SET_SD_DESCRIPTION', { id, description: response.description });
                     commit('SET_SD_TITLE', { id, title: response.title });
+                    commit('SET_SD_DISTRIBUTION_FORMATS', { id, distributionFormats: response.distributionFormats })
                     commit('SET_LOADING', false);
                     resolve(response);
                 })
@@ -388,14 +392,26 @@ const actions = {
     },
     /**
      * @description Fetches similar datasets of the provided dataset id
-     * @param id {Int} - The given dataset id
+     * @param idOrPayload {string | LoadSimilarDatasetsPayload} - id or payload
      */
-    loadSimilarDatasets({ commit }, id) {
+    loadSimilarDatasets({ commit }, idOrPayload: string | LoadSimilarDatasetsPayload) {
+        let id;
+        let query;
+        if (typeof idOrPayload === "string") {
+            id = idOrPayload;
+            query = {};
+        } else if (isObject(idOrPayload)) {
+            id = idOrPayload.id;
+            query = idOrPayload.query;
+        } else {
+            throw new Error('invalid payload argument passed to method loadSimilarDatasets: '
+              + JSON.stringify(payload))
+        }
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
             const service = getters.getService(state);
-            service.getSimilarDatasets(id)
+            service.getSimilarDatasets(id, query)
                 .then((response) => {
                     commit('SET_SIMILAR_DATASETS', response.data);
                     commit('SET_LOADING', false);
@@ -488,6 +504,14 @@ const actions = {
         commit('SET_DISTRIBUTION_DOWNLOAD_AS', distribution);
         commit('SET_DISTRIBUTION_DOWNLOAD_AS_OPTIONS', selectOptions);
     },
+    /** 
+    * @description Sets datasetDescription height
+    * @param commit
+    * @param height 
+    */
+    setDatasetDescriptionHeight({ commit }, height) {
+      commit('SET_DATASET_DESCRIPTION_HEIGHT', height)
+    }
 };
 
 const mutations = {
@@ -693,6 +717,18 @@ const mutations = {
             }
         }
     },
+    SET_SD_DISTRIBUTION_FORMATS(state, payload) {
+        if (has(payload, 'id') && has(payload, 'distributionFormats')) {
+            const id = payload.id;
+            const distributionFormats = payload.distributionFormats;
+            if (isArray(state.dataset.similarDatasets)) {
+                const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
+                if (isObject(similarDataset)) {
+                    Vue.set(similarDataset, 'distributionFormats', distributionFormats);
+                }
+            }
+        }
+    },
     SET_ACTIVE_NAVIGATION_TAB(state, tabIndex) {
         state.activeNavigationTab = tabIndex;
     },
@@ -758,7 +794,10 @@ const mutations = {
     },
     SET_DISTRIBUTION_DOWNLOAD_AS_OPTIONS(state, selectOptions) {
         state.dataset.distributionDownloadAsOptions = selectOptions;
-    }
+    },
+    SET_DATASET_DESCRIPTION_HEIGHT (state, height) {
+     state.dataset.descriptionHeight = height;
+   }
 };
 
 const module = {
@@ -770,3 +809,8 @@ const module = {
 };
 
 export default module;
+
+export interface LoadSimilarDatasetsPayload {
+    id: string,
+    query: SimilarDatasetsQuery
+}

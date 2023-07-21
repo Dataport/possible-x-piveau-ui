@@ -1,16 +1,18 @@
 <template>
-    <div class="catalog-page-container" :style="{ backgroundImage: 'url(' + getCatalog.catalogueBackground + ')' }">
+    <div class="catalog-page-container">
+        <div v-if="showArray(getCatalog.catalogueBackground)" class="catalog-page-background" ref="catBackground" :style="`margin-bottom: ${catalogHeaderMargin};`">
+            <img class="" :src="getCatalog.catalogueBackground" alt="">
+            <!-- <img class="" src="../assets/img/bg_255.png" alt=""> -->
+        </div>
+        <div v-else class="catalog-page-background-default"></div>
         <div class="catalog-box">
             <div>
-                <!-- <button @click="testLogger(getCatalog)">catalog logger</button> -->
-                <!-- <button @click="testLogger(getDatasets)">datasets logger</button> -->
                 <div class="row">
-                    <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center">
+                    <div class="catalog-header-container col-10 mx-auto d-flex justify-content-between align-items-center" ref="catHeader">
                         <div class="catalog-header-info d-flex flex-column justify-content-center">
-                            <h2 class="catalog-header-titel" aria-label="Catalog name">
-                                <!-- TODO: favicon -->
+                            <h2 class="catalog-header-titel" aria-label="Katalogtitel">
                                 <!-- <img class="catalog-header-icon" src="../assets/img/favicon.png" alt="">  -->
-                                <img class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
+                                <img v-if="showArray(getCatalog.catalogueFavIcon)" class="catalog-header-icon" :src="getCatalog.catalogueFavIcon" alt=""> 
                                 <span>{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</span>
                             </h2>
                             <h5 class="catalog-header-homepage" aria-label="Homepage">
@@ -19,122 +21,99 @@
                                 </app-link>
                             </h5>
                         </div>
-                        <!-- TODO: call the right logo -->
                         <!-- <img class="catalog-header-logo" src="../assets/img/logo.png" alt=""> -->
-                        <img class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="">
-                        <!-- <span>*logo*</span> -->
+                        <img v-if="showArray(getCatalog.catalogueLogo)" class="catalog-header-logo" :src="getCatalog.catalogueLogo" alt="" aria-label="logo">
                     </div>
                     <div class="col-10 mx-auto">
                         <div class="catalog-card card" >
                             <div class="card-header">
-                                <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                                    <li v-for="tab in cardNavTabs" :key="tab.id" role="tab" :aria-controls="tab.id" :aria-selected="activeTabName === tab.id">
+                                <!-- CARD NAV -->
+                                <ul class="nav nav-tabs card-header-tabs" role="tablist" aria-label="Navigationsleiste">
+                                    <li v-for="tab in cardNavTabs" :key="tab.id" role="tab" :aria-controls="tab.id" :aria-selected="activeTabName === tab.id" :aria-label="tab.displayName">
                                         <a @click.prevent="setActiveTabName(tab.id)" class="nav-link" :class="{active: tab.id === activeTabName}" :href="`#${tab.id}`" role="tab">
                                             {{ tab.displayName }}
                                         </a>
-                                        <!-- <router-link @click="setActiveTabName(tab.id)" 
-                                        class="nav-link" 
-                                        :class="{active: tab.id === activeTabName}" 
-                                        :to="`#${tab.id}`" role="presentation" 
-                                        >
-                                            {{ tab.displayName }}
-                                        </router-link> -->
                                     </li>
                                 </ul>
                             </div>
-                            <!-- <h5 class="card-header">Header</h5> -->
+                            <!-- CARD CONTENT -->
                             <div class="card-body mx-4 my-5">
-                                <div v-if="activeTabName === 'about'" class="tab-pane active d-flex align-items-between justify-content-between" id="about" role="tabpanel">
+
+                                <!-- "ÜBER DIESEN KATALOG" -->
+                                <div v-if="activeTabName === 'about'" class="tab-pane active catalog-about-tab d-flex align-items-start justify-content-between" id="about" role="tabpanel">
                                     <div>
-                                        <!-- <h5 class="card-title"></h5> -->
                                         <div class="tab-content d-flex">
-                                            <div class="card-text">
-                                                {{ getTranslationFor(catalog.description, $route.query.locale, catalog.languages) }}
-                                            </div>
+                                            <app-markdown-content class="card-text" tag="div" :text="getTranslationFor(catalog.description, $route.query.locale, catalog.languages)" />
                                         </div>
                                     </div>
-                                    <!-- TODO call the right -->
-                                    <!-- <img class="ml-4 catalog-hero-pic" src="../assets/img/hero.png" alt=""> -->
-                                    <img class="ml-4" :src="getCatalog.catalogueProfile" alt="">
+                                    <img v-if="showArray(getCatalog.catalogueProfile)" class="catalog-hero-pic ml-4 img-fluid" :src="getCatalog.catalogueProfile" alt="">
+                                    <!-- <img class="ml-4" :src="testProfile" alt=""> -->
                                 </div>
-                                    <div v-if="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
-                                        <!-- <h5 class="card-title">Interessante Datensätze</h5> -->
-                                        <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content mt-3">
-                                            <!-- <p class="card-text">*Work in progress..*</p> -->
-                                            <pv-data-info-box
-                                            v-for="dataset in getDatasets.slice(0, 3)"
+
+                                <!-- "INTERESSANTE DATENSÄTZE" -->
+                                <div v-show="activeTabName === 'dataset-selections'" class="tab-pane active" id="dataset-selections" role="tabpanel" aria-labelledby="dataset-selections-tab">
+                                    <div v-if="showArray(getDatasets)" class="tab-content d-flex flex-column align-items-center mt-3">
+                                        <div class="d-flex flex-wrap justify-content-center mb-5">
+                                            
+                                            <DatasetCard 
+                                            v-for="dataset in (interestingDatasets.length > 0) ? interestingDatasets.slice(0, 3) : getDatasets.slice(0, 3)"
                                             :key="dataset.id"
                                             :to="`/datasets/${dataset.id}`"
-                                            :src="getImg(getCatalogImage(dataset.catalog))"
-                                            :dataset="{
-                                                title: getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id,
-                                                description:
-                                                getTranslationFor(dataset.description, $route.query.locale, dataset.languages),
-                                                catalog: getTranslationFor(dataset.catalog.title, $route.query.locale, []),
-                                                createdDate: dataset.releaseDate,
-                                                updatedDate: dataset.modificationDate,
-                                                formats: removeDuplicatesOf(dataset.distributionFormats).filter((format) => format.id || format.label),
-                                            }"
-                                            :description-max-length="1000"
+                                            :datasetTitle="getTranslationFor(dataset.title, $route.query.locale, dataset.languages) || dataset.id"
+                                            :datasetDescription="getTranslationFor(dataset.description, $route.query.locale, dataset.languages)"
+                                            :datasetCatalog="getTranslationFor(dataset.catalog.title, $route.query.locale, [])"
+                                            :descriptionMaxLength="175"
                                             :data-cy="`dataset@${dataset.id}`"
                                             class="mt-3"
                                             />
                                         </div>
+                                        
+                                        <button @click.prevent="setActiveTabName('dataset-page')" class="fol-button primary-button" role="button">Mehr Daten entdecken</button>
                                     </div>
-                                    <div v-if="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
-                                        <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content mt-3">
-                                            <Datasets />
-                                        </div>
-                                        <!-- <Datasets /> -->
-                                    </div>
-                                    <div v-if="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                        <!-- <h6 class="card-subtitle mb-2">card subtitle</h6> -->
-                                        <div class="tab-content">
-                                            <!-- PUBLISHER -->
-                                            <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher)">
-                                                <dt v-if="has(getCatalog, 'publisher.name')  && showString(getCatalog.publisher.name)">{{ getCatalog.publisher.name }}</dt>
-                                                <dd>
-                                                    <app-link v-if="has(getCatalog, 'publisher.homepage') && showString(getCatalog.publisher.homepage)" :to="getCatalog.publisher.homepage">
-                                                    {{ getCatalog.publisher.homepage }}
-                                                    </app-link>
-                                                </dd>
-                                                <dd>
-                                                    <app-link v-if="has(getCatalog, 'publisher.email') && showString(getCatalog.publisher.email)" :to="getCatalog.publisher.email">
-                                                    {{ getCatalog.publisher.email }}
-                                                    </app-link>
-                                                </dd>
-                                            </dl>
-                                            <span v-else>
-                                                Keine Kontaktinformationen verfügbar.
-                                            </span>
-                                        <!-- <p class="card-text">body for Interessante Kontakt.</p> -->
-                                        </div>
+
+                                    <span v-else>
+                                        Es sind keine Datensätze verfügbar.
+                                    </span>
+                                </div>
+
+                                <!-- "ALLE DATENSÄTZE" -->
+                                <div v-show="activeTabName === 'dataset-page'" class="tab-pane active" id="dataset-page" role="tabpanel" aria-labelledby="dataset-page-tab">
+                                    <div class="tab-content mt-3">
+                                        <Datasets />
                                     </div>
                                 </div>
-                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                            <!-- <div class="card-footer text-muted">
-                                Footer
-                            </div> -->
+
+                                <!-- "KONTAKT" -->
+                                <div v-show="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                    <div class="tab-content">
+                                        <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher) && (showString(getCatalog.publisher.email) || showString(getCatalog.publisher.homepage))">
+                                            <h4 class="catalog-contact-header">Fragen zu dieser Open Data Präsenz?</h4>
+                                            <!-- publisher name -->
+                                            <dt v-if="has(getCatalog, 'publisher.name')  && showString(getCatalog.publisher.name)">{{ getCatalog.publisher.name }}</dt>
+                                            <!-- email -->
+                                            <dd>
+                                                <!-- E-Mail:  -->
+                                                <app-link v-if="has(getCatalog, 'publisher.email') && showString(getCatalog.publisher.email)" :to="getCatalog.publisher.email">
+                                                    {{ getCatalog.publisher.email.startsWith("mailto:") ? getCatalog.publisher.email.slice(7) : getCatalog.publisher.email }}
+                                                </app-link>
+                                            </dd>
+                                            <!-- homepage -->
+                                            <dd>
+                                                <!-- Website:  -->
+                                                <app-link v-if="has(getCatalog, 'publisher.homepage') && showString(getCatalog.publisher.homepage)" :to="getCatalog.publisher.homepage">
+                                                {{ getCatalog.publisher.homepage }}
+                                                </app-link>
+                                            </dd>
+                                        </dl>
+                                        <span v-else>
+                                            Es sind keine Kontaktinformationen verfügbar.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- <dl v-if="has(catalog, 'title') && showObject(catalog.title)">
-                    <dt>
-                            <span :title="$t('message.tooltip.catalogDetails.title')"
-                                    data-toggle="tooltip"
-                                    data-placement="right">
-                                    {{ $t('message.metadata.title') }}
-                            </span>
-                    </dt>
-                    <dd>{{ getTranslationFor(catalog.title, $route.query.locale, catalog.languages) }}</dd>
-                    <dd>
-                        <app-link :to="catalog.homepage">
-                        {{ catalog.homepage }}
-                        </app-link>
-                    </dd>
-                </dl> -->
             </div>
         </div>
     </div>
@@ -145,28 +124,30 @@ import $ from 'jquery';
 import Datasets from "../datasets/Datasets.vue"
 import { mapGetters, mapActions } from 'vuex';
 import AppLink from "../widgets/AppLink";
+import DatasetCard from "./CatalogPageDatasetCard.vue"
+import AppMarkdownContent from "../datasetDetails/AppMarkdownContent.vue"
 import {
-    debounce,
     has,
-    groupBy,
-    uniqBy,
-    toPairs,
     isArray,
     isNil,
     isObject, 
     isString
   } from 'lodash-es';
-  import { getTranslationFor, truncate, getImg } from '../utils/helpers';
+  import { getTranslationFor, truncate } from '../utils/helpers';
     export default {
         name: "CatalogPage",
         dependencies: ['catalogService', 'DatasetService'],
         components: {
             Datasets,
+            DatasetCard,
             AppLink,
+            AppMarkdownContent,
         },
         data() {
             return {
+                catalogHeaderMargin: '0',
                 catalog: {},
+                interestingDatasets: [],
                 activeTabName: 'about',
                 cardNavTabs: [
                     {
@@ -185,7 +166,7 @@ import {
                         id: 'contact',
                         displayName: 'Kontakt',
                     },
-                ]
+                ],
             };
         },
         computed: {
@@ -195,16 +176,30 @@ import {
             ...mapGetters('datasets', [
                 'getDatasets',
                 'getDatasetsCount',
-                'getFacets',
-                'getLimit',
                 'getLoading',
                 'getOffset',
-                'getPage',
-                'getPageCount',
-                'getAvailableFacets',
-                'getAllAvailableFacets',
-                'getMinScoring',
             ]),
+            
+            backgroundHeight() {
+                let bgHeight = this.$refs.catBackground.clientHeight ? this.$refs.catBackground.clientHeight : 0;
+                console.log("bg height is: ",bgHeight);
+                return parseInt(bgHeight);
+            },
+
+            headerHeight() {
+                let headerHeight = this.$refs.catHeader.clientHeight ? this.$refs.catHeader.clientHeight : 0;
+                console.log("header height is: ",headerHeight);
+                return parseInt(headerHeight);
+            },
+
+            setCatalogHeaderMargin() {
+                let margin = (this.headerHeight > (this.backgroundHeight/2)) ? -this.backgroundHeight : -((this.backgroundHeight/2) + this.headerHeight);
+                // console.log(`Numbers: ${this.headerHeight}, ${this.backgroundHeight}`);
+                // console.log("margin is: ", margin);
+                margin += 'px';
+                this.catalogHeaderMargin = margin;
+                return margin;
+            }
         },
         methods: {
             isNil,
@@ -213,73 +208,17 @@ import {
             isArray,
             truncate,
             getTranslationFor,
-            getImg,
             ...mapActions('catalogDetails', [
             'loadCatalog',
             'useCatalogService',
             ]),
             ...mapActions('datasets', [
                 'loadDatasets',
-                'useService',
+                // 'useService',
             ]),
-            getCatalogImage(catalog) {
-                return this.$env.content.catalogs.useCatalogCountries
-                ? `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'country.id') ? catalog.country.id : this.$env.content.catalogs.defaultCatalogCountryID}`
-                : `${this.$env.content.catalogs.defaultCatalogImagePath}/${has(catalog, 'id') ? catalog.id : this.$env.content.catalogs.defaultCatalogID}`;
-            },
-            initShowCatalogDetails() {
-                const showCatalogDetails = !isNil(this.$route.params.ctlg_id);
-                if (showCatalogDetails === true) {
-                    this.showCatalogDetails = true;
-                    this.loadCatalog(this.$route.params.ctlg_id);
-                } else this.showCatalogDetails = false;
-            },
-            initDatasets() {
-                this.$nextTick(() => {
-                this.$nextTick(() => {
-                    this.$Progress.start();
-                    this.loadDatasets({ locale: this.$route.query.locale })
-                    .then(() => {
-                        this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
-                        this.$Progress.finish();
-                        $('[data-toggle="tooltip"]').tooltip({
-                        container: 'body',
-                        });
-                    })
-                    .catch(() => {
-                        this.$Progress.fail();
-                    })
-                    .finally(() => this.$root.$emit('contentLoaded'));
-                });
-                });
-            },
-            getBadgeFormat(label) {
-                return this.truncate(label, 8, true);
-            },
-            removeDuplicatesOf(array) {
-                const correctedFormatArray = array.map(format => (
-                {
-                    ...format,
-                    id: this.getBadgeFormat(format.id),
-                    label: this.getBadgeFormat(format.label),
-                }
-                ));
-                // sorts after # of occurences (highest occurence first)
-                // possibility #1
-                const sortedArray = toPairs(groupBy(correctedFormatArray, 'id')).sort((a, b) => b[1].length - a[1].length);
-                const onlyFormatObjectsArray = sortedArray.map(arr => arr[1][0]);
-                // lodash uniqBy funtion removes duplicate id´s from array of objects
-                const uniqById = uniqBy(onlyFormatObjectsArray, 'id');
-                const uniqByIdAndLabel = uniqBy(uniqById, 'label');
-                return uniqByIdAndLabel;
-            },
             setActiveTabName(name) {
                 this.activeTabName = name;
-                // this.router.push(name);
             },
-            // displayContent(name) {
-            //     return this.activeTabName === name;
-            // },
             showObject(object) {
                 return !isNil(object) && isObject(object) && !Object.values(object).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true);
             },
@@ -295,9 +234,17 @@ import {
             showObjectArray(objectArray) {
                 return this.showArray(objectArray) && !objectArray.reduce((objectUndefined, currentObject) => objectUndefined && Object.values(currentObject).reduce((keyUndefined, currentValue) => keyUndefined && currentValue === undefined, true), true);
             },
-            testLogger(something) {
-                console.log(something);
-            }
+            getCatInterestingDatasets() {
+                for (let id of this.catalog.catalogueInterestingDatasets ) {
+                    this.DatasetService.getSingle(id)
+                    .then(response => 
+                        { 
+                            this.interestingDatasets.push(response);
+                        }
+                    )
+                    .catch(error => console.log('error: ', error));
+                }
+            },
         },
         mounted() {
             if (sessionStorage.activeTabName) {
@@ -305,41 +252,43 @@ import {
             }
         },
         watch: {
-            facetGroupOperatorWatcher: {
-            handler(facetGroupOperator) {
-                this.setRouteQuery({ facetGroupOperator }, "replace");
-            },
-            },
-            '$route.params.ctlg_id'(showCatalogDetails) {
-            this.showCatalogDetails = showCatalogDetails;
-            },
-            getDatasetGeoBounds(bounds) {
-            this.bounds = bounds
-            },
             getCatalog(catalog) {
-            this.catalog = catalog;
+                this.catalog = catalog;
+                this.getCatInterestingDatasets();
             },
             activeTabName(activeTab) {
-            sessionStorage.activeTabName = activeTab;
+                sessionStorage.activeTabName = activeTab;
             },
         },
         created() {
-            this.useService(this.DatasetService);
             this.useCatalogService(this.catalogService);
-            this.initShowCatalogDetails();
-            this.initDatasets();
         }
 
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .catalog-page-container {
-        // background-image: url("../assets/img/bg.png");
-        background-repeat: repeat-x;
-        background-position-x: center;
-        // background-size: contain;
     }
+    
+    .catalog-page-background {
+        max-height: 360px;
+        margin-left: -30px;
+        margin-right: -30px;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .catalog-page-background-default {
+        height: 360px;
+        background-color: #F4F8FA;
+        margin-bottom: -335px;
+        margin-left: -30px;
+        margin-right: -30px;
+        text-align: center;
+        overflow: hidden;
+    }
+
     .catalog-box {
         margin-bottom: 95px;
     }
@@ -367,7 +316,6 @@ import {
     .catalog-header-logo {
         height: 75px;
         width: auto;
-        // margin: 40px 50px;
     }
 
     .catalog-card.card {
@@ -382,17 +330,48 @@ import {
         border: none;
         &:hover {
             color: #175baf;
-            border: none;
+            border: none !important;
+            margin: 1px;
         }
         &.active{
             color: #175baf !important;
             border: none !important;
             border-bottom: 2px solid #175baf !important;
+            &:hover {
+                margin: 0;
+                margin-bottom: -1px;
+            }
         }
     }
 
     .catalog-hero-pic {
-        max-width: 300px;
+        max-width: 250px !important;
+        width: 100%;
+        height: auto;
+        margin-bottom: 25px;
+        
     }
 
+    .catalog-contact-header {
+        font-size: 18px;
+        margin-bottom: 34px;
+    }
+
+    .tab-content dt {
+        margin-bottom: 8px;
+    }
+    .tab-content dd {
+        margin-bottom: 0;
+    }
+
+    @media screen and (max-width: 991px) {
+        .catalog-about-tab {
+            flex-wrap: wrap;
+            flex-direction: column-reverse;
+            margin-left: 0 !important;
+        }
+        .ml-4.catalog-hero-pic {
+            margin-left: 0 !important;
+        }
+    }
 </style>
