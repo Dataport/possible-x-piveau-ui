@@ -3,6 +3,7 @@ services:
     hub-ui-theme-builder:
         image: 'registry.gitlab.com/piveau/hub/piveau-hub-ui/theme-builder:latest'
         # image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui/theme-builder:latest'
+        command: /bin/sh -c "cd /App && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist"
         volumes:
             - ./src:/App/src
             - ./static:/App/static
@@ -62,8 +63,8 @@ services:
           # Catalogs
           - VUE_APP_CONTENT_CATALOGS_FACETS_DEFAULT_FACET_ORDER=${VUE_APP_CONTENT_CATALOGS_FACETS_DEFAULT_FACET_ORDER:-['country']}
 
-
 volumes:
   html:
-  # src:
-  # static:
+  # The following volumes can be activated for deployment purposes. They can be mounted in hub-ui-theme-builder
+  #src:
+  #static:
