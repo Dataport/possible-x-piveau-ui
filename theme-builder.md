@@ -18,6 +18,12 @@ cd piveau-hub-ui
 sudo docker-compose -f theme-builder-docker-compose-dev.yml up
 ```
 
+If you want to specify a file with environment variables you can use the following command. The file theme-env.sample is an example for this.
+
+```
+sudo docker-compose -f theme-builder-docker-compose-dev.yml --env-file ./.env.local up
+```
+
 Note: if you want to keep the container running in background, you can start it with the option detached:
 
 ```
@@ -50,6 +56,6 @@ For this you should access the volumes in your file system. How you do this depe
 
 4. Restart the container "theme-builder". And wait until the process finishes. (See the container logs to see the progress)
 
-5. Reload the local piveau-hub-ui
+5. Restart the container hub-ui-theme-server
 
 6. Open in your browser [http://localhost:17080](http://localhost:17080), you should see the changes in the UI.
