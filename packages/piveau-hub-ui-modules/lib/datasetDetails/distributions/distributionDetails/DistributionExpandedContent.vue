@@ -46,7 +46,7 @@
       </td>
       <td>{{ getTranslationFor(distribution.licenseAttributionByText) }}</td>
     </tr>
-    <tr v-if="has(distribution, 'modificationDate') || !isNil(distribution.releaseDate)">
+    <tr v-if="has(distribution, 'releaseDate') && !isNil(distribution.releaseDate)">
       <td class="w-25 font-weight-bold">
         <tooltip :title="$t('message.tooltip.datasetDetails.distributions.updated')">
           {{ $t('message.metadata.updated') }}
