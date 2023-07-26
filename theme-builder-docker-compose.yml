@@ -3,15 +3,17 @@ services:
     hub-ui-theme-builder:
         image: 'registry.gitlab.com/piveau/hub/piveau-hub-ui/theme-builder:latest'
         # image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui/theme-builder:latest'
+        command: /bin/sh -c "cd /App && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist"
         volumes:
-            - 'src:/App/src'
-            - 'static:/App/static'
-            - 'html:/usr/share/nginx/html/'
+            - ./src:/App/src
+            - ./static:/App/static
+            - html:/usr/share/nginx/html/
         restart: "no"
         deploy:
           restart_policy:
             condition: on-failure
             max_attempts: 3
+        command: /bin/sh -c "cd /App && cp -a src original_src && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist"
         logging:
             options:
                 max-size: 1g
@@ -22,18 +24,47 @@ services:
         ports:
             - '17080:8080'
         volumes:
-            - 'html:/usr/share/nginx/html/'
+            - html:/usr/share/nginx/html/
         command: /bin/sh -c "chmod a+rw /usr/share/nginx/html/assets && chmod a+rw /usr/share/nginx/html/assets/* && /runtimeconfig.sh"
         restart: always
         logging:
             options:
                 max-size: 1g
         environment:
-          - VUE_APP_METADATA_TITLE=My dataportal
-
-
+          # Ugly but no other way around: https://github.com/docker/compose/issues/9181
+          - VUE_APP_METADATA_TITLE=${VUE_APP_METADATA_TITLE:-My title}
+          - VUE_APP_METADATA_KEYWORDS=${VUE_APP_METADATA_KEYWORDS:-My keywords}
+          # api
+          - VUE_APP_API_BASE_URL=${VUE_APP_API_BASE_URL:-https://data.europa.eu/api/hub/search/}
+          - VUE_APP_API_HUB_URL=${VUE_APP_API_HUB_URL:-https://data.europa.eu/api/hub/repo/}
+          - VUE_APP_API_QUALITY_BASE_URL=${VUE_APP_API_QUALITY_BASE_URL:-https://data.europa.eu/api/mqa/cache/}
+          - VUE_APP_API_SIMILARITY_BASE_URL=${VUE_APP_API_SIMILARITY_BASE_URL:-https://data.europa.eu/api/similarities/}
+          - VUE_APP_FILEUPLOAD_URL=${VUE_APP_FILEUPLOAD_URL:-https://data.europa.eu/api/hub/store/}
+          - VUE_APP_SPARQL_URL=${VUE_APP_SPARQL_URL:-https://data.europa.eu/sparql}
+          - VUE_APP_API_GAZETTEER_BASE_URL=${VUE_APP_API_GAZETTEER_BASE_URL:-https://data.europa.eu/api/hub/search/gazetteer/}
+          - VUE_APP_API_CATALOG_BASE_URL=${VUE_APP_API_CATALOG_BASE_URL:-https://europeandataportal.eu/}
+          - VUE_APP_CORSPROXY_API_URL=${VUE_APP_CORSPROXY_API_URL:-https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de}
+          # Keycloak
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_REALM=${VUE_APP_AUTHENTICATION_KEYCLOAK_REALM:-piveau}
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_URL=${VUE_APP_AUTHENTICATION_KEYCLOAK_URL:-https://keycloak-simtest.apps.osc.fokus.fraunhofer.de/}
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_SSL_REQUIRED=${VUE_APP_AUTHENTICATION_KEYCLOAK_SSL_REQUIRED:-external}
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_CLIENT_ID=${VUE_APP_AUTHENTICATION_KEYCLOAK_CLIENT_ID:-piveau-hub-ui}
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_PUBLIC_CLIENT=${VUE_APP_AUTHENTICATION_KEYCLOAK_PUBLIC_CLIENT:-true}
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_VERIFY_TOKEN_AUDIENCE=${VUE_APP_AUTHENTICATION_KEYCLOAK_VERIFY_TOKEN_AUDIENCE:-true}
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS=${VUE_APP_AUTHENTICATION_KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS:-true}
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_CONFIDENTIAL_PORT=${VUE_APP_AUTHENTICATION_KEYCLOAK_CONFIDENTIAL_PORT:-0}
+          - VUE_APP_AUTHENTICATION_KEYCLOAK_INIT_PKCE_METHOD=${VUE_APP_AUTHENTICATION_KEYCLOAK_INIT_PKCE_METHOD:-S256}
+          - VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_SPECIFICATION=${VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_SPECIFICATION:-dcatapde}
+          - VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_ENABLE_FILE_UPLOAD_REPLACE=${VUE_APP_CONTENT_DATA_PROVIDER_INTERFACE_ENABLE_FILE_UPLOAD_REPLACE:-true}
+          # datasets
+          - VUE_APP_CONTENT_DATASETS_FACETS_USE_DATASET_FACETS_MAP=${VUE_APP_CONTENT_DATASETS_FACETS_USE_DATASET_FACETS_MAP:-true}
+          - VUE_APP_CONTENT_DATASETS_FACETS_DEFAULT_FACET_ORDER=${VUE_APP_CONTENT_DATASETS_FACETS_DEFAULT_FACET_ORDER:-['license', 'format', 'categories', 'catalog', 'publisher', 'country']}
+          - VUE_APP_CONTENT_DATASETDETAILS_KEYWORDS_COLLAPSED=${VUE_APP_CONTENT_DATASETDETAILS_KEYWORDS_COLLAPSED:-true}
+          # Catalogs
+          - VUE_APP_CONTENT_CATALOGS_FACETS_DEFAULT_FACET_ORDER=${VUE_APP_CONTENT_CATALOGS_FACETS_DEFAULT_FACET_ORDER:-['country']}
 
 volumes:
   html:
-  src:
-  static:
+  # The following volumes can be activated for deployment purposes. They can be mounted in hub-ui-theme-builder
+  #src:
+  #static:

@@ -32,4 +32,4 @@ RUN cd /App && \
 
 
 # Rebuilds the application on start
-CMD [ "/bin/sh", "-c", "cd /App && cp -a src original_src && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist && rm -r node_modules" ]
+CMD [ "/bin/sh", "-c", "cd /App && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist" ]
