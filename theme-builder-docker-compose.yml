@@ -67,4 +67,4 @@ volumes:
   html:
   # The following volumes can be activated for deployment purposes. They can be mounted in hub-ui-theme-builder
   #src:
-  #static:
+  #static: 
