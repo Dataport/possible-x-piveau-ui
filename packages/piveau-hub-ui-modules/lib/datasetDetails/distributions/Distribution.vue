@@ -27,7 +27,7 @@
         :toggleDistribution="toggleDistribution"
       />
       <distribution-added
-        :date="addedDate"
+        :date="updatedDate"
       />
       <distribution-actions
         :distribution="distribution"
@@ -126,12 +126,12 @@ export default {
     appendCurrentLocaleToURL: Function,
   },
   computed: {
-    addedDate() {
-      //change the "Distribution added" label to "updated" in the Distributions table
-      if (has(this.distribution, 'modificationDate') && !isNil(this.distribution.modificationDate)) {
+    updatedDate() {
+       if (this.has(this.distribution, 'modificationDate') && !this.isNil(this.distribution.modificationDate)) {
         return this.filterDateFormatEU(this.distribution.modificationDate);
+      } else {
+        return this.filterDateFormatEU(this.distribution.releaseDate);
       }
-      return "";
     }
   },
   methods: {
