@@ -1,7 +1,7 @@
 <template>
     <div class="catalog-page-container">
         <div v-if="showArray(getCatalog.catalogueBackground)" class="catalog-page-background" ref="catBackground" :style="`margin-bottom: ${catalogHeaderMargin};`">
-            <img class="" :src="getCatalog.catalogueBackground" alt="">
+            <img class="catalog-page-background-image" :src="getCatalog.catalogueBackground" alt="">
             <!-- <img class="" src="../assets/img/bg_255.png" alt=""> -->
         </div>
         <div v-else class="catalog-page-background-default"></div>
@@ -269,28 +269,28 @@ import {
 
 <style lang="scss">
     .catalog-page-container {
+        padding: 0 !important;
     }
     
-    .catalog-page-background {
-        max-height: 360px;
-        margin-left: -30px;
-        margin-right: -30px;
-        text-align: center;
-        overflow: hidden;
+    .catalog-page-background-image,
+    .catalog-page-background-default {
+        position: absolute;
+        height: 360px;
+        width: 100%;
     }
 
     .catalog-page-background-default {
-        height: 360px;
         background-color: #F4F8FA;
-        margin-bottom: -335px;
-        margin-left: -30px;
-        margin-right: -30px;
-        text-align: center;
+    }
+
+    .catalog-page-background-image {
         overflow: hidden;
+        object-fit: cover;
     }
 
     .catalog-box {
         margin-bottom: 95px;
+        padding: 0 30px 0 30px;
     }
     .flag-img {
         width: 150px;
@@ -298,6 +298,7 @@ import {
     }
 
     .catalog-header-container {
+        min-height: 180px;
         padding: 40px 50px;
     }
 
