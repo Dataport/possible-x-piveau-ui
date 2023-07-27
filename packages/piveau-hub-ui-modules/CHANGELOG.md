@@ -1,3 +1,12 @@
+## [3.6.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.8...v3.6.9) (2023-07-27)
+
+
+### Features
+
+* overlap background image on catalog page ([45d3529](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/45d352971e3a52c73319b83fb232c12b905236a3))
+
+
+
 ## [3.6.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.7...v3.6.8) (2023-07-26)
 
 
