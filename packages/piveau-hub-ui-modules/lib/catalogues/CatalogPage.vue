@@ -86,10 +86,19 @@
                                 <!-- "KONTAKT" -->
                                 <div v-show="activeTabName === 'contact'" class="tab-pane active" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                     <div class="tab-content">
-                                        <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher) && (showString(getCatalog.publisher.email) || showString(getCatalog.publisher.homepage))">
+                                        <dl v-if="has(getCatalog, 'publisher') && showObject(getCatalog.publisher) && (showString(getCatalog.publisher.email) || showString(getCatalog.publisher.homepage) || showObject(getCatalog.publisher.address))">
                                             <h4 class="catalog-contact-header">Fragen zu dieser Open Data Präsenz?</h4>
                                             <!-- publisher name -->
                                             <dt v-if="has(getCatalog, 'publisher.name')  && showString(getCatalog.publisher.name)">{{ getCatalog.publisher.name }}</dt>
+                                          <!-- address -->
+                                          <dd v-if="has(getCatalog, 'publisher.address') && showObject(getCatalog.publisher.address)">
+                                            <!-- E-Mail:  -->
+                                            <span v-if="has(getCatalog, 'publisher.address.street') && showString(getCatalog.publisher.address.street)">{{ getCatalog.publisher.address.street }}</span>
+                                           </dd>
+                                          <dd v-if="has(getCatalog, 'publisher.address') && showObject(getCatalog.publisher.address)">
+                                            <!-- E-Mail:  -->
+                                            <span v-if="has(getCatalog, 'publisher.address.postalCode') && showString(getCatalog.publisher.address.locality) && has(getCatalog, 'publisher.address.locality') && showString(getCatalog.publisher.address.postalCode)">{{ getCatalog.publisher.address.postalCode }} {{ getCatalog.publisher.address.locality }}</span>
+                                          </dd>
                                             <!-- email -->
                                             <dd>
                                                 <!-- E-Mail:  -->
