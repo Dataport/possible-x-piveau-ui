@@ -29,7 +29,7 @@ const state = {
 
 const getters = {
     /**
-     * Rteurns raw values for given property, page and distribution
+     * Returns raw values for given property, page and distribution
      * @param state 
      * @param0 Object containing property, page and distribution id
      * @returns Object conatining form values for given property, distribution and page
