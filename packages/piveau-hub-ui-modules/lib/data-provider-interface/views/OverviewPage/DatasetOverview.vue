@@ -111,7 +111,7 @@ export default {
         return {
             pageLoaded: false,
             pageData: {},
-            URIcache:{},
+            URIcache: "",
             tableProperties: {
                 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
@@ -184,7 +184,10 @@ export default {
         }
 
     },
-    mounted() {
+    created() {
+
+    },
+    async mounted() {
         this.$nextTick(() => {
             this.pageLoaded = true
         })
@@ -198,22 +201,20 @@ export default {
         async reqName(URI) {
             let voc = "corporate-body"
             let req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}/${URI}`
-            let translatedUriName
-
-             new Promise((resolve, reject) => {
+            
+            new Promise((resolve, reject) => {
                 axios.get(req)
                     .then((res) => {
                         resolve(res);
-                        translatedUriName = res['data']['result']['pref_label'][this.dpiLocale]
+                        this.URIcache = res['data']['result']['pref_label'][this.dpiLocale]
                         // console.log(res['data']['result']['pref_label'][this.dpiLocale]);
                     })
                     .catch((err) => {
                         reject(err);
-
                     });
-                    
             });
-            return translatedUriName
+            return this.URIcache
+
             // await this.requestResourceName({ voc: voc, resource: URI }).then(
             //     (response) => {
             //   let result = vocMatch
@@ -223,7 +224,7 @@ export default {
             //     : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
             //     console.log(result);
             // }
-        //   );
+            //   );
         }
     }
 }
@@ -243,7 +244,9 @@ export default {
     max-width: 50%;
 }
 
-.dsDist {}
+.dsDist tr {
+    display: table-row !important;
+}
 
 .dsDist th {
     padding: 1rem;

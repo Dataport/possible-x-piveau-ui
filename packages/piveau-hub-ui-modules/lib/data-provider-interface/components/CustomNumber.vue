@@ -30,14 +30,6 @@ export default {
             type: Boolean,
             required: false,
         },
-        annifTheme: {
-            type: Boolean,
-            required: false,
-        },
-        multiple: {
-            type: Boolean,
-            required: false,
-        },
         value: {
             type: String,
             default: 'en',
