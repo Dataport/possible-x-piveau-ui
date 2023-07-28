@@ -1,3 +1,16 @@
+## [3.6.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.10...v3.6.11) (2023-07-28)
+
+
+### Bug Fixes
+
+* small fixes in the DPI ([bd8f5b2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/bd8f5b2ce7808da1918a8af735fbf1e9503511b0))
+
+
+
+## [3.0.22](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.1...v3.0.22) (2023-07-19)
+
+
+
 ## [3.6.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.9...v3.6.10) (2023-07-28)
 
 
@@ -47,7 +60,173 @@
 
 
 
-## [3.6.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.1...v3.6.2) (2023-07-19)
+## [3.6.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.0.22...v3.6.2) (2023-07-19)
+
+
+
+## [3.6.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.0...v3.6.1) (2023-07-18)
+
+
+### Bug Fixes
+
+* CatalogPage ([d56760d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d56760d6894a00490b002ae6d0df801a2c849955))
+
+
+
+# [3.6.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.5...v3.6.0) (2023-07-14)
+
+
+### Features
+
+* **adapter:** append 'distributions.license,categories.label,publisher' to the includes query when searching for datasets ([9e96bbb](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/9e96bbb726769afc79d3b875faa5487221221db9))
+* **Datasets:** introduce dataset filters related slots; exports DatasetFiltersTabs ([1a90543](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1a9054346c9eab6ba284565be3ca2e3c4de7baa6))
+
+
+
+## [3.5.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.4...v3.5.5) (2023-07-11)
+
+
+### Bug Fixes
+
+* CatalogPage: fix email addresses starting with 'mailto:' ([d2754ba](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d2754baa9d27cc69bab9dc2aabfc80b717ad4bf9))
+
+
+
+## [3.5.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.3...v3.5.4) (2023-07-06)
+
+
+### Bug Fixes
+
+* CatalogPage minor styling ([f2d5f88](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f2d5f88095522c6117e21cce6945dd10827094c1))
+
+
+
+## [3.5.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.2...v3.5.3) (2023-07-06)
+
+
+### Bug Fixes
+
+* catalogPage styling ([08e3e57](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/08e3e57012e31170bec74b5cbcacf8a1eb8b984a))
+
+
+
+## [3.5.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.1...v3.5.2) (2023-07-06)
+
+
+### Bug Fixes
+
+* expand distribution can show more checks ([df0f9f4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/df0f9f4e7b48e3030896e1d7a8375d2729eb1f51))
+* fix console errors in CatalogPage ([fdcf398](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fdcf398829f1807a3309547cc7ce7c00a63da8fb))
+
+
+
+## [3.5.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.5.0...v3.5.1) (2023-07-06)
+
+
+### Bug Fixes
+
+* catalogPage: adjust CatalogPageDatasetCard.vue according to OP redesign ([1550dd0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1550dd0c43de9624063b1741b2417c99b99add86))
+
+
+
+# [3.5.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.4.0...v3.5.0) (2023-07-06)
+
+
+### Features
+
+* export defineUserConfig util function from main package ([22676c1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/22676c13a38099bc30db5a344db094b7b6da5ca6))
+
+
+
+# [3.4.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.3.4...v3.4.0) (2023-07-06)
+
+
+### Features
+
+* implement config schema ([f1f6f35](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f1f6f35d70df5a89def93d3aff5210efe1c7b1a0))
+
+
+
+## [3.3.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.3.3...v3.3.4) (2023-07-05)
+
+
+### Features
+
+* generate and export type declaration files ([de153b1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/de153b105b2cdee5da760368ddf317c5ba46b1b6))
+
+
+
+## [3.3.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.3.2...v3.3.3) (2023-06-30)
+
+
+
+## [3.3.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.3.1...v3.3.2) (2023-06-29)
+
+
+
+## [3.3.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.3.0...v3.3.1) (2023-06-29)
+
+
+
+# [3.3.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.2.1...v3.3.0) (2023-06-29)
+
+
+### Features
+
+* **DatasetList:** add raw-dataset and index slot props ([df275db](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/df275db172b6c68084f1579e3bf8201326fd12cb))
+
+
+
+## [3.2.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.2.0...v3.2.1) (2023-06-29)
+
+
+### Bug Fixes
+
+* **PvDataInfoBox:** fix undefined router link target path ([cf70d14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/cf70d14e4cb61989635bbd433f9b97891ecfdbdc))
+
+
+
+# [3.2.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.1.2...v3.2.0) (2023-06-29)
+
+
+### Features
+
+* add PvDataInfoBoxFormats component ([b85f736](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b85f736cd93359c754522ae8152d31b0ed08b138))
+* **DatasetList:** export new component DatasetList ([5c7c0fa](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5c7c0faaee7c9e43ac69ac5a312926827754aeaa))
+* **Datasets:** implement Datasets slots for customizable layouts; refactor PvDataInfoBox related logic to dedicated composable ([3339fc7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3339fc79715f621fe93155b4c1d17021b4824c95))
+* **Datasets:** implement slot for dataset search results message box ([498cbc4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/498cbc4ddc6342ae690510eb52220aba527f16dc))
+* export all PvDataInfoBox related components ([762e058](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/762e058bdd1ab91732b46f57013d2a4475a5ca9b))
+* **PvDataInfoBox:** add slot for badge column ([ebb29e0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ebb29e086f85f18b4c0fd283c06500127151463f))
+* **PvDataInfoBox:** expose dataset slot prop ([29a8a52](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/29a8a528fa12b8a40b68ccca65b677afdbf343d2))
+
+
+
+## [3.1.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.1.1...v3.1.2) (2023-06-29)
+
+
+### Bug Fixes
+
+* datasets.ts ([b7e7654](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7e7654348ef905b9f5c485b114c209c34a48dfc))
+* merge conflicts ([ac01265](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ac01265ca1907eb643b3de7e74f00908b8cca349))
+* remove Radiofacet import ([62b6a24](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/62b6a24a0e6e51368000a7ec49986e011ae8ee6d))
+
+
+
+## [3.1.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.1.0...v3.1.1) (2023-06-28)
+
+
+
+# [3.1.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.0.20...v3.1.0) (2023-06-28)
+
+
+### Features
+
+* allow limiting number of fetched similar datasets ([2e82713](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2e82713895f1ea4bd1da5e28dc309751bb665836))
+* Export all Vue components from modules in index.mjs ([32efbe3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/32efbe3c62d0a2d5ab880ed0ddca4e18973624ad))
+
+
+
+## [3.0.22](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.1...v3.0.22) (2023-07-19)
 
 
 ### Bug Fixes
