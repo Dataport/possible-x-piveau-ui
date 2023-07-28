@@ -3,7 +3,6 @@ services:
     hub-ui-theme-builder:
         image: 'registry.gitlab.com/piveau/hub/piveau-hub-ui/theme-builder:latest'
         # image: 'dockerhub.fokus.fraunhofer.de:5000/piveau/hub/piveau-hub-ui/theme-builder:latest'
-        command: /bin/sh -c "cd /App && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist"
         volumes:
             - ./src:/App/src
             - ./static:/App/static
