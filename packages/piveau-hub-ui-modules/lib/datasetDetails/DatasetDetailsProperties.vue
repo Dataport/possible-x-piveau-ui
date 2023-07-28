@@ -12,7 +12,7 @@
            v-show="infoVisible">
         <table class="table table-borderless table-responsive" ref="dsdProperties" id="myTab" role="tablist">
           <tr v-if="showString(getReleaseDate)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.created')">
                 {{ $t('message.metadata.created') }}
               </tooltip>
@@ -20,7 +20,7 @@
             <td>{{ filterDateFormatEU(getReleaseDate) }}</td>
           </tr>
           <tr v-if="showString(getModificationDate)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.updated')">
                 {{ $t('message.metadata.updated') }}
               </tooltip>
@@ -28,7 +28,7 @@
             <td>{{ filterDateFormatEU(getModificationDate) }}</td>
           </tr>
           <tr v-if="showArray(getLandingPagesResource)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.landingPage')">
                 {{ $t('message.metadata.landingPage') }}
               </tooltip>
@@ -40,7 +40,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getSources)">
-            <td class="w-25 font-weight-bold">{{ $t('message.metadata.sources') }}</td>
+            <td class="w-25 text-break font-weight-bold">{{ $t('message.metadata.sources') }}</td>
             <td>
               <div v-for="(source, i) of getSources" :key="i">
                 <app-link v-if="!isNil(source) && isString(source)" :to="source">{{ source }}</app-link>
@@ -48,7 +48,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getLanguages)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.language')">
                 {{ $t('message.metadata.languages') }}
               </tooltip>
@@ -60,7 +60,7 @@
             </td>
           </tr>
           <tr v-if="showObject(getPublisher)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.publisher')">
                 {{ $t('message.metadata.publisher') }}
               </tooltip>
@@ -81,7 +81,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getContactPoints) && showContactPoint(getContactPoints)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.contactPoints')">
                 {{ $t('message.metadata.contactPoints') }}
               </tooltip>
@@ -120,7 +120,7 @@
           </tr>
           <!-- Add new fields for DCAT-AP.de -->
           <tr v-if="showObjectArray(getPoliticalGeocodingLevelURI)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.politicalGeocodingLevelURI')">
                 {{ $t('message.metadata.politicalGeocodingLevelURI') }}
               </tooltip>
@@ -131,7 +131,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getPoliticalGeocodingURI)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.politicalGeocodingURI")'>
                 {{ $t('message.metadata.politicalGeocodingURI') }}
               </tooltip>
@@ -142,7 +142,7 @@
             </td>
           </tr>
           <tr v-if="showObject(getAvailability)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.availabilityDE")'>
                 {{ $t('message.metadata.availability') }}
               </tooltip>
@@ -153,7 +153,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getContributorID)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.contributorID")'>
                 {{ $t('message.metadata.contributorID') }}
               </tooltip>
@@ -164,7 +164,7 @@
             </td>
           </tr>
           <tr v-if="showObject(getGeocodingDescriptionDe)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.geocodingDescription")'>
                 {{ $t('message.metadata.geocodingDescription') }}
               </tooltip>
@@ -174,7 +174,7 @@
             </td>
           </tr>
           <tr v-if="showObject(getLegalBasis)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.legalBasis")'>
                 {{ $t('message.metadata.legalBasis') }}
               </tooltip>
@@ -184,7 +184,7 @@
             </td>
           </tr>
           <tr v-if="showString(getQualityProcessURI)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.qualityProcessURI")'>
                 {{ $t('message.metadata.qualityProcessURI') }}
               </tooltip>
@@ -194,7 +194,7 @@
             </td>
           </tr>
           <tr v-if="showString(getTypeDe)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.type")'>
                 {{ $t('message.metadata.type') }}
               </tooltip>
@@ -204,7 +204,7 @@
             </td>
           </tr>
           <tr v-if="showString(getReferences)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.references")'>
                 {{ $t('message.metadata.references') }}
               </tooltip>
@@ -214,7 +214,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getContributor)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.contributor")'>
                 {{ $t('message.metadata.contributor') }}
               </tooltip>
@@ -228,7 +228,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getOriginator)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.originator")'>
                 {{ $t('message.metadata.originator') }}
               </tooltip>
@@ -242,7 +242,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getMaintainer)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title='$t("message.tooltip.datasetDetails.maintainer")'>
                 {{ $t('message.metadata.maintainer') }}
               </tooltip>
@@ -257,7 +257,7 @@
           </tr>
           <!-- ### END DCAT-AP.de fields ### -->
           <tr v-if="showObject(getCatalogRecord)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.catalogRecord')" >
                 {{ $t('message.metadata.catalogRecord') }}
               </tooltip>
@@ -268,7 +268,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getSpatial)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.spatial')">
                 {{ $t('message.metadata.spatial') }}
               </tooltip>
@@ -287,7 +287,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getSpatialResource)">
-            <td class="w-25 font-weight-bold">{{ $t('message.metadata.spatialResource') }}</td>
+            <td class="w-25 text-break font-weight-bold">{{ $t('message.metadata.spatialResource') }}</td>
             <td>
               <div v-for="(spatialResource, i) of getSpatialResource.map(s => s.resource || '')" :key="i">
                 <app-link v-if="!isNil(spatialResource)" :to="spatialResource">{{ truncate(spatialResource, 75) }}</app-link>
@@ -295,7 +295,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getConformsTo)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.conformsTo')">
                 {{ $t('message.metadata.conformsTo') }}
               </tooltip>
@@ -319,7 +319,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getProvenances)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.provenance')">
                 {{ $t('message.metadata.provenances') }}
               </tooltip>
@@ -339,7 +339,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getRelatedResources)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.relatedResource')">
                 {{ $t('message.metadata.relatedResources') }}
               </tooltip>
@@ -351,7 +351,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getIdentifiers)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.identifier')" >
                 {{ $t('message.metadata.identifiers') }}
               </tooltip>
@@ -365,7 +365,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getOtherIdentifiers)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.otherIdentifier')" >
                 {{ $t('message.metadata.otherIdentifiers') }}
               </tooltip>
@@ -388,7 +388,7 @@
             </td>
           </tr>
           <tr v-if="showString(getResource)" class="dsd-properties-uriref">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.uriRef')">
                 URIref
               </tooltip>
@@ -398,7 +398,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getDocumentations)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.documentation')" >
                 {{ $t('message.metadata.documentations') }}
               </tooltip>
@@ -410,7 +410,7 @@
             </td>
           </tr>
           <tr v-if="showObject(getFrequency)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.frequency')" >
                 {{ $t('message.metadata.frequency') }}
               </tooltip>
@@ -425,7 +425,7 @@
             </td>
           </tr>
           <tr v-if="showObject(getAccessRights)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.distributions.rights')" >
                 {{ $t('message.metadata.accessRights') }}
               </tooltip>
@@ -433,7 +433,7 @@
             <td v-if="has(getAccessRights, 'label') && !isNil(getAccessRights.label)">{{ getAccessRights.label }}</td>
           </tr>
           <tr v-if="showString(getAccrualPeriodicityLabel)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.frequency')" >
                 {{ $t('message.metadata.accrualPeriodicity') }}
               </tooltip>
@@ -441,7 +441,7 @@
             <td v-if="!isNil(getAccrualPeriodicityLabel)">{{ getAccrualPeriodicityLabel }}</td>
           </tr>
           <tr v-if="showObject(getCreator)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.creator')" >
                 {{ $t('message.metadata.creator') }}
               </tooltip>
@@ -462,7 +462,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getHasVersion)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.hasVersion')" >
                 {{ $t('message.metadata.hasVersion') }}
               </tooltip>
@@ -476,7 +476,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getIsVersionOf)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.versionOf')" >
                 {{ $t('message.metadata.isVersionOf') }}
               </tooltip>
@@ -490,7 +490,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getTemporal)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.distributions.temporalResolution')" >
                 {{ $t('message.metadata.temporal') }}
               </tooltip>
@@ -502,7 +502,7 @@
             </td>
           </tr>
           <tr v-if="showString(getVersionInfo)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.versionInfo')" >
                 {{ $t('message.metadata.versionInfo') }}
               </tooltip>
@@ -510,7 +510,7 @@
             <td v-if="!isNil(getVersionInfo)">{{ getVersionInfo }}</td>
           </tr>
           <tr v-if="showObject(getVersionNotes)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.versionNotes')" >
                 {{ $t('message.metadata.versionNotes') }}
               </tooltip>
@@ -518,7 +518,7 @@
             <td>{{ getTranslationFor(getVersionNotes) }}</td>
           </tr>
           <tr v-if="showArray(getAttributes)">
-            <td class="w-25 font-weight-bold">{{ $t('message.metadata.attributes') }}</td>
+            <td class="w-25 text-break font-weight-bold">{{ $t('message.metadata.attributes') }}</td>
             <td>
               <div v-for="(attribute, i) of getAttributes" :key="i">
                 <div v-if="showString(attribute)">
@@ -528,7 +528,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getDimensions)">
-            <td class="w-25 font-weight-bold">{{ $t('message.metadata.dimensions') }}</td>
+            <td class="w-25 text-break font-weight-bold">{{ $t('message.metadata.dimensions') }}</td>
             <td>
               <div v-for="(dimension, i) of getDimensions" :key="i">
                 <div v-if="showString(dimension)">
@@ -538,7 +538,7 @@
             </td>
           </tr>
           <tr v-if="showNumber(getNumSeries)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.numSeries')" >
                 {{ $t('message.metadata.numSeries') }}
               </tooltip>
@@ -548,7 +548,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getHasQualityAnnotations)">
-            <td class="w-25 font-weight-bold">{{ $t('message.metadata.qualityAnnotations') }}</td>
+            <td class="w-25 text-break font-weight-bold">{{ $t('message.metadata.qualityAnnotations') }}</td>
             <td>
               <div v-for="(hasQualityAnnotation, i) of getHasQualityAnnotations" :key="i">
                 <div v-if="showString(hasQualityAnnotation)">
@@ -558,7 +558,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getStatUnitMeasures)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.unitsOfMeasurement')" >
                 {{ $t('message.metadata.unitsOfMeasurement') }}
               </tooltip>
@@ -572,7 +572,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getIsReferencedBy)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.isReferencedBy')">
                 {{ $t('message.metadata.isReferencedBy') }}
               </tooltip>
@@ -586,7 +586,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getQualifiedAttributions)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.qualifiedAttribution')">
                 {{ $t('message.metadata.qualifiedAttribution') }}
               </tooltip>
@@ -600,7 +600,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getWasGeneratedBy)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.wasGeneratedBy')">
                 {{ $t('message.metadata.wasGeneratedBy') }}
               </tooltip>
@@ -614,7 +614,7 @@
             </td>
           </tr>
           <tr v-if="showObjectArray(getQualifiedRelations)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.qualifiedRelation')" >
                 {{ $t('message.metadata.qualifiedRelation') }}
               </tooltip>
@@ -641,7 +641,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getSample)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.sample')">
                 {{ $t('message.metadata.sample') }}
               </tooltip>
@@ -655,7 +655,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getSpatialResolutionInMeters)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.spatialResolutionInMeters')">
                 {{ $t('message.metadata.spatialResolutionInMeters.label') }}
               </tooltip>
@@ -667,7 +667,7 @@
             </td>
           </tr>
           <tr v-if="showObject(getType)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.type')">
                 {{ $t('message.metadata.type') }}
               </tooltip>
@@ -684,7 +684,7 @@
             </td>
           </tr>
           <tr v-if="showArray(getTemporalResolution)">
-            <td class="w-25 font-weight-bold">
+            <td class="w-25 text-break font-weight-bold">
               <tooltip :title="$t('message.tooltip.datasetDetails.temporalResolution')">
                 {{ $t('message.metadata.temporalResolution') }}
               </tooltip>
