@@ -1,3 +1,12 @@
+## [3.6.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.12...v3.6.13) (2023-07-28)
+
+
+### Bug Fixes
+
+* catalogue page missing items ([70bbde1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/70bbde14f746fae6e6917496a997bf690cb088e9))
+
+
+
 ## [3.6.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.11...v3.6.12) (2023-07-28)
 
 
