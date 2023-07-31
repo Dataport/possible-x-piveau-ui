@@ -1,3 +1,12 @@
+## [3.6.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.13...v3.6.14) (2023-07-31)
+
+
+### Bug Fixes
+
+* catalogue page add key ([3f32e90](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3f32e9029abb36b2bb7f0f9a93b42a33f7667ab4))
+
+
+
 ## [3.6.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.12...v3.6.13) (2023-07-28)
 
 
