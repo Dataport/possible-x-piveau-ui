@@ -56,9 +56,10 @@ export default {
 };
 </script>
 <style>
+/* If the display:block is active, the modal will appear in the bavaria hub-ui and makes it unusable. But it's actually not needed here.*/
 .modalWrapper {
   backdrop-filter: brightness(0.5);
-  display: block;
+  /* display: block; */
   align-items: center;
   z-index: 100;
 }

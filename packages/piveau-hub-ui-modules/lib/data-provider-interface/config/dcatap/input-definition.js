@@ -788,48 +788,42 @@ const dcatapProperties = {
         {
           identifier: 'temporalResolutionYear',
           type: 'custom-number',
-          min: 0,
-          max: 2023,
+        
           '@change': true,
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
           type: 'custom-number',
-          min: 0,
-          max: 12,
+         
           '@change': true,
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
           type: 'custom-number',
-          min: 0,
-          max: 31,
+        
           '@change': true,
           name: 'Day',
         },
         {
           identifier: 'temporalResolutionHour',
           type: 'custom-number',
-          min: 0,
-          max: 23,
+        
           '@change': true,
           name: 'Hour',
         },
         {
           identifier: 'temporalResolutionMinute',
           type: 'custom-number',
-          min: 0,
-          max: 59,
+         
           '@change': true,
           name: 'Minute',
         },
         {
           identifier: 'temporalResolutionSecond',
           type: 'custom-number',
-          min: 0,
-          max: 59,
+       
           '@change': true,
           name: 'Second',
         },
