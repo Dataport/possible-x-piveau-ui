@@ -85,7 +85,7 @@ const glueConfig = {
     },
   },
   metadata: {
-    title: process.env.VUE_APP_METADATA_TITLE,
+    title: 'piveau Hub-UI',
     description: 'A modern and customizable web application for data management of extensive data catalogs.',
     keywords: 'Open Data',
   },
