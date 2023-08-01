@@ -4,7 +4,7 @@
         v-on="$listeners" class="w-100">
         <div class="d-flex w-100 ">
             <!--{{context.slotProps.component.min}}-->
-            <FormulateInput type="url" :name="context.name" :placeholder="context.attributes.placeholder" v-model="urlInput"
+            <FormulateInput :name="context.name" :placeholder="context.attributes.placeholder" v-model="urlInput"
                 :validation="validateNumber" :validation-rules="validateNumberRules"
                 :validation-messages="validateNumberMessages" class="w-100">
             </FormulateInput>

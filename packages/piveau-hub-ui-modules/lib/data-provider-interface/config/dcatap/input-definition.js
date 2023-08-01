@@ -787,43 +787,49 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'temporalResolutionYear',
-          type: 'custom-number',
-        
+          type: 'number',
+          validation: 'min:1950|max:2100|optional',
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
-          type: 'custom-number',
-         
+          type: 'number',
+          validation: 'min:1|max:12|optional',
+          "validation-behavior": 'live',       
           '@change': true,
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
-          type: 'custom-number',
-        
+          type: 'number',
+          validation: 'min:1|max:31|optional',
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Day',
         },
         {
           identifier: 'temporalResolutionHour',
-          type: 'custom-number',
-        
+          type: 'number',
+          validation: 'min:0|max:23|optional',
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Hour',
         },
         {
           identifier: 'temporalResolutionMinute',
-          type: 'custom-number',
-         
+          type: 'number',
+          validation: 'min:0|max:59|optional',
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Minute',
         },
         {
           identifier: 'temporalResolutionSecond',
-          type: 'custom-number',
-       
+          type: 'number',
+          validation: 'min:0|max:59|optional',
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Second',
         },
