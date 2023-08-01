@@ -61,7 +61,7 @@ export default {
         return chunk ? `${chunk} - ${this.$env.metadata.title}` : this.$env.metadata.title;
       },
       meta: [
-        { name: 'description', vmid: 'description', content: 'piveau Hub-UI' },
+        { name: 'description', vmid: 'description', content: process.env.VUE_APP_METADATA_TITLE },
         { name: 'keywords', vmid: 'keywords', content: this.$env.metadata.keywords },
       ],
       htmlAttrs: {
