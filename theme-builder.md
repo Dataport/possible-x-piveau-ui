@@ -40,22 +40,12 @@ sudo docker-compose -f theme-builder-docker-compose-dev.yml up -d
 
 ## Deployment
 
-1. Use the theme-builder-docker-compose.yml to launch the needed containers with the corresponding volumes.
+1. Use the dockerfile to create an image with your optimized theme.
 
 ```
-git clone https://gitlab.com/piveau/hub/piveau-hub-ui
-cd piveau-hub-ui
-sudo docker-compose -f theme-builder-docker-compose.yml up -d
+docker build theme-builder-deploy-dockerfile -f .
 ```
 
-2. An instance of piveau-hub-ui will be launched in the port 17080.
+2. The resulting docker image will contain an optimized version of piveau-ui with your customization.
 
-3. You can now replace the files in the volumes "static" and "src" with your own files. For example you can use the theme "Orange" that is in the folder themes.
-
-For this you should access the volumes in your file system. How you do this depends on your OS and the way you create the volumes. Once you find the location of your volumes, replace the contents of static and src with the contents of your theme.
-
-4. Restart the container "theme-builder". And wait until the process finishes. (See the container logs to see the progress)
-
-5. Restart the container hub-ui-theme-server
-
-6. Open in your browser [http://localhost:17080](http://localhost:17080), you should see the changes in the UI.
+3. Register / deploy the image with the method of your preference.
