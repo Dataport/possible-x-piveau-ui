@@ -98,7 +98,6 @@ export default {
       values: [],
       annifEnv: this.$env.content.dataProviderInterface.annifIntegration,
       valueListOfThemes: [],
-      getThSuggestions: false,
       thSwitch: false,
       annifChoicebtnClicked: false
     };
@@ -272,17 +271,13 @@ export default {
     },
     handleAnnifSuggestions(e, input) {
       // gets the dct:description value from localstorage and gives it to the annif theme handler
-
       this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets")).step1["dct:description"][0]["@value"])
-      this.getThSuggestions = !this.getThSuggestions;
-
-      // e.target.classList.add("inactiveHandleBtn");
     },
     async annifHandlerTheme(input) {
-      if (this.thSwitch) {
-        return
-      }
-      else {
+      // if (this.thSwitch) {
+      //   return
+      // }
+      // else {
         let query = qs.stringify({
           'text': input,
           'limit': 10
@@ -291,7 +286,7 @@ export default {
         if (this.voc == "eurovoc") {
           config = {
             method: 'post',
-            url: 'https://data.europa.eu/annif/v1/projects/eurovoc-nn-ensemble-eurlex-en/suggest',
+            url:this.$env.content.dataProviderInterface.annifLinkTheme,
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
               'Accept': 'application/json'
@@ -302,7 +297,7 @@ export default {
         else {
           config = {
             method: 'post',
-            url: 'https://data.europa.eu/annif/v1/projects/data-theme-nn-ensemble-en/suggest',
+            url:this.$env.content.dataProviderInterface.annifLinkSubject,
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
               'Accept': 'application/json'
@@ -327,13 +322,13 @@ export default {
             }
 
             this.animateFadeInOut();
-            this.thSwitch = true;
+            // this.thSwitch = true;
             this.setTooltip();
           })
           .catch(function (error) {
             console.log(error);
           });
-      }
+      // }
 
     },
     handleAutocompleteSuggestions(suggestion) {

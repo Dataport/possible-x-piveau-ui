@@ -17,8 +17,8 @@
                     <div class="dsPublisher">
                         <span><b>Publisher:</b></span>
                         <a href="">
-                            {{ reqName("CMT_CONJOIN") }}
-
+                            {{ reqName(getData('datasets')['dct:publisher']) }}
+                            <!-- {{getData('datasets')['dct:publisher']}} -->
                         </a>
                     </div>
                     <div class="dsUpdated ">
@@ -74,8 +74,8 @@
                             {{ new Date(distribution['dct:modified']).toISOString().split('T')[0] }}
                         </td>
                         <td>
-                            <div class="dist-edit justify-content-end">
-                                <a href="">more info</a>
+                            <div class="dist-edit justify-content-end">                                
+                                <DistributionModal :distributionData="distribution" :locale="dpiLocale"></DistributionModal>
                             </div>
                         </td>
                     </tr>
@@ -100,11 +100,13 @@
 </template>
 
 <script>
+import DistributionModal from './DistributionModal.vue'
 import PropertyEntry from './PropertyEntry.vue';
 import DistributionOverview from './DistributionOverview.vue';
 import { mapGetters, mapActions } from 'vuex';
 import Vue from 'vue';
 import axios from 'axios';
+
 
 export default {
     data() {
@@ -173,6 +175,7 @@ export default {
     components: {
         PropertyEntry,
         DistributionOverview,
+        DistributionModal
     },
     computed: {
         ...mapGetters('dpiStore', [
@@ -189,42 +192,26 @@ export default {
     },
     async mounted() {
         this.$nextTick(() => {
+            console.log("loaded");
             this.pageLoaded = true
         })
-        // this.reqName("CMT_CONJOIN"); 
+    },
+    updated(){
+        
     },
     methods: {
         checkIfSet(data) {
             if (data != undefined) return data
             else return "unset"
         },
-        async reqName(URI) {
-            let voc = "corporate-body"
-            let req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}/${URI}`
-            
-            new Promise((resolve, reject) => {
-                axios.get(req)
-                    .then((res) => {
-                        resolve(res);
-                        this.URIcache = res['data']['result']['pref_label'][this.dpiLocale]
-                        // console.log(res['data']['result']['pref_label'][this.dpiLocale]);
-                    })
-                    .catch((err) => {
-                        reject(err);
-                    });
-            });
-            return this.URIcache
 
-            // await this.requestResourceName({ voc: voc, resource: URI }).then(
-            //     (response) => {
-            //   let result = vocMatch
-            //     ? response.data.result.results
-            //       .filter((dataset) => dataset.resource === URI)
-            //       .map((dataset) => dataset.pref_label)[0].en
-            //     : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
-            //     console.log(result);
-            // }
-            //   );
+        async reqName(URI) {
+            let nameOfProperty = URI.split('/')
+            let req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${nameOfProperty[nameOfProperty.length - 2]}/${nameOfProperty[nameOfProperty.length - 1]}`
+
+            const data = await axios.get(req)
+            console.log(data['data']['result']['pref_label'][this.dpiLocale]);
+            return data['data']['result']['pref_label'][this.dpiLocale]
         }
     }
 }
