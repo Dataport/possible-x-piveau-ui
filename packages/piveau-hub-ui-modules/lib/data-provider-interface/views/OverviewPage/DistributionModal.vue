@@ -50,6 +50,5 @@ export default {
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
-
 }
 </style>

@@ -51,7 +51,7 @@ export default {
 #format {
   flex: 2 0;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 
 }
 
