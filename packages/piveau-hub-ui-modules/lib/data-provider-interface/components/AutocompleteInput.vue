@@ -1,7 +1,7 @@
 <template>
   <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
     v-on="$listeners">
-    
+    <h1>Hallo</h1>
     <div class="input-group suggestion-input-group mb-3" v-click-outside="hideSuggestions">
       <input v-model="context.model" @blur="context.blurHandler" hidden />
       <div class="annifButtonWrap" v-if="annifTheme && annifEnv">
@@ -98,6 +98,7 @@ export default {
       manSearch: false,
       values: [],
       annifEnv: this.$env.content.dataProviderInterface.annifIntegration,
+      annifThemeEnv: this.$env.content.dataProviderInterface,
       valueListOfThemes: [],
       thSwitch: false,
       annifChoicebtnClicked: false
@@ -118,6 +119,7 @@ export default {
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
+    console.log(this.annifThemeEnv);
     // This is a bit buggy need to to something here!!!
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
