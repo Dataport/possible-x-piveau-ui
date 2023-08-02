@@ -1,3 +1,12 @@
+## [3.6.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.15...v3.6.16) (2023-08-02)
+
+
+### Bug Fixes
+
+* made the annif system configurable ([d179c70](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d179c70768fe868c7fed4d39f0ee3654ece5a7ab))
+
+
+
 ## [3.6.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.14...v3.6.15) (2023-07-31)
 
 
