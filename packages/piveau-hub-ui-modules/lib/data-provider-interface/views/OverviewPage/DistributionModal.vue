@@ -1,7 +1,7 @@
 <template>
     <div>
         <a @click="showModal">More Info</a>
-        <div class="modal" v-bind:class="{ show: showThis }">
+        <div class="modal" v-bind:class="{ showDisModal: showThis }">
             <div @click="showModal" class="closeIcon" role="button">x</div>
             <table class="w-70 h-50">
                 <tr v-for=" (data, index) in distributionData" :key="index">
@@ -44,7 +44,7 @@ export default {
 }
 </script>
 <style>
-.show {
+.showDisModal {
     display: flex !important;
     align-content: center;
     justify-content: center;
