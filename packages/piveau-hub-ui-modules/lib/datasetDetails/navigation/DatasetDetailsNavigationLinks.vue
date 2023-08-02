@@ -95,6 +95,16 @@
           </button>
         </div>
       </div>
+      <div class="d-inline dropdown dsd-link-cite">
+        <button  type="button" data-toggle="modal" data-target="#embedModal" class="nav-item nav-link text-nowrap" fragment="#" role="button" id="">
+          <span title="Embed"
+                data-toggle="tooltip"
+                data-placement="top"
+                >
+                    Embed
+              </span>
+        </button>
+      </div>
       <hr />
     </ul>
     <dataset-citation-modal
@@ -103,6 +113,7 @@
       :citation-style="citationStyle"
       :available-citation-styles="availableCitationStyles"
     />
+    <dataset-embed-modal />
   </nav>
 </template>
 
@@ -127,6 +138,7 @@ export default {
   },
   components: {
     DatasetCitationModal: () => import('../../citation/DatasetCitationModal'),
+    DatasetEmbedModal: () => import('../../embed/DatasetEmbedModal'),
     DatasetDetailsLinkedMetricsButton,
     ResourceDetailsLinkedDataButton,
     DatasetDetailsFeedbackButton,
