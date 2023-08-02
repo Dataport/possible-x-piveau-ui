@@ -95,13 +95,13 @@
           </button>
         </div>
       </div>
-      <div class="d-inline dropdown dsd-link-cite">
-        <button  type="button" data-toggle="modal" data-target="#embedModal" class="nav-item nav-link text-nowrap" fragment="#" role="button" id="">
+      <div v-if="this.$env.content.datasetDetails.embed.enable" class="d-inline dropdown dsd-link-cite ml-auto">
+        <button  type="button" data-toggle="modal" data-target="#embedModal" class="nav-item nav-link text-nowrap bg-none" fragment="#" role="button" id="" style="background:none;">
           <span title="Embed"
                 data-toggle="tooltip"
                 data-placement="top"
                 >
-                    Embed
+                    {{ $t('message.datasetDetails.datasets.modal.embed') }} &#60;&#47;&#62;
               </span>
         </button>
       </div>

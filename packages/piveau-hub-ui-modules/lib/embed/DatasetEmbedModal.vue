@@ -11,13 +11,13 @@
                </span>
             </button>
             <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Embed this Dataset on your website</h5>
+               <h5 class="modal-title" id="exampleModalLabel">{{ $t('message.datasetDetails.datasets.modal.embedText') }}</h5>
             </div>
             <div class="modal-body">
-               <div class="container" style="padding:0">
+               <div class="container" style="padding:0; margin:0;">
                   <div class="d-flex flex-row iframeSettings">
                      <div class="input-wrapper">
-                        <label for="iframeWidth">Width</label><br>
+                        <label for="iframeWidth">{{ $t('message.datasetDetails.datasets.modal.width') }}</label><br>
                         <div class="input-with-px">
                            <input
                               type="number"
@@ -27,11 +27,10 @@
                               :min="minRange"
                               :max="maxRange"
                               />
-                           <!-- <span v-if="!isValid" style="color: red;">Error</span> -->
                         </div>
                      </div>
                      <div class="input-wrapper" style="padding-left: 3.3rem">
-                        <label for="iframeHeight">Height</label><br>
+                        <label for="iframeHeight">{{ $t('message.datasetDetails.datasets.modal.height') }}</label><br>
                         <div class="input-with-px">
                            <input
                               type="number"
@@ -46,13 +45,13 @@
                   </div>
                </div>
                <div class="ecl-form-group">
-                  <label class="ecl-form-label" for="ebmedTextarea" style="font-size:26px; font-weight: 400; color: #000000;">Code</label>
+                  <label class="ecl-form-label" for="ebmedTextarea" style="font-size:26px; font-weight: 400; color: #000000;">{{ $t('message.datasetDetails.datasets.modal.code')}}</label>
                   <textarea id="ebmedTextarea" style="width: 100%; resize: none; padding: 30px 25px 0px 25px; overflow: hidden; font-size:26px; line-height: 1.1; color:#888888; margin-top: 1.375rem;"
                      class="ecl-text-area ecl-text-area--m" rows="4" :value="embedCode" readonly></textarea>
                </div>
             </div>
             <div class="modal-footer justify-content-start">
-               <button @click="copy" class="ecl-button ecl-button--secondary px-4 py-3" type="button">Copy Code</button>
+               <button @click="copy" class="ecl-button ecl-button--secondary px-4 py-3" type="button">{{ $t('message.datasetDetails.datasets.modal.copy')}}</button>
                <span v-show="copied" class="copied">
                   <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <g clip-path="url(#clip0_13_474)">
@@ -64,7 +63,7 @@
                         </clipPath>
                      </defs>
                   </svg>
-                  copied
+                  {{ $t('message.datasetDetails.datasets.modal.copied') }}
                </span>
             </div>
          </div>
@@ -77,12 +76,12 @@ export default {
     name: "embed-modal",
     data() {
     return {
-      iframeHeight: 600,
-      iframeWidth: 900,
+      iframeWidth: this.$env.content.datasetDetails.embed.defaultWidth,
+      iframeHeight: this.$env.content.datasetDetails.embed.defaultHeight,
       embedCode: '',
       copied: false,
-      minRange: 0,
-      maxRange: 9999
+      minRange: this.$env.content.datasetDetails.embed.minRange,
+      maxRange: this.$env.content.datasetDetails.embed.maxRange,
     };
   },
   methods: {
@@ -168,7 +167,6 @@ export default {
     font-size: 24px;
 
     input {
-        text-align: center;
         padding: 1.563rem 0rem;
     }
  /* Style the input field wrapper */
@@ -248,5 +246,11 @@ margin-top: 21px;
      max-width: 70%!important;
  }
 
+}
+/* Firefox-specific styles */
+@-moz-document url-prefix() {
+  .input-with-px input {
+    max-width: 240px;
+  }
 }
 </style>
