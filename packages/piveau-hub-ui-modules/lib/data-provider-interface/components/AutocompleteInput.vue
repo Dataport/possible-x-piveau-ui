@@ -1,6 +1,7 @@
 <template>
   <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
     v-on="$listeners">
+    
     <div class="input-group suggestion-input-group mb-3" v-click-outside="hideSuggestions">
       <input v-model="context.model" @blur="context.blurHandler" hidden />
       <div class="annifButtonWrap" v-if="annifTheme && annifEnv">
@@ -33,9 +34,9 @@
           v-bind:title="themeValue.name" class="annifItems"
           v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: themeValue.activeValue }"
           @click="handleAnnifClick($event)">
-          {{ truncateWords(themeValue.name, 8, true) }} 
-          
-          
+          {{ truncateWords(themeValue.name, 8, true) }}
+
+
         </div>
         <p class="ml-2 mb-0" style="font-size: 12px">This field can be auto generated. If you click the generate button,
           it will suggest the most fitting properties based on the dataset-description you provided.</p>
@@ -131,9 +132,9 @@ export default {
       "requestResourceName",
     ]),
     truncateWords(word) {
-    
+
       let letters = word.split("")
-      if (letters.length <= 8 ) return word
+      if (letters.length <= 8) return word
       else return truncate(word, 8, true) + " ...";
     },
     // small function to sort alphabetically
@@ -271,64 +272,62 @@ export default {
     },
     handleAnnifSuggestions(e, input) {
       // gets the dct:description value from localstorage and gives it to the annif theme handler
+
       this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets")).step1["dct:description"][0]["@value"])
     },
     async annifHandlerTheme(input) {
-      // if (this.thSwitch) {
-      //   return
-      // }
-      // else {
-        let query = qs.stringify({
-          'text': input,
-          'limit': 10
+
+      let query = qs.stringify({
+        'text': input,
+        'limit': 10
+      });
+      var config
+      if (this.voc == "eurovoc") {
+        config = {
+          method: 'post',
+          url: this.$env.content.dataProviderInterface.annifLinkTheme,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+          },
+          data: query
+        };
+      }
+      else {
+        config = {
+          method: 'post',
+          url: this.$env.content.dataProviderInterface.annifLinkSubject,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+          },
+          data: query
+        };
+      }
+      let list = []
+
+      axios(config)
+        .then(async (response) => {
+          for (let i = 0; i < response.data.results.length; i++) {
+            // let found = false;
+            let item = await this.getResourceName(response.data.results[i].uri);
+            // translate suggestions into locale
+            list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
+          }
+          let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
+          filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
+          for (var q = 0; q < filteredList.length; q++) {
+            this.valueListOfThemes.push(filteredList[q])
+          }
+
+          this.animateFadeInOut();
+
+          this.setTooltip();
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-        var config
-        if (this.voc == "eurovoc") {
-          config = {
-            method: 'post',
-            url:this.$env.content.dataProviderInterface.annifLinkTheme,
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Accept': 'application/json'
-            },
-            data: query
-          };
-        }
-        else {
-          config = {
-            method: 'post',
-            url:this.$env.content.dataProviderInterface.annifLinkSubject,
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Accept': 'application/json'
-            },
-            data: query
-          };
-        }
-        let list = []
 
-        axios(config)
-          .then(async (response) => {
-            for (let i = 0; i < response.data.results.length; i++) {
-              // let found = false;
-              let item = await this.getResourceName(response.data.results[i].uri);
-              // translate suggestions into locale
-              list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
-            }
-            let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-            filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-            for (var q = 0; q < filteredList.length; q++) {
-              this.valueListOfThemes.push(filteredList[q])
-            }
-
-            this.animateFadeInOut();
-            // this.thSwitch = true;
-            this.setTooltip();
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      // }
 
     },
     handleAutocompleteSuggestions(suggestion) {
