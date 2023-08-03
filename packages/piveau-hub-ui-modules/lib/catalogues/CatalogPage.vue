@@ -276,7 +276,7 @@ import {
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .catalog-page-container {
         padding: 0 !important;
     }
