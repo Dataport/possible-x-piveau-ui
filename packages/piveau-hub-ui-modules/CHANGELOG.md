@@ -1,13 +1,26 @@
-## [3.6.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.18...v3.6.19) (2023-08-02)
+## [3.6.20](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.19...v3.6.20) (2023-08-03)
+
+
+### Bug Fixes
+
+* nav dropdown hover bug ([648f59b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/648f59bfd1277b2f18ffbd3ac257511ffed20d4b))
 
 
 
 ## [3.6.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.17...v3.6.18) (2023-08-02)
 
 
+
+## [3.6.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.18...v3.6.19) (2023-08-02)
+
+
 ### Bug Fixes
 
 * reverted dsOverview ([68e5edb](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/68e5edb3d445db8cb9847177d3e747f024db3a9d))
+
+
+
+## [3.6.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.17...v3.6.18) (2023-08-02)
 
 
 
