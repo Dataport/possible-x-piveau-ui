@@ -1,3 +1,12 @@
+# [3.7.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.20...v3.7.0) (2023-08-04)
+
+
+### Features
+
+* **SelectedFacetsOverview:** wrap pill with slot for customizing pills on view layer only ([956fc2e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/956fc2ede8aba9018d7f82e0054b90be40bb1817))
+
+
+
 ## [3.6.20](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.19...v3.6.20) (2023-08-03)
 
 
