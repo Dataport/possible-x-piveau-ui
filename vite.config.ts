@@ -46,8 +46,9 @@ export default defineConfig({
   },
   define: {
     // Shim process.env from webpack
-    'process.env': {},
-    'process.env.buildconf': JSON.stringify(buildConfig)
+    'process.env': {
+      buildconf: buildConfig
+    }
   },
 
   resolve: {
@@ -74,5 +75,13 @@ export default defineConfig({
     ],
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     preserveSymlinks: false
+  },
+
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'app.[hash].js',
+      }
+    }
   }
 });
