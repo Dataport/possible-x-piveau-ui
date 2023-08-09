@@ -17,6 +17,7 @@ RUN mkdir /var/cache/nginx/uwsgi_temp && \
 COPY runtimeconfig.sh /
 
 RUN chmod +x /runtimeconfig.sh && \
+    chmod a+rw /usr/share/nginx/html/ && \
     chmod a+rw /usr/share/nginx/html/assets && \
     chmod a+rw /usr/share/nginx/html/assets/* && \
     chmod a+rw /usr/share/nginx/html/app.*.js
