@@ -75,11 +75,14 @@ import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-c
 import runtimeConfig from '../config/runtime-config';
 import router from './router';
 import App from './App';
+
+import VueKeyCloak from "./services/keycloakService"
+
 import {
   dateFilters,
   AppSnackbar,
   AppConfirmationDialog,
-  vueKeycloak,
+  // VueKeyCloak,
   bulkDownloadCorsProxyService ,
   corsProxyService,
   runtimeConfigurationService,
@@ -95,6 +98,10 @@ import {
   SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
 import '@piveau/piveau-hub-ui-modules/styles';
+
+// import VueKeyCloak from '@dsb-norge/vue-keycloak-js';
+
+
 
 Vue.config.devtools = true;
 
@@ -311,60 +318,24 @@ const createVueApp = () => {
   return app;
 };
 
-// Promise that timeouts after x seconds
-let waitTimeoutHandle;
-const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeout(() => {
-  reject(new Error(`Keycloak failed to load after a timeout of ${ms} ms`));
-}, ms));
+// Loads keycloak and if it fails it still loads the Vue app.
 
-const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
-  Vue.use(vueKeycloak, {
-    config: {
-      rtp: env.authentication.rtp,
-      ...env.authentication.keycloak,
-    },
-    init: {
-      ...window.Cypress && { checkLoginIframe: !window.Cypress },
-      onLoad: 'check-sso',
-      silentCheckSsoRedirectUri: `${window.location.origin}${process.env.buildconf.BASE_PATH}silent-check-sso.html`,
-      ...env.authentication.keycloakInit,
-    },
-    onReady: () => {
-      resolve();
-      if (waitTimeoutHandle) clearTimeout(waitTimeoutHandle);
-    },
-    onInitError: reject
-  });
+Vue.use(vueKeyCloak, {
+  config: {
+    rtp: env.authentication.rtp,
+    ...env.authentication.keycloak,
+  },
+  init: {
+    onLoad: 'check-sso',
+    silentCheckSsoRedirectUri: `${window.location.origin}/static/silent-check-sso.html`,
+    ...env.authentication.keycloakInit,
+  },
+  onReady: () => {
+    console.log("Keycloak loaded")
+    createVueApp().$mount('#app');
+  },
+  onInitError: () => {
+    console.log("Error loading keycloak")
+    createVueApp().$mount('#app');
+  }
 });
-
-// Race promises
-// Timeouts after ms seconds for error handling
-// This is a workaround to keycloak-js adapter not passing exceptions properly in silent sso mode
-// This issue is fixed via keycloak-js@15
-// See https://github.com/keycloak/keycloak/pull/8161
-// todo: refactor this when keycloak 15.x or higher backend is installed
-const useVueWithKeycloakWithTimeout = ms => Promise.race([
-  useVueWithKeycloakPromise,
-  wait(ms),
-]);
-
-// Attempt to load Vue with Keycloak using recover mechanism
-(async () => {
-  if (!env.authentication.useService) {
-    createVueApp().$mount('#app');
-    return {};
-  }
-
-  try {
-    // Load Keycloak
-    await useVueWithKeycloakWithTimeout(window.Cypress ? 200 : 7000);
-  } catch (ex) {
-    // eslint-disable-next-line no-console
-    console.error(ex);
-  } finally {
-    // Initialize Vue, even if Keycloak failed to load
-    createVueApp().$mount('#app');
-  }
-
-  return {};
-})();
