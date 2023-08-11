@@ -1,3 +1,12 @@
+# [3.8.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.7.0...v3.8.0) (2023-08-11)
+
+
+### Features
+
+* update catalog page design ([706af44](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/706af44c79682c3290144660b0679b357aeeaf6a))
+
+
+
 # [3.7.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.20...v3.7.0) (2023-08-04)
 
 
