@@ -1,3 +1,12 @@
+## [3.8.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.8.0...v3.8.1) (2023-08-14)
+
+
+### Bug Fixes
+
+* catalog nav skipping and overflow ([dd37821](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/dd3782152259f687c2f19e9c375828c85eb8687f))
+
+
+
 # [3.8.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.7.0...v3.8.0) (2023-08-11)
 
 
