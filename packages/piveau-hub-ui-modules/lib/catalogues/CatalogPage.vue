@@ -30,7 +30,7 @@
           <!-- CARD NAV -->
           <ul class="nav nav-tabs card-header-tabs" role="tablist" aria-label="Navigationsleiste">
             <li v-for="tab in cardNavTabs" :key="tab.id" role="tab" :aria-controls="tab.id" :aria-selected="activeTabName === tab.id" :aria-label="tab.displayName">
-              <a @click.prevent="setActiveTabName(tab.id)" class="nav-link" :class="{active: tab.id === activeTabName}" :href="`#${tab.id}`" role="tab">
+              <a @click.prevent="setActiveTabName(tab.id)" class="catalog-nav-link nav-link" :class="{active: tab.id === activeTabName}" :href="`#${tab.id}`" role="tab">
                 {{ tab.displayName }}
               </a>
             </li>
@@ -351,7 +351,8 @@ export default {
   margin-bottom: 0;
   flex-wrap: nowrap;
   white-space: nowrap;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
 
@@ -372,11 +373,19 @@ export default {
   padding: 0;
 }
 
-.nav-link {
+.catalog-nav-link.nav-link {
   color: rgba(0, 0, 0, 0.7);
-  border: none !important;
   padding-left: 0;
   padding-right: 0;
+  margin-bottom: 0;
+  background-color: transparent;
+  border: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom: 2px solid transparent !important;
 
   &:hover,
   &.active {
