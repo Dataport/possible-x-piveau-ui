@@ -2026,7 +2026,7 @@
         },
         "sparql": {
             "subHeadlineText2": "",
-            "subHeadlineText1": "Alle Metadaten des Open-Data-Portals KDW werden als RDF-Tripel (<a href='https://www.w3.org/RDF/'>RDF</a>) gespeichert und können an diesem Endpunkt mit der SPARQL-Abfragesprache abgefragt werden. Anfragen können über den Suchredakteur (unten) oder über den maschinenlesbaren Endpunkt (<a href='https://opendata.kdw/api/sparql'>https://opendata.kdw/api/sparql</a>) durchgeführt werden. Datensätze und Kataloge, die als RDF-Tripel auf dem Portal veröffentlicht werden, folgen der <a href='http://DCAT-AP.de'>DCAT-AP.de-Spezifikation</a>."
+            "subHeadlineText1": "Alle Metadaten des Open-Data-Portals data.europa.eu werden als RDF-Tripel (<a href='https://www.w3.org/RDF/'>RDF</a>) gespeichert und können an diesem Endpunkt mit der SPARQL-Abfragesprache abgefragt werden. Anfragen können über den Suchredakteur (unten) oder über den maschinenlesbaren Endpunkt (<a href='https://data.europa.eu/api/sparql'>https://data.europa.eu/api/sparql</a>) durchgeführt werden. Datensätze und Kataloge, die als RDF-Tripel auf dem Portal veröffentlicht werden, folgen der <a href='http://DCAT-AP.de'>DCAT-AP.de-Spezifikation</a>."
         },
         "distributions": {
             "footerLink": "Download",
