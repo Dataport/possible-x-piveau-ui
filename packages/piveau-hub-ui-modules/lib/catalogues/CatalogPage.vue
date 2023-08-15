@@ -271,12 +271,23 @@ export default {
     this.$Progress.start()
     this.useCatalogService(this.catalogService)
     this.useService(this.DatasetService)
+
+    let catalogId = this.$route.params.ctlg_id;
+    if (catalogId === undefined || catalogId === null) {
+      const host = window.location.host;
+      const parts = host.split('.');
+      if (parts.length > 1) {
+        catalogId = parts[0];
+      }
+    }
+
+
     Promise.all([
-      this.loadCatalog(this.$route.params.ctlg_id)
-        .then(result => {
-          this.loadCatalogInterestingDatasets(result)
-        }),
-      this.loadDatasets({ locale: this.$route.query.locale })
+      this.loadCatalog(catalogId)
+          .then(result => {
+            this.loadCatalogInterestingDatasets(result)
+          }),
+      this.loadDatasets({locale: this.$route.query.locale})
     ]).then(results => {
       this.$Progress.finish()
     }).catch(error => {
