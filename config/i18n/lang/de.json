@@ -1,6 +1,16 @@
 {
     "message": {
         "metadata": {
+            "politicalGeocodingLevelURI": "Ebene der geopolitischen Abdeckung",
+            "politicalGeocodingURI": "Geopolitische Abdeckung",
+            "contributorID": "Datenbereitsteller ID",
+            "geocodingDescription": "Beschreibung der Abdeckung",
+            "legalBasis": "Rechtsgrundlage für die Zugangseröffnung",
+            "qualityProcessURI": "Qualitätssicherungsprozess",
+            "references": "Referenziert",
+            "contributor": "Bearbeiter",
+            "originator": "Urheber",
+            "maintainer": "Verwalter",
             "catalogRecord": "Verzeichnis der Kataloge",
             "deleteItem": "Möchten Sie dieses Element wirklich löschen?",
             "availability": "Verfügbarkeit",
@@ -15,7 +25,7 @@
             "relatedResources": "Zugehörige Resourcen",
             "pageDescriptionPublisher": "Fügen Sie Ihrem Datensatz Herausgebertyp, Name und Homepage hinzu!",
             "tooltipTitle": "Geben Sie hier den Titel Ihres Datensatzes ein!",
-            "linkedData": "Verknüpfte Daten",
+            "linkedData": "Beschreibung speichern",
             "numSeries": "Anzahl der Datenreihen",
             "releaseDate": "Veröffentlichungsdatum",
             "yes": "Ja",
@@ -636,13 +646,13 @@
                 },
                 "datetime": {
                     "label": "Datum und Uhrzeit",
-                    "help": "Format: YYYY-MM-DD:HH:MM.",
-                    "info": "Format: YYYY-MM-DD:HH:MM."
+                    "help": "Datumsformat: YYYY-MM-DD.",
+                    "info": "Datumsformat: YYYY-MM-DD."
                 },
                 "date": {
                     "label": "Datum",
-                    "help": "Datumsformat: YYYY-MM-DD.",
-                    "info": "Datumsformat: YYYY-MM-DD."
+                    "help": "Format: YYYY-MM-DD:HH:MM.",
+                    "info": "Format: YYYY-MM-DD:HH:MM."
                 },
                 "identifier": {
                     "add-label": "ID hinzufügen",
@@ -661,7 +671,7 @@
                 "theme": {
                     "label": "Thema",
                     "placeholder": "Datensatzthema Platzhaltertext",
-                    "help": "Das Thema für diesen Datensatz.",
+                    "help": "Die EuroVoc-Domains für diesen Datensatz.",
                     "info": "Die für diese Eigenschaft zu verwendenden Werte sind die URIs der Konzepte des Vokabulars."
                 },
                 "pageTitleSub": {
@@ -957,8 +967,8 @@
                 "language": {
                     "placeholder": "Text des Datensatzes „Sprachplatzhalter“",
                     "label": "Sprache",
-                    "info": "Die Sprache der angegebenen Eigenschaft.",
-                    "help": "Die Sprache der angegebenen Eigenschaft."
+                    "info": "Durch den Datensatz abgedeckte Sprachen.",
+                    "help": "Durch den Datensatz abgedeckte Sprachen."
                 },
                 "publisherEmail": {
                     "placeholder": "Datensatz Publisher E-Mail Platzhalter Text",
@@ -1537,7 +1547,7 @@
             "cite": "Datensatz zitieren",
             "relatedResources": "Damit zusammenhängende Ressourcen",
             "share": "Teilen",
-            "geoVisualisation": "Geo-Visualisierung öffnen",
+            "geoVisualisation": "Im BayernAtlas sehen",
             "download": "Download",
             "intro": {
                 "distribution": "Im Folgenden sind die Qualitätsmessungen aller Distributionen des Datensatzes aufgeführt. Informationen zu den Parametern, die wir für Indikatormessungen verwenden, finden Sie auf unserer <a href='/mqa/methodology?locale={locale}'>Methodikseite</a>.",
@@ -1563,7 +1573,7 @@
         },
         "tooltip": {
             "catalogDetails": {
-                "created": "Datum der förmlichen Ausstellung (z. B. Veröffentlichung) des Katalogs.",
+                "created": "Datum der förmlichen Ausstellung (z.B. Veröffentlichung) des Katalogs.",
                 "publisher": "Eine Einrichtung (Organisation), die für die Bereitstellung des Katalogs verantwortlich ist.",
                 "updated": "Das letzte Datum, an dem der Katalog geändert wurde.",
                 "description": "Eine Beschreibung des Katalogs.",
@@ -1573,6 +1583,18 @@
                 "spatial": "Vom Katalog abgedecktes geografisches Gebiet."
             },
             "datasetDetails": {
+                "politicalGeocodingLevelURI": "Geopolitische Abdeckung des Datensatzes, etwa durch Kennzeichnung der Verwaltungsebene Bund, Bundesland, Kreis oder Kommune, als dcat-ap.de URI.",
+                "politicalGeocodingURI": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI.",
+                "availabilityDE": "Geplante Verfügbarkeit des Datensatzes als Auswahl aus einer festen Liste von Werten via DCAT-AP URIs.",
+                "contributorID": "Diese Eigenschaft übermittelt die ID des Bereitstellers der Daten aus dem jeweils portaleigenem Access- und Identitymanagement (wenn vorhanden).",
+                "geocodingDescription": "Diese Eigenschaft enthält die geografische Abdeckung eines Datensatzes, repräsentiert durch die Bezeichnung eines administrativen Gebiets oder eines fachlichen Bezugs als Freitext.",
+                "legalBasis": "Dieses Feld dokumentiert als Freitext optional die Rechtsgrundlage für den Zugang zu den Informationen (die Zugangseröffnung), d.h. die originäre Rechtsgrundlage für den Zugang zu Daten der Verwaltung.",
+                "qualityProcessURI": "Eine URI, die auf den Prozess zur Qualitätssicherung des Datensatzes verweist. Es handelt sich idealerweise um die URL einer Webseite.",
+                "contributor": "Diese Eigenschaft verweist auf Stellen oder Personen, die die Daten bearbeitet haben (z.B. durch Formatierung derselben).",
+                "originator": "Diese Eigenschaft verweist auf die Personen, die Urheberrechte am Datensatz haben. Geschützt ist laut Urheberrecht ein Werk, das einer persönlichen geistigen Schöpfung seines Urhebers entspringt.",
+                "references": "Diese Eigenschaft kann verwendet werden, um auf Referenzdatensätze wie ein High Value Dataset (HVD) oder einen Musterdatensatz des Musterdatenkatalogs zu verweisen.",
+                "maintainer": "Diese Eigenschaft verweist auf die Stellen oder Personen, die Verantwortung und Rechenschaftspflicht für die Daten und ihre angemessene Pflege übernehmen.",
+                "type": "Diese Eigenschaft bezieht sich auf den Typ des Datensatzes.",
                 "frequency": "Häufigkeit der Aktualisierung des Datensatzes.",
                 "dataset": "Angaben zum Datensatz oder zum Dienst.",
                 "updated": "Das letzte Datum, an dem der Datensatz oder der Dienst geändert oder geändert wurde.",
@@ -1760,7 +1782,7 @@
             "navigation": {
                 "data": {
                     "euInternationalData": "EU- und internationale Daten",
-                    "datasets": "Datensätze",
+                    "datasets": "Daten entdecken",
                     "catalogs": "Kataloge",
                     "metadataquality": "Metadaten-Qualität",
                     "sparqleditor": "SPARQL-Editor",
@@ -2003,8 +2025,8 @@
             "countMessage": "Kataloge gefunden"
         },
         "sparql": {
-            "subHeadlineText2": "Um die Nutzer bei der Erstellung nützlicher SPARQL-Anfragen zu unterstützen, stellen wir eine Seite mit Funktionselementen <a href='{sample_sparql_queries}'>sample SPARQL queries</a> zur Verfügung, die über unseren Endpunkt ausgeführt werden kann. Datensätze und Kataloge, die als RDF-Tripel auf dem Portal veröffentlicht werden, folgen der <a href='https://github.com/SEMICeu/DCAT-AP'>DCAT-AP specification</a>. Weitere Informationen zur Ontologie der Metadaten finden Sie auf der Website Data.europa.eu academy auf DCAT-AP unter: <a href=' https://data.europa.eu/en/academy/dcat-and-dcat-ap'> https://data.europa.eu/en/academy/dcat-and-dcat-ap</a>.",
-            "subHeadlineText1": "Alle Metadaten von data.europa.eu werden als RDF-Tripel (<a href='https://www.w3.org/RDF/'>RDF</a>) gespeichert und können an diesem Endpunkt mit der SPARQL-Abfragesprache abgefragt werden. Anfragen können über den Suchredakteur (unt) oder über den maschinenlesbaren Endpunkt (<a href='https://data.europa.eu/sparql'>https://data.europa.eu/sparql</a>) durchgeführt werden."
+            "subHeadlineText2": "",
+            "subHeadlineText1": "Alle Metadaten des Open-Data-Portals KDW werden als RDF-Tripel (<a href='https://www.w3.org/RDF/'>RDF</a>) gespeichert und können an diesem Endpunkt mit der SPARQL-Abfragesprache abgefragt werden. Anfragen können über den Suchredakteur (unten) oder über den maschinenlesbaren Endpunkt (<a href='https://opendata.kdw/api/sparql'>https://opendata.kdw/api/sparql</a>) durchgeführt werden. Datensätze und Kataloge, die als RDF-Tripel auf dem Portal veröffentlicht werden, folgen der <a href='http://DCAT-AP.de'>DCAT-AP.de-Spezifikation</a>."
         },
         "distributions": {
             "footerLink": "Download",
@@ -2045,10 +2067,20 @@
             "msg": "HIER IMPRESSUM EINFÜGEN"
         },
         "cookieConsent": {
-            "accept": "Alle Cookies akzeptieren",
             "decline": "Nur technisch notwendige Cookies akzeptieren",
+            "accept": "Alle Cookies Akzeptieren",
             "text": "Wir verwenden Cookies auf dieser Website, um Ihr Nutzererlebnis zu verbessern",
             "more": "Mehr Informationen"
+        },
+        "notFound": {
+            "requested": {
+                "parttwo": "Daten entdecken",
+                "partone": "Die angeforderte Seite wurde nicht gefunden. Sie können wieder von hier aus versuchen:",
+                "page": "Die angeforderte Seite wurde nicht gefunden. Sie können es erneut von der Homepage aus versuchen."
+            },
+            "error": "Fehler",
+            "contactUsAbout": "Kontaktieren Sie uns bezüglich dieser Fehlermeldung."
         }
+
     }
 }
