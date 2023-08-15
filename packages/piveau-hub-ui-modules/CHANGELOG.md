@@ -1,3 +1,13 @@
+# [3.9.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.8.1...v3.9.0) (2023-08-15)
+
+
+### Bug Fixes
+
+* code styling ([47de71f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/47de71f76373adf00dc46c24ff0ba6ef5ca0f2ad))
+* get catalog id from domain ([86351a6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/86351a695a654e0b55592b9dfe6dd835574f6e9a))
+
+
+
 ## [3.8.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.8.0...v3.8.1) (2023-08-14)
 
 
