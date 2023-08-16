@@ -58,7 +58,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .distributions-header-title {
     display: flex;
     flex-wrap: wrap;
