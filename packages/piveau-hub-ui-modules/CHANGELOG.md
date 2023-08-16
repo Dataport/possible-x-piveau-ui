@@ -1,3 +1,17 @@
+## [3.9.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.0...v3.9.1) (2023-08-16)
+
+
+### Bug Fixes
+
+* specify style lang ([5b1bf1c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5b1bf1c0107075f58cfac8173cc1d105d498c7f5))
+
+
+### Features
+
+* separate distributions header title and count ([86bd3f3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/86bd3f3918010ed7208227fb59d020e762ac04ef))
+
+
+
 # [3.9.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.8.1...v3.9.0) (2023-08-15)
 
 
