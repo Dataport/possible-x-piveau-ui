@@ -1,3 +1,12 @@
+## [3.9.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.1...v3.9.2) (2023-08-16)
+
+
+### Bug Fixes
+
+* export DatasetDetailsFeatures to allow it to be overwritten in feature project ([cf4f021](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/cf4f021f74ae2ce74965c96648093e91a0e9b4e1))
+
+
+
 ## [3.9.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.0...v3.9.1) (2023-08-16)
 
 
