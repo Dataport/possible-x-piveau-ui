@@ -20,6 +20,8 @@
                 :getDistributionFormat="getDistributionFormat"
                 :distributionFormatTruncated="distributionFormatTruncated"
                 :getDistributionTitle="getDistributionTitle"
+                :distributionVisibleContent="distributionVisibleContent"
+                :distributionExpandedContent="distributionExpandedContent"
                 :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
                 :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
                 :getDistributionDescription="getDistributionDescription"
@@ -95,6 +97,8 @@ export default {
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,
+    distributionVisibleContent: Array,
+    distributionExpandedContent: Array,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,
     distributionIsExpanded: Function,
