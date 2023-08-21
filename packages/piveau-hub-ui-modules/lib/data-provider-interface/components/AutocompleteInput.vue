@@ -1,7 +1,7 @@
 <template>
   <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
     v-on="$listeners">
-    
+
     <div class="input-group suggestion-input-group mb-3" v-click-outside="hideSuggestions">
       <input v-model="context.model" @blur="context.blurHandler" hidden />
       <div class="annifButtonWrap" v-if="annifTheme && annifEnv">
@@ -34,7 +34,7 @@
           v-bind:title="themeValue.name" class="annifItems"
           v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: themeValue.activeValue }"
           @click="handleAnnifClick($event)">
-          {{ truncateWords(themeValue.name, 8, true) }}
+          {{ truncateWords(themeValue.name, 35, true) }}
 
 
         </div>
@@ -119,7 +119,7 @@ export default {
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-    console.log(this.annifThemeEnv);
+    // console.log(this.annifThemeEnv);
     // This is a bit buggy need to to something here!!!
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
@@ -133,11 +133,11 @@ export default {
       "requestAutocompleteSuggestions",
       "requestResourceName",
     ]),
-    truncateWords(word) {
+    truncateWords(word, lettersToDisplay) {
 
       let letters = word.split("")
-      if (letters.length <= 8) return word
-      else return truncate(word, 8, true) + " ...";
+      if (letters.length <= lettersToDisplay) return word
+      else return truncate(word, lettersToDisplay, true) + " ...";
     },
     // small function to sort alphabetically
     sortAlpabetically(arr) {
@@ -272,13 +272,22 @@ export default {
         $('[data-toggle="tooltip"]').tooltip();
       });
     },
+    handleAnnifDuplicates() {
+      let cache = []
+      for (var key in this.valueListOfThemes) {
+        if (this.valueListOfThemes[key]["activeValue"] == true) {
+        cache.push(this.valueListOfThemes[key])
+        }
+      }
+      return cache
+    },
     handleAnnifSuggestions(e, input) {
       // gets the dct:description value from localstorage and gives it to the annif theme handler
 
       this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets")).step1["dct:description"][0]["@value"])
     },
     async annifHandlerTheme(input) {
-
+      this.valueListOfThemes = this.handleAnnifDuplicates()
       let query = qs.stringify({
         'text': input,
         'limit': 10
@@ -287,7 +296,7 @@ export default {
       if (this.voc == "eurovoc") {
         config = {
           method: 'post',
-          url: this.$env.content.dataProviderInterface.annifLinkTheme,
+          url: this.$env.content.dataProviderInterface.annifLinkSubject,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json'
@@ -298,7 +307,7 @@ export default {
       else {
         config = {
           method: 'post',
-          url: this.$env.content.dataProviderInterface.annifLinkSubject,
+          url: this.$env.content.dataProviderInterface.annifLinkTheme,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json'
@@ -311,7 +320,6 @@ export default {
       axios(config)
         .then(async (response) => {
           for (let i = 0; i < response.data.results.length; i++) {
-            // let found = false;
             let item = await this.getResourceName(response.data.results[i].uri);
             // translate suggestions into locale
             list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
@@ -323,7 +331,6 @@ export default {
           }
 
           this.animateFadeInOut();
-
           this.setTooltip();
         })
         .catch(function (error) {
