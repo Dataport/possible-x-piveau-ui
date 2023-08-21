@@ -1,6 +1,6 @@
 <template>
-  <div class="w-100">
-  <div class="dsd-item d-flex justify-content-between align-items-center">
+  <div class="distributions-header-container w-100">
+  <div class="distributions-header-title-container dsd-item d-flex justify-content-between align-items-center">
       <div class="distributions-header-title">
         <h2 :title="$t('message.tooltip.datasetDetails.distribution')"
             data-toggle="tooltip"
@@ -25,7 +25,7 @@
         :isUrlInvalid="isUrlInvalid"
       />
     </div>
-    <hr>
+    <hr class="distributions-header-bottom-hr">
   </div>
 </template>
 
