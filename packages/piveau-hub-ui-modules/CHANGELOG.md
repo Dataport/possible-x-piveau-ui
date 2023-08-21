@@ -1,13 +1,86 @@
-## [3.6.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.18...v3.6.19) (2023-08-02)
+## [3.9.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.1...v3.9.2) (2023-08-16)
+
+
+### Bug Fixes
+
+* export DatasetDetailsFeatures to allow it to be overwritten in feature project ([cf4f021](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/cf4f021f74ae2ce74965c96648093e91a0e9b4e1))
+
+
+
+## [3.9.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.0...v3.9.1) (2023-08-16)
+
+
+### Bug Fixes
+
+* specify style lang ([5b1bf1c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5b1bf1c0107075f58cfac8173cc1d105d498c7f5))
+
+
+### Features
+
+* separate distributions header title and count ([86bd3f3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/86bd3f3918010ed7208227fb59d020e762ac04ef))
+
+
+
+# [3.9.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.8.1...v3.9.0) (2023-08-15)
+
+
+### Bug Fixes
+
+* code styling ([47de71f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/47de71f76373adf00dc46c24ff0ba6ef5ca0f2ad))
+* get catalog id from domain ([86351a6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/86351a695a654e0b55592b9dfe6dd835574f6e9a))
+
+
+
+## [3.8.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.8.0...v3.8.1) (2023-08-14)
+
+
+### Bug Fixes
+
+* catalog nav skipping and overflow ([dd37821](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/dd3782152259f687c2f19e9c375828c85eb8687f))
+
+
+
+# [3.8.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.7.0...v3.8.0) (2023-08-11)
+
+
+### Features
+
+* update catalog page design ([706af44](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/706af44c79682c3290144660b0679b357aeeaf6a))
+
+
+
+# [3.7.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.20...v3.7.0) (2023-08-04)
+
+
+### Features
+
+* **SelectedFacetsOverview:** wrap pill with slot for customizing pills on view layer only ([956fc2e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/956fc2ede8aba9018d7f82e0054b90be40bb1817))
+
+
+
+## [3.6.20](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.19...v3.6.20) (2023-08-03)
+
+
+### Bug Fixes
+
+* nav dropdown hover bug ([648f59b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/648f59bfd1277b2f18ffbd3ac257511ffed20d4b))
 
 
 
 ## [3.6.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.17...v3.6.18) (2023-08-02)
 
 
+
+## [3.6.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.18...v3.6.19) (2023-08-02)
+
+
 ### Bug Fixes
 
 * reverted dsOverview ([68e5edb](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/68e5edb3d445db8cb9847177d3e747f024db3a9d))
+
+
+
+## [3.6.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.17...v3.6.18) (2023-08-02)
 
 
 

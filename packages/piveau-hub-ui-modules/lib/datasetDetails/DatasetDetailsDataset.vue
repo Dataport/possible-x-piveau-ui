@@ -105,7 +105,7 @@
   // import DatasetDetailsProperties from "../datasetDetails/DatasetDetailsProperties.vue";
   import DatasetDetailsExtendedMetaData
     from "../datasetDetails/features/DatasetDetailsIsUsedBy.vue";
-  import DatasetDetailsFeatures from "../datasetDetails/features/DatasetDetailsFeatures.vue";
+  // import DatasetDetailsFeatures from "../datasetDetails/features/DatasetDetailsFeatures.vue";
   import DatasetDetailsSkeleton from "../datasetDetails/DatasetDetailsSkeleton.vue";
 
   export default {
@@ -113,7 +113,7 @@
     dependencies: 'DatasetService',
     components: {
       DatasetDetailsSkeleton,
-      DatasetDetailsFeatures,
+      // DatasetDetailsFeatures,   // imported globally
       DatasetDetailsExtendedMetaData,
       // DatasetDetailsProperties,
       // DatasetDetailsDescription,
