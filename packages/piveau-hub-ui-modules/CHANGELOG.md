@@ -1,3 +1,17 @@
+## [3.9.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.2...v3.9.3) (2023-08-21)
+
+
+### Bug Fixes
+
+* annif system ([046c072](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/046c072ee61bcef39f1b7e4e1750d5caa2b2351d))
+
+
+### Features
+
+* add more classes to style distributions header ([23f8dd6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/23f8dd6d739582947a9e29c52415790c025391c6))
+
+
+
 ## [3.9.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.1...v3.9.2) (2023-08-16)
 
 
