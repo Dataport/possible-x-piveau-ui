@@ -94,8 +94,8 @@ export default {
   ],
   computed: {
     distributionVisibleExpandedContent() {
-      return this.distributionVisibleContent
-        .concat(this.distributionExpandedContent);
+      return [...new Set(this.distributionVisibleContent
+        .concat(this.distributionExpandedContent))];
     },
     distributionExtraContent() {
       return this.distributionExpandedContent
