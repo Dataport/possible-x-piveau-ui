@@ -27,29 +27,8 @@
         :getDistributionFormat="getDistributionFormat"
         :distributionFormatTruncated="distributionFormatTruncated"
         :getDistributionTitle="getDistributionTitle"
-        :distributionVisibleContent="[
-          'license',
-          'licenseAttributionByText',
-          'modificationDate'
-        ]"
-        :distributionExpandedContent="[
-          'releaseDate',
-          'language',
-          'availability',
-          'status',
-          'rights',
-          'mediaType',
-          'byteSize',
-          'checksum',
-          'pages',
-          'type',
-          'compressFormat',
-          'packageFormat',
-          'hasPolicy',
-          'conformsTo',
-          'spatialResolutionInMeters',
-          'temporalResolution',
-        ]"
+        :distributionVisibleContent="distributionVisibleContent"
+        :distributionExpandedContent="distributionExpandedContent"
         :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
         :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
         :distributionIsExpanded="distributionIsExpanded"
@@ -176,6 +155,37 @@
           { rel: 'canonical', href: window.location.href },
         ],
       };
+    },
+    props: {
+      distributionVisibleContent: {
+        type: Array,
+        default: [
+          'license',
+          'licenseAttributionByText',
+          'modificationDate'
+        ]
+      },
+      distributionExpandedContent: {
+        type: Array,
+        default: [
+          'releaseDate',
+          'language',
+          'availability',
+          'status',
+          'rights',
+          'mediaType',
+          'byteSize',
+          'checksum',
+          'pages',
+          'type',
+          'compressFormat',
+          'packageFormat',
+          'hasPolicy',
+          'conformsTo',
+          'spatialResolutionInMeters',
+          'temporalResolution',
+        ]
+      },
     },
     data() {
       return {
