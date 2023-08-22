@@ -105,7 +105,6 @@ export default {
     distributionIsExpanded: Function,
     showObject: Function,
     showNumber: Function,
-    distributionCanShowMore: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,

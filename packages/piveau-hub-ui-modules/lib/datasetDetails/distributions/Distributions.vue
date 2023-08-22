@@ -28,7 +28,6 @@
                 :distributionIsExpanded="distributionIsExpanded"
                 :showObject="showObject"
                 :showNumber="showNumber"
-                :distributionCanShowMore="distributionCanShowMore"
                 :showDownloadDropdown="showDownloadDropdown"
                 :showLicence="showLicence"
                 :showLicensingAssistant="showLicensingAssistant"
@@ -104,7 +103,6 @@ export default {
     distributionIsExpanded: Function,
     showObject: Function,
     showNumber: Function,
-    distributionCanShowMore: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,
