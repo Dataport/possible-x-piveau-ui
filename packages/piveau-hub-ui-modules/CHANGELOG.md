@@ -1,3 +1,13 @@
+## [3.9.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.3...v3.9.4) (2023-08-22)
+
+
+### Features
+
+* add option to specify order and names of data to show for distribution ([bc89b89](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/bc89b8913b4399c593b37d3314992f7d8dcd9faa))
+* allow passing distribution feature list as props ([8430b16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8430b1684f33212bc78d20ea49ea98b80e7ab430))
+
+
+
 ## [3.9.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.2...v3.9.3) (2023-08-21)
 
 
