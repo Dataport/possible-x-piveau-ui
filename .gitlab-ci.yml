@@ -1,3 +1,8 @@
+include:
+  - project: piveau/misc/gitlab-ci-templates
+    file:
+      - /templates/.gitlab-ci-publish-template.yml
+
 cache:
   paths:
    - node_modules/
@@ -26,12 +31,3 @@ publish package to npm repository:
     - npm ci
     - if [[ "$CI_COMMIT_TAG" == v* ]]; then npm run ci-publish $CI_COMMIT_TAG; fi
     - if [[ "$CI_COMMIT_TAG" == *@* ]]; then npm run ci-publish $CI_COMMIT_TAG; fi
-
-# publish to gitlab.com:
-#   stage: publish
-#   image: appropriate/curl
-#   only:
-#     - master
-#   script:
-#     # Publish code to GitLab.com
-#     - curl -X POST -F token=$PIVEAU_PUBLISH_TOKEN -F ref=master -F "variables[VAR_PROJECT_PATH]=$CI_PROJECT_PATH " -F "variables[VAR_PROJECT_NAME]=$CI_PROJECT_NAME" https://gitlab.fokus.fraunhofer.de/api/v4/projects/9624/trigger/pipeline
