@@ -1,3 +1,18 @@
+## [3.9.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.4...v3.9.5) (2023-08-23)
+
+
+### Bug Fixes
+
+* filter duplicate distribution content entries ([1c035f0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1c035f0072698de0d3f0a317f7aa76a75b994b7b))
+* remove leftover distributionCanShowMore props ([eece3d1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/eece3d17be1ff444fe9eb11c54feb30b53c6db2f))
+
+
+### Features
+
+* add distribution updateDate content ([2469910](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2469910cfc27df9df48052f4971abbc6c5df70c3))
+
+
+
 ## [3.9.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.3...v3.9.4) (2023-08-22)
 
 
