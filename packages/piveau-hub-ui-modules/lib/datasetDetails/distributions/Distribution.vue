@@ -14,6 +14,8 @@
         :getDistributionDescription="getDistributionDescription"
         :toggleDistributionDescription="toggleDistributionDescription"
         :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
+        :distributionVisibleContent="distributionVisibleContent"
+        :distributionExpandedContent="distributionExpandedContent"
         :distributionIsExpanded="distributionIsExpanded"
         :showLicensingAssistant="showLicensingAssistant"
         :showLicence="showLicence"
@@ -23,7 +25,6 @@
         :showObject="showObject"
         :showObjectArray="showObjectArray"
         :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
-        :distributionCanShowMore="distributionCanShowMore"
         :toggleDistribution="toggleDistribution"
       />
       <distribution-added
@@ -96,13 +97,14 @@ export default {
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,
+    distributionVisibleContent: Array,
+    distributionExpandedContent: Array,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,
     getDistributionDescription: Function,
     distributionIsExpanded: Function,
     showObject: Function,
     showNumber: Function,
-    distributionCanShowMore: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,
