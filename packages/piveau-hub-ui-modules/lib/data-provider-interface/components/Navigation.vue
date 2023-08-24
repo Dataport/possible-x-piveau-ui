@@ -422,7 +422,7 @@ export default {
 
 .right-form-nav {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .submit-label {

@@ -1,3 +1,141 @@
+## [3.9.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.4...v3.9.5) (2023-08-23)
+
+
+### Bug Fixes
+
+* filter duplicate distribution content entries ([1c035f0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1c035f0072698de0d3f0a317f7aa76a75b994b7b))
+* remove leftover distributionCanShowMore props ([eece3d1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/eece3d17be1ff444fe9eb11c54feb30b53c6db2f))
+
+
+### Features
+
+* add distribution updateDate content ([2469910](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2469910cfc27df9df48052f4971abbc6c5df70c3))
+
+
+
+## [3.9.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.3...v3.9.4) (2023-08-22)
+
+
+### Features
+
+* add option to specify order and names of data to show for distribution ([bc89b89](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/bc89b8913b4399c593b37d3314992f7d8dcd9faa))
+* allow passing distribution feature list as props ([8430b16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8430b1684f33212bc78d20ea49ea98b80e7ab430))
+
+
+
+## [3.9.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.2...v3.9.3) (2023-08-21)
+
+
+### Bug Fixes
+
+* annif system ([046c072](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/046c072ee61bcef39f1b7e4e1750d5caa2b2351d))
+
+
+### Features
+
+* add more classes to style distributions header ([23f8dd6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/23f8dd6d739582947a9e29c52415790c025391c6))
+
+
+
+## [3.9.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.1...v3.9.2) (2023-08-16)
+
+
+### Bug Fixes
+
+* export DatasetDetailsFeatures to allow it to be overwritten in feature project ([cf4f021](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/cf4f021f74ae2ce74965c96648093e91a0e9b4e1))
+
+
+
+## [3.9.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.0...v3.9.1) (2023-08-16)
+
+
+### Bug Fixes
+
+* specify style lang ([5b1bf1c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5b1bf1c0107075f58cfac8173cc1d105d498c7f5))
+
+
+### Features
+
+* separate distributions header title and count ([86bd3f3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/86bd3f3918010ed7208227fb59d020e762ac04ef))
+
+
+
+# [3.9.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.8.1...v3.9.0) (2023-08-15)
+
+
+### Bug Fixes
+
+* code styling ([47de71f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/47de71f76373adf00dc46c24ff0ba6ef5ca0f2ad))
+* get catalog id from domain ([86351a6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/86351a695a654e0b55592b9dfe6dd835574f6e9a))
+
+
+
+## [3.8.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.8.0...v3.8.1) (2023-08-14)
+
+
+### Bug Fixes
+
+* catalog nav skipping and overflow ([dd37821](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/dd3782152259f687c2f19e9c375828c85eb8687f))
+
+
+
+# [3.8.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.7.0...v3.8.0) (2023-08-11)
+
+
+### Features
+
+* update catalog page design ([706af44](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/706af44c79682c3290144660b0679b357aeeaf6a))
+
+
+
+# [3.7.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.20...v3.7.0) (2023-08-04)
+
+
+### Features
+
+* **SelectedFacetsOverview:** wrap pill with slot for customizing pills on view layer only ([956fc2e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/956fc2ede8aba9018d7f82e0054b90be40bb1817))
+
+
+
+## [3.6.20](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.19...v3.6.20) (2023-08-03)
+
+
+### Bug Fixes
+
+* nav dropdown hover bug ([648f59b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/648f59bfd1277b2f18ffbd3ac257511ffed20d4b))
+
+
+
+## [3.6.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.17...v3.6.18) (2023-08-02)
+
+
+
+## [3.6.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.18...v3.6.19) (2023-08-02)
+
+
+### Bug Fixes
+
+* reverted dsOverview ([68e5edb](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/68e5edb3d445db8cb9847177d3e747f024db3a9d))
+
+
+
+## [3.6.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.17...v3.6.18) (2023-08-02)
+
+
+
+## [3.6.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.16...v3.6.17) (2023-08-02)
+
+
+
+## [3.6.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.15...v3.6.16) (2023-08-02)
+
+
+### Bug Fixes
+
+* made the annif system configurable ([d179c70](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d179c70768fe868c7fed4d39f0ee3654ece5a7ab))
+
+
+
 ## [3.6.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.6.14...v3.6.15) (2023-07-31)
 
 

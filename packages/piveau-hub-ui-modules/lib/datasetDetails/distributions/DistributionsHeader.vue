@@ -1,12 +1,18 @@
 <template>
-  <div class="w-100">
-    <div class="dsd-item d-flex justify-content-between align-items-center">
-      <h2 :title="$t('message.tooltip.datasetDetails.distribution')"
-          data-toggle="tooltip"
-          data-placement="top"
-          data-cy="dataset-distributions">
-        {{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})
-      </h2>
+  <div class="distributions-header-container w-100">
+  <div class="distributions-header-title-container dsd-item d-flex justify-content-between align-items-center">
+      <div class="distributions-header-title">
+        <h2 :title="$t('message.tooltip.datasetDetails.distribution')"
+            data-toggle="tooltip"
+            data-placement="top"
+            data-cy="dataset-distributions"
+            class="distributions-header-title-title">
+          {{ $t('message.metadata.distributions') }}
+        </h2>
+        <div class="distributions-header-title-count-container">
+          <h3 class="distributions-header-title-count">{{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }}</h3>
+        </div>
+      </div>
       <download-all-distributions
         v-if="downloadAllTop"
         :primary="true"
@@ -19,7 +25,7 @@
         :isUrlInvalid="isUrlInvalid"
       />
     </div>
-    <hr>
+    <hr class="distributions-header-bottom-hr">
   </div>
 </template>
 
@@ -52,6 +58,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .distributions-header-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 
+  .distributions-header-title-title {
+    margin-right: 8px;
+  }
+
+  .distributions-header-title-count {
+    &::before {
+      content: '('
+    }
+    &::after {
+      content: ')'
+    }
+  }
 </style>
