@@ -4,22 +4,11 @@
       <span>
         {{ `${findFacetFieldTitle(facet.field)}:` }}
       </span>
-      <template v-for="(facetId, i) in facet.facets"
+      <span v-for="(facetId, i) in facet.facets" :key="i" class="badge badge-pill badge-highlight mr-1 ds-label"
             tabindex="0" v-on:keyup.enter="removeSelectedFacet(facet.field, facetId)">
-        <slot
-          :index="i"
-          :facet="facet"
-          :facetId="facetId"
-          :findFacetTitle="findFacetTitle"
-          :removeSelectedFacet="removeSelectedFacet"
-        >
-          <span :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
-            {{ findFacetTitle(facet.field, facetId) }}
-            
-            <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
-          </span>
-        </slot>
-      </template>
+        {{ findFacetTitle(facet.field, facetId) }}
+        <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
+      </span>
     </p>
   </div>
 </template>
