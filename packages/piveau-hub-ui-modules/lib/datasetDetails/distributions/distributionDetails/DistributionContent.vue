@@ -65,7 +65,7 @@
           {{ filterDateFormatEU(distribution.releaseDate) }}
         </td>
         <td v-else>
-          --
+          Unbekannt
         </td>
       </tr>
 
