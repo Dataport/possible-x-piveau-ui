@@ -1,6 +1,6 @@
 .distributions__actions {
   margin-top: 2.5rem;
-  justify-content: start !important;
+  justify-content: flex-start !important;
   .fa-chevron-down, .fa-eye {
     font-size: larger;
     margin-right: 0.5em;
@@ -46,7 +46,7 @@
 .distribution-format {
   order: 2;
   display: flex !important;
-  justify-content: start;
+  justify-content: flex-start;
   flex: 2 0 !important;
   max-width: initial !important;
   .circle {
@@ -86,7 +86,7 @@
 @media (min-width: 992px) { // lg
   .distribution-actions {
     flex: 0 0 350px !important;
-    justify-content: start !important;
+    justify-content: flex-start !important;
 
   }
   .distribution-actions > div:first-child {
@@ -97,7 +97,7 @@
 @media (max-width: 767.5px) { // sm
 
   .distributions__item {
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: 2rem !important;
   }
   .distribution-added {
