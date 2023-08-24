@@ -467,7 +467,15 @@ export default {
 //     display: none !important;
 //   }
 // }
-
+#stepper .step-progress__step{
+  border: solid white 20px;
+}
+#stepper .step-progress__step-icon, #subStepper .step-progress__step-icon {
+    font-size: 25px;
+}
+.step-progress__step-label{
+  cursor: pointer;
+}
 // Input Form Margins & Borders ----
 
 .formulate-input[data-classification=group] [data-is-repeatable] {
