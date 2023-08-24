@@ -5,7 +5,7 @@
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
        
-        <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
+        <FormulateForm name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
           @submit="handleSubmit"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
@@ -22,6 +22,10 @@
     <!-- not the prettiest way but calling it within navigation component seems quiet complicated -->
     <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
       {{ mandatoryModal.message }}
+    </app-confirmation-dialog>
+
+    <app-confirmation-dialog id="validationModal" :confirm="validationModal.confirm" @confirm="validationModal.callback">
+      {{ validationModal.message }}
     </app-confirmation-dialog>
   </div>
 </template>
@@ -67,6 +71,11 @@ export default {
       mandatoryModal: {
         confirm: '',
         message: 'Mandatory Properties missing - make sure to fill out every field marked with an *',
+        callback: $('#modal').modal('hide'),
+      },
+      validationModal: {
+        conform: '',
+        message: 'The given values for some input fields are incorrect!',
         callback: $('#modal').modal('hide'),
       },
       info: {},
@@ -289,6 +298,9 @@ export default {
         next();
       }
       else $('#mandatoryModal').modal({ show: true });
+    } else if (!from.path.includes('overview') && this.$refs.dpiForm.hasErrors) {
+      // if some values within the form don't match the wanted format a modal should be shown stating invalid input
+      $('#validationModal').modal({ show: true });
     } else {
       // if there are multiple distributions, the mandatory checker might return true so we don't have to skip the modal display
       // but we have to set the deleteDistributionInline value to false again
@@ -296,7 +308,6 @@ export default {
       next();
     }
   },
-
 };
 </script>
 <style lang="scss">
