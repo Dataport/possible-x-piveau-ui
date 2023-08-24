@@ -1,3 +1,14 @@
+## [3.9.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.5...v3.9.6) (2023-08-24)
+
+
+### Bug Fixes
+
+* modal for invalid values for temporal resolution ([07000a5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/07000a50455494d5e704b37c48fb3a16962a843f))
+* show Unbekannt if neither modification nor release date is available ([05372c1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/05372c11459d15f32772ae87ac53864417ce4deb))
+* typo modificationDate -> releaseDate ([8706929](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/870692986116da1f7e53120a1a243a2994685355))
+
+
+
 ## [3.9.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.4...v3.9.5) (2023-08-23)
 
 
