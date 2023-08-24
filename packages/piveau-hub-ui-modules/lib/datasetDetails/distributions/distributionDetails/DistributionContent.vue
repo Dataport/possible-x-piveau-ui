@@ -62,7 +62,7 @@
           {{ filterDateFormatEU(distribution.modificationDate) }}
         </td>
         <td v-else-if="has(distribution, 'releaseDate') && !isNil(distribution.releaseDate)">
-          {{ filterDateFormatEU(distribution.modificationDate) }}
+          {{ filterDateFormatEU(distribution.releaseDate) }}
         </td>
         <td v-else>
           --
