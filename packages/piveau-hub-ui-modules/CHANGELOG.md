@@ -1,3 +1,75 @@
+## [3.9.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.8...v3.9.9) (2023-08-25)
+
+
+### Bug Fixes
+
+* fixed step bar ([6f03ed7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6f03ed79b08307ba107a77f910923d2f27d2aad0))
+
+
+
+## [3.9.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.7...v3.9.8) (2023-08-25)
+
+
+### Bug Fixes
+
+* reverted Stepper Styling ([589187b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/589187bd3a2e1d6b144293dc1ab7b1d93cd4e0ce))
+
+
+
+## [3.9.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.6...v3.9.7) (2023-08-24)
+
+
+
+## [3.9.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.5...v3.9.6) (2023-08-24)
+
+
+### Bug Fixes
+
+* modal for invalid values for temporal resolution ([07000a5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/07000a50455494d5e704b37c48fb3a16962a843f))
+* show Unbekannt if neither modification nor release date is available ([05372c1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/05372c11459d15f32772ae87ac53864417ce4deb))
+* typo modificationDate -> releaseDate ([8706929](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/870692986116da1f7e53120a1a243a2994685355))
+
+
+
+## [3.9.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.4...v3.9.5) (2023-08-23)
+
+
+### Bug Fixes
+
+* filter duplicate distribution content entries ([1c035f0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1c035f0072698de0d3f0a317f7aa76a75b994b7b))
+* remove leftover distributionCanShowMore props ([eece3d1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/eece3d17be1ff444fe9eb11c54feb30b53c6db2f))
+
+
+### Features
+
+* add distribution updateDate content ([2469910](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2469910cfc27df9df48052f4971abbc6c5df70c3))
+
+
+
+## [3.9.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.3...v3.9.4) (2023-08-22)
+
+
+### Features
+
+* add option to specify order and names of data to show for distribution ([bc89b89](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/bc89b8913b4399c593b37d3314992f7d8dcd9faa))
+* allow passing distribution feature list as props ([8430b16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8430b1684f33212bc78d20ea49ea98b80e7ab430))
+
+
+
+## [3.9.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.2...v3.9.3) (2023-08-21)
+
+
+### Bug Fixes
+
+* annif system ([046c072](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/046c072ee61bcef39f1b7e4e1750d5caa2b2351d))
+
+
+### Features
+
+* add more classes to style distributions header ([23f8dd6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/23f8dd6d739582947a9e29c52415790c025391c6))
+
+
+
 ## [3.9.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.1...v3.9.2) (2023-08-16)
 
 
