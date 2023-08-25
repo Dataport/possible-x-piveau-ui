@@ -76,13 +76,13 @@ import runtimeConfig from '../config/runtime-config';
 import router from './router';
 import App from './App';
 
-// import VueKeyCloak from "./services/keycloakService"
+import vueKeyCloak from "./services/keycloakService"
 
 import {
   dateFilters,
   AppSnackbar,
   AppConfirmationDialog,
-  VueKeyCloak,
+  // VueKeyCloak,
   bulkDownloadCorsProxyService ,
   corsProxyService,
   runtimeConfigurationService,
