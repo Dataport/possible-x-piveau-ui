@@ -1,3 +1,12 @@
+## [3.9.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.8...v3.9.9) (2023-08-25)
+
+
+### Bug Fixes
+
+* fixed step bar ([6f03ed7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6f03ed79b08307ba107a77f910923d2f27d2aad0))
+
+
+
 ## [3.9.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.7...v3.9.8) (2023-08-25)
 
 
