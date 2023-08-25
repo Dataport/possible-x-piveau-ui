@@ -86,9 +86,31 @@ register theme-builder release:
     - docker tag "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
     - docker push "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
 
+
+build-theme-branches:
+  stage: build
+  tags:
+    - dind
+  services:
+    - docker:dind
+  before_script:
+    - apk update && apk add --no-cache tzdata
+    - echo "Europe/Berlin" > /etc/timezone
+    - ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - date="$(date +"%Y"-"%m"-"%d"_"%H"-"%M"-"%S")"
+    - docker build --pull -t ${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:latest -t ${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:$date -f theme-builder-deploy-dockerfile .
+    - docker push ${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:latest
+    - docker push ${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:$date
+  only:
+    - /^theme_.*$/
+
 #
 # Theme builder end
 #
+
+
 
 
 register develop as latest:
