@@ -104,7 +104,7 @@ build-theme-branches:
     - docker push ${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:latest
     - docker push ${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:$date
   only:
-    - /^theme_.*$/
+    - /^theme.*$/
 
 #
 # Theme builder end
