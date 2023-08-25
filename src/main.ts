@@ -76,13 +76,13 @@ import runtimeConfig from '../config/runtime-config';
 import router from './router';
 import App from './App';
 
-import VueKeyCloak from "./services/keycloakService"
+// import VueKeyCloak from "./services/keycloakService"
 
 import {
   dateFilters,
   AppSnackbar,
   AppConfirmationDialog,
-  // VueKeyCloak,
+  VueKeyCloak,
   bulkDownloadCorsProxyService ,
   corsProxyService,
   runtimeConfigurationService,
@@ -98,9 +98,6 @@ import {
   SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
 import '@piveau/piveau-hub-ui-modules/styles';
-
-// import VueKeyCloak from '@dsb-norge/vue-keycloak-js';
-
 
 
 Vue.config.devtools = true;
