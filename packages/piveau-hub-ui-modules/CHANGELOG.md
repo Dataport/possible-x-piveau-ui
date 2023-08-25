@@ -1,3 +1,12 @@
+## [3.9.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.7...v3.9.8) (2023-08-25)
+
+
+### Bug Fixes
+
+* reverted Stepper Styling ([589187b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/589187bd3a2e1d6b144293dc1ab7b1d93cd4e0ce))
+
+
+
 ## [3.9.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.6...v3.9.7) (2023-08-24)
 
 
