@@ -42,12 +42,13 @@ export default defineConfig({
     ),
   ],
   server: {
-    port: 8080
+    port: 8081
   },
   define: {
     // Shim process.env from webpack
-    'process.env': {},
-    'process.env.buildconf': JSON.stringify(buildConfig)
+    'process.env': {
+      buildconf: buildConfig
+    }
   },
 
   resolve: {
@@ -74,5 +75,13 @@ export default defineConfig({
     ],
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     preserveSymlinks: false
+  },
+
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'app.[hash].js',
+      }
+    }
   }
 });

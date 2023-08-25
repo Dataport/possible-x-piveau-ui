@@ -3,33 +3,15 @@ FROM node:18-alpine
 COPY . /App
 
 # Installs envsubst, creates configuration files and folder for distribution files.
+# Install node modules to speed up development
 RUN apk add gettext && \
     cd /App && \
+    npm --silent ci && \
     cp config/runtime-config.js config/runtime-config.tmp && \
     cp config/user-config.sample.js config/user-config.js && \
     chmod +x theme-run-dev.sh && \
     mkdir -p /usr/share/nginx/html/
 
 
-#
-# Original script, now executed as command "CMD"
-#
-
-# RUN cd /App && \
-#  cp -a src original_src && \
-#  npm ci && \
-#  cp config/user-config.sample.js config/user-config.js && \
-#  npm run build && \
-#  mv dist/* /usr/share/nginx/html/ && \
-#  rm -r node_modules
-
-#
-# Install node modules to speed up development
-#
-RUN cd /App && \
- npm --silent ci && \
- cp config/user-config.sample.js config/user-config.js
-
-
 # Rebuilds the application on start
-CMD [ "/bin/sh", "-c", "cd /App && cp config/user-config.sample.js config/user-config.js && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist" ]
+CMD [ "/bin/sh", "-c", "cd /App && npm run --silent build && cp -a dist/* /usr/share/nginx/html/ && rm -r dist" ]
