@@ -42,7 +42,7 @@ export default defineConfig({
     ),
   ],
   server: {
-    port: 8081
+    port: 8080
   },
   define: {
     // Shim process.env from webpack
