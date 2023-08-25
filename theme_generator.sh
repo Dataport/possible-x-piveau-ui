@@ -15,8 +15,8 @@ echo "Generated slug: $slug"
 
 theme_name=theme-$slug
 
-git clone git@gitlab.fokus.fraunhofer.de:piveau/hub/piveau-hub-ui.git theme-$theme_name
-cd $theme_name
+# git clone git@gitlab.fokus.fraunhofer.de:piveau/hub/piveau-hub-ui.git theme-$theme_name
+# cd $theme_name
 
 git checkout -b $theme_name
 
@@ -32,5 +32,10 @@ else
   git push origin $theme_name
 fi
 
+echo "**************"
+echo "All done"
+echo "**************"
 echo "To launch the theme editor enter:"
 echo "sudo docker-compose -f theme-builder-docker-compose-dev.yml --env-file ./theme-env.sample up"
+echo "**************"
+echo ""
