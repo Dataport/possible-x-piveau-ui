@@ -86,15 +86,8 @@ register theme-builder release:
     - docker tag "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
     - docker push "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
 
-#
-# Theme builder end
-#
 
-
-# image: docker:stable
-
-
-build-theme:
+build-theme-branches:
   stage: build
   tags:
     - dind
@@ -112,6 +105,10 @@ build-theme:
     - docker push ${CI_REGISTRY_IMAGE}/${CI_COMMIT_BRANCH}:$date
   only:
     - /^theme_.*$/
+
+#
+# Theme builder end
+#
 
 
 
