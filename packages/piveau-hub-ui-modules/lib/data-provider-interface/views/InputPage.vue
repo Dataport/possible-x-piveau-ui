@@ -299,9 +299,6 @@ export default {
         next();
       }
       else $('#mandatoryModal').modal({ show: true });
-    } else if (!from.path.includes('overview') && this.$refs.dpiForm.hasErrors) {
-      // if some values within the form don't match the wanted format a modal should be shown stating invalid input
-      $('#validationModal').modal({ show: true });
     } else {
       // if there are multiple distributions, the mandatory checker might return true so we don't have to skip the modal display
       // but we have to set the deleteDistributionInline value to false again
@@ -309,7 +306,6 @@ export default {
       next();
     }
   },
-
 };
 </script>
 <style lang="scss">

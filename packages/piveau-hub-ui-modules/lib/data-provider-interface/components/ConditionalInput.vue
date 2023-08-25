@@ -89,14 +89,17 @@ export default {
       } else if (this.context.attributes.identifier === 'accessUrl') {
         this.conditionalValues[this.context.name] = 'url';
         this.inputValues = { '@id': this.context.model };
-      } else if (semanticName === 'dct:spatial') {
-
+      } else if (this.context.attributes.identifier === 'spatial') {
+        // find better differentiation instead of hardcoded URL
+        if (this.context.model.startsWith("http://publications.europa.eu/resource/authority")) this.conditionalValues[this.context.name] = 'voc';
+        else this.conditionalValues[this.context.name] = 'man';
         // both options return an URI
-        this.conditionalValues[this.context.name] = 'man';
         this.inputValues = { '@id': this.context.model };
-
-        // TODO: implement display of conditional choice when vocabulary was used
-
+      } else if (this.context.attributes.identifier = 'spatialVocabulary') {
+        const vocProps = this.context.model.replace("http://publications.europa.eu/resource/authority/", "");
+        const vocab = vocProps.slice(0, vocProps.indexOf("/"));
+        this.conditionalValues[this.context.name] = vocab;
+        this.inputValues = { '@id': this.context.model };
       } else if (semanticName === 'dcatde:politicalGeocodingURI') {
         // this.conditionalValues[this.context.name] = 'voc';
         // this.inputValues = { '@id': this.context.model };2
