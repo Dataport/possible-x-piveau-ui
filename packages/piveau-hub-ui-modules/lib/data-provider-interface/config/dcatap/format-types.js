@@ -191,6 +191,7 @@ const multiURIobjects = {
         "prov:wasGeneratedBy",
         "dct:isVersionOf",
         "dct:hasVersion",
+        "dct:spatial",
     ],
     distributions: [
         "dcat:accessURL",
