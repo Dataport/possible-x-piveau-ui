@@ -22,6 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const buildConfig = {
+
   BASE_PATH: config[buildMode].assetsPublicPath,
   SERVICE_URL: config[buildMode].serviceUrl,
 };
@@ -36,6 +37,7 @@ const regexesOfPackages = externalPackages
   .map(packageName => new RegExp(`^${packageName}(/.*)?`));
 
 export default defineConfig({
+  base: buildConfig.BASE_PATH,
   plugins: [
     vue(
       { template: { compilerOptions: { whitespace: 'preserve' } } }
