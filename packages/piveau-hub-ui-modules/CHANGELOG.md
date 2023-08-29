@@ -1,3 +1,12 @@
+## [3.9.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.11...v3.9.12) (2023-08-29)
+
+
+### Bug Fixes
+
+* small changes in the DPI ([a75925e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a75925ea4dec481a6922bb1245fae817c1a706a3))
+
+
+
 ## [3.9.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.10...v3.9.11) (2023-08-29)
 
 
