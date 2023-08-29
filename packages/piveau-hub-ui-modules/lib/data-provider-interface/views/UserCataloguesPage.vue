@@ -51,7 +51,7 @@ export default {
     async init() {
 
       await axios
-        .get('https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&limit=100')
+        .get(this.$env.api.baseUrl + 'search?filter=catalogue&limit=100')
         .then(response => (this.info = response))
         .catch((err) => {
           reject(err);
@@ -82,9 +82,10 @@ export default {
   flex-grow: 1;
   text-align: center;
 }
-.subline{
+
+.subline {
   font-size: 12px;
-  color: lightgray ;
-  
+  color: lightgray;
+
 }
 </style>
