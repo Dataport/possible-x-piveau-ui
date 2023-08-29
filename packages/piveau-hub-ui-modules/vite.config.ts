@@ -86,7 +86,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   buildMode = 'dev';
 }
-
+buildMode = "production"
 const buildConfig = {
   BASE_PATH: buildMode === "build" ? "/data/" : "/", //  config[buildMode].assetsPublicPath,
   SERVICE_URL: undefined, // config[buildMode].serviceUrl
