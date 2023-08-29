@@ -90,6 +90,8 @@ import {
   InfoSlot,
   ConditionalInput,
   AutocompleteInput,
+  CustomNumber,
+  CustomURL,
   UniqueIdentifierInput,
   FileUpload,
   DatePicker,
@@ -132,6 +134,8 @@ Vue.component('UniqueIdentifierInput', UniqueIdentifierInput);
 Vue.component('FileUpload', FileUpload);
 Vue.component('DatePicker', DatePicker);
 Vue.component('DateTimePicker', DateTimePicker);
+Vue.component('CustomNumber', CustomNumber);
+Vue.component('CustomURL', CustomURL)
 
 // Vue.component('AppToast', AppToast);
 Vue.component('AppSnackbar', AppSnackbar);
@@ -176,6 +180,20 @@ Vue.use(VueFormulate, {
       component: 'AutocompleteInput',
       slotProps: {
         component: ['voc', 'multiple'],
+      },
+    },
+    'custom-url': {
+      classification: 'text',
+      component: 'CustomURL',
+      slotProps: {
+        component: ['context'],
+      },
+    },
+    'custom-number': {
+      classification: 'text',
+      component: 'CustomNumber',
+      slotProps: {
+        component: ['context'],
       },
     },
     'unique-identifier-input': {
@@ -324,7 +342,7 @@ Vue.use(vueKeyCloak, {
   },
   init: {
     onLoad: 'check-sso',
-    silentCheckSsoRedirectUri: `${window.location.origin}/static/silent-check-sso.html`,
+    // silentCheckSsoRedirectUri: `${window.location.origin}/static/silent-check-sso.html`,
     ...env.authentication.keycloakInit,
   },
   onReady: () => {
