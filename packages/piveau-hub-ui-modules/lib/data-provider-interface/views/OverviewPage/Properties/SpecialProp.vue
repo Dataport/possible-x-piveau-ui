@@ -78,12 +78,14 @@
 
         <!-- TEMPORAL -->
         <tr v-if="property === 'dct:temporal'">
-            
+
             <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td class="d-flex flex-column">
-                <div v-if="showValue(data, 'dct:temporal')"><b>From:</b>  {{new Date(data['dct:temporal']['dcat:startDate'])}}&nbsp;
+                <div v-if="showValue(data, 'dct:temporal')"><b>From:</b> {{ new
+                    Date(data['dct:temporal']['dcat:startDate']) }}&nbsp;
                 </div>
-                <div v-if="showValue(data, 'dct:temporal')"><b>to:</b> {{new Date(data['dct:temporal']['dcat:endDate'])}}</div>
+                <div v-if="showValue(data, 'dct:temporal')"><b>to:</b> {{ new Date(data['dct:temporal']['dcat:endDate']) }}
+                </div>
             </td>
         </tr>
 
@@ -104,10 +106,12 @@
             <td>
                 <div v-if="showMultilingualValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
                     data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
-                    <div v-if="showMultilingualValue(data, 'dct:title')" class="multilang">This property is available in: <span v-for="(el, index) in data['dct:title']" :key="index">({{ el['@language'] }}) </span></div>
+                <div v-if="showMultilingualValue(data, 'dct:title')" class="multilang">This property is available in: <span
+                        v-for="(el, index) in data['dct:title']" :key="index">({{ el['@language'] }}) </span></div>
                 <div v-if="showMultilingualValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
                     data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
-                    <div v-if="showMultilingualValue(data, 'dct:description')" class="multilang">This property is available in: <span v-for="(el, index) in data['dct:description']" :key="index">({{ el['@language'] }}) </span></div>
+                <div v-if="showMultilingualValue(data, 'dct:description')" class="multilang">This property is available in:
+                    <span v-for="(el, index) in data['dct:description']" :key="index">({{ el['@language'] }}) </span></div>
                 <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}:{{ data['dct:format'] }}</div>
                 <div v-if="showValue(data, '@id')">{{ $t('message.metadata.url') }}: <app-link :to="data['@id']">{{
                     data['@id']
@@ -133,26 +137,29 @@
         </tr>
 
         <!-- DATA SERVICE -->
-        <div v-if="property === 'dcat:accessService'">
-            <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-            <td>
-                <div v-if="showValue(data, 'dct:title')">
-                    <span class="">{{ $t('message.dataupload.distributions.accessServiceTitle.label')
-                    }}:</span>
-                    {{ data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
-                </div>
-                <div v-if="showValue(data, 'dct:description')">
-                    <span class="">{{ $t('message.dataupload.distributions.accessServiceDescription.label')
-                    }}:</span>
-                    {{ data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
-                </div>
-                <div v-if="showValue(data, 'dcat:endpointURL')" class="pr-1">
-                    <span class="">{{ $t('message.dataupload.distributions.accessServiceEndpointURL.label')
-                    }}:</span>
-                    <app-link class="w-100" :to="data['dcat:endpointURL']">{{ data['dcat:endpointURL'] }}</app-link>
-                </div>
-            </td>
-        </div>
+        <tr v-if="property === 'dcat:accessService'">
+            
+                <td class="w-25 font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+                <td class="w-75">
+                    <div v-if="showValue(data, 'dct:title')">
+                        <span class="">{{ $t('message.dataupload.distributions.accessServiceTitle.label')
+                        }}:</span>
+                        {{ data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
+                    </div>
+                    <div v-if="showValue(data, 'dct:description')">
+                        <span class="">{{ $t('message.dataupload.distributions.accessServiceDescription.label')
+                        }}:</span>
+                        {{ data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
+                    </div>
+                    <div v-if="showValue(data, 'dcat:endpointURL')" class="pr-1">
+                        <span class="">{{ $t('message.dataupload.distributions.accessServiceEndpointURL.label')
+                        }}:</span>
+                        <app-link class="w-100" :to="data['dcat:endpointURL']">{{ data['dcat:endpointURL'] }}</app-link>
+                    </div>
+                </td>
+            
+
+            </tr>
 
     </div>
 </template>
@@ -179,7 +186,7 @@ export default {
             // there should only be one value for each language (so only one item within the array)
             const localeValues = property[value].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
             const otherLocaleValues = property[value].filter(el => el['@language'] !== this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
-            
+
             const existingLocalValues = localeValues.length > 0;
             const existingOtherValues = otherLocaleValues.length > 0;
 
@@ -233,5 +240,4 @@ export default {
 
     margin-bottom: 0.5rem;
 
-}
-</style>
+}</style>

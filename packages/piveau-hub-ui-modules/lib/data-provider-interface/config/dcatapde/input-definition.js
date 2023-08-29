@@ -1461,10 +1461,9 @@ const dcatapProperties = {
         },
         {
           identifier: 'accessServiceEndpointDescription',
-          type: 'custom-url',
+          type: 'textarea',
           name: 'dcat:endpointDescription',
           class: 'main',
-          validation: 'optional|url',
           '@change': true,
         },
         {
