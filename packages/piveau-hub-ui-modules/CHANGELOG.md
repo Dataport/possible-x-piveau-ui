@@ -1,3 +1,13 @@
+## [3.9.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.10...v3.9.11) (2023-08-29)
+
+
+### Bug Fixes
+
+* erased testconfig for vite ([d05b1e9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d05b1e998db0cb702e004e14a53ceb550a3d73cc))
+* fixed the Catalogue URL ([730cf57](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/730cf57c801b5e10dd746a6ab981c4fb8b0dad7f))
+
+
+
 ## [3.9.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.9...v3.9.10) (2023-08-25)
 
 
