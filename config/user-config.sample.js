@@ -50,7 +50,7 @@ const glueConfig = {
     keycloak: {
       realm: 'piveau',
       clientId: 'piveau-hub-ui',
-      url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
+      url: 'https://keycloak-simtest.apps.osc.fokus.fraunhofer.de',
 
       // TODO: Do we need to include these properties? They seem to be default values that never change #2763
       'ssl-required': 'external',
@@ -60,7 +60,7 @@ const glueConfig = {
       'confidential-port': 0,
     },
     keycloakInit: {
-      pkceMethod: '',
+      pkceMethod: 'S256',
     },
     rtp: {
       grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
