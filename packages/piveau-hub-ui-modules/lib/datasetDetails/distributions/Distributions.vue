@@ -7,6 +7,7 @@
           :getDistributionTitle="getDistributionTitle"
           :showDownloadUrls="showDownloadUrls"
           :isUrlInvalid="isUrlInvalid"
+          :showPublisher="showPublisher"
         />
         <ul class="list list-unstyled w-100">
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
@@ -123,7 +124,8 @@ export default {
     isUrlInvalid: Function,
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
-    appendCurrentLocaleToURL: Function
+    appendCurrentLocaleToURL: Function,
+    showPublisher: Boolean,
   },
   data() {
     return {
@@ -145,7 +147,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
   .catalogue-label {
     white-space: pre-line;
   }

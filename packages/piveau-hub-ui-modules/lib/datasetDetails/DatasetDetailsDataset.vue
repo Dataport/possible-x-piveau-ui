@@ -8,6 +8,7 @@
     </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
       <dataset-details-description 
+        v-if="showDatasetDescription"
         :dateIncorrect="dateIncorrect"
         :machineTranslated="machineTranslated"
         :translationNotAvailable="translationNotAvailable"
@@ -54,6 +55,7 @@
         :isUrlInvalid="isUrlInvalid"
         :openIfValidUrl="openIfValidUrl"
         :showTooltipVisualiseButton="showTooltipVisualiseButton"
+        :showPublisher="showPublisher"
       />
 
       <dataset-details-features
@@ -68,7 +70,8 @@
         :showObject="showObject"
       />
 
-      <dataset-details-properties
+      <dataset-details-properties 
+        v-if="showDatasetProperties"
         :filterDateFormatEU="filterDateFormatEU"
         :showObjectArray="showObjectArray"
         :showArray="showArray"
@@ -159,33 +162,42 @@
     props: {
       distributionVisibleContent: {
         type: Array,
-        default: [
-          'license',
-          'licenseAttributionByText',
-          'modificationDate'
-        ]
+        default: () => ['license', 'licenseAttributionByText', 'modificationDate'],
       },
       distributionExpandedContent: {
         type: Array,
-        default: [
-          'releaseDate',
-          'language',
-          'availability',
-          'status',
-          'rights',
-          'mediaType',
-          'byteSize',
-          'checksum',
-          'pages',
-          'type',
-          'compressFormat',
-          'packageFormat',
-          'hasPolicy',
-          'conformsTo',
-          'spatialResolutionInMeters',
-          'temporalResolution',
-        ]
+        default: () => [
+            'releaseDate',
+            'language',
+            'availability',
+            'status',
+            'rights',
+            'mediaType',
+            'byteSize',
+            'checksum',
+            'pages',
+            'type',
+            'compressFormat',
+            'packageFormat',
+            'hasPolicy',
+            'conformsTo',
+            'spatialResolutionInMeters',
+            'temporalResolution',
+        ],
       },
+      showDatasetDescription: {
+        type: Boolean,
+        default: () => true,
+      },
+      showDatasetProperties: {
+        type: Boolean,
+        default: () => true,
+      },
+      showPublisher: {
+        type: Boolean,
+        default: () => false,
+      }
+
     },
     data() {
       return {
@@ -213,7 +225,8 @@
           incrementSteps: this.$env.content.datasetDetails.pages.incrementSteps,
           descriptionMaxLines: this.$env.content.datasetDetails.pages.descriptionMaxLines,
           descriptionMaxChars: this.$env.content.datasetDetails.pages.descriptionMaxChars,
-        }
+        },
+        showDescription: true,
       };
     },
     computed: {
