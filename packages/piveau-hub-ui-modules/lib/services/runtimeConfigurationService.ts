@@ -30,9 +30,26 @@ const RuntimeConfiguration = {
     // i.e., use this.$env property when environment variable is not set
     const ignoreUnusedVariables = (originVal, newVal) => {
       const result = newVal;
-      // Evaluate Boolean Types (Fix Issue https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/592)
+
+      // TODO: 1. Evaluate Arrays
+      if (newVal.startsWith('[') && newVal.endsWith(']')) {
+        // This looks like an array
+        // Use JSON.parse to transform it into a real array
+        return JSON.parse(newVal);
+      }
+
+      // TODO: 2. Evaluate Objects
+      if (newVal.startsWith('{') && newVal.endsWith('}')) {
+        // This looks like an object
+        // Use JSON.parse to transform it into a real object
+        return JSON.parse(newVal);
+      }
+
+      // 3. Evaluate Boolean values
       if (newVal === 'false') return false;
       if (newVal === 'true') return true;
+
+      // 4. Evaluate undefined values
       // Take originVal when env variable is not set
       if (originVal !== undefined && typeof newVal === 'string') {
         // Environment variable not set (e.g., development env)
@@ -40,6 +57,7 @@ const RuntimeConfiguration = {
           return originVal;
         }
       }
+
       // Use the new value
       return result;
     };
