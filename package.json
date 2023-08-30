@@ -24,7 +24,7 @@
     "@citation-js/plugin-bibtex": "^0.5.7",
     "@citation-js/plugin-csl": "^0.5.7",
     "@citation-js/plugin-doi": "^0.5.7",
-    "@deu/deu-cookie-consent": "^2.1.0",
+    "@deu/deu-cookie-consent": "^3.0.3",
     "@deu/deu-header-footer": "^4.20.2-beta.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.4",
     "@fortawesome/free-brands-svg-icons": "^5.11.2",
