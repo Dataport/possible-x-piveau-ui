@@ -1,3 +1,12 @@
+## [3.9.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.12...v3.9.13) (2023-08-30)
+
+
+### Features
+
+* Evaluate Array values in Runtime Configuration by using JSON.parse ([1f1ba0e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1f1ba0ef7e15b7f817b0fed53fd45c129cc723dc))
+
+
+
 ## [3.9.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.11...v3.9.12) (2023-08-29)
 
 
