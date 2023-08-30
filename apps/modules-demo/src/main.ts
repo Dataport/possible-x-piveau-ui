@@ -81,7 +81,7 @@ dayjs.extend(relativeTime);
 
 Vue.config.devtools = true;
 
-Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
+Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: true });
 const env = Vue.prototype.$env;
 
 import { ecStyle } from '../config/user-config.js';

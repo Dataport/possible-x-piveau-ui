@@ -5,7 +5,7 @@
             <h2>{{ $t('message.metadata.distributions') }} ({{ getData('distributions').length }})</h2>
         </div>
         <ul class="list list-unstyled col-12" v-if="getData('distributions').length > 0">
-            <li class="row border-bottom" v-for="(distribution, id) in getData('distributions')"
+            <li class="row border-bottom mt-2" v-for="(distribution, id) in getData('distributions')"
                 :key="`distribution${id + 1}`">
                 <!-- DISTRIBUTIONS FORMAT -->
                 <span class="d-inline-block col-md-1 col-2 pr-md-1 pr-0 m-md-0 m-auto">

@@ -1,3 +1,83 @@
+## [3.9.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.12...v3.9.13) (2023-08-30)
+
+
+### Features
+
+* Evaluate Array values in Runtime Configuration by using JSON.parse ([1f1ba0e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1f1ba0ef7e15b7f817b0fed53fd45c129cc723dc))
+
+
+
+## [3.9.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.11...v3.9.12) (2023-08-29)
+
+
+### Bug Fixes
+
+* small changes in the DPI ([a75925e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a75925ea4dec481a6922bb1245fae817c1a706a3))
+
+
+
+## [3.9.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.10...v3.9.11) (2023-08-29)
+
+
+### Bug Fixes
+
+* erased testconfig for vite ([d05b1e9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d05b1e998db0cb702e004e14a53ceb550a3d73cc))
+* fixed the Catalogue URL ([730cf57](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/730cf57c801b5e10dd746a6ab981c4fb8b0dad7f))
+
+
+
+## [3.9.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.9...v3.9.10) (2023-08-25)
+
+
+
+## [3.9.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.8...v3.9.9) (2023-08-25)
+
+
+### Bug Fixes
+
+* fixed step bar ([6f03ed7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6f03ed79b08307ba107a77f910923d2f27d2aad0))
+
+
+
+## [3.9.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.7...v3.9.8) (2023-08-25)
+
+
+### Bug Fixes
+
+* reverted Stepper Styling ([589187b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/589187bd3a2e1d6b144293dc1ab7b1d93cd4e0ce))
+
+
+
+## [3.9.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.6...v3.9.7) (2023-08-24)
+
+
+
+## [3.9.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.5...v3.9.6) (2023-08-24)
+
+
+### Bug Fixes
+
+* modal for invalid values for temporal resolution ([07000a5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/07000a50455494d5e704b37c48fb3a16962a843f))
+* show Unbekannt if neither modification nor release date is available ([05372c1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/05372c11459d15f32772ae87ac53864417ce4deb))
+* typo modificationDate -> releaseDate ([8706929](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/870692986116da1f7e53120a1a243a2994685355))
+
+
+
+## [3.9.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.4...v3.9.5) (2023-08-23)
+
+
+### Bug Fixes
+
+* filter duplicate distribution content entries ([1c035f0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1c035f0072698de0d3f0a317f7aa76a75b994b7b))
+* remove leftover distributionCanShowMore props ([eece3d1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/eece3d17be1ff444fe9eb11c54feb30b53c6db2f))
+
+
+### Features
+
+* add distribution updateDate content ([2469910](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2469910cfc27df9df48052f4971abbc6c5df70c3))
+
+
+
 ## [3.9.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.3...v3.9.4) (2023-08-22)
 
 

@@ -17,6 +17,7 @@ declare module 'vue/types/vue' {
 // Takes a base configuration (e.g., process.env) and a runtime configuration
 // and merges the runtime configuration over the base configuration to overwrite it.
 // Overwritten values are always of type string. Pass an empty string to model a falsy value.
+
 const RuntimeConfiguration = {
   install(Vue, runtimeConfig, options = {}) {
     const defaultOptions = {
@@ -30,9 +31,32 @@ const RuntimeConfiguration = {
     // i.e., use this.$env property when environment variable is not set
     const ignoreUnusedVariables = (originVal, newVal) => {
       const result = newVal;
-      // Evaluate Boolean Types (Fix Issue https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/592)
+
+      if (typeof newVal === 'string') {
+
+        // TODO: 1. Evaluate Arrays
+        if (newVal.startsWith('[') && newVal.endsWith(']')) {
+          // This looks like an array
+          // Use JSON.parse to transform it into a real array
+          newVal =  newVal.replaceAll("'", '"');
+          return JSON.parse(  newVal  );
+        }
+
+        // TODO: 2. Evaluate Objects
+        if (newVal.startsWith('{') && newVal.endsWith('}') && typeof newVal === 'string') {
+          // This looks like an object
+          // Use JSON.parse to transform it into a real object
+          newVal =  newVal.replaceAll("'", '"');
+          return JSON.parse(newVal);
+        }
+
+      }
+
+      // 3. Evaluate Boolean values
       if (newVal === 'false') return false;
       if (newVal === 'true') return true;
+
+      // 4. Evaluate undefined values
       // Take originVal when env variable is not set
       if (originVal !== undefined && typeof newVal === 'string') {
         // Environment variable not set (e.g., development env)
@@ -40,6 +64,7 @@ const RuntimeConfiguration = {
           return originVal;
         }
       }
+
       // Use the new value
       return result;
     };
