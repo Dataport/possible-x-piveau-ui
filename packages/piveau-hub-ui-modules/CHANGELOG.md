@@ -1,3 +1,21 @@
+## [3.9.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.14...v3.9.15) (2023-08-30)
+
+
+### Bug Fixes
+
+* formatting ([b37fe6c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b37fe6c9e51dd6ef9e1a56bd9efe7018e47dc56e))
+
+
+
+## [3.9.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.13...v3.9.14) (2023-08-30)
+
+
+### Bug Fixes
+
+* fixed dcatap-de ([364ec72](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/364ec7247682e6e7e47446cf0458a06ffe2b17c3))
+
+
+
 ## [3.9.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.12...v3.9.13) (2023-08-30)
 
 

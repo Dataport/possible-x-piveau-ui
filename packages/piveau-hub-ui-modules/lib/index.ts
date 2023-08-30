@@ -127,6 +127,7 @@ import DatasetDetailsPages from "./datasetDetails/features/DatasetDetailsPages";
 import DatasetDetailsRelations from "./datasetDetails/features/DatasetDetailsRelations";
 import DatasetDetailsSubject from "./datasetDetails/features/DatasetDetailsSubject";
 import DatasetDetailsVisualisations from "./datasetDetails/features/DatasetDetailsVisualisations";
+import EmbedDataset from "./embed/EmbedDataset";
 
 // Import datasetDetails header
 import DatasetDetailsHeader from "./datasetDetails/header/DatasetDetailsHeader";
@@ -338,6 +339,7 @@ export {
   DatasetDetailsShareButton, 
   DatasetDetailsSimilarDatasets, 
   DatasetDetailsSkeleton,
+  EmbedDataset,
 
   DatasetDate, 
   Datasets,

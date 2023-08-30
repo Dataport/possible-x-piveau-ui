@@ -9,6 +9,7 @@ import {
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
   DatasetDetails,
+  EmbedDataset,
   MapBasic,
   MapBoundsReceiver,
   Catalogues,
@@ -106,6 +107,16 @@ const router = new Router({
           meta: {
             title,
           },
+        },
+        {
+          path: 'embed',
+          name: 'EmbedDataset',
+          components: {
+            datasetDetailsSubpages: EmbedDataset,
+          },
+          meta: {
+            title,
+          }
         },
         // {
         //   path: 'activityStream',

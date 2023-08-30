@@ -96,7 +96,7 @@
         </div>
       </div>
       <div v-if="this.$env.content.datasetDetails.embed.enable" class="d-inline dropdown dsd-link-cite ml-auto">
-        <button  type="button" data-toggle="modal" data-target="#embedModal" class="nav-item nav-link text-nowrap bg-none" fragment="#" role="button" id="" style="background:none;">
+        <button type="button" data-toggle="modal" data-target="#embedModal" class="nav-item nav-link text-nowrap bg-none border-0" fragment="#" role="button" id="" style="background:none;">
           <span title="Embed"
                 data-toggle="tooltip"
                 data-placement="top"
