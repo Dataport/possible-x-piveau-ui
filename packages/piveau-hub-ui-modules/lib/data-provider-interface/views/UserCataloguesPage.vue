@@ -6,7 +6,7 @@
       <div v-for="(catalog, index) in catalogues" :key="index" class="annifItems ">
         <app-link
           :to="{ name: 'CatalogueDetails', query: { locale: $route.query.locale }, params: { ctlg_id: catalog.id } }">{{
-            catalog.title }}</app-link>
+            catalog.title}}</app-link>
       </div>
     </div>
     <!-- <ul class="list-group col-md-6 m-auto">
@@ -35,12 +35,13 @@ export default {
   data() {
     return {
       info: {},
-      catalogues: []
+      catalogues: [],
     };
   },
   computed: {
     ...mapGetters('auth', [
       'getUserCatalogs',
+      'getUserCatalogIds'
     ]),
 
   },
@@ -59,6 +60,18 @@ export default {
       this.info.data.result.results.forEach((e) => {
         this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
       });
+      let cache = []
+      for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
+        for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
+          if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
+            this.getUserCatalogIds[i] = this.catalogues[a].title;
+            cache.push({id:this.catalogues[a].id, title: this.catalogues[a].title})
+            break
+          }
+        }
+      }
+      this.catalogues = cache
+      
     },
   },
   created() {
