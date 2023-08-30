@@ -17,6 +17,7 @@ declare module 'vue/types/vue' {
 // Takes a base configuration (e.g., process.env) and a runtime configuration
 // and merges the runtime configuration over the base configuration to overwrite it.
 // Overwritten values are always of type string. Pass an empty string to model a falsy value.
+
 const RuntimeConfiguration = {
   install(Vue, runtimeConfig, options = {}) {
     const defaultOptions = {
@@ -31,18 +32,24 @@ const RuntimeConfiguration = {
     const ignoreUnusedVariables = (originVal, newVal) => {
       const result = newVal;
 
-      // TODO: 1. Evaluate Arrays
-      if (newVal.startsWith('[') && newVal.endsWith(']')) {
-        // This looks like an array
-        // Use JSON.parse to transform it into a real array
-        return JSON.parse(newVal);
-      }
+      if (typeof newVal === 'string') {
 
-      // TODO: 2. Evaluate Objects
-      if (newVal.startsWith('{') && newVal.endsWith('}')) {
-        // This looks like an object
-        // Use JSON.parse to transform it into a real object
-        return JSON.parse(newVal);
+        // TODO: 1. Evaluate Arrays
+        if (newVal.startsWith('[') && newVal.endsWith(']')) {
+          // This looks like an array
+          // Use JSON.parse to transform it into a real array
+          newVal =  newVal.replaceAll("'", '"');
+          return JSON.parse(  newVal  );
+        }
+
+        // TODO: 2. Evaluate Objects
+        if (newVal.startsWith('{') && newVal.endsWith('}') && typeof newVal === 'string') {
+          // This looks like an object
+          // Use JSON.parse to transform it into a real object
+          newVal =  newVal.replaceAll("'", '"');
+          return JSON.parse(newVal);
+        }
+
       }
 
       // 3. Evaluate Boolean values
