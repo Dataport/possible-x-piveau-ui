@@ -1,7 +1,7 @@
 <template>
    <div class="modal fade" id="embedModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.75);">
       <div class="modal-dialog  modal-dialog-centered modal-lg" role="document"  style="z-index: 1100; max-width:52%;">
-         <div class="modal-content border-none" style="border-radius: 0; padding: 1.375rem 3.125rem 3.75rem 3.125rem;">
+         <div class="modal-content border-none" style="border-radius: 0; padding: 1rem 2.125rem 2.75rem;">
             <button type="button" id="modal-close-btn" data-dismiss="modal" class="close" aria-label="Close">
                {{ $t('message.datasetDetails.datasets.modal.close') }}
                <span aria-hidden="true" class="close-icon rounded-circle">
@@ -29,7 +29,7 @@
                               />
                         </div>
                      </div>
-                     <div class="input-wrapper" style="padding-left: 3.3rem">
+                     <div class="input-wrapper height" style="padding-left: 3.3rem">
                         <label for="iframeHeight">{{ $t('message.datasetDetails.datasets.modal.height') }}</label><br>
                         <div class="input-with-px">
                            <input
@@ -45,8 +45,8 @@
                   </div>
                </div>
                <div class="ecl-form-group">
-                  <label class="ecl-form-label" for="ebmedTextarea" style="font-size:26px; font-weight: 400; color: #000000;">{{ $t('message.datasetDetails.datasets.modal.code')}}</label>
-                  <textarea id="ebmedTextarea" style="width: 100%; resize: none; padding: 30px 25px 0px 25px; overflow: hidden; font-size:26px; line-height: 1.1; color:#888888; margin-top: 1.375rem;"
+                  <label class="ecl-form-label" for="ebmedTextarea" style="font-size:18px; font-weight: 400; color: #000000;">{{ $t('message.datasetDetails.datasets.modal.code')}}</label>
+                  <textarea id="ebmedTextarea" style="width: 100%; resize: none; padding: 20px 25px 0px 20px; overflow: hidden; font-size:18px; line-height: 1.1; color:#888888; margin-top: 1.375rem; word-break: break-all;"
                      class="ecl-text-area ecl-text-area--m" rows="4" :value="embedCode" readonly></textarea>
                </div>
             </div>
@@ -90,7 +90,7 @@ export default {
         this.iframeWidth = Math.min(Math.max(this.iframeWidth, this.minRange), this.maxRange);
         this.iframeHeight = Math.min(Math.max(this.iframeHeight, this.minRange), this.maxRange);
          // Generate the embed code
-        const currentURL = window.location.href;
+        const currentURL = window.location.href.replace(/\?.*$/, '') + '/embed';
         this.embedCode = `<iframe src="${currentURL}" width="${this.iframeWidth}" height="${this.iframeHeight}" frameborder="0"></iframe>`;
     },
     copy() {
@@ -119,29 +119,29 @@ export default {
   font-family: 'Arial';
   font-style: normal;
   font-weight: 700;
-  font-size: 40px;
-  line-height: 24px;
+  font-size: 24px;
+  // line-height: 24px;
   color: #000000;
 }
 .modal-header {
   border-bottom: none;
   padding: 0;
-  padding-bottom: 1.875rem;
+  padding-bottom: 1rem;
 }
 .modal-body {
   border-top: 1px solid #e9ecef;
   padding: 0;
 }
 .ecl-button {
-    font-size: 24px;
+    font-size: 16px;
 }
 .modal-footer {
   border-top: none;
-   padding: 3.438rem 0 0 0;
-   font-size: 24px;
+   padding: 2.438rem 0 0 0;
+   font-size: 16px;
 }
 .close {
-  font-size: 22px;
+  font-size: 14px;
   color: #1C3D66;
   opacity: 1;
   padding: 0.5rem!important;
@@ -152,10 +152,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     float: right;
-    margin-top: 3px;
     margin-left: 10px;
   }
 }
@@ -163,8 +162,8 @@ export default {
   color: #000000!important;
 }
 .iframeSettings {
-    padding: 2.875rem 0 3.438rem 0;
-    font-size: 24px;
+    padding: 1.875rem 0 2.438rem 0;
+    font-size: 18px;
 
     input {
         padding: 1.563rem 0rem;
@@ -172,12 +171,13 @@ export default {
  /* Style the input field wrapper */
 .input-with-px {
   position: relative;
-
-margin-top: 21px;
+  margin-top: 5px;
+  
 }
 
 .input-with-px input {
-  padding: 25px 80px 20px 80px;
+  padding: 15px 50px 15px 50px;
+  border: 1px solid #A5A5A5;
 }
 
 /* Style the "px" text */
@@ -194,63 +194,22 @@ margin-top: 21px;
 .copied {
     margin-left: 30px;
 }
-@media screen and (max-width: 1850px) {
-  .modal-title {
-      font-size: 28px;
-  }
-  .close {
-    font-size: 18px;
-  }
-  .ecl-button {
-      font-size: 18px;
-  }
-  .copied {
-      font-size: 16px;
-  }
-}
-@media screen and (max-width: 1366px) {
-      .modal-title {
-      font-size: 22px;
-  }
-    .close {
-    font-size: 16px;
-  }
-  textarea#ebmedTextarea {
-    padding: 15px 10px 10px 10px;
-  }
-}
-@media screen and (max-width: 1280px) { 
-    .modal-content {
-        padding: 1.375rem 1.125rem 1.75rem;
-    }
-    textarea#ebmedTextarea {
-       padding: 15px 10px 30px 10px;
-  }
-  .iframeSettings .input-with-px input {
-      padding: 25px 60px 20px 60px;
-  }
-}
-@media screen and (max-width: 935px) {
- .iframeSettings {
-     flex-direction: column!important;
-     
- }
- .input-wrapper {
-     padding-left: 0!important;
-     padding-bottom: 20px;
- }
- .iframeSettings {
-     padding: 1.875rem 0 1.438rem 0;
- }
- .modal-dialog {
-     max-width: 70%!important;
- }
-
-}
 /* Firefox-specific styles */
 @-moz-document url-prefix() {
   .input-with-px input {
     max-width: 240px;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .iframeSettings {
+    flex-direction: column!important;
+  }
+  .height {
+    padding-left: 0!important;
+    margin-top: 10px;
+  }
+  #ebmedTextarea {
+    padding-bottom: 20px!important;
   }
 }
 </style>

@@ -7,11 +7,13 @@
             data-placement="top"
             data-cy="dataset-distributions"
             class="distributions-header-title-title">
-          {{ $t('message.metadata.distributions') }}
+          {{ $t('message.metadata.distributions') }} 
         </h2>
+       
         <div class="distributions-header-title-count-container">
           <h3 class="distributions-header-title-count">{{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }}</h3>
         </div>
+        
       </div>
       <download-all-distributions
         v-if="downloadAllTop"
@@ -42,7 +44,7 @@ export default {
     'openModal',
     'getDistributionTitle',
     'showDownloadUrls',
-    'isUrlInvalid'
+    'isUrlInvalid',
   ],
   data() {
     return {
@@ -54,7 +56,7 @@ export default {
       'getDistributions',
       'getLanguages'
     ])
-  }
+  },
 }
 </script>
 

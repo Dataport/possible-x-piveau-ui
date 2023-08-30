@@ -20,7 +20,7 @@
 import DatasetDate from "../datasets/DatasetDate";
 export default {
   name: "PropertyValue",
-  components: {DatasetDate},
+  components: { DatasetDate },
   props: {
     property: String,
     value: [String, Number],
