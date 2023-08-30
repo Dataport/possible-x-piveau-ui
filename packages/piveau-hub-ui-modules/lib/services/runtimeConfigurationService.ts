@@ -34,16 +34,16 @@ const RuntimeConfiguration = {
 
       if (typeof newVal === 'string') {
 
-        // TODO: 1. Evaluate Arrays
-        if (newVal.startsWith('[') && newVal.endsWith(']')) {
+        // 1. Evaluate Arrays
+        if (  newVal.startsWith('[') && newVal.endsWith(']')  ) {
           // This looks like an array
           // Use JSON.parse to transform it into a real array
           newVal =  newVal.replaceAll("'", '"');
           return JSON.parse(  newVal  );
         }
 
-        // TODO: 2. Evaluate Objects
-        if (newVal.startsWith('{') && newVal.endsWith('}') && typeof newVal === 'string') {
+        // 2. Evaluate Objects TODO: Do we need this?
+        if (  newVal.startsWith('{') && newVal.endsWith('}')  ) {
           // This looks like an object
           // Use JSON.parse to transform it into a real object
           newVal =  newVal.replaceAll("'", '"');
