@@ -1,3 +1,13 @@
+## [3.9.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.16...v3.9.17) (2023-08-31)
+
+
+### Bug Fixes
+
+* added logging to Catalogues ([ed1fdea](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ed1fdea43214fa96141c9b4e7729c3db251a0e56))
+* fixed Catalogue overview ([e220f8c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e220f8c0d4bbb850a236dc3678bf97d66162d755))
+
+
+
 ## [3.9.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.15...v3.9.16) (2023-08-30)
 
 
