@@ -1,6 +1,6 @@
 /* eslint-disable */
-import Vue from 'vue';
-import Router from 'vue-router';
+import * as Vue from 'vue';
+import * as Router from 'vue-router';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import {
   DatasetDetailsCategories,
@@ -32,14 +32,13 @@ Vue.use(Router);
 
 const title = GLUE_CONFIG.metadata.title;
 
-const router = new Router({
-  base: '/',
-  mode: GLUE_CONFIG.routing.routerOptions.mode,
+const router = Router.createRouter({
+  history: Router.createWebHistory('/'),
   linkActiveClass: 'active',
   scrollBehavior(to, from, savedPosition) {
-    if (to.matched.some(route => route.meta.scrollTop)) return { x: 0, y: 0 };
+    if (to.matched.some(route => route.meta.scrollTop)) return { left: 0, top: 0 };
     else if (savedPosition) return savedPosition;
-    else return { x: 0, y: 0 };
+    else return { left: 0, top: 0 };
   },
   routes: [
     {
@@ -189,7 +188,7 @@ const router = new Router({
     // },
     {
       path: '/404',
-      alias: '*',
+      alias: '/(.)*',
       name: 'NotFound',
       component: NotFound,
       meta: {
