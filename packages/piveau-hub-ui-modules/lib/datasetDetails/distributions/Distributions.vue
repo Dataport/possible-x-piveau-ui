@@ -8,6 +8,7 @@
           :showDownloadUrls="showDownloadUrls"
           :isUrlInvalid="isUrlInvalid"
           :showPublisher="showPublisher"
+          :embed="embed"
         />
         <ul class="list list-unstyled w-100">
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
@@ -50,6 +51,7 @@
                 :openIfValidUrl="openIfValidUrl"
                 :showTooltipVisualiseButton="showTooltipVisualiseButton"
                 :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
+                :embed="embed"
             />
           </div>
         </ul>
@@ -126,6 +128,7 @@ export default {
     showTooltipVisualiseButton: Function,
     appendCurrentLocaleToURL: Function,
     showPublisher: Boolean,
+    embed: Boolean,
   },
   data() {
     return {

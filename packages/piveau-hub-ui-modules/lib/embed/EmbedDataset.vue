@@ -12,16 +12,20 @@
            <p class="px-5 py-3 m-0">data.europa.eu  - The official portal for European data</p>
        </div>
        <div class="p-5">
-            <dataset-details-header-title />
+            <dataset-details-header-title 
+              titleFontSize="0.75rem"
+            />
             <div  class="mb-5">
-                <DatasetDetailsHeaderCatalogue 
+                <dataset-details-header-catalogue 
                     :disableLink="true"
+                    catalogueNameFontSize="1rem"
                 />
              </div>
-                <DatasetDetailsDataset
+                <dataset-details-dataset
                     :showDatasetDescription="false"
                     :showDatasetProperties="false"
                     :showPublisher="true"
+                    :embed="true"
                 />   
        </div>
   </div>

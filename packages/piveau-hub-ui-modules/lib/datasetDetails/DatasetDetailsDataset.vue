@@ -56,6 +56,7 @@
         :openIfValidUrl="openIfValidUrl"
         :showTooltipVisualiseButton="showTooltipVisualiseButton"
         :showPublisher="showPublisher"
+        :embed="embed"
       />
 
       <dataset-details-features
@@ -196,8 +197,11 @@
       showPublisher: {
         type: Boolean,
         default: () => false,
-      }
-
+      },
+      embed: {
+        type: Boolean,
+        default: () => false,
+      },
     },
     data() {
       return {

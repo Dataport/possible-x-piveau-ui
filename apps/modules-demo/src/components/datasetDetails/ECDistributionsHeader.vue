@@ -6,6 +6,7 @@
           data-toggle="tooltip"
           data-placement="top"
           data-cy="dataset-distributions"
+          :style="{ fontSize: embed ? '1.5rem' : '' }"
       >
         {{ $t('message.metadata.distributions') }} ({{ getDistributions ? getDistributions.length.toLocaleString('fi') : 0 }})
       </h2>
@@ -18,7 +19,9 @@
       />
       </div>
     </div>
-    <div class="d-none d-md-flex distributions-list-top">
+    <div class="d-none d-md-flex distributions-list-top"
+       :style="{ fontSize: embed ? '1rem' : '' }"
+    >
       <div id="description"><div><span>Link to the data</span></div></div>
       <div id="format"><div><span>Format</span></div></div>
       <div id="added" class="d-none d-md-block"><div><span>{{ $t('message.metadata.updated') }}</span></div></div>
@@ -35,7 +38,7 @@ import { PropertyValue } from "@piveau/piveau-hub-ui-modules";
 export default {
   name: "ECDistributionsHeader",
   props: [
-    'showPublisher'
+    'showPublisher', 'embed'
   ],
   components: {
     PropertyValue
