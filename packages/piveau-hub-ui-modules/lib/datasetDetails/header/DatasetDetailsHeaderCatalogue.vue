@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex align-items-center dsd-header-catalogue">
     <div class="d-lg-none dsd-title-tag">
-      <span>
+      <span >
         {{$t('message.metadata.dataset')}}
       </span>
     </div>
@@ -13,6 +13,7 @@
         data-toggle="tooltip" 
         data-placement="top"
         :class="{ 'disabled-link': disableLink }"
+        :style="{ fontSize: catalogueNameFontSize }"
       >
         {{ getTranslationFor(getCatalog.title, $route.query.locale, getLanguages) }}
       </app-link>
@@ -31,6 +32,7 @@ export default {
   components: {AppLink},
   props: {
     disableLink: Boolean,
+    catalogueNameFontSize: String,
   },
   computed: {
     ...mapGetters('datasetDetails', [

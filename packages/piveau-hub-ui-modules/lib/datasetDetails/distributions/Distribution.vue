@@ -5,6 +5,7 @@
         :distribution="distribution"
         :getDistributionFormat="getDistributionFormat"
         :distributionFormatTruncated="distributionFormatTruncated"
+        :embed="embed"
       />
       <distribution-details
         :getDistributionTitle="getDistributionTitle"
@@ -126,6 +127,7 @@ export default {
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
     appendCurrentLocaleToURL: Function,
+    embed: Boolean,
   },
   computed: {
     updatedDate() {
