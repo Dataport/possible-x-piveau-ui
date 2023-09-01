@@ -70,7 +70,6 @@ export default {
   background-color: white; /* Semi-transparent background */
   display: flex;
   color: black;
-  font-size: 24px;
   z-index: 99; /* Ensure it's above other content */
 }
 .logo {
