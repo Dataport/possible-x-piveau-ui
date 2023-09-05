@@ -38,16 +38,29 @@ const RuntimeConfiguration = {
         if (  newVal.startsWith('[') && newVal.endsWith(']')  ) {
           // This looks like an array
           // Use JSON.parse to transform it into a real array
-          newVal =  newVal.replaceAll("'", '"');
-          return JSON.parse(  newVal  );
+          try {
+            JSON.parse(  newVal  );
+            return JSON.parse(  newVal  );
+          } catch (error) {
+            console.error("Invalid JSON, please note that the JSON standard requires double quotes: \n" + newVal );
+            console.error(error);
+          }
+
         }
 
-        // 2. Evaluate Objects TODO: Do we need this?
+        // 2. Evaluate Objects
+        // TODO: Do we need this? It seems that no values are objects
         if (  newVal.startsWith('{') && newVal.endsWith('}')  ) {
           // This looks like an object
           // Use JSON.parse to transform it into a real object
-          newVal =  newVal.replaceAll("'", '"');
-          return JSON.parse(newVal);
+          try {
+            JSON.parse(  newVal  );
+            return JSON.parse(  newVal  );
+          } catch (error) {
+            console.error("Invalid JSON, please note that the JSON standard requires double quotes: \n" + newVal );
+            console.error(error);
+          }
+
         }
 
       }
