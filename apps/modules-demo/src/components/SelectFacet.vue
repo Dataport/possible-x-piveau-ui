@@ -45,7 +45,7 @@
 <script>
 import Vue from 'vue';
 import {getFacetTranslation} from "@/modules/utils/helpers";
-import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue3-click-away';
 import Dropdown from "@/modules/widgets/Dropdown";
 
 export default {

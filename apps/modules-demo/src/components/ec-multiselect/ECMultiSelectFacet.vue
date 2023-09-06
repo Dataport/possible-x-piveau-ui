@@ -35,7 +35,7 @@
 import Vue from 'vue';
 import { helpers } from '@piveau/piveau-hub-ui-modules';
 const { getFacetTranslation } = helpers;
-import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue3-click-away';
 import ECCheckbox from "@/components/ECCheckbox";
 import ECFacetHeader from "@/components/ECFacetHeader";
 import ECSelectDisplay from "@/components/ec-multiselect/ECSelectDisplay";

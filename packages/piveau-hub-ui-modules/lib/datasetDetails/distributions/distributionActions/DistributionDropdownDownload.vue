@@ -20,7 +20,7 @@
 <script>
 /* eslint-disable */
 import $ from 'jquery';
-import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue3-click-away';
 import { replaceHttp } from '../../../utils/helpers';
 import AppLink from "../../../widgets/AppLink";
 

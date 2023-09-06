@@ -1,27 +1,18 @@
 // @ts-nocheck
-
-// Import IE Promise polyfill
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
 import VueProgressBar from 'vue-progressbar';
-import VueI18n from 'vue-i18n';
 import VueFormulate from '@braid/vue-formulate';
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue';
+
+import { createI18n } from 'vue-i18n'
+import { createApp } from 'vue'
+
 import Meta from 'vue-meta';
 import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter, { Header, Footer} from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
 import VueSkeletonLoader from 'skeleton-loader-vue';
-// import AppToast from '@/components/AppToast';
-// Import v-select
-// Import i18n validation messages for vueformulate
-// import {
-// ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv,
-// } from '@braid/vue-formulate-i18n';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -46,7 +37,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VuePositionSticky from 'vue-position-sticky';
-// Import main user configurations (glueConfig) and i18n configurations
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
 import runtimeConfig from '../config/runtime-config';
 import router from './router';
@@ -78,12 +68,6 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-
-Vue.config.devtools = true;
-
-Vue.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: true });
-const env = Vue.prototype.$env;
-
 import { ecStyle } from '../config/user-config.js';
 
 import ECSelectFacet from "./components/ECSelectFacet.vue";
@@ -101,6 +85,13 @@ import ECDistributionDetails from "./components/datasetDetails/ECDistributionDet
 
 import VueCookie from 'vue-cookie';
 
+const app = createApp(App);
+
+// Runtime Configuration Service
+app.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: true });
+const env = app.prototype.$env;
+
+// Custom components
 const components = ecStyle ? {
   SelectFacet: ECSelectFacet,
   RadioFacet: ECRadioFacet,
@@ -133,31 +124,99 @@ configureModules({
   }
 });
 
-
-Vue.component('InfoSlot', InfoSlot);
-Vue.component('ConditionalInput', ConditionalInput);
-Vue.component('Groupedinput', Groupedinput);
-Vue.component('AutocompleteInput', AutocompleteInput);
-Vue.component('CustomURL', CustomURL);
-Vue.component('CustomNumber', CustomNumber);
-Vue.component('UniqueIdentifierInput', UniqueIdentifierInput);
-Vue.component('FileUpload', FileUpload);
-Vue.component('DatePicker', DatePicker);
-Vue.component('DateTimePicker', DateTimePicker);
-
-// Vue.component('AppToast', AppToast);
-Vue.component('AppSnackbar', AppSnackbar);
-Vue.component('AppConfirmationDialog', AppConfirmationDialog);
-
-// DEU Redesign Components
-Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
+app.component('InfoSlot', InfoSlot);
+app.component('ConditionalInput', ConditionalInput);
+app.component('Groupedinput', Groupedinput);
+app.component('AutocompleteInput', AutocompleteInput);
+app.component('CustomURL', CustomURL);
+app.component('CustomNumber', CustomNumber);
+app.component('UniqueIdentifierInput', UniqueIdentifierInput);
+app.component('FileUpload', FileUpload);
+app.component('DatePicker', DatePicker);
+app.component('DateTimePicker', DateTimePicker);
+app.component('AppSnackbar', AppSnackbar);
+app.component('AppConfirmationDialog', AppConfirmationDialog);
+app.component('SelectedFacetsOverview', SelectedFacetsOverview);
+app.component('vue-skeleton-loader', VueSkeletonLoader);
 
 
-Vue.component('vue-skeleton-loader', VueSkeletonLoader);
+// Vue Router
+app.use(router);
 
-Vue.use(VueCookie);
+// Vuex Store
+app.use(store);
 
-Vue.use(VueFormulate, {
+// Sync store and router
+sync(store, router);
+
+// Vue i18n
+const LOCALE = env.languages.locale;
+const FALLBACKLOCALE = env.languages.fallbackLocale;
+
+const i18n = createI18n({
+  allowComposition: true,
+  locale: LOCALE,
+  fallbackLocale: FALLBACKLOCALE,
+  messages: I18N_CONFIG,
+  silentTranslationWarn: true,
+  silentFallbackWarn: true,
+});
+
+app.i18n = i18n;
+app.use(i18n);
+
+// DEU - Header & Footer
+app.use(DeuHeaderFooter);
+app.component('deu-header', Header);
+app.component('deu-footer', Footer);
+
+// Piveau - Header & Footer
+// import PiveauHeaderFooter from '@piveau/piveau-header-footer';
+// require('@piveau/piveau-header-footer/dist/piveau-header-footer.css');
+// app.use(PiveauHeaderFooter);
+
+
+
+// Cookie Consent
+app.use(VueCookie);
+
+// Piwik
+const { isPiwikPro, siteId, trackerUrl } = env.tracker;
+app.use(UniversalPiwik, {
+  router,
+  isPiwikPro,
+  trackerUrl,
+  siteId,
+  debug: process.env.NODE_ENV === 'development',
+  useSuspendFeature: true,
+  pageViewOptions: {
+    // Set this to true as long as navigating to the /datasets/ route
+    // adds a 'minScore' query to prevent duplicated tracking
+    useDatasetsMinScoreFix: false,
+    // Send empty dataset metadata for every page view
+    // See https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2098
+    beforeTrackPageView: (to, from, tracker) => {
+      if (to.name !== 'DatasetDetailsDataset') {
+        tracker.trackDatasetDetailsPageView(null, null, {
+          dataset_AccessRights: '',
+          dataset_AccrualPeriodicity: '',
+          dataset_Catalog: '',
+          dataset_ID: '',
+          dataset_Publisher: '',
+          dataset_Title: '',
+        });
+      }
+    },
+  },
+});
+
+// Bulk Download
+app.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
+
+app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
+
+// Vue Formulate
+app.use(VueFormulate, {
   // plugins: [ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv],
   validationNameStrategy: vm => vm.context.label,
   // Define our custom slot component(s)
@@ -226,99 +285,28 @@ Vue.use(VueFormulate, {
   },
 });
 
-Vue.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
-
-Vue.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
-
-const { isPiwikPro, siteId, trackerUrl } = env.tracker;
-Vue.use(UniversalPiwik, {
-  router,
-  isPiwikPro,
-  trackerUrl,
-  siteId,
-  debug: process.env.NODE_ENV === 'development',
-  useSuspendFeature: true,
-  pageViewOptions: {
-    // Set this to true as long as navigating to the /datasets/ route
-    // adds a 'minScore' query to prevent duplicated tracking
-    useDatasetsMinScoreFix: false,
-    // Send empty dataset metadata for every page view
-    // See https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2098
-    beforeTrackPageView: (to, from, tracker) => {
-      if (to.name !== 'DatasetDetailsDataset') {
-        tracker.trackDatasetDetailsPageView(null, null, {
-          dataset_AccessRights: '',
-          dataset_AccrualPeriodicity: '',
-          dataset_Catalog: '',
-          dataset_ID: '',
-          dataset_Publisher: '',
-          dataset_Title: '',
-        });
-      }
-    },
-  },
-});
-
-
-// Configured language
-const LOCALE = env.languages.locale;
-const FALLBACKLOCALE = env.languages.fallbackLocale;
-
-Vue.use(VueI18n);
-// eslint-disable-next-line
-export const i18n = new VueI18n({
-  locale: LOCALE,
-  fallbackLocale: FALLBACKLOCALE,
-  messages: I18N_CONFIG,
-  silentTranslationWarn: true,
-});
-
-// Make i18n globally available
-Vue.i18n = i18n;
-
 // Set locale for dateFilters
 dateFilters.setLocale(LOCALE);
 
 // Vue-meta setup
-Vue.use(Meta, {
+app.use(Meta, {
   refreshOnceOnNavigation: true,
   debounceWait: 100,
 });
 
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@deu/deu-header-footer/dist/deu-header-footer.css';
 import '@piveau/piveau-hub-ui-modules/styles';
-
-// import('@piveau/piveau-hub-ui-modules/main-styles');
-
-// Bootstrap requirements to use js-features of bs-components
-import 'popper.js';
-
-import 'bootstrap';
-
 import './styles/styles.scss';
 
-// todo: restore this conditional
-// if (ecStyle) {
-//   require('./styles/ec-style.scss');
-// } else {
-//   require('./styles/old-deu-style.scss');
-// }
+import 'popper.js';
+import 'bootstrap';
+import 'leaflet/dist/leaflet.css';
 
 $(() => {
   $('[data-toggle="popover"]').popover({ container: 'body' });
   $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
 });
-
-// import '@piveau/piveau-hub-ui-modules/dist/piveau-hub-ui-modules.css';
-
-
-import '@fortawesome/fontawesome-free/css/all.css';
-
-import '@deu/deu-header-footer/dist/deu-header-footer.css';
-
-// OpenStreetMaps popup styles
-import 'leaflet/dist/leaflet.css';
-
-import '@piveau/dcatap-frontend/dist/dcatap-frontend.css';
 
 // Vue-progressbar setup
 const progressBarOptions = {
@@ -330,40 +318,21 @@ const progressBarOptions = {
     termination: 1000,
   },
 };
-Vue.use(VueProgressBar, progressBarOptions);
+app.use(VueProgressBar, progressBarOptions);
 
 // Vee-validate (form validation) setup
-Vue.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
+app.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 
 // Vue-inject setup
-Vue.use(injector, { components: true });
+app.use(injector, { components: true });
 
-Vue.use(DeuHeaderFooter);
-Vue.component('deu-header', Header);
-Vue.component('deu-footer', Footer);
-
-Vue.use(VuePositionSticky);
-
-// Sync store and router
-sync(store, router);
+app.use(VuePositionSticky);
 
 // Add Font Awesome Icons
 library.add(faGoogle, faGooglePlus, faGooglePlusG, faFacebook, faFacebookF, faInstagram, faTwitter, faLinkedinIn, faComment, faExternalLinkAlt, faPlus, faMinus, faArrowDown, faArrowUp, faInfoCircle, faExclamationTriangle);
-Vue.component('font-awesome-icon', FontAwesomeIcon);
+app.component('font-awesome-icon', FontAwesomeIcon);
 
-Vue.config.productionTip = false;
-
-// Creates the root Vue instance
-const createVueApp = () => {
-  const app = new Vue({
-    router,
-    store,
-    i18n,
-    render: h => h(App),
-  });
-
-  return app;
-};
+app.config.productionTip = false;
 
 // Promise that timeouts after x seconds
 let waitTimeoutHandle;
@@ -372,7 +341,7 @@ const wait = ms => new Promise((resolve, reject) => waitTimeoutHandle = setTimeo
 }, ms));
 
 const useVueWithKeycloakPromise = new Promise((resolve, reject) => {
-  Vue.use(vueKeycloak, {
+  app.use(vueKeycloak, {
     config: {
       rtp: env.authentication.rtp,
       ...env.authentication.keycloak,
@@ -410,7 +379,7 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
   }
 
   if (!env.authentication.useService) {
-    createVueApp().$mount('#app');
+    app.mount('#app');
     return {};
   }
 
@@ -422,7 +391,7 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
     console.error(ex);
   } finally {
     // Initialize Vue, even if Keycloak failed to load
-    createVueApp().$mount('#app');
+    app.mount('#app');
   }
 
   return {};

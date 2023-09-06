@@ -1,6 +1,4 @@
-/* eslint-disable */
-import Vue from 'vue';
-import Router from 'vue-router';
+import * as Router from 'vue-router';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import {
   Auth,
@@ -13,7 +11,6 @@ import {
   MapBasic,
   MapBoundsReceiver,
   Catalogues,
-  // CatalogPage,
   NotFound,
   SparqlSearch,
   Imprint,
@@ -35,13 +32,10 @@ import ECDatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetD
 
 import { ecStyle } from '../config/user-config';
 
-Vue.use(Router);
-
 const title = GLUE_CONFIG.metadata.title;
 
-const router = new Router({
-  base: GLUE_CONFIG.routing.routerOptions.base,
-  mode: GLUE_CONFIG.routing.routerOptions.mode,
+const router = Router.createRouter({
+  history: Router.createWebHistory(GLUE_CONFIG.routing.routerOptions.base),
   linkActiveClass: 'active',
   scrollBehavior(to, from, savedPosition) {
     if (to.matched.some(route => route.meta.scrollTop)) return { x: 0, y: 0 };
@@ -206,7 +200,7 @@ const router = new Router({
     },
     {
       path: '/404',
-      alias: '*',
+      alias: '/(.)*',
       name: 'NotFound',
       component: NotFound,
       meta: {
@@ -302,7 +296,7 @@ if (GLUE_CONFIG.content.dataProviderInterface.useService) {
 
 router.beforeEach((to, from, next) => {
   // Use a named group to match the file extension
-  const fileExtension = `(?:${import.meta.env.MODE === 'development' ? '--' : '\\.'}(rdf|n3|jsonld|ttl|nt))`;
+  const fileExtension = `(?:${process.env.MODE === 'development' ? '--' : '\\.'}(rdf|n3|jsonld|ttl|nt))`;
 
   // Use a named group to match the dataset ID
   const datasetId = `([a-z0-9-_]+)`;

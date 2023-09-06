@@ -23,9 +23,7 @@ Fixes the issue where the default datetime-local input is not supported well on 
 </template>
 
 <script>
-// https://github.com/mengxiong10/vue2-datepicker
-import DatePicker from 'vue2-datepicker';
-import 'vue2-datepicker/index.css';
+import DatePicker from 'vue3-datepicker';
 import { has } from 'lodash';
 
 export default {

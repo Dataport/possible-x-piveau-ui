@@ -1,4 +1,4 @@
-import vue from '@vitejs/plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import { lstatSync } from 'node:fs';
 import path from 'path';
 import { defineConfig } from 'vite';
@@ -46,7 +46,9 @@ export default defineConfig({
     'process.env': {},
     'process.env.buildconf': JSON.stringify(buildConfig)
   },
-
+  server: {
+    port: 8080
+  },
   resolve: {
     alias: [
       {
@@ -70,9 +72,12 @@ export default defineConfig({
         replacement: '$1',
       },
       {
-        // Use lodash-es instead of lodash
         find: 'lodash',
         replacement: 'lodash-es',
+      },
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
       },
     ],
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],

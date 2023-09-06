@@ -4,7 +4,7 @@
     id="datasetID"
     ref="datasetID"
     :data-type="context.type"
-    v-on="$listeners"
+    v-bind="$attrs"
   >
     <div v-if="getIsEditMode">
       <FormulateInput
