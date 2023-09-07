@@ -2,9 +2,9 @@
 
 // @ts-ignore
 import fs, {Stats} from "fs";
-import {doForAllAppConfigs} from "./utils/doForAppConfig";
+import {doForApps} from "./utils/doForApp";
 
-doForAllAppConfigs((app, appStats, folder) => {
+doForApps((app, appStats, folder) => {
     const userConfigSample = `${folder}/${app}/config/user-config.sample.js`;
     const userConfig = `${folder}/${app}/config/user-config.js`;
     if (fs.existsSync(userConfigSample)) {
