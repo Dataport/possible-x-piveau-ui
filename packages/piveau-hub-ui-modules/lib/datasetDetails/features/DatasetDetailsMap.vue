@@ -30,18 +30,16 @@
 import Vue, { defineAsyncComponent } from "vue";
 import {isArray, isNil, isString} from "lodash";
 import {mapGetters} from "vuex";
-import VueSkeletonLoader from 'skeleton-loader-vue';
-// DatasetDetailsFeatureHeader is imported globally
-// import DatasetDetailsFeatureHeader from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
+import { Skeletor } from 'vue-skeletor';
 
 const MapBasic = defineAsyncComponent({
   // Lazy-load mapbasic component
   loader: () => import("../../map/MapBasic"),
   loadingComponent: {
     // Load skeleton while the mapbasic component is loading
-    components: { VueSkeletonLoader },
+    components: { Skeletor },
     render: (h) => {
-      return h('vue-skeleton-loader',
+      return h('vue-skeletor',
       {
         props: {
         width: Vue.prototype.$env.content.maps.width,

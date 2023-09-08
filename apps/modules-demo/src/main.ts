@@ -12,7 +12,9 @@ import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
 import DeuHeaderFooter, { Header, Footer} from '@deu/deu-header-footer';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
-import VueSkeletonLoader from 'skeleton-loader-vue';
+
+import { Skeletor } from 'vue-skeletor';
+import 'vue-skeletor/dist/vue-skeletor.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -137,7 +139,6 @@ app.component('DateTimePicker', DateTimePicker);
 app.component('AppSnackbar', AppSnackbar);
 app.component('AppConfirmationDialog', AppConfirmationDialog);
 app.component('SelectedFacetsOverview', SelectedFacetsOverview);
-app.component('vue-skeleton-loader', VueSkeletonLoader);
 
 
 // Vue Router
@@ -176,6 +177,8 @@ app.component('deu-footer', Footer);
 // app.use(PiveauHeaderFooter);
 
 
+// Skeleton Loader
+app.component(Skeletor.name, Skeletor);
 
 // Cookie Consent
 app.use(VueCookie);
