@@ -1,4 +1,4 @@
-import vue from '@vitejs/plugin-vue2';
+import vue from '@vitejs/plugin-vue';
 import { lstatSync } from 'node:fs';
 import path from 'path';
 import { defineConfig } from 'vite';
@@ -46,13 +46,7 @@ export default defineConfig({
   server: {
     port: 8080
   },
-  define: {
-    // Shim process.env from webpack
-    'process.env': {
-      buildconf: buildConfig
-    }
-  },
-
+  define: {},
   resolve: {
     alias: [
       {
