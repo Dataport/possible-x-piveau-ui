@@ -71,33 +71,149 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 "vue2-datepicker": "^3.11.0",
 ```
 
-### 2. Apply changes to components in piveau-hub-ui
+## 2. Update `main.ts`
 
-<br>
+```js
+import { createI18n } from 'vue-i18n'
+import { createApp } from 'vue'
 
-#### In main.ts change:
+const app = createApp(App);
 
-| Old Value | New Value |
-| ------    | ------    |
-| |  |
+...
 
-<br>
+app.mount('#app');
+```
 
-#### In App.vue change: 
+Replace all occurences of `Vue.xxx` by `app.xxx`.
 
-| Old Value | New Value |
-| ------    | ------    |
-| |  |
+## 3. Update `router.js`
 
-<br>
+```js
+import * as Router from 'vue-router';
 
-#### In router.js change: 
+...
 
-| Old Value | New Value |
-| ------    | ------    |
-| |  |
+const router = Router.createRouter({
+  history: Router.createWebHistory(GLUE_CONFIG.routing.routerOptions.base),
+  linkActiveClass: 'active',
 
-### 5. Remove unused files in piveau-hub-ui
+  ...
+
+});
+```
+
+## 4. Update `index.html`
+
+### 4.1 Move `index.html` into root directory
+
+### 4.2 Update HTML code
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="shortcut icon" type="image/ico" href="/static/favicon.ico">
+    <link rel="preload" type="text/css" href="/static/preload-styles/loading-animation.css" as="style">
+    <link rel="preload" type="text/css" href="/static/fonts/material-icons.css" as="style">
+    <link rel="stylesheet" href="/static/preload-styles/loading-animation.css">
+    <link rel="stylesheet" href="/static/fonts/material-icons.css">
+    <script type="module" src="/src/main.ts"></script>
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+        </div>
+    </div>
+  </body>
+</html>
+```
+
+## 5. Replace `vue.config.js` by `vite.config.ts`
+
+```ts
+import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
+import { lstatSync } from 'node:fs';
+import path from 'path';
+import config from './config';
+
+const isSymlink = (pkg: string) => {
+  const packagePath = path.resolve('..', '..', 'node_modules', pkg);
+  try {
+    return lstatSync(packagePath).isSymbolicLink();
+  } catch {
+    return false;
+  }
+}
+
+let buildMode;
+if (process.env.NODE_ENV === 'production') {
+  buildMode = process.env.BUILD_MODE === 'test' ? 'test' : 'build';
+} else {
+  buildMode = 'dev';
+}
+
+const buildConfig = {
+  BASE_PATH: config[buildMode].assetsPublicPath,
+  SERVICE_URL: config[buildMode].serviceUrl,
+};
+
+export default defineConfig({
+  base: buildConfig.BASE_PATH,
+  plugins: [
+    vue(
+      { template: { compilerOptions: { whitespace: 'preserve' } } }
+    ),
+  ],
+  server: {
+    port: 8080
+  },
+  define: {},
+  resolve: {
+    alias: [
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, 'src')
+      },
+      {
+        find: '@modules-scss',
+        replacement: isSymlink('@piveau/piveau-hub-ui-modules') ?
+          path.resolve(__dirname, '..', '..', 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
+          : path.resolve(__dirname, 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
+      },
+      {
+        find: /^~(.*)$/,
+        replacement: '$1',
+      },
+      {
+        find: 'lodash',
+        replacement: 'lodash-es',
+      },
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
+      },
+    ],
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    preserveSymlinks: false
+  },
+
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'app.[hash].js',
+      }
+    }
+  }
+});
+```
+
+## 6. Remove outdated content from piveau-hub-ui
 
 - babel
 - webpack

@@ -1,5 +1,4 @@
 /* eslint-disable */
-import * as Vue from 'vue';
 import * as Router from 'vue-router';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import {
@@ -27,13 +26,10 @@ import {
   decode,
 } from "@piveau/piveau-hub-ui-modules";
 
-
-Vue.use(Router);
-
 const title = GLUE_CONFIG.metadata.title;
 
 const router = Router.createRouter({
-  history: Router.createWebHistory('/'),
+  history: Router.createWebHistory(GLUE_CONFIG.routing.routerOptions.base),
   linkActiveClass: 'active',
   scrollBehavior(to, from, savedPosition) {
     if (to.matched.some(route => route.meta.scrollTop)) return { left: 0, top: 0 };
@@ -100,24 +96,6 @@ const router = Router.createRouter({
             title,
           },
         },
-        // {
-        //   path: 'activityStream',
-        //   name: 'DatasetDetailsActivityStream',
-        //   component: {
-        //     datasetDetailsSubpages: DatasetDetailsActivityStream,
-        //   },
-        //   meta: {
-        //     title,
-        //   },
-        // },
-        // {
-        //   path: 'distributions/:dist_id',
-        //   name: 'DistributionDetails',
-        //   component: DistributionDetails,
-        //   meta: {
-        //     title,
-        //   },
-        // },
       ],
       meta: {
         title,
@@ -139,14 +117,6 @@ const router = Router.createRouter({
         title,
       },
     },
-    // {
-    //   path: '/home',
-    //   name: 'Home',
-    //   component: Home,
-    //   meta: {
-    //     title,
-    //   },
-    // },
     {
       path: '/imprint',
       name: 'Imprint',
@@ -177,15 +147,6 @@ const router = Router.createRouter({
         title,
       },
     },
-    // {
-    //   path: '/login',
-    //   name: 'login',
-    //   component: Auth,
-    //   meta: {
-    //     title,
-    //     requiresAuth: true,
-    //   },
-    // },
     {
       path: '/404',
       alias: '/(.)*',

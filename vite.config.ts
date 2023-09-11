@@ -1,7 +1,7 @@
 import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
 import { lstatSync } from 'node:fs';
 import path from 'path';
-import { defineConfig } from 'vite';
 import config from './config';
 
 const isSymlink = (pkg: string) => {
@@ -55,6 +55,10 @@ export default defineConfig({
       {
         find: 'lodash',
         replacement: 'lodash-es',
+      },
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
       },
     ],
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],

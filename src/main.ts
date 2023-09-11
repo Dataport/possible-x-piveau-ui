@@ -9,20 +9,21 @@ import Meta from 'vue-meta';
 import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
 import VuePositionSticky from 'vue-position-sticky';
-import { createI18n } from 'vue-i18n'
+import VueCookie from 'vue-cookie';
 
+import { createI18n } from 'vue-i18n'
 import { createApp } from 'vue'
 
 import router from './router';
-
+import App from './App';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
-import UniversalPiwik from '@piveau/piveau-universal-piwik';
+
 
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
 import runtimeConfig from '../config/runtime-config';
 
-import App from './App';
+import UniversalPiwik from '@piveau/piveau-universal-piwik';
 
 import vueKeyCloak from "./services/keycloakService"
 
@@ -89,14 +90,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-
 const app = createApp(App);
 
 app.config.devtools = true;
 
 app.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = app.prototype.$env;
-
 
 configureModules({
   services: GLUE_CONFIG.services,
@@ -114,10 +113,8 @@ configureModules({
   }
 });
 
-
 app.component('piveau-header', Header);
 app.component('piveau-footer', Footer);
-
 app.component('InfoSlot', InfoSlot);
 app.component('ConditionalInput', ConditionalInput);
 app.component('AutocompleteInput', AutocompleteInput);
@@ -127,15 +124,37 @@ app.component('DatePicker', DatePicker);
 app.component('DateTimePicker', DateTimePicker);
 app.component('CustomNumber', CustomNumber);
 app.component('CustomURL', CustomURL)
-
 app.component('AppSnackbar', AppSnackbar);
 app.component('AppConfirmationDialog', AppConfirmationDialog);
-
-// DEU Redesign Components
 app.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-import VueCookie from 'vue-cookie';
+// Vue Router
+app.use(router);
+
+// Vuex Store
+app.use(store);
+
+// Sync store and router
+sync(store, router);
+
+// Vue i18n
+const LOCALE = env.languages.locale;
+const FALLBACKLOCALE = env.languages.fallbackLocale;
+
+const i18n = createI18n({
+  allowComposition: true,
+  locale: LOCALE,
+  fallbackLocale: FALLBACKLOCALE,
+  messages: I18N_CONFIG,
+  silentTranslationWarn: true,
+  silentFallbackWarn: true,
+});
+
+app.i18n = i18n;
+app.use(i18n);
+
+// Skeleton Loader
+app.component(Skeletor.name, Skeletor);
 
 app.use(VueCookie);
 
@@ -234,24 +253,6 @@ app.use(UniversalPiwik, {
   },
 });
 
-
-// Configured language
-const LOCALE = env.languages.locale;
-const FALLBACKLOCALE = env.languages.fallbackLocale;
-
-app.use(VueI18n);
-
-const i18n = createI18n({
-  allowComposition: true,
-  locale: LOCALE,
-  fallbackLocale: FALLBACKLOCALE,
-  messages: I18N_CONFIG,
-  silentTranslationWarn: true,
-});
-
-// Make i18n globally available
-app.i18n = i18n;
-
 // Set locale for dateFilters
 dateFilters.setLocale(LOCALE);
 
@@ -297,8 +298,6 @@ app.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 // Vue-inject setup
 app.use(injector, { components: true });
 
-// app.use(PiveauHeaderFooter);
-
 app.use(VuePositionSticky);
 
 // Sync store and router
@@ -309,18 +308,6 @@ library.add(faGoogle, faGooglePlus, faGooglePlusG, faFacebook, faFacebookF, faIn
 app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.config.productionTip = false;
-
-// Creates the root Vue instance
-const createVueApp = () => {
-  const app = new Vue({
-    router,
-    store,
-    i18n,
-    render: h => h(App),
-  });
-
-  return app;
-};
 
 // Loads keycloak and if it fails it still loads the Vue app.
 app.use(vueKeyCloak, {
@@ -335,10 +322,10 @@ app.use(vueKeyCloak, {
   },
   onReady: () => {
     console.log("Keycloak loaded")
-    createVueApp().$mount('#app');
+    app.mount('#app');
   },
   onInitError: () => {
     console.log("Error loading keycloak")
-    createVueApp().$mount('#app');
+    app.mount('#app');
   }
 });
