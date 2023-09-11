@@ -3,7 +3,6 @@ import { lstatSync } from 'node:fs';
 import path from 'path';
 import { defineConfig } from 'vite';
 import config from './config';
-import pkg from './package.json';
 
 const isSymlink = (pkg: string) => {
   const packagePath = path.resolve('..', '..', 'node_modules', pkg);
@@ -22,19 +21,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const buildConfig = {
-
   BASE_PATH: config[buildMode].assetsPublicPath,
   SERVICE_URL: config[buildMode].serviceUrl,
 };
-
-const externalPackages = [
-  ...Object.keys(pkg.dependencies || {}),
-];
-
-// Creating regexes of the packages to make sure subpaths of the
-// packages are also treated as external
-const regexesOfPackages = externalPackages
-  .map(packageName => new RegExp(`^${packageName}(/.*)?`));
 
 export default defineConfig({
   base: buildConfig.BASE_PATH,
@@ -64,7 +53,6 @@ export default defineConfig({
         replacement: '$1',
       },
       {
-        // Use lodash-es instead of lodash
         find: 'lodash',
         replacement: 'lodash-es',
       },
