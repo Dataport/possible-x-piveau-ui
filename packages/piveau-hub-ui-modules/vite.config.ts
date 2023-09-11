@@ -20,7 +20,7 @@ const peerDependencies = {
   "@fortawesome/free-regular-svg-icons": "^5.11.2",
   "@fortawesome/free-solid-svg-icons": "^5.3.1",
   "@fortawesome/vue-fontawesome": "^0.1.1",
-  "@piveau/piveau-universal-piwik": "^2.6.1",
+  "@piveau/piveau-universal-piwik": "^3.0.0",
   "@rdfjs/dataset": "^2.0.1",
   "@triply/yasgui": "^4.2.25",
   "@triply/yasqe": "^4.2.23",

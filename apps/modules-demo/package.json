@@ -43,7 +43,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@piveau/piveau-header-footer": "^3.13.1",
     "@piveau/piveau-hub-ui-modules": "*",
-    "@piveau/piveau-universal-piwik": "^2.6.1",
+    "@piveau/piveau-universal-piwik": "^3.0.0",
     "@rdfjs/dataset": "^2.0.1",
     "@triply/yasgui": "^4.2.25",
     "@triply/yasqe": "^4.2.23",
