@@ -32,6 +32,7 @@
     "@triply/yasgui": "^4.2.25",
     "@triply/yasqe": "^4.2.23",
     "@triply/yasr": "^4.2.25",
+    "@vue/compat": "^3.1.0",
     "animejs": "^2.2.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
@@ -57,7 +58,6 @@
     "qs": "^6.10.3",
     "vee-validate": "^4.7.4",
     "vue": "^3.1.0",
-    "@vue/compat": "^3.1.0",
     "vue-cookie": "^1.1.4",
     "vue-head": "^2.1.2",
     "vue-i18n": "^9.0.0",
@@ -70,9 +70,10 @@
     "vue-select-3": "^1.0.1",
     "vue-skeletor": "^1.0.6",
     "vue3-click-away": "^1.2.4",
-    "vue3-step-progress": "^0.2.6",
     "vue3-datepicker": "^0.3.4",
-    "vuex": "^4.0.2"
+    "vue3-step-progress": "^0.2.6",
+    "vuex": "^4.0.2",
+    "webpack-merge": "^5.9.0"
   },
   "devDependencies": {
     "@cypress/vue": "^6.0.0",
