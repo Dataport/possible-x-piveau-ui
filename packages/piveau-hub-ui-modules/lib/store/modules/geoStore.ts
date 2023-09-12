@@ -1,15 +1,6 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign */
-/**
- * @author Dennis Ritter
- * @description Vuex store for geo operations
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
 
-Vue.use(Vuex);
-
-// GeoBounds Module State
 const state = {
   geoBounds: {},
   holdedGeoBounds: {},

@@ -1,20 +1,28 @@
 // @ts-nocheck
 import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
-import VueProgressBar from 'vue-progressbar';
-import VueFormulate from '@braid/vue-formulate';
-
-import { createI18n } from 'vue-i18n'
-import { createApp } from 'vue'
 
 import Meta from 'vue-meta';
 import injector from 'vue-inject';
 import VeeValidate from 'vee-validate';
-import DeuHeaderFooter, { Header, Footer} from '@deu/deu-header-footer';
-import UniversalPiwik from '@piveau/piveau-universal-piwik';
-
+import VueProgressBar from 'vue-progressbar';
+import VueCookie from 'vue-cookie';
+import VuePositionSticky from 'vue-position-sticky';
+import VueFormulate from '@braid/vue-formulate';
 import { Skeletor } from 'vue-skeletor';
 import 'vue-skeletor/dist/vue-skeletor.css';
+
+import { createI18n } from 'vue-i18n'
+import { createApp } from 'vue'
+
+import router from './router';
+import App from './App';
+
+import UniversalPiwik from '@piveau/piveau-universal-piwik';
+import PiveauHeaderFooter from '@piveau/piveau-header-footer';
+
+import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
+import runtimeConfig from '../config/runtime-config';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -38,11 +46,7 @@ import {
   faExclamationTriangle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import VuePositionSticky from 'vue-position-sticky';
-import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
-import runtimeConfig from '../config/runtime-config';
-import router from './router';
-import App from './App';
+
 import {
   dateFilters,
   AppSnackbar,
@@ -84,8 +88,6 @@ import ECDatasetsFilters from "./components/ECDatasetsFilters.vue";
 import ECSubNavigation from "./components/ECSubNavigation.vue";
 import ECDistributionsHeader from "./components/datasetDetails/ECDistributionsHeader.vue";
 import ECDistributionDetails from "./components/datasetDetails/ECDistributionDetails.vue";
-
-import VueCookie from 'vue-cookie';
 
 const app = createApp(App);
 
@@ -140,7 +142,6 @@ app.component('AppSnackbar', AppSnackbar);
 app.component('AppConfirmationDialog', AppConfirmationDialog);
 app.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
-
 // Vue Router
 app.use(router);
 
@@ -166,16 +167,9 @@ const i18n = createI18n({
 app.i18n = i18n;
 app.use(i18n);
 
-// DEU - Header & Footer
-app.use(DeuHeaderFooter);
-app.component('deu-header', Header);
-app.component('deu-footer', Footer);
-
 // Piveau - Header & Footer
-// import PiveauHeaderFooter from '@piveau/piveau-header-footer';
-// require('@piveau/piveau-header-footer/dist/piveau-header-footer.css');
-// app.use(PiveauHeaderFooter);
-
+require('@piveau/piveau-header-footer/dist/piveau-header-footer.css');
+app.use(PiveauHeaderFooter);
 
 // Skeleton Loader
 app.component(Skeletor.name, Skeletor);
@@ -298,7 +292,6 @@ app.use(Meta, {
 });
 
 import '@fortawesome/fontawesome-free/css/all.css';
-import '@deu/deu-header-footer/dist/deu-header-footer.css';
 import '@piveau/piveau-hub-ui-modules/styles';
 import './styles/styles.scss';
 

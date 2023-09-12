@@ -1,12 +1,4 @@
 // @ts-nocheck
-/**
- * @author Dennis Ritter
- * @description Vuex store for data to use together with maps like Open Street Maps. (Markers, Tooltips, etc.)
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
 
 const state = {
   map: null,
@@ -19,9 +11,6 @@ const getters = {
 };
 
 const actions = {
-  /**
-   * @description
-   */
   loadMap({ commit, state }, { Leaflet, containerId }) {
     return new Promise((resolve, reject) => {
       const service = getters.getService(state);
@@ -34,11 +23,6 @@ const actions = {
       });
     });
   },
-  /**
-   * @description Sets the Service to use when loading data.
-   * @param commit
-   * @param service - The service to use.
-   */
   useService({ commit }, service) {
     commit('SET_SERVICE', service);
   },

@@ -1,12 +1,4 @@
 // @ts-nocheck
-/**
- * @author Dennis Ritter
- * @description Vuex store for data to use together with maps like Open Street Maps. (Markers, Tooltips, etc.)
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
 
 const state = {
   suggestions: [],

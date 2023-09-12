@@ -1,4 +1,4 @@
-import {Commit} from "vuex";
+import { Commit } from "vuex";
 
 type Snack = {
   delay: number,

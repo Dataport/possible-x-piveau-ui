@@ -1,12 +1,5 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign,no-console */
-/**
- * @Publisher Dennis Ritter
- * @description Vuex store for the the details of a dataset.
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
 import {
     has,
     isObject,
@@ -23,8 +16,6 @@ import { SimilarDatasetsQuery } from 'lib/services/piveau-ui-adapter-vhub/datase
 
 // Example: mirrorLabelAsTitle({ label: "hello world" }) == { label: "hello world", title: "hello world" }
 const mirrorLabelAsTitle = mirrorPropertyFn('label', 'title');
-
-Vue.use(Vuex);
 
 // DatasetDetails Module State
 /**

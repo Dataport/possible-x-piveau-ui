@@ -5,7 +5,7 @@
     </div>
     <vue-progress-bar />
     <div class="site-wrapper">
-      <deu-header
+      <piveau-header
         project="hub"
         active-menu-item="data"
         enable-authentication
@@ -19,7 +19,7 @@
         class="content"
         :key="`${$route.fullPath}`"
       />
-      <deu-footer
+      <piveau-footer
         v-if="isContentLoaded"
         :authenticated="keycloak && keycloak.authenticated"
         :use-login="$env.authentication.login.useLogin"
@@ -30,15 +30,12 @@
         @click-follow-link="handleFollowClick"/>
     </div>
     <dpiMenu v-if="keycloak && keycloak.authenticated"></dpiMenu>
-    <cookie-consent :piwik-instance="$piwik" />
   </div>
 </template>
 
 
 <script>
 /* eslint-disable no-underscore-dangle */
-import CookieConsent from '@deu/deu-cookie-consent';
-import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
 import {
   DpiMenu,
   usePiwikSuspendFilter,

@@ -1,9 +1,6 @@
 import language from '../selector-languages.json';
 import config from './page-content-config';
-import Vue from 'vue';
-import Vuex from 'vuex';
 
-Vue.use(Vuex);
 const dcatapProperties = {
   datasets: {
     // Dcatap.de Properties #### Start ####
