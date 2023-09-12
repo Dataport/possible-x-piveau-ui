@@ -215,5 +215,12 @@ export default defineConfig({
 
 ## 6. Remove outdated content from piveau-hub-ui
 
-- babel
-- webpack
+### 6.1 Remove
+
+- `package-lock.json`
+- `/node_modules`
+
+### 6.2 Remove all files / packages regarding:
+
+- `babel`
+- `webpack`
