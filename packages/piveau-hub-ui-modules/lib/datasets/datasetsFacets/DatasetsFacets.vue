@@ -13,7 +13,6 @@
         />
         <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
         <settings-facet
-          v-if="!showCatalogDetails"
           class="row facet-field mb-3"
         />
         <div class="row facet-field mb-3"
@@ -31,8 +30,18 @@
             :initialOption="getDataServices"
             :change="changeDataServices"
           />
+          <radio-facet
+            v-if="(field.id === 'erpd')"
+            :title="erpd.title"
+            :property="erpd.property"
+            :toolTipTitle="erpd.toolTipTitle"
+            :optionIds="['true', 'false']"
+            :optionLabels="[erpd.yes, erpd.no]"
+            :initialOption="getSuperCatalogue === 'erpd' ? 'true' : 'false'"
+            :change="changeErpd"
+          />
           <select-facet
-            v-else
+              v-if="(field.id !== 'erpd' && field.id !== 'dataServices')"
             :fieldId="field.id"
             :header="facetTitle(field.id)"
             :items="sortByCount(field.items, field.id)"
@@ -130,6 +139,13 @@ export default {
         property: Vue.i18n.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
         title: Vue.i18n.t('message.metadata.dataServices'),
         toolTipTitle: Vue.i18n.t('message.helpIcon.dataServices'),
+      },
+      erpd: {
+        yes: Vue.i18n.t('message.metadata.yes'),
+        no: Vue.i18n.t('message.metadata.no'),
+        property: "ERPD Data only",//Vue.i18n.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
+        title: "European Register for Protected Data",//Vue.i18n.t('message.metadata.dataServices'),
+        // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
       }
     };
   },
@@ -144,6 +160,7 @@ export default {
       'getFacetOperator',
       'getFacetGroupOperator',
       'getDataServices',
+      'getSuperCatalogue',
       'getLimit',
       'getMinScoring',
       'getPage',
@@ -198,7 +215,6 @@ export default {
       });
 
       const sortedFacets = activeFacets.concat(inactiveFacets);
-
       if (this.cutoff > 0) {
         if (this.cutoff < activeFacets.length) this.cutoff = activeFacets.length;
         return sortedFacets.slice(0, this.cutoff);
@@ -234,6 +250,7 @@ export default {
       'removeFacet',
       'setFacetGroupOperator',
       'setDataServices',
+      'setSuperCatalogue',
       'setPage',
       'setPageCount',
       'setMinScoring',
@@ -370,6 +387,17 @@ export default {
         delete query.dataServices;
       }
       this.$router.replace({ query });
+    },
+    changeSuperCatalogue(superCatalogue) {
+      this.setSuperCatalogue(superCatalogue === 'false'? undefined : superCatalogue);
+      const query = Object.assign({}, this.$route.query, { superCatalogue, page: 1 });
+      if (superCatalogue === 'false') {
+        delete query.superCatalogue;
+      }
+      this.$router.replace({ query });
+    },
+    changeErpd(erpd) {
+      this.changeSuperCatalogue(erpd === 'true' ? 'erpd' : 'false');
     },
     resetPage() {
       this.setRouteQuery({ page: 1 }, "replace");
