@@ -209,7 +209,7 @@
      delete facets.dataServices; // ...
 
      // The request parameters
-     const params = {
+     const params: {[key: string]: unknown} = {
        q,
        filter: 'dataset',
        limit,
@@ -218,14 +218,8 @@
        facetOperator,
        facetGroupOperator,
        dataServices,
-       includes: `id,title.${locale},description.${locale},languages,modified,issued,catalog.id,catalog.title,catalog.country.id,distributions.id,distributions.format.label,distributions.format.id`,
+       includes: `id,title.${locale},description.${locale},languages,modified,issued,catalog.id,catalog.title,catalog.country.id,distributions.id,distributions.format.label,distributions.format.id,distributions.license,categories.label,publisher`,
        facets,
-       minScoring: 0,
-       countryData: false,
-       bboxMinLat: undefined,
-       bboxMaxLat: undefined,
-       bboxMinLon: undefined,
-       bboxMaxLon: undefined
      };
 
      // Check if minScoring is set
@@ -335,17 +329,15 @@
 
     /**
    * @description Get similar datasets to the dataset represented by the provided id.
-   * @param id {int} The dataset id to get similar datasets for.
+   * @param id {string} The dataset id to get similar datasets for.
+   * @param query {SimilarDatasetsQuery} query params
    */
-    getSimilarDatasets(id) {
+    getSimilarDatasets(id, query?: SimilarDatasetsQuery) {
       return new Promise((resolve, reject) => {
-        const params = {
-          limit: 20,
-        };
         const endpoint = 'similarity';
         const reqStr = `${this.similarityBaseUrl}${endpoint}/${id}`;
         axios.get(reqStr, {
-          params,
+          params: query,
         })
           .then((response) => {
             resolve(response);
@@ -425,3 +417,7 @@
       });
     }
   }
+
+export interface SimilarDatasetsQuery {
+    limits?: number
+}

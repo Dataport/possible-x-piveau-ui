@@ -5,6 +5,7 @@
         :distribution="distribution"
         :getDistributionFormat="getDistributionFormat"
         :distributionFormatTruncated="distributionFormatTruncated"
+        :embed="embed"
       />
       <distribution-details
         :getDistributionTitle="getDistributionTitle"
@@ -14,6 +15,8 @@
         :getDistributionDescription="getDistributionDescription"
         :toggleDistributionDescription="toggleDistributionDescription"
         :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
+        :distributionVisibleContent="distributionVisibleContent"
+        :distributionExpandedContent="distributionExpandedContent"
         :distributionIsExpanded="distributionIsExpanded"
         :showLicensingAssistant="showLicensingAssistant"
         :showLicence="showLicence"
@@ -23,11 +26,10 @@
         :showObject="showObject"
         :showObjectArray="showObjectArray"
         :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
-        :distributionCanShowMore="distributionCanShowMore"
         :toggleDistribution="toggleDistribution"
       />
       <distribution-added
-        :date="addedDate"
+        :date="updatedDate"
       />
       <distribution-actions
         :distribution="distribution"
@@ -96,13 +98,14 @@ export default {
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,
+    distributionVisibleContent: Array,
+    distributionExpandedContent: Array,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,
     getDistributionDescription: Function,
     distributionIsExpanded: Function,
     showObject: Function,
     showNumber: Function,
-    distributionCanShowMore: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,
@@ -124,14 +127,15 @@ export default {
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
     appendCurrentLocaleToURL: Function,
+    embed: Boolean,
   },
   computed: {
-    addedDate() {
-      //change the "Distribution added" label to "updated" in the Distributions table
-      if (has(this.distribution, 'modificationDate') && !isNil(this.distribution.modificationDate)) {
+    updatedDate() {
+       if (this.has(this.distribution, 'modificationDate') && !this.isNil(this.distribution.modificationDate)) {
         return this.filterDateFormatEU(this.distribution.modificationDate);
+      } else {
+        return this.filterDateFormatEU(this.distribution.releaseDate);
       }
-      return "";
     }
   },
   methods: {

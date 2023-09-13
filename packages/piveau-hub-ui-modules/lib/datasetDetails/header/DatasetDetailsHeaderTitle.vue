@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
     <div class="d-none d-lg-block dsd-title-tag">
-      <span>
+      <span :style="{ fontSize: titleFontSize }">
         {{$t('message.metadata.dataset')}}
       </span>
     </div>
@@ -15,6 +15,9 @@ import {mapGetters} from "vuex";
 
 export default {
   name: "DatasetDetailsHeaderTitle",
+  props: {
+    titleFontSize: String,
+  },
   methods: {
     getTranslationFor
   },

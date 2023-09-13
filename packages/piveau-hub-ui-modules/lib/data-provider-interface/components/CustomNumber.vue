@@ -4,7 +4,7 @@
         v-on="$listeners" class="w-100">
         <div class="d-flex w-100 ">
             <!--{{context.slotProps.component.min}}-->
-            <FormulateInput type="url" :name="context.name" :placeholder="context.attributes.placeholder" v-model="urlInput"
+            <FormulateInput :name="context.name" :placeholder="context.attributes.placeholder" v-model="urlInput"
                 :validation="validateNumber" :validation-rules="validateNumberRules"
                 :validation-messages="validateNumberMessages" class="w-100">
             </FormulateInput>
@@ -27,14 +27,6 @@ export default {
             required: true,
         },
         subject: {
-            type: Boolean,
-            required: false,
-        },
-        annifTheme: {
-            type: Boolean,
-            required: false,
-        },
-        multiple: {
             type: Boolean,
             required: false,
         },
@@ -87,7 +79,7 @@ export default {
             if (this.context.name === "Second") return 'optional|minute';
 
         }, chooseValidationRule() {
-            if (this.context.name === "Year") return { year: () => /^(19[5-9]\d|20[0-4]\d|2050)$/.test(this.urlInput) };
+            if (this.context.name === "Year") return { year: () => /^(19[5-9]\d|20[0-4]\d|2100)$/.test(this.urlInput) };
             if (this.context.name === "Month") return { month: () => /(^0?[1-9]$)|(^1[0-2]$)/.test(this.urlInput) };
             if (this.context.name === "Day") return { day: () => /^([0-2]?[1-9]|3[01]|10|20)$/.test(this.urlInput) };
             if (this.context.name === "Hour") return { hour: () => /^([0-9]|1[0-9]|2[0-3])$/.test(this.urlInput) };

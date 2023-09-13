@@ -9,6 +9,7 @@ import {
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
   DatasetDetails,
+  EmbedDataset,
   MapBasic,
   MapBoundsReceiver,
   Catalogues,
@@ -31,7 +32,6 @@ import {
 import ECDatasets from "../src/components/ECDatasets.vue"
 import ECCatalogues from "../src/components/ECCatalogues.vue"
 import ECDatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetDetailsQuality.vue"
-// import { CataloguesPage } from "@piveau/piveau-hub-ui-modules";
 
 import { ecStyle } from '../config/user-config';
 
@@ -108,6 +108,16 @@ const router = new Router({
             title,
           },
         },
+        {
+          path: 'embed',
+          name: 'EmbedDataset',
+          components: {
+            datasetDetailsSubpages: EmbedDataset,
+          },
+          meta: {
+            title,
+          }
+        },
         // {
         //   path: 'activityStream',
         //   name: 'DatasetDetailsActivityStream',
@@ -142,7 +152,7 @@ const router = new Router({
     {
       path: '/catalogues/:ctlg_id',
       name: 'CatalogueDetails',
-      // component: ecStyle ? ECDatasets : CatalogPage,    // ToDo: SET IT BACK TO Datasets AFTER FINISHING!!!!!!
+      // component: ecStyle ? ECDatasets : CatalogPage,    // ToDo: set back to Datasets after finishing
       component: ecStyle ? ECDatasets : Datasets,
       meta: {
         title,

@@ -1,6 +1,6 @@
 <template>
    <div class="modal fade" id="downloadAsModal" tabindex="-1" role="dialog" aria-labelledby="downloadAsModal" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.75);">
-      <div class="modal-dialog  modal-dialog-centered modal-lg" role="document"  style="z-index: 1100;">
+      <div class="modal-dialog  modal-dialog-centered modal-lg" role="document" >
          <div class="modal-content rounded-0">
             <div class="modal-header">
                <h5 class="modal-title" id="exampleModalLabel">{{ $t('message.datasetDetails.datasets.modal.downloadAs') }} ...</h5>

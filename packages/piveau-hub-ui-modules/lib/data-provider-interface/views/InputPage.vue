@@ -5,7 +5,7 @@
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formulate">
        
-        <FormulateForm name="form" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
+        <FormulateForm name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
           @submit="handleSubmit"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
@@ -23,6 +23,11 @@
     <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
       {{ mandatoryModal.message }}
     </app-confirmation-dialog>
+
+    <app-confirmation-dialog id="validationModal" :confirm="validationModal.confirm" @confirm="validationModal.callback">
+      {{ validationModal.message }}
+    </app-confirmation-dialog>
+
   </div>
 </template>
 
@@ -67,6 +72,11 @@ export default {
       mandatoryModal: {
         confirm: '',
         message: 'Mandatory Properties missing - make sure to fill out every field marked with an *',
+        callback: $('#modal').modal('hide'),
+      },
+      validationModal: {
+        conform: '',
+        message: 'The given values for some input fields are incorrect!',
         callback: $('#modal').modal('hide'),
       },
       info: {},
@@ -296,7 +306,6 @@ export default {
       next();
     }
   },
-
 };
 </script>
 <style lang="scss">
