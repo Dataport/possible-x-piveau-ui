@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import Vue, { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from "vue";
 import {isArray, isNil, isString} from "lodash";
 import {mapGetters} from "vuex";
 import { Skeletor } from 'vue-skeletor';
@@ -42,8 +42,8 @@ const MapBasic = defineAsyncComponent({
       return h('vue-skeletor',
       {
         props: {
-        width: Vue.prototype.$env.content.maps.width,
-        height: Vue.prototype.$env.content.maps.height,
+        width: process.env.content.maps.width,
+        height: process.env.content.maps.height,
         animation: 'fade',
         }
       })

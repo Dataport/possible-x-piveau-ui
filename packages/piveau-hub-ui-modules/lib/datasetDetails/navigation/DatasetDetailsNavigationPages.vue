@@ -17,7 +17,6 @@
 
 <script>
 import {mapGetters} from "vuex";
-import Vue from "vue";
 export default {
   name: "DatasetDetailsNavigationPages",
   computed: {
@@ -28,8 +27,8 @@ export default {
       const id = this.getID;
       const createPage = (key, noPathKey, exact, cName) => ({
         path: `/datasets/${id}${noPathKey ? "" : `/${key}`}`,
-        title: Vue.i18n.t(`message.datasetDetails.subnav.${key}`),
-        tooltip: Vue.i18n.t(`message.tooltip.datasetDetails.${key}`),
+        title: this.i18n.t(`message.datasetDetails.subnav.${key}`),
+        tooltip: this.i18n.t(`message.tooltip.datasetDetails.${key}`),
         exact,cName
       });
       return [

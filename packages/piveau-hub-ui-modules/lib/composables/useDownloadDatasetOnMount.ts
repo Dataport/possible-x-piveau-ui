@@ -1,5 +1,4 @@
 import { onMounted, watch } from "vue";
-import VueRouter from "vue-router";
 
 /**
  * Initiates a download of the dataset on mount and on route change

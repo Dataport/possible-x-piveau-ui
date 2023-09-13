@@ -2,13 +2,13 @@
 import $ from 'jquery';
 import { sync } from 'vuex-router-sync';
 
-import Meta from 'vue-meta';
-import injector from 'vue-inject';
-import VeeValidate from 'vee-validate';
-import VueProgressBar from 'vue-progressbar';
-import VueCookie from 'vue-cookie';
+import { createMetaManager } from 'vue-meta'
+import VueInject from 'vue-inject';
+import * as VeeValidate from 'vee-validate';
+import VueProgressBar from "@aacassandra/vue3-progressbar";
+import VueCookies from 'vue3-cookies'
 import VuePositionSticky from 'vue-position-sticky';
-import VueFormulate from '@braid/vue-formulate';
+// import VueFormulate from '@braid/vue-formulate';
 import { Skeletor } from 'vue-skeletor';
 import 'vue-skeletor/dist/vue-skeletor.css';
 
@@ -18,8 +18,9 @@ import { createApp } from 'vue'
 import router from './router';
 import App from './App';
 
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
-import PiveauHeaderFooter from '@piveau/piveau-header-footer';
 
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
 import runtimeConfig from '../config/runtime-config';
@@ -93,7 +94,8 @@ const app = createApp(App);
 
 // Runtime Configuration Service
 app.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: true });
-const env = app.prototype.$env;
+console.log(app.config.globalProperties.$env)
+const env = app.config.globalProperties.$env;
 
 // Custom components
 const components = ecStyle ? {
@@ -111,7 +113,7 @@ const components = ecStyle ? {
   SubNavigation: ECSubNavigation
 } : {};
 
-configureModules({
+configureModules(app, {
   components,
   services: GLUE_CONFIG.services,
   serviceParams: {
@@ -128,6 +130,8 @@ configureModules({
   }
 });
 
+app.component('piveau-header', Header);
+app.component('piveau-footer', Footer);
 app.component('InfoSlot', InfoSlot);
 app.component('ConditionalInput', ConditionalInput);
 app.component('Groupedinput', Groupedinput);
@@ -156,7 +160,6 @@ const LOCALE = env.languages.locale;
 const FALLBACKLOCALE = env.languages.fallbackLocale;
 
 const i18n = createI18n({
-  allowComposition: true,
   locale: LOCALE,
   fallbackLocale: FALLBACKLOCALE,
   messages: I18N_CONFIG,
@@ -164,18 +167,14 @@ const i18n = createI18n({
   silentFallbackWarn: true,
 });
 
-app.i18n = i18n;
+app.config.globalProperties.i18n = i18n;
 app.use(i18n);
-
-// Piveau - Header & Footer
-require('@piveau/piveau-header-footer/dist/piveau-header-footer.css');
-app.use(PiveauHeaderFooter);
 
 // Skeleton Loader
 app.component(Skeletor.name, Skeletor);
 
 // Cookie Consent
-app.use(VueCookie);
+app.use(VueCookies);
 
 // Piwik
 const { isPiwikPro, siteId, trackerUrl } = env.tracker;
@@ -213,83 +212,81 @@ app.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
 app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
 
 // Vue Formulate
-app.use(VueFormulate, {
-  // plugins: [ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv],
-  validationNameStrategy: vm => vm.context.label,
-  // Define our custom slot component(s)
-  slotComponents: {
-    label: 'InfoSlot',
-  },
-  // Define any props we want to pass to our slot component
-  slotProps: {
-    label: ['info', 'collapsed'],
-  },
-  components: {
-    ConditionalInput,
-  },
-  library: {
-    fileupload: {
-      classification: 'text',
-      component: 'FileUpload',
-    },
-    'conditional-input': {
-      classification: 'text',
-      component: 'ConditionalInput',
-      slotProps: {
-        component: ['data'],
-      },
-    },
-    'grouped-input':{
-      classification: 'text',
-      component: 'Groupedinput',
-      slotProps: {
-        component: ['data'],
-      },
-    },
-    'custom-url':{
-      classification: 'text',
-      component: 'CustomURL',
-      slotProps: {
-        component: ['voc', 'multiple'],
-      },
-    },
-    'custom-number':{
-      classification: 'text',
-      component: 'CustomNumber',
-      slotProps: {
-        component: ['min', 'max'],
-      },
-    },
-    'autocomplete-input': {
-      classification: 'text',
-      component: 'AutocompleteInput',
-      slotProps: {
-        component: ['voc', 'multiple','annifTheme','dcatDE'],
-      },
-    },
-    'unique-identifier-input': {
-      classification: 'text',
-      component: 'UniqueIdentifierInput',
-    },
-    'date-picker': {
-      classification: 'date',
-      component: 'DatePicker',
-    },
-    'datetime-picker': {
-      classification: 'datetime-local',
-      component: 'DateTimePicker',
-    },
-  },
-});
+// app.use(VueFormulate, {
+//   // plugins: [ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv],
+//   validationNameStrategy: vm => vm.context.label,
+//   // Define our custom slot component(s)
+//   slotComponents: {
+//     label: 'InfoSlot',
+//   },
+//   // Define any props we want to pass to our slot component
+//   slotProps: {
+//     label: ['info', 'collapsed'],
+//   },
+//   components: {
+//     ConditionalInput,
+//   },
+//   library: {
+//     fileupload: {
+//       classification: 'text',
+//       component: 'FileUpload',
+//     },
+//     'conditional-input': {
+//       classification: 'text',
+//       component: 'ConditionalInput',
+//       slotProps: {
+//         component: ['data'],
+//       },
+//     },
+//     'grouped-input':{
+//       classification: 'text',
+//       component: 'Groupedinput',
+//       slotProps: {
+//         component: ['data'],
+//       },
+//     },
+//     'custom-url':{
+//       classification: 'text',
+//       component: 'CustomURL',
+//       slotProps: {
+//         component: ['voc', 'multiple'],
+//       },
+//     },
+//     'custom-number':{
+//       classification: 'text',
+//       component: 'CustomNumber',
+//       slotProps: {
+//         component: ['min', 'max'],
+//       },
+//     },
+//     'autocomplete-input': {
+//       classification: 'text',
+//       component: 'AutocompleteInput',
+//       slotProps: {
+//         component: ['voc', 'multiple','annifTheme','dcatDE'],
+//       },
+//     },
+//     'unique-identifier-input': {
+//       classification: 'text',
+//       component: 'UniqueIdentifierInput',
+//     },
+//     'date-picker': {
+//       classification: 'date',
+//       component: 'DatePicker',
+//     },
+//     'datetime-picker': {
+//       classification: 'datetime-local',
+//       component: 'DateTimePicker',
+//     },
+//   },
+// });
 
 // Set locale for dateFilters
 dateFilters.setLocale(LOCALE);
 
 // Vue-meta setup
-app.use(Meta, {
-  refreshOnceOnNavigation: true,
-  debounceWait: 100,
-});
+const metaManager = createMetaManager();
+app.use(metaManager);
 
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@piveau/piveau-hub-ui-modules/styles';
@@ -320,7 +317,7 @@ app.use(VueProgressBar, progressBarOptions);
 app.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 
 // Vue-inject setup
-app.use(injector, { components: true });
+app.use(VueInject, { components: true });
 
 app.use(VuePositionSticky);
 

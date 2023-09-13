@@ -2,11 +2,11 @@
 // to re-order events
 // https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2098
 
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 
 let once = false;
 
-export default Vue.extend({
+export default defineComponent({
   created () {
     if (once) {
       return;

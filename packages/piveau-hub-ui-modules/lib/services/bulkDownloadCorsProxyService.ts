@@ -7,7 +7,7 @@
 import axios from 'axios';
 
 const BulkDownloadAxiosInstance = {
-  install(Vue, glueConfig, corsproxyUrl = '') {
+  install(app, glueConfig, corsproxyUrl = '') {
     // Create a modified axios instance such that its API
     // works just as if requests are called without proxy
     const bulkDownloadAxiosInstance = axios.create();
@@ -57,7 +57,7 @@ const BulkDownloadAxiosInstance = {
       });
     }
 
-    Vue.prototype.$bulkDownloadAxiosInstance = bulkDownloadAxiosInstance; // eslint-disable-line
+    app.config.globalProperties.$bulkDownloadAxiosInstance = bulkDownloadAxiosInstance; // eslint-disable-line
   },
 };
 

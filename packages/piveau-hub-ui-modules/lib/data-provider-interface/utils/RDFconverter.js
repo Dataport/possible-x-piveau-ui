@@ -1,7 +1,6 @@
 import N3 from 'n3';
 import { isEmpty } from 'lodash';
-import { has, cloneDeep } from 'lodash';
-import Vue from 'vue';
+import { has } from 'lodash';
 
 import generalDpiConfig from '../config/dpi-spec-config';
 
@@ -18,9 +17,9 @@ function convertToRDF(data, property) {
     let finishedRDFdata;
 
     let dpiConfig;
-    if (generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification] == undefined) {
+    if (generalDpiConfig[process.env.content.dataProviderInterface.specification] == undefined) {
         dpiConfig = generalDpiConfig["dcatap"]
-    } else dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification]
+    } else dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification]
 
     // writer for adding data as quads
     const RDFdata = new N3.Writer({ prefixes: dpiConfig.prefixes, format: 'N-Triples' });
@@ -56,9 +55,9 @@ function convertToRDF(data, property) {
 function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI) {
 
     let dpiConfig;
-    if (generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification] == undefined) {
+    if (generalDpiConfig[process.env.content.dataProviderInterface.specification] == undefined) {
         dpiConfig = generalDpiConfig["dcatap"]
-    } else dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification]
+    } else dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification]
 
     const formatTypes = dpiConfig.formatTypes;
 

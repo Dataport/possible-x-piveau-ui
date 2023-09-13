@@ -34,10 +34,7 @@
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
 import { mapActions, mapGetters } from 'vuex';
-import axios from 'axios';
 import $ from 'jquery';
-import Vue from 'vue';
-import VueFormulate from '@braid/vue-formulate';
 import {
   has,
   isNil,

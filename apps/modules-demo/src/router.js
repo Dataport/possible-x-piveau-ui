@@ -322,19 +322,19 @@ router.beforeEach((to, from, next) => {
 })
 
 router.beforeEach((to, from, next) => {
-  // Hash mode backward-compatibility
-  // Fixes https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/432
-  if (to?.redirectedFrom?.substring(0, 3) === '/#/') {
-    let path = to.redirectedFrom.substring(2);
-    const base = `${GLUE_CONFIG.routing.routerOptions.base}/`;
-    if (path.startsWith(base)) {
-      // Restore standard Vue behavior when navigated to '/#/base'
-      // so you are redirected to '/base' instead of '/base/base'
-      path = '/';
-    }
-    next({ path, replace: true });
-    return;
-  }
+  // // Hash mode backward-compatibility
+  // // Fixes https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/432
+  // if (to?.redirectedFrom?.substring(0, 3) === '/#/') {
+  //   let path = to.redirectedFrom.substring(2);
+  //   const base = `${GLUE_CONFIG.routing.routerOptions.base}/`;
+  //   if (path.startsWith(base)) {
+  //     // Restore standard Vue behavior when navigated to '/#/base'
+  //     // so you are redirected to '/base' instead of '/base/base'
+  //     path = '/';
+  //   }
+  //   next({ path, replace: true });
+  //   return;
+  // }
 
   // Authentication
   if (to.matched.some(record => record.meta.requiresAuth)) {

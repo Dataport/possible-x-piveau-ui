@@ -29,10 +29,10 @@ const actions = {
 
 const mutations = {
   SET_GEO_BOUNDS(state, { bounds, boundsId }) {
-    Vue.set(state.geoBounds, boundsId, bounds);
+    state.geoBounds[boundsId] = bounds;
   },
   SET_HOLDED_GEO_BOUNDS(state, { bounds, boundsId }) {
-    Vue.set(state.holdedGeoBounds, boundsId, bounds);
+    state.holdedGeoBounds[boundsId] = bounds;
   },
 };
 

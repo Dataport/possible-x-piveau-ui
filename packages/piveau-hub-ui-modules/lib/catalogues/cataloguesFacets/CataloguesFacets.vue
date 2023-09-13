@@ -52,7 +52,6 @@
   import DatasetsFacetsItem from '../../datasets/datasetsFacets/DatasetsFacetsItem.vue';
   import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../../utils/helpers';
   import SettingsFacet from "../../datasets/datasetsFacets/SettingsFacet";
-  import Vue from "vue";
 
   export default {
     name: 'catalogueFacets',
@@ -147,8 +146,8 @@
       },
       facetTitle(fieldId) {
         return fieldId === 'scoring' ?
-          Vue.i18n.t('message.header.navigation.data.metadataquality')
-          : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+        this.i18n.t('message.header.navigation.data.metadataquality')
+          : this.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
       },
       /**
        * @description Returns whether a facet is selected or not.

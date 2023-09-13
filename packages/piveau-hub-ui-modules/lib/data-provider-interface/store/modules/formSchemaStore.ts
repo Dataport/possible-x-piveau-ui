@@ -1,15 +1,10 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
 import { isEmpty } from 'lodash-es';
 import generalDpiConfig from '../../config/dpi-spec-config.js';
 
 // external translation method
 import translate from '../../utils/translation-helper';
-
-Vue.use(Vuex);
 
 const state = {
     schema: []
@@ -29,7 +24,7 @@ const actions = {
      */
     createSchema({ commit }, { property, page }) {
         try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
+            const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
             const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
             const propertyDefinitions = dpiConfig.inputDefinition[property]
             commit('extractSchema', { pageProperties, propertyDefinitions });

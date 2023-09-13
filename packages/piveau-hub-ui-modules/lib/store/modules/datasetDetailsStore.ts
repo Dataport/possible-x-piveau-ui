@@ -694,7 +694,7 @@ const mutations = {
             const description = payload.description;
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
-                if (isObject(similarDataset)) Vue.set(similarDataset, 'description', description);
+                if (isObject(similarDataset)) similarDataset['description'] = description;
             }
         }
     },
@@ -704,7 +704,7 @@ const mutations = {
             const title = payload.title;
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
-                if (isObject(similarDataset)) Vue.set(similarDataset, 'title', title);
+                if (isObject(similarDataset)) similarDataset['title'] = title;
             }
         }
     },
@@ -715,7 +715,7 @@ const mutations = {
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
                 if (isObject(similarDataset)) {
-                    Vue.set(similarDataset, 'distributionFormats', distributionFormats);
+                    similarDataset['distributionFormats'] = distributionFormats;
                 }
             }
         }

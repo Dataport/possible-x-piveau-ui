@@ -7,11 +7,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
 import type { DistributionFormat } from '../types/global';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'PvBadge',
   props: {
     value: {

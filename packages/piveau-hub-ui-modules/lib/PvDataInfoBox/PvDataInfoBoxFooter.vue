@@ -33,12 +33,12 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 
 import DatasetDate from '../datasets/DatasetDate.vue';
 import Tooltip from "../widgets/Tooltip.vue";
 
-export default Vue.extend({
+export default defineComponent({
   name: 'PvDataInfoBoxFooter',
   components: {
     DatasetDate,

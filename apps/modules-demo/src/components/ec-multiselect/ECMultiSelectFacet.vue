@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import { helpers } from '@piveau/piveau-hub-ui-modules';
 const { getFacetTranslation } = helpers;
 import { mixin as clickaway } from 'vue3-click-away';
@@ -99,13 +98,13 @@ export default {
   methods: {
     getFacetTranslation,
     getTitle(item) {
-      return this.fieldId === 'dataScope' && Vue.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
-        Vue.i18n.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
+      return this.fieldId === 'dataScope' && this.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
+      this.i18n.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
         : this.getFacetTranslationWrapper(this.fieldId, item.id, this.$route.query.locale, item.title);
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-        ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
+        ? this.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     away() {

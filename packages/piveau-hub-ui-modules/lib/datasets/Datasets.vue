@@ -89,7 +89,6 @@
 
 <script>
   /* eslint-disable no-undef */
-  // Import vuex helpers
   import { mapActions, mapGetters } from 'vuex';
   import {
     debounce,
