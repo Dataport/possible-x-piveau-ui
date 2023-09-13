@@ -215,6 +215,7 @@ export default {
       });
 
       const sortedFacets = activeFacets.concat(inactiveFacets);
+      console.log("sortedFacets", sortedFacets)
       if (this.cutoff > 0) {
         if (this.cutoff < activeFacets.length) this.cutoff = activeFacets.length;
         return sortedFacets.slice(0, this.cutoff);

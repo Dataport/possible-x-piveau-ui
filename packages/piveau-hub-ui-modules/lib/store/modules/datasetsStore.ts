@@ -194,7 +194,6 @@ const actions = {
       append = false,
     },
   ) {
-    console.log("loadDatasets facets=", facets)
     commit('SET_LOADING', true);
     const gb = geoBounds;
     if (gb instanceof Array && gb[0] && gb[1]) {
