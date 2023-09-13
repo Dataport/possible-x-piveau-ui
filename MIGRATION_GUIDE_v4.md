@@ -36,7 +36,8 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 "vite": "^4.0.3",
 "vue-router": "^4.1.6",
 "vuex": "^4.0.2",
-"vee-validate": "^4.7.4",
+"vee-validate": "^4.11.6",
+"vue-meta": "^3.0.0-alpha.10",
 ```
 
 
@@ -44,11 +45,14 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 
 ```js
 "@vitejs/plugin-vue": "^4.0.0",
+"@vitejs/plugin-vue-jsx": "^3.0.2",
+"vue3-cookies": "^1.0.6",
 "vue-select-3": "^1.0.1",
 "vue-skeletor": "^1.0.6",
 "vue3-click-away": "^1.2.4",
 "vue3-step-progress": "^0.2.6",
 "vue3-datepicker": "^0.3.4",
+"@aacassandra/vue3-progressbar": "^1.0.3",
 ```
 
 ### 1.6 Remove incompatible packages from `package.json`:
@@ -71,7 +75,9 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 "vue2-datepicker": "^3.11.0",
 ```
 
-## 2. Update `main.ts`
+## 2. Update `main.ts`, `router.js` & `index.html`
+
+### 2.1 `main.ts`
 
 ```js
 import { createI18n } from 'vue-i18n'
@@ -86,7 +92,7 @@ app.mount('#app');
 
 Replace all occurences of `Vue.xxx` by `app.xxx`.
 
-## 3. Update `router.js`
+### 2.2 `router.js`
 
 ```js
 import * as Router from 'vue-router';
@@ -102,11 +108,11 @@ const router = Router.createRouter({
 });
 ```
 
-## 4. Update `index.html`
+### 2.3 `index.html`
 
-### 4.1 Move `index.html` into root directory
+#### Move `index.html` into root directory
 
-### 4.2 Update HTML code
+#### Update HTML code
 
 ```html
 <!DOCTYPE html>
@@ -132,6 +138,24 @@ const router = Router.createRouter({
   </body>
 </html>
 ```
+
+## 3. Replace `Vue.`
+
+```js
+Vue.set(variable, property, value) => variable[property] = value
+
+Vue.extend() => defineComponent()
+
+Vue.component() => app.component()
+
+Vue.prototype.$env => process.env | import.meta.env
+
+Vue.prototype.<globalProperty> => app.config.globalProperties.<globalProperty>
+
+Vue.i18n => this.i18n
+```
+
+## 4. ???
 
 ## 5. Replace `vue.config.js` by `vite.config.ts`
 
