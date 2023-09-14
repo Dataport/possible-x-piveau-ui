@@ -1,10 +1,15 @@
 # Migration Guide (v4)
 
-To make use of the latest modules version in your projects piveau-hub-ui, apply the following changes:
+To make use of the latest `piveau-hub-ui-modules` version (4.x.x) in your project, apply the following changes to your piveau-hub-ui:
 
 ## 1. Update `package.json`
 
-### 1.1 Replace vue-cli commands in `package.json` and use Vite:
+<details><summary>Open</summary>
+<br>
+
+_Note: Use the "@vue/compat" package for testing. There may be more dependencies to add / upgrade in your project!_
+
+#### 1.1 Replace vue-cli commands in `package.json` and use Vite:
 
 ```js
   "scripts": {
@@ -14,23 +19,21 @@ To make use of the latest modules version in your projects piveau-hub-ui, apply 
   },
 ```
 
-### 1.2 Upgrade piveau packages to Vue 3 compatible versions in `package.json`:
+#### 1.2 Upgrade piveau packages to Vue 3 compatible versions in `package.json`:
 
 ```js
 "@piveau/piveau-hub-ui-modules": "4.x.x",
 "@piveau/piveau-universal-piwik": "3.x.x",
 ```
 
-### 1.3 Upgrade Vue in `package.json`:
-
-_Note: Use the "@vue/compat" package for testing. There may be more dependencies to add / upgrade in your project!_
+#### 1.3 Upgrade Vue in `package.json`:
 
 ```js
 "vue": "^3.1.0",
 "@vue/compat": "^3.1.0",
 ```
 
-### 1.4 Upgrade other packages to Vue 3 compatible versions in `package.json`:
+#### 1.4 Upgrade other packages to Vue 3 compatible versions in `package.json`:
 
 ```js
 "vite": "^4.0.3",
@@ -55,7 +58,7 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 "vue3-datepicker": "^0.3.4",
 ```
 
-### 1.6 Remove incompatible packages from `package.json`:
+#### 1.6 Remove incompatible packages from `package.json`:
 
 ```js
 "@piveau/dcatap-frontend": "x.x.x",
@@ -74,10 +77,15 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 "vue-step-progress": "x.x.x",
 "vue2-datepicker": "x.x.x",
 ```
+</details>
+
 
 ## 2. Update `main.ts`, `router.js` & `index.html`
 
-### 2.1 `main.ts`
+<details><summary>Open</summary>
+<br>
+
+#### 2.1 `main.ts`
 
 _Note: Replace all occurences of `Vue.xxx` by `app.xxx`!_
 
@@ -92,7 +100,7 @@ const app = createApp(App);
 app.mount('#app');
 ```
 
-### 2.2 `router.js`
+#### 2.2 `router.js`
 
 _Note: Base option was removed, use history!_
 
@@ -110,7 +118,7 @@ const router = Router.createRouter({
 });
 ```
 
-### 2.3 `index.html`
+#### 2.3 `index.html`
 
 _Note: Move `index.html` into root directory!_
 
@@ -139,8 +147,13 @@ _Note: Move `index.html` into root directory!_
   </body>
 </html>
 ```
+</details>
+
 
 ## 3. Replace `Vue.`
+
+<details><summary>Open</summary>
+<br>
 
 ```js
 Vue.set(variable, property, value)    ==> variable[property] = value
@@ -155,10 +168,21 @@ Vue.prototype.<globalProperty>        ==> app.config.globalProperties.<globalPro
 
 Vue.i18n                              ==> this.i18n
 ```
+</details>
+
 
 ## 4. ???
 
+<details><summary>Open</summary>
+<br>
+
+
+</details>
+
 ## 5. Replace `vue.config.js` by `vite.config.ts`
+
+<details><summary>Open</summary>
+<br>
 
 ```ts
 import vue from '@vitejs/plugin-vue';
@@ -237,8 +261,13 @@ export default defineConfig({
   }
 });
 ```
+</details>
+
 
 ## 6. Remove outdated content from piveau-hub-ui
+
+<details><summary>Open</summary>
+<br>
 
 ### 6.1 Remove
 
@@ -249,3 +278,4 @@ export default defineConfig({
 
 - `babel`
 - `webpack`
+</details>
