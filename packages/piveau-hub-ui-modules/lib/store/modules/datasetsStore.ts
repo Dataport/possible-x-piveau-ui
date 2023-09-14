@@ -121,6 +121,7 @@ const GETTERS = {
 
     // Hacky solution for country data
     if (state.searchParameters.facets.dataScope) delete state.searchParameters.facets.dataScope;
+
     return state.searchParameters.facets;
   },
   getFacetOperator: state => state.searchParameters.facetOperator,
@@ -201,6 +202,11 @@ const actions = {
     } else {
       geoBounds = undefined;
     }
+    if (facets.catalog[0] === 'erpd') { // Special case: do not load datasets of catalog but rather all datasets of all sub-catalogs
+      facets.catalog = [];
+      superCatalogue = 'erpd';
+    }
+    console.log("FACETS", JSON.stringify(facets));
     return new Promise((resolve, reject) => {
       const service = GETTERS.getService(state);
       service.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, superCatalogue, facets, geoBounds, minScoring, dataScope)

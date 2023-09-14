@@ -37,7 +37,7 @@
             :toolTipTitle="erpd.toolTipTitle"
             :optionIds="['true', 'false']"
             :optionLabels="[erpd.yes, erpd.no]"
-            :initialOption="getSuperCatalogue === 'erpd' ? 'true' : 'false'"
+            :initialOption="isErdp()"
             :change="changeErpd"
           />
           <select-facet
@@ -388,6 +388,13 @@ export default {
       }
       this.$router.replace({ query });
     },
+    isErdp() {
+      if (this.$route.path === '/catalogues/erpd') {
+        return 'true'
+      } else {
+        return this.getSuperCatalogue === 'erpd' ? 'true' : 'false'
+      }
+    },
     changeSuperCatalogue(superCatalogue) {
       this.setSuperCatalogue(superCatalogue === 'false'? undefined : superCatalogue);
       const query = Object.assign({}, this.$route.query, { superCatalogue, page: 1 });
@@ -397,7 +404,15 @@ export default {
       this.$router.replace({ query });
     },
     changeErpd(erpd) {
-      this.changeSuperCatalogue(erpd === 'true' ? 'erpd' : 'false');
+      if (this.$route.path === '/catalogues/erpd') {
+        const query = Object.assign({}, this.$route.query, { page: 1 });
+        this.$router.replace({
+          path: '/datasets',
+          query
+        });
+      } else {
+        this.changeSuperCatalogue(erpd === 'true' ? 'erpd' : 'false');
+      }
     },
     resetPage() {
       this.setRouteQuery({ page: 1 }, "replace");
