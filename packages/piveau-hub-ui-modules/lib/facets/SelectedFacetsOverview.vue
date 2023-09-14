@@ -15,7 +15,7 @@
         >
           <span :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
             {{ findFacetTitle(facet.field, facetId) }}
-            
+
             <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
           </span>
         </slot>
@@ -49,8 +49,15 @@
       getSelectedFacetsOrdered() {
         const orderedFacets = [];
 
+          console.log("getSelectedFacets", JSON.stringify(this.getSelectedFacets))
         this.defaultFacetOrder.forEach((facet) => {
           if (this.showCatalogDetails && facet === 'catalog') return;
+          if (facet === 'erpd' && this.$route.query.superCatalogue === 'erpd') { // Special case: erpd facet uses supercatalogue query value
+            orderedFacets.push({
+              field: 'erpd',
+              facets: ['true'],
+            });
+          }
           Object.keys(this.getSelectedFacets).forEach((field) => {
             if (facet === field && this.getSelectedFacets[field].length > 0) orderedFacets.push({
               field,
@@ -145,7 +152,13 @@
         }
       },
       removeSelectedFacet(field, facet) {
-        this.toggleFacet(field, facet);
+        if (field === 'erpd') {
+          this.$router.push({
+            query: Object.assign({}, this.$route.query, { superCatalogue: undefined, page: 1 })
+          })
+        } else {
+          this.toggleFacet(field, facet);
+        }
         this.$nextTick(() => {
           this.$emit('update-data');
         });

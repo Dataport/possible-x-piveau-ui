@@ -206,7 +206,6 @@ const actions = {
       facets.catalog = [];
       superCatalogue = 'erpd';
     }
-    console.log("FACETS", JSON.stringify(facets));
     return new Promise((resolve, reject) => {
       const service = GETTERS.getService(state);
       service.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, superCatalogue, facets, geoBounds, minScoring, dataScope)
