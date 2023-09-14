@@ -1,5 +1,6 @@
 // @ts-nocheck
 /* eslint-disable */
+import { createApp } from 'vue'
 import Keycloak from 'keycloak-js';
 import qs from 'qs';
 import axios from 'axios';
@@ -11,7 +12,7 @@ let installed = false;
 let rtpToken = null;
 
 export default {
-  install(Vue, params = {}) {
+  install(app, params = {}) {
     if (installed) return;
     installed = true;
 
@@ -22,7 +23,7 @@ export default {
     const options = Object.assign({}, defaultParams, params);
     if (assertOptions(options).hasError) throw new Error(`Invalid options given: ${assertOptions(options).error}`);
 
-    const watch = new Vue({
+    const watch = createApp({
       data() {
         return {
           ready: false,
@@ -63,7 +64,7 @@ export default {
     getConfig(options.config)
     .then((config) => {
       init(config, watch, options);
-      Object.defineProperty(Vue.prototype, '$keycloak', {
+      Object.defineProperty(app.config.globalProperties, '$keycloak', {
         get() {
           return watch;
         },

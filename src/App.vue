@@ -3,7 +3,6 @@
     <div class="app-snackbar position-fixed fixed-bottom m-3 m-md-5 py-5 d-flex justify-content-center w-100">
       <app-snackbar />
     </div>
-    <!-- <cookie-consent :piwik-instance="$piwik" /> -->
     <vue-progress-bar />
     <div class="site-wrapper">
       <piveau-header
@@ -26,9 +25,6 @@
         @logout="logout"
       >
       </piveau-footer>
-      <!-- <div class="bg-primary text-light p-3">
-        Put a footer here. Made with <span class="text-danger">♥</span> by <a href="https://www.piveau.eu" class="text-light">piveau</a>.
-      </div> -->
     </div>
     <dpi-menu v-if="isAuthenticated"></dpi-menu>
   </div>
@@ -39,8 +35,6 @@
 /* eslint-disable no-underscore-dangle */
 import { mapGetters, mapActions } from 'vuex';
 import { isNumber } from 'lodash';
-// import CookieConsent from '@deu/deu-cookie-consent';
-// import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
 import {
   DpiMenu,
   usePiwikSuspendFilter,
@@ -49,7 +43,6 @@ import {
 export default {
   name: 'app',
   components: {
-    // CookieConsent,
     DpiMenu,
   },
   mixins: [

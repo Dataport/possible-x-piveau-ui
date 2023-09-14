@@ -44,6 +44,7 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 #### 1.5 Add new Vue 3 compatible packages to `package.json`:
 
 ```js
+"@aacassandra/vue3-progressbar": "^1.0.3",
 "@vitejs/plugin-vue": "^4.0.0",
 "@vitejs/plugin-vue-jsx": "^3.0.2",
 "vue3-cookies": "^1.0.6",
@@ -52,32 +53,33 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 "vue3-click-away": "^1.2.4",
 "vue3-step-progress": "^0.2.6",
 "vue3-datepicker": "^0.3.4",
-"@aacassandra/vue3-progressbar": "^1.0.3",
 ```
 
 ### 1.6 Remove incompatible packages from `package.json`:
 
 ```js
 "@piveau/dcatap-frontend": "x.x.x",
-"@vitejs/plugin-vue2": "^2.2.0",
-"@vue/cli-plugin-babel": "~5.0.0",
-"@vue/cli-plugin-eslint": "~5.0.0",
-"@vue/cli-plugin-router": "~5.0.0",
-"@vue/cli-plugin-typescript": "~5.0.0",
-"@vue/cli-plugin-unit-jest": "~5.0.0",
-"@vue/cli-plugin-vuex": "~5.0.0",
-"@vue/compiler-sfc": "^3.2.45",
+"@vitejs/plugin-vue2": "x.x.x",
+"@vue/cli-plugin-babel": "x.x.x",
+"@vue/cli-plugin-eslint": "x.x.x",
+"@vue/cli-plugin-router": "x.x.x",
+"@vue/cli-plugin-typescript": "x.x.x",
+"@vue/cli-plugin-unit-jest": "x.x.x",
+"@vue/cli-plugin-vuex": "x.x.x",
+"@vue/compiler-sfc": "x.x.x",
 "core-js": "x.x.x",
-"skeleton-loader-vue": "^1.0.10",
-"vue-clickaway": "^2.2.2",
-"vue-select": "^3.18.3",
-"vue-step-progress": "^0.3.7",
-"vue2-datepicker": "^3.11.0",
+"skeleton-loader-vue": "x.x.x",
+"vue-clickaway": "x.x.x",
+"vue-select": "x.x.x",
+"vue-step-progress": "x.x.x",
+"vue2-datepicker": "x.x.x",
 ```
 
 ## 2. Update `main.ts`, `router.js` & `index.html`
 
 ### 2.1 `main.ts`
+
+_Note: Replace all occurences of `Vue.xxx` by `app.xxx`!_
 
 ```js
 import { createI18n } from 'vue-i18n'
@@ -90,9 +92,9 @@ const app = createApp(App);
 app.mount('#app');
 ```
 
-Replace all occurences of `Vue.xxx` by `app.xxx`.
-
 ### 2.2 `router.js`
+
+_Note: Base option was removed, use history!_
 
 ```js
 import * as Router from 'vue-router';
@@ -110,9 +112,8 @@ const router = Router.createRouter({
 
 ### 2.3 `index.html`
 
-#### Move `index.html` into root directory
+_Note: Move `index.html` into root directory!_
 
-#### Update HTML code
 
 ```html
 <!DOCTYPE html>
@@ -142,17 +143,17 @@ const router = Router.createRouter({
 ## 3. Replace `Vue.`
 
 ```js
-Vue.set(variable, property, value) => variable[property] = value
+Vue.set(variable, property, value)    ==> variable[property] = value
 
-Vue.extend() => defineComponent()
+Vue.extend()                          ==> defineComponent()
 
-Vue.component() => app.component()
+Vue.component()                       ==> app.component()
 
-Vue.prototype.$env => process.env | import.meta.env
+Vue.prototype.$env                    ==> process.env | import.meta.env
 
-Vue.prototype.<globalProperty> => app.config.globalProperties.<globalProperty>
+Vue.prototype.<globalProperty>        ==> app.config.globalProperties.<globalProperty>
 
-Vue.i18n => this.i18n
+Vue.i18n                              ==> this.i18n
 ```
 
 ## 4. ???
