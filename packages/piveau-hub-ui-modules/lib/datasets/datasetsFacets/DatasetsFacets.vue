@@ -204,7 +204,7 @@ export default {
       this.defaultFacetOrder.forEach((facet) => {
         availableFacets.forEach((field) => {
           if (facet === field.id && field.items.length > 0
-            && (field.id !== 'country' || this.dataScope)
+            && (field.id !== 'country' || this.dataScope || this.$route.path === '/catalogues/erpd' || this.$route.query.superCatalogue === 'erpd')
             && (field.id !== 'catalog' || this.useCatalogFacets)
             && (field.id !== 'scoring' || this.useScoringFacets)
             && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
@@ -213,7 +213,6 @@ export default {
               }
         });
       });
-
       const sortedFacets = activeFacets.concat(inactiveFacets);
       if (this.cutoff > 0) {
         if (this.cutoff < activeFacets.length) this.cutoff = activeFacets.length;
