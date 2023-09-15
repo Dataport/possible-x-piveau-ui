@@ -46,13 +46,23 @@
       };
     },
     computed: {
+      isErpdActive() {
+        const isDatasetsErpd = this.$route.path === '/datasets' && this.$route.query.superCatalogue === 'erpd';
+        let isCataloguesErpd = false;
+        if (this.$route.path === '/catalogues') {
+          const cat = 'http://data.europa.eu/88u/catalogue/erpd';
+          const sc = this.$route.query.superCatalog;
+          if (sc === cat) isCataloguesErpd = true;
+          if (sc.constructor === Array && sc.length > 0 && sc[0] === cat) isCataloguesErpd = true;
+        }
+        return isDatasetsErpd || isCataloguesErpd;
+      },
       getSelectedFacetsOrdered() {
         const orderedFacets = [];
 
-          console.log("getSelectedFacets", JSON.stringify(this.getSelectedFacets))
         this.defaultFacetOrder.forEach((facet) => {
           if (this.showCatalogDetails && facet === 'catalog') return;
-          if (facet === 'erpd' && this.$route.query.superCatalogue === 'erpd') { // Special case: erpd facet uses supercatalogue query value
+          if (facet === 'erpd' && this.isErpdActive) { // Special case: erpd facet
             orderedFacets.push({
               field: 'erpd',
               facets: ['true'],
@@ -153,8 +163,11 @@
       },
       removeSelectedFacet(field, facet) {
         if (field === 'erpd') {
+          const query = Object.assign({}, this.$route.query)
+          if (this.$route.path === '/datasets') delete query.superCatalogue;
+          if (this.$route.path === '/catalogues') delete query.superCatalog;
           this.$router.push({
-            query: Object.assign({}, this.$route.query, { superCatalogue: undefined, page: 1 })
+            query
           })
         } else {
           this.toggleFacet(field, facet);
