@@ -15,7 +15,7 @@
         >
           <span :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
             {{ findFacetTitle(facet.field, facetId) }}
-            
+
             <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
           </span>
         </slot>
@@ -46,11 +46,28 @@
       };
     },
     computed: {
+      isErpdActive() {
+        const isDatasetsErpd = this.$route.path === '/datasets' && this.$route.query.superCatalogue === 'erpd';
+        let isCataloguesErpd = false;
+        if (this.$route.path === '/catalogues') {
+          const cat = 'http://data.europa.eu/88u/catalogue/erpd';
+          const sc = this.$route.query.superCatalog;
+          if (sc === cat) isCataloguesErpd = true;
+          if (sc.constructor === Array && sc.length > 0 && sc[0] === cat) isCataloguesErpd = true;
+        }
+        return isDatasetsErpd || isCataloguesErpd;
+      },
       getSelectedFacetsOrdered() {
         const orderedFacets = [];
 
         this.defaultFacetOrder.forEach((facet) => {
           if (this.showCatalogDetails && facet === 'catalog') return;
+          if (facet === 'erpd' && this.isErpdActive) { // Special case: erpd facet
+            orderedFacets.push({
+              field: 'erpd',
+              facets: ['true'],
+            });
+          }
           Object.keys(this.getSelectedFacets).forEach((field) => {
             if (facet === field && this.getSelectedFacets[field].length > 0) orderedFacets.push({
               field,
@@ -145,7 +162,16 @@
         }
       },
       removeSelectedFacet(field, facet) {
-        this.toggleFacet(field, facet);
+        if (field === 'erpd') {
+          const query = Object.assign({}, this.$route.query)
+          if (this.$route.path === '/datasets') delete query.superCatalogue;
+          if (this.$route.path === '/catalogues') delete query.superCatalog;
+          this.$router.push({
+            query
+          })
+        } else {
+          this.toggleFacet(field, facet);
+        }
         this.$nextTick(() => {
           this.$emit('update-data');
         });

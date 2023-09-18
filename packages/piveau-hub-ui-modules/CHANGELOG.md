@@ -1,3 +1,12 @@
+# [3.10.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.19...v3.10.0) (2023-09-18)
+
+
+### Bug Fixes
+
+* only allows properly formatted JSONs.  ([e93e60e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e93e60e8877bc551f7989ac1cdcfeb43fa154a35))
+
+
+
 ## [3.9.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.18...v3.9.19) (2023-09-01)
 
 
