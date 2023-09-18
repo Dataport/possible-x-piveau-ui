@@ -143,8 +143,8 @@ export default {
       erpd: {
         yes: Vue.i18n.t('message.metadata.yes'),
         no: Vue.i18n.t('message.metadata.no'),
-        property: "ERPD Data only",//Vue.i18n.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
-        title: "European Register for Protected Data",//Vue.i18n.t('message.metadata.dataServices'),
+        property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
+        title: Vue.i18n.t('message.metadata.erpd'),
         // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
       }
     };
