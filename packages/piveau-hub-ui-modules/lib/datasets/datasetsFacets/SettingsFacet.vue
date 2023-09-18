@@ -23,12 +23,12 @@ export default {
       FACET_OPERATORS: ops,
       optionIds: [ops.and, ops.or],
       optionLabels: [
-        this.i18n.t('message.datasetFacets.and').toUpperCase(),
-        this.i18n.t('message.datasetFacets.or').toUpperCase()
+        this.i18n.global.t('message.datasetFacets.and').toUpperCase(),
+        this.i18n.global.t('message.datasetFacets.or').toUpperCase()
       ],
-      title: this.i18n.t('message.datasetFacets.settings'),
-      toolTipTitle: this.i18n.t('message.helpIcon.settings'),
-      property: this.i18n.t('message.datasetFacets.operator'),
+      title: this.i18n.global.t('message.datasetFacets.settings'),
+      toolTipTitle: this.i18n.global.t('message.helpIcon.settings'),
+      property: this.i18n.global.t('message.datasetFacets.operator'),
     };
   },
   computed: {

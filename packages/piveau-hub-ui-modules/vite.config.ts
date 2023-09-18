@@ -38,7 +38,7 @@ const peerDependencies = {
   "jszip": "^3.9.1",
   "jwt-decode": "^2.2.0",
   "keycloak-js": "9.0.2",
-  "leaflet": "^1.8.0",
+  "leaflet": "^1.9.4",
   "leaflet-draw": "^1.0.4",
   "leaflet-easybutton": "^2.4.0",
   "leaflet-editable": "^1.2.0",

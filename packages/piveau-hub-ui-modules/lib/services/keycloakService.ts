@@ -57,7 +57,7 @@ export default {
           getRtpToken: null,
         };
       },
-    }).mount('#app');
+    });
 
     getConfig(options.config)
     .then((config) => {

@@ -33,16 +33,17 @@ export default {
   },
   data() {
     return {
+      id: '',
       option: this.initialOption
     };
   },
   computed: {
     myId() {
-      // Use Vue generated uid to set give each facet a unique id
+      // Use Vue generated uid to give each facet a unique id
       return `facet-${this.id}`;
     },
     myTitleId() {
-      // Use Vue generated uid to set give each facet a unique id
+      // Use Vue generated uid to give each facet a unique id
       return `facet-title-${this.id}`;
     }
   },
@@ -53,7 +54,6 @@ export default {
     }
   },
   mounted() {
-    // this.id = this.myId; // eslint-disable-line
     this.id = this._uid; // eslint-disable-line
   },
 }

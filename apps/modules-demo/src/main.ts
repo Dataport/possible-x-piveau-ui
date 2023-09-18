@@ -27,25 +27,22 @@ import runtimeConfig from '../config/runtime-config';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faGoogle,
-  faGooglePlus,
-  faGooglePlusG,
-  faFacebook,
-  faFacebookF,
-  faInstagram,
-  faTwitter,
-  faLinkedinIn,
-} from '@fortawesome/free-brands-svg-icons';
-import {
-  faComment,
-  faExternalLinkAlt,
-  faPlus,
-  faMinus,
-  faArrowDown,
-  faArrowUp,
-  faInfoCircle,
-  faExclamationTriangle,
+  faHome, faChevronDown, faBars, faTimes, faSearch, faExternalLinkAlt, faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  faComments,
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faFacebook, faTwitter, faYoutube,
+  faFacebookSquare, faTwitterSquare, faLinkedin, faYoutubeSquare,
+} from '@fortawesome/free-brands-svg-icons';
+
+library.add([
+  faHome, faChevronDown, faBars, faTimes, faSearch, faExternalLinkAlt, faUser,
+  faComments,
+  faFacebook, faTwitter, faYoutube,
+  faFacebookSquare, faTwitterSquare, faLinkedin, faYoutubeSquare,
+]);
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import {
@@ -94,7 +91,6 @@ const app = createApp(App);
 
 // Runtime Configuration Service
 app.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: true });
-console.log(app.config.globalProperties.$env)
 const env = app.config.globalProperties.$env;
 
 // Custom components
@@ -322,7 +318,6 @@ app.use(VueInject, { components: true });
 app.use(VuePositionSticky);
 
 // Add Font Awesome Icons
-library.add(faGoogle, faGooglePlus, faGooglePlusG, faFacebook, faFacebookF, faInstagram, faTwitter, faLinkedinIn, faComment, faExternalLinkAlt, faPlus, faMinus, faArrowDown, faArrowUp, faInfoCircle, faExclamationTriangle);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.config.productionTip = false;

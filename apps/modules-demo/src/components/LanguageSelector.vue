@@ -69,22 +69,24 @@ export default {
       },
       set(locale) {
         this.$root.$i18n.locale = locale;
-        // Wait until router is ready before changing it
-        // Necessary when routing to lazy-loaded components
-        // Fixes https://gitlab.fokus.fraunhofer.de/viaduct/piveau-ui/piveau-ui/issues/210
-        this.$router.onReady(() => {
-          if (locale !== this.$route.query.locale) {
-            this.$router.push({ query: { ...this.$route.query, locale } });
-          }
-        });
+        this.$router.isReady()
+          .then(() => {
+            if (locale !== this.$route.query.locale) {
+              this.$router.push({ query: { ...this.$route.query, locale } });
+            }
+          });
       },
     },
   },
   methods: {
     initLocale() {
-      this.$router.onReady(() => {
-        this.locale = this.getLocale();
-      });
+      this.$router.isReady()
+        .then(() => {
+          this.locale = this.getLocale();
+        })
+        .catch(() => {
+          this.locale = this.fallbackLocale;
+        });
     },
     getLocale() {
       if (this.$route.query.locale) return this.$route.query.locale;

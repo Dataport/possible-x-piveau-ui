@@ -124,11 +124,11 @@ export default {
       FACET_OPERATORS: this.$env.content.datasets.facets.FACET_OPERATORS,
       FACET_GROUP_OPERATORS: this.$env.content.datasets.facets.FACET_GROUP_OPERATORS,
       dataServices: {
-        yes: this.i18n.t('message.metadata.yes'),
-        no: this.i18n.t('message.metadata.no'),
-        property: this.i18n.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
-        title: this.i18n.t('message.metadata.dataServices'),
-        toolTipTitle: this.i18n.t('message.helpIcon.dataServices'),
+        yes: this.i18n.global.t('message.metadata.yes'),
+        no: this.i18n.global.t('message.metadata.no'),
+        property: this.i18n.global.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
+        title: this.i18n.global.t('message.metadata.dataServices'),
+        toolTipTitle: this.i18n.global.t('message.helpIcon.dataServices'),
       }
     };
   },
@@ -242,11 +242,11 @@ export default {
     },
     facetTitle(fieldId) {
       return fieldId === 'scoring' ?
-      this.i18n.t('message.header.navigation.data.metadataquality')
-        : this.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+      this.i18n.global.t('message.header.navigation.data.metadataquality')
+        : this.i18n.global.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
     },
     tooltip(fieldId) {
-      return fieldId === 'dataScope' ? this.i18n.t('message.helpIcon.dataScope') : this.i18n.t(`message.helpIcon.${fieldId.toLowerCase()}`);
+      return fieldId === 'dataScope' ? this.i18n.global.t('message.helpIcon.dataScope') : this.i18n.global.t(`message.helpIcon.${fieldId.toLowerCase()}`);
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'

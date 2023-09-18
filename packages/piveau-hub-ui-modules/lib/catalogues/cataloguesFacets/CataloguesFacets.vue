@@ -146,8 +146,8 @@
       },
       facetTitle(fieldId) {
         return fieldId === 'scoring' ?
-        this.i18n.t('message.header.navigation.data.metadataquality')
-          : this.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+        this.i18n.global.t('message.header.navigation.data.metadataquality')
+          : this.i18n.global.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
       },
       /**
        * @description Returns whether a facet is selected or not.

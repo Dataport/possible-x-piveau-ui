@@ -27,8 +27,8 @@ export default {
       const id = this.getID;
       const createPage = (key, noPathKey, exact, cName) => ({
         path: `/datasets/${id}${noPathKey ? "" : `/${key}`}`,
-        title: this.i18n.t(`message.datasetDetails.subnav.${key}`),
-        tooltip: this.i18n.t(`message.tooltip.datasetDetails.${key}`),
+        title: this.i18n.global.t(`message.datasetDetails.subnav.${key}`),
+        tooltip: this.i18n.global.t(`message.tooltip.datasetDetails.${key}`),
         exact,cName
       });
       return [

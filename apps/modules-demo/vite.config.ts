@@ -3,7 +3,6 @@ import { lstatSync } from 'node:fs';
 import path from 'path';
 import { defineConfig } from 'vite';
 import config from './config';
-import pkg from './package.json';
 
 const isSymlink = (pkg) => {
   const packagePath = path.resolve('..', '..', 'node_modules', pkg);
@@ -26,15 +25,6 @@ const buildConfig = {
   SERVICE_URL: config[buildMode].serviceUrl,
 };
 
-const externalPackages = [
-  ...Object.keys(pkg.dependencies || {}),
-];
-
-// Creating regexes of the packages to make sure subpaths of the
-// packages are also treated as external
-const regexesOfPackages = externalPackages
-  .map(packageName => new RegExp(`^${packageName}(/.*)?`));
-
 export default defineConfig({
   plugins: [
     vue(
@@ -44,10 +34,10 @@ export default defineConfig({
   define: {
     // Shim process.env from webpack
     'process.env': {},
-    'process.env.buildconf': JSON.stringify(buildConfig)
+    'process.env.buildconf': JSON.stringify(buildConfig),
   },
   server: {
-    port: 8080
+    port: 8080,
   },
   resolve: {
     alias: [
@@ -81,6 +71,13 @@ export default defineConfig({
       },
     ],
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
-    preserveSymlinks: false
-  }
+    preserveSymlinks: false,
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        quietDeps: true,
+      },
+    },
+  },
 });
