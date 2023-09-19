@@ -1,3 +1,12 @@
+## [3.10.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.0...v3.10.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* fixed Fileupload ([0a10ee6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/0a10ee68b8ee904ac9abe20571e1da270a312937))
+
+
+
 # [3.10.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.19...v3.10.0) (2023-09-18)
 
 
