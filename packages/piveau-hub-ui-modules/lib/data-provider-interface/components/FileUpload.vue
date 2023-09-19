@@ -6,9 +6,10 @@
       <div class="upload-feedback position-absolute d-flex" style="right: 0">
         <div v-if="isLoading" class="lds-ring"><div></div><div></div><div></div><div></div></div>
         <div v-if="success"><i class="material-icons d-flex check-icon">check_circle</i></div>
-        <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>
+        <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>        
       </div>
     </div>
+    <p class="dURLText">Download-URL: <a class="dURLText" :href="dURL">{{ dURL }}</a></p>
   </div>
 </template>
 
@@ -30,6 +31,7 @@ export default {
       isLoading: false,
       success: false,
       fail: false,
+      dURL:""
     };
   },
   computed: {
@@ -90,6 +92,7 @@ export default {
       return indexOfParentInputGroup;
     },
     async uploadOrReplaceFile({ file }) {
+      
       const replaceEnabled = this.$env?.content?.dataProviderInterface?.enableFileUploadReplace || false;
       const wantsToReplace = this.$route.query?.edit ?? false;
 
@@ -115,6 +118,7 @@ export default {
       return await this.uploadFile(file);
     },
     async uploadFile(file, options = {}) {
+      
       this.isLoading = true;
 
       const form = new FormData();
@@ -140,13 +144,17 @@ export default {
       };
 
       try {
+        
         const result = await axios.request(requestOptions);
         const path = result.data.result.location.substring(result.data.result.location.indexOf('/') + 1);
         this.context.model = `${this.$env.api.fileUploadUrl}${path}`;
         this.isLoading = false;
         this.success = true;
-        this.context.rootEmit('change');
+        this.dURL = `${this.$env.api.fileUploadUrl}${path}`
+        // this.context.rootEmit('change');
+        
       } catch (err) {
+        
         this.isLoading = false;
         this.fail = true;
         console.error(err); // eslint-disable-line
@@ -162,7 +170,9 @@ export default {
 <style lang="scss" scoped>
 // @import '../../../styles/bootstrap_theme';
 // @import '../../../styles/utils/css-animations';
-
+.dURLText{
+  font-size: 12px;
+}
 .file-div {
   display: flex;
   align-items: center;
