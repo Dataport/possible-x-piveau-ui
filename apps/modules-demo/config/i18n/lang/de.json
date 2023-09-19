@@ -723,7 +723,7 @@
         "distributions": {
             "footerLink": "Download"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Englisch",
         "cite": {
             "copyToClipboard": "Kopie an den Clipboard",

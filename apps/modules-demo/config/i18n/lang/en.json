@@ -2229,7 +2229,7 @@
         "distributions": {
             "footerLink": "Download"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "English",
         "cite": {
             "copyToClipboard": "Copy to clipboard",

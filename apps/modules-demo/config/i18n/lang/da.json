@@ -636,7 +636,7 @@
         },
         "userQueries": {
             "executeQuery": "Udfør forespørgsel",
-            "queriesFound": "{number] forespørgsler fundet",
+            "queriesFound": "{number} forespørgsler fundet",
             "placeholderNotes": "f.eks. Visse nyttige noter om forespørgslen",
             "querySaved": "Forespørgsel gemt",
             "queryFound": "{number} forespørgsel fundet",
@@ -761,7 +761,7 @@
         "distributions": {
             "footerLink": "Download"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Engelsk",
         "cite": {
             "copyToClipboard": "Kopi til klipboard",

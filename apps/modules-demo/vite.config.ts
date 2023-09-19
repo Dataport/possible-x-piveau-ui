@@ -1,8 +1,9 @@
 import vue from '@vitejs/plugin-vue';
-import { lstatSync } from 'node:fs';
-import path from 'path';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import { defineConfig } from 'vite';
+import { lstatSync } from 'node:fs';
 import config from './config';
+import path from 'path';
 
 const isSymlink = (pkg) => {
   const packagePath = path.resolve('..', '..', 'node_modules', pkg);
@@ -30,6 +31,10 @@ export default defineConfig({
     vue(
       { template: { compilerOptions: { whitespace: 'preserve' } } }
     ),
+    VueI18nPlugin({
+      strictMessage: false,
+      include: [path.resolve(__dirname, './config/i18n/lang/**')],
+    }),
   ],
   define: {
     // Shim process.env from webpack

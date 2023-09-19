@@ -51,11 +51,12 @@
               </div>
             </slot>
             <div class="alert alert-warning mt-3 d-flex flex-row" v-if="showScoreDisclaimer">
-              <i18n path="message.datasets.scoreDisclaimer" tag="span">
+              <span>
+                {{ $t("message.datasets.scoreDisclaimer") }}
                 <app-link path="/mqa" :query="{ locale: $route.query.locale }" target="_blank">
-                  <i18n path="message.metadata.methodologyPage"></i18n>
+                  <span>{{ $t("message.metadata.methodologyPage") }}</span>
                 </app-link>
-              </i18n>
+              </span>
             </div>
             <!--
             <div class="alert alert-info mt-3" v-if="getGeoBoundsById('modal-map')">

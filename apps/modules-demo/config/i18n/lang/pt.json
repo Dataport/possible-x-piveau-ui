@@ -574,10 +574,10 @@
         },
         "catalogues": {
             "foundCataloguesSingular": "1 catálogo encontrado",
-            "foundCatalogues": "{o número de catálogos encontrados"
+            "foundCatalogues": "número de catálogos encontrados"
         },
         "datasets": {
-            "foundDatasets": "{número de conjuntos de dados encontrados",
+            "foundDatasets": "número de conjuntos de dados encontrados",
             "countMessage": "conjuntos de dados encontrados para",
             "foundDatasetsSingular": "1 conjunto de dados encontrado",
             "meta": {
@@ -761,7 +761,7 @@
         "distributions": {
             "footerLink": "Transferir"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Inglês",
         "cite": {
             "copyToClipboard": "Cópia para o tabuleiro de clipboard",

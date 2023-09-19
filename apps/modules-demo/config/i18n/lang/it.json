@@ -761,7 +761,7 @@
         "distributions": {
             "footerLink": "Download"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Inglese",
         "cite": {
             "copyToClipboard": "Copia a clipboard",

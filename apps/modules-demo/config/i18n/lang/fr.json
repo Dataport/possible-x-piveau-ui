@@ -574,10 +574,10 @@
         },
         "catalogues": {
             "foundCataloguesSingular": "1 catalogue trouvé",
-            "foundCatalogues": "{nombre de catalogues trouvés"
+            "foundCatalogues": "{nombre} de catalogues trouvés"
         },
         "datasets": {
-            "foundDatasets": "{nombre d’ensembles de données trouvés",
+            "foundDatasets": "{nombre} d’ensembles de données trouvés",
             "countMessage": "jeux de données trouvés pour ",
             "foundDatasetsSingular": "1 ensemble de données trouvé",
             "meta": {
@@ -761,7 +761,7 @@
         "distributions": {
             "footerLink": "Télécharger"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Anglais",
         "cite": {
             "copyToClipboard": "Copie au clipboard",

@@ -759,7 +759,7 @@
         "distributions": {
             "footerLink": "Last ned"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Norsk",
         "cite": {
             "copyToClipboard": "Kopier til utklippstavlen",

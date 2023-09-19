@@ -575,10 +575,10 @@
         },
         "catalogues": {
             "foundCataloguesSingular": "1 catalogus gevonden",
-            "foundCatalogues": "{nummer -catalogi gevonden"
+            "foundCatalogues": "{nummer} -catalogi gevonden"
         },
         "datasets": {
-            "foundDatasets": "{aantal -datasets gevonden",
+            "foundDatasets": "{aantal} -datasets gevonden",
             "countMessage": "datasets gevonden",
             "foundDatasetsSingular": "1 gegevensverzameling gevonden",
             "meta": {
@@ -762,7 +762,7 @@
         "distributions": {
             "footerLink": "Downloaden"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Engels",
         "cite": {
             "copyToClipboard": "Kopie naar het klembord",

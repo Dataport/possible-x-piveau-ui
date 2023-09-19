@@ -8,6 +8,7 @@ import * as VeeValidate from 'vee-validate';
 import VueProgressBar from "@aacassandra/vue3-progressbar";
 import VueCookies from 'vue3-cookies'
 import VuePositionSticky from 'vue-position-sticky';
+import VueClickAway from "vue3-click-away";
 // import VueFormulate from '@braid/vue-formulate';
 import { Skeletor } from 'vue-skeletor';
 import 'vue-skeletor/dist/vue-skeletor.css';
@@ -49,7 +50,7 @@ import {
   dateFilters,
   AppSnackbar,
   AppConfirmationDialog,
-  vueKeycloak,
+  // vueKeycloak,
   bulkDownloadCorsProxyService ,
   corsProxyService,
   runtimeConfigurationService,
@@ -65,7 +66,6 @@ import {
   DatePicker,
   DateTimePicker,
   configureModules,
-  SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
 
 import dayjs from 'dayjs';
@@ -73,6 +73,8 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 import { ecStyle } from '../config/user-config.js';
+
+import vueKeycloak from "./services/keycloakService";
 
 import ECSelectFacet from "./components/ECSelectFacet.vue";
 import ECRadioFacet from "./components/ECRadioFacet.vue";
@@ -140,7 +142,6 @@ app.component('DatePicker', DatePicker);
 app.component('DateTimePicker', DateTimePicker);
 app.component('AppSnackbar', AppSnackbar);
 app.component('AppConfirmationDialog', AppConfirmationDialog);
-app.component('SelectedFacetsOverview', SelectedFacetsOverview);
 
 // Vue Router
 app.use(router);
@@ -156,11 +157,15 @@ const LOCALE = env.languages.locale;
 const FALLBACKLOCALE = env.languages.fallbackLocale;
 
 const i18n = createI18n({
+  allowComposition: true,
+  legacy: false,
+  globalInjection: true,
   locale: LOCALE,
   fallbackLocale: FALLBACKLOCALE,
   messages: I18N_CONFIG,
   silentTranslationWarn: true,
   silentFallbackWarn: true,
+  warnHtmlMessage: false,
 });
 
 app.config.globalProperties.i18n = i18n;
@@ -171,6 +176,9 @@ app.component(Skeletor.name, Skeletor);
 
 // Cookie Consent
 app.use(VueCookies);
+
+// Vue Clickaway
+app.use(VueClickAway);
 
 // Piwik
 const { isPiwikPro, siteId, trackerUrl } = env.tracker;

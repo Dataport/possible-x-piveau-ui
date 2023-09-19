@@ -761,7 +761,7 @@
         "distributions": {
             "footerLink": "Ladda ned"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Engelska",
         "cite": {
             "copyToClipboard": "Kopiera till klipptavlan",

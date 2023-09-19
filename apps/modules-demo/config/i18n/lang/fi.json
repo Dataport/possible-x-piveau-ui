@@ -761,7 +761,7 @@
         "distributions": {
             "footerLink": "Lataa"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Englanti",
         "cite": {
             "copyToClipboard": "Kopio lippaaseen",
