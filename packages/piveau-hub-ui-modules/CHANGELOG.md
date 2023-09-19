@@ -1,3 +1,22 @@
+# [4.0.0-alpha.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.19...v4.0.0-alpha.0) (2023-09-19)
+
+
+### Bug Fixes
+
+* issues in demo-app ([21fbe08](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/21fbe0890d6293f495f293a7bb1ac5a77721e428))
+* update dependencies ([7a74e4b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/7a74e4b7747f8279f4927c27414b8b2d06feeb48))
+* update dependencies and fix bugs & warnings ([5d5a29c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5d5a29cecbe160db8aae3bc1fa57680f8e33c1ce))
+* upgrade to vue-i18n 9.4.0 ([bcf5bcd](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/bcf5bcd7b5511ccf048ecb878b9e3fcc17f50bd4))
+* vue-i18n issues ([53f10a6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/53f10a698d1162d8960b08d6304d4e11c6a97285))
+* warnings & errors ([05ab0d3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/05ab0d3c8c32d0a7c521e4905c8bff8a714c8365))
+
+
+### Features
+
+* upgrade piwik to v3.0.0 ([ca2d01f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ca2d01fa610b7ae10515267a9adcfe67d4585d9e))
+
+
+
 ## [3.9.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.18...v3.9.19) (2023-09-01)
 
 
