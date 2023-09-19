@@ -6,7 +6,7 @@ import { sync } from 'vuex-router-sync';
 // Vue packages
 import * as VeeValidate from 'vee-validate';
 import VueProgressBar from "@aacassandra/vue3-progressbar";
-import VueFormulate from '@braid/vue-formulate';
+// import VueFormulate from '@braid/vue-formulate';
 import VueInject from 'vue-inject';
 import VueCookies from 'vue3-cookies'
 import VuePositionSticky from 'vue-position-sticky';
@@ -66,9 +66,6 @@ import '@piveau/piveau-hub-ui-modules/styles';
 library.add([faHome, faChevronDown, faBars, faTimes, faSearch, faExternalLinkAlt, faComments, faUser, faFacebook, faTwitter, faYoutube, faFacebookSquare, faTwitterSquare, faLinkedin, faYoutubeSquare]);
 library.add(faGoogle, faGooglePlus, faGooglePlusG, faFacebook, faFacebookF, faInstagram, faTwitter, faLinkedinIn, faComment, faExternalLinkAlt, faPlus, faMinus, faArrowDown, faArrowUp, faInfoCircle, faExclamationTriangle);
 
-// Set locale for dateFilters
-dateFilters.setLocale(LOCALE);
-
 // Bootstrap requirements to use js-features of bs-components
 import 'popper.js';
 import 'bootstrap';
@@ -90,7 +87,7 @@ app.config.devtools = true;
 
 // Runtime Configuration Service
 app.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
-const env = app.prototype.$env;
+const env = app.config.globalProperties.$env;
 
 configureModules({
   services: GLUE_CONFIG.services,
@@ -149,6 +146,9 @@ const i18n = createI18n({
 app.i18n = i18n;
 app.use(i18n);
 
+// Set locale for dateFilters
+dateFilters.setLocale(LOCALE);
+
 // Skeleton Loader
 app.component(Skeletor.name, Skeletor);
 
@@ -156,67 +156,67 @@ app.component(Skeletor.name, Skeletor);
 app.use(VueCookies);
 
 // Vue Formulate
-app.use(VueFormulate, {
-  // plugins: [ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv],
-  validationNameStrategy: vm => vm.context.label,
-  // Define our custom slot component(s)
-  slotComponents: {
-    label: 'InfoSlot',
-  },
-  // Define any props we want to pass to our slot component
-  slotProps: {
-    label: ['info', 'collapsed'],
-  },
-  components: {
-    ConditionalInput,
-  },
-  library: {
-    fileupload: {
-      classification: 'text',
-      component: 'FileUpload',
-    },
-    'conditional-input': {
-      classification: 'text',
-      component: 'ConditionalInput',
-      slotProps: {
-        component: ['data'],
-      },
-    },
-    'autocomplete-input': {
-      classification: 'text',
-      component: 'AutocompleteInput',
-      slotProps: {
-        component: ['voc', 'multiple'],
-      },
-    },
-    'custom-url': {
-      classification: 'text',
-      component: 'CustomURL',
-      slotProps: {
-        component: ['context'],
-      },
-    },
-    'custom-number': {
-      classification: 'text',
-      component: 'CustomNumber',
-      slotProps: {
-        component: ['context'],
-      },
-    },
-    'unique-identifier-input': {
-      classification: 'text',
-      component: 'UniqueIdentifierInput',
-    },
-    'date-picker': {
-      classification: 'date',
-      component: 'DatePicker',
-    },
-    'datetime-picker': {
-      classification: 'datetime-local',
-      component: 'DateTimePicker',
-    },
-  },
-});
+// app.use(VueFormulate, {
+//   // plugins: [ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv],
+//   validationNameStrategy: vm => vm.context.label,
+//   // Define our custom slot component(s)
+//   slotComponents: {
+//     label: 'InfoSlot',
+//   },
+//   // Define any props we want to pass to our slot component
+//   slotProps: {
+//     label: ['info', 'collapsed'],
+//   },
+//   components: {
+//     ConditionalInput,
+//   },
+//   library: {
+//     fileupload: {
+//       classification: 'text',
+//       component: 'FileUpload',
+//     },
+//     'conditional-input': {
+//       classification: 'text',
+//       component: 'ConditionalInput',
+//       slotProps: {
+//         component: ['data'],
+//       },
+//     },
+//     'autocomplete-input': {
+//       classification: 'text',
+//       component: 'AutocompleteInput',
+//       slotProps: {
+//         component: ['voc', 'multiple'],
+//       },
+//     },
+//     'custom-url': {
+//       classification: 'text',
+//       component: 'CustomURL',
+//       slotProps: {
+//         component: ['context'],
+//       },
+//     },
+//     'custom-number': {
+//       classification: 'text',
+//       component: 'CustomNumber',
+//       slotProps: {
+//         component: ['context'],
+//       },
+//     },
+//     'unique-identifier-input': {
+//       classification: 'text',
+//       component: 'UniqueIdentifierInput',
+//     },
+//     'date-picker': {
+//       classification: 'date',
+//       component: 'DatePicker',
+//     },
+//     'datetime-picker': {
+//       classification: 'datetime-local',
+//       component: 'DateTimePicker',
+//     },
+//   },
+// });
 
 // Cors Proxy and Bulk Download Services
 app.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
