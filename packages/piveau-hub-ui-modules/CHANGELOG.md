@@ -1,3 +1,12 @@
+## [3.10.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.1...v3.10.2) (2023-09-20)
+
+
+### Bug Fixes
+
+* minor styling and text change ([5f3b5a2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5f3b5a2a2c20bf1a47c6a1ecaa1e1d457daab454))
+
+
+
 ## [3.10.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.0...v3.10.1) (2023-09-19)
 
 
