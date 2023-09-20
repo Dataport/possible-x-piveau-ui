@@ -70,7 +70,7 @@ const glueConfig = {
   },
   routing: {
     routerOptions: {
-      base: '/', // TODO: Include piveau-header-footer instead of deu-header-footer to make test app working with default base path #2765
+      base: '/',
       mode: 'history',
     },
     navigation: {

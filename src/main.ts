@@ -277,24 +277,26 @@ app.use(VueInject, { components: true });
 // Vue Position Sticky
 app.use(VuePositionSticky);
 
-// Vue Keycloak (Vue App is mounted on success and error)
-app.use(vueKeyCloak, {
-  config: {
-    rtp: env.authentication.rtp,
-    ...env.authentication.keycloak,
-  },
-  init: {
-    onLoad: 'check-sso',
-    ...env.authentication.keycloakInit,
-  },
-  onReady: () => {
-    console.log("Keycloak loaded")
-    app.mount('#app');
-  },
-  onInitError: () => {
-    console.log("Error loading keycloak")
-    app.mount('#app');
-  }
-});
+// // Vue Keycloak (Vue App is mounted on success and error)
+// app.use(vueKeyCloak, {
+//   config: {
+//     rtp: env.authentication.rtp,
+//     ...env.authentication.keycloak,
+//   },
+//   init: {
+//     onLoad: 'check-sso',
+//     ...env.authentication.keycloakInit,
+//   },
+//   onReady: () => {
+//     console.log("Keycloak loaded")
+//     app.mount('#app');
+//   },
+//   onInitError: () => {
+//     console.log("Error loading keycloak")
+//     app.mount('#app');
+//   }
+// });
+
+app.mount('#app');
 
 app.config.productionTip = false;

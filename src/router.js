@@ -40,17 +40,11 @@ const router = Router.createRouter({
     {
       path: '/',
       redirect: { name: 'Datasets' },
-      meta: {
-        title,
-      },
     },
     {
       path: '/datasets',
       name: 'Datasets',
       component: Datasets,
-      meta: {
-        title,
-      },
     },
     {
       path: '/datasets/:ds_id',
@@ -62,18 +56,12 @@ const router = Router.createRouter({
           components: {
             datasetDetailsSubpages: DatasetDetailsDataset,
           },
-          meta: {
-            title,
-          },
         },
         {
           path: 'categories',
           name: 'DatasetDetailsCategories',
           components: {
             datasetDetailsSubpages: DatasetDetailsCategories,
-          },
-          meta: {
-            title,
           },
         },
         {
@@ -82,9 +70,6 @@ const router = Router.createRouter({
           components: {
             datasetDetailsSubpages: DatasetDetailsSimilarDatasets,
           },
-          meta: {
-            title,
-          },
         },
         {
           path: 'quality',
@@ -92,30 +77,18 @@ const router = Router.createRouter({
           components: {
             datasetDetailsSubpages: DatasetDetailsQuality,
           },
-          meta: {
-            title,
-          },
         },
       ],
-      meta: {
-        title,
-      },
     },
     {
       path: '/catalogues',
       name: 'Catalogues',
       component: Catalogues,
-      meta: {
-        title,
-      },
     },
     {
       path: '/catalogues/:ctlg_id',
       name: 'CatalogueDetails',
       component: Datasets,
-      meta: {
-        title,
-      },
     },
     {
       path: '/imprint',
@@ -127,34 +100,22 @@ const router = Router.createRouter({
       path: '/privacypolicy',
       name: 'PrivacyPolicy',
       component: PrivacyPolicy,
-      meta: {
-        title,
-      },
     },
     {
       path: '/maps',
       name: 'MapBasic',
       component: MapBasic,
-      meta: {
-        title,
-      },
     },
     {
       path: '/mapsBoundsReceiver',
       name: 'MapBoundsReceiver',
       component: MapBoundsReceiver,
-      meta: {
-        title,
-      },
     },
     {
       path: '/404',
       alias: '/(.)*',
       name: 'NotFound',
       component: NotFound,
-      meta: {
-        title,
-      },
     },
     {
       path: '/sparql',
@@ -244,8 +205,6 @@ if (GLUE_CONFIG.content.dataProviderInterface.useService) {
 }
 
 router.beforeEach((to, from, next) => {
-  // // Hash mode backward-compatibility
-  // // Fixes https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/432
   // if (to?.redirectedFrom?.substring(0, 3) === '/#/') {
   //   let path = to.redirectedFrom.substring(2);
   //   const base = `${GLUE_CONFIG.routing.routerOptions.base}/`;
@@ -260,7 +219,7 @@ router.beforeEach((to, from, next) => {
 
   let isLinkedDataRequest = false;
 
-  // RDF|N3|JSON-LD redirects
+  // RDF|N3|JSON-LD|TTL|NT redirects
   if (/^\/(data\/)?datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {
     isLinkedDataRequest = true;
     let locale = to.query.locale ? `&locale=${to.query.locale}` : '';
@@ -285,7 +244,6 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  // Authentication
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const auth = router.app.$env.authentication.useService
       ? router.app.$keycloak.authenticated
@@ -305,10 +263,10 @@ router.beforeEach((to, from, next) => {
       });
     }
   } else if (!to.query.locale && from.query.locale) {
-    const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`;
+    const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`; // TODO: Other queries may get lost here?
     next({ path: pathWithCurrentLocale });
   } else {
-    document.title = to.meta.title;
+    document.title = title;
     next();
   }
 });
