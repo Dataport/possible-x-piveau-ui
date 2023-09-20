@@ -7,7 +7,7 @@ To make use of the latest `piveau-hub-ui-modules` version (4.x.x) in your projec
 <details><summary>Open</summary>
 <br>
 
-_Note: Use the "@vue/compat" package for testing. There may be more dependencies to add / upgrade in your project!_
+> _Use the "@vue/compat" package for testing. There may be more dependencies to add / upgrade in your project!_
 
 #### 1.1 Replace vue-cli commands in `package.json` and use Vite:
 
@@ -15,7 +15,7 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
   "scripts": {
     "dev": "npm run serve",
     "serve": "vite --host",
-    "build": "vite build"
+    "build": "vite build",
   },
 ```
 
@@ -87,7 +87,7 @@ _Note: Use the "@vue/compat" package for testing. There may be more dependencies
 
 #### 2.1 `main.ts`
 
-_Note: Replace all occurences of `Vue.xxx` by `app.xxx`!_
+> _Replace all occurences of `Vue.xxx` by `app.xxx`!_
 
 ```js
 import { createI18n } from 'vue-i18n'
@@ -102,7 +102,7 @@ app.mount('#app');
 
 #### 2.2 `router.js`
 
-_Note: Base option was removed, use history!_
+> _Base option was removed, use history!_
 
 ```js
 import * as Router from 'vue-router';
@@ -120,7 +120,7 @@ const router = Router.createRouter({
 
 #### 2.3 `index.html`
 
-_Note: Move `index.html` into root directory!_
+> _Move `index.html` into root directory!_
 
 
 ```html
@@ -179,11 +179,7 @@ Vue.i18n                              ==> this.i18n
 #### 4.1 Update `keycloak-js` package
 
 ```js
-  "scripts": {
-    "dev": "npm run serve",
-    "serve": "vite --host",
-    "build": "vite build"
-  },
+  "keycloak-js": "22.0.3",
 ```
 
 #### 4.1 Create `src/services/keycloakService.js` to overwrite keycloak service
@@ -558,12 +554,12 @@ export default defineConfig({
 <details><summary>Open</summary>
 <br>
 
-### 6.1 Remove
+### 6.1 Delete npm files / packages
 
 - `package-lock.json`
 - `/node_modules`
 
-### 6.2 Remove all files / packages regarding:
+### 6.2 Remove all occurences of:
 
 - `babel`
 - `webpack`
