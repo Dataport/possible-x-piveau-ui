@@ -292,7 +292,7 @@ router.beforeEach((to, from, next) => {
     const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`; // TODO: Other queries may get lost here?
     next({ path: pathWithCurrentLocale });
   } else {
-    document.title = to.meta.title;
+    document.title = title;
     next();
   }
 });
