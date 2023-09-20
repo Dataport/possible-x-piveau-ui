@@ -46,17 +46,11 @@ const router = Router.createRouter({
     {
       path: '/',
       redirect: { name: 'Datasets'  },
-      meta: {
-        title,
-      },
     },
     {
       path: '/datasets',
       name: 'Datasets',
       component: ecStyle ? ECDatasets : Datasets,
-      meta: {
-        title,
-      },
     },
     {
       path: '/datasets/:ds_id',
@@ -68,18 +62,12 @@ const router = Router.createRouter({
           components: {
             datasetDetailsSubpages: DatasetDetailsDataset,
           },
-          meta: {
-            title,
-          },
         },
         {
           path: 'categories',
           name: 'DatasetDetailsCategories',
           components: {
             datasetDetailsSubpages: DatasetDetailsCategories,
-          },
-          meta: {
-            title,
           },
         },
         {
@@ -88,18 +76,12 @@ const router = Router.createRouter({
           components: {
             datasetDetailsSubpages: DatasetDetailsSimilarDatasets,
           },
-          meta: {
-            title,
-          },
         },
         {
           path: 'quality',
           name: 'DatasetDetailsQuality',
           components: {
             datasetDetailsSubpages: ecStyle ? ECDatasetDetailsQuality : DatasetDetailsQuality,
-          },
-          meta: {
-            title,
           },
         },
         {
@@ -108,49 +90,18 @@ const router = Router.createRouter({
           components: {
             datasetDetailsSubpages: EmbedDataset,
           },
-          meta: {
-            title,
-          }
         },
-        // {
-        //   path: 'activityStream',
-        //   name: 'DatasetDetailsActivityStream',
-        //   component: {
-        //     datasetDetailsSubpages: DatasetDetailsActivityStream,
-        //   },
-        //   meta: {
-        //     title,
-        //   },
-        // },
-        // {
-        //   path: 'distributions/:dist_id',
-        //   name: 'DistributionDetails',
-        //   component: DistributionDetails,
-        //   meta: {
-        //     title,
-        //   },
-        // },
       ],
-      meta: {
-        title,
-      },
     },
     {
       path: '/catalogues',
       name: 'Catalogues',
       component: ecStyle ? ECCatalogues : Catalogues,
-      meta: {
-        title,
-      },
     },
     {
       path: '/catalogues/:ctlg_id',
       name: 'CatalogueDetails',
-      // component: ecStyle ? ECDatasets : CatalogPage,    // ToDo: set back to Datasets after finishing
       component: ecStyle ? ECDatasets : Datasets,
-      meta: {
-        title,
-      },
     },
     {
       path: '/imprint',
@@ -162,50 +113,32 @@ const router = Router.createRouter({
       path: '/privacypolicy',
       name: 'PrivacyPolicy',
       component: PrivacyPolicy,
-      meta: {
-        title,
-      },
     },
     {
       path: '/maps',
       name: 'MapBasic',
       component: MapBasic,
-      meta: {
-        title,
-      },
     },
     {
       path: '/mapsBoundsReceiver',
       name: 'MapBoundsReceiver',
       component: MapBoundsReceiver,
-      meta: {
-        title,
-      },
     },
     {
       path: '/login',
       name: 'Login',
       component: Auth,
-      meta: {
-        title,
-      },
     },
     {
       path: '/logout',
       name: 'Logout',
       component: Auth,
-      meta: {
-        title,
-      },
     },
     {
       path: '/404',
       alias: '/(.)*',
       name: 'NotFound',
       component: NotFound,
-      meta: {
-        title,
-      },
     },
     {
       path: '/sparql',
@@ -356,7 +289,7 @@ router.beforeEach((to, from, next) => {
       });
     }
   } else if (!to.query.locale && from.query.locale) {
-    const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`;
+    const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`; // TODO: Other queries may get lost here?
     next({ path: pathWithCurrentLocale });
   } else {
     document.title = to.meta.title;

@@ -54,7 +54,7 @@ export default {
         return chunk ? `${chunk} - ${this.$env.metadata.title}` : this.$env.metadata.title ;
       },
       meta: [
-        { name: 'description', vmid: 'description', content: this.$t("message.datasets.meta.description") },
+        { name: 'description', vmid: 'description', content: this.$env.metadata.description },
         { name: 'keywords', vmid: 'keywords', content: this.$env.metadata.keywords },
       ],
       htmlAttrs: {
