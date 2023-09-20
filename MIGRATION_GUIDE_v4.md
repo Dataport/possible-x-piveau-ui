@@ -1,6 +1,8 @@
 # Migration Guide (v4)
 
-To make use of the latest `piveau-hub-ui-modules` version (4.x.x) in your project, apply the following changes to your piveau-hub-ui:
+This Migration Guide shows how to use Vue 3 together with Vite.
+
+To make use of Vue 3 + Vite in your project, apply the following changes to `piveau-hub-ui`:
 
 ## 1. Update `package.json`
 
