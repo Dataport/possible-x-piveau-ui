@@ -1,3 +1,12 @@
+## [3.10.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.5...v3.10.6) (2023-09-21)
+
+
+### Bug Fixes
+
+* get catalog id from domain ([01368da](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/01368da6fae3f48313b66897e2a44f0925634ed5))
+
+
+
 ## [3.10.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.4...v3.10.5) (2023-09-21)
 
 

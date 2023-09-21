@@ -355,7 +355,8 @@ export default {
     },
     initFacetGroupOperator() {
       // The facetGroupOperator should be the same as the facetOperator
-      // Always set facet operator to AND when in catalog details mode
+      // Always set facet operator to AND when
+      // in catalog details mode
       if (this.showCatalogDetails) this.setFacetGroupOperator('AND');
       else {
         const op = this.$route.query.facetOperator;
