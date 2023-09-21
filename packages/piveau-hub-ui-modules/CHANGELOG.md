@@ -1,3 +1,12 @@
+## [3.10.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.4...v3.10.5) (2023-09-21)
+
+
+### Bug Fixes
+
+* remove loggers ([6d9a426](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6d9a42644f62e3dc290241522bf2bd58d8c5e796))
+
+
+
 ## [3.10.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.3...v3.10.4) (2023-09-21)
 
 
