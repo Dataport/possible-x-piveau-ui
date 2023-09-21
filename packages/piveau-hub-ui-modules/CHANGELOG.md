@@ -1,3 +1,34 @@
+## [3.10.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.5...v3.10.6) (2023-09-21)
+
+
+### Bug Fixes
+
+* get catalog id from domain ([01368da](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/01368da6fae3f48313b66897e2a44f0925634ed5))
+
+
+
+## [3.10.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.4...v3.10.5) (2023-09-21)
+
+
+### Bug Fixes
+
+* remove loggers ([6d9a426](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6d9a42644f62e3dc290241522bf2bd58d8c5e796))
+
+
+
+## [3.10.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.3...v3.10.4) (2023-09-21)
+
+
+### Bug Fixes
+
+* trial to fix issue with showing the right datasets for a specific catalog page in an external domain ([664e424](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/664e4245f34e10dd8e9eeeeb8011ef849671c47e))
+
+
+
+## [3.10.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.2...v3.10.3) (2023-09-20)
+
+
+
 ## [3.10.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.1...v3.10.2) (2023-09-20)
 
 
