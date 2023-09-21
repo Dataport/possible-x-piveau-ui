@@ -135,6 +135,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    inCatalogPage: {
+      type: Boolean,
+      default: false,
+    },
   },
   metaInfo() {
     return {
@@ -179,7 +183,7 @@ export default {
       'getMinScoring',
     ]),
     showCatalogDetails() {
-      return !isNil(this.$route.params.ctlg_id);
+      return !isNil(this.$route.params.ctlg_id) || this.inCatalogPage;
     },
     /**
      * @description Returns the current page.
