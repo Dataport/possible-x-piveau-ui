@@ -1,3 +1,13 @@
+## [3.10.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.6...v3.10.7) (2023-09-21)
+
+
+### Bug Fixes
+
+* add catalog field to computed in datasets ([b297a4f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b297a4f652f7802ab365c984768b1532e253890e))
+* fix build (one too many curly bracket) ([550842a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/550842aa99f7287573f744f87e32076634b827ff))
+
+
+
 ## [3.10.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.5...v3.10.6) (2023-09-21)
 
 
