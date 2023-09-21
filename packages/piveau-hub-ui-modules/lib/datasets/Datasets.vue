@@ -324,9 +324,8 @@ export default {
               }
             }
           }
-
-
-        } else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
+          
+        else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
           this.$router
               .replace({
                 query: Object.assign({}, this.$route.query, {[field]: []}),
