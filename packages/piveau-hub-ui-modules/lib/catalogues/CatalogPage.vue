@@ -165,7 +165,7 @@ import {
   isString
 } from 'lodash-es';
 import {getTranslationFor, truncate} from '../utils/helpers';
-import {state} from "vue-tsc/out/shared.js";
+
 
 export default {
   name: "CatalogPage",
