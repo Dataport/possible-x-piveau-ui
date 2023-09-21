@@ -1,3 +1,12 @@
+## [3.10.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.3...v3.10.4) (2023-09-21)
+
+
+### Bug Fixes
+
+* trial to fix issue with showing the right datasets for a specific catalog page in an external domain ([664e424](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/664e4245f34e10dd8e9eeeeb8011ef849671c47e))
+
+
+
 ## [3.10.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.2...v3.10.3) (2023-09-20)
 
 
