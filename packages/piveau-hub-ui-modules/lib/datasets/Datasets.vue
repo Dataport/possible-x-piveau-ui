@@ -199,6 +199,13 @@ export default {
       for (const field of this.facetFields) {
         let urlFacets;
         if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
+        else if (field === 'catalog' && isNil(this.$route.params.ctlg_id)) {
+            const host = window.location.host;
+            const parts = host.split('.');
+            if (parts.length > 1) {
+              urlFacets = parts[0];
+            }
+        }
         else urlFacets = this.$route.query[field];
         if (!urlFacets) urlFacets = [];
         else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
@@ -269,65 +276,56 @@ export default {
             .catch(() => {
               this.$Progress.fail();
             });
-      });
-    },
-    initLimit() {
-      const limit = parseInt(this.$route.query.limit, 10);
-      if (limit > 0) this.setLimit(limit);
-    },
-    setPageLimit(value) {
-      this.setLimit(value);
-      this.initDatasets();
-    },
-    initDataScope() {
-      this.setDataScope(this.dataScope);
-    },
-    /**
-     * @description Determines the current page.
-     */
-    initPage() {
-      const page = parseInt(this.$route.query.page, 10);
-      if (page > 0) this.setPage(page);
-      else this.setPage(1);
-    },
-    /**
-     * @descritption Initialize the active facets by checking the route parameters
-     */
-    initFacets() {
-      const fields = this.$env.content.datasets.facets.defaultFacetOrder;
-      for (const field of fields) {
-        this.facetFields.push(field);
-        // catalog is not in queries anymore, so we have to add to facets differently
-        console.log("field: " + field)
-        if (field === 'catalog') {
-          if (!isNil(this.$route.params.ctlg_id)) {
-            this.addFacet({field, facet: this.$route.params.ctlg_id});
-          } else {
+        });
+      },
+      initLimit() {
+        const limit = parseInt(this.$route.query.limit, 10);
+        if (limit > 0) this.setLimit(limit);
+      },
+      setPageLimit(value) {
+        this.setLimit(value);
+        this.initDatasets();
+      },
+      initDataScope() {
+        this.setDataScope(this.dataScope);
+      },
+      /**
+       * @description Determines the current page.
+       */
+      initPage() {
+        const page = parseInt(this.$route.query.page, 10);
+        if (page > 0) this.setPage(page);
+        else this.setPage(1);
+      },
+      /**
+       * @descritption Initialize the active facets by checking the route parameters
+       */
+      initFacets() {
+        const fields = this.$env.content.datasets.facets.defaultFacetOrder;
+        for (const field of fields) {
+          this.facetFields.push(field);
+          // catalog is not in queries anymore, so we have to add to facets differently
+          if (field === 'catalog') {
+            if (!isNil(this.$route.params.ctlg_id)) {
+              this.addFacet({field, facet: this.$route.params.ctlg_id});
+            }
+            else {
+              let catalogId = "";
+              const host = window.location.host;
+              console.log('host: ' + host);
+              const parts = host.split('.');
+              if (parts.length > 1) {
+                catalogId = parts[0];
 
-            let catalogId = "";
-
-            const host = window.location.host;
-            console.log('host: ' + host);
-            const parts = host.split('.');
-            if (parts.length > 1) {
-              catalogId = parts[0];
-              console.log('catalogId before: ' + catalogId);
-              if (catalogId.startsWith('https://')) {
-                catalogId = catalogId.slice(8)
-
-
-              }
-
-              if (!catalogId.startsWith('open') && !catalogId.startsWith('odb') && !catalogId.startsWith('localhost') && !catalogId.startsWith('data')){
-                console.log('add facet catalog: ' + catalogId);
-                this.addFacet({field, facet: catalogId});
+                if (!catalogId.startsWith('open') && !catalogId.startsWith('odb') && !catalogId.startsWith('localhost') && !catalogId.startsWith('data')){
+                  console.log('add facet catalog: ' + catalogId);
+                  this.addFacet({field, facet: catalogId});
+                }
               }
             }
-
           }
-
-
-        } else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
+          
+        else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
           this.$router
               .replace({
                 query: Object.assign({}, this.$route.query, {[field]: []}),
