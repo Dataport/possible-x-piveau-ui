@@ -206,7 +206,7 @@ export default {
         else if (field === 'catalog' && isNil(this.$route.params.ctlg_id)) {
             const host = window.location.host;
             const parts = host.split('.');
-            if (parts.length > 1) {
+            if (parts.length > 1 && parts[0] === 'augsburg') {
               urlFacets = parts[0];
             }
         }
