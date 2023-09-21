@@ -1,3 +1,12 @@
+## [3.10.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.8...v3.10.9) (2023-09-21)
+
+
+### Bug Fixes
+
+* temporary fix, only get catalog name from augsburg domain if not in parameter ([1b5673a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1b5673a40284c7ce7ec59ab20b5aa707c5abd8e9))
+
+
+
 ## [3.10.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.7...v3.10.8) (2023-09-21)
 
 

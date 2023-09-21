@@ -165,6 +165,7 @@ import {
   isString
 } from 'lodash-es';
 import {getTranslationFor, truncate} from '../utils/helpers';
+import {state} from "vue-tsc/out/shared.js";
 
 export default {
   name: "CatalogPage",
@@ -278,6 +279,7 @@ export default {
       const parts = host.split('.');
       if (parts.length > 1) {
         catalogId = parts[0];
+
       }
     }
 
