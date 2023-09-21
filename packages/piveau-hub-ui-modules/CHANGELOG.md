@@ -1,3 +1,12 @@
+## [3.10.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.7...v3.10.8) (2023-09-21)
+
+
+### Bug Fixes
+
+* add inCatalogPage prop to Datasets.vue ([b7ac019](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7ac0195b86214379320c337cec888d79b17e20a))
+
+
+
 ## [3.10.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.6...v3.10.7) (2023-09-21)
 
 
