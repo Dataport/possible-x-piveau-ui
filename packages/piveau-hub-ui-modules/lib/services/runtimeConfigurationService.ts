@@ -22,7 +22,7 @@ const RuntimeConfiguration = {
   install(app, runtimeConfig, options = {}) {
     const defaultOptions = {
       debug: true,
-      baseConfig: process.env,
+      baseConfig: import.meta.env,
       useExperimentalRuntimeParser: false,
     };
     const opts = Object.assign({}, defaultOptions, options);
