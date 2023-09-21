@@ -111,147 +111,158 @@
   import DatasetsFilters from "../datasets/DatasetsFilters.vue";
   import DatasetList from './DatasetList.vue'
 
-  export default {
-    name: 'Datasets',
-    dependencies: ['DatasetService'],
-    components: {
-      DatasetsFilters,
-      DatasetsTopControls,
-      appLink: AppLink,
-      selectedFacetsOverview: SelectedFacetsOverview,
-      datasetsFacets: DatasetsFacets,
-      pagination: Pagination,
-      DatasetList,
+export default {
+  name: 'Datasets',
+  dependencies: ['DatasetService'],
+  components: {
+    DatasetsFilters,
+    DatasetsTopControls,
+    appLink: AppLink,
+    selectedFacetsOverview: SelectedFacetsOverview,
+    datasetsFacets: DatasetsFacets,
+    pagination: Pagination,
+    DatasetList,
+  },
+  props: {
+    infiniteScrolling: {
+      type: Boolean,
+      default: false,
     },
-    props: {
-      infiniteScrolling: {
-        type: Boolean,
-        default: false,
-      },
+  },
+  metaInfo() {
+    return {
+      title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.datasets')}`,
+      meta: [
+        {name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}`},
+        {
+          name: 'keywords',
+          vmid: 'keywords',
+          content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}`
+        },
+        {name: 'robots', content: 'noindex, follow'},
+      ],
+    };
+  },
+  data() {
+    return {
+      baseUrl: this.$env.api.baseUrl,
+      debouncedOnBottomScroll: debounce(this.onBottomScroll, 500),
+      facetFields: [],
+      lang: this.locale,
+      filterCollapsed: true,
+      catalogAllowed: false,
+      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets
+    };
+  },
+  computed: {
+    ...mapGetters('catalogDetails', [
+      'getCatalog',
+    ]),
+    ...mapGetters('datasets', [
+      'getDatasets',
+      'getDatasetsCount',
+      'getFacets',
+      'getLimit',
+      'getLoading',
+      'getOffset',
+      'getPage',
+      'getPageCount',
+      'getAvailableFacets',
+      'getAllAvailableFacets',
+      'getMinScoring',
+    ]),
+    showCatalogDetails() {
+      return !isNil(this.$route.params.ctlg_id);
     },
-    metaInfo() {
-      return {
-        title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.datasets')}`,
-        meta: [
-          { name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}` },
-          { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}` },
-          { name: 'robots', content: 'noindex, follow' },
-        ],
-      };
+    /**
+     * @description Returns the current page.
+     * @returns {Number}
+     *
+     * @deprecated use getPage from datasets store instead
+     */
+    page() {
+      return this.$route.query.page;
     },
-    data() {
-      return {
-        baseUrl: this.$env.api.baseUrl,
-        debouncedOnBottomScroll: debounce(this.onBottomScroll, 500),
-        facetFields: [],
-        lang: this.locale,
-        filterCollapsed: true,
-        catalogAllowed: false,
-        useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets
-      };
-    },
-    computed: {
-      ...mapGetters('catalogDetails', [
-        'getCatalog',
-      ]),
-      ...mapGetters('datasets', [
-        'getDatasets',
-        'getDatasetsCount',
-        'getFacets',
-        'getLimit',
-        'getLoading',
-        'getOffset',
-        'getPage',
-        'getPageCount',
-        'getAvailableFacets',
-        'getAllAvailableFacets',
-        'getMinScoring',
-      ]),
-      showCatalogDetails() {
-        return !isNil(this.$route.params.ctlg_id);
-      },
-      /**
-       * @description Returns the current page.
-       * @returns {Number}
-       *
-       * @deprecated use getPage from datasets store instead
-       */
-      page() {
-        return this.$route.query.page;
-      },
-      /**
-       * @description Returns the active facets.
-       * @returns {Object}
-       */
-      facets() {
-        const facets = {};
-        for (const field of this.facetFields) {
-          let urlFacets;
-          if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
-          else urlFacets = this.$route.query[field];
-          if (!urlFacets) urlFacets = [];
-          else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
-          facets[field] = urlFacets;
+    /**
+     * @description Returns the active facets.
+     * @returns {Object}
+     */
+    facets() {
+      const facets = {};
+      for (const field of this.facetFields) {
+        let urlFacets;
+        if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
+        else if (field === 'catalog' && isNil(this.$route.params.ctlg_id)) {
+            const host = window.location.host;
+            const parts = host.split('.');
+            if (parts.length > 1) {
+              urlFacets = parts[0];
+            }
         }
-        return facets;
-      },
-      currentSearchQuery() {
-        return this.$route.query.query;
-      },
-      showScoreDisclaimer() {
-        return this.getMinScoring > 0;
-      },
-      dataScope() {
-        if (!this.$route.query.dataScope) return null;
-        if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length > 0) return this.$route.query.dataScope[0];
-        if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length === 0) return null;
-        return this.$route.query.dataScope;
-      },
+        else urlFacets = this.$route.query[field];
+        if (!urlFacets) urlFacets = [];
+        else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
+        facets[field] = urlFacets;
+      }
+      return facets;
     },
-    methods: {
-      isNil,
-      ...mapActions('datasets', [
-        'loadDatasets',
-        'loadAdditionalDatasets',
-        'setPage',
-        'useService',
-        'addFacet',
-        'removeFacet',
-        'setFacets',
-        'setFacetOperator',
-        'setFacetGroupOperator',
-        'setDataServices',
-        'setPageCount',
-        'setLimit',
-        'setLoading',
-        'setDataScope',
-      ]),
-      // The imported Lodash has function. Must be defined in Methods so we can use it in template
-      has,
-      isArray,
-      truncate,
-      getTranslationFor,
-      getImg,
-      /**
-       * @description Handler-function for the scroll event.
-       */
-      onScroll() {
-        const items = this.$el.querySelectorAll('.dataset');
-        const lastItem = items[items.length - 1];
-        if (lastItem) {
-          const lastItemPos = lastItem.getBoundingClientRect();
-          if (lastItemPos.bottom - window.innerHeight <= 0) {
-            this.debouncedOnBottomScroll();
-          }
+    currentSearchQuery() {
+      return this.$route.query.query;
+    },
+    showScoreDisclaimer() {
+      return this.getMinScoring > 0;
+    },
+    dataScope() {
+      if (!this.$route.query.dataScope) return null;
+      if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length > 0) return this.$route.query.dataScope[0];
+      if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length === 0) return null;
+      return this.$route.query.dataScope;
+    },
+  },
+  methods: {
+    isNil,
+    ...mapActions('datasets', [
+      'loadDatasets',
+      'loadAdditionalDatasets',
+      'setPage',
+      'useService',
+      'addFacet',
+      'removeFacet',
+      'setFacets',
+      'setFacetOperator',
+      'setFacetGroupOperator',
+      'setDataServices',
+      'setPageCount',
+      'setLimit',
+      'setLoading',
+      'setDataScope',
+    ]),
+    // The imported Lodash has function. Must be defined in Methods so we can use it in template
+    has,
+    isArray,
+    truncate,
+    getTranslationFor,
+    getImg,
+    /**
+     * @description Handler-function for the scroll event.
+     */
+    onScroll() {
+      const items = this.$el.querySelectorAll('.dataset');
+      const lastItem = items[items.length - 1];
+      if (lastItem) {
+        const lastItemPos = lastItem.getBoundingClientRect();
+        if (lastItemPos.bottom - window.innerHeight <= 0) {
+          this.debouncedOnBottomScroll();
         }
-      },
-      /**
-       * @description Handler-function when bottom of the page is reached.
-       */
-      onBottomScroll() {
-        this.$nextTick(() => {
-          this.$Progress.start();
-          this.loadAdditionalDatasets()
+      }
+    },
+    /**
+     * @description Handler-function when bottom of the page is reached.
+     */
+    onBottomScroll() {
+      this.$nextTick(() => {
+        this.$Progress.start();
+        this.loadAdditionalDatasets()
             .then(() => {
               this.$Progress.finish();
             })
@@ -287,8 +298,24 @@
         for (const field of fields) {
           this.facetFields.push(field);
           // catalog is not in queries anymore, so we have to add to facets differently
-          if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) {
-            this.addFacet({ field, facet: this.$route.params.ctlg_id });
+          if (field === 'catalog') {
+            if (!isNil(this.$route.params.ctlg_id)) {
+              this.addFacet({field, facet: this.$route.params.ctlg_id});
+            }
+            else {
+              let catalogId = "";
+              const host = window.location.host;
+              console.log('host: ' + host);
+              const parts = host.split('.');
+              if (parts.length > 1) {
+                catalogId = parts[0];
+
+                if (!catalogId.startsWith('open') && !catalogId.startsWith('odb') && !catalogId.startsWith('localhost') && !catalogId.startsWith('data')){
+                  console.log('add facet catalog: ' + catalogId);
+                  this.addFacet({field, facet: catalogId});
+                }
+              }
+            }
           }
           else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
             this.$router
