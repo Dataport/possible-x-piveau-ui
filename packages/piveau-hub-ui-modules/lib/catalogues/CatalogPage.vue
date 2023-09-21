@@ -275,15 +275,9 @@ export default {
     let catalogId = this.$route.params.ctlg_id;
     if (catalogId === undefined || catalogId === null) {
       const host = window.location.host;
-      console.log('host: ' + host);
       const parts = host.split('.');
       if (parts.length > 1) {
         catalogId = parts[0];
-        console.log('catalogId before: ' + catalogId);
-        if (catalogId.startsWith('https://')) {
-          catalogId = catalogId.slice(8)
-          console.log('catalogId after: ' + catalogId);
-        }
       }
     }
 
