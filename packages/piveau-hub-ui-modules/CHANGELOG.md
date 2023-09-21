@@ -1,3 +1,12 @@
+## [3.10.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.9...v3.10.10) (2023-09-21)
+
+
+### Bug Fixes
+
+* state ([ee4cc56](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ee4cc566a2fd445c57c3c2d1a5f6321ae68f7ffd))
+
+
+
 ## [3.10.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.8...v3.10.9) (2023-09-21)
 
 
