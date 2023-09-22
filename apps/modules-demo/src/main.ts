@@ -324,7 +324,7 @@ app.use(VueInject, { components: true });
 app.use(VuePositionSticky);
 
 // // Vue Keycloak (Vue App is mounted on success and error)
-// app.use(vueKeyCloak, {
+// app.use(vueKeycloak, {
 //   config: {
 //     rtp: env.authentication.rtp,
 //     ...env.authentication.keycloak,

@@ -40,6 +40,7 @@ import { defineComponent } from 'vue';
 import { Datasets, DatasetsFacets, DatasetList, DatasetsFilters } from '@piveau/piveau-hub-ui-modules'
 
 export default defineComponent({
+  inheritAttrs: false,
   components: {
     Datasets,
     DatasetsFacets,

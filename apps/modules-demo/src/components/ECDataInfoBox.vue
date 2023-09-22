@@ -11,6 +11,7 @@ import { PvDataInfoBox } from '@piveau/piveau-hub-ui-modules';
 
 export default defineComponent({
   name: 'ECDataInfoBox',
+  inheritAttrs: false,
   props: ['dataset', 'to', 'descriptionMaxLength', 'src', 'catalogMode', 'compact'],
   components: {
     PvDataInfoBox,
