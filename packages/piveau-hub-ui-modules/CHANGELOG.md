@@ -1,3 +1,13 @@
+## [3.10.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.11...v3.10.12) (2023-09-22)
+
+
+### Bug Fixes
+
+* **CatalogPage:** use dedicated xhr to search api for fallback interested datasets ([e4eaf94](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e4eaf94edca8bc270f217907b420b46738ea9d9e))
+* **Datasets:** fix catalogs facets filter not being applied when toggling ([24861a0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/24861a0c8fff614d88d1975e2a2badce1d631ba3))
+
+
+
 ## [3.10.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.10...v3.10.11) (2023-09-22)
 
 
