@@ -87,7 +87,11 @@ export default {
           this.inputValues = { '@id': this.context.model };
         }
       } else if (this.context.attributes.identifier === 'accessUrl') {
-        this.conditionalValues[this.context.name] = 'url';
+        if (this.context.model.startsWith(this.$env.api.fileUploadUrl)) {
+          this.conditionalValues[this.context.name] = 'file';
+        } else {
+          this.conditionalValues[this.context.name] = 'url';
+        }
         this.inputValues = { '@id': this.context.model };
       } else if (this.context.attributes.identifier === 'spatial') {
         // find better differentiation instead of hardcoded URL
