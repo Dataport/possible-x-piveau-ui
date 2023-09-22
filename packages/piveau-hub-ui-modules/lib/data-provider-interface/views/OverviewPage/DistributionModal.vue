@@ -33,7 +33,6 @@ export default {
 
         },
         getData(data) {
-            console.log(data);
             if(typeof(data) === 'object'){
                 data = data[0]['@value']
             }

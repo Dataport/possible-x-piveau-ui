@@ -71,7 +71,6 @@ export default {
         }
       }
       this.catalogues = cache
-      console.log(cache)
     },
   },
   created() {

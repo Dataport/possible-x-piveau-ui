@@ -40,8 +40,6 @@ import StepProgress from 'vue-step-progress/dist/vue-step-progress.min.js';
 import 'vue-step-progress/dist/main.css';
 import Navigation from './components/Navigation';
 
-console.log('stepprogress = ', StepProgress);
-
 export default {
   name: 'DataProviderInterface',
   dependencies: [],

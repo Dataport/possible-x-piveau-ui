@@ -104,7 +104,6 @@ export default {
         // this.conditionalValues[this.context.name] = 'voc';
         // this.inputValues = { '@id': this.context.model };2
         this.context.placeholder = this.context.model;
-        console.log(this.context);
 
       } else if (semanticName === 'dct:rights') {
         // url and string provided as normal string

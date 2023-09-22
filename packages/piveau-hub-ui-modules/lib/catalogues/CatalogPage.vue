@@ -267,7 +267,6 @@ export default {
     },
   },
   created() {
-    console.log('created catalog page')
     this.$Progress.start()
     this.useCatalogService(this.catalogService)
     this.useService(this.DatasetService)

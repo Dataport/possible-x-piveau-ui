@@ -40,7 +40,6 @@ export default {
       this.onClick(this.state);
       if(!this.state){
         sessionStorage.setItem("Filter","active");
-        console.log("Trigger");
       }
     }
   }

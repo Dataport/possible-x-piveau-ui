@@ -32,16 +32,10 @@ export default {
         data: {},
     },
     data() {
-        return {
-
-        };
+        return {};
     },
-    computed: {
-
-    },
-    async mounted() {
-console.log(this.context);
-    },
+    computed: {},
+    async mounted() {},
     methods: {
         ...mapActions("dpiStore", [
             "requestFirstEntrySuggestions",
@@ -49,12 +43,8 @@ console.log(this.context);
             "requestResourceName",
         ]),
     },
-    directives: {
-
-    },
-    watch: {
-
-    },
+    directives: {},
+    watch: {},
 };
 </script>
   

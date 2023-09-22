@@ -298,7 +298,6 @@ export default {
       for (const field of fields) {
         this.facetFields.push(field);
         // catalog is not in queries anymore, so we have to add to facets differently
-        console.log("field: " + field)
         if (field === 'catalog') {
           if (!isNil(this.$route.params.ctlg_id)) {
             this.addFacet({field, facet: this.$route.params.ctlg_id});
@@ -307,11 +306,9 @@ export default {
             let catalogId = "";
 
             const host = window.location.host;
-            console.log('host: ' + host);
             const parts = host.split('.');
             if (parts.length > 1) {
               catalogId = parts[0];
-              console.log('catalogId before: ' + catalogId);
               if (catalogId.startsWith('https://')) {
                 catalogId = catalogId.slice(8)
 
@@ -319,7 +316,6 @@ export default {
               }
 
               if (!catalogId.startsWith('open') && !catalogId.startsWith('odb') && !catalogId.startsWith('localhost') && !catalogId.startsWith('data')){
-                console.log('add facet catalog: ' + catalogId);
                 this.addFacet({field, facet: catalogId});
               }
             }
