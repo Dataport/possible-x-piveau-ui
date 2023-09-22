@@ -118,6 +118,9 @@ import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
 import DatasetsFilters from "../datasets/DatasetsFilters.vue";
 import DatasetList from './DatasetList.vue'
 
+// todo: Bayern specific stuff that you probably want to remove
+import { getSubdomainCatalogIdFromUrl } from '../utils/temporaryBayernUtils';
+
 export default {
   name: 'Datasets',
   dependencies: ['DatasetService'],
@@ -203,12 +206,12 @@ export default {
       for (const field of this.facetFields) {
         let urlFacets;
         if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
-        else if (field === 'catalog' && isNil(this.$route.params.ctlg_id)) {
-            const host = window.location.host;
-            const parts = host.split('.');
-            if (parts.length > 1 && parts[0] === 'augsburg') {
-              urlFacets = parts[0];
-            }
+        else if (
+          field === 'catalog' && 
+          isNil(this.$route.params.ctlg_id) &&
+          getSubdomainCatalogIdFromUrl(window.location)
+          ) {
+            urlFacets = [getSubdomainCatalogIdFromUrl(window.location)];
         }
         else urlFacets = this.$route.query[field];
         if (!urlFacets) urlFacets = [];
@@ -308,9 +311,11 @@ export default {
         const fields = this.$env.content.datasets.facets.defaultFacetOrder;
         for (const field of fields) {
           this.facetFields.push(field);
+          const wantsToLoadCatalogByParamOrSubdomain =
+            field === 'catalog' && (!isNil(this.$route.params.ctlg_id) || getSubdomainCatalogIdFromUrl(window.location));
           // catalog is not in queries anymore, so we have to add to facets differently
-          if (field === 'catalog') {
-            if (!isNil(this.$route.params.ctlg_id)) {
+          if (wantsToLoadCatalogByParamOrSubdomain) {
+            if (!this.isInCatalogPage && !isNil(this.$route.params.ctlg_id)) {
               this.addFacet({field, facet: this.$route.params.ctlg_id});
             }
             else {
