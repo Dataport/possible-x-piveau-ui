@@ -1,3 +1,12 @@
+## [3.10.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.10...v3.10.11) (2023-09-22)
+
+
+### Bug Fixes
+
+* fixed url handling for fileuploads within DPI ([0bd6a0b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/0bd6a0b45296bdf8a95df14067aeafa927117236))
+
+
+
 ## [3.10.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.9...v3.10.10) (2023-09-21)
 
 
