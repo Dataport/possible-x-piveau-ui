@@ -147,6 +147,7 @@ const state = {
         releaseDate: '',
         resource: '',
         sample: [],
+        similarDatasetsRequested: '',
         similarDatasets: [{}],
         sources: [{}],
         spatial: [{}],
@@ -164,9 +165,15 @@ const state = {
         versionNotes: {},
         visualisations: [{}],
         wasGeneratedBy: [],
+        qualityDataRequested: '',
         qualityData: [''],
         qualityDistributionData: [''],
+        isDQVDataRequested: '',
         isDQVDataRDFAvailable: false,
+        isDQVDataTTLAvailable: false,
+        isDQVDataN3Available: false,
+        isDQVDataNTAvailable: false,
+        isDQVDataJSONLDAvailable: false,
         catalogRecord: {},
         isUsedBy: {},
         extendetMetadata: {},
@@ -236,6 +243,7 @@ const getters = {
     getRelations: state => state.dataset.relations,
     getRelatedResources: state => state.dataset.relatedResources,
     getReleaseDate: state => state.dataset.releaseDate,
+    getSimilarDatasetsRequested: state => state.dataset.similarDatasetsRequested,
     getSimilarDatasets: state => state.dataset.similarDatasets,
     getSample: state => state.dataset.sample,
     getSources: state => state.dataset.sources,
@@ -256,9 +264,15 @@ const getters = {
     getWasGeneratedBy: state => state.dataset.wasGeneratedBy,
     getLoading: state => state.loading,
     getService: state => state.service,
+    getQualityDataRequested: state => state.dataset.qualityDataRequested,
     getQualityData: state => state.dataset.qualityData,
     getQualityDistributionData: state => state.dataset.qualityDistributionData,
+    getIsDQVDataRequested: state => state.dataset.isDQVDataRequested,
     getIsDQVDataRDFAvailable: state => state.dataset.isDQVDataRDFAvailable,
+    getIsDQVDataTTLAvailable: state => state.dataset.isDQVDataTTLAvailable,
+    getIsDQVDataN3Available: state => state.dataset.isDQVDataN3Available,
+    getIsDQVDataNTAvailable: state => state.dataset.isDQVDataNTAvailable,
+    getIsDQVDataJSONLDAvailable: state => state.dataset.isDQVDataJSONLDAvailable,
     getCatalogRecord: state => state.dataset.catalogRecord,
     getExtendedMetadata: state => state.dataset.extendetMetadata,
     getDistributionDownloadAs: state => state.dataset.distributionDownloadAs,
@@ -274,8 +288,8 @@ const actions = {
      * @param id {String} The dataset ID.
      */
     loadDatasetDetails({ state, commit }, id) {
-        commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
+            commit('SET_LOADING', true);
             commit('SET_ID', id);
             const service = getters.getService(state);
             service.getSingle(id)
@@ -410,6 +424,7 @@ const actions = {
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
+            commit('SET_SIMILAR_DATASETS_REQUESTED', id);
             const service = getters.getService(state);
             service.getSimilarDatasets(id, query)
                 .then((response) => {
@@ -428,6 +443,7 @@ const actions = {
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
+            commit('SET_QUALITY_DATA_REQUESTED', id);
             const service = getters.getService(state);
             service.getQualityData(id)
                 .then((response) => {
@@ -446,6 +462,7 @@ const actions = {
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
+            commit('SET_QUALITY_DATA_REQUESTED', id);
             const service = getters.getService(state);
             service.getQualityDistributionData(id)
                 .then((response) => {
@@ -470,6 +487,7 @@ const actions = {
     loadDQVData({ commit }, { id, formats, locale }) {
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
+            commit('SET_IS_DQV_DATA_REQUESTED', id);
             const service = getters.getService(state);
             formats.forEach(format => service.getDQVDataHead(id, format, locale)
                 .then((response) => {
@@ -694,6 +712,9 @@ const mutations = {
     SET_WAS_GENERATED_BY(state, wasGeneratedBy) {
         state.dataset.wasGeneratedBy = wasGeneratedBy;
     },
+    SET_SIMILAR_DATASETS_REQUESTED(state, similarDatasetsRequested) {
+        state.dataset.similarDatasetsRequested = similarDatasetsRequested;
+    },
     SET_SIMILAR_DATASETS(state, similarDatasets) {
         state.dataset.similarDatasets = similarDatasets;
     },
@@ -738,14 +759,32 @@ const mutations = {
     SET_SERVICE(state, service) {
         state.service = service;
     },
+    SET_QUALITY_DATA_REQUESTED(state, qualityDataRequested) {
+        state.dataset.qualityDataRequested = qualityDataRequested;
+    },
     SET_QUALITY_DATA(state, qualityData) {
         state.dataset.qualityData = qualityData;
     },
     SET_QUALITY_DISTRIBUTION_DATA(state, qualityDistributionData) {
         state.dataset.qualityDistributionData = qualityDistributionData;
     },
+    SET_IS_DQV_DATA_REQUESTED(state, isDQVDataRequested) {
+        state.dataset.isDQVDataRequested = isDQVDataRequested;
+    },
     SET_IS_DQV_DATA_RDF_AVAILABLE(state, isDQVDataRDFAvailable) {
         state.dataset.isDQVDataRDFAvailable = isDQVDataRDFAvailable;
+    },
+    SET_IS_DQV_DATA_TTL_AVAILABLE(state, isDQVDataTTLAvailable) {
+        state.dataset.isDQVDataTTLAvailable = isDQVDataTTLAvailable;
+    },
+    SET_IS_DQV_DATA_N3_AVAILABLE(state, isDQVDataN3Available) {
+        state.dataset.isDQVDataN3Available = isDQVDataN3Available;
+    },
+    SET_IS_DQV_DATA_NT_AVAILABLE(state, isDQVDataNTAvailable) {
+        state.dataset.isDQVDataNTAvailable = isDQVDataNTAvailable;
+    },
+    SET_IS_DQV_DATA_JSONLD_AVAILABLE(state, isDQVDataJSONLDAvailable) {
+        state.dataset.isDQVDataJSONLDAvailable = isDQVDataJSONLDAvailable;
     },
     SET_CATALOG_RECORD(state, catalogRecord) {
         state.dataset.catalogRecord = catalogRecord;

@@ -53,6 +53,7 @@
     computed: {
       // import store-getters
       ...mapGetters('datasetDetails', [
+        'getID',
         'getCategories',
         'getKeywords',
         'getLanguages',
@@ -78,18 +79,21 @@
     created() {
       this.useService(this.DatasetService);
       this.$nextTick(() => {
-        this.$Progress.start();
-        this.loadDatasetDetails(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-          })
-          .catch(() => {
-            this.$Progress.fail();
-            this.$router.replace({
-              name: 'NotFound',
-              query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+        // Duplicated API call, execute only if data not already loaded
+        if (this.$route.params.ds_id !== this.getID) {
+          this.$Progress.start();
+          this.loadDatasetDetails(this.$route.params.ds_id)
+            .then(() => {
+              this.$Progress.finish();
+            })
+            .catch(() => {
+              this.$Progress.fail();
+              this.$router.replace({
+                name: 'NotFound',
+                query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+              });
             });
-          });
+        }
       });
     },
   };

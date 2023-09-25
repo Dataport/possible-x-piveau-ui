@@ -416,7 +416,7 @@ const useVueWithKeycloakWithTimeout = ms => Promise.race([
 
   try {
     // Load Keycloak
-    await useVueWithKeycloakWithTimeout(window.Cypress ? 200 : 7000);
+    await useVueWithKeycloakWithTimeout(window.Cypress ? 200 : 1000);
   } catch (ex) {
     // eslint-disable-next-line no-console
     console.error(ex);

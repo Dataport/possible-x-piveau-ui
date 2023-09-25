@@ -515,6 +515,7 @@
       // import store-getters
       ...mapGetters('datasetDetails', [
         'getLanguages',
+        'getQualityDataRequested',
         'getQualityData',
         'getQualityDistributionData',
         'getTitle',
@@ -576,42 +577,55 @@
     created() {
       this.useService(this.DatasetService);
       this.$nextTick(() => {
-        this.$Progress.start();
-        this.isLoadingQualityData = true;
-        this.isLoadingQualityDistributionData = true;
-        this.loadDatasetDetails(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-            $('[data-toggle="tooltip"]').tooltip({
-              container: 'body',
+        
+        // Duplicated API call, execute only if data not already loaded
+        if (this.$route.params.ds_id !== this.getID) {
+          this.$Progress.start();
+          this.loadDatasetDetails(this.$route.params.ds_id)
+            .then(() => {
+              this.$Progress.finish();
+              $('[data-toggle="tooltip"]').tooltip({
+                container: 'body',
+              });
+            })
+            .catch(() => {
+              this.$Progress.fail();
+              this.$router.replace({
+                name: 'NotFound',
+                query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+              });
             });
-          })
-          .catch(() => {
-            this.$Progress.fail();
-            this.$router.replace({
-              name: 'NotFound',
-              query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+        
+        }
+
+        // Duplicated API call, execute only if data not already loaded
+        if (this.$route.params.ds_id !== this.getQualityDataRequested) {
+         
+          this.$Progress.start();
+          this.isLoadingQualityData = true;
+          this.loadQualityData(this.$route.params.ds_id)
+            .then(() => {
+              this.$Progress.finish();
+              this.isLoadingQualityData = false;
+            })
+            .catch(() => {
+              this.$Progress.fail();
+              this.isLoadingQualityData = false;
             });
-          });
-        this.loadQualityData(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-            this.isLoadingQualityData = false;
-          })
-          .catch(() => {
-            this.$Progress.fail();
-            this.isLoadingQualityData = false;
-          });
-        this.loadQualityDistributionData(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-            this.isLoadingQualityDistributionData = false;
-            this.checkDistributionValidation();
-          })
-          .catch(() => {
-            this.$Progress.fail();
-            this.isLoadingQualityDistributionData = false;
-          });
+            
+          this.$Progress.start();
+          this.isLoadingQualityDistributionData = true;
+          this.loadQualityDistributionData(this.$route.params.ds_id)
+            .then(() => {
+              this.$Progress.finish();
+              this.isLoadingQualityDistributionData = false;
+              this.checkDistributionValidation();
+            })
+            .catch(() => {
+              this.$Progress.fail();
+              this.isLoadingQualityDistributionData = false;
+            });
+        }
       });
     },
     mounted() {

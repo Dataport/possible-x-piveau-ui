@@ -44,8 +44,9 @@
         </div>
       </div>
       <div class="d-inline dropdown dsd-link-dqv" v-if="showDQV">
-        <app-link class="nav-item nav-link dropdown-toggle text-nowrap" :class="{'disabled': !(this.getIsDQVDataRDFAvailable)}"
-                  fragment="#" role="button" id="metaDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <app-link class="nav-item nav-link dropdown-toggle text-nowrap" 
+          :class="{'disabled': !(getIsDQVDataRDFAvailable || getIsDQVDataTTLAvailable || getIsDQVDataN3Available || getIsDQVDataNTAvailable || getIsDQVDataJSONLDAvailable)}"
+          fragment="#" role="button" id="metaDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <!--<i class="material-icons small-icon align-bottom text-dark">***FIND A LINKED DATA ICON***</i>-->
           <span :title="$t('message.tooltip.datasetDetails.dqvData')"
                 data-toggle="tooltip"
@@ -55,10 +56,10 @@
         </app-link>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="metaDataDropdownMenuLink">
           <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="rdf" text="RDF/XML" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
-          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="ttl" text="Turtle" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
-          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="n3" text="Notation3" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
-          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="nt" text="N-Triples" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
-          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="jsonld" text="JSON-LD" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
+          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataTTLAvailable}" format="ttl" text="Turtle" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
+          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataN3Available}" format="n3" text="Notation3" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
+          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataNTAvailable}" format="nt" text="N-Triples" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
+          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataJSONLDAvailable}" format="jsonld" text="JSON-LD" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
         </div>
       </div>
       <div class="d-inline dropdown dsd-link-cite">
@@ -157,7 +158,14 @@ export default {
         apa: 'APA',
         harvard1: 'Harvard',
         vancouver: 'Vancouver',
-      }
+      },
+      formats: [
+        'rdf',
+        'ttl',
+        'n3',
+        'nt',
+        'jsonld',
+      ],
     };
   },
   computed: {
@@ -165,7 +173,12 @@ export default {
       'getTitle',
       'getLanguages',
       'getLoading',
+      'getIsDQVDataRequested',
       'getIsDQVDataRDFAvailable',
+      'getIsDQVDataTTLAvailable',
+      'getIsDQVDataN3Available',
+      'getIsDQVDataNTAvailable',
+      'getIsDQVDataJSONLDAvailable',
       'getID'
     ]),
     url() { return window.location.href; },
@@ -202,20 +215,24 @@ export default {
   mounted() {
     this.useService(this.DatasetService);
     this.$nextTick(() => {
-      this.$Progress.start();
-      this.loadDQVData({ id: this.$route.params.ds_id, formats: ['rdf'], locale: this.$route.query.locale })
-        .then(() => {
-          this.$Progress.finish();
-          $('[data-toggle="tooltip"]').tooltip({
-            container: 'body',
+      // Duplicated API call, execute only if data not already loaded
+      if (this.$route.params.ds_id !== this.getIsDQVDataRequested) {
+        this.$Progress.start();
+        this.loadDQVData({ id: this.$route.params.ds_id, formats: this.formats, locale: this.$route.query.locale })
+          .then(() => {
+            this.$Progress.finish();
+            $('[data-toggle="tooltip"]').tooltip({
+              container: 'body',
+            });
+          })
+          .catch(() => {
+            this.$Progress.fail();
           });
-        })
-        .catch(() => {
-          this.$Progress.fail();
-        })
-        .finally(() => {
-          // console.clear();
+      } else {
+        $('[data-toggle="tooltip"]').tooltip({
+          container: 'body',
         });
+      }
     });
   }
 }
