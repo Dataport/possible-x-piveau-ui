@@ -509,12 +509,15 @@
         isLoadingQualityData: false,
         isLoadingQualityDistributionData: false,
         enableCSVLinter: this.$env.content.datasetDetails.quality.csvLinter.enable,
+        useDQVDataDropdown: this.$env.content.datasetDetails.quality.useDQVDataDropdown,
+        formats: this.$env.content.datasetDetails.quality.formatsDQVData,
       };
     },
     computed: {
       // import store-getters
       ...mapGetters('datasetDetails', [
         'getLanguages',
+        'getIsDQVDataRequested',
         'getQualityDataRequested',
         'getQualityData',
         'getQualityDistributionData',
@@ -542,10 +545,11 @@
     methods: {
       // import store-actions
       ...mapActions('datasetDetails', [
-        'loadDatasetDetails',
         'useService',
+        'loadDatasetDetails',
         'loadQualityData',
         'loadQualityDistributionData',
+        'loadDQVData',
       ]),
       has,
       getTranslationFor,
@@ -625,6 +629,23 @@
               this.$Progress.fail();
               this.isLoadingQualityDistributionData = false;
             });
+        }
+
+        // Duplicated API call, execute only if data not already loaded
+        if (this.$route.params.ds_id !== this.getIsDQVDataRequested) {
+          if (this.useDQVDataDropdown) {
+            this.$Progress.start();
+            this.loadDQVData({ id: this.$route.params.ds_id, formats: this.formats, locale: this.$route.query.locale })
+              .then(() => {
+                this.$Progress.finish();
+                $('[data-toggle="tooltip"]').tooltip({
+                  container: 'body',
+                });
+              })
+              .catch(() => {
+                this.$Progress.fail();
+              });
+          }
         }
       });
     },

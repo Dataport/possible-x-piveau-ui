@@ -53,7 +53,7 @@ const glueConfig = {
     keycloak: {
       realm: 'piveau',
       clientId: 'piveau-hub-ui',
-      url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
+      url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/',
 
       // TODO: Do we need to include these properties? They seem to be default values that never change #2763
       'ssl-required': 'external',
@@ -102,7 +102,7 @@ const glueConfig = {
       maxKeywordLength: 15,
       facets: {
         useDatasetFacets: true,
-        useDatasetFacetsMap: true,
+        useDatasetFacetsMap: false,
         showClearButton: false,
         showFacetsTitle: false,
         cutoff: 5 ,
@@ -212,7 +212,7 @@ const glueConfig = {
       },
       // Embed Dataset feat
       embed: {
-        enable: false,
+        enable: true,
         defaultWidth: 900,
         defaultHeight: 600,
         minRange: 0,
@@ -268,6 +268,14 @@ const glueConfig = {
         TIMEOUT_MS: 10000,
       },
       quality: {
+        useDQVDataDropdown: false,
+        formatsDQVData: [
+          'rdf',
+          'ttl',
+          'n3',
+          'nt',
+          'jsonld',
+        ],
         displayAll: false,
         numberOfDisplayedQualityDistributions: 5,
         csvLinter: {
@@ -314,7 +322,7 @@ const glueConfig = {
       },
     },
     dataProviderInterface: {
-      useService: true,
+      useService: false,
       basePath: '/dpi',
       specification: 'dcatap',
       annifIntegration: false,

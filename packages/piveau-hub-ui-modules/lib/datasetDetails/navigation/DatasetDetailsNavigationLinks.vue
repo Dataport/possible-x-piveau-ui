@@ -149,6 +149,7 @@ export default {
   data() {
     return {
       baseUrl: this.$env.api.baseUrl,
+      useDQVDataDropdown: this.$env.content.datasetDetails.quality.useDQVDataDropdown,
       citationModalId: 'citationModal',
       // Note: leave citationStyle empty so that the app does not try to load the citation
       // on navigation to the dataset details page in the background.
@@ -159,13 +160,6 @@ export default {
         harvard1: 'Harvard',
         vancouver: 'Vancouver',
       },
-      formats: [
-        'rdf',
-        'ttl',
-        'n3',
-        'nt',
-        'jsonld',
-      ],
     };
   },
   computed: {
@@ -173,26 +167,22 @@ export default {
       'getTitle',
       'getLanguages',
       'getLoading',
-      'getIsDQVDataRequested',
       'getIsDQVDataRDFAvailable',
       'getIsDQVDataTTLAvailable',
       'getIsDQVDataN3Available',
       'getIsDQVDataNTAvailable',
       'getIsDQVDataJSONLDAvailable',
-      'getID'
+      'getID',
     ]),
-    url() { return window.location.href; },
+    url() { 
+      return window.location.href; 
+    },
     showDQV() {
-      const path = this.$router.currentRoute.path;
-      return path.endsWith("quality");
-    }
+      return this.useDQVDataDropdown && this.$router.currentRoute.path.endsWith("quality");
+    },
   },
   methods: {
     getTranslationFor,
-    ...mapActions('datasetDetails', [
-      'useService',
-      'loadDQVData'
-    ]),
     getFeedLink() {
       return `${this.baseUrl}${this.$route.query.locale}/feeds/datasets/${this.datasetId}.rss`;
     },
@@ -212,29 +202,7 @@ export default {
       }],
     };
   },
-  mounted() {
-    this.useService(this.DatasetService);
-    this.$nextTick(() => {
-      // Duplicated API call, execute only if data not already loaded
-      if (this.$route.params.ds_id !== this.getIsDQVDataRequested) {
-        this.$Progress.start();
-        this.loadDQVData({ id: this.$route.params.ds_id, formats: this.formats, locale: this.$route.query.locale })
-          .then(() => {
-            this.$Progress.finish();
-            $('[data-toggle="tooltip"]').tooltip({
-              container: 'body',
-            });
-          })
-          .catch(() => {
-            this.$Progress.fail();
-          });
-      } else {
-        $('[data-toggle="tooltip"]').tooltip({
-          container: 'body',
-        });
-      }
-    });
-  }
+  mounted() {},
 }
 </script>
 
