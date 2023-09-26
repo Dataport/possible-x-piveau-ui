@@ -74,3 +74,14 @@ const transform = (content: string, position: number, prefix: string) => {
     }
     return {}
 }
+
+/**
+ * Starting past the opening curly braces, using a tokenization array
+ * @param prefix
+ */
+function readConfigObject(tokenization: [{type: string, value: string}], tokenPosition: number, prefix: string) {
+    const result = {};
+    while (true) {
+        const identifer = tokenPosition[tokenization].value;
+    }
+}
