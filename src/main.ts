@@ -1,7 +1,6 @@
 // @ts-nocheck
 import 'es6-promise/auto';
 import $ from 'jquery';
-import { sync } from 'vuex-router-sync';
 
 // Vue packages
 import * as VeeValidate from 'vee-validate';
@@ -83,7 +82,7 @@ $(() => {
 // Create the application
 const app = createApp(App);
 
-app.config.devtools = true;
+app.config.performance = true;
 
 // Runtime Configuration Service
 app.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
@@ -127,15 +126,11 @@ app.use(router);
 // Vuex Store
 app.use(store);
 
-// Sync store and router
-sync(store, router);
-
 // Vue i18n
 const LOCALE = env.languages.locale;
 const FALLBACKLOCALE = env.languages.fallbackLocale;
 
 const i18n = createI18n({
-  allowComposition: true,
   locale: LOCALE,
   fallbackLocale: FALLBACKLOCALE,
   messages: I18N_CONFIG,
@@ -298,5 +293,3 @@ app.use(VuePositionSticky);
 // });
 
 app.mount('#app');
-
-app.config.productionTip = false;

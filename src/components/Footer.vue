@@ -9,10 +9,6 @@
 
 export default {
   name: 'PiveauFooter',
-  inheritAttrs: false,
-  props: {
-
-  },
 };
 </script>
 

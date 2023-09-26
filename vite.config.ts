@@ -27,26 +27,34 @@ const buildConfig = {
 
 export default defineConfig({
   base: buildConfig.BASE_PATH,
-  plugins: [
-    vue(
-      { template: { compilerOptions: { whitespace: 'preserve' } } }
-    ),
-  ],
-  server: {
-    port: 8080
-  },
   define: {},
+  plugins: [
+    vue({ 
+      template: { 
+        compilerOptions: { 
+          whitespace: 'preserve' ,
+          compatConfig: {
+            MODE: 3,
+          },
+        },
+      },
+    }),
+  ],
   resolve: {
     alias: [
       {
+        find: 'vue',
+        replacement: '@vue/compat',
+      },
+      {
         find: '@',
-        replacement: path.resolve(__dirname, 'src')
+        replacement: path.resolve(__dirname, 'src'),
       },
       {
         find: '@modules-scss',
         replacement: isSymlink('@piveau/piveau-hub-ui-modules') ?
           path.resolve(__dirname, '..', '..', 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
-          : path.resolve(__dirname, 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
+          : path.resolve(__dirname, 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss'),
       },
       {
         find: /^~(.*)$/,
@@ -62,14 +70,23 @@ export default defineConfig({
       },
     ],
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
-    preserveSymlinks: false
+    preserveSymlinks: false,
   },
-
+  server: {
+    port: 8080
+  },
   build: {
     rollupOptions: {
       output: {
         entryFileNames: 'app.[hash].js',
       }
     }
-  }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        quietDeps: true,
+      },
+    },
+  },
 });

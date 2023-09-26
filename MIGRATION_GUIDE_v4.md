@@ -164,7 +164,7 @@ Vue.extend()                          ==> defineComponent()
 
 Vue.component()                       ==> app.component()
 
-Vue.prototype.$env                    ==> process.env | import.meta.env
+Vue.prototype.$env                    ==> app.config.globalProperties.$env
 
 Vue.prototype.<globalProperty>        ==> app.config.globalProperties.<globalProperty>
 
