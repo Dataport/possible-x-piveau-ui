@@ -777,7 +777,7 @@
 
       if (this.pages.displayAll) this.pages.displayCount = this.getPages.length;
     },
-    beforeDestroy() {
+    beforeUnmount() {
       $('.tooltip').remove();
     },
     destroyed() {

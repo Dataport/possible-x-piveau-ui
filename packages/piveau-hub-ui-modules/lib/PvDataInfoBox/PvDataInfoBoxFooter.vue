@@ -40,7 +40,6 @@ import Tooltip from "../widgets/Tooltip.vue";
 
 export default defineComponent({
   name: 'PvDataInfoBoxFooter',
-  inheritAttrs: false,
   components: {
     DatasetDate,
     Tooltip,

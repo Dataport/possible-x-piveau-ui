@@ -28,9 +28,16 @@ const buildConfig = {
 
 export default defineConfig({
   plugins: [
-    vue(
-      { template: { compilerOptions: { whitespace: 'preserve' } } }
-    ),
+    vue({ 
+      template: { 
+        compilerOptions: { 
+          whitespace: 'preserve' ,
+          compatConfig: {
+            MODE: 3,
+          },
+        },
+      },
+    }),
     VueI18nPlugin({
       strictMessage: false,
       include: [path.resolve(__dirname, './config/i18n/lang/**')],
@@ -47,8 +54,12 @@ export default defineConfig({
   resolve: {
     alias: [
       {
+        find: 'vue',
+        replacement: '@vue/compat',
+      },
+      {
         find: '@',
-        replacement: path.resolve(__dirname, 'src')
+        replacement: path.resolve(__dirname, 'src'),
       },
       {
         find: '@modules-scss',

@@ -99,7 +99,7 @@ $(() => {
 
 const app = createApp(App);
 
-app.config.devtools = true;
+app.config.performance = true;
 
 // Runtime Configuration Service
 app.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: true });
@@ -344,5 +344,3 @@ app.use(VuePositionSticky);
 // });
 
 app.mount('#app');
-
-app.config.productionTip = false;

@@ -596,7 +596,7 @@ export default {
       });
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     $(".tooltip").remove();
     if (this.infiniteScrolling)
       window.removeEventListener("scroll", this.onScroll);

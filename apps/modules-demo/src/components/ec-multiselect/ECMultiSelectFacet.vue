@@ -117,7 +117,7 @@ export default {
   mounted() {
     this.id = this._uid; // eslint-disable-line
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }

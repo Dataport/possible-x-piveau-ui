@@ -92,7 +92,6 @@ import { mapActions } from 'vuex';
 
 export default defineComponent({
   name: 'DatasetsFiltersTabs',
-  inheritAttrs: false,
   props: {
     useSort: {
       type: Boolean,

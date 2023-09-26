@@ -29,7 +29,7 @@ export default {
   },
   methods: {
   },
-  beforeDestroy() {
+  beforeUnmount() {
     $('.tooltip').remove();
   },
 };

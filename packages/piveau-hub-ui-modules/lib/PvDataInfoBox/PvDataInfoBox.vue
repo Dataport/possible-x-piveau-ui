@@ -94,7 +94,6 @@ import PvDataInfoBoxFormats from "./PvDataInfoBoxFormats.vue"
 
 export default defineComponent({
   name: "PvDataInfoBox",
-  inheritAttrs: false,
   components: {
     PvBadge,
     PvDataInfoBoxFooter,

@@ -13,7 +13,6 @@ import type { DistributionFormat } from '../types/global';
 
 export default defineComponent({
   name: 'PvBadge',
-  inheritAttrs: false,
   props: {
     value: {
       type: Object as PropType<DistributionFormat>,

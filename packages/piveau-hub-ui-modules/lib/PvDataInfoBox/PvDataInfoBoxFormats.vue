@@ -23,7 +23,6 @@ import { defineComponent, PropType } from "vue";
 import PvBadge from "../PvBadge/PvBadge.vue";
 
 export default defineComponent({
-  inheritAttrs: false,
   components: {
     PvBadge,
   },
