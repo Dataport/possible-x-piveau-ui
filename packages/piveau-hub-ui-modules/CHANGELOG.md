@@ -1,3 +1,13 @@
+## [3.10.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.12...v3.10.13) (2023-09-27)
+
+
+### Bug Fixes
+
+* fixed DEU Feedback ([099a157](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/099a15789ec44e273ce5113f72db8adc6bfdced4))
+* new clear message (Also made the text red) ([de491ba](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/de491ba6f0e0bdd5fbabadedeaff6e00d76e9724))
+
+
+
 ## [3.10.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.11...v3.10.12) (2023-09-22)
 
 
