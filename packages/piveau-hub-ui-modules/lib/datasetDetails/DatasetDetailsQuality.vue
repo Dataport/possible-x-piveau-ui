@@ -510,6 +510,8 @@
         isLoadingQualityDistributionData: false,
         enableCSVLinter: this.$env.content.datasetDetails.quality.csvLinter.enable,
         useDQVDataDropdown: this.$env.content.datasetDetails.quality.useDQVDataDropdown,
+        useQualityData: this.$env.content.datasetDetails.quality.useQualityData,
+        useQualityDistributionData: this.$env.content.datasetDetails.quality.useQualityDistributionData,
         formats: this.$env.content.datasetDetails.quality.formatsDQVData,
       };
     },
@@ -605,30 +607,34 @@
         // Duplicated API call, execute only if data not already loaded
         if (this.$route.params.ds_id !== this.getQualityDataRequested) {
          
-          this.$Progress.start();
-          this.isLoadingQualityData = true;
-          this.loadQualityData(this.$route.params.ds_id)
-            .then(() => {
-              this.$Progress.finish();
-              this.isLoadingQualityData = false;
-            })
-            .catch(() => {
-              this.$Progress.fail();
-              this.isLoadingQualityData = false;
-            });
-            
-          this.$Progress.start();
-          this.isLoadingQualityDistributionData = true;
-          this.loadQualityDistributionData(this.$route.params.ds_id)
-            .then(() => {
-              this.$Progress.finish();
-              this.isLoadingQualityDistributionData = false;
-              this.checkDistributionValidation();
-            })
-            .catch(() => {
-              this.$Progress.fail();
-              this.isLoadingQualityDistributionData = false;
-            });
+          if (this.useQualityData) {
+            this.$Progress.start();
+            this.isLoadingQualityData = true;
+            this.loadQualityData(this.$route.params.ds_id)
+              .then(() => {
+                this.$Progress.finish();
+                this.isLoadingQualityData = false;
+              })
+              .catch(() => {
+                this.$Progress.fail();
+                this.isLoadingQualityData = false;
+              });
+          }
+          
+          if (this.useQualityDistributionData) {
+            this.$Progress.start();
+            this.isLoadingQualityDistributionData = true;
+            this.loadQualityDistributionData(this.$route.params.ds_id)
+              .then(() => {
+                this.$Progress.finish();
+                this.isLoadingQualityDistributionData = false;
+                this.checkDistributionValidation();
+              })
+              .catch(() => {
+                this.$Progress.fail();
+                this.isLoadingQualityDistributionData = false;
+              });
+          } 
         }
 
         // Duplicated API call, execute only if data not already loaded

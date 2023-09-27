@@ -224,6 +224,7 @@ const glueConfig = {
         enable: false,
       },
       similarDatasets: {
+        useSimilarDatasets: true,
         breakpoints: {
           verySimilar: { start: 0, end: 20 },
           similar: { start: 20, end: 25 },
@@ -268,7 +269,9 @@ const glueConfig = {
         TIMEOUT_MS: 10000,
       },
       quality: {
-        useDQVDataDropdown: false,
+        useQualityData: true,
+        useQualityDistributionData: true,
+        useDQVDataDropdown: true,
         formatsDQVData: [
           'rdf',
           'ttl',
