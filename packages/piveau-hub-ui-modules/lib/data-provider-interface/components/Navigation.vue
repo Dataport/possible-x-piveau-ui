@@ -87,7 +87,7 @@ export default {
         },
         clear: {
           confirm: 'Clear form',
-          message: 'Are your sure you want to clear the form?',
+          message: 'Are your sure you want to clear the form? BE AWARE: this can not be reverted and all of your Data is lost!',
           callback: this.clearStorage,
         },
         deleteDistribution: {
@@ -445,4 +445,9 @@ export default {
 .submit-label:hover {
   cursor: pointer;
 }
+
+  .modal-body{
+    color:red;
+  }
+
 </style>
