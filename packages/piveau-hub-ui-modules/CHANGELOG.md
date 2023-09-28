@@ -1,3 +1,127 @@
+## [3.10.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.12...v3.10.13) (2023-09-27)
+
+
+### Bug Fixes
+
+* fixed DEU Feedback ([099a157](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/099a15789ec44e273ce5113f72db8adc6bfdced4))
+* new clear message (Also made the text red) ([de491ba](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/de491ba6f0e0bdd5fbabadedeaff6e00d76e9724))
+
+
+
+## [3.10.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.11...v3.10.12) (2023-09-22)
+
+
+### Bug Fixes
+
+* **CatalogPage:** use dedicated xhr to search api for fallback interested datasets ([e4eaf94](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e4eaf94edca8bc270f217907b420b46738ea9d9e))
+* **Datasets:** fix catalogs facets filter not being applied when toggling ([24861a0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/24861a0c8fff614d88d1975e2a2badce1d631ba3))
+
+
+
+## [3.10.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.10...v3.10.11) (2023-09-22)
+
+
+### Bug Fixes
+
+* fixed url handling for fileuploads within DPI ([0bd6a0b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/0bd6a0b45296bdf8a95df14067aeafa927117236))
+
+
+
+## [3.10.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.9...v3.10.10) (2023-09-21)
+
+
+### Bug Fixes
+
+* state ([ee4cc56](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ee4cc566a2fd445c57c3c2d1a5f6321ae68f7ffd))
+
+
+
+## [3.10.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.8...v3.10.9) (2023-09-21)
+
+
+### Bug Fixes
+
+* temporary fix, only get catalog name from augsburg domain if not in parameter ([1b5673a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1b5673a40284c7ce7ec59ab20b5aa707c5abd8e9))
+
+
+
+## [3.10.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.7...v3.10.8) (2023-09-21)
+
+
+### Bug Fixes
+
+* add inCatalogPage prop to Datasets.vue ([b7ac019](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7ac0195b86214379320c337cec888d79b17e20a))
+
+
+
+## [3.10.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.6...v3.10.7) (2023-09-21)
+
+
+### Bug Fixes
+
+* add catalog field to computed in datasets ([b297a4f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b297a4f652f7802ab365c984768b1532e253890e))
+* fix build (one too many curly bracket) ([550842a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/550842aa99f7287573f744f87e32076634b827ff))
+
+
+
+## [3.10.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.5...v3.10.6) (2023-09-21)
+
+
+### Bug Fixes
+
+* get catalog id from domain ([01368da](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/01368da6fae3f48313b66897e2a44f0925634ed5))
+
+
+
+## [3.10.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.4...v3.10.5) (2023-09-21)
+
+
+### Bug Fixes
+
+* remove loggers ([6d9a426](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6d9a42644f62e3dc290241522bf2bd58d8c5e796))
+
+
+
+## [3.10.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.3...v3.10.4) (2023-09-21)
+
+
+### Bug Fixes
+
+* trial to fix issue with showing the right datasets for a specific catalog page in an external domain ([664e424](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/664e4245f34e10dd8e9eeeeb8011ef849671c47e))
+
+
+
+## [3.10.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.2...v3.10.3) (2023-09-20)
+
+
+
+## [3.10.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.1...v3.10.2) (2023-09-20)
+
+
+### Bug Fixes
+
+* minor styling and text change ([5f3b5a2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5f3b5a2a2c20bf1a47c6a1ecaa1e1d457daab454))
+
+
+
+## [3.10.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.0...v3.10.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* fixed Fileupload ([0a10ee6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/0a10ee68b8ee904ac9abe20571e1da270a312937))
+
+
+
+# [3.10.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.19...v3.10.0) (2023-09-18)
+
+
+### Bug Fixes
+
+* only allows properly formatted JSONs.  ([e93e60e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e93e60e8877bc551f7989ac1cdcfeb43fa154a35))
+
+
+
 ## [3.9.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.18...v3.9.19) (2023-09-01)
 
 

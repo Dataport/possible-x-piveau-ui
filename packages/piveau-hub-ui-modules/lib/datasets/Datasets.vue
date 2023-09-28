@@ -1,38 +1,42 @@
 <template>
   <div class="datasets-container d-flex flex-column p-0 bg-transparent">
     <datasets-top-controls
-      :facets="facets"
-      :getPage="getPage"
-      :getLimit="getLimit"
-      class="datasets-top-controls"
+        :facets="facets"
+        :getPage="getPage"
+        :getLimit="getLimit"
+        class="datasets-top-controls"
     />
     <div class="container-fluid datasets content">
       <slot name="title">
-        <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">{{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
+        <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">
+          {{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
         <h1 class="row col-12 page-title text-primary" v-else>{{ $t('message.header.navigation.data.datasets') }}</h1>
       </slot>
       <slot
-        name="content"
-        :datasets-count="getDatasetsCount"
-        :datasets="getDatasets"
-        :locale="$route.query.locale"
-        :loading="getLoading"
-        :use-dataset-facets="useDatasetFacets"
-        :facets="getFacets"
-        :available-facets="getAvailableFacets"
+          name="content"
+          :datasets-count="getDatasetsCount"
+          :datasets="getDatasets"
+          :locale="$route.query.locale"
+          :loading="getLoading"
+          :use-dataset-facets="useDatasetFacets"
+          :facets="getFacets"
+          :available-facets="getAvailableFacets"
       >
         <div class="row">
           <div class="col d-flex d-md-none justify-content-end flex-wrap">
-            <button class="btn btn-primary mb-3 text-right text-white" data-toggle="collapse" data-target="#datasetFacets" data-cy="btn-filter-toggle" @click="filterCollapsed = !filterCollapsed">
+            <button class="btn btn-primary mb-3 text-right text-white" data-toggle="collapse"
+                    data-target="#datasetFacets" data-cy="btn-filter-toggle"
+                    @click="filterCollapsed = !filterCollapsed">
               {{ $t('message.datasetFacets.title') }}
               <i class="material-icons small-icon align-bottom" v-if="filterCollapsed">arrow_drop_up</i>
               <i class="material-icons small-icon align-bottom" v-else>arrow_drop_down</i>
             </button>
           </div>
-          <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets" :dataScope="dataScope"></datasets-facets>
+          <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets"
+                           :dataScope="dataScope"></datasets-facets>
           <section class="col-md-9 col-12">
             <slot name="datasets-filters">
-              <datasets-filters />
+              <datasets-filters/>
             </slot>
             <slot name="datasets-found" :data="{
               loading: getLoading,
@@ -42,10 +46,12 @@
               countMessage: $t('message.datasets.countMessage'),
             }">
               <div class="datasets-found alert alert-primary mt-3 d-flex flex-row" role="status"
-                  :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
+                   :class="{ 'alert-danger': getDatasetsCount <= 0 && !getLoading}">
                 <div>
-                  {{ getLoading ? $t('message.datasets.loadingMessage'):`${getDatasetsCount.toLocaleString('fi')}
-                  ${$t('message.datasets.countMessage')}`}}
+                  {{
+                    getLoading ? $t('message.datasets.loadingMessage') : `${getDatasetsCount.toLocaleString('fi')}
+                  ${$t('message.datasets.countMessage')}`
+                  }}
                 </div>
                 <div class="loading-spinner ml-3" v-if="getLoading"></div>
               </div>
@@ -65,7 +71,8 @@
               </button>
             </div>
             -->
-            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getAllAvailableFacets"></selectedFacetsOverview>
+            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets"
+                                    :available-facets="getAllAvailableFacets"></selectedFacetsOverview>
             <template v-if="!getLoading">
               <dataset-list :datasets="getDatasets" :locale="$route.query.locale || 'en'"></dataset-list>
             </template>
@@ -76,11 +83,11 @@
       <div class="row">
         <div class="column col-12 col-md-9 offset-md-3">
           <pagination class="mt-3"
-            :items-count="getDatasetsCount"
-            :items-per-page="getLimit"
-            :get-page="getPage"
-            :get-page-count="getPageCount"
-            @setPageLimit="setPageLimit"></pagination>
+                      :items-count="getDatasetsCount"
+                      :items-per-page="getLimit"
+                      :get-page="getPage"
+                      :get-page-count="getPageCount"
+                      @setPageLimit="setPageLimit"></pagination>
         </div>
       </div>
     </div>
@@ -88,170 +95,188 @@
 </template>
 
 <script>
-  /* eslint-disable no-undef */
-  // Import vuex helpers
-  import { mapActions, mapGetters } from 'vuex';
-  import {
-    debounce,
-    has,
-    groupBy,
-    uniqBy,
-    toPairs,
-    isArray,
-    isNil,
-  } from 'lodash-es';
-  import $ from 'jquery';
-  import fileTypes from '../utils/fileTypes';
-  import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
-  import Pagination from '../widgets/Pagination.vue';
-  import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
-  import AppLink from '../widgets/AppLink.vue';
-  import { getTranslationFor, truncate, getImg } from '../utils/helpers';
-  import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
-  import DatasetsFilters from "../datasets/DatasetsFilters.vue";
-  import DatasetList from './DatasetList.vue'
+/* eslint-disable no-undef */
+// Import vuex helpers
+import {mapActions, mapGetters} from 'vuex';
+import {
+  debounce,
+  has,
+  groupBy,
+  uniqBy,
+  toPairs,
+  isArray,
+  isNil,
+} from 'lodash-es';
+import $ from 'jquery';
+import fileTypes from '../utils/fileTypes';
+import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
+import Pagination from '../widgets/Pagination.vue';
+import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
+import AppLink from '../widgets/AppLink.vue';
+import {getTranslationFor, truncate, getImg} from '../utils/helpers';
+import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
+import DatasetsFilters from "../datasets/DatasetsFilters.vue";
+import DatasetList from './DatasetList.vue'
 
-  export default {
-    name: 'Datasets',
-    dependencies: ['DatasetService'],
-    components: {
-      DatasetsFilters,
-      DatasetsTopControls,
-      appLink: AppLink,
-      selectedFacetsOverview: SelectedFacetsOverview,
-      datasetsFacets: DatasetsFacets,
-      pagination: Pagination,
-      DatasetList,
+// todo: Bayern specific stuff that you probably want to remove
+import { getSubdomainCatalogIdFromUrl } from '../utils/temporaryBayernUtils';
+
+export default {
+  name: 'Datasets',
+  dependencies: ['DatasetService'],
+  components: {
+    DatasetsFilters,
+    DatasetsTopControls,
+    appLink: AppLink,
+    selectedFacetsOverview: SelectedFacetsOverview,
+    datasetsFacets: DatasetsFacets,
+    pagination: Pagination,
+    DatasetList,
+  },
+  props: {
+    infiniteScrolling: {
+      type: Boolean,
+      default: false,
     },
-    props: {
-      infiniteScrolling: {
-        type: Boolean,
-        default: false,
-      },
+    inCatalogPage: {
+      type: Boolean,
+      default: false,
     },
-    metaInfo() {
-      return {
-        title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.datasets')}`,
-        meta: [
-          { name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}` },
-          { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}` },
-          { name: 'robots', content: 'noindex, follow' },
-        ],
-      };
+  },
+  metaInfo() {
+    return {
+      title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.datasets')}`,
+      meta: [
+        {name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}`},
+        {
+          name: 'keywords',
+          vmid: 'keywords',
+          content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}`
+        },
+        {name: 'robots', content: 'noindex, follow'},
+      ],
+    };
+  },
+  data() {
+    return {
+      baseUrl: this.$env.api.baseUrl,
+      debouncedOnBottomScroll: debounce(this.onBottomScroll, 500),
+      facetFields: [],
+      lang: this.locale,
+      filterCollapsed: true,
+      catalogAllowed: false,
+      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets
+    };
+  },
+  computed: {
+    ...mapGetters('catalogDetails', [
+      'getCatalog',
+    ]),
+    ...mapGetters('datasets', [
+      'getDatasets',
+      'getDatasetsCount',
+      'getFacets',
+      'getLimit',
+      'getLoading',
+      'getOffset',
+      'getPage',
+      'getPageCount',
+      'getAvailableFacets',
+      'getAllAvailableFacets',
+      'getMinScoring',
+    ]),
+    showCatalogDetails() {
+      return !isNil(this.$route.params.ctlg_id) || this.inCatalogPage;
     },
-    data() {
-      return {
-        baseUrl: this.$env.api.baseUrl,
-        debouncedOnBottomScroll: debounce(this.onBottomScroll, 500),
-        facetFields: [],
-        lang: this.locale,
-        filterCollapsed: true,
-        catalogAllowed: false,
-        useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets
-      };
+    /**
+     * @description Returns the current page.
+     * @returns {Number}
+     *
+     * @deprecated use getPage from datasets store instead
+     */
+    page() {
+      return this.$route.query.page;
     },
-    computed: {
-      ...mapGetters('catalogDetails', [
-        'getCatalog',
-      ]),
-      ...mapGetters('datasets', [
-        'getDatasets',
-        'getDatasetsCount',
-        'getFacets',
-        'getLimit',
-        'getLoading',
-        'getOffset',
-        'getPage',
-        'getPageCount',
-        'getAvailableFacets',
-        'getAllAvailableFacets',
-        'getMinScoring',
-      ]),
-      showCatalogDetails() {
-        return !isNil(this.$route.params.ctlg_id);
-      },
-      /**
-       * @description Returns the current page.
-       * @returns {Number}
-       *
-       * @deprecated use getPage from datasets store instead
-       */
-      page() {
-        return this.$route.query.page;
-      },
-      /**
-       * @description Returns the active facets.
-       * @returns {Object}
-       */
-      facets() {
-        const facets = {};
-        for (const field of this.facetFields) {
-          let urlFacets;
-          if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
-          else urlFacets = this.$route.query[field];
-          if (!urlFacets) urlFacets = [];
-          else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
-          facets[field] = urlFacets;
+    /**
+     * @description Returns the active facets.
+     * @returns {Object}
+     */
+    facets() {
+      const facets = {};
+      for (const field of this.facetFields) {
+        let urlFacets;
+        if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
+        else if (
+          field === 'catalog' && 
+          isNil(this.$route.params.ctlg_id) &&
+          getSubdomainCatalogIdFromUrl(window.location)
+          ) {
+            urlFacets = [getSubdomainCatalogIdFromUrl(window.location)];
         }
-        return facets;
-      },
-      currentSearchQuery() {
-        return this.$route.query.query;
-      },
-      showScoreDisclaimer() {
-        return this.getMinScoring > 0;
-      },
-      dataScope() {
-        if (!this.$route.query.dataScope) return null;
-        if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length > 0) return this.$route.query.dataScope[0];
-        if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length === 0) return null;
-        return this.$route.query.dataScope;
-      },
+        else urlFacets = this.$route.query[field];
+        if (!urlFacets) urlFacets = [];
+        else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
+        facets[field] = urlFacets;
+      }
+      return facets;
     },
-    methods: {
-      isNil,
-      ...mapActions('datasets', [
-        'loadDatasets',
-        'loadAdditionalDatasets',
-        'setPage',
-        'useService',
-        'addFacet',
-        'removeFacet',
-        'setFacets',
-        'setFacetOperator',
-        'setFacetGroupOperator',
-        'setDataServices',
-        'setPageCount',
-        'setLimit',
-        'setLoading',
-        'setDataScope',
-      ]),
-      // The imported Lodash has function. Must be defined in Methods so we can use it in template
-      has,
-      isArray,
-      truncate,
-      getTranslationFor,
-      getImg,
-      /**
-       * @description Handler-function for the scroll event.
-       */
-      onScroll() {
-        const items = this.$el.querySelectorAll('.dataset');
-        const lastItem = items[items.length - 1];
-        if (lastItem) {
-          const lastItemPos = lastItem.getBoundingClientRect();
-          if (lastItemPos.bottom - window.innerHeight <= 0) {
-            this.debouncedOnBottomScroll();
-          }
+    currentSearchQuery() {
+      return this.$route.query.query;
+    },
+    showScoreDisclaimer() {
+      return this.getMinScoring > 0;
+    },
+    dataScope() {
+      if (!this.$route.query.dataScope) return null;
+      if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length > 0) return this.$route.query.dataScope[0];
+      if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length === 0) return null;
+      return this.$route.query.dataScope;
+    },
+  },
+  methods: {
+    isNil,
+    ...mapActions('datasets', [
+      'loadDatasets',
+      'loadAdditionalDatasets',
+      'setPage',
+      'useService',
+      'addFacet',
+      'removeFacet',
+      'setFacets',
+      'setFacetOperator',
+      'setFacetGroupOperator',
+      'setDataServices',
+      'setPageCount',
+      'setLimit',
+      'setLoading',
+      'setDataScope',
+    ]),
+    // The imported Lodash has function. Must be defined in Methods so we can use it in template
+    has,
+    isArray,
+    truncate,
+    getTranslationFor,
+    getImg,
+    /**
+     * @description Handler-function for the scroll event.
+     */
+    onScroll() {
+      const items = this.$el.querySelectorAll('.dataset');
+      const lastItem = items[items.length - 1];
+      if (lastItem) {
+        const lastItemPos = lastItem.getBoundingClientRect();
+        if (lastItemPos.bottom - window.innerHeight <= 0) {
+          this.debouncedOnBottomScroll();
         }
-      },
-      /**
-       * @description Handler-function when bottom of the page is reached.
-       */
-      onBottomScroll() {
-        this.$nextTick(() => {
-          this.$Progress.start();
-          this.loadAdditionalDatasets()
+      }
+    },
+    /**
+     * @description Handler-function when bottom of the page is reached.
+     */
+    onBottomScroll() {
+      this.$nextTick(() => {
+        this.$Progress.start();
+        this.loadAdditionalDatasets()
             .then(() => {
               this.$Progress.finish();
             })
@@ -286,60 +311,80 @@
         const fields = this.$env.content.datasets.facets.defaultFacetOrder;
         for (const field of fields) {
           this.facetFields.push(field);
+          const wantsToLoadCatalogByParamOrSubdomain =
+            field === 'catalog' && (!isNil(this.$route.params.ctlg_id) || getSubdomainCatalogIdFromUrl(window.location));
           // catalog is not in queries anymore, so we have to add to facets differently
-          if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) {
-            this.addFacet({ field, facet: this.$route.params.ctlg_id });
+          if (wantsToLoadCatalogByParamOrSubdomain) {
+            if (!this.isInCatalogPage && !isNil(this.$route.params.ctlg_id)) {
+              this.addFacet({field, facet: this.$route.params.ctlg_id});
+            }
+            else {
+              let catalogId = "";
+              const host = window.location.host;
+              console.log('host: ' + host);
+              const parts = host.split('.');
+              if (parts.length > 1) {
+                catalogId = parts[0];
+
+                if (!catalogId.startsWith('open') && !catalogId.startsWith('odb') && !catalogId.startsWith('localhost') && !catalogId.startsWith('data')){
+                  console.log('add facet catalog: ' + catalogId);
+                  this.addFacet({field, facet: catalogId});
+                }
+              }
+            }
           }
-          else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-            this.$router
+          
+        else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
+          this.$router
               .replace({
-                query: Object.assign({}, this.$route.query, { [field]: [] }),
+                query: Object.assign({}, this.$route.query, {[field]: []}),
               })
               .catch((error) => {
                 console.error(error);
               });
-          } else {
-            for (const facet of this.$route.query[field]) {
-              // do not add duplicates!
-              if (!this.getFacets[field]?.includes(facet)) {
-                this.addFacet({ field, facet });
-              }
+        } else {
+          for (const facet of this.$route.query[field]) {
+            // do not add duplicates!
+            if (!this.getFacets[field]?.includes(facet)) {
+              this.addFacet({field, facet});
             }
           }
         }
-      },
-      initFacetOperator() {
-        // Always set facet operator to AND when in catalog details mode
-        if (this.showCatalogDetails) this.setFacetOperator('AND');
-        else {
-          const op = this.$route.query.facetOperator;
-          if (op === 'AND' || op === 'OR') this.setFacetOperator(op);
-        }
-      },
-      initFacetGroupOperator() {
-        // The facetGroupOperator should be the same as the facetOperator
-        // Always set facet operator to AND when in catalog details mode
-        if (this.showCatalogDetails) this.setFacetGroupOperator('AND');
-        else {
-          const op = this.$route.query.facetOperator;
-          if (op === 'AND' || op === 'OR') this.setFacetGroupOperator(op);
-        }
-      },
-      /**
-       * @descritption Initialize the active data services facet by checking the route parameters
-       */
-      initDataServices() {
-        const ds = this.$route.query.dataServices;
-        if (ds === 'true' || ds === 'false') this.setDataServices(ds);
-        else {
-          this.setDataServices('false');
-        }
-      },
-      initDatasets() {
+      }
+    },
+    initFacetOperator() {
+      // Always set facet operator to AND when in catalog details mode
+      if (this.showCatalogDetails) this.setFacetOperator('AND');
+      else {
+        const op = this.$route.query.facetOperator;
+        if (op === 'AND' || op === 'OR') this.setFacetOperator(op);
+      }
+    },
+    initFacetGroupOperator() {
+      // The facetGroupOperator should be the same as the facetOperator
+      // Always set facet operator to AND when
+      // in catalog details mode
+      if (this.showCatalogDetails) this.setFacetGroupOperator('AND');
+      else {
+        const op = this.$route.query.facetOperator;
+        if (op === 'AND' || op === 'OR') this.setFacetGroupOperator(op);
+      }
+    },
+    /**
+     * @descritption Initialize the active data services facet by checking the route parameters
+     */
+    initDataServices() {
+      const ds = this.$route.query.dataServices;
+      if (ds === 'true' || ds === 'false') this.setDataServices(ds);
+      else {
+        this.setDataServices('false');
+      }
+    },
+    initDatasets() {
+      this.$nextTick(() => {
         this.$nextTick(() => {
-          this.$nextTick(() => {
-            this.$Progress.start();
-            this.loadDatasets({ locale: this.$route.query.locale })
+          this.$Progress.start();
+          this.loadDatasets({locale: this.$route.query.locale})
               .then(() => {
                 this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
                 this.$Progress.finish();
@@ -351,116 +396,118 @@
                 this.$Progress.fail();
               })
               .finally(() => this.$root.$emit('contentLoaded'));
-          });
         });
-      },
-      initInfiniteScrolling() {
-        if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
-      },
-      getFileTypeColor(format) {
-        return fileTypes.getFileTypeColor(format);
-      },
+      });
     },
-    watch: {
-      /**
-       * @description Watcher for active facets
-       */
-      // eslint-disable-next-line object-shorthand
-      facets: {
-        handler(facets) {
-          this.setFacets(facets);
-        },
-        deep: true,
-      },
-      // eslint-disable-next-line object-shorthand
-      page(pageStr) {
-        const page = parseInt(pageStr, 10);
-        if (page > 0) this.setPage(page);
-        else this.setPage(1);
-      },
-      dataScope: {
-        handler() {
-          this.initDataScope();
-        },
-        deep: true,
-      },
+    initInfiniteScrolling() {
+      if (this.infiniteScrolling) window.addEventListener('scroll', this.onScroll);
     },
-    created() {
-      this.useService(this.DatasetService);
-      this.initDataScope();
-      this.initLimit();
-      this.initPage();
-      this.initFacetOperator();
-      this.initFacetGroupOperator();
-      this.initDataServices();
-      this.initFacets();
-      this.initDatasets();
-      this.initInfiniteScrolling();
+    getFileTypeColor(format) {
+      return fileTypes.getFileTypeColor(format);
     },
-    mounted() {
-      // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)
-      if (this.$route.query.refresh === 'true') {
+  },
+  watch: {
+    /**
+     * @description Watcher for active facets
+     */
+    // eslint-disable-next-line object-shorthand
+    facets: {
+      handler(facets) {
+        this.setFacets(facets);
+      },
+      deep: true,
+    },
+    // eslint-disable-next-line object-shorthand
+    page(pageStr) {
+      const page = parseInt(pageStr, 10);
+      if (page > 0) this.setPage(page);
+      else this.setPage(1);
+    },
+    dataScope: {
+      handler() {
+        this.initDataScope();
+      },
+      deep: true,
+    },
+  },
+  created() {
+    this.useService(this.DatasetService);
+    this.initDataScope();
+    this.initLimit();
+    this.initPage();
+    this.initFacetOperator();
+    this.initFacetGroupOperator();
+    this.initDataServices();
+    this.initFacets();
+    this.initDatasets();
+    this.initInfiniteScrolling();
+  },
+  mounted() {
+    // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)
+    if (this.$route.query.refresh === 'true') {
+      this.$nextTick(() => {
         this.$nextTick(() => {
-          this.$nextTick(() => {
-            this.loadDatasets({ locale: this.$route.query.locale })
+          this.loadDatasets({locale: this.$route.query.locale})
               .then(() => {
-                this.$router.push({ query: { locale: this.$route.query.locale } });
+                this.$router.push({query: {locale: this.$route.query.locale}});
               })
               .catch(() => {
                 this.$Progress.fail();
               });
-          });
         });
-      }
-    },
-    beforeDestroy() {
-      $('.tooltip').remove();
-      if (this.infiniteScrolling) window.removeEventListener('scroll', this.onScroll);
-    },
-  };
+      });
+    }
+  },
+  beforeDestroy() {
+    $('.tooltip').remove();
+    if (this.infiniteScrolling) window.removeEventListener('scroll', this.onScroll);
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 
-  .alert-primary {
-    color: #042648;
-    background-color: #cddbe8;
-    border-color: #baccdf;
-  }
+.alert-primary {
+  color: #042648;
+  background-color: #cddbe8;
+  border-color: #baccdf;
+}
 
-  .page-title {
-    // maybe we can change custom theme h1 to 3rem
-    font-size: 3rem;
-    margin-bottom: 15px;
-  }
+.page-title {
+  // maybe we can change custom theme h1 to 3rem
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
 
-  .content {
-    padding: 30px 30px 0 30px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: white;
-  }
+.content {
+  padding: 30px 30px 0 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: white;
+}
 
-  .router-link-active {
-    color: #175baf !important;
-    border: none !important;
-    border-bottom: 2px solid #175baf !important;
-  }
-  .router-link-inactive {
-    color: rgba(0, 0, 0, 0.7);
-    border: none !important;
-    &:hover {
-      color: #175baf;
-    }
-  }
+.router-link-active {
+  color: #175baf !important;
+  border: none !important;
+  border-bottom: 2px solid #175baf !important;
+}
 
-  .material-icons.small-icon {
-    font-size: 20px;
-  }
+.router-link-inactive {
+  color: rgba(0, 0, 0, 0.7);
+  border: none !important;
 
-  @media screen and (min-width:768px) {
-    #datasetFacets {
-      display:block
-    }
+  &:hover {
+    color: #175baf;
   }
+}
+
+.material-icons.small-icon {
+  font-size: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  #datasetFacets {
+    display: block
+  }
+}
 </style>

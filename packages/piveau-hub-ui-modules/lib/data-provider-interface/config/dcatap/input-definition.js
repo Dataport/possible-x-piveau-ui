@@ -138,6 +138,8 @@ const dcatapProperties = {
           identifier: 'contactPointTelephone',
           type: 'tel',
           name: 'vcard:hasTelephone',
+          validation: 'number|optional',
+          "validation-behavior": 'live',
           '@change': true,
         },
         {
