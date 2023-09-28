@@ -23,8 +23,8 @@ const vocabPrefixesDCATAPDE = {
     "frequency": "http://publications.europa.eu/resource/authority/frequency/",
     "language": "http://publications.europa.eu/resource/authority/language/",
     "notation-type": "http://publications.europa.eu/resource/authority/notation-type/",
-    "iana-media-types": "",
-    "spdx-checksum-algorithm": "",
+    "iana-media-types": "https://www.iana.org/assignments/media-types/",
+    "spdx-checksum-algorithm": "http://spdx.org/rdf/terms#",
     "distribution-type": "http://publications.europa.eu/resource/authority/distribution-type/",
     "dataset-status": "http://publications.europa.eu/resource/authority/dataset-status/",
 };
