@@ -156,7 +156,7 @@
             } else {
               this.updateSimilarDatasets();
               this.similarDatasetsFetched = true;
-              this.similarDatasetsPresent = response.length > 0;
+              this.similarDatasetsPresent = this.similarDatasets.length > 0;
             }
           }
         }
