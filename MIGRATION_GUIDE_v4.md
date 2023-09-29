@@ -164,11 +164,11 @@ Vue.extend()                          ==> defineComponent()
 
 Vue.component()                       ==> app.component()
 
+Vue.i18n                              ==> this.i18n.global
+
 Vue.prototype.$env                    ==> app.config.globalProperties.$env
 
 Vue.prototype.<globalProperty>        ==> app.config.globalProperties.<globalProperty>
-
-Vue.i18n                              ==> this.i18n
 ```
 </details>
 
