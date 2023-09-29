@@ -4,6 +4,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 
+import generalDpiConfig from '../../config/dpi-spec-config.js';
+
 Vue.use(Vuex);
 
 const state = {};
@@ -39,8 +41,9 @@ const actions = {
         // Catching invalid URI's
         if(voc === undefined) return
         if(voc === "application") return 
-             
-        const value = resource.substring(resource.lastIndexOf('/') + 1);
+
+        const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];   
+        const value = encodeURIComponent(resource.replace(dpiConfig.vocabPrefixes[voc], ""));
         let req;
 
         // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
@@ -49,7 +52,6 @@ const actions = {
            
         } else {
             req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}/${value}`;
-            
         }
         return new Promise((resolve, reject) => {
             axios.get(req)
