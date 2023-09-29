@@ -1,3 +1,12 @@
+## [3.11.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.0...v3.11.1) (2023-09-29)
+
+
+### Bug Fixes
+
+* supercatalog metadata request safe ([2db63e3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2db63e392fc33e63992774112ee30e230213c0ab))
+
+
+
 # [3.11.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.13...v3.11.0) (2023-09-29)
 
 

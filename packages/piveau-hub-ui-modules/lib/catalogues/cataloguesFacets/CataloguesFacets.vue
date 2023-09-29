@@ -304,7 +304,7 @@
       if (this.$route.query.showsubcatalogs) {
         this.useCatalogService(this.catalogService);
         const superCatalogUrl = this.$route.query.superCatalog;
-        if (superCatalogUrl) {
+        if (typeof superCatalogUrl === 'string') {
           const catalogId = superCatalogUrl.substring(superCatalogUrl.lastIndexOf('/') + 1);
           this.loadCatalog(catalogId)
               .then(result => {
