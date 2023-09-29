@@ -219,13 +219,13 @@
 </template>
 
 <script>
-import AppLink from "../../widgets/AppLink.vue";
-import ResourceDetailsLinkedDataButton from "../../widgets/ResourceDetailsLinkedDataButton.vue";
+import AppLink from "../widgets/AppLink.vue";
+import ResourceDetailsLinkedDataButton from "../widgets/ResourceDetailsLinkedDataButton.vue";
 import {
   has, isArray, isNil, isObject, isString
 } from 'lodash';
-import { getTranslationFor, getImg } from '../../utils/helpers';
-import dateFilters from "../../filters/dateFilters";
+import { getTranslationFor, getImg } from '../utils/helpers';
+import dateFilters from "../filters/dateFilters";
 
 export default {
   name: "CatalogDetailsFacet",

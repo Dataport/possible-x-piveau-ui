@@ -87,7 +87,7 @@ import Vue from 'vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsMapFacet from "../../datasets/datasetsFacets/DatasetsMapFacet.vue";
-import CatalogDetailsFacet from "../../datasets/datasetsFacets/CatalogDetailsFacet.vue";
+import CatalogDetailsFacet from "../../facets/CatalogDetailsFacet.vue";
 import SettingsFacet from "../../datasets/datasetsFacets/SettingsFacet.vue";
 
 export default {
