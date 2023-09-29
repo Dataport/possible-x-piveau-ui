@@ -278,8 +278,6 @@
         'loadDatasetDetails',
         'setLoading',
         'useService',
-        'loadQualityData',
-        'loadQualityDistributionData',
       ]),
       // Lodash has function
       has,
@@ -293,6 +291,20 @@
       getCountryFlagImg,
       truncate,
       replaceHttp,
+      initDatasetDetails() {
+        this.datasetSchema = this.getSchemaOrg();
+        this.piwikMetaPush();
+        setTimeout(() => {
+          if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
+        }, 500);
+        this.$nextTick(() => {
+        // Display/hide translation banners
+          this.setTranslationBanners();
+          $('[data-toggle="tooltip"]').tooltip({
+            container: 'body',
+          });
+        });
+      },
       setDistributionsDisplayCount(count: number) {
         this.distributions.displayCount = count;
       },
@@ -699,51 +711,31 @@
     },
     mounted() {
       this.useService(this.DatasetService);
-      this.$Progress.start();
-      this.loadingDatasetDetails = true;
-      this.loadDatasetDetails(this.$route.params.ds_id)
-        .then(() => {
-          this.$Progress.finish();
-          this.loadingDatasetDetails = false;
-          this.datasetSchema = this.getSchemaOrg();
-          this.piwikMetaPush();
-          setTimeout(() => {
+
+      // Duplicated API call, execute only if data not already loaded
+      if (this.$route.params.ds_id !== this.getID) {
+        this.$Progress.start();
+        this.loadingDatasetDetails = true;
+        this.loadDatasetDetails(this.$route.params.ds_id)
+          .then(() => {
+            this.$Progress.finish();
+            this.loadingDatasetDetails = false;
+            this.initDatasetDetails();
+          })
+          .catch((err) => {
+            console.warn(err); // eslint-disable-line
+            this.$Progress.fail();
             if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
-          }, 500);
-          this.$nextTick(() => {
-          // Display/hide translation banners
-            this.setTranslationBanners();
-            $('[data-toggle="tooltip"]').tooltip({
-              container: 'body',
+            this.$router.replace({
+              name: 'NotFound',
+              query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
             });
-          });
-        })
-        .catch((err) => {
-          console.warn(err); // eslint-disable-line
-          this.$Progress.fail();
-          if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
-          this.$router.replace({
-            name: 'NotFound',
-            query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
-          });
-        })
-        .finally(() => this.$root.$emit('contentLoaded'));
-
-      this.loadQualityData(this.$route.params.ds_id)
-        .then(() => {
-          this.$Progress.finish();
-        })
-        .catch(() => {
-          this.$Progress.fail();
-        });
-
-      this.loadQualityDistributionData(this.$route.params.ds_id)
-        .then(() => {
-          this.$Progress.finish();
-        })
-        .catch(() => {
-          this.$Progress.fail();
-        });
+          })
+          .finally(() => this.$root.$emit('contentLoaded'));
+      } else {
+        this.initDatasetDetails();
+        this.$root.$emit('contentLoaded')
+      }
 
       this.$root.$on('date-incorrect', () => {
         this.dateIncorrect = true;

@@ -102,7 +102,7 @@ const glueConfig = {
       maxKeywordLength: 15,
       facets: {
         useDatasetFacets: true,
-        useDatasetFacetsMap: true,
+        useDatasetFacetsMap: false,
         showClearButton: false,
         showFacetsTitle: false,
         cutoff: 5 ,
@@ -224,6 +224,7 @@ const glueConfig = {
         enable: false,
       },
       similarDatasets: {
+        useSimilarDatasets: true,
         breakpoints: {
           verySimilar: { start: 0, end: 20 },
           similar: { start: 20, end: 25 },
@@ -268,6 +269,16 @@ const glueConfig = {
         TIMEOUT_MS: 10000,
       },
       quality: {
+        useQualityData: true,
+        useQualityDistributionData: true,
+        useDQVDataDropdown: true,
+        formatsDQVData: [
+          'rdf',
+          'ttl',
+          'n3',
+          'nt',
+          'jsonld',
+        ],
         displayAll: false,
         numberOfDisplayedQualityDistributions: 5,
         csvLinter: {
@@ -314,7 +325,7 @@ const glueConfig = {
       },
     },
     dataProviderInterface: {
-      useService: true,
+      useService: false,
       basePath: '/dpi',
       specification: 'dcatap',
       annifIntegration: false,

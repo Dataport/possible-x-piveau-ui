@@ -12,7 +12,18 @@
              :key="`facet@${index}`"
              :class="{'mt-3': (index > 0)}"
         >
+          <radio-facet
+              v-if="field.id === 'superCatalog'"
+              :title="erpd.title"
+              :property="erpd.property"
+              :toolTipTitle="erpd.toolTipTitle"
+              :optionIds="['true', 'false']"
+              :optionLabels="[erpd.yes, erpd.no]"
+              :initialOption="isErpd()"
+              :change="changeErpd"
+          />
           <select-facet
+              v-if="field.id !== 'superCatalog'"
             :fieldId="field.id"
             :header="facetTitle(field.id)"
             :items="sortByCount(field.items, field.id)"
@@ -75,6 +86,13 @@
         MAX_FACET_LIMIT: this.$env.content.catalogs.facets.MAX_FACET_LIMIT,
         FACET_OPERATORS: this.$env.content.catalogs.facets.FACET_OPERATORS,
         FACET_GROUP_OPERATORS: this.$env.content.catalogs.facets.FACET_GROUP_OPERATORS,
+        erpd: {
+          yes: Vue.i18n.t('message.metadata.yes'),
+          no: Vue.i18n.t('message.metadata.no'),
+          property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
+          title: Vue.i18n.t('message.metadata.erpd'),
+          // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
+        }
       };
     },
     computed: {
@@ -85,6 +103,7 @@
         'getFacetGroupOperator',
         'getLimit',
         'getPage',
+        'getFacets',
       ]),
       facetOperatorWatcher() {
         return this.getFacetOperator;
@@ -106,7 +125,7 @@
         });
 
         return sortedFacets;
-      },
+      }
     },
     methods: {
       isEmpty,
@@ -202,6 +221,20 @@
       changeFacetOperator(op) {
         this.setFacetOperator(op);
         this.setFacetGroupOperator(op);
+      },
+      isErpd() {
+        const superCatalogs = this.$route.query['superCatalog'];
+        const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
+        return superCatalog === 'http://data.europa.eu/88u/catalogue/erpd' ?  'true' : 'false';
+      },
+      changeErpd(erpd) {
+        //https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&facets={%22superCatalog%22:[%22http://data.europa.eu/88u/catalogue/erpd%22]}
+        const erdpCatalog = 'http://data.europa.eu/88u/catalogue/erpd';
+        const superCatalogs = this.$route.query['superCatalog'];
+        const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
+        if ((erpd === 'false' && superCatalog === erdpCatalog) || (erpd === 'true' && superCatalog !== erdpCatalog)) {
+          this.toggleFacet('superCatalog', erdpCatalog);
+        }
       },
       /**
        * @description Toggles the facetoperator between 'or'/'and'.

@@ -13,7 +13,6 @@
         />
         <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
         <settings-facet
-          v-if="!showCatalogDetails"
           class="row facet-field mb-3"
         />
         <div class="row facet-field mb-3"
@@ -31,8 +30,18 @@
             :initialOption="getDataServices"
             :change="changeDataServices"
           />
+          <radio-facet
+            v-if="(field.id === 'erpd')"
+            :title="erpd.title"
+            :property="erpd.property"
+            :toolTipTitle="erpd.toolTipTitle"
+            :optionIds="['true', 'false']"
+            :optionLabels="[erpd.yes, erpd.no]"
+            :initialOption="isErdp()"
+            :change="changeErpd"
+          />
           <select-facet
-            v-else
+              v-if="(field.id !== 'erpd' && field.id !== 'dataServices')"
             :fieldId="field.id"
             :header="facetTitle(field.id)"
             :items="sortByCount(field.items, field.id)"
@@ -124,11 +133,18 @@ export default {
       FACET_OPERATORS: this.$env.content.datasets.facets.FACET_OPERATORS,
       FACET_GROUP_OPERATORS: this.$env.content.datasets.facets.FACET_GROUP_OPERATORS,
       dataServices: {
-        yes: this.i18n.global.t('message.metadata.yes'),
-        no: this.i18n.global.t('message.metadata.no'),
-        property: this.i18n.global.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
-        title: this.i18n.global.t('message.metadata.dataServices'),
-        toolTipTitle: this.i18n.global.t('message.helpIcon.dataServices'),
+        yes: Vue.i18n.t('message.metadata.yes'),
+        no: Vue.i18n.t('message.metadata.no'),
+        property: Vue.i18n.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
+        title: Vue.i18n.t('message.metadata.dataServices'),
+        toolTipTitle: Vue.i18n.t('message.helpIcon.dataServices'),
+      },
+      erpd: {
+        yes: Vue.i18n.t('message.metadata.yes'),
+        no: Vue.i18n.t('message.metadata.no'),
+        property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
+        title: Vue.i18n.t('message.metadata.erpd'),
+        // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
       }
     };
   },
@@ -143,6 +159,7 @@ export default {
       'getFacetOperator',
       'getFacetGroupOperator',
       'getDataServices',
+      'getSuperCatalogue',
       'getLimit',
       'getMinScoring',
       'getPage',
@@ -186,7 +203,7 @@ export default {
       this.defaultFacetOrder.forEach((facet) => {
         availableFacets.forEach((field) => {
           if (facet === field.id && field.items.length > 0
-            && (field.id !== 'country' || this.dataScope)
+            && (field.id !== 'country' || this.dataScope || this.$route.path === '/catalogues/erpd' || this.$route.query.superCatalogue === 'erpd')
             && (field.id !== 'catalog' || this.useCatalogFacets)
             && (field.id !== 'scoring' || this.useScoringFacets)
             && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
@@ -195,9 +212,7 @@ export default {
               }
         });
       });
-
       const sortedFacets = activeFacets.concat(inactiveFacets);
-
       if (this.cutoff > 0) {
         if (this.cutoff < activeFacets.length) this.cutoff = activeFacets.length;
         return sortedFacets.slice(0, this.cutoff);
@@ -233,6 +248,7 @@ export default {
       'removeFacet',
       'setFacetGroupOperator',
       'setDataServices',
+      'setSuperCatalogue',
       'setPage',
       'setPageCount',
       'setMinScoring',
@@ -370,6 +386,32 @@ export default {
       }
       this.$router.replace({ query });
     },
+    isErdp() {
+      if (this.$route.path === '/catalogues/erpd') {
+        return 'true'
+      } else {
+        return this.getSuperCatalogue === 'erpd' ? 'true' : 'false'
+      }
+    },
+    changeSuperCatalogue(superCatalogue) {
+      this.setSuperCatalogue(superCatalogue === 'false'? undefined : superCatalogue);
+      const query = Object.assign({}, this.$route.query, { superCatalogue, page: 1 });
+      if (superCatalogue === 'false') {
+        delete query.superCatalogue;
+      }
+      this.$router.replace({ query });
+    },
+    changeErpd(erpd) {
+      if (this.$route.path === '/catalogues/erpd') {
+        const query = Object.assign({}, this.$route.query, { page: 1 });
+        this.$router.replace({
+          path: '/datasets',
+          query
+        });
+      } else {
+        this.changeSuperCatalogue(erpd === 'true' ? 'erpd' : 'false');
+      }
+    },
     resetPage() {
       this.setRouteQuery({ page: 1 }, "replace");
     },
@@ -439,6 +481,7 @@ export default {
     }
     /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
     /* fill in here */
+    this.setSuperCatalogue(this.$route.query.superCatalogue);
   }
 };
 </script>

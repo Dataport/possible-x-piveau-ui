@@ -63,13 +63,16 @@
         similarDatasetsFetched: false,
         similarDatasetsPresent: false,
         breakpoints: this.$env.content.datasetDetails.similarDatasets.breakpoints,
+        useSimilarDatasets: this.$env.content.datasetDetails.similarDatasets.useSimilarDatasets,
       };
     },
     computed: {
       // import store-getters
       ...mapGetters('datasetDetails', [
+        'getID',
         'getKeywords',
         'getLanguages',
+        'getSimilarDatasetsRequested',
         'getSimilarDatasets',
         'getTitle',
       ]),
@@ -107,30 +110,56 @@
     created() {
       this.useService(this.DatasetService);
       this.$nextTick(() => {
-        this.$Progress.start();
-        this.loadDatasetDetails(this.$route.params.ds_id)
-          .then(() => {
-            this.loadSimilarDatasets(this.$route.params.ds_id)
-              .then((response) => {
-                this.$nextTick(() => {
-                  this.updateSimilarDatasets();
-                  this.similarDatasetsFetched = true;
-                  this.similarDatasetsPresent = response.length > 0;
-                });
-                this.$Progress.finish();
+        if (this.useSimilarDatasets) {
+          // Duplicated API call, execute only if data not already loaded
+          if (this.$route.params.ds_id !== this.getID) {
+            this.$Progress.start();
+            this.loadDatasetDetails(this.$route.params.ds_id)
+              .then(() => {
+                this.loadSimilarDatasets(this.$route.params.ds_id)
+                  .then((response) => {
+                    this.$nextTick(() => {
+                      this.updateSimilarDatasets();
+                      this.similarDatasetsFetched = true;
+                      this.similarDatasetsPresent = response.length > 0;
+                    });
+                    this.$Progress.finish();
+                  })
+                  .catch(() => {
+                    this.similarDatasetsFetched = true;
+                    this.$Progress.fail();
+                  });
               })
               .catch(() => {
-                this.similarDatasetsFetched = true;
                 this.$Progress.fail();
+                this.$router.replace({
+                  name: 'NotFound',
+                  query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+                });
               });
-          })
-          .catch(() => {
-            this.$Progress.fail();
-            this.$router.replace({
-              name: 'NotFound',
-              query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
-            });
-          });
+          } else {
+            // Duplicated API call, execute only if data not already loaded
+            if (this.$route.params.ds_id !== this.getSimilarDatasetsRequested) {
+              this.loadSimilarDatasets(this.$route.params.ds_id)
+                .then((response) => {
+                  this.$nextTick(() => {
+                    this.updateSimilarDatasets();
+                    this.similarDatasetsFetched = true;
+                    this.similarDatasetsPresent = response.length > 0;
+                  });
+                  this.$Progress.finish();
+                })
+                .catch(() => {
+                  this.similarDatasetsFetched = true;
+                  this.$Progress.fail();
+                });
+            } else {
+              this.updateSimilarDatasets();
+              this.similarDatasetsFetched = true;
+              this.similarDatasetsPresent = this.similarDatasets.length > 0;
+            }
+          }
+        }
       });
     },
   };

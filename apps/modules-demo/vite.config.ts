@@ -43,6 +43,9 @@ export default defineConfig({
       include: [path.resolve(__dirname, './config/i18n/lang/**')],
     }),
   ],
+  server: {
+    port: 8080
+  },
   define: {
     // Shim process.env from webpack
     'process.env': {},

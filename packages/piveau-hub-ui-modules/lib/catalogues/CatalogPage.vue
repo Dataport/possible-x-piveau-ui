@@ -76,7 +76,7 @@
                 />
               </div>
 
-              <button @click.prevent="setActiveTabName('dataset-page')" class="fol-button primary-button" role="button">
+              <button @click.prevent="setActiveTabName('dataset-page')" class="primary-button" role="button">
                 Mehr Daten entdecken
               </button>
             </div>
@@ -182,7 +182,7 @@ export default {
       cardNavTabs: [
         {
           id: 'about',
-          displayName: 'Über diesen Katalog',
+          displayName: 'Über diese Seite',
         },
         {
           id: 'dataset-selections',
@@ -267,7 +267,6 @@ export default {
     },
   },
   created() {
-    console.log('created catalog page')
     this.$Progress.start()
     this.useCatalogService(this.catalogService)
     this.useService(this.DatasetService)
@@ -301,6 +300,7 @@ export default {
 
 <style lang="scss" scoped>
 .catalog-page-container {
+  margin-top: 0 !important;
   padding: 0 !important;
 }
 

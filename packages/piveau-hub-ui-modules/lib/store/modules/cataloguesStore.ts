@@ -58,7 +58,18 @@ const GETTERS = {
   getFacets: state => state.searchParameters.facets,
   getFacetOperator: state => state.searchParameters.facetOperator,
   getFacetGroupOperator: state => state.searchParameters.facetGroupOperator,
-  getAvailableFacets: state => state.availableFacets,
+  getAvailableFacets: state => {
+    return [...state.availableFacets,
+      {
+        id: 'erpd',
+        items: [
+          { count: undefined, id: 'true', title: 'yes' },
+          { count: undefined, id: 'false', title: 'no' },
+        ],
+        title: 'ERPD',
+      }
+    ];
+  },
   getPage: state => state.page,
   getPageCount: state => state.pageCount,
   getService: state => state.service,

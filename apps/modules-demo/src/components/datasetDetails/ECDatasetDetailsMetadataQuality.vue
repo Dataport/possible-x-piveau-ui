@@ -49,7 +49,6 @@ export default {
             'getLanguages',
             'getQualityData',
             'getDistributions',
-            'getQualityDistributionData',
         ]),
         qualityDataResults() {
             if (!this.getQualityData.result) return;

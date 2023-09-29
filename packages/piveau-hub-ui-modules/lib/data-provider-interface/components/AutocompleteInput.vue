@@ -164,7 +164,6 @@ export default {
 
       // disable delete button
       if (this.values.length === 0) {
-        // console.log('######');
         this.choice = false;
       }
     },
@@ -244,7 +243,6 @@ export default {
         for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;
-            // console.log(this.valueListOfThemes[i]);
             this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
@@ -258,7 +256,6 @@ export default {
           }
           if (e.target.title == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;
-            // console.log(this.valueListOfThemes[i]);
             this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
@@ -286,45 +283,40 @@ export default {
       this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets")).step1["dct:description"][0]["@value"])
     },
     async annifHandlerTheme(input) {
+
       this.valueListOfThemes = this.handleAnnifDuplicates()
+
       let query = qs.stringify({
         'text': input,
         'limit': 10
       });
-      var config
-      if (this.voc == "eurovoc") {
-        config = {
-          method: 'post',
-          url: this.$env.content.dataProviderInterface.annifLinkSubject,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json'
-          },
-          data: query
-        };
-      }
-      else {
-        config = {
-          method: 'post',
-          url: this.$env.content.dataProviderInterface.annifLinkTheme,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json'
-          },
-          data: query
-        };
-      }
+
+      var config = {
+        method: 'post',
+        url: this.voc == "eurovoc" 
+          ? this.$env.content.dataProviderInterface.annifLinkSubject 
+          : this.$env.content.dataProviderInterface.annifLinkTheme,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        },
+        data: query
+      };
+
       let list = []
 
       axios(config)
         .then(async (response) => {
+
           for (let i = 0; i < response.data.results.length; i++) {
             let item = await this.getResourceName(response.data.results[i].uri);
             // translate suggestions into locale
             list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
           }
+
           let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
           filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
+          
           for (var q = 0; q < filteredList.length; q++) {
             this.valueListOfThemes.push(filteredList[q])
           }
@@ -335,8 +327,6 @@ export default {
         .catch(function (error) {
           console.log(error);
         });
-
-
     },
     handleAutocompleteSuggestions(suggestion) {
       this.autocomplete.selected = true;
@@ -361,7 +351,6 @@ export default {
       this.context.rootEmit("change");
       if (this.annifTheme && suggestion.activeValue == undefined) {
 
-        // console.log(suggestion);
         suggestion.activeValue = true
         this.valueListOfThemes.push(suggestion)
         this.animateFadeInOut();

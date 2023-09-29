@@ -202,12 +202,11 @@
       * @param dataScope
       * @returns {Promise}
       */
-   get(q, locale, limit, page = 0, sort = `relevance+desc, modified+desc, title.${locale}+asc`, facetOperator = 'AND', facetGroupOperator = 'AND', dataServices = 'false', facets, geoBounds, minScoring = 0, dataScope) {
+   get(q, locale, limit, page = 0, sort = `relevance+desc, modified+desc, title.${locale}+asc`, facetOperator = 'AND', facetGroupOperator = 'AND', dataServices = 'false', superCatalogue, facets, geoBounds, minScoring = 0, dataScope) {
 
      facets = { ...facets }; // create a copy to prevent side effects
      delete facets.scoring; // Those are not facets in the api call! They are separate query parameters
      delete facets.dataServices; // ...
-
      // The request parameters
      const params: {[key: string]: unknown} = {
        q,
@@ -218,6 +217,7 @@
        facetOperator,
        facetGroupOperator,
        dataServices,
+       superCatalogue,
        includes: `id,title.${locale},description.${locale},languages,modified,issued,catalog.id,catalog.title,catalog.country.id,distributions.id,distributions.format.label,distributions.format.id,distributions.license,categories.label,publisher`,
        facets,
      };
