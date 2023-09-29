@@ -1,3 +1,12 @@
+## [3.11.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.1...v3.11.2) (2023-09-29)
+
+
+### Bug Fixes
+
+* fixed name search for vocabularies ([459188f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/459188f717eafc8008e46b94463a661f2e652754))
+
+
+
 ## [3.11.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.0...v3.11.1) (2023-09-29)
 
 
