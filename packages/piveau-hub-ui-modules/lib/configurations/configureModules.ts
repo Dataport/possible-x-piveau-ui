@@ -1,6 +1,5 @@
 import {ComponentMap, configureComponents} from "./configureComponents";
 import registerServices from "../services/registerServices";
-import Vue from 'vue';
 
 type ModulesConfig = {
   components?: ComponentMap,
@@ -9,15 +8,12 @@ type ModulesConfig = {
   // props: object
 };
 
-export function configureModules(config?: ModulesConfig) {
+export function configureModules(app: any, config?: ModulesConfig) {
   if (config) {
-    configureComponents(config.components);
+    configureComponents(app, config.components);
     if (config.services) {
       registerServices(config.services, config.serviceParams);
     }
-    // if (config.props) {
-    //   Vue.prototype.$config = config.props;
-    // }
   }
 }
 

@@ -1,5 +1,3 @@
-// import { i18n } from '../../main';
-import Vue from 'vue';
 import { has } from 'lodash-es';
 
 /**
@@ -16,15 +14,15 @@ function translateProperty(propertyDefinition, property) {
         for (let valueIndex = 0; valueIndex < translatableParameters.length; valueIndex += 1) {
             let translation = propertyName;
             const parameter = translatableParameters[valueIndex];
-            const translationExsists = Vue.i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
+            const translationExsists = this.i18n.global.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
             
             // Check if translation exists
             if (!has(property, parameter) ) {
                 if (translationExsists) {
-                    translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
+                    translation = this.i18n.global.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
                 } else {
                     // if no translation is available, provide english label
-                    translation = Vue.i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
+                    translation = this.i18n.global.t(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
                 }
             propertyDefinition[parameter] = translation;
             }

@@ -1,14 +1,16 @@
 import { onMounted, watch } from "vue";
-import VueRouter from "vue-router";
+import type { Router } from 'vue-router';
 
 /**
  * Initiates a download of the dataset on mount and on route change
  * Needs router param ds_id and query param dl to be available
  * @param options
  */
-export function useDownloadDatasetOnMount(options: { router: VueRouter, hubUrl: string }) {
+export function useDownloadDatasetOnMount(options: { router: Router, hubUrl: string }) {
   const { router, hubUrl } = options;
 
+  console.log(router)
+  
   if (!router.currentRoute.params.ds_id) {
     console.error('No dataset id found in route params');
     return;

@@ -26,7 +26,7 @@
         <div class="dropdown-icon"></div>
 <!--        <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>-->
       </div>
-      <div v-if="open" v-on-clickaway="away" class="dropdown w-100">
+      <div v-if="open" v-click-away="away" class="dropdown w-100">
         <div v-for="(item, index) in items.slice(0, numItemsAllowed)" :key="`field@${index}`">
           <div style="display:flex; flex-direction: row; justify-content: space-between">
                     <div class="text-truncate">
@@ -43,9 +43,8 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import {getFacetTranslation} from "@/modules/utils/helpers";
-import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue3-click-away';
 import Dropdown from "@/modules/widgets/Dropdown";
 
 export default {
@@ -102,13 +101,13 @@ export default {
   methods: {
     getFacetTranslation,
     getTitle(item) {
-      return Vue.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
-        Vue.i18n.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
+      return this.i18n.global.te(`message.datasetFacets.facets.datascopeField.${item.id}`) 
+        ? this.i18n.global.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
         : this.getFacetTranslationWrapper(this.fieldId, item.id, this.$route.query.locale, item.title);
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-      ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
+        ? this.i18n.global.t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     away() {

@@ -11,7 +11,7 @@
       </span>
       <i class="material-icons small-icon float-right align-bottom">keyboard_arrow_down</i>
     </button>
-    <div v-if="open" v-on-clickaway="away" class="dropdownMenu" :class="{ bglight: bgLight }">
+    <div v-if="open" v-click-away="away" class="dropdownMenu" :class="{ bglight: bgLight }">
       <slot></slot>
     </div>
   </div>
@@ -20,7 +20,7 @@
 <script>
 /* eslint-disable */
 import $ from 'jquery';
-import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue3-click-away';
 import { replaceHttp } from '../../../utils/helpers';
 import AppLink from "../../../widgets/AppLink";
 

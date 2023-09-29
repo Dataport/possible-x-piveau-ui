@@ -5,7 +5,7 @@
     </div>
     <vue-progress-bar />
     <div class="site-wrapper">
-      <deu-header
+      <piveau-header
         project="hub"
         active-menu-item="data"
         enable-authentication
@@ -19,8 +19,7 @@
         class="content"
         :key="`${$route.fullPath}`"
       />
-      <deu-footer
-        v-if="isContentLoaded"
+      <piveau-footer
         :authenticated="keycloak && keycloak.authenticated"
         :use-login="$env.authentication.login.useLogin"
         :login="$env.authentication.login.loginURL"
@@ -30,15 +29,12 @@
         @click-follow-link="handleFollowClick"/>
     </div>
     <dpiMenu v-if="keycloak && keycloak.authenticated"></dpiMenu>
-    <cookie-consent :piwik-instance="$piwik" />
   </div>
 </template>
 
 
 <script>
 /* eslint-disable no-underscore-dangle */
-import CookieConsent from '@deu/deu-cookie-consent';
-import '@deu/deu-cookie-consent/dist/deu-cookie-consent.css';
 import {
   DpiMenu,
   usePiwikSuspendFilter,
@@ -47,7 +43,6 @@ import {
 export default {
   name: 'app',
   components: {
-    CookieConsent,
     DpiMenu,
   },
   mixins: [
@@ -59,7 +54,7 @@ export default {
         return chunk ? `${chunk} - ${this.$env.metadata.title}` : this.$env.metadata.title ;
       },
       meta: [
-        { name: 'description', vmid: 'description', content: this.$t("message.datasets.meta.description") },
+        { name: 'description', vmid: 'description', content: this.$env.metadata.description },
         { name: 'keywords', vmid: 'keywords', content: this.$env.metadata.keywords },
       ],
       htmlAttrs: {
@@ -69,11 +64,6 @@ export default {
   },
   data() {
     return {
-      isContentLoaded: false,
-      tracker: null,
-      matomoURL: this.$env.tracker.trackerUrl,
-      piwikId: this.$env.tracker.siteId,
-      lastRoute: null,
       keycloak: this.$keycloak,
       showSparql: this.$env.routing.navigation.showSparql,
     };
@@ -90,12 +80,6 @@ export default {
     resume() {
       if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
     },
-    contentIsLoaded() {
-      this.isContentLoaded = true;
-    }
-  },
-  created() {
-    this.$root.$on('contentLoaded', this.contentIsLoaded);
   },
 };
 </script>

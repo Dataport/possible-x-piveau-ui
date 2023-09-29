@@ -1,12 +1,5 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign,no-console */
-/**
- * @Publisher Dennis Ritter
- * @description Vuex store for the the details of a dataset.
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
 import {
     has,
     isObject,
@@ -23,8 +16,6 @@ import { SimilarDatasetsQuery } from 'lib/services/piveau-ui-adapter-vhub/datase
 
 // Example: mirrorLabelAsTitle({ label: "hello world" }) == { label: "hello world", title: "hello world" }
 const mirrorLabelAsTitle = mirrorPropertyFn('label', 'title');
-
-Vue.use(Vuex);
 
 // DatasetDetails Module State
 /**
@@ -724,7 +715,7 @@ const mutations = {
             const description = payload.description;
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
-                if (isObject(similarDataset)) Vue.set(similarDataset, 'description', description);
+                if (isObject(similarDataset)) similarDataset['description'] = description;
             }
         }
     },
@@ -734,7 +725,7 @@ const mutations = {
             const title = payload.title;
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
-                if (isObject(similarDataset)) Vue.set(similarDataset, 'title', title);
+                if (isObject(similarDataset)) similarDataset['title'] = title;
             }
         }
     },
@@ -745,7 +736,7 @@ const mutations = {
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
                 if (isObject(similarDataset)) {
-                    Vue.set(similarDataset, 'distributionFormats', distributionFormats);
+                    similarDataset['distributionFormats'] = distributionFormats;
                 }
             }
         }

@@ -761,7 +761,7 @@
         "distributions": {
             "footerLink": "Letöltés"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Angolul",
         "cite": {
             "copyToClipboard": "Másolás a billentyűzetre",

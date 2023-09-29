@@ -25,7 +25,7 @@
 
 <script>
 import ECFacetHeader from "@/components/ECFacetHeader";
-import Vue from "vue";
+
 import { helpers } from '@piveau/piveau-hub-ui-modules';
 const { getFacetTranslation } = helpers;
 export default {
@@ -60,13 +60,13 @@ export default {
   methods: {
     getFacetTranslation,
     getTitle(item) {
-      return Vue.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
-        Vue.i18n.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
+      return this.i18n.global.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
+      this.i18n.global.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
         : this.getFacetTranslationWrapper(this.fieldId, item.id, this.$route.query.locale, item.title);
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-        ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
+        ? this.i18n.global.t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
   },

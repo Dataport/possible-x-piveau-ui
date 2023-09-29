@@ -19,10 +19,10 @@ declare module 'vue/types/vue' {
 // Overwritten values are always of type string. Pass an empty string to model a falsy value.
 
 const RuntimeConfiguration = {
-  install(Vue, runtimeConfig, options = {}) {
+  install(app, runtimeConfig, options = {}) {
     const defaultOptions = {
       debug: true,
-      baseConfig: process.env,
+      baseConfig: import.meta.env,
       useExperimentalRuntimeParser: false,
     };
     const opts = Object.assign({}, defaultOptions, options);
@@ -100,7 +100,7 @@ const RuntimeConfiguration = {
       }
     }
 
-    Vue.prototype.$env = merged; // eslint-disable-line
+    app.config.globalProperties.$env = merged; // eslint-disable-line
   },
 };
 

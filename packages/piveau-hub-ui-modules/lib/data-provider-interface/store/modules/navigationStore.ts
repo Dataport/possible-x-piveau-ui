@@ -1,12 +1,8 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
-import Vue from 'vue';
-import Vuex from 'vuex';
 
 // config defining which properties are displayed on which page
 import generalDpiConfig from '../../config/dpi-spec-config.js';
-
-Vue.use(Vuex);
 
 const state = {
     navigation: {
@@ -19,7 +15,7 @@ const state = {
 const getters = {
     getNavSteps(state) {
         try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
+            const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
             setConfig(dpiConfig);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];

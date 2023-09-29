@@ -1,6 +1,4 @@
-/* eslint-disable */
-import Vue from 'vue';
-import Router from 'vue-router';
+import * as Router from 'vue-router';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import {
   Auth,
@@ -13,7 +11,6 @@ import {
   MapBasic,
   MapBoundsReceiver,
   Catalogues,
-  // CatalogPage,
   NotFound,
   SparqlSearch,
   Imprint,
@@ -35,13 +32,10 @@ import ECDatasetDetailsQuality from "../src/components/datasetDetails/ECDatasetD
 
 import { ecStyle } from '../config/user-config';
 
-Vue.use(Router);
-
 const title = GLUE_CONFIG.metadata.title;
 
-const router = new Router({
-  base: GLUE_CONFIG.routing.routerOptions.base,
-  mode: GLUE_CONFIG.routing.routerOptions.mode,
+const router = Router.createRouter({
+  history: Router.createWebHistory(GLUE_CONFIG.routing.routerOptions.base),
   linkActiveClass: 'active',
   scrollBehavior(to, from, savedPosition) {
     if (to.matched.some(route => route.meta.scrollTop)) return { x: 0, y: 0 };
@@ -52,17 +46,11 @@ const router = new Router({
     {
       path: '/',
       redirect: { name: 'Datasets'  },
-      meta: {
-        title,
-      },
     },
     {
       path: '/datasets',
       name: 'Datasets',
       component: ecStyle ? ECDatasets : Datasets,
-      meta: {
-        title,
-      },
     },
     {
       path: '/datasets/:ds_id',
@@ -74,18 +62,12 @@ const router = new Router({
           components: {
             datasetDetailsSubpages: DatasetDetailsDataset,
           },
-          meta: {
-            title,
-          },
         },
         {
           path: 'categories',
           name: 'DatasetDetailsCategories',
           components: {
             datasetDetailsSubpages: DatasetDetailsCategories,
-          },
-          meta: {
-            title,
           },
         },
         {
@@ -94,18 +76,12 @@ const router = new Router({
           components: {
             datasetDetailsSubpages: DatasetDetailsSimilarDatasets,
           },
-          meta: {
-            title,
-          },
         },
         {
           path: 'quality',
           name: 'DatasetDetailsQuality',
           components: {
             datasetDetailsSubpages: ecStyle ? ECDatasetDetailsQuality : DatasetDetailsQuality,
-          },
-          meta: {
-            title,
           },
         },
         {
@@ -114,49 +90,18 @@ const router = new Router({
           components: {
             datasetDetailsSubpages: EmbedDataset,
           },
-          meta: {
-            title,
-          }
         },
-        // {
-        //   path: 'activityStream',
-        //   name: 'DatasetDetailsActivityStream',
-        //   component: {
-        //     datasetDetailsSubpages: DatasetDetailsActivityStream,
-        //   },
-        //   meta: {
-        //     title,
-        //   },
-        // },
-        // {
-        //   path: 'distributions/:dist_id',
-        //   name: 'DistributionDetails',
-        //   component: DistributionDetails,
-        //   meta: {
-        //     title,
-        //   },
-        // },
       ],
-      meta: {
-        title,
-      },
     },
     {
       path: '/catalogues',
       name: 'Catalogues',
       component: ecStyle ? ECCatalogues : Catalogues,
-      meta: {
-        title,
-      },
     },
     {
       path: '/catalogues/:ctlg_id',
       name: 'CatalogueDetails',
-      // component: ecStyle ? ECDatasets : CatalogPage,    // ToDo: set back to Datasets after finishing
       component: ecStyle ? ECDatasets : Datasets,
-      meta: {
-        title,
-      },
     },
     {
       path: '/imprint',
@@ -168,50 +113,32 @@ const router = new Router({
       path: '/privacypolicy',
       name: 'PrivacyPolicy',
       component: PrivacyPolicy,
-      meta: {
-        title,
-      },
     },
     {
       path: '/maps',
       name: 'MapBasic',
       component: MapBasic,
-      meta: {
-        title,
-      },
     },
     {
       path: '/mapsBoundsReceiver',
       name: 'MapBoundsReceiver',
       component: MapBoundsReceiver,
-      meta: {
-        title,
-      },
     },
     {
       path: '/login',
       name: 'Login',
       component: Auth,
-      meta: {
-        title,
-      },
     },
     {
       path: '/logout',
       name: 'Logout',
       component: Auth,
-      meta: {
-        title,
-      },
     },
     {
       path: '/404',
-      alias: '*',
+      alias: '/(.)*',
       name: 'NotFound',
       component: NotFound,
-      meta: {
-        title,
-      },
     },
     {
       path: '/sparql',
@@ -302,7 +229,7 @@ if (GLUE_CONFIG.content.dataProviderInterface.useService) {
 
 router.beforeEach((to, from, next) => {
   // Use a named group to match the file extension
-  const fileExtension = `(?:${import.meta.env.MODE === 'development' ? '--' : '\\.'}(rdf|n3|jsonld|ttl|nt))`;
+  const fileExtension = `(?:${process.env.MODE === 'development' ? '--' : '\\.'}(rdf|n3|jsonld|ttl|nt))`;
 
   // Use a named group to match the dataset ID
   const datasetId = `([a-z0-9-_]+)`;
@@ -328,19 +255,19 @@ router.beforeEach((to, from, next) => {
 })
 
 router.beforeEach((to, from, next) => {
-  // Hash mode backward-compatibility
-  // Fixes https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/432
-  if (to?.redirectedFrom?.substring(0, 3) === '/#/') {
-    let path = to.redirectedFrom.substring(2);
-    const base = `${GLUE_CONFIG.routing.routerOptions.base}/`;
-    if (path.startsWith(base)) {
-      // Restore standard Vue behavior when navigated to '/#/base'
-      // so you are redirected to '/base' instead of '/base/base'
-      path = '/';
-    }
-    next({ path, replace: true });
-    return;
-  }
+  // // Hash mode backward-compatibility
+  // // Fixes https://gitlab.fokus.fraunhofer.de/viaduct/organisation/issues/432
+  // if (to?.redirectedFrom?.substring(0, 3) === '/#/') {
+  //   let path = to.redirectedFrom.substring(2);
+  //   const base = `${GLUE_CONFIG.routing.routerOptions.base}/`;
+  //   if (path.startsWith(base)) {
+  //     // Restore standard Vue behavior when navigated to '/#/base'
+  //     // so you are redirected to '/base' instead of '/base/base'
+  //     path = '/';
+  //   }
+  //   next({ path, replace: true });
+  //   return;
+  // }
 
   // Authentication
   if (to.matched.some(record => record.meta.requiresAuth)) {
@@ -362,10 +289,10 @@ router.beforeEach((to, from, next) => {
       });
     }
   } else if (!to.query.locale && from.query.locale) {
-    const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`;
+    const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`; // TODO: Other queries may get lost here?
     next({ path: pathWithCurrentLocale });
   } else {
-    document.title = to.meta.title;
+    document.title = title;
     next();
   }
 });

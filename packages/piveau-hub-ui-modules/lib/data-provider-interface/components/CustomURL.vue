@@ -1,6 +1,5 @@
 <template>
-    <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
-        v-on="$listeners" class="w-100">
+    <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs" class="w-100">
         <div class="d-flex w-100 ">
             <FormulateInput type="url" :name="context.name" :placeholder="context.attributes.placeholder" v-model="urlInput"
                 :validation="myUrl" :validation-rules="myUrlRules" :validation-messages="myUrlMessages" @input="handleInput" class="w-100">

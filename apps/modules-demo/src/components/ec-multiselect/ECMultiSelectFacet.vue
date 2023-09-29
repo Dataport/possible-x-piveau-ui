@@ -12,7 +12,7 @@
         :showOptions="showOptions"
         :away="away"
       />
-      <div v-if="open" v-on-clickaway="away" class="dropdown">
+      <div v-if="open" v-click-away="away" class="dropdown">
         <input v-if="displayFilterInputBox" type="text" class="ecl-text-input col" placeholder="Filter" v-model="filter" />
         <div class="dropdown-options">
           <div v-for="(item, index) in filteredItems" :key="getTitle(item)+index" class="select-item">
@@ -32,10 +32,9 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import { helpers } from '@piveau/piveau-hub-ui-modules';
 const { getFacetTranslation } = helpers;
-import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from 'vue3-click-away';
 import ECCheckbox from "@/components/ECCheckbox";
 import ECFacetHeader from "@/components/ECFacetHeader";
 import ECSelectDisplay from "@/components/ec-multiselect/ECSelectDisplay";
@@ -99,13 +98,13 @@ export default {
   methods: {
     getFacetTranslation,
     getTitle(item) {
-      return this.fieldId === 'dataScope' && Vue.i18n.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
-        Vue.i18n.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
+      return this.fieldId === 'dataScope' && this.i18n.global.te(`message.datasetFacets.facets.datascopeField.${item.id}`) ?
+      this.i18n.global.t(`message.datasetFacets.facets.datascopeField.${item.id}`)
         : this.getFacetTranslationWrapper(this.fieldId, item.id, this.$route.query.locale, item.title);
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
-        ? Vue.i18n.t(`message.datasetFacets.facets.scoring.${facetId}`)
+        ? this.i18n.global.t(`message.datasetFacets.facets.scoring.${facetId}`)
         : this.getFacetTranslation(fieldId, facetId, userLocale, fallback);
     },
     away() {
@@ -118,7 +117,7 @@ export default {
   mounted() {
     this.id = this._uid; // eslint-disable-line
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }

@@ -762,7 +762,7 @@
         "distributions": {
             "footerLink": "Prenos"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Angleščina",
         "cite": {
             "copyToClipboard": "Kopija v omaro",

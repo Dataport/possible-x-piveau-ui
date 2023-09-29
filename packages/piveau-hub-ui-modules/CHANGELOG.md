@@ -1,58 +1,23 @@
-## [3.10.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.5...v3.10.6) (2023-09-21)
+# [4.0.0-alpha.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.1...v4.0.0-alpha.2) (2023-09-20)
+
+
+
+# [4.0.0-alpha.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.19...v4.0.0-alpha.1) (2023-09-19)
 
 
 ### Bug Fixes
 
-* get catalog id from domain ([01368da](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/01368da6fae3f48313b66897e2a44f0925634ed5))
+* issues in demo-app ([21fbe08](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/21fbe0890d6293f495f293a7bb1ac5a77721e428))
+* update dependencies ([7a74e4b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/7a74e4b7747f8279f4927c27414b8b2d06feeb48))
+* update dependencies and fix bugs & warnings ([5d5a29c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5d5a29cecbe160db8aae3bc1fa57680f8e33c1ce))
+* upgrade to vue-i18n 9.4.0 ([bcf5bcd](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/bcf5bcd7b5511ccf048ecb878b9e3fcc17f50bd4))
+* vue-i18n issues ([53f10a6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/53f10a698d1162d8960b08d6304d4e11c6a97285))
+* warnings & errors ([05ab0d3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/05ab0d3c8c32d0a7c521e4905c8bff8a714c8365))
 
 
+### Features
 
-## [3.10.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.4...v3.10.5) (2023-09-21)
-
-
-### Bug Fixes
-
-* remove loggers ([6d9a426](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6d9a42644f62e3dc290241522bf2bd58d8c5e796))
-
-
-
-## [3.10.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.3...v3.10.4) (2023-09-21)
-
-
-### Bug Fixes
-
-* trial to fix issue with showing the right datasets for a specific catalog page in an external domain ([664e424](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/664e4245f34e10dd8e9eeeeb8011ef849671c47e))
-
-
-
-## [3.10.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.2...v3.10.3) (2023-09-20)
-
-
-
-## [3.10.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.1...v3.10.2) (2023-09-20)
-
-
-### Bug Fixes
-
-* minor styling and text change ([5f3b5a2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5f3b5a2a2c20bf1a47c6a1ecaa1e1d457daab454))
-
-
-
-## [3.10.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.0...v3.10.1) (2023-09-19)
-
-
-### Bug Fixes
-
-* fixed Fileupload ([0a10ee6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/0a10ee68b8ee904ac9abe20571e1da270a312937))
-
-
-
-# [3.10.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.9.19...v3.10.0) (2023-09-18)
-
-
-### Bug Fixes
-
-* only allows properly formatted JSONs.  ([e93e60e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e93e60e8877bc551f7989ac1cdcfeb43fa154a35))
+* upgrade piwik to v3.0.0 ([ca2d01f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ca2d01fa610b7ae10515267a9adcfe67d4585d9e))
 
 
 

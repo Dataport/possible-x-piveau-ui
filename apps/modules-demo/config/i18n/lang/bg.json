@@ -761,7 +761,7 @@
         "distributions": {
             "footerLink": "Изтегляне"
         },
-        "distributionDetails": "{}",
+        "distributionDetails": "{'{}'}",
         "spokenLanguage": "Английски език",
         "cite": {
             "copyToClipboard": "Копиране на клипборд",

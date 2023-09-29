@@ -1,15 +1,6 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign */
-/**
- * @author Dennis Ritter
- * @description Vuex store for geo operations
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
 
-Vue.use(Vuex);
-
-// GeoBounds Module State
 const state = {
   geoBounds: {},
   holdedGeoBounds: {},
@@ -38,10 +29,10 @@ const actions = {
 
 const mutations = {
   SET_GEO_BOUNDS(state, { bounds, boundsId }) {
-    Vue.set(state.geoBounds, boundsId, bounds);
+    state.geoBounds[boundsId] = bounds;
   },
   SET_HOLDED_GEO_BOUNDS(state, { bounds, boundsId }) {
-    Vue.set(state.holdedGeoBounds, boundsId, bounds);
+    state.holdedGeoBounds[boundsId] = bounds;
   },
 };
 

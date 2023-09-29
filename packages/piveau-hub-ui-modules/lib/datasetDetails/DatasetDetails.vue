@@ -65,6 +65,7 @@ export default {
     const vm = getCurrentInstance();
     const router = vm.proxy.$router;
     const hubUrl = vm.proxy.$env.api.hubUrl;
+    console.log(router)
     useDownloadDatasetOnMount({ router, hubUrl });
   }
 };

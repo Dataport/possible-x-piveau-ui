@@ -1,6 +1,5 @@
 <template>
-    <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
-        v-on="$listeners" class="w-100">
+    <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs" class="w-100">
         <hr>
         <div class="d-flex w-100">
             <FormulateInput type="text" :options="context.options" :name="context.name" :label="$t('message.dataupload.type')"

@@ -84,22 +84,22 @@ export function getVersionChoices(currentVersion: string): VersionChoice[] {
 
   if (isStable) {
     versionChoices.push(
-      // {
-      //   title: 'beta-minor',
-      //   value: inc('preminor'),
-      // },
-      // {
-      //   title: 'beta-major',
-      //   value: inc('premajor'),
-      // },
-      // {
-      //   title: 'alpha-minor',
-      //   value: inc('preminor', 'alpha'),
-      // },
-      // {
-      //   title: 'alpha-major',
-      //   value: inc('premajor', 'alpha'),
-      // },
+      {
+        title: 'beta-minor',
+        value: inc('preminor'),
+      },
+      {
+        title: 'beta-major',
+        value: inc('premajor'),
+      },
+      {
+        title: 'alpha-minor',
+        value: inc('preminor', 'alpha'),
+      },
+      {
+        title: 'alpha-major',
+        value: inc('premajor', 'alpha'),
+      },
       {
         title: 'minor',
         value: inc('minor'),

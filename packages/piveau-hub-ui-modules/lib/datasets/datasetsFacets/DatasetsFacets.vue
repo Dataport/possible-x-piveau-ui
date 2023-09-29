@@ -83,7 +83,6 @@ import {
   isNil,
   isNumber,
 } from 'lodash-es';
-import Vue from 'vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsMapFacet from "../../datasets/datasetsFacets/DatasetsMapFacet.vue";
@@ -259,11 +258,11 @@ export default {
     },
     facetTitle(fieldId) {
       return fieldId === 'scoring' ?
-        Vue.i18n.t('message.header.navigation.data.metadataquality')
-        : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+      this.i18n.global.t('message.header.navigation.data.metadataquality')
+        : this.i18n.global.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
     },
     tooltip(fieldId) {
-      return fieldId === 'dataScope' ? Vue.i18n.t('message.helpIcon.dataScope') : Vue.i18n.t(`message.helpIcon.${fieldId.toLowerCase()}`);
+      return fieldId === 'dataScope' ? this.i18n.global.t('message.helpIcon.dataScope') : this.i18n.global.t(`message.helpIcon.${fieldId.toLowerCase()}`);
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'

@@ -57,11 +57,12 @@
               </div>
             </slot>
             <div class="alert alert-warning mt-3 d-flex flex-row" v-if="showScoreDisclaimer">
-              <i18n path="message.datasets.scoreDisclaimer" tag="span">
+              <span>
+                {{ $t("message.datasets.scoreDisclaimer") }}
                 <app-link path="/mqa" :query="{ locale: $route.query.locale }" target="_blank">
-                  <i18n path="message.metadata.methodologyPage"></i18n>
+                  <span>{{ $t("message.metadata.methodologyPage") }}</span>
                 </app-link>
-              </i18n>
+              </span>
             </div>
             <!--
             <div class="alert alert-info mt-3" v-if="getGeoBoundsById('modal-map')">
@@ -95,28 +96,27 @@
 </template>
 
 <script>
-/* eslint-disable no-undef */
-// Import vuex helpers
-import {mapActions, mapGetters} from 'vuex';
-import {
-  debounce,
-  has,
-  groupBy,
-  uniqBy,
-  toPairs,
-  isArray,
-  isNil,
-} from 'lodash-es';
-import $ from 'jquery';
-import fileTypes from '../utils/fileTypes';
-import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
-import Pagination from '../widgets/Pagination.vue';
-import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
-import AppLink from '../widgets/AppLink.vue';
-import {getTranslationFor, truncate, getImg} from '../utils/helpers';
-import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
-import DatasetsFilters from "../datasets/DatasetsFilters.vue";
-import DatasetList from './DatasetList.vue'
+  /* eslint-disable no-undef */
+  import { mapActions, mapGetters } from 'vuex';
+  import {
+    debounce,
+    has,
+    groupBy,
+    uniqBy,
+    toPairs,
+    isArray,
+    isNil,
+  } from 'lodash-es';
+  import $ from 'jquery';
+  import fileTypes from '../utils/fileTypes';
+  import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
+  import Pagination from '../widgets/Pagination.vue';
+  import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
+  import AppLink from '../widgets/AppLink.vue';
+  import { getTranslationFor, truncate, getImg } from '../utils/helpers';
+  import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
+  import DatasetsFilters from "../datasets/DatasetsFilters.vue";
+  import DatasetList from './DatasetList.vue'
 
 export default {
   name: 'Datasets',
@@ -447,7 +447,7 @@ export default {
       });
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     $('.tooltip').remove();
     if (this.infiniteScrolling) window.removeEventListener('scroll', this.onScroll);
   },

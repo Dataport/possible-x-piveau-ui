@@ -1,13 +1,5 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign,no-console */
-/**
- * @Publisher Dennis Ritter
- * @description Vuex store for the the details of a catalog.
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
 
 const state = {
   catalog: {},

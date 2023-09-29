@@ -1,18 +1,9 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign,no-unused-vars,no-console,consistent-return */
-/**
- * @author Dennis Ritter
- * @description Vuex store for the datasets module
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
 
 const RESULTS_PER_PAGE = 10;
 // const RESULTS_PER_PAGE = GLUE_CONFIG.routing.pagination.defaultItemsPerPage;
 
-// Datasets Module State
 const state = {
   /**
    * @property datasets

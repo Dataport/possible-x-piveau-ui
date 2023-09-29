@@ -1,7 +1,5 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
-import Vue from 'vue';
-import Vuex from 'vuex';
 import N3 from 'n3';
 
 import { isEmpty, cloneDeep } from 'lodash';
@@ -12,8 +10,6 @@ import toRDF from '../../utils/RDFconverter';
 import toInput from '../../utils/inputConverter';
 
 import generalDpiConfig from '../../config/dpi-spec-config.js';
-
-Vue.use(Vuex);
 
 const state = {
     datasets: {},
@@ -281,13 +277,13 @@ const mutations = {
      */
     saveLinkedDataToStore(state, { property, data }) {
         try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
+            const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
             toInput.convertToInput(state, property, data, dpiConfig);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];
             toInput.convertToInput(state, property, data, dpiConfig);
         }
-        // const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
+        // const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
         // toInput.convertToInput(state, property, data, dpiConfig);
 
         if (property === 'datasets') {

@@ -1,5 +1,5 @@
 <template>
-  <div ref="fileupload" :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-on="$listeners">
+  <div ref="fileupload" :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
     <div class="file-div position-relative">
       <input type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })">

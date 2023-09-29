@@ -471,7 +471,7 @@
       this.initCatalogues();
       this.initInfiniteScrolling();
     },
-    beforeDestroy() {
+    beforeUnmount() {
       $('.tooltip').remove();
       if (this.infiniteScrolling) window.removeEventListener('scroll', this.onScroll);
     },

@@ -39,7 +39,7 @@ export default {
       contentVisible: false
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     $('.tooltip').remove();
   },
 }
