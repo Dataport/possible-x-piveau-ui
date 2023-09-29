@@ -483,13 +483,11 @@
 
   export default {
     name: 'datasetDetailsCategories',
-    dependencies: 'DatasetService',
     components: {
       CSVLinter,
     },
     metaInfo() {
       return {
-        // title: this.$t('message.metadata.categories'),
         title: this.$t('message.datasetDetails.subnav.quality'),
         meta: [
           {
@@ -545,9 +543,7 @@
         },
     },
     methods: {
-      // import store-actions
       ...mapActions('datasetDetails', [
-        'useService',
         'loadDatasetDetails',
         'loadQualityData',
         'loadQualityDistributionData',
@@ -581,7 +577,6 @@
       },
     },
     created() {
-      this.useService(this.DatasetService);
       this.$nextTick(() => {
         
         // Duplicated API call, execute only if data not already loaded

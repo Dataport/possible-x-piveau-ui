@@ -91,7 +91,6 @@ import SettingsFacet from "../../datasets/datasetsFacets/SettingsFacet.vue";
 
 export default {
   name: 'datasetsFacets',
-  dependencies: ['catalogService'],
   components: {
     SettingsFacet,
     CatalogDetailsFacet,
@@ -133,18 +132,18 @@ export default {
       FACET_OPERATORS: this.$env.content.datasets.facets.FACET_OPERATORS,
       FACET_GROUP_OPERATORS: this.$env.content.datasets.facets.FACET_GROUP_OPERATORS,
       dataServices: {
-        yes: Vue.i18n.t('message.metadata.yes'),
-        no: Vue.i18n.t('message.metadata.no'),
-        property: Vue.i18n.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
-        title: Vue.i18n.t('message.metadata.dataServices'),
-        toolTipTitle: Vue.i18n.t('message.helpIcon.dataServices'),
+        yes: this.i18n.global.t('message.metadata.yes'),
+        no: this.i18n.global.t('message.metadata.no'),
+        property: this.i18n.global.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
+        title: this.i18n.global.t('message.metadata.dataServices'),
+        toolTipTitle: this.i18n.global.t('message.helpIcon.dataServices'),
       },
       erpd: {
-        yes: Vue.i18n.t('message.metadata.yes'),
-        no: Vue.i18n.t('message.metadata.no'),
-        property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
-        title: Vue.i18n.t('message.metadata.erpd'),
-        // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
+        yes: this.i18n.global.t('message.metadata.yes'),
+        no: this.i18n.global.t('message.metadata.no'),
+        property: this.i18n.global.t('message.datasetFacets.facets.erpdOnly'),
+        title: this.i18n.global.t('message.metadata.erpd'),
+        // toolTipTitle: "TOOLTIP",//this.i18n.global.t('message.helpIcon.dataServices'),
       }
     };
   },
@@ -241,7 +240,6 @@ export default {
     getFacetTranslation,
     ...mapActions('catalogDetails', [
       'loadCatalog',
-      'useCatalogService',
     ]),
     ...mapActions('datasets', [
       'addFacet',
@@ -472,7 +470,6 @@ export default {
     },
   },
   created() {
-    this.useCatalogService(this.catalogService);
     this.initShowCatalogDetails();
     this.initMinScoring();
     for(var i in sessionStorage){

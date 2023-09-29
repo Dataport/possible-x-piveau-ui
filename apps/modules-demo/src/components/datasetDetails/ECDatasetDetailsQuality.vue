@@ -16,7 +16,6 @@ import DistributionQuality from './ECDatasetDetailsDistributionQuality.vue';
 
 export default {
     name: 'datasetDetailsQuality',
-    dependencies: 'DatasetService',
     components: {
         MetadataQuality,
         DistributionQuality,
@@ -49,7 +48,6 @@ export default {
     },
     methods: {
         ...mapActions('datasetDetails', [
-            'useService',
             'loadDatasetDetails',
             'loadQualityData',
             'loadQualityDistributionData',
@@ -67,7 +65,6 @@ export default {
         },
     },
     created() {
-        this.useService(this.DatasetService);
         this.$nextTick(() => {
             this.$Progress.start();
 

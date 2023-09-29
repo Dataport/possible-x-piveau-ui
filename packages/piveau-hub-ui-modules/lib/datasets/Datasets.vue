@@ -120,7 +120,6 @@
 
 export default {
   name: 'Datasets',
-  dependencies: ['DatasetService'],
   components: {
     DatasetsFilters,
     DatasetsTopControls,
@@ -225,7 +224,6 @@ export default {
       'loadDatasets',
       'loadAdditionalDatasets',
       'setPage',
-      'useService',
       'addFacet',
       'removeFacet',
       'setFacets',
@@ -374,17 +372,17 @@ export default {
         this.$nextTick(() => {
           this.$Progress.start();
           this.loadDatasets({locale: this.$route.query.locale})
-              .then(() => {
-                this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
-                this.$Progress.finish();
-                $('[data-toggle="tooltip"]').tooltip({
-                  container: 'body',
-                });
-              })
-              .catch(() => {
-                this.$Progress.fail();
-              })
-              .finally(() => this.$root.$emit('contentLoaded'));
+            .then(() => {
+              this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
+              this.$Progress.finish();
+              $('[data-toggle="tooltip"]').tooltip({
+                container: 'body',
+              });
+            })
+            .catch(() => {
+              this.$Progress.fail();
+            })
+            .finally(() => this.$root.$emit('contentLoaded'));
         });
       });
     },
@@ -420,7 +418,6 @@ export default {
     },
   },
   created() {
-    this.useService(this.DatasetService);
     this.initDataScope();
     this.initLimit();
     this.initPage();

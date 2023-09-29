@@ -220,7 +220,6 @@ const { getTranslationFor, truncate, getImg } = helpers;
 
 export default {
   name: "ECDatasets",
-  dependencies: ["DatasetService"],
   components: {
     DatasetDetailsSkeleton,
     DatasetsTopControls,
@@ -348,7 +347,6 @@ export default {
       "loadDatasets",
       "loadAdditionalDatasets",
       "setPage",
-      "useService",
       "addFacet",
       "removeFacet",
       "setFacets",
@@ -567,7 +565,6 @@ export default {
     },
   },
   created() {
-    this.useService(this.DatasetService);
     this.initDataScope();
     this.initLimit();
     this.initPage();

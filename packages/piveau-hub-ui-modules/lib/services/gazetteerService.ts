@@ -1,9 +1,4 @@
 // @ts-nocheck
-/**
- * @author Dennis ritter
- * @created 12.09.2018
- * @description
- */
 
 import axios from 'axios';
 

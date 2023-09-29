@@ -1,10 +1,3 @@
-import {
-  uploadService,
-  datasetService,
-  catalogService,
-  gazetteerService
-} from '@piveau/piveau-hub-ui-modules';
-
 import i18n from './i18n';
 
 // export const ecStyle = true;
@@ -343,12 +336,6 @@ const glueConfig = {
     useLanguageSelector: true, // TODO: Make use of this property by passing it to the Header-Footer in App.vue #2766
     locale: 'en',
     fallbackLocale: 'en',
-  },
-  services: {
-    datasetService,
-    catalogService,
-    uploadService,
-    gazetteerService,
   },
   themes: {
     header: 'dark',

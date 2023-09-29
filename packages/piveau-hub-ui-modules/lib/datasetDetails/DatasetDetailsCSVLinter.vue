@@ -76,7 +76,6 @@ export default {
     components: {
         PvBanner,
     },
-    dependencies: 'DatasetService',
     props: ['validation'],
     data() {
         return {

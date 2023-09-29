@@ -14,38 +14,18 @@ const state = {
   datasetCounts: {},
   loading: false,
   searchParameters: {
-    // Text entered in the search input field
     query: '',
     limit: RESULTS_PER_PAGE,
     offset: 0,
-    // The Facets to filter for
     facets: [],
     facetOperator: 'AND',
     facetGroupOperator: 'AND',
     sort: 'relevance+desc,modified+desc,title+asc',
   },
-  /**
-   * @property availableFacets
-   * @type Array
-   * @description The set union of all available facets for the .
-   * @example availableFacets = [
-   *  {
-   *    items: [{
-   *      count: 42,
-   *      title: 'facet1',
-   *      id: 'facet-1',
-   *    }, {..}],
-   *    id: 'tagsId'
-   *    title: 'tags',
-   *  }, {..}]
-   */
   availableFacets: [],
   page: 1,
-  // The total number of catalogs available with last request
   pageCount: 1,
   catalogsCount: 0,
-  // The Service that implemented server requests for catalogs
-  service: null,
 };
 
 const GETTERS = {
@@ -72,7 +52,6 @@ const GETTERS = {
   },
   getPage: state => state.page,
   getPageCount: state => state.pageCount,
-  getService: state => state.service,
   getSort: state => state.searchParameters.sort,
 };
 
@@ -104,8 +83,7 @@ const actions = {
   ) {
     commit('SET_LOADING', true);
     return new Promise((resolve, reject) => {
-      const service = GETTERS.getService(state);
-      service.get(query, limit, page, sort, facetOperator, facetGroupOperator, facets)
+      this.$catalogService.get(query, limit, page, sort, facetOperator, facetGroupOperator, facets)
         .then((response) => {
           commit('SET_AVAILABLE_FACETS', response.availableFacets);
           commit('SET_catalogS_COUNT', response.catalogsCount);
@@ -144,11 +122,10 @@ const actions = {
    * @param q {String} The Query to autocomplete
    */
   autocompleteQuery({ commit }, q) {
-    const service = GETTERS.getService(state);
     // If autocomplete function does not exist in this service -> Abort
-    if (typeof service.autocomplete !== 'function') return;
+    if (typeof this.$catalogService.autocomplete !== 'function') return;
     return new Promise((resolve, reject) => {
-      service.autocomplete(q)
+      this.$catalogService.autocomplete(q)
         .then((response) => {
           resolve(response);
         })
@@ -235,14 +212,6 @@ const actions = {
   setLoading({ commit }, isLoading) {
     commit('SET_LOADING', isLoading);
   },
-  /**
-   * @description Sets the Service to use when loading data.
-   * @param commit
-   * @param service - The service to use.
-   */
-  useService({ commit }, service) {
-    commit('SET_SERVICE', service);
-  },
 };
 
 const mutations = {
@@ -294,9 +263,6 @@ const mutations = {
   },
   SET_QUERY(state, query) {
     state.searchParameters.query = query;
-  },
-  SET_SERVICE(state, service) {
-    state.service = service;
   },
   SET_SORT(state, sort) {
     state.searchParameters.sort = sort;

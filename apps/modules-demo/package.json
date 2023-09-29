@@ -79,7 +79,6 @@
     "vue": "^3.1.0",
     "vue-head": "^2.1.2",
     "vue-i18n": "^9.4.0",
-    "vue-inject": "^2.1.0",
     "vue-matomo": "^3.9.1-2",
     "vue-meta": "^3.0.0-alpha.10",
     "vue-position-sticky": "^0.2.1",

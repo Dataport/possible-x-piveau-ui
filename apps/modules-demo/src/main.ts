@@ -7,7 +7,6 @@ import * as VeeValidate from 'vee-validate';
 import VueProgressBar from "@aacassandra/vue3-progressbar";
 import VueClickAway from "vue3-click-away";
 import VueFormulate from '@braid/vue-formulate';
-import VueInject from 'vue-inject';
 import VueCookies from 'vue3-cookies'
 import VuePositionSticky from 'vue-position-sticky';
 import { createMetaManager } from 'vue-meta'
@@ -121,9 +120,8 @@ const components = ecStyle ? {
   SubNavigation: ECSubNavigation
 } : {};
 
-configureModules(app, {
+configureModules(app, store, {
   components,
-  services: GLUE_CONFIG.services,
   serviceParams: {
     baseUrl: env.api.baseUrl,
     qualityBaseUrl: env.api.qualityBaseUrl,
@@ -316,9 +314,6 @@ app.use(VueProgressBar, progressBarOptions);
 
 // Vee Validate 
 app.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
-
-// Vue Inject
-app.use(VueInject, { components: true });
 
 // Vue Position Sticky
 app.use(VuePositionSticky);

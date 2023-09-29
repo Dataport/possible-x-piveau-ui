@@ -420,7 +420,6 @@ const { getImg, getCountryFlagImg, getTranslationFor } = helpers;
 
 export default {
   name: "ECCatalogues",
-  dependencies: ["catalogService"],
   components: {
     DatasetDetailsSkeleton,
     SelectedFacetsOverview,
@@ -509,7 +508,6 @@ export default {
       "loadAdditionalCatalogs",
       "setQuery",
       "setPage",
-      "useService",
       "addFacet",
       "setFacets",
       "setFacetOperator",
@@ -755,7 +753,6 @@ export default {
     },
   },
   created() {
-    this.useService(this.catalogService);
     this.initLimit();
     this.initPage();
     this.initQuery();

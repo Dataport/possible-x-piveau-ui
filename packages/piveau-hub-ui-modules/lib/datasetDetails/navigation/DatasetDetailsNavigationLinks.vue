@@ -128,9 +128,9 @@ import {mapGetters, mapActions} from "vuex";
 import $ from "jquery";
 // import DatasetCitationModal from "../../citation/DatasetCitationModal";
 import {getTranslationFor} from "../../utils/helpers";
+
 export default {
   name: "DatasetDetailsNavigationLinks",
-  dependencies: 'DatasetService',
   props: {
     datasetId: {
       type: String,

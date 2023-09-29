@@ -42,7 +42,6 @@ import 'vue-step-progress/dist/main.css';
 
 export default {
   name: 'DataProviderInterface',
-  dependencies: [],
   components: {
     StepProgress: StepProgress.default || StepProgress,
     Navigation,

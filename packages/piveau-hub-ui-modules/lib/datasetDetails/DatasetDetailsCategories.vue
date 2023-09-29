@@ -26,7 +26,6 @@
 
   export default {
     name: 'datasetDetailsCategories',
-    dependencies: 'DatasetService',
     components: {
       appLink: AppLink,
     },
@@ -51,7 +50,6 @@
       return {};
     },
     computed: {
-      // import store-getters
       ...mapGetters('datasetDetails', [
         'getID',
         'getCategories',
@@ -63,10 +61,8 @@
     methods: {
       has,
       getTranslationFor,
-      // import store-actions
       ...mapActions('datasetDetails', [
         'loadDatasetDetails',
-        'useService',
       ]),
       showCategory(category) {
         return has(category, 'id');
@@ -77,7 +73,6 @@
       },
     },
     created() {
-      this.useService(this.DatasetService);
       this.$nextTick(() => {
         // Duplicated API call, execute only if data not already loaded
         if (this.$route.params.ds_id !== this.getID) {

@@ -27,12 +27,10 @@
 </template>
 
 <script>
-  // import Actions and Getters from Store Module
   import { mapActions, mapGetters } from 'vuex';
 
   export default {
     name: 'datasetDetailsActivityStream',
-    dependencies: 'DatasetService',
     components: {
     },
     data() {
@@ -40,19 +38,15 @@
       };
     },
     computed: {
-      // import store-getters
       ...mapGetters('datasetDetails', [
       ]),
     },
     methods: {
-      // import store-actions
       ...mapActions('datasetDetails', [
         'loadDatasetDetails',
-        'useService',
       ]),
     },
     created() {
-      this.useService(this.DatasetService);
       this.$nextTick(() => {
         this.$Progress.start();
         this.loadDatasetDetails(this.$route.params.ds_id)

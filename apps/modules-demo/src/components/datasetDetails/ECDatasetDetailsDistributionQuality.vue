@@ -84,7 +84,6 @@ const { getTranslationFor } = helpers;
 
 export default {
     name: 'datasetDetailsDistributionQuality',
-    dependencies: 'DatasetService',
     components: {
         PvBadge,
         CSVLinter,

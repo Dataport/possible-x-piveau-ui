@@ -168,7 +168,6 @@ import {getTranslationFor, truncate} from '../utils/helpers';
 
 export default {
   name: "CatalogPage",
-  dependencies: ['catalogService', 'DatasetService'],
   components: {
     Datasets,
     DatasetCard,
@@ -222,11 +221,10 @@ export default {
     getTranslationFor,
     ...mapActions('catalogDetails', [
       'loadCatalog',
-      'useCatalogService',
     ]),
     ...mapActions('datasets', [
       'loadDatasets',
-      'useService',
+      'loadSingleDataset',
     ]),
     setActiveTabName(name) {
       this.activeTabName = name;
@@ -248,11 +246,13 @@ export default {
     },
     loadCatalogInterestingDatasets(catalog) {
       for (let id of this.catalog.catalogueInterestingDatasets) {
-        this.DatasetService.getSingle(id)
-            .then(response => {
-              this.interestingDatasets.push(response);
-            })
-            .catch(error => console.log('error: ', error));
+        this.loadSingleDataset(id)
+          .then(response => {
+            this.interestingDatasets.push(response);
+          })
+          .catch(error => {
+            console.log('error: ', error)
+          });
       }
     }
   },
@@ -268,8 +268,6 @@ export default {
   },
   created() {
     this.$Progress.start()
-    this.useCatalogService(this.catalogService)
-    this.useService(this.DatasetService)
 
     let catalogId = this.$route.params.ctlg_id;
     if (catalogId === undefined || catalogId === null) {

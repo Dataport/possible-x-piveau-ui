@@ -175,7 +175,6 @@
 
   export default {
     name: 'catalogs',
-    dependencies: ['catalogService'],
     components: {
       SelectedFacetsOverview,
       CataloguesFacets,
@@ -249,7 +248,6 @@
         'loadAdditionalCatalogs',
         'setQuery',
         'setPage',
-        'useService',
         'addFacet',
         'setFacets',
         'setFacetOperator',
@@ -460,7 +458,6 @@
       },
     },
     created() {
-      this.useService(this.catalogService);
       this.initLimit();
       this.initPage();
       this.initQuery();

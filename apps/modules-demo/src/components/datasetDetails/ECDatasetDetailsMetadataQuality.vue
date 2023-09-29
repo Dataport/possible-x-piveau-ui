@@ -40,7 +40,6 @@ import { has, isArray } from 'lodash-es';
 
 export default {
     name: 'datasetDetailsMetadataQuality',
-    dependencies: 'DatasetService',
     data() {
         return {};
     },

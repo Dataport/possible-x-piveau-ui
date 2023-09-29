@@ -37,7 +37,6 @@
 
   export default {
     name: 'datasetDetailsSimilarDatasets',
-    dependencies: 'DatasetService',
     components: {
       PvBadge,
     },
@@ -86,7 +85,7 @@
         'loadDatasetDetails',
         'loadSimilarDatasets',
         'loadSimilarDatasetDetails',
-        'useService',
+
       ]),
       has,
       appendCurrentLocaleToURL,
@@ -108,7 +107,6 @@
       },
     },
     created() {
-      this.useService(this.DatasetService);
       this.$nextTick(() => {
         if (this.useSimilarDatasets) {
           // Duplicated API call, execute only if data not already loaded

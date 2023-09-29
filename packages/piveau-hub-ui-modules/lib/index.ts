@@ -8,9 +8,9 @@ import bulkDownloadCorsProxyService from "./services/bulkDownloadCorsProxyServic
 import corsProxyService from "./services/corsProxyService";
 import uploadService from "./services/uploadService";
 import runtimeConfigurationService from "./services/runtimeConfigurationService";
-import datasetService from "./services/piveau-ui-adapter-vhub/datasets";
-import catalogService from "./services/piveau-ui-adapter-vhub/catalogs";
-import gazetteerService from "./services/piveau-ui-adapter-vhub/gazetteer";
+import datasetService from "./services/datasetService";
+import catalogService from "./services/catalogService";
+import gazetteerService from "./services/gazetteerService";
 
 
 // Import Stores

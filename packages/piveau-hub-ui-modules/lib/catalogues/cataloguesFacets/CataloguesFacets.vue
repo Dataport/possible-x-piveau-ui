@@ -87,11 +87,11 @@
         FACET_OPERATORS: this.$env.content.catalogs.facets.FACET_OPERATORS,
         FACET_GROUP_OPERATORS: this.$env.content.catalogs.facets.FACET_GROUP_OPERATORS,
         erpd: {
-          yes: Vue.i18n.t('message.metadata.yes'),
-          no: Vue.i18n.t('message.metadata.no'),
-          property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
-          title: Vue.i18n.t('message.metadata.erpd'),
-          // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
+          yes: this.i18n.global.t('message.metadata.yes'),
+          no: this.i18n.global.t('message.metadata.no'),
+          property: this.i18n.global.t('message.datasetFacets.facets.erpdOnly'),
+          title: this.i18n.global.t('message.metadata.erpd'),
+          // toolTipTitle: "TOOLTIP",//this.i18n.global.t('message.helpIcon.dataServices'),
         }
       };
     },

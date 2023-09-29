@@ -1,13 +1,13 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign,no-console */
+
 import {
     has,
     isObject,
     isArray,
 } from 'lodash';
-
 import { mirrorPropertyFn } from '../../utils/helpers';
-import { SimilarDatasetsQuery } from 'lib/services/piveau-ui-adapter-vhub/datasets';
+import { SimilarDatasetsQuery } from 'lib/services/datasetService';
 
 // The helper functions below stabilize the store against API changes without changing everything
 // throughout the whole project.
@@ -17,67 +17,10 @@ import { SimilarDatasetsQuery } from 'lib/services/piveau-ui-adapter-vhub/datase
 // Example: mirrorLabelAsTitle({ label: "hello world" }) == { label: "hello world", title: "hello world" }
 const mirrorLabelAsTitle = mirrorPropertyFn('label', 'title');
 
-// DatasetDetails Module State
 /**
  * @property dataset
  * @type JSON
  * @description A dataset object.
- * @example dataset = {
- *  accessRights: 'public',
- *  accrualPeriodicity: 'annual',
- *  catalog: { title: 'catalog One', description: 'This is catalog One.', id: 'catalog-1' },
- *  categories: [{ id: 'energy', title: 'Energy' }, {...}],
- *  conformsTo: [{ title: 'Title', resource: 'http://resource.eu' }, {...}],
- *  contactPoints: [{ name: 'Benedicto Rebanks', type: 'Individual', resource: 'http://demo-url-to-the-contact-point.com', email: 'brebanks0@posterous.com' }, {...}],
- *  country: { title: 'Germany', id: 'DE' },
- *  creator: { type : 'Agent', name : 'Fraunhofer FOKUS', email : 'mailto:info@fokus.fraunhofer.de', resource: 'http://resource.eu', homepage : 'http://www.fokus.fraunhofer.de' },
- *  description: { de: 'This is dataset1', en: 'This is dataset1' },
- *  distributions: [{
- *     accessUrl: 'http://demo-url-to-this-resource.org/demoID/accessPath',
- *     downloadUrl: 'http://demo-url-to-this-resource.org/demoID/filename.csv',
- *     description: 'A description of this distribution',
- *     format: 'csv',
- *     id: 'demoID',
- *     licence: '{ title: 'Licence One', id: 'licence-1', resource: 'https://demo-url-to-the-licence.com/licence-one' }',
- *     mediaType: 'text/plain',
- *     modificationDate: 2017-05-31T18:33:48.018695,
- *     releaseDate: 2017-05-31T18:33:48.018695,
- *     title: 'demoTitle',
- *     urlType: 'download',
- *   },
- *   {...},
- *  ],
- *  distributionFormats: [{ title: 'PDF', id: 'pdf' }, { title: 'CSV', id: 'csv' }, {...}],
- *  documentations: [...],
- *  frequency: { title: 'Frequency One', resource: 'http://demo-url-to-the-frequency.com' },
- *  hasVersion: [{ resource: 'https://piveau.eu/set/data/2222', id: '2222' }],
- *  id: 'abc123qwe345',
- *  identifiers: ['2222', 'dataset-1234', ...],
- *  idName: 'dataset-1',
- *  isVersionOf: [{ resource: 'https://piveau.eu/set/data/2222', id: '2222' }],
- *  keywords: [{ title: 'KEYWORD1', id: 'keyword1'}, {...}],
- *  landingPages: ['http://landingpage.de', ...],
- *  languages: ['http://publications.europa.eu/resource/authority/language/DEU', 'http://publications.europa.eu/resource/authority/language/ENG', ...],
- *  licences: [{ title: 'Licence One', id: 'licence-1', resource: 'https://asd.com/licence-one' }, {...}],
- *  modificationDate: '2002-02-02T00:00',
- *  originalLanguage: '...',
- *  otherIdentifiers: ['https://gnu.org/blandit/mi/in.xml', ...],
- *  pages: [{format: { title: 'HTML', id: 'HTML' }, description: { en: 'Placeholder description' }, title: { en: 'Placeholder title' }, resource: 'https://documentation-uri-placeholder', ...] or old data structure ['http://www.documentation.com', ...],
- *  provenances: [{ resource: 'https://diigo.com/cras/non/velit/nec/nisi.jpg', label: 'Label'}, {...}],
- *  publisher: { type : 'Agent', name : 'Fraunhofer FOKUS', email : 'mailto:info@fokus.fraunhofer.de', resource: 'http://resource.eu', homepage : 'http://www.fokus.fraunhofer.de' },
- *  relatedResources: ['https://bluehost.com/ac/est/lacinia/nisi/venenatis/tristique/fusce.xml', ...],
- *  releaseDate: '2001-01-01T00:00',
- *  similarDatasets: [{...}],
- *  sources: [{ resource: 'https://piveau.eu/set/data/2222', id: '2222' }],
- *  spatial: [{ coordinates: [52.526, 13.314], type: 'Point' }, {...}],
- *  spatialResource: ['http://publications.europa.eu/resource/authority/country/DEU', ...],
- *  temporal: [{ gte: '2015-06-09T00:00:00', lte: '2015-06-09T00:00:00'}, {...}],
- *  translationMetaData: {},
- *  title: { de: 'Der Titel', en: 'The Title' },
- *  versionInfo: '1.0.0',
- *  versionNotes: { en : 'Release', de: 'Veröffentlichung' },
- *  catalogRecord: { issued: "2021-08-03T13:52:11Z", modified: "2021-08-05T06:45:59Z" },
- * }
  */
 const state = {
     dataset: {
@@ -174,7 +117,6 @@ const state = {
     },
     activeNavigationTab: 0,
     loading: false,
-    service: null,
 };
 
 const getters = {
@@ -254,7 +196,6 @@ const getters = {
     getVisualisations: state => state.dataset.visualisations,
     getWasGeneratedBy: state => state.dataset.wasGeneratedBy,
     getLoading: state => state.loading,
-    getService: state => state.service,
     getQualityDataRequested: state => state.dataset.qualityDataRequested,
     getQualityData: state => state.dataset.qualityData,
     getQualityDistributionData: state => state.dataset.qualityDistributionData,
@@ -282,8 +223,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('SET_LOADING', true);
             commit('SET_ID', id);
-            const service = getters.getService(state);
-            service.getSingle(id)
+            this.$datasetService.getSingle(id)
                 .then((response) => {
                     // DCAT-AP.de
                     commit('SET_AVAILABILITY', response.availability);
@@ -379,8 +319,7 @@ const actions = {
     loadSimilarDatasetDetails({ state, commit }, id) {
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
-            const service = getters.getService(state);
-            service.getSingle(id)
+            this.$datasetService.getSingle(id)
                 .then((response) => {
                     commit('SET_SD_DESCRIPTION', { id, description: response.description });
                     commit('SET_SD_TITLE', { id, title: response.title });
@@ -416,8 +355,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
             commit('SET_SIMILAR_DATASETS_REQUESTED', id);
-            const service = getters.getService(state);
-            service.getSimilarDatasets(id, query)
+            this.$datasetService.getSimilarDatasets(id, query)
                 .then((response) => {
                     commit('SET_SIMILAR_DATASETS', response.data);
                     commit('SET_LOADING', false);
@@ -435,8 +373,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
             commit('SET_QUALITY_DATA_REQUESTED', id);
-            const service = getters.getService(state);
-            service.getQualityData(id)
+            this.$datasetService.getQualityData(id)
                 .then((response) => {
                     commit('SET_QUALITY_DATA', response.data);
                     commit('SET_LOADING', false);
@@ -454,8 +391,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
             commit('SET_QUALITY_DATA_REQUESTED', id);
-            const service = getters.getService(state);
-            service.getQualityDistributionData(id)
+            this.$datasetService.getQualityDistributionData(id)
                 .then((response) => {
                     commit('SET_QUALITY_DISTRIBUTION_DATA', response.data);
                     commit('SET_LOADING', false);
@@ -479,8 +415,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
             commit('SET_IS_DQV_DATA_REQUESTED', id);
-            const service = getters.getService(state);
-            formats.forEach(format => service.getDQVDataHead(id, format, locale)
+            formats.forEach(format => this.$datasetService.getDQVDataHead(id, format, locale)
                 .then((response) => {
                     const isAvailable = response.status === 200;
                     commit(`SET_IS_DQV_DATA_${format.toUpperCase()}_AVAILABLE`, isAvailable);
@@ -494,14 +429,6 @@ const actions = {
     },
     setLoading({ commit }, isLoading) {
         commit('SET_LOADING', isLoading);
-    },
-    /**
-     * @description Sets the Service to use when loading data.
-     * @param commit
-     * @param service - The service to use.
-     */
-    useService({ commit }, service) {
-        commit('SET_SERVICE', service);
     },
     /**
      * @description Selects distribution for download as (format convertion) service, sets available format options.
@@ -746,9 +673,6 @@ const mutations = {
     },
     SET_LOADING(state, isLoading) {
         state.loading = isLoading;
-    },
-    SET_SERVICE(state, service) {
-        state.service = service;
     },
     SET_QUALITY_DATA_REQUESTED(state, qualityDataRequested) {
         state.dataset.qualityDataRequested = qualityDataRequested;

@@ -47,7 +47,6 @@
       DatasetDate,
       AppLink,
     },
-    dependencies: 'DatasetService',
     data() {
       return {
         hidePublisher: this.$env.content.datasetDetails.header.hidePublisher,

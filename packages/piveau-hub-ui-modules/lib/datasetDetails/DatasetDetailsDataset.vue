@@ -106,23 +106,15 @@
     getTranslationFor, getCountryFlagImg, truncate, replaceHttp, appendCurrentLocaleToURL
   } from '../utils/helpers';
   import ResourceAccessPopup from '../widgets/ResourceAccessPopup.vue';
-  // import DatasetDetailsDescription from "../datasetDetails/DatasetDetailsDescription.vue";
-  // import DatasetDetailsProperties from "../datasetDetails/DatasetDetailsProperties.vue";
   import DatasetDetailsExtendedMetaData
     from "../datasetDetails/features/DatasetDetailsIsUsedBy.vue";
-  // import DatasetDetailsFeatures from "../datasetDetails/features/DatasetDetailsFeatures.vue";
   import DatasetDetailsSkeleton from "../datasetDetails/DatasetDetailsSkeleton.vue";
 
   export default {
     name: 'datasetDetailsDataset',
-    dependencies: 'DatasetService',
     components: {
       DatasetDetailsSkeleton,
-      // DatasetDetailsFeatures,   // imported globally
       DatasetDetailsExtendedMetaData,
-      // DatasetDetailsProperties,
-      // DatasetDetailsDescription,
-      // DatasetDetailsBanners,
       AppLink,
       Tooltip,
       Distributions,
@@ -273,13 +265,10 @@
       }
     },
     methods: {
-      // import store-actions
       ...mapActions('datasetDetails', [
         'loadDatasetDetails',
         'setLoading',
-        'useService',
       ]),
-      // Lodash has function
       has,
       isNil,
       isArray,
@@ -710,8 +699,6 @@
       },
     },
     mounted() {
-      this.useService(this.DatasetService);
-
       // Duplicated API call, execute only if data not already loaded
       if (this.$route.params.ds_id !== this.getID) {
         this.$Progress.start();

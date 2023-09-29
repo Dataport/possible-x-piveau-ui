@@ -1,9 +1,5 @@
 // @ts-nocheck
 /* eslint-disable no-console */
-/**
- * @author Dennis ritter
- * @description
- */
 
 import axios from 'axios';
 import { has } from 'lodash-es';
