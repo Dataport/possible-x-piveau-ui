@@ -1,7 +1,8 @@
 <template>
     <div>
+      
         <tr v-if="showValue(data, property)">
-            <td class="w-25 font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
+            <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
 
             <URIProp :property="property" :value="value" :data="data"><p>{{value.type}}</p></URIProp>
             <URLProp :property="property" :value="value" :data="data"></URLProp>
