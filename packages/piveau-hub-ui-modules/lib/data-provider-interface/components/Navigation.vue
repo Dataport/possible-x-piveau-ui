@@ -446,8 +446,6 @@ export default {
   cursor: pointer;
 }
 
-  .modal-body{
-    color:red;
-  }
+ 
 
 </style>
