@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import DistributionModal from './DistributionModal.vue'
+
 import PropertyEntry from './PropertyEntry.vue';
 import DistributionOverview from './DistributionOverview.vue';
 import { mapGetters, mapActions } from 'vuex';
@@ -150,7 +150,6 @@ export default {
     components: {
         PropertyEntry,
         DistributionOverview,
-        DistributionModal,
         Distribution,
 
     },
