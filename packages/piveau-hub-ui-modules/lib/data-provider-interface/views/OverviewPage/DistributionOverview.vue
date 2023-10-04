@@ -12,22 +12,21 @@
             <div v-for="( distribution, id) in getData('distributions')" :key="'distribution' + id">
 
                 <div class="tdWrap" v-if="id % 2 == 0">
-                    <p v-if="distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
-                            el['@value'])[0]">
+                    <p v-if="distribution['dct:title'] != undefined && distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
+                        el['@value'])[0]">
                         {{ distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
-                            el['@value'])[0] }}  
+                            el['@value'])[0] }}
                     </p>
                     <p v-else>
                         No title in this language
                     </p>
-                    <p v-if="distribution['dct:title']">
-                        <!-- {{ distribution['dct:format'] }} -->
+                    <p v-if="distribution['dct:format'] != undefined">
                         {{ getDistributionFormat(distribution) }}
                     </p>
                     <p v-else>
-                        -
+                        No format provided
                     </p>
-                    <p v-if="distribution['dct:modified']">
+                    <p v-if="distribution['dct:modified'] != undefined && distribution['dct:modified']">
                         {{ new Date(distribution['dct:modified']).toDateString() }}
                     </p>
                     <p v-else>
@@ -45,22 +44,21 @@
                     </p>
                 </div>
                 <div class="tdWrap grey" v-else>
-                    <p v-if="distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
-                            el['@value'])[0]">
+                    <p v-if="distribution['dct:title'] != undefined && distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
+                        el['@value'])[0]">
                         {{ distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
                             el['@value'])[0] }}
                     </p>
                     <p v-else>
                         No title in this language
                     </p>
-                    <p v-if="distribution['dct:title']">
-                        <!-- {{ distribution['dct:format'] }} -->
+                    <p v-if="distribution['dct:format'] != undefined">
                         {{ getDistributionFormat(distribution) }}
                     </p>
                     <p v-else>
-                        -
+                        No format provided
                     </p>
-                    <p v-if="distribution['dct:modified']">
+                    <p v-if="distribution['dct:modified'] != undefined && distribution['dct:modified']">
                         {{ new Date(distribution['dct:modified']).toDateString() }}
                     </p>
                     <p v-else>
@@ -141,13 +139,13 @@ export default {
     methods: {
         truncate,
         getDistributionFormat(distribution) {
-            // return 'TOODOOOOOO';
+
             try {
                 return distribution['dct:format'].split('/')[6];
             } catch (error) {
-                return "Todo"
+                return "No format provided"
             }
-            
+
         },
         showValue(property, value) {
             return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
