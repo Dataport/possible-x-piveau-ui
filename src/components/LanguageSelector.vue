@@ -72,7 +72,7 @@ export default {
         this.$router.isReady()
           .then(() => {
             if (locale !== this.$route.query.locale) {
-              this.$router.push({ query: { ...this.$route.query, locale } });
+              this.$router.push({ query: { ...this.$route.query, locale } }).catch(() => { });
             }
           });
       },

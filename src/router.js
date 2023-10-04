@@ -2,6 +2,7 @@
 import * as Router from 'vue-router';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import {
+  Auth,
   DatasetDetailsCategories,
   DatasetDetailsQuality,
   DatasetDetailsSimilarDatasets,
@@ -112,6 +113,16 @@ const router = Router.createRouter({
       component: MapBoundsReceiver,
     },
     {
+      path: '/login',
+      name: 'Login',
+      component: Auth,
+    },
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Auth,
+    },
+    {
       path: '/404',
       alias: '/(.)*',
       name: 'NotFound',
@@ -220,18 +231,20 @@ router.beforeEach((to, from, next) => {
   let isLinkedDataRequest = false;
 
   // RDF|N3|JSON-LD|TTL|NT redirects
-  if (/^\/(data\/)?datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {
-    isLinkedDataRequest = true;
+  if (/^\/(data\/)?datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {    
     let locale = to.query.locale ? `&locale=${to.query.locale}` : '';
-    window.location = `${router.app.config.globalProperties.$env.api.hubUrl}${to.path}?useNormalizedId=true${locale}`;
+
+    isLinkedDataRequest = true;
+    window.location = `${GLUE_CONFIG.api.hubUrl}${to.path}?useNormalizedId=true${locale}`;
   }
 
-  if (/^\/(data\/)?api\/datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {
-    isLinkedDataRequest = true;
+  if (/^\/(data\/)?api\/datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {   
     let locale = to.query.locale ? `?locale=${to.query.locale}` : '';
     let returnPath = to.path.replace('/api', '')
       .replace(/(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/, '')
       .replace('?useNormalizedId=true', '');
+
+    isLinkedDataRequest = true;
     window.location = `${window.location.protocol}//${window.location.host}${GLUE_CONFIG.routing.routerOptions.base}${returnPath}${locale}`;
   }
 
@@ -240,32 +253,40 @@ router.beforeEach((to, from, next) => {
     // to prevent the 404 redirection due to app trying to fetch the wrong dataset id
     const datasetIdWithoutSuffix = to.params?.ds_id.replace(/(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/, '');
     const newRoute = { ...to, params: { ...to.params, ds_id: datasetIdWithoutSuffix } };
+
     next(newRoute);
     return;
   }
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const auth = router.app.config.globalProperties.$env.authentication.useService
+    const auth = GLUE_CONFIG.authentication.useService
       ? router.app.config.globalProperties.$keycloak.authenticated
       : null;
+
     if (!auth) {
       // TODO: Show unauthorized page here
     } else {
       router.app.config.globalProperties.$keycloak.getRtpToken().then((rtpToken) => {
         const decodedAccessToken = decode(rtpToken);
         let isAuthenticated = false;
+
         decodedAccessToken.authorization.permissions.forEach((permission) => {
           if (permission.scopes.find(scope => scope === 'dataset:create')) isAuthenticated = true;
         });
-        isAuthenticated
-          ? next()
-          : next({ name: 'Datasets' });
+
+        if (!isAuthenticated) next({ name: 'Datasets' });
+        else next();
       });
     }
-  } else if (!to.query.locale && from.query.locale) {
-    const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`; // TODO: Other queries may get lost here?
-    next({ path: pathWithCurrentLocale });
-  } else {
+  } 
+  // TODO: This causes the following error message and needs to be fixed:
+  // [Vue Router warn]: Detected a possibly infinite redirection in a navigation guard ...
+  //
+  // else if (!to.query.locale && from.query.locale) {
+  //   const pathWithCurrentLocale = `${to.path}?locale=${from.query.locale}`; // TODO: Other queries may get lost here?
+  //   next({ path: pathWithCurrentLocale });
+  // } 
+  else {
     document.title = title;
     next();
   }
