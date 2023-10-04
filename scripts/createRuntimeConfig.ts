@@ -1,5 +1,5 @@
 import fs, {Stats} from "fs";
-import {doForAppConfig} from "./utils/doForAppConfig";
+// import {doForAppConfig} from "./utils/doForAppConfig";
 import { readFile } from 'fs/promises';
 import esprima from 'esprima';
 
@@ -22,11 +22,11 @@ export const createRuntimeConfig = async (app: string, appStats: Stats, folder: 
     // return quotedGlueConfigContent.substring(35, 100)
 };
 
-doForAppConfig(app, (app: string, stats: Stats, folder: string) => {
-    createRuntimeConfig(app, stats, folder).then(result => {
-        console.log("RESULT", result)
-    });
-});
+// doForAppConfig(app, (app: string, stats: Stats, folder: string) => {
+//     createRuntimeConfig(app, stats, folder).then(result => {
+//         console.log("RESULT", result)
+//     });
+// });
 
 // Assuming we start in content at given position with a curly brace, indicating a stringified Javascript object,
 // parses through that string and returns an object containing the same keys and string values coding
