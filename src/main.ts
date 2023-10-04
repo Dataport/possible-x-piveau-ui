@@ -121,6 +121,7 @@ app.component('font-awesome-icon', FontAwesomeIcon);
 
 // Vue Router
 app.use(router);
+router.app = app;
 
 // Vuex Store
 app.use(store);

@@ -223,7 +223,7 @@ router.beforeEach((to, from, next) => {
   if (/^\/(data\/)?datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {
     isLinkedDataRequest = true;
     let locale = to.query.locale ? `&locale=${to.query.locale}` : '';
-    window.location = `${router.app.$env.api.hubUrl}${to.path}?useNormalizedId=true${locale}`;
+    window.location = `${router.app.config.globalProperties.$env.api.hubUrl}${to.path}?useNormalizedId=true${locale}`;
   }
 
   if (/^\/(data\/)?api\/datasets\/[a-z0-9-_]+(\.rdf|\.n3|\.jsonld|\.ttl|\.nt)/.test(to.path)) {
@@ -245,13 +245,13 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const auth = router.app.$env.authentication.useService
-      ? router.app.$keycloak.authenticated
+    const auth = router.app.config.globalProperties.$env.authentication.useService
+      ? router.app.config.globalProperties.$keycloak.authenticated
       : null;
     if (!auth) {
       // TODO: Show unauthorized page here
     } else {
-      router.app.$keycloak.getRtpToken().then((rtpToken) => {
+      router.app.config.globalProperties.$keycloak.getRtpToken().then((rtpToken) => {
         const decodedAccessToken = decode(rtpToken);
         let isAuthenticated = false;
         decodedAccessToken.authorization.permissions.forEach((permission) => {
