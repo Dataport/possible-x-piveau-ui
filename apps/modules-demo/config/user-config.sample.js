@@ -212,7 +212,7 @@ const glueConfig = {
       },
       // Embed Dataset feat
       embed: {
-        enable: false,
+        enable: true,
         defaultWidth: 900,
         defaultHeight: 600,
         minRange: 0,
