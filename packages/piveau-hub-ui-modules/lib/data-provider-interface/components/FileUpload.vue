@@ -2,13 +2,16 @@
   <div ref="fileupload" :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-on="$listeners">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
     <div class="file-div position-relative">
-      <input type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })">
+
+      <input v-if="context.model" type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })" name="test">
+      <input v-else type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })">
       <div class="upload-feedback position-absolute d-flex" style="right: 0">
         <div v-if="isLoading" class="lds-ring"><div></div><div></div><div></div><div></div></div>
         <div v-if="success"><i class="material-icons d-flex check-icon">check_circle</i></div>
-        <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>
+        <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>        
       </div>
     </div>
+    <p class="dURLText">Download-URL: <a class="dURLText" :href="context.model">{{ context.model }}</a></p>
   </div>
 </template>
 
@@ -90,6 +93,7 @@ export default {
       return indexOfParentInputGroup;
     },
     async uploadOrReplaceFile({ file }) {
+      
       const replaceEnabled = this.$env?.content?.dataProviderInterface?.enableFileUploadReplace || false;
       const wantsToReplace = this.$route.query?.edit ?? false;
 
@@ -115,6 +119,7 @@ export default {
       return await this.uploadFile(file);
     },
     async uploadFile(file, options = {}) {
+      
       this.isLoading = true;
 
       const form = new FormData();
@@ -140,13 +145,16 @@ export default {
       };
 
       try {
+        
         const result = await axios.request(requestOptions);
         const path = result.data.result.location.substring(result.data.result.location.indexOf('/') + 1);
         this.context.model = `${this.$env.api.fileUploadUrl}${path}`;
         this.isLoading = false;
         this.success = true;
         this.context.rootEmit('change');
+        
       } catch (err) {
+        
         this.isLoading = false;
         this.fail = true;
         console.error(err); // eslint-disable-line
@@ -162,7 +170,9 @@ export default {
 <style lang="scss" scoped>
 // @import '../../../styles/bootstrap_theme';
 // @import '../../../styles/utils/css-animations';
-
+.dURLText{
+  font-size: 12px;
+}
 .file-div {
   display: flex;
   align-items: center;

@@ -8,6 +8,7 @@
     </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
       <dataset-details-description 
+        v-if="showDatasetDescription"
         :dateIncorrect="dateIncorrect"
         :machineTranslated="machineTranslated"
         :translationNotAvailable="translationNotAvailable"
@@ -27,12 +28,13 @@
         :getDistributionFormat="getDistributionFormat"
         :distributionFormatTruncated="distributionFormatTruncated"
         :getDistributionTitle="getDistributionTitle"
+        :distributionVisibleContent="distributionVisibleContent"
+        :distributionExpandedContent="distributionExpandedContent"
         :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
         :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
         :distributionIsExpanded="distributionIsExpanded"
         :showNumber="showNumber"
         :showObject="showObject"
-        :distributionCanShowMore="distributionCanShowMore"
         :showDownloadDropdown="showDownloadDropdown"
         :showLicence="showLicence"
         :showLicensingAssistant="showLicensingAssistant"
@@ -53,6 +55,8 @@
         :isUrlInvalid="isUrlInvalid"
         :openIfValidUrl="openIfValidUrl"
         :showTooltipVisualiseButton="showTooltipVisualiseButton"
+        :showPublisher="showPublisher"
+        :embed="embed"
       />
 
       <dataset-details-features
@@ -67,7 +71,8 @@
         :showObject="showObject"
       />
 
-      <dataset-details-properties
+      <dataset-details-properties 
+        v-if="showDatasetProperties"
         :filterDateFormatEU="filterDateFormatEU"
         :showObjectArray="showObjectArray"
         :showArray="showArray"
@@ -105,7 +110,7 @@
   // import DatasetDetailsProperties from "../datasetDetails/DatasetDetailsProperties.vue";
   import DatasetDetailsExtendedMetaData
     from "../datasetDetails/features/DatasetDetailsIsUsedBy.vue";
-  import DatasetDetailsFeatures from "../datasetDetails/features/DatasetDetailsFeatures.vue";
+  // import DatasetDetailsFeatures from "../datasetDetails/features/DatasetDetailsFeatures.vue";
   import DatasetDetailsSkeleton from "../datasetDetails/DatasetDetailsSkeleton.vue";
 
   export default {
@@ -113,7 +118,7 @@
     dependencies: 'DatasetService',
     components: {
       DatasetDetailsSkeleton,
-      DatasetDetailsFeatures,
+      // DatasetDetailsFeatures,   // imported globally
       DatasetDetailsExtendedMetaData,
       // DatasetDetailsProperties,
       // DatasetDetailsDescription,
@@ -155,6 +160,49 @@
         ],
       };
     },
+    props: {
+      distributionVisibleContent: {
+        type: Array,
+        default: () => ['license', 'licenseAttributionByText', 'modificationDate'],
+      },
+      distributionExpandedContent: {
+        type: Array,
+        default: () => [
+            'releaseDate',
+            'language',
+            'availability',
+            'status',
+            'rights',
+            'mediaType',
+            'byteSize',
+            'checksum',
+            'pages',
+            'type',
+            'compressFormat',
+            'packageFormat',
+            'hasPolicy',
+            'conformsTo',
+            'spatialResolutionInMeters',
+            'temporalResolution',
+        ],
+      },
+      showDatasetDescription: {
+        type: Boolean,
+        default: () => true,
+      },
+      showDatasetProperties: {
+        type: Boolean,
+        default: () => true,
+      },
+      showPublisher: {
+        type: Boolean,
+        default: () => false,
+      },
+      embed: {
+        type: Boolean,
+        default: () => false,
+      },
+    },
     data() {
       return {
         defaultLocale: this.$env.languages.locale,
@@ -181,7 +229,8 @@
           incrementSteps: this.$env.content.datasetDetails.pages.incrementSteps,
           descriptionMaxLines: this.$env.content.datasetDetails.pages.descriptionMaxLines,
           descriptionMaxChars: this.$env.content.datasetDetails.pages.descriptionMaxChars,
-        }
+        },
+        showDescription: true,
       };
     },
     computed: {
@@ -488,23 +537,7 @@
           && !isNil(keyword.id)
           && !isNil(keyword.title);
       },
-      distributionCanShowMore(distribution) {
-        return (has(distribution, 'releaseDate') && !isNil(distribution.releaseDate))
-            || (has(distribution, 'availability') && this.showObject(distribution.availability) && !isNil(distribution.availability.label))
-            || (has(distribution, 'status') && this.showObject(distribution.status))
-            || (has(distribution, 'rights') && this.showObject(distribution.rights))
-            || (has(distribution, 'mediaType') && !isNil(distribution.mediaType))
-            || (has(distribution, 'byteSize') && !isNil(distribution.byteSize))
-            || (has(distribution, 'checksum') && !isNil(distribution.checksum) && has(distribution.checksum, 'algorithm') && !isNil(distribution.checksum.algorithm) && has(distribution.checksum, 'checksum_value') && !isNil(distribution.checksum.checksum_value))
-            || (has(distribution, 'pages') && this.showObjectArray(distribution.pages))
-            || (has(distribution, 'languages') && this.showArray(distribution.languages))
-            || (has(distribution, 'compressFormat') && this.showObject(distribution.compressFormat))
-            || (has(distribution, 'packageFormat') && this.showObject(distribution.packageFormat))
-            || (has(distribution, 'hasPolicy') && !isNil(distribution.hasPolicy))
-            || (has(distribution, 'conformsTo') && this.showObjectArray(distribution.conformsTo))
-            || (has(distribution, 'spatialResolutionInMeters') && this.showArray(distribution.spatialResolutionInMeters))
-            || (has(distribution, 'temporalResolution') && this.showArray(distribution.temporalResolution));
-      },
+
       /* GETTER / SETTER FUNCTIONS */
 
       setDatasetOriginalLanguage(originalLanguage) {

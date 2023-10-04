@@ -116,7 +116,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                 state[key] = [];
                 // there could be multiple nodes with data for a property
                 for (let el of subData) {
-                    const currentState = {}
+                    let currentState = {}
                     if (key === 'skos:notation') {
                         // skos notation behaves differently
                         // there should be a typed literal given which should be seperated into @value and @type
@@ -129,6 +129,8 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null), dpiConfig);
                         convertProperties(property, currentState, el.object, data, nestedKeys, dpiConfig);
                     }
+                    // temporal ist nested
+                    if (key === "dct:temporal") currentState = {'dct:temporal': currentState };
                     state[key].push(currentState);
                 }
             }

@@ -59,7 +59,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     if (generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification] == undefined) {
         dpiConfig = generalDpiConfig["dcatap"]
     } else dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification]
-    
+
     const formatTypes = dpiConfig.formatTypes;
 
     // method can be called recursively for nested properties
@@ -123,13 +123,14 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
         } else if (formatTypes.multilingualStrings[property].includes(key)) {
             convertMultilingual(RDFdataset, mainURI, data, key, dpiConfig);
         } else if (formatTypes.groupedProperties[property].includes(key)) {
+
             // grouped properties are properties provided by the form which consist of multiple properties (e.g contactPoint)
             // the properties values are stored within an object located within an array
             // for repeatable properties there are multiple objects in this array, otherwise there is just one
             if (!isEmpty(data[key])) {
                 // looping trough all existing objects within the array
                 for (let groupId = 0; groupId < data[key].length; groupId += 1) {
-                    const currentGroupData = data[key][groupId];
+                    let currentGroupData = data[key][groupId];
 
                     if (!isEmpty(currentGroupData)) {
                         if (key === 'skos:notation') {
@@ -180,11 +181,11 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                             // RDF example:
                             // datasetID  dct:conformsTo  conformsToURI
                             //  conformsToURI  dct:title  conformsTitle
-                            if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id'))  {
+                            if ((key === 'foaf:page' || key === 'adms:identifier' || key === 'dct:conformsTo') && has(currentGroupData, '@id')) {
                                 groupBlankNode = N3.DataFactory.namedNode(currentGroupData['@id']);
                             }
                             // all properties that don't provide an URL serving as namedNode for nested values need to define a blank node
-                            
+
                             // page gets type but also has multilingual fields with preseleted langauge
                             // don't create blank node if there is not data for page beside the preselected language
                             let emptyPage = false;
@@ -209,7 +210,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                     hasNoValueKeysDescription = !currentGroupData['dct:description'].every(el => has(el, '@value'));
                                     hasEmptyValueDescription = currentGroupData['dct:description'].every(el => isEmpty(el['@value']));
                                 }
-                                
+
                                 // page should be handled as empty if:
                                 // no title and/or no description given
                                 // if properties given: no value given or value empty
@@ -234,6 +235,13 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                         N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
                                         N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key], dpiConfig))
                                     ))
+                                }
+
+                                // temporal values nested inside another object: "dct:temporal": [{ "dct:temporal": { "dcat:startDate": "...", "dcat:endDate": "..." } }] 
+                                if (key === 'dct:temporal') {
+                                    if (has(currentGroupData, 'dct:temporal')) {
+                                        currentGroupData = currentGroupData['dct:temporal'];
+                                    }
                                 }
 
                                 // convert all nested values provided by form
@@ -396,7 +404,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 ))
             }
         }
-
     }
 }
 
@@ -560,6 +567,8 @@ function convertTypedString(RDFdataset, id, data, key, dpiConfig) {
         } else if (key === 'dcat:endDate' || key === 'dcat:startDate') {
             // dcat:endDate and dcat:startDate are xsd:dateTime
             valueType = generalHelper.addNamespace('xsd:dateTime', dpiConfig);
+        } else if (key === 'xds:dateTime') {
+          
         } else if (key === 'dcat:spatialResolutionInMeters' || key === "dcat:byteSize") {
             // dcat:spatialResolutionInMeters and dcat:byteSize are xsd:decimal
             valueType = generalHelper.addNamespace('xsd:decimal', dpiConfig);

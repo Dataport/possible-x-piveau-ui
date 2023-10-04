@@ -168,3 +168,22 @@ This is not essential for development, but may help for a clearer understanding:
 [Here](https://git-scm.com/book/en/v2/Git-Tools-Submodules) is an excellent, detailed guide how to work
 with Git submodules, and [here](https://manpages.ubuntu.com/manpages/xenial/man1/git-submodule.1.html) is
 a good command reference.
+
+## Modifying the user configuration
+
+We use [zod](https://zod.dev/) to declare a schema as the single point of truth for user configuration. The schema can be found in the [config-schema](./packages/piveau-hub-ui-modules/lib/configurations/config-schema/) directory of the piveau-hub-ui-modules package.
+
+As a rule of thumb, changing the user configuration schema should be the last option as changing the schema is likely subject to breaking changes. If you find yourself in a situation where you need to change the user configuration schema, it is good practice to contact the team first. User configuration should only contain keys that modify the core behavior of piveau-hub-ui-modules.
+
+There are three ways to modify the user configuration schema:
+
+- extend the schema (e.g., by adding new keys)
+- update the schema (e.g., by changing the specification of a key value from `string` to `number`)
+- delete the schema (e.g., by cleaning up unused keys)
+
+Updating and deleting the schema is highly likely to cause breaking changes; extending the schema is less likely to cause breaking changes, depending on the context.
+
+Below is an outline of steps to do when modifying the schema:
+1. Locate your target of modification in the [config-schema](./packages/piveau-hub-ui-modules/lib/configurations/config-schema/) directory. The configuration schema is an object of top-level keys, each key having a dedicated sub-directory. If the aim is to modify a top-level configuration key, take a look at `configSchema.ts` as your entry point; if the aim is to modify a key inside one of the top-level keys, then your entry point is inside the respective sub-directory.
+2. Add/modify/remove the keys as appropriate, following the same pattern as the other key schemas whenever possible. Consider marking new keys as optional by appending `.default(DEFAULT_VALUE)`. This helps reducing the amount of mandatory keys
+3. When committing the changes, don't forget to mark the changes as a breaking change as per the commit message guidelines.

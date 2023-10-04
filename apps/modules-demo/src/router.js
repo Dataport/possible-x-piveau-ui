@@ -9,10 +9,11 @@ import {
   DatasetDetailsSimilarDatasets,
   DatasetDetailsDataset,
   DatasetDetails,
+  EmbedDataset,
   MapBasic,
   MapBoundsReceiver,
   Catalogues,
-  CatalogPage,
+  // CatalogPage,
   NotFound,
   SparqlSearch,
   Imprint,
@@ -107,6 +108,16 @@ const router = new Router({
             title,
           },
         },
+        {
+          path: 'embed',
+          name: 'EmbedDataset',
+          components: {
+            datasetDetailsSubpages: EmbedDataset,
+          },
+          meta: {
+            title,
+          }
+        },
         // {
         //   path: 'activityStream',
         //   name: 'DatasetDetailsActivityStream',
@@ -141,8 +152,8 @@ const router = new Router({
     {
       path: '/catalogues/:ctlg_id',
       name: 'CatalogueDetails',
-      component: ecStyle ? ECDatasets : CatalogPage,    // ToDo: set back to Datasets after finishing
-      // component: ecStyle ? ECDatasets : Datasets,
+      // component: ecStyle ? ECDatasets : CatalogPage,    // ToDo: set back to Datasets after finishing
+      component: ecStyle ? ECDatasets : Datasets,
       meta: {
         title,
       },

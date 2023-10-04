@@ -2,6 +2,12 @@
   <div class="container catalog-facets">
     <div class="row mx-3 mr-md-0">
       <div class="col">
+        <catalog-details-facet
+            class="catalog-details"
+            v-if="true"
+            :catalog="superCatalog"
+            :catalogLanguageIds="catalogLanguageIds"
+        />
         <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
         <settings-facet
           v-if="!showCatalogDetails"
@@ -12,7 +18,18 @@
              :key="`facet@${index}`"
              :class="{'mt-3': (index > 0)}"
         >
+          <radio-facet
+              v-if="field.id === 'superCatalog'"
+              :title="erpd.title"
+              :property="erpd.property"
+              :toolTipTitle="erpd.toolTipTitle"
+              :optionIds="['true', 'false']"
+              :optionLabels="[erpd.yes, erpd.no]"
+              :initialOption="isErpd()"
+              :change="changeErpd"
+          />
           <select-facet
+              v-if="field.id !== 'superCatalog'"
             :fieldId="field.id"
             :header="facetTitle(field.id)"
             :items="sortByCount(field.items, field.id)"
@@ -48,25 +65,29 @@
     isBoolean,
     has,
     isNil,
+    isArray
   } from 'lodash';
   import DatasetsFacetsItem from '../../datasets/datasetsFacets/DatasetsFacetsItem.vue';
   import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../../utils/helpers';
   import SettingsFacet from "../../datasets/datasetsFacets/SettingsFacet";
+  import CatalogDetailsFacet from '../../facets/CatalogDetailsFacet.vue'
   import Vue from "vue";
 
   export default {
     name: 'catalogueFacets',
     components: {
       SettingsFacet,
-      DatasetsFacetsItem
+      DatasetsFacetsItem,
+      CatalogDetailsFacet
     },
+    dependencies: ['catalogService'],
     data() {
       return {
         cutoff: this.$env.content.catalogs.facets.cutoff,
         showClearButton: this.$env.content.catalogs.facets.showClearButton,
         showFacetsTitle: this.$env.content.catalogs.facets.showFacetsTitle,
         showCatalogDetails: false,
-        catalog: {},
+        superCatalog: {},
         browser: {
           /* eslint-disable-next-line */
           isIE: /*@cc_on!@*/false || !!document.documentMode,
@@ -76,9 +97,19 @@
         MAX_FACET_LIMIT: this.$env.content.catalogs.facets.MAX_FACET_LIMIT,
         FACET_OPERATORS: this.$env.content.catalogs.facets.FACET_OPERATORS,
         FACET_GROUP_OPERATORS: this.$env.content.catalogs.facets.FACET_GROUP_OPERATORS,
+        erpd: {
+          yes: Vue.i18n.t('message.metadata.yes'),
+          no: Vue.i18n.t('message.metadata.no'),
+          property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
+          title: Vue.i18n.t('message.metadata.erpd'),
+          // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
+        }
       };
     },
     computed: {
+      ...mapGetters('catalogDetails', [
+        'getCatalog',
+      ]),
       ...mapGetters('catalogs', [
         'getAvailableFacets',
         'getCatalogsCount',
@@ -86,6 +117,7 @@
         'getFacetGroupOperator',
         'getLimit',
         'getPage',
+        'getFacets',
       ]),
       facetOperatorWatcher() {
         return this.getFacetOperator;
@@ -108,6 +140,15 @@
 
         return sortedFacets;
       },
+      // Returns the current catalog's available language ids
+      // example: ['en', 'de', 'sv']
+      catalogLanguageIds() {
+        const languages = this.getCatalog && this.getCatalog.languages;
+        if (!isArray(languages)) return [];
+        return languages
+            .map(lang => lang && lang.id)
+            .filter(lang => lang);
+      }
     },
     methods: {
       isEmpty,
@@ -117,6 +158,10 @@
       getFacetTranslation,
       getCountryFlagImg,
       getTranslationFor,
+      ...mapActions('catalogDetails', [
+        'loadCatalog',
+        'useCatalogService',
+      ]),
       ...mapActions('catalogs', [
         'toggleFacet',
         'addFacet',
@@ -204,6 +249,20 @@
         this.setFacetOperator(op);
         this.setFacetGroupOperator(op);
       },
+      isErpd() {
+        const superCatalogs = this.$route.query['superCatalog'];
+        const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
+        return superCatalog === 'http://data.europa.eu/88u/catalogue/erpd' ?  'true' : 'false';
+      },
+      changeErpd(erpd) {
+        //https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&facets={%22superCatalog%22:[%22http://data.europa.eu/88u/catalogue/erpd%22]}
+        const erdpCatalog = 'http://data.europa.eu/88u/catalogue/erpd';
+        const superCatalogs = this.$route.query['superCatalog'];
+        const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
+        if ((erpd === 'false' && superCatalog === erdpCatalog) || (erpd === 'true' && superCatalog !== erdpCatalog)) {
+          this.toggleFacet('superCatalog', erdpCatalog);
+        }
+      },
       /**
        * @description Toggles the facetoperator between 'or'/'and'.
        */
@@ -224,7 +283,7 @@
       getFacetCount(field, facet) {
         if (field.id === 'scoring') return '';
         return facet.count;
-      },
+      }
     },
     watch: {
       facetOperatorWatcher: {
@@ -237,6 +296,23 @@
           this.$router.replace({ query: Object.assign({}, this.$route.query, { facetGroupOperator }) });
         },
       },
+      getCatalog(catalog) {
+        this.superCatalog = catalog;
+      }
+    },
+    created() {
+      if (this.$route.query.showsubcatalogs) {
+        this.useCatalogService(this.catalogService);
+        const superCatalogUrl = this.$route.query.superCatalog;
+        if (typeof superCatalogUrl === 'string') {
+          const catalogId = superCatalogUrl.substring(superCatalogUrl.lastIndexOf('/') + 1);
+          this.loadCatalog(catalogId)
+              .then(result => {
+                    // console.log("HELLLLO", result)
+                  }
+              )
+        }
+      }
     }
   };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi" :key="property">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi position-relative" :key="property">
     <!-- TOP -->
     <div id="stepperAnchor" class="stickyStepper">
       <div class="SSfirstRow">
@@ -16,14 +16,17 @@
       <StepProgress id="subStepper" v-if="property === 'distributions'" :line-thickness="1" :steps="datasetStepNames"
         :current-step="3" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
       </StepProgress>
-    </div>
-    <!-- CONTENT -->
-    <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
-      <div id="subStepperBox">
+      
+      <div id="subStepperBox" v-if="property === 'distributions'">
+        
         <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
           active-color="#343434" :line-thickness="1" :active-thickness="20" :passive-thickness="20">
         </StepProgress>
       </div>
+    </div>
+    <!-- CONTENT -->
+    <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
+      
     </router-view>
     <!-- BOTTOM -->
     <!-- <div>
@@ -85,7 +88,7 @@ export default {
           ? this.getIsEditMode
             ? this.$t('message.dataupload.menu.editDataset')
             : this.$t('message.dataupload.createNewDataset')
-          : '';
+          : 'Edit Distribution';
     },
     isOverviewPage() {
       return this.$route.name === 'DataProviderInterface-Overview';
@@ -190,14 +193,18 @@ export default {
         s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => { });
       });
     },
-    handleScroll(){    
-      if (document.getElementById("stepperAnchor").offsetTop >= 35){
-        document.getElementById("stepperAnchor").classList.add("border-bottom-lightgray");
-      }
-      else{
-        document.getElementById("stepperAnchor").classList.remove("border-bottom-lightgray");
+    handleScroll() {
+      try {
+        if (document.getElementById("stepperAnchor").offsetTop >= 35) {
+          document.getElementById("stepperAnchor").classList.add("border-bottom-lightgray");
+        }
+        else {
+          document.getElementById("stepperAnchor").classList.remove("border-bottom-lightgray");
+        }
+      } catch (error) {
       }
     }
+
   },
   created() {
     window.addEventListener('scroll', this.handleScroll);
@@ -207,14 +214,14 @@ export default {
     this.addStepperLinks();
     this.saveLocalstorageValues(this.property);
   },
-  unmounted () {
+  unmounted() {
     window.removeEventListener('scroll', this.handleScroll);
   },
 };
 </script>
 
 <style lang="scss">
-.border-bottom-lightgray{
+.border-bottom-lightgray {
   border-bottom: 1px solid lightgray;
 }
 .stickyStepper {
@@ -299,143 +306,170 @@ export default {
 }
 
 #subStepperBox {
-  width: 80%;
-  margin: 0 auto;
-}
+  position: sticky;
+  top: 154px;
+  z-index: 10;
+  width: 100%;
+  padding: 0 10%;
 
-// Stepper Customizing -------------
-
-#stepper,
-#subStepper {
-  .step-progress__step {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 70%;
-    width: 20%;
-    display: flex;
-    align-items: center;
-    z-index: 1;
-
-
-    span {
-      color: grey;
-      font-size: 18px;
-      display: none;
-    }
-
-    div {
-      padding: 1rem;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      color: white;
-      font-weight: 300;
-
-    }
-
-    .step-progress__step-label {
-
-      background: lightgrey;
-      background-size: 400% 400%;
-      background-position: 100% 0%;
-      transition: all 300ms ease-in-out;
-      border-right: 1px white solid;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-
-    }
-
-
-    .step-progress__step-label:hover {
-      background-position: 65% 0%;
-      color: black;
-
-    }
-
+  .step-progress__bar {
+    border-top: none !important;
   }
 
   .step-progress__step--active {
-
-    z-index: 7 !important;
-
-
-    span {
-      color: black;
-    }
-
-    div {
-      background: white;
-    }
-
     .step-progress__step-label {
-      background: rgb(236, 236, 236);
-      background-position: 50% 0%;
-      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
-      transform: scale(1.1);
-      z-index: 8;
-      font-size: 16px;
+      background-color: lightsteelblue !important;
     }
 
-  }
-
-  .step-progress__step--valid {
-    div {
-      color: white;
-
-    }
-
-    .step-progress__step-label {
-      background: rgba(0, 235, 0, 0.2);
-      color: lightslategrey;
-
-
-    }
-
-    .step-progress__step-label:hover {
-      color: black;
-    }
-  }
-
-  .step-progress__step--active .step-progress__step-label {
-    color: rgb(31, 31, 31);
-  }
-
-  .step-progress__wrapper-after {
-    display: none;
-  }
-
-  .step-progress__step-icon {
-    display: none !important;
-  }
-
-  .step-progress__bar {
-    margin: 0;
-    height: 5rem;
-    border-top: 1px solid lightslategray;
-   
-  }
-
-  .step-progress__step-label {
-    position: unset;
-    transform: unset;
-    flex-grow: 1;
-  }
-
-  .step-progress__step {}
-
-  .step-progress__wrapper-before {
-    display: none !important;
-  }
-
-  #stepper .step-progress__step::after {
-    display: none !important;
   }
 }
 
+.step-progress__step span{
+  
+    color:white !important;
+  
+}
+// Stepper Customizing -------------
+
+// #stepper,
+// #subStepper {
+//   .step-progress__step {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     height: 70%;
+//     width: 20%;
+//     display: flex;
+//     align-items: center;
+//     z-index: 1;
+
+
+//     span {
+//       color: grey;
+//       font-size: 18px;
+//       display: none;
+//     }
+
+//     div {
+//       padding: 1rem;
+//       height: 100%;
+//       display: flex;
+//       align-items: center;
+//       color: white;
+//       font-weight: 300;
+
+//     }
+
+//     .step-progress__step-label {
+
+//       background: lightgrey;
+//       background-size: 400% 400%;
+//       background-position: 100% 0%;
+//       transition: all 300ms ease-in-out;
+//       border-right: 1px white solid;
+//       font-size: 14px;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+
+
+//     }
+
+
+//     .step-progress__step-label:hover {
+//       background-position: 65% 0%;
+//       color: black;
+
+//     }
+
+//   }
+
+//   .step-progress__step--active {
+
+//     z-index: 7 !important;
+
+
+//     span {
+//       color: black;
+//     }
+
+//     div {
+//       background: white;
+//     }
+
+//     .step-progress__step-label {
+//       background: rgb(236, 236, 236);
+//       background-position: 50% 0%;
+//       box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
+//       transform: scale(1.1);
+//       z-index: 8;
+//       font-size: 16px;
+//     }
+
+//   }
+
+//   .step-progress__step--valid {
+//     div {
+//       color: white;
+
+//     }
+
+//     .step-progress__step-label {
+//       background: rgba(0, 235, 0, 0.2);
+//       color: lightslategrey;
+
+
+//     }
+
+//     .step-progress__step-label:hover {
+//       color: black;
+//     }
+//   }
+
+//   .step-progress__step--active .step-progress__step-label {
+//     color: rgb(31, 31, 31);
+//   }
+
+//   .step-progress__wrapper-after {
+//     display: none;
+//   }
+
+//   .step-progress__step-icon {
+//     display: none !important;
+//   }
+
+//   .step-progress__bar {
+//     margin: 0;
+//     height: 5rem;
+//     border-top: 1px solid lightslategray;
+
+//   }
+
+//   .step-progress__step-label {
+//     position: unset;
+//     transform: unset;
+//     flex-grow: 1;
+//   }
+
+//   .step-progress__step {}
+
+//   .step-progress__wrapper-before {
+//     display: none !important;
+//   }
+
+//   #stepper .step-progress__step::after {
+//     display: none !important;
+//   }
+// }
+#stepper .step-progress__step{
+  border: solid white 20px;
+}
+#stepper .step-progress__step-icon, #subStepper .step-progress__step-icon {
+    font-size: 25px;
+}
+.step-progress__step-label{
+  cursor: pointer;
+}
 // Input Form Margins & Borders ----
 
 .formulate-input[data-classification=group] [data-is-repeatable] {
@@ -544,16 +578,16 @@ export default {
   text-decoration: underline !important;
 }
 
-#stepper,
-#subStepper {
+// #stepper,
+// #subStepper {
 
 
-  .step-progress__step::after {
-    display: none;
-  }
+//   .step-progress__step::after {
+//     display: none;
+//   }
 
-  .step-progress__step-label {
-    cursor: pointer;
-  }
-}
+//   .step-progress__step-label {
+//     cursor: pointer;
+//   }
+// }
 </style>

@@ -27,7 +27,7 @@ const getResponseData = (catalog) => {
   cat.languages = dataGetters.getArrayOfObjects(catalog, 'language', ['id', 'label', 'resource']);
   cat.licence = dataGetters.getObject(catalog, 'license', ['id', 'label', 'description', 'resource', 'la_url']);
   cat.modified = dataGetters.getString(catalog, 'modified');
-  cat.publisher = dataGetters.getObject(catalog, 'publisher', ['name', 'type', 'email', 'resource', 'homepage']);
+  cat.publisher = dataGetters.getObject(catalog, 'publisher', ['name', 'type', 'email', 'resource', 'homepage', 'address']);
   cat.record = dataGetters.getObject(catalog, 'catalog_record', ['issued', 'modified']);
   cat.rights = dataGetters.getObject(catalog, 'rights', ['label', 'resource']);
   cat.issued = dataGetters.getString(catalog, 'issued');
@@ -40,6 +40,7 @@ const getResponseData = (catalog) => {
   cat.catalogueLogo = dataGetters.getArrayOfStrings(catalog, 'catalogueLogo');
   cat.catalogueFavIcon = dataGetters.getArrayOfStrings(catalog, 'catalogueFavIcon');
   cat.catalogueProfile = dataGetters.getArrayOfStrings(catalog, 'catalogueProfile');
+  cat.catalogueInterestingDatasets = dataGetters.getArrayOfStrings(catalog, 'catalogueInterestingDatasets');
 
   return cat;
 };

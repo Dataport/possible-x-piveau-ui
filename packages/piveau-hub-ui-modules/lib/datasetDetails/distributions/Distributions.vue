@@ -7,6 +7,8 @@
           :getDistributionTitle="getDistributionTitle"
           :showDownloadUrls="showDownloadUrls"
           :isUrlInvalid="isUrlInvalid"
+          :showPublisher="showPublisher"
+          :embed="embed"
         />
         <ul class="list list-unstyled w-100">
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
@@ -20,13 +22,14 @@
                 :getDistributionFormat="getDistributionFormat"
                 :distributionFormatTruncated="distributionFormatTruncated"
                 :getDistributionTitle="getDistributionTitle"
+                :distributionVisibleContent="distributionVisibleContent"
+                :distributionExpandedContent="distributionExpandedContent"
                 :distributionDescriptionIsExpanded="distributionDescriptionIsExpanded"
                 :distributionDescriptionIsExpandable="distributionDescriptionIsExpandable"
                 :getDistributionDescription="getDistributionDescription"
                 :distributionIsExpanded="distributionIsExpanded"
                 :showObject="showObject"
                 :showNumber="showNumber"
-                :distributionCanShowMore="distributionCanShowMore"
                 :showDownloadDropdown="showDownloadDropdown"
                 :showLicence="showLicence"
                 :showLicensingAssistant="showLicensingAssistant"
@@ -48,6 +51,7 @@
                 :openIfValidUrl="openIfValidUrl"
                 :showTooltipVisualiseButton="showTooltipVisualiseButton"
                 :appendCurrentLocaleToURL="appendCurrentLocaleToURL"
+                :embed="embed"
             />
           </div>
         </ul>
@@ -95,12 +99,13 @@ export default {
     getDistributionFormat: Function,
     distributionFormatTruncated: Function,
     getDistributionTitle: Function,
+    distributionVisibleContent: Array,
+    distributionExpandedContent: Array,
     distributionDescriptionIsExpanded: Function,
     distributionDescriptionIsExpandable: Function,
     distributionIsExpanded: Function,
     showObject: Function,
     showNumber: Function,
-    distributionCanShowMore: Function,
     showDownloadDropdown: Function,
     showLicence: Function,
     showLicensingAssistant: Function,
@@ -121,7 +126,9 @@ export default {
     isUrlInvalid: Function,
     openIfValidUrl: Function,
     showTooltipVisualiseButton: Function,
-    appendCurrentLocaleToURL: Function
+    appendCurrentLocaleToURL: Function,
+    showPublisher: Boolean,
+    embed: Boolean,
   },
   data() {
     return {
@@ -143,7 +150,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
   .catalogue-label {
     white-space: pre-line;
   }

@@ -1,14 +1,16 @@
 <template>
   <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type"
     v-on="$listeners">
+
     <div class="input-group suggestion-input-group mb-3" v-click-outside="hideSuggestions">
       <input v-model="context.model" @blur="context.blurHandler" hidden />
       <div class="annifButtonWrap" v-if="annifTheme && annifEnv">
-         <a class="annifItems annifHandleBtn">
-          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'theme')">Generate description based suggestions</a>
+        <a class="annifItems annifHandleBtn">
+          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'theme')">Generate description based
+            suggestions</a>
         </a>
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
-        
+
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
         <input v-if="!annifTheme || manSearch" type="text" class="form-control"
@@ -32,18 +34,13 @@
           v-bind:title="themeValue.name" class="annifItems"
           v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: themeValue.activeValue }"
           @click="handleAnnifClick($event)">
-          <!-- <span class="annifPlusIcon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
-              viewBox="0 0 16 16" v-bind:class="{ rotate45: themeValue.activeValue }">
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path
-                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg>
-          </span> -->
-          {{ truncateWords(themeValue.name, 8, true) }} ...
+          {{ truncateWords(themeValue.name, 35, true) }}
+
+
         </div>
-        <p class="ml-2 mb-0" style="font-size: 12px">This field can be auto generated. If you click the generate button, it will suggest the most fitting properties based on the dataset-description you provided.</p>
-       
+        <p class="ml-2 mb-0" style="font-size: 12px">This field can be auto generated. If you click the generate button,
+          it will suggest the most fitting properties based on the dataset-description you provided.</p>
+
       </div>
       <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
@@ -101,8 +98,8 @@ export default {
       manSearch: false,
       values: [],
       annifEnv: this.$env.content.dataProviderInterface.annifIntegration,
+      annifThemeEnv: this.$env.content.dataProviderInterface,
       valueListOfThemes: [],
-      getThSuggestions: false,
       thSwitch: false,
       annifChoicebtnClicked: false
     };
@@ -111,6 +108,7 @@ export default {
     filteredAutocompleteSuggestions() {
 
       if (this.autocomplete.selected) return [];
+      this.autocomplete.suggestions = this.sortAlpabetically(this.autocomplete.suggestions);
       return this.autocomplete.suggestions.slice(0, 10);
 
     }
@@ -121,6 +119,7 @@ export default {
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
+    // console.log(this.annifThemeEnv);
     // This is a bit buggy need to to something here!!!
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
@@ -134,8 +133,26 @@ export default {
       "requestAutocompleteSuggestions",
       "requestResourceName",
     ]),
-       truncateWords(word) {
-      return truncate(word, 8, true);
+    truncateWords(word, lettersToDisplay) {
+
+      let letters = word.split("")
+      if (letters.length <= lettersToDisplay) return word
+      else return truncate(word, lettersToDisplay, true) + " ...";
+    },
+    // small function to sort alphabetically
+    sortAlpabetically(arr) {
+      let sortedArray = [...arr];
+      sortedArray.sort((a, b) => {
+        let comparison = 0;
+        if (a.name < b.name) {
+          comparison = -1;
+        } else if (a.name > b.name) {
+          comparison = 1;
+        }
+
+        return comparison;
+      });
+      return sortedArray;
     },
     getTranslationFor,
     deleteValue(value) {
@@ -165,10 +182,12 @@ export default {
       this.autocomplete.selected = true;
     },
     getAutocompleteSuggestions() {
+
       this.choice = true
       let voc = this.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
+
 
       if (voc == "political-geocoding-municipality-key" || voc == "political-geocoding-regional-key" || voc == "political-geocoding-municipal-association-key" || voc == "political-geocoding-district-key" ||
         voc == "political-geocoding-government-district-key" || voc == "political-geocoding-state-key") {
@@ -194,10 +213,12 @@ export default {
           });
         } else {
           this.requestAutocompleteSuggestions({ voc, text }).then((response) => {
+
             const results = response.data.result.results.map((r) => ({
-              name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
+              name: getTranslationFor(r.pref_label, this.$i18n.locale, []) + " (" + r.id + ")",
               resource: r.resource,
             }));
+
             if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
             else this.autocomplete.suggestions = results;
           });
@@ -221,11 +242,10 @@ export default {
       if (e.target.classList.contains('annifItems')) {
 
         e.target.classList.toggle('greenBG')
-        e.target.querySelector('svg').classList.toggle('rotate45');
         for (var i = 0; i < Object.keys(this.valueListOfThemes).length; i++) {
           if (e.target.dataset.originalTitle == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;
-            console.log(this.valueListOfThemes[i]);
+            // console.log(this.valueListOfThemes[i]);
             this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
@@ -239,7 +259,7 @@ export default {
           }
           if (e.target.title == this.valueListOfThemes[i].name && this.valueListOfThemes[i].activeValue == false) {
             this.valueListOfThemes[i].activeValue = true;
-            console.log(this.valueListOfThemes[i]);
+            // console.log(this.valueListOfThemes[i]);
             this.handleAutocompleteSuggestions(this.valueListOfThemes[i])
             break
           }
@@ -252,74 +272,74 @@ export default {
         $('[data-toggle="tooltip"]').tooltip();
       });
     },
+    handleAnnifDuplicates() {
+      let cache = []
+      for (var key in this.valueListOfThemes) {
+        if (this.valueListOfThemes[key]["activeValue"] == true) {
+        cache.push(this.valueListOfThemes[key])
+        }
+      }
+      return cache
+    },
     handleAnnifSuggestions(e, input) {
       // gets the dct:description value from localstorage and gives it to the annif theme handler
 
       this.annifHandlerTheme(JSON.parse(localStorage.getItem("dpi_datasets")).step1["dct:description"][0]["@value"])
-      this.getThSuggestions = !this.getThSuggestions;
-
-      // e.target.classList.add("inactiveHandleBtn");
     },
     async annifHandlerTheme(input) {
-      if (this.thSwitch) {
-        return
+      this.valueListOfThemes = this.handleAnnifDuplicates()
+      let query = qs.stringify({
+        'text': input,
+        'limit': 10
+      });
+      var config
+      if (this.voc == "eurovoc") {
+        config = {
+          method: 'post',
+          url: this.$env.content.dataProviderInterface.annifLinkSubject,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+          },
+          data: query
+        };
       }
       else {
-        let query = qs.stringify({
-          'text': input,
-          'limit': 10
-        });
-        var config
-        if (this.voc == "eurovoc") {
-          config = {
-            method: 'post',
-            url: 'https://data.europa.eu/annif/v1/projects/eurovoc-nn-ensemble-eurlex-en/suggest',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Accept': 'application/json'
-            },
-            data: query
-          };
-        }
-        else {
-          config = {
-            method: 'post',
-            url: 'https://data.europa.eu/annif/v1/projects/data-theme-nn-ensemble-en/suggest',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Accept': 'application/json'
-            },
-            data: query
-          };
-        }
-        let list = []
-
-        axios(config)
-          .then(async (response) => {
-            for (let i = 0; i < response.data.results.length; i++) {
-              // let found = false;
-              let item = await this.getResourceName(response.data.results[i].uri);
-              // translate suggestions into locale
-              list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
-            }
-            let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-            filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
-            for (var q = 0; q < filteredList.length; q++) {
-              this.valueListOfThemes.push(filteredList[q])
-            }
-
-            this.animateFadeInOut();
-            this.thSwitch = true;
-            this.setTooltip();
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        config = {
+          method: 'post',
+          url: this.$env.content.dataProviderInterface.annifLinkTheme,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json'
+          },
+          data: query
+        };
       }
+      let list = []
+
+      axios(config)
+        .then(async (response) => {
+          for (let i = 0; i < response.data.results.length; i++) {
+            let item = await this.getResourceName(response.data.results[i].uri);
+            // translate suggestions into locale
+            list[i] = { "name": item.name, "resource": item.resource, "activeValue": false }
+          }
+          let filteredList = list.filter((set => item => set.has(item.resource))(new Set(this.values.map(item => item.resource))))
+          filteredList = list.filter((set => item => !set.has(item.resource))(new Set(this.values.map(item => item.resource))))
+          for (var q = 0; q < filteredList.length; q++) {
+            this.valueListOfThemes.push(filteredList[q])
+          }
+
+          this.animateFadeInOut();
+          this.setTooltip();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
 
     },
     handleAutocompleteSuggestions(suggestion) {
-
       this.autocomplete.selected = true;
       if (suggestion.resource == "None") {
         return;

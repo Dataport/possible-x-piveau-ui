@@ -102,7 +102,7 @@
         .formulate-input-errors {
             display: flex;
             align-items: baseline;
-            justify-content: end;
+            justify-content: flex-end;
         }
     }
 
@@ -250,7 +250,7 @@
         .formulate-input-errors {
             display: flex;
             align-items: baseline;
-            justify-content: end;
+            justify-content: flex-end;
         }
     }
 
@@ -349,21 +349,32 @@
     background-color: #efefef;
     padding-top: 0 !important;
 }
-
-#subStepperBox {
-    .step-progress__step {}
-
-    .step-progress__bar {
-        border-top: none !important;
+.startEndDate{
+    .formulate-input-group-repeatable{
+        justify-content: space-between;
     }
-
-    .step-progress__step--active {
-        .step-progress__step-label {
-            background-color: lightsteelblue;
-        }
-
-    }
+   
 }
+// #subStepperBox {
+//     position: sticky;
+//     top: 155px;
+//     z-index: 10;
+//     width: 100%;
+//     padding: 0 10%;
+  
+//     .step-progress__step {}
+
+//     .step-progress__bar {
+//         border-top: none !important;
+//     }
+
+//     .step-progress__step--active {
+//         .step-progress__step-label {
+//                 background-color: lightsteelblue;
+//         }
+
+//     }
+// }
 
 #nav {
     .right-form-nav {

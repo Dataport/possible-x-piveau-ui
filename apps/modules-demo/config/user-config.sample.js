@@ -210,6 +210,14 @@ const glueConfig = {
           { sourceFileFormat: 'PDF', targetFileFormat: [ 'pdf', 'txt',]}
         ]
       },
+      // Embed Dataset feat
+      embed: {
+        enable: false,
+        defaultWidth: 900,
+        defaultHeight: 600,
+        minRange: 0,
+        maxRange: 9999,
+      },
       // Distribution validate button
       validate: {
         // If true, enable

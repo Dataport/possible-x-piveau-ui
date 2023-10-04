@@ -1,5 +1,5 @@
 <template>
-  <div id="externalAccess" tabindex="-1" role="dialog" class="modal fade show" aria-hidden="true" aria-modal="true" style="padding-left: 0px;">
+  <div id="externalAccess" tabindex="-1" role="dialog" class="modal fade show" aria-hidden="true" aria-modal="true" style="padding-left: 0px; background-color: rgba(0, 0, 0, 0.75);">
     <div role="document" class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -47,7 +47,8 @@ export default {
       this.callback = callbackFunction;
       this.toggleDownloadPopup = toggleDownloadPopup;
       if (cookie === 'false') {
-        $('#externalAccess').modal('show');
+        $('#externalAccess').appendTo("body").modal('show');
+        $('#myModal').appendTo("body").modal('show');
       } else {
         this.callback();
       }
@@ -85,5 +86,8 @@ export default {
 .modal-title {
   padding-left: 20px;
   line-height: 1.19;
+}
+.modal-backdrop {
+  z-index: -1;
 }
 </style>

@@ -3,20 +3,30 @@
     <div id="nav" class="d-flex ">
       <div class="left-form-nav w-25">
         <!-- PREVIOUS STEP -->
-        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious" class="prev-btn mx-1 my-0"></FormulateInput>
+        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious"
+          class="prev-btn mx-1 my-0"></FormulateInput>
 
         <!-- CLEAR FORM -->
-        <FormulateInput type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn"></FormulateInput>
+        <FormulateInput type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn">
+        </FormulateInput>
       </div>
       <div class="right-form-nav w-75">
 
         <!-- DELETE DISTRIBUTION -->
-        <FormulateInput type="button"  label="Delete Distribution" @click="handleDeleteDistribution()" v-if="isDistribution" class="mx-1 my-0 delDisBtn"></FormulateInput>
+        <FormulateInput type="button" label="Delete Distribution" @click="handleDeleteDistribution()"
+          v-if="isDistribution" class="mx-1 my-0 delDisBtn"></FormulateInput>
 
         <!-- PUBLISH NEW CATALOGUE -->
-        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="(isOverviewPage || getMandatoryStatus({property: property, id: id})) && !getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createcatalogue')"
+          v-if="(isOverviewPage || getMandatoryStatus({ property: property, id: id })) && !getIsEditMode && !getIsDraft && property === 'catalogues'"
+          class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{
+            $t('message.dataupload.publishcatalogue') }}</FormulateInput>
         <!-- PUBLISH EDITED CATALOGUE -->
-        <FormulateInput type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue')}}</FormulateInput>
+        <FormulateInput type="button" @click="submit('createcatalogue')"
+          v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0"><span
+            v-if="uploading.createcatalogue" class="loading-spinner"></span>{{ $t('message.dataupload.publishcatalogue')
+            }}
+        </FormulateInput>
 
         <!-- PUBLISH DATASET -->
         <FormulateInput type="button" @click="submit('dataset')" v-if="showDatasetSavingButton" class="mx-1 my-0">
@@ -32,8 +42,10 @@
 
         <!-- NEXT STEP -->
         <!-- label triggers form submit and therefore handles error mesaages if required values are missing -->
-        <label for="submit-form" v-if="showNextLabel" class="submit-label mx-1 my-0">{{ $t('message.dataupload.next') }}</label>
-        <FormulateInput type="button" :label="$t('message.dataupload.next')" @click="next()" v-if="showNext"></FormulateInput>
+        <label for="submit-form" v-if="showNextLabel" class="submit-label mx-1 my-0">{{ $t('message.dataupload.next')
+        }}</label>
+        <FormulateInput type="button" :label="$t('message.dataupload.next')" @click="next()" v-if="showNext">
+        </FormulateInput>
       </div>
     </div>
 
@@ -52,6 +64,7 @@ export default {
   components: {},
   data() {
     return {
+      openClear: false,
       uploading: {
         dataset: false,
         draft: false,
@@ -74,7 +87,7 @@ export default {
         },
         clear: {
           confirm: 'Clear form',
-          message: 'Are your sure you want to clear the form?',
+          message: 'Are your sure you want to clear the form? BE AWARE: this can not be reverted and all of your Data is lost!',
           callback: this.clearStorage,
         },
         deleteDistribution: {
@@ -107,7 +120,7 @@ export default {
       return this.isPreviousPage || this.property === 'distributions';
     },
     showDatasetSavingButton() {
-      return this.property !== 'catalogues' && this.getMandatoryStatus({property: this.property, id: this.id});
+      return this.property !== 'catalogues' && this.getMandatoryStatus({ property: this.property, id: this.id });
     },
     showNextLabel() {
       return !(this.isOverviewPage || this.page === 'distoverview');
@@ -123,7 +136,7 @@ export default {
         // overview page has no 'page' parameter -> index would be -1
         // set to > 0 to enable previous button
         if (this.$route.path.endsWith('overview')) currentPageIndex = 99;
-      }      
+      }
       return currentPageIndex > 0;
     },
     isOverviewPage() {
@@ -170,7 +183,7 @@ export default {
       $('#modal').modal({ show: true });
     },
     handleClear() {
-      console.log(this.modals.clear);
+      $('#navbar-toggle').css("z-index", "0")
       this.modal = this.modals.clear;
       $('#modal').modal({ show: true });
     },
@@ -182,10 +195,10 @@ export default {
       this.closeModal();
       this.$emit('clearStorage'); // clear gets called within main DPI component
     },
-    deleteCurrentDistribution(){
+    deleteCurrentDistribution() {
       this.deleteDistribution(this.id);
       this.setDeleteDistributionInline(true);
-      this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
+      this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => { });
     },
     previous() {
       let currentPage;
@@ -199,16 +212,16 @@ export default {
       const nextIndex = pageIndex - 1;
 
       if (nextIndex > -1) {
-          const nextPage = this.getNavSteps[this.property][nextIndex];
-          // preserve distribution index
-          if (this.id) {
-            this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
-          } else {
-            this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => {});
-          }
+        const nextPage = this.getNavSteps[this.property][nextIndex];
+        // preserve distribution index
+        if (this.id) {
+          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => { });
+        } else {
+          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => { });
+        }
       } else if (nextIndex === -1 && this.property === 'distributions') {
         // when on the first page of the distributions form the previous button directs to the first distribution overview page
-        this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => {});
+        this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => { });
       }
     },
     next() {
@@ -220,14 +233,14 @@ export default {
         const nextPage = this.getNavSteps[this.property][nextIndex];
         if (this.id) {
           // preserve distribution id in path
-          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => {});
+          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => { });
         } else {
-          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => {});
+          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => { });
         }
       } else if (nextIndex === numberOfPages) {
         if (this.property === 'distributions') {
           // when within distributions the next button lead to datasets overview page
-          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/overview?locale=${this.$i18n.locale}`).catch(() => {});
+          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/overview?locale=${this.$i18n.locale}`).catch(() => { });
         }
       }
     },
@@ -242,7 +255,7 @@ export default {
         submitProperty = this.property;
       }
 
-      const RDFdata = await this.convertToRDF(submitProperty).then((response) => {return response;});
+      const RDFdata = await this.convertToRDF(submitProperty).then((response) => { return response; });
       const rtpToken = this.getUserData.rtpToken;
 
       if (!this.getMandatoryStatus({ property: this.property, id: this.id })) {
@@ -275,10 +288,10 @@ export default {
           actionName = 'auth/createDataset';
         } else {
           // if edit mode and draft: publish user draft (remove from draft database and add to dataset database)-> publishUserDraftById
-          actionParams = {id: datasetId, catalog: catalogName };
+          actionParams = { id: datasetId, catalog: catalogName };
           actionName = 'auth/publishUserDraftById';
         }
-        
+
       } else if (mode === 'draft') {
         //if no edit mode: save draft regularly
         // if edit mode and draft: save draft regularly
@@ -287,10 +300,10 @@ export default {
           actionName = 'auth/createUserDraft';
         } else {
           // if edit mode and no draft: save dataset as draft (remove from dataset database and add to draft database)-> putDatasetToDraft
-          actionParams = {id: datasetId, catalog: catalogName, title, description};
+          actionParams = { id: datasetId, catalog: catalogName, title, description };
           actionName = 'auth/putDatasetToDraft';
         }
-        
+
       } else if (mode === 'createcatalogue') {
         uploadUrl = `${this.$env.api.hubUrl}catalogues/${datasetId}`;
         actionParams = { data: RDFdata, token: rtpToken, url: uploadUrl, id: datasetId };
@@ -321,17 +334,17 @@ export default {
     createDataset(datasetId) {
       this.clearAll();
       this.showSnackbar({ message: 'Dataset published successfully', variant: 'success' });
-      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     createDraft() {
       this.clearAll();
       this.showSnackbar({ message: 'Draft saved successfully', variant: 'success' });
-      this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     createCatalogue(datasetId) {
       this.clearAll();
       this.showSnackbar({ message: 'Catalogue saved successfully', variant: 'success' });
-      this.$router.push({ name: 'CatalogueDetails', query: { locale: this.$route.query.locale }, params: {ctlg_id: datasetId}}).catch(() => {});
+      this.$router.push({ name: 'CatalogueDetails', query: { locale: this.$route.query.locale }, params: { ctlg_id: datasetId } }).catch(() => { });
     }
   },
   mounted() {
@@ -347,21 +360,23 @@ export default {
 </script>
 
 <style lang="scss">
-  // @import '../../../styles/bootstrap_theme';
-  // @import '../../../styles/utils/css-animations';
+// @import '../../../styles/bootstrap_theme';
+// @import '../../../styles/utils/css-animations';
 
 #nav {
   .clear-btn button {
     background-color: #ffffff;
     border-color: #949494;
     color: rgb(79, 79, 79);
-    
+
   }
+
   .dist-btn button {
     background-color: #ffffff;
     border-color: #2b2b2b;
     color: rgb(48, 48, 48);
   }
+
   .prev-btn button {
     background-color: #767676;
     border-color: #767676;
@@ -396,7 +411,7 @@ export default {
     display: inline-flex;
     align-items: center;
     height: 50px;
-    
+
   }
 }
 
@@ -407,27 +422,30 @@ export default {
 
 .right-form-nav {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .submit-label {
-    background-color: #001d85;
-    border-color: #001d85;
-    color: #fff;
-    border-radius: 0.3em;
-    font-size: 16px;
-    font-family: "Ubuntu";
-    padding: 0.75em;
-    font-weight: 100;
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 0px;
-    margin-left: auto;
-    height: 50px;
-    margin-top: 10px;
+  background-color: #001d85;
+  border-color: #001d85;
+  color: #fff;
+  border-radius: 0.3em;
+  font-size: 16px;
+  font-family: "Ubuntu";
+  padding: 0.75em;
+  font-weight: 100;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0px;
+  margin-left: auto;
+  height: 50px;
+  margin-top: 10px;
 }
 
 .submit-label:hover {
   cursor: pointer;
 }
+
+ 
+
 </style>

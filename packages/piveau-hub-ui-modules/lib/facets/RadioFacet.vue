@@ -9,8 +9,8 @@
       {{ property }}
       <span class="ml-2 d-flex flex-wrap">
         <div class="custom-control custom-radio" v-for="(id, index) in optionIds">
-          <input type="radio" :id="id" :name="title" class="custom-control-input" @click="onChange(id)" :checked="option === id">
-          <label class="custom-control-label" :for="id">{{ optionLabels[index] }}</label>
+          <input type="radio" :id="`${title}_${id}`" :value="id" :name="title" class="custom-control-input" @click="onChange(id)" :checked="option === id">
+          <label class="custom-control-label" :for="`${title}_${id}`">{{ optionLabels[index] }}</label>
         </div>
       </span>
     </div>

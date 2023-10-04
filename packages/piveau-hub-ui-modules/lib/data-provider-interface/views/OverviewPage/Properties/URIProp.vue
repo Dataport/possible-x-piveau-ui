@@ -15,8 +15,8 @@
         {{ el['dcatde:politicalGeocodingURI'] }}
       </div>
     </td>
-     <!-- Saptial -->
-     <td v-if="value.type === 'multiURISpatial'">
+    <!-- Saptial -->
+    <td v-if="value.type === 'multiURISpatial'">
       <div v-for="(el, index) in data[property]" :key="index">
         {{ el['@id'] }}
       </div>
@@ -42,7 +42,6 @@ export default {
   },
   created() {
     try {
-      // console.log(info[info.length - 1] + " " + info[info.length - 2] + " property:" + this.data[this.property]);
       this.displayURIName(this.value.voc, this.data[this.property])
       if (this.value.type == "multiURI") {
         for (let index = 0; index < this.data[this.property].length; index++) {
@@ -52,7 +51,7 @@ export default {
       }
     }
     catch (error) {
-      return
+
     }
   },
   methods: {
@@ -69,13 +68,12 @@ export default {
         this.voc === "spdx-checksum-algorithm";
       try {
         if (voc !== undefined) {
-          // console.log(URI);
           // this is a temporary fix - it should be investiated why country(e.g.) has no vocabulary set!
           if (voc == "") {
-
             var arr = URI.split('/');
-            // console.log(arr);
             voc = arr[arr.length - 2]
+          }
+          if (voc === undefined) {
           }
 
           await this.requestResourceName({ voc: voc, resource: URI }).then(
@@ -100,6 +98,7 @@ export default {
           return
         }
       } catch (error) {
+
         this.nameOfProperty = URI
       }
 

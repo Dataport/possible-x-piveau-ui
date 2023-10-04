@@ -112,7 +112,7 @@ const dcatapProperties = {
             man: [
               {
                 identifier: 'politicalGeocodingURIUrl',
-                type: 'url',
+                type: 'custom-url',
                 name: 'geoCodingURIMan',
                 validation: 'optional|url',
                 '@change': true,
@@ -135,7 +135,7 @@ const dcatapProperties = {
       identifier: 'geocodingDescription',
       type: 'group',
       name: 'dcatde:geocodingDescription',
-      class: 'property grid1r2c',
+      class: 'property langDescriptionInput',
       '@dcatDE': true,
       '@change': true,
       repeatable: true,
@@ -146,7 +146,7 @@ const dcatapProperties = {
           identifier: 'geocodingDescription',
           type: 'textarea',
           name: '@value',
-          class: 'row1 column1',
+          class: 'w-100 inputTextfield',
           '@change': true,
         },
         {
@@ -155,7 +155,7 @@ const dcatapProperties = {
           type: 'select',
           options: language,
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangField',
           '@change': true,
         },
       ],
@@ -164,7 +164,7 @@ const dcatapProperties = {
       identifier: 'legalBasis',
       type: 'group',
       name: 'dcatde:legalBasis',
-      class: 'property grid1r2c',
+      class: 'property langDescriptionInput',
       '@dcatDE': true,
       '@change': true,
       repeatable: true,
@@ -175,7 +175,7 @@ const dcatapProperties = {
           identifier: 'legalBasis',
           type: 'textarea',
           name: '@value',
-          class: 'row1 column1',
+          class: 'w-100 inputTextfield',
           '@change': true,
 
         },
@@ -185,7 +185,7 @@ const dcatapProperties = {
           type: 'select',
           options: language,
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangField',
           '@change': true,
         },
       ],
@@ -194,7 +194,7 @@ const dcatapProperties = {
       identifier: 'qualityProcessURI',
       name: 'dcatde:qualityProcessURI',
       class: 'property',
-      type: 'url',
+      type: 'custom-url',
       
       '@change': true,
       '@dcatDE': true,
@@ -204,7 +204,7 @@ const dcatapProperties = {
       identifier: 'references',
       name: 'dct:references',
       class: 'property',
-      type: 'url',
+      type: 'custom-url',
       voc: 'planned-availability',
       '@change': true,
       '@dcatDE': true,
@@ -244,7 +244,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'contributorHomepage',
-          type: 'url',
+          type: 'custom-url',
           name: 'foaf:homepage',
           validation: 'optional|url',
           '@change': true,
@@ -296,7 +296,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'originatorHomepage',
-          type: 'url',
+          type: 'custom-url',
           name: 'foaf:homepage',
           validation: 'optional|url',
           '@change': true,
@@ -338,7 +338,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'maintainerHomepage',
-          type: 'url',
+          type: 'custom-url',
           name: 'foaf:homepage',
           validation: 'optional|url',
           '@change': true,
@@ -349,16 +349,18 @@ const dcatapProperties = {
     datasetID: {
       identifier: 'datasetID',
       type: 'unique-identifier-input',
+      mandatory: true,
       name: 'datasetID',
-      class: 'property',
+      class: 'property mandatory',
       '@change': true,
     },
     description: {
       identifier: 'datasetDescription',
       type: 'group',
       name: 'dct:description',
-      class: 'property grid1r2c',
+      class: 'property langDescriptionInput mandatory',
       repeatable: true,
+      mandatory: true,
       '@repeatableRemoved': true,
       minimum: 1,
       children: [
@@ -367,9 +369,9 @@ const dcatapProperties = {
           type: 'textarea',
           name: '@value',
           validation: 'required',
-          class: 'row1 column1',
+          class: 'w-100 inputTextfield',
           '@change': true,
-          '@annifCompletion': true,
+          
         },
         {
           identifier: 'language',
@@ -378,7 +380,7 @@ const dcatapProperties = {
           options: language,
           validation: 'required',
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangField',
           '@change': true,
         },
       ],
@@ -387,8 +389,9 @@ const dcatapProperties = {
       identifier: 'title',
       type: 'group',
       name: 'dct:title',
-      class: 'property grid1r2c',
+      class: 'property langStringInput mandatory',
       repeatable: true,
+      mandatory: true,
       '@repeatableRemoved': true,
       minimum: 1,
       children: [
@@ -397,7 +400,7 @@ const dcatapProperties = {
           type: 'text',
           name: '@value',
           validation: 'required',
-          class: 'row1 column1',
+          class: 'w-100 inputTextfield',
           '@change': true,
         },
         {
@@ -407,7 +410,7 @@ const dcatapProperties = {
           validation: 'required',
           options: language,
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangField',
           '@change': true,
         },
       ],
@@ -483,7 +486,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'contactPointUrl',
-          type: 'url',
+          type: 'custom-url',
           name: 'vcard:hasURL',
           validation: 'optional|url',
           '@change': true,
@@ -511,7 +514,7 @@ const dcatapProperties = {
       identifier: 'keywordHeader',
       type: 'group',
       name: 'dcat:keyword',
-      class: 'property grid2r2c',
+      class: 'property langStringInput',
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
@@ -519,7 +522,7 @@ const dcatapProperties = {
           identifier: 'keyword',
           type: 'text',
           name: '@value',
-          class: 'row1 column1',
+          class: 'w-100 inputTextfield',
           '@change': true,
         },
         {
@@ -527,7 +530,7 @@ const dcatapProperties = {
           value: 'de',
           type: 'select',
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangField',
           options: language,
           '@change': true,
         },
@@ -571,7 +574,7 @@ const dcatapProperties = {
               },
               {
                 identifier: 'publisherHomepage',
-                type: 'url',
+                type: 'custom-url',
                 name: 'foaf:homepage',
                 '@change': true,
               }
@@ -638,7 +641,7 @@ const dcatapProperties = {
         man: [
           {
             identifier: 'spatialUrl',
-            type: 'url',
+            type: 'custom-url',
             name: '@id',
             validation: 'optional|url',
             '@change': true,
@@ -650,24 +653,33 @@ const dcatapProperties = {
       type: 'group',
       name: 'dct:temporal',
       identifier: 'temporal',
-      class: 'property besides',
+      class: 'property besides startEndDate',
       '@change': true,
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
         {
-          identifier: 'temporalStart',
+          identifier: 'temporalRange',
           type: 'datetime-picker',
-          name: 'dcat:startDate',
+          name: 'dct:temporal',
+          property:'dct:temporal',
+          end: 'dct:temporal',
           '@change': true,
-        },
-        {
-          identifier: 'temporalEnd',
-          type: 'datetime-picker',
-          name: 'dcat:endDate',
-          '@change': true,
-        },
-      ],
+        }]
+      // children: [
+      //   {
+      //     identifier: 'temporalStart',
+      //     type: 'datetime-picker',
+      //     name: 'dcat:startDate',
+      //     '@change': true,
+      //   },
+      //   {
+      //     identifier: 'temporalEnd',
+      //     type: 'datetime-picker',
+      //     name: 'dcat:endDate',
+      //     '@change': true,
+      //   },
+      // ],
     },
     theme: {
       identifier: 'theme',
@@ -720,7 +732,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'creatorHomepage',
-          type: 'url',
+          type: 'custom-url',
           name: 'foaf:homepage',
           validation: 'optional|url',
           '@change': true,
@@ -743,7 +755,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'conformsToUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -763,7 +775,7 @@ const dcatapProperties = {
           type: 'group',
           name: 'dct:title',
           '@change': true,
-          class: 'property grid1r2c',
+          class: 'property langStringInput',
           repeatable: true,
           '@repeatableRemoved': true,
           children: [
@@ -771,7 +783,7 @@ const dcatapProperties = {
               identifier: 'title',
               type: 'text',
               name: '@value',
-              class: 'row1 column1',
+              class: 'w-100 inputTextfield',
               '@change': true,
             },
             {
@@ -780,7 +792,7 @@ const dcatapProperties = {
               type: 'select',
               options: language,
               name: '@language',
-              class: 'row1 column2',
+              class: 'selectLangField',
               '@change': true,
             },
           ]
@@ -790,7 +802,7 @@ const dcatapProperties = {
           type: 'group',
           name: 'dct:description',
           '@change': true,
-          class: 'property grid1r2c',
+          class: 'property langDescriptionInput',
           repeatable: true,
           '@repeatableRemoved': true,
           children: [
@@ -798,7 +810,7 @@ const dcatapProperties = {
               identifier: 'description',
               type: 'textarea',
               name: '@value',
-              class: 'row1 column1',
+              class: 'inputTextfield w-100',
               '@change': true,
             },
             {
@@ -807,7 +819,7 @@ const dcatapProperties = {
               type: 'select',
               options: language,
               name: '@language',
-              class: 'row1 column2',
+              class: 'selectLangField',
               '@change': true,
             },
           ]
@@ -817,13 +829,15 @@ const dcatapProperties = {
           type: 'autocomplete-input',
           voc: 'file-type',
           name: 'dct:format',
+          class: "property",
           '@change': true,
         },
         {
           identifier: 'pageUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
+          class: "property",
           '@change': true,
         },
       ],
@@ -847,7 +861,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'hasVersionUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -864,7 +878,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'isVersionOfUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -882,7 +896,7 @@ const dcatapProperties = {
         {
           name: '@id',
           identifier: 'sourceUrl',
-          type: 'url',
+          type: 'custom-url',
           validation: 'optional|url',
           '@change': true,
         },
@@ -914,7 +928,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'isReferencedByUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -931,7 +945,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'landingPageUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -957,7 +971,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'admsIdentifierUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1010,7 +1024,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'qualifiedAttributionUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1027,7 +1041,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'wasGeneratedByUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1044,7 +1058,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'qualifiedRelationUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1061,7 +1075,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'relationUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1132,53 +1146,54 @@ const dcatapProperties = {
       identifier: 'temporalResolution',
       type: 'group',
       name: 'dcat:temporalResolution',
-      class: 'property',
+      class: 'property tempResWrapper',
       '@change': true,
       children: [
         {
           identifier: 'temporalResolutionYear',
           type: 'number',
-          min: 0,
+          validation: 'min:1950|max:2100|optional',
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
           type: 'number',
-          min: 0,
-          max: 12,
+          validation: 'min:1|max:12|optional',
+          "validation-behavior": 'live',         
           '@change': true,
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
           type: 'number',
-          min: 0,
-          max: 31,
+          validation: 'min:1|max:31|optional',
+          "validation-behavior": 'live',        
           '@change': true,
           name: 'Day',
         },
         {
           identifier: 'temporalResolutionHour',
           type: 'number',
-          min: 0,
-          max: 23,
+          validation: 'min:0|max:23|optional',
+          "validation-behavior": 'live',      
           '@change': true,
           name: 'Hour',
         },
         {
           identifier: 'temporalResolutionMinute',
           type: 'number',
-          min: 0,
-          max: 59,
+          validation: 'min:0|max:59|optional',
+          "validation-behavior": 'live',    
           '@change': true,
           name: 'Minute',
         },
         {
           identifier: 'temporalResolutionSecond',
           type: 'number',
-          min: 0,
-          max: 59,
+          validation: 'min:0|max:59|optional',
+          "validation-behavior": 'live',       
           '@change': true,
           name: 'Second',
         },
@@ -1203,7 +1218,7 @@ const dcatapProperties = {
       identifier: 'versionNotes',
       type: 'group',
       name: 'adms:versionNotes',
-      class: 'property besides',
+      class: 'property langDescriptionInput',
       repeatable: true,
       '@repeatableRemoved': true,
       children: [
@@ -1211,7 +1226,7 @@ const dcatapProperties = {
           identifier: 'versionNotes',
           type: 'textarea',
           name: '@value',
-          class: 'main',
+          class: 'inputTextfield w-100',
           '@change': true,
         },
         {
@@ -1220,7 +1235,7 @@ const dcatapProperties = {
           type: 'select',
           name: '@language',
           options: language,
-          class: 'row1 column2',
+          class: 'selectLangField',
           '@change': true,
         },
       ],
@@ -1229,8 +1244,9 @@ const dcatapProperties = {
       identifier: 'catalog',
       type: 'select',
       name: 'dct:catalog',
-      class: 'property',
+      class: 'property mandatory',
       validation: 'required',
+      mandatory: true,
       options: {},
       '@change': true,
     },
@@ -1244,7 +1260,7 @@ const dcatapProperties = {
       '@repeatableRemoved': true,
       children: [
         {
-          type: 'url',
+          type: 'custom-url',
           identifier: 'isUsedBy',
           validation: 'optional|url',
           '@change': true,
@@ -1258,7 +1274,7 @@ const dcatapProperties = {
       identifier: 'licenseAttributionByText',
       type: 'group',
       name: 'dcatde:licenseAttributionByText',
-      class: 'property grid1r2c',
+      class: 'property langStringInput',
       '@dcatDE': true,
       '@change': true,
       repeatable: true,
@@ -1269,9 +1285,8 @@ const dcatapProperties = {
           identifier: 'licenseAttributionByTextTitle',
           type: 'textarea',
           name: '@value',
-          class: 'row1 column1',
+          class: 'w-100 inputTextfield',
           '@change': true,
-          '@annifCompletion': true,
         },
         {
           identifier: 'language',
@@ -1279,7 +1294,7 @@ const dcatapProperties = {
           type: 'select',
           options: language,
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangField',
           '@change': true,
         },
       ],
@@ -1305,7 +1320,7 @@ const dcatapProperties = {
             url: [
               {
                 identifier: 'accessUrlLink',
-                type: 'url',
+                type: 'custom-url',
                 name: '@id',
                 '@change': true,
                 validation: 'required|url',
@@ -1336,7 +1351,7 @@ const dcatapProperties = {
       identifier: 'description',
       type: 'group',
       name: 'dct:description',
-      class: 'property grid1r2c',
+      class: 'property langDescriptionInput',
       repeatable: true,
       '@repeatableRemoved': true,
       minimum: 1,
@@ -1345,7 +1360,7 @@ const dcatapProperties = {
           identifier: 'description',
           type: 'textarea',
           name: '@value',
-          class: 'row1 column1',
+          class: 'inputTextfield',
           '@change': true,
         },
         {
@@ -1354,7 +1369,7 @@ const dcatapProperties = {
           type: 'select',
           options: language,
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangField',
           '@change': true,
         },
       ],
@@ -1379,7 +1394,7 @@ const dcatapProperties = {
       identifier: 'title',
       type: 'group',
       name: 'dct:title',
-      class: 'property grid1r2c',
+      class: 'property langStringInput',
       repeatable: true,
       '@repeatableRemoved': true,
       minimum: 1,
@@ -1388,7 +1403,7 @@ const dcatapProperties = {
           identifier: 'title',
           type: 'text',
           name: '@value',
-          class: 'row1 column1',
+          class: 'w-100 inputTextfield',
           '@change': true,
         },
         {
@@ -1397,7 +1412,7 @@ const dcatapProperties = {
           type: 'select',
           options: language,
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangField',
           '@change': true,
         },
       ],
@@ -1420,7 +1435,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'downloadUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1446,25 +1461,24 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'accessServiceEndpointURL',
-          type: 'url',
+          type: 'custom-url',
           name: 'dcat:endpointURL',
-          class: 'main',
+          class: 'main property',
           validation: 'optional|url',
           '@change': true,
         },
         {
           identifier: 'accessServiceEndpointDescription',
-          type: 'url',
+          type: 'textarea',
           name: 'dcat:endpointDescription',
           class: 'main',
-          validation: 'optional|url',
           '@change': true,
         },
         {
           identifier: 'accessServiceTitle',
           type: 'group',
           name: 'dct:title',
-          class: 'property besides',
+          class: 'property langStringInput',
           '@change': true,
           repeatable: true,
           '@repeatableRemoved': true,
@@ -1473,7 +1487,7 @@ const dcatapProperties = {
               identifier: 'title',
               type: 'text',
               name: '@value',
-              class: 'main',
+              class: 'w-100 inputTextfield',
               '@change': true,
             },
             {
@@ -1481,7 +1495,7 @@ const dcatapProperties = {
               value: 'de',
               type: 'select',
               name: '@language',
-              class: 'sub',
+              class: 'selectLangField',
               options: language,
               '@change': true,
             },
@@ -1491,7 +1505,7 @@ const dcatapProperties = {
           identifier: 'accessServiceDescription',
           type: 'group',
           name: 'dct:description',
-          class: 'property besides',
+          class: 'property langDescriptionInput',
           '@change': true,
           repeatable: true,
           '@repeatableRemoved': true,
@@ -1500,7 +1514,7 @@ const dcatapProperties = {
               identifier: 'description',
               type: 'textarea',
               name: '@value',
-              class: 'main',
+              class: 'main inputTextfield',
               '@change': true,
             },
             {
@@ -1508,7 +1522,7 @@ const dcatapProperties = {
               value: 'de',
               type: 'select',
               name: '@language',
-              class: 'sub',
+              class: 'selectLangField',
               options: language,
               '@change': true,
             },
@@ -1573,7 +1587,7 @@ const dcatapProperties = {
           type: 'group',
           name: 'dct:title',
           '@change': true,
-          class: 'property grid1r2c',
+          class: 'property langStringInput',
           repeatable: true,
           '@repeatableRemoved': true,
           children: [
@@ -1581,7 +1595,7 @@ const dcatapProperties = {
               identifier: 'title',
               type: 'text',
               name: '@value',
-              class: 'row1 column1',
+              class: 'w-100 inputTextfield',
               '@change': true,
             },
             {
@@ -1590,7 +1604,7 @@ const dcatapProperties = {
               type: 'select',
               options: language,
               name: '@language',
-              class: 'row1 column2',
+              class: 'selectLangField',
               '@change': true,
             },
           ]
@@ -1600,7 +1614,7 @@ const dcatapProperties = {
           type: 'group',
           name: 'dct:description',
           '@change': true,
-          class: 'property grid1r2c',
+          class: 'property langDescriptionInput',
           repeatable: true,
           '@repeatableRemoved': true,
           children: [
@@ -1608,7 +1622,7 @@ const dcatapProperties = {
               identifier: 'description',
               type: 'textarea',
               name: '@value',
-              class: 'row1 column1',
+              class: 'inputTextfield w-100',
               '@change': true,
             },
             {
@@ -1617,7 +1631,7 @@ const dcatapProperties = {
               type: 'select',
               options: language,
               name: '@language',
-              class: 'row1 column2',
+              class: 'selectLangField',
               '@change': true,
             },
           ]
@@ -1631,7 +1645,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'pageUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1648,7 +1662,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'hasPolicyUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1681,7 +1695,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'conformsToUrl',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -1752,7 +1766,7 @@ const dcatapProperties = {
           {
             name: 'rdfs:label',
             identifier: 'rightsUrl',
-            type: 'url',
+            type: 'custom-url',
             '@change': true,
             validation: 'optional|url'
           }
@@ -1780,19 +1794,20 @@ const dcatapProperties = {
       identifier: 'temporalResolution',
       type: 'group',
       name: 'dcat:temporalResolution',
-      class: 'property',
+      class: 'property tempResWrapper',
       '@change': true,
       children: [
         {
           identifier: 'temporalResolutionYear',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
+          max: 2023,
           '@change': true,
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 12,
           '@change': true,
@@ -1800,7 +1815,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionDay',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 31,
           '@change': true,
@@ -1808,7 +1823,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionHour',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 23,
           '@change': true,
@@ -1816,7 +1831,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionMinute',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 59,
           '@change': true,
@@ -1824,7 +1839,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'temporalResolutionSecond',
-          type: 'number',
+          type: 'custom-number',
           min: 0,
           max: 59,
           '@change': true,
@@ -1864,10 +1879,12 @@ const dcatapProperties = {
       type: 'unique-identifier-input',
       name: 'datasetID',
       class: 'property',
+      mandatory: true,
       '@change': true,
     },
     title: {
       identifier: 'title',
+      mandatory: true,
       type: 'group',
       name: 'dct:title',
       class: 'property grid1r2c',
@@ -1899,7 +1916,8 @@ const dcatapProperties = {
       identifier: 'description',
       type: 'group',
       name: 'dct:description',
-      class: 'property grid1r2c',
+      class: 'property langDescriptionInput',
+      mandatory: true,
       repeatable: true,
       '@repeatableRemoved': true,
       minimum: 1,
@@ -1909,7 +1927,7 @@ const dcatapProperties = {
           type: 'textarea',
           name: '@value',
           validation: 'required',
-          class: 'row1 column1',
+          class: 'w-100 inputTextfield',
           '@change': true,
         },
         {
@@ -1919,7 +1937,7 @@ const dcatapProperties = {
           options: language,
           validation: 'required',
           name: '@language',
-          class: 'row1 column2',
+          class: 'selectLangFieldScnd',
           '@change': true,
         },
       ],
@@ -1963,7 +1981,7 @@ const dcatapProperties = {
               },
               {
                 identifier: 'publisherHomepage',
-                type: 'url',
+                type: 'custom-url',
                 name: 'foaf:homepage',
                 '@change': true,
               }
@@ -1979,6 +1997,7 @@ const dcatapProperties = {
       class: 'property',
       multiple: true,
       validation: "required",
+      mandatory: true,
       minimum: 1,
       voc: 'language',
       '@change': true,
@@ -2024,7 +2043,7 @@ const dcatapProperties = {
               },
               {
                 identifier: 'licenceURL',
-                type: 'url',
+                type: 'custom-url',
                 name: 'skos:exactMatch',
                 validation: 'optional|url',
                 '@change': true,
@@ -2092,7 +2111,7 @@ const dcatapProperties = {
         man: [
           {
             identifier: 'spatialUrl',
-            type: 'url',
+            type: 'custom-url',
             name: '@id',
             validation: 'optional|url',
             '@change': true,
@@ -2102,7 +2121,7 @@ const dcatapProperties = {
     },
     homepage: {
       identifier: 'homepage',
-      type: 'url',
+      type: 'custom-url',
       name: 'foaf:homepage',
       class: 'property',
       validation: 'optional|url',
@@ -2118,7 +2137,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'hasPartURL',
-          type: 'url',
+          type: 'custom-url',
           name: '@id',
           validation: 'optional|url',
           '@change': true,
@@ -2129,7 +2148,7 @@ const dcatapProperties = {
       identifier: 'isPartOf',
       name: 'dct:isPartOf',
       class: 'property',
-      type: 'url',
+      type: 'custom-url',
       validation: 'optional|url',
       '@change': true
     },
@@ -2145,7 +2164,7 @@ const dcatapProperties = {
           {
             name: 'rdfs:label',
             identifier: 'rightsUrl',
-            type: 'url',
+            type: 'custom-url',
             '@change': true,
             validation: 'optional|url'
           }
@@ -2172,7 +2191,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'catalogURL',
-          type: 'url',
+          type: 'custom-url',
           validation: 'optional|url',
           '@change': true,
           name: '@id',
@@ -2211,7 +2230,7 @@ const dcatapProperties = {
         },
         {
           identifier: 'creatorHomepage',
-          type: 'url',
+          type: 'custom-url',
           name: 'foaf:homepage',
           validation: 'optional|url',
           '@change': true,
