@@ -1,3 +1,13 @@
+## [3.11.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.3...v3.11.4) (2023-10-04)
+
+
+### Bug Fixes
+
+* fixed overview page ([8254613](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8254613868c699dbb5a1ce82dd3f01875ea52b67))
+* new overview Page ([4d54a4f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/4d54a4f484a29304e971708d906de4185974fce8))
+
+
+
 ## [3.11.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.2...v3.11.3) (2023-10-02)
 
 
