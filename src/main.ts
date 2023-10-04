@@ -5,9 +5,9 @@ import $ from 'jquery';
 // Vue packages
 import * as VeeValidate from 'vee-validate';
 import VueProgressBar from "@aacassandra/vue3-progressbar";
-// import VueFormulate from '@braid/vue-formulate';
-import VueInject from 'vue-inject';
-import VueCookies from 'vue3-cookies'
+import VueClickAway from "vue3-click-away";
+import VueFormulate from '@braid/vue-formulate';
+import VueCookies from 'vue3-cookies';
 import VuePositionSticky from 'vue-position-sticky';
 import { createMetaManager } from 'vue-meta'
 import { Skeletor } from 'vue-skeletor';
@@ -25,14 +25,14 @@ import { faComment, faExternalLinkAlt, faPlus, faMinus, faArrowDown, faArrowUp, 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 // Vue setup
-import { createI18n } from 'vue-i18n'
-import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n';
+import { createApp } from 'vue';
 
 import router from './router';
 import App from './App';
 import Header from './components/Header.vue';
 import Footer from './components/Footer.vue';
-import vueKeyCloak from "./services/keycloakService"
+import vueKeyCloak from "./services/keycloakService";
 import UniversalPiwik from '@piveau/piveau-universal-piwik';
 
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
@@ -52,11 +52,11 @@ import {
   CustomNumber,
   CustomURL,
   UniqueIdentifierInput,
+  Groupedinput,
   FileUpload,
   DatePicker,
   DateTimePicker,
-  configureModules,
-  SelectedFacetsOverview
+  configureModules
 } from '@piveau/piveau-hub-ui-modules';
 import '@piveau/piveau-hub-ui-modules/styles';
 
@@ -88,8 +88,7 @@ app.config.performance = true;
 app.use(runtimeConfigurationService, runtimeConfig, { baseConfig: GLUE_CONFIG, debug: false });
 const env = app.config.globalProperties.$env;
 
-configureModules({
-  services: GLUE_CONFIG.services,
+configureModules(app, store, {
   serviceParams: {
     baseUrl: env.api.baseUrl,
     qualityBaseUrl: env.api.qualityBaseUrl,
@@ -108,6 +107,7 @@ app.component('piveau-header', Header);
 app.component('piveau-footer', Footer);
 app.component('InfoSlot', InfoSlot);
 app.component('ConditionalInput', ConditionalInput);
+app.component('Groupedinput', Groupedinput);
 app.component('AutocompleteInput', AutocompleteInput);
 app.component('UniqueIdentifierInput', UniqueIdentifierInput);
 app.component('FileUpload', FileUpload);
@@ -117,7 +117,6 @@ app.component('CustomNumber', CustomNumber);
 app.component('CustomURL', CustomURL)
 app.component('AppSnackbar', AppSnackbar);
 app.component('AppConfirmationDialog', AppConfirmationDialog);
-app.component('SelectedFacetsOverview', SelectedFacetsOverview);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
 // Vue Router
@@ -131,14 +130,18 @@ const LOCALE = env.languages.locale;
 const FALLBACKLOCALE = env.languages.fallbackLocale;
 
 const i18n = createI18n({
+  allowComposition: true,
+  legacy: false,
+  globalInjection: true,
   locale: LOCALE,
   fallbackLocale: FALLBACKLOCALE,
   messages: I18N_CONFIG,
   silentTranslationWarn: true,
   silentFallbackWarn: true,
+  warnHtmlMessage: false,
 });
 
-app.i18n = i18n;
+app.config.globalProperties.i18n = i18n;
 app.use(i18n);
 
 // Set locale for dateFilters
@@ -149,6 +152,43 @@ app.component(Skeletor.name, Skeletor);
 
 // Vue Cookies
 app.use(VueCookies);
+
+// Vue Clickaway
+app.use(VueClickAway);
+
+// Matomo / Piwik
+const { isPiwikPro, siteId, trackerUrl } = env.tracker;
+app.use(UniversalPiwik, {
+  router,
+  isPiwikPro,
+  trackerUrl,
+  siteId,
+  debug: process.env.NODE_ENV === 'development',
+  useSuspendFeature: true,
+  pageViewOptions: {
+    // Set this to true as long as navigating to the /datasets/ route
+    // adds a 'minScore' query to prevent duplicated tracking
+    useDatasetsMinScoreFix: false,
+    // Send empty dataset metadata for every page view
+    // See https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2098
+    beforeTrackPageView: (to, from, tracker) => {
+      if (to.name !== 'DatasetDetailsDataset') {
+        tracker.trackDatasetDetailsPageView(null, null, {
+          dataset_AccessRights: '',
+          dataset_AccrualPeriodicity: '',
+          dataset_Catalog: '',
+          dataset_ID: '',
+          dataset_Publisher: '',
+          dataset_Title: '',
+        });
+      }
+    },
+  },
+});
+
+// Cors Proxy and Bulk Download Services
+app.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
+app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
 
 // Vue Formulate
 // app.use(VueFormulate, {
@@ -213,40 +253,6 @@ app.use(VueCookies);
 //   },
 // });
 
-// Cors Proxy and Bulk Download Services
-app.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
-app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
-
-// Matomo / Piwik
-const { isPiwikPro, siteId, trackerUrl } = env.tracker;
-app.use(UniversalPiwik, {
-  router,
-  isPiwikPro,
-  trackerUrl,
-  siteId,
-  debug: process.env.NODE_ENV === 'development',
-  useSuspendFeature: true,
-  pageViewOptions: {
-    // Set this to true as long as navigating to the /datasets/ route
-    // adds a 'minScore' query to prevent duplicated tracking
-    useDatasetsMinScoreFix: false,
-    // Send empty dataset metadata for every page view
-    // See https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2098
-    beforeTrackPageView: (to, from, tracker) => {
-      if (to.name !== 'DatasetDetailsDataset') {
-        tracker.trackDatasetDetailsPageView(null, null, {
-          dataset_AccessRights: '',
-          dataset_AccrualPeriodicity: '',
-          dataset_Catalog: '',
-          dataset_ID: '',
-          dataset_Publisher: '',
-          dataset_Title: '',
-        });
-      }
-    },
-  },
-});
-
 // Vue Meta
 const metaManager = createMetaManager();
 app.use(metaManager);
@@ -266,30 +272,27 @@ app.use(VueProgressBar, progressBarOptions);
 // Vee Validate 
 app.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 
-// Vue Inject
-app.use(VueInject, { components: true });
-
 // Vue Position Sticky
 app.use(VuePositionSticky);
 
-// // Vue Keycloak (Vue App is mounted on success and error)
-// app.use(vueKeyCloak, {
-//   config: {
-//     rtp: env.authentication.rtp,
-//     ...env.authentication.keycloak,
-//   },
-//   init: {
-//     onLoad: 'check-sso',
-//     ...env.authentication.keycloakInit,
-//   },
-//   onReady: () => {
-//     console.log("Keycloak loaded")
-//     app.mount('#app');
-//   },
-//   onInitError: () => {
-//     console.log("Error loading keycloak")
-//     app.mount('#app');
-//   }
-// });
+// Vue Keycloak (Vue App is mounted on success and error)
+app.use(vueKeyCloak, {
+  config: {
+    rtp: env.authentication.rtp,
+    ...env.authentication.keycloak,
+  },
+  init: {
+    onLoad: 'check-sso',
+    ...env.authentication.keycloakInit,
+  },
+  onReady: () => {
+    console.log("Keycloak loaded")
+    app.mount('#app');
+  },
+  onInitError: () => {
+    console.log("Error loading keycloak")
+    app.mount('#app');
+  }
+});
 
-app.mount('#app');
+// app.mount('#app');
