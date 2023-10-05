@@ -271,13 +271,13 @@ router.beforeEach((to, from, next) => {
 
   // Authentication
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const auth = router.app.$env.authentication.useService
-      ? router.app.$keycloak.authenticated
+    const auth = GLUE_CONFIG.authentication.useService
+      ? router.app.config.globalProperties.$keycloak.authenticated
       : null;
     if (!auth) {
       // TODO: Show unauthorized page here
     } else {
-      router.app.$keycloak.getRtpToken().then((rtpToken) => {
+      router.app.config.globalProperties.$keycloak.getRtpToken().then((rtpToken) => {
         const decodedAccessToken = decode(rtpToken);
         let isAuthenticated = false;
         decodedAccessToken.authorization.permissions.forEach((permission) => {
