@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "@aacassandra/vue3-progressbar": "^1.0.3",
-    "@braid/vue-formulate": "^2.5.3",
+    "@formkit/vue": "^1.2.2",
     "@citation-js/core": "^0.5.7",
     "@citation-js/plugin-bibtex": "^0.5.7",
     "@citation-js/plugin-csl": "^0.5.7",
