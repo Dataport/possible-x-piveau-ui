@@ -7,7 +7,7 @@ import * as VeeValidate from 'vee-validate';
 import VueProgressBar from "@aacassandra/vue3-progressbar";
 import VueClickAway from "vue3-click-away";
 import { plugin, defaultConfig } from '@formkit/vue'
-import config from 'formkit.config.ts';
+import config from '../formkit.config.ts';
 import VueCookies from 'vue3-cookies';
 import VuePositionSticky from 'vue-position-sticky';
 import { createMetaManager } from 'vue-meta'
