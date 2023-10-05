@@ -6,7 +6,8 @@ import $ from 'jquery';
 import * as VeeValidate from 'vee-validate';
 import VueProgressBar from "@aacassandra/vue3-progressbar";
 import VueClickAway from "vue3-click-away";
-import VueFormulate from '@braid/vue-formulate';
+import { plugin, defaultConfig } from '@formkit/vue'
+import config from 'formkit.config.ts';
 import VueCookies from 'vue3-cookies';
 import VuePositionSticky from 'vue-position-sticky';
 import { createMetaManager } from 'vue-meta'
@@ -191,68 +192,8 @@ app.use(UniversalPiwik, {
 app.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
 app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
 
-// Vue Formulate
-// app.use(VueFormulate, {
-//   // plugins: [ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv],
-//   validationNameStrategy: vm => vm.context.label,
-//   // Define our custom slot component(s)
-//   slotComponents: {
-//     label: 'InfoSlot',
-//   },
-//   // Define any props we want to pass to our slot component
-//   slotProps: {
-//     label: ['info', 'collapsed'],
-//   },
-//   components: {
-//     ConditionalInput,
-//   },
-//   library: {
-//     fileupload: {
-//       classification: 'text',
-//       component: 'FileUpload',
-//     },
-//     'conditional-input': {
-//       classification: 'text',
-//       component: 'ConditionalInput',
-//       slotProps: {
-//         component: ['data'],
-//       },
-//     },
-//     'autocomplete-input': {
-//       classification: 'text',
-//       component: 'AutocompleteInput',
-//       slotProps: {
-//         component: ['voc', 'multiple'],
-//       },
-//     },
-//     'custom-url': {
-//       classification: 'text',
-//       component: 'CustomURL',
-//       slotProps: {
-//         component: ['context'],
-//       },
-//     },
-//     'custom-number': {
-//       classification: 'text',
-//       component: 'CustomNumber',
-//       slotProps: {
-//         component: ['context'],
-//       },
-//     },
-//     'unique-identifier-input': {
-//       classification: 'text',
-//       component: 'UniqueIdentifierInput',
-//     },
-//     'date-picker': {
-//       classification: 'date',
-//       component: 'DatePicker',
-//     },
-//     'datetime-picker': {
-//       classification: 'datetime-local',
-//       component: 'DateTimePicker',
-//     },
-//   },
-// });
+// Form Kit
+app.use(plugin, defaultConfig(config));
 
 // Vue Meta
 const metaManager = createMetaManager();
