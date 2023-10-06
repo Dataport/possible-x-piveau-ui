@@ -1,3 +1,12 @@
+## [3.11.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.5...v3.11.6) (2023-10-06)
+
+
+### Bug Fixes
+
+* gazetteer store API response structure ([3c5224d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3c5224d0fe4bbfcf78f455f7f79954ec4fc734e7))
+
+
+
 ## [3.11.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.4...v3.11.5) (2023-10-04)
 
 
