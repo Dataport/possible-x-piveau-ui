@@ -1,32 +1,32 @@
 <template>
-  <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
-    <FormulateSlot name="prefix" :context="context">
+  <div :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
+    <!-- <FormulateSlot name="prefix" :context="context">
       <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context" />
-    </FormulateSlot>
+    </FormulateSlot> -->
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
     <!-- temporal solution for license only using vocabulary -->
     <div v-if="context.attributes.name === 'dct:license'">
-      <FormulateForm v-model="inputValues" :schema="data['voc']" @change="setContext"></FormulateForm>
+      <FormKitSchema v-model="inputValues" :schema="data['voc']" @change="setContext"></FormKitSchema>
     </div>
     <div v-else>
-      <FormulateForm v-model="conditionalValues" key="intern">
-        <FormulateInput type="select" :options="context.options" :name="context.name"
-          :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormulateInput>
-      </FormulateForm>
+      <FormKitSchema v-model="conditionalValues" key="intern">
+        <FormKit type="select" :options="context.options" :name="context.name"
+          :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormKit>
+      </FormKitSchema>
 
       <div v-if="conditionalValues === 'file'">
-        <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
-          @input="setContext"></FormulateForm>
+        <FormKitSchema v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
+          @input="setContext"></FormKitSchema>
       </div>
       <div v-else>
-        <FormulateForm v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
-          @change="setContext"></FormulateForm>
+        <FormKitSchema v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
+          @change="setContext"></FormKitSchema>
       </div>
     </div>
 
-    <FormulateSlot name="suffix" :context="context">
+    <!-- <FormulateSlot name="suffix" :context="context">
       <component :is="context.slotComponents.suffix" v-if="context.slotComponents.suffix" :context="context" />
-    </FormulateSlot>
+    </FormulateSlot> -->
   </div>
 </template>
 

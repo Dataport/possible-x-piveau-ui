@@ -1,20 +1,20 @@
 <template>
   <div
-    :class="`formulate-input-element formulate-input-element--${context.type}`"
+    :class="`formkit-input-element formkit-input-element--${context.type}`"
     id="datasetID"
     ref="datasetID"
     :data-type="context.type"
     v-bind="$attrs"
   >
     <div v-if="getIsEditMode">
-      <FormulateInput
+      <FormKit
         v-model="uniqueID"
         type="text"
         :disabled="true">
-      </FormulateInput>
+      </FormKit>
     </div>
     <div v-else>
-      <FormulateInput
+      <FormKit
         v-model="uniqueID"
         @input="checkUniqueID()"
         id="datasetIDForm"
@@ -25,14 +25,14 @@
         :validation="validation"
         :validation-rules="validationRules"
         :validation-messages="validationMessages">
-      </FormulateInput>
-      <FormulateInput
+      </FormKit>
+      <FormKit
         v-model="uniqueIDHidden"
         id="datasetIDFormHidden"
         type="hidden"
         :label="context.label"
         :validation="validationHidden">
-      </FormulateInput>
+      </FormKit>
     </div>
   </div>
 </template>
@@ -101,10 +101,10 @@ export default {
         const LI = document.createElement('LI');
         LI.setAttribute('role', 'status');
         LI.setAttribute('aria-live', 'polite');
-        LI.setAttribute('class', 'formulate-input-error');
+        LI.setAttribute('class', 'formkit-input-error');
         LI.appendChild(text);
         const UL = document.createElement('UL');
-        UL.setAttribute('class', 'formulate-input-errors');
+        UL.setAttribute('class', 'formkit-input-errors');
         UL.setAttribute('id', 'datasetIDError');
         UL.appendChild(LI);
         datasetID.appendChild(UL);
@@ -141,11 +141,11 @@ export default {
 </script>
 
 <style>
-#datasetID.formulate-input-element--unique-identifier-input label {
+#datasetID.formkit-input-element--unique-identifier-input label {
   display: none !important;
 }
 
-#datasetID.formulate-input-element--unique-identifier-input .formulate-input {
+#datasetID.formkit-input-element--unique-identifier-input .formkit-input {
   margin-bottom: 0.1em;
 }
 </style>

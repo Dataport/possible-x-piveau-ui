@@ -1,12 +1,12 @@
 <!-- TODO i18n integration -->
 <template>
-    <div :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs" class="w-100">
+    <div :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs" class="w-100">
         <div class="d-flex w-100 ">
             <!--{{context.slotProps.component.min}}-->
-            <FormulateInput :name="context.name" :placeholder="context.attributes.placeholder" v-model="urlInput"
+            <FormKit :name="context.name" :placeholder="context.attributes.placeholder" v-model="urlInput"
                 :validation="validateNumber" :validation-rules="validateNumberRules"
                 :validation-messages="validateNumberMessages" class="w-100">
-            </FormulateInput>
+            </FormKit>
         </div>
 
     </div>

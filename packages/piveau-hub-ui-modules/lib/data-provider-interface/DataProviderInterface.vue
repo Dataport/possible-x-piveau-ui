@@ -138,7 +138,6 @@ export default {
       } else {
         // Hacky solution which accepts a reload to solve the datasetID and preselected languages bug
         // --> Should be replaced if built-in functionality works
-        // this.$formulate.resetValidation('form');
         this.$router.go();
       }
     },
@@ -290,7 +289,7 @@ export default {
 }
 
 .besides {
-  .formulate-input-group-repeatable {
+  .formkit-input-group-repeatable {
     display: flex;
     flex-direction: row;
     background-color: transparent;
@@ -475,37 +474,37 @@ export default {
 }
 // Input Form Margins & Borders ----
 
-.formulate-input[data-classification=group] [data-is-repeatable] {
+.formkit-input[data-classification=group] [data-is-repeatable] {
   border: none;
   padding: 1em 1em 1em 0em;
 }
 
-.formulate-input[data-classification=group] [data-is-repeatable] .formulate-input-group-repeatable {
+.formkit-input[data-classification=group] [data-is-repeatable] .formkit-input-group-repeatable {
   border-bottom: none;
 }
 
-.formulate-input-element--checkbox {
+.formkit-input-element--checkbox {
   margin-right: 5px;
 }
 
-.formulate-input-wrapper {
+.formkit-input-wrapper {
   font-family: "Ubuntu";
 }
 
-.formulate-input[data-classification=button] button[data-ghost] {
+.formkit-input[data-classification=button] button[data-ghost] {
   font-weight: 400;
 }
 
-.formulate-input-error {
+.formkit-input-error {
   color: #e13737 !important;
   font-weight: 400 !important;
 }
 
-// General Formulate Styling ----
+// General Formkit Styling ----
 
-.formulate {
+.formkit {
   &-input {
-    .formulate {
+    .formkit {
       &-input {
         &-element {
           max-width: 100%;
@@ -518,7 +517,7 @@ export default {
     }
   }
 
-  .formulate-input-group-add-more {
+  .formkit-input-group-add-more {
     display: flex;
     justify-content: flex-end;
 
@@ -527,19 +526,19 @@ export default {
     }
   }
 
-  .formulate-input {
-    &[data-classification="text"] .formulate-input-wrapper {
+  .formkit-input {
+    &[data-classification="text"] .formkit-input-wrapper {
       display: flex;
       flex-direction: column;
     }
 
-    &[data-classification="select"] .formulate-input-wrapper {
+    &[data-classification="select"] .formkit-input-wrapper {
       display: flex;
       flex-direction: column;
     }
   }
 
-  .formulate-input[data-classification="button"] {
+  .formkit-input[data-classification="button"] {
     button {
       &[data-ghost] {
         color: white;
@@ -556,26 +555,26 @@ export default {
   }
 }
 
-.formulate-input.besides {
+.formkit-input.besides {
   border-bottom: 1px solid lightgrey !important;
 }
 
-.formulate-input-label {
+.formkit-input-label {
   font-weight: 500 !important;
 }
 
-.formulate-input-element {
+.formkit-input-element {
 
   &--textarea {
     width: 100%;
   }
 }
 
-.formulate-input-element--group {
+.formkit-input-element--group {
   display: block !important;
 }
 
-.formulate-input.besides>.formulate-input-wrapper>.formulate-input-label {
+.formkit-input.besides>.formkit-input-wrapper>.formkit-input-label {
 
 
   text-decoration: underline !important;

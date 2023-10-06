@@ -3,49 +3,49 @@
     <div id="nav" class="d-flex ">
       <div class="left-form-nav w-25">
         <!-- PREVIOUS STEP -->
-        <FormulateInput type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious"
-          class="prev-btn mx-1 my-0"></FormulateInput>
+        <FormKit type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious"
+          class="prev-btn mx-1 my-0"></FormKit>
 
         <!-- CLEAR FORM -->
-        <FormulateInput type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn">
-        </FormulateInput>
+        <FormKit type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn">
+        </FormKit>
       </div>
       <div class="right-form-nav w-75">
 
         <!-- DELETE DISTRIBUTION -->
-        <FormulateInput type="button" label="Delete Distribution" @click="handleDeleteDistribution()"
-          v-if="isDistribution" class="mx-1 my-0 delDisBtn"></FormulateInput>
+        <FormKit type="button" label="Delete Distribution" @click="handleDeleteDistribution()"
+          v-if="isDistribution" class="mx-1 my-0 delDisBtn"></FormKit>
 
         <!-- PUBLISH NEW CATALOGUE -->
-        <FormulateInput type="button" @click="submit('createcatalogue')"
+        <FormKit type="button" @click="submit('createcatalogue')"
           v-if="(isOverviewPage || getMandatoryStatus({ property: property, id: id })) && !getIsEditMode && !getIsDraft && property === 'catalogues'"
           class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{
-            $t('message.dataupload.publishcatalogue') }}</FormulateInput>
+            $t('message.dataupload.publishcatalogue') }}</FormKit>
         <!-- PUBLISH EDITED CATALOGUE -->
-        <FormulateInput type="button" @click="submit('createcatalogue')"
+        <FormKit type="button" @click="submit('createcatalogue')"
           v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0"><span
             v-if="uploading.createcatalogue" class="loading-spinner"></span>{{ $t('message.dataupload.publishcatalogue')
             }}
-        </FormulateInput>
+        </FormKit>
 
         <!-- PUBLISH DATASET -->
-        <FormulateInput type="button" @click="submit('dataset')" v-if="showDatasetSavingButton" class="mx-1 my-0">
+        <FormKit type="button" @click="submit('dataset')" v-if="showDatasetSavingButton" class="mx-1 my-0">
           <span v-if="uploading.dataset" class="loading-spinner"></span>
           {{ $t('message.dataupload.publishdataset') }}
-        </FormulateInput>
+        </FormKit>
 
         <!-- SAVE AS DRAFT -->
-        <FormulateInput type="button" @click="submit('draft')" v-if="showDatasetSavingButton" class="mx-1 my-0">
+        <FormKit type="button" @click="submit('draft')" v-if="showDatasetSavingButton" class="mx-1 my-0">
           <span v-if="uploading.draft" class="loading-spinner"></span>
           {{ $t('message.dataupload.saveasdraft') }}
-        </FormulateInput>
+        </FormKit>
 
         <!-- NEXT STEP -->
         <!-- label triggers form submit and therefore handles error mesaages if required values are missing -->
         <label for="submit-form" v-if="showNextLabel" class="submit-label mx-1 my-0">{{ $t('message.dataupload.next')
         }}</label>
-        <FormulateInput type="button" :label="$t('message.dataupload.next')" @click="next()" v-if="showNext">
-        </FormulateInput>
+        <FormKit type="button" :label="$t('message.dataupload.next')" @click="next()" v-if="showNext">
+        </FormKit>
       </div>
     </div>
 

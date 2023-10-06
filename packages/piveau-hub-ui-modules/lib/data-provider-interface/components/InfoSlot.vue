@@ -90,8 +90,8 @@ export default {
 
       const element = this.$el;
       for (const sibling of element.parentNode.children) {
-        // Siblings only with the exception of elements with class="formulate-input-help"
-        if (sibling !== element && !sibling.classList.contains('formulate-input-help')) {
+        // Siblings only with the exception of elements with class="formkit-input-help"
+        if (sibling !== element && !sibling.classList.contains('formkit-input-help')) {
           // toggle display:none!important on sibling
           sibling.classList.toggle('d-none');
         }

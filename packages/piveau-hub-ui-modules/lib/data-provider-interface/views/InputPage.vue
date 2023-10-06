@@ -3,16 +3,16 @@
     <slot></slot>
 
     <div class="inputContainer" v-if="isInput">
-      <div class="formContainer formulate">
+      <div class="formContainer formkit">
        
-        <FormulateForm name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
+        <FormKitSchema name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
           @submit="handleSubmit"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
           
-          <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
-        </FormulateForm>
-        <FormulateInput type="hidden" class="display-none"></FormulateInput>
+          <FormKit type="submit" id="submit-form" class="display-none"></FormKit>
+        </FormKitSchema>
+        <FormKit type="hidden" class="display-none"></FormKit>
       </div>
     </div>
     <div v-if="isDistributionOverview">
@@ -340,7 +340,7 @@ select {
 }
 
 .grid2r2c {
-  .formulate-input-group-repeatable {
+  .formkit-input-group-repeatable {
     display: grid;
     grid-template-columns: 70% 28%;
     grid-template-rows: auto auto;
@@ -350,7 +350,7 @@ select {
 }
 
 .grid1r2c {
-  .formulate-input-group-repeatable {
+  .formkit-input-group-repeatable {
     display: grid;
     grid-template-columns: 70% 28%;
     grid-template-rows: auto;

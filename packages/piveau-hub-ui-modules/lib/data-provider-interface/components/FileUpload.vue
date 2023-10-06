@@ -1,5 +1,5 @@
 <template>
-  <div ref="fileupload" :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
+  <div ref="fileupload" :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
     <div class="file-div position-relative">
       <input type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })">
@@ -59,7 +59,7 @@ export default {
       // Traverse the DOM tree upwards.
       while (currentElement) {
         // If the current element is an input group, return it.
-        if (currentElement.classList.contains('formulate-input-group-repeatable')) {
+        if (currentElement.classList.contains('formkit-input-group-repeatable')) {
           return currentElement;
         }
         // If not, move to the parent element.
@@ -83,7 +83,7 @@ export default {
 
       // Get the parent element of all input groups.
       const parentOfAllInputGroups = parentInputGroup.parentElement;
-      const allInputGroupsNodeList = parentOfAllInputGroups.querySelectorAll('.formulate-input-group-repeatable');
+      const allInputGroupsNodeList = parentOfAllInputGroups.querySelectorAll('.formkit-input-group-repeatable');
       const allInputGroupsArray = Array.from(allInputGroupsNodeList);
 
       // Find the index of the parent input group within the array of all input groups.

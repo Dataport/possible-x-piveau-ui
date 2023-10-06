@@ -1,4 +1,4 @@
-.formulate-input-group-repeatable-remove {
+.formkit-input-group-repeatable-remove {
     height: 100% !important;
     top: 0 !important;
     right: 0 !important;
@@ -18,19 +18,19 @@
 
 }
 
-.formulate-input-group-repeatable-remove:hover:after {
+.formkit-input-group-repeatable-remove:hover:after {
     left: unset !important;
 }
 
-.formulate-input-group-repeatable-remove:hover:before {
+.formkit-input-group-repeatable-remove:hover:before {
     left: unset !important;
 }
 
-.formulate-input-group-repeatable-remove:hover {
+.formkit-input-group-repeatable-remove:hover {
     width: 2.5% !important
 }
 
-.formulate-input-group-add-more {
+.formkit-input-group-add-more {
     justify-content: center !important;
 
     // button:after {
@@ -72,13 +72,13 @@
 
 
 
-.formulate-input-element--button {
+.formkit-input-element--button {
     position: relative;
 }
 
 
 .langDescriptionInput {
-    .formulate-input-group-repeatable {
+    .formkit-input-group-repeatable {
         display: flex;
         flex-direction: column-reverse;
     }
@@ -89,7 +89,7 @@
             border-radius: 0 0 5px 5px !important;
         }
 
-        .formulate-input-wrapper {
+        .formkit-input-wrapper {
             label {
                 display: none;
             }
@@ -99,7 +99,7 @@
             display: none !important;
         }
 
-        .formulate-input-errors {
+        .formkit-input-errors {
             display: flex;
             align-items: baseline;
             justify-content: flex-end;
@@ -113,7 +113,7 @@
             display: none !important
         }
 
-        .formulate-input-element--select {
+        .formkit-input-element--select {
             display: flex;
             border-radius: 5px 5px 0 0 !important;
             border: 1px solid #cecece;
@@ -130,7 +130,7 @@
 
         }
 
-        .formulate-input-element--select:after {
+        .formkit-input-element--select:after {
             content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
             width: 24px;
             height: 24px;
@@ -139,12 +139,12 @@
             left: 1.5%;
         }
 
-        .formulate-input-element--text {
+        .formkit-input-element--text {
             margin-bottom: 0 !important;
 
         }
 
-        .formulate-input-help {
+        .formkit-input-help {
             margin-top: 0.5rem;
         }
 
@@ -152,7 +152,7 @@
             display: none !important
         }
 
-        .formulate-input-help {
+        .formkit-input-help {
             display: none !important;
         }
     }
@@ -168,7 +168,7 @@
             display: none !important
         }
 
-        .formulate-input-element--select {
+        .formkit-input-element--select {
             display: flex !important;
             border-radius: 5px 5px 0 0 !important;
             border: 1px solid #cecece;
@@ -185,7 +185,7 @@
 
         }
 
-        .formulate-input-element--select:after {
+        .formkit-input-element--select:after {
             content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
             width: 24px;
             height: 24px;
@@ -194,12 +194,12 @@
             left: 1.5%;
         }
 
-        .formulate-input-element--text {
+        .formkit-input-element--text {
             margin-bottom: 0 !important;
 
         }
 
-        .formulate-input-help {
+        .formkit-input-help {
             margin-top: 0.5rem;
         }
 
@@ -207,20 +207,20 @@
             display: none !important
         }
 
-        .formulate-input-help {
+        .formkit-input-help {
             display: none !important;
         }
     }
 }
 
 .langStringInput {
-    .formulate-input-group-repeatable {
+    .formkit-input-group-repeatable {
         display: flex;
         flex-direction: row-reverse;
     }
 
     .inputTextfield {
-        .formulate-input-element--text {
+        .formkit-input-element--text {
             input {
                 height: 45px;
             }
@@ -243,11 +243,11 @@
             display: none !important;
         }
 
-        .formulate-input-help {
+        .formkit-input-help {
             display: none !important;
         }
 
-        .formulate-input-errors {
+        .formkit-input-errors {
             display: flex;
             align-items: baseline;
             justify-content: flex-end;
@@ -255,11 +255,11 @@
     }
 
     .selectLangField {
-        .formulate-input-element--select {
+        .formkit-input-element--select {
             height: 45px;
         }
 
-        .formulate-input-error {
+        .formkit-input-error {
             margin-top: 1.9rem;
         }
 
@@ -277,7 +277,7 @@
             display: none !important
         }
 
-        .formulate-input-element--select {
+        .formkit-input-element--select {
             display: flex !important;
             border-radius: 5px 0 0 5px !important;
             border: 1px solid #cecece;
@@ -293,7 +293,7 @@
 
         }
 
-        .formulate-input-element--select:after {
+        .formkit-input-element--select:after {
             content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
             width: 24px;
             height: 24px;
@@ -302,12 +302,12 @@
             left: 10%;
         }
 
-        .formulate-input-element--text {
+        .formkit-input-element--text {
             margin-bottom: 0 !important;
 
         }
 
-        .formulate-input-help {
+        .formkit-input-help {
             margin-top: 0.5rem;
         }
 
@@ -315,7 +315,7 @@
             display: none !important
         }
 
-        .formulate-input-help {
+        .formkit-input-help {
             position: absolute;
         }
     }
@@ -323,7 +323,7 @@
 
 }
 
-.formulate-form {
+.formkit-form {
     button {
         border-radius: 5px !important;
         font-size: 1em !important;
@@ -331,9 +331,9 @@
     }
 }
 
-.formulate-input-element--conditional-input,
-.formulate-input-element--autocomplete-input,
-.formulate-input-group-repeatable {
+.formkit-input-element--conditional-input,
+.formkit-input-element--autocomplete-input,
+.formkit-input-group-repeatable {
     border: 1px solid #efefef;
     border-radius: 5px;
     padding: 1em 3em 1em 1em;
@@ -350,7 +350,7 @@
     padding-top: 0 !important;
 }
 .startEndDate{
-    .formulate-input-group-repeatable{
+    .formkit-input-group-repeatable{
         justify-content: space-between;
     }
    
@@ -414,11 +414,11 @@
 }
 
 .tempResWrapper {
-    .formulate-input-group-repeatable {
+    .formkit-input-group-repeatable {
         display: flex;
     }
 
-    .formulate-input {
+    .formkit-input {
         margin: 0 6px;
     }
 }

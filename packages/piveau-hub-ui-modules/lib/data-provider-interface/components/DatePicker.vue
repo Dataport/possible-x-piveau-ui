@@ -1,5 +1,5 @@
 /*
-Custom DatePicker component (datetime-local) for vue-formulate.
+Custom DatePicker component (datetime-local) for formkit.
 Fixes the issue where the default datetime-local input is not supported well on Firefox
 */
 
@@ -7,14 +7,14 @@ Fixes the issue where the default datetime-local input is not supported well on 
   <div @click="newField">
     <div v-if="notRange">
       <vue-date-picker v-model="context.model" :type="type"
-        :class="`formulate-input-element formulate-input-element--${context.type} d-block w-100`" :clearable="false"
+        :class="`formkit-input-element formkit-input-element--${context.type} d-block w-100`" :clearable="false"
         :show-second="false" :format="format" :value-type="valueType" @input="onInput" :default-value="new Date()"
         :editable="false" :disabled-date="disabledDates" />
     </div>
     <div v-else>
       <input v-model="context.model" hidden/>
       <vue-date-picker v-model="dateValues" :type="type"
-        :class="`formulate-input-element formulate-input-element--${context.type} d-block w-100`" :clearable="false"
+        :class="`formkit-input-element formkit-input-element--${context.type} d-block w-100`" :clearable="false"
         :show-second="false" :format="format" :value-type="valueType" @input="onInput" :editable="false" :default-value="new Date()"
         range />
     </div>
@@ -53,7 +53,7 @@ export default {
     if (this.context.attributes.identifier === "temporalRange") this.notRange = false;
     if (!this.context) {
       throw new Error(`DatePicker: context is required.
-      Are you sure you use this component as a custom vue-formulate input?`);
+      Are you sure you use this component as a custom formkit input?`);
     }
   },
   computed: {
