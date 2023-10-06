@@ -27,7 +27,7 @@ const actions = {
       const service = getters.getService(state);
       service.autocomplete(query)
         .then((response) => {
-          const res = response.data.result.results;
+          const res = response.data.results;
           commit('SET_SUGGESTIONS', res);
           resolve(res);
         }).catch((error) => {
