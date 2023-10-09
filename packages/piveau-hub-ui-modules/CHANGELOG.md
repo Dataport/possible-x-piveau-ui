@@ -1,3 +1,18 @@
+# [4.0.0-alpha.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2023-10-09)
+
+
+### Bug Fixes
+
+* install cross-env ([76c2947](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/76c2947564c393d07ce65efc9a14f29ceefd4972))
+* use OSC urls ([a627a98](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a627a983ebf0d451f50accbb5c2f01c0b63c06d2))
+
+
+### Features
+
+* replace Formulate by Formkit elements ([eb3cc59](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/eb3cc5963ecef65ebbaeb4d69b1e38054b4f9ae2))
+
+
+
 # [4.0.0-alpha.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.10.6...v4.0.0-alpha.3) (2023-09-29)
 
 
