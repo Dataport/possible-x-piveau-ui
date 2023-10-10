@@ -34,6 +34,7 @@
             "showXMore": "Show {increment} more",
             "identifier": "Identifier",
             "isPartOf": "Is sub catalogue of",
+            "erpd": "European Register for Protected Data",
             "dataServices": "Data services",
             "chooseType": "Choose a Type",
             "organizationName": "Organization Name",
@@ -1800,7 +1801,8 @@
             },
             "countMessage": "catalogues found",
             "loadingMessage": "Loading catalogues...",
-            "geoBoundsMessageRemove": "Close this notification to remove the limitation or use the reset function."
+            "geoBoundsMessageRemove": "Close this notification to remove the limitation or use the reset function.",
+            "erpdEmpty": "Once available, this page will list data provided by National Single Information Points according to Art. 8.2 of the <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32022R0868\" target=\"_blank\">Data Governance Act.</a><br><br>You can find further information on the implementation of the Data Governance Act <a href=\"https://data.europa.eu/en/academy/data-governance-act-implementation\" target=\"_blank\">here</a>."
         },
         "datasetFacets": {
             "facets": {
@@ -1827,7 +1829,9 @@
                 "categories": "Categories",
                 "catalog": "Catalogues",
                 "countrydata": "Country data",
-                "tags": "Tags"
+                "tags": "Tags",
+                "erpd": "ERPD",
+                "erpdOnly": "ERPD Data Only"
             },
             "title": "Filters",
             "and": "AND",
@@ -1846,6 +1850,7 @@
                     "datasets": "Datasets",
                     "catalogs": "Catalogues",
                     "metadataquality": "Metadata quality",
+                    "erpd": "European Register for Protected Data",
                     "sparqleditor": "SPARQL Editor",
                     "statistics": "Statistics",
                     "sparqlsearch": "SPARQL Search",
