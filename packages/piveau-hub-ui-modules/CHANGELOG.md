@@ -1,3 +1,12 @@
+## [3.11.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.6...v3.11.7) (2023-10-10)
+
+
+### Bug Fixes
+
+* facet selection ([56fafbc](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/56fafbccdc1606db22cf6605feba798096bbcb4b))
+
+
+
 ## [3.11.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.5...v3.11.6) (2023-10-06)
 
 
