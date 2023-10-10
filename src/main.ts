@@ -132,14 +132,15 @@ const LOCALE = env.languages.locale;
 const FALLBACKLOCALE = env.languages.fallbackLocale;
 
 const i18n = createI18n({
-  allowComposition: true,
-  legacy: false,
-  globalInjection: true,
   locale: LOCALE,
   fallbackLocale: FALLBACKLOCALE,
   messages: I18N_CONFIG,
-  silentTranslationWarn: true,
+  allowComposition: true,
+  legacy: false,
+  globalInjection: true,
+  fallbackWarn: false,
   silentFallbackWarn: true,
+  silentTranslationWarn: true,
   warnHtmlMessage: false,
 });
 
