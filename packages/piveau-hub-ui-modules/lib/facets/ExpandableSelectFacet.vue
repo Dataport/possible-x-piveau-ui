@@ -52,11 +52,13 @@
 </template>
 
 <script>
-
+import { defineComponent } from 'vue';
 import DatasetsFacetsItem from "../datasets/datasetsFacets/DatasetsFacetsItem.vue";
 import FacetTitle from "../facets/FacetTitle.vue";
-export default {
+
+export default defineComponent({
   name: 'ExpandableSelectFacet',
+  inheritAttrs: false,
   components: {FacetTitle, DatasetsFacetsItem},
   props: {
     header: {
@@ -115,7 +117,7 @@ export default {
       return facet.count;
     }
   }
-};
+});
 
 </script>
 

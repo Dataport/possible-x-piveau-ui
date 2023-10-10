@@ -47,7 +47,6 @@
     "leaflet": "^1.9.4",
     "leaflet-easybutton": "^2.4.0",
     "vue": "^3.1.0",
-    "@vue/compat": "^3.1.0",
     "vue3-datepicker": "^0.3.4",
     "vue-router": "^4.1.6",
     "vuex": "^4.0.2",
