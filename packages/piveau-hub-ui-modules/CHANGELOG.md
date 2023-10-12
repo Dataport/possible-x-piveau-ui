@@ -1,3 +1,13 @@
+# [4.0.0-alpha.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2023-10-12)
+
+
+### Bug Fixes
+
+* remove compat version and fix warnings ([980d0ba](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/980d0ba48a0ecfa2ac7aeaffa3db60aa5f3736c6))
+* remove deprecated .() /.() /.() functionality ([a6631a7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a6631a74b81c98fdeadca74df788b7bd0a6b0f30))
+
+
+
 # [4.0.0-alpha.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.3...v4.0.0-alpha.4) (2023-10-09)
 
 
