@@ -64,6 +64,7 @@ import { saveAs } from 'file-saver';
 import $ from "jquery";
 import { getTranslationFor } from "../../utils/helpers";
 import { mapGetters } from "vuex";
+import { onUnmounted } from 'vue'
 
 export default {
   name: "DownloadAllDistributions",
@@ -302,7 +303,13 @@ export default {
     }
   },
   created() {
-    this.$once('hook:destroyed', () => {
+    window.addEventListener('beforeunload', this.beforeWindowUnload);
+  },
+  beforeUnmount() {
+    window.removeEventListener('beforeunload', this.beforeWindowUnload);
+  },
+  setup() {
+    onUnmounted(() => {
       this.$router.beforeEach((to, from, next) => {
         if (this.isLoadingAllDistributionFiles && !this.isDownloadAllDistributionsCanceled) {
           const answer = window.confirm(this.$t('message.datasetDetails.datasets.leavePageWindow.text')); // eslint-disable-line
@@ -319,12 +326,8 @@ export default {
           next();
         }
       })();
-    });
-    window.addEventListener('beforeunload', this.beforeWindowUnload);
+    })
   },
-  beforeUnmount() {
-    window.removeEventListener('beforeunload', this.beforeWindowUnload);
-  }
 }
 </script>
 

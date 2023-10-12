@@ -4,7 +4,7 @@
     <div id="stepperAnchor" class="stickyStepper">
       <div class="SSfirstRow">
         <h1 class="small-headline ml-1 my-0">{{ mode }}</h1>
-        <Navigation @clearStorage="clearStorageAndValues" class="w-100 stickyNav"></Navigation>
+        <Navigation @clearStorage="clearStorageAndValues" :nextStep="nextStep" class="w-100 stickyNav"></Navigation>
 
       </div>
 
@@ -18,7 +18,7 @@
       </StepProgress>
     </div>
     <!-- CONTENT -->
-    <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
+    <router-view @goToNext="goToNext" :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
       <div id="subStepperBox">
         <div id="blur" class="position-absolute w-100 h-100"></div>
         <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
@@ -62,6 +62,7 @@ export default {
       property: this.$route.params.property,
       page: this.$route.params.page,
       id: this.$route.params.id,
+      nextStep: null,
     };
   },
   computed: {
@@ -116,6 +117,9 @@ export default {
     ...mapActions('auth', [
       'populateDraftAndEdit',
     ]),
+    goToNext() {
+      this.next = this.getCurrentStep();
+    },
     getTranslatedStepNamesByProperty(property) {
       const names = this.steps[property].map(s => this.$t(`message.dataupload.${property}.stepper.${s}.name`));
       if (property !== 'distributions') {

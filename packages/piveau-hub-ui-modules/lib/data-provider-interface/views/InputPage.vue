@@ -187,7 +187,7 @@ export default {
       $('#validationModal').modal({ show: true });
     },
     handleSubmit() {
-      this.$root.$emit('go-to-next');
+      this.$emit('go-to-next');
     },
     getFirstPath() {
       let firstStep;

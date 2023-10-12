@@ -51,7 +51,6 @@ const peerDependencies = {
   "qs": "x.x.x",
   "vee-validate": "x.x.x",
   "vue": "x.x.x",
-  "@vue/compat": "x.x.x",
   "vue3-cookies": "x.x.x",
   "vue-head": "x.x.x",
   "vue-i18n": "x.x.x",

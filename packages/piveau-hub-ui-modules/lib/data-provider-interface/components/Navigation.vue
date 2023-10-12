@@ -62,6 +62,12 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Navigation',
   components: {},
+  props: {
+    nextStep: {
+      type: Number,
+      default: null,
+    }
+  },
   data() {
     return {
       openClear: false,
@@ -348,13 +354,18 @@ export default {
     }
   },
   mounted() {
-    this.$root.$on('go-to-next', () => this.next());
-
     // Show error if ID was already taken in meantime
     if (this.iDError) this.handleIDError();
     if (this.datasetMandatoryError) this.handleDatasetMandatoryError();
     if (this.distributionMandatoryError) this.handleDistributionMandatoryError();
     if (this.catalogMandatoryError) this.handleCatalogMandatoryError();
+  },
+  watch: {
+    nextStep: {
+      handler() {
+        this.next();
+      },
+    },
   },
 };
 </script>

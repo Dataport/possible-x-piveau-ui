@@ -724,6 +724,7 @@
         this.$root.$emit('contentLoaded')
       }
 
+      // TODO: Replace this by Vuex store value 'dateIncorrect'
       this.$root.$on('date-incorrect', () => {
         this.dateIncorrect = true;
       });
@@ -758,9 +759,6 @@
     },
     beforeUnmount() {
       $('.tooltip').remove();
-    },
-    destroyed() {
-      this.$root.$off('date-incorrect');
     },
   };
 </script>
