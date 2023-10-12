@@ -229,13 +229,12 @@ app.use(vueKeyCloak, {
     ...env.authentication.keycloakInit,
   },
   onReady: () => {
-    console.log("Keycloak loaded")
+    console.log("Keycloak loaded");
     app.mount('#app');
   },
-  onInitError: () => {
-    console.log("Error loading keycloak")
+  onInitError: (error) => {
+    console.log("Error loading keycloak");
+    console.log(error);
     app.mount('#app');
   }
 });
-
-// app.mount('#app');

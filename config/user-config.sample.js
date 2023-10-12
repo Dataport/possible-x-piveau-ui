@@ -235,6 +235,16 @@ const glueConfig = {
         TIMEOUT_MS: 10000,
       },
       quality: {
+        useQualityData: true,
+        useQualityDistributionData: true,
+        useDQVDataDropdown: true,
+        formatsDQVData: [
+          'rdf',
+          'ttl',
+          'n3',
+          'nt',
+          'jsonld',
+        ],
         displayAll: false,
         numberOfDisplayedQualityDistributions: 5,
         csvLinter: {
@@ -306,8 +316,8 @@ const glueConfig = {
   tracker: {
     // TODO: Implement disable tracker option based on condition #2767
     isPiwikPro: true, // true: PiwikPro | false: Matomo
-    siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
-    trackerUrl: 'https://opanalytics.containers.piwik.pro/'
+    siteId: '',
+    trackerUrl: ''
   },
 };
 

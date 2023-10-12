@@ -1,8 +1,10 @@
 # Migration Guide (v4)
 
-This Migration Guide shows how to use Vue 3 together with Vite.
+This Migration Guide explains how to use Vue 3 together with Vite in your `piveau-hub-ui`. 
 
-To make use of Vue 3 + Vite in your project, apply the following changes to `piveau-hub-ui`:
+It does not contain all breaking changes of Vue 3, but only the ones which are neccessary for `piveau-hub-ui`, i.e. all developers are asked to read about Vue 3 themselves.
+
+Please follow this guide strictly and apply the following changes:
 
 ## 1. Update `package.json`
 
@@ -85,11 +87,10 @@ To make use of Vue 3 + Vite in your project, apply the following changes to `piv
 ## 2. Update `main.ts`, `router.js` & `index.html`
 
 <details><summary>Open</summary>
-<br>
 
 #### 2.1 `main.ts`
 
-> _Replace all occurences of `Vue.xxx` by `app.xxx`!_
+_Replace all occurences of `Vue.xxx` by `app.xxx`!_
 
 ```js
 import { createI18n } from 'vue-i18n'
@@ -104,7 +105,7 @@ app.mount('#app');
 
 #### 2.2 `router.js`
 
-> _Base option was removed, use history!_
+_Base option was removed, use history!_
 
 ```js
 import * as Router from 'vue-router';
@@ -122,7 +123,7 @@ const router = Router.createRouter({
 
 #### 2.3 `index.html`
 
-> _Move `index.html` into root directory!_
+_Move `index.html` into root directory!_
 
 
 ```html
@@ -152,7 +153,434 @@ const router = Router.createRouter({
 </details>
 
 
-## 3. Replace `Vue.`
+## 3. Replace `vue.config.js` by `vite.config.ts`
+
+<details><summary>Open</summary>
+<br>
+
+```ts
+import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
+import { lstatSync } from 'node:fs';
+import path from 'path';
+import config from './config';
+
+const isSymlink = (pkg: string) => {
+  const packagePath = path.resolve('..', '..', 'node_modules', pkg);
+  try {
+    return lstatSync(packagePath).isSymbolicLink();
+  } catch {
+    return false;
+  }
+}
+
+let buildMode;
+if (process.env.NODE_ENV === 'production') {
+  buildMode = process.env.BUILD_MODE === 'test' ? 'test' : 'build';
+} else {
+  buildMode = 'dev';
+}
+
+const buildConfig = {
+  BASE_PATH: config[buildMode].assetsPublicPath,
+  SERVICE_URL: config[buildMode].serviceUrl,
+};
+
+export default defineConfig({
+  base: buildConfig.BASE_PATH,
+  plugins: [
+    vue(
+      { template: { compilerOptions: { whitespace: 'preserve' } } }
+    ),
+  ],
+  server: {
+    port: 8080
+  },
+  define: {},
+  resolve: {
+    alias: [
+      {
+        find: 'vue',
+        replacement: '@vue/compat',
+      },
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, 'src')
+      },
+      {
+        find: '@modules-scss',
+        replacement: isSymlink('@piveau/piveau-hub-ui-modules') ?
+          path.resolve(__dirname, '..', '..', 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
+          : path.resolve(__dirname, 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
+      },
+      {
+        find: /^~(.*)$/,
+        replacement: '$1',
+      },
+      {
+        find: 'lodash',
+        replacement: 'lodash-es',
+      },
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
+      },
+    ],
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    preserveSymlinks: false
+  },
+
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'app.[hash].js',
+      }
+    }
+  }
+});
+```
+</details>
+
+## 4. Update `user-config.sample.js`
+
+<details><summary>Open</summary>
+<br>
+
+```js
+import i18n from './i18n';
+
+const glueConfig = {
+  api: {
+    // baseUrl: 'https://data.europa.eu/api/hub/search/',
+    // baseUrl: 'https://ppe.data.europa.eu/api/hub/search/',
+    baseUrl: 'https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
+    // hubUrl: 'https://data.europa.eu/api/hub/repo/',
+    // hubUrl: 'https://ppe.data.europa.eu/api/hub/repo/',
+    hubUrl: 'https://piveau-hub-repo-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
+    // qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
+    // qualityBaseUrl: 'https://ppe.data.europa.eu/api/mqa/cache/',
+    qualityBaseUrl: 'https://piveau-metrics-cache-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
+    // similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
+    // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
+    similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
+    // fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
+    // fileUploadUrl: 'https://ppe.data.europa.eu/api/hub/store/',
+    fileUploadUrl: 'https://piveau-hub-store-data-europa-eu.apps.osc.fokus.fraunhofer.de/',
+
+    sparqlUrl: 'https://data.europa.eu/sparql',
+    gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
+    catalogBaseUrl: 'https://europeandataportal.eu/',
+    vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
+  },
+  authentication: {
+    useService: true,
+    login: {
+      useLogin: true,
+
+      loginTitle: 'Login',
+      loginURL: '/login',
+      loginRedirectUri: '/',
+
+      logoutTitle: 'Logout',
+      logoutURL: '/logout',
+      logoutRedirectUri: '/',
+    },
+    keycloak: {
+      realm: 'piveau',
+      clientId: 'piveau-hub-ui',
+      url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de',
+
+      // TODO: Do we need to include these properties? They seem to be default values that never change #2763
+      'ssl-required': 'external',
+      'public-client': true,
+      'verify-token-audience': true,
+      'use-resource-role-mappings': true,
+      'confidential-port': 0,
+    },
+    keycloakInit: {
+      pkceMethod: '',
+    },
+    rtp: {
+      grand_type: 'urn:ietf:params:oauth:grant-type:uma-ticket',
+      audience: 'piveau-hub-repo',
+    },
+    authToken: '',
+  },
+  routing: {
+    routerOptions: {
+      base: '/',
+      mode: 'history',
+    },
+    navigation: {
+      showSparql: false,
+    },
+    pagination: {
+      usePagination: true,
+      usePaginationArrows: true,
+      useItemsPerPage: true,
+      defaultItemsPerPage: 10, // TODO: Make use of this property #2764
+      defaultItemsPerPageOptions: [5, 10, 25, 50],
+    },
+  },
+  metadata: {
+    title: 'piveau Hub-UI',
+    description: 'A modern and customizable web application for data management of extensive data catalogs.',
+    keywords: 'Open Data',
+  },
+  content: {
+    datasets: {
+      useSort: true,
+      useFeed: true,
+      useCatalogs: true,
+      followKeywordLinks: 'nofollow',
+      maxKeywordLength: 15,
+      facets: {
+        useDatasetFacets: true,
+        useDatasetFacetsMap: false,
+        showClearButton: false,
+        showFacetsTitle: false,
+        cutoff: 5 ,
+        MIN_FACET_LIMIT: 10,
+        MAX_FACET_LIMIT: 50,
+        FACET_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
+        FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
+        defaultFacetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license'],
+        scoringFacets: {
+          useScoringFacets: true, // TODO: Make use of this property #2764
+          defaultScoringFacets: {
+            excellentScoring: {
+              id: 'excellentScoring',
+              title: 'Excellent',
+              count: 0,
+              minScoring: 351,
+              maxScoring: 405,
+            },
+            goodScoring: {
+              id: 'goodScoring',
+              title: 'Good',
+              count: 0,
+              minScoring: 221,
+              maxScoring: 350,
+            },
+            sufficientScoring: {
+              id: 'sufficientScoring',
+              title: 'Sufficient',
+              count: 0,
+              minScoring: 121,
+              maxScoring: 220,
+            },
+            badScoring: {
+              id: 'badScoring',
+              title: 'Any',
+              count: 0,
+              minScoring: 0,
+              maxScoring: 120,
+            },
+          },
+        },
+      },
+    },
+    catalogs: {
+      useSort: true, // TODO: Make use of this property #2764
+      useCatalogCountries: true,
+      defaultCatalogImagePath: '/flags',
+      defaultCatalogCountryID: 'eu',
+      defaultCatalogID: 'european-union-open-data-portal',
+      facets: {
+        useCatalogFacets: true,
+        showClearButton: false,
+        showFacetsTitle: false,
+        cutoff: 5,
+        MIN_FACET_LIMIT: 50,
+        MAX_FACET_LIMIT: 100,
+        FACET_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
+        FACET_GROUP_OPERATORS: Object.freeze({ or: 'OR', and: 'AND' }),
+        defaultFacetOrder: ['country'],
+      },
+    },
+    datasetDetails: {
+      header: {
+        navigation: "top",
+        hidePublisher: false,
+        hideDate: false
+      },
+      keywords: {
+        isVisible: true,
+        showTitle: false,
+        collapsed: false,  // displayAll
+      },
+      description: {
+        enableMarkdownInterpretation: true,
+      },
+      distributions: {
+        displayAll: false,
+        displayCount: 7,
+        incrementSteps: [10, 50],
+        descriptionMaxLines: 3,
+        descriptionMaxChars: 250,
+        showValidationButton: false, // TODO: Make use of this property #2764
+      },
+      downloadAs: {
+        enable: true,
+        proxyUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
+        url: 'https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert',
+        conversionFormats: [
+          { sourceFileFormat: 'HTML', targetFileFormat: [ 'html', 'pdf', 'docx', 'json', 'odt', 'rtf' ]},
+          { sourceFileFormat: 'CSV', targetFileFormat: [ 'csv', 'docx', 'html', 'json', 'odt', 'rtf', 'xls', 'xlsx', 'xml']},
+          { sourceFileFormat: 'JSON', targetFileFormat: [ 'json', 'xml', ]},
+          { sourceFileFormat: 'ODT', targetFileFormat: [ 'odt', 'docx', 'html', 'json', 'rtf' ]},
+          { sourceFileFormat: 'DOCX', targetFileFormat: [ 'docx', 'pptx', 'odt', 'pdf', 'txt', 'html', 'json', 'odt', 'rtf']},
+          { sourceFileFormat: 'XLSX', targetFileFormat: [ 'xlsx', 'csv',]},
+          { sourceFileFormat: 'XLS', targetFileFormat: [ 'xls', 'csv',]},
+          { sourceFileFormat: 'PDF', targetFileFormat: [ 'pdf', 'txt',]}
+        ]
+      },
+      similarDatasets: {
+        breakpoints: {
+          verySimilar: { start: 0, end: 20 },
+          similar: { start: 20, end: 25 },
+          lessSimilar: { start: 25, end: 35 },
+        },
+      },
+      pages: {
+        isVisible: false,
+        displayAll: false,
+        displayCount: 7,
+        incrementSteps: [10, 50],
+        descriptionMaxLines: 3,
+        descriptionMaxChars: 250,
+      },
+      visualisations: {
+        isVisible: false,
+        displayAll: false,
+        displayCount: 7,
+        incrementSteps: [10, 50],
+        descriptionMaxLines: 3,
+        descriptionMaxChars: 250,
+      },
+      dataServices: {
+        isVisible: false,
+        displayAll: false,
+        displayCount: 7,
+        incrementSteps: [10, 50],
+        descriptionMaxLines: 3,
+        descriptionMaxChars: 250,
+      },
+      isUsedBy: {
+        isVisible: false,
+      },
+      relatedResources: {
+        isVisible: false,
+      },
+      bulkDownload: {
+        buttonPosition: "top",
+        MAX_FILE_TITLE_LENGTH: 80,
+        MAX_REQUESTS_COUNT: 5, // TODO: Make use of this property #2764
+        INTERVAL_MS: 10, // TODO: Make use of this property #2764
+        TIMEOUT_MS: 10000,
+      },
+      quality: {
+        useQualityData: true,
+        useQualityDistributionData: true,
+        useDQVDataDropdown: true,
+        formatsDQVData: [
+          'rdf',
+          'ttl',
+          'n3',
+          'nt',
+          'jsonld',
+        ],
+        displayAll: false,
+        numberOfDisplayedQualityDistributions: 5,
+        csvLinter: {
+          enable: true,
+          displayAll: false,
+          numberOfDisplayedValidationResults: 5,
+        },
+      }
+    },
+    maps: {
+      mapVisible: true,
+      useAnimation: true,
+      location: [[52.526, 13.314], 10],
+      spatialType: 'Point',
+      height: '400px',
+      width: '100%',
+      mapContainerId: 'mapid',
+      urlTemplate: 'https://gisco-services.ec.europa.eu/maps/wmts/1.0.0/WMTSCapabilities.xml/wmts/OSMCartoComposite/EPSG3857/{z}/{x}/{y}.png',
+      geoBoundsId: 'ds-search-bounds',
+      sender: {
+        startBounds: [[34.5970, -9.8437], [71.4691, 41.4843]],
+        height: '200px',
+        width: '100%',
+        mapContainerId: 'modalMap',
+      },
+      receiver: {
+        startBounds: [[34.5970, -9.8437], [71.4691, 41.4843]],
+        height: '250px',
+        width: '100%',
+        mapContainerId: 'mapid',
+        attributionPosition: 'topright',
+      },
+      options: {
+        id: 'mapbox/streets-v11',
+        accessToken: 'pk.eyJ1IjoiZmFiaWFwZmVsa2VybiIsImEiOiJja2x3MzlvZ3UwNG85MnBseXJ6aGI2MHdkIn0.bFs2g4bPMYULlvDSVsetJg',
+        attribution: '&copy; <a href="https://ec.europa.eu/eurostat/web/gisco/">Eurostat - GISCO</a>',
+      },
+      mapStyle: {
+        color: 'red',
+        fillColor: 'red',
+        fillOpacity: 0.5,
+        weight: 2,
+        radius: 1,
+      },
+    },
+    dataProviderInterface: {
+      useService: true,
+      basePath: '/dpi',
+      specification: 'dcatap',
+      annifIntegration: false,
+      enableFileUploadReplace: false,
+      buttons: {
+        Dataset: true,
+        Catalogue: false,
+      },
+      doiRegistrationService: {
+        persistentIdentifierType: 'eu-ra-doi',
+      },
+    },
+  },
+  languages: {
+    useLanguageSelector: true, // TODO: Make use of this property by passing it to the Header-Footer in App.vue #2766
+    locale: 'en',
+    fallbackLocale: 'en',
+  },
+  themes: {
+    header: 'dark',
+  },
+  tracker: {
+    // TODO: Implement disable tracker option based on condition #2767
+    isPiwikPro: true, // true: PiwikPro | false: Matomo
+    siteId: '',
+    trackerUrl: ''
+  },
+};
+
+export { glueConfig, i18n };
+```
+
+</details>
+
+## 5. Replace `Vue.`
+
+The `Vue` object is no longer available in Vue 3.
+This is a list of known usages in our UI that needs to be replaced.
+
+_Note: There may be more usages in your project, use the search function to search for `Vue.` !_
 
 <details><summary>Open</summary>
 <br>
@@ -173,18 +601,17 @@ Vue.prototype.<globalProperty>        ==> app.config.globalProperties.<globalPro
 </details>
 
 
-## 4. Update Keycloak
+## 6. Update Keycloak
 
 <details><summary>Open</summary>
-<br>
 
-#### 4.1 Update `keycloak-js` package
+#### 6.1 Update `keycloak-js` package
 
 ```js
   "keycloak-js": "22.0.3",
 ```
 
-#### 4.1 Create `src/services/keycloakService.js` to overwrite keycloak service
+#### 6.2 Create `src/services/keycloakService.js` to overwrite keycloak service
 
 ```js
 // @ts-nocheck
@@ -269,14 +696,9 @@ function init(config, watch, options) {
   const ctor = sanitizeConfig(config);
   const keycloak = new Keycloak(ctor);
 
-  // watch.$once('ready', (cb) => {
-  //   cb && cb();
-  // });
-
   keycloak.onReady = function (authenticated) {
     updateWatchVariables(authenticated);
     watch.ready = true;
-    typeof options.onReady === 'function' && watch.$emit('ready', options.onReady.bind(this, keycloak));
   };
 
   keycloak.onAuthSuccess = function () {
@@ -464,107 +886,123 @@ function sanitizeConfig(config) {
   }, config);
 }
 ```
-</details>
 
-## 5. Replace `vue.config.js` by `vite.config.ts`
+#### 6.3 Import local `keycloakService.js` in `main.ts`
 
-<details><summary>Open</summary>
-<br>
-
-```ts
-import vue from '@vitejs/plugin-vue';
-import { defineConfig } from 'vite';
-import { lstatSync } from 'node:fs';
-import path from 'path';
-import config from './config';
-
-const isSymlink = (pkg: string) => {
-  const packagePath = path.resolve('..', '..', 'node_modules', pkg);
-  try {
-    return lstatSync(packagePath).isSymbolicLink();
-  } catch {
-    return false;
-  }
-}
-
-let buildMode;
-if (process.env.NODE_ENV === 'production') {
-  buildMode = process.env.BUILD_MODE === 'test' ? 'test' : 'build';
-} else {
-  buildMode = 'dev';
-}
-
-const buildConfig = {
-  BASE_PATH: config[buildMode].assetsPublicPath,
-  SERVICE_URL: config[buildMode].serviceUrl,
-};
-
-export default defineConfig({
-  base: buildConfig.BASE_PATH,
-  plugins: [
-    vue(
-      { template: { compilerOptions: { whitespace: 'preserve' } } }
-    ),
-  ],
-  server: {
-    port: 8080
-  },
-  define: {},
-  resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: path.resolve(__dirname, 'src')
-      },
-      {
-        find: '@modules-scss',
-        replacement: isSymlink('@piveau/piveau-hub-ui-modules') ?
-          path.resolve(__dirname, '..', '..', 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
-          : path.resolve(__dirname, 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
-      },
-      {
-        find: /^~(.*)$/,
-        replacement: '$1',
-      },
-      {
-        find: 'lodash',
-        replacement: 'lodash-es',
-      },
-      {
-        find: 'vue-i18n',
-        replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
-      },
-    ],
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
-    preserveSymlinks: false
-  },
-
-  build: {
-    rollupOptions: {
-      output: {
-        entryFileNames: 'app.[hash].js',
-      }
-    }
-  }
-});
+```js
+import vueKeycloak from './services/keycloakService';
 ```
+
+#### 6.4 Remove vueKeycloak import from piveau-hub-ui-modules in `main.ts`
+
+```js
+import {
+  vueKeycloak,
+} from '@piveau/piveau-hub-ui-modules';
+```
+
 </details>
 
+## 7. Remove Dependency Injection
 
-## 6. Remove outdated content from piveau-hub-ui
+Our old Dependency Injection is outdated and was replaced. Remove the old code fragments regarding our Dependency Injection.
 
 <details><summary>Open</summary>
 <br>
 
-### 6.1 Delete npm files / packages
+_Remove `dependencies` property and `useService()` store action method and it´s usages!_
+
+```js
+export default {
+  dependencies: ["<Service>"],
+  ...
+  methods: {
+    ...mapActions("datasets", [
+      "useService",
+    ]),
+ ...
+}
+```
+
+</details>
+
+## 8. Remove outdated content from piveau-hub-ui
+
+At this point, the acutal Vue 3 migration is done. 
+
+Restore a clean state of the repo by performing the following actions in preparation for Installation & Test:
+
+<details><summary>Open</summary>
+
+### 8.1 Remove all occurences of:
+
+- `babel`
+- `webpack`
+
+### 8.2 Delete npm files / packages
 
 - `package-lock.json`
 - `/node_modules`
 
-### 6.2 Remove all occurences of:
+</details>
 
-- `babel`
-- `webpack`
+## 9. Installation & Test
+
+<details><summary>Open</summary>
+
+### 9.1 Install npm packages
+
+```bash
+npm install
+```
+
+### 9.2 Test application
+
+```bash
+npm run dev
+```
+
+### 9.3 Check console for errors & warnings
+
+The `@vue/compat` package should show warnings for Vue 2 related behaviour in your project, that is deprecated in Vue 3. 
+
+Fix all the errors and warnings and add instructions to this Migration Guide if it was not included.
+
+</details>
+
+## 10. Remove Vue compat package and use Vue 3
+
+The `@vue/compat` package which was used during the migration can now be removed so that the actual Vue 3 version will be used.
+
+<details><summary>Open</summary>
+
+### 10.1 Remove `@vue/compat` package from `package.json` and `vite.config.ts`
+
+```js
+"@vue/compat": "^3.1.0",
+```
+
+```js
+{
+  find: 'vue',
+  replacement: '@vue/compat',
+},
+```
+
+### 10.2 Install npm packages again
+
+```bash
+npm install
+```
+
+### 10.3 Test application again
+
+```bash
+npm run dev
+```
+
+If no errors or warnings are shown and the application is running as before, the upgrade to Vue 3 was successful!
+
 </details>
 
 ## References
@@ -575,3 +1013,4 @@ export default defineConfig({
 - https://router.vuejs.org/guide/migration/
 - https://vue-i18n.intlify.dev/guide/migration/vue3.html
 - https://formkit.com/getting-started/installation
+- https://vuejs.org/guide/components/provide-inject.html
