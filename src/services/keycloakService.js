@@ -84,7 +84,7 @@ function init(config, watch, options) {
     updateWatchVariables(authenticated);
     watch.ready = true;
     // TODO: Fix deprecated emit() functionality
-    // typeof options.onReady === 'function' && watch.$emit('ready', options.onReady.bind(this, keycloak));
+    typeof options.onReady === 'function' && watch.$emit('ready', options.onReady.bind(this, keycloak));
   };
 
   keycloak.onAuthSuccess = function () {

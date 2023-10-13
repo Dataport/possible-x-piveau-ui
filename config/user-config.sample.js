@@ -317,7 +317,7 @@ const glueConfig = {
     // TODO: Implement disable tracker option based on condition #2767
     isPiwikPro: true, // true: PiwikPro | false: Matomo
     siteId: '',
-    trackerUrl: ''
+    trackerUrl: 'https://opanalytics.containers.piwik.pro/',
   },
 };
 
