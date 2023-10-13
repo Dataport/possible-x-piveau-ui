@@ -4,7 +4,6 @@
       <div class="col">
         <catalog-details-facet
             class="catalog-details"
-            v-if="true"
             :catalog="superCatalog"
             :catalogLanguageIds="catalogLanguageIds"
         />
@@ -260,6 +259,9 @@
         const superCatalogs = this.$route.query['superCatalog'];
         const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
         if ((erpd === 'false' && superCatalog === erdpCatalog) || (erpd === 'true' && superCatalog !== erdpCatalog)) {
+          if (superCatalog === erdpCatalog) {
+            delete this.$route.query.showsubcatalogs;
+          }
           this.toggleFacet('superCatalog', erdpCatalog);
         }
       },

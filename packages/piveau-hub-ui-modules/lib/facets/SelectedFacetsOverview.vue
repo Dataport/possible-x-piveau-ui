@@ -62,6 +62,7 @@
 
         this.defaultFacetOrder.forEach((facet) => {
           if (this.showCatalogDetails && facet === 'catalog') return;
+          if (this.showCatalogDetails && facet === 'erpd') return;
           if (facet === 'erpd' && this.isErpdActive) { // Special case: erpd facet
             orderedFacets.push({
               field: 'erpd',
@@ -127,7 +128,7 @@
         } else return this.selectedFacets;
       },
       showCatalogDetails() {
-        return !isNil(this.$route.params.ctlg_id);
+        return !isNil(this.$route.params.ctlg_id) || !isNil(this.$route.query.showsubcatalogs);
       },
     },
     methods: {
@@ -165,7 +166,10 @@
         if (field === 'erpd') {
           const query = Object.assign({}, this.$route.query)
           if (this.$route.path === '/datasets') delete query.superCatalogue;
-          if (this.$route.path === '/catalogues') delete query.superCatalog;
+          if (this.$route.path === '/catalogues') {
+            delete query.superCatalog;
+            delete query.showsubcatalogs;
+          }
           this.$router.push({
             query
           })
