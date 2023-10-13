@@ -1,3 +1,13 @@
+# [4.0.0-alpha.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2023-10-13)
+
+
+### Bug Fixes
+
+* pipeline ([60ac0a9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/60ac0a9942a9c2db274c0f83b6325afeb1812845))
+* revert changes in keycloakService.ts ([10f2d74](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/10f2d745f2271d1a64ff7360dc583ff9b29fca9a))
+
+
+
 # [4.0.0-alpha.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.4...v4.0.0-alpha.5) (2023-10-12)
 
 
