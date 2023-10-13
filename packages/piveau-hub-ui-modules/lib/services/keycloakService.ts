@@ -4,9 +4,10 @@ import { createApp } from 'vue'
 import Keycloak from 'keycloak-js';
 import qs from 'qs';
 import axios from 'axios';
-import {
-  store
-} from '@piveau/piveau-hub-ui-modules';
+import store from "../store";
+// import {
+//   store
+// } from '@piveau/piveau-hub-ui-modules';
 
 let installed = false;
 let rtpToken = null;
@@ -78,13 +79,13 @@ export default {
 
 function init(config, watch, options) {
   const ctor = sanitizeConfig(config);
-  const keycloak = new Keycloak(ctor);
+  const keycloak = Keycloak(ctor);
 
   keycloak.onReady = function (authenticated) {
     updateWatchVariables(authenticated);
     watch.ready = true;
     // TODO: Fix deprecated emit() functionality
-    // typeof options.onReady === 'function' && watch.$emit('ready', options.onReady.bind(this, keycloak));
+    typeof options.onReady === 'function' && watch.$emit('ready', options.onReady.bind(this, keycloak));
   };
 
   keycloak.onAuthSuccess = function () {
