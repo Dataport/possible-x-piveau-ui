@@ -1,3 +1,12 @@
+# [4.0.0-alpha.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2023-10-16)
+
+
+### Bug Fixes
+
+* remove global emit event listener ([9668360](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/966836011df2f03161e66a6919cce6d207e3d546))
+
+
+
 # [4.0.0-alpha.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.5...v4.0.0-alpha.6) (2023-10-13)
 
 
