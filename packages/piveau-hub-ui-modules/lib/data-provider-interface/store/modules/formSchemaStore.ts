@@ -69,6 +69,7 @@ const mutations = {
      * (pageProperties) and the form definitions of the properties defined by DCATAP (propertyDefinition)
      */
     extractSchema(state, { pageProperties, propertyDefinitions }) {
+        console.log('EXTRACT SCHEMA');
         // important: create new empty schema each time so already existing schema will be overwritten on route/view-change
         const newSchema = [];
         for (let index = 0; index < pageProperties.length; index += 1) {

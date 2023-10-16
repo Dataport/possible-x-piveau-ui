@@ -5,7 +5,6 @@
       <div class="SSfirstRow">
         <h1 class="small-headline ml-1 my-0">{{ mode }}</h1>
         <Navigation @clearStorage="clearStorageAndValues" :nextStep="nextStep" class="w-100 stickyNav"></Navigation>
-
       </div>
 
       <!-- if current form is distribution form the main stepper for datasets should be shown also-->
@@ -17,8 +16,9 @@
         :current-step="3" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
       </StepProgress>
     </div>
+
     <!-- CONTENT -->
-    <router-view @goToNext="goToNext" :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
+    <router-view @goToNext="goToNext" :isDistributionOverview="isDistributionOverview" name="dpiSubpages" ref="dpiSubpages" :key="$route.query.edit">
       <div id="subStepperBox">
         <div id="blur" class="position-absolute w-100 h-100"></div>
         <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
@@ -26,10 +26,6 @@
         </StepProgress>
       </div>
     </router-view>
-    <!-- BOTTOM -->
-    <!-- <div>
-      <Navigation @clearStorage="clearStorageAndValues"></Navigation>
-    </div> -->
   </div>
 </template>
 
@@ -134,7 +130,7 @@ export default {
       // 1. Clear form values
       // 2. Clear store values
       // 3, Clear local storage
-      this.$refs.view.clear();
+      this.$refs.dpiSubpages.clear();
 
       // Jump to first page and compare path start because of possible query params
       if (!this.getClearPath().startsWith(this.$route.path)) {

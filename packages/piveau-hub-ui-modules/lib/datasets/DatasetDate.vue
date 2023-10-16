@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
   import dayjs from 'dayjs';
   import dateFilters from '../filters/dateFilters';
 

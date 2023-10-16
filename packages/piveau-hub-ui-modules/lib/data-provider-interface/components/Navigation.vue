@@ -116,7 +116,8 @@ export default {
     ...mapGetters('dpiStore', [
       'getData',
       'getNavSteps',
-      'getMandatoryStatus'
+      'getMandatoryStatus',
+      'getSchema',
     ]),
     iDError() { return this.$route.query.error === 'id' },
     datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },

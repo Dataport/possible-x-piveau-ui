@@ -5,11 +5,11 @@
       <input v-model="context.model" @blur="context.blurHandler" hidden />
       <div class="annifButtonWrap" v-if="annifTheme && annifEnv">
         <a class="annifItems annifHandleBtn">
-          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'theme')">Generate description based
-            suggestions</a>
+          <a class=" annifHandleBtn" @click="handleAnnifSuggestions($event, 'theme')">
+            Generate description based suggestions
+          </a>
         </a>
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
-
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
         <input v-if="!annifTheme || manSearch" type="text" class="form-control"
@@ -34,12 +34,10 @@
           v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: themeValue.activeValue }"
           @click="handleAnnifClick($event)">
           {{ truncateWords(themeValue.name, 35, true) }}
-
-
         </div>
-        <p class="ml-2 mb-0" style="font-size: 12px">This field can be auto generated. If you click the generate button,
-          it will suggest the most fitting properties based on the dataset-description you provided.</p>
-
+        <p class="ml-2 mb-0" style="font-size: 12px">
+          This field can be auto generated. If you click the generate button, it will suggest the most fitting properties based on the dataset-description you provided.
+        </p>
       </div>
       <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
@@ -105,21 +103,17 @@ export default {
   },
   computed: {
     filteredAutocompleteSuggestions() {
-
       if (this.autocomplete.selected) return [];
       this.autocomplete.suggestions = this.sortAlpabetically(this.autocomplete.suggestions);
       return this.autocomplete.suggestions.slice(0, 10);
-
     }
-
   },
   mounted() {
-
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-    // console.log(this.annifThemeEnv);
-    // This is a bit buggy need to to something here!!!
+
+    // TODO: Improve buggy code
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
         this.valueListOfThemes.push(this.values[i])
