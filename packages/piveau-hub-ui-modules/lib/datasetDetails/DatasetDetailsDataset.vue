@@ -201,7 +201,6 @@
         // has to be INITIAL_DATASET_DESCRIPTION_LENGTH
         isDatasetDescriptionExpanded: false,
         loadingDatasetDetails: false,
-        dateIncorrect: false,
         machineTranslated: false,
         translationNotAvailable: false,
         expandedDistributions: [],
@@ -233,6 +232,7 @@
       'getAccrualPeriodicity',
       'getCatalog',
       'getContactPoints',
+      'getDateIncorrect',
       'getDescription',
       'getDistributions',
       'getID',
@@ -247,6 +247,9 @@
       'getTranslationMetaData',
       'getTitle',
       ]),
+      dateIncorrect() {
+        return this.getDateIncorrect;
+      },
       displayedDistributions() {
         const sorted = [...this.getDistributions].sort((a, b) => {
           if (getTranslationFor(a.title, this.$route.query.locale, this.getLanguages) < getTranslationFor(b.title, this.$route.query.locale, this.getLanguages)) { return -1; }
@@ -723,11 +726,6 @@
         this.initDatasetDetails();
         this.$root.$emit('contentLoaded')
       }
-
-      // TODO: Replace this by Vuex store value 'dateIncorrect'
-      this.$root.$on('date-incorrect', () => {
-        this.dateIncorrect = true;
-      });
 
       const distributionsConf = this.$env.content.datasetDetails && this.$env.content.datasetDetails.distributions;
       if (distributionsConf) {

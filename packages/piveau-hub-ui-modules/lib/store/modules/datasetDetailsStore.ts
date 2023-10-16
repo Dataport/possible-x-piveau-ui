@@ -48,6 +48,7 @@ const state = {
         contactPoints: [],
         country: {},
         creator: {},
+        dateIncorrect: false,
         deadline: '',
         description: {},
         dimensions: [],
@@ -144,6 +145,7 @@ const getters = {
     getContactPoints: state => state.dataset.contactPoints,
     getCountry: state => state.dataset.country,
     getCreator: state => state.dataset.creator,
+    getDateIncorrect: state => state.dataset.dateIncorrect,
     getDeadline: state => state.dataset.deadline,
     getDescription: state => state.dataset.description,
     getDimensions: state => state.dataset.dimensions,
@@ -447,7 +449,14 @@ const actions = {
     */
     setDatasetDescriptionHeight({ commit }, height) {
       commit('SET_DATASET_DESCRIPTION_HEIGHT', height)
-    }
+    },
+    /** 
+    * @description Sets dateIncorrect to true if date is not plausible
+    * @param commit
+    */
+    setDateIncorrect({ commit }) {
+        commit('SET_DATE_INCORRECT')
+    },
 };
 
 const mutations = {
@@ -515,6 +524,9 @@ const mutations = {
     },
     SET_CREATOR(state, creator) {
         state.dataset.creator = creator;
+    },
+    SET_DATE_INCORRECT(state) {
+        state.dataset.dateIncorrect = true;
     },
     SET_DESCRIPTION(state, description) {
         state.dataset.description = description;
