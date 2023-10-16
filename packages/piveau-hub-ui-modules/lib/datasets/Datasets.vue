@@ -20,7 +20,7 @@
           :loading="getLoading"
           :use-dataset-facets="useDatasetFacets"
           :facets="getFacets"
-          :available-facets="getAvailableFacets"
+          :available-facets="getAllAvailableFacets"
       >
         <div class="row">
           <div class="col d-flex d-md-none justify-content-end flex-wrap">
@@ -32,8 +32,12 @@
               <i class="material-icons small-icon align-bottom" v-else>arrow_drop_down</i>
             </button>
           </div>
-          <datasets-facets v-if="useDatasetFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets"
-                           :dataScope="dataScope"></datasets-facets>
+          <datasets-facets
+            v-if="useDatasetFacets"
+            class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse" id="datasetFacets"
+            :dataScope="dataScope"
+            :available-facets="getAllAvailableFacets"
+          ></datasets-facets>
           <section class="col-md-9 col-12">
             <slot name="datasets-filters">
               <datasets-filters/>
@@ -71,8 +75,12 @@
               </button>
             </div>
             -->
-            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets"
-                                    :available-facets="getAllAvailableFacets"></selectedFacetsOverview>
+            <selectedFacetsOverview
+              v-if="getFacets"
+              :selected-facets="getFacets"
+              :available-facets="getAllAvailableFacets"
+            >
+            </selectedFacetsOverview>
             <template v-if="!getLoading">
               <dataset-list :datasets="getDatasets" :locale="$route.query.locale || 'en'"></dataset-list>
             </template>
@@ -118,9 +126,6 @@ import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
 import DatasetsFilters from "../datasets/DatasetsFilters.vue";
 import DatasetList from './DatasetList.vue'
 
-// todo: Bayern specific stuff that you probably want to remove
-import { getSubdomainCatalogIdFromUrl } from '../utils/temporaryBayernUtils';
-
 export default {
   name: 'Datasets',
   dependencies: ['DatasetService'],
@@ -138,10 +143,14 @@ export default {
       type: Boolean,
       default: false,
     },
-    inCatalogPage: {
-      type: Boolean,
-      default: false,
-    },
+    /**
+     * @description Sets the catalog filter to a fixed catalog id. Disables the catalog facet and hides the facet in the selected facets overview.
+     * @dev Use this prop if you want to use this component in a catalog page context where the catalog is already known (e.g., provider's page).
+     */
+    fixedCatalogFilter: {
+      type: String,
+      default: '',
+    }
   },
   metaInfo() {
     return {
@@ -185,8 +194,11 @@ export default {
       'getAllAvailableFacets',
       'getMinScoring',
     ]),
+    ...mapGetters('datasets', {
+      getAllAvailableFacetsOriginal: 'getAllAvailableFacets',
+    }),
     showCatalogDetails() {
-      return !isNil(this.$route.params.ctlg_id) || this.inCatalogPage;
+      return !isNil(this.$route.params.ctlg_id) || this.fixedCatalogFilter;
     },
     /**
      * @description Returns the current page.
@@ -201,25 +213,26 @@ export default {
      * @description Returns the active facets.
      * @returns {Object}
      */
-    facets() {
-      const facets = {};
+     facets() {
+      const resultFacets = {};
+
       for (const field of this.facetFields) {
-        let urlFacets;
-        if (field === 'catalog' && !isNil(this.$route.params.ctlg_id)) urlFacets = this.$route.params.ctlg_id;
-        else if (
-          field === 'catalog' && 
-          isNil(this.$route.params.ctlg_id) &&
-          getSubdomainCatalogIdFromUrl(window.location)
-          ) {
-            urlFacets = [getSubdomainCatalogIdFromUrl(window.location)];
-        }
-        else urlFacets = this.$route.query[field];
-        if (!urlFacets) urlFacets = [];
-        else if (!Array.isArray(urlFacets)) urlFacets = [urlFacets];
-        facets[field] = urlFacets;
+        resultFacets[field] = (field === 'catalog' && this.showCatalogDetails)
+          // Hide catalog facet in selected facets overview when in catalog details mode
+          ? []
+          // Use the catalog filter from the route params or the fixed catalog filter
+          : this.getUrlFacetsOrDefault(field);
       }
-      return facets;
+
+      return resultFacets;
     },
+
+    getAllAvailableFacets() {
+      return this.showCatalogDetails
+        ? this.getAllAvailableFacetsOriginal.filter(facet => facet.id !== 'catalog')
+        : this.getAllAvailableFacetsOriginal;
+    },
+
     currentSearchQuery() {
       return this.$route.query.query;
     },
@@ -304,54 +317,61 @@ export default {
         if (page > 0) this.setPage(page);
         else this.setPage(1);
       },
-      /**
-       * @descritption Initialize the active facets by checking the route parameters
-       */
-      initFacets() {
-        const fields = this.$env.content.datasets.facets.defaultFacetOrder;
-        for (const field of fields) {
-          this.facetFields.push(field);
-          const wantsToLoadCatalogByParamOrSubdomain =
-            field === 'catalog' && (!isNil(this.$route.params.ctlg_id) || getSubdomainCatalogIdFromUrl(window.location));
-          // catalog is not in queries anymore, so we have to add to facets differently
-          if (wantsToLoadCatalogByParamOrSubdomain) {
-            if (!this.isInCatalogPage && !isNil(this.$route.params.ctlg_id)) {
-              this.addFacet({field, facet: this.$route.params.ctlg_id});
-            }
-            else {
-              let catalogId = "";
-              const host = window.location.host;
-              console.log('host: ' + host);
-              const parts = host.split('.');
-              if (parts.length > 1) {
-                catalogId = parts[0];
+    /**
+     * @descritption Initialize the active facets by checking the route parameters
+     */
+    initFacets() {
+      const fields = this.$env.content.datasets.facets.defaultFacetOrder;
+      const wantsToLoadCatalogByParamOrProp = !isNil(this.$route.params.ctlg_id) || this.fixedCatalogFilter;
 
-                if (!catalogId.startsWith('open') && !catalogId.startsWith('odb') && !catalogId.startsWith('localhost') && !catalogId.startsWith('data')){
-                  console.log('add facet catalog: ' + catalogId);
-                  this.addFacet({field, facet: catalogId});
-                }
-              }
-            }
-          }
-          
-        else if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-          this.$router
-              .replace({
-                query: Object.assign({}, this.$route.query, {[field]: []}),
-              })
-              .catch((error) => {
-                console.error(error);
-              });
+      fields.forEach(field => {
+        this.facetFields.push(field);
+        if (field === 'catalog' && wantsToLoadCatalogByParamOrProp) {
+          this.addCatalogFacet(field);
+        } else if (this.shouldUpdateRouterQuery(field)) {
+          this.updateRouterQuery(field);
         } else {
-          for (const facet of this.$route.query[field]) {
-            // do not add duplicates!
-            if (!this.getFacets[field]?.includes(facet)) {
-              this.addFacet({field, facet});
-            }
-          }
+          this.addFacetsFromQuery(field);
+        }
+      });
+    },
+
+    addCatalogFacet(field) {
+      const facetValue = this.fixedCatalogFilter || this.$route.params.ctlg_id;
+      this.addFacet({ field, facet: facetValue });
+    },
+
+    shouldUpdateRouterQuery(field) {
+      return !Object.prototype.hasOwnProperty.call(this.$route.query, [field]);
+    },
+
+    updateRouterQuery(field) {
+      this.$router
+        .replace({
+          query: { ...this.$route.query, [field]: [] },
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+
+    addFacetsFromQuery(field) {
+      for (const facet of this.$route.query[field]) {
+        if (!this.isDuplicateFacet(field, facet)) {
+          this.addFacet({ field, facet });
         }
       }
     },
+
+    isDuplicateFacet(field, facet) {
+      return this.getFacets[field]?.includes(facet);
+    },
+
+    getUrlFacetsOrDefault(field) {
+      const urlFacets = this.$route.query[field];
+      return Array.isArray(urlFacets) ? urlFacets : (urlFacets ? [urlFacets] : []);
+    },
+
     initFacetOperator() {
       // Always set facet operator to AND when in catalog details mode
       if (this.showCatalogDetails) this.setFacetOperator('AND');

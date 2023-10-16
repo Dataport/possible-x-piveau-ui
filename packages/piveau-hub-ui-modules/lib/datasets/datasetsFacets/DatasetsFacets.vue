@@ -104,6 +104,10 @@ export default {
       type: String,
       default: null,
     },
+    availableFacets: {
+      type: Array,
+      default: null,
+    },
   },
   metaInfo() {
     const catalogTitle = this.getTranslationFor(this.catalog.title, this.$route.query.locale, this.catalogLanguageIds) || this.catalog.id;
@@ -167,6 +171,9 @@ export default {
       'getDatasetGeoBounds',
       'getScoringFacets',
     ]),
+    resolvedAvailableFacets() {
+      return this.availableFacets || this.getAllAvailableFacets;
+    },
     datasetBoundsWatcher() {
       return this.getDatasetGeoBounds;
     },
@@ -192,10 +199,10 @@ export default {
       return this.$env.content.datasets.facets.cutoff > 0 && this.$env.content.datasets.facets.cutoff < this.getAllVisibleFacets.length;
     },
     getAllVisibleFacets() {
-      return this.getAllAvailableFacets.filter(facet => facet.items.length > 0);
+      return this.resolvedAvailableFacets.filter(facet => facet.items.length > 0);
     },
     getSortedFacets() {
-      const availableFacets = this.getAllAvailableFacets;
+      const availableFacets = this.resolvedAvailableFacets;
       const activeFacets = [];
       const inactiveFacets = [];
 
