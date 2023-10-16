@@ -1,3 +1,12 @@
+# [4.0.0-alpha.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2023-10-16)
+
+
+### Bug Fixes
+
+* ExpandableSelectFacet ID issue ([c651081](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c651081d0419594ef1f0b1744a2957c107a60b3a))
+
+
+
 # [4.0.0-alpha.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.6...v4.0.0-alpha.7) (2023-10-16)
 
 
