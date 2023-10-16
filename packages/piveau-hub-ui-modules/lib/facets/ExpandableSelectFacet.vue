@@ -83,7 +83,6 @@ export default defineComponent({
   },
   data() {
     return {
-      id: null,
       isExpanded: false,
       isGrown: false,
       numItemsAllowed: this.$env.content.datasets.facets.MIN_FACET_LIMIT || 5,
@@ -94,15 +93,15 @@ export default defineComponent({
   computed: {
     myId() {
       // Use Vue generated uid to set give each facet a unique id
-      return `facet-${this.id}`;
+      return `facet-${this.fieldId}`;
     },
     myListId() {
       // Use Vue generated uid to set give each facet a unique id
-      return `facet-list-${this.id}`;
+      return `facet-list-${this.fieldId}`;
     },
     myTitleId() {
       // Use Vue generated uid to set give each facet a unique id
-      return `facet-title-${this.id}`;
+      return `facet-title-${this.fieldId}`;
     },
   },
   methods: {
