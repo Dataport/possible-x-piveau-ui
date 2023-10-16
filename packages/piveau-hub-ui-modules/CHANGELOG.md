@@ -1,3 +1,17 @@
+# [3.13.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.12.1...v3.13.0) (2023-10-16)
+
+
+### Bug Fixes
+
+* new Id Validation Rule ([2e6d4d8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2e6d4d8908861c7bfdce3d900f4504b08563701a))
+
+
+### Features
+
+* **Datasets:** implement fixedCatalogFilter; hide catalog related facets in SelectedFacets and Facets ([376816f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/376816fb1b4e50e85fcccb8c785bc57e2113c2fe))
+
+
+
 ## [3.12.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.7...v3.12.1) (2023-10-10)
 
 
