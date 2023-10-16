@@ -1,3 +1,7 @@
+## [3.13.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.0...v3.13.1) (2023-10-16)
+
+
+
 # [3.13.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.12.1...v3.13.0) (2023-10-16)
 
 
