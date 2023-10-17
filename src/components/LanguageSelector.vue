@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { useRouter, useRoute } from 'vue-router';
+
 import isEmpty from 'lodash/isEmpty';
 
 export default {
@@ -69,10 +71,10 @@ export default {
       },
       set(locale) {
         this.$root.$i18n.locale = locale;
-        this.$router.isReady()
+        this.router.isReady()
           .then(() => {
-            if (locale !== this.$route.query.locale) {
-              this.$router.push({ query: { ...this.$route.query, locale } }).catch(() => { });
+            if (locale !== this.route.query.locale) {
+              this.router.push({ query: { ...this.route.query, locale } }).catch(() => { });
             }
           });
       },
@@ -80,7 +82,7 @@ export default {
   },
   methods: {
     initLocale() {
-      this.$router.isReady()
+      this.router.isReady()
         .then(() => {
           this.locale = this.getLocale();
         })
@@ -89,13 +91,18 @@ export default {
         });
     },
     getLocale() {
-      if (this.$route.query.locale) return this.$route.query.locale;
+      if (this.route.query.locale) return this.route.query.locale;
       // eslint-disable-next-line max-len
       if (navigator && this.languages[navigator?.language.substring(0, 2)]) return navigator.language.substring(0, 2);
       if (this.languages[this.$env.languages.locale]) return this.$env.languages.locale;
       if (this.languages[this.$env.languages.fallbackLocale]) return this.$env.languages.fallbackLocale;
       return Object.keys(this.languages)[0];
     },
+  },
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    return { router, route };
   },
   beforeUpdate() {
     this.initLocale();

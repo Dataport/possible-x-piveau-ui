@@ -140,7 +140,7 @@ if (GLUE_CONFIG.content.dataProviderInterface.useService) {
   router.addRoute({
     path: '/dpi/draft',
     name: 'DataProviderInterface-Draft',
-    component: DraftsPage,
+    component: InputPage,
     meta: {
       requiresAuth: true,
     }

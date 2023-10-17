@@ -190,6 +190,13 @@ const glueConfig = {
           { sourceFileFormat: 'PDF', targetFileFormat: [ 'pdf', 'txt',]}
         ]
       },
+      embed: {
+        enable: false,
+        defaultWidth: 900,
+        defaultHeight: 600,
+        minRange: 0,
+        maxRange: 9999,
+      },
       similarDatasets: {
         breakpoints: {
           verySimilar: { start: 0, end: 20 },
@@ -316,7 +323,7 @@ const glueConfig = {
   tracker: {
     // TODO: Implement disable tracker option based on condition #2767
     isPiwikPro: true, // true: PiwikPro | false: Matomo
-    siteId: '',
+    siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
     trackerUrl: 'https://opanalytics.containers.piwik.pro/',
   },
 };
