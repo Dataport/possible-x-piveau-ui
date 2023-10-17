@@ -1,3 +1,13 @@
+# [4.0.0-alpha.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2023-10-17)
+
+
+### Bug Fixes
+
+* DPI sub router issues ([27682ae](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/27682aef7f3728d6bb10dfc2d511e54025b7572c))
+* simplify InputPage.vue ([f211a33](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f211a33c87803ed018d10c26956fd82715ea61d7))
+
+
+
 # [4.0.0-alpha.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.7...v4.0.0-alpha.8) (2023-10-16)
 
 
