@@ -1,3 +1,12 @@
+# [4.0.0-alpha.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.9...v4.0.0-alpha.10) (2023-10-17)
+
+
+### Bug Fixes
+
+* issues with datasetDetails ([4476a78](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/4476a78134bc97a6567f372485d35c80003d69e1))
+
+
+
 # [4.0.0-alpha.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.8...v4.0.0-alpha.9) (2023-10-17)
 
 
