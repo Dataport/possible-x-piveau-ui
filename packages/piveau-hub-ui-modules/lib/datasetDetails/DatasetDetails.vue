@@ -16,11 +16,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { useRoute } from 'vue-router';
+
 import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue';
 import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue';
 import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
 import { useDownloadDatasetOnMount } from '../composables/useDownloadDatasetOnMount';
-import { getCurrentInstance } from 'vue';
 
 export default {
   name: 'datasetDetails',
@@ -39,7 +40,7 @@ export default {
   },
   data() {
     return {
-      topTitle: this.$env.content.datasetDetails.header.navigation === "top"
+      topTitle: this.$env.content.datasetDetails.header.navigation === "top",
     };
   },
   props: {
@@ -61,13 +62,10 @@ export default {
     getRepresentativeLocaleOf,
     getTranslationFor,
   },
-  setup() {
-    const vm = getCurrentInstance();
-    const router = vm.proxy.$router;
-    const hubUrl = vm.proxy.$env.api.hubUrl;
-    console.log(router)
-    useDownloadDatasetOnMount({ router, hubUrl });
-  }
+  created() {
+    const route = useRoute();
+    useDownloadDatasetOnMount({ route, hubUrl: this.$env.api.hubUrl });
+  },
 };
 </script>
 

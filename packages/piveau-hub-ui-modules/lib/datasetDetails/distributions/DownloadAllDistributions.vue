@@ -58,13 +58,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 import {has, isNil} from "lodash";
 import axios from "axios";
 import { saveAs } from 'file-saver';
 import $ from "jquery";
 import { getTranslationFor } from "../../utils/helpers";
-import { mapGetters } from "vuex";
-import { onUnmounted } from 'vue'
+
 
 export default {
   name: "DownloadAllDistributions",
@@ -309,8 +312,10 @@ export default {
     window.removeEventListener('beforeunload', this.beforeWindowUnload);
   },
   setup() {
+    const router = useRouter();
+    
     onUnmounted(() => {
-      this.$router.beforeEach((to, from, next) => {
+      router.beforeEach((to, from, next) => {
         if (this.isLoadingAllDistributionFiles && !this.isDownloadAllDistributionsCanceled) {
           const answer = window.confirm(this.$t('message.datasetDetails.datasets.leavePageWindow.text')); // eslint-disable-line
           if (answer) {

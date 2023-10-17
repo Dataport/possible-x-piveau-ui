@@ -178,7 +178,7 @@ export default {
       return window.location.href; 
     },
     showDQV() {
-      return this.useDQVDataDropdown && this.$router.currentRoute.path.endsWith("quality");
+      return this.useDQVDataDropdown && this.$route.path.endsWith("quality");
     },
   },
   methods: {

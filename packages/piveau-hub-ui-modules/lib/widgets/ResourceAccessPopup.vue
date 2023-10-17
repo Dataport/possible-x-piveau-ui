@@ -26,6 +26,7 @@
 </template>
 <script>
 import $ from 'jquery';
+import { useCookies } from "vue3-cookies";
 
 export default {
   name: 'ResourceAccessPopup',
@@ -42,7 +43,7 @@ export default {
   },
   methods: {
     openModal(callbackFunction, toggleDownloadPopup) {
-      const cookie = this.$cookie.get('externalContent');
+      const cookie = this.cookies.get('externalContent');
       this.callback = '';
       this.callback = callbackFunction;
       this.toggleDownloadPopup = toggleDownloadPopup;
@@ -67,17 +68,21 @@ export default {
   watch: {
     checked() {
       if (this.checked) {
-        this.$cookie.set('externalContent', this.checked, this.expires);
+        this.cookies.set('externalContent', this.checked, this.expires);
       } else if (!this.checked) {
-        if (this.$cookie.get('externalContent')) {
-          this.$cookie.set('externalContent', this.checked, this.expires);
+        if (this.cookies.get('externalContent')) {
+          this.cookies.set('externalContent', this.checked, this.expires);
         }
       }
     },
   },
+  setup() {
+    const { cookies } = useCookies();
+    return { cookies };
+  },
   created() {
-    if (this.$cookie.get('externalContent') == null) {
-      this.$cookie.set('externalContent', false, this.expires);
+    if (this.cookies.get('externalContent') == null) {
+      this.cookies.set('externalContent', false, this.expires);
     }
   },
 };
