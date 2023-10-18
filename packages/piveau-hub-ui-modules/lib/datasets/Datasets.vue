@@ -184,18 +184,18 @@ export default {
     ...mapGetters('datasets', [
       'getDatasets',
       'getDatasetsCount',
-      'getFacets',
       'getLimit',
       'getLoading',
       'getOffset',
       'getPage',
       'getPageCount',
-      'getAvailableFacets',
-      'getAllAvailableFacets',
       'getMinScoring',
     ]),
     ...mapGetters('datasets', {
+      // Rename getters to something different because we'll perform some modifications on them.
+      // These modifications involve removing catalog related information from facets for fixed catalog filter mode
       getAllAvailableFacetsOriginal: 'getAllAvailableFacets',
+      getFacetsOriginal: 'getFacets',
     }),
     showCatalogDetails() {
       return !isNil(this.$route.params.ctlg_id) || this.fixedCatalogFilter;
@@ -210,27 +210,37 @@ export default {
       return this.$route.query.page;
     },
     /**
-     * @description Returns the active facets.
+     * @description Returns the active facets according to the route parameters.
      * @returns {Object}
      */
      facets() {
-      const resultFacets = {};
+      const facetFields = this.$env.content.datasets.facets.defaultFacetOrder;
+      const wantsToLoadCatalogByParamOrProp = this.showCatalogDetails;
 
-      for (const field of this.facetFields) {
-        resultFacets[field] = (field === 'catalog' && this.showCatalogDetails)
-          // Hide catalog facet in selected facets overview when in catalog details mode
-          ? []
-          // Use the catalog filter from the route params or the fixed catalog filter
+      return facetFields.reduce((acc, field) => {
+        acc[field] = (wantsToLoadCatalogByParamOrProp && field === 'catalog' )
+          ? [this.fixedCatalogFilter || this.$route.params.ctlg_id]
           : this.getUrlFacetsOrDefault(field);
-      }
 
-      return resultFacets;
+        return acc;
+      }, {});
     },
+
 
     getAllAvailableFacets() {
       return this.showCatalogDetails
         ? this.getAllAvailableFacetsOriginal.filter(facet => facet.id !== 'catalog')
         : this.getAllAvailableFacetsOriginal;
+    },
+
+    getFacets() {
+      // Returns a record of facets with the catalog facet removed if we're in fixed catalog filter mode
+      return this.showCatalogDetails
+        ? {
+          ...this.getFacetsOriginal,
+          catalog: []
+        }
+        : this.getFacetsOriginal;
     },
 
     currentSearchQuery() {
@@ -320,52 +330,30 @@ export default {
     /**
      * @descritption Initialize the active facets by checking the route parameters
      */
-    initFacets() {
+     initFacets() {
       const fields = this.$env.content.datasets.facets.defaultFacetOrder;
-      const wantsToLoadCatalogByParamOrProp = !isNil(this.$route.params.ctlg_id) || this.fixedCatalogFilter;
+      const facetsFromRouteParams = this.facets;
 
-      fields.forEach(field => {
-        this.facetFields.push(field);
-        if (field === 'catalog' && wantsToLoadCatalogByParamOrProp) {
-          this.addCatalogFacet(field);
-        } else if (this.shouldUpdateRouterQuery(field)) {
-          this.updateRouterQuery(field);
-        } else {
-          this.addFacetsFromQuery(field);
-        }
+      this.facetFields.push(...fields);
+
+      // Get fields that don't exist in the router query
+      const fieldsNotInRouterQuery = fields.filter(field => {
+        const fieldExists = facetsFromRouteParams[field] && facetsFromRouteParams[field].length > 0;
+        return !fieldExists && !this.$route.query[field];
       });
+
+      // Construct route query parameters to be added
+      const routeQueryParamsToBeAdded = fieldsNotInRouterQuery.reduce((acc, field) => {
+        acc[field] = [];
+        return acc;
+      }, {});
+
+      // Add the route query params that are missing
+      this.$router.push({ query: {...this.$route.query, ...routeQueryParamsToBeAdded} });
+
+      this.setFacets(facetsFromRouteParams);
     },
 
-    addCatalogFacet(field) {
-      const facetValue = this.fixedCatalogFilter || this.$route.params.ctlg_id;
-      this.addFacet({ field, facet: facetValue });
-    },
-
-    shouldUpdateRouterQuery(field) {
-      return !Object.prototype.hasOwnProperty.call(this.$route.query, [field]);
-    },
-
-    updateRouterQuery(field) {
-      this.$router
-        .replace({
-          query: { ...this.$route.query, [field]: [] },
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-
-    addFacetsFromQuery(field) {
-      for (const facet of this.$route.query[field]) {
-        if (!this.isDuplicateFacet(field, facet)) {
-          this.addFacet({ field, facet });
-        }
-      }
-    },
-
-    isDuplicateFacet(field, facet) {
-      return this.getFacets[field]?.includes(facet);
-    },
 
     getUrlFacetsOrDefault(field) {
       const urlFacets = this.$route.query[field];
@@ -427,16 +415,6 @@ export default {
     },
   },
   watch: {
-    /**
-     * @description Watcher for active facets
-     */
-    // eslint-disable-next-line object-shorthand
-    facets: {
-      handler(facets) {
-        this.setFacets(facets);
-      },
-      deep: true,
-    },
     // eslint-disable-next-line object-shorthand
     page(pageStr) {
       const page = parseInt(pageStr, 10);
