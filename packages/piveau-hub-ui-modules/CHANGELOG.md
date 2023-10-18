@@ -1,3 +1,12 @@
+## [3.13.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.1...v3.13.2) (2023-10-18)
+
+
+### Bug Fixes
+
+* **Datasets:** fix fixed catalog facets mode loading all datasets; improve stability of retrieving facets from query params ([b00f333](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b00f333c52f63e9cdc66c82af3e0b620641748a4))
+
+
+
 ## [3.13.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.0...v3.13.1) (2023-10-16)
 
 
