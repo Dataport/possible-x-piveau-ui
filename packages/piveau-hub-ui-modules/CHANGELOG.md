@@ -1,3 +1,64 @@
+## [3.13.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.1...v3.13.2) (2023-10-18)
+
+
+### Bug Fixes
+
+* **Datasets:** fix fixed catalog facets mode loading all datasets; improve stability of retrieving facets from query params ([b00f333](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b00f333c52f63e9cdc66c82af3e0b620641748a4))
+
+
+
+## [3.13.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.0...v3.13.1) (2023-10-16)
+
+
+
+# [3.13.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.12.1...v3.13.0) (2023-10-16)
+
+
+### Bug Fixes
+
+* new Id Validation Rule ([2e6d4d8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2e6d4d8908861c7bfdce3d900f4504b08563701a))
+
+
+### Features
+
+* **Datasets:** implement fixedCatalogFilter; hide catalog related facets in SelectedFacets and Facets ([376816f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/376816fb1b4e50e85fcccb8c785bc57e2113c2fe))
+
+
+
+## [3.12.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.7...v3.12.1) (2023-10-10)
+
+
+
+# [3.12.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.6...v3.12.0) (2023-10-09)
+
+
+
+## [3.11.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.12.0...v3.11.7) (2023-10-10)
+
+
+### Bug Fixes
+
+* facet selection ([56fafbc](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/56fafbccdc1606db22cf6605feba798096bbcb4b))
+
+
+
+# [3.12.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.6...v3.12.0) (2023-10-09)
+
+
+
+## [3.11.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.5...v3.11.6) (2023-10-06)
+
+
+### Bug Fixes
+
+* gazetteer store API response structure ([3c5224d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3c5224d0fe4bbfcf78f455f7f79954ec4fc734e7))
+
+
+
+## [3.11.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.4...v3.11.5) (2023-10-04)
+
+
+
 ## [3.11.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.11.3...v3.11.4) (2023-10-04)
 
 
