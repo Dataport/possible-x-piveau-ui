@@ -1,6 +1,7 @@
 import fs from "fs";
 import {doInWorkspaces} from "./doInWorkspaces";
 
+fs.rmSync("package-lock.json", { force: true });
 doInWorkspaces((file, stats, folder) => {
     const fullPath = `${folder}/${file}/node_modules`
     console.log("Removing", fullPath, "...");
