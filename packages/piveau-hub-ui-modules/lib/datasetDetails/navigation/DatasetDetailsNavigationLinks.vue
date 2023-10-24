@@ -119,15 +119,17 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
+import { mapGetters, mapActions } from "vuex";
+import $ from "jquery";
+
+import { getTranslationFor } from "../../utils/helpers";
 import DatasetDetailsFeedbackButton from "../../datasetDetails/DatasetDetailsFeedbackButton";
 import AppLink from "../../widgets/AppLink";
 import DatasetDetailsShareButton from "../../datasetDetails/DatasetDetailsShareButton";
 import ResourceDetailsLinkedDataButton from "../../widgets/ResourceDetailsLinkedDataButton";
 import DatasetDetailsLinkedMetricsButton from "../../datasetDetails/DatasetDetailsLinkedMetricsButton";
-import {mapGetters, mapActions} from "vuex";
-import $ from "jquery";
-// import DatasetCitationModal from "../../citation/DatasetCitationModal";
-import {getTranslationFor} from "../../utils/helpers";
+
 
 export default {
   name: "DatasetDetailsNavigationLinks",
@@ -138,8 +140,8 @@ export default {
     },
   },
   components: {
-    DatasetCitationModal: () => import('../../citation/DatasetCitationModal'),
-    DatasetEmbedModal: () => import('../../embed/DatasetEmbedModal'),
+    DatasetCitationModal: defineAsyncComponent(() => import('../../citation/DatasetCitationModal')),
+    DatasetEmbedModal: defineAsyncComponent(() => import('../../embed/DatasetEmbedModal')),
     DatasetDetailsLinkedMetricsButton,
     ResourceDetailsLinkedDataButton,
     DatasetDetailsFeedbackButton,
