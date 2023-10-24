@@ -8,7 +8,7 @@
     <div>
       <img v-if="showCountryFlag(getCountry)" class="mr-2 border border-dark flag" :class="{ 'io': getCountry.id === 'io' }" :src="getCountryFlagImg(getCountry.id)" alt="Catalog Flag">
       <app-link 
-        :to="getCatalogLink()"
+        :to="getCatalogLink"
         :title="$t('message.tooltip.datasetDetails.catalogue')"
         data-toggle="tooltip" 
         data-placement="top"
@@ -38,20 +38,17 @@ export default {
     ...mapGetters('datasetDetails', [
       'getCatalog',
       'getCountry',
-      'getLanguages'
+      'getLanguages',
     ]),
+    getCatalogLink() {
+      return { path: `/catalogues/${this.getCatalog.id}`, query: { locale: this.$route.query.locale } };
+    },
   },
   methods: {
     getTranslationFor,
     getCountryFlagImg,
     showCountryFlag(country) {
       return has(country, 'id') && !isNil(country.id);
-    },
-    getCatalogLink() {
-      return { name: 'CatalogueDetails', params: { ctlg_id: this.getCatalogID }, query: { locale: this.$route.query.locale } };
-    },
-    getCatalogID() {
-      return this.getCatalog?.id;
     },
   },
 }
