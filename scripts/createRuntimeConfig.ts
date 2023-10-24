@@ -1,7 +1,7 @@
 import fs, {Stats} from "fs";
 // import {doForAppConfig} from "./utils/doForAppConfig";
 import { readFile } from 'fs/promises';
-import esprima from 'esprima';
+// import esprima from 'esprima';
 
 const app = process.argv[2] || 'modules-demo';
 
@@ -13,7 +13,7 @@ export const createRuntimeConfig = async (app: string, appStats: Stats, folder: 
     const content = await readFile(userConfigSample, 'utf-8');
     const glueConfigAssignment = (content.substring(content.indexOf("glueConfig")));
     const glueConfigContent = (glueConfigAssignment.substring(glueConfigAssignment.indexOf("{")));
-    return esprima.tokenize(glueConfigAssignment)
+    // return esprima.tokenize(glueConfigAssignment)
     // return eval(glueConfigContent)
     // return glueConfigContent;
     // const uncommented = glueConfigContent.replace(/[^:]\/{2}.*\n/g, "");
@@ -27,6 +27,28 @@ export const createRuntimeConfig = async (app: string, appStats: Stats, folder: 
 //         console.log("RESULT", result)
 //     });
 // });
+
+import {configSchema} from "../packages/piveau-hub-ui-modules/lib/configurations/config-schema";
+import {ZodObject} from 'zod'
+// console.log("configSchema", configSchema instanceof ZodObject)
+
+const values = configSchema.keyof()._def.values
+// console.log("configSchema2", Object.keys(getKeys(configSchema)), )
+// console.log("configSchema2", values, configSchema.keyof()._def.values)
+
+function iterate(z: ZodObject<any>, pad='') {
+    const entries = z instanceof ZodObject ? z.shape : z;
+    for (const [key, value] of Object.entries(entries)) {
+        console.log(pad, key, value.constructor.name);
+        if (key === 'content') {
+            // console.log(Object.entries(value))
+            // console.log(value.constructor.name)
+            iterate(value, '>>>');
+        }
+    }
+}
+
+iterate(configSchema)
 
 // Assuming we start in content at given position with a curly brace, indicating a stringified Javascript object,
 // parses through that string and returns an object containing the same keys and string values coding
