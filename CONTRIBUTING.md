@@ -102,13 +102,13 @@ the sources, working with them and pushing back changes.
 ### Add an app as a submodule
 
 ```
-git submodule add <external-repo-url> <path-including-repo-folder-name>
+git submodule add -b <default-branch> <external-repo-url> <path-including-repo-folder-name>
 ```
 
 For example:
 
 ```
-git submodule add https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui.git ./apps/vanilla-piveau-hub-ui
+git submodule add -b develop https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui.git ./apps/vanilla-piveau-hub-ui
 ```
 
 ### Getting the source code
@@ -122,6 +122,8 @@ git submodule update --init <path-to-submodule>
 If you want to pull the sources for all submodules, you can leave out the path-to-submodule part.
 (Note, this is one task done by the `npm run initialize` command.)
 
+Also note that checking out a submodule like this will result in a git status of a detached
+head for that submodule. In order to start working on it, you will have to checkout a branch.
 
 ### Remove a submodule
 
