@@ -97,10 +97,12 @@ import {
   DatePicker,
   DateTimePicker,
   configureModules,
-  SelectedFacetsOverview
+  SelectedFacetsOverview,
+  configSchema
 } from '@piveau/piveau-hub-ui-modules';
 import '@piveau/piveau-hub-ui-modules/styles';
 
+console.log("configSchema", configSchema)
 
 Vue.config.devtools = true;
 
@@ -335,22 +337,26 @@ const createVueApp = () => {
 
 // Loads keycloak and if it fails it still loads the Vue app.
 
-Vue.use(vueKeyCloak, {
-  config: {
-    rtp: env.authentication.rtp,
-    ...env.authentication.keycloak,
-  },
-  init: {
-    onLoad: 'check-sso',
-    silentCheckSsoRedirectUri: `${window.location.origin}/static/silent-check-sso.html`,
-    ...env.authentication.keycloakInit,
-  },
-  onReady: () => {
-    console.log("Keycloak loaded")
-    createVueApp().$mount('#app');
-  },
-  onInitError: () => {
-    console.log("Error loading keycloak")
-    createVueApp().$mount('#app');
-  }
-});
+if (env.authentication.useService) {
+  Vue.use(vueKeyCloak, {
+    config: {
+      rtp: env.authentication.rtp,
+      ...env.authentication.keycloak,
+    },
+    init: {
+      onLoad: 'check-sso',
+      silentCheckSsoRedirectUri: `${window.location.origin}/static/silent-check-sso.html`,
+      ...env.authentication.keycloakInit,
+    },
+    onReady: () => {
+      console.log("Keycloak loaded")
+      createVueApp().$mount('#app');
+    },
+    onInitError: () => {
+      console.log("Error loading keycloak")
+      createVueApp().$mount('#app');
+    }
+  });
+} else {
+  createVueApp().$mount('#app');
+}
