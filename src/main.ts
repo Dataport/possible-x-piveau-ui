@@ -97,12 +97,9 @@ import {
   DatePicker,
   DateTimePicker,
   configureModules,
-  SelectedFacetsOverview,
-  configSchema
+  SelectedFacetsOverview
 } from '@piveau/piveau-hub-ui-modules';
 import '@piveau/piveau-hub-ui-modules/styles';
-
-console.log("configSchema", configSchema)
 
 Vue.config.devtools = true;
 
