@@ -342,7 +342,7 @@ if (env.authentication.useService) {
     },
     init: {
       onLoad: 'check-sso',
-      silentCheckSsoRedirectUri: `${window.location.origin}/static/silent-check-sso.html`,
+      silentCheckSsoRedirectUri: `${window.location.origin}/silent-check-sso.html`,
       ...env.authentication.keycloakInit,
     },
     onReady: () => {
