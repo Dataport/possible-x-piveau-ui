@@ -13,7 +13,7 @@
     "ci-publish": "esno scripts/publish-ci.ts",
     "initialize": "git submodule update --init && npx -yes esno scripts/utils/removeAllNodeModules.ts && npx esno scripts/createUserConfigs.ts && npm i",
     "clear": "npx -yes esno scripts/utils/removeAllNodeModules.ts",
-    "xxx": "esno scripts/createRuntimeConfig.ts"
+    "create-runtime-config": "esno scripts/createRuntimeConfig.ts"
   },
   "author": "",
   "license": "ISC",
