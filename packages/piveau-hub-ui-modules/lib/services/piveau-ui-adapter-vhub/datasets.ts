@@ -382,8 +382,8 @@
 
     getDQVDataHead(id, format, locale) {
       return new Promise((resolve, reject) => {
-        const reqStr = `${this.hubUrl}datasets/${id}.${format}/metrics`;
-        //const reqStr = `${this.hubUrl}metrics/${id}.${format}?useNormalizedId=true&locale=${locale}`;
+        // const reqStr = `${this.hubUrl}datasets/${id}.${format}/metrics`;
+        const reqStr = `${this.hubUrl}datasets/${id}/metrics`;
         axios.head(reqStr, {
         })
           .then((response) => {
