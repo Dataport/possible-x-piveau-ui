@@ -1,3 +1,14 @@
+# [4.0.0-alpha.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.10...v4.0.0-alpha.11) (2023-10-31)
+
+
+### Bug Fixes
+
+* DPI not working at this point, but no errors thrown ([9f4f144](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/9f4f144ff3b36631a5d2a4d591efd21734b1adbe))
+* sub routing issues in dataset details ([c477c09](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c477c09b0b7a3ecb6f082e0b9420a30d19a4fe64))
+* try to resolve routing issues ([e6ef86c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e6ef86c92db89b1a1603ebb836177a93f085318b))
+
+
+
 # [4.0.0-alpha.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.9...v4.0.0-alpha.10) (2023-10-17)
 
 
