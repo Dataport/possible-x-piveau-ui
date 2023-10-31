@@ -4,15 +4,14 @@
 
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit"> 
-        <FormKitSchema :schema="getSchema"></FormKitSchema>
-        <!-- <FormKitSchema name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
+        <FormKitSchema name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
           @submit="handleSubmit"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
           
           <FormKit type="submit" id="submit-form" class="display-none"></FormKit>
         </FormKitSchema>
-        <FormKit type="hidden" class="display-none"></FormKit> -->
+        <FormKit type="hidden" class="display-none"></FormKit>
       </div>
     </div>
     <div v-if="isDistributionOverview">

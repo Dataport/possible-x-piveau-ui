@@ -1,4 +1,5 @@
 import { has } from 'lodash-es';
+import {useI18n} from "vue-i18n";
 
 /**
  * Translation of each translatable parameter within the given structure if a translation is available
@@ -7,6 +8,8 @@ import { has } from 'lodash-es';
  */
 function translateProperty(propertyDefinition, property) {
     
+    const i18n = useI18n();
+
     if (has(propertyDefinition, 'identifier')) { // hidden fields don't need a label and have no identifier 
         const translatableParameters = ['label', 'info', 'help', 'placeholder', 'add-label'];
         const propertyName = propertyDefinition.identifier;
@@ -14,17 +17,22 @@ function translateProperty(propertyDefinition, property) {
         for (let valueIndex = 0; valueIndex < translatableParameters.length; valueIndex += 1) {
             let translation = propertyName;
             const parameter = translatableParameters[valueIndex];
-            const translationExsists = this.i18n.global.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
+            const translationExsists = i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
+            const translationExsistsEN = i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
             
             // Check if translation exists
             if (!has(property, parameter) ) {
+
                 if (translationExsists) {
-                    translation = this.i18n.global.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
+                    translation = i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
+                } else if (translationExsistsEN) {
+                    translation = i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
                 } else {
-                    // if no translation is available, provide english label
-                    translation = this.i18n.global.t(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
+                    translation = parameter;
                 }
-            propertyDefinition[parameter] = translation;
+
+                propertyDefinition[parameter] = translation;
+
             }
 
             // Highlight mandatory fields

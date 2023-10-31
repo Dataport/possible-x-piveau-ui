@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from 'vue';
 import { mapGetters, mapActions } from "vuex";
 import $ from "jquery";
 

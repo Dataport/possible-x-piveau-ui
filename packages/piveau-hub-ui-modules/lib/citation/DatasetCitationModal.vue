@@ -34,12 +34,13 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import { mapGetters } from "vuex";
 
 export default {
   components: {
     //  Lazy-load DatasetCitationTable
-    DatasetCitationTable: () => import(/* webpackChunkName: "dataset-citation-table" */ "./DatasetCitationTable.vue"),
+    DatasetCitationTable: defineAsyncComponent(() =>  import(/* webpackChunkName: "dataset-citation-table" */ "./DatasetCitationTable.vue")),
   },
   props: {
     modalId: {

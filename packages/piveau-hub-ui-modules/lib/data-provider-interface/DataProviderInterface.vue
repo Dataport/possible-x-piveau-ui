@@ -26,13 +26,21 @@
         </StepProgress>
       </div>
     </router-view>
+    <!-- <input-page @goToNext="goToNext" property="datasets" page="step1" :isDistributionOverview="isDistributionOverview" name="dpiSubpages" ref="dpiSubpages" :key="$route.query.edit">
+      <div id="subStepperBox">
+        <div id="blur" class="position-absolute w-100 h-100"></div>
+        <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
+          active-color="#343434" :line-thickness="1" :active-thickness="20" :passive-thickness="20">
+        </StepProgress>
+      </div>
+    </input-page> -->
   </div>
 </template>
 
 <script>
 /* eslint-disable no-nested-ternary, no-lonely-if, no-param-reassign */
+import { defineAsyncComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
-import Navigation from './components/Navigation';
 import StepProgress from 'vue-step-progress';
 import 'vue-step-progress/dist/main.css';
 
@@ -40,7 +48,9 @@ export default {
   name: 'DataProviderInterface',
   components: {
     StepProgress: StepProgress.default || StepProgress,
-    Navigation,
+    Navigation: defineAsyncComponent(() => import('./components/Navigation')),
+    InputPage: defineAsyncComponent(() => import('./views/InputPage')),
+    OverviewPage: defineAsyncComponent(() => import('./views/OverviewPage')),
   },
   props: ['name'],
   metaInfo() {

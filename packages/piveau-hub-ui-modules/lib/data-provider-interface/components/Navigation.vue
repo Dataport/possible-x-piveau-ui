@@ -117,7 +117,6 @@ export default {
       'getData',
       'getNavSteps',
       'getMandatoryStatus',
-      'getSchema',
     ]),
     iDError() { return this.$route.query.error === 'id' },
     datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
