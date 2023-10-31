@@ -6,7 +6,8 @@ import $ from 'jquery';
 import * as VeeValidate from 'vee-validate';
 import VueProgressBar from "@aacassandra/vue3-progressbar";
 import VueClickAway from "vue3-click-away";
-import { plugin, defaultConfig } from '@formkit/vue'
+import { plugin as FormKitPlugin, defaultConfig } from '@formkit/vue'
+import '@formkit/themes/genesis'
 import config from '../formkit.config.ts';
 import VueCookies from 'vue3-cookies';
 import VuePositionSticky from 'vue-position-sticky';
@@ -194,11 +195,11 @@ app.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
 app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
 
 // Form Kit
-app.use(plugin, defaultConfig(config));
+app.use(FormKitPlugin, defaultConfig(config));
 
 // Vue Meta
-const metaManager = createMetaManager();
-app.use(metaManager);
+const VueMetaManager = createMetaManager();
+app.use(VueMetaManager);
 
 // Vue Progressbar
 const progressBarOptions = {
