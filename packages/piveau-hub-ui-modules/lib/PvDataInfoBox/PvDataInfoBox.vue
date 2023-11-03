@@ -22,6 +22,7 @@
               :class="{'catalog-img--big': !compact}"
             />
           </div>
+          
           <div
             class="dataset-info-box-description-container col-12 col-md"
             data-cy="dataset-description"
@@ -41,7 +42,7 @@
                 :truncate="descriptionMaxLength"
               />
             </slot>
-
+            
             <slot name="after-description" />
           </div>
           <div
