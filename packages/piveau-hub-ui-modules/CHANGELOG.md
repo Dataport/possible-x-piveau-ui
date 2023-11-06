@@ -1,3 +1,16 @@
+## [3.13.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.3...v3.13.4) (2023-10-31)
+
+
+### Bug Fixes
+
+* DQV Data HEAD request ([a4ca611](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a4ca611f1616f213ca64ea4185e95780ae613788))
+
+
+
+## [3.13.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.2...v3.13.3) (2023-10-25)
+
+
+
 ## [3.13.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.1...v3.13.2) (2023-10-18)
 
 

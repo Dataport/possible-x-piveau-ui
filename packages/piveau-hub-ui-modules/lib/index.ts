@@ -219,8 +219,9 @@ import ResourceAccessPopup from "./widgets/ResourceAccessPopup";
 import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton";
 import Tooltip from "./widgets/Tooltip";
 
-
+import {configSchema} from "./configurations/config-schema";
 export {
+  configSchema,
   vueKeycloak,
   bulkDownloadCorsProxyService,
   corsProxyService,

@@ -138,7 +138,7 @@
             <span>{{ truncate(right, 75) }}</span>
           </div>
           -->
-          <div>{{ distribution.rights.label }}</div>
+          <div>{{ distributionRights(distribution) }}</div>
         </td>
       </tr>
 
@@ -335,14 +335,22 @@ export default {
   computed: {
     ...mapGetters('datasetDetails', [
       'getID'
-    ]),
+    ])
   },
   methods: {
     has,
     isNil,
     truncate,
     formatDatetime,
-    getTranslationFor
+    getTranslationFor,
+    distributionRights(distribution) {
+      const rights = distribution.rights;
+      if (rights.label) {
+        return rights.label
+      } else {
+        return rights.resource;
+      }
+    }
   }
 }
 </script>
