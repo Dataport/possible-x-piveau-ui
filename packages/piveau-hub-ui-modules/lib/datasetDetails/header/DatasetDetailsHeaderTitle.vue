@@ -1,8 +1,12 @@
 <template>
   <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
-    <div class="d-none d-lg-block dsd-title-tag">
-      <span :style="{ fontSize: titleFontSize }">
+    <div v-if="isErpdActive()" class="d-none d-lg-block dsd-title-tag erpdInfo">
+      <span  >Protected Data</span>
+    </div>
+    <div v-else class="d-none d-lg-block dsd-title-tag">
+      <span  :style="{ fontSize: titleFontSize }">
         {{$t('message.metadata.dataset')}}
+        
       </span>
     </div>
     <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
@@ -19,12 +23,18 @@ export default {
     titleFontSize: String,
   },
   methods: {
-    getTranslationFor
+    getTranslationFor,
+    isErpdActive() {
+      console.log(this.getLanguages);
+      return this.getCatalog.is_part_of  === 'http://data.europa.eu/88u/catalogue/erpd';
+    },
   },
   computed: {
     ...mapGetters('datasetDetails', [
       'getLanguages',
       'getTitle',
+      'getCatalog',
+      
     ]),
   }
 }
@@ -38,6 +48,9 @@ export default {
   font-weight: 500;
   line-height: 1.2;
   color: inherit;
+}
+.erpdInfo{
+  background-color: #8f4300 !important;
 }
 @media (min-width: 768px) {
   .dataset-details-title {
