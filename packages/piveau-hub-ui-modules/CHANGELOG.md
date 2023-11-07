@@ -1,3 +1,12 @@
+# [3.14.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.4...v3.14.0) (2023-11-07)
+
+
+### Features
+
+* **DPIMenu:** add scoped slot in login-logout element block ([92a2abb](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/92a2abbe7aa433568b5768b198b1c3e0e418195e))
+
+
+
 ## [3.13.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.3...v3.13.4) (2023-10-31)
 
 
