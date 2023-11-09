@@ -1,3 +1,13 @@
+## [3.14.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.0...v3.14.1) (2023-11-09)
+
+
+### Bug Fixes
+
+* fixed content type ([7a0ca4c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/7a0ca4cd804c28f6e27363e60e9ee443638d6154))
+* new prefixes for the catalog ([20a1bae](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/20a1bae555a360f3936318a39f9be13d74d74ea6))
+
+
+
 # [3.14.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.13.4...v3.14.0) (2023-11-07)
 
 
