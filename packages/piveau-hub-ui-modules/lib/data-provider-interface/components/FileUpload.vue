@@ -44,7 +44,7 @@ export default {
       'getData',
     ]),
     getCatalogue() {
-      const catalog = this.getData('datasets')['dct:catalog'];
+      const catalog = this.getData('datasets')['dcat:catalog'];
       return catalog;
     },
   },
