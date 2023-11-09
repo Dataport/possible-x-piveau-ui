@@ -225,13 +225,13 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
             // dataset-/catalogue-id is string following the last /
             state[key] = id.substr(id.lastIndexOf('/') + 1);
             state['hidden_datasetIDFormHidden'] = id.substr(id.lastIndexOf('/') + 1);
-        } else if (key === 'dct:catalog' && property === 'datasets') {
-            // datasets also have a property called dct:catalog (not valid DCAT-AP)
+        } else if (key === 'dcat:catalog' && property === 'datasets') {
+            // datasets also have a property called dcat:catalog (not valid DCAT-AP)
             // property is needed to determine catalog the dataset belongs to
             if (!(subData.size > 0)) {
-                // bceause dct:catalog is no valid DCAT-AP it is possible that the prefix is not resolved
+                // bceause dcat:catalog is no valid DCAT-AP it is possible that the prefix is not resolved
                 // therefore it is also possible to get the data by using the shortned key
-                subData = data.match(id, 'dct:catalog', null, null);
+                subData = data.match(id, 'dcat:catalog', null, null);
             }
                
             state[key] = '';

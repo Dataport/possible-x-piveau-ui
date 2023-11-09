@@ -884,7 +884,7 @@ const dcatapProperties = {
     catalog: {
       identifier: 'catalog',
       type: 'select',
-      name: 'dct:catalog',
+      name: 'dcat:catalog',
       class: 'property mandatory',
       validation: 'required',
       mandatory: true,

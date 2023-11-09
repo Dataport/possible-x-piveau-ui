@@ -267,7 +267,7 @@ export default {
       const datasetId = this.getData(submitProperty)['datasetID'];
       const title = this.getData(submitProperty)['dct:title'];
       const description = this.getData(submitProperty)['dct:description'];
-      const catalogName = this.getData(submitProperty)['dct:catalog'] ? this.getData(submitProperty)['dct:catalog'] : '';
+      const catalogName = this.getData(submitProperty)['dcat:catalog'] ? this.getData(submitProperty)['dcat:catalog'] : '';
 
       let uploadUrl;
       let actionName;

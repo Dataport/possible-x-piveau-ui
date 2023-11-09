@@ -212,7 +212,7 @@ function checkMandatory(data, property) {
         status = !isEmpty(data['datasetID'])
         && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
         && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dct:catalog']);
+        && !isEmpty(data['dcat:catalog']);
     } else if (property === 'distributions') {
         // distribution mandatory properties: dcat:accessUrl
         status = !isNil(data) && !isEmpty(data) && !isEmpty(data['dcat:accessURL']);
