@@ -48,7 +48,7 @@ const glueConfig = {
       logoutRedirectUri: '/data',
     },
     keycloak: {
-      realm: 'piveau',
+      realm: 'vanilla',
       clientId: 'piveau-hub-ui',
       url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
 
