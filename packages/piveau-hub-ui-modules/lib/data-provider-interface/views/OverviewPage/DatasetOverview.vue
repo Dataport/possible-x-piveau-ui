@@ -10,7 +10,7 @@
                 <div class="dsCatalogue ">
                     <span><b>Catalog:</b></span>
                     <a href="">
-                        {{ checkIfSet(getData('datasets')['dct:catalog']) }}
+                        {{ checkIfSet(getData('datasets')['dcat:catalog']) }}
                     </a>
 
                 </div>
