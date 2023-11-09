@@ -13,7 +13,7 @@ const createDraftApi = ({ baseURL, authToken }: { baseURL: string, authToken: st
   // Create a new draft
   const createDatasetDraft = ({ id, catalogue, body }: { id: string, catalogue: string, body: unknown}) =>
     api.put(`/datasets/${id}`, body, {
-    headers: { 'Content-Type': 'application/x-turtle' },
+    headers: { 'Content-Type': 'text/turtle' },
     params: { catalogue },
   });
 
