@@ -1,3 +1,12 @@
+## [3.14.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.1...v3.14.2) (2023-11-09)
+
+
+### Bug Fixes
+
+* quickfix ([f603a2c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f603a2c8be2007604ed60a8736d87db76ccd8240))
+
+
+
 ## [3.14.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.0...v3.14.1) (2023-11-09)
 
 
