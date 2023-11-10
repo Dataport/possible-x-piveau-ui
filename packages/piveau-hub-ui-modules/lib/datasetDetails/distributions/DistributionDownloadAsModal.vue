@@ -178,7 +178,6 @@ export default {
                             this.progress = '100';
                             this.readyForDownload = true;
                             const locale = this.$route.query.locale;
-                            console.log(res.data)
                             let FILE;
                               if (this.selected === 'json') {
                                 const jsonString = JSON.stringify(res.data);
@@ -202,6 +201,7 @@ export default {
                                 if (e.response) this.errorMsg = e.response.data;
                                 this.error = true;
                                 this.downloadBtnText = 'Download';
+                                this.converting = false;
                             }
                         });
                 }
