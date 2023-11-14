@@ -26,7 +26,7 @@
    ds.accrualPeriodicity = dataGetters.getObject(dataset, 'accrual_periodicity', ['resource', 'label']);
    ds.admsIdentifiers = dataGetters.getArrayOfObjects(dataset, 'adms_identifier', ['identifier', 'schema', 'resource']);
    ds.attributes = dataGetters.getArrayOfStrings(dataset, 'attribute');
-   ds.catalog = dataGetters.getObject(dataset, 'catalog', ['id', 'title', 'description', 'country', 'homepage', 'issued', 'modified', 'language', 'license', 'publisher', 'spatial', 'spatial_resource', 'availability']);
+   ds.catalog = dataGetters.getObject(dataset, 'catalog', ['id', 'title', 'description', 'country', 'homepage', 'issued', 'modified', 'language', 'license', 'publisher', 'spatial', 'spatial_resource', 'availability','is_part_of']);
    ds.catalogRecord = dataGetters.getObject(dataset, 'catalog_record', ['issued', 'modified']);
    ds.categories = dataGetters.getArrayOfObjects(dataset, 'categories', ['id', 'label']);
    ds.conformsTo = dataGetters.getArrayOfObjects(dataset, 'conforms_to', ['label', 'resource']);

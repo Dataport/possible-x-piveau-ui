@@ -124,7 +124,7 @@ const actions = {
       method: 'PUT',
       url: actionParams.url,
       headers: {
-        'Content-Type': 'application/x-turtle',
+        'Content-Type': 'text/turtle',
         Authorization: `Bearer ${actionParams.token}`,
       },
       data: actionParams.data,

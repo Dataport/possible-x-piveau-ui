@@ -11,7 +11,8 @@ const state = {
     query: '',
     limit: RESULTS_PER_PAGE,
     offset: 0,
-    facets: [],
+    // The Facets to filter for
+    facets: {},
     facetOperator: 'AND',
     facetGroupOperator: 'AND',
     dataServices: 'false',
@@ -337,7 +338,7 @@ const mutations = {
     state.searchParameters.offset = offset;
   },
   SET_FACETS(state, facets) {
-    state.searchParameters.facets = facets;
+    state.searchParameters.facets = {...facets};
   },
   ADD_FACET(state, { field, facet }) {
     // If the facetField is not defined in state..

@@ -35,8 +35,9 @@ const actions = {
         // Catching invalid URI's
         if(voc === undefined) return
         if(voc === "application") return 
-             
-        const value = resource.substring(resource.lastIndexOf('/') + 1);
+
+        const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];   
+        const value = encodeURIComponent(resource.replace(dpiConfig.vocabPrefixes[voc], ""));
         let req;
 
         // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
