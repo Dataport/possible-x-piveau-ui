@@ -164,6 +164,10 @@ const glueConfig = {
         showTitle: false,
         collapsed: false,  // displayAll
       },
+      categoriesKey: {
+        isVisible: true,
+        collapsed: false,  // displayAll
+      },
       description: {
         enableMarkdownInterpretation: true,
       },
