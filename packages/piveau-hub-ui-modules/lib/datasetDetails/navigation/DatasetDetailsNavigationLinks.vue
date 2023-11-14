@@ -124,11 +124,6 @@ import { mapGetters, mapActions } from "vuex";
 import $ from "jquery";
 
 import { getTranslationFor } from "../../utils/helpers";
-import DatasetDetailsFeedbackButton from "../../datasetDetails/DatasetDetailsFeedbackButton";
-import AppLink from "../../widgets/AppLink";
-import DatasetDetailsShareButton from "../../datasetDetails/DatasetDetailsShareButton";
-import ResourceDetailsLinkedDataButton from "../../widgets/ResourceDetailsLinkedDataButton";
-import DatasetDetailsLinkedMetricsButton from "../../datasetDetails/DatasetDetailsLinkedMetricsButton";
 
 
 export default {
@@ -140,13 +135,13 @@ export default {
     },
   },
   components: {
+    AppLink: defineAsyncComponent(() => import('../../widgets/AppLink')),
     DatasetCitationModal: defineAsyncComponent(() => import('../../citation/DatasetCitationModal')),
     DatasetEmbedModal: defineAsyncComponent(() => import('../../embed/DatasetEmbedModal')),
-    DatasetDetailsLinkedMetricsButton,
-    ResourceDetailsLinkedDataButton,
-    DatasetDetailsFeedbackButton,
-    AppLink,
-    DatasetDetailsShareButton
+    DatasetDetailsFeedbackButton: defineAsyncComponent(() => import('../../datasetDetails/DatasetDetailsFeedbackButton')),
+    DatasetDetailsShareButton: defineAsyncComponent(() => import('../../datasetDetails/DatasetDetailsShareButton')),
+    DatasetDetailsLinkedMetricsButton: defineAsyncComponent(() => import('../../datasetDetails/DatasetDetailsLinkedMetricsButton')),
+    ResourceDetailsLinkedDataButton: defineAsyncComponent(() => import('../../widgets/ResourceDetailsLinkedDataButton')),
   },
   data() {
     return {
