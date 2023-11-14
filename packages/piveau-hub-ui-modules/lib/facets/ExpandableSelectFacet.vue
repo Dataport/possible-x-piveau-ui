@@ -1,6 +1,6 @@
 <template>
   <!-- Component for a collapsible facet -->
-  <div class="list-group" role="group" :aria-labelledby="myTitleId" >
+  <div class="list-group col pr-0" role="group" :aria-labelledby="myTitleId" >
     <template v-if="header">
       <facet-title
         :title="header"
