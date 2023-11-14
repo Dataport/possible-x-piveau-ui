@@ -331,9 +331,10 @@ export default {
     },
     toggleFacet(field, facet) {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-        return this.setRouteQuery({ [field]: [], page: 1 });
+        this.setRouteQuery({ [field]: [], page: 1 });
       }
-      let facets = this.$route.query[field].slice();
+      let facets = this.$route.query?.[field]?.slice();
+      if (!facets) facets = [];
       if (!Array.isArray(facets)) facets = [facets];
       if (field === 'categories') {
         // Ignore Case for categories

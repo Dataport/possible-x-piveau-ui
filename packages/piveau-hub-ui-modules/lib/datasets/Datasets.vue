@@ -347,8 +347,9 @@ export default {
       }, {});
 
       // Add the route query params that are missing
+      // sets empty arrays for the fields that don't exist in the router query
+      // todo: is this still necessary?
       this.$router.push({ query: {...this.$route.query, ...routeQueryParamsToBeAdded} });
-
       this.setFacets(facetsFromRouteParams);
     },
 
