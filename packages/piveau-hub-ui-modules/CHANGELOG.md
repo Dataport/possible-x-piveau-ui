@@ -1,3 +1,17 @@
+# [4.0.0-alpha.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.11...v4.0.0-alpha.12) (2023-11-14)
+
+
+### Bug Fixes
+
+* **ExpandableSelectFacet:** apply correct layout ([026196e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/026196e0c985fb0c2521170e1a93e4b9bc157802))
+
+
+### Features
+
+* update Vue version to 3.3.8 ([eaf6bcf](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/eaf6bcfad8eb1f9cbd24c9949749a165199931ca))
+
+
+
 # [4.0.0-alpha.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.10...v4.0.0-alpha.11) (2023-10-31)
 ## [3.14.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.2...v3.14.3) (2023-11-10)
 

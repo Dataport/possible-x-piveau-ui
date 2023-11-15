@@ -4,16 +4,7 @@
       <app-markdown-content
         v-if="$env.content.datasetDetails.description.enableMarkdownInterpretation"
         :text="truncate(getDatasetDescription, datasetDescriptionLength)"
-      >
-<!--        <template #after>-->
-<!--          <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">-->
-<!--            {{ $t('message.metadata.showMore') }}-->
-<!--          </small>-->
-<!--          <small v-else-if="isDatasetDescriptionExpanded" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">-->
-<!--            {{ $t('message.metadata.showLess') }}-->
-<!--          </small>-->
-<!--        </template>-->
-      </app-markdown-content>
+      />
       <p v-else style="word-wrap:break-word;">
         <span class="mr-2">{{ truncate(getDatasetDescription, datasetDescriptionLength) | stripHtml }}</span>
 <!--        <small v-if="!isDatasetDescriptionExpanded && datasetDescriptionLength < getDatasetDescriptionLength" class="cursor-pointer text-nowrap" @click="toggleDatasetDescription">-->
