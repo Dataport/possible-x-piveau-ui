@@ -1,3 +1,12 @@
+# [4.0.0-alpha.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.13...v4.0.0-alpha.14) (2023-11-16)
+
+
+### Bug Fixes
+
+* make CatalogueFacets work again ([767d64d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/767d64d094184255353f453844c2fef2f95b525d))
+
+
+
 # [4.0.0-alpha.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.12...v4.0.0-alpha.13) (2023-11-16)
 
 
