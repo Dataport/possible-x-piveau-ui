@@ -233,7 +233,8 @@
         if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
           this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: [] }) });
         }
-        let facets = this.$route.query[field].slice();
+        let facets = this.$route.query?.[field]?.slice();
+        if (!facets) facets = [];
         if (!Array.isArray(facets)) facets = [facets];
         const index = facets.indexOf(facet);
         if (index > -1) {
