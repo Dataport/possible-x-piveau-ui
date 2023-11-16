@@ -58,7 +58,8 @@ import {
   FileUpload,
   DatePicker,
   DateTimePicker,
-  configureModules
+  configureModules,
+  helpers,
 } from '@piveau/piveau-hub-ui-modules';
 import '@piveau/piveau-hub-ui-modules/styles';
 
@@ -121,13 +122,6 @@ app.component('AppSnackbar', AppSnackbar);
 app.component('AppConfirmationDialog', AppConfirmationDialog);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
-// Vue Router
-app.use(router);
-router.app = app;
-
-// Vuex Store
-app.use(store);
-
 // Vue i18n
 const LOCALE = env.languages.locale;
 const FALLBACKLOCALE = env.languages.fallbackLocale;
@@ -144,6 +138,15 @@ const i18n = createI18n({
   silentTranslationWarn: true,
   warnHtmlMessage: false,
 });
+
+// Vue Router
+app.use(router);
+router.app = app;
+router.beforeEach(helpers.createStickyLocale(LOCALE || FALLBACKLOCALE))
+
+// Vuex Store
+app.use(store);
+
 
 app.config.globalProperties.i18n = i18n;
 app.use(i18n);
