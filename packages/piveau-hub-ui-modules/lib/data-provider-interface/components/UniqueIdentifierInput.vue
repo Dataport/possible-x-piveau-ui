@@ -55,34 +55,58 @@ export default {
       isUniqueID: true,
       uniqueID: '',
       uniqueIDHidden: '',
-      validation: 'optional|validateID',
+      validation: 'optional|validateID|idDuplicate',
       validationHidden: 'required',
+      draftIDs: [],
       validationRules: {
         validateID: () => /^[a-z0-9-]*$/.test(this.uniqueID),
+        idDuplicate: ({ value }) => !this.draftIDs.includes(value)
       },
       validationMessages: {
         validateID: 'Dataset ID must only contain lower case letters, numbers and dashes (-). Please choose a different ID.',
+        idDuplicate: 'This ID is already in use, please choose a different one.'
       },
     };
   },
   computed: {
     ...mapGetters('auth', [
       'getIsEditMode',
+      'getUserDrafts'
     ]),
   },
   methods: {
+    // draftIDs() {
+    //   let draftIDArray;
+    //   this.getUserDrafts.forEach(element => {
+    //     draftIDArray.push(element['id'])
+    //   });
+    //   return draftIDArray
+    // },
     populateID() {
+
       // Populate ID field if existing (EDIT)
       if (this.context.model) this.uniqueID = this.context.model;
     },
     checkUniqueID() {
+
+      // Check if ID is already existing in
+      if (this.getUserDrafts.length > this.draftIDs.length) {
+        this.getUserDrafts.forEach(element => {
+          this.draftIDs.push(element['id'])
+        });
+      }
+
       return new Promise(() => {
         if (isNil(this.uniqueID) || this.uniqueID === '' || this.uniqueID === undefined) this.isUniqueID = true;
+        else if (this.draftIDs.includes(this.uniqueID)) {
+          this.isUniqueID = false;
+        }
         else {
           const request = `${this.$env.api.hubUrl}${this.$route.params.property}/${this.uniqueID}?useNormalizedId=true`;
+
           axios.head(request)
             .then(() => {
-              
+
               this.isUniqueID = false;
             })
             .catch((e) => {
@@ -90,8 +114,10 @@ export default {
                 console.log(e);
               }
               this.isUniqueID = true;
-            } );
+            });
+
         }
+
       });
     },
     handleDatasetIDError(newValue) {
@@ -115,8 +141,10 @@ export default {
     this.populateID();
   },
   mounted() {
+
     this.checkUniqueID();
   },
+
   watch: {
     context: {
       handler() {
@@ -125,6 +153,7 @@ export default {
     },
     uniqueID: {
       handler(newValue) {
+        // console.log("hallo");
         this.uniqueIDHidden = this.validationRules.validateID()
           ? newValue
           : '';

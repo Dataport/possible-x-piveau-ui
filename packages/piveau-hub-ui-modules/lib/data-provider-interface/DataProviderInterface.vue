@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi" :key="property">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi position-relative" :key="property">
     <!-- TOP -->
     <div id="stepperAnchor" class="stickyStepper">
       <div class="SSfirstRow">
@@ -15,16 +15,17 @@
       <StepProgress id="subStepper" v-if="property === 'distributions'" :line-thickness="1" :steps="datasetStepNames"
         :current-step="3" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
       </StepProgress>
-    </div>
-
-    <!-- CONTENT -->
-    <router-view @goToNext="goToNext" :isDistributionOverview="isDistributionOverview" name="dpiSubpages" ref="dpiSubpages" :key="$route.query.edit">
-      <div id="subStepperBox">
-        <div id="blur" class="position-absolute w-100 h-100"></div>
+      
+      <div id="subStepperBox" v-if="property === 'distributions'">
+        
         <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
           active-color="#343434" :line-thickness="1" :active-thickness="20" :passive-thickness="20">
         </StepProgress>
       </div>
+    </div>
+    <!-- CONTENT -->
+    <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
+      
     </router-view>
     <!-- <input-page @goToNext="goToNext" property="datasets" page="step1" :isDistributionOverview="isDistributionOverview" name="dpiSubpages" ref="dpiSubpages" :key="$route.query.edit">
       <div id="subStepperBox">
@@ -228,14 +229,6 @@ export default {
 .border-bottom-lightgray {
   border-bottom: 1px solid lightgray;
 }
-
-#blur {
-  left: 0;
-  top: 0;
-  backdrop-filter: blur(8px);
-  background: rgba(255, 255, 255, 0.1);
-}
-
 .stickyStepper {
   position: sticky;
   top: 0;

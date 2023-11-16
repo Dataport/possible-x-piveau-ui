@@ -74,7 +74,7 @@ export default {
         },
         handleInput(){
             if(this.urlInput.includes("https://") || this.urlInput.includes("http://")){
-                
+                this.urlInput= this.urlInput.trim()
             }
             else{
                 this.urlInput = "https://"+this.urlInput

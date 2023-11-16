@@ -16,7 +16,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       this.$gazetteerService.autocomplete(query)
         .then((response) => {
-          const res = response.data.result.results;
+          const res = response.data.results;
           commit('SET_SUGGESTIONS', res);
           resolve(res);
         }).catch((error) => {

@@ -88,6 +88,7 @@ import {
     mapGetters
 } from 'vuex'
 import axios from 'axios'
+import { late } from 'zod'
 
 export default {
     name: "download-as-modal",
@@ -177,7 +178,14 @@ export default {
                             this.progress = '100';
                             this.readyForDownload = true;
                             const locale = this.$route.query.locale;
-                            const FILE = window.URL.createObjectURL(new Blob([res.data]));
+                            let FILE;
+                              if (this.selected === 'json') {
+                                const jsonString = JSON.stringify(res.data);
+                                FILE = window.URL.createObjectURL(new Blob([jsonString], { type: 'application/json' }));
+                              } else {
+                                FILE = window.URL.createObjectURL(new Blob([res.data]));
+                              }
+                              
                             let docUrl = document.createElement('a');
                             docUrl.href = FILE;
                             docUrl.setAttribute('download', this.setFileName(locale));
@@ -193,6 +201,7 @@ export default {
                                 if (e.response) this.errorMsg = e.response.data;
                                 this.error = true;
                                 this.downloadBtnText = 'Download';
+                                this.converting = false;
                             }
                         });
                 }

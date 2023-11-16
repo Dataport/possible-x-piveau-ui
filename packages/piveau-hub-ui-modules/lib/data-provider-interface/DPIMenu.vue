@@ -37,10 +37,12 @@
 
 
       <div v-if="getUserData.userName">
-        <small class="text-white">{{ $t('message.dataupload.menu.loggedInAs')}} {{ getUserData.userName }}</small><br>
-        <button type="button" class="btn btn-default logout">
-          <router-link :to="{ name: 'Logout'}">{{$t('message.dataupload.menu.logout')}}</router-link>
-        </button>
+        <slot name="right" :get-user-data="getUserData">
+          <small class="text-white">{{ $t('message.dataupload.menu.loggedInAs')}} {{ getUserData.userName }}</small><br>
+          <button type="button" class="btn btn-default logout">
+            <router-link :to="{ name: 'Logout'}">{{$t('message.dataupload.menu.logout')}}</router-link>
+          </button>
+        </slot>
       </div>
     </nav>
 
@@ -67,7 +69,7 @@ export default {
   components: {
     Dropup
   },
-  props: [],
+  props: {},
   data() {
     return {
       visible: true,

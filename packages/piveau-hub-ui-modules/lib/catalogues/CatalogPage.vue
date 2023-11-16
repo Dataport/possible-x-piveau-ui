@@ -166,6 +166,8 @@ import {
 } from 'lodash-es';
 import {getTranslationFor, truncate} from '../utils/helpers';
 
+import Axios from 'axios';
+
 export default {
   name: "CatalogPage",
   components: {
@@ -177,6 +179,7 @@ export default {
   data() {
     return {
       interestingDatasets: [],
+      interestingDatasetsFallback: [],
       activeTabName: 'about',
       cardNavTabs: [
         {
@@ -254,6 +257,15 @@ export default {
             console.log('error: ', error)
           });
       }
+    },
+    loadCatalogInterestingDatasetsFallback(catalog) {
+      for (let id of this.catalog.catalogueInterestingDatasets) {
+        this.DatasetService.getSingle(id)
+            .then(response => {
+              this.interestingDatasetsFallback.push(response);
+            })
+            .catch(error => console.log('error: ', error));
+      }
     }
   },
   mounted() {
@@ -275,16 +287,49 @@ export default {
       const parts = host.split('.');
       if (parts.length > 1) {
         catalogId = parts[0];
+
       }
     }
 
 
     Promise.all([
       this.loadCatalog(catalogId)
-          .then(result => {
-            this.loadCatalogInterestingDatasets(result)
+        .then(result => {
+          this.loadCatalogInterestingDatasets(result)
+        }
+      ),
+      // TODO: This is a temporary workaround.
+      // We should refactor this code to use the store instead of making
+      // a dedicated HTTP request for dataset search.
+      // This will ensure that the most relevant datasets for the catalog are always displayed,
+      // even if the search page has filtered datasets. 
+      Axios.get(`${this.$env.api.baseUrl}search`, {
+        params: {
+          q: '',
+          filter: 'dataset',
+          limit: 3,
+          page: 0,
+          sort: 'relevance+desc,+modified+desc,+title.de+asc',
+          facetOperator: 'AND',
+          facetGroupOperator: 'AND',
+          dataServices: false,
+          includes: 'id,title.de,description.de,languages,modified,issued,catalog.id,catalog.title,catalog.country.id,distributions.id,distributions.format.label,distributions.format.id,distributions.license,categories.label,publisher',
+          facets: JSON.stringify({
+            license: [],
+            format: [],
+            categories: [],
+            catalog: [catalogId],
+            publisher: [],
+            country: [],
           }),
-      this.loadDatasets({locale: this.$route.query.locale})
+        },
+      }).then(response => {
+        const interestingDatasets = response.data?.result?.results || [];
+        this.loadCatalogInterestingDatasetsFallback(interestingDatasets)
+      }).catch(error => {
+        console.error(error)
+      }),
+      // ...this.activeTabName === 'dataset-page' ? [this.loadDatasets({locale: this.$route.query.locale})] : [],
     ]).then(results => {
       this.$Progress.finish()
     }).catch(error => {

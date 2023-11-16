@@ -39,17 +39,17 @@ import { configureModules } from "./configurations/configureModules";
 
 /***** IMPORT VUE COMPONENTS *****/
 
-// Import auth 
+// Import auth
 import Auth from "./auth/Auth";
 
 // Import cataloguesFacets
 import CataloguesFacets from "./catalogues/cataloguesFacets/CataloguesFacets";
 
-// Import catalogues 
+// Import catalogues
 import CatalogPage from "./catalogues/CatalogPage";
 import Catalogues from "./catalogues/Catalogues";
 
-// Import citation 
+// Import citation
 import DatasetCitationModal from "./citation/DatasetCitationModal";
 import DatasetCitationTable from "./citation/DatasetCitationTable";
 
@@ -85,7 +85,7 @@ import OverviewPage from "./data-provider-interface/views/OverviewPage";
 import UserCataloguesPage from "./data-provider-interface/views/UserCataloguesPage";
 import UserProfilePage from "./data-provider-interface/views/UserProfilePage";
 
-// Import data-provider-interface 
+// Import data-provider-interface
 import DataProviderInterface from "./data-provider-interface/DataProviderInterface";
 import DpiMenu from "./data-provider-interface/DPIMenu";
 
@@ -105,7 +105,7 @@ import DistributionExpand from "./datasetDetails/distributions/distributionDetai
 import DistributionExpandedContent from "./datasetDetails/distributions/distributionDetails/DistributionExpandedContent";
 import DistributionVisibleContent from "./datasetDetails/distributions/distributionDetails/DistributionVisibleContent";
 
-// Import datasetDetails distributions 
+// Import datasetDetails distributions
 import Distribution from "./datasetDetails/distributions/Distribution";
 import DistributionAdded from "./datasetDetails/distributions/DistributionAdded";
 import DistributionDownloadAsModal from "./datasetDetails/distributions/DistributionDownloadAsModal";
@@ -157,7 +157,7 @@ import DatasetDetailsShareButton from "./datasetDetails/DatasetDetailsShareButto
 import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets";
 import DatasetDetailsSkeleton from "./datasetDetails/DatasetDetailsSkeleton";
 
-// Import datasets 
+// Import datasets
 import DatasetDate from "./datasets/DatasetDate";
 import Datasets from "./datasets/Datasets";
 import DatasetList from "./datasets/DatasetList";
@@ -166,48 +166,48 @@ import DatasetsFiltersTabs from "./datasets/DatasetsFiltersTabs";
 import DatasetsTopControls from "./datasets/DatasetsTopControls";
 
 // Import datasetsFacets
-import CatalogDetailsFacet from "./datasets/datasetsFacets/CatalogDetailsFacet";
+import CatalogDetailsFacet from "./facets/CatalogDetailsFacet";
 import DatasetsFacets from "./datasets/datasetsFacets/DatasetsFacets";
 import DatasetsFacetsItem from "./datasets/datasetsFacets/DatasetsFacetsItem";
 import DatasetsMapFacet from "./datasets/datasetsFacets/DatasetsMapFacet";
 import SettingsFacet from "./datasets/datasetsFacets/SettingsFacet";
 
-// Import facets 
+// Import facets
 import ExpandableSelectFacet from "./facets/ExpandableSelectFacet";
 import Facet from "./facets/Facet";
 import FacetTitle from "./facets/FacetTitle";
 import SelectedFacetsOverview from "./facets/SelectedFacetsOverview";
 
-// Import map 
+// Import map
 import MapBasic from "./map/MapBasic";
 import MapBoundsReceiver from "./map/MapBoundsReceiver";
 import MapBoundsSender from "./map/MapBoundsSender";
 
-// Import modal 
+// Import modal
 import AppConfirmationDialog from "./modal/AppConfirmationDialog";
 import AppSnackbar from "./modal/AppSnackbar";
 import AppToast from "./modal/AppToast";
 
-// Import navigation 
+// Import navigation
 import SubNavigation from "./navigation/SubNavigation";
 
-// Import pages 
+// Import pages
 import Imprint from "./pages/Imprint";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import SparqlSearch from "./pages/SparqlSearch";
 
-// Import PvBadge 
+// Import PvBadge
 import PvBadge from "./PvBadge/PvBadge";
 
-// Import PvDataInfoBox 
+// Import PvDataInfoBox
 import PvDataInfoBox from "./PvDataInfoBox/PvDataInfoBox";
 import PvDataInfoBoxDescription from "./PvDataInfoBox/PvDataInfoBoxDescription";
 import PvDataInfoBoxFooter from "./PvDataInfoBox/PvDataInfoBoxFooter";
 import PvDataInfoBoxFormats from "./PvDataInfoBox/PvDataInfoBoxFormats";
 
 
-// Import widgets 
+// Import widgets
 import AppLink from "./widgets/AppLink";
 import Dropdown from "./widgets/Dropdown";
 import Pagination from "./widgets/Pagination";
@@ -219,8 +219,9 @@ import ResourceAccessPopup from "./widgets/ResourceAccessPopup";
 import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton";
 import Tooltip from "./widgets/Tooltip";
 
-
+import {configSchema} from "./configurations/config-schema";
 export {
+  configSchema,
   vueKeycloak,
   bulkDownloadCorsProxyService,
   corsProxyService,
@@ -232,11 +233,11 @@ export {
 
   store,
 
-  decode, 
-  truncate, 
-  getImg, 
-  getCountryFlagImg, 
-  getTranslationFor, 
+  decode,
+  truncate,
+  getImg,
+  getCountryFlagImg,
+  getTranslationFor,
   getFacetTranslation,
   fileTypes,
 
@@ -250,30 +251,30 @@ export {
   Auth,
 
   CataloguesFacets,
-  CatalogPage, 
+  CatalogPage,
   Catalogues,
 
-  DatasetCitationModal, 
+  DatasetCitationModal,
   DatasetCitationTable,
 
-  AutocompleteInput, 
+  AutocompleteInput,
   CustomURL,
   CustomNumber,
-  ConditionalInput, 
-  DataFetchingComponent, 
-  DatePicker, 
+  ConditionalInput,
+  DataFetchingComponent,
+  DatePicker,
   DateTimePicker,
-  Dropup, 
-  FileUpload, 
-  Groupedinput, 
-  InfoSlot, 
-  LanguageSelector, 
+  Dropup,
+  FileUpload,
+  Groupedinput,
+  InfoSlot,
+  LanguageSelector,
   Navigation,
-  UniqueIdentifierInput, 
+  UniqueIdentifierInput,
   ValidationModal,
-  CatalogueOverview, 
-  DatasetOverview, 
-  DistributionOverview, 
+  CatalogueOverview,
+  DatasetOverview,
+  DistributionOverview,
   PropertyEntry,
   DistOverview,
   DraftsPage,
@@ -282,112 +283,112 @@ export {
   OverviewPage,
   UserCataloguesPage,
   UserProfilePage,
-  DataProviderInterface, 
+  DataProviderInterface,
   DpiMenu,
 
-  DistributionActions, 
-  DistributionDownload, 
-  DistributionDownloadAs, 
-  DistributionsDropdownDownload, 
-  DistributionOptionsDropdown, 
-  DistributionPreview, 
+  DistributionActions,
+  DistributionDownload,
+  DistributionDownloadAs,
+  DistributionsDropdownDownload,
+  DistributionOptionsDropdown,
+  DistributionPreview,
   LinkedDataButtonsDropdown,
-  DistributionDescription, 
-  DistributionDetails, 
-  DistributionExpand, 
-  DistributionExpandedContent, 
+  DistributionDescription,
+  DistributionDetails,
+  DistributionExpand,
+  DistributionExpandedContent,
   DistributionVisibleContent,
-  Distribution, 
-  DistributionAdded, 
-  DistributionDownloadAsModal, 
-  DistributionFormat, 
-  Distributions, 
-  DistributionsHeader, 
-  DownloadAllDistributions, 
-  FadingDistributionOverlay, 
+  Distribution,
+  DistributionAdded,
+  DistributionDownloadAsModal,
+  DistributionFormat,
+  Distributions,
+  DistributionsHeader,
+  DownloadAllDistributions,
+  FadingDistributionOverlay,
 
-  DatasetDetailsCategoriesKey, 
-  DatasetDetailsDataServices, 
-  DatasetDetailsFeatureHeader, 
-  DatasetDetailsFeatures, 
-  DatasetDetailsIsUsedBy, 
-  DatasetDetailsKeywords, 
-  DatasetDetailsMap, 
-  DatasetDetailsPages, 
-  DatasetDetailsRelations, 
-  DatasetDetailsSubject, 
+  DatasetDetailsCategoriesKey,
+  DatasetDetailsDataServices,
+  DatasetDetailsFeatureHeader,
+  DatasetDetailsFeatures,
+  DatasetDetailsIsUsedBy,
+  DatasetDetailsKeywords,
+  DatasetDetailsMap,
+  DatasetDetailsPages,
+  DatasetDetailsRelations,
+  DatasetDetailsSubject,
   DatasetDetailsVisualisations,
-  DatasetDetailsHeader, 
-  DatasetDetailsHeaderCatalogue, 
+  DatasetDetailsHeader,
+  DatasetDetailsHeaderCatalogue,
   DatasetDetailsHeaderTitle,
-  DatasetDetailsNavigation, 
-  DatasetDetailsNavigationLinks, 
-  DatasetDetailsNavigationPage, 
+  DatasetDetailsNavigation,
+  DatasetDetailsNavigationLinks,
+  DatasetDetailsNavigationPage,
   DatasetDetailsNavigationPages,
-  AppMarkdownContent, 
-  DatasetDetails, 
-  DatasetDetailsActivityStream, 
-  DatasetDetailsBanners, 
-  DatasetDetailsCategories, 
-  CSVLinter, 
-  DatasetDetailsDataset, 
-  DatasetDetailsDescription, 
-  DatasetDetailsFeedbackButton, 
+  AppMarkdownContent,
+  DatasetDetails,
+  DatasetDetailsActivityStream,
+  DatasetDetailsBanners,
+  DatasetDetailsCategories,
+  CSVLinter,
+  DatasetDetailsDataset,
+  DatasetDetailsDescription,
+  DatasetDetailsFeedbackButton,
   DatasetDetailsLinkedMetricsButton,
   DatasetDetailsProperties,
-  DatasetDetailsQuality, 
-  DatasetDetailsShareButton, 
-  DatasetDetailsSimilarDatasets, 
+  DatasetDetailsQuality,
+  DatasetDetailsShareButton,
+  DatasetDetailsSimilarDatasets,
   DatasetDetailsSkeleton,
   EmbedDataset,
 
-  DatasetDate, 
+  DatasetDate,
   Datasets,
   DatasetList,
   DatasetsFilters,
   DatasetsFiltersTabs,
   DatasetsTopControls,
-  CatalogDetailsFacet, 
+  CatalogDetailsFacet,
   DatasetsFacets,
-  DatasetsFacetsItem, 
-  DatasetsMapFacet, 
+  DatasetsFacetsItem,
+  DatasetsMapFacet,
   SettingsFacet,
-  ExpandableSelectFacet, 
-  Facet, 
-  FacetTitle, 
+  ExpandableSelectFacet,
+  Facet,
+  FacetTitle,
   SelectedFacetsOverview,
 
-  MapBasic, 
-  MapBoundsReceiver, 
+  MapBasic,
+  MapBoundsReceiver,
   MapBoundsSender,
 
-  AppConfirmationDialog, 
-  AppSnackbar, 
+  AppConfirmationDialog,
+  AppSnackbar,
   AppToast,
 
   SubNavigation,
 
-  Imprint, 
-  NotFound, 
-  PrivacyPolicy, 
+  Imprint,
+  NotFound,
+  PrivacyPolicy,
   SparqlSearch ,
 
   PvBadge,
 
-  PvDataInfoBox, 
-  PvDataInfoBoxDescription, 
+  PvDataInfoBox,
+  PvDataInfoBoxDescription,
   PvDataInfoBoxFooter,
   PvDataInfoBoxFormats,
 
-  AppLink, 
-  Dropdown, 
-  Pagination, 
-  PropertyValue, 
-  PvBanner, 
-  PvButton, 
-  PvShowMore, 
-  ResourceAccessPopup, 
-  ResourceDetailsLinkedDataButton, 
+  AppLink,
+  Dropdown,
+  Pagination,
+  PropertyValue,
+  PvBanner,
+  PvButton,
+  PvShowMore,
+  ResourceAccessPopup,
+  ResourceDetailsLinkedDataButton,
   Tooltip,
 };
 
