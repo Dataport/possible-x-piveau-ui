@@ -40,7 +40,7 @@ trigger gitlab.com to dataeuropa:
     - if: $CI_COMMIT_BRANCH == "master"
   allow_failure: true
   variables:
-    SERVICE_NAME: piveau-ui-modules
+    SERVICE_NAME: ui-modules
   trigger:
     project: dataeuropa/utilities/local-deployments
     branch: master    
