@@ -31,3 +31,15 @@ publish package to npm repository:
     - npm ci
     - if [[ "$CI_COMMIT_TAG" == v* ]]; then npm run ci-publish $CI_COMMIT_TAG; fi
     - if [[ "$CI_COMMIT_TAG" == *@* ]]; then npm run ci-publish $CI_COMMIT_TAG; fi
+
+
+trigger gitlab.com to dataeuropa:
+  stage: publish sources
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+  allow_failure: true
+  variables:
+    SERVICE_NAME: piveau-ui-modules
+  trigger:
+    project: dataeuropa/utilities/local-deployments
+    branch: master    
