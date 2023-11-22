@@ -62,7 +62,7 @@ publish sources to GITLAB.COM:
     - cd ..
     - git clone https://$GITLAB_COM_USER:$GITLAB_COM_TOKEN@$GITLAB_COM_REPO/utilities/ui-modules target
     - cd target
-    - git remote add modified-source ../$CI_PROJECT_NAME
+    - git remote add modified-source ..
     - git pull modified-source master --allow-unrelated-histories --tags
     - git push origin master --tags
 
