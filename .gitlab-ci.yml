@@ -53,7 +53,7 @@ publish sources to GITLAB.COM:
     - ln -s /usr/bin/python3 /usr/local/bin/python
     - pip3 install --upgrade pip
     - pip3 install git-filter-repo
-    - git clone https://$GITLAB_USER:$GITLAB_TOKEN@$CI_SERVER_HOST/piveau/ui/piveau-ui.git
+    - git clone https://$GITLAB_USER:$GITLAB_TOKEN@$CI_SERVER_HOST/piveau/ui/$CI_PROJECT_NAME.git
     - cd $SERVICE_NAME
     - git checkout master
     - \cp $CI_PROJECT_DIR/LICENSE.md .
@@ -62,7 +62,7 @@ publish sources to GITLAB.COM:
     - cd ..
     - git clone https://$GITLAB_COM_USER:$GITLAB_COM_TOKEN@$GITLAB_COM_REPO/utilities/ui-modules target
     - cd target
-    - git remote add modified-source ../$SERVICE_NAME
+    - git remote add modified-source ../$CI_PROJECT_NAME
     - git pull modified-source master --allow-unrelated-histories --tags
     - git push origin master --tags
 
