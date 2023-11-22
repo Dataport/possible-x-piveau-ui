@@ -33,9 +33,8 @@ publish package to npm repository:
     - if [[ "$CI_COMMIT_TAG" == v* ]]; then npm run ci-publish $CI_COMMIT_TAG; fi
     - if [[ "$CI_COMMIT_TAG" == *@* ]]; then npm run ci-publish $CI_COMMIT_TAG; fi
 
-
-publish sources to GITLAB.COM:
-  stage: publish sources
+publish to gitlab.com DEU dataeuropa:
+  stage: publish
   image: ubuntu:20.04
   allow_failure: true
   only:
@@ -45,7 +44,6 @@ publish sources to GITLAB.COM:
   tags:
     - vst
   script:
-    - echo "publish sources to GITLAB.COM"
     - apt-get update
     - apt-get install -y git python3-pip python3-dev
     - git config --global user.name "$GITLAB_USER_NAME"
@@ -53,18 +51,10 @@ publish sources to GITLAB.COM:
     - ln -s /usr/bin/python3 /usr/local/bin/python
     - pip3 install --upgrade pip
     - pip3 install git-filter-repo
-    - git clone https://$GITLAB_USER:$GITLAB_TOKEN@$CI_SERVER_HOST/piveau/ui/$CI_PROJECT_NAME.git
-    - cd $CI_PROJECT_NAME
     - git checkout master
-    - \cp $CI_PROJECT_DIR/LICENSE.md .
-    - git commit -am 'add DEU license'
     - git filter-repo --invert-paths --force --path .gitlab-ci.yml
-    - cd ..
-    - git clone https://$GITLAB_COM_USER:$GITLAB_COM_TOKEN@$GITLAB_COM_REPO/utilities/ui-modules target
-    - cd target
+    - git clone https://$GITLAB_COM_USERNAME:$GITLAB_COM_TOKEN@gitlab.com/dataeuropa/utilities/ui-modules target-repo
+    - cd target-repo
     - git remote add modified-source ..
-    - git pull modified-source master --allow-unrelated-histories --tags
-    - git push origin master --tags
-
-
- 
+    - git pull modified-source main --allow-unrelated-histories --tags --force
+    - git push origin main --tags --force
