@@ -10,6 +10,7 @@ cache:
 stages:
   - build
   - publish
+  - publish sources
 
 build-asset:
   stage: build
