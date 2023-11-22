@@ -54,7 +54,7 @@ publish sources to GITLAB.COM:
     - pip3 install --upgrade pip
     - pip3 install git-filter-repo
     - git clone https://$GITLAB_USER:$GITLAB_TOKEN@$CI_SERVER_HOST/piveau/ui/$CI_PROJECT_NAME.git
-    - cd $SERVICE_NAME
+    - cd $CI_PROJECT_NAME
     - git checkout master
     - \cp $CI_PROJECT_DIR/LICENSE.md .
     - git commit -am 'add DEU license'
