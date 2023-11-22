@@ -56,5 +56,5 @@ publish to gitlab.com DEU dataeuropa:
     - git clone https://$GITLAB_COM_USERNAME:$GITLAB_COM_TOKEN@gitlab.com/dataeuropa/utilities/ui-modules target-repo
     - cd target-repo
     - git remote add modified-source ..
-    - git pull modified-source main --allow-unrelated-histories --tags --force
-    - git push origin main --tags --force
+    - git pull modified-source master --allow-unrelated-histories --tags --force
+    - git push origin master --tags --force
