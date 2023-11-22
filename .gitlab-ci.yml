@@ -34,16 +34,14 @@ publish package to npm repository:
     - if [[ "$CI_COMMIT_TAG" == *@* ]]; then npm run ci-publish $CI_COMMIT_TAG; fi
 
 
-publish sources:
+publish sources to GITLAB.COM:
   stage: publish sources
   image: ubuntu:20.04
   allow_failure: true
   only:
     refs:
       - master
-  except:
-    variables:
-      - $SERVICE_NAME == null
+
   tags:
     - vst
   script:
