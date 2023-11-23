@@ -4,14 +4,15 @@
 
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit"> 
-        <FormKitSchema name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
+        <!-- <FormKitSchema name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
           @submit="handleSubmit"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
           
           <FormKit type="submit" id="submit-form" class="display-none"></FormKit>
         </FormKitSchema>
-        <FormKit type="hidden" class="display-none"></FormKit>
+        <FormKit type="hidden" class="display-none"></FormKit> -->
+        <CustomInputs></CustomInputs>
       </div>
     </div>
     <div v-if="isDistributionOverview">
@@ -41,6 +42,7 @@ import {
 } from 'lodash';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
+import CustomInputs from './CustomInputs.vue';
 
 export default {
   props: {
@@ -81,6 +83,7 @@ export default {
   components: {
     ValidationModal,
     DistributionOverview,
+    CustomInputs,
   },
   computed: {
     ...mapGetters('auth', [
