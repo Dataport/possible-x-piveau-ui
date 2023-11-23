@@ -1,3 +1,12 @@
+# [4.0.0-alpha.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.14...v4.0.0-alpha.15) (2023-11-23)
+
+
+### Bug Fixes
+
+* remove comments from inside code blocks ([53eca5b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/53eca5be08a3cb6102372e02c572b015806a24d8))
+
+
+
 # [4.0.0-alpha.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.13...v4.0.0-alpha.14) (2023-11-16)
 
 
