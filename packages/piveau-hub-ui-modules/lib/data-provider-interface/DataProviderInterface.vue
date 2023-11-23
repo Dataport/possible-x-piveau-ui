@@ -25,16 +25,7 @@
     </div>
     <!-- CONTENT -->
     <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
-      
     </router-view>
-    <!-- <input-page @goToNext="goToNext" property="datasets" page="step1" :isDistributionOverview="isDistributionOverview" name="dpiSubpages" ref="dpiSubpages" :key="$route.query.edit">
-      <div id="subStepperBox">
-        <div id="blur" class="position-absolute w-100 h-100"></div>
-        <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
-          active-color="#343434" :line-thickness="1" :active-thickness="20" :passive-thickness="20">
-        </StepProgress>
-      </div>
-    </input-page> -->
   </div>
 </template>
 
