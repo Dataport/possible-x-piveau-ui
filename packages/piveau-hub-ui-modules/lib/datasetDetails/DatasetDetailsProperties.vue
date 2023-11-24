@@ -877,4 +877,8 @@ table {
 .w-25 {
   min-width: 160px;
 }
+
+tr {
+  width: 100%;
+}
 </style>
