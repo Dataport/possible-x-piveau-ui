@@ -717,10 +717,6 @@ import {mapGetters} from "vuex";
 import {removeMailtoOrTel, truncate, appendCurrentLocaleToURL, getTranslationFor, formatDatetime } from "../utils/helpers";
 import AppLink from "../widgets/AppLink";
 import Tooltip from "../widgets/Tooltip";
-// imported globally
-// import DatasetDetailsFeatureHeader
-//   from "@/modules/datasetDetails/features/DatasetDetailsFeatureHeader";
-// import PvShowMore from "@/modules/widgets/PvShowMore";
 
 export default {
   name: "DatasetDetailsProperties",
