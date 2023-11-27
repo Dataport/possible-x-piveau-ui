@@ -25,7 +25,7 @@ const getResponseData = (catalog) => {
   cat.idName = dataGetters.getString(catalog, 'idName');
   cat.isPartOf = dataGetters.getString(catalog, 'is_part_of');
   cat.languages = dataGetters.getArrayOfObjects(catalog, 'language', ['id', 'label', 'resource']);
-  cat.licence = dataGetters.getObject(catalog, 'license', ['id', 'label', 'description', 'resource', 'la_url']);
+  cat.licence = dataGetters.getObject(catalog, 'license', ['id', 'label', 'description', 'resource', 'la_url', 'homepage']);
   cat.modified = dataGetters.getString(catalog, 'modified');
   cat.publisher = dataGetters.getObject(catalog, 'publisher', ['name', 'type', 'email', 'resource', 'homepage', 'address']);
   cat.record = dataGetters.getObject(catalog, 'catalog_record', ['issued', 'modified']);

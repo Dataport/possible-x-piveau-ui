@@ -1,4 +1,4 @@
-## [3.14.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.3...v3.14.4) (2023-11-14)
+## [3.14.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.3...v3.14.7) (2023-11-27)
 
 
 
