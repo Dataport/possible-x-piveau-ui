@@ -103,7 +103,7 @@
      distribution.hasPolicy = dataGetters.getString(dist, 'has_policy');
      distribution.id = dataGetters.getString(dist, 'id');
      distribution.languages = dataGetters.getArrayOfObjects(dist, 'language', ['id', 'label', 'resource']);
-     distribution.licence = dataGetters.getObject(dist, 'license', ['id', 'label', 'description', 'resource', 'la_url']);
+     distribution.licence = dataGetters.getObject(dist, 'license', ['id', 'label', 'description', 'resource', 'la_url', 'homepage']);
      distribution.mediaType = dataGetters.getString(dist, 'media_type');
      distribution.modificationDate = dataGetters.getString(dist, 'modified');
      distribution.packageFormat = dataGetters.getObject(dist, 'package_format', ['label', 'resource']);
