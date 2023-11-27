@@ -7,7 +7,7 @@
       <dataset-details-skeleton type="DatasetDetails"></dataset-details-skeleton>
     </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
-      <dataset-details-description 
+      <dataset-details-description
         v-if="showDatasetDescription"
         :dateIncorrect="dateIncorrect"
         :machineTranslated="machineTranslated"
@@ -71,7 +71,7 @@
         :showObject="showObject"
       />
 
-      <dataset-details-properties 
+      <dataset-details-properties
         v-if="showDatasetProperties"
         :filterDateFormatEU="filterDateFormatEU"
         :showObjectArray="showObjectArray"
