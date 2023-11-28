@@ -1,3 +1,13 @@
+# [4.0.0-alpha.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.15...v4.0.0-alpha.16) (2023-11-28)
+
+
+### Bug Fixes
+
+* correct categories routing ([84109bf](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/84109bffc6d3682bc90deca4c9473d69b88d9a73))
+* **InputPage:** improve truth checks for beforeRouteEnter hook ([8443805](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/844380582c3f7a2d3f2ee657467177cebda9d636))
+
+
+
 # [4.0.0-alpha.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.14...v4.0.0-alpha.15) (2023-11-23)
 
 
