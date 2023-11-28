@@ -11,14 +11,13 @@ const dcatapProperties = {
       name: 'datasetID',
       class: 'property mandatory',
     },
+    // must be a repeatbale property (repeatable and repeatableremoved), mandatory, minimum
     description: {
       identifier: 'datasetDescription',
       $formkit:'group',
       name: 'dct:description',
       class: 'property langDescriptionInput mandatory',
-      repeatable: true,
       mandatory: true,
-      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -39,14 +38,13 @@ const dcatapProperties = {
         },
       ],
     },
+    // must be a repeatbale property (repeatable and repeatableremoved), mandatory, minimum
     title: {
       identifier: 'title',
       $formkit: 'group',
       name: 'dct:title',
       class: 'property langStringInput mandatory',
-      repeatable: true,
       mandatory: true,
-      '@repeatableRemoved': true,
       minimum: 1,
       children: [
         {
@@ -67,13 +65,12 @@ const dcatapProperties = {
         },
       ],
     },
+    // repeatable and repetable removed, url
     contactPoint: {
       identifier: 'contactPoint',
       $formkit:'group',
       name: 'dcat:contactPoint',
       class: 'property',
-      '@repeatableRemoved': true,
-      repeatable: true,
       children: [
         {
           identifier: 'contactPointType',
@@ -128,12 +125,12 @@ const dcatapProperties = {
           $formkit:'tel',
           name: 'vcard:hasTelephone',
         },
-        {
-          identifier: 'contactPointUrl',
-          $formkit:'custom-url',
-          name: 'vcard:hasURL',
-          validation: 'optional|url',
-        },
+        // {
+        //   identifier: 'contactPointUrl',
+        //   $formkit:'custom-url',
+        //   name: 'vcard:hasURL',
+        //   validation: 'optional|url',
+        // },
         {
           identifier: 'contactPointOrganisationName',
           $formkit:'text',
@@ -151,13 +148,12 @@ const dcatapProperties = {
       voc: 'eurovoc',
       '@annifSuggestion': false,
     },
+    // must be a repeatbale property (repeatable and repeatableremoved)
     keyword: {
       identifier: 'keywordHeader',
       $formkit:'group',
       name: 'dcat:keyword',
       class: 'property langStringInput',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'keyword',
@@ -302,6 +298,7 @@ const dcatapProperties = {
       name: 'dct:accessRights',
       class: 'property',
     },
+    // homepage custom-url
     creator: {
       identifier: 'creator',
       $formkit:'group',
@@ -329,12 +326,12 @@ const dcatapProperties = {
           name: 'foaf:mbox',
           validation: 'optional|email',
         },
-        {
-          identifier: 'creatorHomepage',
-          $formkit:'custom-url',
-          name: 'foaf:homepage',
-          validation: 'optional|url',
-        },
+        // {
+        //   identifier: 'creatorHomepage',
+        //   $formkit:'custom-url',
+        //   name: 'foaf:homepage',
+        //   validation: 'optional|url',
+        // },
       ],
     },
     conformsTo: {
@@ -363,16 +360,12 @@ const dcatapProperties = {
       $formkit:'group',
       name: 'foaf:page',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'pageTitle',
           $formkit:'group',
           name: 'dct:title',
           class: 'property langStringInput',
-          repeatable: true,
-          '@repeatableRemoved': true,
           children: [
             {
               identifier: 'pageTitleSub',
@@ -395,8 +388,6 @@ const dcatapProperties = {
           $formkit:'group',
           name: 'dct:description',
           class: 'property langDescriptionInput',
-          repeatable: true,
-          '@repeatableRemoved': true,
           children: [
             {
               identifier: 'pageDesc',
@@ -486,13 +477,12 @@ const dcatapProperties = {
         },
       ],
     },
+    // repeatable and repeatable removed
     identifier: {
       $formkit:'group',
       class: 'property',
       name: 'dct:identifier',
       identifier: 'identifier',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'identifier',
@@ -522,8 +512,6 @@ const dcatapProperties = {
       identifier: 'landingPage',
       name: 'dcat:landingPage',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'landingPageUrl',
@@ -575,13 +563,12 @@ const dcatapProperties = {
         },
       ],
     },
+    // repeatable and repeteabale removed
     provenance: {
       $formkit:'group',
       identifier: 'provenanceGroup',
       name: 'dct:provenance',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'provenance',
@@ -654,48 +641,61 @@ const dcatapProperties = {
         },
       ],
     },
-    issuedCond: {
-      identifier: 'issuedCond',
-      id: 'issuedCond',
-      $formkit: 'select',
-      options: {date: 'Date', datetime: 'Datetime'},
-    },
+    // done
     issued: {
-      identifier: 'issued',
-      $cmp: 'FormKit',
-      if: '$get(issuedCond).value',
-      props: {
-        name: 'dct:issued',
-        if: '$get(issuedCond).value === date',
-        then: {
-          type: 'date'
+      $formkit: 'group',
+      children: [
+        {
+          identifier: 'issuedCond',
+          id: 'issuedCond',
+          $formkit: 'select',
+          options: {date: 'Date', datetime: 'Datetime'},
         },
-        else: {
-          type: 'datetime-local'
-        }
-      }
+        {
+          identifier: 'issued',
+          $cmp: 'FormKit',
+          if: '$get(issuedCond).value',
+          props: {
+            name: 'dct:issued',
+            if: '$get(issuedCond).value === date',
+            then: {
+              type: 'date'
+            },
+            else: {
+              type: 'datetime-local'
+            }
+          }
+        },
+      ]
     },
-    modifiedCond: {
-      identifier: 'modifiedCond',
-      id: 'modifiedCond',
-      $formkit: 'select',
-      options: {date: 'Date', datetime: 'Datetime'},
-    },
+    // done
     modified: {
-      identifier: 'modified',
-      $cmp: 'FormKit',
-      if: '$get(modifiedCond).value',
-      props: {
-        name: 'dct:modified',
-        if: '$get(modifiedCond).value === date',
-        then: {
-          type: 'date'
+      $formkit: 'group',
+      children: [
+        {
+          identifier: 'modifiedCond',
+          id: 'modifiedCond',
+          $formkit: 'select',
+          options: {date: 'Date', datetime: 'Datetime'},
         },
-        else: {
-          type: 'datetime-local'
-        }
-      }
+        {
+          identifier: 'modified',
+          $cmp: 'FormKit',
+          if: '$get(modifiedCond).value',
+          props: {
+            name: 'dct:modified',
+            if: '$get(modifiedCond).value === date',
+            then: {
+              type: 'date'
+            },
+            else: {
+              type: 'datetime-local'
+            }
+          }
+        },
+      ]
     },
+    // done
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
       $formkit:'number',
@@ -703,6 +703,7 @@ const dcatapProperties = {
       class: 'property',
       validation: 'number',
     },
+    // done
     temporalResolution: {
       identifier: 'temporalResolution',
       $formkit:'group',
@@ -763,19 +764,19 @@ const dcatapProperties = {
       name: 'dct:type',
       class: 'property',
     },
+    // done
     versionInfo: {
       identifier: 'versionInfo',
       $formkit:'text',
       name: 'owl:versionInfo',
       class: 'property',
     },
+    // repeatable and repetabale removed
     versionNotes: {
       identifier: 'versionNotes',
       $formkit:'group',
       name: 'adms:versionNotes',
       class: 'property langDescriptionInput',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'versionNotes',
@@ -793,6 +794,7 @@ const dcatapProperties = {
         },
       ],
     },
+    // done (mandatory?)
     catalog: {
       identifier: 'catalog',
       $formkit:'select',
@@ -1209,47 +1211,57 @@ const dcatapProperties = {
         },
       ],
     },
-    issuedCond: {
-      identifier: 'issuedCond',
-      id: 'issuedCond',
-      $formkit: 'select',
-      options: {date: 'Date', datetime: 'Datetime'},
-    },
     issued: {
-      identifier: 'issued',
-      $cmp: 'FormKit',
-      if: '$get(issuedCond).value',
-      props: {
-        name: 'dct:issued',
-        if: '$get(issuedCond).value === date',
-        then: {
-          type: 'date'
+      $formkit: 'group',
+      children: [
+        {
+          identifier: 'issuedCond',
+          id: 'issuedCond',
+          $formkit: 'select',
+          options: {date: 'Date', datetime: 'Datetime'},
         },
-        else: {
-          type: 'datetime-local'
-        }
-      }
-    },
-    modifiedCond: {
-      identifier: 'modifiedCond',
-      id: 'modifiedCond',
-      $formkit: 'select',
-      options: {date: 'Date', datetime: 'Datetime'},
+        {
+          identifier: 'issued',
+          $cmp: 'FormKit',
+          if: '$get(issuedCond).value',
+          props: {
+            name: 'dct:issued',
+            if: '$get(issuedCond).value === date',
+            then: {
+              type: 'date'
+            },
+            else: {
+              type: 'datetime-local'
+            }
+          }
+        },
+      ]
     },
     modified: {
-      identifier: 'modified',
-      $cmp: 'FormKit',
-      if: '$get(modifiedCond).value',
-      props: {
-        name: 'dct:modified',
-        if: '$get(modifiedCond).value === date',
-        then: {
-          type: 'date'
+      $formkit: 'group',
+      children: [
+        {
+          identifier: 'modifiedCond',
+          id: 'modifiedCond',
+          $formkit: 'select',
+          options: {date: 'Date', datetime: 'Datetime'},
         },
-        else: {
-          type: 'datetime-local'
-        }
-      }
+        {
+          identifier: 'modified',
+          $cmp: 'FormKit',
+          if: '$get(modifiedCond).value',
+          props: {
+            name: 'dct:modified',
+            if: '$get(modifiedCond).value === date',
+            then: {
+              type: 'date'
+            },
+            else: {
+              type: 'datetime-local'
+            }
+          }
+        },
+      ]
     },
     rights: {
       identifier: 'rights',
@@ -1649,14 +1661,14 @@ const dcatapProperties = {
 
 // Dynamically add a collapsed property to all fields that are component of
 // a set of specific pages steps.
-['datasets', 'distributions'].forEach((type) => {
-  [].concat(
-    // advised and additional fields for datasets/distributions
-    Object.keys(config?.[type].step2),
-    Object.keys(config?.[type].step3),
-  ).forEach((key) => {
-    dcatapProperties[type][key].collapsed = true;
-  });
-})
+// ['datasets', 'distributions'].forEach((type) => {
+//   [].concat(
+//     // advised and additional fields for datasets/distributions
+//     Object.keys(config?.[type].step2),
+//     Object.keys(config?.[type].step3),
+//   ).forEach((key) => {
+//     dcatapProperties[type][key].collapsed = true;
+//   });
+// })
 
 export default dcatapProperties;
