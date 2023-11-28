@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 import 'es6-promise/auto';
 import $ from 'jquery';
 
@@ -216,29 +217,33 @@ const progressBarOptions = {
 };
 app.use(VueProgressBar, progressBarOptions);
 
-// Vee Validate 
+// Vee Validate
 app.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 
 // Vue Position Sticky
 app.use(VuePositionSticky);
 
 // Vue Keycloak (Vue App is mounted on success and error)
-app.use(vueKeyCloak, {
-  config: {
-    rtp: env.authentication.rtp,
-    ...env.authentication.keycloak,
-  },
-  init: {
-    onLoad: 'check-sso',
-    ...env.authentication.keycloakInit,
-  },
-  onReady: () => {
-    console.log("Keycloak loaded");
-    app.mount('#app');
-  },
-  onInitError: (error) => {
-    console.log("Error loading keycloak");
-    console.log(error);
-    app.mount('#app');
-  }
-});
+if (env.authentication.useService) {
+  app.use(vueKeyCloak, {
+    config: {
+      rtp: env.authentication.rtp,
+      ...env.authentication.keycloak,
+    },
+    init: {
+      onLoad: 'check-sso',
+      ...env.authentication.keycloakInit,
+    },
+    onReady: () => {
+      console.log("Keycloak loaded");
+      app.mount('#app');
+    },
+    onInitError: (error) => {
+      console.log("Error loading keycloak");
+      console.log(error);
+      app.mount('#app');
+    }
+  });
+} else {
+  app.mount('#app');
+}
