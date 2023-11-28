@@ -654,55 +654,47 @@ const dcatapProperties = {
         },
       ],
     },
+    issuedCond: {
+      identifier: 'issuedCond',
+      id: 'issuedCond',
+      $formkit: 'select',
+      options: {date: 'Date', datetime: 'Datetime'},
+    },
     issued: {
       identifier: 'issued',
-      name: 'dct:issued',
-      class: 'property',
-      $formkit:'conditional-input',
-      options: { date: 'Date', datetime: 'Date and Time' },
-      data: {
-        date: [
-          {
-            handler:'issued',
-            name: '@value',
-            identifier: 'date',
-            $formkit:'date-picker',
-          },
-        ],
-        datetime: [
-          {
-            handler:'issued',
-            name: '@value',
-            identifier: 'datetime',
-            $formkit:'datetime-picker',
-          },
-        ],
-      },
+      $cmp: 'FormKit',
+      if: '$get(issuedCond).value',
+      props: {
+        name: 'dct:issued',
+        if: '$get(issuedCond).value === date',
+        then: {
+          type: 'date'
+        },
+        else: {
+          type: 'datetime-local'
+        }
+      }
+    },
+    modifiedCond: {
+      identifier: 'modifiedCond',
+      id: 'modifiedCond',
+      $formkit: 'select',
+      options: {date: 'Date', datetime: 'Datetime'},
     },
     modified: {
       identifier: 'modified',
-      name: 'dct:modified',
-      class: 'property',
-      $formkit:'conditional-input',
-      options: { date: 'Date', datetime: 'Date and Time' },
-      data: {
-        date: [
-          {
-            handler:'modified',
-            name: '@value',
-            identifier: 'date',
-            $formkit:'date-picker',
-          },
-        ],
-        datetime: [
-          {
-            handler:'modified',
-            name: '@value',
-            identifier: 'datetime',
-            $formkit:'datetime-picker',
-          },
-        ],
-      },
+      $cmp: 'FormKit',
+      if: '$get(modifiedCond).value',
+      props: {
+        name: 'dct:modified',
+        if: '$get(modifiedCond).value === date',
+        then: {
+          type: 'date'
+        },
+        else: {
+          type: 'datetime-local'
+        }
+      }
     },
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
@@ -1217,51 +1209,47 @@ const dcatapProperties = {
         },
       ],
     },
+    issuedCond: {
+      identifier: 'issuedCond',
+      id: 'issuedCond',
+      $formkit: 'select',
+      options: {date: 'Date', datetime: 'Datetime'},
+    },
     issued: {
       identifier: 'issued',
-      name: 'dct:issued',
-      class: 'property',
-      $formkit:'conditional-input',
-      options: { date: 'Date', datetime: 'Date and Time' },
-      data: {
-        date: [
-          {
-            name: '@value',
-            identifier: 'date',
-            $formkit:'date-picker',
-          },
-        ],
-        datetime: [
-          {
-            name: '@value',
-            identifier: 'datetime',
-            $formkit:'datetime-picker',
-          },
-        ],
-      },
+      $cmp: 'FormKit',
+      if: '$get(issuedCond).value',
+      props: {
+        name: 'dct:issued',
+        if: '$get(issuedCond).value === date',
+        then: {
+          type: 'date'
+        },
+        else: {
+          type: 'datetime-local'
+        }
+      }
+    },
+    modifiedCond: {
+      identifier: 'modifiedCond',
+      id: 'modifiedCond',
+      $formkit: 'select',
+      options: {date: 'Date', datetime: 'Datetime'},
     },
     modified: {
       identifier: 'modified',
-      name: 'dct:modified',
-      class: 'property',
-      $formkit:'conditional-input',
-      options: { date: 'Date', datetime: 'Date and Time' },
-      data: {
-        date: [
-          {
-            name: '@value',
-            identifier: 'date',
-            $formkit:'date-picker',
-          },
-        ],
-        datetime: [
-          {
-            name: '@value',
-            identifier: 'datetime',
-            $formkit:'datetime-picker',
-          },
-        ],
-      },
+      $cmp: 'FormKit',
+      if: '$get(modifiedCond).value',
+      props: {
+        name: 'dct:modified',
+        if: '$get(modifiedCond).value === date',
+        then: {
+          type: 'date'
+        },
+        else: {
+          type: 'datetime-local'
+        }
+      }
     },
     rights: {
       identifier: 'rights',
