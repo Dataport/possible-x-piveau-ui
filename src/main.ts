@@ -141,9 +141,9 @@ const i18n = createI18n({
 });
 
 // Vue Router
-app.use(router);
-router.app = app;
 router.beforeEach(helpers.createStickyLocale(LOCALE || FALLBACKLOCALE))
+router.app = app;
+app.use(router);
 
 // Vuex Store
 app.use(store);

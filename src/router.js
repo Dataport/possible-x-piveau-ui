@@ -1,5 +1,6 @@
 /* eslint-disable */
 import * as Router from 'vue-router';
+import { watch } from 'vue';
 import { glueConfig as GLUE_CONFIG } from '../config/user-config';
 import {
   Auth,
@@ -259,26 +260,28 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const auth = GLUE_CONFIG.authentication.useService
-      ? router.app.config.globalProperties.$keycloak.authenticated
-      : null;
+    console.log('i must check');
 
-    if (!auth) {
-      // TODO: Show unauthorized page here
+    const keycloak = router.app.config.globalProperties.$keycloak;
+    if (!keycloak.ready) {
+      // Keycloak not initialized yet, setup watcher
+      const unwatch = watch(
+        () => keycloak.ready,
+        (isReady) => {
+          console.log('i am leady', isReady)
+          if (isReady) {
+            unwatch(); // Stop watching after first check
+            const authenticated = keycloak.authenticated;
+            handleAuthentication(authenticated, to, next);
+          }
+        },
+        { immediate: true }
+      );
     } else {
-      router.app.config.globalProperties.$keycloak.getRtpToken().then((rtpToken) => {
-        const decodedAccessToken = decode(rtpToken);
-        let isAuthenticated = false;
-
-        decodedAccessToken.authorization.permissions.forEach((permission) => {
-          if (permission.scopes.find(scope => scope === 'dataset:create')) isAuthenticated = true;
-        });
-
-        if (!isAuthenticated) next({ name: 'Datasets' });
-        else next();
-      });
+      // Keycloak already initialized, proceed with check
+      handleAuthentication(keycloak.authenticated, to, next);
     }
-  } 
+  }
   // TODO: This causes the following error message and needs to be fixed:
   // [Vue Router warn]: Detected a possibly infinite redirection in a navigation guard ...
   //
@@ -291,5 +294,23 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
+function handleAuthentication(authenticated, to, next) {
+  if (!authenticated) {
+    // TODO: Show unauthorized page here or redirect to login
+  } else {
+    router.app.config.globalProperties.$keycloak.getRtpToken().then((rtpToken) => {
+      const decodedAccessToken = decode(rtpToken);
+      let isAuthenticated = false;
+
+      decodedAccessToken.authorization.permissions.forEach((permission) => {
+        if (permission.scopes.find(scope => scope === 'dataset:create')) isAuthenticated = true;
+      });
+
+      if (!isAuthenticated) next({ name: 'Datasets' });
+      else next();
+    });
+  }
+}
 
 export default router;
