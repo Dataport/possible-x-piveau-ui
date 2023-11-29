@@ -268,7 +268,6 @@ router.beforeEach((to, from, next) => {
       const unwatch = watch(
         () => keycloak.ready,
         (isReady) => {
-          console.log('i am leady', isReady)
           if (isReady) {
             unwatch(); // Stop watching after first check
             const authenticated = keycloak.authenticated;
