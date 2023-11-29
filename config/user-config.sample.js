@@ -50,7 +50,7 @@ const glueConfig = {
     keycloak: {
       realm: 'vanilla',
       clientId: 'piveau-hub-ui',
-      url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de/auth',
+      url: 'https://keycloak-piveau.apps.osc.fokus.fraunhofer.de',
 
       // TODO: Do we need to include these properties? They seem to be default values that never change #2763
       'ssl-required': 'external',
