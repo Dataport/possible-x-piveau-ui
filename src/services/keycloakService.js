@@ -122,7 +122,7 @@ function init(config, watch, options) {
     const endpoint = `${baseUrl}/realms/${realm}/protocol/openid-connect/token`;
     const requestBody = {
       grant_type: rtpConfig.grand_type,
-      audence: rtpConfig.audience,
+      audience: rtpConfig.audience,
       ...refreshToken ? { refresh_token: refreshToken } : {},
     };
 
