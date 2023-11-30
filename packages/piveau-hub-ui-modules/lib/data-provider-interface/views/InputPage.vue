@@ -3,15 +3,20 @@
     <slot></slot>
 
     <div class="inputContainer" v-if="isInput">
-      <div class="formContainer formkit"> 
-        <FormKitSchema name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
-          @submit="handleSubmit"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
-          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
-          
+      <div class="formContainer formkit">
+        <pre>{{formValues}}</pre>
+        <FormKit type="form" 
+          v-model.lazy="formValues" 
+          :actions="false"
+          @submit-invalid="showValidationFields" 
+          @submit="handleSubmit" 
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
+          <FormKitSchema :schema="getSchema"></FormKitSchema>
           <FormKit type="submit" id="submit-form" class="display-none"></FormKit>
-        </FormKitSchema>
-        <FormKit type="hidden" class="display-none"></FormKit>
+        </FormKit>
+        <!-- <FormKitSchema name="form" ref="dpiForm" 
+          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">-->          
+        <!--</FormKitSchema>-->
       </div>
     </div>
     <div v-if="isDistributionOverview">
@@ -273,7 +278,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     // Always clear storage when entering DPI
     next(vm => {
-      if (from.name !== null && !from.name.startsWith('DataProviderInterface')) {
+      if (from.name !== null && from.name !== undefined && !from.name.startsWith('DataProviderInterface')) {
         vm.clear();
         vm.jumpToFirstPage();
       }
@@ -389,6 +394,6 @@ select {
 }
 
 .display-none {
-  display: none;
+  display: none !important;
 }
 </style>
