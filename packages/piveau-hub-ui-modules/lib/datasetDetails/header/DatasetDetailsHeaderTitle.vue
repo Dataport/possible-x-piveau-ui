@@ -1,12 +1,12 @@
 <template>
   <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
     <div v-if="isErpdActive()" class="d-none d-lg-block dsd-title-tag erpdInfo">
-      <span  >Protected Data</span>
+      <span>{{$t('message.metadata.dataset.protecteddata')}}</span>
     </div>
     <div v-else class="d-none d-lg-block dsd-title-tag">
       <span  :style="{ fontSize: titleFontSize }">
         {{$t('message.metadata.dataset')}}
-        
+
       </span>
     </div>
     <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
@@ -34,7 +34,7 @@ export default {
       'getLanguages',
       'getTitle',
       'getCatalog',
-      
+
     ]),
   }
 }
