@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
     <div v-if="isErpdActive()" class="d-none d-lg-block dsd-title-tag erpdInfo">
-      <span>{{$t('message.metadata.dataset.protecteddata')}}</span>
+      <span>{{$t('message.metadata.protecteddata')}}</span>
     </div>
     <div v-else class="d-none d-lg-block dsd-title-tag">
       <span  :style="{ fontSize: titleFontSize }">
