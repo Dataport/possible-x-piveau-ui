@@ -1,3 +1,12 @@
+## [3.14.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.9...v3.14.10) (2023-12-01)
+
+
+### Features
+
+* issue 3210 add key translate message.metadata.protecteddata ([164269b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/164269bde1909beff2305d8689345dd4af0efc7b))
+
+
+
 ## [3.14.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.8...v3.14.9) (2023-11-30)
 
 
