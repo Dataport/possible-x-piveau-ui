@@ -423,42 +423,39 @@ const dcatapProperties = {
       class: 'property',
 
     },
+    // repetable 
     hasVersion: {
       $formkit:'group',
       identifier: 'hasVersion',
       name: 'dct:hasVersion',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'hasVersionUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
       ],
     },
+    // repetabale
     isVersionOf: {
       $formkit:'group',
       identifier: 'isVersionOf',
       name: 'dct:isVersionOf',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'isVersionOfUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
       ],
     },
+    // repetable
     source: {
       $formkit:'group',
-      repeatable: true,
-      '@repeatableRemoved': true,
       identifier: 'source',
       name: 'dct:source',
       class: 'property',
@@ -466,7 +463,7 @@ const dcatapProperties = {
         {
           name: '@id',
           identifier: 'sourceUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           validation: 'optional|url',
         },
       ],
@@ -485,22 +482,22 @@ const dcatapProperties = {
         },
       ],
     },
+    // repetable
     isReferencedBy: {
       $formkit:'group',
       identifier: 'isReferencedBy',
       name: 'dct:isReferencedBy',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'isReferencedByUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
       ],
     },
+    // repetable and repetabel removed
     landingPage: {
       $formkit:'group',
       identifier: 'landingPage',
@@ -509,7 +506,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'landingPageUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
@@ -523,17 +520,16 @@ const dcatapProperties = {
       multiple: true,
       voc: 'language',
     },
+    // repeatable and repeatable removed, identifier type using autocomplete
     admsIdentifier: {
       $formkit:'group',
       class: 'property',
       name: 'adms:identifier',
       identifier: 'admsIdentifier',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'admsIdentifierUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
@@ -549,7 +545,7 @@ const dcatapProperties = {
             },
             {
               identifier: 'admsIdentifierType',
-              type: 'autocomplete',
+              // type: 'autocomplete',
               voc: 'notation-type',
               name: '@type',
             },
@@ -571,65 +567,61 @@ const dcatapProperties = {
         },
       ],
     },
+    // repetable
     qualifiedAttribution: {
       $formkit:'group',
       identifier: 'qualifiedAttribution',
       name: 'prov:qualifiedAttribution',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'qualifiedAttributionUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
       ],
     },
+    // repetable
     wasGeneratedBy: {
       $formkit:'group',
       identifier: 'wasGeneratedBy',
       name: 'prov:wasGeneratedBy',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'wasGeneratedByUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
       ],
     },
+    // repetable
     qualifiedRelation: {
       $formkit:'group',
       identifier: 'qualifiedRelation',
       name: 'dcat:qualifiedRelation',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'qualifiedRelationUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
       ],
     },
+    // repetable
     relation: {
       $formkit:'group',
       identifier: 'relation',
       name: 'dct:relation',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'relationUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
@@ -805,16 +797,15 @@ const dcatapProperties = {
       mandatory: true,
       options: {},
     },
+    // repeatable
     isUsedBy: {
       $formkit:'group',
       identifier: 'isUsedBy',
       name: 'dext:metadataExtension',
       class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
-          $formkit:'custom-url',
+          $formkit:'url',
           identifier: 'isUsedBy',
           validation: 'optional|url',
           name: 'dext:isUsedBy',
@@ -975,17 +966,16 @@ const dcatapProperties = {
       name: 'dcat:mediaType',
       class: 'property',
     },
+    // repetable
     downloadUrl: {
       $formkit:'group',
       identifier: 'downloadUrl',
-      repeatable: true,
       name: 'dcat:downloadURL',
-      '@repeatableRemoved': true,
       class: 'property',
       children: [
         {
           identifier: 'downloadUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
@@ -1056,6 +1046,7 @@ const dcatapProperties = {
         },
       ],
     },
+    // done
     byteSize: {
       identifier: 'byteSize',
       $formkit:'text',
@@ -1165,17 +1156,16 @@ const dcatapProperties = {
         },
       ],
     },
+    // repetable
     hasPolicy: {
       identifier: 'hasPolicy',
       $formkit:'group',
       class: 'property',
       name: 'odrl:hasPolicy',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
         {
           identifier: 'hasPolicyUrl',
-          $formkit:'custom-url',
+          $formkit:'url',
           name: '@id',
           validation: 'optional|url',
         },
@@ -1297,6 +1287,7 @@ const dcatapProperties = {
         ]
       }
     },
+    //done
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
       $formkit:'number',
@@ -1304,6 +1295,7 @@ const dcatapProperties = {
       class: 'property',
       validation: 'number',
     },
+    // done
     temporalResolution: {
       identifier: 'temporalResolution',
       $formkit:'group',
@@ -1312,42 +1304,42 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'temporalResolutionYear',
-          $formkit:'custom-number',
+          $formkit:'number',
           min: 0,
           max: 2023,
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
-          $formkit:'custom-number',
+          $formkit:'number',
           min: 0,
           max: 12,
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
-          $formkit:'custom-number',
+          $formkit:'number',
           min: 0,
           max: 31,
           name: 'Day',
         },
         {
           identifier: 'temporalResolutionHour',
-          $formkit:'custom-number',
+          $formkit:'number',
           min: 0,
           max: 23,
           name: 'Hour',
         },
         {
           identifier: 'temporalResolutionMinute',
-          $formkit:'custom-number',
+          $formkit:'number',
           min: 0,
           max: 59,
           name: 'Minute',
         },
         {
           identifier: 'temporalResolutionSecond',
-          $formkit:'custom-number',
+          $formkit:'number',
           min: 0,
           max: 59,
           name: 'Second',
