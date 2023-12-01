@@ -8,9 +8,9 @@
         <FormKit type="form" 
           v-model.lazy="formValues" 
           :actions="false"
-          @submit-invalid="showValidationFields" 
           @submit="handleSubmit" 
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
+          <FormKitSummary/>
           <FormKitSchema :schema="getSchema"></FormKitSchema>
           <FormKit type="submit" id="submit-form" class="display-none"></FormKit>
         </FormKit>
@@ -28,10 +28,6 @@
       {{ mandatoryModal.message }}
     </app-confirmation-dialog>
 
-    <app-confirmation-dialog id="validationModal" :confirm="validationModal.confirm" @confirm="validationModal.callback">
-      {{ validationModal.message }}
-    </app-confirmation-dialog>
-
   </div>
 </template>
 
@@ -44,6 +40,7 @@ import {
   isNil,
   isArray,
 } from 'lodash';
+import { FormKitSummary } from '@formkit/vue';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
 
@@ -86,6 +83,7 @@ export default {
   components: {
     ValidationModal,
     DistributionOverview,
+    FormKitSummary,
   },
   computed: {
     ...mapGetters('auth', [
@@ -178,16 +176,6 @@ export default {
     clearValues() {
       this.formValues = {};
       this.failedFields = [];
-    },
-    showValidationFields(fields) {
-      const fieldNames = Object.keys(fields);
-      const translatedFields = [];
-      for (let index = 0; index < fieldNames.length; index += 1) {
-        const fieldLabel = fields[fieldNames[index]].label;
-        if (fields[fieldNames[index]].id !== 'datasetIDFormHidden') translatedFields.push(fieldLabel);
-      }
-      this.failedFields = translatedFields;
-      $('#validationModal').modal({ show: true });
     },
     handleSubmit() {
       this.$emit('go-to-next');
@@ -394,6 +382,6 @@ select {
 }
 
 .display-none {
-  display: none !important;
+  display: none;
 }
 </style>
