@@ -12,7 +12,7 @@
           <FormKit type="submit" id="submit-form" class="display-none"></FormKit>
         </FormKitSchema>
         <FormKit type="hidden" class="display-none"></FormKit> -->
-        <CustomInputs></CustomInputs>
+        <CustomInputs v-model="formValues"></CustomInputs>
       </div>
     </div>
     <div v-if="isDistributionOverview">
@@ -244,7 +244,6 @@ export default {
     }
     // form content (schema) created based on defined page properties included in inputconfigMin
     if (this.page !== 'overview' && this.page !== 'distoverview') {
-      console.log('CALL CREATE SCHEMA');
       this.createSchema({ property: this.property, page: this.page });
       this.translateSchema({ property: this.property });
     }
