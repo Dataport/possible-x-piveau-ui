@@ -3,10 +3,10 @@ import config from './page-content-config';
 
 const dcatapProperties = {
   datasets: {
+    // unique identifier component
     datasetID: {
       identifier: 'datasetID',
-      $formkit:'text',
-      type:'unique-identifier-input',
+      // type:'unique-identifier-input',
       mandatory: true,
       name: 'datasetID',
       class: 'property mandatory',
@@ -180,103 +180,89 @@ const dcatapProperties = {
       // $formkit:'autocomplete',
       voc: 'corporate-body',
     },
+    // repetable
     spatial: {
       $formkit:'group',
       name: 'dct:spatial',
+      identifier: 'spatial',
       children: [
         {
-          identifier: 'spatial',
-          $formkit:'conditional-input',
-          name: '@id',
-          class: 'property',
-          repeatable: true,
-          '@repeatableRemoved': true,
-          options: {
-            voc: 'Choose from vocabulary',
-            man: 'Manually submit information',
-          },
-          data: {
-            voc: [
-              {
-                identifier: 'spatialVocabulary',
-                $formkit:'conditional-input',
-                name: '@id',
-                options: {
-                  continent: 'Continent',
-                  country: 'Country',
-                  place: 'Place',
-                },
-                data: {
-                  continent: [
-                    {
-                      identifier: 'spatialContinent',
-                      type: 'autocomplete',
-                      voc: 'continent',
-                      name: '@id',
-                    },
-                  ],
-                  country: [
-                    {
-                      identifier: 'spatialCountry',
-                      type: 'autocomplete',
-                      voc: 'country',
-                      name: '@id',
-                    },
-                  ],
-                  place: [
-                    {
-                      identifier: 'spatialPlace',
-                      type: 'autocomplete',
-                      voc: 'place',
-                      name: '@id',
-                    },
-                  ],
-                },
-              },
-            ],
-            man: [
-              {
-                identifier: 'spatialUrl',
-                $formkit:'custom-url',
-                name: '@id',
-                validation: 'optional|url',
-              },
-            ],
-          },
+          $formkit: "select",
+          identifier: "spatial",
+          id: "spatialMode",
+          name: "spatialMode",
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $cmp: "FormKit",
+          identifier: "spatial",
+          if: "$get(spatialMode).value",
+          props: {
+            type: "radio",
+            name: "vocabulary",
+            id: "vocabulary",
+            if: "$get(spatialMode).value === man",
+            options: {
+              if: "$get(spatialMode).value === voc",
+              then: [
+                { value: "continent", label: "Continent" },
+                { value: "country", label: "Country" }, 
+                { value: "place", label: "Place"}
+              ],
+              else: {
+                if: "$get(spatialMode).value === man",
+                then: [
+                  {label: "Other", value: "other" }
+                ],
+              }
+            }
+          }
+        },
+        {
+          $cmp: "FormKit",
+          identifier: "spatial",
+          if: "$get(vocabulary).value",
+          props: {
+            identifier: "spatial",
+            if: "$get(vocabulary).value === other",
+            then: {
+              type: "url",
+              identifier: "spatial",
+              name: '@id'
+            },
+            else: {
+              then: {
+                type: "text",
+                identifier: "spatial",
+                name: '@id'
+              }
+            }
+          }
         }
       ]
     },
+    // repeatable
     temporal: {
       $formkit:'group',
       name: 'dct:temporal',
       identifier: 'temporal',
       class: 'property besides startEndDate',
-      repeatable: true,
-      '@repeatableRemoved': true,
       children: [
-          {
-            identifier: 'temporalRange',
-            $formkit:'datetime-picker',
-            name: 'dct:temporal',
-            property:'dct:temporal',
-            end: 'dct:temporal',
-          }]
-      // children: [
-      //   {
-      //     identifier: 'temporalStart',
-      //     $formkit:'datetime-picker',
-      //     name: 'dcat:startDate',
-      //     property:'dct:temporal',
-      //     end: 'dct:temporal',
-      //   },
-      //   {
-      //     identifier: 'temporalEnd',
-      //     $formkit:'datetime-picker',
-      //     name: 'dcat:endDate',
-      //     property:'dct:temporal',
-      //     start: 'dct:temporal',
-      //   },
-      // ],
+        {
+          identifier: 'temporalStart',
+          $formkit:'datetime-local',
+          name: 'dcat:startDate',
+          property:'dct:temporal',
+          end: 'dct:temporal',
+        },
+        {
+          identifier: 'temporalEnd',
+          $formkit:'datetime-local',
+          name: 'dcat:endDate',
+          property:'dct:temporal',
+          start: 'dct:temporal',
+        },
+      ],
     },
     // autocomplete and multiple
     theme: {
@@ -638,11 +624,12 @@ const dcatapProperties = {
     },
     // done
     issued: {
+      identifier: 'issued',
       $formkit: 'group',
       name: 'dct:issued',
       children: [
         {
-          identifier: 'issuedCond',
+          identifier: 'issued',
           id: 'issuedCond',
           $formkit: 'select',
           name: '@type',
@@ -668,11 +655,12 @@ const dcatapProperties = {
     },
     // done
     modified: {
+      identifier: 'modified',
       $formkit: 'group',
       name: 'dct:modified',
       children: [
         {
-          identifier: 'modifiedCond',
+          identifier: 'modified',
           id: 'modifiedCond',
           name: '@type',
           $formkit: 'select',
@@ -824,6 +812,7 @@ const dcatapProperties = {
     },
   },
   distributions: {
+    // fileupload, mandatory, repetable
     accessURL: {
       identifier: 'accessUrl',
       name: 'dcat:accessURL',
@@ -848,7 +837,7 @@ const dcatapProperties = {
               name: "@id"
             },
             else: {
-              type: "fileupload",
+              // type: "fileupload",
               validation: "required",
               name: "@id"
             }
@@ -899,51 +888,56 @@ const dcatapProperties = {
       voc: 'file-type',
       name: 'dct:format',
     },
-    licence: {
-      identifier: 'licence',
-      $formkit:'conditional-input',
-      name: 'dct:license',
-      class: 'property',
-      options: {
-        voc: 'Choose from vocabulary',
-        man: 'Manually submit information',
-      },
-      data: {
-        voc: [
-          {
-            identifier: 'licenceVocabulary',
-            type: 'autocomplete',
-            voc: 'licence',
-            name: '@id',
-          },
-        ],
-        man: [
-          {
-            identifier: 'licenceDetails',
-            $formkit:'group',
-            name: 'dct:license',
-            children: [
-              {
-                identifier: 'licenceTitle',
-                $formkit:'text',
-                name: 'dct:title',
-              },
-              {
-                identifier: 'licenceDescription',
-                $formkit:'textarea',
-                name: 'skos:prefLabel',
-              },
-              {
-                identifier: 'licenceURL',
-                $formkit:'custom-url',
-                name: 'skos:exactMatch',
-                validation: 'optional|url',
-              },
-            ],
-          },
-        ],
-      },
-    },
+    // licence: {
+    //   identifier: 'licence',
+    //   $formkit:'group',
+    //   name: 'dct:license',
+    //   class: 'property',
+    //   children: [
+    //     {
+    //       identifier: 'licence',
+    //       $formkit: 'select',
+    //       id: "licenceMode",
+    //       name: 'licenceMode',
+    //       options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+    //     },
+    //     {
+    //       $cmp: "FormKit",
+    //       if: "$get(licenceMode).value",
+    //       props: {
+    //         if: "$get(licenceMode).value === man",
+    //         then: {
+    //           type: "group",
+    //           children: [
+    //             {
+    //               identifier: 'licenceTitle',
+    //               $formkit:'text',
+    //               name: 'dct:title',
+    //             },
+    //             {
+    //               identifier: 'licenceDescription',
+    //               $formkit:'textarea',
+    //               name: 'skos:prefLabel',
+    //             },
+    //             {
+    //               identifier: 'licenceURL',
+    //               $formkit:'custom-url',
+    //               name: 'skos:exactMatch',
+    //               validation: 'optional|url',
+    //             },
+    //           ]
+    //         },
+    //         else: {
+    //           then: {
+    //             type: "text",
+    //             name: "@id"
+    //           }
+    //         }
+    //       }
+
+    //     }
+    //   ]
+    // },
     // must be a repeatbale property (repeatable and repeatableremoved), mandatory, minimum
     title: {
       identifier: 'title',
@@ -1219,7 +1213,7 @@ const dcatapProperties = {
       name: 'dct:issued',
       children: [
         {
-          identifier: 'issuedCond',
+          identifier: 'issued',
           id: 'issuedCond',
           $formkit: 'select',
           name: '@type',
@@ -1249,7 +1243,7 @@ const dcatapProperties = {
       name: 'dct:modified',
       children: [
         {
-          identifier: 'modifiedCond',
+          identifier: 'modified',
           id: 'modifiedCond',
           name: '@type',
           $formkit: 'select',
@@ -1384,10 +1378,10 @@ const dcatapProperties = {
     },
   },
   catalogues: {
+    // dataset id component, mandatory
     datasetID: {
       identifier: 'datasetID',
-      $formkit:'input',
-      type:'unique-identifier-input',
+      // $formkit:'unique-identifier-input',
       name: 'datasetID',
       class: 'property',
       mandatory: true,
@@ -1463,110 +1457,116 @@ const dcatapProperties = {
       voc: 'language',
       class: 'property',
     },
-    licence: {
-      identifier: 'licence',
-      $formkit:'conditional-input',
-      name: 'dct:license',
-      class: 'property',
-      options: {
-        voc: 'Choose from vocabulary',
-        man: 'Manually submit information',
-      },
-      data: {
-        voc: [
-          {
-            identifier: 'licenceVocabulary',
-            type: 'autocomplete',
-            voc: 'licence',
-            name: '@id',
-          },
-        ],
-        man: [
-          {
-            identifier: 'licenceDetails',
-            $formkit:'group',
-            name: 'dct:license',
-            children: [
-              {
-                identifier: 'licenceTitle',
-                $formkit:'text',
-                name: 'dct:title',
-              },
-              {
-                identifier: 'licenceDescription',
-                $formkit:'textarea',
-                name: 'skos:prefLabel',
-              },
-              {
-                identifier: 'licenceURL',
-                $formkit:'custom-url',
-                name: 'skos:exactMatch',
-                validation: 'optional|url',
-              },
-            ],
-          },
-        ],
-      },
-    },
+    // licence: {
+    //   identifier: 'licence',
+    //   $formkit:'group',
+    //   name: 'dct:license',
+    //   class: 'property',
+    //   children: [
+    //     {
+    //       identifier: 'licence',
+    //       $formkit: 'select',
+    //       id: "licenceMode",
+    //       name: 'licenceMode',
+    //       options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+    //     },
+    //     {
+    //       $cmp: "FormKit",
+    //       if: "$get(licenceMode).value",
+    //       props: {
+    //         if: "$get(licenceMode).value === voc",
+    //         then: {
+    //           type: "group",
+    //           children: [
+    //             {
+    //               identifier: 'licenceTitle',
+    //               $formkit:'text',
+    //               name: 'dct:title',
+    //             },
+    //             {
+    //               identifier: 'licenceDescription',
+    //               $formkit:'textarea',
+    //               name: 'skos:prefLabel',
+    //             },
+    //             {
+    //               identifier: 'licenceURL',
+    //               $formkit:'custom-url',
+    //               name: 'skos:exactMatch',
+    //               validation: 'optional|url',
+    //             },
+    //           ]
+    //         },
+    //         else: {
+    //           then: {
+    //             type: "text",
+    //             name: "@id"
+    //           }
+    //         }
+    //       }
+
+    //     }
+    //   ]
+    // },
+    // repetabale 
     spatial: {
-      identifier: 'spatial',
-      $formkit:'conditional-input',
+      $formkit:'group',
       name: 'dct:spatial',
-      class: 'property',
-      repeatable: true,
-      '@repeatableRemoved': true,
-      options: {
-        voc: 'Choose from vocabulary',
-        man: 'Manually submit information',
-      },
-      data: {
-        voc: [
-          {
-            identifier: 'spatialVocabulary',
-            $formkit:'conditional-input',
-            name: 'dct:spatial',
+      identifier: 'spatial',
+      children: [
+        {
+          $formkit: "select",
+          identifier: "spatial",
+          id: "spatialMode",
+          name: "spatialMode",
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $cmp: "FormKit",
+          identifier: "spatial",
+          if: "$get(spatialMode).value",
+          props: {
+            type: "radio",
+            name: "vocabulary",
+            id: "vocabulary",
+            if: "$get(spatialMode).value === man",
             options: {
-              continent: 'Continent',
-              country: 'Country',
-              place: 'Place',
+              if: "$get(spatialMode).value === voc",
+              then: [
+                { value: "continent", label: "Continent" },
+                { value: "country", label: "Country" }, 
+                { value: "place", label: "Place"}
+              ],
+              else: {
+                if: "$get(spatialMode).value === man",
+                then: [
+                  {label: "Other", value: "other" }
+                ],
+              }
+            }
+          }
+        },
+        {
+          $cmp: "FormKit",
+          identifier: "spatial",
+          if: "$get(vocabulary).value",
+          props: {
+            identifier: "spatial",
+            if: "$get(vocabulary).value === other",
+            then: {
+              type: "url",
+              identifier: "spatial",
+              name: '@id'
             },
-            data: {
-              continent: [
-                {
-                  identifier: 'spatialContinent',
-                  type: 'autocomplete',
-                  voc: 'continent',
-                  name: '@id',
-                },
-              ],
-              country: [
-                {
-                  identifier: 'spatialCountry',
-                  type: 'autocomplete',
-                  voc: 'country',
-                  name: '@id',
-                },
-              ],
-              place: [
-                {
-                  identifier: 'spatialPlace',
-                  type: 'autocomplete',
-                  voc: 'place',
-                  name: '@id',
-                },
-              ],
-            },
-          },
-        ],
-        man: [
-          {
-            identifier: 'spatialUrl',
-            $formkit:'custom-url',
-            name: '@id',
-            validation: 'optional|url',
-          },
-        ],
-      },
+            else: {
+              then: {
+                type: "text",
+                identifier: "spatial",
+                name: '@id'
+              }
+            }
+          }
+        }
+      ]
     },
     // done
     homepage: {
