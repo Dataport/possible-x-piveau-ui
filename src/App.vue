@@ -38,6 +38,7 @@ import { isNumber } from 'lodash';
 import {
   DpiMenu,
   usePiwikSuspendFilter,
+  head,
 } from '@piveau/piveau-hub-ui-modules';
 
 export default {
@@ -48,20 +49,6 @@ export default {
   mixins: [
     usePiwikSuspendFilter,
   ],
-  metaInfo() {
-    return {
-      titleTemplate(chunk) {
-        return chunk ? `${chunk} - ${this.$env.metadata.title}` : this.$env.metadata.title;
-      },
-      meta: [
-        { name: 'description', vmid: 'description', content: this.$env.metadata.description },
-        { name: 'keywords', vmid: 'keywords', content: this.$env.metadata.keywords },
-      ],
-      htmlAttrs: {
-        lang: this.$route.query.locale,
-      },
-    };
-  },
   data() {
     return {
       tracker: null,
@@ -106,6 +93,10 @@ export default {
       if (typeof this.$piwik?.resume === "function") this.$piwik.trackOutlink(url);
     },
   },
+  setup() {
+    const { useRootHead } = head;
+    useRootHead();
+  }
 };
 </script>
 

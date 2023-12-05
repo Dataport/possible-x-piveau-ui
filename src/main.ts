@@ -12,7 +12,7 @@ import '@formkit/themes/genesis'
 import config from '../formkit.config.ts';
 import VueCookies from 'vue3-cookies';
 import VuePositionSticky from 'vue-position-sticky';
-import { createMetaManager } from 'vue-meta'
+import { createHead } from '@unhead/vue';
 import { Skeletor } from 'vue-skeletor';
 import 'vue-skeletor/dist/vue-skeletor.css';
 
@@ -202,8 +202,8 @@ app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl
 app.use(FormKitPlugin, defaultConfig(config));
 
 // Vue Meta
-const VueMetaManager = createMetaManager();
-app.use(VueMetaManager);
+const head = createHead();
+app.use(head);
 
 // Vue Progressbar
 const progressBarOptions = {
