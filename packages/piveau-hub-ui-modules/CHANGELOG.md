@@ -1,3 +1,19 @@
+# [4.0.0-alpha.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.16...v4.0.0-alpha.17) (2023-12-05)
+
+
+### Features
+
+* add formkit repeatable ([691dc18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/691dc189de0d1365ab87cb74f396de1014dc1168))
+* add plugin for custom inputs ([b9bf833](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b9bf833353d7a90e4a8d91c3806fcf919c7e54fa))
+* implement unhead ([ee5323a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ee5323a62b33387e7dae09df71dd7e15e30ee864))
+
+
+### BREAKING CHANGES
+
+* replaces vue-meta with @unhead/vue
+
+
+
 # [4.0.0-alpha.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.15...v4.0.0-alpha.16) (2023-11-28)
 
 
