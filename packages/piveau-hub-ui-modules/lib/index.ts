@@ -394,4 +394,6 @@ export {
 
 // @ts-ignore
 export * as helpers from "./utils/helpers";
-export { defineUserConfig } from "./configurations/config-schema";
+export { defineUserConfig, type Config, type ResolvedConfig } from "./configurations/config-schema";
+
+export * as head from './composables/head';

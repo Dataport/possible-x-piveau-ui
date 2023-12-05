@@ -122,7 +122,7 @@
 import { defineAsyncComponent } from 'vue';
 import { mapGetters, mapActions } from "vuex";
 import $ from "jquery";
-
+import * as metaInfo from '../../composables/head';
 import { getTranslationFor } from "../../utils/helpers";
 
 
@@ -192,14 +192,10 @@ export default {
       $('#citationModal').modal({ show: true });
     },
   },
-  metaInfo() {
-    return {
-      link: [{
-        rel: 'alternate', type: 'application/rss+xml', title: `${this.$env.metadata.title} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)}`, href: `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/de/feeds/datasets/${this.getID}.rss`,
-      }],
-    };
-  },
   mounted() {},
+  setup() {
+    metaInfo.useDatasetDetailsNavigationLinksHead();
+  }
 }
 </script>
 

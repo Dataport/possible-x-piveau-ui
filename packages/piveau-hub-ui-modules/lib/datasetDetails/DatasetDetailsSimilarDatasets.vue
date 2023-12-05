@@ -32,30 +32,13 @@
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash-es';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
-
+  import * as metaInfo from '../composables/head';
   import PvBadge from "../PvBadge/PvBadge.vue";
 
   export default {
     name: 'datasetDetailsSimilarDatasets',
     components: {
       PvBadge,
-    },
-    metaInfo() {
-      return {
-        title: this.$t('message.similarDatasets.similarDatasets'),
-        meta: [
-          {
-            name: 'description',
-            vmid: 'description',
-            content: (`${this.$t('message.similarDatasets.similarDatasets')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.metadata.description}`)?.substring(0, 4999),
-          },
-          {
-            name: 'keywords',
-            vmid: 'keywords',
-            content: this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
-          },
-        ],
-      };
     },
     data() {
       return {
@@ -69,11 +52,9 @@
       // import store-getters
       ...mapGetters('datasetDetails', [
         'getID',
-        'getKeywords',
         'getLanguages',
         'getSimilarDatasetsRequested',
         'getSimilarDatasets',
-        'getTitle',
       ]),
       similarDatasets() {
         return this.getSimilarDatasets;
@@ -160,6 +141,9 @@
         }
       });
     },
+    setup() {
+      metaInfo.useDatasetDetailsSimilarDatasetsHead();
+    }
   };
 </script>
 

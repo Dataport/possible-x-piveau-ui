@@ -3,23 +3,26 @@
  * Vue.js plugin to consume configurations using environment variables
  */
 
+import { InjectionKey, type App } from 'vue';
 import merge from 'merge-anything';
 import { configSchema, type ResolvedConfig } from '../configurations/config-schema';
 // The configuration object that contains symbols for overwriting during runtime
 // import config from '../../config/runtime-config';
 
-declare module 'vue/types/vue' {
-  interface Vue {
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
     $env: ResolvedConfig;
   }
 }
+
+export const injectionKey: InjectionKey<ResolvedConfig> = Symbol('runtimeConfig');
 
 // Takes a base configuration (e.g., process.env) and a runtime configuration
 // and merges the runtime configuration over the base configuration to overwrite it.
 // Overwritten values are always of type string. Pass an empty string to model a falsy value.
 
 const RuntimeConfiguration = {
-  install(app, runtimeConfig, options = {}) {
+  install(app: App, runtimeConfig, options = {}) {
     const defaultOptions = {
       debug: true,
       baseConfig: import.meta.env,
@@ -50,7 +53,7 @@ const RuntimeConfiguration = {
 
         // 2. Evaluate Objects
         // TODO: Do we need this? It seems that no values are objects
-        if (  newVal.startsWith('{') && newVal.endsWith('}')  ) {
+        if ( newVal.startsWith('{') && newVal.endsWith('}')  ) {
           // This looks like an object
           // Use JSON.parse to transform it into a real object
           try {
@@ -101,6 +104,7 @@ const RuntimeConfiguration = {
     }
 
     app.config.globalProperties.$env = merged; // eslint-disable-line
+    app.provide(injectionKey, merged);
   },
 };
 
