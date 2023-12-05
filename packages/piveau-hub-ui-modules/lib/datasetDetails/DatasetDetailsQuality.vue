@@ -478,6 +478,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash-es';
   import { getTranslationFor } from "../utils/helpers";
+  import * as metaInfo from "../composables/head";
 
   import CSVLinter from './DatasetDetailsCSVLinter.vue';
 
@@ -485,18 +486,6 @@
     name: 'datasetDetailsCategories',
     components: {
       CSVLinter,
-    },
-    metaInfo() {
-      return {
-        title: this.$t('message.datasetDetails.subnav.quality'),
-        meta: [
-          {
-            name: 'description',
-            vmid: 'description',
-            content: (`${this.$t('message.datasetDetails.subnav.quality')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.metadata.description}`)?.substring(0, 4999),
-          },
-        ],
-      };
     },
     data() {
       return {
@@ -516,15 +505,11 @@
     computed: {
       // import store-getters
       ...mapGetters('datasetDetails', [
-        'getLanguages',
         'getIsDQVDataRequested',
         'getQualityDataRequested',
         'getQualityData',
         'getQualityDistributionData',
-        'getTitle',
         'getDistributions',
-        'getPublisher',
-        'getLicences',
         'getID',
         'getModificationDate',
       ]),
@@ -655,6 +640,9 @@
         container: 'body',
       });
     },
+    setup() {
+      metaInfo.useDatasetDetailsQualityHead();
+    }
   };
 </script>
 

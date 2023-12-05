@@ -125,6 +125,7 @@
   import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
   import DatasetsFilters from "../datasets/DatasetsFilters.vue";
   import DatasetList from './DatasetList.vue'
+  import { useDatasetsHead } from '../composables/head'
 
 export default {
   name: 'Datasets',
@@ -150,20 +151,6 @@ export default {
       type: String,
       default: '',
     }
-  },
-  metaInfo() {
-    return {
-      title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.datasets')}`,
-      meta: [
-        {name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}`},
-        {
-          name: 'keywords',
-          vmid: 'keywords',
-          content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}`
-        },
-        {name: 'robots', content: 'noindex, follow'},
-      ],
-    };
   },
   data() {
     return {
@@ -458,6 +445,9 @@ export default {
     $('.tooltip').remove();
     if (this.infiniteScrolling) window.removeEventListener('scroll', this.onScroll);
   },
+  setup() {
+    useDatasetsHead();
+  }
 };
 </script>
 

@@ -23,28 +23,12 @@
   import { has } from 'lodash-es';
   import { getTranslationFor } from '../utils/helpers';
   import AppLink from "../widgets/AppLink.vue";
+  import * as metaInfo from "../composables/head";
 
   export default {
     name: 'datasetDetailsCategories',
     components: {
       appLink: AppLink,
-    },
-    metaInfo() {
-      return {
-        title: this.$t('message.metadata.categories'),
-        meta: [
-          {
-            name: 'description',
-            vmid: 'description',
-            content: (`${this.$t('message.metadata.categories')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.metadata.description}`).substr(0, 4999),
-          },
-          {
-            name: 'keywords',
-            vmid: 'keywords',
-            content: this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
-          },
-        ],
-      };
     },
     data() {
       return {};
@@ -53,9 +37,6 @@
       ...mapGetters('datasetDetails', [
         'getID',
         'getCategories',
-        'getKeywords',
-        'getLanguages',
-        'getTitle',
       ]),
     },
     methods: {
@@ -91,6 +72,9 @@
         }
       });
     },
+    setup() {
+      metaInfo.useDatasetCategoriesHead();
+    }
   };
 </script>
 

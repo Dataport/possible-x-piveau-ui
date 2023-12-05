@@ -109,6 +109,7 @@
   import DatasetDetailsExtendedMetaData
     from "../datasetDetails/features/DatasetDetailsIsUsedBy.vue";
   import DatasetDetailsSkeleton from "../datasetDetails/DatasetDetailsSkeleton.vue";
+  import * as metaInfo from '../composables/head';
 
   export default {
     name: 'datasetDetailsDataset',
@@ -119,38 +120,6 @@
       Tooltip,
       Distributions,
       ResourceAccessPopup
-    },
-    metaInfo() {
-      return {
-        meta: [
-          {
-            name: 'description',
-            vmid: 'description',
-            content: (this.getDescription
-              ? `${this.getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages.map(lang => lang.id))}`
-              : `${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages.map(lang => lang.id))}`).substring(0, 4999),
-          },
-          {
-            name: 'keywords',
-            vmid: 'keywords',
-            content: isNil(this.getKeywords) || this.getKeywords === 0
-              ? ''
-              : this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
-          },
-          {
-            name: 'subject',
-            vmid: 'subject',
-          },
-          {
-            name: 'robots',
-            content: 'index',
-          },
-        ],
-        script: this.validateDataset(),
-        link: [
-          { rel: 'canonical', href: window.location.href },
-        ],
-      };
     },
     props: {
       distributionVisibleContent: {
@@ -205,7 +174,6 @@
         translationNotAvailable: false,
         expandedDistributions: [],
         expandedDistributionDescriptions: [],
-        datasetSchema: {},
         distributions: {
           displayAll: this.$env.content.datasetDetails.distributions.displayAll,
           displayCount: this.$env.content.datasetDetails.distributions.displayCount,
@@ -284,7 +252,6 @@
       truncate,
       replaceHttp,
       initDatasetDetails() {
-        this.datasetSchema = this.getSchemaOrg();
         this.piwikMetaPush();
         setTimeout(() => {
           if (typeof this.$piwik?.resume === "function") this.$piwik.resume();
@@ -308,180 +275,6 @@
           this.$emit('track-link', this.getVisualisationLink(distribution), 'link');
           window.open(this.getVisualisationLink(distribution), '_blank');
         };
-      },
-      validateDataset() {
-        const isConform = true;
-        // const descriptionLength = (this.datasetSchema.description !== undefined) ? this.datasetSchema.description.length : 0;
-        // const titleLength = (this.datasetSchema.name !== undefined) ? this.datasetSchema.name.length : 0;
-
-        // if (descriptionLength === 0 || titleLength === 0) isConform = false;
-        return (isConform) ? [{
-          type: 'application/ld+json',
-          json: this.datasetSchema,
-        }] : [];
-      },
-      getSchemaOfSpatialCoverage(spatialObject) {
-        let spatialCoverage = [];
-        const spatial = spatialObject ? (spatialObject.length ? spatialObject[0] : spatialObject) : null;
-
-        if (!spatial) return [];
-
-        if (spatial.type === 'Polygon') {
-          const places = [];
-          const polygons = spatial.coordinates;
-          polygons.forEach((polygon) => {
-            let poly = '';
-            poly = polygon.map(coordinate => coordinate.join(',')).join(' ');
-            const geoShape = {
-              '@type': 'GeoShape',
-              polygon: poly,
-            };
-            places.push({
-              '@type': 'Place',
-              geo: geoShape,
-            });
-          });
-
-          spatialCoverage = places;
-        } else if (spatial.type === 'Point') {
-          spatialCoverage = {
-            '@type': 'Place',
-            geo: {
-              '@type': 'GeoCoordinates',
-              latitude: spatial.coordinates[0],
-              longitude: spatial.coordinates[1],
-            },
-          };
-        }
-
-        return spatialCoverage;
-      },
-      // Returns a schema.org license object by providing dcat-ap license
-      // See https://schema.org/license
-      // See https://confluencesrv.fokus.fraunhofer.de/pages/viewpage.action?spaceKey=PIV&title=DCAT-AP+Guide
-      getSchemaOfLicense(license) {
-        if (!isNil(license) && !isEmpty(license)) {
-          const {
-            id, description, resource, la_url: laUrl,
-          } = license;
-
-          if (!id && !description && !resource && !laUrl) return null;
-
-          const licenseObject = {
-            '@type': 'CreativeWork',
-            ...id && { '@id': id },
-            ...description && { description },
-            ...(resource || laUrl) && { url: (resource || laUrl) },
-
-          };
-
-          return licenseObject;
-        }
-
-        return null;
-      },
-      // Returns a json-ld object of the license of the first distribution where a license exists in this dataset
-      // or null, if first distribution or license does not exist
-      getSchemaOfFirstAvailableLicense() {
-        let license = null;
-        const licenses = this.getLicences;
-
-        if (licenses && licenses.length > 0) {
-          const distributionLicense = licenses.find(l => l && (l.title || l.description || l.id || l.resource));
-
-          if (distributionLicense) {
-            license = this.getSchemaOfLicense(distributionLicense);
-          }
-        }
-        return license;
-      },
-      getSchemaOrg() {
-        // PAYLOAD
-        const payload = {
-          '@context': 'http://schema.org',
-          '@type': 'Dataset',
-          name: '', // https://schema.org/Dataset
-          description: '', // https://schema.org/Dataset
-          license: {}, // https://schema.org/Dataset
-          spatialCoverage: {}, // https://schema.org/Dataset
-          keywords: [], // https://schema.org/Dataset
-          catalog: {}, // https://schema.org/DataCatalog
-          distribution: [], // https://schema.org/DataDownload
-          creator: [], // https://schema.org/Organization
-          contactPoint: [], // https://schema.org/ContactPoint
-        };
-
-        // https://schema.org/Dataset
-        payload.name = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
-        payload.name = payload.name ? payload.name.substring(0, 4999) : payload.name;
-        payload.description = this.getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages);
-        payload.description = payload.description ? payload.description.substring(0, 4999) : payload.description;
-        payload.license = this.getSchemaOfFirstAvailableLicense();
-        payload.spatialCoverage = this.getSchemaOfSpatialCoverage(this.getSpatial);
-        payload.identifier = this.getOtherIdentifiers;
-        if (this.showObjectArray(this.getKeywords)) {
-          this.getKeywords.forEach((keyword) => {
-            if (this.showKeyword(keyword)) {
-              payload.keywords.push(keyword.title);
-            }
-          });
-        }
-        // https://schema.org/DataCatalog
-        payload.catalog = {
-          '@type': 'DataCatalog',
-          name: this.getTranslationFor(this.getCatalog.title, this.$route.query.locale, this.getLanguages)?.substring(0, 4999),
-          description: this.getTranslationFor(this.getCatalog.description, this.$route.query.locale, this.getLanguages)?.substring(0, 4999),
-          publisher: this.getCatalog.publisher,
-          url: this.getCatalog.homepage,
-          inLanguage: isArray(this.getCatalog.language) ? this.getCatalog.language[0] : this.getCatalog.language,
-          license: this.getSchemaOfLicense(this.getCatalog.license),
-          dateModified: this.getCatalog.modificationDate,
-          spatialCoverage: this.getSchemaOfSpatialCoverage(this.getCatalog.getSpatial),
-        };
-
-        // https://schema.org/DataDownload
-        this.getDistributions.forEach((distro) => {
-          const distroResult = {
-            '@type': 'DataDownload',
-            name: this.getDistributionTitle(distro),
-            encodingFormat: this.getDistributionFormat(distro),
-            license: this.getSchemaOfLicense(distro.licence),
-            contentSize: distro.byteSize,
-            datePublished: distro.releaseDate,
-            dateModified: distro.modificationDate,
-          };
-          if (this.showAccessUrls(distro)) {
-            distroResult.contentUrl = distro.accessUrl[0];
-          }
-          payload.distribution.push(distroResult);
-        });
-
-        // https://schema.org/Organization
-        if (isObject(this.getPublisher) && has(this.getPublisher, 'name') && !isNil(this.getPublisher.name)) {
-          payload.creator.push({
-            '@type': 'Organization',
-            name: this.getPublisher.name,
-          });
-        }
-
-        // https://schema.org/ContactPoint
-        this.getContactPoints.forEach((contactPoint) => {
-          const hasName = has(contactPoint, 'name') && !isNil(contactPoint.name);
-          const hasEmail = has(contactPoint, 'email') && !isNil(contactPoint.email);
-          const hasAddress = has(contactPoint, 'address') && !isNil(contactPoint.address);
-          const hasTelephone = has(contactPoint, 'telephone') && !isNil(contactPoint.telephone);
-          if (isObject(contactPoint) && (hasName || hasEmail || hasAddress || hasTelephone)) {
-            const c = { '@type': 'ContactPoint' };
-
-            if (hasName) c.name = contactPoint.name;
-            if (hasEmail) c.email = contactPoint.email;
-            if (hasAddress) c.address = contactPoint.address;
-            if (hasTelephone) c.telephone = contactPoint.telephone;
-
-            payload.contactPoint.push(c);
-          }
-        });
-        return payload;
       },
       filterDateFormatEU(date) {
         return dateFilters.formatEU(date);
@@ -758,6 +551,9 @@
     beforeUnmount() {
       $('.tooltip').remove();
     },
+    setup() {
+      metaInfo.useDatasetDetailsDatasetHead();
+    }
   };
 </script>
 

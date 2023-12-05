@@ -65,6 +65,7 @@ const peerDependencies = {
   "vue-step-progress": "x.x.x",
   "vue3-datepicker": "x.x.x",
   "vuex": "x.x.x",
+  "@unhead/vue": "x.x.x",
 };
 
 const doesDirectoryExist = (path : string) => {
