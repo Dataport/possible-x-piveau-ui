@@ -69,6 +69,7 @@ import LanguageSelector from "./data-provider-interface/components/LanguageSelec
 import Navigation from "./data-provider-interface/components/Navigation";
 import UniqueIdentifierInput from "./data-provider-interface/components/UniqueIdentifierInput";
 import ValidationModal from "./data-provider-interface/components/ValidationModal";
+import inputDefinitions from "./form/inputDefinitions";
 
 // Import data-provider-interface views OverviewPage
 import CatalogueOverview from "./data-provider-interface/views/OverviewPage/CatalogueOverview";
@@ -219,8 +220,10 @@ import ResourceAccessPopup from "./widgets/ResourceAccessPopup";
 import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton";
 import Tooltip from "./widgets/Tooltip";
 
+
 import {configSchema} from "./configurations/config-schema";
 export {
+  inputDefinitions,
   configSchema,
   vueKeycloak,
   bulkDownloadCorsProxyService,
