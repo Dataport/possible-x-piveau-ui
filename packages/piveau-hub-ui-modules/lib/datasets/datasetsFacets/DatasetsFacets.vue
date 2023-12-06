@@ -88,6 +88,7 @@ import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsMapFacet from "../../datasets/datasetsFacets/DatasetsMapFacet.vue";
 import CatalogDetailsFacet from "../../facets/CatalogDetailsFacet.vue";
 import SettingsFacet from "../../datasets/datasetsFacets/SettingsFacet.vue";
+import { useDatasetsFacetsHead } from '../../composables/head';
 
 export default {
   name: 'datasetsFacets',
@@ -106,20 +107,6 @@ export default {
       type: Array,
       default: null,
     },
-  },
-  metaInfo() {
-    const catalogTitle = this.getTranslationFor(this.catalog.title, this.$route.query.locale, this.catalogLanguageIds) || this.catalog.id;
-    const catalogDescription = this.getTranslationFor(this.catalog.description, this.$route.query.locale, this.catalogLanguageIds) || this.catalog.id;
-    const title = this.currentSearchQuery
-      ? `${this.currentSearchQuery}${this.showCatalogDetails ? ` - ${catalogTitle}` : ''}`
-      : `${this.showCatalogDetails ? catalogTitle : this.$t('message.header.navigation.data.datasets')}`;
-    return {
-      title,
-      meta: [
-        { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.datasets.meta.description')}` },
-        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}` : `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}` },
-      ],
-    };
   },
   data() {
     return {
@@ -487,6 +474,9 @@ export default {
     /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
     /* fill in here */
     this.setSuperCatalogue(this.$route.query.superCatalogue);
+  },
+  setup() {
+    useDatasetsFacetsHead();
   }
 };
 </script>

@@ -20,23 +20,16 @@ import { useRoute } from 'vue-router';
 
 import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue';
 import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue';
-import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
+import { getRepresentativeLocaleOf } from '../utils/helpers';
 import { useDownloadDatasetOnMount } from '../composables/useDownloadDatasetOnMount';
+import * as metaInfo from '../composables/head';
+
 
 export default {
   name: 'datasetDetails',
   components: {
     DatasetDetailsHeader,
     DatasetDetailsNavigation,
-  },
-  metaInfo() {
-    const datasetTitleTranslated = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
-    const title = datasetTitleTranslated ? `${datasetTitleTranslated} - ${this.$env.metadata.title}` : undefined;
-    return {
-      titleTemplate(chunk) {
-        return chunk ? `${chunk} - ${title}` : title;
-      },
-    };
   },
   data() {
     return {
@@ -55,17 +48,18 @@ export default {
       'getID',
       'getLanguages',
       'getTitle',
-      'getDescription',
     ]),
   },
   methods: {
     getRepresentativeLocaleOf,
-    getTranslationFor,
   },
   created() {
     const route = useRoute();
     useDownloadDatasetOnMount({ route, hubUrl: this.$env.api.hubUrl });
   },
+  setup() {
+    metaInfo.useDatasetDetailsHead();
+  }
 };
 </script>
 

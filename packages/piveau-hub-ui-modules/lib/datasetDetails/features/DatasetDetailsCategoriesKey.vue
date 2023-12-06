@@ -97,8 +97,8 @@ methods: {
   getCategoryLink(category) {
       const categoryID = category.id.toUpperCase();
       return {
-        path: `/datasets?categories=${categoryID}`,
-        query: Object.assign({}, { locale: this.$route.query.locale }),
+        path: `/datasets`,
+        query: Object.assign({}, { categories: categoryID, locale: this.$route.query.locale })
       };
     },
   toggleDisplayCount() {

@@ -1,6 +1,6 @@
 // @ts-nocheck
 /* eslint-disable */
-import { createApp } from 'vue'
+import { reactive } from 'vue'
 import Keycloak from 'keycloak-js';
 import qs from 'qs';
 import axios from 'axios';
@@ -20,43 +20,38 @@ export default {
     };
     const options = Object.assign({}, defaultParams, params);
     if (assertOptions(options).hasError) throw new Error(`Invalid options given: ${assertOptions(options).error}`);
-
-    const watch = createApp({
-      data() {
-        return {
-          ready: false,
-          authenticated: false,
-          userName: null,
-          fullName: null,
-          token: null,
-          rtpToken: null,
-          tokenParsed: null,
-          logoutFn: null,
-          loginFn: null,
-          login: null,
-          createLoginUrl: null,
-          createLogoutUrl: null,
-          createRegisterUrl: null,
-          register: null,
-          accountManagement: null,
-          createAccountUrl: null,
-          loadUserProfile: null,
-          loadUserInfo: null,
-          subject: null,
-          idToken: null,
-          idTokenParsed: null,
-          realmAccess: null,
-          resourceAccess: null,
-          refreshToken: null,
-          refreshTokenParsed: null,
-          timeSkew: null,
-          responseMode: null,
-          responseType: null,
-          hasRealmRole: null,
-          hasResourceRole: null,
-          getRtpToken: null,
-        };
-      },
+    const watch = reactive({
+      ready: false,
+      authenticated: false,
+      userName: null,
+      fullName: null,
+      token: null,
+      rtpToken: null,
+      tokenParsed: null,
+      logoutFn: null,
+      loginFn: null,
+      login: null,
+      createLoginUrl: null,
+      createLogoutUrl: null,
+      createRegisterUrl: null,
+      register: null,
+      accountManagement: null,
+      createAccountUrl: null,
+      loadUserProfile: null,
+      loadUserInfo: null,
+      subject: null,
+      idToken: null,
+      idTokenParsed: null,
+      realmAccess: null,
+      resourceAccess: null,
+      refreshToken: null,
+      refreshTokenParsed: null,
+      timeSkew: null,
+      responseMode: null,
+      responseType: null,
+      hasRealmRole: null,
+      hasResourceRole: null,
+      getRtpToken: null,
     });
 
     getConfig(options.config)

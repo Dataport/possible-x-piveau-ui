@@ -265,11 +265,11 @@ export default {
   beforeRouteEnter(to, from, next) {
     // Always clear storage when entering DPI
     next(vm => {
-      if (from.name !== null && from.name !== undefined && !from.name.startsWith('DataProviderInterface')) {
+      if (from.name && !from.name.startsWith('DataProviderInterface')) {
         vm.clear();
         vm.jumpToFirstPage();
       }
-      if (from.name === null && !vm.getMandatoryStatus({ property: vm.property, id: vm.id })) {
+      if (!from.name && !vm.getMandatoryStatus({ property: vm.property, id: vm.id })) {
         vm.jumpToFirstPage();
         $('#mandatoryModal').modal({ show: true });
       }

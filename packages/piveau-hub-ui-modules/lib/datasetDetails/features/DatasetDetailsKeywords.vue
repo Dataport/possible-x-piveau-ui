@@ -149,7 +149,7 @@ export default {
       return Math.min(Math.max(n, min), max);
     },
     getKeywordLink(keyword) {
-      return { path: `/datasets?keywords=${keyword.id}`, query: Object.assign({}, { locale: this.$route.query.locale }) };
+      return { path: `/datasets`, query: Object.assign({}, { keywords: keyword.id, locale: this.$route.query.locale}) };
     },
     toggleDisplayCount() {
     this.keywords.displayAll = !this.keywords.displayAll;
