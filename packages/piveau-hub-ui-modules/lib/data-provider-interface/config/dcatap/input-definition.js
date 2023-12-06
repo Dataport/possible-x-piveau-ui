@@ -1688,14 +1688,14 @@ const dcatapProperties = {
 
 // Dynamically add a collapsed property to all fields that are component of
 // a set of specific pages steps.
-['datasets', 'distributions'].forEach((type) => {
-  [].concat(
-    // advised and additional fields for datasets/distributions
-    Object.keys(config?.[type].step2),
-    Object.keys(config?.[type].step3),
-  ).forEach((key) => {
-    dcatapProperties[type][key].collapsed = true;
-  });
-})
+// ['datasets', 'distributions'].forEach((type) => {
+//   [].concat(
+//     // advised and additional fields for datasets/distributions
+//     Object.keys(config?.[type].step2),
+//     Object.keys(config?.[type].step3),
+//   ).forEach((key) => {
+//     dcatapProperties[type][key].collapsed = true;
+//   });
+// })
 
 export default dcatapProperties;
