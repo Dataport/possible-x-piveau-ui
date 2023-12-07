@@ -13,22 +13,6 @@ const state = {
 const getters = {
     getSchema(state) {
         return state.schema;
-        // return [
-        //     {
-        //         $el: 'h1',
-        //         children: 'Register',
-        //     },
-        //     {
-        //         $formkit: 'repeatable',
-        //         children: [{
-        //                 $formkit: 'text',
-        //                 name: 'email',
-        //                 label: 'Email',
-        //                 help: 'This will be used for your account.',
-        //                 validation: 'required|email',
-        //         }]
-        //     }
-        // ]
     },
 };
 
