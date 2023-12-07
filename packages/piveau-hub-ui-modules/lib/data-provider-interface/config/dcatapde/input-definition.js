@@ -4,7 +4,7 @@ import config from './page-content-config';
 const dcatapProperties = {
   datasets: {
     // Dcatap.de Properties #### Start ####
-    // autocomplete, custom event (dcatDE), multiple
+    // autocomplete, multiple
     politicalGeocodingLevelURI: {
       identifier: 'politicalGeocodingLevelURI',
       // $formkit: 'autocomplete-input',
@@ -13,66 +13,73 @@ const dcatapProperties = {
       voc: 'political-geocoding-level',
       multiple: true,
     },
-    // repetable, autocomplete
+    // autocomplete
     politicalGeocodingURI: {
       identifier: 'politicalGeocodingURI',
-      type: "group",
-      name: 'dcatde:politicalGeocodingURI',
-      class: 'property',
+      $formkit: 'repeatable',
+      name:'dcatde:politicalGeocodingURI',
       children: [
         {
-          identifier: "politicalGeocodingURI",
-          $formkit: "select",
-          id: "geocodingMode",
+          identifier: 'politicalGeocodingURI',
+          type: "group",
           name: 'dcatde:politicalGeocodingURI',
-          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-        },
-        {
-          $cmp: "FormKit",
-          if: "$get(geocodingMode).value",
-          props: {
-            if: "$get(geocodingMode).value === voc",
-            then: {
-              type: "radio",
-              id: "geocodingVoc",
-              name: 'geocodingVoc',
-              options: { municipalityKey: 'Municipality Key', regionalKey: 'Regional Key', municipalAssociationKey: 'Municipal Association Key', districtKey: 'District Key',
-              governmentDistrictKey: 'Government District Key', stateKey: 'State Key'}
+          class: 'property',
+          children: [
+            {
+              identifier: "politicalGeocodingURI",
+              $formkit: "select",
+              id: "geocodingMode",
+              name: 'dcatde:politicalGeocodingURI',
+              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
             },
-            else: {
-              then: {
-                type: "radio",
-                id: "geocodingVoc",
-                name: 'geocodingVoc',
-                options: { other: "Other"}
-              }
-            }
+            {
+              $cmp: "FormKit",
+              if: "$get(geocodingMode).value",
+              props: {
+                if: "$get(geocodingMode).value === voc",
+                then: {
+                  type: "radio",
+                  id: "geocodingVoc",
+                  name: 'geocodingVoc',
+                  options: { municipalityKey: 'Municipality Key', regionalKey: 'Regional Key', municipalAssociationKey: 'Municipal Association Key', districtKey: 'District Key',
+                  governmentDistrictKey: 'Government District Key', stateKey: 'State Key'}
+                },
+                else: {
+                  then: {
+                    type: "radio",
+                    id: "geocodingVoc",
+                    name: 'geocodingVoc',
+                    options: { other: "Other"}
+                  }
+                }
 
-          }
-        },
-        {
-          $cmp: "FormKit",
-          if: "$get(geocodingVoc).value",
-          props: {
-            if: "$get(geocodingVoc).value === other",
-            then: {
-              identifier: 'politicalGeocodingURI',
-              $formkit: "url",
-              name: '@id'
+              }
             },
-            else: {
-              then: {
-                identifier: 'politicalGeocodingURI',
-                // $formkit: "autocomplete",
-                name: '@id',
-                voc: ""
+            {
+              $cmp: "FormKit",
+              if: "$get(geocodingVoc).value",
+              props: {
+                if: "$get(geocodingVoc).value === other",
+                then: {
+                  identifier: 'politicalGeocodingURI',
+                  $formkit: "url",
+                  name: '@id'
+                },
+                else: {
+                  then: {
+                    identifier: 'politicalGeocodingURI',
+                    // $formkit: "autocomplete",
+                    name: '@id',
+                    voc: ""
+                  }
+                }
               }
             }
-          }
+          ]
         }
       ]
     },
-    // autocomplte, custom event (dcatDE)
+    // autocomplte, 
     availabilityDE: {
       identifier: 'availabilityDE',
       // $formkit: 'autocomplete-input',
@@ -80,53 +87,66 @@ const dcatapProperties = {
       class: 'property',
       voc: 'planned-availability',
     },
-    // repetable, custom event (dcatDE), minimum
+    // minimum
     geocodingDescription: {
       identifier: 'geocodingDescription',
-      type: 'group',
+      $formkit:'repeatable',
       name: 'dcatde:geocodingDescription',
-      class: 'property langDescriptionInput',
       children: [
         {
           identifier: 'geocodingDescription',
-          $formkit: 'textarea',
-          name: '@value',
-          class: 'w-100 inputTextfield',
-        },
-        {
-          identifier: 'language',
-          value: 'de',
-          $formkit: 'select',
-          options: language,
-          name: '@language',
-          class: 'selectLangField',
-        },
-      ],
+          type: 'group',
+          name: 'dcatde:geocodingDescription',
+          class: 'property langDescriptionInput',
+          children: [
+            {
+              identifier: 'geocodingDescription',
+              $formkit: 'textarea',
+              name: '@value',
+              class: 'w-100 inputTextfield',
+            },
+            {
+              identifier: 'language',
+              value: 'de',
+              $formkit: 'select',
+              options: language,
+              name: '@language',
+              class: 'selectLangField',
+            },
+          ],
+        }
+      ]
     },
-    // repetable, minimum, custom event /dcatDE)
+    // minimum
     legalBasis: {
       identifier: 'legalBasis',
-      $formkit: 'group',
+      $formkit:'repeatable',
       name: 'dcatde:legalBasis',
-      class: 'property langDescriptionInput',
       children: [
         {
           identifier: 'legalBasis',
-          $formkit: 'textarea',
-          name: '@value',
-          class: 'w-100 inputTextfield',
-        },
-        {
-          identifier: 'language',
-          value: 'de',
-          $formkit: 'select',
-          options: language,
-          name: '@language',
-          class: 'selectLangField',
-        },
-      ],
+          $formkit: 'group',
+          name: 'dcatde:legalBasis',
+          class: 'property langDescriptionInput',
+          children: [
+            {
+              identifier: 'legalBasis',
+              $formkit: 'textarea',
+              name: '@value',
+              class: 'w-100 inputTextfield',
+            },
+            {
+              identifier: 'language',
+              value: 'de',
+              $formkit: 'select',
+              options: language,
+              name: '@language',
+              class: 'selectLangField',
+            },
+          ],
+        }
+      ]
     },
-    // done
     qualityProcessURI: {
       identifier: 'qualityProcessURI',
       name: 'dcatde:qualityProcessURI',
@@ -141,43 +161,49 @@ const dcatapProperties = {
       type: 'url',
       voc: 'planned-availability',
     },
-    // repetable, custom event (dcatDE)
     contributor: {
       identifier: 'contributor',
-      $formkit: 'group',
+      $formkit: 'repeatable',
       name: 'dct:contributor',
-      class: 'property',
       children: [
         {
-          identifier: 'contributorType',
-          $formkit: 'select',
-          name: 'rdf:type',
-          options: {
-            '': '---',
-            'vcard:Individual': 'Person',
-            'vcard:Organization': 'Organization',
-          },
-        },
-        {
-          identifier: 'contributorEmail',
-          $formkit: 'email',
-          name: 'foaf:mbox',
-          validation: 'optional|email',
-        },
-        {
-          identifier: 'contributorName',
-          $formkit: 'text',
-          name: 'foaf:name',
-        },
-        {
-          identifier: 'contributorHomepage',
-          $formkit: 'url',
-          name: 'foaf:homepage',
-          validation: 'optional|url',
-        },
-      ],
+          identifier: 'contributor',
+          $formkit: 'group',
+          name: 'dct:contributor',
+          class: 'property',
+          children: [
+            {
+              identifier: 'contributorType',
+              $formkit: 'select',
+              name: 'rdf:type',
+              options: {
+                '': '---',
+                'vcard:Individual': 'Person',
+                'vcard:Organization': 'Organization',
+              },
+            },
+            {
+              identifier: 'contributorEmail',
+              $formkit: 'email',
+              name: 'foaf:mbox',
+              validation: 'optional|email',
+            },
+            {
+              identifier: 'contributorName',
+              $formkit: 'text',
+              name: 'foaf:name',
+            },
+            {
+              identifier: 'contributorHomepage',
+              $formkit: 'url',
+              name: 'foaf:homepage',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // autocomplete, multiple, cusom event (dcatDE)
+    // autocomplete, multiple, 
     contributorID: {
       identifier: 'contributorID',
       // $formkit: 'autocomplete-input',
@@ -186,77 +212,89 @@ const dcatapProperties = {
       voc: 'contributors',
       multiple: true,
     },
-    // repetable, custom event (dcatDE)
     originator: {
       identifier: 'originator',
-      $formkit: 'group',
+      $formkit: 'repetable',
       name: 'dcatde:originator',
-      class: 'property',
       children: [
         {
-          identifier: 'originatorType',
-          $formkit: 'select',
-          name: 'rdf:type',
-          options: {
-            '': '---',
-            'vcard:Individual': 'Person',
-            'vcard:Organization': 'Organization',
-          },
-        },
-        {
-          identifier: 'originatorEmail',
-          $formkit: 'email',
-          name: 'foaf:mbox',
-          validation: 'optional|email',
-        },
-        {
-          identifier: 'originatorName',
-          $formkit: 'text',
-          name: 'foaf:name',
-        },
-        {
-          identifier: 'originatorHomepage',
-          $formkit: 'url',
-          name: 'foaf:homepage',
-          validation: 'optional|url',
-        },
-      ],
+          identifier: 'originator',
+          $formkit: 'group',
+          name: 'dcatde:originator',
+          class: 'property',
+          children: [
+            {
+              identifier: 'originatorType',
+              $formkit: 'select',
+              name: 'rdf:type',
+              options: {
+                '': '---',
+                'vcard:Individual': 'Person',
+                'vcard:Organization': 'Organization',
+              },
+            },
+            {
+              identifier: 'originatorEmail',
+              $formkit: 'email',
+              name: 'foaf:mbox',
+              validation: 'optional|email',
+            },
+            {
+              identifier: 'originatorName',
+              $formkit: 'text',
+              name: 'foaf:name',
+            },
+            {
+              identifier: 'originatorHomepage',
+              $formkit: 'url',
+              name: 'foaf:homepage',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // repetable, custom event (dcatDE)
     maintainer: {
       identifier: 'maintainer',
-      $formkit: 'group',
+      $formkit: 'repetable',
       name: 'dcatde:maintainer',
-      class: 'property',
       children: [
         {
-          identifier: 'maintainerType',
-          $formkit: 'select',
-          name: 'rdf:type',
-          options: {
-            '': '---',
-            'vcard:Individual': 'Person',
-            'vcard:Organization': 'Organization',
-          },
-        },
-        {
-          identifier: 'maintainerEmail',
-          $formkit: 'email',
-          name: 'foaf:mbox',
-          validation: 'optional|email',
-        },
-        {
-          identifier: 'maintainerName',
-          $formkit: 'text',
-          name: 'foaf:name',
-        },
-        {
-          identifier: 'maintainerHomepage',
-          $formkit: 'url',
-          name: 'foaf:homepage',
-          validation: 'optional|url',
-        },
-      ],
+          identifier: 'maintainer',
+          $formkit: 'group',
+          name: 'dcatde:maintainer',
+          class: 'property',
+          children: [
+            {
+              identifier: 'maintainerType',
+              $formkit: 'select',
+              name: 'rdf:type',
+              options: {
+                '': '---',
+                'vcard:Individual': 'Person',
+                'vcard:Organization': 'Organization',
+              },
+            },
+            {
+              identifier: 'maintainerEmail',
+              $formkit: 'email',
+              name: 'foaf:mbox',
+              validation: 'optional|email',
+            },
+            {
+              identifier: 'maintainerName',
+              $formkit: 'text',
+              name: 'foaf:name',
+            },
+            {
+              identifier: 'maintainerHomepage',
+              $formkit: 'url',
+              name: 'foaf:homepage',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
     // Dcatap.de Properties #### End ####
     // unique identifier component
@@ -267,132 +305,151 @@ const dcatapProperties = {
       name: 'datasetID',
       class: 'property mandatory',
     },
-    // must be a repeatbale property (repeatable and repeatableremoved), mandatory, minimum
+    // minimum (unability to remove fields to 0)
     description: {
-      identifier: 'datasetDescription',
-      $formkit:'group',
+      identifier: 'description',
+      $formkit: 'repeatable',
       name: 'dct:description',
-      class: 'property langDescriptionInput mandatory',
-      mandatory: true,
       minimum: 1,
       children: [
         {
-          identifier: 'description',
-          $formkit:'textarea',
-          name: '@value',
-          validation: 'required',
-          class: 'w-100 inputTextfield',
-        },
-        {
-          identifier: 'descriptionLanguage',
-          value: 'en',
-          $formkit:'select',
-          options: language,
-          validation: 'required',
-          name: '@language',
-          class: 'selectLangField',
-        },
-      ],
-    },
-    // must be a repeatbale property (repeatable and repeatableremoved), mandatory, minimum
-    title: {
-      identifier: 'title',
-      $formkit: 'group',
-      name: 'dct:title',
-      class: 'property langStringInput mandatory',
-      mandatory: true,
-      minimum: 1,
-      children: [
-        {
-          identifier: 'titleLabel',
-          $formkit: 'text',
-          name: '@value',
-          validation: 'required',
-          class: 'w-100 inputTextfield',
-        },
-        {
-          identifier: 'dctTitle',
-          value: 'en',
-          $formkit: 'select',
-          validation: 'required',
-          options: language,
-          name: '@language',
-          class: 'selectLangField',
-        },
-      ],
-    },
-    // repeatable and repetable removed, url
-    contactPoint: {
-      identifier: 'contactPoint',
-      $formkit:'group',
-      name: 'dcat:contactPoint',
-      class: 'property',
-      children: [
-        {
-          identifier: 'contactPointType',
-          $formkit:'select',
-          name: 'rdf:type',
-          options: {
-            '': '---',
-            'vcard:Individual': 'Person',
-            'vcard:Organization': 'Organization',
-          },
-        },
-        {
-          identifier: 'contactPointName',
-          $formkit:'text',
-          name: 'vcard:fn',
-        },
-        {
-          identifier: 'contactPointEmail',
-          $formkit:'email',
-          name: 'vcard:hasEmail',
-          validation: 'optional|email',
-        },
-        {
-          identifier: 'contactPointAddress',
+          identifier: 'datasetDescription',
           $formkit:'group',
-          name: 'vcard:hasAddress',
+          name: 'dct:description',
+          class: 'property langDescriptionInput mandatory',
           children: [
             {
-              identifier: 'contactPointAddressStreet',
-              $formkit:'text',
-              name: 'vcard:street_address',
+              identifier: 'description',
+              $formkit:'textarea',
+              name: '@value',
+              validation: 'required',
+              class: 'w-100 inputTextfield',
             },
             {
-              identifier: 'contactPointAddressPostcode',
-              $formkit:'text',
-              name: 'vcard:postal_code',
-            },
-            {
-              identifier: 'contactPointAddressCity',
-              $formkit:'text',
-              name: 'vcard:locality',
-            },
-            {
-              identifier: 'contactPointAddressCountry',
-              $formkit:'text',
-              name: 'vcard:country_name',
+              identifier: 'descriptionLanguage',
+              value: 'en',
+              $formkit:'select',
+              options: language,
+              validation: 'required',
+              name: '@language',
+              class: 'selectLangField',
             },
           ],
-        },
+        }
+      ]
+    },
+    // minimum (unability to remove fields to 0)
+    title: {
+      identifier: 'title',
+      $formkit: 'repeatable',
+      name: 'dct:title',
+      children:[
         {
-          identifier: 'contactPointTelephone',
-          $formkit:'tel',
-          name: 'vcard:hasTelephone',
-        },
-        // {
-        //   identifier: 'contactPointUrl',
-        //   $formkit:'custom-url',
-        //   name: 'vcard:hasURL',
-        //   validation: 'optional|url',
-        // },
+          identifier: 'title',
+          $formkit: 'group',
+          name: 'dct:title',
+          class: 'property langStringInput mandatory',
+          mandatory: true,
+          minimum: 1,
+          children: [
+            {
+              identifier: 'titleLabel',
+              $formkit: 'text',
+              name: '@value',
+              validation: 'required',
+              class: 'w-100 inputTextfield',
+            },
+            {
+              identifier: 'dctTitle',
+              value: 'en',
+              $formkit: 'select',
+              validation: 'required',
+              options: language,
+              name: '@language',
+              class: 'selectLangField',
+            },
+          ],
+        }
+      ]
+    },
+    contactPoint: {
+      identifier: 'contactPoint',
+      $formkit: 'repeatable',
+      name: 'dcat:contactPoint',
+      children: [
         {
-          identifier: 'contactPointOrganisationName',
-          $formkit:'text',
-          name: 'vcard:hasOrganizationName',
-        },
-      ],
+          identifier: 'contactPoint',
+          $formkit:'group',
+          name: 'dcat:contactPoint',
+          class: 'property',
+          children: [
+            {
+              identifier: 'contactPointType',
+              $formkit:'select',
+              name: 'rdf:type',
+              options: {
+                '': '---',
+                'vcard:Individual': 'Person',
+                'vcard:Organization': 'Organization',
+              },
+            },
+            {
+              identifier: 'contactPointName',
+              $formkit:'text',
+              name: 'vcard:fn',
+            },
+            {
+              identifier: 'contactPointEmail',
+              $formkit:'email',
+              name: 'vcard:hasEmail',
+              validation: 'optional|email',
+            },
+            {
+              identifier: 'contactPointAddress',
+              $formkit:'group',
+              name: 'vcard:hasAddress',
+              children: [
+                {
+                  identifier: 'contactPointAddressStreet',
+                  $formkit:'text',
+                  name: 'vcard:street_address',
+                },
+                {
+                  identifier: 'contactPointAddressPostcode',
+                  $formkit:'text',
+                  name: 'vcard:postal_code',
+                },
+                {
+                  identifier: 'contactPointAddressCity',
+                  $formkit:'text',
+                  name: 'vcard:locality',
+                },
+                {
+                  identifier: 'contactPointAddressCountry',
+                  $formkit:'text',
+                  name: 'vcard:country_name',
+                },
+              ],
+            },
+            {
+              identifier: 'contactPointTelephone',
+              $formkit:'tel',
+              name: 'vcard:hasTelephone',
+            },
+            {
+              identifier: 'contactPointUrl',
+              $formkit:'url',
+              name: 'vcard:hasURL',
+              validation: 'optional|url',
+            },
+            {
+              identifier: 'contactPointOrganisationName',
+              $formkit:'text',
+              name: 'vcard:hasOrganizationName',
+            },
+          ],
+        }
+      ]
     },
     // autocomplete, multiple
     subject: {
@@ -405,28 +462,34 @@ const dcatapProperties = {
       voc: 'eurovoc',
       '@annifSuggestion': false,
     },
-    // must be a repeatbale property (repeatable and repeatableremoved)
     keyword: {
-      identifier: 'keywordHeader',
-      $formkit:'group',
-      name: 'dcat:keyword',
-      class: 'property langStringInput',
+      identifier: 'keyword',
+      $formkit: 'repeatable',
+      name: 'dct:keyword',
       children: [
         {
-          identifier: 'keyword',
-          $formkit:'text',
-          name: '@value',
-          class: 'w-100 inputTextfield',
-        },
-        {
-          identifier: 'keywordsLanguage',
-          value: 'en',
-          $formkit:'select',
-          name: '@language',
-          class: 'selectLangField',
-          options: language,
-        },
-      ],
+          identifier: 'keywordHeader',
+          $formkit:'group',
+          name: 'dct:keyword',
+          class: 'property langStringInput',
+          children: [
+            {
+              identifier: 'keyword',
+              $formkit:'text',
+              name: '@value',
+              class: 'w-100 inputTextfield',
+            },
+            {
+              identifier: 'keywordsLanguage',
+              value: 'en',
+              $formkit:'select',
+              name: '@language',
+              class: 'selectLangField',
+              options: language,
+            },
+          ],
+        }
+      ]
     },
     // publisher: {
     //   identifier: 'publisher',
@@ -477,87 +540,100 @@ const dcatapProperties = {
     // },
     // repetable
     spatial: {
-      $formkit:'group',
-      name: 'dct:spatial',
       identifier: 'spatial',
+      $formkit: 'repeatable',
+      name: 'dct:spatial',
       children: [
         {
-          $formkit: "select",
-          identifier: "spatial",
-          id: "spatialMode",
-          name: "spatialMode",
-          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-        },
-        {
-          $cmp: "FormKit",
-          identifier: "spatial",
-          if: "$get(spatialMode).value",
-          props: {
-            type: "radio",
-            name: "vocabulary",
-            id: "vocabulary",
-            if: "$get(spatialMode).value === man",
-            options: {
-              if: "$get(spatialMode).value === voc",
-              then: [
-                { value: "continent", label: "Continent" },
-                { value: "country", label: "Country" }, 
-                { value: "place", label: "Place"}
-              ],
-              else: {
-                if: "$get(spatialMode).value === man",
-                then: [
-                  {label: "Other", value: "other" }
-                ],
-              }
-            }
-          }
-        },
-        {
-          $cmp: "FormKit",
-          identifier: "spatial",
-          if: "$get(vocabulary).value",
-          props: {
-            identifier: "spatial",
-            if: "$get(vocabulary).value === other",
-            then: {
-              type: "url",
+          $formkit:'group',
+          name: 'dct:spatial',
+          identifier: 'spatial',
+          children: [
+            {
+              $formkit: "select",
               identifier: "spatial",
-              name: '@id'
+              id: "spatialMode",
+              name: "spatialMode",
+              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
             },
-            else: {
-              then: {
-                type: "text",
+            {
+              $cmp: "FormKit",
+              identifier: "spatial",
+              if: "$get(spatialMode).value",
+              props: {
+                type: "radio",
+                name: "vocabulary",
+                id: "vocabulary",
+                if: "$get(spatialMode).value === man",
+                options: {
+                  if: "$get(spatialMode).value === voc",
+                  then: [
+                    { value: "continent", label: "Continent" },
+                    { value: "country", label: "Country" }, 
+                    { value: "place", label: "Place"}
+                  ],
+                  else: {
+                    if: "$get(spatialMode).value === man",
+                    then: [
+                      {label: "Other", value: "other" }
+                    ],
+                  }
+                }
+              }
+            },
+            {
+              $cmp: "FormKit",
+              identifier: "spatial",
+              if: "$get(vocabulary).value",
+              props: {
                 identifier: "spatial",
-                name: '@id'
+                if: "$get(vocabulary).value === other",
+                then: {
+                  type: "url",
+                  identifier: "spatial",
+                  name: '@id'
+                },
+                else: {
+                  then: {
+                    type: "text",
+                    identifier: "spatial",
+                    name: '@id'
+                  }
+                }
               }
             }
-          }
+          ]
         }
       ]
     },
-    // repeatable
     temporal: {
-      $formkit:'group',
-      name: 'dct:temporal',
       identifier: 'temporal',
-      class: 'property besides startEndDate',
+      $formkit: 'repeatable',
+      name: 'dct:temporal',
       children: [
         {
-          identifier: 'temporalStart',
-          $formkit:'datetime-local',
-          name: 'dcat:startDate',
-          property:'dct:temporal',
-          end: 'dct:temporal',
-        },
-        {
-          identifier: 'temporalEnd',
-          $formkit:'datetime-local',
-          name: 'dcat:endDate',
-          property:'dct:temporal',
-          start: 'dct:temporal',
-        },
-      ],
+          $formkit:'group',
+          name: 'dct:temporal',
+          identifier: 'temporal',
+          class: 'property besides startEndDate',
+          children: [
+            {
+              identifier: 'temporalStart',
+              $formkit:'datetime-local',
+              name: 'dcat:startDate',
+              property:'dct:temporal',
+              end: 'dct:temporal',
+            },
+            {
+              identifier: 'temporalEnd',
+              $formkit:'datetime-local',
+              name: 'dcat:endDate',
+              property:'dct:temporal',
+              start: 'dct:temporal',
+            },
+          ],
+        }
+      ]
     },
     // autocomplete and multiple
     theme: {
@@ -578,7 +654,6 @@ const dcatapProperties = {
       name: 'dct:accessRights',
       class: 'property',
     },
-    // homepage custom-url
     creator: {
       identifier: 'creator',
       $formkit:'group',
@@ -606,103 +681,127 @@ const dcatapProperties = {
           name: 'foaf:mbox',
           validation: 'optional|email',
         },
-        // {
-        //   identifier: 'creatorHomepage',
-        //   $formkit:'custom-url',
-        //   name: 'foaf:homepage',
-        //   validation: 'optional|url',
-        // },
+        {
+          identifier: 'creatorHomepage',
+          $formkit:'url',
+          name: 'foaf:homepage',
+          validation: 'optional|url',
+        },
       ],
     },
-    // repetable
     conformsTo: {
       identifier: 'conformsTo',
-      $formkit:'group',
+      $formkit: 'repeatable',
       name: 'dct:conformsTo',
-      class: 'property',
       children: [
         {
-          identifier: 'conformsToTitle',
-          $formkit:'text',
-          name: 'rdfs:label',
-        },
-        {
-          identifier: 'conformsToUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
-    },
-    // repetable, format (autocomplete)
-    page: {
-      // repetable
-      identifier: 'page',
-      $formkit:'group',
-      name: 'foaf:page',
-      class: 'property',
-      children: [
-        {
-          // repetable
-          identifier: 'pageTitle',
+          identifier: 'conformsTo',
           $formkit:'group',
-          name: 'dct:title',
-          class: 'property langStringInput',
+          name: 'dct:conformsTo',
+          class: 'property',
           children: [
             {
-              identifier: 'pageTitleSub',
+              identifier: 'conformsToTitle',
               $formkit:'text',
-              name: '@value',
-              class: 'w-100 inputTextfield',
+              name: 'rdfs:label',
             },
             {
-              identifier: 'pageTitlelang',
-              value: 'en',
-              $formkit:'select',
-              options: language,
-              name: '@language',
-              class: 'selectLangField',
+              identifier: 'conformsToUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
             },
-          ]
-        },
+          ],
+        }
+      ]
+    },
+    // format (autocomplete)
+    page: {
+      identifier: 'page',
+      $formkit: 'repeatable',
+      name: 'foaf:page',
+      children: [
         {
-          // repetable
-          identifier: 'pageDescription',
+          identifier: 'page',
           $formkit:'group',
-          name: 'dct:description',
-          class: 'property langDescriptionInput',
+          name: 'foaf:page',
+          class: 'property',
           children: [
             {
-              identifier: 'pageDesc',
-              $formkit:'textarea',
-              name: '@value',
-              class: 'inputTextfield w-100',
+              identifier: 'pageTitle',
+              $formkit: 'repeatable',
+              name: 'dct:title',
+              children: [
+                {
+                  identifier: 'pageTitle',
+                  $formkit:'group',
+                  name: 'dct:title',
+                  class: 'property langStringInput',
+                  children: [
+                    {
+                      identifier: 'pageTitleSub',
+                      $formkit:'text',
+                      name: '@value',
+                      class: 'w-100 inputTextfield',
+                    },
+                    {
+                      identifier: 'pageTitlelang',
+                      value: 'en',
+                      $formkit:'select',
+                      options: language,
+                      name: '@language',
+                      class: 'selectLangField',
+                    },
+                  ]
+                }
+              ]
             },
             {
-              identifier: 'page-desc',
-              value: 'en',
-              $formkit:'select',
-              options: language,
-              name: '@language',
-              class: 'selectLangField',
+              identifier: 'pageDescription',
+              $formkit: 'repeatable',
+              name: 'dct:description',
+              children: [
+                {
+                  identifier: 'pageDescription',
+                  $formkit:'group',
+                  name: 'dct:description',
+                  class: 'property langDescriptionInput',
+                  children: [
+                    {
+                      identifier: 'pageDesc',
+                      $formkit:'textarea',
+                      name: '@value',
+                      class: 'inputTextfield w-100',
+                    },
+                    {
+                      identifier: 'page-desc',
+                      value: 'en',
+                      $formkit:'select',
+                      options: language,
+                      name: '@language',
+                      class: 'selectLangField',
+                    },
+                  ]
+                }
+              ]
             },
-          ]
-        },
-        {
-          identifier: 'pageFormat',
-          // type: 'autocomplete',
-          voc: 'file-type',
-          name: 'dct:format',
-          class: "property",
-        },
-        {
-          identifier: 'pageUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-          class: "property",
-        },
-      ],
+            {
+              identifier: 'pageFormat',
+              // type: 'autocomplete',
+              voc: 'file-type',
+              name: 'dct:format',
+              class: "property",
+            },
+            {
+              identifier: 'pageUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+              class: "property",
+            },
+          ],
+        }
+      ]
     },
     // autocomplete
     accrualPeriodicity: {
@@ -712,94 +811,130 @@ const dcatapProperties = {
       name: 'dct:accrualPeriodicity',
       class: 'property',
     },
-    // repetable 
     hasVersion: {
-      $formkit:'group',
       identifier: 'hasVersion',
+      $formkit: 'repeatable',
       name: 'dct:hasVersion',
-      class: 'property',
       children: [
         {
-          identifier: 'hasVersionUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'hasVersion',
+          name: 'dct:hasVersion',
+          class: 'property',
+          children: [
+            {
+              identifier: 'hasVersionUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // repetabale
     isVersionOf: {
-      $formkit:'group',
       identifier: 'isVersionOf',
+      $formkit: 'repeatable',
       name: 'dct:isVersionOf',
-      class: 'property',
       children: [
         {
-          identifier: 'isVersionOfUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'isVersionOf',
+          name: 'dct:isVersionOf',
+          class: 'property',
+          children: [
+            {
+              identifier: 'isVersionOfUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // repetable
     source: {
-      $formkit:'group',
       identifier: 'source',
+      $formkit: 'repeatable',
       name: 'dct:source',
-      class: 'property',
       children: [
         {
-          name: '@id',
-          identifier: 'sourceUrl',
-          $formkit:'url',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'source',
+          name: 'dct:source',
+          class: 'property',
+          children: [
+            {
+              name: '@id',
+              identifier: 'sourceUrl',
+              $formkit:'url',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // repeatable and repeatable removed
     identifier: {
-      $formkit:'group',
-      class: 'property',
-      name: 'dct:identifier',
       identifier: 'identifier',
+      $formkit: 'repeatable',
+      name: 'dct:identifier',
       children: [
         {
+          $formkit:'group',
+          class: 'property',
+          name: 'dct:identifier',
           identifier: 'identifier',
-          name: '@value',
-          $formkit:'text',
-        },
-      ],
+          children: [
+            {
+              identifier: 'identifier',
+              name: '@value',
+              $formkit:'text',
+            },
+          ],
+        }
+      ]
     },
-    // repetable
     isReferencedBy: {
-      $formkit:'group',
       identifier: 'isReferencedBy',
+      $formkit: 'repeatable',
       name: 'dct:isReferencedBy',
-      class: 'property',
       children: [
         {
-          identifier: 'isReferencedByUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'isReferencedBy',
+          name: 'dct:isReferencedBy',
+          class: 'property',
+          children: [
+            {
+              identifier: 'isReferencedByUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // repetable and repetabel removed
     landingPage: {
-      $formkit:'group',
       identifier: 'landingPage',
+      $formkit: 'repeatable',
       name: 'dcat:landingPage',
-      class: 'property',
       children: [
         {
-          identifier: 'landingPageUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'landingPage',
+          name: 'dcat:landingPage',
+          class: 'property',
+          children: [
+            {
+              identifier: 'landingPageUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
     // autocomplete, multiple
     language: {
@@ -810,114 +945,150 @@ const dcatapProperties = {
       multiple: true,
       voc: 'language',
     },
-    // repeatable and repeatable removed, identifier type using autocomplete
+    // identifier type using autocomplete
     admsIdentifier: {
-      $formkit:'group',
-      class: 'property',
-      name: 'adms:identifier',
       identifier: 'admsIdentifier',
+      $formkit: 'repeatable',
+      name: 'adms:identifier',
       children: [
         {
-          identifier: 'admsIdentifierUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-        {
-          identifier: 'admsIdentifierSkosNotation',
           $formkit:'group',
-          name: 'skos:notation',
+          class: 'property',
+          name: 'adms:identifier',
+          identifier: 'admsIdentifier',
           children: [
             {
-              identifier: 'admsIdentifierValue',
-              $formkit:'text',
-              name: '@value',
+              identifier: 'admsIdentifierUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
             },
             {
-              identifier: 'admsIdentifierType',
-              // type: 'autocomplete',
-              voc: 'notation-type',
-              name: '@type',
+              identifier: 'admsIdentifierSkosNotation',
+              $formkit:'group',
+              name: 'skos:notation',
+              children: [
+                {
+                  identifier: 'admsIdentifierValue',
+                  $formkit:'text',
+                  name: '@value',
+                },
+                {
+                  identifier: 'admsIdentifierType',
+                  // type: 'autocomplete',
+                  voc: 'notation-type',
+                  name: '@type',
+                },
+              ],
             },
           ],
-        },
-      ],
+        }
+      ]
     },
-    // repeatable and repeteabale removed
     provenance: {
-      $formkit:'group',
       identifier: 'provenanceGroup',
+      $formkit: 'repeatable',
       name: 'dct:provenance',
-      class: 'property',
       children: [
         {
-          identifier: 'provenance',
-          $formkit:'text',
-          name: 'rdfs:label',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'provenanceGroup',
+          name: 'dct:provenance',
+          class: 'property',
+          children: [
+            {
+              identifier: 'provenance',
+              $formkit:'text',
+              name: 'rdfs:label',
+            },
+          ],
+        }
+      ]
     },
-    // repetable
     qualifiedAttribution: {
-      $formkit:'group',
       identifier: 'qualifiedAttribution',
+      $formkit: 'repeatable',
       name: 'prov:qualifiedAttribution',
-      class: 'property',
       children: [
         {
-          identifier: 'qualifiedAttributionUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'qualifiedAttribution',
+          name: 'prov:qualifiedAttribution',
+          class: 'property',
+          children: [
+            {
+              identifier: 'qualifiedAttributionUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // repetable
     wasGeneratedBy: {
-      $formkit:'group',
       identifier: 'wasGeneratedBy',
+      $formkit: 'repeatable',
       name: 'prov:wasGeneratedBy',
-      class: 'property',
       children: [
         {
-          identifier: 'wasGeneratedByUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'wasGeneratedBy',
+          name: 'prov:wasGeneratedBy',
+          class: 'property',
+          children: [
+            {
+              identifier: 'wasGeneratedByUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // repetable
     qualifiedRelation: {
-      $formkit:'group',
       identifier: 'qualifiedRelation',
+      $formkit: 'repeatable',
       name: 'dcat:qualifiedRelation',
-      class: 'property',
       children: [
         {
-          identifier: 'qualifiedRelationUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'qualifiedRelation',
+          name: 'dcat:qualifiedRelation',
+          class: 'property',
+          children: [
+            {
+              identifier: 'qualifiedRelationUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // repetable
     relation: {
-      $formkit:'group',
       identifier: 'relation',
+      $formkit: 'repeatable',
       name: 'dct:relation',
-      class: 'property',
       children: [
         {
-          identifier: 'relationUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit:'group',
+          identifier: 'relation',
+          name: 'dct:relation',
+          class: 'property',
+          children: [
+            {
+              identifier: 'relationUrl',
+              $formkit:'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
-    // done
     issued: {
       identifier: 'issued',
       $formkit: 'group',
@@ -948,7 +1119,6 @@ const dcatapProperties = {
         },
       ]
     },
-    // done
     modified: {
       identifier: 'modified',
       $formkit: 'group',
@@ -980,7 +1150,6 @@ const dcatapProperties = {
         },
       ]
     },
-    // done
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
       $formkit:'number',
@@ -988,7 +1157,6 @@ const dcatapProperties = {
       class: 'property',
       validation: 'number',
     },
-    // done
     temporalResolution: {
       identifier: 'temporalResolution',
       $formkit:'group',
@@ -1050,60 +1218,69 @@ const dcatapProperties = {
       name: 'dct:type',
       class: 'property',
     },
-    // done
     versionInfo: {
       identifier: 'versionInfo',
       $formkit:'text',
       name: 'owl:versionInfo',
       class: 'property',
     },
-    // repeatable and repetabale removed
     versionNotes: {
       identifier: 'versionNotes',
-      $formkit:'group',
+      $formkit: 'repeatable',
       name: 'adms:versionNotes',
-      class: 'property langDescriptionInput',
       children: [
         {
           identifier: 'versionNotes',
-          $formkit:'textarea',
-          name: '@value',
-          class: 'inputTextfield w-100',
-        },
-        {
-          identifier: 'language',
-          value: 'en',
-          $formkit:'select',
-          name: '@language',
-          options: language,
-          class: 'selectLangField',
-        },
-      ],
+          $formkit:'group',
+          name: 'adms:versionNotes',
+          class: 'property langDescriptionInput',
+          children: [
+            {
+              identifier: 'versionNotes',
+              $formkit:'textarea',
+              name: '@value',
+              class: 'inputTextfield w-100',
+            },
+            {
+              identifier: 'language',
+              value: 'en',
+              $formkit:'select',
+              name: '@language',
+              options: language,
+              class: 'selectLangField',
+            },
+          ],
+        }
+      ]
     },
-    // done (mandatory?)
     catalog: {
       identifier: 'catalog',
       $formkit:'select',
       name: 'dcat:catalog',
       class: 'property mandatory',
       validation: 'required',
-      mandatory: true,
       options: {},
     },
-    // repeatable
     isUsedBy: {
-      $formkit:'group',
       identifier: 'isUsedBy',
+      $formkit: 'repeatable',
       name: 'dext:metadataExtension',
-      class: 'property',
       children: [
         {
-          $formkit:'url',
+          $formkit:'group',
           identifier: 'isUsedBy',
-          validation: 'optional|url',
-          name: 'dext:isUsedBy',
-        },
-      ],
+          name: 'dext:metadataExtension',
+          class: 'property',
+          children: [
+            {
+              $formkit:'url',
+              identifier: 'isUsedBy',
+              validation: 'optional|url',
+              name: 'dext:isUsedBy',
+            },
+          ],
+        }
+      ]
     },
   },
   distributions: {
