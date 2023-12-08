@@ -8,7 +8,7 @@ const getters = {};
 const actions = {
     requestFirstEntrySuggestions({ commit }, voc) {
         return new Promise((resolve, reject) => {
-            const req = `${process.env.api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
+            const req = `${import.meta.env.api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -21,7 +21,7 @@ const actions = {
     requestAutocompleteSuggestions({ commit }, { voc, text }) {
         return new Promise((resolve, reject) => {
             const input = text;
-            const req = `${process.env.api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
+            const req = `${import.meta.env.api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -42,10 +42,10 @@ const actions = {
 
         // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
         if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
-            req = `${process.env.api.baseUrl}vocabularies/${voc}`;
+            req = `${import.meta.env.api.baseUrl}vocabularies/${voc}`;
            
         } else {
-            req = `${process.env.api.baseUrl}vocabularies/${voc}/${value}`;
+            req = `${import.meta.env.api.baseUrl}vocabularies/${voc}/${value}`;
             
         }
         return new Promise((resolve, reject) => {

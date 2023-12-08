@@ -45,7 +45,8 @@ export default {
     ]),
     getCatalogue() {
       const catalog = this.getData('datasets')['dcat:catalog'];
-      return catalog;
+      return 'dpi';
+      // return catalog;
     },
   },
   methods: {
@@ -151,7 +152,7 @@ export default {
         this.context.model = `${this.$env.api.fileUploadUrl}${path}`;
         this.isLoading = false;
         this.success = true;
-        this.context.rootEmit('change');
+        // this.context.rootEmit('change');
         
       } catch (err) {
         

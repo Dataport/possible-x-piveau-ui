@@ -9,6 +9,7 @@
       <FormKit
         v-model="uniqueID"
         type="text"
+        name="datasetID"
         :disabled="true">
       </FormKit>
     </div>
