@@ -3,7 +3,7 @@ import {FormKitLibrary} from "@formkit/core";
 
 export default {
     repeatable: {
-        type: 'input',
+        type: 'list',
         component: Repeatable
     }
 } as FormKitLibrary;

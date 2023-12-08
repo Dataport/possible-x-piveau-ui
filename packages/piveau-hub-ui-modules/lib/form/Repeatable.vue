@@ -1,5 +1,5 @@
 <template>
-  <FormKit type="list" v-model="values">
+  <div>
     <div class="horizontal-wrapper"
          v-for="key in items"
          :key="key">
@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-  </FormKit>
+  </div>
   <hr>
   <div @click="addItem" class="ball formkit-adder"><span>+</span></div>
 </template>
