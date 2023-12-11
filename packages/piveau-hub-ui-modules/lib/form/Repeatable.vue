@@ -130,8 +130,4 @@
       bottom: 0.13rem;
     }
   }
-
-  button {
-    align-self: flex-start;
-  }
 </style>
