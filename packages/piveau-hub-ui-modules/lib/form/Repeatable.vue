@@ -29,7 +29,8 @@
   export default {
     props: {
       name: String,
-      children: Array
+      children: Array,
+      context: Object,
     },
     data() {
       return {
