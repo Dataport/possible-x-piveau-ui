@@ -5,8 +5,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "serve:vanilla": "npm run prepare-dev -w @piveau/piveau-hub-ui-modules && npm run serve -w vanilla-piveau-hub-ui",
-    "serve": "esno scripts/serveApp.ts",
+    "serve": "npm run prepare-dev -ws --if-present && esno scripts/serveApp.ts",
     "dev": "npm run serve",
     "build": "npm run build -w @piveau/piveau-hub-ui-modules -w @piveau/piveau-ui-cli",
     "release": "esno scripts/release.ts",
@@ -20,6 +19,7 @@
   "workspaces": [
     "apps/*",
     "local/*",
+    "local/packages/*",
     "packages/*"
   ],
   "devDependencies": {
