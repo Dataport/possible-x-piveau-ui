@@ -11,6 +11,8 @@ local/packages/*
 config/*.env.js
 config/user-config.js
 
+package-lock.json
+
 tests/unit/coverage
 tests/e2e/reports
 tests/e2e/screenshots
