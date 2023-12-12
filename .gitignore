@@ -4,6 +4,9 @@ dist
 storage
 local/*
 !local/.gitkeep
+local/packages/*
+!local/packages
+!local/packages/.gitkeep
 *.iml
 config/*.env.js
 config/user-config.js
