@@ -8,11 +8,11 @@
       </div>
 
       <!-- if current form is distribution form the main stepper for datasets should be shown also-->
-      <StepProgress id="stepper" v-if="property !== 'distributions'" :line-thickness="1" :steps="stepNames"
+      <StepProgress id="stepper" class="d-none" v-if="property !== 'distributions'" :line-thickness="1" :steps="stepNames"
         :current-step="getCurrentStep" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
       </StepProgress>
 
-      <StepProgress id="subStepper" v-if="property === 'distributions'" :line-thickness="1" :steps="datasetStepNames"
+      <StepProgress id="subStepper" class="d-none" v-if="property === 'distributions'" :line-thickness="1" :steps="datasetStepNames"
         :current-step="3" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
       </StepProgress>
       

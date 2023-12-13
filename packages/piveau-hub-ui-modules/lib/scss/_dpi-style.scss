@@ -323,13 +323,7 @@
 
 }
 
-.formkit-form {
-    button {
-        border-radius: 5px !important;
-        font-size: 1em !important;
-        transition: all 0.3s ease-in-out;
-    }
-}
+
 
 .formkit-input-element--conditional-input,
 .formkit-input-element--autocomplete-input,
@@ -349,19 +343,21 @@
     background-color: #efefef;
     padding-top: 0 !important;
 }
-.startEndDate{
-    .formkit-input-group-repeatable{
+
+.startEndDate {
+    .formkit-input-group-repeatable {
         justify-content: space-between;
     }
-   
+
 }
+
 // #subStepperBox {
 //     position: sticky;
 //     top: 155px;
 //     z-index: 10;
 //     width: 100%;
 //     padding: 0 10%;
-  
+
 //     .step-progress__step {}
 
 //     .step-progress__bar {
@@ -375,6 +371,11 @@
 
 //     }
 // }
+.step-progress__bar {
+    display: flex;
+    flex-direction: column;
+
+}
 
 #nav {
     .right-form-nav {
@@ -421,4 +422,106 @@
     .formkit-input {
         margin: 0 6px;
     }
+}
+
+// All new styles
+.steps {
+    display: flex;
+    flex-direction: column;
+    min-width: 10vw;
+    border: none;
+    border-radius: unset;
+    background-color: unset;
+}
+
+.step {
+    border: none;
+    background-color: unset;
+    display: flex;
+    flex-direction: column;
+    
+    // &:before{
+    //     width: 2px;
+    //     height: 5px;
+    //     background-color: #B30519;
+    //     content: "";
+    // }
+}
+
+.step:after {
+    right: 40px;
+}
+
+
+.activeItem {
+    padding: 0 16px;
+    // height: 50%;
+
+    .stepCircle {
+        background-color: #644174;
+        font-size: 24px;
+    }
+
+    &:after {
+        top:-5px;
+       right: 35px;
+    }
+    // &::before{
+    //     height: 10px;
+    //     background-color: #B30519;
+    //     content: "";
+    //     margin-top: 16px;
+    // }
+}
+
+.inactiveStep {
+    .stepCircle {
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        transition: all ease-in-out 200ms;
+    }
+
+    .stepCircle:hover {
+        // font-size: 16px;
+        width: 35px;
+        height: 35px;
+        // padding: 20px 0;
+    }
+
+    span {
+        opacity: 0;
+
+    }
+}
+.seperatorHorizontalStepper{
+    height: 50px;
+    width: 2px;
+    background-color: #B30519;
+    
+}
+
+.formkit-form {
+    border: none;
+    border-radius: unset;
+    max-width: 100%;
+
+    button {
+
+        font-size: 1em !important;
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+.stepBubbleWrap {
+    margin: auto;
+}
+
+.stepCircle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100%;
+    font-weight: bold;
+    color: white;
 }
