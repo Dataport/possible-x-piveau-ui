@@ -8,9 +8,9 @@
         <div class="mt-4" v-if="similarDatasetsPresent && similarDatasetsFetched">
           <div v-for="(similarDataset, i) in similarDatasets" :key="i">
             <div class="mt-3 border-bottom border-secondary" v-if="has(similarDataset, 'title') && has(similarDataset, 'description')">
-              <a v-if="has(similarDataset, 'uri')" class="text-dark font-weight-bold" :href="similarDatasetLink(similarDataset.uri)">
+              <app-link v-if="has(similarDataset, 'uri')" class="text-dark font-weight-bold" :path="similarDatasetLink(similarDataset.uri)">
                 <h3>{{ getTranslationFor(similarDataset.title, $route.query.locale, getLanguages) }}</h3>
-              </a>
+              </app-link>
               <p class="text-muted text-truncate">
                 <small>{{ getTranslationFor(similarDataset.description, $route.query.locale, getLanguages) }}</small>
               </p>
@@ -32,7 +32,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash-es';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
-
+  import AppLink from "../widgets/AppLink.vue";
   import PvBadge from "../PvBadge/PvBadge.vue";
 
   export default {
@@ -40,6 +40,7 @@
     dependencies: 'DatasetService',
     components: {
       PvBadge,
+      AppLink
     },
     metaInfo() {
       return {
@@ -107,9 +108,7 @@
       similarDatasetLink(url) {
         const idIndex = 'https://data.europa.eu/88u/dataset/'.length;
         const id = url.substring(idIndex);
-        const baseUrlHost = new URL(this.$env.api.baseUrl).host;
-        console.log("KJGKJGHKJHGK", url, id)
-        return '/data/datasets/' + id + `?locale=${this.$route.query.locale}`;
+        return '/datasets/' + id + `?locale=${this.$route.query.locale}`;
       }
     },
     created() {
