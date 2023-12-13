@@ -42,9 +42,9 @@ export default {
       'getData',
     ]),
     getCatalogue() {
-      const catalog = this.getData('datasets')['dcat:catalog'];
-      return 'dpi';
-      // return catalog;
+      // const catalog = this.getData('datasets')['dcat:catalog'];
+      const catalog = this.$formkit.get("catalog").context.value;
+      return catalog;
     },
   },
   methods: {

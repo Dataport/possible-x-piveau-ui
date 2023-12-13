@@ -65,11 +65,6 @@ export default {
       type: Object,
       required: true,
     },
-    voc: {
-      type: String,
-      required: false,
-      default: 'file-type',
-    },
     subject: {
       type: Boolean,
       required: false,
@@ -82,6 +77,10 @@ export default {
       type: Boolean,
       required: false,
     },
+  },
+  setup(props) {
+    // setup() receives props as the first argument.
+    console.log(props.context.voc)
   },
   data() {
     return {
@@ -177,7 +176,7 @@ export default {
     getAutocompleteSuggestions() {
 
       this.choice = true
-      let voc = this.voc;
+      let voc = this.context.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
 
@@ -288,7 +287,7 @@ export default {
 
       var config = {
         method: 'post',
-        url: this.voc == "eurovoc" 
+        url: this.context.voc == "eurovoc" 
           ? this.$env.content.dataProviderInterface.annifLinkSubject 
           : this.$env.content.dataProviderInterface.annifLinkTheme,
         headers: {
@@ -356,9 +355,9 @@ export default {
       let preValues = { name: "", resource: "" };
 
       let vocMatch =
-        this.voc === "iana-media-types" ||
-        this.voc === "spdx-checksum-algorithm";
-      await this.requestResourceName({ voc: this.voc, resource }).then(
+        this.context.voc === "iana-media-types" ||
+        this.context.voc === "spdx-checksum-algorithm";
+      await this.requestResourceName({ voc: this.context.voc, resource }).then(
         (response) => {
           let result = vocMatch
             ? response.data.result.results

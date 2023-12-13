@@ -107,7 +107,6 @@ export default {
   watch: {
     rawTitle: {
       handler(newValue) {
-        console.log(newValue);
         this.uniqueID = newValue
         .toLowerCase()
         .replace(/ /g, '-');
