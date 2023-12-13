@@ -1,3 +1,20 @@
+## [3.14.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.11...v3.14.12) (2023-12-13)
+
+
+### Bug Fixes
+
+* declare default value for similarity endpoint ([c81818b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c81818bf61d358a7ff35dd5182fb6e507d927491))
+* declare similarityEndpoint property in config ([b6835ee](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b6835eedbcfb81f3f81eb108122c118049ed003e))
+* unsing app-link in similar datasets component ([149e521](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/149e521bd7547df059b5b0eaf8ad7a75a23785b0))
+* variable domain link for similar datasets ([33f6764](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/33f6764e92645de880bdd90789337012cb97265a))
+
+
+### Features
+
+* adapt get new similar dataset service to work with ui networking ([d226163](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d2261630be2759a1e8417b5fe908cc84b639d4aa))
+
+
+
 ## [3.14.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.10...v3.14.11) (2023-12-04)
 
 
