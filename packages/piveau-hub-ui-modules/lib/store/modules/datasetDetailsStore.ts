@@ -397,25 +397,33 @@ const actions = {
     loadSimilarDatasets({ commit }, idOrPayload: string | LoadSimilarDatasetsPayload) {
         let id;
         let query;
+        let description;
         if (typeof idOrPayload === "string") {
             id = idOrPayload;
             query = {};
         } else if (isObject(idOrPayload)) {
             id = idOrPayload.id;
-            query = idOrPayload.query;
+            query = idOrPayload?.query;
+            description = idOrPayload?.description;
         } else {
             throw new Error('invalid payload argument passed to method loadSimilarDatasets: '
-              + JSON.stringify(payload))
+              + JSON.stringify(idOrPayload))
         }
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
             const service = getters.getService(state);
-            service.getSimilarDatasets(id, query)
+            service.getSimilarDatasets(id, description, query)
                 .then((response) => {
-                    commit('SET_SIMILAR_DATASETS', response.data);
+                    const result = response.data.result;
+                    const prefix = "<http://dataeuropaeu/88u/dataset/"
+                    result.forEach(item => {
+                        item.id = item.uri.substring(prefix.length, item.uri.length - 2);
+                        item.uri = "https://data.europa.eu/88u/dataset/" + item.id;
+                    });
+                    commit('SET_SIMILAR_DATASETS', result);
                     commit('SET_LOADING', false);
-                    resolve(response.data);
+                    resolve(result);
                 })
                 .catch((err) => {
                     console.error(err);
@@ -504,10 +512,10 @@ const actions = {
         commit('SET_DISTRIBUTION_DOWNLOAD_AS', distribution);
         commit('SET_DISTRIBUTION_DOWNLOAD_AS_OPTIONS', selectOptions);
     },
-    /** 
+    /**
     * @description Sets datasetDescription height
     * @param commit
-    * @param height 
+    * @param height
     */
     setDatasetDescriptionHeight({ commit }, height) {
       commit('SET_DATASET_DESCRIPTION_HEIGHT', height)
@@ -812,5 +820,6 @@ export default module;
 
 export interface LoadSimilarDatasetsPayload {
     id: string,
-    query: SimilarDatasetsQuery
+    query?: SimilarDatasetsQuery,
+    description?: string
 }

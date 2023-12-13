@@ -72,6 +72,7 @@
         'getLanguages',
         'getSimilarDatasets',
         'getTitle',
+        'getDescription'
       ]),
       similarDatasets() {
         return this.getSimilarDatasets;
@@ -110,7 +111,10 @@
         this.$Progress.start();
         this.loadDatasetDetails(this.$route.params.ds_id)
           .then(() => {
-            this.loadSimilarDatasets(this.$route.params.ds_id)
+            this.loadSimilarDatasets({
+              id: this.$route.params.ds_id,
+              description: this.getDescription.en
+            })
               .then((response) => {
                 this.$nextTick(() => {
                   this.updateSimilarDatasets();
