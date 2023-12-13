@@ -8,9 +8,9 @@
         <div class="mt-4" v-if="similarDatasetsPresent && similarDatasetsFetched">
           <div v-for="(similarDataset, i) in similarDatasets" :key="i">
             <div class="mt-3 border-bottom border-secondary" v-if="has(similarDataset, 'title') && has(similarDataset, 'description')">
-              <a v-if="has(similarDataset, 'uri')" class="text-dark font-weight-bold" :href="appendCurrentLocaleToURL(similarDataset.uri)">
+              <app-link v-if="has(similarDataset, 'uri')" class="text-dark font-weight-bold" :path="similarDatasetLink(similarDataset.uri)">
                 <h3>{{ getTranslationFor(similarDataset.title, $route.query.locale, getLanguages) }}</h3>
-              </a>
+              </app-link>
               <p class="text-muted text-truncate">
                 <small>{{ getTranslationFor(similarDataset.description, $route.query.locale, getLanguages) }}</small>
               </p>
@@ -32,7 +32,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash-es';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
-
+  import AppLink from "../widgets/AppLink.vue";
   import PvBadge from "../PvBadge/PvBadge.vue";
 
   export default {
@@ -40,6 +40,7 @@
     dependencies: 'DatasetService',
     components: {
       PvBadge,
+      AppLink
     },
     metaInfo() {
       return {
@@ -72,6 +73,7 @@
         'getLanguages',
         'getSimilarDatasets',
         'getTitle',
+        'getDescription'
       ]),
       similarDatasets() {
         return this.getSimilarDatasets;
@@ -103,6 +105,11 @@
       showSimilarbadge(distance, similarType) {
         return distance > this.breakpoints[similarType].start && distance <= this.breakpoints[similarType].end;
       },
+      similarDatasetLink(url) {
+        const idIndex = 'https://data.europa.eu/88u/dataset/'.length;
+        const id = url.substring(idIndex);
+        return '/datasets/' + id + `?locale=${this.$route.query.locale}`;
+      }
     },
     created() {
       this.useService(this.DatasetService);
@@ -110,7 +117,10 @@
         this.$Progress.start();
         this.loadDatasetDetails(this.$route.params.ds_id)
           .then(() => {
-            this.loadSimilarDatasets(this.$route.params.ds_id)
+            this.loadSimilarDatasets({
+              id: this.$route.params.ds_id,
+              description: this.getDescription.en
+            })
               .then((response) => {
                 this.$nextTick(() => {
                   this.updateSimilarDatasets();

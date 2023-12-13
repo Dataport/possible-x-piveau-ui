@@ -121,6 +121,7 @@
      } else {
        ds.distributions.push(distribution);
      }
+
      ds.distributionFormats.push(distribution.format);
      ds.licences.push(distribution.licence);
    }
@@ -152,13 +153,15 @@
 
    private readonly baseUrl: string;
    private readonly similarityBaseUrl: string;
+   private readonly similarityEndpoint: string;
    private readonly defaultScoringFacets: any[];
    private readonly qualityBaseUrl: string;
    private readonly hubUrl: string;
 
-   constructor(baseUrl, similarityBaseUrl, defaultScoringFacets, qualityBaseUrl, hubUrl) {
+   constructor(baseUrl, similarityBaseUrl, similarityEndpoint, defaultScoringFacets, qualityBaseUrl, hubUrl) {
      this.baseUrl = baseUrl;
      this.similarityBaseUrl = similarityBaseUrl;
+     this.similarityEndpoint = similarityEndpoint;
      this.defaultScoringFacets = defaultScoringFacets;
      this.qualityBaseUrl = qualityBaseUrl;
      this.hubUrl = hubUrl;
@@ -332,21 +335,27 @@
    * @param id {string} The dataset id to get similar datasets for.
    * @param query {SimilarDatasetsQuery} query params
    */
-    getSimilarDatasets(id, query?: SimilarDatasetsQuery) {
+    getSimilarDatasets(id, description, query?: SimilarDatasetsQuery) {
       return new Promise((resolve, reject) => {
-        const endpoint = 'similarity';
-        const reqStr = `${this.similarityBaseUrl}${endpoint}/${id}`;
-        axios.get(reqStr, {
-          params: query,
-        })
+        // const endpoint = 'similarity';
+        const url = this.similarityBaseUrl;
+        const endpoint = this.similarityEndpoint;
+        let reqStr = `${url}${endpoint}`;
+        if ( ! reqStr.endsWith('/')) {
+          reqStr += '/';
+        }
+        axios.post(reqStr, { query: description, k: 10}, )
           .then((response) => {
+            // console.log("RESPONSE", response)
             resolve(response);
           })
           .catch((error) => {
+            // console.log("ERROR", error)
             reject(error);
           });
       });
     }
+    // curl -i -X POST -H "Content-Type: application/json" -d '{"k": 10, "query": "This dataset presents all the political groups of the French National Assembly since the 14th legislature (2012). The data comes from open data from the National Assembly."}' https://live-service-server-data-europa-eu.apps.osc.fokus.fraunhofer.de/knn_request
 
     getQualityData(id) {
       return new Promise((resolve, reject) => {
