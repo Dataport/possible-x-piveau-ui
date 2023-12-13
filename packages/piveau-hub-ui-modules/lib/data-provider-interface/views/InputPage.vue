@@ -16,11 +16,9 @@ const { steps, activeStep, stepPlugin } = useSteps()
           class="d-flex">
           <div class="d-flex">
             <ul class="steps">
-              <li v-for="(step, stepName, index) in steps" :key="step" class="step" @click="activeStep = stepName"
+              <li v-for="(step, stepName, index) in steps" :key="step" class="step" @click="activeStep = stepName; handleStep(stepName)"
                 :data-step-valid="step.valid" :data-step-active="activeStep === stepName"
                 :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep }">
-                <span v-if="checkStepValidity(stepName)" class="step--errors"
-                  v-text="step.errorCount + step.blockingCount" />
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
                   <span>{{ camel2title(stepName) }}</span>
@@ -30,30 +28,30 @@ const { steps, activeStep, stepPlugin } = useSteps()
             </ul>
             <!-- <FormKitSummary /> -->
             <section :class="{ activeSection: step === 'mandatory' }" v-show="activeStep === 'mandatory'">
-              <FormKit type="group" id="mandatory" name="mandatory">
+              <FormKit type="group" id="mandatory" name="mandatory" ref="mandatory">
                 <FormKitSchema :schema="fullSchema[0]" type="group"></FormKitSchema>
               </FormKit>
             </section>
             <section :class="{ activeSection: step === 'advised' }" v-show="activeStep === 'advised'">
-              <FormKit type="group" id="advised" name="advised">
+              <FormKit type="group" id="advised" name="advised" ref="advised">
                 <FormKitSchema :schema="fullSchema[1]" type="group"></FormKitSchema>
               </FormKit>
             </section>
             <section :class="{ activeSection: step === 'recommended' }" v-show="activeStep === 'recommended'">
-              <FormKit type="group" id="recommended" name="recommended">
+              <FormKit type="group" id="recommended" name="recommended" ref="recommended">
                 <FormKitSchema :schema="fullSchema[2]" type="group"></FormKitSchema>
               </FormKit>
 
             </section>
             <section :class="{ activeSection: step === 'distributition' }" v-show="activeStep === 'distributition'">
-              <FormKit type="group" id="distributition" name="distributition">
+              <FormKit type="group" id="distributition" name="distributition" ref="distributition">
                 <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
 
               </FormKit>
               <!-- <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview> -->
             </section>
             <section :class="{ activeSection: step === 'overview' }" v-show="activeStep === 'overview'">
-              <FormKit type="group" id="overview" name="overview">
+              <FormKit type="group" id="overview" name="overview" ref="overview">
                 <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
 
               </FormKit>
@@ -118,6 +116,7 @@ export default {
       stepNames: ['mandatory', 'advised', 'recommended', 'distribution', 'overview'],
       step: 'mandatory',
       activestep: "",
+      heightActiveSec:"100vh",
       fullSchema: [],
       formValues: {},
       failedFields: [],
@@ -195,9 +194,11 @@ export default {
       'setDeleteDistributionInline',
     ]),
     handleStep(stepName) {
-      this.activeStep = stepName;
       this.step = stepName;
+
       if (stepName === "mandatory") {
+      //  TODO set height of the seperator correctly
+        this.heightActiveSec = "100vh"
         this.offsetTopStepper = "60px";
       }
       if (stepName === "advised") {
@@ -399,7 +400,11 @@ export default {
 .activeSection {
   margin-top: v-bind(offsetTopStepper)
 }
-
+.activeItem{
+  .seperatorHorizontalStepper{
+    height: v-bind(heightActiveSec);
+  }
+}
 select {
 
   line-height: unset !important;

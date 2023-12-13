@@ -1,113 +1,129 @@
 <template>
-  <div>
-    <div class="horizontal-wrapper"
-         v-for="key in items"
-         :key="key">
+  <div class="repeatable" v-for="key in items" :key="key">
+    <div class="horizontal-wrapper" >
       <slot>
-        <FormKit
-            type="text"
-            label="Email Address"
-            help="edit me to get started"
-        />
+        <FormKit />
       </slot>
-      <div class="formkit-remover-wrapper">
-        <div class="formkit-remover ball"
-             @click="removeItem"
-              :data-key="key">
-          <span>x</span>
-        </div>
+
+    </div>
+    <div class="interactionWrapper">
+      <div class="formkit-remover ball" @click="removeItem" :data-key="key">
+        <span>x</span>
       </div>
+      <div @click="addItem" class="ball formkit-adder"><span>+</span></div>
     </div>
   </div>
   <hr>
-  <div @click="addItem" class="ball formkit-adder"><span>+</span></div>
 </template>
 
 <script>
-  import {token} from "@formkit/utils";
+import { token } from "@formkit/utils";
 
-  export default {
-    props: {
-      name: String,
-      children: Array
+export default {
+  props: {
+    name: String,
+    children: Array
+  },
+  data() {
+    return {
+      values: [],
+      items: [this.newId()]
+    }
+  },
+  methods: {
+    newId() {
+      return `${this.name}_${token()}`;
     },
-    data() {
-      return {
-        values: [],
-        items: [this.newId()]
-      }
+    addItem() {
+      this.items.push(this.newId());
     },
-    methods: {
-      newId() {
-        return `${this.name}_${token()}`;
-      },
-      addItem() {
-        this.items.push(this.newId());
-      },
-      removeItem(e) {
-        const key = e.target.getAttribute('data-key');
-        const index = this.items.indexOf(key);
-        if (index >= 0) {
-          this.items.splice(index, 1);
-        }
+    removeItem(e) {
+      const key = e.target.getAttribute('data-key');
+      const index = this.items.indexOf(key);
+      if (index >= 0) {
+        this.items.splice(index, 1);
       }
     }
   }
+}
 </script>
 
 
 
 <style lang="scss">
-  .horizontal-wrapper {
-    display: flex;
-    flex-direction: row;
-  }
+.horizontal-wrapper {
+  display: flex;
+  flex-direction: row;
+width: 100%;
+}
 
-  .formkit-remover-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1rem;
+.repeatable {
+  min-height: 150px;
+  display: flex;
+  flex-direction: row;
+  .formkit-input{
+    // width: 600px;
   }
+}
 
-  .ball {
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    justify-content: center;
-    height: 2.5rem;
-    width: 2.5rem;
-    font-size: 1.6em;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 50%;
-  }
+.interactionWrapper {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  position: relative;
 
-  .formkit-remover {
-    background-color: #ccc;
-    color: white;
-    height: 2rem;
-    width: 2rem;
-    span {
-      pointer-events: none;
-      position: relative;
-      bottom: 0.1rem;
-    }
-  }
+}
 
-  .formkit-adder {
-    background-color: darkseagreen;
-    color: white;
-    font-size: 2em;
-    margin: 1rem;
-    line-height: 100%;
-    span {
-      position: relative;
-      bottom: 0.13rem;
-    }
-  }
+.ball {
+  position: absolute;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 1.5rem;
+  width: 1.5rem;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50%;
+  margin: 5px;
+  transition: all ease-in-out 200ms;
+}
 
-  button {
-    align-self: flex-start;
+.formkit-remover {
+  left: 30px;
+  top: 45px;
+  background-color: red;
+  color: white;
+
+
+  span {
+    pointer-events: none;
+    position: relative;
+    bottom: 0.1rem;
   }
+  &:hover{
+   background-color: darkred;
+
+  }
+}
+
+.formkit-adder {
+  top: 45px;
+  background-color: darkseagreen;
+  color: white;
+
+  span {
+    position: relative;
+    bottom: 0.13rem;
+  }
+  &:hover{
+   background-color: darkgreen;
+
+  }
+}
+
+button {
+  align-self: flex-start;
+}
 </style>

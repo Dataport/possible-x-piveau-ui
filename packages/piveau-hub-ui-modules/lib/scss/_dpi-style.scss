@@ -1,3 +1,8 @@
+.formkit-input {
+    height: 50px;
+
+}
+
 .formkit-input-group-repeatable-remove {
     height: 100% !important;
     top: 0 !important;
@@ -425,6 +430,86 @@
 }
 
 // All new styles
+
+
+.formkit-icon {
+
+    background: unset !important;
+    box-shadow: none !important;
+    border-radius: unset !important;
+    margin: auto;
+    transition: all ease-in-out 200ms;
+
+    &:hover {
+        cursor: pointer;
+        color: darkgray;
+    }
+
+    svg {
+        max-height: 1.2rem !important;
+        max-width: 1.2rem !important;
+
+    }
+
+}
+
+.w75-descField {
+    width: 75%;
+
+
+    .formkit-icon {
+        position: relative;
+        margin: 0;
+
+        svg {
+            position: absolute;
+            left: 25%;
+            top: 15%;
+        }
+    }
+
+    .formkit-prefix-icon {
+        margin-right: -1rem;
+    }
+}
+
+.w25-textfield {
+    width: 25%;
+
+}
+
+.w75-textfield {
+    width: 75%;
+}
+
+.formkit-prefix-icon {
+    margin-right: -1rem;
+}
+
+.formkit-outer {
+    margin: 1rem;
+}
+
+.activeSection {
+    width: 100%;
+    padding: 1rem;
+}
+
+.repeatable {
+    // display: flex;
+    // position: relative;
+}
+
+.formkit-label {
+    // position: absolute;
+    // top: -8px;
+    // left: 9px;
+    // background-color: white;
+    // z-index: 99;
+    // margin: 0px;
+    // padding: 0 5px;
+}
+
 .steps {
     display: flex;
     flex-direction: column;
@@ -439,7 +524,7 @@
     background-color: unset;
     display: flex;
     flex-direction: column;
-    
+
     // &:before{
     //     width: 2px;
     //     height: 5px;
@@ -463,15 +548,22 @@
     }
 
     &:after {
-        top:-5px;
-       right: 35px;
+        top: -5px;
+        right: 35px;
     }
+
     // &::before{
     //     height: 10px;
     //     background-color: #B30519;
     //     content: "";
     //     margin-top: 16px;
     // }
+    .seperatorHorizontalStepper {
+
+        width: 2px;
+        background-color: #B30519;
+
+    }
 }
 
 .inactiveStep {
@@ -493,13 +585,15 @@
         opacity: 0;
 
     }
+
+    .seperatorHorizontalStepper {
+        height: 5px;
+        width: 2px;
+        background-color: #B30519;
+
+    }
 }
-.seperatorHorizontalStepper{
-    height: 50px;
-    width: 2px;
-    background-color: #B30519;
-    
-}
+
 
 .formkit-form {
     border: none;

@@ -4,7 +4,7 @@
     <div id="stepperAnchor" class="stickyStepper">
       <div class="SSfirstRow">
         <h1 class="small-headline ml-1 my-0">{{ mode }}</h1>
-        <Navigation @clearStorage="clearStorageAndValues" :nextStep="nextStep" class="w-100 stickyNav"></Navigation>
+        <!-- <Navigation @clearStorage="clearStorageAndValues" :nextStep="nextStep" class="w-100 stickyNav"></Navigation> -->
       </div>
 
       <!-- if current form is distribution form the main stepper for datasets should be shown also-->
