@@ -12,9 +12,9 @@
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
-        <input v-if="!annifTheme || manSearch" type="text" class="form-control"
+        <FormKit v-if="!annifTheme || manSearch" type="text" class="form-control" name="autocomplete"
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
-          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
+          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()"></FormKit>
         <div class="position-relative h-100" @click="clearAutocomplete">
           <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a>
         </div>
@@ -67,7 +67,8 @@ export default {
     },
     voc: {
       type: String,
-      required: true,
+      required: false,
+      default: 'file-type',
     },
     subject: {
       type: Boolean,
@@ -154,7 +155,7 @@ export default {
         .filter((dataset) => dataset.resource !== value)
         .map((dataset) => dataset.resource);
       this.autocomplete.text = "";
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
 
       // disable delete button
       if (this.values.length === 0) {
@@ -342,7 +343,7 @@ export default {
 
 
       }
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
       if (this.annifTheme && suggestion.activeValue == undefined) {
 
         suggestion.activeValue = true
@@ -418,7 +419,7 @@ export default {
       }
       this.context.model = "";
       this.autocomplete.text = "";
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
     },
   },
   directives: {

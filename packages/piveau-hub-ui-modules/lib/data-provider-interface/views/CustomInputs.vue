@@ -9,8 +9,8 @@ const values = ref({});
   <FormKit type="form" v-model="values" :actions="false">
     <FormKit type="text" id="title" name="title" label="Dataset Title" placeholder="Enter Dataset Title"></FormKit>
     <FormKit type="id" id="datasetID" name="datasetID" label="Dataset ID"></FormKit>
-    <FormKit type="file" id="fileUpload" name="fileUpload" label="File Upload"></FormKit>
-    <FormKit type="auto" id="autocomplete" name="autocomplete" label="Autocomplete"></FormKit>
+    <FormKit type="fileupload" id="fileUpload" name="fileUpload" label="File Upload"></FormKit>
+    <FormKit type="auto" id="autocomplete" name="autocomplete" label="Autocomplete" voc="file-type"></FormKit>
     <pre>{{ values }}</pre>
   </FormKit>
 </template>
