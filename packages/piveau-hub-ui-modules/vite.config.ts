@@ -113,6 +113,7 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       copyDtsFiles: true,
+
     })
   ],
   server: {
@@ -133,10 +134,6 @@ export default defineConfig({
       {
         find: /^~(.*)$/,
         replacement: '$1',
-      },
-      {
-        find: 'vue',
-        replacement: 'vue/dist/vue.esm.js',
       },
       {
         find: 'lodash',
