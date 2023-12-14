@@ -1,10 +1,12 @@
 <template>
-  <div class="repeatable" v-for="key in items" :key="key">
-    <div class="horizontal-wrapper" >
+  <div class="repeatable" 
+ :class="[context.attrs.identifier]"
+  v-for="key in items" :key="key">
+    <div class="horizontal-wrapper">
+      <!-- <pre>{{ context.attrs }}</pre> -->
       <slot>
         <FormKit />
       </slot>
-
     </div>
     <div class="interactionWrapper">
       <div class="formkit-remover ball" @click="removeItem" :data-key="key">
@@ -22,7 +24,8 @@ import { token } from "@formkit/utils";
 export default {
   props: {
     name: String,
-    children: Array
+    children: Array,
+    context: Object,
   },
   data() {
     return {
@@ -54,14 +57,15 @@ export default {
 .horizontal-wrapper {
   display: flex;
   flex-direction: row;
-width: 100%;
+  width: 100%;
 }
 
 .repeatable {
   min-height: 150px;
   display: flex;
   flex-direction: row;
-  .formkit-input{
+
+  .formkit-input {
     // width: 600px;
   }
 }
@@ -92,7 +96,7 @@ width: 100%;
 
 .formkit-remover {
   left: 30px;
-  top: 45px;
+  top: 22px;
   background-color: red;
   color: white;
 
@@ -102,14 +106,15 @@ width: 100%;
     position: relative;
     bottom: 0.1rem;
   }
-  &:hover{
-   background-color: darkred;
+
+  &:hover {
+    background-color: darkred;
 
   }
 }
 
 .formkit-adder {
-  top: 45px;
+  top: 22px;
   background-color: darkseagreen;
   color: white;
 
@@ -117,8 +122,9 @@ width: 100%;
     position: relative;
     bottom: 0.13rem;
   }
-  &:hover{
-   background-color: darkgreen;
+
+  &:hover {
+    background-color: darkgreen;
 
   }
 }

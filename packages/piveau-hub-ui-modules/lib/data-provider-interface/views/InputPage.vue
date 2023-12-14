@@ -23,7 +23,8 @@ const { steps, activeStep, stepPlugin } = useSteps()
                   <div class="circle stepCircle">{{ index + 1 }}</div>
                   <span>{{ camel2title(stepName) }}</span>
                 </div>
-                <div class="seperatorHorizontalStepper"></div>
+               
+                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
               </li>
             </ul>
             <!-- <FormKitSummary /> -->
@@ -116,7 +117,7 @@ export default {
       stepNames: ['mandatory', 'advised', 'recommended', 'distribution', 'overview'],
       step: 'mandatory',
       activestep: "",
-      heightActiveSec:"100vh",
+      heightActiveSec:"10vh",
       fullSchema: [],
       formValues: {},
       failedFields: [],
@@ -197,8 +198,8 @@ export default {
       this.step = stepName;
 
       if (stepName === "mandatory") {
-      //  TODO set height of the seperator correctly
-        this.heightActiveSec = "100vh"
+    
+        
         this.offsetTopStepper = "60px";
       }
       if (stepName === "advised") {
@@ -398,11 +399,12 @@ export default {
 @import 'https://cdn.formk.it/web-assets/multistep-form.css';
 
 .activeSection {
-  margin-top: v-bind(offsetTopStepper)
+  // margin-top: v-bind(offsetTopStepper)
 }
 .activeItem{
+  flex-grow: 1;
   .seperatorHorizontalStepper{
-    height: v-bind(heightActiveSec);
+    height: 100%;
   }
 }
 select {

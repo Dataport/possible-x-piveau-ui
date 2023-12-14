@@ -345,7 +345,7 @@
 }
 
 .form-container {
-    background-color: #efefef;
+   border: none;
     padding-top: 0 !important;
 }
 
@@ -431,7 +431,12 @@
 
 // All new styles
 
-
+.contactPoint, .page{
+    .horizontal-wrapper{
+        flex-direction: column;
+    }
+    
+}
 .formkit-icon {
 
     background: unset !important;
@@ -451,6 +456,11 @@
 
     }
 
+}
+.formkit-outer {
+    margin: 1rem;
+    position: relative;
+    width: 88%;
 }
 
 .w75-descField {
@@ -477,18 +487,24 @@
     width: 25%;
 
 }
-
+.w50-textfield {
+    width: 50%;
+}
 .w75-textfield {
     width: 75%;
 }
 
+.w100-textfield{
+    width: 100%;
+}
+.w97-textfield{
+    width: 97%;
+}
 .formkit-prefix-icon {
     margin-right: -1rem;
 }
 
-.formkit-outer {
-    margin: 1rem;
-}
+
 
 .activeSection {
     width: 100%;
@@ -501,13 +517,13 @@
 }
 
 .formkit-label {
-    // position: absolute;
-    // top: -8px;
-    // left: 9px;
-    // background-color: white;
-    // z-index: 99;
-    // margin: 0px;
-    // padding: 0 5px;
+    position: absolute;
+    padding: 3px;
+    top: -12px;
+    left: 10px;
+    background-color: #fff;
+    z-index: 99;
+
 }
 
 .steps {
@@ -543,7 +559,7 @@
     // height: 50%;
 
     .stepCircle {
-        background-color: #644174;
+        background-color: #595959;
         font-size: 24px;
     }
 
@@ -561,7 +577,7 @@
     .seperatorHorizontalStepper {
 
         width: 2px;
-        background-color: #B30519;
+        background-color: #595959;
 
     }
 }
@@ -589,7 +605,7 @@
     .seperatorHorizontalStepper {
         height: 5px;
         width: 2px;
-        background-color: #B30519;
+        background-color: #595959;
 
     }
 }
@@ -599,7 +615,7 @@
     border: none;
     border-radius: unset;
     max-width: 100%;
-
+    box-shadow: none;
     button {
 
         font-size: 1em !important;

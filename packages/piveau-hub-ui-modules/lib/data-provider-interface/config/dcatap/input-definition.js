@@ -97,6 +97,7 @@ const dcatapProperties = {
       identifier: 'contactPoint',
       $formkit: 'repeatable',
       name: 'dcat:contactPoint',
+      
       children: [
         {
           identifier: 'contactPoint',
@@ -113,42 +114,66 @@ const dcatapProperties = {
                 'vcard:Individual': 'Person',
                 'vcard:Organization': 'Organization',
               },
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'contactPointName',
               $formkit: 'text',
               name: 'vcard:fn',
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'contactPointEmail',
               $formkit: 'email',
               name: 'vcard:hasEmail',
               validation: 'optional|email',
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'contactPointAddress',
               $formkit: 'group',
               name: 'vcard:hasAddress',
+              classes: {
+                outer: 'w97-textfield'
+              },
               children: [
                 {
                   identifier: 'contactPointAddressStreet',
                   $formkit: 'text',
                   name: 'vcard:street_address',
+                  classes: {
+                    outer: 'w97-textfield'
+                  },
                 },
                 {
                   identifier: 'contactPointAddressPostcode',
                   $formkit: 'text',
                   name: 'vcard:postal_code',
+                  classes: {
+                    outer: 'w97-textfield'
+                  },
                 },
                 {
                   identifier: 'contactPointAddressCity',
                   $formkit: 'text',
                   name: 'vcard:locality',
+                  classes: {
+                    outer: 'w97-textfield'
+                  },
                 },
                 {
                   identifier: 'contactPointAddressCountry',
                   $formkit: 'text',
                   name: 'vcard:country_name',
+                  classes: {
+                    outer: 'w97-textfield'
+                  },
                 },
               ],
             },
@@ -156,17 +181,26 @@ const dcatapProperties = {
               identifier: 'contactPointTelephone',
               $formkit: 'tel',
               name: 'vcard:hasTelephone',
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'contactPointUrl',
               $formkit: 'url',
               name: 'vcard:hasURL',
               validation: 'optional|url',
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'contactPointOrganisationName',
               $formkit: 'text',
               name: 'vcard:hasOrganizationName',
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
           ],
         }
@@ -195,18 +229,24 @@ const dcatapProperties = {
           class: 'property langStringInput',
           children: [
             {
-              identifier: 'keyword',
-              $formkit: 'text',
-              name: '@value',
-              class: 'w-100 inputTextfield',
-            },
-            {
               identifier: 'keywordsLanguage',
               value: 'en',
               $formkit: 'select',
               name: '@language',
               class: 'selectLangField',
               options: language,
+              classes: {
+                outer: 'w25-textfield'
+              }
+            },
+            {
+              identifier: 'keyword',
+              $formkit: 'text',
+              name: '@value',
+              class: 'w-100 inputTextfield',
+              classes: {
+                outer: 'w75-textfield'
+              }
             },
           ],
         }
@@ -304,6 +344,9 @@ const dcatapProperties = {
               name: 'dcat:startDate',
               property: 'dct:temporal',
               end: 'dct:temporal',
+              classes:{
+                outer:'w50-textfield' 
+              },
             },
             {
               identifier: 'temporalEnd',
@@ -311,6 +354,9 @@ const dcatapProperties = {
               name: 'dcat:endDate',
               property: 'dct:temporal',
               start: 'dct:temporal',
+              classes:{
+                outer:'w50-textfield' 
+              },
             },
           ],
         }
@@ -385,12 +431,18 @@ const dcatapProperties = {
               identifier: 'conformsToTitle',
               $formkit: 'text',
               name: 'rdfs:label',
+              classes: {
+                outer: 'w50-textfield'
+              }
             },
             {
               identifier: 'conformsToUrl',
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w50-textfield'
+              }
             },
           ],
         }
@@ -420,12 +472,6 @@ const dcatapProperties = {
                   class: 'property langStringInput',
                   children: [
                     {
-                      identifier: 'pageTitleSub',
-                      $formkit: 'text',
-                      name: '@value',
-                      class: 'w-100 inputTextfield',
-                    },
-                    {
                       identifier: 'pageTitlelang',
                       value: 'en',
                       $formkit: 'select',
@@ -433,6 +479,13 @@ const dcatapProperties = {
                       name: '@language',
                       class: 'selectLangField',
                     },
+                    {
+                      identifier: 'pageTitleSub',
+                      $formkit: 'text',
+                      name: '@value',
+                      class: 'w-100 inputTextfield',
+                    },
+                    
                   ]
                 }
               ]
@@ -479,6 +532,9 @@ const dcatapProperties = {
               name: '@id',
               validation: 'optional|url',
               class: "property",
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -508,6 +564,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -529,6 +588,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -550,6 +612,9 @@ const dcatapProperties = {
               identifier: 'sourceUrl',
               $formkit: 'url',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -570,6 +635,9 @@ const dcatapProperties = {
               identifier: 'identifier',
               name: '@value',
               $formkit: 'text',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
           ],
         }
@@ -591,6 +659,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -612,6 +683,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
           ],
         }
@@ -625,6 +699,7 @@ const dcatapProperties = {
       class: 'property',
       multiple: true,
       voc: 'language',
+     
     },
     // identifier type using autocomplete
     admsIdentifier: {
@@ -643,6 +718,7 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              
             },
             {
               identifier: 'admsIdentifierSkosNotation',
@@ -681,6 +757,9 @@ const dcatapProperties = {
               identifier: 'provenance',
               $formkit: 'text',
               name: 'rdfs:label',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -702,6 +781,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -723,6 +805,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -744,6 +829,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -765,6 +853,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -921,20 +1012,27 @@ const dcatapProperties = {
           name: 'adms:versionNotes',
           class: 'property langDescriptionInput',
           children: [
-            {
-              identifier: 'versionNotes',
-              $formkit: 'textarea',
-              name: '@value',
-              class: 'inputTextfield w-100',
-            },
-            {
+             {
               identifier: 'language',
               value: 'en',
               $formkit: 'select',
               name: '@language',
               options: language,
               class: 'selectLangField',
+              classes:{
+                outer:'w50-textfield' 
+              },
             },
+            {
+              identifier: 'versionNotes',
+              $formkit: 'textarea',
+              name: '@value',
+              class: 'inputTextfield w-100',
+              classes:{
+                outer:'w50-textfield' 
+              },
+            },
+           
           ],
         }
       ]
@@ -964,6 +1062,9 @@ const dcatapProperties = {
               identifier: 'isUsedBy',
               validation: 'optional|url',
               name: 'dext:isUsedBy',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
           ],
         }
@@ -1132,6 +1233,7 @@ const dcatapProperties = {
               name: '@value',
               validation: 'required',
               class: 'w-100 inputTextfield',
+              
             },
             {
               identifier: 'dctTitle',
@@ -1170,6 +1272,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -1204,13 +1309,7 @@ const dcatapProperties = {
                   name: 'dct:title',
                   class: 'property langStringInput',
                   children: [
-                    {
-                      identifier: 'title',
-                      $formkit: 'text',
-                      name: '@value',
-                      class: 'w-100 inputTextfield',
-                    },
-                    {
+                     {
                       identifier: 'language',
                       value: 'en',
                       $formkit: 'select',
@@ -1218,6 +1317,13 @@ const dcatapProperties = {
                       class: 'selectLangField',
                       options: language,
                     },
+                    {
+                      identifier: 'title',
+                      $formkit: 'text',
+                      name: '@value',
+                      class: 'w-100 inputTextfield',
+                    },
+                   
                   ],
                 }
               ]
@@ -1401,6 +1507,9 @@ const dcatapProperties = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes:{
+                outer:'w100-textfield' 
+              },
             },
           ],
         }
@@ -1430,12 +1539,18 @@ const dcatapProperties = {
               identifier: 'conformsToTitle',
               $formkit: 'text',
               name: 'rdfs:label',
+              classes: {
+                outer: 'w50-textfield'
+              }
             },
             {
               identifier: 'conformsToUrl',
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w50-textfield'
+              }
             },
           ],
         }
