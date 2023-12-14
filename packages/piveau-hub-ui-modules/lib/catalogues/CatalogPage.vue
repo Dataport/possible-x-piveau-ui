@@ -165,6 +165,7 @@ import {
   isString
 } from 'lodash-es';
 import {getTranslationFor, truncate} from '../utils/helpers';
+import datasetService from "../services/datasetService";
 
 import Axios from 'axios';
 
@@ -199,6 +200,7 @@ export default {
           displayName: 'Kontakt',
         },
       ],
+      datasetService: null,
     };
   },
   computed: {
@@ -260,7 +262,7 @@ export default {
     },
     loadCatalogInterestingDatasetsFallback(catalog) {
       for (let id of this.catalog.catalogueInterestingDatasets) {
-        this.DatasetService.getSingle(id)
+        this.datasetService.getSingle(id)
             .then(response => {
               this.interestingDatasetsFallback.push(response);
             })
@@ -280,6 +282,16 @@ export default {
   },
   created() {
     this.$Progress.start()
+
+    // Hack: define fresh instance of datasetService to avoid going through store.
+    // When going through store, it will cause mutations that will affect datasetDetails page.
+    this.datasetService = new datasetService(
+      this.$env.api.baseUrl,
+      this.$env.api.hubUrl,
+      this.$env.api.qualityBaseUrl,
+      this.$env.api.similarityBaseUrl,
+      this.$env.content.datasets.facets.scoringFacets.defaultScoringFacets,
+    );
 
     let catalogId = this.$route.params.ctlg_id;
     if (catalogId === undefined || catalogId === null) {
