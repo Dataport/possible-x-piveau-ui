@@ -1,9 +1,9 @@
-import { useHead } from "@unhead/vue";
+import { UseHeadInput, UseHeadOptions, useHead } from "@unhead/vue";
 import { useRuntimeEnv } from "../useRuntimeEnv";
 import { useRoute } from "vue-router";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
-export function useRootHead() {
+export function useRootHead(enableHead: boolean = true) {
   const env = useRuntimeEnv();
   const route = useRoute();
 
@@ -20,12 +20,19 @@ export function useRootHead() {
     return {
       lang: langString || env.languages.locale,
     }
-  })
+  });
 
-
-  return useHead({
+  const headData: UseHeadInput = ref({
     titleTemplate,
     meta,
     htmlAttrs,
-  })
+  });
+
+
+  const head = enableHead ? useHead(headData) : undefined;
+
+  return {
+    head,
+    headData,
+  }
 }
