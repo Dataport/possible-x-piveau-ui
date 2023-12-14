@@ -399,4 +399,5 @@ export {
 export * as helpers from "./utils/helpers";
 export { defineUserConfig, type Config, type ResolvedConfig } from "./configurations/config-schema";
 
+export { useRuntimeEnv } from './composables/useRuntimeEnv';
 export * as head from './composables/head';
