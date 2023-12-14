@@ -345,7 +345,7 @@
 }
 
 .form-container {
-   border: none;
+    border: none;
     padding-top: 0 !important;
 }
 
@@ -430,13 +430,22 @@
 }
 
 // All new styles
+.pageTitle, .pageDescription {
+    .interactionWrapper {
+        position: absolute;
+        right: 161px;
+    }
 
-.contactPoint, .page{
-    .horizontal-wrapper{
+}
+
+.contactPoint,
+.page {
+    .horizontal-wrapper {
         flex-direction: column;
     }
-    
+
 }
+
 .formkit-icon {
 
     background: unset !important;
@@ -457,6 +466,7 @@
     }
 
 }
+
 .formkit-outer {
     margin: 1rem;
     position: relative;
@@ -487,19 +497,23 @@
     width: 25%;
 
 }
+
 .w50-textfield {
     width: 50%;
 }
+
 .w75-textfield {
     width: 75%;
 }
 
-.w100-textfield{
+.w100-textfield {
     width: 100%;
 }
-.w97-textfield{
+
+.w97-textfield {
     width: 97%;
 }
+
 .formkit-prefix-icon {
     margin-right: -1rem;
 }
@@ -616,6 +630,7 @@
     border-radius: unset;
     max-width: 100%;
     box-shadow: none;
+
     button {
 
         font-size: 1em !important;

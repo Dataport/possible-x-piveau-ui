@@ -477,13 +477,18 @@ const dcatapProperties = {
                       $formkit: 'select',
                       options: language,
                       name: '@language',
-                      class: 'selectLangField',
+                      class: 'selectLangField',classes:{
+                        outer:'w97-textfield' 
+                      },
                     },
                     {
                       identifier: 'pageTitleSub',
                       $formkit: 'text',
                       name: '@value',
                       class: 'w-100 inputTextfield',
+                      class: 'selectLangField',classes:{
+                        outer:'w97-textfield' 
+                      },
                     },
                     
                   ]
@@ -506,6 +511,9 @@ const dcatapProperties = {
                       $formkit: 'textarea',
                       name: '@value',
                       class: 'inputTextfield w-100',
+                      class: 'selectLangField',classes:{
+                        outer:'w97-textfield' 
+                      },
                     },
                     {
                       identifier: 'page-desc',
@@ -514,6 +522,9 @@ const dcatapProperties = {
                       options: language,
                       name: '@language',
                       class: 'selectLangField',
+                      class: 'selectLangField',classes:{
+                        outer:'w97-textfield' 
+                      },
                     },
                   ]
                 }
@@ -533,7 +544,7 @@ const dcatapProperties = {
               validation: 'optional|url',
               class: "property",
               classes:{
-                outer:'w100-textfield' 
+                outer:'w97-textfield' 
               },
             },
           ],
