@@ -1,37 +1,29 @@
 <template>
   <div
-    :class="`formkit-input-element formkit-input-element--${context.type}`"
+    :class="`formkit-input-element`"
     id="datasetID"
     ref="datasetID"
-    :data-type="context.type"
     v-bind="$attrs"
   >
     <div v-if="getIsEditMode">
       <FormKit
         v-model="uniqueID"
         type="text"
+        name="datasetID"
         :disabled="true">
       </FormKit>
     </div>
     <div v-else>
       <FormKit
         v-model="uniqueID"
-        @input="checkUniqueID()"
+        @input="checkUniqueID"
         id="datasetIDForm"
         type="text"
-        :label="context.label"
-        :name="context.attributes.name"
+        name="datasetID"
         :placeholder="$t('message.dataupload.createUniqueID')"
         :validation="validation"
         :validation-rules="validationRules"
         :validation-messages="validationMessages">
-      </FormKit>
-      <FormKit
-        v-model="uniqueIDHidden"
-        id="datasetIDFormHidden"
-        type="hidden"
-        :label="context.label"
-        :validation="validationHidden">
       </FormKit>
     </div>
   </div>
@@ -44,120 +36,81 @@ import { mapGetters } from 'vuex';
 import { isNil } from 'lodash-es';
 
 export default {
-  props: {
-    context: {
-      type: Object,
-      required: true,
-    },
-  },
   data() {
     return {
+      draftIDs: [],
       isUniqueID: true,
       uniqueID: '',
-      uniqueIDHidden: '',
       validation: 'optional|validateID|idDuplicate',
-      validationHidden: 'required',
-      draftIDs: [],
       validationRules: {
         validateID: () => /^[a-z0-9-]*$/.test(this.uniqueID),
-        idDuplicate: ({ value }) => !this.draftIDs.includes(value)
       },
       validationMessages: {
         validateID: 'Dataset ID must only contain lower case letters, numbers and dashes (-). Please choose a different ID.',
-        idDuplicate: 'This ID is already in use, please choose a different one.'
       },
     };
   },
   computed: {
     ...mapGetters('auth', [
       'getIsEditMode',
-      'getUserDrafts'
+      'getUserDrafts',
     ]),
+    rawTitle() {
+      return this.$formkit.get("title").context.value;
+    },
   },
   methods: {
-    // draftIDs() {
-    //   let draftIDArray;
-    //   this.getUserDrafts.forEach(element => {
-    //     draftIDArray.push(element['id'])
-    //   });
-    //   return draftIDArray
-    // },
-    populateID() {
-
-      // Populate ID field if existing (EDIT)
-      if (this.context.model) this.uniqueID = this.context.model;
-    },
-    checkUniqueID() {
-
-      // Check if ID is already existing in
-      if (this.getUserDrafts.length > this.draftIDs.length) {
-        this.getUserDrafts.forEach(element => {
-          this.draftIDs.push(element['id'])
-        });
-      }
+    checkUniqueID(uniqueID) {
+      this.draftIDs = this.getUserDrafts.map(element => element['id']);
 
       return new Promise(() => {
-        if (isNil(this.uniqueID) || this.uniqueID === '' || this.uniqueID === undefined) this.isUniqueID = true;
-        else if (this.draftIDs.includes(this.uniqueID)) {
-          this.isUniqueID = false;
-        }
+        if (isNil(uniqueID) || uniqueID === '' || uniqueID === undefined) this.isUniqueID = true;
+        else if (this.draftIDs.includes(uniqueID)) this.isUniqueID = false;
         else {
-          const request = `${this.$env.api.hubUrl}${this.$route.params.property}/${this.uniqueID}?useNormalizedId=true`;
-
+          const request = `${this.$env.api.hubUrl}${this.$route.params.property}/${uniqueID}?useNormalizedId=true`;
           axios.head(request)
             .then(() => {
-
               this.isUniqueID = false;
             })
             .catch((e) => {
-              if (e.response) {
-                console.log(e);
-              }
+              if (e.response) console.log(e);
               this.isUniqueID = true;
             });
-
         }
-
       });
     },
     handleDatasetIDError(newValue) {
       if (!newValue) {
         const datasetID = document.getElementById('datasetID').children[0];
-        const text = document.createTextNode('This Dataset ID already exists. Please choose a different one.');
+        const text = document.createTextNode('This Dataset ID is already in use. Please choose a different one.');
         const LI = document.createElement('LI');
+
         LI.setAttribute('role', 'status');
         LI.setAttribute('aria-live', 'polite');
         LI.setAttribute('class', 'formkit-input-error');
         LI.appendChild(text);
+
         const UL = document.createElement('UL');
+
         UL.setAttribute('class', 'formkit-input-errors');
         UL.setAttribute('id', 'datasetIDError');
         UL.appendChild(LI);
+
         datasetID.appendChild(UL);
+
       } else document.getElementById('datasetIDError').remove();
     },
   },
-  beforeMount() {
-    this.populateID();
-  },
   mounted() {
-
     this.checkUniqueID();
   },
-
   watch: {
-    context: {
-      handler() {
-        this.populateID();
-      },
-    },
-    uniqueID: {
+    rawTitle: {
       handler(newValue) {
-        // console.log("hallo");
-        this.uniqueIDHidden = this.validationRules.validateID()
-          ? newValue
-          : '';
-      },
+        this.uniqueID = newValue
+        .toLowerCase()
+        .replace(/ /g, '-');
+      }
     },
     isUniqueID: {
       handler(newValue) {

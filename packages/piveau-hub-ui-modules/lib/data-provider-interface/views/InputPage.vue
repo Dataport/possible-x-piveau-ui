@@ -92,7 +92,7 @@ import {
 import { FormKitSummary } from '@formkit/vue';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
-
+import CustomInputs from './CustomInputs.vue';
 
 export default {
   props: {
@@ -145,6 +145,7 @@ export default {
     ValidationModal,
     DistributionOverview,
     FormKitSummary,
+    CustomInputs,
   },
   computed: {
     ...mapGetters('auth', [

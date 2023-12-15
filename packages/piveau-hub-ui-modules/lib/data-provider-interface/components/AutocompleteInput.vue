@@ -12,9 +12,9 @@
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
-        <input v-if="!annifTheme || manSearch" type="text" class="form-control"
+        <FormKit v-if="!annifTheme || manSearch" type="text" class="form-control" name="autocomplete"
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
-          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
+          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()"></FormKit>
         <div class="position-relative h-100" @click="clearAutocomplete">
           <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a>
         </div>
@@ -65,10 +65,6 @@ export default {
       type: Object,
       required: true,
     },
-    voc: {
-      type: String,
-      required: true,
-    },
     subject: {
       type: Boolean,
       required: false,
@@ -81,6 +77,10 @@ export default {
       type: Boolean,
       required: false,
     },
+  },
+  setup(props) {
+    // setup() receives props as the first argument.
+    console.log(props.context.voc)
   },
   data() {
     return {
@@ -154,7 +154,7 @@ export default {
         .filter((dataset) => dataset.resource !== value)
         .map((dataset) => dataset.resource);
       this.autocomplete.text = "";
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
 
       // disable delete button
       if (this.values.length === 0) {
@@ -176,7 +176,7 @@ export default {
     getAutocompleteSuggestions() {
 
       this.choice = true
-      let voc = this.voc;
+      let voc = this.context.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
 
@@ -287,7 +287,7 @@ export default {
 
       var config = {
         method: 'post',
-        url: this.voc == "eurovoc" 
+        url: this.context.voc == "eurovoc" 
           ? this.$env.content.dataProviderInterface.annifLinkSubject 
           : this.$env.content.dataProviderInterface.annifLinkTheme,
         headers: {
@@ -342,7 +342,7 @@ export default {
 
 
       }
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
       if (this.annifTheme && suggestion.activeValue == undefined) {
 
         suggestion.activeValue = true
@@ -355,9 +355,9 @@ export default {
       let preValues = { name: "", resource: "" };
 
       let vocMatch =
-        this.voc === "iana-media-types" ||
-        this.voc === "spdx-checksum-algorithm";
-      await this.requestResourceName({ voc: this.voc, resource }).then(
+        this.context.voc === "iana-media-types" ||
+        this.context.voc === "spdx-checksum-algorithm";
+      await this.requestResourceName({ voc: this.context.voc, resource }).then(
         (response) => {
           let result = vocMatch
             ? response.data.result.results
@@ -418,7 +418,7 @@ export default {
       }
       this.context.model = "";
       this.autocomplete.text = "";
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
     },
   },
   directives: {
