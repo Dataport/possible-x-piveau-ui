@@ -6,7 +6,7 @@ const dcatapProperties = {
     // unique identifier component
     datasetID: {
       identifier: 'datasetID',
-      // type:'unique-identifier-input',
+      $formkit:'id',
       mandatory: true,
       name: 'datasetID',
       class: 'property mandatory',
@@ -209,7 +209,7 @@ const dcatapProperties = {
     // autocomplete, multiple
     subject: {
       identifier: 'subject',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       name: 'dct:subject',
       multiple: true,
       annifTheme: true,
@@ -365,7 +365,7 @@ const dcatapProperties = {
     // autocomplete and multiple
     theme: {
       identifier: 'theme',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       multiple: true,
       annifTheme: true,
       voc: 'data-theme',
@@ -376,7 +376,7 @@ const dcatapProperties = {
     // autocomplete
     accessRights: {
       identifier: 'accessRights',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       voc: 'access-right',
       name: 'dct:accessRights',
       class: 'property',
@@ -554,7 +554,7 @@ const dcatapProperties = {
     // autocomplete
     accrualPeriodicity: {
       identifier: 'accrualPeriodicity',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       voc: 'frequency',
       name: 'dct:accrualPeriodicity',
       class: 'property',
@@ -705,7 +705,7 @@ const dcatapProperties = {
     // autocomplete, multiple
     language: {
       identifier: 'language',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       name: 'dct:language',
       class: 'property',
       multiple: true,
@@ -1001,7 +1001,7 @@ const dcatapProperties = {
     // autocomplete
     type: {
       identifier: 'type',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       voc: 'dataset-type',
       name: 'dct:type',
       class: 'property',
@@ -1055,7 +1055,7 @@ const dcatapProperties = {
       class: 'property mandatory',
       'prefix-icon': "info",
       validation: 'required',
-      options: {},
+      // options: {},
     },
     isUsedBy: {
       identifier: 'isUsedBy',
@@ -1113,7 +1113,7 @@ const dcatapProperties = {
                   name: "@id"
                 },
                 else: {
-                  // type: "fileupload",
+                  $formkit: "fileupload",
                   validation: "required",
                   name: "@id"
                 }
@@ -1126,7 +1126,7 @@ const dcatapProperties = {
     // autocomplete
     availability: {
       identifier: 'availability',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       voc: 'planned-availability',
       name: 'dcatap:availability',
       class: 'property',
@@ -1168,7 +1168,7 @@ const dcatapProperties = {
     // autocomplete
     format: {
       identifier: 'format',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       class: 'property',
       voc: 'file-type',
       name: 'dct:format',
@@ -1262,7 +1262,7 @@ const dcatapProperties = {
     // autocomplete
     mediaType: {
       identifier: 'mediaType',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:mediaType',
       class: 'property',
@@ -1401,7 +1401,7 @@ const dcatapProperties = {
     // autocomplete
     compressFormat: {
       identifier: 'compressFormat',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:compressFormat',
       class: 'property',
@@ -1409,7 +1409,7 @@ const dcatapProperties = {
     // autocomplete
     packageFormat: {
       identifier: 'packageFormat',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:packageFormat',
       class: 'property',
@@ -1719,7 +1719,7 @@ const dcatapProperties = {
     // autocomplete
     type: {
       identifier: 'type',
-      // $formkit: 'autocomplete',
+      $formkit: 'auto',
       voc: 'distribution-type',
       name: 'dct:type',
       class: 'property',
@@ -1727,7 +1727,7 @@ const dcatapProperties = {
     // autocomplete
     status: {
       identifier: 'status',
-      // $formkit: 'autocomplete',
+   $formkit: 'auto',
       voc: 'dataset-status',
       name: 'adms:status',
       class: 'property',
@@ -1737,7 +1737,7 @@ const dcatapProperties = {
     // dataset id component, mandatory
     datasetID: {
       identifier: 'datasetID',
-      // $formkit:'unique-identifier-input',
+      // $formkit:'id',
       name: 'datasetID',
       class: 'property',
       mandatory: true,
@@ -1821,7 +1821,7 @@ const dcatapProperties = {
     // autocomplete ,multiple
     language: {
       identifier: 'language',
-      // $formkit: 'autocomplete',
+       $formkit: 'auto',
       multiple: true,
       name: 'dct:language',
       voc: 'language',

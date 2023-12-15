@@ -10,7 +10,9 @@ const { steps, activeStep, stepPlugin } = useSteps()
 
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
-        <!-- <pre>{{ formValues }}</pre> -->
+        <!-- TestPage for Custom Inputs -->
+        <CustomInputs></CustomInputs>
+        
         <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           class="d-flex">
@@ -332,6 +334,7 @@ export default {
         this.createSchema({ property: this.property, page: steps });
         this.translateSchema({ property: this.property });
         this.fullSchema.push(this.getSchema);
+        
       }
       else return
     }

@@ -50,12 +50,16 @@ export default {
       },
     };
   },
+  props:{
+    context: Object,
+  },
   computed: {
     ...mapGetters('auth', [
       'getIsEditMode',
       'getUserDrafts',
     ]),
     rawTitle() {
+      
       return this.$formkit.get("title").context.value;
     },
   },
