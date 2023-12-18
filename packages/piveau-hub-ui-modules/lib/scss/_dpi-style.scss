@@ -430,6 +430,9 @@
 }
 
 // All new styles
+.formkit-input-element--auto{
+    width: 100%;
+}
 .pageTitle, .pageDescription {
     .interactionWrapper {
         position: absolute;
@@ -558,7 +561,7 @@
 .steps {
     display: flex;
     flex-direction: column;
-    min-width: 10vw;
+    // min-width: 10vw;
     border: none;
     border-radius: unset;
     background-color: unset;
@@ -569,7 +572,7 @@
     background-color: unset;
     display: flex;
     flex-direction: column;
-
+    min-width: 10vw;
     // &:before{
     //     width: 2px;
     //     height: 5px;
@@ -579,7 +582,7 @@
 }
 
 .step:after {
-    right: 40px;
+    left: 55%;
 }
 
 
@@ -594,7 +597,7 @@
 
     &:after {
         top: -5px;
-        right: 35px;
+        left: 60%;
     }
 
     // &::before{

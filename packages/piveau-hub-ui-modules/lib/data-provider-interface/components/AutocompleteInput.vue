@@ -12,11 +12,11 @@
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
-        <FormKit v-if="!annifTheme || manSearch" type="text" class="form-control" name="autocomplete"
+        <FormKit v-if="!annifTheme || manSearch" prefix-icon="search" type="text" class="form-control" name="autocomplete"
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
           @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()"></FormKit>
         <div class="position-relative h-100" @click="clearAutocomplete">
-          <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a>
+          <!-- <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a> -->
         </div>
       </div>
       <div class="suggestion-list-group">
