@@ -1,8 +1,3 @@
-<script setup>
-import useSteps from '../utils/useSteps.js'
-const { steps, activeStep, stepPlugin } = useSteps()
-
-</script>
 <template>
   <div class="form-container ">
     <slot></slot>
