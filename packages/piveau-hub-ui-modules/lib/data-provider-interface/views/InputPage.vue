@@ -94,6 +94,7 @@ import { FormKitSummary } from '@formkit/vue';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
 import CustomInputs from './CustomInputs.vue';
+import useSteps from '../utils/useSteps.js'
 
 export default {
   props: {
@@ -396,6 +397,15 @@ export default {
       next();
     }
   },
+  setup() {
+    const { steps, activeStep, stepPlugin } = useSteps();
+
+    return {
+      steps,
+      activeStep,
+      stepPlugin,
+    }
+  }
 };
 </script>
 <style lang="scss">
