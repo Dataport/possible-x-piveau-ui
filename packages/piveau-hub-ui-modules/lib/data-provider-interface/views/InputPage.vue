@@ -1,8 +1,3 @@
-<script setup>
-import useSteps from '../utils/useSteps.js'
-const { steps, activeStep, stepPlugin } = useSteps()
-
-</script>
 <template>
   <div class="form-container ">
     <slot></slot>
@@ -31,17 +26,17 @@ const { steps, activeStep, stepPlugin } = useSteps()
             <!-- <FormKitSummary /> -->
             <section :class="{ activeSection: step === 'mandatory' }" v-show="activeStep === 'mandatory'">
               <FormKit type="group" id="mandatory" name="mandatory" ref="mandatory">
-                <FormKitSchema :schema="fullSchema[0]" type="group"></FormKitSchema>
+                <FormKitSchema :schema="fullSchema[0]" />
               </FormKit>
             </section>
             <section :class="{ activeSection: step === 'advised' }" v-show="activeStep === 'advised'">
               <FormKit type="group" id="advised" name="advised" ref="advised">
-                <FormKitSchema :schema="fullSchema[1]" type="group"></FormKitSchema>
+                <FormKitSchema :schema="fullSchema[1]" />
               </FormKit>
             </section>
             <section :class="{ activeSection: step === 'recommended' }" v-show="activeStep === 'recommended'">
               <FormKit type="group" id="recommended" name="recommended" ref="recommended">
-                <FormKitSchema :schema="fullSchema[2]" type="group"></FormKitSchema>
+                <FormKitSchema :schema="fullSchema[2]" />
               </FormKit>
 
             </section>

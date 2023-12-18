@@ -63,8 +63,7 @@ export default {
       'getUserDrafts',
     ]),
     rawTitle() {
-      
-      return this.$formkit.get("title").context.value;
+      return this.$formkit.get("title")?.context.value;
     },
   },
   methods: {
