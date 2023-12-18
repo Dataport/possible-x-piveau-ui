@@ -10,7 +10,9 @@
         v-model="uniqueID"
         type="text"
         name="datasetID"
-        :disabled="true">
+        :disabled="true"
+        class="w100-textfield"
+        suffix-icon="add">
       </FormKit>
     </div>
     <div v-else>
@@ -20,6 +22,8 @@
         id="datasetIDForm"
         type="text"
         name="datasetID"
+        class="w100-textfield"
+        suffix-icon="add"
         :placeholder="$t('message.dataupload.createUniqueID')"
         :validation="validation"
         :validation-rules="validationRules"

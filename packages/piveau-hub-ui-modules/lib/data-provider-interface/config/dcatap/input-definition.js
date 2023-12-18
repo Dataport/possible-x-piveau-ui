@@ -10,6 +10,7 @@ const dcatapProperties = {
       mandatory: true,
       name: 'datasetID',
       class: 'property mandatory',
+      
     },
     // minimum (unability to remove fields to 0)
     description: {
@@ -216,6 +217,9 @@ const dcatapProperties = {
       class: 'property',
       voc: 'eurovoc',
       '@annifSuggestion': false,
+      classes: {
+        outer: 'w88-textfield'
+      },
     },
     keyword: {
       identifier: 'keyword',
@@ -372,6 +376,9 @@ const dcatapProperties = {
       name: 'dcat:theme',
       class: 'property',
       '@annifSuggestion': false,
+      classes: {
+        outer: 'w88-textfield'
+      },
     },
     // autocomplete
     accessRights: {
@@ -1055,7 +1062,7 @@ const dcatapProperties = {
       class: 'property mandatory',
       'prefix-icon': "info",
       validation: 'required',
-      // options: {},
+      options: {},
     },
     isUsedBy: {
       identifier: 'isUsedBy',

@@ -446,6 +446,9 @@
 
 }
 
+.suggestion-input-group{
+    width: 100%;
+}
 .formkit-icon {
 
     background: unset !important;
@@ -467,6 +470,16 @@
 
 }
 
+#datasetID{
+    width: 100%;
+    div{
+        .formkit-outer{
+            width: 97%;
+        }
+    }
+    
+    
+}
 .formkit-outer {
     margin: 1rem;
     position: relative;
@@ -505,7 +518,9 @@
 .w75-textfield {
     width: 75%;
 }
-
+.w88-textfield {
+    width: 88%;
+}
 .w100-textfield {
     width: 100%;
 }

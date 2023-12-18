@@ -1,6 +1,5 @@
 <script setup>
 import useSteps from '../utils/useSteps.js'
-
 const { steps, activeStep, stepPlugin } = useSteps()
 
 </script>
