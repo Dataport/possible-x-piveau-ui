@@ -593,8 +593,7 @@ const dcatapProperties: InputDefinition = {
               ]
             },
             {
-              // @todo: check if this is correct
-              $formkit: 'autoc',
+              $formkit: 'auto',
               identifier: 'pageFormat',
               voc: 'file-type',
               name: 'dct:format',
