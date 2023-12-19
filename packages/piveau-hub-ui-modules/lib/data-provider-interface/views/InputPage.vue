@@ -24,36 +24,14 @@
               </li>
             </ul>
             <!-- <FormKitSummary /> -->
-            <section :class="{ activeSection: step === 'mandatory' }" v-show="activeStep === 'mandatory'">
-              <FormKit type="group" id="mandatory" name="mandatory" ref="mandatory">
-                <FormKitSchema :schema="fullSchema[0]" />
-              </FormKit>
-            </section>
-            <section :class="{ activeSection: step === 'advised' }" v-show="activeStep === 'advised'">
-              <FormKit type="group" id="advised" name="advised" ref="advised">
-                <FormKitSchema :schema="fullSchema[1]" />
-              </FormKit>
-            </section>
-            <section :class="{ activeSection: step === 'recommended' }" v-show="activeStep === 'recommended'">
-              <FormKit type="group" id="recommended" name="recommended" ref="recommended">
-                <FormKitSchema :schema="fullSchema[2]" />
-              </FormKit>
-
-            </section>
-            <section :class="{ activeSection: step === 'distributition' }" v-show="activeStep === 'distributition'">
-              <FormKit type="group" id="distributition" name="distributition" ref="distributition">
-                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
-
-              </FormKit>
+            <InputPageStep name="mandatory"><FormKitSchema :schema="fullSchema[0]" /></InputPageStep>
+            <InputPageStep name="advised"><FormKitSchema :schema="fullSchema[1]" /></InputPageStep>
+            <InputPageStep name="recommended"><FormKitSchema :schema="fullSchema[2]" /></InputPageStep>
+            <InputPageStep name="distribution">
+              <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
               <!-- <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview> -->
-            </section>
-            <section :class="{ activeSection: step === 'overview' }" v-show="activeStep === 'overview'">
-              <FormKit type="group" id="overview" name="overview" ref="overview">
-                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
-
-              </FormKit>
-            </section>
-
+            </InputPageStep>
+            <InputPageStep name="overview"><FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" /></InputPageStep>
           </div>
 
           <FormKit type="submit" id="submit-form" class="d-none"></FormKit>
@@ -78,6 +56,7 @@
 
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
+import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import {
@@ -87,11 +66,12 @@ import {
 } from 'lodash';
 import { FormKitSummary } from '@formkit/vue';
 import ValidationModal from '../components/ValidationModal.vue';
+import InputPageStep from '../components/InputPageStep.vue';
 import DistributionOverview from './DistributionOverview.vue';
 import CustomInputs from './CustomInputs.vue';
-import useSteps from '../utils/useSteps.js'
+import { useDpiStepper } from '../composables/useDpiStepper';
 
-export default {
+export default defineComponent({
   props: {
     property: {
       required: true,
@@ -112,8 +92,6 @@ export default {
   data() {
     return {
       stepNames: ['mandatory', 'advised', 'recommended', 'distribution', 'overview'],
-      step: 'mandatory',
-      activestep: "",
       heightActiveSec:"10vh",
       fullSchema: [],
       formValues: {},
@@ -143,6 +121,7 @@ export default {
     DistributionOverview,
     FormKitSummary,
     CustomInputs,
+    InputPageStep,
   },
   computed: {
     ...mapGetters('auth', [
@@ -358,7 +337,7 @@ export default {
         this.createSchema({ property: this.property, page: this.page });
         this.translateSchema({ property: this.property });
       }
-    }
+    },
   },
   // beforeRouteEnter(to, from, next) {
   //   // Always clear storage when entering DPI
@@ -393,7 +372,11 @@ export default {
     }
   },
   setup() {
-    const { steps, activeStep, stepPlugin } = useSteps();
+    const {
+      steps,
+      activeStep,
+      stepPlugin,
+    } = useDpiStepper();
 
     return {
       steps,
@@ -401,7 +384,7 @@ export default {
       stepPlugin,
     }
   }
-};
+});
 </script>
 <style lang="scss">
 @import 'https://cdn.formk.it/web-assets/multistep-form.css';
