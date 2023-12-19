@@ -1,7 +1,94 @@
+import { type FormKitSchemaDefinition } from '@formkit/core'
+
 import language from '../selector-languages.json';
 import config from './page-content-config';
 
-const dcatapProperties = {
+/**
+ * Available properties for datasets.
+ */
+export type DcatApDatasetsProperty = 
+  // Append new properties here for accurate type checking
+  'datasetID' 
+  | 'description'
+  | 'title'
+  | 'contactPoint'
+  | 'subject'
+  | 'keyword' 
+  | 'publisher' 
+  | 'spatial' 
+  | 'temporal' 
+  | 'theme' 
+  | 'accessRights' 
+  | 'creator' 
+  | 'conformsTo' 
+  | 'page' 
+  | 'accrualPeriodicity' 
+  | 'hasVersion' 
+  | 'isVersionOf' 
+  | 'source' 
+  | 'identifier' 
+  | 'isReferencedBy' 
+  | 'landingPage' 
+  | 'language' 
+  | 'admsIdentifier' 
+  | 'provenance' 
+  | 'qualifiedAttribution' 
+  | 'wasGeneratedBy' 
+  | 'qualifiedRelation' 
+  | 'relation' 
+  | 'issued' 
+  | 'modified' 
+  | 'spatialResolutionInMeters' 
+  | 'temporalResolution' 
+  | 'type' 
+  | 'versionInfo' 
+  | 'versionNotes' 
+  | 'catalog' 
+  | 'isUsedBy';
+
+  /**
+   * Available properties for distributions.
+   */
+export type DcatApDistributionsProperty =
+  // Append new properties here for accurate type checking
+  'accessURL'
+  | 'availability'
+  | 'description'
+  | 'format'
+  | 'title'
+  | 'byteSize'
+  | 'conformsTo'
+  | 'issued'
+  | 'modified'
+  | 'rights'
+  | 'spatialResolutionInMeters'
+  | 'temporalResolution'
+  | 'mediaType'
+  | 'downloadUrl'
+  | 'accessService'
+  | 'checksum'
+  | 'compressFormat'
+  | 'packageFormat'
+  | 'page'
+  | 'hasPolicy'
+  | 'language'
+  | 'conformsTo'
+  | 'issued'
+  | 'modified'
+  | 'rights'
+  | 'spatialResolutionInMeters'
+  | 'temporalResolution'
+  | 'type'
+  | 'status';
+  
+export type InputDefinition = {
+  datasets: Record<DcatApDatasetsProperty, FormKitSchemaDefinition>;
+  distributions: Record<DcatApDistributionsProperty, FormKitSchemaDefinition>;
+  // todo complete catalogs type definition
+  catalogues: Record<string, FormKitSchemaDefinition>;
+}
+
+const dcatapProperties: InputDefinition = {
   datasets: {
     // unique identifier component
     datasetID: {
@@ -245,9 +332,9 @@ const dcatapProperties = {
     },
     // autocomplete
     publisher: {
+      $formkit:'autocomplete',
       identifier: 'publisher',
       name: 'dct:publisher',
-      // $formkit:'autocomplete',
       voc: 'corporate-body',
     },
     spatial: {
@@ -512,6 +599,8 @@ const dcatapProperties = {
               ]
             },
             {
+              // @todo: check if this is correct
+              $formkit: 'autocomplete',
               identifier: 'pageFormat',
               // type: 'autocomplete',
               voc: 'file-type',
@@ -712,6 +801,8 @@ const dcatapProperties = {
                   name: '@value',
                 },
                 {
+                  // todo: check if this is correct
+                  $formkit: 'autocomplete',
                   identifier: 'admsIdentifierType',
                   // type: 'autocomplete',
                   voc: 'notation-type',
@@ -1317,6 +1408,8 @@ const dcatapProperties = {
           name: 'spdx:checksumValue',
         },
         {
+          // todo: check if this is correct
+          $formkit: 'autocomplete',
           identifier: 'checksumAlgorithm',
           // type: 'autocomplete',
           voc: 'spdx-checksum-algorithm',
@@ -1402,6 +1495,7 @@ const dcatapProperties = {
               ]
             },
             {
+              $formkit: 'autocomplete',
               identifier: 'pageFormat',
               // type: 'autocomplete',
               voc: 'file-type',
@@ -1444,8 +1538,9 @@ const dcatapProperties = {
     },
     // autocomplete ,multiple
     language: {
+      // todo check if this is correct
+      $formkit: 'autocomplete',
       identifier: 'language',
-      // $formkit: 'autocomplete',
       multiple: true,
       name: 'dct:language',
       voc: 'language',
@@ -1644,8 +1739,9 @@ const dcatapProperties = {
   catalogues: {
     // dataset id component, mandatory
     datasetID: {
+      // todo: check if this is correct
+      $formkit:'id',
       identifier: 'datasetID',
-      // $formkit:'id',
       name: 'datasetID',
       mandatory: true,
     },
@@ -1713,9 +1809,10 @@ const dcatapProperties = {
     },
     // autocomplete
     publisher: {
+      // todo check if this is correct
+      $formkit:'autocomplete',
       identifier: 'publisher',
       name: 'dct:publisher',
-      // $formkit:'autocomplete',
       voc: 'corporate-body',
     },
     // autocomplete ,multiple
@@ -1955,7 +2052,7 @@ const dcatapProperties = {
       ],
     },
   }
-} as const;
+};
 
 // Dynamically add a collapsed property to all fields that are component of
 // a set of specific pages steps.
