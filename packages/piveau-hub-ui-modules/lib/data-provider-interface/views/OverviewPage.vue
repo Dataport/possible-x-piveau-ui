@@ -48,7 +48,6 @@ export default {
     ]),
     ...mapGetters('dpiStore', [
       'getData',
-      'getMandatoryStatus',
     ]),
     showDatasetsOverview() {
       return this.$route.params.property === 'datasets';

@@ -198,35 +198,6 @@ function getPagePrefixedNames(property, formDefinitions, pageContent) {
 }
 
 /**
- * Determines if all mandatory values are given for the given property
- * @param {*} data Object containing data values
- * @param {*} property Property (dtaset/catalogue/distribution) the given data values belong to
- * @returns Boolean describing if all mandatory fields are filled
- */
-function checkMandatory(data, property) {
-
-    let status;
-
-    if (property === 'datasets') {
-        // dataset mandatory properties: datasetID, dct:title with language tag, dct:description with language tag and catalog literal
-        status = !isEmpty(data['datasetID'])
-        && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dcat:catalog']);
-    } else if (property === 'distributions') {
-        // distribution mandatory properties: dcat:accessUrl
-        status = !isNil(data) && !isEmpty(data) && !isEmpty(data['dcat:accessURL']);
-    } else if (property === 'catalogues') {
-        // catalogue mandatory properties: datasetId, dct:title and dct:descirption with language tag, dct:publisher and at least one language (dct:language)
-        status = !isEmpty(data['datasetID']) && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dct:publisher']) && !isEmpty(data['dct:language']);
-    }
-
-    return status;
-}
-
-/**
  * Get file id from accessUrl, if it is a file upload url.
  * accessUrls are file upload urls, iff they start with fileUploadUrl.
  * @param {string} accessUrl
@@ -283,7 +254,6 @@ export default {
     getPagePrefixedNames,
     getNestedKeys,
     removeNamespace,
-    checkMandatory,
     getFileIdByAccessUrl,
     addKeyToFormatType,
     removeKeyFromFormatType,

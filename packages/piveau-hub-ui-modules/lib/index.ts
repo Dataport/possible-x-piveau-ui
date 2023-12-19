@@ -66,7 +66,6 @@ import InfoSlot from "./data-provider-interface/components/InfoSlot";
 import LanguageSelector from "./data-provider-interface/components/LanguageSelector";
 import Navigation from "./data-provider-interface/components/Navigation";
 import UniqueIdentifierInput from "./data-provider-interface/components/UniqueIdentifierInput";
-import ValidationModal from "./data-provider-interface/components/ValidationModal";
 import inputDefinitions from "./form/inputDefinitions";
 
 // Import data-provider-interface views OverviewPage
@@ -272,7 +271,6 @@ export {
   LanguageSelector,
   Navigation,
   UniqueIdentifierInput,
-  ValidationModal,
   CatalogueOverview,
   DatasetOverview,
   DistributionOverview,
