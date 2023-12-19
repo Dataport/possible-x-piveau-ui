@@ -21,13 +21,6 @@
 <script>
 import { token } from "@formkit/utils";
 
-<<<<<<< HEAD
-  export default {
-    props: {
-      name: String,
-      children: Array,
-      context: Object,
-=======
 export default {
   props: {
     name: String,
@@ -43,7 +36,6 @@ export default {
   methods: {
     newId() {
       return `${this.name}_${token()}`;
->>>>>>> StepperDpi
     },
     addItem() {
       this.items.push(this.newId());
