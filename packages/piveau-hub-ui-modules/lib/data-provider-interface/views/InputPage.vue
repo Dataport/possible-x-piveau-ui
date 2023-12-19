@@ -38,17 +38,24 @@
               </li>
             </ul>
             <!-- <FormKitSummary /> -->
-            <InputPageStep name="mandatory"><FormKitSchema :schema="fullSchema[0]" /></InputPageStep>
-            <InputPageStep name="advised"><FormKitSchema :schema="fullSchema[1]" /></InputPageStep>
-            <InputPageStep name="recommended"><FormKitSchema :schema="fullSchema[2]" /></InputPageStep>
-            <InputPageStep name="distribution">
-              <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
-              <!-- <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview> -->
-            </InputPageStep>
-            <InputPageStep name="overview"><FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" /></InputPageStep>
+            <div class="d-flex flex-column">
+              <InputPageStep name="mandatory"><FormKitSchema :schema="fullSchema[0]" /></InputPageStep>
+              <InputPageStep name="advised"><FormKitSchema :schema="fullSchema[1]" /></InputPageStep>
+              <InputPageStep name="recommended"><FormKitSchema :schema="fullSchema[2]" /></InputPageStep>
+              <InputPageStep name="distribution">
+                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
+                <!-- <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview> -->
+              </InputPageStep>
+              <InputPageStep name="overview"><FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" /></InputPageStep>
+              <div class="d-flex w-100 justify-content-between">
+                <FormKit type="button" @click="goToPreviousStep">{{ $t('message.dataupload.preview') }}</FormKit>
+                <FormKit type="button" @click="goToNextStep">{{ $t('message.dataupload.next') }}</FormKit>
+              </div>
+            </div>
           </div>
-
           <FormKit type="submit" id="submit-form" class="d-none"></FormKit>
+
+          
         </FormKit>
 
         <!-- <FormKitSchema name="form" ref="dpiForm" 
@@ -391,6 +398,8 @@ export default defineComponent({
       activeStep,
       visitedSteps,
       stepPlugin,
+      goToNextStep,
+      goToPreviousStep,
     } = useDpiStepper();
 
     const checkStepValidity = (stepName) => {
@@ -403,6 +412,8 @@ export default defineComponent({
       activeStep,
       stepPlugin,
       checkStepValidity,
+      goToNextStep,
+      goToPreviousStep,
     }
   }
 });
