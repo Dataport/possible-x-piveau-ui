@@ -361,6 +361,7 @@ const dcatapProperties = {
       name: 'dcat:theme',
       '@annifSuggestion': false,
       classes: {
+        multiple: 'multiple',
         outer: 'w88-textfield'
       },
     },

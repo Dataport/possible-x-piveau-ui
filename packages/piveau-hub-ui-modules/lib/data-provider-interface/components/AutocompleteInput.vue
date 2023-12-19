@@ -14,10 +14,11 @@
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
         <FormKit v-if="!annifTheme || manSearch" prefix-icon="search" type="text" class="form-control" name="autocomplete"
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
-          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()"></FormKit>
-        <div class="position-relative h-100" @click="clearAutocomplete">
-          <!-- <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a> -->
-        </div>
+          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()">
+      </FormKit>
+        <!-- <div class="position-relative h-100" @click="clearAutocomplete">
+          <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a> 
+        </div> -->
       </div>
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
@@ -28,7 +29,7 @@
           </button>
         </ul>
       </div>
-      <div id="suggestedAnnifItemsTheme" v-if="annifTheme && multiple && annifEnv">
+      <div id="suggestedAnnifItemsTheme" v-if="annifTheme && isMultiple && annifEnv">
         <div v-for="(themeValue, index) in valueListOfThemes" :key="index" data-toggle="tooltip" data-placement="top"
           v-bind:title="themeValue.name" class="annifItems"
           v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: themeValue.activeValue }"
@@ -39,7 +40,7 @@
           This field can be auto generated. If you click the generate button, it will suggest the most fitting properties based on the dataset-description you provided.
         </p>
       </div>
-      <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
+      <div v-if="isMultiple && values.length > 0 " class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
           {{ selectedValue.name }}
           <span aria-hidden="true" class="delete-selected-value"
@@ -80,7 +81,8 @@ export default {
   },
   setup(props) {
     // setup() receives props as the first argument.
-    console.log(props.context.voc)
+    
+    console.log(props.context.attrs)
   },
   data() {
     return {
@@ -93,9 +95,10 @@ export default {
       choice: false,
       themeSuggestionList: {},
       manSearch: false,
-      values: [],
-      annifEnv: this.$env.content.dataProviderInterface.annifIntegration,
-      annifThemeEnv: this.$env.content.dataProviderInterface,
+      values: [1,'hallo'],
+      isMultiple: this.context.attrs.multiple,
+      annifEnv: this.context.attrs.annifTheme,
+      // annifThemeEnv: this.$env.content.dataProviderInterface,
       valueListOfThemes: [],
       thSwitch: false,
       annifChoicebtnClicked: false
@@ -112,7 +115,7 @@ export default {
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-
+console.log(this.isMultiple);
     // TODO: Improve buggy code
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
@@ -126,6 +129,9 @@ export default {
       "requestAutocompleteSuggestions",
       "requestResourceName",
     ]),
+    handleClick(){
+      console.log();
+    },
     truncateWords(word, lettersToDisplay) {
 
       let letters = word.split("")
@@ -327,7 +333,7 @@ export default {
       if (suggestion.resource == "None") {
         return;
       }
-      if (this.multiple) {
+      if (this.isMultiple) {
         if (!this.values.map((dataset) => dataset.resource).includes(suggestion.resource)) {
           this.values.push(suggestion);
         }
@@ -413,7 +419,7 @@ export default {
     },
     clearAutocomplete() {
       this.choice = false
-      if (this.multiple) {
+      if (this.isMultiple) {
         this.values = [];
       }
       this.context.model = "";
