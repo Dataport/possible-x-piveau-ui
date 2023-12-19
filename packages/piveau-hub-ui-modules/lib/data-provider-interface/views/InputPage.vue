@@ -6,18 +6,32 @@
       <div class="formContainer formkit position-relative">
         <!-- TestPage for Custom Inputs -->
         <CustomInputs></CustomInputs>
-        
-        <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
+        {{ steps }}
+        <FormKit type="form" v-model="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           class="d-flex">
           <div class="d-flex">
             <ul class="steps">
-              <li v-for="(step, stepName, index) in steps" :key="step" class="step" @click="activeStep = stepName; handleStep(stepName)"
-                :data-step-valid="step.valid" :data-step-active="activeStep === stepName"
-                :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep }">
+              <li 
+                v-for="(step, stepName, index) in steps"
+                :key="step" class="step"
+                :data-step-valid="step.valid && step.errorCount === 0"
+                :data-step-active="activeStep === stepName"
+                :class="{
+                  activeItem: activeStep === stepName,
+                  inactiveStep: stepName != activeStep,
+                  'has-errors': checkStepValidity(stepName),
+                }"
+                @click="activeStep = stepName; handleStep(stepName)"
+              >
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
-                  <span>{{ camel2title(stepName) }}</span>
+                  <span
+                    v-if="checkStepValidity(stepName)"
+                    class="step--errors"
+                    v-text="step.errorCount + step.blockingCount"
+                  />
+                  {{ camel2title(stepName) }}
                 </div>
                
                 <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
@@ -375,13 +389,20 @@ export default defineComponent({
     const {
       steps,
       activeStep,
+      visitedSteps,
       stepPlugin,
     } = useDpiStepper();
 
+    const checkStepValidity = (stepName) => {
+      return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
+    }
+
     return {
       steps,
+      visitedSteps,
       activeStep,
       stepPlugin,
+      checkStepValidity,
     }
   }
 });

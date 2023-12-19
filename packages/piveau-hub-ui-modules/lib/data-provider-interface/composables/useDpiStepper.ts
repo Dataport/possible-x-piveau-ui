@@ -6,7 +6,7 @@ import useSteps from '../utils/useSteps.js';
  * Provides the stepper state and methods to manage stepper.
  */
 export function useDpiStepper() {
-  const { steps, activeStep, stepPlugin } = useSteps();
+  const { steps, activeStep, stepPlugin, visitedSteps } = useSteps();
   const stepList = ref([] as string[]);
   const activeStepIndex = computed(() => stepList.value.indexOf(activeStep.value));
   
@@ -52,6 +52,7 @@ export function useDpiStepper() {
     steps,
     activeStep,
     activeStepIndex,
+    visitedSteps,
     stepPlugin,
     stepList,
     registerStep,
