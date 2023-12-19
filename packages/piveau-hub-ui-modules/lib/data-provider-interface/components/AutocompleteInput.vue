@@ -12,12 +12,13 @@
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
-        <input v-if="!annifTheme || manSearch" type="text" class="form-control"
+        <FormKit v-if="!annifTheme || manSearch" prefix-icon="search" type="text" class="form-control" name="autocomplete"
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
-          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()" />
-        <div class="position-relative h-100" @click="clearAutocomplete">
-          <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a>
-        </div>
+          @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()">
+      </FormKit>
+        <!-- <div class="position-relative h-100" @click="clearAutocomplete">
+          <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a> 
+        </div> -->
       </div>
       <div class="suggestion-list-group">
         <ul class="list-group suggestion-list">
@@ -28,7 +29,7 @@
           </button>
         </ul>
       </div>
-      <div id="suggestedAnnifItemsTheme" v-if="annifTheme && multiple && annifEnv">
+      <div id="suggestedAnnifItemsTheme" v-if="annifTheme && isMultiple && annifEnv">
         <div v-for="(themeValue, index) in valueListOfThemes" :key="index" data-toggle="tooltip" data-placement="top"
           v-bind:title="themeValue.name" class="annifItems"
           v-bind:class="{ fadeIn: annifChoicebtnClicked, greenBG: themeValue.activeValue }"
@@ -39,7 +40,7 @@
           This field can be auto generated. If you click the generate button, it will suggest the most fitting properties based on the dataset-description you provided.
         </p>
       </div>
-      <div v-if="multiple && values.length > 0 && !annifEnv" class="selected-values-div">
+      <div v-if="isMultiple && values.length > 0 " class="selected-values-div">
         <span v-for="(selectedValue, i) in values" :key="i" class="selected-value">
           {{ selectedValue.name }}
           <span aria-hidden="true" class="delete-selected-value"
@@ -65,10 +66,6 @@ export default {
       type: Object,
       required: true,
     },
-    voc: {
-      type: String,
-      required: true,
-    },
     subject: {
       type: Boolean,
       required: false,
@@ -82,6 +79,11 @@ export default {
       required: false,
     },
   },
+  setup(props) {
+    // setup() receives props as the first argument.
+    
+    console.log(props.context.attrs)
+  },
   data() {
     return {
       autocomplete: {
@@ -93,9 +95,10 @@ export default {
       choice: false,
       themeSuggestionList: {},
       manSearch: false,
-      values: [],
-      annifEnv: this.$env.content.dataProviderInterface.annifIntegration,
-      annifThemeEnv: this.$env.content.dataProviderInterface,
+      values: [1,'hallo'],
+      isMultiple: this.context.attrs.multiple,
+      annifEnv: this.context.attrs.annifTheme,
+      // annifThemeEnv: this.$env.content.dataProviderInterface,
       valueListOfThemes: [],
       thSwitch: false,
       annifChoicebtnClicked: false
@@ -112,7 +115,7 @@ export default {
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-
+console.log(this.isMultiple);
     // TODO: Improve buggy code
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
@@ -126,6 +129,9 @@ export default {
       "requestAutocompleteSuggestions",
       "requestResourceName",
     ]),
+    handleClick(){
+      console.log();
+    },
     truncateWords(word, lettersToDisplay) {
 
       let letters = word.split("")
@@ -154,7 +160,7 @@ export default {
         .filter((dataset) => dataset.resource !== value)
         .map((dataset) => dataset.resource);
       this.autocomplete.text = "";
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
 
       // disable delete button
       if (this.values.length === 0) {
@@ -176,7 +182,7 @@ export default {
     getAutocompleteSuggestions() {
 
       this.choice = true
-      let voc = this.voc;
+      let voc = this.context.voc;
       let text = this.autocomplete.text;
       this.clearAutocompleteSuggestions();
 
@@ -287,7 +293,7 @@ export default {
 
       var config = {
         method: 'post',
-        url: this.voc == "eurovoc" 
+        url: this.context.voc == "eurovoc" 
           ? this.$env.content.dataProviderInterface.annifLinkSubject 
           : this.$env.content.dataProviderInterface.annifLinkTheme,
         headers: {
@@ -327,7 +333,7 @@ export default {
       if (suggestion.resource == "None") {
         return;
       }
-      if (this.multiple) {
+      if (this.isMultiple) {
         if (!this.values.map((dataset) => dataset.resource).includes(suggestion.resource)) {
           this.values.push(suggestion);
         }
@@ -342,7 +348,7 @@ export default {
 
 
       }
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
       if (this.annifTheme && suggestion.activeValue == undefined) {
 
         suggestion.activeValue = true
@@ -355,9 +361,9 @@ export default {
       let preValues = { name: "", resource: "" };
 
       let vocMatch =
-        this.voc === "iana-media-types" ||
-        this.voc === "spdx-checksum-algorithm";
-      await this.requestResourceName({ voc: this.voc, resource }).then(
+        this.context.voc === "iana-media-types" ||
+        this.context.voc === "spdx-checksum-algorithm";
+      await this.requestResourceName({ voc: this.context.voc, resource }).then(
         (response) => {
           let result = vocMatch
             ? response.data.result.results
@@ -413,12 +419,12 @@ export default {
     },
     clearAutocomplete() {
       this.choice = false
-      if (this.multiple) {
+      if (this.isMultiple) {
         this.values = [];
       }
       this.context.model = "";
       this.autocomplete.text = "";
-      this.context.rootEmit("change");
+      // this.context.rootEmit("change");
     },
   },
   directives: {

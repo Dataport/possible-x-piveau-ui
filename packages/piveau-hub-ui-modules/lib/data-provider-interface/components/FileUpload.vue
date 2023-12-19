@@ -2,9 +2,7 @@
   <div ref="fileupload" :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
     <div class="file-div position-relative">
-
-      <input v-if="context.model" type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })" name="test">
-      <input v-else type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })">
+      <FormKit type="file" name="fileUpload" @change="uploadOrReplaceFile({ file: $event.target.files[0] })"></FormKit>
       <div class="upload-feedback position-absolute d-flex" style="right: 0">
         <div v-if="isLoading" class="lds-ring"><div></div><div></div><div></div><div></div></div>
         <div v-if="success"><i class="material-icons d-flex check-icon">check_circle</i></div>
@@ -44,7 +42,8 @@ export default {
       'getData',
     ]),
     getCatalogue() {
-      const catalog = this.getData('datasets')['dcat:catalog'];
+      // const catalog = this.getData('datasets')['dcat:catalog'];
+      const catalog = this.$formkit.get("catalog").context.value;
       return catalog;
     },
   },
@@ -151,7 +150,7 @@ export default {
         this.context.model = `${this.$env.api.fileUploadUrl}${path}`;
         this.isLoading = false;
         this.success = true;
-        this.context.rootEmit('change');
+        // this.context.rootEmit('change');
         
       } catch (err) {
         

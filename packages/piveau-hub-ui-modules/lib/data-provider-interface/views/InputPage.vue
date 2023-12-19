@@ -1,33 +1,78 @@
 <template>
-  <div class="form-container">
+  <div class="form-container ">
     <slot></slot>
 
     <div class="inputContainer" v-if="isInput">
-      <div class="formContainer formkit">
-        <pre>{{formValues}}</pre>
-        <FormKit type="form" 
-          v-model.lazy="formValues" 
-          :actions="false"
-          @submit="handleSubmit" 
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
-          <FormKitSummary/>
-          <FormKitSchema :schema="getSchema"></FormKitSchema>
-          <FormKit type="submit" id="submit-form" class="display-none"></FormKit>
+      <div class="formContainer formkit position-relative">
+        <!-- TestPage for Custom Inputs -->
+        <CustomInputs></CustomInputs>
+        
+        <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
+          class="d-flex">
+          <div class="d-flex">
+            <ul class="steps">
+              <li v-for="(step, stepName, index) in steps" :key="step" class="step" @click="activeStep = stepName; handleStep(stepName)"
+                :data-step-valid="step.valid" :data-step-active="activeStep === stepName"
+                :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep }">
+                <div class="stepBubbleWrap">
+                  <div class="circle stepCircle">{{ index + 1 }}</div>
+                  <span>{{ camel2title(stepName) }}</span>
+                </div>
+               
+                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
+              </li>
+            </ul>
+            <!-- <FormKitSummary /> -->
+            <section :class="{ activeSection: step === 'mandatory' }" v-show="activeStep === 'mandatory'">
+              <FormKit type="group" id="mandatory" name="mandatory" ref="mandatory">
+                <FormKitSchema :schema="fullSchema[0]" />
+              </FormKit>
+            </section>
+            <section :class="{ activeSection: step === 'advised' }" v-show="activeStep === 'advised'">
+              <FormKit type="group" id="advised" name="advised" ref="advised">
+                <FormKitSchema :schema="fullSchema[1]" />
+              </FormKit>
+            </section>
+            <section :class="{ activeSection: step === 'recommended' }" v-show="activeStep === 'recommended'">
+              <FormKit type="group" id="recommended" name="recommended" ref="recommended">
+                <FormKitSchema :schema="fullSchema[2]" />
+              </FormKit>
+
+            </section>
+            <section :class="{ activeSection: step === 'distributition' }" v-show="activeStep === 'distributition'">
+              <FormKit type="group" id="distributition" name="distributition" ref="distributition">
+                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
+
+              </FormKit>
+              <!-- <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview> -->
+            </section>
+            <section :class="{ activeSection: step === 'overview' }" v-show="activeStep === 'overview'">
+              <FormKit type="group" id="overview" name="overview" ref="overview">
+                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
+
+              </FormKit>
+            </section>
+
+          </div>
+
+          <FormKit type="submit" id="submit-form" class="d-none"></FormKit>
         </FormKit>
+
         <!-- <FormKitSchema name="form" ref="dpiForm" 
-          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">-->          
+          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">-->
         <!--</FormKitSchema>-->
+
       </div>
     </div>
-    <div v-if="isDistributionOverview">
+    <!-- <div v-if="isDistributionOverview">
       <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
-    </div>
+    </div> -->
     <ValidationModal :failedFields="failedFields"></ValidationModal>
     <!-- not the prettiest way but calling it within navigation component seems quiet complicated -->
     <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
       {{ mandatoryModal.message }}
     </app-confirmation-dialog>
-
   </div>
 </template>
 
@@ -43,6 +88,8 @@ import {
 import { FormKitSummary } from '@formkit/vue';
 import ValidationModal from '../components/ValidationModal.vue';
 import DistributionOverview from './DistributionOverview.vue';
+import CustomInputs from './CustomInputs.vue';
+import useSteps from '../utils/useSteps.js'
 
 export default {
   props: {
@@ -64,8 +111,14 @@ export default {
   },
   data() {
     return {
+      stepNames: ['mandatory', 'advised', 'recommended', 'distribution', 'overview'],
+      step: 'mandatory',
+      activestep: "",
+      heightActiveSec:"10vh",
+      fullSchema: [],
       formValues: {},
       failedFields: [],
+      offsetTopStepper: "60px",
       mandatoryModal: {
         confirm: '',
         message: 'Mandatory Properties missing - make sure to fill out every field marked with an *',
@@ -77,13 +130,19 @@ export default {
         callback: $('#modal').modal('hide'),
       },
       info: {},
-      catalogues: []
+      catalogues: [],
+      camel2title: (str) =>
+        str
+          .replace(/([A-Z])/g, (match) => ` ${match}`)
+          .replace(/^./, (match) => match.toUpperCase())
+          .trim(),
     };
   },
   components: {
     ValidationModal,
     DistributionOverview,
     FormKitSummary,
+    CustomInputs,
   },
   computed: {
     ...mapGetters('auth', [
@@ -106,13 +165,17 @@ export default {
     },
     createIDFromTitle() {
       const title = this.getFirstTitleFromForm;
-      return title
-        .toLowerCase()
-        .replace(/ /g, '-');
+      if (title != undefined) {
+        return title
+          .toLowerCase()
+          .replace(/ /g, '-');
+      }
+      else return;
     },
     isInput() {
       return this.$route.params.page !== 'overview' && this.$route.params.page !== 'distoverview';
     },
+
   },
   methods: {
     ...mapActions('auth', [
@@ -129,6 +192,29 @@ export default {
       'setMandatoryStatus',
       'setDeleteDistributionInline',
     ]),
+    handleStep(stepName) {
+      this.step = stepName;
+
+      if (stepName === "mandatory") {
+    
+        
+        this.offsetTopStepper = "60px";
+      }
+      if (stepName === "advised") {
+
+        this.offsetTopStepper = "150px";
+      }
+      if (stepName === "recommended") {
+
+        this.offsetTopStepper = "240px";
+      }
+      if (stepName === "distribution") {
+
+      }
+      if (stepName === "overview") {
+        this.offsetTopStepper = "60px";
+      }
+    },
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
@@ -233,10 +319,22 @@ export default {
       this.clear();
     }
     // form content (schema) created based on defined page properties included in inputconfigMin
-    if (this.page !== 'overview' && this.page !== 'distoverview') {
-      this.createSchema({ property: this.property, page: this.page });
-      this.translateSchema({ property: this.property });
+    // if (this.page !== 'overview' && this.page !== 'distoverview') {
+    // this.createSchema({ property: this.property, page: this.page });
+    // this.translateSchema({ property: this.property });
+    // }
+    for (let index = 1; index < this.stepNames.length; index++) {
+      let steps = "step" + index;
+      if (index < 4) {
+        this.createSchema({ property: this.property, page: steps });
+        this.translateSchema({ property: this.property });
+        this.fullSchema.push(this.getSchema);
+        
+      }
+      else return
     }
+
+
   },
   mounted() {
     this.initInputPage();
@@ -262,20 +360,20 @@ export default {
       }
     }
   },
-  beforeRouteEnter(to, from, next) {
-    // Always clear storage when entering DPI
-    next(vm => {
-      if (from.name && !from.name.startsWith('DataProviderInterface')) {
-        vm.clear();
-        vm.jumpToFirstPage();
-      }
-      if (!from.name && !vm.getMandatoryStatus({ property: vm.property, id: vm.id })) {
-        vm.jumpToFirstPage();
-        $('#mandatoryModal').modal({ show: true });
-      }
-      let a = { "step1": { "dct:title": [{ "@value": "DcatDE GeschichTE", "@language": "en" }], "datasetID": "a-test", "hidden_datasetIDFormHidden": "a-test", "dct:description": [{ "@value": "Geo'DAE is the national database of external automated defibrillators (DAEs), listed in France.\n\nBarely 1 in 10 citizens survive a cardiac arrest because they have not benefited at the right time of a person’s intervention.\n\nThe national public health plan plans to train 80 % of the population in first aid actions and to improve access to external automated defibrillators on the national territory, by promoting their geolocation and maintenance.\n\nThe creation of a national database, provision of the law of 28 June 2018 on cardiac defibrillator, is part of this ambition. All AED operators must now report their defibrillator data and characteristics in the national database.\n\nThe reporting portal is available at the following link: https://geodae.atlasante.fr/apropos\n\nIf you have any questions, please contact us at: contact@geodae.sante.gouv.fr.\n\nThis sheet presents the extraction of the public data reported by the operators, as provided for in the Decree of 29 October 2019 on the operation of the national database of external automated defibrillators, published in the OJ of 13 November 2019.\n\nThe public or limited dissemination rules are specified in Annexes 1, 2 and 3 to this Order. Only open access data is disseminated in open data.", "@language": "en" }], "dcat:catalog": "dpi", "dcat:theme": ["http://publications.europa.eu/resource/authority/data-theme/ENER", "http://publications.europa.eu/resource/authority/data-theme/AGRI", "http://publications.europa.eu/resource/authority/data-theme/ENVI", "http://publications.europa.eu/resource/authority/data-theme/EDUC", "http://publications.europa.eu/resource/authority/data-theme/GOVE", "http://publications.europa.eu/resource/authority/data-theme/JUST", "http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO"], "dct:issued": "2023-02-01T03:03:00", "dct:modified": "2023-02-07" }, "step2": { "dcatde:politicalGeocodingLevelURI": ["http://dcat-ap.de/def/politicalGeocoding/Level/international"], "dcatde:politicalGeocodingURI": ["http://dcat-ap.de/def/politicalGeocoding/municipalityKey/01053121"], "dcat:keyword": [{ "@value": "asdsd", "@language": "de" }], "dct:subject": ["http://eurovoc.europa.eu/2753", "http://eurovoc.europa.eu/3011", "http://eurovoc.europa.eu/688", "http://eurovoc.europa.eu/3577", "http://eurovoc.europa.eu/1085", "http://eurovoc.europa.eu/4488", "http://eurovoc.europa.eu/1460", "http://eurovoc.europa.eu/5042", "http://eurovoc.europa.eu/1074", "http://eurovoc.europa.eu/5334", "http://eurovoc.europa.eu/940"], "dct:spatial": "http://publications.europa.eu/resource/authority/country/BGR", "dct:creator": [{ "rdf:type": "foaf:Person", "foaf:name": "dfgdfgd", "foaf:mbox": "test@tes.de", "foaf:homepage": "https://jena-wissensallmende.apps.osc.fokus.fraunhofer.de/" }] }, "step3": {} }
-    });
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   // Always clear storage when entering DPI
+  //   next(vm => {
+  //     if (from.name && !from.name.startsWith('DataProviderInterface')) {
+  //       vm.clear();
+  //       vm.jumpToFirstPage();
+  //     }
+  //     if (!from.name && !vm.getMandatoryStatus({ property: vm.property, id: vm.id })) {
+  //       vm.jumpToFirstPage();
+  //       $('#mandatoryModal').modal({ show: true });
+  //     }
+  //     let a = { "step1": { "dct:title": [{ "@value": "DcatDE GeschichTE", "@language": "en" }], "datasetID": "a-test", "hidden_datasetIDFormHidden": "a-test", "dct:description": [{ "@value": "Geo'DAE is the national database of external automated defibrillators (DAEs), listed in France.\n\nBarely 1 in 10 citizens survive a cardiac arrest because they have not benefited at the right time of a person’s intervention.\n\nThe national public health plan plans to train 80 % of the population in first aid actions and to improve access to external automated defibrillators on the national territory, by promoting their geolocation and maintenance.\n\nThe creation of a national database, provision of the law of 28 June 2018 on cardiac defibrillator, is part of this ambition. All AED operators must now report their defibrillator data and characteristics in the national database.\n\nThe reporting portal is available at the following link: https://geodae.atlasante.fr/apropos\n\nIf you have any questions, please contact us at: contact@geodae.sante.gouv.fr.\n\nThis sheet presents the extraction of the public data reported by the operators, as provided for in the Decree of 29 October 2019 on the operation of the national database of external automated defibrillators, published in the OJ of 13 November 2019.\n\nThe public or limited dissemination rules are specified in Annexes 1, 2 and 3 to this Order. Only open access data is disseminated in open data.", "@language": "en" }], "dcat:catalog": "dpi", "dcat:theme": ["http://publications.europa.eu/resource/authority/data-theme/ENER", "http://publications.europa.eu/resource/authority/data-theme/AGRI", "http://publications.europa.eu/resource/authority/data-theme/ENVI", "http://publications.europa.eu/resource/authority/data-theme/EDUC", "http://publications.europa.eu/resource/authority/data-theme/GOVE", "http://publications.europa.eu/resource/authority/data-theme/JUST", "http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO"], "dct:issued": "2023-02-01T03:03:00", "dct:modified": "2023-02-07" }, "step2": { "dcatde:politicalGeocodingLevelURI": ["http://dcat-ap.de/def/politicalGeocoding/Level/international"], "dcatde:politicalGeocodingURI": ["http://dcat-ap.de/def/politicalGeocoding/municipalityKey/01053121"], "dcat:keyword": [{ "@value": "asdsd", "@language": "de" }], "dct:subject": ["http://eurovoc.europa.eu/2753", "http://eurovoc.europa.eu/3011", "http://eurovoc.europa.eu/688", "http://eurovoc.europa.eu/3577", "http://eurovoc.europa.eu/1085", "http://eurovoc.europa.eu/4488", "http://eurovoc.europa.eu/1460", "http://eurovoc.europa.eu/5042", "http://eurovoc.europa.eu/1074", "http://eurovoc.europa.eu/5334", "http://eurovoc.europa.eu/940"], "dct:spatial": "http://publications.europa.eu/resource/authority/country/BGR", "dct:creator": [{ "rdf:type": "foaf:Person", "foaf:name": "dfgdfgd", "foaf:mbox": "test@tes.de", "foaf:homepage": "https://jena-wissensallmende.apps.osc.fokus.fraunhofer.de/" }] }, "step3": {} }
+  //   });
+  // },
   beforeRouteUpdate(to, from, next) {
     // Checks if next route within the DPI is a route which does not require mandatory checking
     if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({ property: this.property, id: this.id })) {
@@ -294,9 +392,29 @@ export default {
       next();
     }
   },
+  setup() {
+    const { steps, activeStep, stepPlugin } = useSteps();
+
+    return {
+      steps,
+      activeStep,
+      stepPlugin,
+    }
+  }
 };
 </script>
 <style lang="scss">
+@import 'https://cdn.formk.it/web-assets/multistep-form.css';
+
+.activeSection {
+  // margin-top: v-bind(offsetTopStepper)
+}
+.activeItem{
+  flex-grow: 1;
+  .seperatorHorizontalStepper{
+    height: 100%;
+  }
+}
 select {
 
   line-height: unset !important;
