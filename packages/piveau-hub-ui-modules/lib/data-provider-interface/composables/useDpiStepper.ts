@@ -10,6 +10,22 @@ export function useDpiStepper() {
   const stepList = ref([] as string[]);
   const activeStepIndex = computed(() => stepList.value.indexOf(activeStep.value));
   
+  const previousStep = computed(() => {
+    const previousStepIndex = activeStepIndex.value - 1;
+    if (previousStepIndex >= 0) {
+      return stepList.value[previousStepIndex];
+    }
+    return '';
+  });
+
+  const nextStep = computed(() => {
+    const nextStepIndex = activeStepIndex.value + 1;
+    if (nextStepIndex < stepList.value.length) {
+      return stepList.value[nextStepIndex];
+    }
+    return '';
+  });
+
   const registerStep = (stepName: string) => {
     if (!stepList.value.includes(stepName)) {
       stepList.value.push(stepName);
@@ -52,6 +68,8 @@ export function useDpiStepper() {
     steps,
     activeStep,
     activeStepIndex,
+    previousStep,
+    nextStep,
     visitedSteps,
     stepPlugin,
     stepList,

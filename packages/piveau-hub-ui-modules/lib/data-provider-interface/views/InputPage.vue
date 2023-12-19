@@ -6,7 +6,7 @@
       <div class="formContainer formkit position-relative">
         <!-- TestPage for Custom Inputs -->
         <CustomInputs></CustomInputs>
-        {{ steps }}
+        
         <FormKit type="form" v-model="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
           class="d-flex">
@@ -48,8 +48,18 @@
               </InputPageStep>
               <InputPageStep name="overview"><FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" /></InputPageStep>
               <div class="d-flex w-100 justify-content-between">
-                <FormKit type="button" @click="goToPreviousStep">{{ $t('message.dataupload.preview') }}</FormKit>
-                <FormKit type="button" @click="goToNextStep">{{ $t('message.dataupload.next') }}</FormKit>
+                <FormKit type="button" @click="goToPreviousStep">
+                  <div class="d-flex flex-column align-items-start">
+                    <small>{{ camel2title(previousStep) }}</small>
+                    <span>{{ $t('message.dataupload.preview') }}</span>
+                  </div>
+                </FormKit>
+                <FormKit type="button" @click="goToNextStep">
+                  <div class="d-flex flex-column align-items-end">
+                    <small>{{ camel2title(nextStep) }}</small>
+                    <span>{{ $t('message.dataupload.next') }}</span>
+                  </div>
+                </FormKit>
               </div>
             </div>
           </div>
@@ -397,6 +407,8 @@ export default defineComponent({
       steps,
       activeStep,
       visitedSteps,
+      previousStep,
+      nextStep,
       stepPlugin,
       goToNextStep,
       goToPreviousStep,
@@ -410,6 +422,8 @@ export default defineComponent({
       steps,
       visitedSteps,
       activeStep,
+      previousStep,
+      nextStep,
       stepPlugin,
       checkStepValidity,
       goToNextStep,
