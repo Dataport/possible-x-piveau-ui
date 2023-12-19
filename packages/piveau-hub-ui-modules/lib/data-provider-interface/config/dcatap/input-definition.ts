@@ -332,7 +332,7 @@ const dcatapProperties: InputDefinition = {
     },
     // autocomplete
     publisher: {
-      $formkit:'autocomplete',
+      $formkit: 'auto',
       identifier: 'publisher',
       name: 'dct:publisher',
       voc: 'corporate-body',
@@ -601,9 +601,9 @@ const dcatapProperties: InputDefinition = {
             },
             {
               // @todo: check if this is correct
-              $formkit: 'autocomplete',
+              $formkit: 'auto',
               identifier: 'pageFormat',
-              // type: 'autocomplete',
+              // type: 'auto',
               voc: 'file-type',
               name: 'dct:format',
               class: "property",
@@ -803,9 +803,9 @@ const dcatapProperties: InputDefinition = {
                 },
                 {
                   // todo: check if this is correct
-                  $formkit: 'autocomplete',
+                  $formkit: 'auto',
                   identifier: 'admsIdentifierType',
-                  // type: 'autocomplete',
+                  // type: 'auto',
                   voc: 'notation-type',
                   name: '@type',
                 },
@@ -1410,9 +1410,9 @@ const dcatapProperties: InputDefinition = {
         },
         {
           // todo: check if this is correct
-          $formkit: 'autocomplete',
+          $formkit: 'auto',
           identifier: 'checksumAlgorithm',
-          // type: 'autocomplete',
+          // type: 'auto',
           voc: 'spdx-checksum-algorithm',
           name: 'spdx:algorithm',
         },
@@ -1496,9 +1496,9 @@ const dcatapProperties: InputDefinition = {
               ]
             },
             {
-              $formkit: 'autocomplete',
+              $formkit: 'auto',
               identifier: 'pageFormat',
-              // type: 'autocomplete',
+              // type: 'auto',
               voc: 'file-type',
               name: 'dct:format',
               class: "property",
@@ -1540,7 +1540,7 @@ const dcatapProperties: InputDefinition = {
     // autocomplete ,multiple
     language: {
       // todo check if this is correct
-      $formkit: 'autocomplete',
+      $formkit: 'auto',
       identifier: 'language',
       multiple: true,
       name: 'dct:language',
@@ -1811,7 +1811,7 @@ const dcatapProperties: InputDefinition = {
     // autocomplete
     publisher: {
       // todo check if this is correct
-      $formkit:'autocomplete',
+      $formkit: 'auto',
       identifier: 'publisher',
       name: 'dct:publisher',
       voc: 'corporate-body',
