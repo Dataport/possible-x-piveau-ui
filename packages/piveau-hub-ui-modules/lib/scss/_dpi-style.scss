@@ -1,329 +1,329 @@
 .formkit-input {
-    height: 50px;
+  height: 50px;
 
 }
 
 .formkit-input-group-repeatable-remove {
-    height: 100% !important;
-    top: 0 !important;
-    right: 0 !important;
-    border-radius: 0 !important;
-    transition: width 0.2s ease-in-out !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
+  height: 100% !important;
+  top: 0 !important;
+  right: 0 !important;
+  border-radius: 0 !important;
+  transition: width 0.2s ease-in-out !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 
-    :before {
-        left: 0 !important;
-    }
+  :before {
+    left: 0 !important;
+  }
 
-    :after {
-        left: 0 !important;
-    }
+  :after {
+    left: 0 !important;
+  }
 
 }
 
 .formkit-input-group-repeatable-remove:hover:after {
-    left: unset !important;
+  left: unset !important;
 }
 
 .formkit-input-group-repeatable-remove:hover:before {
-    left: unset !important;
+  left: unset !important;
 }
 
 .formkit-input-group-repeatable-remove:hover {
-    width: 2.5% !important
+  width: 2.5% !important
 }
 
 .formkit-input-group-add-more {
-    justify-content: center !important;
+  justify-content: center !important;
 
-    // button:after {
-    //   content: '';
-    //   width: 0.75rem;
-    //   background-color: white;
-    //   position: absolute;
-    //   height: 0.2rem;
-    //   right: 25%;
-    //   top: 55%;
-    //   transform: rotate(90deg);
-    //   transition: all 0.3s ease-in-out;
-    // }
+  // button:after {
+  //   content: '';
+  //   width: 0.75rem;
+  //   background-color: white;
+  //   position: absolute;
+  //   height: 0.2rem;
+  //   right: 25%;
+  //   top: 55%;
+  //   transform: rotate(90deg);
+  //   transition: all 0.3s ease-in-out;
+  // }
 
-    // button:before {
-    //   content: '';
-    //   width: 0.75rem;
-    //   background-color: white;
-    //   position: absolute;
-    //   height: 0.2rem;
-    //   right: 25%;
-    //   top: 55%;
-    //   transform: rotate(180deg);
-    //   transition: all 0.3s ease-in-out;
-    // }
+  // button:before {
+  //   content: '';
+  //   width: 0.75rem;
+  //   background-color: white;
+  //   position: absolute;
+  //   height: 0.2rem;
+  //   right: 25%;
+  //   top: 55%;
+  //   transform: rotate(180deg);
+  //   transition: all 0.3s ease-in-out;
+  // }
 
-    // button:hover::after {
-    //   // transform: rotate(45deg);
-    //   // right: 40%;
-    //   scale: 1.1;
-    // }
+  // button:hover::after {
+  //   // transform: rotate(45deg);
+  //   // right: 40%;
+  //   scale: 1.1;
+  // }
 
-    // button:hover::before {
-    //   // transform: rotate(-45deg);
-    //   // right: 15%;
-    //   scale: 1.1;
-    // }
+  // button:hover::before {
+  //   // transform: rotate(-45deg);
+  //   // right: 15%;
+  //   scale: 1.1;
+  // }
 }
 
 
 
 .formkit-input-element--button {
-    position: relative;
+  position: relative;
 }
 
 
 .langDescriptionInput {
-    .formkit-input-group-repeatable {
-        display: flex;
-        flex-direction: column-reverse;
+  .formkit-input-group-repeatable {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .inputTextfield {
+    textarea {
+      height: 15vh;
+      border-radius: 0 0 5px 5px !important;
     }
 
-    .inputTextfield {
-        textarea {
-            height: 15vh;
-            border-radius: 0 0 5px 5px !important;
-        }
-
-        .formkit-input-wrapper {
-            label {
-                display: none;
-            }
-        }
-
-        span {
-            display: none !important;
-        }
-
-        .formkit-input-errors {
-            display: flex;
-            align-items: baseline;
-            justify-content: flex-end;
-        }
+    .formkit-input-wrapper {
+      label {
+        display: none;
+      }
     }
 
-    .selectLangFieldScnd {
-        width: 100%;
-
-        div:before {
-            display: none !important
-        }
-
-        .formkit-input-element--select {
-            display: flex;
-            border-radius: 5px 5px 0 0 !important;
-            border: 1px solid #cecece;
-            border-bottom: none;
-            padding-left: 2.5em !important;
-            margin-bottom: 0 !important;
-        }
-
-        select {
-            cursor: pointer;
-            border: none !important;
-            font-size: 0.8em !important;
-            padding-right: 0 !important;
-
-        }
-
-        .formkit-input-element--select:after {
-            content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
-            width: 24px;
-            height: 24px;
-            position: absolute;
-            top: 20%;
-            left: 1.5%;
-        }
-
-        .formkit-input-element--text {
-            margin-bottom: 0 !important;
-
-        }
-
-        .formkit-input-help {
-            margin-top: 0.5rem;
-        }
-
-        .infoButton {
-            display: none !important
-        }
-
-        .formkit-input-help {
-            display: none !important;
-        }
+    span {
+      display: none !important;
     }
 
-    .selectLangField {
-        width: 100%;
-
-        span {
-            display: none !important;
-        }
-
-        div:before {
-            display: none !important
-        }
-
-        .formkit-input-element--select {
-            display: flex !important;
-            border-radius: 5px 5px 0 0 !important;
-            border: 1px solid #cecece;
-            border-bottom: none;
-            padding-left: 2.5em !important;
-            margin-bottom: 0 !important;
-        }
-
-        select {
-            cursor: pointer;
-            border: none !important;
-            font-size: 0.8em !important;
-            padding-right: 0 !important;
-
-        }
-
-        .formkit-input-element--select:after {
-            content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
-            width: 24px;
-            height: 24px;
-            position: absolute;
-            top: 20%;
-            left: 1.5%;
-        }
-
-        .formkit-input-element--text {
-            margin-bottom: 0 !important;
-
-        }
-
-        .formkit-input-help {
-            margin-top: 0.5rem;
-        }
-
-        .infoButton {
-            display: none !important
-        }
-
-        .formkit-input-help {
-            display: none !important;
-        }
+    .formkit-input-errors {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-end;
     }
+  }
+
+  .selectLangFieldScnd {
+    width: 100%;
+
+    div:before {
+      display: none !important
+    }
+
+    .formkit-input-element--select {
+      display: flex;
+      border-radius: 5px 5px 0 0 !important;
+      border: 1px solid #cecece;
+      border-bottom: none;
+      padding-left: 2.5em !important;
+      margin-bottom: 0 !important;
+    }
+
+    select {
+      cursor: pointer;
+      border: none !important;
+      font-size: 0.8em !important;
+      padding-right: 0 !important;
+
+    }
+
+    .formkit-input-element--select:after {
+      content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 20%;
+      left: 1.5%;
+    }
+
+    .formkit-input-element--text {
+      margin-bottom: 0 !important;
+
+    }
+
+    .formkit-input-help {
+      margin-top: 0.5rem;
+    }
+
+    .infoButton {
+      display: none !important
+    }
+
+    .formkit-input-help {
+      display: none !important;
+    }
+  }
+
+  .selectLangField {
+    width: 100%;
+
+    span {
+      display: none !important;
+    }
+
+    div:before {
+      display: none !important
+    }
+
+    .formkit-input-element--select {
+      display: flex !important;
+      border-radius: 5px 5px 0 0 !important;
+      border: 1px solid #cecece;
+      border-bottom: none;
+      padding-left: 2.5em !important;
+      margin-bottom: 0 !important;
+    }
+
+    select {
+      cursor: pointer;
+      border: none !important;
+      font-size: 0.8em !important;
+      padding-right: 0 !important;
+
+    }
+
+    .formkit-input-element--select:after {
+      content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 20%;
+      left: 1.5%;
+    }
+
+    .formkit-input-element--text {
+      margin-bottom: 0 !important;
+
+    }
+
+    .formkit-input-help {
+      margin-top: 0.5rem;
+    }
+
+    .infoButton {
+      display: none !important
+    }
+
+    .formkit-input-help {
+      display: none !important;
+    }
+  }
 }
 
 .langStringInput {
-    .formkit-input-group-repeatable {
-        display: flex;
-        flex-direction: row-reverse;
+  .formkit-input-group-repeatable {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .inputTextfield {
+    .formkit-input-element--text {
+      input {
+        height: 45px;
+      }
     }
 
-    .inputTextfield {
-        .formkit-input-element--text {
-            input {
-                height: 45px;
-            }
-        }
-
-        label {
-            display: none !important;
-        }
-
-        .btn {
-            display: none !important;
-        }
-
-        input {
-            border-left: none !important;
-            border-radius: 0 5px 5px 0 !important;
-        }
-
-        span {
-            display: none !important;
-        }
-
-        .formkit-input-help {
-            display: none !important;
-        }
-
-        .formkit-input-errors {
-            display: flex;
-            align-items: baseline;
-            justify-content: flex-end;
-        }
+    label {
+      display: none !important;
     }
 
-    .selectLangField {
-        .formkit-input-element--select {
-            height: 45px;
-        }
-
-        .formkit-input-error {
-            margin-top: 1.9rem;
-        }
-
-        width: 20%;
-
-        label {
-            display: none !important;
-        }
-
-        span {
-            display: none !important;
-        }
-
-        div:before {
-            display: none !important
-        }
-
-        .formkit-input-element--select {
-            display: flex !important;
-            border-radius: 5px 0 0 5px !important;
-            border: 1px solid #cecece;
-            padding-left: 2.5em !important;
-
-        }
-
-        select {
-            cursor: pointer;
-            border: none !important;
-            font-size: 0.8em !important;
-            padding-right: 0 !important;
-
-        }
-
-        .formkit-input-element--select:after {
-            content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
-            width: 24px;
-            height: 24px;
-            position: absolute;
-            top: 20%;
-            left: 10%;
-        }
-
-        .formkit-input-element--text {
-            margin-bottom: 0 !important;
-
-        }
-
-        .formkit-input-help {
-            margin-top: 0.5rem;
-        }
-
-        .infoButton {
-            display: none !important
-        }
-
-        .formkit-input-help {
-            position: absolute;
-        }
+    .btn {
+      display: none !important;
     }
+
+    input {
+      border-left: none !important;
+      border-radius: 0 5px 5px 0 !important;
+    }
+
+    span {
+      display: none !important;
+    }
+
+    .formkit-input-help {
+      display: none !important;
+    }
+
+    .formkit-input-errors {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-end;
+    }
+  }
+
+  .selectLangField {
+    .formkit-input-element--select {
+      height: 45px;
+    }
+
+    .formkit-input-error {
+      margin-top: 1.9rem;
+    }
+
+    width: 20%;
+
+    label {
+      display: none !important;
+    }
+
+    span {
+      display: none !important;
+    }
+
+    div:before {
+      display: none !important
+    }
+
+    .formkit-input-element--select {
+      display: flex !important;
+      border-radius: 5px 0 0 5px !important;
+      border: 1px solid #cecece;
+      padding-left: 2.5em !important;
+
+    }
+
+    select {
+      cursor: pointer;
+      border: none !important;
+      font-size: 0.8em !important;
+      padding-right: 0 !important;
+
+    }
+
+    .formkit-input-element--select:after {
+      content: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='lightgrey' class='bi bi-globe-americas' viewBox='0 0 16 16'><path d='M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.08-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .138-1.243-2-2-3.5-2.5-.478-.16-.755.081-.99.284-.172.15-.322.279-.51.216-.445-.148-2.5-2-1.5-2.5.78-.39.952-.171 1.227.182.078.099.163.208.273.318.609.304.662-.132.723-.633.039-.322.081-.671.277-.867.434-.434 1.265-.791 2.028-1.12.712-.306 1.365-.587 1.579-.88A7 7 0 1 1 2.04 4.327Z'/></svg>");
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 20%;
+      left: 10%;
+    }
+
+    .formkit-input-element--text {
+      margin-bottom: 0 !important;
+
+    }
+
+    .formkit-input-help {
+      margin-top: 0.5rem;
+    }
+
+    .infoButton {
+      display: none !important
+    }
+
+    .formkit-input-help {
+      position: absolute;
+    }
+  }
 
 
 }
@@ -333,26 +333,26 @@
 .formkit-input-element--conditional-input,
 .formkit-input-element--autocomplete-input,
 .formkit-input-group-repeatable {
-    border: 1px solid #efefef;
-    border-radius: 5px;
-    padding: 1em 3em 1em 1em;
-    margin-bottom: 0.5rem !important;
+  border: 1px solid #efefef;
+  border-radius: 5px;
+  padding: 1em 3em 1em 1em;
+  margin-bottom: 0.5rem !important;
 }
 
 .property,
 .selected-value {
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
 }
 
 .form-container {
-    border: none;
-    padding-top: 0 !important;
+  border: none;
+  padding-top: 0 !important;
 }
 
 .startEndDate {
-    .formkit-input-group-repeatable {
-        justify-content: space-between;
-    }
+  .formkit-input-group-repeatable {
+    justify-content: space-between;
+  }
 
 }
 
@@ -377,212 +377,220 @@
 //     }
 // }
 .step-progress__bar {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
 }
 
 #nav {
-    .right-form-nav {
+  .right-form-nav {
 
-        button,
-        label {
-            transition: all 0.1s ease-in-out;
-        }
-
-        label:hover,
-        button:hover {
-            background-color: #196fd2 !important;
-            transform: scale(97%);
-
-        }
+    button,
+    label {
+      transition: all 0.1s ease-in-out;
     }
 
-    .delDisBtn {
-        button:hover {
-            background-color: #B30519 !important;
-            transform: scale(97%);
-        }
+    label:hover,
+    button:hover {
+      background-color: #196fd2 !important;
+      transform: scale(97%);
 
     }
+  }
 
-    .left-form-nav {
-        button {
-            transition: all 0.1s ease-in-out;
-        }
-
-        button:hover {
-            transform: scale(97%);
-            border: 1px solid red;
-            // box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)
-        }
+  .delDisBtn {
+    button:hover {
+      background-color: #B30519 !important;
+      transform: scale(97%);
     }
+
+  }
+
+  .left-form-nav {
+    button {
+      transition: all 0.1s ease-in-out;
+    }
+
+    button:hover {
+      transform: scale(97%);
+      border: 1px solid red;
+      // box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12)
+    }
+  }
 }
 
 .tempResWrapper {
-    .formkit-input-group-repeatable {
-        display: flex;
-    }
+  .formkit-input-group-repeatable {
+    display: flex;
+  }
 
-    .formkit-input {
-        margin: 0 6px;
-    }
+  .formkit-input {
+    margin: 0 6px;
+  }
 }
 
 // All new styles
-.formkit-input-element--auto{
-    width: 100%;
+.formkit-input-element--auto {
+  width: 100%;
 }
-.pageTitle, .pageDescription {
-    .interactionWrapper {
-        position: absolute;
-        right: 75px;
-    }
+
+.pageTitle,
+.pageDescription {
+  .interactionWrapper {
+    position: absolute;
+    right: 75px;
+  }
 
 }
 
 .contactPoint,
 .page {
-    .horizontal-wrapper {
-        flex-direction: column;
-    }
+  .horizontal-wrapper {
+    flex-direction: column;
+  }
 
 }
 
-.suggestion-input-group{
-    width: 100%;
+.suggestion-input-group {
+  width: 100%;
 }
+
 .formkit-icon {
 
-    background: unset !important;
-    box-shadow: none !important;
-    border-radius: unset !important;
-    margin: auto;
-    transition: all ease-in-out 200ms;
+  background: unset !important;
+  box-shadow: none !important;
+  border-radius: unset !important;
+  margin: auto;
+  transition: all ease-in-out 200ms;
 
-    &:hover {
-        cursor: pointer;
-        color: darkgray;
-    }
+  &:hover {
+    cursor: pointer;
+    color: darkgray;
+  }
 
-    svg {
-        max-height: 1.2rem !important;
-        max-width: 1.2rem !important;
+  svg {
+    max-height: 1.2rem !important;
+    max-width: 1.2rem !important;
 
-    }
+  }
 
 }
 
-#datasetID{
-    width: 100%;
-    div{
-        .formkit-outer{
-            width: 97%;
-        }
+#datasetID {
+  width: 100%;
+
+  div {
+    .formkit-outer {
+      width: 97%;
     }
-    
-    
+  }
+
+
 }
+
 .formkit-outer {
-    margin: 1rem;
-    position: relative;
-    width: 88%;
+  margin: 1rem;
+  position: relative;
+  width: 88%;
 }
 
 .w75-descField {
-    width: 75%;
+  width: 75%;
 
 
-    .formkit-icon {
-        position: relative;
-        margin: 0;
+  .formkit-icon {
+    position: relative;
+    margin: 0;
 
-        svg {
-            position: absolute;
-            left: 25%;
-            top: 15%;
-        }
+    svg {
+      position: absolute;
+      left: 25%;
+      top: 15%;
     }
+  }
 
-    .formkit-prefix-icon {
-        margin-right: -1rem;
-    }
+  .formkit-prefix-icon {
+    margin-right: -1rem;
+  }
 }
 
 .w25-textfield {
-    width: 25%;
+  width: 25%;
 
 }
 
 .w50-textfield {
-    width: 50%;
+  width: 50%;
 }
 
 .w75-textfield {
-    width: 75%;
+  width: 75%;
 }
+
 .w88-textfield {
-    width: 88%;
+  width: 88%;
 }
+
 .w100-textfield {
-    width: 100%;
+  width: 100%;
 }
 
 .w97-textfield {
-    width: 97%;
+  width: 97%;
 }
 
 .formkit-prefix-icon {
-    margin-right: -1rem;
+  margin-right: -1rem;
 }
 
 
 
 .activeSection {
-    width: 100%;
-    padding: 1rem;
+  width: 100%;
+  padding: 1rem;
 }
 
 .repeatable {
-    // display: flex;
-    // position: relative;
+  // display: flex;
+  // position: relative;
 }
 
 .formkit-label {
-    position: absolute;
-    padding: 3px;
-    top: -12px;
-    left: 10px;
-    background-color: #fff;
-    z-index: 99;
+  position: absolute;
+  padding: 3px;
+  top: -12px;
+  left: 10px;
+  background-color: #fff;
+  z-index: 99;
 
 }
 
 .steps {
-    display: flex;
-    flex-direction: column;
-    // min-width: 10vw;
-    border: none;
-    border-radius: unset;
-    background-color: unset;
+  display: flex;
+  flex-direction: column;
+  // min-width: 10vw;
+  border: none;
+  border-radius: unset;
+  background-color: unset;
 }
 
 .step {
-    border: none;
-    background-color: unset;
-    display: flex;
-    flex-direction: column;
-    min-width: 10vw;
-    // &:before{
-    //     width: 2px;
-    //     height: 5px;
-    //     background-color: #B30519;
-    //     content: "";
-    // }
+  border: none;
+  background-color: unset;
+  display: flex;
+  flex-direction: column;
+  min-width: 10vw;
+  // &:before{
+  //     width: 2px;
+  //     height: 5px;
+  //     background-color: #B30519;
+  //     content: "";
+  // }
 }
 
-.step:after {
-    left: 55%;
+.step::after,
+.step--errors {
+  left: 55%;
 }
 
 
@@ -591,81 +599,76 @@
     padding-top: 16px;
     // height: 50%;
 
-    .stepCircle {
-        background-color: #595959;
-        font-size: 24px;
-    }
+  .stepCircle {
+    background-color: #595959;
+    font-size: 24px;
+  }
 
     &:after {
         top: 5px;
         left: 60%;
     }
 
-    // &::before{
-    //     height: 10px;
-    //     background-color: #B30519;
-    //     content: "";
-    //     margin-top: 16px;
-    // }
-    .seperatorHorizontalStepper {
+  // &::before{
+  //     height: 10px;
+  //     background-color: #B30519;
+  //     content: "";
+  //     margin-top: 16px;
+  // }
+  .seperatorHorizontalStepper {
 
-        width: 2px;
-        background-color: #595959;
+    width: 2px;
+    background-color: #595959;
 
-    }
+  }
 }
 
 .inactiveStep {
-    .stepCircle {
-        width: 25px;
-        height: 25px;
-        padding: 0;
-        transition: all ease-in-out 200ms;
-    }
+  .stepCircle {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    transition: all ease-in-out 200ms;
+  }
 
-    .stepCircle:hover {
-        // font-size: 16px;
-        width: 35px;
-        height: 35px;
-        // padding: 20px 0;
-    }
+  .stepCircle:hover {
+    // font-size: 16px;
+    width: 35px;
+    height: 35px;
+    // padding: 20px 0;
+  }
 
-    span {
-        opacity: 0;
+  .seperatorHorizontalStepper {
+    height: 5px;
+    width: 2px;
+    background-color: #595959;
 
-    }
-
-    .seperatorHorizontalStepper {
-        height: 5px;
-        width: 2px;
-        background-color: #595959;
-
-    }
+  }
 }
 
 
 .formkit-form {
-    border: none;
-    border-radius: unset;
-    max-width: 100%;
-    box-shadow: none;
+  border: none;
+  border-radius: unset;
+  max-width: 100%;
+  box-shadow: none;
 
-    button {
+  button {
 
-        font-size: 1em !important;
-        transition: all 0.3s ease-in-out;
-    }
+    font-size: 1em !important;
+    transition: all 0.3s ease-in-out;
+  }
 }
 
 .stepBubbleWrap {
-    margin: auto;
+  margin: auto;
 }
 
 .stepCircle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 100%;
-    font-weight: bold;
-    color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100%;
+  font-weight: bold;
+  color: white;
 }
