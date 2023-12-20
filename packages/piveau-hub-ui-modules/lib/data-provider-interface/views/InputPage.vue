@@ -5,7 +5,7 @@
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
         <!-- TestPage for Custom Inputs -->
-        <CustomInputs></CustomInputs>
+        <!-- <CustomInputs></CustomInputs> -->
         
         <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"

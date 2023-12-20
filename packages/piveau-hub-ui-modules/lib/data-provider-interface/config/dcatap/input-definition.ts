@@ -289,7 +289,7 @@ const dcatapProperties: InputDefinition = {
     subject: {
       identifier: 'subject',
       $formkit: 'auto',
-      name: 'dct:subject',
+      property: 'dct:subject',
       multiple: true,
       annifTheme: true,
       voc: 'eurovoc',
@@ -334,8 +334,8 @@ const dcatapProperties: InputDefinition = {
     publisher: {
       $formkit: 'auto',
       identifier: 'publisher',
-      name: 'dct:publisher',
       voc: 'corporate-body',
+      property: 'dct:publisher',
     },
     spatial: {
       identifier: 'spatial',
@@ -445,8 +445,9 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       annifTheme: true,
       voc: 'data-theme',
-      name: 'dcat:theme',
       '@annifSuggestion': false,
+      property: 'dcat:theme',
+      
       classes: {
         multiple: 'multiple',
         outer: 'w88-textfield'
@@ -457,7 +458,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'accessRights',
       $formkit: 'auto',
       voc: 'access-right',
-      name: 'dct:accessRights',
+      property: 'dct:accessRights',
     },
     creator: {
       identifier: 'creator',
@@ -605,8 +606,8 @@ const dcatapProperties: InputDefinition = {
               identifier: 'pageFormat',
               // type: 'auto',
               voc: 'file-type',
-              name: 'dct:format',
               class: "property",
+              property: 'dct:format',
             },
             {
               identifier: 'pageUrl',
@@ -627,7 +628,8 @@ const dcatapProperties: InputDefinition = {
       identifier: 'accrualPeriodicity',
       $formkit: 'auto',
       voc: 'frequency',
-      name: 'dct:accrualPeriodicity',
+      property: 'dct:accrualPeriodicity',
+      
     },
     hasVersion: {
       identifier: 'hasVersion',
@@ -770,7 +772,7 @@ const dcatapProperties: InputDefinition = {
     language: {
       identifier: 'language',
       $formkit: 'auto',
-      name: 'dct:language',
+      property: 'dct:language',
       multiple: true,
       voc: 'language',
     },
@@ -807,7 +809,7 @@ const dcatapProperties: InputDefinition = {
                   identifier: 'admsIdentifierType',
                   // type: 'auto',
                   voc: 'notation-type',
-                  name: '@type',
+                  property: '@type',
                 },
               ],
             },
@@ -1052,7 +1054,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'type',
       $formkit: 'auto',
       voc: 'dataset-type',
-      name: 'dct:type',
+      property: 'dct:type',
     },
     versionInfo: {
       identifier: 'versionInfo',
@@ -1097,7 +1099,7 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:catalog',
       'prefix-icon': "info",
       validation: 'required',
-      options: {},
+      options: {"title":"hallo"},
     },
     isUsedBy: {
       identifier: 'isUsedBy',
@@ -1168,7 +1170,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'availability',
       $formkit: 'auto',
       voc: 'planned-availability',
-      name: 'dcatap:availability',
+      property: 'dcatap:availability',
     },
     // minimum
     description: {
@@ -1206,7 +1208,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'format',
       $formkit: 'auto',
       voc: 'file-type',
-      name: 'dct:format',
+      property: 'dct:format',
     },
     // licence: {
     //   identifier: 'licence',
@@ -1295,7 +1297,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'mediaType',
       $formkit: 'auto',
       voc: 'iana-media-types',
-      name: 'dcat:mediaType',
+      property: 'dcat:mediaType',
     },
     downloadUrl: {
       identifier: 'downloadUrl',
@@ -1412,9 +1414,8 @@ const dcatapProperties: InputDefinition = {
           // todo: check if this is correct
           $formkit: 'auto',
           identifier: 'checksumAlgorithm',
-          // type: 'auto',
           voc: 'spdx-checksum-algorithm',
-          name: 'spdx:algorithm',
+          property: 'spdx:algorithm',
         },
       ],
     },
@@ -1423,14 +1424,14 @@ const dcatapProperties: InputDefinition = {
       identifier: 'compressFormat',
       $formkit: 'auto',
       voc: 'iana-media-types',
-      name: 'dcat:compressFormat',
+      property: 'dcat:compressFormat',
     },
     // autocomplete
     packageFormat: {
       identifier: 'packageFormat',
       $formkit: 'auto',
       voc: 'iana-media-types',
-      name: 'dcat:packageFormat',
+      property: 'dcat:packageFormat',
     },
     // format (autocomplete)
     page: {
@@ -1500,7 +1501,7 @@ const dcatapProperties: InputDefinition = {
               identifier: 'pageFormat',
               // type: 'auto',
               voc: 'file-type',
-              name: 'dct:format',
+              property: 'dct:format',
               class: "property",
             },
             {
@@ -1543,7 +1544,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       identifier: 'language',
       multiple: true,
-      name: 'dct:language',
+      property: 'dct:language',
       voc: 'language',
     },
     conformsTo: {
@@ -1727,14 +1728,14 @@ const dcatapProperties: InputDefinition = {
       identifier: 'type',
       $formkit: 'auto',
       voc: 'distribution-type',
-      name: 'dct:type',
+      property: 'dct:type',
     },
     // autocomplete
     status: {
       identifier: 'status',
       $formkit: 'auto',
       voc: 'dataset-status',
-      name: 'adms:status',
+      property: 'adms:status',
     },
   },
   catalogues: {
@@ -1813,15 +1814,15 @@ const dcatapProperties: InputDefinition = {
       // todo check if this is correct
       $formkit: 'auto',
       identifier: 'publisher',
-      name: 'dct:publisher',
-      voc: 'corporate-body',
+      property: 'dct:publisher',
+      voc: 'corporate-body',      
     },
     // autocomplete ,multiple
     language: {
       identifier: 'language',
       $formkit: 'auto',
       multiple: true,
-      name: 'dct:language',
+      property: 'dct:language',
       voc: 'language',
     },
     // licence: {

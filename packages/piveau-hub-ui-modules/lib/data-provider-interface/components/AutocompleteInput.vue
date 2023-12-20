@@ -12,7 +12,7 @@
         <a class="annifItems annifHandleBtn" @click="manSearch = !manSearch">Manually search the vocabulary</a>
       </div>
       <div class="position-relative d-flex align-items-center justify-content-center w-100">
-        <FormKit v-if="!annifTheme || manSearch" prefix-icon="search" type="text" class="form-control" name="autocomplete"
+        <FormKit v-if="!annifTheme || manSearch" prefix-icon="search" type="text" class="form-control" :name="context.attrs.property"
           :placeholder="$t('message.dataupload.searchVocabulary')" v-model="autocomplete.text"
           @focus="focusAutocomplete()" @input="getAutocompleteSuggestions()">
       </FormKit>
@@ -20,7 +20,7 @@
           <a v-if="!annifTheme" class="custom-remove" v-bind:class="{ remBG: choice }"></a> 
         </div> -->
       </div>
-      <div class="suggestion-list-group">
+      <div class="suggestion-list-group" v-if="searchVoc">
         <ul class="list-group suggestion-list">
           <button class="list-group-item list-group-item-action"
             v-for="(suggestion, i) in filteredAutocompleteSuggestions" :key="i"
@@ -82,7 +82,6 @@ export default {
   setup(props) {
     // setup() receives props as the first argument.
     
-    console.log(props.context.attrs)
   },
   data() {
     return {
@@ -92,10 +91,11 @@ export default {
         suggestions: [],
         clicked: false
       },
+      searchVoc: false,
       choice: false,
       themeSuggestionList: {},
       manSearch: false,
-      values: [1,'hallo'],
+      values: [],
       isMultiple: this.context.attrs.multiple,
       annifEnv: this.context.attrs.annifTheme,
       // annifThemeEnv: this.$env.content.dataProviderInterface,
@@ -115,7 +115,6 @@ export default {
     if (!this.annifEnv) {
       this.manSearch = !this.manSearch
     }
-console.log(this.isMultiple);
     // TODO: Improve buggy code
     setTimeout(() => {
       for (var i = 0; i < Object.keys(this.values).length; i++) {
@@ -168,6 +167,7 @@ console.log(this.isMultiple);
       }
     },
     focusAutocomplete() {
+      this.searchVoc = true;
       this.autocomplete.selected = false;
       this.autocomplete.text = "";
       this.getAutocompleteSuggestions();
@@ -330,6 +330,7 @@ console.log(this.isMultiple);
     },
     handleAutocompleteSuggestions(suggestion) {
       this.autocomplete.selected = true;
+      console.log(this.context);
       if (suggestion.resource == "None") {
         return;
       }

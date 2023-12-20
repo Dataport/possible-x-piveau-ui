@@ -588,6 +588,7 @@
 
 .activeItem {
     padding: 0 16px;
+    padding-top: 16px;
     // height: 50%;
 
     .stepCircle {
@@ -596,7 +597,7 @@
     }
 
     &:after {
-        top: -5px;
+        top: 5px;
         left: 60%;
     }
 
