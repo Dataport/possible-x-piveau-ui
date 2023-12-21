@@ -23,6 +23,7 @@ const glueConfig = {
 
     // similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
     // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
+    similarityEndpoint: 'similarities',
     similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-piveau.apps.osc.fokus.fraunhofer.de/',
 
     // fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
