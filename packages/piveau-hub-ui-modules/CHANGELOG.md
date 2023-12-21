@@ -1,3 +1,12 @@
+## [3.15.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.0...v3.15.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* correct expanded property in dsd-properties ([f988e53](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f988e53012d31f3c5c82b4662606155382eea3d3))
+
+
+
 # [3.15.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.12...v3.15.0) (2023-12-21)
 
 
