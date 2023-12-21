@@ -63,7 +63,7 @@ export default {
       'getUserDrafts',
     ]),
     rawTitle() {
-      return this.$formkit.get("title")?.context.value;
+      return this.$formkit.get("title")?.context.value[0]['@value'];
     },
   },
   methods: {
@@ -114,6 +114,7 @@ export default {
   watch: {
     rawTitle: {
       handler(newValue) {
+        console.log(newValue)
         this.uniqueID = newValue
         .toLowerCase()
         .replace(/ /g, '-');
