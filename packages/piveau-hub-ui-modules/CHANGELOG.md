@@ -1,8 +1,13 @@
-## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.3...v3.15.4) (2023-12-21)
+## [3.15.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.4...v3.15.5) (2023-12-21)
+
+
+### Bug Fixes
+
+* correct translation key for geocodingDescriptionDe ([57aea35](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/57aea354100fc3b8e44310a5f6affde181c274ea))
 
 
 
-## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
+## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.4) (2023-12-21)
 
 
 ### Bug Fixes
