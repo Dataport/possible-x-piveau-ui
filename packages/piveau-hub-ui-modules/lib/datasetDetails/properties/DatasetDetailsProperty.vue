@@ -109,7 +109,6 @@ export default {
       return v;
     },
     show() {
-      console.log("NAME", this.name, this.data)
       return showByType(this.type, this.data);
     }
   },

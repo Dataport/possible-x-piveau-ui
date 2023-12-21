@@ -9,8 +9,8 @@
       />
       <div class="position-relative dsd-item additional-information"
            data-cy="additional-information"
-           v-show="infoVisible" id="myTab" >
-        <table class="table table-borderless table-responsive" ref="dsdProperties" role="tablist">
+           v-show="infoVisible">
+        <table class="table table-borderless table-responsive" ref="dsdProperties" role="tablist" id="myTab">
             <dataset-details-property v-for='(name, index) in fieldsArray'
                                       :name="name"
                                       :translate="fieldSchema[name]?.translate"
@@ -132,7 +132,7 @@ export default {
     },
     fields() {
       let properties = this.$env.content?.datasetDetails?.properties;
-      if (!properties) {
+      if (!properties || properties === "") {
         properties = dcatFields;
         if (this.$env.content.dataProviderInterface.specification === 'dcatap') {
           properties += "," + dcatDeFields;
