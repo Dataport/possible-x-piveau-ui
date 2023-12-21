@@ -59,7 +59,7 @@ export const dcatDeSchema = () => ({
     politicalGeocodingURI: {type: 'objects', fields:"label,resource:link"},
     availability: {type: 'object', translate:"availabilityDE,availability", fields:"label,resource:link"},
     contributorID: {type: 'objects', fields:"label,resource:link"},
-    geocodingDescriptionDe: {type: 'translation'},
+    geocodingDescriptionDe: {type: 'translation', translate:"geocodingDescription,geocodingDescription"},
     legalBasis: {type: 'translation'},
     qualityProcessURI: {type: 'uri'},
     typeDe: {type: 'string', translate:"type,type"},
