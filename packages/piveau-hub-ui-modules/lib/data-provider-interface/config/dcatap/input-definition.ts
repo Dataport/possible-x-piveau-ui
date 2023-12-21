@@ -137,7 +137,7 @@ const dcatapProperties: InputDefinition = {
     },
     // minimum (unability to remove fields to 0)
     title: {
-      identifier: 'title',
+      id: 'title',
       $formkit: 'repeatable',
       name: 'dct:title',
       children: [
