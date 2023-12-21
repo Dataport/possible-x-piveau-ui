@@ -134,7 +134,7 @@ export default {
       let properties = this.$env.content?.datasetDetails?.properties;
       if (!properties || properties === "") {
         properties = dcatFields;
-        if (this.$env.content.dataProviderInterface.specification === 'dcatap') {
+        if (this.$env.content.dataProviderInterface.specification === 'dcatapde') {
           properties += "," + dcatDeFields;
         }
       }

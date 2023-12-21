@@ -6,7 +6,7 @@ export const dcatFields = `releaseDate,modificationDate,creator,landingPages,sou
     statUnitMeasures,isReferencedBy,qualifiedAttributions,wasGeneratedBy,
     qualifiedRelations,sample,spatialResolutionInMeters,type,temporalResolution`;
 
-export const dcatSchema = (t) => ({
+export const dcatSchema = (t: Function) => ({
     releaseDate: {type: 'date', translate: 'created'},
     modificationDate: {type: 'date', translate: 'updated'},
     landingPages: {type: 'links', translate: 'landingPage'},
@@ -44,7 +44,7 @@ export const dcatSchema = (t) => ({
     sample: {type: 'links'},
     spatialResolutionInMeters: {
         type: 'first:number', translate: "spatialResolutionInMeters,spatialResolutionInMeters.label",
-            transform: value => t('message.metadata.spatialResolutionInMeters.value', {number: value[0]})
+            transform: (value: [number]) => t('message.metadata.spatialResolutionInMeters.value', {number: value[0]})
     },
     type: {type: 'object', fields: "label,resource:link"},
     temporalResolution: {type: 'string'}
