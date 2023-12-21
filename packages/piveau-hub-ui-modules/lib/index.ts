@@ -151,7 +151,7 @@ import DatasetDetailsDataset from "./datasetDetails/DatasetDetailsDataset";
 import DatasetDetailsDescription from "./datasetDetails/DatasetDetailsDescription";
 import DatasetDetailsFeedbackButton from "./datasetDetails/DatasetDetailsFeedbackButton";
 import DatasetDetailsLinkedMetricsButton from "./datasetDetails/DatasetDetailsLinkedMetricsButton";
-import DatasetDetailsProperties from "./datasetDetails/DatasetDetailsProperties";
+import DatasetDetailsProperties from "./datasetDetails/properties/DatasetDetailsProperties";
 import DatasetDetailsQuality from "./datasetDetails/DatasetDetailsQuality";
 import DatasetDetailsShareButton from "./datasetDetails/DatasetDetailsShareButton";
 import DatasetDetailsSimilarDatasets from "./datasetDetails/DatasetDetailsSimilarDatasets";
