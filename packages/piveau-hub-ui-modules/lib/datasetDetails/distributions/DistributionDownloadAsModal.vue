@@ -88,7 +88,10 @@ import {
     mapGetters
 } from 'vuex'
 import axios from 'axios'
-import { late } from 'zod'
+import {
+    late
+} from 'zod'
+
 
 export default {
     name: "download-as-modal",
@@ -165,10 +168,10 @@ export default {
                     axios({
                             url: `${this.$env.content.datasetDetails.downloadAs.proxyUrl}/?uri=${uri}/?url=${downloadOrAccessUrl}`,
                             method: 'GET',
+                            responseType: 'blob',
                             headers: {
                                 'Content-Type': 'application/octet-stream; charset=UTF-8'
                             },
-                            // Add the cancel token to the request config
                             cancelToken: this.source.token,
                         }).then((res) => {
                             this.progress = '8' + this.randomNumber();
@@ -179,13 +182,23 @@ export default {
                             this.readyForDownload = true;
                             const locale = this.$route.query.locale;
                             let FILE;
-                              if (this.selected === 'json') {
+                            if (this.selected === 'json') {
                                 const jsonString = JSON.stringify(res.data);
-                                FILE = window.URL.createObjectURL(new Blob([jsonString], { type: 'application/json' }));
-                              } else {
+                                FILE = window.URL.createObjectURL(new Blob([jsonString], {
+                                    type: 'application/json'
+                                }));
+                            } else if (this.selected === 'xlsx') {
+                                FILE = window.URL.createObjectURL(new Blob([res.data], {
+                                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                                }))
+                            } else if (this.selected === 'xls') {
+                                FILE = window.URL.createObjectURL(new Blob([res.data], {
+                                    type: 'application/vnd.ms-excel'
+                                }))
+                            } else {
                                 FILE = window.URL.createObjectURL(new Blob([res.data]));
-                              }
-                              
+                            }
+
                             let docUrl = document.createElement('a');
                             docUrl.href = FILE;
                             docUrl.setAttribute('download', this.setFileName(locale));
