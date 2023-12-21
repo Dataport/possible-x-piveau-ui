@@ -179,7 +179,7 @@ deploy to openshift:
     - oc get routes $CI_PROJECT_NAME 2> /dev/null || oc create route edge --service=$CI_PROJECT_NAME --hostname=$CI_PROJECT_NAME-$OPENSHIFT_DOMAIN --insecure-policy=Redirect --port=8080
 
 publish to gitlab.com:
-  image: appropriate/curl
+  image: curlimages/curl
   stage: publish
   only:
     - master
