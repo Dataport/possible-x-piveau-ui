@@ -1,15 +1,15 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-
+<details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
         <!-- TestPage for Custom Inputs -->
         <!-- <CustomInputs></CustomInputs> -->
         
-        <FormKit type="form" v-model="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
+        <FormKit type="form" id="dpi" v-model="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
-          class="d-flex">
+          class="d-flex ">
           <div class="d-flex">
             <ul class="steps">
               <li 
@@ -38,7 +38,7 @@
               </li>
             </ul>
             <!-- <FormKitSummary /> -->
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column w-100">
               <InputPageStep name="mandatory"><FormKitSchema :schema="fullSchema[0]" /></InputPageStep>
               <InputPageStep name="advised"><FormKitSchema :schema="fullSchema[1]" /></InputPageStep>
               <InputPageStep name="recommended"><FormKitSchema :schema="fullSchema[2]" /></InputPageStep>
@@ -60,10 +60,12 @@
                     <span>{{ $t('message.dataupload.next') }}</span>
                   </div>
                 </FormKit>
+                <FormKit type="button" @click="clearForm">Clear Form</FormKit>
+                <FormKit type="submit" id="submit-form"></FormKit>
               </div>
             </div>
           </div>
-          <FormKit type="submit" id="submit-form" class="d-none"></FormKit>
+         
 
           
         </FormKit>
@@ -202,6 +204,9 @@ export default defineComponent({
       'setMandatoryStatus',
       'setDeleteDistributionInline',
     ]),
+    clearForm(){
+      this.$formkit.reset('dpi')
+    },
     handleStep(stepName) {
       this.step = stepName;
 

@@ -1,6 +1,6 @@
 import Repeatable from "./Repeatable.vue";
-import { FormKitLibrary} from "@formkit/core";
-import{ createInput } from '@formkit/vue';
+import { FormKitLibrary } from "@formkit/core";
+import { createInput } from '@formkit/vue';
 
 
 import {
@@ -15,9 +15,12 @@ export default {
         type: 'list',
         component: Repeatable
     },
-    auto: createInput(AutocompleteInput, {
-        props: ['voc'],
-    }),
+    // auto: {
+    //     type: 'input',
+    //     props: ['voc'],
+    //     component: AutocompleteInput,
+    // },
+    auto:createInput(AutocompleteInput, {props: ['voc'],}),
     fileupload: createInput(FileUpload, {}),
     id: createInput(UniqueIdentifierInput, {}),
     // cc: createInput(ComplexConditionalInput, {}),
