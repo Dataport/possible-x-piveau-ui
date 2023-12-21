@@ -5,34 +5,38 @@
   <div class="autoCompleteWrapper" :class="[context.attrs.identifier]">
 
     <FormKit type="text" @click="this.openSuggestedList = !this.openSuggestedList" class="w-100"
-      @input="getAutocompleteSuggestions" :placeholder="this.context.attrs.placeholder"/>
+      @input="getAutocompleteSuggestions" :placeholder="this.context.attrs.placeholder" />
     <div v-if="openSuggestedList" class="suggestedItemsContainer">
       <ul>
         <li v-for="items, key in this.autocomplete.suggestions" :key="key" @click="this.chooseSuggestedItem(items)">{{
           items.name }}</li>
       </ul>
     </div>
-    <div v-if="this.context.attrs.multiple" class="chosenItemsContainer">
-      <ul v-for="chosenItems, index in this.values" :key="index">
-        <li>{{ chosenItems.name }}</li>
+    <div v-if="this.context.attrs.multiple"  :class="{'chosenItemsContainer': true, 'd-none': this.values.length < 1}" >
+      <div >
+        <h4>Active themes:</h4>
+      <hr>
+      </div>
+      <ul>
+        <li v-for="chosenItems, index in this.values" :key="index">{{ chosenItems.name }}</li>
       </ul>
     </div>
   </div>
 </template>
 <script>
-import { ref, nextTick } from "vue";
+import { ref } from "vue";
 import { mapActions } from "vuex";
 import { getTranslationFor } from "../../utils/helpers";
 import { getNode } from '@formkit/core'
 
- 
-   
+
+
 
 export default {
   props: {
     context: Object,
   },
-  
+
   data() {
     return {
       openSuggestedList: false,
@@ -100,13 +104,15 @@ export default {
     chooseSuggestedItem(chosenObject) {
 
       if (this.context.attrs.multiple) {
-        this.values.push(chosenObject)
+        if (this.values.includes(chosenObject)) {
+        } else {
+          this.values.push(chosenObject)
+        }
       }
       else {
+        console.log(this.context);
         this.values[0] = chosenObject;
         this.context.attrs.placeholder = chosenObject.name
-
-        // console.log(this.context);
       }
 
       this.context.model = this.values;
@@ -132,7 +138,7 @@ export default {
     }
   },
   mounted() {
-  
+
     this.getAutocompleteSuggestions();
     if (ref(this.context.value)._rawValue) {
       this.values = ref(this.context.value)._rawValue;
