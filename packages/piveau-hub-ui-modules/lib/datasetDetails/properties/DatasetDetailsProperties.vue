@@ -66,7 +66,7 @@ export default {
       infoVisible: true,
       initialHeight: 0,
       restrictedHeight: 100,
-      expanded: true,
+      expanded: false,
     };
   },
   computed: {
