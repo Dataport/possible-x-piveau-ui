@@ -180,6 +180,7 @@ const state = {
 };
 
 const getters = {
+    getProperty: state => property => state.dataset[property],
     // DCAT-AP.de fields
     getAvailability: state => state.dataset.availability,
     getPoliticalGeocodingLevelURI: state => state.dataset.politicalGeocodingLevelURI,

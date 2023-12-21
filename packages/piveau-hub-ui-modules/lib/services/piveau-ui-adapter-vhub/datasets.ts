@@ -67,7 +67,7 @@
    ds.qualifiedAttributions = dataGetters.getArrayOfStrings(dataset, 'qualified_attribution');
    ds.qualifiedRelations = dataGetters.getArrayOfObjects(dataset, 'qualified_relation', ['relation', 'had_role']);
    ds.relations = dataGetters.getArrayOfStrings(dataset, 'relation');
-   ds.relatedResources = dataGetters.getArrayOfStrings(dataset, 'related_resources');
+   // ds.relatedResources = dataGetters.getArrayOfStrings(dataset, 'related_resources');
    ds.releaseDate = dataGetters.getString(dataset, 'issued');
    ds.sample = dataGetters.getArrayOfStrings(dataset, 'sample');
    ds.sources = dataGetters.getArrayOfStrings(dataset, 'source');
@@ -77,7 +77,7 @@
    ds.statUnitMeasures = dataGetters.getArrayOfStrings(dataset, 'stat_unit_measure');
    ds.subject = dataGetters.getArrayOfObjects(dataset, 'subject', ['resource', 'label']);
    ds.temporal = dataGetters.getArrayOfObjects(dataset, 'temporal', ['gte', 'lte']);
-   ds.temporalResolution = dataGetters.getArrayOfStrings(dataset, 'temporal_resolution');
+   ds.temporalResolution = dataGetters.getString(dataset, 'temporal_resolution');
    ds.theme = dataGetters.getArrayOfObjects(dataset, 'categories', ['id', 'label', 'resource']);
    ds.translationMetaData = dataGetters.getTranslationMetaData(dataset);
    ds.title = dataGetters.getObjectLanguage(dataset, 'title', 'No title available');
