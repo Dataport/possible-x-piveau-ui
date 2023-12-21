@@ -1,3 +1,12 @@
+# [3.15.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.12...v3.15.0) (2023-12-21)
+
+
+### Features
+
+* make dsd properties configurable ([1dd9aa8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1dd9aa87abf2e79bfceb597fa40fa887b54ed26f))
+
+
+
 ## [3.14.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.11...v3.14.12) (2023-12-13)
 
 
