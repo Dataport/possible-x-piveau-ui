@@ -1,3 +1,12 @@
+## [3.15.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.1...v3.15.2) (2023-12-21)
+
+
+### Bug Fixes
+
+* styles in properties box ([80d2dc1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/80d2dc19588e223542a8f8a5ad010fb052b72d26))
+
+
+
 ## [3.15.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.0...v3.15.1) (2023-12-21)
 
 
