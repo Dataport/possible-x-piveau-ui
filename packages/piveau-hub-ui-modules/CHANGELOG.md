@@ -1,3 +1,12 @@
+## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
+
+
+### Bug Fixes
+
+* change position of creator in dcat spec ([a688a28](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a688a2885252f670a660bf247809ea8be11d615c))
+
+
+
 ## [3.15.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.1...v3.15.2) (2023-12-21)
 
 
