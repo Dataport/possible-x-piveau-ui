@@ -1,3 +1,12 @@
+## [3.15.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.6...v3.15.7) (2023-12-22)
+
+
+### Bug Fixes
+
+* tooltips and documentation ([2e32736](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2e3273662ee9c7543f5e9719ffd48729167e8b21))
+
+
+
 ## [3.15.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.5...v3.15.6) (2023-12-22)
 
 
@@ -16,11 +25,7 @@
 
 
 
-## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.3...v3.15.4) (2023-12-21)
-
-
-
-## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
+## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.4) (2023-12-21)
 
 
 ### Bug Fixes
