@@ -164,7 +164,6 @@ export default {
                     // Create a cancel token
                     const CancelToken = axios.CancelToken;
                     this.source = CancelToken.source();
-
                     axios({
                             url: `${this.$env.content.datasetDetails.downloadAs.proxyUrl}/?uri=${uri}/?url=${downloadOrAccessUrl}`,
                             method: 'GET',
@@ -182,21 +181,35 @@ export default {
                             this.readyForDownload = true;
                             const locale = this.$route.query.locale;
                             let FILE;
-                            if (this.selected === 'json') {
-                                const jsonString = JSON.stringify(res.data);
-                                FILE = window.URL.createObjectURL(new Blob([jsonString], {
-                                    type: 'application/json'
-                                }));
-                            } else if (this.selected === 'xlsx') {
-                                FILE = window.URL.createObjectURL(new Blob([res.data], {
-                                    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                                }))
-                            } else if (this.selected === 'xls') {
-                                FILE = window.URL.createObjectURL(new Blob([res.data], {
-                                    type: 'application/vnd.ms-excel'
-                                }))
-                            } else {
-                                FILE = window.URL.createObjectURL(new Blob([res.data]));
+
+                            switch (this.selected) {
+                                case 'json':
+                                    const jsonString = JSON.stringify(res.data);
+                                    FILE = window.URL.createObjectURL(new Blob([jsonString], {
+                                        type: 'application/json'
+                                    }));
+                                    break;
+                                case 'xlsx':
+                                    FILE = window.URL.createObjectURL(new Blob([res.data], {
+                                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                                    }))
+                                    break;
+                                case 'xls':
+                                    FILE = window.URL.createObjectURL(new Blob([res.data], {
+                                        type: 'application/vnd.ms-excel'
+                                    }))
+                                    break;
+                                case 'docx':
+                                    FILE = window.URL.createObjectURL(new Blob([res.data], {
+                                        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                                    }))
+                                    break;
+                                case 'xml':
+                                    FILE = window.URL.createObjectURL(new Blob([res.data], {
+                                        type: 'application/xml'
+                                    }))
+                                default:
+                                    FILE = window.URL.createObjectURL(new Blob([res.data]));
                             }
 
                             let docUrl = document.createElement('a');
@@ -211,7 +224,7 @@ export default {
                             if (axios.isCancel(e)) {
                                 console.log('Request canceled:', e.message);
                             } else {
-                                if (e.response) this.errorMsg = e.response.data;
+                                if (e.response) this.errorMsg = e.response.stetusText;
                                 this.error = true;
                                 this.downloadBtnText = 'Download';
                                 this.converting = false;
