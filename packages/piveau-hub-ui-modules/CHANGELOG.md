@@ -1,3 +1,61 @@
+## [3.15.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.5...v3.15.6) (2023-12-22)
+
+
+### Bug Fixes
+
+* typescript errors and dcatapde specification name ([42748b4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/42748b477f665d9b5289238acc56b393b40a23cd))
+
+
+
+## [3.15.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.4...v3.15.5) (2023-12-21)
+
+
+### Bug Fixes
+
+* correct translation key for geocodingDescriptionDe ([57aea35](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/57aea354100fc3b8e44310a5f6affde181c274ea))
+
+
+
+## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.3...v3.15.4) (2023-12-21)
+
+
+
+## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
+
+
+### Bug Fixes
+
+* change position of creator in dcat spec ([a688a28](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a688a2885252f670a660bf247809ea8be11d615c))
+
+
+
+## [3.15.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.1...v3.15.2) (2023-12-21)
+
+
+### Bug Fixes
+
+* styles in properties box ([80d2dc1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/80d2dc19588e223542a8f8a5ad010fb052b72d26))
+
+
+
+## [3.15.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.0...v3.15.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* correct expanded property in dsd-properties ([f988e53](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f988e53012d31f3c5c82b4662606155382eea3d3))
+
+
+
+# [3.15.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.12...v3.15.0) (2023-12-21)
+
+
+### Features
+
+* make dsd properties configurable ([1dd9aa8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1dd9aa87abf2e79bfceb597fa40fa887b54ed26f))
+
+
+
 ## [3.14.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.11...v3.14.12) (2023-12-13)
 
 

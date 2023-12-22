@@ -195,7 +195,7 @@ const datasetDetailsQualitySchema = z.object({
 }).default({})
 
 const datasetDetailsSchema = z.object({
-  properties: z.string().default(null),
+  properties: z.string().default(""),
   header: datasetDetailsHeaderSchema,
   keywords: datasetDetailsKeywordsSchema,
   description: datasetDetailsDescriptionSchema,
