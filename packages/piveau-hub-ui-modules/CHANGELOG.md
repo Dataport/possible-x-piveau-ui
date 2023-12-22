@@ -1,3 +1,12 @@
+## [3.15.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.5...v3.15.6) (2023-12-22)
+
+
+### Bug Fixes
+
+* typescript errors and dcatapde specification name ([42748b4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/42748b477f665d9b5289238acc56b393b40a23cd))
+
+
+
 ## [3.15.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.4...v3.15.5) (2023-12-21)
 
 
@@ -7,7 +16,11 @@
 
 
 
-## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.4) (2023-12-21)
+## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.3...v3.15.4) (2023-12-21)
+
+
+
+## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
 
 
 ### Bug Fixes
