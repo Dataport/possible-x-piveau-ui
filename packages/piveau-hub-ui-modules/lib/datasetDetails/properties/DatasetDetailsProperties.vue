@@ -37,29 +37,14 @@
 </template>
 
 <script>
-import {isArray, isNil, isString, has} from "lodash";
 import {mapGetters} from "vuex";
-import {removeMailtoOrTel, truncate, appendCurrentLocaleToURL, getTranslationFor, formatDatetime } from "../../utils/helpers";
-import AppLink from "../../widgets/AppLink";
-import Tooltip from "../../widgets/Tooltip";
 import DatasetDetailsProperty from "./DatasetDetailsProperty";
 import {dcatDeFields, dcatFields, dcatSchema, dcatDeSchema} from "./specification.ts";
 
 export default {
   name: "DatasetDetailsProperties",
   components: {
-    // DatasetDetailsFeatureHeader,
-    Tooltip,
-    AppLink,
     DatasetDetailsProperty
-  },
-  props: {
-    filterDateFormatEU: Function,
-    showObjectArray: Function,
-    showArray: Function,
-    showObject: Function,
-    showNumber: Function,
-    showString: Function
   },
   data() {
     return {
@@ -71,60 +56,6 @@ export default {
   },
   computed: {
     ...mapGetters('datasetDetails', [
-      // DCAT-AP.de
-      'getDataset',
-      'getAvailability',
-      'getPoliticalGeocodingLevelURI',
-      'getPoliticalGeocodingURI',
-      'getContributorID',
-      'getGeocodingDescriptionDe',
-      'getLegalBasis',
-      'getQualityProcessURI',
-      'getTypeDe',
-      'getReferences',
-      'getContributor',
-      'getOriginator',
-      'getMaintainer',
-      //
-      'getSources',
-      'getAccessRights',
-      'getAccrualPeriodicity',
-      'getAttributes',
-      'getCatalogRecord',
-      'getConformsTo',
-      'getContactPoints',
-      'getCreator',
-      'getDimensions',
-      'getDocumentations',
-      'getFrequency',
-      'getHasQualityAnnotations',
-      'getHasVersion',
-      'getIdentifiers',
-      'getIsVersionOf',
-      'getIsReferencedBy',
-      'getLandingPages',
-      'getLanguages',
-      'getModificationDate',
-      'getNumSeries',
-      'getOtherIdentifiers',
-      'getProvenances',
-      'getPublisher',
-      'getRelatedResources',
-      'getReleaseDate',
-      'getResource',
-      'getSample',
-      'getSpatial',
-      'getSpatialResolutionInMeters',
-      'getSpatialResource',
-      'getStatUnitMeasures',
-      'getTemporal',
-      'getTemporalResolution',
-      'getType',
-      'getVersionInfo',
-      'getVersionNotes',
-      'getQualifiedAttributions',
-      'getQualifiedRelations',
-      'getWasGeneratedBy',
       'getDatasetDescriptionHeight'
     ]),
     fieldSchema() {
@@ -143,33 +74,13 @@ export default {
     fieldsArray() {
       return this.fields.split(',').map(item => item.trim());
     },
-    // Provides resource data only of landing pages
-    // Example: [{ format: 'bar', resource: 'foo' }, ...] -> ['foo']
-    getLandingPagesResource() {
-      return isArray(this.getLandingPages) && this.getLandingPages.map(value => value && value.resource);
-    },
-    // Returns the label property of accrual periodicity
-    getAccrualPeriodicityLabel() {
-      return !isNil(this.getAccrualPeriodicity) && has(this.getAccrualPeriodicity, 'label') ? this.getAccrualPeriodicity.label : '';
-    },
     showMoreVisible() {
       return this.initialHeight > this.restrictedHeight;
     }
   },
   methods: {
-    isNil,
-    truncate,
-    isString,
-    has,
-    removeMailtoOrTel,
-    appendCurrentLocaleToURL,
-    getTranslationFor,
-    formatDatetime,
     toggleInfo() {
       this.infoVisible = !this.infoVisible;
-    },
-    showContactPoint(contactPoints) {
-      return Object.keys(contactPoints[0]).filter(contactPoint => contactPoint !== 'resource' && contactPoint !== 'type').length > 0;
     },
     toggleExpanded() {
       this.expanded = ! this.expanded;
@@ -212,15 +123,4 @@ table {
   background: #F5F5F5;
 }
 
-.text-break {
-  //word-break: normal !important;
-}
-
-.w-25 {
-  min-width: 160px;
-}
-
-tr {
-  width: 100%;
-}
 </style>
