@@ -37,19 +37,13 @@
 </template>
 
 <script>
-import {isArray, isNil, isString, has} from "lodash";
 import {mapGetters} from "vuex";
-import {removeMailtoOrTel, truncate, appendCurrentLocaleToURL, getTranslationFor, formatDatetime } from "../../utils/helpers";
-import AppLink from "../../widgets/AppLink";
-import Tooltip from "../../widgets/Tooltip";
 import DatasetDetailsProperty from "./DatasetDetailsProperty";
 import {dcatDeFields, dcatFields, dcatSchema, dcatDeSchema} from "./specification.ts";
 
 export default {
   name: "DatasetDetailsProperties",
   components: {
-    Tooltip,
-    AppLink,
     DatasetDetailsProperty
   },
   data() {
@@ -85,19 +79,8 @@ export default {
     }
   },
   methods: {
-    isNil,
-    truncate,
-    isString,
-    has,
-    removeMailtoOrTel,
-    appendCurrentLocaleToURL,
-    getTranslationFor,
-    formatDatetime,
     toggleInfo() {
       this.infoVisible = !this.infoVisible;
-    },
-    showContactPoint(contactPoints) {
-      return Object.keys(contactPoints[0]).filter(contactPoint => contactPoint !== 'resource' && contactPoint !== 'type').length > 0;
     },
     toggleExpanded() {
       this.expanded = ! this.expanded;
@@ -140,15 +123,4 @@ table {
   background: #F5F5F5;
 }
 
-.text-break {
-  //word-break: normal !important;
-}
-
-.w-25 {
-  min-width: 160px;
-}
-
-tr {
-  width: 100%;
-}
 </style>
