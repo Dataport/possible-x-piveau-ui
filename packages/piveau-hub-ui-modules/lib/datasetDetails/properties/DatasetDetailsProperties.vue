@@ -48,18 +48,9 @@ import {dcatDeFields, dcatFields, dcatSchema, dcatDeSchema} from "./specificatio
 export default {
   name: "DatasetDetailsProperties",
   components: {
-    // DatasetDetailsFeatureHeader,
     Tooltip,
     AppLink,
     DatasetDetailsProperty
-  },
-  props: {
-    filterDateFormatEU: Function,
-    showObjectArray: Function,
-    showArray: Function,
-    showObject: Function,
-    showNumber: Function,
-    showString: Function
   },
   data() {
     return {
@@ -71,60 +62,6 @@ export default {
   },
   computed: {
     ...mapGetters('datasetDetails', [
-      // DCAT-AP.de
-      'getDataset',
-      'getAvailability',
-      'getPoliticalGeocodingLevelURI',
-      'getPoliticalGeocodingURI',
-      'getContributorID',
-      'getGeocodingDescriptionDe',
-      'getLegalBasis',
-      'getQualityProcessURI',
-      'getTypeDe',
-      'getReferences',
-      'getContributor',
-      'getOriginator',
-      'getMaintainer',
-      //
-      'getSources',
-      'getAccessRights',
-      'getAccrualPeriodicity',
-      'getAttributes',
-      'getCatalogRecord',
-      'getConformsTo',
-      'getContactPoints',
-      'getCreator',
-      'getDimensions',
-      'getDocumentations',
-      'getFrequency',
-      'getHasQualityAnnotations',
-      'getHasVersion',
-      'getIdentifiers',
-      'getIsVersionOf',
-      'getIsReferencedBy',
-      'getLandingPages',
-      'getLanguages',
-      'getModificationDate',
-      'getNumSeries',
-      'getOtherIdentifiers',
-      'getProvenances',
-      'getPublisher',
-      'getRelatedResources',
-      'getReleaseDate',
-      'getResource',
-      'getSample',
-      'getSpatial',
-      'getSpatialResolutionInMeters',
-      'getSpatialResource',
-      'getStatUnitMeasures',
-      'getTemporal',
-      'getTemporalResolution',
-      'getType',
-      'getVersionInfo',
-      'getVersionNotes',
-      'getQualifiedAttributions',
-      'getQualifiedRelations',
-      'getWasGeneratedBy',
       'getDatasetDescriptionHeight'
     ]),
     fieldSchema() {
@@ -142,15 +79,6 @@ export default {
     },
     fieldsArray() {
       return this.fields.split(',').map(item => item.trim());
-    },
-    // Provides resource data only of landing pages
-    // Example: [{ format: 'bar', resource: 'foo' }, ...] -> ['foo']
-    getLandingPagesResource() {
-      return isArray(this.getLandingPages) && this.getLandingPages.map(value => value && value.resource);
-    },
-    // Returns the label property of accrual periodicity
-    getAccrualPeriodicityLabel() {
-      return !isNil(this.getAccrualPeriodicity) && has(this.getAccrualPeriodicity, 'label') ? this.getAccrualPeriodicity.label : '';
     },
     showMoreVisible() {
       return this.initialHeight > this.restrictedHeight;

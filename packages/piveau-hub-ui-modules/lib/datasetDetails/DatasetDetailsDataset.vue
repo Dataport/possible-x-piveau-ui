@@ -73,12 +73,6 @@
 
       <dataset-details-properties
         v-if="showDatasetProperties"
-        :filterDateFormatEU="filterDateFormatEU"
-        :showObjectArray="showObjectArray"
-        :showArray="showArray"
-        :showString="showString"
-        :showObject="showObject"
-        :showNumber="showNumber"
       />
     </div>
   </div>
