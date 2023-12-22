@@ -12,13 +12,20 @@
           items.name }}</li>
       </ul>
     </div>
-    <div v-if="this.context.attrs.multiple"  :class="{'chosenItemsContainer': true, 'd-none': this.values.length < 1}" >
-      <div >
+    <div v-if="this.context.attrs.multiple" :class="{ 'chosenItemsContainer': true, 'd-none': this.values.length < 1 }">
+      <div>
         <h4>Active themes:</h4>
-      <hr>
+        <hr>
       </div>
       <ul>
-        <li v-for="chosenItems, index in this.values" :key="index">{{ chosenItems.name }}</li>
+        <li v-for="chosenItems, index in this.values" :key="index">
+          <p>{{ chosenItems.name }}</p>
+
+          <div class="removeX" @click="removeActiveItem($event)"></div>
+        
+
+
+        </li>
       </ul>
     </div>
   </div>
@@ -99,6 +106,15 @@ export default {
         });
 
       }
+
+    },
+    removeActiveItem(e) {
+      console.log(e.target);
+      let itemToEraseText = e.target.previousElementSibling.innerHTML
+      this.values = this.values.filter(filtered => filtered.name != itemToEraseText)
+
+      // Todo need to refresh the context Object
+      console.log(this.values);
 
     },
     chooseSuggestedItem(chosenObject) {
