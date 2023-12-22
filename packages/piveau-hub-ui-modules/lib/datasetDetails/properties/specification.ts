@@ -6,6 +6,36 @@ export const dcatFields = `releaseDate,modificationDate,landingPages,sources,
     statUnitMeasures,isReferencedBy,qualifiedAttributions,wasGeneratedBy,
     qualifiedRelations,sample,spatialResolutionInMeters,type,temporalResolution`;
 
+export const dcatDeFields = `politicalGeocodingLevelURI,politicalGeocodingURI,availability,
+    contributorID,geocodingDescriptionDe,legalBasis,qualityProcessURI,typeDe,
+    references,contributor,originator,maintainer`;
+
+/*
+    Below we have schemata describing how properties should be rendered in DatasetDatailsProperties.vue. A schema is
+    an object where keys correspond to the above defined fields. For each key, the value is an object the format of which
+    we will now describe:
+
+    - type: is the the only required property. Will be evaluated in typeCheckers.ts. It reflects the format of the
+    data item (CALLED "response" BELOW!) retrieved by from the search network response (number, string, url, array, object, array of objects).
+    Supported values are:
+        * "number": response is a single number
+        * "first:number": render response[0] as a number
+        * "string": response a simple string
+        * "uri": response a simple string, rendered as a link
+        * "date": response a simple string, formatted as a date conforming to the current locale
+        * "translation": response an object containing locale keys (like "en", "de"). The value corresponding to the
+            current locale is rendered
+        * "object": response an object whose where each key-value pair is rendered on a separate line
+        * "array": response an array whose elements are rendered vertically
+        * "links": reponse either an array of uri-strings rendered as links, or an
+            array of objects with a label field that is displayed as a link and another field
+            holding the href; that other field is either resource, label or id
+
+    - translate: for property "xxx", we have a bold label and tooltip to the left which comes from
+    an i18n translation; the default i18n keys are:
+
+ */
+
 export const dcatSchema = (t) => ({
     releaseDate: {type: 'date', translate: 'created'},
     modificationDate: {type: 'date', translate: 'updated'},
@@ -22,7 +52,7 @@ export const dcatSchema = (t) => ({
     // relatedResources: {type: 'links', translate: 'relatedResource,relatedResources'},
     identifiers: {type: 'links', translate: 'identifier,identifiers'},
     otherIdentifiers: {type: 'objects', translate: 'otherIdentifier,otherIdentifiers', fields:"identifier:link,resource:link:identifier,scheme:link"},
-    resource: {type: 'uri', translate: "uriRef,'uriRef'"},
+    // resource: {type: 'uri', translate: "'uriRef','uriRef'"},
     frequency: {type: 'object', fields:"title,resource:link"},
     accessRights: {type: 'object', fields:"label::"},
     accrualPeriodicity: {type: 'object', translate:"frequency,accrualPeriodicity", fields:"label::"},
@@ -49,10 +79,6 @@ export const dcatSchema = (t) => ({
     type: {type: 'object', fields: "label,resource:link"},
     temporalResolution: {type: 'string'}
 });
-
-export const dcatDeFields = `politicalGeocodingLevelURI,politicalGeocodingURI,availability,
-    contributorID,geocodingDescriptionDe,legalBasis,qualityProcessURI,typeDe,
-    references,contributor,originator,maintainer`;
 
 export const dcatDeSchema = () => ({
     politicalGeocodingLevelURI: {type: 'objects', fields:"label,resource:link"},

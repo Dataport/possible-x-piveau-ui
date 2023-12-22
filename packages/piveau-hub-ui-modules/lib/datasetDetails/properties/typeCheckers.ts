@@ -4,7 +4,6 @@ const someFieldIsDefined = o => Object.values(o).some(item => item !== undefined
 
 export const showByType = (type: string, data: unknown) => {
     if (isNil(data)) return false;
-    if (isNil(data)) return false;
     switch(type.toLowerCase()) {
         case 'number': return isNumber(data);
         case 'first:number': return isNumber(data[0]);
