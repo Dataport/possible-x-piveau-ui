@@ -12,17 +12,16 @@
            v-show="infoVisible">
         <table class="table table-borderless table-responsive" ref="dsdProperties" role="tablist" id="myTab">
             <dataset-details-property v-for='(name, index) in fieldsArray'
-                                      :name="name"
-                                      :translate="fieldSchema[name]?.translate"
-                                      :type="fieldSchema[name]?.type"
-                                      :fields="fieldSchema[name]?.fields"
-                                      :track="fieldSchema[name]?.track"
-                                      :itemstyles="fieldSchema[name]?.itemstyles"
-                                      :preTransform="fieldSchema[name]?.preTransform"
-                                      :transform="fieldSchema[name]?.transform"
-                                      :key="index"/>
+              :name="name"
+              :translate="fieldSchema[name]?.translate"
+              :type="fieldSchema[name]?.type"
+              :fields="fieldSchema[name]?.fields"
+              :track="fieldSchema[name]?.track"
+              :itemstyles="fieldSchema[name]?.itemstyles"
+              :preTransform="fieldSchema[name]?.preTransform"
+              :transform="fieldSchema[name]?.transform"
+              :key="index"/>
         </table>
-
         <div class="additional-information-overlay" ref="overlay" v-show="showMoreVisible && !expanded"></div>
       </div>
     </div>

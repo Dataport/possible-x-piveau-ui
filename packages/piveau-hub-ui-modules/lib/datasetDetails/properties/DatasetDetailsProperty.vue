@@ -43,8 +43,8 @@ export default {
     fields: String, // Comma-separated keys for extracting data from an object
     itemstyles: String, // Styles to apply to an object key-value block
     track: String, // Comma-separated keys for tracking
-    preTransform: Function,
-    transform: Function
+    preTransform: Function, // Transform raw data from dataset service
+    transform: Function // Transform data after preparing by this.value
   },
   components: {
     Tooltip, AppLink, ValuesList
@@ -54,15 +54,17 @@ export default {
       'getProperty'
     ]),
     labelDisplay() {
-      const prefix = "message.metadata";
+      const prefix = ["message.tooltip.datasetDetails", "message.metadata"];
+      let translateItems;
       if (this.translate) {
-        const translateItems = this.translate.split(',');
+        translateItems = this.translate.split(',');
         if (translateItems.length === 1) {
           translateItems.push(translateItems[0]);
         }
-        return translateItems.map(item => this.interpretTranslateKey(item, prefix));
+      } else {
+        translateItems = [this.name, this.name];
       }
-      return [this.$i18n.t(`message.metadata.${this.name}`), this.$i18n.t(`${prefix}.${this.name}`)];
+      return translateItems.map((item, i) => this.interpretTranslateKey(item, prefix[i]));
     },
     data() {
       return this.getProperty(this.name);
@@ -121,14 +123,28 @@ export default {
       return dateFilters.formatEU(this.value);
     },
     prepareObject(object) {
+      // Because this.fields can contain ":" signs that split a key into an array,
+      // we also transform the keys in the case this.fields is undefined into arrays:
       let keys = this.preparedFields ?? Object.keys(object).map(key => [key]);
+
+      // Now key[0] holds the actual key in all cases. Check if the value given
+      // For a key is undefined and filter them out:
       keys = keys.filter(key => !isNil(object[key[0]]));
+
       return keys.map(key => {
         let value = object[key[0]];
+
+        // Values can be arrays for displaying several values. For uniform treatment,
+        // transform single values into arrays of length 1:
         if (!isArray(value)) value = [value];
+
+        // First step: an object holding key and value:
         const result = {key: key[0], value};
+
+        // Enrich the object when appropriate:
         if (key[1] !== undefined) result.type = key[1];
         if (key[2] !== undefined) result.translation = key[2];
+
         return result;
       });
     },
