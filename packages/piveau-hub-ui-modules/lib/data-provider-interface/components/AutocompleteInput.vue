@@ -12,13 +12,18 @@
           items.name }}</li>
       </ul>
     </div>
-    <div v-if="this.context.attrs.multiple"  :class="{'chosenItemsContainer': true, 'd-none': this.values.length < 1}" >
-      <div >
+    <div v-if="this.context.attrs.multiple" :class="{ 'chosenItemsContainer': true, 'd-none': this.values.length < 1 }">
+      <div>
         <h4>Active themes:</h4>
-      <hr>
+        <hr>
       </div>
       <ul>
-        <li v-for="chosenItems, index in this.values" :key="index">{{ chosenItems.name }}</li>
+        <li v-for="chosenItems, index in this.values" :key="index">
+          <p >{{ chosenItems.name }}</p>
+          <div class="removeX" @click="removeActiveItem($event)" @mouseover="hoverEffect($event, true)"
+            @mouseleave="hoverEffect($event, false)">
+          </div>
+        </li>
       </ul>
     </div>
   </div>
@@ -48,7 +53,6 @@ export default {
         clicked: false,
       },
       values: [],
-
     }
   },
   methods: {
@@ -57,6 +61,12 @@ export default {
       "requestAutocompleteSuggestions",
       "requestResourceName",
     ]),
+    hoverEffect(e, bool) {
+      if (bool) {
+        e.target.previousElementSibling.classList.add('eraseItem');
+      } else
+        e.target.previousElementSibling.classList.remove('eraseItem');
+    },
     getAutocompleteSuggestions(searchText) {
 
       // console.log(searchText);
@@ -99,6 +109,15 @@ export default {
         });
 
       }
+
+    },
+    removeActiveItem(e) {
+      // console.log(e.target.previousElementSibling);
+      let itemToEraseText = e.target.previousElementSibling.innerHTML
+      this.values = this.values.filter(filtered => filtered.name != itemToEraseText)
+
+      // Todo need to refresh the context Object
+      // console.log(this.values);
 
     },
     chooseSuggestedItem(chosenObject) {

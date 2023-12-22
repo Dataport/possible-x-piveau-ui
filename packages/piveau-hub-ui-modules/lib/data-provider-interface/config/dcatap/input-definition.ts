@@ -6,49 +6,49 @@ import config from './page-content-config';
 /**
  * Available properties for datasets.
  */
-export type DcatApDatasetsProperty = 
+export type DcatApDatasetsProperty =
   // Append new properties here for accurate type checking
-  'datasetID' 
+  'datasetID'
   | 'description'
   | 'title'
   | 'contactPoint'
   | 'subject'
-  | 'keyword' 
-  | 'publisher' 
-  | 'spatial' 
-  | 'temporal' 
-  | 'theme' 
-  | 'accessRights' 
-  | 'creator' 
-  | 'conformsTo' 
-  | 'page' 
-  | 'accrualPeriodicity' 
-  | 'hasVersion' 
-  | 'isVersionOf' 
-  | 'source' 
-  | 'identifier' 
-  | 'isReferencedBy' 
-  | 'landingPage' 
-  | 'language' 
-  | 'admsIdentifier' 
-  | 'provenance' 
-  | 'qualifiedAttribution' 
-  | 'wasGeneratedBy' 
-  | 'qualifiedRelation' 
-  | 'relation' 
-  | 'issued' 
-  | 'modified' 
-  | 'spatialResolutionInMeters' 
-  | 'temporalResolution' 
-  | 'type' 
-  | 'versionInfo' 
-  | 'versionNotes' 
-  | 'catalog' 
+  | 'keyword'
+  | 'publisher'
+  | 'spatial'
+  | 'temporal'
+  | 'theme'
+  | 'accessRights'
+  | 'creator'
+  | 'conformsTo'
+  | 'page'
+  | 'accrualPeriodicity'
+  | 'hasVersion'
+  | 'isVersionOf'
+  | 'source'
+  | 'identifier'
+  | 'isReferencedBy'
+  | 'landingPage'
+  | 'language'
+  | 'admsIdentifier'
+  | 'provenance'
+  | 'qualifiedAttribution'
+  | 'wasGeneratedBy'
+  | 'qualifiedRelation'
+  | 'relation'
+  | 'issued'
+  | 'modified'
+  | 'spatialResolutionInMeters'
+  | 'temporalResolution'
+  | 'type'
+  | 'versionInfo'
+  | 'versionNotes'
+  | 'catalog'
   | 'isUsedBy';
 
-  /**
-   * Available properties for distributions.
-   */
+/**
+ * Available properties for distributions.
+ */
 export type DcatApDistributionsProperty =
   // Append new properties here for accurate type checking
   'accessURL'
@@ -80,12 +80,15 @@ export type DcatApDistributionsProperty =
   | 'temporalResolution'
   | 'type'
   | 'status';
-  
+
 export type InputDefinition = {
   datasets: Record<DcatApDatasetsProperty, FormKitSchemaDefinition>;
   distributions: Record<DcatApDistributionsProperty, FormKitSchemaDefinition>;
   // todo complete catalogs type definition
   catalogues: Record<string, FormKitSchemaDefinition>;
+}
+let sectionSchemaTooltips = {
+  prefix: { $el: 'div', attrs: { class: 'infoI', }, children: [{ $el: 'div', children: 'Pass TooltipText to Schema?', attrs: { class: 'tooltipFormkit' } }] }
 }
 
 const dcatapProperties: InputDefinition = {
@@ -114,22 +117,24 @@ const dcatapProperties: InputDefinition = {
               value: 'en',
               $formkit: 'select',
               options: language,
-              'prefix-icon': "info",
+
               validation: 'required',
               name: '@language',
               classes: {
                 outer: 'w25-textfield'
-              }
+              },
+              'sections-schema': sectionSchemaTooltips
             },
             {
               identifier: 'description',
               $formkit: 'textarea',
-              'prefix-icon': "info",
+
               name: '@value',
               validation: 'required',
               classes: {
                 outer: 'w75-descField'
-              }
+              },
+              'sections-schema': sectionSchemaTooltips
             },
           ],
         }
@@ -154,21 +159,23 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'select',
               validation: 'required',
               options: language,
-              'prefix-icon': "info",
+
               name: '@language',
               classes: {
                 outer: 'w25-textfield'
-              }
+              },
+              'sections-schema': sectionSchemaTooltips
             },
             {
               identifier: 'titleLabel',
               $formkit: 'text',
               name: '@value',
               validation: 'required',
-              'prefix-icon': "info",
+
               classes: {
                 outer: 'w75-textfield'
-              }
+              },
+              'sections-schema': sectionSchemaTooltips
             },
           ],
         }
@@ -298,6 +305,7 @@ const dcatapProperties: InputDefinition = {
       classes: {
         outer: 'w97-textfield'
       },
+      'sections-schema': sectionSchemaTooltips
     },
     keyword: {
       identifier: 'keyword',
@@ -337,8 +345,8 @@ const dcatapProperties: InputDefinition = {
       identifier: 'publisher',
       voc: 'corporate-body',
       property: 'dct:publisher',
-      id:'publisher',
-      name:'dct:publisher',
+      id: 'publisher',
+      name: 'dct:publisher',
     },
     spatial: {
       identifier: 'spatial',
@@ -450,11 +458,13 @@ const dcatapProperties: InputDefinition = {
       voc: 'data-theme',
       '@annifSuggestion': false,
       name: 'dcat:theme',
-      id:'theme',
+      id: 'theme',
       classes: {
         multiple: 'multiple',
         outer: 'w88-textfield'
       },
+
+
     },
     // autocomplete
     accessRights: {
@@ -632,7 +642,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'frequency',
       name: 'dct:accrualPeriodicity',
-      
+
     },
     hasVersion: {
       identifier: 'hasVersion',
@@ -942,7 +952,7 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'issued',
           id: 'issuedCond',
-          'prefix-icon': "info",
+
           $formkit: 'select',
           name: '@type',
           options: { date: 'Date', datetime: 'Datetime' },
@@ -961,7 +971,8 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value',
             }
-          }
+          },
+          'sections-schema': sectionSchemaTooltips
         },
       ]
     },
@@ -974,7 +985,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'modified',
           id: 'modifiedCond',
           name: '@type',
-          'prefix-icon': "info",
+
           $formkit: 'select',
           options: { date: 'Date', datetime: 'Datetime' },
         },
@@ -993,7 +1004,8 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value'
             }
-          }
+          },
+          'sections-schema': sectionSchemaTooltips
         },
       ]
     },
@@ -1100,9 +1112,10 @@ const dcatapProperties: InputDefinition = {
       identifier: 'catalog',
       $formkit: 'select',
       name: 'dcat:catalog',
-      'prefix-icon': "info",
+
       validation: 'required',
-      options: {"title":"hallo"},
+      options: { "title": "hallo" },
+      'sections-schema': sectionSchemaTooltips
     },
     isUsedBy: {
       identifier: 'isUsedBy',
@@ -1606,7 +1619,8 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value',
             }
-          }
+          },
+          'sections-schema': sectionSchemaTooltips
         },
       ]
     },
@@ -1636,7 +1650,8 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value'
             }
-          }
+          },
+          'sections-schema': sectionSchemaTooltips
         },
       ]
     },
@@ -1745,7 +1760,7 @@ const dcatapProperties: InputDefinition = {
     // dataset id component, mandatory
     datasetID: {
       // todo: check if this is correct
-      $formkit:'id',
+      $formkit: 'id',
       identifier: 'datasetID',
       name: 'datasetID',
       mandatory: true,
@@ -1818,7 +1833,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       identifier: 'publisher',
       name: 'dct:publisher',
-      voc: 'corporate-body',      
+      voc: 'corporate-body',
     },
     // autocomplete ,multiple
     language: {
@@ -2058,6 +2073,7 @@ const dcatapProperties: InputDefinition = {
     },
   }
 };
+
 
 // Dynamically add a collapsed property to all fields that are component of
 // a set of specific pages steps.
