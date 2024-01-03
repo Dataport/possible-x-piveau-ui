@@ -58,7 +58,6 @@ Please follow this guide strictly and apply the following changes:
 "vue-select-3": "^1.0.1",
 "vue-skeletor": "^1.0.6",
 "vue3-click-away": "^1.2.4",
-"vue3-step-progress": "^0.2.6",
 "vue3-datepicker": "^0.3.4",
 ```
 
@@ -78,7 +77,6 @@ Please follow this guide strictly and apply the following changes:
 "skeleton-loader-vue": "x.x.x",
 "vue-clickaway": "x.x.x",
 "vue-select": "x.x.x",
-"vue-step-progress": "x.x.x",
 "vue2-datepicker": "x.x.x",
 ```
 </details>
