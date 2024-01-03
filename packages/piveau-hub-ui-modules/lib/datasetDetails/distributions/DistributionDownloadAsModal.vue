@@ -180,37 +180,8 @@ export default {
                             this.progress = '100';
                             this.readyForDownload = true;
                             const locale = this.$route.query.locale;
-                            let FILE;
-
-                            switch (this.selected) {
-                                case 'json':
-                                    const jsonString = JSON.stringify(res.data);
-                                    FILE = window.URL.createObjectURL(new Blob([jsonString], {
-                                        type: 'application/json'
-                                    }));
-                                    break;
-                                case 'xlsx':
-                                    FILE = window.URL.createObjectURL(new Blob([res.data], {
-                                        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                                    }))
-                                    break;
-                                case 'xls':
-                                    FILE = window.URL.createObjectURL(new Blob([res.data], {
-                                        type: 'application/vnd.ms-excel'
-                                    }))
-                                    break;
-                                case 'docx':
-                                    FILE = window.URL.createObjectURL(new Blob([res.data], {
-                                        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                                    }))
-                                    break;
-                                case 'xml':
-                                    FILE = window.URL.createObjectURL(new Blob([res.data], {
-                                        type: 'application/xml'
-                                    }))
-                                default:
-                                    FILE = window.URL.createObjectURL(new Blob([res.data]));
-                            }
+                            const FILE = window.URL.createObjectURL(res.data);
+                           
 
                             let docUrl = document.createElement('a');
                             docUrl.href = FILE;
