@@ -94,7 +94,7 @@ import DpiMenu from "./data-provider-interface/DPIMenu";
 import DistributionActions from "./datasetDetails/distributions/distributionActions/DistributionActions";
 import DistributionDownload from "./datasetDetails/distributions/distributionActions/DistributionDownload";
 import DistributionDownloadAs from "./datasetDetails/distributions/distributionActions/DistributionDownloadAs";
-import DistributionsDropdownDownload from "./datasetDetails/distributions/distributionActions/DistributionDropdownDownload";
+import DistributionDropdownDownload from "./datasetDetails/distributions/distributionActions/DistributionDropdownDownload";
 import DistributionOptionsDropdown from "./datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
 import DistributionPreview from "./datasetDetails/distributions/distributionActions/DistributionPreview";
 import LinkedDataButtonsDropdown from "./datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
@@ -292,7 +292,7 @@ export {
   DistributionActions,
   DistributionDownload,
   DistributionDownloadAs,
-  DistributionsDropdownDownload,
+  DistributionDropdownDownload,
   DistributionOptionsDropdown,
   DistributionPreview,
   LinkedDataButtonsDropdown,
