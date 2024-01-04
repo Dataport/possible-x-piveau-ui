@@ -4,7 +4,6 @@ import 'es6-promise/auto';
 import $ from 'jquery';
 
 // Vue packages
-import * as VeeValidate from 'vee-validate';
 import VueProgressBar from "@aacassandra/vue3-progressbar";
 import VueClickAway from "vue3-click-away";
 import { plugin as FormKitPlugin, defaultConfig } from '@formkit/vue'
@@ -216,9 +215,6 @@ const progressBarOptions = {
   },
 };
 app.use(VueProgressBar, progressBarOptions);
-
-// Vee Validate
-app.use(VeeValidate, { errorBagName: 'vee_validator_errors' });
 
 // Vue Position Sticky
 app.use(VuePositionSticky);

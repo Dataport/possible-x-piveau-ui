@@ -11,7 +11,7 @@ Please follow this guide strictly and apply the following changes:
 <details><summary>Open</summary>
 <br>
 
-> _Use the "@vue/compat" package for testing. There may be more dependencies to add / upgrade in your project!_
+> _Note: Use the "@vue/compat" package for testing. There may be more dependencies to add / upgrade in your project!_
 
 #### 1.1 Replace vue-cli commands in `package.json` and use Vite:
 
@@ -33,18 +33,22 @@ Please follow this guide strictly and apply the following changes:
 #### 1.3 Upgrade Vue in `package.json`:
 
 ```js
-"vue": "^3.1.0",
+"vue": "^3.3.8",
 "@vue/compat": "^3.1.0",
 ```
 
 #### 1.4 Upgrade other packages to Vue 3 compatible versions in `package.json`:
 
 ```js
+"@fortawesome/vue-fontawesome": "^3.0.3",
+"@vue/test-utils": "^2.3.0",
+"jest": "^29.4.3",
+"ts-jest": "^29.0.5",
 "vite": "^4.0.3",
 "vue-router": "^4.1.6",
+"vue-i18n": "^9.4.0",
 "vuex": "^4.0.2",
-"vee-validate": "^4.11.6",
-"vue-meta": "^3.0.0-alpha.10",
+"webpack-merge": "^5.9.0"
 ```
 
 
@@ -52,8 +56,10 @@ Please follow this guide strictly and apply the following changes:
 
 ```js
 "@aacassandra/vue3-progressbar": "^1.0.3",
+"@unhead/vue": "^1.8.8",
 "@vitejs/plugin-vue": "^4.0.0",
 "@vitejs/plugin-vue-jsx": "^3.0.2",
+"@vue/vue3-jest": "^29.2.2",
 "vue3-cookies": "^1.0.6",
 "vue-select-3": "^1.0.1",
 "vue-skeletor": "^1.0.6",
@@ -65,7 +71,19 @@ Please follow this guide strictly and apply the following changes:
 
 ```js
 "@piveau/dcatap-frontend": "x.x.x",
+"@babel/core": "x.x.x",
+"@babel/eslint-parser": "x.x.x",
+"@babel/plugin-proposal-export-default-from": "x.x.x",
+"@babel/plugin-proposal-function-sent": "x.x.x",
+"@babel/plugin-proposal-throw-expressions": "x.x.x",
+"@babel/plugin-syntax-import-meta": "x.x.x",
+"@babel/polyfill": "x.x.x",
+"@cypress/vue": "x.x.x",
+"@cypress/webpack-dev-server": "x.x.x",
+"@cypress/webpack-preprocessor": "x.x.x",
 "@vitejs/plugin-vue2": "x.x.x",
+"@vue/cli-plugin-e2e-cypress": "x.x.x",
+"@vue/vue2-jest": "x.x.x",
 "@vue/cli-plugin-babel": "x.x.x",
 "@vue/cli-plugin-eslint": "x.x.x",
 "@vue/cli-plugin-router": "x.x.x",
@@ -73,28 +91,87 @@ Please follow this guide strictly and apply the following changes:
 "@vue/cli-plugin-unit-jest": "x.x.x",
 "@vue/cli-plugin-vuex": "x.x.x",
 "@vue/compiler-sfc": "x.x.x",
+"cypress": "x.x.x",
+"cypress-pipe": "x.x.x",
+"cypress-wait-until": "x.x.x",
 "core-js": "x.x.x",
 "skeleton-loader-vue": "x.x.x",
+"vee-validate": "x.x.x",
+"vue-cookie": "x.x.x",
 "vue-clickaway": "x.x.x",
+"vue-inject": "x.x.x",
+"vue-progressbar": "x.x.x",
 "vue-select": "x.x.x",
 "vue2-datepicker": "x.x.x",
+"vuex-router-sync": "x.x.x",
 ```
 </details>
 
 
-## 2. Update `main.ts`, `router.js` & `index.html`
+## 2. Update `main.ts`, `router.js`, `index.html` & `*.env.js`
 
 <details><summary>Open</summary>
 
 #### 2.1 `main.ts`
 
-_Replace all occurences of `Vue.xxx` by `app.xxx`!_
+> _Note: Import and use new packages!_
+
+> _Note: Remove old imports and usages!_
+
+> _Note: Replace `require` with `import` for styles!_
+
+> _Note: Replace all occurences of `Vue.xxx` by `app.xxx`!_
 
 ```js
-import { createI18n } from 'vue-i18n'
-import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n';
+import { createApp } from 'vue';
+
+import { createHead } from '@unhead/vue';
+import VueProgressBar from "@aacassandra/vue3-progressbar";
+import VueClickAway from "vue3-click-away";
+import VueCookies from 'vue3-cookies';
+import { Skeletor } from 'vue-skeletor';
+import 'vue-skeletor/dist/vue-skeletor.css';
+
+...
 
 const app = createApp(App);
+
+...
+
+app.config.performance = true;
+const env = app.config.globalProperties.$env;
+
+...
+
+import 'popper.js';
+import 'bootstrap';
+
+import '@piveau/piveau-hub-ui-modules/styles';
+
+import './styles/styles.scss';
+import 'leaflet/dist/leaflet.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+
+...
+
+const i18n = createI18n({
+  locale: LOCALE,
+  fallbackLocale: FALLBACKLOCALE,
+  messages: I18N_CONFIG,
+  allowComposition: true,
+  legacy: false,
+  globalInjection: true,
+  fallbackWarn: false,
+  silentFallbackWarn: true,
+  silentTranslationWarn: true,
+  warnHtmlMessage: false,
+});
+
+...
+
+const head = createHead();
+app.use(head);
 
 ...
 
@@ -103,7 +180,9 @@ app.mount('#app');
 
 #### 2.2 `router.js`
 
-_Base option was removed, use history!_
+> _Note: Base option was removed, use history!_
+
+> _Note: Catch all route syntax changed!_
 
 ```js
 import * as Router from 'vue-router';
@@ -116,12 +195,20 @@ const router = Router.createRouter({
 
   ...
 
+  {
+    path: '/404',
+    alias: '/(.)*',
+    name: 'NotFound',
+    component: NotFound,
+  },
+
+
 });
 ```
 
 #### 2.3 `index.html`
 
-_Move `index.html` into root directory!_
+> _Note: Move `index.html` into root directory!_
 
 
 ```html
@@ -148,98 +235,21 @@ _Move `index.html` into root directory!_
   </body>
 </html>
 ```
-</details>
+
+#### 2.4 `*.env.js`
+
+> _Note: Adjust import of webpack-merge!_
 
 
-## 3. Replace `vue.config.js` by `vite.config.ts`
+```js
+var { merge } = require('webpack-merge');
 
-<details><summary>Open</summary>
-<br>
-
-```ts
-import vue from '@vitejs/plugin-vue';
-import { defineConfig } from 'vite';
-import { lstatSync } from 'node:fs';
-import path from 'path';
-import config from './config';
-
-const isSymlink = (pkg: string) => {
-  const packagePath = path.resolve('..', '..', 'node_modules', pkg);
-  try {
-    return lstatSync(packagePath).isSymbolicLink();
-  } catch {
-    return false;
-  }
-}
-
-let buildMode;
-if (process.env.NODE_ENV === 'production') {
-  buildMode = process.env.BUILD_MODE === 'test' ? 'test' : 'build';
-} else {
-  buildMode = 'dev';
-}
-
-const buildConfig = {
-  BASE_PATH: config[buildMode].assetsPublicPath,
-  SERVICE_URL: config[buildMode].serviceUrl,
-};
-
-export default defineConfig({
-  base: buildConfig.BASE_PATH,
-  plugins: [
-    vue(
-      { template: { compilerOptions: { whitespace: 'preserve' } } }
-    ),
-  ],
-  server: {
-    port: 8080
-  },
-  define: {},
-  resolve: {
-    alias: [
-      {
-        find: 'vue',
-        replacement: '@vue/compat',
-      },
-      {
-        find: '@',
-        replacement: path.resolve(__dirname, 'src')
-      },
-      {
-        find: '@modules-scss',
-        replacement: isSymlink('@piveau/piveau-hub-ui-modules') ?
-          path.resolve(__dirname, '..', '..', 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
-          : path.resolve(__dirname, 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
-      },
-      {
-        find: /^~(.*)$/,
-        replacement: '$1',
-      },
-      {
-        find: 'lodash',
-        replacement: 'lodash-es',
-      },
-      {
-        find: 'vue-i18n',
-        replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
-      },
-    ],
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
-    preserveSymlinks: false
-  },
-
-  build: {
-    rollupOptions: {
-      output: {
-        entryFileNames: 'app.[hash].js',
-      }
-    }
-  }
-});
+...
 ```
 </details>
 
-## 4. Update `user-config.sample.js`
+
+## 3. Update `user-config.sample.js`
 
 <details><summary>Open</summary>
 <br>
@@ -573,15 +583,146 @@ export { glueConfig, i18n };
 
 </details>
 
-## 5. Replace `Vue.`
+
+## 4. Add FormKit
+
+<details><summary>Open</summary>
+<br>
+
+#### 4.1 Import and use FormKit in `main.ts`
+
+```js
+import { plugin as FormKitPlugin, defaultConfig } from '@formkit/vue'
+import '@formkit/themes/genesis'
+import config from '../formkit.config.ts';
+
+app.use(FormKitPlugin, defaultConfig(config));
+```
+
+#### 4.2 Add `formkit.config.ts` to root directory
+
+```js
+import { DefaultConfigOptions } from '@formkit/vue';
+import { inputDefinitions } from '@piveau/piveau-hub-ui-modules';
+
+const config: DefaultConfigOptions = {
+    inputs: inputDefinitions
+}
+
+export default config
+```
+</details>
+
+
+## 5. Replace `vue.config.js` by `vite.config.ts`
+
+
+<details><summary>Open</summary>
+<br>
+
+```ts
+import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
+import { lstatSync } from 'node:fs';
+import path from 'path';
+import config from './config';
+
+const isSymlink = (pkg: string) => {
+  const packagePath = path.resolve('..', '..', 'node_modules', pkg);
+  try {
+    return lstatSync(packagePath).isSymbolicLink();
+  } catch {
+    return false;
+  }
+}
+
+let buildMode;
+if (process.env.NODE_ENV === 'production') {
+  buildMode = process.env.BUILD_MODE === 'test' ? 'test' : 'build';
+} else {
+  buildMode = 'dev';
+}
+
+const buildConfig = {
+  BASE_PATH: config[buildMode].assetsPublicPath,
+  SERVICE_URL: config[buildMode].serviceUrl,
+};
+
+export default defineConfig({
+  base: buildConfig.BASE_PATH,
+  plugins: [
+    vue(
+      { template: { compilerOptions: { whitespace: 'preserve' } } }
+    ),
+  ],
+  server: {
+    port: 8080
+  },
+  define: {},
+  resolve: {
+    alias: [
+      {
+        find: 'vue',
+        replacement: '@vue/compat',
+      },
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, 'src')
+      },
+      {
+        find: '@modules-scss',
+        replacement: isSymlink('@piveau/piveau-hub-ui-modules') ?
+          path.resolve(__dirname, '..', '..', 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
+          : path.resolve(__dirname, 'node_modules', '@piveau/piveau-hub-ui-modules', 'dist', 'scss')
+      },
+      {
+        find: /^~(.*)$/,
+        replacement: '$1',
+      },
+      {
+        find: 'lodash',
+        replacement: 'lodash-es',
+      },
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
+      },
+    ],
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    preserveSymlinks: false
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'app.[hash].js',
+      }
+    }
+  },
+  optimizeDeps: {
+    exclude: ['js-big-decimal'],
+  },
+});
+```
+</details>
+
+
+## 6. Remove `Vue` object
 
 The `Vue` object is no longer available in Vue 3.
 This is a list of known usages in our UI that needs to be replaced.
 
-_Note: There may be more usages in your project, use the search function to search for `Vue.` !_
+> _Note: There may be more usages in your project, use the search function to search for `Vue.` !_
 
 <details><summary>Open</summary>
 <br>
+
+#### 6.1 Remove Vue imports
+
+```js
+import Vue from "vue"
+```
+
+#### 6.2 Replace `Vue.` occurences
 
 ```js
 Vue.set(variable, property, value)    ==> variable[property] = value
@@ -599,17 +740,19 @@ Vue.prototype.<globalProperty>        ==> app.config.globalProperties.<globalPro
 </details>
 
 
-## 6. Update Keycloak
+## 7. Update Keycloak
+
+Update the Keycloak Service.
 
 <details><summary>Open</summary>
 
-#### 6.1 Update `keycloak-js` package
+#### 7.1 Update `keycloak-js` package
 
 ```js
   "keycloak-js": "22.0.3",
 ```
 
-#### 6.2 Create `src/services/keycloakService.js` to overwrite keycloak service
+#### 7.2 Create `src/services/keycloakService.js` to overwrite keycloak service
 
 ```js
 // @ts-nocheck
@@ -885,30 +1028,30 @@ function sanitizeConfig(config) {
 }
 ```
 
-#### 6.3 Import local `keycloakService.js` in `main.ts`
+#### 7.3 Import local `keycloakService.js` in `main.ts`
 
 ```js
 import vueKeycloak from './services/keycloakService';
 ```
 
-#### 6.4 Remove vueKeycloak import from piveau-hub-ui-modules in `main.ts`
+#### 7.4 Remove vueKeycloak import from piveau-hub-ui-modules in `main.ts`
 
 ```js
 import {
   vueKeycloak,
 } from '@piveau/piveau-hub-ui-modules';
 ```
-
 </details>
 
-## 7. Remove Dependency Injection
+
+## 8. Remove Dependency Injection
 
 Our old Dependency Injection is outdated and was replaced. Remove the old code fragments regarding our Dependency Injection.
 
 <details><summary>Open</summary>
 <br>
 
-_Remove `dependencies` property and `useService()` store action method and it´s usages!_
+> _Note: Remove `dependencies` property and `useService()` store action method and it´s usages!_
 
 ```js
 export default {
@@ -921,10 +1064,10 @@ export default {
  ...
 }
 ```
-
 </details>
 
-## 8. Remove outdated content from piveau-hub-ui
+
+## 9. Remove outdated content from piveau-hub-ui
 
 At this point, the acutal Vue 3 migration is done. 
 
@@ -932,35 +1075,42 @@ Restore a clean state of the repo by performing the following actions in prepara
 
 <details><summary>Open</summary>
 
-### 8.1 Remove all occurences of:
+### 9.1 Remove all remaining occurences of:
 
 - `babel`
+- `cypress`
 - `webpack`
+- `vue/cli`
 
-### 8.2 Delete npm files / packages
+### 9.2 Delete package-lock file
 
 - `package-lock.json`
-- `/node_modules`
 
+### 9.3 Delete npm packages
+
+- `node_modules`
 </details>
 
-## 9. Installation & Test
+
+## 10. Installation & Test
+
+Check if there are still unsolved issues, by installing the packages and running the application.
 
 <details><summary>Open</summary>
 
-### 9.1 Install npm packages
+### 10.1 Install npm packages
 
 ```bash
 npm install
 ```
 
-### 9.2 Test application
+### 10.2 Test application
 
 ```bash
 npm run dev
 ```
 
-### 9.3 Check console for errors & warnings
+### 10.3 Check console for errors & warnings
 
 The `@vue/compat` package should show warnings for Vue 2 related behaviour in your project, that is deprecated in Vue 3. 
 
@@ -968,13 +1118,14 @@ Fix all the errors and warnings and add instructions to this Migration Guide if 
 
 </details>
 
-## 10. Remove Vue compat package and use Vue 3
+
+## 11. Remove Vue compat package and use Vue 3
 
 The `@vue/compat` package which was used during the migration can now be removed so that the actual Vue 3 version will be used.
 
 <details><summary>Open</summary>
 
-### 10.1 Remove `@vue/compat` package from `package.json` and `vite.config.ts`
+### 11.1 Remove `@vue/compat` package from `package.json` and `vite.config.ts`
 
 ```js
 "@vue/compat": "^3.1.0",
@@ -987,13 +1138,14 @@ The `@vue/compat` package which was used during the migration can now be removed
 },
 ```
 
-### 10.2 Install npm packages again
+### 11.2 Install npm packages again
 
+> _Note: You may need to delete the package-lock file and the npm packages again!_
 ```bash
 npm install
 ```
 
-### 10.3 Test application again
+### 11.3 Test application again
 
 ```bash
 npm run dev
@@ -1002,6 +1154,7 @@ npm run dev
 If no errors or warnings are shown and the application is running as before, the upgrade to Vue 3 was successful!
 
 </details>
+
 
 ## References
 
