@@ -2,7 +2,7 @@
 
 This Migration Guide explains how to use Vue 3 together with Vite in your `piveau-hub-ui`. 
 
-It does not contain all breaking changes of Vue 3, but only the ones which are neccessary for `piveau-hub-ui`, i.e. all developers are asked to read about Vue 3 themselves.
+It does not contain all breaking changes of Vue 3, but only the ones which are necessary for `piveau-hub-ui`, i.e. all developers are asked to read about Vue 3 themselves.
 
 Please follow this guide strictly and apply the following changes:
 
@@ -202,6 +202,7 @@ const router = Router.createRouter({
     component: NotFound,
   },
 
+  ...
 
 });
 ```
@@ -253,6 +254,8 @@ var { merge } = require('webpack-merge');
 
 <details><summary>Open</summary>
 <br>
+
+> _Note: You may need to adjust the API´s for your project!_
 
 ```js
 import i18n from './i18n';
@@ -711,8 +714,6 @@ export default defineConfig({
 The `Vue` object is no longer available in Vue 3.
 This is a list of known usages in our UI that needs to be replaced.
 
-> _Note: There may be more usages in your project, use the search function to search for `Vue.` !_
-
 <details><summary>Open</summary>
 <br>
 
@@ -723,6 +724,8 @@ import Vue from "vue"
 ```
 
 #### 6.2 Replace `Vue.` occurences
+
+> _Note: There may be more usages in your project, use the search function to search for `Vue.`!_
 
 ```js
 Vue.set(variable, property, value)    ==> variable[property] = value
@@ -752,12 +755,26 @@ Update the Keycloak Service.
   "keycloak-js": "22.0.3",
 ```
 
-#### 7.2 Create `src/services/keycloakService.js` to overwrite keycloak service
+#### 7.2 Remove vueKeycloak import from piveau-hub-ui-modules in `main.ts`
+
+```js
+import {
+  vueKeycloak,
+} from '@piveau/piveau-hub-ui-modules';
+```
+
+#### 7.3 Import local `keycloakService.js` in `main.ts`
+
+```js
+import vueKeycloak from './services/keycloakService';
+```
+
+#### 7.4 Create local `src/services/keycloakService.js` to overwrite keycloak service
 
 ```js
 // @ts-nocheck
 /* eslint-disable */
-import { createApp } from 'vue'
+import { reactive } from 'vue';
 import Keycloak from 'keycloak-js';
 import qs from 'qs';
 import axios from 'axios';
@@ -780,42 +797,38 @@ export default {
     const options = Object.assign({}, defaultParams, params);
     if (assertOptions(options).hasError) throw new Error(`Invalid options given: ${assertOptions(options).error}`);
 
-    const watch = createApp({
-      data() {
-        return {
-          ready: false,
-          authenticated: false,
-          userName: null,
-          fullName: null,
-          token: null,
-          rtpToken: null,
-          tokenParsed: null,
-          logoutFn: null,
-          loginFn: null,
-          login: null,
-          createLoginUrl: null,
-          createLogoutUrl: null,
-          createRegisterUrl: null,
-          register: null,
-          accountManagement: null,
-          createAccountUrl: null,
-          loadUserProfile: null,
-          loadUserInfo: null,
-          subject: null,
-          idToken: null,
-          idTokenParsed: null,
-          realmAccess: null,
-          resourceAccess: null,
-          refreshToken: null,
-          refreshTokenParsed: null,
-          timeSkew: null,
-          responseMode: null,
-          responseType: null,
-          hasRealmRole: null,
-          hasResourceRole: null,
-          getRtpToken: null,
-        };
-      },
+    const watch = reactive({
+      ready: false,
+      authenticated: false,
+      userName: null,
+      fullName: null,
+      token: null,
+      rtpToken: null,
+      tokenParsed: null,
+      logoutFn: null,
+      loginFn: null,
+      login: null,
+      createLoginUrl: null,
+      createLogoutUrl: null,
+      createRegisterUrl: null,
+      register: null,
+      accountManagement: null,
+      createAccountUrl: null,
+      loadUserProfile: null,
+      loadUserInfo: null,
+      subject: null,
+      idToken: null,
+      idTokenParsed: null,
+      realmAccess: null,
+      resourceAccess: null,
+      refreshToken: null,
+      refreshTokenParsed: null,
+      timeSkew: null,
+      responseMode: null,
+      responseType: null,
+      hasRealmRole: null,
+      hasResourceRole: null,
+      getRtpToken: null,
     });
 
     getConfig(options.config)
@@ -840,6 +853,7 @@ function init(config, watch, options) {
   keycloak.onReady = function (authenticated) {
     updateWatchVariables(authenticated);
     watch.ready = true;
+    typeof options.onReady === 'function' && options.onReady(keycloak, watch);
   };
 
   keycloak.onAuthSuccess = function () {
@@ -1026,20 +1040,6 @@ function sanitizeConfig(config) {
     return previous;
   }, config);
 }
-```
-
-#### 7.3 Import local `keycloakService.js` in `main.ts`
-
-```js
-import vueKeycloak from './services/keycloakService';
-```
-
-#### 7.4 Remove vueKeycloak import from piveau-hub-ui-modules in `main.ts`
-
-```js
-import {
-  vueKeycloak,
-} from '@piveau/piveau-hub-ui-modules';
 ```
 </details>
 
