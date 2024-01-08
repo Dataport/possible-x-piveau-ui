@@ -51,9 +51,7 @@ publish to gitlab.com DEU dataeuropa:
     - ln -s /usr/bin/python3 /usr/local/bin/python
     - pip3 install --upgrade pip
     - pip3 install git-filter-repo
-    - git remote update
-    - git fetch 
-    - git checkout --track origin/master
+    - git checkout master
     - git filter-repo --invert-paths --force --path .gitlab-ci.yml
     - git clone https://$GITLAB_COM_USERNAME:$GITLAB_COM_TOKEN@gitlab.com/dataeuropa/utilities/ui-modules target-repo
     - cd target-repo
