@@ -1,3 +1,49 @@
+# [4.0.0-alpha.20](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.19...v4.0.0-alpha.20) (2024-01-08)
+
+
+
+# [4.0.0-alpha.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.18...v4.0.0-alpha.19) (2024-01-03)
+
+
+
+# [4.0.0-alpha.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.17...v4.0.0-alpha.18) (2024-01-03)
+
+
+### Bug Fixes
+
+* adapted dcatap schema to use repeatable component ([fefe9aa](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fefe9aae7e25819754d203b4a18cec900aca460f))
+* adapted dcatapde schema ([e27ecd3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e27ecd31a37d1acb00ce4a6ef3233d04410382ba))
+* adapted dcatapde schema ([1a2d160](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1a2d16063e043b389cf48ae9ba79e348e3e896e2))
+* adapted dcatapde schema to use repeatables ([25269a9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/25269a9e325c1dcb14d497b853e0a815919fdea0))
+* adapted InputPage and input definition to hanlde changes and data ([9fbcf93](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/9fbcf93f113d67a58543d2b47d0b4415b3049d4c))
+* adapted properties for datasets and distributions ([7b19111](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/7b1911181d6a77ff635bbb5fcb5b0ded2c41343b))
+* adapted Repeatable component to handle data the right way and support names ([a01fa7c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a01fa7cfaf14b77b6321804b6341cb88b7b67f16))
+* added FormKitSummary replacing validation modal ([59b06f2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/59b06f28a6500e448131b9e60833c02f936e7994))
+* **CatalogPage:** migrate to vue3 technology stack ([f8e8870](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f8e88705ebe0e5e0fa8a0909d3c2dd1558811edf))
+* **DistributionDownloadAsModal:** improve stability of modal close btn ([e92fe9a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e92fe9ae971a0a7293e223c55726de814b6c950a))
+* **dpi-style:** unhide step--error when inactive ([b8b1b58](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b8b1b58d7d57a17ab86c4c3e6dc8884ca6577367))
+* fix lib not building ([b8f70c1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b8f70c19fa1c470c2f10c58f2029c304b2b849fb))
+* get data from title in uniqueID ([60bbda2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/60bbda2d4cb6c43c9423dd94f7b3a98db7854111))
+* **input-definition:** autocomplete -> auto ([8e2fea7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8e2fea7d229d94addc1133d663e1c0a4445c2a81))
+* remove unused global button style ([679a8b8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/679a8b8c26f8624ea0a962f6e3c14c32ef0ae735))
+* typo in index.ts export ([e06bdeb](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e06bdeb0d8d1fa25bad4664a7be216ed8c13a71f))
+* **UniqueIdentifierInput:** fix DPI breaking when title input from CustomInputs component is not rendering ([fc93203](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fc9320315f647850eb644f8d53c865356e8ed070))
+
+
+### Features
+
+* Custom Input Component for UniqueDatasetID ([fde9046](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fde9046b69121af6405463f2d83a2690beb636ed))
+* Custom Input Components for Fileupload and Autocomplete ([388ea5d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/388ea5d1c67b4a3151f8722d69541337261cea5b))
+* export useRuntimeEnv method ([c3f7f0a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c3f7f0adea774db128710e460ac5be77e95ad9fd))
+* implement Custom Input Component with repeatable function ([c80819c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c80819c2381f78adc131c80f75bfc519af316240))
+* Implement full custom input component example containing UniqueDatasetID, FileUpload and Autocomplete ([002376a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/002376aeec130c013ae0d63dcbd7d67450899b99))
+* implement stepper-level validation error display ([6a71cb2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6a71cb20feca1a1aeb402dd4bebfd18b931ff57b))
+* improve rootHead configurability ([0b02e0c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/0b02e0c7f5a1957f91bb98ebc7f65bc611ba50b6))
+* **InputPage:** add next and previous buttons ([56f78e0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/56f78e020ae5f99fb32da2329816338c88d1d669))
+* **InputPage:** include step title in next and prev buttons ([722fea0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/722fea0f69bd24f87e6f13d406934fb02084c552))
+
+
+
 # [4.0.0-alpha.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.16...v4.0.0-alpha.17) (2023-12-05)
 
 

@@ -1,35 +1,53 @@
 <template>
-  <div
-    :class="`formkit-input-element`"
-    id="datasetID"
-    ref="datasetID"
-    v-bind="$attrs"
-  >
+  <div :class="`formkit-input-element`" id="datasetID" ref="datasetID" v-bind="$attrs">
     <div v-if="getIsEditMode">
-      <FormKit
-        v-model="uniqueID"
-        type="text"
-        name="datasetID"
-        :disabled="true"
-        class="w100-textfield"
-        suffix-icon="add">
+      <FormKit v-model="uniqueID" type="text" name="datasetID" :disabled="true" class="w100-textfield" prefix-icon="info"
+        :sections-schema="{
+          suffix: {
+            $el: 'span',
+            attrs: {
+              class: 'input-char-count',
+            },
+            children: [
+              '$: $attrs.maxlength - $fns.length($value || 0)',
+              {
+                $el: 'span',
+                children: '$: $attrs.maxlength - $fns.length($value || 0) + \' characters remaining\'',
+                attrs: {
+                  class: 'char-count-hover'
+                }
+              }
+            ]
+          }
+        }">
       </FormKit>
     </div>
+    
     <div v-else>
-      <FormKit
-        v-model="uniqueID"
-        @input="checkUniqueID"
-        id="datasetIDForm"
-        type="text"
-        name="datasetID"
-        class="w100-textfield"
-        suffix-icon="add"
-        :placeholder="$t('message.dataupload.createUniqueID')"
-        :validation="validation"
-        :validation-rules="validationRules"
-        :validation-messages="validationMessages">
+      <FormKit v-model="uniqueID" @input="checkUniqueID" id="datasetIDForm" type="text" name="datasetID"
+        class="w100-textfield" :placeholder="$t('message.dataupload.createUniqueID')"
+        :validation="validation" :validation-rules="validationRules" :validation-messages="validationMessages"
+        :sections-schema="{
+          prefix: {
+            $el: 'div',
+            attrs: {
+              class: 'infoI',
+            },
+            children: [
+              {
+                $el: 'div',
+                children: this.context.attrs.info,
+                attrs: {
+                  class: 'tooltipFormkit'
+                }
+                
+              }
+            ]
+          }
+        }">
       </FormKit>
     </div>
+    
   </div>
 </template>
 
@@ -54,7 +72,7 @@ export default {
       },
     };
   },
-  props:{
+  props: {
     context: Object,
   },
   computed: {
@@ -63,7 +81,7 @@ export default {
       'getUserDrafts',
     ]),
     rawTitle() {
-      return this.$formkit.get("title")?.context.value;
+      return this.$formkit.get("title")?.context.value[0]['@value'];
     },
   },
   methods: {
@@ -109,14 +127,16 @@ export default {
     },
   },
   mounted() {
+    console.log(this.context);
     this.checkUniqueID();
   },
   watch: {
     rawTitle: {
       handler(newValue) {
+        console.log(newValue)
         this.uniqueID = newValue
-        .toLowerCase()
-        .replace(/ /g, '-');
+          .toLowerCase()
+          .replace(/ /g, '-');
       }
     },
     isUniqueID: {

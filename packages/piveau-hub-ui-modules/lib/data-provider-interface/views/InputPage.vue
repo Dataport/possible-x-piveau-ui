@@ -1,7 +1,7 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-
+<details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
         <!-- TestPage for Custom Inputs -->
@@ -12,51 +12,62 @@
           class="d-flex">
           <div class="d-flex">
             <ul class="steps">
-              <li v-for="(step, stepName, index) in steps" :key="step" class="step" @click="activeStep = stepName; handleStep(stepName)"
-                :data-step-valid="step.valid" :data-step-active="activeStep === stepName"
-                :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep }">
+              <li 
+                v-for="(step, stepName, index) in steps"
+                :key="step" class="step"
+                :data-step-valid="step.valid && step.errorCount === 0"
+                :data-step-active="activeStep === stepName"
+                :class="{
+                  activeItem: activeStep === stepName,
+                  inactiveStep: stepName != activeStep,
+                  'has-errors': checkStepValidity(stepName),
+                }"
+                @click="activeStep = stepName; handleStep(stepName)"
+              >
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
-                  <span>{{ camel2title(stepName) }}</span>
+                  <span
+                    v-if="checkStepValidity(stepName)"
+                    class="step--errors"
+                    v-text="step.errorCount + step.blockingCount"
+                  />
+                  {{ camel2title(stepName) }}
                 </div>
                
                 <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
               </li>
             </ul>
             <!-- <FormKitSummary /> -->
-            <section :class="{ activeSection: step === 'mandatory' }" v-show="activeStep === 'mandatory'">
-              <FormKit type="group" id="mandatory" name="mandatory" ref="mandatory">
-                <FormKitSchema :schema="fullSchema[0]" />
-              </FormKit>
-            </section>
-            <section :class="{ activeSection: step === 'advised' }" v-show="activeStep === 'advised'">
-              <FormKit type="group" id="advised" name="advised" ref="advised">
-                <FormKitSchema :schema="fullSchema[1]" />
-              </FormKit>
-            </section>
-            <section :class="{ activeSection: step === 'recommended' }" v-show="activeStep === 'recommended'">
-              <FormKit type="group" id="recommended" name="recommended" ref="recommended">
-                <FormKitSchema :schema="fullSchema[2]" />
-              </FormKit>
-
-            </section>
-            <section :class="{ activeSection: step === 'distributition' }" v-show="activeStep === 'distributition'">
-              <FormKit type="group" id="distributition" name="distributition" ref="distributition">
+            <div class="d-flex flex-column w-100">
+              <InputPageStep name="mandatory"><FormKitSchema :schema="fullSchema[0]" /></InputPageStep>
+              <InputPageStep name="advised"><FormKitSchema :schema="fullSchema[1]" /></InputPageStep>
+              <InputPageStep name="recommended"><FormKitSchema :schema="fullSchema[2]" /></InputPageStep>
+              <InputPageStep name="distribution">
                 <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
-
-              </FormKit>
-              <!-- <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview> -->
-            </section>
-            <section :class="{ activeSection: step === 'overview' }" v-show="activeStep === 'overview'">
-              <FormKit type="group" id="overview" name="overview" ref="overview">
-                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
-
-              </FormKit>
-            </section>
-
+                <!-- <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview> -->
+              </InputPageStep>
+              <InputPageStep name="overview"><FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" /></InputPageStep>
+              <div class="d-flex w-100 justify-content-between">
+                <FormKit type="button" @click="goToPreviousStep">
+                  <div class="d-flex flex-column align-items-start">
+                    <small>{{ camel2title(previousStep) }}</small>
+                    <span>{{ $t('message.dataupload.preview') }}</span>
+                  </div>
+                </FormKit>
+                <FormKit type="button" @click="goToNextStep">
+                  <div class="d-flex flex-column align-items-end">
+                    <small>{{ camel2title(nextStep) }}</small>
+                    <span>{{ $t('message.dataupload.next') }}</span>
+                  </div>
+                </FormKit>
+                <FormKit type="button" @click="clearForm">Clear Form</FormKit>
+                <FormKit type="submit" id="submit-form"></FormKit>
+              </div>
+            </div>
           </div>
+         
 
-          <FormKit type="submit" id="submit-form" class="d-none"></FormKit>
+          
         </FormKit>
       </div>
     </div>
@@ -68,6 +79,7 @@
 
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
+import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import {
@@ -78,9 +90,9 @@ import {
 import { FormKitSummary } from '@formkit/vue';
 import DistributionOverview from './DistributionOverview.vue';
 import CustomInputs from './CustomInputs.vue';
-import useSteps from '../utils/useSteps.js'
+import { useDpiStepper } from '../composables/useDpiStepper';
 
-export default {
+export default defineComponent({
   props: {
     property: {
       required: true,
@@ -101,8 +113,6 @@ export default {
   data() {
     return {
       stepNames: ['mandatory', 'advised', 'recommended', 'distribution', 'overview'],
-      step: 'mandatory',
-      activestep: "",
       heightActiveSec:"10vh",
       fullSchema: [],
       formValues: {},
@@ -121,6 +131,7 @@ export default {
     DistributionOverview,
     FormKitSummary,
     CustomInputs,
+    InputPageStep,
   },
   computed: {
     ...mapGetters('auth', [
@@ -168,6 +179,9 @@ export default {
       'clearAll',
       'setDeleteDistributionInline',
     ]),
+    clearForm(){
+      this.$formkit.reset('dpi')
+    },
     handleStep(stepName) {
       this.step = stepName;
 
@@ -332,7 +346,7 @@ export default {
         this.createSchema({ property: this.property, page: this.page });
         this.translateSchema({ property: this.property });
       }
-    }
+    },
   },
   beforeRouteEnter(to, from, next) {
     // Always clear storage when entering DPI
@@ -361,15 +375,34 @@ export default {
     }
   },
   setup() {
-    const { steps, activeStep, stepPlugin } = useSteps();
+    const {
+      steps,
+      activeStep,
+      visitedSteps,
+      previousStep,
+      nextStep,
+      stepPlugin,
+      goToNextStep,
+      goToPreviousStep,
+    } = useDpiStepper();
+
+    const checkStepValidity = (stepName) => {
+      return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
+    }
 
     return {
       steps,
+      visitedSteps,
       activeStep,
+      previousStep,
+      nextStep,
       stepPlugin,
+      checkStepValidity,
+      goToNextStep,
+      goToPreviousStep,
     }
   }
-};
+});
 </script>
 <style lang="scss">
 @import 'https://cdn.formk.it/web-assets/multistep-form.css';
