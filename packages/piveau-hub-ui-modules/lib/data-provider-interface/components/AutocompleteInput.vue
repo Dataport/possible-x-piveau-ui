@@ -9,7 +9,8 @@
     <div v-if="openSuggestedList" class="suggestedItemsContainer">
       <ul>
         <li v-for="items, key in this.autocomplete.suggestions" :key="key" @click="this.chooseSuggestedItem(items)">{{
-          items.name }}</li>
+          items.name }}
+        </li>
       </ul>
     </div>
     <div v-if="this.context.attrs.multiple" :class="{ 'chosenItemsContainer': true, 'd-none': this.values.length < 1 }">
@@ -19,7 +20,7 @@
       </div>
       <ul>
         <li v-for="chosenItems, index in this.values" :key="index">
-          <p >{{ chosenItems.name }}</p>
+          <p>{{ chosenItems.name }}</p>
           <div class="removeX" @click="removeActiveItem($event)" @mouseover="hoverEffect($event, true)"
             @mouseleave="hoverEffect($event, false)">
           </div>
