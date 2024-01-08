@@ -1,6 +1,6 @@
 // @ts-nocheck
 /* eslint-disable */
-import { reactive } from 'vue'
+import { reactive } from 'vue';
 import Keycloak from 'keycloak-js';
 import qs from 'qs';
 import axios from 'axios';
