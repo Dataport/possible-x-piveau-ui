@@ -72,6 +72,7 @@ export type DcatApDistributionsProperty =
   | 'page'
   | 'hasPolicy'
   | 'language'
+  | 'licence'
   | 'conformsTo'
   | 'issued'
   | 'modified'
@@ -1204,56 +1205,58 @@ const dcatapProperties: InputDefinition = {
       voc: 'file-type',
       name: 'dct:format',
     },
-    // licence: {
-    //   identifier: 'licence',
-    //   $formkit:'group',
-    //   name: 'dct:license',
-    //   
-    //   children: [
-    //     {
-    //       identifier: 'licence',
-    //       $formkit: 'select',
-    //       id: "licenceMode",
-    //       name: 'licenceMode',
-    //       options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-    //     },
-    //     {
-    //       $cmp: "FormKit",
-    //       if: "$get(licenceMode).value",
-    //       props: {
-    //         if: "$get(licenceMode).value === man",
-    //         then: {
-    //           type: "group",
-    //           children: [
-    //             {
-    //               identifier: 'licenceTitle',
-    //               $formkit:'text',
-    //               name: 'dct:title',
-    //             },
-    //             {
-    //               identifier: 'licenceDescription',
-    //               $formkit:'textarea',
-    //               name: 'skos:prefLabel',
-    //             },
-    //             {
-    //               identifier: 'licenceURL',
-    //               $formkit:'custom-url',
-    //               name: 'skos:exactMatch',
-    //               validation: 'optional|url',
-    //             },
-    //           ]
-    //         },
-    //         else: {
-    //           then: {
-    //             type: "text",
-    //             name: "@id"
-    //           }
-    //         }
-    //       }
-
-    //     }
-    //   ]
-    // },
+    licence: {
+      $formkit: 'group',
+      name: 'dct:license',
+      children: [
+        {
+          $formkit: 'select',
+          identifier: 'licence',
+          name: 'licenceMode',
+          id: 'licenceMode',
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "voc"',
+          children: [
+            {
+              $formkit: 'auto',
+              identifier: 'licenceVocabulary',
+              name: '@id',
+              voc: 'licence',
+              property: 'dct:license',
+            }
+          ]
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "man"',
+          children: [
+            {
+              $formkit: 'text',
+              identifier: 'licenceTitle',
+              name: 'dct:title',
+            },
+            {
+              $formkit: 'textarea',
+              identifier: 'licenceDescription',
+              name: 'skos:prefLabel',
+            },
+            {
+              $formkit: 'url',
+              identifier: 'licenceURL',
+              name: 'skos:exactMatch',
+              validation: 'optional|url',
+            },
+          ]
+        }
+      ]
+    },    
     // minimum
     title: {
       identifier: 'title',
@@ -1802,56 +1805,58 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:language',
       voc: 'language',
     },
-    // licence: {
-    //   identifier: 'licence',
-    //   $formkit:'group',
-    //   name: 'dct:license',
-    //   
-    //   children: [
-    //     {
-    //       identifier: 'licence',
-    //       $formkit: 'select',
-    //       id: "licenceMode",
-    //       name: 'licenceMode',
-    //       options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-    //     },
-    //     {
-    //       $cmp: "FormKit",
-    //       if: "$get(licenceMode).value",
-    //       props: {
-    //         if: "$get(licenceMode).value === voc",
-    //         then: {
-    //           type: "group",
-    //           children: [
-    //             {
-    //               identifier: 'licenceTitle',
-    //               $formkit:'text',
-    //               name: 'dct:title',
-    //             },
-    //             {
-    //               identifier: 'licenceDescription',
-    //               $formkit:'textarea',
-    //               name: 'skos:prefLabel',
-    //             },
-    //             {
-    //               identifier: 'licenceURL',
-    //               $formkit:'custom-url',
-    //               name: 'skos:exactMatch',
-    //               validation: 'optional|url',
-    //             },
-    //           ]
-    //         },
-    //         else: {
-    //           then: {
-    //             type: "text",
-    //             name: "@id"
-    //           }
-    //         }
-    //       }
-
-    //     }
-    //   ]
-    // },
+    licence: {
+      $formkit: 'group',
+      name: 'dct:license',
+      children: [
+        {
+          $formkit: 'select',
+          identifier: 'licence',
+          name: 'licenceMode',
+          id: 'licenceMode',
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "voc"',
+          children: [
+            {
+              $formkit: 'auto',
+              identifier: 'licenceVocabulary',
+              name: '@id',
+              voc: 'licence',
+              property: 'dct:license',
+            }
+          ]
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "man"',
+          children: [
+            {
+              $formkit: 'text',
+              identifier: 'licenceTitle',
+              name: 'dct:title',
+            },
+            {
+              $formkit: 'textarea',
+              identifier: 'licenceDescription',
+              name: 'skos:prefLabel',
+            },
+            {
+              $formkit: 'url',
+              identifier: 'licenceURL',
+              name: 'skos:exactMatch',
+              validation: 'optional|url',
+            },
+          ]
+        }
+      ]
+    },    
     spatial: {
       $formkit: 'repeatable',
       name: 'dct:spatial',

@@ -493,54 +493,57 @@ const dcatapProperties = {
         }
       ]
     },
-    // publisher: {
-    //   identifier: 'publisher',
-    //   name: 'dct:publisher',
-    //   class: 'property',
-    //   type: 'conditional-input',
-    //   '@change': true,
-    //   options: {voc: 'Search Vocabulary', man: 'Manually submit information'},
-    //   data: {
-    //     voc: [
-    //       {
-    //         identifier: 'publisher',
-    //         type: 'autocomplete-input',
-    //         name: '@id',
-    //         voc: 'corporate-body',
-    //         '@change': true,
-    //       }
-    //     ],
-    //     man: [
-    //       {
-    //         identifier: 'publisher',
-    //         type: 'group',
-    //         name: 'dct:publisher',
-    //         '@change': true,
-    //         children: [
-    //           {
-    //             identifier: 'publisherName',
-    //             type: 'text',
-    //             name: 'foaf:name',
-    //             '@change': true,
-    //           },
-    //           {
-    //             identifier: 'publisherEmail',
-    //             type: 'email',
-    //             name: 'foaf:mbox',
-    //             '@change': true,
-    //           },
-    //           {
-    //             identifier: 'publisherHomepage',
-    //             type: 'custom-url',
-    //             name: 'foaf:homepage',
-    //             '@change': true,
-    //           }
-    //         ]
-    //       }
-    //     ],
-    //   }
-    // },
-    // repetable
+    publisher: {
+      $formkit: 'group',
+      name: 'dct:publisher',
+      children: [
+        {
+          $formkit: 'select',
+          identifier: 'publisher',
+          name: 'publisherMode',
+          id: 'publishereMode',
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(publisherMode).value',
+          if: '$get(publisherMode).value === "voc"',
+          children: [
+            {
+              $formkit: 'auto',
+              identifier: 'licenceVocabulary',
+              name: '@id',
+              voc: 'corporate-body',
+              property: 'dct:license',
+            }
+          ]
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(publisherMode).value',
+          if: '$get(publisherMode).value === "man"',
+          children: [
+            {
+              $formkit: 'text',
+              identifier: 'publisherName',
+              name: 'foaf:name',
+            },
+            {
+              $formkit: 'email',
+              identifier: 'publisherEmail',
+              name: 'foaf:mbox',
+            },
+            {
+              $formkit: 'url',
+              identifier: 'publisherHomepage',
+              name: 'foaf:homepage',
+            },
+          ]
+        }
+      ]
+    },
     spatial: {
       identifier: 'spatial',
       $formkit: 'repeatable',
@@ -1946,115 +1949,117 @@ const dcatapProperties = {
         }
       ],
     },
-    // publisher: {
-    //   identifier: 'publisher',
-    //   name: 'dct:publisher',
-    //   class: 'property',
-    //   type: 'conditional-input',
-    //   validation: 'required',
-    //   '@change': true,
-    //   options: {voc: 'Search Vocabulary', man: 'Manually submit information'},
-    //   data: {
-    //     voc: [
-    //       {
-    //         identifier: 'publisher',
-    //         type: 'autocomplete-input',
-    //         name: '@id',
-    //         voc: 'corporate-body',
-    //         '@change': true,
-    //       }
-    //     ],
-    //     man: [
-    //       {
-    //         identifier: 'publisher',
-    //         type: 'group',
-    //         name: 'dct:publisher',
-    //         '@change': true,
-    //         children: [
-    //           {
-    //             identifier: 'publisherName',
-    //             type: 'text',
-    //             name: 'foaf:name',
-    //             '@change': true,
-    //           },
-    //           {
-    //             identifier: 'publisherEmail',
-    //             type: 'email',
-    //             name: 'foaf:mbox',
-    //             '@change': true,
-    //           },
-    //           {
-    //             identifier: 'publisherHomepage',
-    //             type: 'custom-url',
-    //             name: 'foaf:homepage',
-    //             '@change': true,
-    //           }
-    //         ]
-    //       }
-    //     ],
-    //   }
-    // },
-    // autocomplete ,multiple
+    publisher: {
+      $formkit: 'group',
+      name: 'dct:publisher',
+      children: [
+        {
+          $formkit: 'select',
+          identifier: 'publisher',
+          name: 'publisherMode',
+          id: 'publishereMode',
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(publisherMode).value',
+          if: '$get(publisherMode).value === "voc"',
+          children: [
+            {
+              $formkit: 'auto',
+              identifier: 'licenceVocabulary',
+              name: '@id',
+              voc: 'corporate-body',
+              property: 'dct:license',
+            }
+          ]
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(publisherMode).value',
+          if: '$get(publisherMode).value === "man"',
+          children: [
+            {
+              $formkit: 'text',
+              identifier: 'publisherName',
+              name: 'foaf:name',
+            },
+            {
+              $formkit: 'email',
+              identifier: 'publisherEmail',
+              name: 'foaf:mbox',
+            },
+            {
+              $formkit: 'url',
+              identifier: 'publisherHomepage',
+              name: 'foaf:homepage',
+            },
+          ]
+        }
+      ]
+    },
     language: {
       identifier: 'language',
-      $formkit: 'autoc',
+      $formkit: 'auto',
       multiple: true,
       name: 'dct:language',
       voc: 'language',
       class: 'property',
     },
-    // licence: {
-    //   identifier: 'licence',
-    //   type: 'conditional-input',
-    //   name: 'dct:license',
-    //   '@change': true,
-    //   class: 'property',
-    //   options: {
-    //     voc: 'Choose from vocabulary',
-    //     man: 'Manually submit information',
-    //   },
-    //   data: {
-    //     voc: [
-    //       {
-    //         identifier: 'licenceVocabulary',
-    //         type: 'autocomplete-input',
-    //         voc: 'licence',
-    //         name: '@id',
-    //         '@change': true,
-    //       },
-    //     ],
-    //     man: [
-    //       {
-    //         identifier: 'licenceDetails',
-    //         type: 'group',
-    //         name: 'dct:license',
-    //         '@change': true,
-    //         children: [
-    //           {
-    //             identifier: 'licenceTitle',
-    //             type: 'text',
-    //             name: 'dct:title',
-    //             '@change': true,
-    //           },
-    //           {
-    //             identifier: 'licenceDescription',
-    //             type: 'textarea',
-    //             name: 'skos:prefLabel',
-    //             '@change': true,
-    //           },
-    //           {
-    //             identifier: 'licenceURL',
-    //             type: 'custom-url',
-    //             name: 'skos:exactMatch',
-    //             validation: 'optional|url',
-    //             '@change': true,
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //   },
-    // },
-    // repetabale 
+    licence: {
+      $formkit: 'group',
+      name: 'dct:license',
+      children: [
+        {
+          $formkit: 'select',
+          identifier: 'licence',
+          name: 'licenceMode',
+          id: 'licenceMode',
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "voc"',
+          children: [
+            {
+              $formkit: 'auto',
+              identifier: 'licenceVocabulary',
+              name: '@id',
+              voc: 'licence',
+              property: 'dct:license',
+            }
+          ]
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "man"',
+          children: [
+            {
+              $formkit: 'text',
+              identifier: 'licenceTitle',
+              name: 'dct:title',
+            },
+            {
+              $formkit: 'textarea',
+              identifier: 'licenceDescription',
+              name: 'skos:prefLabel',
+            },
+            {
+              $formkit: 'url',
+              identifier: 'licenceURL',
+              name: 'skos:exactMatch',
+              validation: 'optional|url',
+            },
+          ]
+        }
+      ]
+    },    
     spatial: {
       $formkit:'repeatable',
       name: 'dct:spatial',

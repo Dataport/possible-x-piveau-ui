@@ -90,6 +90,7 @@ import {
 import { FormKitSummary } from '@formkit/vue';
 import DistributionOverview from './DistributionOverview.vue';
 import CustomInputs from './CustomInputs.vue';
+import InputPageStep from '../components/InputPageStep.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
 
 export default defineComponent({
