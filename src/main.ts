@@ -52,8 +52,6 @@ import {
   InfoSlot,
   ConditionalInput,
   AutocompleteInput,
-  CustomNumber,
-  CustomURL,
   UniqueIdentifierInput,
   Groupedinput,
   FileUpload,
@@ -117,8 +115,6 @@ app.component('UniqueIdentifierInput', UniqueIdentifierInput);
 app.component('FileUpload', FileUpload);
 app.component('DatePicker', DatePicker);
 app.component('DateTimePicker', DateTimePicker);
-app.component('CustomNumber', CustomNumber);
-app.component('CustomURL', CustomURL)
 app.component('AppSnackbar', AppSnackbar);
 app.component('AppConfirmationDialog', AppConfirmationDialog);
 app.component('font-awesome-icon', FontAwesomeIcon);
