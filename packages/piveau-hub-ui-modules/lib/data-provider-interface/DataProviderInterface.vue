@@ -6,22 +6,6 @@
         <h1 class="small-headline ml-1 my-0">{{ mode }}</h1>
         <!-- <Navigation @clearStorage="clearStorageAndValues" :nextStep="nextStep" class="w-100 stickyNav"></Navigation> -->
       </div>
-
-      <!-- if current form is distribution form the main stepper for datasets should be shown also-->
-      <StepProgress id="stepper" class="d-none" v-if="property !== 'distributions'" :line-thickness="1" :steps="stepNames"
-        :current-step="getCurrentStep" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
-      </StepProgress>
-
-      <StepProgress id="subStepper" class="d-none" v-if="property === 'distributions'" :line-thickness="1" :steps="datasetStepNames"
-        :current-step="3" active-color="#001d85" :active-thickness="20" :passive-thickness="20">
-      </StepProgress>
-      
-      <div id="subStepperBox" v-if="property === 'distributions'">
-        
-        <StepProgress id="stepper" v-if="showDatasetStepper" :steps="stepNames" :current-step="getCurrentStep"
-          active-color="#343434" :line-thickness="1" :active-thickness="20" :passive-thickness="20">
-        </StepProgress>
-      </div>
     </div>
     <!-- CONTENT -->
     <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
@@ -33,13 +17,10 @@
 /* eslint-disable no-nested-ternary, no-lonely-if, no-param-reassign */
 import { defineAsyncComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
-import StepProgress from 'vue-step-progress';
-import 'vue-step-progress/dist/main.css';
 
 export default {
   name: 'DataProviderInterface',
   components: {
-    StepProgress: StepProgress.default || StepProgress,
     Navigation: defineAsyncComponent(() => import('./components/Navigation')),
     InputPage: defineAsyncComponent(() => import('./views/InputPage')),
     OverviewPage: defineAsyncComponent(() => import('./views/OverviewPage')),
@@ -160,35 +141,6 @@ export default {
     jumpToFirstPage() {
       this.$router.push(this.getClearPath()).catch(() => { });
     },
-    addStepperLinks() {
-      // Direct stepper access - hacky solution
-      document.querySelectorAll('#stepper .step-progress__step-label').forEach((s, i) => {
-
-        if (this.getNavSteps[this.property][i] === 'overview') {
-          // only datasets and catalogues have an overview page
-          s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/overview?locale=${this.$i18n.locale}`).catch(() => { });
-        } else if (this.getNavSteps[this.property][i] === 'distoverview') {
-          // only datasets and distributions have a distoverview page
-          if (this.property === 'datasets') {
-            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => { });
-          } else if (this.property === 'distributions') {
-            // distribution overview page should have distribution index for back navigation to distirbutions
-            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/distoverview/${this.id}?locale=${this.$i18n.locale}`).catch(() => { });
-          }
-        } else {
-          if (this.property === 'distributions') {
-            // id of distribution needed within navigation
-            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}/${this.id}?locale=${this.$i18n.locale}`).catch(() => { });
-          } else {
-            s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${this.getNavSteps[this.property][i]}?locale=${this.$i18n.locale}`).catch(() => { });
-          }
-        }
-      });
-      // stepper links for dataset stepper when distribution form is currently on display
-      document.querySelectorAll('#subStepper .step-progress__step-label').forEach((s, i) => {
-        s.onclick = () => this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps['datasets'][i]}?locale=${this.$i18n.locale}`).catch(() => { });
-      });
-    },
     handleScroll() {
       try {
         if (document.getElementById("stepperAnchor").offsetTop >= 35) {
@@ -207,7 +159,6 @@ export default {
     this.populateDraftAndEdit();
   },
   mounted() {
-    this.addStepperLinks();
     this.saveLocalstorageValues(this.property);
   },
   unmounted() {

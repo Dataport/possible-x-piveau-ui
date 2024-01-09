@@ -32,10 +32,6 @@ import { mapActions } from "vuex";
 import { getTranslationFor } from "../../utils/helpers";
 import { getNode } from '@formkit/core'
 
-
-
-
-
 export default {
   props: {
     context: Object,
@@ -61,23 +57,16 @@ export default {
       "requestResourceName",
     ]),
     hoverEffect(e, bool) {
-      if (bool) {
-        e.target.previousElementSibling.classList.add('eraseItem');
-      } else
-        e.target.previousElementSibling.classList.remove('eraseItem');
+      if (bool) e.target.previousElementSibling.classList.add('eraseItem');
+      else e.target.previousElementSibling.classList.remove('eraseItem');
     },
     getAutocompleteSuggestions(searchText) {
 
-      // console.log(searchText);
       if (!searchText) {
-
         if (this.autocomplete.text.length <= 1) {
-
           this.requestFirstEntrySuggestions(this.context.voc).then((response) => {
-
          
             const results = response.data.result.results.map((r) => ({
-
               name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
               resource: r.resource,
             }));
@@ -86,7 +75,6 @@ export default {
             this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
           });
         } else {
-
           this.requestAutocompleteSuggestions(this.context.voc, text).then((response) => {
 
             const results = response.data.result.results.map((r) => ({
@@ -98,13 +86,9 @@ export default {
             else this.autocomplete.suggestions = results;
           });
         }
-      
       }
       else {
-        // console.log(this.context);
-
         this.requestAutocompleteSuggestions({ voc: this.context.voc, text: searchText }).then((response) => {
-
           const results = response.data.result.results.map((r) => ({
             name: getTranslationFor(r.pref_label, this.$i18n.locale, []) + " (" + r.id + ")",
             resource: r.resource,
@@ -113,18 +97,13 @@ export default {
           if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
           else this.autocomplete.suggestions = results;
         });
-
       }
-
     },
     removeActiveItem(e) {
-      // console.log(e.target.previousElementSibling);
       let itemToEraseText = e.target.previousElementSibling.innerHTML
       this.values = this.values.filter(filtered => filtered.name != itemToEraseText)
 
       // Todo need to refresh the context Object
-      // console.log(this.values);
-
     },
     chooseSuggestedItem(chosenObject) {
 
@@ -135,7 +114,6 @@ export default {
         }
       }
       else {
-        console.log(this.context);
         this.values[0] = chosenObject;
         this.context.attrs.placeholder = chosenObject.name
       }
@@ -143,18 +121,13 @@ export default {
       this.context.model = this.values;
       this.node.input(this.values)
 
-      if (this.values.length > 0) {
-        this.itemsChosen = true;
-      }
-      else {
-        this.itemsChosen = false;
-      }
+      if (this.values.length > 0) this.itemsChosen = true;
+      else this.itemsChosen = false;
+
       this.openSuggestedList = !this.openSuggestedList
-
-
     },
     searchVocabulary(typedText) {
-      console.log(typedText);
+      //console.log(typedText);
     }
   },
   computed: {
@@ -163,18 +136,15 @@ export default {
     }
   },
   mounted() {
-
     this.getAutocompleteSuggestions();
     if (ref(this.context.value)._rawValue) {
       this.values = ref(this.context.value)._rawValue;
-      console.log(this.values);
     }
   },
   watch: {
     getformerValues: {
       handler() {
         this.values = this.getformerValues
-        console.log(this.values);
       },
     }
   }

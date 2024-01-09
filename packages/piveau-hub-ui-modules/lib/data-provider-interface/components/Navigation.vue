@@ -18,7 +18,7 @@
 
         <!-- PUBLISH NEW CATALOGUE -->
         <FormKit type="button" @click="submit('createcatalogue')"
-          v-if="(isOverviewPage || getMandatoryStatus({ property: property, id: id })) && !getIsEditMode && !getIsDraft && property === 'catalogues'"
+          v-if="(isOverviewPage) && !getIsEditMode && !getIsDraft && property === 'catalogues'"
           class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{
             $t('message.dataupload.publishcatalogue') }}</FormKit>
         <!-- PUBLISH EDITED CATALOGUE -->
@@ -86,11 +86,6 @@ export default {
           message: 'Dataset ID already exists',
           callback: this.closeModal,
         },
-        mandatory: {
-          confirm: '',
-          message: 'Mandatory Properties are missing',
-          callback: this.closeModal,
-        },
         clear: {
           confirm: 'Clear form',
           message: 'Are your sure you want to clear the form? BE AWARE: this can not be reverted and all of your Data is lost!',
@@ -116,7 +111,6 @@ export default {
     ...mapGetters('dpiStore', [
       'getData',
       'getNavSteps',
-      'getMandatoryStatus',
     ]),
     iDError() { return this.$route.query.error === 'id' },
     datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
@@ -126,7 +120,7 @@ export default {
       return this.isPreviousPage || this.property === 'distributions';
     },
     showDatasetSavingButton() {
-      return this.property !== 'catalogues' && this.getMandatoryStatus({ property: this.property, id: this.id });
+      return this.property !== 'catalogues';
     },
     showNextLabel() {
       return !(this.isOverviewPage || this.page === 'distoverview');
@@ -264,12 +258,6 @@ export default {
       const RDFdata = await this.convertToRDF(submitProperty).then((response) => { return response; });
       const rtpToken = this.getUserData.rtpToken;
 
-      if (!this.getMandatoryStatus({ property: this.property, id: this.id })) {
-        this.$Progress.fail();
-        this.showSnackbar({ message: 'Mandatory Properties missing', variant: 'error' });
-        return;
-      }
-
       const datasetId = this.getData(submitProperty)['datasetID'];
       const title = this.getData(submitProperty)['dct:title'];
       const description = this.getData(submitProperty)['dct:description'];
@@ -328,7 +316,7 @@ export default {
         if (mode === 'dataset') this.createDataset(datasetId);
         if (mode === 'draft') this.createDraft();
 
-        // store needs to be reset (especially the mandatoryStatus)
+        // store needs to be reset
         this.clearAll();
 
       } catch (err) {

@@ -2,8 +2,6 @@ import { type FormKitSchemaDefinition } from '@formkit/core'
 
 import language from '../selector-languages.json';
 import config from './page-content-config';
-import translateProperty from '../../utils/translation-helper.js'
-import { useI18n } from "vue-i18n";
 
 /**
  * Available properties for datasets.
@@ -74,6 +72,7 @@ export type DcatApDistributionsProperty =
   | 'page'
   | 'hasPolicy'
   | 'language'
+  | 'licence'
   | 'conformsTo'
   | 'issued'
   | 'modified'
@@ -83,30 +82,36 @@ export type DcatApDistributionsProperty =
   | 'type'
   | 'status';
 
+export type DcatApCataloguesProperty =
+// Append new properties here for accurate type checking
+'datasetID'
+| 'title'
+| 'description'
+| 'publisher'
+| 'language'
+| 'licence'
+| 'spatial'
+| 'homepage'
+| 'hasPart'
+| 'isPartOf'
+| 'rights'
+| 'catalog'
+| 'creator';
+
 export type InputDefinition = {
   datasets: Record<DcatApDatasetsProperty, FormKitSchemaDefinition>;
   distributions: Record<DcatApDistributionsProperty, FormKitSchemaDefinition>;
-  // todo complete catalogs type definition
-  catalogues: Record<string, FormKitSchemaDefinition>;
+  catalogues: Record<DcatApCataloguesProperty, FormKitSchemaDefinition>;
 }
-// builds the tooltips for the properties
-// function sectionSchemaTooltips(propertyName: any) {
-//   const i18n = useI18n();
-
-//   let buildTooltip = i18n.t(`message.dataupload.datasets.` + propertyName + `.info`);
-//   return { prefix: { $el: 'div', attrs: { class: 'infoI', }, children: [{ $el: 'div', children: buildTooltip , attrs: { class: 'tooltipFormkit' } }] } }
-// }
 
 const dcatapProperties: InputDefinition = {
-  datasets: {
-    // unique identifier component
+  datasets: {   
     datasetID: {
       identifier: 'datasetID',
       $formkit: 'id',
       mandatory: true,
       name: 'datasetID',
     },
-    // minimum (unability to remove fields to 0)
     description: {
       identifier: 'description',
       $formkit: 'repeatable',
@@ -144,7 +149,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // minimum (unability to remove fields to 0)
     title: {
       id: 'title',
       $formkit: 'repeatable',
@@ -294,7 +298,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete, multiple
     subject: {
       identifier: 'subject',
       $formkit: 'auto',
@@ -340,7 +343,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete
     publisher: {
       $formkit: 'auto',
       identifier: 'publisher',
@@ -430,7 +432,6 @@ const dcatapProperties: InputDefinition = {
               identifier: 'temporalStart',
               $formkit: 'datetime-local',
               name: 'dcat:startDate',
-              property: 'dct:temporal',
               end: 'dct:temporal',
               classes: {
                 outer: 'w50-textfield'
@@ -440,7 +441,6 @@ const dcatapProperties: InputDefinition = {
               identifier: 'temporalEnd',
               $formkit: 'datetime-local',
               name: 'dcat:endDate',
-              property: 'dct:temporal',
               start: 'dct:temporal',
               classes: {
                 outer: 'w50-textfield'
@@ -450,7 +450,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete and multiple
     theme: {
       identifier: 'theme',
       $formkit: 'auto',
@@ -467,7 +466,6 @@ const dcatapProperties: InputDefinition = {
 
 
     },
-    // autocomplete
     accessRights: {
       identifier: 'accessRights',
       $formkit: 'auto',
@@ -540,7 +538,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // format (autocomplete)
     page: {
       identifier: 'page',
       $formkit: 'repeatable',
@@ -616,10 +613,8 @@ const dcatapProperties: InputDefinition = {
               ]
             },
             {
-              // @todo: check if this is correct
               $formkit: 'auto',
               identifier: 'pageFormat',
-              // type: 'auto',
               voc: 'file-type',
               class: "property",
               name: 'dct:format',
@@ -643,7 +638,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete
     accrualPeriodicity: {
       identifier: 'accrualPeriodicity',
       $formkit: 'auto',
@@ -792,7 +786,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete, multiple
     language: {
       identifier: 'language',
       $formkit: 'auto',
@@ -801,7 +794,6 @@ const dcatapProperties: InputDefinition = {
       voc: 'language',
       id:'language'
     },
-    // identifier type using autocomplete
     admsIdentifier: {
       identifier: 'admsIdentifier',
       $formkit: 'repeatable',
@@ -841,7 +833,6 @@ const dcatapProperties: InputDefinition = {
                   // todo: check if this is correct
                   $formkit: 'auto',
                   identifier: 'admsIdentifierType',
-                  // type: 'auto',
                   voc: 'notation-type',
                   name: '@type',
                   id:'admsIdentifierType',
@@ -1048,47 +1039,40 @@ const dcatapProperties: InputDefinition = {
           identifier: 'temporalResolutionYear',
           $formkit: 'number',
           validation: 'min:1950|max:2100|optional',
-          "validation-behavior": 'live',
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
           $formkit: 'number',
           validation: 'min:1|max:12|optional',
-          "validation-behavior": 'live',
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
           $formkit: 'number',
           validation: 'min:1|max:31|optional',
-          "validation-behavior": 'live',
           name: 'Day',
         },
         {
           identifier: 'temporalResolutionHour',
           $formkit: 'number',
           validation: 'min:0|max:23|optional',
-          "validation-behavior": 'live',
           name: 'Hour',
         },
         {
           identifier: 'temporalResolutionMinute',
           $formkit: 'number',
           validation: 'min:0|max:59|optional',
-          "validation-behavior": 'live',
           name: 'Minute',
         },
         {
           identifier: 'temporalResolutionSecond',
           $formkit: 'number',
           validation: 'min:0|max:59|optional',
-          "validation-behavior": 'live',
           name: 'Second',
         },
       ],
     },
-    // autocomplete
     type: {
       identifier: 'type',
       $formkit: 'auto',
@@ -1166,7 +1150,6 @@ const dcatapProperties: InputDefinition = {
     },
   },
   distributions: {
-    // fileupload, minimum
     accessURL: {
       identifier: 'accessUrl',
       $formkit: 'repeatable',
@@ -1205,7 +1188,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete
     availability: {
       identifier: 'availability',
       $formkit: 'auto',
@@ -1213,7 +1195,6 @@ const dcatapProperties: InputDefinition = {
       name: 'dcatap:availability',
       id:'availability'
     },
-    // minimum
     description: {
       identifier: 'datasetDescription',
       $formkit: 'repeatable',
@@ -1244,7 +1225,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete
     format: {
       identifier: 'format',
       $formkit: 'auto',
@@ -1256,58 +1236,59 @@ const dcatapProperties: InputDefinition = {
         outer: 'w88-textfield'
       }
     },
-    // licence: {
-    //   identifier: 'licence',
-    //   $formkit:'group',
-    //   name: 'dct:license',
-    //   
-    //   children: [
-    //     {
-    //       identifier: 'licence',
-    //       $formkit: 'select',
-    //       id: "licenceMode",
-    //       name: 'licenceMode',
-    //       options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-    //     },
-    //     {
-    //       $cmp: "FormKit",
-    //       if: "$get(licenceMode).value",
-    //       props: {
-    //         if: "$get(licenceMode).value === man",
-    //         then: {
-    //           type: "group",
-    //           children: [
-    //             {
-    //               identifier: 'licenceTitle',
-    //               $formkit:'text',
-    //               name: 'dct:title',
-    //             },
-    //             {
-    //               identifier: 'licenceDescription',
-    //               $formkit:'textarea',
-    //               name: 'skos:prefLabel',
-    //             },
-    //             {
-    //               identifier: 'licenceURL',
-    //               $formkit:'custom-url',
-    //               name: 'skos:exactMatch',
-    //               validation: 'optional|url',
-    //             },
-    //           ]
-    //         },
-    //         else: {
-    //           then: {
-    //             type: "text",
-    //             name: "@id"
-    //           }
-    //         }
-    //       }
-
-    //     }
-    //   ]
-    // },
-    // must be a repeatbale property (repeatable and repeatableremoved), mandatory, minimum
-    // repetable
+    licence: {
+      $formkit: 'group',
+      name: 'dct:license',
+      children: [
+        {
+          $formkit: 'select',
+          identifier: 'licence',
+          name: 'licenceMode',
+          id: 'licenceMode',
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "voc"',
+          children: [
+            {
+              $formkit: 'auto',
+              identifier: 'licenceVocabulary',
+              name: '@id',
+              voc: 'licence',
+              property: 'dct:license',
+              id: 'licenceVocabulary'
+            }
+          ]
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "man"',
+          children: [
+            {
+              $formkit: 'text',
+              identifier: 'licenceTitle',
+              name: 'dct:title',
+            },
+            {
+              $formkit: 'textarea',
+              identifier: 'licenceDescription',
+              name: 'skos:prefLabel',
+            },
+            {
+              $formkit: 'url',
+              identifier: 'licenceURL',
+              name: 'skos:exactMatch',
+              validation: 'optional|url',
+            },
+          ]
+        }
+      ]
+    },    
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1338,7 +1319,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete
     mediaType: {
       identifier: 'mediaType',
       $formkit: 'auto',
@@ -1446,7 +1426,6 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'text',
       name: 'dcat:byteSize',
     },
-    // algorithm (autocomplete)
     checksum: {
       $formkit: 'group',
       identifier: 'checksum',
@@ -1467,7 +1446,6 @@ const dcatapProperties: InputDefinition = {
         },
       ],
     },
-    // autocomplete
     compressFormat: {
       identifier: 'compressFormat',
       $formkit: 'auto',
@@ -1475,7 +1453,6 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:compressFormat',
       id:'compressFormat'
     },
-    // autocomplete
     packageFormat: {
       identifier: 'packageFormat',
       $formkit: 'auto',
@@ -1483,7 +1460,6 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:packageFormat',
       id:'packageFormat'
     },
-    // format (autocomplete)
     page: {
       identifier: 'page',
       $formkit: 'repeatable',
@@ -1592,9 +1568,7 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete ,multiple
     language: {
-      // todo check if this is correct
       $formkit: 'auto',
       identifier: 'language',
       multiple: true,
@@ -1737,48 +1711,41 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'temporalResolutionYear',
           $formkit: 'number',
-          min: 0,
-          max: 2023,
+          validation: 'min:1950|max:2100|optional',
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
           $formkit: 'number',
-          min: 0,
-          max: 12,
+          validation: 'min:1|max:12|optional',
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
           $formkit: 'number',
-          min: 0,
-          max: 31,
+          validation: 'min:1|max:31|optional',
           name: 'Day',
         },
         {
           identifier: 'temporalResolutionHour',
           $formkit: 'number',
-          min: 0,
-          max: 23,
+          validation: 'min:0|max:23|optional',
           name: 'Hour',
         },
         {
           identifier: 'temporalResolutionMinute',
           $formkit: 'number',
-          min: 0,
-          max: 59,
+          validation: 'min:0|max:59|optional',
           name: 'Minute',
         },
         {
           identifier: 'temporalResolutionSecond',
           $formkit: 'number',
-          min: 0,
-          max: 59,
+          validation: 'min:0|max:59|optional',
           name: 'Second',
         },
       ],
     },
-    // autocomplete
     type: {
       identifier: 'type',
       $formkit: 'auto',
@@ -1786,7 +1753,6 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:type',
       id:'type'
     },
-    // autocomplete
     status: {
       identifier: 'status',
       $formkit: 'auto',
@@ -1796,15 +1762,12 @@ const dcatapProperties: InputDefinition = {
     },
   },
   catalogues: {
-    // dataset id component, mandatory
     datasetID: {
-      // todo: check if this is correct
       $formkit: 'id',
       identifier: 'datasetID',
       name: 'datasetID',
       mandatory: true,
     },
-    // minimum
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1835,7 +1798,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // minimum
     description: {
       identifier: 'datasetDescription',
       $formkit: 'repeatable',
@@ -1866,16 +1828,13 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // autocomplete
     publisher: {
-      // todo check if this is correct
       $formkit: 'auto',
       identifier: 'publisher',
       name: 'dct:publisher',
       voc: 'corporate-body',
       id:'publisher'
     },
-    // autocomplete ,multiple
     language: {
       identifier: 'language',
       $formkit: 'auto',
@@ -1884,114 +1843,123 @@ const dcatapProperties: InputDefinition = {
       voc: 'language',
       id:'language'
     },
-    // licence: {
-    //   identifier: 'licence',
-    //   $formkit:'group',
-    //   name: 'dct:license',
-    //   
-    //   children: [
-    //     {
-    //       identifier: 'licence',
-    //       $formkit: 'select',
-    //       id: "licenceMode",
-    //       name: 'licenceMode',
-    //       options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-    //     },
-    //     {
-    //       $cmp: "FormKit",
-    //       if: "$get(licenceMode).value",
-    //       props: {
-    //         if: "$get(licenceMode).value === voc",
-    //         then: {
-    //           type: "group",
-    //           children: [
-    //             {
-    //               identifier: 'licenceTitle',
-    //               $formkit:'text',
-    //               name: 'dct:title',
-    //             },
-    //             {
-    //               identifier: 'licenceDescription',
-    //               $formkit:'textarea',
-    //               name: 'skos:prefLabel',
-    //             },
-    //             {
-    //               identifier: 'licenceURL',
-    //               $formkit:'custom-url',
-    //               name: 'skos:exactMatch',
-    //               validation: 'optional|url',
-    //             },
-    //           ]
-    //         },
-    //         else: {
-    //           then: {
-    //             type: "text",
-    //             name: "@id"
-    //           }
-    //         }
-    //       }
-
-    //     }
-    //   ]
-    // },
-    // repetabale 
-    spatial: {
+    licence: {
       $formkit: 'group',
+      name: 'dct:license',
+      children: [
+        {
+          $formkit: 'select',
+          identifier: 'licence',
+          name: 'licenceMode',
+          id: 'licenceMode',
+          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "voc"',
+          children: [
+            {
+              $formkit: 'auto',
+              identifier: 'licenceVocabulary',
+              name: '@id',
+              voc: 'licence',
+              property: 'dct:license',
+              id: 'licenceVocabulary'
+            }
+          ]
+        },
+        {
+          $formkit: 'group',
+          name: 'details',
+          key: '$get(licenceMode).value',
+          if: '$get(licenceMode).value === "man"',
+          children: [
+            {
+              $formkit: 'text',
+              identifier: 'licenceTitle',
+              name: 'dct:title',
+            },
+            {
+              $formkit: 'textarea',
+              identifier: 'licenceDescription',
+              name: 'skos:prefLabel',
+            },
+            {
+              $formkit: 'url',
+              identifier: 'licenceURL',
+              name: 'skos:exactMatch',
+              validation: 'optional|url',
+            },
+          ]
+        }
+      ]
+    },    
+    spatial: {
+      $formkit: 'repeatable',
       name: 'dct:spatial',
       identifier: 'spatial',
       children: [
         {
-          $formkit: "select",
-          identifier: "spatial",
-          id: "spatialMode",
-          name: "spatialMode",
-          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-        },
-        {
-          $cmp: "FormKit",
-          identifier: "spatial",
-          if: "$get(spatialMode).value",
-          props: {
-            type: "radio",
-            name: "vocabulary",
-            id: "vocabulary",
-            if: "$get(spatialMode).value === man",
-            options: {
-              if: "$get(spatialMode).value === voc",
-              then: [
-                { value: "continent", label: "Continent" },
-                { value: "country", label: "Country" },
-                { value: "place", label: "Place" }
-              ],
-              else: {
-                if: "$get(spatialMode).value === man",
-                then: [
-                  { label: "Other", value: "other" }
-                ],
-              }
-            }
-          }
-        },
-        {
-          $cmp: "FormKit",
-          identifier: "spatial",
-          if: "$get(vocabulary).value",
-          props: {
-            identifier: "spatial",
-            if: "$get(vocabulary).value === other",
-            then: {
-              type: "url",
+          $formkit: 'group',
+          name: 'dct:spatial',
+          identifier: 'spatial',
+          children: [
+            {
+              $formkit: "select",
               identifier: "spatial",
-              name: '@id'
+              id: "spatialMode",
+              name: "spatialMode",
+              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
             },
-            else: {
-              then: {
-                type: "text",
+            {
+              $cmp: "FormKit",
+              identifier: "spatial",
+              if: "$get(spatialMode).value",
+              props: {
+                type: "radio",
+                name: "vocabulary",
+                id: "vocabulary",
+                if: "$get(spatialMode).value === man",
+                options: {
+                  if: "$get(spatialMode).value === voc",
+                  then: [
+                    { value: "continent", label: "Continent" },
+                    { value: "country", label: "Country" },
+                    { value: "place", label: "Place" }
+                  ],
+                  else: {
+                    if: "$get(spatialMode).value === man",
+                    then: [
+                      { label: "Other", value: "other" }
+                    ],
+                  }
+                }
+              }
+            },
+            {
+              $cmp: "FormKit",
+              identifier: "spatial",
+              if: "$get(vocabulary).value",
+              props: {
                 identifier: "spatial",
-                name: '@id'
+                if: "$get(vocabulary).value === other",
+                then: {
+                  type: "url",
+                  identifier: "spatial",
+                  name: '@id'
+                },
+                else: {
+                  then: {
+                    type: "text",
+                    identifier: "spatial",
+                    name: '@id'
+                  }
+                }
               }
             }
-          }
+          ]
         }
       ]
     },

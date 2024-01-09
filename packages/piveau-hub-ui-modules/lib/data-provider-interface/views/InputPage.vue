@@ -7,9 +7,9 @@
         <!-- TestPage for Custom Inputs -->
         <!-- <CustomInputs></CustomInputs> -->
         
-        <FormKit type="form" id="dpi" v-model="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
-          class="d-flex ">
+        <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+          class="d-flex">
           <div class="d-flex">
             <ul class="steps">
               <li 
@@ -69,21 +69,11 @@
 
           
         </FormKit>
-
-        <!-- <FormKitSchema name="form" ref="dpiForm" 
-          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">-->
-        <!--</FormKitSchema>-->
-
       </div>
     </div>
     <!-- <div v-if="isDistributionOverview">
       <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
     </div> -->
-    <ValidationModal :failedFields="failedFields"></ValidationModal>
-    <!-- not the prettiest way but calling it within navigation component seems quiet complicated -->
-    <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
-      {{ mandatoryModal.message }}
-    </app-confirmation-dialog>
   </div>
 </template>
 
@@ -98,10 +88,9 @@ import {
   isArray,
 } from 'lodash';
 import { FormKitSummary } from '@formkit/vue';
-import ValidationModal from '../components/ValidationModal.vue';
-import InputPageStep from '../components/InputPageStep.vue';
 import DistributionOverview from './DistributionOverview.vue';
 import CustomInputs from './CustomInputs.vue';
+import InputPageStep from '../components/InputPageStep.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
 
 export default defineComponent({
@@ -130,16 +119,6 @@ export default defineComponent({
       formValues: {},
       failedFields: [],
       offsetTopStepper: "60px",
-      mandatoryModal: {
-        confirm: '',
-        message: 'Mandatory Properties missing - make sure to fill out every field marked with an *',
-        callback: $('#modal').modal('hide'),
-      },
-      validationModal: {
-        conform: '',
-        message: 'The given values for some input fields are incorrect!',
-        callback: $('#modal').modal('hide'),
-      },
       info: {},
       catalogues: [],
       camel2title: (str) =>
@@ -150,7 +129,6 @@ export default defineComponent({
     };
   },
   components: {
-    ValidationModal,
     DistributionOverview,
     FormKitSummary,
     CustomInputs,
@@ -163,7 +141,6 @@ export default defineComponent({
     ]),
     ...mapGetters('dpiStore', [
       'getSchema',
-      'getMandatoryStatus',
       'getNavSteps',
       'getDeleteDistributionInline',
     ]),
@@ -201,7 +178,6 @@ export default defineComponent({
       'saveLocalstorageValues',
       'addCatalogOptions',
       'clearAll',
-      'setMandatoryStatus',
       'setDeleteDistributionInline',
     ]),
     clearForm(){
@@ -348,8 +324,6 @@ export default defineComponent({
       }
       else return
     }
-
-
   },
   mounted() {
     this.initInputPage();
@@ -375,23 +349,18 @@ export default defineComponent({
       }
     },
   },
-  // beforeRouteEnter(to, from, next) {
-  //   // Always clear storage when entering DPI
-  //   next(vm => {
-  //     if (from.name && !from.name.startsWith('DataProviderInterface')) {
-  //       vm.clear();
-  //       vm.jumpToFirstPage();
-  //     }
-  //     if (!from.name && !vm.getMandatoryStatus({ property: vm.property, id: vm.id })) {
-  //       vm.jumpToFirstPage();
-  //       $('#mandatoryModal').modal({ show: true });
-  //     }
-  //     let a = { "step1": { "dct:title": [{ "@value": "DcatDE GeschichTE", "@language": "en" }], "datasetID": "a-test", "hidden_datasetIDFormHidden": "a-test", "dct:description": [{ "@value": "Geo'DAE is the national database of external automated defibrillators (DAEs), listed in France.\n\nBarely 1 in 10 citizens survive a cardiac arrest because they have not benefited at the right time of a person’s intervention.\n\nThe national public health plan plans to train 80 % of the population in first aid actions and to improve access to external automated defibrillators on the national territory, by promoting their geolocation and maintenance.\n\nThe creation of a national database, provision of the law of 28 June 2018 on cardiac defibrillator, is part of this ambition. All AED operators must now report their defibrillator data and characteristics in the national database.\n\nThe reporting portal is available at the following link: https://geodae.atlasante.fr/apropos\n\nIf you have any questions, please contact us at: contact@geodae.sante.gouv.fr.\n\nThis sheet presents the extraction of the public data reported by the operators, as provided for in the Decree of 29 October 2019 on the operation of the national database of external automated defibrillators, published in the OJ of 13 November 2019.\n\nThe public or limited dissemination rules are specified in Annexes 1, 2 and 3 to this Order. Only open access data is disseminated in open data.", "@language": "en" }], "dcat:catalog": "dpi", "dcat:theme": ["http://publications.europa.eu/resource/authority/data-theme/ENER", "http://publications.europa.eu/resource/authority/data-theme/AGRI", "http://publications.europa.eu/resource/authority/data-theme/ENVI", "http://publications.europa.eu/resource/authority/data-theme/EDUC", "http://publications.europa.eu/resource/authority/data-theme/GOVE", "http://publications.europa.eu/resource/authority/data-theme/JUST", "http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO"], "dct:issued": "2023-02-01T03:03:00", "dct:modified": "2023-02-07" }, "step2": { "dcatde:politicalGeocodingLevelURI": ["http://dcat-ap.de/def/politicalGeocoding/Level/international"], "dcatde:politicalGeocodingURI": ["http://dcat-ap.de/def/politicalGeocoding/municipalityKey/01053121"], "dcat:keyword": [{ "@value": "asdsd", "@language": "de" }], "dct:subject": ["http://eurovoc.europa.eu/2753", "http://eurovoc.europa.eu/3011", "http://eurovoc.europa.eu/688", "http://eurovoc.europa.eu/3577", "http://eurovoc.europa.eu/1085", "http://eurovoc.europa.eu/4488", "http://eurovoc.europa.eu/1460", "http://eurovoc.europa.eu/5042", "http://eurovoc.europa.eu/1074", "http://eurovoc.europa.eu/5334", "http://eurovoc.europa.eu/940"], "dct:spatial": "http://publications.europa.eu/resource/authority/country/BGR", "dct:creator": [{ "rdf:type": "foaf:Person", "foaf:name": "dfgdfgd", "foaf:mbox": "test@tes.de", "foaf:homepage": "https://jena-wissensallmende.apps.osc.fokus.fraunhofer.de/" }] }, "step3": {} }
-  //   });
-  // },
+  beforeRouteEnter(to, from, next) {
+    // Always clear storage when entering DPI
+    next(vm => {
+      if (from.name && !from.name.startsWith('DataProviderInterface')) {
+        vm.clear();
+        vm.jumpToFirstPage();
+      }
+    });
+  },
   beforeRouteUpdate(to, from, next) {
-    // Checks if next route within the DPI is a route which does not require mandatory checking
-    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({ property: this.property, id: this.id })) {
+    // Checks if next route within the DPI is a route
+    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from)) {
       // for singular distribution: when deleteing from inline the mandatory check would return false leading to the display of the mandatory-modal
       // since the distribution is already deleted the mandatory check would alwaysreturn false so by determining if an inline delete happens 
       // (by checking getDeleteDistributionInline) we skip the display of the modal and grant redirect 
@@ -399,7 +368,6 @@ export default defineComponent({
         this.setDeleteDistributionInline(false)
         next();
       }
-      else $('#mandatoryModal').modal({ show: true });
     } else {
       // if there are multiple distributions, the mandatory checker might return true so we don't have to skip the modal display
       // but we have to set the deleteDistributionInline value to false again
