@@ -2,8 +2,6 @@ import { type FormKitSchemaDefinition } from '@formkit/core'
 
 import language from '../selector-languages.json';
 import config from './page-content-config';
-import translateProperty from '../../utils/translation-helper.js'
-import { useI18n } from "vue-i18n";
 
 /**
  * Available properties for datasets.
@@ -90,13 +88,6 @@ export type InputDefinition = {
   // todo complete catalogs type definition
   catalogues: Record<string, FormKitSchemaDefinition>;
 }
-// builds the tooltips for the properties
-// function sectionSchemaTooltips(propertyName: any) {
-//   const i18n = useI18n();
-
-//   let buildTooltip = i18n.t(`message.dataupload.datasets.` + propertyName + `.info`);
-//   return { prefix: { $el: 'div', attrs: { class: 'infoI', }, children: [{ $el: 'div', children: buildTooltip , attrs: { class: 'tooltipFormkit' } }] } }
-// }
 
 const dcatapProperties: InputDefinition = {
   datasets: {
