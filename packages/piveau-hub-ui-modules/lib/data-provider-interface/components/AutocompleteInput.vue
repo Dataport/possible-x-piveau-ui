@@ -75,13 +75,12 @@ export default {
 
           this.requestFirstEntrySuggestions(this.context.voc).then((response) => {
 
-            console.log(response.data.result);
+         
             const results = response.data.result.results.map((r) => ({
 
               name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
               resource: r.resource,
             }));
-            console.log(results);
 
             this.autocomplete.suggestions = results;
             this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
