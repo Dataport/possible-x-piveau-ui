@@ -4,11 +4,11 @@ import axios from 'axios';
 
 const state = {};
 const getters = {};
-
+// ToDo URL is hardcoded, have to get it from the config
 const actions = {
     requestFirstEntrySuggestions({ commit }, voc) {
         return new Promise((resolve, reject) => {
-            const req = `https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
+            const req = `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -21,7 +21,7 @@ const actions = {
     requestAutocompleteSuggestions({ commit }, { voc, text }) {
         return new Promise((resolve, reject) => {
             const input = text;
-            const req = `https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
+            const req = `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
