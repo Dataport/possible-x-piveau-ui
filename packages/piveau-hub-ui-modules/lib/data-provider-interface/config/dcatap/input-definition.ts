@@ -82,23 +82,36 @@ export type DcatApDistributionsProperty =
   | 'type'
   | 'status';
 
+export type DcatApCataloguesProperty =
+// Append new properties here for accurate type checking
+'datasetID'
+| 'title'
+| 'description'
+| 'publisher'
+| 'language'
+| 'licence'
+| 'spatial'
+| 'homepage'
+| 'hasPart'
+| 'isPartOf'
+| 'rights'
+| 'catalog'
+| 'creator';
+
 export type InputDefinition = {
   datasets: Record<DcatApDatasetsProperty, FormKitSchemaDefinition>;
   distributions: Record<DcatApDistributionsProperty, FormKitSchemaDefinition>;
-  // todo complete catalogs type definition
-  catalogues: Record<string, FormKitSchemaDefinition>;
+  catalogues: Record<DcatApCataloguesProperty, FormKitSchemaDefinition>;
 }
 
 const dcatapProperties: InputDefinition = {
-  datasets: {
-    // unique identifier component
+  datasets: {   
     datasetID: {
       identifier: 'datasetID',
       $formkit: 'id',
       mandatory: true,
       name: 'datasetID',
     },
-    // minimum (unability to remove fields to 0)
     description: {
       identifier: 'description',
       $formkit: 'repeatable',
@@ -136,7 +149,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // minimum (unability to remove fields to 0)
     title: {
       id: 'title',
       $formkit: 'repeatable',
@@ -1138,7 +1150,6 @@ const dcatapProperties: InputDefinition = {
     },
   },
   distributions: {
-    // minimum
     accessURL: {
       identifier: 'accessUrl',
       $formkit: 'repeatable',
@@ -1184,7 +1195,6 @@ const dcatapProperties: InputDefinition = {
       name: 'dcatap:availability',
       id:'availability'
     },
-    // minimum
     description: {
       identifier: 'datasetDescription',
       $formkit: 'repeatable',
@@ -1249,6 +1259,7 @@ const dcatapProperties: InputDefinition = {
               name: '@id',
               voc: 'licence',
               property: 'dct:license',
+              id: 'licenceVocabulary'
             }
           ]
         },
@@ -1278,7 +1289,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },    
-    // minimum
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1559,7 +1569,6 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     language: {
-      // todo check if this is correct
       $formkit: 'auto',
       identifier: 'language',
       multiple: true,
@@ -1754,13 +1763,11 @@ const dcatapProperties: InputDefinition = {
   },
   catalogues: {
     datasetID: {
-      // todo: check if this is correct
       $formkit: 'id',
       identifier: 'datasetID',
       name: 'datasetID',
       mandatory: true,
     },
-    // minimum
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1791,7 +1798,6 @@ const dcatapProperties: InputDefinition = {
         }
       ]
     },
-    // minimum
     description: {
       identifier: 'datasetDescription',
       $formkit: 'repeatable',
@@ -1823,7 +1829,6 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     publisher: {
-      // todo check if this is correct
       $formkit: 'auto',
       identifier: 'publisher',
       name: 'dct:publisher',
@@ -1861,6 +1866,7 @@ const dcatapProperties: InputDefinition = {
               name: '@id',
               voc: 'licence',
               property: 'dct:license',
+              id: 'licenceVocabulary'
             }
           ]
         },

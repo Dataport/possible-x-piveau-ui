@@ -1,7 +1,123 @@
+import { type FormKitSchemaDefinition } from '@formkit/core'
+
 import language from '../selector-languages.json';
 import config from './page-content-config';
 
-const dcatapProperties = {
+/**
+ * Available properties for datasets.
+ */
+export type DcatApDatasetsProperty =
+  // Append new properties here for accurate type checking
+  'datasetID'
+  | 'politicalGeocodingLevelURI'
+  | 'politicalGeocodingURI'
+  | 'availabilityDE'
+  | 'geocodingDescription'
+  | 'legalBasis'
+  | 'qualityProcessURI'
+  | 'references'
+  | 'contributor'
+  | 'contributorID'
+  | 'originator'
+  | 'maintainer'
+  | 'description'
+  | 'title'
+  | 'contactPoint'
+  | 'subject'
+  | 'keyword'
+  | 'publisher'
+  | 'spatial'
+  | 'temporal'
+  | 'theme'
+  | 'accessRights'
+  | 'creator'
+  | 'conformsTo'
+  | 'page'
+  | 'accrualPeriodicity'
+  | 'hasVersion'
+  | 'isVersionOf'
+  | 'source'
+  | 'identifier'
+  | 'isReferencedBy'
+  | 'landingPage'
+  | 'language'
+  | 'admsIdentifier'
+  | 'provenance'
+  | 'qualifiedAttribution'
+  | 'wasGeneratedBy'
+  | 'qualifiedRelation'
+  | 'relation'
+  | 'issued'
+  | 'modified'
+  | 'spatialResolutionInMeters'
+  | 'temporalResolution'
+  | 'type'
+  | 'versionInfo'
+  | 'versionNotes'
+  | 'catalog'
+  | 'isUsedBy';
+
+/**
+ * Available properties for distributions.
+ */
+export type DcatApDistributionsProperty =
+  // Append new properties here for accurate type checking
+  'accessURL'
+  | 'licenseAttributionByText'
+  | 'availabilityDisDE'
+  | 'availability'
+  | 'description'
+  | 'format'
+  | 'title'
+  | 'byteSize'
+  | 'conformsTo'
+  | 'issued'
+  | 'modified'
+  | 'rights'
+  | 'spatialResolutionInMeters'
+  | 'temporalResolution'
+  | 'mediaType'
+  | 'downloadUrl'
+  | 'accessService'
+  | 'checksum'
+  | 'compressFormat'
+  | 'packageFormat'
+  | 'page'
+  | 'language'
+  | 'licence'
+  | 'conformsTo'
+  | 'issued'
+  | 'modified'
+  | 'rights'
+  | 'spatialResolutionInMeters'
+  | 'temporalResolution'
+  | 'type'
+  | 'status';
+
+export type DcatApCataloguesProperty =
+// Append new properties here for accurate type checking
+'datasetID'
+| 'availabilityCatDE'
+| 'title'
+| 'description'
+| 'publisher'
+| 'language'
+| 'licence'
+| 'spatial'
+| 'homepage'
+| 'hasPart'
+| 'isPartOf'
+| 'rights'
+| 'catalog'
+| 'creator';
+
+export type InputDefinition = {
+  datasets: Record<DcatApDatasetsProperty, FormKitSchemaDefinition>;
+  distributions: Record<DcatApDistributionsProperty, FormKitSchemaDefinition>;
+  catalogues: Record<DcatApCataloguesProperty, FormKitSchemaDefinition>;
+}
+
+const dcatapProperties: InputDefinition = {
   datasets: {
     // Dcatap.de Properties #### Start ####
     politicalGeocodingLevelURI: {
@@ -19,7 +135,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'politicalGeocodingURI',
-          type: "group",
+          $formkit: "group",
           name: 'dcatde:politicalGeocodingURI',
           class: 'property',
           children: [
@@ -84,7 +200,6 @@ const dcatapProperties = {
       class: 'property',
       voc: 'planned-availability',
     },
-    // minimum
     geocodingDescription: {
       identifier: 'geocodingDescription',
       $formkit:'repeatable',
@@ -92,7 +207,7 @@ const dcatapProperties = {
       children: [
         {
           identifier: 'geocodingDescription',
-          type: 'group',
+          $formkit: 'group',
           name: 'dcatde:geocodingDescription',
           class: 'property langDescriptionInput',
           children: [
@@ -114,7 +229,6 @@ const dcatapProperties = {
         }
       ]
     },
-    // minimum
     legalBasis: {
       identifier: 'legalBasis',
       $formkit:'repeatable',
@@ -148,7 +262,7 @@ const dcatapProperties = {
       identifier: 'qualityProcessURI',
       name: 'dcatde:qualityProcessURI',
       class: 'property',
-      type: 'url',
+      $formkit: 'url',
     },
     // ???? autocomplete or url
     references: {
@@ -160,7 +274,7 @@ const dcatapProperties = {
           identifier: 'references',
           name: 'dct:references',
           class: 'property',
-          type: 'url',
+          $formkit: 'url',
           voc: 'planned-availability',
         }
       ]
@@ -301,14 +415,12 @@ const dcatapProperties = {
       ]
     },
     // Dcatap.de Properties #### End ####
-    // unique identifier component
     datasetID: {
       identifier: 'datasetID',
-      type:'unique-identifier-input',
+      $formkit:'id',
       name: 'datasetID',
       class: 'property mandatory',
     },
-    // minimum (unability to remove fields to 0)
     description: {
       identifier: 'description',
       $formkit: 'repeatable',
@@ -341,7 +453,6 @@ const dcatapProperties = {
         }
       ]
     },
-    // minimum (unability to remove fields to 0)
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1165,9 +1276,6 @@ const dcatapProperties = {
           $formkit:'number',
           validation: 'min:1950|max:2100|optional',
           "validation-behavior": 'live',
-          $formkit:'number',
-          validation: 'min:1950|max:2100|optional',
-          "validation-behavior": 'live',
           name: 'Year',
         },
         {
@@ -1280,7 +1388,6 @@ const dcatapProperties = {
     },
   },
   distributions: {
-    // minimum
     licenseAttributionByText: {
       identifier: 'licenseAttributionByText',
       name: 'dcatde:licenseAttributionByText',
@@ -1356,7 +1463,6 @@ const dcatapProperties = {
       name: 'dcatap:availability',
       class: 'property',
     },
-    // minimum
     description: {
       identifier: 'datasetDescription',
       $formkit:'repeatable',
@@ -1396,7 +1502,7 @@ const dcatapProperties = {
       voc: 'file-type',
       name: 'dct:format',
     },
-    license: {
+    licence: {
       identifier: 'licence',
       $formkit: 'auto',
       name: 'dct:license',
@@ -1404,7 +1510,6 @@ const dcatapProperties = {
       class: 'property',
       voc: 'licenses'
     },
-    // minimum
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1878,12 +1983,11 @@ const dcatapProperties = {
     },
     datasetID: {
       identifier: 'datasetID',
-      // $formkit:'unique-identifier-input',
+      $formkit:'id',
       name: 'datasetID',
       class: 'property',
       mandatory: true,
     },
-    // minimum
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1916,7 +2020,6 @@ const dcatapProperties = {
         }
       ],
     },
-    // minimum
     description: {
       identifier: 'datasetDescription',
       $formkit:'repeatable',
