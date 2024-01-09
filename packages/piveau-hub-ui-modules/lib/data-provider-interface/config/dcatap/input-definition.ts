@@ -2,6 +2,8 @@ import { type FormKitSchemaDefinition } from '@formkit/core'
 
 import language from '../selector-languages.json';
 import config from './page-content-config';
+import translateProperty from '../../utils/translation-helper.js'
+import { useI18n } from "vue-i18n";
 
 /**
  * Available properties for datasets.
@@ -88,9 +90,13 @@ export type InputDefinition = {
   // todo complete catalogs type definition
   catalogues: Record<string, FormKitSchemaDefinition>;
 }
-let sectionSchemaTooltips = {
-  prefix: { $el: 'div', attrs: { class: 'infoI', }, children: [{ $el: 'div', children: 'Pass TooltipText to Schema?', attrs: { class: 'tooltipFormkit' } }] }
-}
+// builds the tooltips for the properties
+// function sectionSchemaTooltips(propertyName: any) {
+//   const i18n = useI18n();
+
+//   let buildTooltip = i18n.t(`message.dataupload.datasets.` + propertyName + `.info`);
+//   return { prefix: { $el: 'div', attrs: { class: 'infoI', }, children: [{ $el: 'div', children: buildTooltip , attrs: { class: 'tooltipFormkit' } }] } }
+// }
 
 const dcatapProperties: InputDefinition = {
   datasets: {
@@ -123,8 +129,7 @@ const dcatapProperties: InputDefinition = {
               name: '@language',
               classes: {
                 outer: 'w25-textfield'
-              },
-              'sections-schema': sectionSchemaTooltips
+              }
             },
             {
               identifier: 'description',
@@ -134,8 +139,7 @@ const dcatapProperties: InputDefinition = {
               validation: 'required',
               classes: {
                 outer: 'w75-descField'
-              },
-              'sections-schema': sectionSchemaTooltips
+              }
             },
           ],
         }
@@ -164,8 +168,7 @@ const dcatapProperties: InputDefinition = {
               name: '@language',
               classes: {
                 outer: 'w25-textfield'
-              },
-              'sections-schema': sectionSchemaTooltips
+              }
             },
             {
               identifier: 'titleLabel',
@@ -175,8 +178,7 @@ const dcatapProperties: InputDefinition = {
 
               classes: {
                 outer: 'w75-textfield'
-              },
-              'sections-schema': sectionSchemaTooltips
+              }
             },
           ],
         }
@@ -296,16 +298,15 @@ const dcatapProperties: InputDefinition = {
     subject: {
       identifier: 'subject',
       $formkit: 'auto',
-      property: 'dct:subject',
       multiple: true,
       annifTheme: true,
       voc: 'eurovoc',
-      // name:'dct:subject',
+      name:'dct:subject',
       '@annifSuggestion': false,
+      id:'subject',
       classes: {
-        outer: 'w97-textfield'
-      },
-      'sections-schema': sectionSchemaTooltips
+        outer: 'w88-textfield'
+      }
     },
     keyword: {
       identifier: 'keyword',
@@ -467,6 +468,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'access-right',
       name: 'dct:accessRights',
+      id:'accessRights'
     },
     creator: {
       identifier: 'creator',
@@ -613,6 +615,11 @@ const dcatapProperties: InputDefinition = {
               voc: 'file-type',
               class: "property",
               name: 'dct:format',
+              id:'pageFormat',
+              classes: {
+        
+                outer: 'w97-textfield'
+              }
             },
             {
               identifier: 'pageUrl',
@@ -633,6 +640,10 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'frequency',
       name: 'dct:accrualPeriodicity',
+      id:'accrualPeriodicity',
+      classes: {
+        outer: 'w88-textfield'
+      },
 
     },
     hasVersion: {
@@ -778,11 +789,13 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:language',
       multiple: true,
       voc: 'language',
+      id:'language'
     },
     admsIdentifier: {
       identifier: 'admsIdentifier',
       $formkit: 'repeatable',
       name: 'adms:identifier',
+     
       children: [
         {
           $formkit: 'group',
@@ -794,6 +807,10 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+       
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'admsIdentifierSkosNotation',
@@ -804,6 +821,10 @@ const dcatapProperties: InputDefinition = {
                   identifier: 'admsIdentifierValue',
                   $formkit: 'text',
                   name: '@value',
+                  classes: {
+       
+                    outer: 'w97-textfield'
+                  },
                 },
                 {
                   // todo: check if this is correct
@@ -811,6 +832,11 @@ const dcatapProperties: InputDefinition = {
                   identifier: 'admsIdentifierType',
                   voc: 'notation-type',
                   name: '@type',
+                  id:'admsIdentifierType',
+                  classes: {
+       
+                    outer: 'w97-textfield'
+                  },
                 },
               ],
             },
@@ -959,8 +985,7 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value',
             }
-          },
-          'sections-schema': sectionSchemaTooltips
+          }
         },
       ]
     },
@@ -992,8 +1017,7 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value'
             }
-          },
-          'sections-schema': sectionSchemaTooltips
+          }
         },
       ]
     },
@@ -1051,6 +1075,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'dataset-type',
       name: 'dct:type',
+      id:'type'
     },
     versionInfo: {
       identifier: 'versionInfo',
@@ -1095,8 +1120,7 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:catalog',
 
       validation: 'required',
-      options: { "title": "hallo" },
-      'sections-schema': sectionSchemaTooltips
+      options: { "title": "hallo" }
     },
     isUsedBy: {
       identifier: 'isUsedBy',
@@ -1167,6 +1191,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'planned-availability',
       name: 'dcatap:availability',
+      id:'availability'
     },
     // minimum
     description: {
@@ -1204,6 +1229,11 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'file-type',
       name: 'dct:format',
+      id:'format',
+      classes: {
+        
+        outer: 'w88-textfield'
+      }
     },
     licence: {
       $formkit: 'group',
@@ -1293,6 +1323,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:mediaType',
+      id:'mediaType'
     },
     downloadUrl: {
       identifier: 'downloadUrl',
@@ -1410,6 +1441,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'checksumAlgorithm',
           voc: 'spdx-checksum-algorithm',
           name: 'spdx:algorithm',
+
         },
       ],
     },
@@ -1418,12 +1450,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:compressFormat',
+      id:'compressFormat'
     },
     packageFormat: {
       identifier: 'packageFormat',
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:packageFormat',
+      id:'packageFormat'
     },
     page: {
       identifier: 'page',
@@ -1493,6 +1527,11 @@ const dcatapProperties: InputDefinition = {
               voc: 'file-type',
               name: 'dct:format',
               class: "property",
+              id:'pageFormat',
+              classes: {
+        
+                outer: 'w88-textfield'
+              }
             },
             {
               identifier: 'pageUrl',
@@ -1535,6 +1574,7 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       name: 'dct:language',
       voc: 'language',
+      id:'language'
     },
     conformsTo: {
       identifier: 'conformsTo',
@@ -1592,8 +1632,7 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value',
             }
-          },
-          'sections-schema': sectionSchemaTooltips
+          }
         },
       ]
     },
@@ -1623,8 +1662,7 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value'
             }
-          },
-          'sections-schema': sectionSchemaTooltips
+          }
         },
       ]
     },
@@ -1713,12 +1751,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'distribution-type',
       name: 'dct:type',
+      id:'type'
     },
     status: {
       identifier: 'status',
       $formkit: 'auto',
       voc: 'dataset-status',
       name: 'adms:status',
+      id:'status'
     },
   },
   catalogues: {
@@ -1797,6 +1837,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'publisher',
       name: 'dct:publisher',
       voc: 'corporate-body',
+      id:'publisher'
     },
     language: {
       identifier: 'language',
@@ -1804,6 +1845,7 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       name: 'dct:language',
       voc: 'language',
+      id:'language'
     },
     licence: {
       $formkit: 'group',

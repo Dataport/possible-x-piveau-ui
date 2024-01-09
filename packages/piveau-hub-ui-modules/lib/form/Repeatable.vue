@@ -61,7 +61,7 @@ export default {
 }
 
 .repeatable {
-  min-height: 150px;
+  // min-height: 150px;
   display: flex;
   flex-direction: row;
 
