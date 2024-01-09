@@ -1,3 +1,15 @@
+# [4.0.0-alpha.21](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.20...v4.0.0-alpha.21) (2024-01-09)
+
+
+### Bug Fixes
+
+* adapted schema (DCAT-AP, DCAT-AP.de) ([d3caf85](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d3caf85308de433b88babea973ee6274abbd6aff))
+* added context to props of component ([f647031](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f6470315c40ff162f37c5be45f4ad933662a0b4a))
+* fixed typo in input definition ([1d9ffbd](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1d9ffbd3d5501bfbde70bbc2c697359df291546c))
+* resolved merge conflict, removed unused components ([40f2a4e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/40f2a4e97b1c1b5e38d6bdd475d04284334d4fdf))
+
+
+
 # [4.0.0-alpha.20](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.19...v4.0.0-alpha.20) (2024-01-08)
 
 
