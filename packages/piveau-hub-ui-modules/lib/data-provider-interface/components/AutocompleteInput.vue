@@ -14,10 +14,7 @@
       </ul>
     </div>
     <div v-if="this.context.attrs.multiple" :class="{ 'chosenItemsContainer': true, 'd-none': this.values.length < 1 }">
-      <div>
-        <h4>Active themes:</h4>
-        <hr>
-      </div>
+      <hr>
       <ul>
         <li v-for="chosenItems, index in this.values" :key="index">
           <p>{{ chosenItems.name }}</p>
@@ -34,6 +31,7 @@ import { ref } from "vue";
 import { mapActions } from "vuex";
 import { getTranslationFor } from "../../utils/helpers";
 import { getNode } from '@formkit/core'
+
 
 
 
@@ -72,17 +70,24 @@ export default {
 
       // console.log(searchText);
       if (!searchText) {
+
         if (this.autocomplete.text.length <= 1) {
+
           this.requestFirstEntrySuggestions(this.context.voc).then((response) => {
+
+            console.log(response.data.result);
             const results = response.data.result.results.map((r) => ({
+
               name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
               resource: r.resource,
             }));
+            console.log(results);
 
             this.autocomplete.suggestions = results;
             this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
           });
         } else {
+
           this.requestAutocompleteSuggestions(this.context.voc, text).then((response) => {
 
             const results = response.data.result.results.map((r) => ({
@@ -94,10 +99,11 @@ export default {
             else this.autocomplete.suggestions = results;
           });
         }
-
+      
       }
       else {
-        // console.log(this.context.voc);
+        // console.log(this.context);
+
         this.requestAutocompleteSuggestions({ voc: this.context.voc, text: searchText }).then((response) => {
 
           const results = response.data.result.results.map((r) => ({

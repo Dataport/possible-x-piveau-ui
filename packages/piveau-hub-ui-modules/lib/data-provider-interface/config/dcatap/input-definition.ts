@@ -473,6 +473,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'access-right',
       name: 'dct:accessRights',
+      id:'accessRights'
     },
     creator: {
       identifier: 'creator',
@@ -648,7 +649,10 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'frequency',
       name: 'dct:accrualPeriodicity',
-      id:'accrualPeriodicity'
+      id:'accrualPeriodicity',
+      classes: {
+        outer: 'w88-textfield'
+      },
 
     },
     hasVersion: {
@@ -802,6 +806,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'admsIdentifier',
       $formkit: 'repeatable',
       name: 'adms:identifier',
+     
       children: [
         {
           $formkit: 'group',
@@ -813,6 +818,10 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+       
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'admsIdentifierSkosNotation',
@@ -823,6 +832,10 @@ const dcatapProperties: InputDefinition = {
                   identifier: 'admsIdentifierValue',
                   $formkit: 'text',
                   name: '@value',
+                  classes: {
+       
+                    outer: 'w97-textfield'
+                  },
                 },
                 {
                   // todo: check if this is correct
@@ -831,6 +844,11 @@ const dcatapProperties: InputDefinition = {
                   // type: 'auto',
                   voc: 'notation-type',
                   name: '@type',
+                  id:'admsIdentifierType',
+                  classes: {
+       
+                    outer: 'w97-textfield'
+                  },
                 },
               ],
             },

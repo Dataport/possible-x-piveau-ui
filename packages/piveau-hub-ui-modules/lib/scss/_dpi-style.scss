@@ -530,7 +530,9 @@
 }
 
 // -------------------------------------------------------
-
+.admsIdentifier .horizontal-wrapper{
+    flex-direction: column;
+}
 .autoCompleteWrapper .formkit-input{
 margin-left:1rem
 }
@@ -566,7 +568,7 @@ margin-left:1rem
 }
 
 .chosenItemsContainer {
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem;
 
     ul {
         display: flex;
