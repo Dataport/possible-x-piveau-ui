@@ -1,52 +1,51 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-<details>{{ formValues }}</details>
+    <details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
         <!-- TestPage for Custom Inputs -->
         <!-- <CustomInputs></CustomInputs> -->
-        
+
         <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
-          class="d-flex">
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" class="d-flex">
           <div class="d-flex">
             <ul class="steps">
-              <li 
-                v-for="(step, stepName, index) in steps"
-                :key="step" class="step"
-                :data-step-valid="step.valid && step.errorCount === 0"
-                :data-step-active="activeStep === stepName"
-                :class="{
+              <li v-for="(step, stepName, index) in steps" :key="step" class="step"
+                :data-step-valid="step.valid && step.errorCount === 0" :data-step-active="activeStep === stepName" :class="{
                   activeItem: activeStep === stepName,
                   inactiveStep: stepName != activeStep,
                   'has-errors': checkStepValidity(stepName),
-                }"
-                @click="activeStep = stepName; handleStep(stepName)"
-              >
+                }" @click="activeStep = stepName; handleStep(stepName)">
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
-                  <span
-                    v-if="checkStepValidity(stepName)"
-                    class="step--errors"
-                    v-text="step.errorCount + step.blockingCount"
-                  />
+                  <span v-if="checkStepValidity(stepName)" class="step--errors"
+                    v-text="step.errorCount + step.blockingCount" />
                   {{ camel2title(stepName) }}
                 </div>
-               
+
                 <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
               </li>
             </ul>
             <!-- <FormKitSummary /> -->
             <div class="d-flex flex-column w-100">
-              <InputPageStep name="mandatory"><FormKitSchema :schema="fullSchema[0]" /></InputPageStep>
-              <InputPageStep name="advised"><FormKitSchema :schema="fullSchema[1]" /></InputPageStep>
-              <InputPageStep name="recommended"><FormKitSchema :schema="fullSchema[2]" /></InputPageStep>
-              <InputPageStep name="distribution">
-                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
-                <!-- <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview> -->
+              <InputPageStep name="mandatory">
+                <FormKitSchema :schema="datasetSchema[0]" />
               </InputPageStep>
-              <InputPageStep name="overview"><FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" /></InputPageStep>
+              <InputPageStep name="advised">
+                <FormKitSchema :schema="datasetSchema[1]" />
+              </InputPageStep>
+              <InputPageStep name="recommended">
+                <FormKitSchema :schema="datasetSchema[2]" />
+              </InputPageStep>
+              <InputPageStep name="distribution">
+                <!-- Auslagern -->
+                <DistributionInputPage :schema=distributionSchema></DistributionInputPage>
+
+              </InputPageStep>
+              <InputPageStep name="overview">
+                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
+              </InputPageStep>
               <div class="d-flex w-100 justify-content-between">
                 <FormKit type="button" @click="goToPreviousStep">
                   <div class="d-flex flex-column align-items-start">
@@ -65,9 +64,9 @@
               </div>
             </div>
           </div>
-         
 
-          
+
+
         </FormKit>
       </div>
     </div>
@@ -88,7 +87,7 @@ import {
   isArray,
 } from 'lodash';
 import { FormKitSummary } from '@formkit/vue';
-import DistributionOverview from './DistributionOverview.vue';
+import DistributionInputPage from './DistributionInputPage.vue';
 import CustomInputs from './CustomInputs.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
@@ -114,8 +113,9 @@ export default defineComponent({
   data() {
     return {
       stepNames: ['mandatory', 'advised', 'recommended', 'distribution', 'overview'],
-      heightActiveSec:"10vh",
-      fullSchema: [],
+      heightActiveSec: "10vh",
+      datasetSchema: [],
+      distributionSchema: [],
       formValues: {},
       failedFields: [],
       offsetTopStepper: "60px",
@@ -129,10 +129,11 @@ export default defineComponent({
     };
   },
   components: {
-    DistributionOverview,
+    
     FormKitSummary,
     CustomInputs,
     InputPageStep,
+    DistributionInputPage,
   },
   computed: {
     ...mapGetters('auth', [
@@ -180,15 +181,15 @@ export default defineComponent({
       'clearAll',
       'setDeleteDistributionInline',
     ]),
-    clearForm(){
+    clearForm() {
       this.$formkit.reset('dpi')
     },
     handleStep(stepName) {
       this.step = stepName;
 
       if (stepName === "mandatory") {
-    
-        
+
+
         this.offsetTopStepper = "60px";
       }
       if (stepName === "advised") {
@@ -315,14 +316,24 @@ export default defineComponent({
     // this.translateSchema({ property: this.property });
     // }
     for (let index = 1; index < this.stepNames.length; index++) {
+
       let steps = "step" + index;
-      if (index < 4) {
+      if (index === 4) {
+        for (let distributionSteps = 1; distributionSteps < 5; distributionSteps++) {
+          this.createSchema({ property: "distributions", page: "step" + distributionSteps });
+          this.translateSchema({ property: "distributions" });
+          this.distributionSchema.push(this.getSchema);
+        }
+      } else {
         this.createSchema({ property: this.property, page: steps });
-        this.translateSchema({ property: this.property });
-        this.fullSchema.push(this.getSchema);
-        
       }
-      else return
+
+      console.log(this.getSchema);
+      this.translateSchema({ property: this.property });
+      this.datasetSchema.push(this.getSchema);
+
+
+      // else return
     }
   },
   mounted() {
@@ -411,12 +422,15 @@ export default defineComponent({
 .activeSection {
   // margin-top: v-bind(offsetTopStepper)
 }
-.activeItem{
+
+.activeItem {
   flex-grow: 1;
-  .seperatorHorizontalStepper{
+
+  .seperatorHorizontalStepper {
     height: 100%;
   }
 }
+
 select {
 
   line-height: unset !important;
