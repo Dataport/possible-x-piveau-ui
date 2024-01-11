@@ -44,7 +44,7 @@
 
               </InputPageStep>
               <InputPageStep name="overview">
-                <FormKit type="email" label="*Email address" value="test@example.com" validation="required|email" />
+                <DatasetOverviewSchema :values=formValues></DatasetOverviewSchema>
               </InputPageStep>
               <div class="d-flex w-100 justify-content-between">
                 <FormKit type="button" @click="goToPreviousStep">
@@ -91,6 +91,7 @@ import DistributionInputPage from './DistributionInputPage.vue';
 import CustomInputs from './CustomInputs.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
+import DatasetOverviewSchema from '../views/OverviewPage/DatasetOverviewSchema.vue'
 
 export default defineComponent({
   props: {
@@ -129,11 +130,12 @@ export default defineComponent({
     };
   },
   components: {
-    
+
     FormKitSummary,
     CustomInputs,
     InputPageStep,
     DistributionInputPage,
+    DatasetOverviewSchema
   },
   computed: {
     ...mapGetters('auth', [
