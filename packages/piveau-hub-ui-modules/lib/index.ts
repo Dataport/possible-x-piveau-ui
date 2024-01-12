@@ -55,8 +55,6 @@ import DatasetCitationTable from "./citation/DatasetCitationTable";
 
 // Import data-provider-interface components
 import AutocompleteInput from "./data-provider-interface/components/AutocompleteInput";
-import CustomURL from './data-provider-interface/components/CustomURL.vue';
-import CustomNumber from './data-provider-interface/components/CustomNumber.vue';
 import ConditionalInput from "./data-provider-interface/components/ConditionalInput";
 import DataFetchingComponent from "./data-provider-interface/components/DataFetchingComponent";
 import DatePicker from "./data-provider-interface/components/DatePicker";
@@ -68,7 +66,6 @@ import InfoSlot from "./data-provider-interface/components/InfoSlot";
 import LanguageSelector from "./data-provider-interface/components/LanguageSelector";
 import Navigation from "./data-provider-interface/components/Navigation";
 import UniqueIdentifierInput from "./data-provider-interface/components/UniqueIdentifierInput";
-import ValidationModal from "./data-provider-interface/components/ValidationModal";
 import inputDefinitions from "./form/inputDefinitions";
 
 // Import data-provider-interface views OverviewPage
@@ -261,8 +258,7 @@ export {
   DatasetCitationTable,
 
   AutocompleteInput,
-  CustomURL,
-  CustomNumber,
+ 
   ConditionalInput,
   DataFetchingComponent,
   DatePicker,
@@ -274,7 +270,6 @@ export {
   LanguageSelector,
   Navigation,
   UniqueIdentifierInput,
-  ValidationModal,
   CatalogueOverview,
   DatasetOverview,
   DistributionOverview,
