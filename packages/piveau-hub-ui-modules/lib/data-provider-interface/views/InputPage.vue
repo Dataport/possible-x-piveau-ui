@@ -44,7 +44,7 @@
 
               </InputPageStep>
               <InputPageStep name="overview">
-                <DatasetOverviewSchema :values=formValues></DatasetOverviewSchema>
+                <DatasetOverview :values=formValues></DatasetOverview>
               </InputPageStep>
               <div class="d-flex w-100 justify-content-between">
                 <FormKit type="button" @click="goToPreviousStep">
@@ -92,6 +92,7 @@ import CustomInputs from './CustomInputs.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import DatasetOverviewSchema from '../views/OverviewPage/DatasetOverviewSchema.vue'
+import DatasetOverview from '../views/OverviewPage/DatasetOverview'
 
 export default defineComponent({
   props: {
@@ -135,7 +136,8 @@ export default defineComponent({
     CustomInputs,
     InputPageStep,
     DistributionInputPage,
-    DatasetOverviewSchema
+    DatasetOverviewSchema,
+    DatasetOverview
   },
   computed: {
     ...mapGetters('auth', [

@@ -1,28 +1,29 @@
 <template>
+    <details>{{values['distribution']['distributionList']}}</details>
     <div class="mt-2" v-if="pageLoaded">
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
-                <h1 class="dsTitle"> {{ getData('datasets')['dct:title'][0]['@value'] }}</h1>
+                <h1 class="dsTitle"> {{values['mandatory']['dct:title'][0]['@value']}}</h1>
 
             </div>
             <div class="secondRow d-flex justify-content-between">
                 <div class="dsCatalogue ">
                     <span><b>Catalog:</b></span>
                     <a href="">
-                        {{ checkIfSet(getData('datasets')['dcat:catalog']) }}
+                        {{ checkIfSet(values['mandatory']['dcat:catalog']) }}
                     </a>
 
                 </div>
                 <div class="dsPublisher">
-                    <PropertyEntry :data="getData('datasets')" profile="datasets" :property="'dct:publisher'"
+                    <PropertyEntry :data="values['mandatory']" profile="datasets" :property="'dct:publisher'"
                         :value="publisherValues" :dpiLocale="dpiLocale"></PropertyEntry>
                 </div>
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>
-                        {{ checkIfSet(new Date(getData('datasets')['dct:modified']).toDateString()) }}
-                        <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
+                        {{ checkIfSet(new Date(values['mandatory']['dct:modified']).toDateString()) }}
+                        <!-- {{ new Date(values['datasets']['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
 
                 </div>
@@ -31,34 +32,34 @@
         <div class="dsMainWrap d-flex flex-column mt-3">
             <div class="">
                 <p class="dsDesc px-3">
-                    {{ getData('datasets')['dct:description'].filter(el => el['@language'] ===
+                    {{ values['mandatory']['dct:description'].filter(el => el['@language'] ===
                         dpiLocale).map(el =>
                             el['@value'])[0] }}
                 </p>
 
             </div>
-            <div class="">
+            <!-- <div class="">
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <PropertyEntry :data="getData('datasets')" profile="datasets" :property="name" :value="value"
+                        <PropertyEntry :data="values['datasets']" profile="datasets" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
 
                     </div>
                 </table>
-            </div>
+            </div> -->
         </div>
-        <div class="dsDist b-top p-3" v-if="getData('distributions').length > 0">
-            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('distributions').length
+        <div class="dsDist b-top p-3" v-if="values['distribution']['distributionList'].length > 0">
+            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ values['distribution']['distributionList'].length
             }})</h2>
             <DistributionOverview :dpiLocale="dpiLocale"></DistributionOverview>
         </div>
 
         <div class="dsKeywords b-top my-2 p-3"
-            v-if="getData('datasets')['dcat:keyword'] != undefined && getData('datasets')['dcat:keyword'][0]['@language'] != undefined && getData('datasets')['dcat:keyword'].length > 0">
-            <h2 class="my-4">Keywords <span>({{ getData('datasets')['dcat:keyword'].length }})</span></h2>
+            v-if="values['advised']['dcat:keyword'] != undefined && values['advised']['dcat:keyword'][0]['@language'] != undefined && values['advised']['dcat:keyword'].length > 0">
+            <h2 class="my-4">Keywords <span>({{ values['advised']['dcat:keyword'].length }})</span></h2>
             <div class="d-flex">
                 <span class="mx-1"
-                    v-for="( element, index ) in  getData('datasets')['dcat:keyword'].filter(el => el['@language'] === dpiLocale) "
+                    v-for="( element, index ) in  values['advised']['dcat:keyword'].filter(el => el['@language'] === dpiLocale) "
                     :key="index">
                     <small :title="element"
                         class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
@@ -145,6 +146,9 @@ export default {
     },
     props: {
         dpiLocale: String,
+        values:{
+            required:true
+        },
     },
     components: {
         PropertyEntry,
