@@ -4,7 +4,7 @@
 
         <!-- CREATOR -->
         <tr v-if="property === 'dct:creator'" class="marginBot">
-
+           
             <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1]
@@ -37,15 +37,16 @@
                     data['vcard:hasTelephone'] }}</div>
                 <div v-if="showValue(data, 'vcard:hasURL')">{{ $t('message.metadata.url') }}: <app-link
                         :to="data['vcard:hasURL']">{{ data['vcard:hasURL'] }}</app-link></div>
-                <div v-if="showValue(data, 'vcard:hasAddress')">{{ $t('message.metadata.address') }}:
-                    <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:street_address')">{{
-                        data['vcard:hasAddress'][0]['vcard:street_address'] }}</span>,
-                    <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:postal_code')">{{
-                        data['vcard:hasAddress'][0]['vcard:postal_code'] }}</span>
-                    <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:locality')">{{
-                        data['vcard:hasAddress'][0]['vcard:locality'] }}</span>,
-                    <span v-if="showValue(data['vcard:hasAddress'][0], 'vcard:country_name')">{{
-                        data['vcard:hasAddress'][0]['vcard:country_name'] }}</span>
+                <div v-if="showValue(data, 'vcard:hasAddress')">
+                    {{ $t('message.metadata.address') }}:
+                    <span v-if="showValue(data['vcard:hasAddress'], 'vcard:street_address')">{{
+                        data['vcard:hasAddress']['vcard:street_address'] }}</span>,
+                    <span v-if="showValue(data['vcard:hasAddress'], 'vcard:postal_code')">{{
+                        data['vcard:hasAddress']['vcard:postal_code'] }}</span>
+                    <span v-if="showValue(data['vcard:hasAddress'], 'vcard:locality')">{{
+                        data['vcard:hasAddress']['vcard:locality'] }}</span>,
+                    <span v-if="showValue(data['vcard:hasAddress'], 'vcard:country_name')">{{
+                        data['vcard:hasAddress']['vcard:country_name'] }}</span>
                 </div>
             </td>
         </tr>

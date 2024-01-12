@@ -1,5 +1,5 @@
 <template>
-    <details>{{values['distribution']['distributionList']}}</details>
+    <details>{{values['mandatory']['dct:publisher']}}</details>
     <div class="mt-2" v-if="pageLoaded">
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
@@ -22,7 +22,7 @@
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>
-                        {{ checkIfSet(new Date(values['mandatory']['dct:modified']).toDateString()) }}
+                        {{ checkIfSet(new Date(values['mandatory']['dct:modified']['@value']).toDateString()) }}
                         <!-- {{ new Date(values['datasets']['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
 
@@ -38,15 +38,18 @@
                 </p>
 
             </div>
-            <!-- <div class="">
+            <div class="">
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
+                     
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <PropertyEntry :data="values['datasets']" profile="datasets" :property="name" :value="value"
+                        <PropertyEntry :data="values['mandatory']" profile="datasets" :property="name" :value="value"
+                            :dpiLocale="dpiLocale"></PropertyEntry>
+                            <PropertyEntry :data="values['advised']" profile="datasets" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
 
                     </div>
                 </table>
-            </div> -->
+            </div>
         </div>
         <div class="dsDist b-top p-3" v-if="values['distribution']['distributionList'].length > 0">
             <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ values['distribution']['distributionList'].length

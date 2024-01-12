@@ -968,7 +968,7 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'issued',
-          id: 'issuedCond',
+          id: 'issuedCondDS',
 
           $formkit: 'select',
           name: '@type',
@@ -977,9 +977,9 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$get(issuedCond).value',
+          if: '$get(issuedCondDS).value',
           props: {
-            if: '$get(issuedCond).value === date',
+            if: '$get(issuedCondDS).value === date',
             then: {
               type: 'date',
               name: '@value',
@@ -999,7 +999,7 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'modified',
-          id: 'modifiedCond',
+          id: 'modifiedCondDS',
           name: '@type',
 
           $formkit: 'select',
@@ -1008,10 +1008,10 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$get(modifiedCond).value',
+          if: '$get(modifiedCondDS).value',
           props: {
             name: 'dct:modified',
-            if: '$get(modifiedCond).value === date',
+            if: '$get(modifiedCondDS).value === date',
             then: {
               type: 'date',
               name: '@value',

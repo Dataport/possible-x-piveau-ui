@@ -12,7 +12,7 @@
                 v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span></td>
 
         <!-- DATES-->
-        <td v-if="value.type === 'date'" class="flex-column">{{ filterDateFormatEU(data[property]) }}</td>
+        <td v-if="value.type === 'date'" class="flex-column">{{ data[property]['@value'] }}</td>
 
         <!-- MULTILINGUAL -->
         <td v-if="value.type === 'multiLingual'" class="flex-column">
@@ -48,7 +48,8 @@ export default {
     },
     methods: {
         filterDateFormatEU(date) {
-            return dateFilters.formatEU(date);
+           
+            return date
         },
     }
 

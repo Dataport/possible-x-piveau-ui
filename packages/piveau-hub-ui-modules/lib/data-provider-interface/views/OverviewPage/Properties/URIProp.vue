@@ -5,6 +5,7 @@
 
     <!-- MULTIPLE URIs -->
     <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
+      <details>{{ preValues }}</details>
       <div v-for="(el, index) in namesOfMulti" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
         {{ el }}
       </div>
@@ -15,7 +16,7 @@
         {{ el['dcatde:politicalGeocodingURI'] }}
       </div>
     </td>
-    <!-- Saptial -->
+    <!-- Spatial -->
     <td v-if="value.type === 'multiURISpatial'">
       <div v-for="(el, index) in data[property]" :key="index">
         {{ el['@id'] }}
@@ -41,11 +42,14 @@ export default {
     data: Object,
   },
   created() {
+    // console.log(this.data['dct:publisher'][0]['name']);
+
     try {
-      this.displayURIName(this.value.voc, this.data[this.property])
+      this.displayURIName(this.value.voc, this.data[this.property][0]['resource'])
       if (this.value.type == "multiURI") {
         for (let index = 0; index < this.data[this.property].length; index++) {
-          const element = this.data[this.property][index];
+          const element = this.data[this.property][index]['resource'];
+          // console.log(this.data[this.property][index]['resource']);
           this.displayURIName(this.value.voc, element)
         }
       }
@@ -68,14 +72,12 @@ export default {
         this.voc === "spdx-checksum-algorithm";
       try {
         if (voc !== undefined) {
+          
           // this is a temporary fix - it should be investiated why country(e.g.) has no vocabulary set!
           if (voc == "") {
             var arr = URI.split('/');
             voc = arr[arr.length - 2]
           }
-          if (voc === undefined) {
-          }
-
           await this.requestResourceName({ voc: voc, resource: URI }).then(
             (response) => {
               let result = vocMatch
@@ -85,9 +87,12 @@ export default {
                 : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
               preValues.name = result;
               preValues.resource = URI;
+              
             }
           );
-          if (this.value.type == "multiURI") {
+          
+          if (this.value.type === "multiURI") {
+
             this.namesOfMulti.push(preValues.name)
           }
           this.nameOfProperty = preValues.name
