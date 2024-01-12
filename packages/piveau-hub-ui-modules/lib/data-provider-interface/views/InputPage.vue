@@ -40,8 +40,7 @@
               </InputPageStep>
               <InputPageStep name="distribution">
                 <!-- Auslagern -->
-                <DistributionInputPage :schema=distributionSchema></DistributionInputPage>
-
+                <DistributionInputPage :schema=distributionSchema :values=formValues ></DistributionInputPage>
               </InputPageStep>
               <InputPageStep name="overview">
                 <DatasetOverview :values=formValues></DatasetOverview>
@@ -332,7 +331,7 @@ export default defineComponent({
         this.createSchema({ property: this.property, page: steps });
       }
 
-      console.log(this.getSchema);
+      // console.log(this.getSchema);
       this.translateSchema({ property: this.property });
       this.datasetSchema.push(this.getSchema);
 
