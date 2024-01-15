@@ -1,7 +1,5 @@
 <template>
     <div class="dpiSpecialPropWrap">
-
-<details>{{ property }}</details>
         <!-- CREATOR -->
         <tr v-if="property === 'dct:creator'" class="marginBot">
            

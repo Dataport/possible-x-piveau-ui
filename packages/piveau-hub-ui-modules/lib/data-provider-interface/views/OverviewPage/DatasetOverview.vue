@@ -55,15 +55,15 @@
             <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{
                 values['distribution']['distributionList'].length
             }})</h2>
-            <DistributionOverview :dpiLocale="dpiLocale"></DistributionOverview>
+            <DistributionOverview :disList="values['distribution']['distributionList']" :dpiLocale="dpiLocale"></DistributionOverview>
         </div>
 
         <div class="dsKeywords b-top my-2 p-3"
-            v-if="values['advised']['dcat:keyword'] != undefined && values['advised']['dcat:keyword'][0]['@language'] != undefined && values['advised']['dcat:keyword'].length > 0">
-            <h2 class="my-4">Keywords <span>({{ values['advised']['dcat:keyword'].length }})</span></h2>
+            v-if="values['advised']['dct:keyword'] != undefined && values['advised']['dct:keyword'][0]['@language'] != undefined">
+            <h2 class="my-4">Keywords <span>({{ values['advised']['dct:keyword'].length }})</span></h2>
             <div class="d-flex">
                 <span class="mx-1"
-                    v-for="( element, index ) in  values['advised']['dcat:keyword'].filter(el => el['@language'] === dpiLocale) "
+                    v-for="( element, index ) in  values['advised']['dct:keyword'].filter(el => el['@language'] === dpiLocale) "
                     :key="index">
                     <small :title="element"
                         class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">

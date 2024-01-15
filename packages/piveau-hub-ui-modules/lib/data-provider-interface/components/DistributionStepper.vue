@@ -56,7 +56,7 @@ export default defineComponent({
       this.distributionSteps[i].show = !this.distributionSteps[i].show;
     },
     getDisName() {
-      return this.values['distribution']['distributionList'][this.index]
+      // return this.values['distribution']['distributionList'][this.index]
     }
   }, computed: {
     listElementShow() {
