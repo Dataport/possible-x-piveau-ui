@@ -36,10 +36,6 @@ export default defineComponent({
             nameOfDistribution: ""
         }
     },
-    created() {
-        this.pushDistribution();
-
-    },
     methods: {
         pushDistribution() {
             this.distributionList.push(this.latestNonce);
