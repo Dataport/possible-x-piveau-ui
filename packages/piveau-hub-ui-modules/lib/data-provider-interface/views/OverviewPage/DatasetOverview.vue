@@ -1,10 +1,10 @@
 <template>
-    <details>{{values['mandatory']['dct:publisher']}}</details>
+    <details>{{ values['mandatory']['dct:publisher'] }}</details>
     <div class="mt-2" v-if="pageLoaded">
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
-                <h1 class="dsTitle"> {{values['mandatory']['dct:title'][0]['@value']}}</h1>
+                <h1 class="dsTitle"> {{ values['mandatory']['dct:title'][0]['@value'] }}</h1>
 
             </div>
             <div class="secondRow d-flex justify-content-between">
@@ -40,11 +40,11 @@
             </div>
             <div class="">
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
-                     
+
                     <div v-for="(value, name, index) in tableProperties" :key="index">
                         <PropertyEntry :data="values['mandatory']" profile="datasets" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
-                            <PropertyEntry :data="values['advised']" profile="datasets" :property="name" :value="value"
+                        <PropertyEntry :data="values['advised']" profile="datasets" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
 
                     </div>
@@ -52,7 +52,8 @@
             </div>
         </div>
         <div class="dsDist b-top p-3" v-if="values['distribution']['distributionList'].length > 0">
-            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ values['distribution']['distributionList'].length
+            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{
+                values['distribution']['distributionList'].length
             }})</h2>
             <DistributionOverview :dpiLocale="dpiLocale"></DistributionOverview>
         </div>
@@ -87,6 +88,7 @@ import Distribution from '../../../datasetDetails/distributions/Distribution.vue
 export default {
     data() {
         return {
+            dpiLocale: "en",
             pageLoaded: false,
             pageData: {},
             URIcache: "",
@@ -148,9 +150,9 @@ export default {
         ]),
     },
     props: {
-        dpiLocale: String,
-        values:{
-            required:true
+        // dpiLocale: String,
+        values: {
+            required: true
         },
     },
     components: {
@@ -184,8 +186,12 @@ export default {
     },
     methods: {
         checkIfSet(data) {
+
             if (data != undefined) return data
-            else return "unset"
+            else {
+                console.log(data + "- Datentyp");
+                return "unset"
+            }
         },
         getTitle(propertyName) {
             return propertyName.split(':')[1]

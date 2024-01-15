@@ -1,7 +1,7 @@
 <template>
     <div class="dpiSpecialPropWrap">
 
-
+<details>{{ property }}</details>
         <!-- CREATOR -->
         <tr v-if="property === 'dct:creator'" class="marginBot">
            
@@ -79,7 +79,7 @@
 
         <!-- TEMPORAL -->
         <tr v-if="property === 'dct:temporal'">
-
+            
             <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td class="d-flex flex-column">
                 <div v-if="showValue(data, 'dct:temporal')"><b>From:</b> {{ new
@@ -131,6 +131,7 @@
 
         <!-- TEMPORAL RESOLUTION -->
         <tr v-if="property === 'dcat:temporalResolution'">
+            
             <td class=" flex-column font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div>{{ convertTemporalResolution(data) }}</div>

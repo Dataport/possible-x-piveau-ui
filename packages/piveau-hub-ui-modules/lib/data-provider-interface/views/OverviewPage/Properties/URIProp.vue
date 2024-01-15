@@ -5,9 +5,9 @@
 
     <!-- MULTIPLE URIs -->
     <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
-      <details>{{ preValues }}</details>
+      <!-- <details>{{namesOfMulti}}</details> -->
       <div v-for="(el, index) in namesOfMulti" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
-        {{ el }}
+        {{ el['name'] }}
       </div>
     </td>
     <!-- political geocoding URI -->
@@ -65,37 +65,49 @@ export default {
     getTranslationFor,
     // Try to avoid that the function gets called whenever the page gets changed - performance wise this is not optimal
     async displayURIName(voc, URI) {
+     
       let preValues = { name: "", resource: "" };
 
       let vocMatch =
         this.voc === "iana-media-types" ||
         this.voc === "spdx-checksum-algorithm";
       try {
+      
         if (voc !== undefined) {
-          
+         
           // this is a temporary fix - it should be investiated why country(e.g.) has no vocabulary set!
           if (voc == "") {
+            
             var arr = URI.split('/');
             voc = arr[arr.length - 2]
           }
-          await this.requestResourceName({ voc: voc, resource: URI }).then(
-            (response) => {
-              let result = vocMatch
-                ? response.data.result.results
-                  .filter((dataset) => dataset.resource === URI)
-                  .map((dataset) => dataset.pref_label)[0].en
-                : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
-              preValues.name = result;
-              preValues.resource = URI;
-              
-            }
-          );
           
+          // Request is not working properly anymore - ToDo 
+
+          // await this.requestResourceName({ voc: voc, resource: URI }).then(
+          //   (response) => {
+            
+          //     let result = vocMatch
+          //       ? response.data.result.results
+          //         .filter((dataset) => dataset.resource === URI)
+          //         .map((dataset) => dataset.pref_label)[0].en
+          //       : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
+          //     preValues.name = result;
+          //     preValues.resource = URI;
+              
+          //   }
+          // );
           if (this.value.type === "multiURI") {
 
-            this.namesOfMulti.push(preValues.name)
+            // New function to gather values from multiURIs -ToDo return to the requestResourceName function because this way
+            this.namesOfMulti = this.data[this.property];
+            console.log(this.namesOfMulti);
+            // 
+            
+            // this.namesOfMulti.push(preValues.name)
           }
-          this.nameOfProperty = preValues.name
+          // this.nameOfProperty = preValues.name
+          this.nameOfProperty = this.data[this.property][0]['name']
 
           return preValues;
         }

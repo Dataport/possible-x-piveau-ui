@@ -23,8 +23,12 @@
                     v-text="step.errorCount + step.blockingCount" />
                   {{ camel2title(stepName) }}
                 </div>
-
                 <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
+                <div v-if="activeStep ==='overview'" class="seperatorHorizontalStepper"></div>
+              </li>
+              <li class="step inactiveStep" v-if="activeStep === 'overview'">
+                <div class="circle stepCircle"></div>
+                
               </li>
             </ul>
             <!-- <FormKitSummary /> -->
@@ -40,7 +44,7 @@
               </InputPageStep>
               <InputPageStep name="distribution">
                 <!-- Auslagern -->
-                <DistributionInputPage :schema=distributionSchema :values=formValues ></DistributionInputPage>
+                <DistributionInputPage :schema=distributionSchema :values=formValues></DistributionInputPage>
               </InputPageStep>
               <InputPageStep name="overview">
                 <DatasetOverview :values=formValues></DatasetOverview>

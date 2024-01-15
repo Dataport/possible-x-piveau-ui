@@ -1,6 +1,7 @@
 <template>
     <div v-if="value.type === 'conditional'">
         <!-- PUBLISHER -->
+        <p>{{ property }}</p>
         <div v-if="property === 'dct:publisher'">
             
             <div v-if="!data[property][0]['resource']">
