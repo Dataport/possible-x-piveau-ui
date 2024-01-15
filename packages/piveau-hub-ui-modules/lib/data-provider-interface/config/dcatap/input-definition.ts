@@ -1211,14 +1211,14 @@ const dcatapProperties: InputDefinition = {
               identifier: 'description',
               $formkit: 'textarea',
               name: '@value',
-              validation: 'required',
+             
             },
             {
               identifier: 'descriptionLanguage',
               value: 'en',
               $formkit: 'select',
               options: language,
-              validation: 'required',
+             
               name: '@language',
             },
           ],
@@ -1305,13 +1305,13 @@ const dcatapProperties: InputDefinition = {
               identifier: 'titleLabel',
               $formkit: 'text',
               name: '@value',
-              validation: 'required',
+              
             },
             {
               identifier: 'dctTitle',
               value: 'en',
               $formkit: 'select',
-              validation: 'required',
+            
               options: language,
               name: '@language',
             },
