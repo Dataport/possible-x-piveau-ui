@@ -1,5 +1,5 @@
 <template>
-  <div class="repeatable" 
+  <div class="repeatable"
  :class="[context.attrs.identifier]"
   v-for="key in items" :key="key">
     <div class="horizontal-wrapper">
@@ -125,11 +125,7 @@ export default {
 
   &:hover {
     background-color: darkgreen;
-
   }
 }
 
-button {
-  align-self: flex-start;
-}
 </style>
