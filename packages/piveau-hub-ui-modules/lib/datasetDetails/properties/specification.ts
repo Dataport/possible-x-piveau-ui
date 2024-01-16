@@ -1,7 +1,7 @@
-export const dcatFields = `releaseDate,modificationDate,landingPages,sources,
+export const dcatFields = `releaseDate,modificationDate,creator,landingPages,sources,
     languages,publisher,contactPoints,catalogRecord,spatial,
     spatialResource,conformsTo,provenances,identifiers,otherIdentifiers,resource,
-    frequency,accessRights,accrualPeriodicity,creator,hasVersion,isVersionOf,
+    frequency,accessRights,accrualPeriodicity,hasVersion,isVersionOf,
     temporal,versionInfo,versionNotes,attributes,dimensions,numSeries,hasQualityAnnotations,
     statUnitMeasures,isReferencedBy,qualifiedAttributions,wasGeneratedBy,
     qualifiedRelations,sample,spatialResolutionInMeters,type,temporalResolution`;
