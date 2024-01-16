@@ -1,19 +1,28 @@
 <template>
     <div>
-      
         <tr v-if="showValue(data, property)">
+
             <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
 
-            <URIProp :property="property" :value="value" :data="data"><p>{{value.type}}</p></URIProp>
+            <URIProp :property="property" :value="value" :data="data">
+                <p>{{ value.type }}</p>
+            </URIProp>
             <URLProp :property="property" :value="value" :data="data"></URLProp>
             <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
             <ConditionalProp :property="property" :value="value" :data="data"></ConditionalProp>
 
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
-                <div v-for="(elem, index) in data[property]" :key="index">
-                    <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
+                <div v-if="property != 'dct:creator'">
+                    <div v-for="(elem, index) in data[property]" :key="index">
+                        <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
+                    </div>
                 </div>
+                <div v-else>
+                    <SpecialProp :property="property" :value="value" :data="data[property]" :dpiLocale="dpiLocale">
+                    </SpecialProp>
+                </div>
+
             </div>
         </tr>
     </div>

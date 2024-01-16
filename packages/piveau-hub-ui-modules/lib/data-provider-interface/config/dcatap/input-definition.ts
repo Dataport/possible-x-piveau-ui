@@ -306,7 +306,7 @@ const dcatapProperties: InputDefinition = {
       voc: 'eurovoc',
       name:'dct:subject',
       '@annifSuggestion': false,
-      id:'subject',
+      id:'subjectDataset',
       classes: {
         outer: 'w88-textfield'
       }
@@ -348,7 +348,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'publisher',
       voc: 'corporate-body',
       property: 'dct:publisher',
-      id: 'publisher',
+      id: 'publisherDataset',
       name: 'dct:publisher',
     },
     spatial: {
@@ -364,28 +364,28 @@ const dcatapProperties: InputDefinition = {
             {
               $formkit: "select",
               identifier: "spatial",
-              id: "spatialMode",
+              id: "spatialModeDataset",
               name: "spatialMode",
               options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
             },
             {
               $cmp: "FormKit",
               identifier: "spatial",
-              if: "$get(spatialMode).value",
+              if: "$get(spatialModeDataset).value",
               props: {
                 type: "radio",
                 name: "vocabulary",
-                id: "vocabulary",
-                if: "$get(spatialMode).value === man",
+                id: "spatialVocabularyDataset",
+                if: "$get(spatialModeDataset).value === man",
                 options: {
-                  if: "$get(spatialMode).value === voc",
+                  if: "$get(spatialModeDataset).value === voc",
                   then: [
                     { value: "continent", label: "Continent" },
                     { value: "country", label: "Country" },
                     { value: "place", label: "Place" }
                   ],
                   else: {
-                    if: "$get(spatialMode).value === man",
+                    if: "$get(spatialModeDataset).value === man",
                     then: [
                       { label: "Other", value: "other" }
                     ],
@@ -396,10 +396,10 @@ const dcatapProperties: InputDefinition = {
             {
               $cmp: "FormKit",
               identifier: "spatial",
-              if: "$get(vocabulary).value",
+              if: "$get(spatialVocabularyDataset).value",
               props: {
                 identifier: "spatial",
-                if: "$get(vocabulary).value === other",
+                if: "$get(spatialVocabularyDataset).value === other",
                 then: {
                   type: "url",
                   identifier: "spatial",
@@ -968,7 +968,7 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'issued',
-          id: 'issuedCond',
+          id: 'issuedCondDataset',
 
           $formkit: 'select',
           name: '@type',
@@ -977,9 +977,9 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$get(issuedCond).value',
+          if: '$get(issuedCondDataset).value',
           props: {
-            if: '$get(issuedCond).value === date',
+            if: '$get(issuedCondDataset).value === date',
             then: {
               type: 'date',
               name: '@value',
@@ -999,7 +999,7 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'modified',
-          id: 'modifiedCond',
+          id: 'modifiedCondDataset',
           name: '@type',
 
           $formkit: 'select',
@@ -1008,10 +1008,10 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$get(modifiedCond).value',
+          if: '$get(modifiedCondDataset).value',
           props: {
             name: 'dct:modified',
-            if: '$get(modifiedCond).value === date',
+            if: '$get(modifiedCondDataset).value === date',
             then: {
               type: 'date',
               name: '@value',
@@ -1211,14 +1211,14 @@ const dcatapProperties: InputDefinition = {
               identifier: 'description',
               $formkit: 'textarea',
               name: '@value',
-              validation: 'required',
+             
             },
             {
               identifier: 'descriptionLanguage',
               value: 'en',
               $formkit: 'select',
               options: language,
-              validation: 'required',
+             
               name: '@language',
             },
           ],
@@ -1244,14 +1244,14 @@ const dcatapProperties: InputDefinition = {
           $formkit: 'select',
           identifier: 'licence',
           name: 'licenceMode',
-          id: 'licenceMode',
+          id: 'licenceModeDistribution',
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
           $formkit: 'group',
           name: 'details',
-          key: '$get(licenceMode).value',
-          if: '$get(licenceMode).value === "voc"',
+          key: '$get(licenceModeDistribution).value',
+          if: '$get(licenceModeDistribution).value === "voc"',
           children: [
             {
               $formkit: 'auto',
@@ -1259,15 +1259,15 @@ const dcatapProperties: InputDefinition = {
               name: '@id',
               voc: 'licence',
               property: 'dct:license',
-              id: 'licenceVocabulary'
+              id: 'licenceVocabularyDistribution'
             }
           ]
         },
         {
           $formkit: 'group',
           name: 'details',
-          key: '$get(licenceMode).value',
-          if: '$get(licenceMode).value === "man"',
+          key: '$get(licenceModeDistribution).value',
+          if: '$get(licenceModeDistribution).value === "man"',
           children: [
             {
               $formkit: 'text',
@@ -1305,13 +1305,13 @@ const dcatapProperties: InputDefinition = {
               identifier: 'titleLabel',
               $formkit: 'text',
               name: '@value',
-              validation: 'required',
+              
             },
             {
               identifier: 'dctTitle',
               value: 'en',
               $formkit: 'select',
-              validation: 'required',
+            
               options: language,
               name: '@language',
             },
@@ -1613,7 +1613,7 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'issued',
-          id: 'issuedCond',
+          id: 'issuedCondDistribution',
           $formkit: 'select',
           name: '@type',
           options: { date: 'Date', datetime: 'Datetime' },
@@ -1621,9 +1621,9 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$get(issuedCond).value',
+          if: '$get(issuedCondDistribution).value',
           props: {
-            if: '$get(issuedCond).value === date',
+            if: '$get(issuedCondDistribution).value === date',
             then: {
               type: 'date',
               name: '@value',
@@ -1642,7 +1642,7 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'modified',
-          id: 'modifiedCond',
+          id: 'modifiedCondDistribution',
           name: '@type',
           $formkit: 'select',
           options: { date: 'Date', datetime: 'Datetime' },
@@ -1650,10 +1650,10 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$get(modifiedCond).value',
+          if: '$get(modifiedCondDistribution).value',
           props: {
             name: 'dct:modified',
-            if: '$get(modifiedCond).value === date',
+            if: '$get(modifiedCondDistribution).value === date',
             then: {
               type: 'date',
               name: '@value',
@@ -1676,15 +1676,15 @@ const dcatapProperties: InputDefinition = {
           name: "rightsMode",
           $formkit: "select",
           options: { url: 'URL', str: 'String' },
-          id: "rightsMode"
+          id: "rightsModeDistribution"
         },
         {
           identifier: 'rights',
           $cmp: "FormKit",
-          if: "$get(rightsMode).value",
+          if: "$get(rightsModeDistribution).value",
           props: {
             name: 'rdfs:label',
-            if: "$get(rightsMode).value === url",
+            if: "$get(rightsModeDistribution).value === url",
             then: {
               identifier: 'rightsUrl',
               type: "url",
@@ -1851,14 +1851,14 @@ const dcatapProperties: InputDefinition = {
           $formkit: 'select',
           identifier: 'licence',
           name: 'licenceMode',
-          id: 'licenceMode',
+          id: 'licenceModeCatalogue',
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
           $formkit: 'group',
           name: 'details',
-          key: '$get(licenceMode).value',
-          if: '$get(licenceMode).value === "voc"',
+          key: '$get(licenceModeCatalogue).value',
+          if: '$get(licenceModeCatalogue).value === "voc"',
           children: [
             {
               $formkit: 'auto',
@@ -1866,15 +1866,15 @@ const dcatapProperties: InputDefinition = {
               name: '@id',
               voc: 'licence',
               property: 'dct:license',
-              id: 'licenceVocabulary'
+              id: 'licenceVocabularyCatalogue'
             }
           ]
         },
         {
           $formkit: 'group',
           name: 'details',
-          key: '$get(licenceMode).value',
-          if: '$get(licenceMode).value === "man"',
+          key: '$get(licenceModeCatalogue).value',
+          if: '$get(licenceModeCatalogue).value === "man"',
           children: [
             {
               $formkit: 'text',
@@ -1909,28 +1909,28 @@ const dcatapProperties: InputDefinition = {
             {
               $formkit: "select",
               identifier: "spatial",
-              id: "spatialMode",
+              id: "spatialModeCatalogue",
               name: "spatialMode",
               options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
             },
             {
               $cmp: "FormKit",
               identifier: "spatial",
-              if: "$get(spatialMode).value",
+              if: "$get(spatialModeCatalogue).value",
               props: {
                 type: "radio",
                 name: "vocabulary",
-                id: "vocabulary",
-                if: "$get(spatialMode).value === man",
+                id: "spatialVocabularyCatalogue",
+                if: "$get(spatialModeCatalogue).value === man",
                 options: {
-                  if: "$get(spatialMode).value === voc",
+                  if: "$get(spatialModeCatalogue).value === voc",
                   then: [
                     { value: "continent", label: "Continent" },
                     { value: "country", label: "Country" },
                     { value: "place", label: "Place" }
                   ],
                   else: {
-                    if: "$get(spatialMode).value === man",
+                    if: "$get(spatialModeCatalogue).value === man",
                     then: [
                       { label: "Other", value: "other" }
                     ],
@@ -1941,10 +1941,10 @@ const dcatapProperties: InputDefinition = {
             {
               $cmp: "FormKit",
               identifier: "spatial",
-              if: "$get(vocabulary).value",
+              if: "$get(spatialVocabularyCatalogue).value",
               props: {
                 identifier: "spatial",
-                if: "$get(vocabulary).value === other",
+                if: "$get(spatialVocabularyCatalogue).value === other",
                 then: {
                   type: "url",
                   identifier: "spatial",
@@ -2005,15 +2005,15 @@ const dcatapProperties: InputDefinition = {
           name: "rightsMode",
           $formkit: "select",
           options: { url: 'URL', str: 'String' },
-          id: "rightsMode"
+          id: "rightsModeCatalogue"
         },
         {
           identifier: 'rights',
           $cmp: "FormKit",
-          if: "$get(rightsMode).value",
+          if: "$get(rightsModeCatalogue).value",
           props: {
             name: 'rdfs:label',
-            if: "$get(rightsMode).value === url",
+            if: "$get(rightsModeCatalogue).value === url",
             then: {
               identifier: 'rightsUrl',
               type: "url",
