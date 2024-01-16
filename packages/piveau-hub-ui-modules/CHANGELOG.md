@@ -1,3 +1,12 @@
+## [3.15.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.8...v3.15.9) (2024-01-16)
+
+
+### Bug Fixes
+
+* change default creator position in dsd properties ([1f71655](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1f71655432e176635b2864bd236376aa78e317e0))
+
+
+
 ## [3.15.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.7...v3.15.8) (2024-01-03)
 
 
@@ -29,11 +38,7 @@
 
 
 
-## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.3...v3.15.4) (2023-12-21)
-
-
-
-## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
+## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.4) (2023-12-21)
 
 
 ### Bug Fixes
