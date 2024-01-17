@@ -40,7 +40,7 @@ export default {
     type: String, // Can be any of the types recognized in typeCheckers.ts
     translate: String | Array, // i18n key for the tooltip and label string values (if not given, name is used!)
     name: String, // Key to extract the value from the Datasets store
-    fields: String, // Comma-separated keys for extracting data from an object
+    propertyFields: String, // Comma-separated keys for extracting data from an object
     itemstyles: String, // Styles to apply to an object key-value block
     track: String, // Comma-separated keys for tracking
     preTransform: Function, // Transform raw data from dataset service
@@ -70,7 +70,7 @@ export default {
       return this.getProperty(this.name);
     },
     preparedFields() {
-      return this.fields?.split(',').map(field => field.split(':'));
+      return this.propertyFields?.split(',').map(field => field.split(':'));
     },
     preparedTrack() {
       return this.track?.split(',');

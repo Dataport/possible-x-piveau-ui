@@ -15,7 +15,7 @@
               :name="name"
               :translate="fieldSchema[name]?.translate"
               :type="fieldSchema[name]?.type"
-              :fields="fieldSchema[name]?.fields"
+              :propertyFields="fieldSchema[name]?.propertyFields"
               :track="fieldSchema[name]?.track"
               :itemstyles="fieldSchema[name]?.itemstyles"
               :preTransform="fieldSchema[name]?.preTransform"
@@ -60,7 +60,7 @@ export default {
     fieldSchema() {
       return Object.assign(dcatSchema(this.$i18n.t), dcatDeSchema())
     },
-    fields() {
+    propertyFields() {
       let properties = this.$env.content?.datasetDetails?.properties;
       if (!properties || properties === "") {
         properties = dcatFields;
@@ -68,10 +68,11 @@ export default {
           properties += "," + dcatDeFields;
         }
       }
-      return properties;
+      return "";
+      // return properties;
     },
     fieldsArray() {
-      return this.fields.split(',').map(item => item.trim());
+      return this.propertyFields.split(',').map(item => item.trim());
     },
     showMoreVisible() {
       return this.initialHeight > this.restrictedHeight;
