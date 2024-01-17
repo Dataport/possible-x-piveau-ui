@@ -52,10 +52,7 @@ import {
   ConditionalInput,
   AutocompleteInput,
   UniqueIdentifierInput,
-  Groupedinput,
   FileUpload,
-  DatePicker,
-  DateTimePicker,
   configureModules,
   helpers,
 } from '@piveau/piveau-hub-ui-modules';
@@ -108,12 +105,9 @@ app.component('piveau-header', Header);
 app.component('piveau-footer', Footer);
 app.component('InfoSlot', InfoSlot);
 app.component('ConditionalInput', ConditionalInput);
-app.component('Groupedinput', Groupedinput);
 app.component('AutocompleteInput', AutocompleteInput);
 app.component('UniqueIdentifierInput', UniqueIdentifierInput);
 app.component('FileUpload', FileUpload);
-app.component('DatePicker', DatePicker);
-app.component('DateTimePicker', DateTimePicker);
 app.component('AppSnackbar', AppSnackbar);
 app.component('AppConfirmationDialog', AppConfirmationDialog);
 app.component('font-awesome-icon', FontAwesomeIcon);

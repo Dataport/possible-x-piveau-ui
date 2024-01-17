@@ -102,6 +102,7 @@ Please follow this guide strictly and apply the following changes:
 "vue-inject": "x.x.x",
 "vue-progressbar": "x.x.x",
 "vue-select": "x.x.x",
+"vue-step-progress": "x.x.x",
 "vue2-datepicker": "x.x.x",
 "vuex-router-sync": "x.x.x",
 ```
