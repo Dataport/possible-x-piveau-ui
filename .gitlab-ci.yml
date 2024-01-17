@@ -1,9 +1,8 @@
 include:
   - project: piveau/misc/gitlab-ci-templates
-    token: $CI_TOKEN_MISC_CI_TEMPLATES 
+    token: $CI_TOKEN_MISC_CI_TEMPLATES
     file:
       - /templates/.gitlab-ci-publish-template.yml
-
 
 cache:
   paths:
@@ -70,7 +69,6 @@ register theme-builder latest:
     - docker build --pull -f theme-builder-dockerfile -t "${CI_REGISTRY_IMAGE}/theme-builder":latest .
     - docker push "${CI_REGISTRY_IMAGE}/theme-builder":latest
 
-
 register theme-builder release:
   stage: register
   tags:
@@ -92,7 +90,6 @@ register theme-builder release:
     - docker push "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG
     - docker tag "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
     - docker push "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
-
 
 build-theme-branches:
   stage: build
@@ -116,8 +113,6 @@ build-theme-branches:
 #
 # Theme builder end
 #
-
-
 
 
 register develop as latest:
