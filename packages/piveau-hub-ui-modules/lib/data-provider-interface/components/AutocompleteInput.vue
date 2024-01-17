@@ -3,7 +3,6 @@
 </script>
 <template>
   <div class="autoCompleteWrapper" :class="[context.attrs.identifier]">
-
     <FormKit type="text" @click="this.openSuggestedList = !this.openSuggestedList" class="w-100"
       @input="getAutocompleteSuggestions" :placeholder="this.context.attrs.placeholder" />
     <div v-if="openSuggestedList" class="suggestedItemsContainer">

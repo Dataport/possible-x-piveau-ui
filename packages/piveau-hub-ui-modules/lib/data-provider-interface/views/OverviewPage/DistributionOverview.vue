@@ -9,7 +9,7 @@
                 <p class="">Updated</p>
                 <p class="">Actions</p>
             </div>
-            <div v-for="( distribution, id) in getData('distributions')" :key="'distribution' + id">
+            <div v-for="( distribution, id) in disList" :key="'distribution' + id">
 
                 <div class="tdWrap" v-if="id % 2 == 0">
                     <p v-if="distribution['dct:title'] != undefined && distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="disInfoWrap">
-                    <ul class="list list-unstyled" v-if="getData('distributions').length > 0">
+                    <ul class="list list-unstyled" v-if="disList.length > 0">
                         <li class="disWrapper" :key="`distribution${id + 1}`">
                             <!-- DISTRIBUTIONS FORMAT -->
 
@@ -102,7 +102,7 @@
                                     </table>
                                     <table class="table table-borderless table-responsive pl-3 bg-light">
                                         <div v-for="( value, name, index ) in  tableProperties " :key="index">
-                                            <PropertyEntry profile="distributions" :data="getData('distributions')[id]"
+                                            <PropertyEntry profile="distributions" :data="disList['@id']"
                                                 :property="name" :value="value" :dpiLocale="dpiLocale" :distId="id">
                                             </PropertyEntry>
                                         </div>
@@ -124,9 +124,13 @@ import PropertyEntry from './PropertyEntry.vue';
 import { has, isNil, isEmpty } from 'lodash';
 import { truncate } from '../../../utils/helpers';
 
+
 export default {
     props: {
         dpiLocale: String,
+        disList: {
+            required:true
+        }
     },
     components: {
         PropertyEntry,
