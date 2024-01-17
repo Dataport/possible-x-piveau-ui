@@ -147,7 +147,7 @@ export default {
       erpd: {
         yes: Vue.i18n.t('message.metadata.yes'),
         no: Vue.i18n.t('message.metadata.no'),
-        property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
+        property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'), //changed key values
         title: Vue.i18n.t('message.datasetFacets.facets.erpd'),
         // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
       }
