@@ -1,5 +1,6 @@
 include:
   - project: piveau/misc/gitlab-ci-templates
+    token: $CI_TOKEN_MISC_CI_TEMPLATES 
     file:
       - /templates/.gitlab-ci-publish-template.yml
 
