@@ -1,3 +1,13 @@
+## [3.15.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.9...v3.15.10) (2024-01-17)
+
+
+### Bug Fixes
+
+* erpd_title_translation ([198b2db](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/198b2db253dc0551a1383257253a1570b7b2e3db))
+* renaming of variables ([734f31d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/734f31d7855d19a5d21a201e4087e5c4961ada5b))
+
+
+
 ## [3.15.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.8...v3.15.9) (2024-01-16)
 
 
