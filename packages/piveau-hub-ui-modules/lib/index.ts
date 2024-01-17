@@ -57,11 +57,8 @@ import DatasetCitationTable from "./citation/DatasetCitationTable";
 import AutocompleteInput from "./data-provider-interface/components/AutocompleteInput";
 import ConditionalInput from "./data-provider-interface/components/ConditionalInput";
 import DataFetchingComponent from "./data-provider-interface/components/DataFetchingComponent";
-import DatePicker from "./data-provider-interface/components/DatePicker";
-import DateTimePicker from "./data-provider-interface/components/DateTimePicker";
 import Dropup from "./data-provider-interface/components/Dropup";
 import FileUpload from "./data-provider-interface/components/FileUpload";
-import Groupedinput from "./data-provider-interface/components/Groupedinput";
 import InfoSlot from "./data-provider-interface/components/InfoSlot";
 import LanguageSelector from "./data-provider-interface/components/LanguageSelector";
 import Navigation from "./data-provider-interface/components/Navigation";
@@ -262,11 +259,8 @@ export {
   CustomNumber,
   ConditionalInput,
   DataFetchingComponent,
-  DatePicker,
-  DateTimePicker,
   Dropup,
   FileUpload,
-  Groupedinput,
   InfoSlot,
   LanguageSelector,
   Navigation,

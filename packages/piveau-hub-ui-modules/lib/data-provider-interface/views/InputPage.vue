@@ -1,12 +1,9 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-<details>{{ formValues }}</details>
+    <details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
-        <!-- TestPage for Custom Inputs -->
-        <!-- <CustomInputs></CustomInputs> -->
-        
         <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
           class="d-flex">
@@ -65,9 +62,6 @@
               </div>
             </div>
           </div>
-         
-
-          
         </FormKit>
       </div>
     </div>
@@ -89,7 +83,6 @@ import {
 } from 'lodash';
 import { FormKitSummary } from '@formkit/vue';
 import DistributionOverview from './DistributionOverview.vue';
-import CustomInputs from './CustomInputs.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
 
@@ -131,7 +124,6 @@ export default defineComponent({
   components: {
     DistributionOverview,
     FormKitSummary,
-    CustomInputs,
     InputPageStep,
   },
   computed: {
