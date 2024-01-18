@@ -68,8 +68,7 @@ export default {
           properties += "," + dcatDeFields;
         }
       }
-      return "";
-      // return properties;
+      return properties;
     },
     fieldsArray() {
       return this.propertyFields.split(',').map(item => item.trim());
