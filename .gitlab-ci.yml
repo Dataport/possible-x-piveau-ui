@@ -199,5 +199,3 @@ downstream triggers:
   allow_failure: true
   script:
     - export FINAL_REF=$( [[ -z $CI_COMMIT_TAG ]] && echo $CI_COMMIT_REF_NAME || echo "master" )
-
-
