@@ -35,6 +35,9 @@ semantic-release:
   image:
     name: node:20-buster-slim
     #entrypoint: [ '/bin/bash', '-c', 'ln -snf /bin/bash /bin/sh && /bin/bash -c $0' ]
+  variables:
+    GIT_AUTHOR_EMAIL: juan.carvajal@fokus.fraunhofer.de
+    GIT_COMMITTER_EMAIL: juan.carvajal@fokus.fraunhofer.de
   stage: create-tags
   only:
     - master
