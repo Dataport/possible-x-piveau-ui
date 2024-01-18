@@ -1,3 +1,12 @@
+## [3.15.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.11...v3.15.12) (2024-01-18)
+
+
+### Bug Fixes
+
+* properties loaded correctly ([84ace2d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/84ace2d5e9f41281e443952f116a02936321d74b))
+
+
+
 ## [3.15.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.10...v3.15.11) (2024-01-18)
 
 
