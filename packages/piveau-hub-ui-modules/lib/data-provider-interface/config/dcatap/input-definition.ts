@@ -138,7 +138,7 @@ const dcatapProperties: InputDefinition = {
             {
               identifier: 'description',
               $formkit: 'textarea',
-
+              mandatory: true,
               name: '@value',
               validation: 'required',
               classes: {
@@ -151,6 +151,7 @@ const dcatapProperties: InputDefinition = {
     },
     title: {
       id: 'title',
+      identifier: 'title',
       $formkit: 'repeatable',
       name: 'dct:title',
       children: [
@@ -158,7 +159,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'title',
           $formkit: 'group',
           name: 'dct:title',
-          mandatory: true,
+         
           minimum: 1,
           children: [
             {
@@ -167,7 +168,7 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'select',
               validation: 'required',
               options: language,
-
+             
               name: '@language',
               classes: {
                 outer: 'w25-textfield'
@@ -178,7 +179,7 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'text',
               name: '@value',
               validation: 'required',
-
+              mandatory: true,
               classes: {
                 outer: 'w75-textfield'
               }
@@ -434,7 +435,7 @@ const dcatapProperties: InputDefinition = {
               name: 'dcat:startDate',
               end: 'dct:temporal',
               classes: {
-                outer: 'w50-textfield'
+                outer: 'w100-textfield'
               },
             },
             {
@@ -443,7 +444,7 @@ const dcatapProperties: InputDefinition = {
               name: 'dcat:endDate',
               start: 'dct:temporal',
               classes: {
-                outer: 'w50-textfield'
+                outer: 'w100-textfield'
               },
             },
           ],
@@ -522,7 +523,7 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'text',
               name: 'rdfs:label',
               classes: {
-                outer: 'w50-textfield'
+                outer: 'w100-textfield'
               }
             },
             {
@@ -531,7 +532,7 @@ const dcatapProperties: InputDefinition = {
               name: '@id',
               validation: 'optional|url',
               classes: {
-                outer: 'w50-textfield'
+                outer: 'w100-textfield'
               }
             },
           ],
@@ -565,7 +566,7 @@ const dcatapProperties: InputDefinition = {
                       options: language,
                       name: '@language',
                       classes: {
-                        outer: 'w97-textfield'
+                        outer: 'w25-textfield'
                       },
                     },
                     {
@@ -573,7 +574,7 @@ const dcatapProperties: InputDefinition = {
                       $formkit: 'text',
                       name: '@value',
                       classes: {
-                        outer: 'w97-textfield'
+                        outer: 'w75-textfield'
                       },
                     },
                   ]
@@ -590,14 +591,7 @@ const dcatapProperties: InputDefinition = {
                   $formkit: 'group',
                   name: 'dct:description',
                   children: [
-                    {
-                      identifier: 'pageDesc',
-                      $formkit: 'textarea',
-                      name: '@value',
-                      classes: {
-                        outer: 'w97-textfield'
-                      },
-                    },
+                   
                     {
                       identifier: 'page-desc',
                       value: 'en',
@@ -605,7 +599,15 @@ const dcatapProperties: InputDefinition = {
                       options: language,
                       name: '@language',
                       classes: {
-                        outer: 'w97-textfield'
+                        outer: 'w25-textfield'
+                      },
+                    },
+                    {
+                      identifier: 'pageDesc',
+                      $formkit: 'textarea',
+                      name: '@value',
+                      classes: {
+                        outer: 'w75-textfield'
                       },
                     },
                   ]
@@ -1102,7 +1104,7 @@ const dcatapProperties: InputDefinition = {
               name: '@language',
               options: language,
               classes: {
-                outer: 'w50-textfield'
+                outer: 'w100-textfield'
               },
             },
             {
@@ -1110,7 +1112,7 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'textarea',
               name: '@value',
               classes: {
-                outer: 'w50-textfield'
+                outer: 'w100-textfield'
               },
             },
           ],
@@ -1121,7 +1123,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'catalog',
       $formkit: 'select',
       name: 'dcat:catalog',
-
+      mandatory: true,
       validation: 'required',
       options: { "title": "hallo" }
     },
@@ -1480,17 +1482,24 @@ const dcatapProperties: InputDefinition = {
                   $formkit: 'group',
                   name: 'dct:title',
                   children: [
-                    {
-                      identifier: 'pageTitleSub',
-                      $formkit: 'text',
-                      name: '@value',
-                    },
+                   
                     {
                       identifier: 'pageTitlelang',
                       value: 'en',
                       $formkit: 'select',
                       options: language,
                       name: '@language',
+                      classes: {
+                        outer: 'w25-textfield'
+                      },
+                    },
+                    {
+                      identifier: 'pageTitleSub',
+                      $formkit: 'text',
+                      name: '@value',
+                      classes: {
+                        outer: 'w75-textfield'
+                      },
                     },
                   ]
                 }
@@ -1591,7 +1600,7 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'text',
               name: 'rdfs:label',
               classes: {
-                outer: 'w50-textfield'
+                outer: 'w100-textfield'
               }
             },
             {
@@ -1600,7 +1609,7 @@ const dcatapProperties: InputDefinition = {
               name: '@id',
               validation: 'optional|url',
               classes: {
-                outer: 'w50-textfield'
+                outer: 'w100-textfield'
               }
             },
           ],

@@ -1,6 +1,8 @@
 <template>
+  <h4>ID</h4>
   <div :class="`formkit-input-element`" id="datasetID" ref="datasetID" v-bind="$attrs">
     <div v-if="getIsEditMode">
+      <details>{{ context }}</details>
       <FormKit v-model="uniqueID" type="text" name="datasetID" :disabled="true" class="w100-textfield" prefix-icon="info"
         :sections-schema="{
           suffix: {
@@ -23,7 +25,8 @@
       </FormKit>
     </div>
     
-    <div v-else>
+    <div class="repeatableWrap" v-else>
+      
       <FormKit v-model="uniqueID" @input="checkUniqueID" id="datasetIDForm" type="text" name="datasetID"
         class="w100-textfield" :placeholder="$t('message.dataupload.createUniqueID')"
         :validation="validation" :validation-rules="validationRules" :validation-messages="validationMessages"

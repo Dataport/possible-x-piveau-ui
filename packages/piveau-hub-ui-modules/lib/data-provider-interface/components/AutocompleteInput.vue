@@ -2,12 +2,14 @@
 
 </script>
 <template>
-  <div class="autoCompleteWrapper" :class="[context.attrs.identifier]">
+  <h4>{{camel2title(context.attrs.identifier)}}</h4>
+  <!-- <details>{{ this.autocomplete}}</details> -->
+  <div class="autoCompleteWrapper repeatableWrap" :class="[context.attrs.identifier]">
     <FormKit type="text" @click="this.openSuggestedList = !this.openSuggestedList" class="w-100"
       @input="getAutocompleteSuggestions" :placeholder="this.context.attrs.placeholder" />
     <div v-if="openSuggestedList" class="suggestedItemsContainer">
       <ul>
-        <li v-for="items, key in this.autocomplete.suggestions" :key="key" @click="this.chooseSuggestedItem(items)">{{
+        <li v-for="items, key in this.autocomplete['suggestions']" :key="key" @click="this.chooseSuggestedItem(items)">{{
           items.name }}
         </li>
       </ul>
@@ -16,7 +18,7 @@
       <hr>
       <ul>
         <li v-for="chosenItems, index in this.values" :key="index">
-          <p>{{ chosenItems.name }}</p>
+          <p>{{ chosenItems }}</p>
           <div class="removeX" @click="removeActiveItem($event)" @mouseover="hoverEffect($event, true)"
             @mouseleave="hoverEffect($event, false)">
           </div>
@@ -47,6 +49,11 @@ export default {
         clicked: false,
       },
       values: [],
+      camel2title: (str) =>
+        str
+          .replace(/([A-Z])/g, (match) => ` ${match}`)
+          .replace(/^./, (match) => match.toUpperCase())
+          .trim(),
     }
   },
   methods: {
@@ -62,14 +69,16 @@ export default {
     getAutocompleteSuggestions(searchText) {
 
       if (!searchText) {
+       
         if (this.autocomplete.text.length <= 1) {
+          
           this.requestFirstEntrySuggestions(this.context.voc).then((response) => {
-         
+            
             const results = response.data.result.results.map((r) => ({
               name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
               resource: r.resource,
             }));
-
+     
             this.autocomplete.suggestions = results;
             this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
           });
@@ -105,9 +114,9 @@ export default {
       // Todo need to refresh the context Object
     },
     chooseSuggestedItem(chosenObject) {
-
       if (this.context.attrs.multiple) {
-        if (this.values.includes(chosenObject)) {
+      console.log(this.values);
+        if (this.values.name === chosenObject) {
         } else {
           this.values.push(chosenObject)
         }

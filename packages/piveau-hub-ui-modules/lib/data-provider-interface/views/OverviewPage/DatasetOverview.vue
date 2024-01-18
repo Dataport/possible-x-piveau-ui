@@ -1,5 +1,4 @@
 <template>
-    <details>{{ values['mandatory']['dct:publisher'] }}</details>
     <div class="mt-2" v-if="pageLoaded">
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">

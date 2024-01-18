@@ -1,19 +1,29 @@
 <template>
-  <div class="repeatable" 
- :class="[context.attrs.identifier]"
-  v-for="key in items" :key="key">
+  <div class="repeatable" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
+    <h4 >{{ camel2title(context.attrs.identifier) }}</h4>
     <div class="horizontal-wrapper">
-      <!-- <pre>{{ context.attrs }}</pre> -->
-      <slot>
-        <FormKit />
-      </slot>
+      
+      <div class="repeatableWrap">
+        <div class="interactionHeaderRepeatable my-1">This is a repeatable property. You can <a class="add"
+            @click="addItem">add another
+            one</a> or <a class="remove" @click="removeItem" :data-key="key">remove
+            this property</a> </div>
+        <!-- <pre>{{ context.attrs }}</pre> -->
+        <div class="formkitWrapRepeatable">
+          <slot>
+            <FormKit />
+          </slot>
+        </div>
+
+      </div>
+
     </div>
-    <div class="interactionWrapper">
+    <!-- <div class="interactionWrapper">
       <div class="formkit-remover ball" @click="removeItem" :data-key="key">
         <span>x</span>
       </div>
       <div @click="addItem" class="ball formkit-adder"><span>+</span></div>
-    </div>
+    </div> -->
   </div>
   <hr>
 </template>
@@ -26,11 +36,17 @@ export default {
     name: String,
     children: Array,
     context: Object,
+    
   },
   data() {
     return {
       values: [],
-      items: [this.newId()]
+      items: [this.newId()],
+      camel2title: (str) =>
+        str
+          .replace(/([A-Z])/g, (match) => ` ${match}`)
+          .replace(/^./, (match) => match.toUpperCase())
+          .trim(),
     }
   },
   methods: {
@@ -58,16 +74,6 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-}
-
-.repeatable {
-  // min-height: 150px;
-  display: flex;
-  flex-direction: row;
-
-  .formkit-input {
-    // width: 600px;
-  }
 }
 
 .interactionWrapper {

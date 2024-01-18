@@ -16,9 +16,18 @@ export default {
     //     props: ['voc'],
     //     component: AutocompleteInput,
     // },
-    auto:createInput(AutocompleteInput, {props: ['voc'],}),
+    id:{
+        type:'group',
+        component: UniqueIdentifierInput
+    },
+    auto:{
+        type:'group',
+        props: ['voc'],
+        component: AutocompleteInput
+    },
+    // auto:createInput(AutocompleteInput, {props: ['voc'],}),
     fileupload: createInput(FileUpload, {}),
-    id: createInput(UniqueIdentifierInput, {}),
+    // id: createInput(UniqueIdentifierInput, {}),
     // cc: createInput(ComplexConditionalInput, {}),
 
 

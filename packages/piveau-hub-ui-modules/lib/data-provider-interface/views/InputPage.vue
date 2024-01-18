@@ -49,6 +49,7 @@
               <InputPageStep name="overview">
                 <DatasetOverview :values=formValues></DatasetOverview>
               </InputPageStep>
+              <p class="p-1"> <b>*</b> mandatory</p>
               <div class="d-flex w-100 justify-content-between">
                 <FormKit type="button" @click="goToPreviousStep">
                   <div class="d-flex flex-column align-items-start">
@@ -71,6 +72,7 @@
 
 
         </FormKit>
+      
       </div>
     </div>
     <!-- <div v-if="isDistributionOverview">
