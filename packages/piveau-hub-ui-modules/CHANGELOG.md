@@ -1,3 +1,12 @@
+## [3.15.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.10...v3.15.11) (2024-01-18)
+
+
+### Bug Fixes
+
+* renaming of variables ([f1f950a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f1f950af65b1e420e39792f835f73a28b56c54b4))
+
+
+
 ## [3.15.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.9...v3.15.10) (2024-01-17)
 
 
