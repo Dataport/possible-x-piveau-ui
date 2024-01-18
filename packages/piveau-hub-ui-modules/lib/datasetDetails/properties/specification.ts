@@ -77,7 +77,7 @@ export const dcatSchema = (t) => ({
     otherIdentifiers: {type: 'objects', translate: 'otherIdentifier,otherIdentifiers', fields:"identifier:link,resource:link:identifier,scheme:link"},
     resource: {type: 'uri', translate: ",'uriRef'"},
     frequency: {type: 'object', fields:"title,resource:link"},
-    accessRights: {type: 'object', translate:"/message.tooltip.datasetDetails.distributions.rights, accessRights", fields:"label::"},
+    accessRights: {type: 'object', translate:"/message.tooltip.datasetDetails.distributions.rights,accessRights", fields:"label::"},
     accrualPeriodicity: {type: 'object', translate:"frequency,accrualPeriodicity", fields:"label::"},
     creator: {type: 'object', fields:"name,email,homepage"},
     hasVersion: {type: 'links'},
