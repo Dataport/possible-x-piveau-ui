@@ -435,7 +435,7 @@ const dcatapProperties: InputDefinition = {
               name: 'dcat:startDate',
               end: 'dct:temporal',
               classes: {
-                outer: 'w100-textfield'
+                outer: 'w25-textfield'
               },
             },
             {
@@ -444,7 +444,7 @@ const dcatapProperties: InputDefinition = {
               name: 'dcat:endDate',
               start: 'dct:temporal',
               classes: {
-                outer: 'w100-textfield'
+                outer: 'w75-textfield'
               },
             },
           ],
@@ -476,7 +476,7 @@ const dcatapProperties: InputDefinition = {
     },
     creator: {
       identifier: 'creator',
-      $formkit: 'group',
+      $formkit: 'formkitgroup',
       name: 'dct:creator',
       children: [
         {
@@ -965,13 +965,15 @@ const dcatapProperties: InputDefinition = {
     },
     issued: {
       identifier: 'issued',
-      $formkit: 'group',
+      $formkit: 'formkitgroup',
       name: 'dct:issued',
       children: [
         {
           identifier: 'issued',
           id: 'issuedCondDataset',
-
+          classes: {
+            outer: 'w25-textfield'
+          },
           $formkit: 'select',
           name: '@type',
           options: { date: 'Date', datetime: 'Datetime' },
@@ -979,16 +981,23 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'issued',
           $cmp: 'FormKit',
+         
           if: '$get(issuedCondDataset).value',
           props: {
             if: '$get(issuedCondDataset).value === date',
             then: {
               type: 'date',
               name: '@value',
+              classes: {
+                outer: 'w75-textfield'
+              },
             },
             else: {
               type: 'datetime-local',
               name: '@value',
+              classes: {
+                outer: 'w75-textfield'
+              },
             }
           }
         },
@@ -996,14 +1005,16 @@ const dcatapProperties: InputDefinition = {
     },
     modified: {
       identifier: 'modified',
-      $formkit: 'group',
+      $formkit: 'formkitgroup',
       name: 'dct:modified',
       children: [
         {
           identifier: 'modified',
           id: 'modifiedCondDataset',
           name: '@type',
-
+          classes: {
+            outer: 'w25-textfield'
+          },
           $formkit: 'select',
           options: { date: 'Date', datetime: 'Datetime' },
         },
@@ -1017,10 +1028,16 @@ const dcatapProperties: InputDefinition = {
             then: {
               type: 'date',
               name: '@value',
+              classes: {
+                outer: 'w75-textfield'
+              },
             },
             else: {
               type: 'datetime-local',
-              name: '@value'
+              name: '@value',
+              classes: {
+                outer: 'w75-textfield'
+              },
             }
           }
         },
@@ -1034,7 +1051,7 @@ const dcatapProperties: InputDefinition = {
     },
     temporalResolution: {
       identifier: 'temporalResolution',
-      $formkit: 'group',
+      $formkit: 'formkitgroup',
       name: 'dcat:temporalResolution',
       children: [
         {
@@ -1104,7 +1121,7 @@ const dcatapProperties: InputDefinition = {
               name: '@language',
               options: language,
               classes: {
-                outer: 'w100-textfield'
+                outer: 'w25-textfield'
               },
             },
             {
@@ -1112,7 +1129,7 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'textarea',
               name: '@value',
               classes: {
-                outer: 'w100-textfield'
+                outer: 'w75-textfield'
               },
             },
           ],

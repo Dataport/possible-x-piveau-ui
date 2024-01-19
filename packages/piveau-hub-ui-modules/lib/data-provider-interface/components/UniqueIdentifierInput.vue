@@ -1,56 +1,57 @@
 <template>
-  <h4>ID</h4>
-  <div :class="`formkit-input-element`" id="datasetID" ref="datasetID" v-bind="$attrs">
-    <div v-if="getIsEditMode">
-      <details>{{ context }}</details>
-      <FormKit v-model="uniqueID" type="text" name="datasetID" :disabled="true" class="w100-textfield" prefix-icon="info"
-        :sections-schema="{
-          suffix: {
-            $el: 'span',
-            attrs: {
-              class: 'input-char-count',
-            },
-            children: [
-              '$: $attrs.maxlength - $fns.length($value || 0)',
-              {
-                $el: 'span',
-                children: '$: $attrs.maxlength - $fns.length($value || 0) + \' characters remaining\'',
-                attrs: {
-                  class: 'char-count-hover'
+  <div class="formkitIdWrapper">
+    <h4>ID</h4>
+    <div :class="`formkit-input-element`" id="datasetID" ref="datasetID" v-bind="$attrs">
+      <div v-if="getIsEditMode">
+        <details>{{ context }}</details>
+        <FormKit v-model="uniqueID" type="text" name="datasetID" :disabled="true" class="w100-textfield"
+          prefix-icon="info" :sections-schema="{
+            suffix: {
+              $el: 'span',
+              attrs: {
+                class: 'input-char-count',
+              },
+              children: [
+                '$: $attrs.maxlength - $fns.length($value || 0)',
+                {
+                  $el: 'span',
+                  children: '$: $attrs.maxlength - $fns.length($value || 0) + \' characters remaining\'',
+                  attrs: {
+                    class: 'char-count-hover'
+                  }
                 }
-              }
-            ]
-          }
-        }">
-      </FormKit>
-    </div>
-    
-    <div class="repeatableWrap" v-else>
-      
-      <FormKit v-model="uniqueID" @input="checkUniqueID" id="datasetIDForm" type="text" name="datasetID"
-        class="w100-textfield" :placeholder="$t('message.dataupload.createUniqueID')"
-        :validation="validation" :validation-rules="validationRules" :validation-messages="validationMessages"
-        :sections-schema="{
-          prefix: {
-            $el: 'div',
-            attrs: {
-              class: 'infoI',
-            },
-            children: [
-              {
-                $el: 'div',
-                children: this.context.attrs.info,
-                attrs: {
-                  class: 'tooltipFormkit'
+              ]
+            }
+          }">
+        </FormKit>
+      </div>
+
+      <div class="repeatableWrap" v-else>
+
+        <FormKit v-model="uniqueID" @input="checkUniqueID" id="datasetIDForm" type="text" name="datasetID"
+          class="w100-textfield" :placeholder="$t('message.dataupload.createUniqueID')" :validation="validation"
+          :validation-rules="validationRules" :validation-messages="validationMessages" :sections-schema="{
+            prefix: {
+              $el: 'div',
+              attrs: {
+                class: 'infoI',
+              },
+              children: [
+                {
+                  $el: 'div',
+                  children: this.context.attrs.info,
+                  attrs: {
+                    class: 'tooltipFormkit'
+                  }
+
                 }
-                
-              }
-            ]
-          }
-        }">
-      </FormKit>
+              ]
+            }
+          }">
+        </FormKit>
+      </div>
+
     </div>
-    
   </div>
 </template>
 

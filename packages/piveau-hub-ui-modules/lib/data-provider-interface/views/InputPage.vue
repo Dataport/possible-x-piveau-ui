@@ -37,13 +37,14 @@
                 <FormKitSchema :schema="datasetSchema[0]" />
               </InputPageStep>
               <InputPageStep name="advised">
-                <FormKitSchema :schema="datasetSchema[1]" />
+                <PropertyChooser :step="'advised'" :properties="datasetSchema[1]"></PropertyChooser>
+                <FormKitSchema  :schema="datasetSchema[1]" />
               </InputPageStep>
               <InputPageStep name="recommended">
-                <FormKitSchema :schema="datasetSchema[2]" />
+                <PropertyChooser :step="'recommended'" :properties="datasetSchema[2]"></PropertyChooser>
+                <FormKitSchema :schema="datasetSchema[2]" /> 
               </InputPageStep>
               <InputPageStep name="distribution">
-                <!-- Auslagern -->
                 <DistributionInputPage :schema=distributionSchema :values=formValues></DistributionInputPage>
               </InputPageStep>
               <InputPageStep name="overview">
@@ -86,6 +87,7 @@
 import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
+import PropertyChooser from './PropertyChooser.vue'
 import {
   has,
   isNil,
@@ -142,7 +144,8 @@ export default defineComponent({
     InputPageStep,
     DistributionInputPage,
     DatasetOverviewSchema,
-    DatasetOverview
+    DatasetOverview,
+    PropertyChooser
   },
   computed: {
     ...mapGetters('auth', [

@@ -1,8 +1,9 @@
 <template>
   <div class="repeatable" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
-    <h4 >{{ camel2title(context.attrs.identifier) }}</h4>
+      <h4>{{ camel2title(context.attrs.identifier) }}</h4>
+    
     <div class="horizontal-wrapper">
-      
+
       <div class="repeatableWrap">
         <div class="interactionHeaderRepeatable my-1">This is a repeatable property. You can <a class="add"
             @click="addItem">add another
@@ -25,7 +26,6 @@
       <div @click="addItem" class="ball formkit-adder"><span>+</span></div>
     </div> -->
   </div>
-  <hr>
 </template>
 
 <script>
@@ -36,7 +36,7 @@ export default {
     name: String,
     children: Array,
     context: Object,
-    
+
   },
   data() {
     return {
