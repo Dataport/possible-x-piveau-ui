@@ -1,3 +1,12 @@
+## [3.15.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.13...v3.15.14) (2024-01-19)
+
+
+### Bug Fixes
+
+* erpd key changed ([81dd4ea](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/81dd4ead243a5dc581c92006951c171e8f981118))
+
+
+
 ## [3.15.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.12...v3.15.13) (2024-01-19)
 
 
