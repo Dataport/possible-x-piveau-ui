@@ -1,3 +1,12 @@
+## [3.15.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.12...v3.15.13) (2024-01-19)
+
+
+### Bug Fixes
+
+* proper passing of field property ([52c5d95](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/52c5d9543db594591f604b7bf51fd4fc9d1d77d3))
+
+
+
 ## [3.15.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.11...v3.15.12) (2024-01-18)
 
 
