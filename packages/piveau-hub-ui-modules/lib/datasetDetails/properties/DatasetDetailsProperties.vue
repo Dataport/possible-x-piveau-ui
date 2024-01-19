@@ -15,7 +15,7 @@
               :name="name"
               :translate="fieldSchema[name]?.translate"
               :type="fieldSchema[name]?.type"
-              :propertyFields="fieldSchema[name]?.propertyFields"
+              :propertyFields="fieldSchema[name]?.fields"
               :track="fieldSchema[name]?.track"
               :itemstyles="fieldSchema[name]?.itemstyles"
               :preTransform="fieldSchema[name]?.preTransform"
