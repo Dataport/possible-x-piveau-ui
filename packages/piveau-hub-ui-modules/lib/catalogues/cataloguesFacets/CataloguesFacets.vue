@@ -100,7 +100,7 @@
           yes: Vue.i18n.t('message.metadata.yes'),
           no: Vue.i18n.t('message.metadata.no'),
           property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
-          title: Vue.i18n.t('message.metadata.erpd'),
+          title: Vue.i18n.t('message.datasetFacets.facets.erpd'),
           // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
         }
       };
