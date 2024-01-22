@@ -22,7 +22,7 @@ export default {
     },
     auto:{
         type:'group',
-        props: ['voc'],
+        props: ['voc', 'options', 'matches'],
         component: AutocompleteInput
     },
     // auto:createInput(AutocompleteInput, {props: ['voc'],}),

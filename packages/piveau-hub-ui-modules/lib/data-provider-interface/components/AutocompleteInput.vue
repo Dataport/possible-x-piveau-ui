@@ -1,161 +1,141 @@
 <script setup>
+import { ref } from 'vue'
+import { createInput } from '@formkit/vue'
+import { generateCodeFrame } from 'vue/compiler-sfc'
 
-</script>
-<template>
-  <h4>{{camel2title(context.attrs.identifier)}}</h4>
-  <!-- <details>{{ this.autocomplete}}</details> -->
-  <div class="autoCompleteWrapper repeatableWrap" :class="[context.attrs.identifier]">
-    <FormKit type="text" @click="this.openSuggestedList = !this.openSuggestedList" class="w-100"
-      @input="getAutocompleteSuggestions" :placeholder="this.context.attrs.placeholder" />
-    <div v-if="openSuggestedList" class="suggestedItemsContainer">
-      <ul>
-        <li v-for="items, key in this.autocomplete['suggestions']" :key="key" @click="this.chooseSuggestedItem(items)">{{
-          items.name }}
-        </li>
-      </ul>
-    </div>
-    <div v-if="this.context.attrs.multiple" :class="{ 'chosenItemsContainer': true, 'd-none': this.values.length < 1 }">
-      <hr>
-      <ul>
-        <li v-for="chosenItems, index in this.values" :key="index">
-          <p>{{ chosenItems }}</p>
-          <div class="removeX" @click="removeActiveItem($event)" @mouseover="hoverEffect($event, true)"
-            @mouseleave="hoverEffect($event, false)">
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</template>
-<script>
-import { ref } from "vue";
-import { mapActions } from "vuex";
-import { getTranslationFor } from "../../utils/helpers";
-import { getNode } from '@formkit/core'
-
-export default {
-  props: {
-    context: Object,
-  },
-
-  data() {
-    return {
-      openSuggestedList: false,
-      node: getNode(this.context.id),
-      autocomplete: {
-        text: "",
-        selected: false,
-        suggestions: [],
-        clicked: false,
-      },
-      values: [],
-      camel2title: (str) =>
-        str
-          .replace(/([A-Z])/g, (match) => ` ${match}`)
-          .replace(/^./, (match) => match.toUpperCase())
-          .trim(),
+const auto = createInput(
+  [
+    {
+      if: '$value',
+      then: [
+        {
+          $el: 'a',
+          attrs: {
+            id: '$id',
+            href: '#',
+            onClick: '$handlers.setValue',
+          },
+          children: '$value',
+        },
+      ],
+      else: [
+        {
+          $el: 'input',
+          bind: '$attrs',
+          attrs: {
+            id: '$id',
+            onKeydown: '$handlers.selection',
+            onInput: '$handlers.search',
+            value: '$searchValue',
+          },
+        },
+        {
+          $el: 'ul',
+          if: '$matches.length < $options.length',
+          children: [
+            {
+              $el: 'li',
+              for: ['match', '$matches'],    
+              attrs: {
+                'data-selected': {
+                  if: '$selection === $match',
+                  then: 'true',
+                  else: 'false',
+                },
+                class: 'p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100',
+                onClick: '$handlers.setValue',
+                onMouseenter: '$handlers.hover',
+                onMouseleave: '$handlers.unhover',
+              },                 
+              children: '$match',
+            },
+          ],
+        },
+      ]
     }
-  },
-  methods: {
-    ...mapActions("dpiStore", [
-      "requestFirstEntrySuggestions",
-      "requestAutocompleteSuggestions",
-      "requestResourceName",
-    ]),
-    hoverEffect(e, bool) {
-      if (bool) e.target.previousElementSibling.classList.add('eraseItem');
-      else e.target.previousElementSibling.classList.remove('eraseItem');
-    },
-    getAutocompleteSuggestions(searchText) {
-
-      if (!searchText) {
-       
-        if (this.autocomplete.text.length <= 1) {
-          
-          this.requestFirstEntrySuggestions(this.context.voc).then((response) => {
-            
-            const results = response.data.result.results.map((r) => ({
-              name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
-              resource: r.resource,
-            }));
-     
-            this.autocomplete.suggestions = results;
-            this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
-          });
-        } else {
-          this.requestAutocompleteSuggestions(this.context.voc, text).then((response) => {
-
-            const results = response.data.result.results.map((r) => ({
-              name: getTranslationFor(r.pref_label, this.$i18n.locale, []) + " (" + r.id + ")",
-              resource: r.resource,
-            }));
-
-            if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
-            else this.autocomplete.suggestions = results;
-          });
-        }
-      }
-      else {
-        this.requestAutocompleteSuggestions({ voc: this.context.voc, text: searchText }).then((response) => {
-          const results = response.data.result.results.map((r) => ({
-            name: getTranslationFor(r.pref_label, this.$i18n.locale, []) + " (" + r.id + ")",
-            resource: r.resource,
-          }));
-
-          if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
-          else this.autocomplete.suggestions = results;
-        });
-      }
-    },
-    removeActiveItem(e) {
-      let itemToEraseText = e.target.previousElementSibling.innerHTML
-      this.values = this.values.filter(filtered => filtered.name != itemToEraseText)
-
-      // Todo need to refresh the context Object
-    },
-    chooseSuggestedItem(chosenObject) {
-      if (this.context.attrs.multiple) {
-      console.log(this.values);
-        if (this.values.name === chosenObject) {
-        } else {
-          this.values.push(chosenObject)
-        }
-      }
-      else {
-        this.values[0] = chosenObject;
-        this.context.attrs.placeholder = chosenObject.name
-      }
-
-      this.context.model = this.values;
-      this.node.input(this.values)
-
-      if (this.values.length > 0) this.itemsChosen = true;
-      else this.itemsChosen = false;
-
-      this.openSuggestedList = !this.openSuggestedList
-    },
-    searchVocabulary(typedText) {
-      //console.log(typedText);
-    }
-  },
-  computed: {
-    getformerValues() {
-      return ref(this.context.value)._rawValue;
-    }
-  },
-  mounted() {
-    this.getAutocompleteSuggestions();
-    if (ref(this.context.value)._rawValue) {
-      this.values = ref(this.context.value)._rawValue;
-    }
-  },
-  watch: {
-    getformerValues: {
-      handler() {
-        this.values = this.getformerValues
-      },
-    }
+  ],
+  {
+    props: ['options', 'matches', 'selection', 'searchValue'],
+    features: [addHandlers],
+    family: 'text',
   }
+)
+
+function addHandlers(node) {
+  node.on('created', () => {
+    // Ensure our matches prop starts as an array.
+    node.props.matches = [];
+    node.props.selection = '';
+    node.props.options = ['hi', 'test', 'value', 'value2', 'value3'];
+
+    // When we actually have an value to set:
+    const setValue = async (e) => {
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      await node.input(node.props.selection);
+      node.props.selection = '';
+      node.props.searchValue = '';
+      await new Promise((r) => setTimeout(r, 50)) // "next tick"
+      if (document.querySelector('input#' + node.props.id)) {
+        document.querySelector('input#' + node.props.id).focus();
+      }
+    }
+
+    // Perform a soft selection, this is shown as a highlight in the dropdown
+    const select = (delta) => {
+      const available = node.props.matches
+      let idx = available.indexOf(node.props.selection) + delta
+      if (idx >= available.length) {
+        idx = 0
+      } else if (idx < 0) {
+        idx = available.length - 1
+      }
+      node.props.selection = available[idx]
+    }
+
+    // Add some new "handlers" for our autocomplete. The handlers object is
+    // just a conventionally good place to put event handlers. Auto complete
+    // inputs always have to deal with lots of keyboard events, so that logic
+    // is registered here.
+    Object.assign(node.context.handlers, {
+      setValue,
+      selection: (e) => {
+        // This handler is called when entering data into the search input.
+        switch (e.key) {
+          case 'Enter':
+            return setValue()
+          case 'ArrowDown':
+            e.preventDefault();
+            return select(1)
+          case 'ArrowUp':
+            e.preventDefault();
+            return select(-1)
+        }
+      },
+      search(e) {
+        node.props.searchValue = e.target.value;
+      },
+      hover: (e) => {
+        node.props.selection = e.target.textContent;
+      },
+      unhover: (e) => {
+        if (e.target.textContent === node.props.selection) {
+          node.props.selection = '';
+        }
+      },
+    })
+  })
+
+  // Perform filtering when the search value changes
+  node.on('prop:searchValue', ({ payload: value }) => {
+    const results = node.props.options.filter((option) =>
+      option.toLowerCase().startsWith(value.toLowerCase())
+    )
+    if (!results.length) results.push('No matches')
+    node.props.matches = results;
+  })
 }
 </script>
-<style></style>
+
+<template>
+  <FormKit :type="auto"/>
+</template>
