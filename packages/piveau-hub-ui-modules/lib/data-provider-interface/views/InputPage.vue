@@ -47,7 +47,7 @@
                 <DistributionInputPage :schema=distributionSchema :values=formValues></DistributionInputPage>
               </InputPageStep>
               <InputPageStep name="overview">
-                <DatasetOverview :values=formValues></DatasetOverview>
+                <!-- <DatasetOverview :values=formValues></DatasetOverview> -->
               </InputPageStep>
               <p class="p-1"> <b>*</b> mandatory</p>
               <div class="d-flex w-100 justify-content-between">

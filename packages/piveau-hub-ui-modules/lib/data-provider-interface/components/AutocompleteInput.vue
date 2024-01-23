@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue'
-import { createInput } from '@formkit/vue'
-import { generateCodeFrame } from 'vue/compiler-sfc'
+import { ref } from 'vue';
+import { createInput } from '@formkit/vue';
+import { useStore } from 'vuex';
+import { getTranslationFor } from "../../utils/helpers";
 
 const auto = createInput(
   [
@@ -55,18 +56,19 @@ const auto = createInput(
     }
   ],
   {
-    props: ['options', 'matches', 'selection', 'searchValue'],
+    props: ['options', 'matches', 'selection', 'searchValue', 'context'],
     features: [addHandlers],
     family: 'text',
   }
 )
+
+const store = useStore();
 
 function addHandlers(node) {
   node.on('created', () => {
     // Ensure our matches prop starts as an array.
     node.props.matches = [];
     node.props.selection = '';
-    node.props.options = ['hi', 'test', 'value', 'value2', 'value3'];
 
     // When we actually have an value to set:
     const setValue = async (e) => {
@@ -92,12 +94,39 @@ function addHandlers(node) {
       node.props.selection = available[idx]
     }
 
+    const getAutocompleteSuggestions = async () => {
+
+      // this.choice = true
+      let voc = node.props.context.attrs.voc;
+      let text = node.props.searchValue;
+
+      // this.clearAutocompleteSuggestions();
+
+      await store.dispatch('dpiStore/requestAutocompleteSuggestions', {voc: voc, text: text }).then((response) => {
+
+        const results = response.data.result.results.map((r) => ({
+          name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
+          resource: r.resource,
+        }));
+
+        console.log('####', results);
+
+        node.props.matches = results;
+        // todo: no matches
+
+        console.log('****', node.props.matches);
+
+      });
+
+    }
+
     // Add some new "handlers" for our autocomplete. The handlers object is
     // just a conventionally good place to put event handlers. Auto complete
     // inputs always have to deal with lots of keyboard events, so that logic
     // is registered here.
     Object.assign(node.context.handlers, {
       setValue,
+      getAutocompleteSuggestions,
       selection: (e) => {
         // This handler is called when entering data into the search input.
         switch (e.key) {
@@ -126,16 +155,21 @@ function addHandlers(node) {
   })
 
   // Perform filtering when the search value changes
-  node.on('prop:searchValue', ({ payload: value }) => {
-    const results = node.props.options.filter((option) =>
-      option.toLowerCase().startsWith(value.toLowerCase())
-    )
-    if (!results.length) results.push('No matches')
-    node.props.matches = results;
+  node.on('prop:searchValue', async ({ payload: value }) => {
+
+    // console.log('###########', results);
+    node.context.handlers.getAutocompleteSuggestions();
+
+
+    // const results = node.props.options.filter((option) =>
+    //   option.toLowerCase().startsWith(value.toLowerCase())
+    // )
+    // if (!results.length) results.push('No matches')
+    // node.props.matches = results;
   })
 }
 </script>
 
-<template>
+<template> 
   <FormKit :type="auto"/>
 </template>

@@ -182,7 +182,7 @@ const mutations = {
      */
     saveFormValuesToStore(state, { property, page, distid, values }) {
 
-
+        console.log('##### hiiiiiiiii');
 
         if (distid) {
             state[property][distid][page] = values;

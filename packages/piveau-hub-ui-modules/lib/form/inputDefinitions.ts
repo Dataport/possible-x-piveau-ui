@@ -11,24 +11,14 @@ export default {
         type: 'list',
         component: Repeatable
     },
-    // auto: {
-    //     type: 'input',
-    //     props: ['voc'],
-    //     component: AutocompleteInput,
-    // },
     id:{
         type:'group',
         component: UniqueIdentifierInput
     },
     auto:{
         type:'group',
-        props: ['voc', 'options', 'matches'],
         component: AutocompleteInput
     },
-    // auto:createInput(AutocompleteInput, {props: ['voc'],}),
     fileupload: createInput(FileUpload, {}),
-    // id: createInput(UniqueIdentifierInput, {}),
-    // cc: createInput(ComplexConditionalInput, {}),
-
 
 } as FormKitLibrary;
