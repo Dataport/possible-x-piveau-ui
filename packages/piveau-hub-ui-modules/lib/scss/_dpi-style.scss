@@ -530,6 +530,49 @@
 }
 
 // -------------------------------------------------------
+.inactiveResultList{
+    display: none;
+}
+.autocompleteInputSingleValue{
+    line-height: 3rem;
+    margin-right: auto;
+    color: #000;
+}
+.autocompleteInputfield {
+    width: 100%;
+    border: none;
+    line-height: 3rem;
+
+    &:focus {
+        border: none;
+        box-shadow: none;
+        background-color: #efefef;
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.autocompleteResultList {
+    -webkit-box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 55px;
+    background-color: white;
+    z-index: 999;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    cursor: pointer;
+
+    li {
+        &:nth-child(even){
+            background-color: #efefef;
+        }
+    }
+}
+
 .formkit-inner {
     textarea {
         min-height: 32px;
@@ -722,20 +765,25 @@
     }
 
 }
-.pageDescription,.pageTitle{
-    .formkitWrapRepeatable{
-        flex-direction: row!important;
+
+.pageDescription,
+.pageTitle {
+    .formkitWrapRepeatable {
+        flex-direction: row !important;
     }
 }
-.admsIdentifier,.page{
-    .repeatableWrap{
-        h4{
+
+.admsIdentifier,
+.page {
+    .repeatableWrap {
+        h4 {
             font-size: 14px;
             font-weight: 700;
             margin-left: 1rem;
             margin-bottom: 0;
         }
-        .repeatableWrap{
+
+        .repeatableWrap {
             border: none;
         }
     }

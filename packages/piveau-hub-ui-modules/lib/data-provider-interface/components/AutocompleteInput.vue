@@ -15,9 +15,17 @@ const auto = createInput(
             id: '$id',
             href: '#',
             onClick: '$handlers.setValue',
+            class: 'autocompleteInputSingleValue',
           },
           children: '$value',
         },
+        {
+          $el: 'div',
+          attrs: {
+            class: 'removeX'
+          },
+
+        }
       ],
       else: [
         {
@@ -25,18 +33,24 @@ const auto = createInput(
           bind: '$attrs',
           attrs: {
             id: '$id',
+            onClick: '$handlers.toggleList',
             onKeydown: '$handlers.selection',
             onInput: '$handlers.search',
             value: '$searchValue',
-          },
+            class: 'autocompleteInputfield',
+
+          }, children: [
+            {
+
+            }]
         },
         {
           $el: 'ul',
-          if: '$matches.length < $options.length',
+          attrs: { class: 'autocompleteResultList inactiveResultList' },
           children: [
             {
               $el: 'li',
-              for: ['match', '$matches'],    
+              for: ['match', '$matches'],
               attrs: {
                 'data-selected': {
                   if: '$selection === $match',
@@ -47,8 +61,8 @@ const auto = createInput(
                 onClick: '$handlers.setValue',
                 onMouseenter: '$handlers.hover',
                 onMouseleave: '$handlers.unhover',
-              },                 
-              children: '$match',
+              },
+              children: '$match.name',
             },
           ],
         },
@@ -67,7 +81,7 @@ const store = useStore();
 function addHandlers(node) {
   node.on('created', () => {
     // Ensure our matches prop starts as an array.
-    node.props.matches = [];
+    node.props.matches = [{ 'name': '-- Please choose a property or search for them in the vocabulary --' }];
     node.props.selection = '';
 
     // When we actually have an value to set:
@@ -102,7 +116,7 @@ function addHandlers(node) {
 
       // this.clearAutocompleteSuggestions();
 
-      await store.dispatch('dpiStore/requestAutocompleteSuggestions', {voc: voc, text: text }).then((response) => {
+      await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: text }).then((response) => {
 
         const results = response.data.result.results.map((r) => ({
           name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
@@ -143,6 +157,9 @@ function addHandlers(node) {
       search(e) {
         node.props.searchValue = e.target.value;
       },
+      toggleList(e) {
+        e.target.nextSibling.classList.toggle('inactiveResultList');
+      },
       hover: (e) => {
         node.props.selection = e.target.textContent;
       },
@@ -170,6 +187,6 @@ function addHandlers(node) {
 }
 </script>
 
-<template> 
-  <FormKit :type="auto"/>
+<template>
+  <FormKit :type="auto" />
 </template>
