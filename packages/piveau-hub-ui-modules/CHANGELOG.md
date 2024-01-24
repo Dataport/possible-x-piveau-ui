@@ -1,3 +1,12 @@
+## [3.15.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.14...v3.15.15) (2024-01-24)
+
+
+### Bug Fixes
+
+* **Datasets,DatasetsFacets:** adjust fixedCatalogFilter setting to set superCatalogue query param instead of setting catalog facet ([99a714b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/99a714b3dded7cf0d52dcba12e160838dc90512e))
+
+
+
 ## [3.15.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.13...v3.15.14) (2024-01-19)
 
 
