@@ -23,7 +23,7 @@ function getShape(z: ZodType) {
 
 /**
  * Recursively turns a Zod object into a regular Javascript key-value object, where the values
- * are strings that have the special shape to start with "$VUE_APP_" and then chaining the keys
+ * are strings that have the special shape to start with "$VITE_" and then chaining the keys
  * path in upper case separated by underscores.
  * @param z
  * @param keyPath
@@ -35,7 +35,7 @@ function convert(z: ZodType, keyPath: string = '') {
             const extendedKeyPath = keyPath === '' ? key.toUpperCase() : keyPath + '_' + key.toUpperCase();
             const convertedValue = convert(value as ZodType, extendedKeyPath);
             if (convertedValue === null) {
-                entries[key] = "$VUE_APP_" + keyPath + "_"
+                entries[key] = "$VITE_" + keyPath + "_"
                     + key.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (sub, arg) => (arg ? "_" : "") + sub).toUpperCase();
             } else {
                 entries[key] = convertedValue;
@@ -55,13 +55,13 @@ function runtimeConfigAsString() {
  * Configuration template file to bind specific properties from user-config.js to environment variables.
  *
  * This object MUST be structurally identical to the standard user-config.sample.js file.
- * Each value MUST start with the $VUE_APP_ prefix and SHOULD be followed by their path, e.g.
+ * Each value MUST start with the $VITE_ prefix and SHOULD be followed by their path, e.g.
  *
- * api: { baseUrl: '$VUE_APP_API_BASE_URL' }
+ * api: { baseUrl: '$VITE_API_BASE_URL' }
  *
  * Their corresponding environment variable keys MUST equal that value without the $ character, e.g.
  *
- * VUE_APP_API_BASE_URL: '/base'
+ * VITE_API_BASE_URL: '/base'
  */
  
 export default `;
