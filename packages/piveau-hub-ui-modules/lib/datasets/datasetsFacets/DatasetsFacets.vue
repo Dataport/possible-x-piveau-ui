@@ -108,6 +108,14 @@ export default {
       type: Array,
       default: null,
     },
+        /**
+     * @description Sets the catalog filter to a fixed catalog id. Disables the catalog facet and hides the facet in the selected facets overview.
+     * @dev Use this prop if you want to use this component in a catalog page context where the catalog is already known (e.g., provider's page).
+     */
+     fixedCatalogFilter: {
+      type: String,
+      default: '',
+    },
   },
   metaInfo() {
     const catalogTitle = this.getTranslationFor(this.catalog.title, this.$route.query.locale, this.catalogLanguageIds) || this.catalog.id;
@@ -489,7 +497,9 @@ export default {
     }
     /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
     /* fill in here */
-    this.setSuperCatalogue(this.$route.query.superCatalogue);
+    // Note: sets fixedCatalogFilter as superCatalogue as 'fallback'
+    // This is necessary for Open Data Bayern to work properly.
+    this.setSuperCatalogue(this.$route.query.superCatalogue || this.fixedCatalogFilter);
   }
 };
 </script>
