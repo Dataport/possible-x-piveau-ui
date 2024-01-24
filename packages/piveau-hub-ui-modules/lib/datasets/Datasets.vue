@@ -219,7 +219,7 @@ export default {
 
       return facetFields.reduce((acc, field) => {
         acc[field] = (wantsToLoadCatalogByParamOrProp && field === 'catalog' )
-          ? [this.fixedCatalogFilter || this.$route.params.ctlg_id]
+          ? []
           : this.getUrlFacetsOrDefault(field);
 
         return acc;
