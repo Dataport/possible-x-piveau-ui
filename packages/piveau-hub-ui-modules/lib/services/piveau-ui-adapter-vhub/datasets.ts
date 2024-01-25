@@ -75,7 +75,7 @@
    ds.spatialResolutionInMeters = dataGetters.getArrayOfNumbers(dataset, 'spatial_resolution_in_meters');
    ds.spatialResource = dataGetters.getArrayOfObjects(dataset, 'spatial_resource', ['label', 'resource']);
    ds.statUnitMeasures = dataGetters.getArrayOfStrings(dataset, 'stat_unit_measure');
-   ds.subject = dataGetters.getArrayOfObjects(dataset, 'subject', ['resource', 'label']);
+   ds.subject = dataGetters.getArrayOfObjects(dataset, 'subject', ['resource', 'label', 'id']);
    ds.temporal = dataGetters.getArrayOfObjects(dataset, 'temporal', ['gte', 'lte']);
    ds.temporalResolution = dataGetters.getString(dataset, 'temporal_resolution');
    ds.theme = dataGetters.getArrayOfObjects(dataset, 'categories', ['id', 'label', 'resource']);
