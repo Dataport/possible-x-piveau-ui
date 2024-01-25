@@ -1,7 +1,7 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-    <details>{{ formValues }}</details>
+    <!-- <details>{{ formValues }}</details> -->
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
         <!-- TestPage for Custom Inputs -->
@@ -24,25 +24,48 @@
                   {{ camel2title(stepName) }}
                 </div>
                 <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
-                <div v-if="activeStep ==='overview'" class="seperatorHorizontalStepper"></div>
+                <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div>
               </li>
               <li class="step inactiveStep" v-if="activeStep === 'overview'">
                 <div class="circle stepCircle"></div>
-                
+
               </li>
             </ul>
+            <!-- Byte Overview -->
+            <div v-if="byte" class="w-50">
+              <InputPageStep name="mandatory">
+                <FormKitSchema :schema="datasetSchema[0]" />
+              </InputPageStep>
+              <InputPageStep name="advised">
+                <!-- <PropertyChooser :step="'advised'" :properties="datasetSchema[1]"></PropertyChooser> -->
+                <FormKitSchema :schema="datasetSchema[1]" />
+              </InputPageStep>
+              <InputPageStep name="recommended">
+                <!-- <PropertyChooser :step="'recommended'" :properties="datasetSchema[2]"></PropertyChooser> -->
+                <FormKitSchema :schema="datasetSchema[2]" />
+              </InputPageStep>
+              <InputPageStep name="distribution">
+                <DistributionInputPage :schema=distributionSchema :values=formValues></DistributionInputPage>
+              </InputPageStep>
+              <InputPageStep name="overview">
+                <FormKitSchema :schema="datasetSchema[3]"></FormKitSchema>
+                <!-- <DatasetOverview :values=formValues></DatasetOverview> -->
+              </InputPageStep>
+
+            </div>
+
             <!-- <FormKitSummary /> -->
-            <div class="d-flex flex-column w-100">
+            <div v-if="!byte" class="d-flex flex-column w-100">
               <InputPageStep name="mandatory">
                 <FormKitSchema :schema="datasetSchema[0]" />
               </InputPageStep>
               <InputPageStep name="advised">
                 <PropertyChooser :step="'advised'" :properties="datasetSchema[1]"></PropertyChooser>
-                <FormKitSchema  :schema="datasetSchema[1]" />
+                <FormKitSchema :schema="datasetSchema[1]" />
               </InputPageStep>
               <InputPageStep name="recommended">
                 <PropertyChooser :step="'recommended'" :properties="datasetSchema[2]"></PropertyChooser>
-                <FormKitSchema :schema="datasetSchema[2]" /> 
+                <FormKitSchema :schema="datasetSchema[2]" />
               </InputPageStep>
               <InputPageStep name="distribution">
                 <DistributionInputPage :schema=distributionSchema :values=formValues></DistributionInputPage>
@@ -73,7 +96,7 @@
 
 
         </FormKit>
-      
+
       </div>
     </div>
     <!-- <div v-if="isDistributionOverview">
@@ -122,6 +145,7 @@ export default defineComponent({
   data() {
     return {
       stepNames: ['mandatory', 'advised', 'recommended', 'distribution', 'overview'],
+      // stepNameByte:['discoverability', 'basicInformation','title','description','contact','coverage','distribution','additionalInformation','reviewAndPublish'],
       heightActiveSec: "10vh",
       datasetSchema: [],
       distributionSchema: [],
@@ -130,6 +154,7 @@ export default defineComponent({
       offsetTopStepper: "60px",
       info: {},
       catalogues: [],
+      byte: true,
       camel2title: (str) =>
         str
           .replace(/([A-Z])/g, (match) => ` ${match}`)
@@ -200,8 +225,6 @@ export default defineComponent({
       this.step = stepName;
 
       if (stepName === "mandatory") {
-
-
         this.offsetTopStepper = "60px";
       }
       if (stepName === "advised") {
@@ -330,17 +353,17 @@ export default defineComponent({
     for (let index = 1; index < this.stepNames.length; index++) {
 
       let steps = "step" + index;
-      if (index === 4) {
-        for (let distributionSteps = 1; distributionSteps < 5; distributionSteps++) {
-          this.createSchema({ property: "distributions", page: "step" + distributionSteps });
-          this.translateSchema({ property: "distributions" });
-          this.distributionSchema.push(this.getSchema);
-        }
-      } else {
+      // if (index === 4) {
+      //   for (let distributionSteps = 1; distributionSteps < 5; distributionSteps++) {
+      //     this.createSchema({ property: "distributions", page: "step" + distributionSteps });
+      //     this.translateSchema({ property: "distributions" });
+      //     this.distributionSchema.push(this.getSchema);
+      //   }
+      // } else {
         this.createSchema({ property: this.property, page: steps });
-      }
+      // }
 
-      // console.log(this.getSchema);
+      console.log(this.getSchema);
       this.translateSchema({ property: this.property });
       this.datasetSchema.push(this.getSchema);
 
