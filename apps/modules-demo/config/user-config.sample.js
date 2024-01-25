@@ -189,6 +189,7 @@ const glueConfig = {
         descriptionMaxLines: 3,
         descriptionMaxChars: 250,
         showValidationButton: false, // TODO: Make use of this property #2764
+        hidePreviewButton: false,
       },
       // Distribution file conversion feature
       downloadAs: {
