@@ -38,7 +38,7 @@
    ds.country = dataGetters.getObject(dataset, 'country', [{ key: 'id', default: 'eu' }, { key: 'title', default: 'European Union' }]);
    ds.creator = dataGetters.getObject(dataset, 'creator', ['name', 'type', 'email', 'resource', 'homepage']);
    ds.deadline = dataGetters.getString(dataset, 'deadline');
-   ds.description = dataGetters.getObjectLanguage(dataset, 'description', 'No description available');
+   ds.description = dataGetters.getObjectLanguage(dataset, 'description');
    ds.dimensions = dataGetters.getArrayOfStrings(dataset, 'dimension');
    ds.distributions = [];
    ds.distributionFormats = [];
