@@ -2,6 +2,7 @@
   <div class="d-flex flex-sm-row flex-md-column flex-lg-row justify-content-start
     justify-content-lg-end mt-2 text-md-right col text-left distribution-actions">
      <distribution-preview
+     v-if="!hidePreviewButton"
       :isUrlInvalid="isUrlInvalid"
       :getVisualisationLink="getVisualisationLink"
       :distribution="distribution"
@@ -60,7 +61,11 @@ export default {
   },
   computed: {
     showValidateButton() {
-      return this.$env?.datasetDetails?.distributions?.showValidationButton;
+      return this.$env?.content?.datasetDetails?.distributions?.showValidationButton;
+    },
+    hidePreviewButton() {
+      // only returns true if the config variable hidePreviewButton exists and is set to true
+      return this.$env?.content?.datasetDetails?.distributions?.hidePreviewButton;
     }
   }
 }
