@@ -273,9 +273,17 @@ export default {
       this.cutoff = this.cutoff >= 0 ? -1 : this.$env.content.datasets.facets.cutoff;
     },
     facetTitle(fieldId) {
-      return fieldId === 'scoring' ?
-        Vue.i18n.t('message.header.navigation.data.metadataquality')
-        : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+
+      if(fieldId==='scoring'){
+        return Vue.i18n.t('message.header.navigation.data.metadataquality')
+      }else if(fieldId==='subject'){
+       return 'Eurovoc Keyword'
+      }else{
+        return Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`)
+      }
+      // return fieldId === 'scoring' ?
+      //   Vue.i18n.t('message.header.navigation.data.metadataquality')
+      //   : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
     },
     tooltip(fieldId) {
       return fieldId === 'dataScope' ? Vue.i18n.t('message.helpIcon.dataScope') : Vue.i18n.t(`message.helpIcon.${fieldId.toLowerCase()}`);

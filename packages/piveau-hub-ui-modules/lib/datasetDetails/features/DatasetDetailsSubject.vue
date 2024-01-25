@@ -1,19 +1,28 @@
 <template>
   <div class="row mt-4 flex-column dsd-item dsd-keywords">
-    <span v-if="showTitle" class="mb-4 h4 font-weight-bold">Subjects ({{ displayedSubjects.length }})</span>
+    <span v-if="showTitle" class="mb-4 h-4 font-weight-bold">Subjects ({{ displayedSubjects.length }})</span>
     <div class="keywords__item row">
+
+    
       <span
         v-for='(subject, i) in displayedSubjects'
         :key="i"
         class="col-6 col-sm-3 col-md-2 mt-md-0 mt-3 mb-2 mx-0 px-1"
       >
+
+     
+      
+      <app-link :to="getSubjectLink(subject)">
         <small v-if="typeof subject.title === 'object'" class="d-inline-block w-100 py-2 rounded-pill text-center text-white subject">
           <span v-for="(value, key) in subject.title" :key="key">
+            
             <tooltip :title="value"  data-placement="top">
               {{ truncate(value, maxSubjectLength, false) }}
             </tooltip>
+        
           </span>
         </small>
+      
         <small v-else-if="typeof subject.title === 'string'" class="d-inline-block w-100 py-2 rounded-pill text-center text-white subject">
           <span>
             <tooltip :title="subject.title"  data-placement="top">
@@ -21,6 +30,7 @@
             </tooltip>
           </span>
         </small>
+      </app-link>
       </span>
     </div>
     <div>
@@ -65,11 +75,12 @@ import {truncate} from "../../utils/helpers";
 import {has} from "lodash";
 import {mapGetters} from "vuex";
 import Tooltip from "../../widgets/Tooltip";
+import AppLink from "../../widgets/AppLink";
 import {sortAlphabetically} from "./utils/sortAlphabetically";
 
 export default {
   name: "DatasetDetailsSubject",
-  components: {Tooltip},
+  components: {Tooltip, AppLink},
   data() {
     return {
       showTitle: this.$env.content.datasetDetails.keywords.showTitle,
@@ -130,6 +141,18 @@ export default {
     },
     clamp(n, min, max) {
       return Math.min(Math.max(n, min), max);
+    },
+    getSubjectLink(subject) {
+      const urlResource = subject.id
+    
+      
+        return {
+        path: `/datasets?subject=${urlResource}`,
+        query: Object.assign({}, { locale: this.$route.query.locale }),
+      };
+      
+      
+      
     },
     toggleDisplayCount() {
       if (this.keywords.displayCount < this.displayedSubjects.length) {
