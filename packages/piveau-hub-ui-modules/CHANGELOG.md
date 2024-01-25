@@ -1,3 +1,12 @@
+## [3.15.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.15...v3.15.16) (2024-01-25)
+
+
+### Bug Fixes
+
+* added env variable to allow hiding preview button ([dc70e39](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/dc70e39f84ddc06a659c5cb760a758ee5bc5d7da))
+
+
+
 ## [3.15.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.14...v3.15.15) (2024-01-24)
 
 
