@@ -1,3 +1,12 @@
+## [3.15.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.16...v3.15.17) (2024-01-25)
+
+
+### Bug Fixes
+
+* Added filtering by subject ([3393fa3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3393fa3c2250032900d6f7e8bf15ed361ccd1527))
+
+
+
 ## [3.15.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.15...v3.15.16) (2024-01-25)
 
 
