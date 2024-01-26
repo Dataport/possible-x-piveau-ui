@@ -128,7 +128,8 @@
             "isVersionOf": "Valaminek a verziója",
             "pageDescriptionContactPoint": "Adja hozzá a kapcsolattartási pont típusát, nevét és e-mail-címét az adatkészlethez!",
             "goToDataset": "Ugrás az Adatkészlet oldalra",
-            "updatedOnDataEuropaEU": "Frissítve: data.europa.eu"
+            "updatedOnDataEuropaEU": "Frissítve: data.europa.eu",
+            "protecteddata": "Védett adatok"
         },
         "dataupload": {
             "info": {

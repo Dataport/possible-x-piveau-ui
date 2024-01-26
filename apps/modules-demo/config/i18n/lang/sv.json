@@ -128,7 +128,8 @@
             "isVersionOf": "Är version av",
             "pageDescriptionContactPoint": "Lägg till typ av kontaktpunkt, namn och webbplats i ditt dataset!",
             "goToDataset": "Gå till datasetsidan",
-            "updatedOnDataEuropaEU": "Uppdaterad på data.europa.eu"
+            "updatedOnDataEuropaEU": "Uppdaterad på data.europa.eu",
+            "protecteddata": "Skyddad data"
         },
         "dataupload": {
             "info": {

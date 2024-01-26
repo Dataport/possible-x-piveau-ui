@@ -128,7 +128,8 @@
             "isVersionOf": "Είναι έκδοσης",
             "pageDescriptionContactPoint": "Προσθέστε είδος σημείου επικοινωνίας, όνομα και διεύθυνση email στο σύνολο δεδομένων σας!",
             "goToDataset": "Μετάβαση στη σελίδα συνόλου δεδομένων",
-            "updatedOnDataEuropaEU": "Επικαιροποιήθηκε στα data.europa.eu"
+            "updatedOnDataEuropaEU": "Επικαιροποιήθηκε στα data.europa.eu",
+            "protecteddata": "Προστατευμένα δεδομένα"
         },
         "dataupload": {
             "info": {

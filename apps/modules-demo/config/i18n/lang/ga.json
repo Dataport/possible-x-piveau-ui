@@ -128,7 +128,8 @@
             "isVersionOf": "tá leagan de",
             "pageDescriptionContactPoint": "Cuir cineál, ainm agus ríomhphost an phointe teagmhala le do thacar sonraí!",
             "goToDataset": "Gabh chuig do Leathanach Tacar sonraí",
-            "updatedOnDataEuropaEU": "Nuashonraithe ar data.europa.eu"
+            "updatedOnDataEuropaEU": "Nuashonraithe ar data.europa.eu",
+            "protecteddata": "Shonraí Cosanta"
         },
         "dataupload": {
             "info": {

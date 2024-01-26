@@ -72,7 +72,7 @@
             "creator": "Erstellt von",
             "description": "Beschreibung",
             "spatial": "Gebiet",
-            "readLess": "Weniger lesen",
+            "readLess": "Less less",
             "tooltipPublisherType": "Wählen Sie hier den Herausgebertyp Ihres Datensatzes aus!",
             "accessRights": "Zugangsrechte",
             "tooltipDistributionDownloadUrl": "Geben Sie hier die Download-URL Ihrer Distribution ein!",
@@ -138,7 +138,8 @@
             "isVersionOf": "Ist Version von",
             "pageDescriptionContactPoint": "Fügen Sie Kontaktpunkttyp, Name und E-Mail zu Ihrem Datensatz hinzu!",
             "goToDataset": "Gehe zur Datensatzseite",
-            "updatedOnDataEuropaEU": "Aktualisiert auf data.europa.eu"
+            "updatedOnDataEuropaEU": "Aktualisiert auf data.europa.eu",
+            "protecteddata": "Geschützte Daten"
         },
         "datasetDetails": {
             "subnav": {
@@ -178,7 +179,7 @@
                 "formatAvailability": "Format",
                 "byteSizeAvailability": "Dateigröße",
                 "accessRightsAvailability": "Zugangsbeschränkungsangaben",
-                "distributionQuality": "Qualität der Distribution",
+                "distributionQuality": "Qualität der Verteilung",
                 "publisherAvailability": "Herausgeber",
                 "keywordAvailability": "Schlüsselwörter",
                 "rightsAvailability": "Rechte"
@@ -231,7 +232,7 @@
             "geoVisualisation": "Geo-Visualisierung öffnen",
             "download": "Download",
             "intro": {
-                "distribution": "Im Folgenden sind die Qualitätsmessungen aller Distributionen des Datensatzes aufgeführt. Informationen zu den Parametern, die wir für Indikatormessungen verwenden, finden Sie auf unserer <a href='/mqa/methodology?locale={locale}'>Methodikseite</a>.",
+                "distribution": "Im Folgenden sind die Qualitätsmessungen aller Verteilungen des Datensatzes aufgeführt. Informationen zu den Parametern, die wir für Indikatormessungen verwenden, finden Sie auf unserer <a href='/mqa/methodology?locale={locale}'>Methodikseite</a>.",
                 "metadataQuality": "Die Metadata Quality Assurance soll Datenlieferanten und Datenportalen dabei helfen, ihre Metadaten mit verschiedenen Indikatoren abzugleichen. Informationen zu den Parametern, die wir für Indikatormessungen verwenden, finden Sie auf unserer <a href='/mqa/methodology?locale={locale}'>Methodikseite</a>."
             },
             "about": "über",
@@ -254,6 +255,7 @@
         },
         "tooltip": {
             "catalogDetails": {
+                "availability": "Geplante Verfügbarkeit des Katalogs als Auswahl aus einer festen Liste von Werten via DCAT-AP URIs.",
                 "created": "Datum der förmlichen Ausstellung (z. B. Veröffentlichung) des Katalogs.",
                 "publisher": "Eine Einrichtung (Organisation), die für die Bereitstellung des Katalogs verantwortlich ist.",
                 "updated": "Das letzte Datum, an dem der Katalog geändert wurde.",
@@ -263,41 +265,41 @@
                 "language": "Sprache, die in den textlichen Metadaten zur Beschreibung der Titel, Beschreibungen usw. der Datensätze im Katalog verwendet wird. Diese Eigenschaft kann wiederholt werden, wenn die Metadaten in mehreren Sprachen bereitgestellt werden.",
                 "spatial": "Vom Katalog abgedecktes geografisches Gebiet."
             },
-            "datasetDetails": { 
-            "politicalGeocodingLevelURI": "Geopolitische Abdeckung des Datensatzes, etwa durch Kennzeichnung der Verwaltungsebene Bund, Bundesland, Kreis oder Kommune, als dcat-ap.de URI.",
-            "politicalGeocodingURI": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI.",
-            "availabilityDE": "Geplante Verfügbarkeit des Datensatzes als Auswahl aus einer festen Liste von Werten via DCAT-AP URIs.",
-            "contributorID": "Diese Eigenschaft übermittelt die ID des Bereitstellers der Daten aus dem jeweils portaleigenem Access- und Identitymanagement (wenn vorhanden).",
-            "geocodingDescription": "Diese Eigenschaft enthält die geografische Abdeckung eines Datensatzes, repräsentiert durch die Bezeichnung eines administrativen Gebiets oder eines fachlichen Bezugs als Freitext.",
-            "legalBasis": "Dieses Feld dokumentiert als Freitext optional die Rechtsgrundlage für den Zugang zu den Informationen (die Zugangseröffnung), d.h. die originäre Rechtsgrundlage für den Zugang zu Daten der Verwaltung.",
-            "qualityProcessURI": "Eine URI, die auf den Prozess zur Qualitätssicherung des Datensatzes verweist. Es handelt sich idealerweise um die URL einer Webseite.",         
-            "contributor": "Diese Eigenschaft verweist auf Stellen oder Personen, die die Daten bearbeitet haben (z.B. durch Formatierung derselben).",
-            "originator": "Diese Eigenschaft verweist auf die Personen, die Urheberrechte am Datensatz haben. Geschützt ist laut Urheberrecht ein Werk, das einer persönlichen geistigen Schöpfung seines Urhebers entspringt.",
-            "references": "Diese Eigenschaft kann verwendet werden, um auf Referenzdatensätze wie ein High Value Dataset (HVD) oder einen Musterdatensatz des Musterdatenkatalogs zu verweisen.",
-            "maintainer": "Diese Eigenschaft verweist auf die Stellen oder Personen, die Verantwortung und Rechenschaftspflicht für die Daten und ihre angemessene Pflege übernehmen.",
+            "datasetDetails": {
+                "politicalGeocodingLevelURI": "Geopolitische Abdeckung des Datensatzes, etwa durch Kennzeichnung der Verwaltungsebene Bund, Bundesland, Kreis oder Kommune, als dcat-ap.de URI.",
+                "politicalGeocodingURI": "Diese Eigenschaft verknüpft einen Datensatz mit dem von ihm abgedeckten administrativen Gebiet der Bundesrepublik Deutschland, etwa ein konkretes Bundesland, eine Kommune oder ein Landkreis repräsentiert durch eine URI.",
+                "availabilityDE": "Geplante Verfügbarkeit des Datensatzes als Auswahl aus einer festen Liste von Werten via DCAT-AP URIs.",
+                "contributorID": "Diese Eigenschaft übermittelt die ID des Bereitstellers der Daten aus dem jeweils portaleigenem Access- und Identitymanagement (wenn vorhanden).",
+                "geocodingDescription": "Diese Eigenschaft enthält die geografische Abdeckung eines Datensatzes, repräsentiert durch die Bezeichnung eines administrativen Gebiets oder eines fachlichen Bezugs als Freitext.",
+                "legalBasis": "Dieses Feld dokumentiert als Freitext optional die Rechtsgrundlage für den Zugang zu den Informationen (die Zugangseröffnung), d.h. die originäre Rechtsgrundlage für den Zugang zu Daten der Verwaltung.",
+                "qualityProcessURI": "Eine URI, die auf den Prozess zur Qualitätssicherung des Datensatzes verweist. Es handelt sich idealerweise um die URL einer Webseite.",
+                "contributor": "Diese Eigenschaft verweist auf Stellen oder Personen, die die Daten bearbeitet haben (z.B. durch Formatierung derselben).",
+                "originator": "Diese Eigenschaft verweist auf die Personen, die Urheberrechte am Datensatz haben. Geschützt ist laut Urheberrecht ein Werk, das einer persönlichen geistigen Schöpfung seines Urhebers entspringt.",
+                "references": "Diese Eigenschaft kann verwendet werden, um auf Referenzdatensätze wie ein High Value Dataset (HVD) oder einen Musterdatensatz des Musterdatenkatalogs zu verweisen.",
+                "maintainer": "Diese Eigenschaft verweist auf die Stellen oder Personen, die Verantwortung und Rechenschaftspflicht für die Daten und ihre angemessene Pflege übernehmen.",
                 "frequency": "Häufigkeit der Aktualisierung des Datensatzes.",
                 "dataset": "Angaben zum Datensatz oder zum Dienst.",
                 "updated": "Das letzte Datum, an dem der Datensatz oder der Dienst geändert oder geändert wurde.",
                 "versionInfo": "Versionsnummer oder andere Versionsbezeichnung des Datensatzes.",
                 "distributions": {
-                    "updated": "Letztes Datum, an dem die Distribution geändert oder geändert wurde.",
-                    "title": "Name der Distribution.",
-                    "linkedSchema": "Festgelegtes Schema, dem die beschriebene Distribution entspricht.",
+                    "updated": "Letztes Datum, an dem die Verteilung geändert oder geändert wurde.",
+                    "title": "Name der Verteilung.",
+                    "linkedSchema": "Festgelegtes Schema, dem die beschriebene Verteilung entspricht.",
                     "linkedData": "Optionen zum Herunterladen der Verteilungsmetadaten in verschiedenen verknüpften Datendarstellungen.",
-                    "status": "Ausgereiftheit der Distribution. Sie MUSS einen der Werte annehmen, die ausgefüllt, abgewertet, Under Development, zurückgeworfen werden.",
+                    "status": "Ausgereiftheit der Verteilung. Sie MUSS einen der Werte annehmen, die ausgefüllt, abgewertet, Under Development, zurückgeworfen werden.",
                     "licence": "Lizenz, in deren Rahmen der Vertrieb bereitgestellt wird.",
-                    "availability": "Gibt an, wie lange geplant ist, die Distribution des Datensatzes verfügbar zu halten.",
+                    "availability": "Gibt an, wie lange geplant ist, die Verteilung des Datensatzes verfügbar zu halten.",
                     "rights": "Erklärung, in der die mit dem Vertrieb verbundenen Rechte angegeben sind.",
                     "checksum": "Ein Mechanismus, mit dem überprüft werden kann, ob sich der Inhalt einer Verbreitung nicht verändert hat. Die Prüfsumme bezieht sich auf das DownloadUrl.",
                     "mediaType": "Medientyp der Verbreitung gemäß der Definition im amtlichen Register der von der IANA verwalteten Medientypen.",
                     "spatialResolution": "Minimale räumliche Trennung, die in einer Datensatzverteilung lösbar ist, gemessen in Metern.",
-                    "byteSize": "Enthält die Größe einer Distribution in Bytes.",
-                    "download": "Herunterladen oder Zugriff auf die Distribution.",
-                    "type": "Links zu einer Art der Distribution, z. B. dass es sich um eine Visualisierung handelt.",
+                    "byteSize": "Enthält die Größe einer Verteilung in Bytes.",
+                    "download": "Herunterladen oder Zugriff auf die Verteilung.",
+                    "type": "Links zu einer Art der Verteilung, z. B. dass es sich um eine Visualisierung handelt.",
                     "created": "Datum der förmlichen Ausstellung (z. B. Veröffentlichung) des Vertriebs.",
-                    "language": "In der Distribution verwendete Sprache.",
-                    "options": "Öffnen Sie eine Vorschau der Distribution.",
-                    "temporalResolution": "Bezieht sich auf die Mindestlaufzeit, die bei der Distribution des Datensatzes abwicklungsfähig ist."
+                    "language": "In der Verteilung verwendete Sprache.",
+                    "options": "Öffnen Sie eine Vorschau der Verteilung.",
+                    "temporalResolution": "Bezieht sich auf die Mindestlaufzeit, die bei der Verteilung des Datensatzes abwicklungsfähig ist."
                 },
                 "otherIdentifier": "Sekundäre Kennung des Datensatzes wie MAST/ADS16, DataCite17, DOI18, EZID19 oder W3ID20.",
                 "numSeries": "Enthält die Anzahl der im Datensatz enthaltenen Datenreihen.",
@@ -460,9 +462,7 @@
             "scoring": "Wertung",
             "or": "oder",
             "europeanCatalogs": "Europäische Kataloge",
-            "operator": "Operator",
-            "moreFilters": "Mehr Filter",
-            "lessFilters": "Weniger Filter"
+            "operator": "Operator"
         },
         "header": {
             "navigation": {
@@ -503,7 +503,7 @@
                 "newsEvents": {
                     "events": "Veranstaltungen",
                     "news": "Meldungen",
-                    "title": "Aktuelle Meldungen und Veranstaltungen",
+                    "title": "Meldungen",
                     "stories": "Datenszenarien"
                 },
                 "covid-19": {
@@ -660,8 +660,7 @@
         },
         "pagination": {
             "nextPage": "Vor",
-            "previousPage": "Zurück",
-            "itemsPerPage": "Objekte pro Seite:"
+            "previousPage": "Zurück"
         },
         "navigation": {
             "navItems": {
@@ -736,10 +735,10 @@
             "msg": "HIER IMPRESSUM EINFÜGEN"
         },
         "cookieConsent": {
-            "accept": "Alle Cookies akzeptieren",
-            "decline": "Nur technisch notwendige Cookies akzeptieren",
-            "text": "Wir verwenden Cookies auf dieser Website, um Ihr Nutzererlebnis zu verbessern",
-            "more": "Mehr Informationen"
+            "decline": "Nein, danke",
+            "more": "Weitere Informationen",
+            "text": "Wir verwenden Cookies zur Verbesserung der Benutzererfahrung.",
+            "accept": "Akzeptieren"
         },
         "notFound": {
             "requested": {

@@ -128,7 +128,8 @@
             "isVersionOf": "Ide o verziu",
             "pageDescriptionContactPoint": "Pridajte k svojmu Datasetu kontaktný bod, meno a e-mail!",
             "goToDataset": "Prejsť na stránku Datasetu",
-            "updatedOnDataEuropaEU": "Aktualizované na základe údajov.europa.eu"
+            "updatedOnDataEuropaEU": "Aktualizované na základe údajov.europa.eu",
+            "protecteddata": "Chránené údaje"
         },
         "dataupload": {
             "info": {

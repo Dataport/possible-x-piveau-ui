@@ -128,7 +128,8 @@
             "isVersionOf": "Verzija",
             "pageDescriptionContactPoint": "Svoji zbirki podatkov dodaj vrsto točke za stik, ime in e-poštni naslov!",
             "goToDataset": "Pojdi na stran zbirk podatkov",
-            "updatedOnDataEuropaEU": "Posodobljeno na spletišču Data.europa.eu"
+            "updatedOnDataEuropaEU": "Posodobljeno na spletišču Data.europa.eu",
+            "protecteddata": "Zaščitenih podatkov"
         },
         "dataupload": {
             "info": {
