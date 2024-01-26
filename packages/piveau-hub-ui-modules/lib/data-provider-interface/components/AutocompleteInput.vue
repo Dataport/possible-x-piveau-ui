@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import { createInput } from '@formkit/vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
@@ -13,19 +13,10 @@ const auto = createInput(
           $el: 'a',
           attrs: {
             id: '$id',
-            href: '#',
-            onClick: '$handlers.setValue',
+            href: '$value.resource',
             class: 'autocompleteInputSingleValue',
           },
-          children: [
-            {
-              $el: 'a',
-              attrs: {
-                value: '$value.resource'
-              },
-              children: '$value.name'
-            }
-          ]
+          children: '$value.name'
         },
         {
           $el: 'div',
@@ -62,18 +53,12 @@ const auto = createInput(
                   then: 'true',
                   else: 'false',
                 },
+                // value: '$listValue',
+                href: '$match.resource',
                 class: 'p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100',
                 onClick: '$handlers.setValue',
               },
-              children: [
-                {
-                  $el: 'a',
-                  attrs: {
-                    href: '$match.resource'
-                  },
-                  children: '$match.name'
-                }
-              ]
+              children: '$match.name'
             },
           ],
         },
@@ -81,7 +66,7 @@ const auto = createInput(
     }
   ],
   {
-    props: ['options', 'matches', 'selection', 'searchValue', 'context'],
+    props: ['options', 'matches', 'selection', 'searchValue', 'context', 'listValue'],
     features: [addHandlers],
     family: 'group'
   }
@@ -89,19 +74,32 @@ const auto = createInput(
 
 const store = useStore();
 
+// const data = ref({
+//   selectedValues: []
+// })
+
 function addHandlers(node) {
   node.on('created', () => {
+
     // Ensure our matches prop starts as an array.
     node.props.matches = [{ 'name': '-- Please choose a property or search for them in the vocabulary --' }];
     node.props.selection = {};
 
+    // const addValue = () => {
+    //   // data.selectedValues.push(node.props.listValue);
+    //   console.log('###', data);
+    // }
+
     // When we actually have an value to set:
     const setValue = async (e) => {
       if (e && typeof e.preventDefault === 'function') e.preventDefault();
-      node.props.selection = {name: e.target.textContent, resouce: e.target.href};
+
+      node.props.selection = { name: e.target.attrs.textContent, resource: e.target.attrs.href };
       await node.input(node.props.selection);
+
       node.props.selection = {};
       node.props.searchValue = '';
+
       await new Promise((r) => setTimeout(r, 50)) // "next tick"
       if (document.querySelector('input#' + node.props.id)) {
         document.querySelector('input#' + node.props.id).focus();
@@ -143,6 +141,7 @@ function addHandlers(node) {
     Object.assign(node.context.handlers, {
       setValue,
       getAutocompleteSuggestions,
+      // addValue,
       selection: (e) => {
         // This handler is called when entering data into the search input.
         switch (e.key) {

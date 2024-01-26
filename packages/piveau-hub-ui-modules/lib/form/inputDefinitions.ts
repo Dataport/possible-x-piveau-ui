@@ -16,7 +16,7 @@ export default {
         component: UniqueIdentifierInput
     },
     auto: {
-        type: 'input',
+        type: 'group',
         component: AutocompleteInput
     },
     fileupload: createInput(FileUpload, {}),
