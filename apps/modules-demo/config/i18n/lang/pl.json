@@ -128,7 +128,8 @@
             "isVersionOf": "Jest wersją",
             "pageDescriptionContactPoint": "Dodaj do swojego zbioru danych rodzaj, nazwę i adres e-mail punktu kontaktowego!",
             "goToDataset": "Przejdź do strony zbioru danych",
-            "updatedOnDataEuropaEU": "Zaktualizowano dane.europa.eu"
+            "updatedOnDataEuropaEU": "Zaktualizowano dane.europa.eu",
+            "protecteddata": "Chronione dane"
         },
         "dataupload": {
             "info": {

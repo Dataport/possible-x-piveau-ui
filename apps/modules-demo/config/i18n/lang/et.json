@@ -128,7 +128,8 @@
             "isVersionOf": "on versioon",
             "pageDescriptionContactPoint": "Lisage oma andmekogumile kontaktpunkti tüüp, nimi ja e-post",
             "goToDataset": "Minge andmekogumi lehele",
-            "updatedOnDataEuropaEU": "Ajakohastatud veebisaidil Data.europa.eu"
+            "updatedOnDataEuropaEU": "Ajakohastatud veebisaidil Data.europa.eu",
+            "protecteddata": "Kaitstud andmed"
         },
         "dataupload": {
             "info": {

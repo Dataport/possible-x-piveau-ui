@@ -128,7 +128,8 @@
             "isVersionOf": "Je verze",
             "pageDescriptionContactPoint": "Přidejte typ kontaktního bodu, jméno a e-mail do svého souboru dat!",
             "goToDataset": "Přejít na stránku souboru dat",
-            "updatedOnDataEuropaEU": "Aktualizace údajů.europa.eu"
+            "updatedOnDataEuropaEU": "Aktualizace údajů.europa.eu",
+            "protecteddata": "Chráněných dat"
         },
         "dataupload": {
             "info": {

@@ -128,7 +128,8 @@
             "isVersionOf": "Ir versija",
             "pageDescriptionContactPoint": "Pievienojiet savai datu kopai kontaktpunkta veidu, nosaukumu un e-pasta adresi! ",
             "goToDataset": "Doties uz datu kopas lapu",
-            "updatedOnDataEuropaEU": "Jaunākā informācija par Data.europa.eu"
+            "updatedOnDataEuropaEU": "Jaunākā informācija par Data.europa.eu",
+            "protecteddata": "Aizsargāti dati"
         },
         "dataupload": {
             "info": {

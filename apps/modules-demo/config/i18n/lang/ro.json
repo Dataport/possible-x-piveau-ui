@@ -128,7 +128,8 @@
             "isVersionOf": "Este versiune a",
             "pageDescriptionContactPoint": "Adăugați tipul punctului de contact, numele și adresa de e-mail la setul dvs. de date!",
             "goToDataset": "Mergeți la pagina setului de date",
-            "updatedOnDataEuropaEU": "Informații actualizate la data a.europa.eu"
+            "updatedOnDataEuropaEU": "Informații actualizate la data a.europa.eu",
+            "protecteddata": "Date protejate"
         },
         "dataupload": {
             "info": {

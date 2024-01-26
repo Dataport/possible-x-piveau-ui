@@ -128,7 +128,8 @@
             "isVersionOf": "Ankstesnė versija",
             "pageDescriptionContactPoint": "Pridėkite kontaktinio centro tipą, pavadinimą ir el. pašto adresą prie savo duomenų rinkinio!",
             "goToDataset": "Eiti į duomenų rinkinio puslapį",
-            "updatedOnDataEuropaEU": "Atnaujinta informacija apie duomenis.europa.eu"
+            "updatedOnDataEuropaEU": "Atnaujinta informacija apie duomenis.europa.eu",
+            "protecteddata": "Apsaugoti duomenys"
         },
         "dataupload": {
             "info": {

@@ -128,7 +128,8 @@
             "isVersionOf": "É versão de",
             "pageDescriptionContactPoint": "Adicionar o tipo, nome e correio eletrónico do ponto de contacto ao seu conjunto de dados",
             "goToDataset": "Vá para a página do conjunto de dados",
-            "updatedOnDataEuropaEU": "Atualizado em data.europa.eu"
+            "updatedOnDataEuropaEU": "Atualizado em data.europa.eu",
+            "protecteddata": "Dados Protegidos"
         },
         "dataupload": {
             "info": {

@@ -128,7 +128,8 @@
             "isVersionOf": "Версия на",
             "pageDescriptionContactPoint": "Добавете тип точка за контакт, име и имейл към вашия набор от данни!",
             "goToDataset": "Отиване до страницата с набор от данни",
-            "updatedOnDataEuropaEU": "Актуализирана на data.europa.eu"
+            "updatedOnDataEuropaEU": "Актуализирана на data.europa.eu",
+            "protecteddata": "ащитени данни"
         },
         "dataupload": {
             "info": {

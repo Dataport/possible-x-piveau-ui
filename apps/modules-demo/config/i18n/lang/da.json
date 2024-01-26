@@ -128,7 +128,8 @@
             "isVersionOf": "Er version af",
             "pageDescriptionContactPoint": "Tilføj kontaktpunkttype, navn og e-mail til dit datasæt!",
             "goToDataset": "Gå til Datasæt side",
-            "updatedOnDataEuropaEU": "Opdateret på data.europa.eu"
+            "updatedOnDataEuropaEU": "Opdateret på data.europa.eu",
+            "protecteddata": "Beskyttede data"
         },
         "dataupload": {
             "info": {

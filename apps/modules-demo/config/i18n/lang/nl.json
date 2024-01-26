@@ -128,7 +128,8 @@
             "isVersionOf": "Is versie van",
             "pageDescriptionContactPoint": "Voeg het type, de naam en het e-mailadres van het aanspreekpunt toe aan uw dataset!",
             "goToDataset": "Ga naar datasetpagina",
-            "updatedOnDataEuropaEU": "Bijgewerkt op data.europa.eu"
+            "updatedOnDataEuropaEU": "Bijgewerkt op data.europa.eu",
+            "protecteddata": "Beschermde gegevens"
         },
         "dataupload": {
             "info": {

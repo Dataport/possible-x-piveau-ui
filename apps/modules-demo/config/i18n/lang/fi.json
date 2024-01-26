@@ -128,7 +128,8 @@
             "isVersionOf": "On versio",
             "pageDescriptionContactPoint": "Lisää yhteyspisteen tyyppi, nimi ja sähköposti tietoaineistoosi!",
             "goToDataset": "Mene tietoaineiston sivulle",
-            "updatedOnDataEuropaEU": "Päivitetty data.europa.eu"
+            "updatedOnDataEuropaEU": "Päivitetty data.europa.eu",
+            "protecteddata": "Suojatun datan"
         },
         "dataupload": {
             "info": {
