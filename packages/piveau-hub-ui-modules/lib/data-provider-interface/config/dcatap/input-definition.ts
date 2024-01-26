@@ -453,19 +453,24 @@ const dcatapProperties: InputDefinition = {
     },
     theme: {
       identifier: 'theme',
-      $formkit: 'auto',
-      multiple: true,
-      annifTheme: true,
-      voc: 'data-theme',
-      '@annifSuggestion': false,
+      $formkit: 'repeatable',
       name: 'dcat:theme',
-      id: 'theme',
-      classes: {
-        multiple: 'multiple',
-        outer: 'w88-textfield'
-      },
-
-
+      children: [
+        {
+          identifier: 'theme',
+          $formkit: 'auto',
+          multiple: true,
+          annifTheme: true,
+          voc: 'data-theme',
+          '@annifSuggestion': false,
+          name: 'dcat:theme',
+          id: 'theme',
+          classes: {
+            multiple: 'multiple',
+            outer: 'w88-textfield'
+          },
+        }
+      ],
     },
     accessRights: {
       identifier: 'accessRights',

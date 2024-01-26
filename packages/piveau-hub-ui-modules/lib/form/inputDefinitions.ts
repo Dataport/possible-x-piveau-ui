@@ -11,12 +11,12 @@ export default {
         type: 'list',
         component: Repeatable
     },
-    id:{
-        type:'group',
+    id: {
+        type: 'group',
         component: UniqueIdentifierInput
     },
-    auto:{
-        type:'group',
+    auto: {
+        type: 'input',
         component: AutocompleteInput
     },
     fileupload: createInput(FileUpload, {}),
