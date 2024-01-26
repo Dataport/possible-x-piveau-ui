@@ -92,10 +92,12 @@ const state = {
     dataset: {
         // DCAT-AP.de
         availability: {},
+        applicableLegislation: [{}],
         politicalGeocodingLevelURI: [{}],
         politicalGeocodingURI: [{}],
         contributorID: [{}],
         geocodingDescriptionDe: {},
+        hvdCategory: [{}],
         legalBasis: {},
         qualityProcessURI: '',
         typeDe: '',
@@ -127,6 +129,7 @@ const state = {
         id: '',
         identifiers: [],
         idName: '',
+        isHvd: false,
         isReferencedBy: [],
         isVersionOf: [{}],
         keywords: [{}],
@@ -265,6 +268,10 @@ const getters = {
     getDistributionDownloadAs: state => state.dataset.distributionDownloadAs,
     getDistributionDownloadAsOptions: state => state.dataset.distributionDownloadAsOptions,
     getDatasetDescriptionHeight: state => state.dataset.descriptionHeight,
+
+    getIsHvd: state => state.dataset.isHvd,
+    getApplicableLegislation: state => state.dataset.applicableLegislation,
+    getHvdCategory: state => state.dataset.hvdCategory,
 };
 
 const actions = {
@@ -356,6 +363,11 @@ const actions = {
                     commit('SET_TYPE', response.type);
                     commit('SET_EXTENDET_METADATA', response.extendetMetadata);
                     commit('SET_LOADING', false);
+
+                    commit('SET_IS_HVD', response.isHvd);
+                    commit('SET_APPLICABLE_LEGISLATION', response.applicableLegislation);
+                    commit('SET_HVD_CATEGORY', response.hvdCategory);
+
                     resolve();
                 })
                 .catch((err) => {
@@ -806,7 +818,16 @@ const mutations = {
     },
     SET_DATASET_DESCRIPTION_HEIGHT (state, height) {
      state.dataset.descriptionHeight = height;
-   }
+    },
+    SET_IS_HVD(state, isHvd) {
+        state.dataset.isHvd = isHvd;
+    },
+    SET_APPLICABLE_LEGISLATION(state, applicableLegislation) {
+        state.dataset.applicableLegislation = [...applicableLegislation];
+    },
+    SET_HVD_CATEGORY(state, hvdCategory) {
+        state.dataset.hvdCategory = [...hvdCategory];
+    },
 };
 
 const module = {

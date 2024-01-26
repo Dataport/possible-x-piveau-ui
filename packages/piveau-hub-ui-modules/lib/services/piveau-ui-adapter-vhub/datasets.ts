@@ -87,10 +87,28 @@
    ds.versionNotes = dataGetters.getObjectLanguage(dataset, 'version_notes');
    ds.visualisations = [];
    ds.wasGeneratedBy = dataGetters.getArrayOfStrings(dataset, 'was_generated_by');
+
+  // High-value dataset fields
+  // https://semiceu.github.io/DCAT-AP/releases/2.2.0-hvd/
+  // NOTE: This is a solution primarily addressing Open Data Bayern's needs.
+  ds.isHvd = dataset.is_hvd || false;
+  ds.applicableLegislation = dataGetters.getArrayOfStrings(dataset, 'applicable_legislation');
+  ds.hvdCategory = dataGetters.getArrayOfObjects(dataset, 'hvd_category', ['id', 'label', 'resource']);
+
    for (const dist of dataGetters.getDistributions(dataset)) {
      const distribution : {[key: string]: unknown} = {};
      distribution.accessUrl = dataGetters.getArrayOfStrings(dist, 'access_url');
-     distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url', 'availability']); // availability field for DCAT-AP.de
+     distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', [
+      'title',
+      'description',
+      'endpoint_url',
+      'availability',
+      'applicable_legislation',
+      'contact_point',
+      'page',
+      'hvd_category',
+      'rights',
+    ]); // availability field for DCAT-AP.de
      // distribution.accessService = dataGetters.getArrayOfStrings(dist, 'access_service');
      distribution.licenseAttributionByText = dataGetters.getObjectLanguage(dist, 'license_attribution_by_text');
      distribution.byteSize = dataGetters.getNumber(dist, 'byte_size');
@@ -115,6 +133,13 @@
      distribution.temporalResolution = dataGetters.getArrayOfStrings(dist, 'temporal_resolution');
      distribution.title = dataGetters.getObjectLanguage(dist, 'title', 'No title available');
      distribution.type = dataGetters.getObject(dist, 'type', ['label', 'resource']);
+
+    // High-value dataset fields
+    // https://semiceu.github.io/DCAT-AP/releases/2.2.0-hvd/
+    // NOTE: This is a solution primarily addressing Open Data Bayern's needs.
+    distribution.applicableLegislation = dataGetters.getArrayOfObjects(dist, 'applicable_legislation', ['id', 'label', 'resource']);
+
+
      // Check type of ditribution
      if (distribution.type.resource === 'http://publications.europa.eu/resource/authority/distribution-type/VISUALIZATION') {
        ds.visualisations.push(distribution);
@@ -124,8 +149,10 @@
 
      ds.distributionFormats.push(distribution.format);
      ds.licences.push(distribution.licence);
+     
    }
-   return ds;
+
+  return ds;
  };
 
  const checkBounds = (bounds) => {
