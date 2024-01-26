@@ -1,3 +1,4 @@
+
 <template>
   <div class="form-container ">
     <slot></slot>
@@ -48,8 +49,8 @@
                 <DistributionInputPage :schema=distributionSchema :values=formValues></DistributionInputPage>
               </InputPageStep>
               <InputPageStep name="overview">
-                <FormKitSchema :schema="datasetSchema[3]"></FormKitSchema>
-                <!-- <DatasetOverview :values=formValues></DatasetOverview> -->
+                <DatasetOverviewSchema :values="formValues"/>
+
               </InputPageStep>
 
             </div>
@@ -203,6 +204,7 @@ export default defineComponent({
       return this.$route.params.page !== 'overview' && this.$route.params.page !== 'distoverview';
     },
 
+
   },
   methods: {
     ...mapActions('auth', [
@@ -353,15 +355,15 @@ export default defineComponent({
     for (let index = 1; index < this.stepNames.length; index++) {
 
       let steps = "step" + index;
-      // if (index === 4) {
-      //   for (let distributionSteps = 1; distributionSteps < 5; distributionSteps++) {
-      //     this.createSchema({ property: "distributions", page: "step" + distributionSteps });
-      //     this.translateSchema({ property: "distributions" });
-      //     this.distributionSchema.push(this.getSchema);
-      //   }
-      // } else {
-        this.createSchema({ property: this.property, page: steps });
-      // }
+      if (index === 4) {
+        for (let distributionSteps = 1; distributionSteps < 5; distributionSteps++) {
+          this.createSchema({ property: "distributions", page: "step" + distributionSteps });
+          this.translateSchema({ property: "distributions" });
+          this.distributionSchema.push(this.getSchema);
+        }
+      } else {
+      this.createSchema({ property: this.property, page: steps });
+      }
 
       console.log(this.getSchema);
       this.translateSchema({ property: this.property });

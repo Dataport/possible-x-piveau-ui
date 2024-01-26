@@ -3,6 +3,13 @@ const config = {
     step1: {
       startPage:{},
       taxonomy: {},
+      datasetID: {},
+      description: {},
+      catalog: {},
+      publisher: {},
+      theme: {},
+      issued: {},
+      modified: {},
       buttonSet:{},
       startPageHelp:{},
     },
@@ -17,11 +24,6 @@ const config = {
       contactPoint:{},
       buttonSet:{},
       startPageHelp:{},  
-    },
-    step4:{
-      startPage:{},
-      taxonomy: {},
-      contactPoint:{},
     }
   },
   distributions: {
