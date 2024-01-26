@@ -1,3 +1,12 @@
+# [3.16.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.17...v3.16.0) (2024-01-26)
+
+
+### Features
+
+* **dcat:** extend dataset model with additional high-value-dataset properties ([cc0233f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/cc0233fdf997e79ab501ab32803e8a9c524c433d))
+
+
+
 ## [3.15.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.16...v3.15.17) (2024-01-25)
 
 
