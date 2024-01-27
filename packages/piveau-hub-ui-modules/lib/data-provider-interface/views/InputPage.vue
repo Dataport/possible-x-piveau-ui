@@ -2,107 +2,57 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-    <!-- <details>{{ formValues }}</details> -->
+    <details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
-        <!-- TestPage for Custom Inputs -->
-        <!-- <CustomInputs></CustomInputs> -->
 
         <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" class="d-flex">
+
           <div class="d-flex">
             <ul class="steps">
-              <li v-for="(step, stepName, index) in steps" :key="step" class="step"
-                :data-step-valid="step.valid && step.errorCount === 0" :data-step-active="activeStep === stepName" :class="{
-                  activeItem: activeStep === stepName,
+              <li v-for="(stepName, index) in getNavSteps[property]" :key="index" 
+                class="step" :data-step-active="activeStep === stepName" 
+                :class="{ 
+                  activeItem: activeStep === stepName, 
                   inactiveStep: stepName != activeStep,
                   'has-errors': checkStepValidity(stepName),
-                }" @click="activeStep = stepName; handleStep(stepName)">
+                }" 
+                @click="activeStep = stepName">
+
+
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
-                  <span v-if="checkStepValidity(stepName)" class="step--errors"
-                    v-text="step.errorCount + step.blockingCount" />
+                  <span v-if="checkStepValidity(stepName)" class="step--errors"/>
+                    <!-- v-text="step.errorCount + step.blockingCount" /> -->
                   {{ camel2title(stepName) }}
                 </div>
-                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
+
+                <div v-if="index + 1 != Object.keys(getNavSteps[property]).length" class="seperatorHorizontalStepper"></div>
                 <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div>
               </li>
+
               <li class="step inactiveStep" v-if="activeStep === 'overview'">
                 <div class="circle stepCircle"></div>
-
               </li>
+
             </ul>
-            <!-- Byte Overview -->
-            <div v-if="byte" class="w-50">
-              <InputPageStep name="mandatory">
-                <FormKitSchema :schema="datasetSchema[0]" />
-              </InputPageStep>
-              <InputPageStep name="advised">
-                <!-- <PropertyChooser :step="'advised'" :properties="datasetSchema[1]"></PropertyChooser> -->
-                <FormKitSchema :schema="datasetSchema[1]" />
-              </InputPageStep>
-              <InputPageStep name="recommended">
-                <!-- <PropertyChooser :step="'recommended'" :properties="datasetSchema[2]"></PropertyChooser> -->
-                <FormKitSchema :schema="datasetSchema[2]" />
-              </InputPageStep>
-              <InputPageStep name="distribution">
-                <DistributionInputPage :schema=distributionSchema :values=formValues></DistributionInputPage>
-              </InputPageStep>
-              <InputPageStep name="overview">
-                <DatasetOverviewSchema :values="formValues"/>
 
-              </InputPageStep>
-
-            </div>
-
-            <!-- <FormKitSummary /> -->
-            <div v-if="!byte" class="d-flex flex-column w-100">
-              <InputPageStep name="mandatory">
-                <FormKitSchema :schema="datasetSchema[0]" />
-              </InputPageStep>
-              <InputPageStep name="advised">
-                <PropertyChooser :step="'advised'" :properties="datasetSchema[1]"></PropertyChooser>
-                <FormKitSchema :schema="datasetSchema[1]" />
-              </InputPageStep>
-              <InputPageStep name="recommended">
-                <PropertyChooser :step="'recommended'" :properties="datasetSchema[2]"></PropertyChooser>
-                <FormKitSchema :schema="datasetSchema[2]" />
-              </InputPageStep>
-              <InputPageStep name="distribution">
-                <DistributionInputPage :schema=distributionSchema :values=formValues></DistributionInputPage>
-              </InputPageStep>
-              <InputPageStep name="overview">
-                <DatasetOverview :values=formValues></DatasetOverview>
-              </InputPageStep>
-              <p class="p-1"> <b>*</b> mandatory</p>
-              <div class="d-flex w-100 justify-content-between">
-                <FormKit type="button" @click="goToPreviousStep">
-                  <div class="d-flex flex-column align-items-start">
-                    <small>{{ camel2title(previousStep) }}</small>
-                    <span>{{ $t('message.dataupload.preview') }}</span>
-                  </div>
-                </FormKit>
-                <FormKit type="button" @click="goToNextStep">
-                  <div class="d-flex flex-column align-items-end">
-                    <small>{{ camel2title(nextStep) }}</small>
-                    <span>{{ $t('message.dataupload.next') }}</span>
-                  </div>
-                </FormKit>
-                <FormKit type="button" @click="clearForm">Clear Form</FormKit>
-                <FormKit type="submit" id="submit-form"></FormKit>
+            <div class="d-flex flex-column w-100">
+              <div v-for="(stepName, index) in getNavSteps[property]" :key="index">
+                <InputPageStep :name="stepName">
+                  <!-- <PropertyChooser></PropertyChooser> -->
+                  <FormKitSchema :schema="datasetSchema[stepName]"/>
+                  <p class="p-1"> <b>*</b> mandatory</p>
+                </InputPageStep>
               </div>
             </div>
           </div>
-
-
 
         </FormKit>
 
       </div>
     </div>
-    <!-- <div v-if="isDistributionOverview">
-      <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
-    </div> -->
   </div>
 </template>
 
@@ -117,13 +67,9 @@ import {
   isNil,
   isArray,
 } from 'lodash';
-import { FormKitSummary } from '@formkit/vue';
 import DistributionInputPage from './DistributionInputPage.vue';
-import CustomInputs from './CustomInputs.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
-import DatasetOverviewSchema from '../views/OverviewPage/DatasetOverviewSchema.vue'
-import DatasetOverview from '../views/OverviewPage/DatasetOverview'
 
 export default defineComponent({
   props: {
@@ -145,13 +91,10 @@ export default defineComponent({
   },
   data() {
     return {
-      stepNames: ['mandatory', 'advised', 'recommended', 'distribution', 'overview'],
-      // stepNameByte:['discoverability', 'basicInformation','title','description','contact','coverage','distribution','additionalInformation','reviewAndPublish'],
       heightActiveSec: "10vh",
-      datasetSchema: [],
+      datasetSchema: {},
       distributionSchema: [],
       formValues: {},
-      failedFields: [],
       offsetTopStepper: "60px",
       info: {},
       catalogues: [],
@@ -164,13 +107,8 @@ export default defineComponent({
     };
   },
   components: {
-
-    FormKitSummary,
-    CustomInputs,
     InputPageStep,
     DistributionInputPage,
-    DatasetOverviewSchema,
-    DatasetOverview,
     PropertyChooser
   },
   computed: {
@@ -223,27 +161,27 @@ export default defineComponent({
     clearForm() {
       this.$formkit.reset('dpi')
     },
-    handleStep(stepName) {
-      this.step = stepName;
+    // handleStep(stepName) {
+    //   this.step = stepName;
 
-      if (stepName === "mandatory") {
-        this.offsetTopStepper = "60px";
-      }
-      if (stepName === "advised") {
+    //   if (stepName === "mandatory") {
+    //     this.offsetTopStepper = "60px";
+    //   }
+    //   if (stepName === "advised") {
 
-        this.offsetTopStepper = "150px";
-      }
-      if (stepName === "recommended") {
+    //     this.offsetTopStepper = "150px";
+    //   }
+    //   if (stepName === "recommended") {
 
-        this.offsetTopStepper = "240px";
-      }
-      if (stepName === "distribution") {
+    //     this.offsetTopStepper = "240px";
+    //   }
+    //   if (stepName === "distribution") {
 
-      }
-      if (stepName === "overview") {
-        this.offsetTopStepper = "60px";
-      }
-    },
+    //   }
+    //   if (stepName === "overview") {
+    //     this.offsetTopStepper = "60px";
+    //   }
+    // },
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
@@ -352,25 +290,21 @@ export default defineComponent({
     // this.createSchema({ property: this.property, page: this.page });
     // this.translateSchema({ property: this.property });
     // }
-    for (let index = 1; index < this.stepNames.length; index++) {
+    for (let index = 0; index < this.getNavSteps[this.property].length; index++) {
 
-      let steps = "step" + index;
-      if (index === 4) {
-        for (let distributionSteps = 1; distributionSteps < 5; distributionSteps++) {
-          this.createSchema({ property: "distributions", page: "step" + distributionSteps });
-          this.translateSchema({ property: "distributions" });
-          this.distributionSchema.push(this.getSchema);
-        }
-      } else {
-      this.createSchema({ property: this.property, page: steps });
-      }
+      // let steps = "step" + index;
+      // if (index === 4) {
+      //   for (let distributionSteps = 1; distributionSteps < 5; distributionSteps++) {
+      //     this.createSchema({ property: "distributions", page: "step" + distributionSteps });
+      //     this.translateSchema({ property: "distributions" });
+      //     this.distributionSchema.push(this.getSchema);
+      //   }
+      // } else {
+      this.createSchema({ property: this.property, page: this.getNavSteps[this.property][index] });
+      this.datasetSchema[this.getNavSteps[this.property][index]] = this.getSchema;
+      // }
 
-      console.log(this.getSchema);
       this.translateSchema({ property: this.property });
-      this.datasetSchema.push(this.getSchema);
-
-
-      // else return
     }
   },
   mounted() {
@@ -425,7 +359,6 @@ export default defineComponent({
   },
   setup() {
     const {
-      steps,
       activeStep,
       visitedSteps,
       previousStep,
@@ -436,11 +369,11 @@ export default defineComponent({
     } = useDpiStepper();
 
     const checkStepValidity = (stepName) => {
-      return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
+      return true
+      // return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
     return {
-      steps,
       visitedSteps,
       activeStep,
       previousStep,
