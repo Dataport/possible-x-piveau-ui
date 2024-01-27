@@ -25,9 +25,9 @@ const getters = {
     },
 };
 function setConfig(specification) {
-    state.navigation.datasets = Object.keys(specification.pageConent.datasets).concat('distoverview').concat('overview');
-    state.navigation.distributions = Object.keys(specification.pageConent.distributions).concat('distoverview');
-    state.navigation.catalogues = Object.keys(specification.pageConent.catalogues).concat('overview');
+    state.navigation.datasets = Object.keys(specification.pageConent.datasets);
+    state.navigation.distributions = Object.keys(specification.pageConent.distributions);
+    state.navigation.catalogues = Object.keys(specification.pageConent.catalogues);
 }
 
 const actions = {};

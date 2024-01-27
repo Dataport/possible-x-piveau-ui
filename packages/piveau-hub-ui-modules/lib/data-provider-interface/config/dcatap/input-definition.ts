@@ -1,4 +1,5 @@
 import { type FormKitSchemaDefinition } from '@formkit/core'
+import OverviewPage from '../../views/OverviewPage';
 
 import language from '../selector-languages.json';
 import config from './page-content-config';
@@ -9,6 +10,7 @@ import config from './page-content-config';
 export type DcatApDatasetsProperty =
   // Append new properties here for accurate type checking
   'datasetID'
+  | 'overview'
   | 'description'
   | 'title'
   | 'contactPoint'
@@ -105,7 +107,13 @@ export type InputDefinition = {
 }
 
 const dcatapProperties: InputDefinition = {
-  datasets: {   
+  datasets: {
+    overview: {
+      $cmp: OverviewPage,
+      props: {
+        property: 'datasets'
+      }
+    },
     datasetID: {
       identifier: 'datasetID',
       $formkit: 'id',

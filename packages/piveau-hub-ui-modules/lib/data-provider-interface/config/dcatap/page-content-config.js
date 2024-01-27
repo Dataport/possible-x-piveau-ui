@@ -42,6 +42,9 @@ const config = {
       provenance: {},
       qualifiedAttribution: {},
       wasGeneratedBy: {},
+    },
+    step4: {
+      overview: {}
     }
   },
   distributions: {
@@ -98,5 +101,19 @@ const config = {
     }
   }
 };
+
+const newConfig = {
+  datasets: {
+    mandatory: [ 'title', 'datasetID', 'description', 'catalog', 'publisher', 'theme', 'issued', 'modified' ],
+    advised: [ 'keyword', 'subject', 'contactPoint', 'landingPage', 'accrualPeriodicity', 'language', 'spatial', 'temporal', 'creator', 'identifier', 'admsIdentifier', 'page', 'accessRights' ],
+    recommended: [ 'type', 'isUsedBy', 'conformsTo', 'versionInfo', 'versionNotes', 'temporalResolution', 'spatialResolutionInMeters', 'relation', 'qualifiedRelation', 'isReferencedBy', 'hasVersion', 'isVersionOf', 'source', 'provenance', 'qualifiedAttribution', 'wasGeneratedBy' ],
+    overview: [ 'overview' ]
+  },
+  catalogues: {
+    mandatory: [ 'title', 'datasetID', 'description', 'publisher', 'language', 'homepage', 'licence' ],
+    advised: [ 'spatial', 'hasPart', 'isPartOf', 'rights', 'catalog', 'creator' ],
+    overview: ['overview']
+  }
+}
 
 export default config;

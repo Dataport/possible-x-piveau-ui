@@ -180,15 +180,13 @@ const mutations = {
      * @param state 
      * @param param1 Object containing the property, page, distribution id and values of input form
      */
-    saveFormValuesToStore(state, { property, page, distid, values }) {
-
-
+    saveFormValuesToStore(state, { property, distid, values }) {
 
         if (distid) {
-            state[property][distid][page] = values;
+            state[property][distid] = values;
             localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
         } else {
-            state[property][page] = values;
+            state[property] = values;
         }
 
         // save to local storage
