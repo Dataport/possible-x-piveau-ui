@@ -43,6 +43,7 @@ const config = {
       qualifiedAttribution: {},
       wasGeneratedBy: {},
     },
+    distributions: {},
     step4: {
       overview: {}
     }

@@ -2,7 +2,7 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-    <details>{{ formValues }}</details>
+    <!-- <details>{{ formValues }}</details> -->
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -42,7 +42,8 @@
               <div v-for="(stepName, index) in getNavSteps[property]" :key="index">
                 <InputPageStep :name="stepName">
                   <!-- <PropertyChooser></PropertyChooser> -->
-                  <FormKitSchema :schema="datasetSchema[stepName]"/>
+                  <FormKitSchema v-if="stepName !== 'distributions'" :schema="datasetSchema[stepName]"/>
+                  <DistributionInputPage v-else :schema="distributionSchema" :values="formValues"/>
                   <p class="p-1"> <b>*</b> mandatory</p>
                 </InputPageStep>
               </div>
@@ -93,7 +94,7 @@ export default defineComponent({
     return {
       heightActiveSec: "10vh",
       datasetSchema: {},
-      distributionSchema: [],
+      distributionSchema: {},
       formValues: {},
       offsetTopStepper: "60px",
       info: {},
@@ -141,8 +142,6 @@ export default defineComponent({
     isInput() {
       return this.$route.params.page !== 'overview' && this.$route.params.page !== 'distoverview';
     },
-
-
   },
   methods: {
     ...mapActions('auth', [
@@ -234,25 +233,15 @@ export default defineComponent({
       this.$emit('go-to-next');
     },
     getFirstPath() {
-      let firstStep;
-      let path;
-
-      if (this.property === 'distributions') {
-        firstStep = this.getNavSteps.datasets[0];
-        path = `${this.$env.content.dataProviderInterface.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
-      } else {
-        firstStep = this.getNavSteps[this.property][0];
-        path = `${this.$env.content.dataProviderInterface.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
-      }
-      return path;
+      return `${this.$env.content.dataProviderInterface.basePath}/${this.property}?locale=${this.$i18n.locale}`;
     },
     jumpToFirstPage() {
       this.$router.push(this.getFirstPath()).catch(() => { });
     },
     checkPathAllowed(to, from) {
       let allowedPaths = [
-        `${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps.datasets[0]}`,
-        `${this.$env.content.dataProviderInterface.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`,
+        `${this.$env.content.dataProviderInterface.basePath}/datasets/`,
+        `${this.$env.content.dataProviderInterface.basePath}/catalogues/`,
       ];
       return allowedPaths.filter(el => to.path.startsWith(el)).length > 0;
     },
@@ -285,26 +274,21 @@ export default defineComponent({
     if (this.$route.query.edit === false) {
       this.clear();
     }
-    // form content (schema) created based on defined page properties included in inputconfigMin
-    // if (this.page !== 'overview' && this.page !== 'distoverview') {
-    // this.createSchema({ property: this.property, page: this.page });
-    // this.translateSchema({ property: this.property });
-    // }
+
+    // create schema for datasets or catalogues
     for (let index = 0; index < this.getNavSteps[this.property].length; index++) {
-
-      // let steps = "step" + index;
-      // if (index === 4) {
-      //   for (let distributionSteps = 1; distributionSteps < 5; distributionSteps++) {
-      //     this.createSchema({ property: "distributions", page: "step" + distributionSteps });
-      //     this.translateSchema({ property: "distributions" });
-      //     this.distributionSchema.push(this.getSchema);
-      //   }
-      // } else {
       this.createSchema({ property: this.property, page: this.getNavSteps[this.property][index] });
-      this.datasetSchema[this.getNavSteps[this.property][index]] = this.getSchema;
-      // }
-
       this.translateSchema({ property: this.property });
+      this.datasetSchema[this.getNavSteps[this.property][index]] = this.getSchema;
+    }
+
+    // for datasets also create schema for distributions
+    if (this.property === 'datasets') {
+      for (let index = 0; index < this.getNavSteps['distributions'].length; index++) {
+        this.createSchema({property: 'distributions', page: this.getNavSteps['distributions'][index] });
+        this.translateSchema({property: 'distributions'});
+        this.distributionSchema[this.getNavSteps['distributions'][index]] = this.getSchema;
+      }
     }
   },
   mounted() {
