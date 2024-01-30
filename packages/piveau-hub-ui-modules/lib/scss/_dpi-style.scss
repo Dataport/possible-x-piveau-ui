@@ -537,6 +537,9 @@
     line-height: 3rem;
     margin-right: auto;
     color: #000;
+    &:hover{
+        text-decoration: none;
+    }
 }
 .autocompleteInputfield {
     width: 100%;

@@ -3,27 +3,29 @@ import { ref, reactive } from 'vue';
 import { createInput } from '@formkit/vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
+import { reset } from '@formkit/core'
 
 const auto = createInput(
   [
     {
-      if: '$value',
+      if: '$value && $isMulti != true',
       then: [
         {
           $el: 'a',
           attrs: {
             id: '$id',
-            href: '$value.resource',
+            // href: '$value.resource',
             class: 'autocompleteInputSingleValue',
+            // onClick: '$handlers.setValue',
           },
           children: '$value.name'
         },
         {
           $el: 'div',
           attrs: {
-            class: 'removeX'
+            class: 'removeX',
+            onclick: '$handlers.removeProperty'
           },
-
         }
       ],
       else: [
@@ -39,6 +41,7 @@ const auto = createInput(
             class: 'autocompleteInputfield',
 
           },
+
         },
         {
           $el: 'ul',
@@ -53,30 +56,47 @@ const auto = createInput(
                   then: 'true',
                   else: 'false',
                 },
-                // value: '$listValue',
-                href: '$match.resource',
+
+                lang: '$match.resource',
                 class: 'p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100',
                 onClick: '$handlers.setValue',
               },
+
               children: '$match.name'
             },
           ],
         },
-      ]
+        {
+          $el: 'div',
+          children: [
+            {
+              if: '$isMulti',
+              then: [{
+                for: ['v', '$value'],
+                $el: 'span',
+                children: "$v.name"
+              }
+
+              ]
+
+            }
+          ]
+
+        }
+
+      ],
+
     }
   ],
   {
-    props: ['options', 'matches', 'selection', 'searchValue', 'context', 'listValue'],
+    props: ['options', 'matches', 'selection', 'searchValue', 'context', 'listValue', 'isMulti'],
     features: [addHandlers],
     family: 'group'
   }
 )
 
 const store = useStore();
-
-// const data = ref({
-//   selectedValues: []
-// })
+let listOfValues = [];
 
 function addHandlers(node) {
   node.on('created', () => {
@@ -84,26 +104,48 @@ function addHandlers(node) {
     // Ensure our matches prop starts as an array.
     node.props.matches = [{ 'name': '-- Please choose a property or search for them in the vocabulary --' }];
     node.props.selection = {};
+    node.props.isMulti = node.context.context.attrs.multiple;
 
-    // const addValue = () => {
-    //   // data.selectedValues.push(node.props.listValue);
-    //   console.log('###', data);
-    // }
-
-    // When we actually have an value to set:
     const setValue = async (e) => {
-      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      console.log(node);
+      // when its a multi input
+      if (node.props.isMulti) {
+        node.props.selection = { name: e.target.innerText, resource: e.target.lang };
+        if (node.value != undefined) {
+          listOfValues.push(node.props.selection)
+          node.props.selection = listOfValues
+          // console.log(listOfValues);
+          // node.value = listOfValues;
+          await node.input(node.props.selection);
+        }
+        else await node.input(node.props.selection);
 
-      node.props.selection = { name: e.target.attrs.textContent, resource: e.target.attrs.href };
-      await node.input(node.props.selection);
+        // await node.input(node.props.selection);
 
+      }
+      else {
+        node.props.selection = { name: e.target.innerText, resource: e.target.lang };
+        await node.input(node.props.selection);
+      }
+
+
+      // sets the name for the store Key of the Object - also prevents the property from beeing loaded
+      // node.name = node.context.context.attrs.identifier
+
+
+
+      console.log(node);
       node.props.selection = {};
       node.props.searchValue = '';
 
-      await new Promise((r) => setTimeout(r, 50)) // "next tick"
-      if (document.querySelector('input#' + node.props.id)) {
-        document.querySelector('input#' + node.props.id).focus();
-      }
+      console.log(node.props.id, e.target);
+
+      // ??? What is this?
+      // await new Promise((r) => setTimeout(r, 50)) // "next tick"
+      // if (document.querySelector('input#' + node.props.id)) {
+      //   console.log(node.props.id);
+      //   document.querySelector('input#' + node.props.id).focus();
+      // }
     }
 
     // Perform a soft selection, this is shown as a highlight in the dropdown
@@ -132,7 +174,6 @@ function addHandlers(node) {
           name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
           resource: r.resource,
         }));
-
         node.props.matches = results;
       });
 
@@ -161,6 +202,12 @@ function addHandlers(node) {
       toggleList(e) {
         e.target.nextSibling.classList.toggle('inactiveResultList');
       },
+      removeProperty(e) {
+        node.reset()
+
+        console.log(node);
+
+      }
     })
   })
 
@@ -172,5 +219,5 @@ function addHandlers(node) {
 </script>
 
 <template>
-  <FormKit :type="auto"/>
+  <FormKit :type="auto" />
 </template>
