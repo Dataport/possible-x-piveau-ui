@@ -58,7 +58,7 @@ const auto = createInput(
                 },
 
                 lang: '$match.resource',
-                class: 'p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100',
+                class: 'p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC',
                 onClick: '$handlers.setValue',
               },
 
@@ -68,6 +68,9 @@ const auto = createInput(
         },
         {
           $el: 'div',
+          attrs: {
+            class: 'd-flex'
+          },
           children: [
             {
               if: '$isMulti',
@@ -97,17 +100,61 @@ const auto = createInput(
 
 const store = useStore();
 let listOfValues = [];
+let preselection = [];
 
+// Catches the OutsideClick for the input fields
+function onClickOutside(e) {
+
+  let element = document.getElementsByClassName("autocompleteResultList")
+
+  if (!e.target.classList.contains('choosableItemsAC') && !e.target.classList.contains('autocompleteInputfield')) {
+    for (let index = 0; index < element.length; index++) {
+      if (!element[index].classList.contains('inactiveResultList')) {
+        try {
+          element[index].classList.toggle('inactiveResultList');
+        } catch (error) {
+        }
+      }
+    }
+
+  }
+  else {
+    for (let i = 0; i < element.length; i++) {
+      if (!element[i].classList.contains("inactiveResultList")) {
+        element[i].classList.toggle("inactiveResultList");
+      }
+    }
+    e.target.nextSibling.classList.toggle('inactiveResultList')
+  }
+}
 function addHandlers(node) {
   node.on('created', () => {
+    // Initial fill of the suggetions
+    let voc = node.props.context.attrs.voc;
+    store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
+
+      const results = response.data.result.results.map((r) => ({
+        name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
+        resource: r.resource,
+      }));
+      node.props.matches = results;
+    });
+
+    window.addEventListener("click", onClickOutside);
+
+    // Todo need to remove the eventlistener after adding it
+    // setTimeout(() => {
+    //   window.removeEventListener("click", onClickOutside);
+    // }, 100);
+
 
     // Ensure our matches prop starts as an array.
-    node.props.matches = [{ 'name': '-- Please choose a property or search for them in the vocabulary --' }];
+    // node.props.matches = [{ 'name': '-- Please choose a property or search for them in the vocabulary --' }];
+
     node.props.selection = {};
     node.props.isMulti = node.context.context.attrs.multiple;
 
     const setValue = async (e) => {
-      console.log(node);
       // when its a multi input
       if (node.props.isMulti) {
         node.props.selection = { name: e.target.innerText, resource: e.target.lang };
@@ -132,33 +179,11 @@ function addHandlers(node) {
       // sets the name for the store Key of the Object - also prevents the property from beeing loaded
       // node.name = node.context.context.attrs.identifier
 
-
-
-      console.log(node);
       node.props.selection = {};
       node.props.searchValue = '';
-
-      console.log(node.props.id, e.target);
-
-      // ??? What is this?
-      // await new Promise((r) => setTimeout(r, 50)) // "next tick"
-      // if (document.querySelector('input#' + node.props.id)) {
-      //   console.log(node.props.id);
-      //   document.querySelector('input#' + node.props.id).focus();
-      // }
     }
 
-    // Perform a soft selection, this is shown as a highlight in the dropdown
-    const select = (delta) => {
-      const available = node.props.matches
-      let idx = available.indexOf(node.props.selection) + delta
-      if (idx >= available.length) {
-        idx = 0
-      } else if (idx < 0) {
-        idx = available.length - 1
-      }
-      node.props.selection = available[idx]
-    }
+
 
     const getAutocompleteSuggestions = async () => {
 
@@ -179,6 +204,7 @@ function addHandlers(node) {
 
     }
 
+
     Object.assign(node.context.handlers, {
       setValue,
       getAutocompleteSuggestions,
@@ -196,17 +222,16 @@ function addHandlers(node) {
             return select(-1)
         }
       },
+
       search(e) {
         node.props.searchValue = e.target.value;
       },
       toggleList(e) {
+
         e.target.nextSibling.classList.toggle('inactiveResultList');
       },
       removeProperty(e) {
-        node.reset()
-
-        console.log(node);
-
+        node.reset();
       }
     })
   })
@@ -214,7 +239,8 @@ function addHandlers(node) {
   // Perform filtering when the search value changes
   node.on('prop:searchValue', async ({ payload: value }) => {
     node.context.handlers.getAutocompleteSuggestions();
-  })
+  });
+
 }
 </script>
 
