@@ -69,17 +69,35 @@ const auto = createInput(
         {
           $el: 'div',
           attrs: {
-            class: 'd-flex'
+            class: 'd-flex flex-wrap'
           },
           children: [
             {
               if: '$isMulti',
               then: [{
                 for: ['v', '$value'],
-                $el: 'span',
-                children: "$v.name"
+                $el: 'div',
+                // children: "$v.name",
+                attrs: {
+                  class: 'activeResultsAutocompleteWrapper',
+                },
+                children: [
+                  {
+                    $el: 'span',
+                    attrs: {
+                      class: '',
+                    },
+                    children: '$v.name'
+                  },
+                  {
+                    $el: 'div',
+                    attrs: {
+                      class: 'removeX',
+                      onclick: '$handlers.removeMultipleProperty'
+                    },
+                  }
+                ],
               }
-
               ]
 
             }
@@ -104,7 +122,6 @@ let preselection = [];
 
 // Catches the OutsideClick for the input fields
 function onClickOutside(e) {
-
   let element = document.getElementsByClassName("autocompleteResultList")
 
   if (!e.target.classList.contains('choosableItemsAC') && !e.target.classList.contains('autocompleteInputfield')) {
@@ -116,7 +133,6 @@ function onClickOutside(e) {
         }
       }
     }
-
   }
   else {
     for (let i = 0; i < element.length; i++) {
@@ -164,18 +180,15 @@ function addHandlers(node) {
           // console.log(listOfValues);
           // node.value = listOfValues;
           await node.input(node.props.selection);
+          
         }
         else await node.input(node.props.selection);
-
-        // await node.input(node.props.selection);
-
       }
       else {
         node.props.selection = { name: e.target.innerText, resource: e.target.lang };
         await node.input(node.props.selection);
       }
-
-
+      node.emit('@change')
       // sets the name for the store Key of the Object - also prevents the property from beeing loaded
       // node.name = node.context.context.attrs.identifier
 
@@ -232,6 +245,9 @@ function addHandlers(node) {
       },
       removeProperty(e) {
         node.reset();
+      },
+      removeMultipleProperty(e){
+        console.log('ouchie!');
       }
     })
   })
@@ -245,5 +261,5 @@ function addHandlers(node) {
 </script>
 
 <template>
-  <FormKit :type="auto" />
+  <FormKit :type="auto" @change="$emit('change')" label="Hallo"/>
 </template>

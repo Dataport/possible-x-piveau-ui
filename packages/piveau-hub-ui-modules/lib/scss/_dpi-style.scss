@@ -530,17 +530,68 @@
 }
 
 // -------------------------------------------------------
-.inactiveResultList{
+.theme {
+    .formkit-inner {
+        display: flex;
+        flex-direction: column;
+        border-bottom: none;
+
+        &:focus-within {
+            margin-top: 0;
+            box-shadow: none;
+            background-color: none;
+            border-bottom: none;
+        }
+
+        input {
+            border-bottom: 1px solid #6610f2;
+            margin-bottom: 0.5rem;
+            transition: all 100ms ease-in-out;
+
+            &:focus-within {
+                margin-top: 10px;
+                box-shadow: none;
+                background-color: #efefef;
+                border-bottom: 3px solid $primary;
+            }
+        }
+        .autocompleteResultList{
+            top:65px;
+        }
+    }
+}
+
+.activeResultsAutocompleteWrapper {
+    padding: 1rem;
+    margin: 0 1rem 1rem 0;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    transition: all 100ms ease-in-out;
+    display: flex;
+
+    &:hover {
+        color: #196fd2;
+    }
+
+    .removeX {
+        margin-right: 0;
+    }
+}
+
+.inactiveResultList {
     display: none;
 }
-.autocompleteInputSingleValue{
+
+.autocompleteInputSingleValue {
     line-height: 3rem;
     margin-right: auto;
     color: #000;
-    &:hover{
+
+    &:hover {
         text-decoration: none;
     }
 }
+
 .autocompleteInputfield {
     width: 100%;
     border: none;
@@ -570,7 +621,7 @@
     cursor: pointer;
 
     li {
-        &:nth-child(even){
+        &:nth-child(even) {
             background-color: #efefef;
         }
     }

@@ -452,11 +452,7 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     theme: {
-      identifier: 'theme',
-      $formkit: 'repeatable',
-      name: 'dcat:theme',
-      children: [
-        {
+          label:'Haluu',
           identifier: 'theme',
           $formkit: 'auto',
           multiple: true,
@@ -469,8 +465,6 @@ const dcatapProperties: InputDefinition = {
             multiple: 'multiple',
             outer: 'w88-textfield'
           },
-        }
-      ],
     },
     accessRights: {
       identifier: 'accessRights',
