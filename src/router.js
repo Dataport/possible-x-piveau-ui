@@ -187,30 +187,30 @@ if (GLUE_CONFIG.content.dataProviderInterface.useService) {
     children: [
       {
         path: ":property",
-        name: "DataProviderInterface-Home",
-        redirect: { path: ':property/step1' },
-        props: true
-      },
-      {
-        path: ":property/overview",
-        name: "DataProviderInterface-Overview",
-        component: OverviewPage,
-        props: true
-      },
-      {
-        path: ":property/:page",
         name: "DataProviderInterface-Input",
         component: InputPage,
-        props: true,
-        children: [
-          {
-            path: ":id",
-            name: "DataProviderInterface-ID",
-            component: InputPage,
-            props: true,
-          },
-        ],
+        props: true
       },
+      // {
+      //   path: ":property/overview",
+      //   name: "DataProviderInterface-Overview",
+      //   component: OverviewPage,
+      //   props: true
+      // },
+      // {
+      //   path: ":property/:page",
+      //   name: "DataProviderInterface-Input",
+      //   component: InputPage,
+      //   props: true,
+      //   children: [
+      //     {
+      //       path: ":id",
+      //       name: "DataProviderInterface-ID",
+      //       component: InputPage,
+      //       props: true,
+      //     },
+      //   ],
+      // },
     ]
   },
   );
