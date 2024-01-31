@@ -1,27 +1,20 @@
 const config = {
   datasets: {
-    step1: {
+    Taxonomy: {
       startPage:{},
       taxonomy: {},
-      datasetID: {},
-      description: {},
-      catalog: {},
-      publisher: {},
-      theme: {},
-      issued: {},
-      modified: {},
       buttonSet:{},
       startPageHelp:{},
     },
-    step2: {
+    Category: {
     startPage:{},
     byteCategory:{},
     buttonSet:{},
     startPageHelp:{},
     },
-    step3: {
+    Contact: {
       startPage:{},
-      contactPoint:{},
+      creator:{},
       buttonSet:{},
       startPageHelp:{},  
     }

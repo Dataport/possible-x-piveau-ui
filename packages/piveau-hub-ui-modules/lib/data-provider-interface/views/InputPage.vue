@@ -2,7 +2,7 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-    <!-- <details>{{ formValues }}</details> -->
+    <details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -78,16 +78,8 @@ export default defineComponent({
       required: true,
       type: String,
     },
-    page: {
-      required: true,
-      type: String,
-    },
     id: {
       type: String,
-    },
-    isDistributionOverview: {
-      type: Boolean,
-      default: false,
     },
   },
   data() {
@@ -110,7 +102,7 @@ export default defineComponent({
   components: {
     InputPageStep,
     DistributionInputPage,
-    PropertyChooser
+    PropertyChooser,
   },
   computed: {
     ...mapGetters('auth', [

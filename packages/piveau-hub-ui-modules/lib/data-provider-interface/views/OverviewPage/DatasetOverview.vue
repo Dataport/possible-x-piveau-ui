@@ -3,7 +3,7 @@
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
-                <!-- <h1 class="dsTitle"> {{ getData('datasets') }}</h1> -->
+                <h1 class="dsTitle"> {{ checkIfSet(getData('datasets')['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0]) }}</h1>
             </div>
             <div class="secondRow d-flex justify-content-between">
                 <div class="dsCatalogue ">
@@ -19,7 +19,7 @@
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>
-                        {{ checkIfSet(new Date(getData('datasets')['dct:modified']).toDateString()) }}
+                        {{ checkIfSet(new Date(getData('datasets')['dct:modified']['@value']).toDateString()) }}
                         <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
 
@@ -28,9 +28,9 @@
         </div>
         <div class="dsMainWrap d-flex flex-column mt-3">
             <div class="">
-                <!-- <p class="dsDesc px-3">
-                    {{ getData('datasets')['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}
-                </p> -->
+                <p class="dsDesc px-3">
+                    {{ checkIfSet(getData('datasets')['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0]) }}
+                </p>
             </div>
             <div class="">
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
@@ -47,10 +47,10 @@
         </div> -->
 
         <div class="dsKeywords b-top my-2 p-3"
-            v-if="getData('datasets')['dcat:keyword'] != undefined && getData('datasets')['dcat:keyword'][0]['@language'] != undefined && getData('datasets')['dcat:keyword'].length > 0">
-            <h2 class="my-4">Keywords <span>({{ getData('datasets')['dcat:keyword'].length }})</span></h2>
+            v-if="getData('datasets')['dct:keyword'] != undefined && getData('datasets')['dct:keyword'][0]['@value'] != undefined && getData('datasets')['dct:keyword'].length > 0">
+            <h2 class="my-4">Keywords <span>({{ getData('datasets')['dct:keyword'].length }})</span></h2>
             <div class="d-flex">
-                <span class="mx-1" v-for="( element, index ) in  getData('datasets')['dcat:keyword'].filter(el => el['@language'] === dpiLocale)" :key="index">
+                <span class="mx-1" v-for="( element, index ) in  getData('datasets')['dct:keyword'].filter(el => el['@language'] === dpiLocale)" :key="index">
                     <small :title="element" class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
                         {{ element['@value'] }}
                     </small>
@@ -66,14 +66,13 @@ import PropertyEntry from './PropertyEntry.vue';
 import DistributionOverview from './DistributionOverview.vue';
 import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
-import Distribution from '../../../datasetDetails/distributions/Distribution.vue';
 
 export default {
     data() {
         return {
             pageLoaded: false,
             tableProperties: {
-                'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
+                // 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
                 'dct:creator': { type: 'special', voc: '', label: 'message.metadata.creator' },
                 'dct:issued': { type: 'date', label: 'message.metadata.created' },
@@ -125,7 +124,6 @@ export default {
     components: {
         PropertyEntry,
         DistributionOverview,
-        Distribution,
     },
     computed: {
         ...mapGetters('dpiStore', [
@@ -154,7 +152,7 @@ export default {
 
             if (data != undefined) return data
             else {
-                return "unset"
+                return "No data available"
             }
         },
         getTitle(propertyName) {

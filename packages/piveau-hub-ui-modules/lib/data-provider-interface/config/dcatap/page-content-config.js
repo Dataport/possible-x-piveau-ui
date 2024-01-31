@@ -1,6 +1,6 @@
 const config = {
   datasets: {
-    step1: {
+    Mandatory: {
       title: {},
       datasetID: {},
       description: {},
@@ -10,7 +10,7 @@ const config = {
       issued: {},
       modified: {},
     },
-    step2: {
+    Advised: {
       keyword: {},
       subject: {},
       contactPoint: {},
@@ -25,7 +25,7 @@ const config = {
       page: {},
       accessRights: {},
     },
-    step3: {
+    Recommended: {
       type: {},
       isUsedBy: {},
       conformsTo: {},
@@ -44,7 +44,7 @@ const config = {
       wasGeneratedBy: {},
     },
     distributions: {},
-    step4: {
+    Overview: {
       overview: {}
     }
   },

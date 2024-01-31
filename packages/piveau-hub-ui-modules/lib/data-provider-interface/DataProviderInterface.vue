@@ -8,7 +8,7 @@
       </div>
     </div>
     <!-- CONTENT -->
-    <router-view :isDistributionOverview="isDistributionOverview" ref="view" :key="$route.query.edit">
+    <router-view ref="view" :key="$route.query.edit">
     </router-view>
   </div>
 </template>
@@ -68,9 +68,6 @@ export default {
     isOverviewPage() {
       return this.$route.name === 'DataProviderInterface-Overview';
     },
-    isDistributionOverview() {
-      return this.page === 'distoverview';
-    },
     stepNames() {
       return this.getTranslatedStepNamesByProperty(this.property);
     },
@@ -125,18 +122,7 @@ export default {
       }
     },
     getClearPath() {
-      // Create path to first page with clear query param
-      let firstStep;
-      let path;
-
-      if (this.property === 'distributions') {
-        firstStep = this.getNavSteps.datasets[0];
-        path = `${this.$env.content.dataProviderInterface.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
-      } else {
-        firstStep = this.getNavSteps[this.property][0];
-        path = `${this.$env.content.dataProviderInterface.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}&clear=true`;
-      }
-      return path;
+      return `${this.$env.content.dataProviderInterface.basePath}/${this.property}?locale=${this.$i18n.locale}&clear=true`;;
     },
     jumpToFirstPage() {
       this.$router.push(this.getClearPath()).catch(() => { });
