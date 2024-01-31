@@ -461,10 +461,6 @@ const dcatapProperties: InputDefinition = {
           '@annifSuggestion': false,
           name: 'dcat:theme',
           id: 'theme',
-          classes: {
-            multiple: 'multiple',
-            outer: 'w88-textfield'
-          },
     },
     accessRights: {
       identifier: 'accessRights',
