@@ -452,7 +452,6 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     theme: {
-          label:'Haluu',
           identifier: 'theme',
           $formkit: 'auto',
           multiple: true,

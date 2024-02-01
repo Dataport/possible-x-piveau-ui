@@ -6,115 +6,100 @@ import { getTranslationFor } from "../../utils/helpers";
 
 
 const auto = createInput(
-  [{
-    $el: 'h4',
-    attrs: {
-      class: '',
-
-    },
-    children: 'Hallooo',
-  },
-  {
-    if: '$value && $isMulti != true',
-    then: [
-      {
-        $el: 'a',
-        attrs: {
-          id: '$id',
-          // href: '$value.resource',
-          class: 'autocompleteInputSingleValue',
-          // onClick: '$handlers.setValue',
-        },
-        children: '$value.name'
-      },
-      {
-        $el: 'div',
-        attrs: {
-          class: 'removeX',
-          onclick: '$handlers.removeProperty'
-        },
-      }
-    ],
-    else: [
-      {
-        $el: 'input',
-        bind: '$attrs',
-        attrs: {
-          id: '$id',
-          onClick: '$handlers.toggleList',
-          onKeydown: '$handlers.selection',
-          onInput: '$handlers.search',
-          value: '$searchValue',
-          class: 'autocompleteInputfield',
-
-        },
-
-      },
-      {
-        $el: 'ul',
-        attrs: { class: 'autocompleteResultList inactiveResultList' },
-        children: [
-          {
-            $el: 'li',
-            for: ['match', '$matches'],
-            attrs: {
-              'data-selected': {
-                if: '$selection === $match',
-                then: 'true',
-                else: 'false',
-              },
-
-              lang: '$match.resource',
-              class: 'p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC',
-              onClick: '$handlers.setValue',
-            },
-
-            children: '$match.name'
+  [
+    {
+      if: '$value && $isMulti != true',
+      then: [
+        {
+          $el: 'a',
+          attrs: {
+            id: '$id',
+            class: 'autocompleteInputSingleValue',
           },
-        ],
-      },
-      {
-        $el: 'div',
-        attrs: {
-          class: 'd-flex flex-wrap'
+          children: '$value.name'
         },
-        children: [
-          {
-            if: '$isMulti',
-            then: [{
-              for: ['v', '$value'],
-              $el: 'div',
-              // children: "$v.name",
+        {
+          $el: 'div',
+          attrs: {
+            class: 'removeX',
+            onclick: '$handlers.removeProperty'
+          },
+        }
+      ],
+      else: [
+        {
+          $el: 'input',
+          bind: '$attrs',
+          attrs: {
+            id: '$id',
+            onClick: '$handlers.toggleList',
+            onKeydown: '$handlers.selection',
+            onInput: '$handlers.search',
+            value: '$searchValue',
+            class: 'autocompleteInputfield',
+            placeholder: 'Search for fitting properties'
+          },
+        },
+        {
+          $el: 'ul',
+          attrs: { class: 'autocompleteResultList inactiveResultList' },
+          children: [
+            {
+              $el: 'li',
+              for: ['match', '$matches'],
               attrs: {
-                class: 'activeResultsAutocompleteWrapper',
-              },
-              children: [
-                {
-                  $el: 'span',
-                  attrs: {
-                    class: '',
-                  },
-                  children: '$v.name'
+                'data-selected': {
+                  if: '$selection === $match',
+                  then: 'true',
+                  else: 'false',
                 },
-                {
-                  $el: 'div',
-                  attrs: {
-                    class: 'removeX',
-                    onclick: '$handlers.removeMultipleProperty'
+
+                lang: '$match.resource',
+                class: 'p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC',
+                onClick: '$handlers.setValue',
+              },
+
+              children: '$match.name'
+            },
+          ],
+        },
+        {
+          $el: 'div',
+          attrs: {
+            class: 'd-flex flex-wrap'
+          },
+          children: [
+            {
+              if: '$isMulti',
+              then: [{
+                for: ['v', '$value'],
+                $el: 'div',
+                // children: "$v.name",
+                attrs: {
+                  class: 'activeResultsAutocompleteWrapper',
+                },
+                children: [
+                  {
+                    $el: 'span',
+                    attrs: {
+                      class: '',
+                    },
+                    children: '$v.name'
                   },
-                }
-              ],
+                  {
+                    $el: 'div',
+                    attrs: {
+                      class: 'removeX',
+                      onclick: '$handlers.removeMultipleProperty'
+                    },
+                  }
+                ],
+              }]
             }
-            ]
-
-          }
-        ]
-
-      }
-
-    ],
-
-  }
+          ]
+        }
+      ],
+    }
   ],
   {
     props: ['options', 'matches', 'selection', 'searchValue', 'context', 'listValue', 'isMulti'],
@@ -125,7 +110,6 @@ const auto = createInput(
 
 const store = useStore();
 let listOfValues = [];
-let preselection = [];
 
 // Catches the OutsideClick for the input fields
 function onClickOutside(e) {
@@ -151,12 +135,28 @@ function onClickOutside(e) {
   }
 }
 function addHandlers(node) {
+
   node.on('created', () => {
+
+
+    // Fill listofValues for the multiselect - setTimeout is pretty dirty, should be be improved
+    setTimeout(() => {
+      if (node.props.isMulti) {
+        try {
+          for (let index = 0; index < Object.values(node.props.context.value)[0].length; index++) {
+            listOfValues.push(Object.values(node.props.context.value)[0][index])
+          }
+        } catch (error) { }
+      }
+    }, 500);
+    // Need to append the classes to the formkit-outer element
+    node.context.classes.outer += ' autocompleteInput ' + node.props.context.attrs.identifier
+    //need to append the right label to the field
+    node.context.label = node.props.context.attrs.identifier
+
     // Initial fill of the suggetions
-    console.log(node);
     let voc = node.props.context.attrs.voc;
     store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
-
       const results = response.data.result.results.map((r) => ({
         name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
         resource: r.resource,
@@ -166,14 +166,11 @@ function addHandlers(node) {
 
     // Register the outside click to close the list of suggested values
     window.addEventListener("click", onClickOutside);
+
     // Todo need to remove the eventlistener after adding it
     // setTimeout(() => {
     //   window.removeEventListener("click", onClickOutside);
     // }, 100);
-
-
-    // Ensure our matches prop starts as an array.
-    // node.props.matches = [{ 'name': '-- Please choose a property or search for them in the vocabulary --' }];
 
     node.props.selection = {};
     node.props.isMulti = node.context.context.attrs.multiple;
@@ -181,16 +178,26 @@ function addHandlers(node) {
     const setValue = async (e) => {
       // when its a multi input
       if (node.props.isMulti) {
-        node.props.selection = { name: e.target.innerText, resource: e.target.lang };
-        if (node.value != undefined) {
+
+        // check for doubled values
+
+        if (listOfValues.length != 0) {
+          let filteredProperty = { name: e.target.innerText, resource: e.target.lang };
+          console.log(listOfValues,'before');
+          let filteredList = listOfValues.filter((element) => element.name != e.target.innerText);
+          filteredList.push(filteredProperty)
+          listOfValues = filteredList;
+          // console.log(filteredList,'after');
+          await node.input(listOfValues);
+        }
+        else {
+          node.props.selection = { name: e.target.innerText, resource: e.target.lang };
+          // console.log(listOfValues);
+
           listOfValues.push(node.props.selection)
           node.props.selection = listOfValues
-          // console.log(listOfValues);
-          // node.value = listOfValues;
           await node.input(node.props.selection);
-
         }
-        else await node.input(node.props.selection);
       }
       else {
         node.props.selection = { name: e.target.innerText, resource: e.target.lang };
@@ -204,32 +211,24 @@ function addHandlers(node) {
       node.props.searchValue = '';
     }
 
-
-
     const getAutocompleteSuggestions = async () => {
-
-      // this.choice = true
       let voc = node.props.context.attrs.voc;
       let text = node.props.searchValue;
 
       // this.clearAutocompleteSuggestions();
 
       await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: text }).then((response) => {
-
         const results = response.data.result.results.map((r) => ({
           name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
           resource: r.resource,
         }));
         node.props.matches = results;
       });
-
     }
-
 
     Object.assign(node.context.handlers, {
       setValue,
       getAutocompleteSuggestions,
-      // addValue,
       selection: (e) => {
         // This handler is called when entering data into the search input.
         switch (e.key) {
@@ -255,7 +254,12 @@ function addHandlers(node) {
         node.reset();
       },
       removeMultipleProperty(e) {
-        console.log('ouchie!');
+        // Get Index in the array where all values of the Span are stored and cut it out of the list of Values
+        console.log(node);
+        listOfValues.splice(listOfValues.findIndex((element) => element.name == e.target.previousSibling.innerHTML), 1)
+        node.props.selection = listOfValues;
+
+        node.input(node.props.selection);
       }
     })
   })
@@ -266,10 +270,8 @@ function addHandlers(node) {
   });
 
 }
-const clickEmits = () => {
-  console.log("hallo");
-}
 </script>
 
 <template>
-  <FormKit :type="auto" /></template>
+  <FormKit :type="auto" />
+</template>

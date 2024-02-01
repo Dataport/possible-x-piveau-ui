@@ -537,9 +537,9 @@
         border-bottom: none;
 
         &:focus-within {
-            margin-top: 0;
+            margin-top: 10px;
             box-shadow: none;
-            background-color: none;
+            background-color: unset;
             border-bottom: none;
         }
 
@@ -555,8 +555,32 @@
                 border-bottom: 3px solid $primary;
             }
         }
-        .autocompleteResultList{
-            top:65px;
+
+        .autocompleteResultList {
+            top: 65px;
+        }
+    }
+}
+
+.publisher {
+    .formkit-inner {
+        &:focus-within {
+            margin-top: 10px;
+            box-shadow: none;
+            background-color: unset;
+
+            border-bottom: none;
+        }
+    }
+    input {
+        
+        transition: all 100ms ease-in-out;
+
+        &:focus-within {
+            margin-top: 10px;
+            box-shadow: none;
+            background-color: #efefef;
+            border-bottom: 3px solid $primary;
         }
     }
 }
