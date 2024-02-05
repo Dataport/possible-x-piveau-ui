@@ -111,6 +111,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'id',
       mandatory: true,
       name: 'datasetID',
+      id:'datasetID'
     },
     description: {
       identifier: 'description',

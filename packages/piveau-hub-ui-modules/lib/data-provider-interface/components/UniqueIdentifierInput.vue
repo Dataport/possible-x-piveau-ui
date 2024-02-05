@@ -26,7 +26,6 @@
     </div>
     
     <div class="repeatableWrap" v-else>
-      
       <FormKit v-model="uniqueID" @input="checkUniqueID" id="datasetIDForm" type="text" name="datasetID"
         class="w100-textfield" :placeholder="$t('message.dataupload.createUniqueID')"
         :validation="validation" :validation-rules="validationRules" :validation-messages="validationMessages"
