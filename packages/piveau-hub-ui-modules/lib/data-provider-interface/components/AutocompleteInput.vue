@@ -1,115 +1,8 @@
 <script setup>
-import { ref, reactive, watch, computed } from 'vue';
-import { createInput } from '@formkit/vue';
+import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { mapActions } from 'vuex';
-import { onMounted } from 'vue'
-
-
-
-// const auto = createInput(
-//   [
-//     {
-//       if: '$value && $isMulti != true',
-//       then: [
-//         {
-//           $el: 'a',
-//           attrs: {
-//             id: '$id',
-//             class: 'autocompleteInputSingleValue',
-//           },
-//           children: '$value.name'
-//         },
-//         {
-//           $el: 'div',
-//           attrs: {
-//             class: 'removeX',
-//             onclick: '$handlers.removeProperty'
-//           },
-//         }
-//       ],
-//       else: [
-//         {
-//           $el: 'input',
-//           bind: '$attrs',
-//           attrs: {
-//             id: '$id',
-//             onClick: '$handlers.toggleList',
-//             onKeydown: '$handlers.selection',
-//             onInput: '$handlers.search',
-//             value: '$searchValue',
-//             class: 'autocompleteInputfield',
-//             placeholder: 'Search for fitting properties'
-//           },
-//         },
-//         {
-//           $el: 'ul',
-//           attrs: { class: 'autocompleteResultList inactiveResultList' },
-//           children: [
-//             {
-//               $el: 'li',
-//               for: ['match', '$matches'],
-//               attrs: {
-//                 'data-selected': {
-//                   if: '$selection === $match',
-//                   then: 'true',
-//                   else: 'false',
-//                 },
-
-//                 lang: '$match.resource',
-//                 class: 'p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC',
-//                 onClick: '$handlers.setValue',
-//               },
-
-//               children: '$match.name'
-//             },
-//           ],
-//         },
-//         {
-//           $el: 'div',
-//           attrs: {
-//             class: 'd-flex flex-wrap'
-//           },
-//           children: [
-//             {
-//               if: '$isMulti',
-//               then: [{
-//                 for: ['v', '$value'],
-//                 $el: 'div',
-//                 // children: "$v.name",
-//                 attrs: {
-//                   class: 'activeResultsAutocompleteWrapper',
-//                 },
-//                 children: [
-//                   {
-//                     $el: 'span',
-//                     attrs: {
-//                       class: '',
-//                     },
-//                     children: '$v.name'
-//                   },
-//                   {
-//                     $el: 'div',
-//                     attrs: {
-//                       class: 'removeX',
-//                       onclick: '$handlers.removeMultipleProperty'
-//                     },
-//                   }
-//                 ],
-//               }]
-//             }
-//           ]
-//         }
-//       ],
-//     }
-//   ],
-//   {
-//     props: ['options', 'matches', 'selection', 'searchValue', 'context', 'listValue', 'isMulti'],
-//     features: [addHandlers],
-//     family: 'group',
-//   }
-// )
 
 const props = defineProps({
   context: Object
@@ -119,39 +12,54 @@ const savetoLocal = mapActions('dpiStore', [
   'saveLocalstorageValues',
 ])
 const store = useStore();
-let listOfValues = [];
-let searchValue;
-let selection;
 
-let matches = computed(async () => {
-  let voc = props.context.attrs.voc;
+// ToDo need to make the list editable - maybe add a cache List
+let listOfValues = computed(() => {
+  return props.context.value;
+})
+
+let localStorageProperty;
+let selection;
+let voc = props.context.attrs.voc;
+let matches;
+let inputText = ref({});
+
+const loadMatches = async () => {
+  matches = [{ name: '--- Type in the name of the fitting property for a live search of the vocabulary ---', resource: 'invalid' }]
   await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
     const results = response.data.result.results.map((r) => ({
       name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
       resource: r.resource,
     }));
-    // console.log(results);
     matches = results;
   });
+}
+onBeforeMount(() => {
+  loadMatches();
+
 })
-onMounted(() => {
-  matches = [{ name: 'hallo', resource: 'Ballo' }]
-  // Initial fill of the suggetions
-  console.log('Context: ', props.context.value._value);
+onMounted(async () => {
+findPropertyToUpdate();
+  inputText.value = ""
+  // console.log('Context: ', props.context);
 });
 
-watch(matches, async (newValue, oldValue) => {
-  oldValue = newValue
-})
-watch(searchValue, async ({ payload: value }) => {
+watch(inputText, async () => {
   getAutocompleteSuggestions();
 }
 )
+function findPropertyToUpdate(item){
+  let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
+if (item = ""){ 
 
+  console.log(pathToLocalStorage);
+
+}
+else{}
+}
 // Catches the OutsideClick for the input fields
 function onClickOutside(e) {
   let element = document.getElementsByClassName("autocompleteResultList")
-
   if (!e.target.classList.contains('choosableItemsAC') && !e.target.classList.contains('autocompleteInputfield')) {
     for (let index = 0; index < element.length; index++) {
       if (!element[index].classList.contains('inactiveResultList')) {
@@ -170,10 +78,8 @@ function onClickOutside(e) {
     }
     e.target.nextElementSibling.classList.toggle('inactiveResultList')
   }
+
 }
-
-
-
 
 // Need to append the classes to the formkit-outer element
 props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.identifier
@@ -193,41 +99,36 @@ window.addEventListener("click", onClickOutside);
 // node.props.isMulti = node.context.context.attrs.multiple;
 
 const setValue = async (e) => {
+
+  if (e.resource === "invalid") return
   // when its a multi input
   if (props.context.attrs.multiple) {
     // check for doubled values
-    if (listOfValues.length != 0) {
+    if (listOfValues.value.length != 0) {
       let filteredProperty = { name: e.name, resource: e.resource };
-      console.log(listOfValues, 'before');
-      let filteredList = listOfValues.filter((element) => element.name != e.name);
+      // console.log(listOfValues.value, 'before');
+      let filteredList = listOfValues.value.filter((element) => element.name != e.name);
       filteredList.push(filteredProperty)
-      listOfValues = filteredList;
-      console.log(filteredList, 'after');
-      await props.context.node.input(listOfValues);
+      listOfValues.value = filteredList;
+      // console.log(filteredList, 'after');
+      await props.context.node.input(listOfValues.value);
     }
     else {
-      console.log(listOfValues);
-      listOfValues.push({ name: e.name, resource: e.resource })
-      selection = listOfValues
+      listOfValues.value.push({ name: e.name, resource: e.resource })
+      selection = listOfValues.value
       await props.context.node.input(selection);
     }
   }
+  else if (e === "erase") { await props.context.node.input({}); }
   else {
     selection = { name: e.name, resource: e.resource };
     await props.context.node.input(selection);
   }
-
-  // sets the name for the store Key of the Object - also prevents the property from beeing loaded
-  // node.name = node.context.context.attrs.identifier
-
-  selection = {};
-  searchValue = '';
-
+  inputText.value = e.name
 }
 
 const getAutocompleteSuggestions = async () => {
-  let voc = props.context.attrs.voc;
-  let text = searchValue;
+  let text = inputText.value;
   // this.clearAutocompleteSuggestions();
 
   await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: text }).then((response) => {
@@ -235,60 +136,25 @@ const getAutocompleteSuggestions = async () => {
       name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
       resource: r.resource,
     }));
-    node.props.matches = results;
+    matches = results;
   });
 }
 
-// Object.assign(node.context.handlers, {
-//   setValue,
-//   getAutocompleteSuggestions,
-//   selection: (e) => {
-//     // This handler is called when entering data into the search input.
-//     switch (e.key) {
-//       case 'Enter':
-//         return setValue()
-//       case 'ArrowDown':
-//         e.preventDefault();
-//         return select(1)
-//       case 'ArrowUp':
-//         e.preventDefault();
-//         return select(-1)
-//     }
-//   },
-
-//   search(e) {
-//     node.props.searchValue = e.target.value;
-//   },
-//   toggleList(e) {
-
-//     e.target.nextSibling.classList.toggle('inactiveResultList');
-//   },
-//   removeProperty(e) {
-//     node.reset();
-//   },
-//   
-// })
-
-
-// Perform filtering when the search value changes
-// node.on('prop:searchValue', async ({ payload: value }) => {
-//   node.context.handlers.getAutocompleteSuggestions();
-// });
-
 function removeProperty(e) {
   props.context.value = {}
-  savetoLocal.saveFormValues({ property: property, page: page, distid: id, values: formValues })
+  setValue('erase');
+  // savetoLocal.saveFormValues({ property: property, page: page, distid: id, values: formValues })
 
 }
 function removeMultipleProperty(e) {
   // Get Index in the array where all values of the Span are stored and cut it out of the list of Values
-  listOfValues.splice(listOfValues.findIndex((element) => element.name == e.name), 1)
-  selection = listOfValues;
+  listOfValues.value.splice(listOfValues.value.findIndex((element) => element.name == e.name), 1)
+  selection = listOfValues.value;
   props.context.node.input(selection);
 }
 
 function toggleList(e) {
-  console.log(matches);
+  inputText.value = "";
   e.target.nextElementSibling.classList.toggle('inactiveResultList');
 }
 </script>
@@ -302,11 +168,11 @@ function toggleList(e) {
         <div class="removeX" @click="removeProperty"></div>
       </div>
       <div v-else>
-        <input class="autocompleteInputfield formkit-inner mb-2" placeholder="Search for fitting properties" type="text"
-          @click="toggleList" @onKeydown="handlers.selection" @onInput="$handlers.search">
+        <input class="autocompleteInputfield formkit-inner mb-2" placeholder="Search for fitting properties"
+          v-model="inputText" type="text" @click="toggleList">
         <ul class="autocompleteResultList inactiveResultList">
           <li v-for="match in matches" :key="match" @click="setValue(match)"
-            class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }} </li>
+            class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}</li>
         </ul>
         <div class="d-flex flex-wrap">
           <div class="activeResultsAutocompleteWrapper" v-for="item in props.context.value" :key="item">
