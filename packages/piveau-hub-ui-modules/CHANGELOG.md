@@ -1,3 +1,12 @@
+## [3.16.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.1...v3.16.2) (2024-02-05)
+
+
+### Bug Fixes
+
+* issue 3373 Remove text-underline from "embed Feature"  https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/3373 ([7ddde09](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/7ddde094a2aaea6a98e61b7727e507f80a0e0787))
+
+
+
 ## [3.16.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.14.10...v3.16.1) (2024-02-05)
 
 
