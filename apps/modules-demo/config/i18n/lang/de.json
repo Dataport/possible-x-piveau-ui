@@ -212,7 +212,13 @@
                     "close": "Schließen",
                     "coupleOfMinutes": "(dies kann einige Minuten in Anspruch nehmen.)",
                     "notDownloadedTooltip": "Einzelheiten sind der beigefügten Datei_report.csv-Datei zu entnehmen.",
-                    "downloadPopup": "Wenn Sie fortfahren, laden Sie Inhalte von externen Diensten. Diese externen Dienste werden nicht von der Europäischen Kommission gepflegt und daher haben wir keinen Einfluss auf deren Verfügbarkeit/Stabilität/Sicherheit."
+                    "downloadPopup": "Wenn Sie fortfahren, laden Sie Inhalte von externen Diensten. Diese externen Dienste werden nicht von der Europäischen Kommission gepflegt und daher haben wir keinen Einfluss auf deren Verfügbarkeit/Stabilität/Sicherheit.",
+                    "height": "Höhe",
+                    "embedText": "Integrieren Sie dieses Datenset auf Ihrer Website",
+                    "width": "Breite",
+                    "copy": "Code kopieren",
+                    "code": "Quellcode",
+                    "embed": "Einfügen"
                 },
                 "leavePageWindow": {
                     "text": "Möchten Sie wirklich ausreisen? Das Herunterladen wird nach Ihrer Abreise gestoppt!"
