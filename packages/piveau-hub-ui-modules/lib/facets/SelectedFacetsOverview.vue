@@ -47,10 +47,11 @@
     },
     computed: {
       isErpdActive() {
-        const isDatasetsErpd = this.$route.path === '/datasets' && this.$route.query.superCatalogue === 'erpd';
+        const isDatasetsErpd = this.$route.path === '/datasets' && this.$route.query.superCatalog === 'erpd';
         let isCataloguesErpd = false;
         if (this.$route.path === '/catalogues') {
-          const cat = 'http://data.europa.eu/88u/catalogue/erpd';
+          const cat = 'erpd';
+          // const cat = 'http://data.europa.eu/88u/catalogue/erpd';
           const sc = this.$route.query.superCatalog;
           if (sc === cat) isCataloguesErpd = true;
           if (sc.constructor === Array && sc.length > 0 && sc[0] === cat) isCataloguesErpd = true;
@@ -62,13 +63,7 @@
 
         this.defaultFacetOrder.forEach((facet) => {
           if (this.showCatalogDetails && facet === 'catalog') return;
-          if (this.showCatalogDetails && facet === 'erpd') return;
-          if (facet === 'erpd' && this.isErpdActive) { // Special case: erpd facet
-            orderedFacets.push({
-              field: 'erpd',
-              facets: ['true'],
-            });
-          }
+          if (this.showCatalogDetails && facet === 'superCatalog') return;
           Object.keys(this.getSelectedFacets).forEach((field) => {
             if (facet === field && this.getSelectedFacets[field].length > 0) orderedFacets.push({
               field,
@@ -155,7 +150,7 @@
           let title = ""
           if(fieldId==='scoring'){
            title=this.$t('message.header.navigation.data.metadataquality')
-           
+
           }else if(fieldId==='subject'){
             title = 'Eurovoc Keyword'
           }else{
@@ -172,16 +167,15 @@
         }
       },
       removeSelectedFacet(field, facet) {
-        if (field === 'erpd') {
+        if (field === 'superCatalog') {
           const query = Object.assign({}, this.$route.query)
-          if (this.$route.path === '/datasets') delete query.superCatalogue;
+          delete query.superCatalog;
           if (this.$route.path === '/catalogues') {
-            delete query.superCatalog;
             delete query.showsubcatalogs;
           }
           this.$router.push({
             query
-          })
+          });
         } else {
           this.toggleFacet(field, facet);
         }

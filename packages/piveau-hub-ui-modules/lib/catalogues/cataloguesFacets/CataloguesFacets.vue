@@ -251,11 +251,13 @@
       isErpd() {
         const superCatalogs = this.$route.query['superCatalog'];
         const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
-        return superCatalog === 'http://data.europa.eu/88u/catalogue/erpd' ?  'true' : 'false';
+        return superCatalog === 'erpd' ?  'true' : 'false';
+        // return superCatalog === 'http://data.europa.eu/88u/catalogue/erpd' ?  'true' : 'false';
       },
       changeErpd(erpd) {
         //https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&facets={%22superCatalog%22:[%22http://data.europa.eu/88u/catalogue/erpd%22]}
-        const erdpCatalog = 'http://data.europa.eu/88u/catalogue/erpd';
+        const erdpCatalog = 'erpd';
+        // const erdpCatalog = 'http://data.europa.eu/88u/catalogue/erpd';
         const superCatalogs = this.$route.query['superCatalog'];
         const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
         if ((erpd === 'false' && superCatalog === erdpCatalog) || (erpd === 'true' && superCatalog !== erdpCatalog)) {

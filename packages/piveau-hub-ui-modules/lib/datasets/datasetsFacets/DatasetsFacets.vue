@@ -31,17 +31,17 @@
             :change="changeDataServices"
           />
           <radio-facet
-            v-if="(field.id === 'erpd')"
+            v-if="(field.id === 'superCatalog')"
             :title="erpd.title"
             :property="erpd.property"
             :toolTipTitle="erpd.toolTipTitle"
             :optionIds="['true', 'false']"
             :optionLabels="[erpd.yes, erpd.no]"
-            :initialOption="isErdp()"
+            :initialOption="isErdp"
             :change="changeErpd"
           />
           <select-facet
-              v-if="(field.id !== 'erpd' && field.id !== 'dataServices')"
+              v-if="(field.id !== 'superCatalog' && field.id !== 'dataServices')"
             :fieldId="field.id"
             :header="facetTitle(field.id)"
             :items="sortByCount(field.items, field.id)"
@@ -172,7 +172,6 @@ export default {
       'getFacetOperator',
       'getFacetGroupOperator',
       'getDataServices',
-      'getSuperCatalogue',
       'getLimit',
       'getMinScoring',
       'getPage',
@@ -180,6 +179,10 @@ export default {
       'getScoringFacets',
     ]),
     resolvedAvailableFacets() {
+      /** this.availableFacets is a prop, currently not used
+       * this.getAllAvailableFacets takes the facet status from the store.
+       * The facet store status is set in Datasets.vue::created. It uses the config array
+       * content.datasets.facets.defaultFacetOrder */
       return this.availableFacets || this.getAllAvailableFacets;
     },
     datasetBoundsWatcher() {
@@ -213,19 +216,19 @@ export default {
       const availableFacets = this.resolvedAvailableFacets;
       const activeFacets = [];
       const inactiveFacets = [];
-
       let activeFields = Object.keys(this.getFacets).filter(key => this.getFacets[key].length > 0);
-
       this.defaultFacetOrder.forEach((facet) => {
         availableFacets.forEach((field) => {
           if (facet === field.id && field.items.length > 0
-            && (field.id !== 'country' || this.dataScope || this.$route.path === '/catalogues/erpd' || this.$route.query.superCatalogue === 'erpd')
+            && (field.id !== 'country' || this.dataScope || this.$route.path === '/catalogues/erpd' || this.$route.query.superCatalog === 'erpd')
             && (field.id !== 'catalog' || this.useCatalogFacets)
             && (field.id !== 'scoring' || this.useScoringFacets)
             && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
-              if(activeFields.includes(field.id)) activeFacets.push(field);
-              else inactiveFacets.push(field);
-              }
+              if(activeFields.includes(field.id))
+                activeFacets.push(field);
+              else
+                inactiveFacets.push(field);
+            }
         });
       });
       const sortedFacets = activeFacets.concat(inactiveFacets);
@@ -244,6 +247,16 @@ export default {
       return languages
         .map(lang => lang && lang.id)
         .filter(lang => lang);
+    },
+    isErdp() {
+      if (this.$route.path === '/catalogues/erpd') {
+        return 'true';
+      } else {
+      // if (this.$route.path.startsWith('/datasets')) {
+        const superCatalogs = this.getFacets.superCatalog;
+        return (superCatalogs && superCatalogs[0] === 'erpd') ? 'true' : 'false'
+      }
+      // return 'false';
     }
   },
   methods: {
@@ -264,7 +277,7 @@ export default {
       'removeFacet',
       'setFacetGroupOperator',
       'setDataServices',
-      'setSuperCatalogue',
+      'setSuperCatalogue_DEPRECATED', // !!!!! Project specific (Bayern). Should be removed as soon as possible !!!!
       'setPage',
       'setPageCount',
       'setMinScoring',
@@ -410,21 +423,6 @@ export default {
       }
       this.$router.replace({ query });
     },
-    isErdp() {
-      if (this.$route.path === '/catalogues/erpd') {
-        return 'true'
-      } else {
-        return this.getSuperCatalogue === 'erpd' ? 'true' : 'false'
-      }
-    },
-    changeSuperCatalogue(superCatalogue) {
-      this.setSuperCatalogue(superCatalogue === 'false'? undefined : superCatalogue);
-      const query = Object.assign({}, this.$route.query, { superCatalogue, page: 1 });
-      if (superCatalogue === 'false') {
-        delete query.superCatalogue;
-      }
-      this.$router.replace({ query });
-    },
     changeErpd(erpd) {
       if (this.$route.path === '/catalogues/erpd') {
         const query = Object.assign({}, this.$route.query, { page: 1 });
@@ -433,7 +431,12 @@ export default {
           query
         });
       } else {
-        this.changeSuperCatalogue(erpd === 'true' ? 'erpd' : 'false');
+        const superCatalog = erpd === 'true' ? 'erpd' : 'false';
+        const query = Object.assign({}, this.$route.query, { superCatalog, page: 1 });
+        if (superCatalog === 'false') {
+          delete query.superCatalog;
+        }
+        this.$router.replace({ query });
       }
     },
     resetPage() {
@@ -501,13 +504,12 @@ export default {
     this.initMinScoring();
     for(var i in sessionStorage){
       if(sessionStorage.length > 0 && i =="Filter") this.toggleCutoff();
-
     }
     /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
     /* fill in here */
     // Note: sets fixedCatalogFilter as superCatalogue as 'fallback'
     // This is necessary for Open Data Bayern to work properly.
-    this.setSuperCatalogue(this.$route.query.superCatalogue || this.fixedCatalogFilter);
+    this.setSuperCatalogue_DEPRECATED(this.fixedCatalogFilter);
   }
 };
 </script>
