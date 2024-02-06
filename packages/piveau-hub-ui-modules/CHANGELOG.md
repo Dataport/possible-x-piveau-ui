@@ -1,4 +1,4 @@
-## [3.16.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.3...v3.16.4) (2024-02-06)
+## [3.16.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.3...v3.16.5) (2024-02-06)
 
 
 ### Bug Fixes
