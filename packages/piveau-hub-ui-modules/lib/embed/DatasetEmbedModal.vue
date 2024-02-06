@@ -11,7 +11,7 @@
                </span>
             </button>
             <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">{{ $t('message.datasetDetails.datasets.modal.embedText') }}</h5>
+               <h5  class="modal-title" id="exampleModalLabel" style="display: inline-block;">{{ $t('message.datasetDetails.datasets.modal.embedText') }}</h5>
             </div>
             <div class="modal-body">
                <div class="container" style="padding:0; margin:0;">
@@ -116,6 +116,7 @@ export default {
 
 <style scoped lang="scss">
 .modal-title {
+  float: left!important;
   font-family: 'Arial';
   font-style: normal;
   font-weight: 700;
@@ -172,7 +173,7 @@ export default {
 .input-with-px {
   position: relative;
   margin-top: 5px;
-  
+
 }
 
 .input-with-px input {
