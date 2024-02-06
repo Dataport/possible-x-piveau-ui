@@ -3,14 +3,11 @@ import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { mapActions } from 'vuex';
+import { object } from 'zod';
 
 const props = defineProps({
   context: Object
 })
-const savetoLocal = mapActions('dpiStore', [
-  'saveFormValues',
-  'saveLocalstorageValues',
-])
 const store = useStore();
 
 // ToDo need to make the list editable - maybe add a cache List
@@ -18,14 +15,14 @@ let listOfValues = computed(() => {
   return props.context.value;
 })
 
-let localStorageProperty;
 let selection;
 let voc = props.context.attrs.voc;
 let matches;
 let inputText = ref({});
+let cacheList = [];
 
 const loadMatches = async () => {
-  matches = [{ name: '--- Type in the name of the fitting property for a live search of the vocabulary ---', resource: 'invalid' }]
+  matches = [{ name: '--- Type in anything for a live search of the vocabulary ---', resource: 'invalid' }]
   await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
     const results = response.data.result.results.map((r) => ({
       name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
@@ -34,12 +31,13 @@ const loadMatches = async () => {
     matches = results;
   });
 }
+
 onBeforeMount(() => {
   loadMatches();
 
 })
 onMounted(async () => {
-findPropertyToUpdate();
+
   inputText.value = ""
   // console.log('Context: ', props.context);
 });
@@ -48,14 +46,31 @@ watch(inputText, async () => {
   getAutocompleteSuggestions();
 }
 )
-function findPropertyToUpdate(item){
+function findPropertyToUpdate() {
+  let finalPath = { step: '', prop: props.context.node.name }
   let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
-if (item = ""){ 
 
-  console.log(pathToLocalStorage);
+  for (let index = 0; index < Object.keys(pathToLocalStorage.step1).length; index++) {
+    for (let innerIndex = 0; innerIndex < Object.keys(pathToLocalStorage.step1)[index].length; innerIndex++) {
+      let ntry = Object.entries((pathToLocalStorage.step1))
+      try {
+        Object.keys(ntry[index][innerIndex]).filter(e => {
+          if (e === props.context.node.name) {
+            finalPath.step = ntry[index][0]
 
-}
-else{}
+            if (typeof selection === 'object') {
+              console.log(finalPath.prop);
+              pathToLocalStorage.step1[finalPath.step][finalPath.prop] = selection
+            }
+            else pathToLocalStorage.step1[finalPath.step][finalPath.prop] = cacheList
+            localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
+          }
+        });
+      } catch (error) {
+      }
+    }
+  }
+
 }
 // Catches the OutsideClick for the input fields
 function onClickOutside(e) {
@@ -99,32 +114,36 @@ window.addEventListener("click", onClickOutside);
 // node.props.isMulti = node.context.context.attrs.multiple;
 
 const setValue = async (e) => {
-
-  if (e.resource === "invalid") return
+  if (listOfValues.value.length > 0) {
+    cacheList = listOfValues.value
+  }
   // when its a multi input
   if (props.context.attrs.multiple) {
     // check for doubled values
-    if (listOfValues.value.length != 0) {
+    if (cacheList.length != 0) {
       let filteredProperty = { name: e.name, resource: e.resource };
-      // console.log(listOfValues.value, 'before');
-      let filteredList = listOfValues.value.filter((element) => element.name != e.name);
+      // console.log(cacheList, 'before');
+      let filteredList = cacheList.filter((element) => element.name != e.name);
       filteredList.push(filteredProperty)
-      listOfValues.value = filteredList;
+      cacheList = filteredList;
       // console.log(filteredList, 'after');
-      await props.context.node.input(listOfValues.value);
+      await props.context.node.input(cacheList);
     }
     else {
-      listOfValues.value.push({ name: e.name, resource: e.resource })
-      selection = listOfValues.value
+      cacheList.push({ name: e.name, resource: e.resource })
+      selection = cacheList
       await props.context.node.input(selection);
     }
+
   }
+  else if (e.resource === "invalid") return
   else if (e === "erase") { await props.context.node.input({}); }
   else {
     selection = { name: e.name, resource: e.resource };
     await props.context.node.input(selection);
   }
-  inputText.value = e.name
+  // inputText.value = e.name
+  findPropertyToUpdate();
 }
 
 const getAutocompleteSuggestions = async () => {
@@ -143,16 +162,19 @@ const getAutocompleteSuggestions = async () => {
 function removeProperty(e) {
   props.context.value = {}
   setValue('erase');
-  // savetoLocal.saveFormValues({ property: property, page: page, distid: id, values: formValues })
+  findPropertyToUpdate();
 
 }
 function removeMultipleProperty(e) {
+  if (listOfValues.value.length > 0) {
+    cacheList = listOfValues.value
+  }
   // Get Index in the array where all values of the Span are stored and cut it out of the list of Values
-  listOfValues.value.splice(listOfValues.value.findIndex((element) => element.name == e.name), 1)
-  selection = listOfValues.value;
+  cacheList.splice(cacheList.findIndex((element) => element.name == e.name), 1)
+  selection = cacheList;
   props.context.node.input(selection);
+  findPropertyToUpdate();
 }
-
 function toggleList(e) {
   inputText.value = "";
   e.target.nextElementSibling.classList.toggle('inactiveResultList');
