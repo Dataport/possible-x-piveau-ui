@@ -46,12 +46,12 @@
                </div>
                <div class="ecl-form-group">
                   <label class="ecl-form-label" for="ebmedTextarea" style="font-size:18px; font-weight: 400; color: #000000;">{{ $t('message.datasetDetails.datasets.modal.code')}}</label>
-                  <textarea id="ebmedTextarea" style="width: 100%; resize: none; padding: 20px 25px 0px 20px; overflow: hidden; font-size:18px; line-height: 1.1; color:#888888; margin-top: 1.375rem; word-break: break-all;"
+                  <textarea id="ebmedTextarea" style="width: 100%; resize: none; padding: 20px 25px 0px 20px; overflow: hidden; font-size:18px; line-height: 1.1; color:#888888; margin-top: 1.375rem; word-break: break-all;float: left!important;"
                      class="ecl-text-area ecl-text-area--m" rows="4" :value="embedCode" readonly></textarea>
                </div>
             </div>
             <div class="modal-footer justify-content-start">
-               <button @click="copy" class="ecl-button ecl-button--secondary px-4 py-3" type="button">{{ $t('message.datasetDetails.datasets.modal.copy')}}</button>
+               <button @click="copy" class="ecl-button ecl-button--secondary px-4 py-3" style="float: left!important;" type="button">{{ $t('message.datasetDetails.datasets.modal.copy')}}</button>
                <span v-show="copied" class="copied">
                   <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <g clip-path="url(#clip0_13_474)">
