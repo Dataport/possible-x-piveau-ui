@@ -52,6 +52,11 @@ export default {
       this.change(id);
     }
   },
+  watch: {
+    initialOption(value) {
+      this.option = value;
+    }
+  },
   mounted() {
     // this.id = this.myId; // eslint-disable-line
     this.id = this._uid; // eslint-disable-line
