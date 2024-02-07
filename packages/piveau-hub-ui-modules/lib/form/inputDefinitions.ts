@@ -5,35 +5,22 @@ import FormKitGroup from "./formKitGroup.vue";
 
 import AutocompleteInput from "../data-provider-interface/components/AutocompleteInput.vue";
 import FileUpload from "../data-provider-interface/components/FileUpload.vue";
-import UniqueIdentifierInput from "../data-provider-interface/components/UniqueIdentifierInput.vue";
+import UniqueIdentifierInputNew from "../data-provider-interface/components/UniqueIdentifierInputNew.vue";
 
 export default {
     repeatable: {
         type: 'list',
         component: Repeatable
     },
-    // auto: {
-    //     type: 'input',
-    //     props: ['voc'],
-    //     component: AutocompleteInput,
-    // },
     id: {
-        type: 'group',
-        component: UniqueIdentifierInput
+        type: 'input',
+        component: UniqueIdentifierInputNew,
+        props:['titleValue']
     },
     auto: {
         type: 'group',
-        props: ['voc'],
         component: AutocompleteInput
     },
-    formkitgroup: {
-        type:'group',
-        component:FormKitGroup
-    },
-    // auto:createInput(AutocompleteInput, {props: ['voc'],}),
     fileupload: createInput(FileUpload, {}),
-    // id: createInput(UniqueIdentifierInput, {}),
-    // cc: createInput(ComplexConditionalInput, {}),
-
 
 } as FormKitLibrary;

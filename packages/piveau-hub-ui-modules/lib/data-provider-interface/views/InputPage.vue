@@ -27,13 +27,13 @@
                     <!-- v-text="step.errorCount + step.blockingCount" /> -->
                   {{ camel2title(stepName) }}
                 </div>
-
-                <div v-if="index + 1 != Object.keys(getNavSteps[property]).length" class="seperatorHorizontalStepper"></div>
+                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
                 <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div>
               </li>
 
               <li class="step inactiveStep" v-if="activeStep === 'overview'">
                 <div class="circle stepCircle"></div>
+
               </li>
 
             </ul>
@@ -176,6 +176,7 @@ export default defineComponent({
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
+        console.log(this.property);
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
         const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, page: this.page, id: this.id });
         // only overwrite empty object if there are values (otherwise the language preselection is gone)
@@ -191,27 +192,32 @@ export default defineComponent({
         });
       }
     },
-    // async initCatalogues() {
-    //   await axios
-    //     .get('https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&limit=100')
-    //     .then(response => (this.info = response))
-    //   this.info.data.result.results.forEach((e) => {
-    //     this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
-    //   });
-    //   this.findcatalogues()
-    //   // need to forceupdate to display the filtered catalogues
-    //   this.$forceUpdate();
-    // },
-    // findcatalogues() {
-    //   for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
-    //     for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
-    //       if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
-    //         this.getUserCatalogIds[i] = this.catalogues[a].title;
-    //         break
-    //       }
-    //     }
-    //   }
-    // },
+    async initCatalogues() {
+      await axios
+        .get(this.$env.api.baseUrl + 'search?filter=catalogue&limit=100')
+        .then(response => (this.info = response))
+      this.info.data.result.results.forEach((e) => {
+        console.log(this.info, this.catalogues);
+        try {
+          this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
+        } catch (error) {
+        }
+      });
+      this.findcatalogues()
+      // need to forceupdate to display the filtered catalogues
+      this.$forceUpdate();
+    },
+    findcatalogues() {
+      for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
+        for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
+          if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
+            this.getUserCatalogIds[i] = this.catalogues[a].title;
+            console.log(this.getUserCatalogIds[i]);
+            break
+          }
+        }
+      }
+    },
     clear() {
       this.clearValues();
       this.clearAll();
@@ -285,7 +291,7 @@ export default defineComponent({
   },
   mounted() {
     this.initInputPage();
-    // this.initCatalogues();
+    this.initCatalogues();
   },
   watch: {
     getFirstTitleFromForm: {

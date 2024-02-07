@@ -119,6 +119,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'id',
       mandatory: true,
       name: 'datasetID',
+      id:'datasetID'
     },
     description: {
       identifier: 'description',
@@ -460,20 +461,14 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     theme: {
-      identifier: 'theme',
-      $formkit: 'auto',
-      multiple: true,
-      annifTheme: true,
-      voc: 'data-theme',
-      '@annifSuggestion': false,
-      name: 'dcat:theme',
-      id: 'theme',
-      classes: {
-        multiple: 'multiple',
-        outer: 'w88-textfield'
-      },
-
-
+          identifier: 'theme',
+          $formkit: 'auto',
+          multiple: true,
+          annifTheme: true,
+          voc: 'data-theme',
+          '@annifSuggestion': false,
+          name: 'dcat:theme',
+          id: 'theme',
     },
     accessRights: {
       identifier: 'accessRights',

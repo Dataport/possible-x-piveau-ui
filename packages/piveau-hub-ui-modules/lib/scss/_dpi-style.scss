@@ -530,6 +530,124 @@
 }
 
 // -------------------------------------------------------
+.theme {
+    .formkit-inner {
+        display: flex;
+        flex-direction: column;
+        border-bottom: none;
+
+        &:focus-within {
+            margin-top: 10px;
+            box-shadow: none;
+            background-color: unset;
+            border-bottom: none;
+        }
+
+        input {
+            border-bottom: 1px solid #6610f2;
+            margin-bottom: 0.5rem;
+            transition: all 100ms ease-in-out;
+
+            &:focus-within {
+                margin-top: 10px;
+                box-shadow: none;
+                background-color: #efefef;
+                border-bottom: 3px solid $primary;
+            }
+        }
+    }
+}
+
+.publisher {
+    .formkit-inner {
+        &:focus-within {
+            margin-top: 10px;
+            box-shadow: none;
+            background-color: unset;
+
+            border-bottom: none;
+        }
+    }
+    input {
+        
+        transition: all 100ms ease-in-out;
+
+        &:focus-within {
+            margin-top: 10px;
+            box-shadow: none;
+            background-color: #efefef;
+            border-bottom: 3px solid $primary;
+        }
+    }
+}
+
+.activeResultsAutocompleteWrapper {
+    padding: 1rem;
+    margin: 0 1rem 1rem 0;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    transition: all 100ms ease-in-out;
+    display: flex;
+
+    &:hover {
+        color: #196fd2;
+    }
+
+    .removeX {
+        margin-right: 0;
+    }
+}
+
+.inactiveResultList {
+    display: none;
+}
+
+.autocompleteInputSingleValue {
+    line-height: 3rem;
+    margin-right: auto;
+    color: #000;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.autocompleteInputfield {
+    width: 100%;
+    border: none;
+    line-height: 3rem;
+    transition: all 100ms ease-in-out;
+
+    &:focus {
+        border: none;
+        box-shadow: none;
+        background-color: #efefef;
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.autocompleteResultList {
+    -webkit-box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 53pxpx;
+    background-color: white;
+    z-index: 999;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    cursor: pointer;
+
+    li {
+        &:nth-child(even) {
+            background-color: #efefef;
+        }
+    }
+}
+
 .listItemsByte{
     border: 1px solid lightgray;
     cursor: pointer;
@@ -980,7 +1098,9 @@
 
     }
 }
-
+.formkitCmpWrap{
+    border-left: 1px solid lightgray;
+}
 .inactiveStep {
     .stepCircle {
         width: 25px;
