@@ -35,7 +35,7 @@ onBeforeMount(() => {
 onMounted(async () => {
 
   inputText.value = ""
-  console.log('Context: ', props.context);
+  // console.log('Context: ', props.context);
 });
 
 watch(inputText, async () => {
@@ -86,7 +86,7 @@ function onClickOutside(e) {
         element[i].classList.toggle("inactiveResultList");
       }
     }
-    e.target.nextElementSibling.classList.toggle('inactiveResultList')
+    e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList')
   }
 
 }
@@ -174,7 +174,7 @@ function removeMultipleProperty(e) {
 }
 function toggleList(e) {
   inputText.value = "";
-  e.target.nextElementSibling.classList.toggle('inactiveResultList');
+  e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList');
 }
 </script>
 
