@@ -616,6 +616,7 @@
     width: 100%;
     border: none;
     line-height: 3rem;
+    transition: all 100ms ease-in-out;
 
     &:focus {
         border: none;
