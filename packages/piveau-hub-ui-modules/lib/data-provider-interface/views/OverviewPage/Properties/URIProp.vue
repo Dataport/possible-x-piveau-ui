@@ -101,7 +101,7 @@ export default {
 
             // New function to gather values from multiURIs -ToDo return to the requestResourceName function because this way
             this.namesOfMulti = this.data[this.property];
-            console.log(this.namesOfMulti);
+            // console.log(this.namesOfMulti);
             // 
             
             // this.namesOfMulti.push(preValues.name)

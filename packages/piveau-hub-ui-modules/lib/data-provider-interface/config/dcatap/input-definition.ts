@@ -479,7 +479,7 @@ const dcatapProperties: InputDefinition = {
     },
     creator: {
       identifier: 'creator',
-      $formkit: 'formkitgroup',
+      $formkit: 'group',
       name: 'dct:creator',
       children: [
         {
@@ -968,7 +968,7 @@ const dcatapProperties: InputDefinition = {
     },
     issued: {
       identifier: 'issued',
-      $formkit: 'formkitgroup',
+      $formkit: 'group',
       name: 'dct:issued',
       children: [
         {
@@ -1008,7 +1008,7 @@ const dcatapProperties: InputDefinition = {
     },
     modified: {
       identifier: 'modified',
-      $formkit: 'formkitgroup',
+      $formkit: 'group',
       name: 'dct:modified',
       children: [
         {
@@ -1054,7 +1054,7 @@ const dcatapProperties: InputDefinition = {
     },
     temporalResolution: {
       identifier: 'temporalResolution',
-      $formkit: 'formkitgroup',
+      $formkit: 'group',
       name: 'dcat:temporalResolution',
       children: [
         {

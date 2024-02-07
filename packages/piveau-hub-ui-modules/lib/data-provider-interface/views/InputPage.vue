@@ -19,16 +19,14 @@
                   'has-errors': checkStepValidity(stepName),
                 }" 
                 @click="activeStep = stepName">
-
-
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
                   <span v-if="checkStepValidity(stepName)" class="step--errors"/>
                     <!-- v-text="step.errorCount + step.blockingCount" /> -->
                   {{ camel2title(stepName) }}
                 </div>
-                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
-                <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div>
+                <div v-if="index + 1 != getNavSteps[property].length" class="seperatorHorizontalStepper"></div>
+                <div v-if="activeStep === 'Overview'" class="seperatorHorizontalStepper"></div>
               </li>
 
               <li class="step inactiveStep" v-if="activeStep === 'overview'">
@@ -71,6 +69,7 @@ import {
 import DistributionInputPage from './DistributionInputPage.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
+import axios from 'axios';
 
 export default defineComponent({
   props: {
@@ -92,6 +91,7 @@ export default defineComponent({
       info: {},
       catalogues: [],
       byte: true,
+      // steps:{},
       camel2title: (str) =>
         str
           .replace(/([A-Z])/g, (match) => ` ${match}`)
@@ -176,7 +176,7 @@ export default defineComponent({
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
-        console.log(this.property);
+        // console.log(this.property);
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
         const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, page: this.page, id: this.id });
         // only overwrite empty object if there are values (otherwise the language preselection is gone)
@@ -197,7 +197,7 @@ export default defineComponent({
         .get(this.$env.api.baseUrl + 'search?filter=catalogue&limit=100')
         .then(response => (this.info = response))
       this.info.data.result.results.forEach((e) => {
-        console.log(this.info, this.catalogues);
+        // console.log(this.info, this.catalogues);
         try {
           this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
         } catch (error) {

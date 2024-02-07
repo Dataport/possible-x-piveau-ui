@@ -27,13 +27,12 @@ const getters = {
      */
     getRawValues: (state) => ({ property, page, id }) => {
         let data;
-
         if (id) {
-            data = state[property][id][page];
+            data = state[property];
         } else {
-            data = state[property][page];
+            data = state[property];
         }
-
+       
         return data;
     },
     /**
@@ -54,6 +53,8 @@ const getters = {
         } else {
             data = generalHelper.mergeNestedObjects(state[property])
         }
+       
+        
         return data;
     },
     /**
@@ -80,9 +81,9 @@ const actions = {
      * @param param0 
      * @param param1 Object containing property, page, distrbution id and form values
      */
-    saveFormValues({ commit }, { property, page, distid, values }) {
+    saveFormValues({ commit }, { property, distid, values }) {
 
-        commit('saveFormValuesToStore', { property, page, distid, values });
+        commit('saveFormValuesToStore', { property, distid, values });
 
     },
     /**
@@ -182,6 +183,7 @@ const mutations = {
      */
     saveFormValuesToStore(state, { property, distid, values }) {
 
+        
         if (distid) {
             state[property][distid] = values;
             localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));

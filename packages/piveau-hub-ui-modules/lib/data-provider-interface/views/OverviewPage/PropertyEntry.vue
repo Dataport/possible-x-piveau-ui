@@ -4,7 +4,9 @@
 
             <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
 
-            <URIProp :property="property" :value="value" :data="data"><p>{{ value.type }}</p></URIProp>
+            <URIProp :property="property" :value="value" :data="data">
+                <p>{{ value.type }}</p>
+            </URIProp>
             <URLProp :property="property" :value="value" :data="data"></URLProp>
             <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
             <ConditionalProp :property="property" :value="value" :data="data"></ConditionalProp>
@@ -17,7 +19,8 @@
                     </div>
                 </div>
                 <div v-else>
-                    <SpecialProp :property="property" :value="value" :data="data[property]" :dpiLocale="dpiLocale"></SpecialProp>
+                    <SpecialProp :property="property" :value="value" :data="data[property]" :dpiLocale="dpiLocale">
+                    </SpecialProp>
                 </div>
 
             </div>
@@ -51,8 +54,18 @@ export default {
         distId: Number,
     },
     methods: {
+        // Check if there's a valid value present
         showValue(property, value) {
-            return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
+            try {
+                if (!isEmpty(property[value][0])) {
+                    console.log(property[value][0], value);
+                    if (!isEmpty(property[value][0]['@language'])) {
+                    }
+                    else if (value === "foaf:page") { }
+                    else return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
+                }
+            } catch (error) {
+            }
         },
     }
 }
