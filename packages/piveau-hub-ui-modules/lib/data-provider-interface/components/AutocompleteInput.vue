@@ -2,15 +2,12 @@
 import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
-import { mapActions } from 'vuex';
-import { object } from 'zod';
 
 const props = defineProps({
   context: Object
 })
 const store = useStore();
 
-// ToDo need to make the list editable - maybe add a cache List
 let listOfValues = computed(() => {
   return props.context.value;
 })
@@ -20,7 +17,6 @@ let voc = props.context.attrs.voc;
 let matches;
 let inputText = ref({});
 let cacheList = [];
-
 const loadMatches = async () => {
   matches = [{ name: '--- Type in anything for a live search of the vocabulary ---', resource: 'invalid' }]
   await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
@@ -39,7 +35,7 @@ onBeforeMount(() => {
 onMounted(async () => {
 
   inputText.value = ""
-  // console.log('Context: ', props.context);
+  console.log('Context: ', props.context);
 });
 
 watch(inputText, async () => {
@@ -59,7 +55,6 @@ function findPropertyToUpdate() {
             finalPath.step = ntry[index][0]
 
             if (typeof selection === 'object') {
-              console.log(finalPath.prop);
               pathToLocalStorage.step1[finalPath.step][finalPath.prop] = selection
             }
             else pathToLocalStorage.step1[finalPath.step][finalPath.prop] = cacheList
@@ -98,9 +93,6 @@ function onClickOutside(e) {
 
 // Need to append the classes to the formkit-outer element
 props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.identifier
-
-//need to append the right label to the field ###############    TODO     ################
-// props.context.label = props.context.attrs.identifier
 
 // // Register the outside click to close the list of suggested values
 window.addEventListener("click", onClickOutside);
@@ -158,6 +150,11 @@ const getAutocompleteSuggestions = async () => {
     matches = results;
   });
 }
+function toTitleCase(str) {
+  return str.toLowerCase().replace(/(^|\s|-|\')(\w)/g, function (match) {
+    return match.toUpperCase();
+  });
+}
 
 function removeProperty(e) {
   props.context.value = {}
@@ -182,16 +179,27 @@ function toggleList(e) {
 </script>
 
 <template>
-  <h4>{{ props.context.attrs.identifier }}</h4>
+  <h4>{{ toTitleCase(props.context.attrs.identifier) }}</h4>
   <div class="formkitCmpWrap">
     <div class="formkit-outer ">
+
       <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
+        <!-- <label class="formkit-label" for="autocompleteInputSingleValue">{{ props.context.attrs.identifier }}</label> -->
+        <div class="infoI">
+          <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
+        </div>
         <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
         <div class="removeX" @click="removeProperty"></div>
       </div>
       <div v-else>
-        <input class="autocompleteInputfield formkit-inner mb-2" placeholder="Search for fitting properties"
-          v-model="inputText" type="text" @click="toggleList">
+        <!-- <label class="formkit-label" for="autocompleteInputfield">{{ props.context.attrs.identifier }}</label> -->
+        <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
+          <div class="infoI">
+            <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
+          </div>
+          <input class="autocompleteInputfield" placeholder="Search for fitting properties" v-model="inputText"
+            type="text" @click="toggleList">
+        </div>
         <ul class="autocompleteResultList inactiveResultList">
           <li v-for="match in matches" :key="match" @click="setValue(match)"
             class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}</li>
