@@ -1,8 +1,8 @@
-## [3.16.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.6...v3.16.7) (2024-02-07)
+## [3.16.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.7...v3.16.8) (2024-02-08)
 
 
 
-## [3.16.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.5...v3.16.6) (2024-02-07)
+## [3.16.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.5...v3.16.7) (2024-02-07)
 
 
 
@@ -160,7 +160,11 @@
 
 
 
-## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.4) (2023-12-21)
+## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.3...v3.15.4) (2023-12-21)
+
+
+
+## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
 
 
 ### Bug Fixes
