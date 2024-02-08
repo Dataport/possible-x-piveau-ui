@@ -5,8 +5,10 @@
 
   const store = useStore();
   const isEditMode = store.getters['auth/getIsEditMode'];
-
-  // Validation messages
+  const validationMessages = {
+    idformatvalid: "Dataset ID must only contain lower case letters, numbers and single dashes (-). Please choose a different ID.",
+    idunique: "This ID is already in use, please choose a different one."
+  };
 
   async function idunique(node) {
     let isUniqueID = true;
@@ -43,7 +45,8 @@
   <FormKit v-if="!isEditMode" type="text" name="datasetID" id="datasetID"
     :validation-rules="{ idformatvalid, idunique }" 
     validation="idformatvalid|idunique|required" 
-    validation-visibility="live">
+    validation-visibility="live"
+    :validation-messages="validationMessages">
   </FormKit>
   <FormKit v-else type="text" name="datasetID" id="datasetID" :disabled="true"></FormKit>
 </template>
