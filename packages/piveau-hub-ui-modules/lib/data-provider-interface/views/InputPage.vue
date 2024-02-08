@@ -154,16 +154,13 @@ export default defineComponent({
       'getNavSteps',
       'getDeleteDistributionInline',
     ]),
-    getFirstTitleFromForm() {
-      return has(this.formValues, 'dct:title')
-        && this.formValues['dct:title'].length > 0
-        && has(this.formValues['dct:title'][0], '@value')
-        && !isNil(this.formValues['dct:title'][0], '@value')
-        ? this.formValues['dct:title'][0]['@value']
-        : '';
+    getTitleStep() {
+      return Object.keys(this.formValues).filter(key => has(this.formValues[key], 'dct:title'))[0];
     },
     createIDFromTitle() {
-      const title = this.getFirstTitleFromForm;
+
+      const title = this.formValues[this.getTitleStep]['dct:title'][0]['@value'];
+
       if (title != undefined) {
         return title
           .toLowerCase()
@@ -171,10 +168,19 @@ export default defineComponent({
       }
       else return;
     },
+    getFirstTitleFromForm() {
+      const allValues = this.formValues[this.getTitleStep];
+
+      return has(allValues, 'dct:title')
+        && allValues['dct:title'].length > 0
+        && has(allValues['dct:title'][0], '@value')
+        && !isNil(allValues['dct:title'][0], '@value')
+        ? allValues['dct:title'][0]['@value']
+        : '';
+    },
     isInput() {
       return this.$route.params.page !== 'overview' && this.$route.params.page !== 'distoverview';
     },
-
   },
   methods: {
     ...mapActions('auth', [
@@ -234,6 +240,23 @@ export default defineComponent({
         });
       }
     },
+    createDatasetID() {
+      const valueObject = this.formValues[this.getTitleStep];
+
+      // Create Dataset ID from title if not existing
+      if (has(valueObject, 'dct:title') && !isNil(valueObject['dct:title'] && valueObject['dct:title'].length > 0)
+        && has(valueObject['dct:title'][0], '@value') && !isNil(valueObject['dct:title'][0]['@value'])) {
+
+        if (!has(valueObject, 'datasetID') || isNil(valueObject['datasetID'])) {
+          this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
+        }
+        else {
+          if (this.createIDFromTitle.startsWith(valueObject.datasetID) || valueObject.datasetID.startsWith(this.createIDFromTitle)) {
+            this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
+          }
+        }
+      }
+    },
     // async initCatalogues() {
     //   await axios
     //     .get('https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&limit=100')
@@ -289,29 +312,6 @@ export default defineComponent({
         `${this.$env.content.dataProviderInterface.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`,
       ];
       return allowedPaths.filter(el => to.path.startsWith(el)).length > 0;
-    },
-    createDatasetID() {
-      if ((this.property === 'datasets' || this.property === 'catalogues') && this.page === this.getNavSteps[this.property][0]) {
-        // Create Dataset ID from title if not existing
-        if (has(this.formValues, 'dct:title')
-          && !isNil(this.formValues['dct:title']
-            && this.formValues['dct:title'].length > 0)
-          && has(this.formValues['dct:title'][0], '@value')
-          && !isNil(this.formValues['dct:title'][0], '@value')
-          && (!has(this.formValues, 'datasetID')
-            || (has(this.formValues, 'datasetID') && this.createIDFromTitle.startsWith(this.formValues.datasetID))
-            || (has(this.formValues, 'datasetID') && this.formValues.datasetID.startsWith(this.createIDFromTitle)))) {
-          this.formValues.datasetID = this.createIDFromTitle;
-        }
-
-        if (has(this.formValues, 'dct:title')
-          && isArray(this.formValues['dct:title'])
-          && !isNil(this.formValues['dct:title']
-            && this.formValues['dct:title'].length > 0)
-          && has(this.formValues['dct:title'][0], '@value')
-          && isNil(this.formValues['dct:title'][0], '@value')
-          && has(this.formValues, 'datasetID')) this.formValues.datasetID = '';
-      }
     },
   },
   created() {

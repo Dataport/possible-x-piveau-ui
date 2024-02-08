@@ -143,10 +143,10 @@ onMounted(() => {
 watch(matches, async (newValue, oldValue) => {
   oldValue = newValue
 })
-watch(searchValue, async ({ payload: value }) => {
-  getAutocompleteSuggestions();
-}
-)
+// watch(searchValue, async ({ payload: value }) => {
+//   getAutocompleteSuggestions();
+// }
+// )
 
 // Catches the OutsideClick for the input fields
 function onClickOutside(e) {
