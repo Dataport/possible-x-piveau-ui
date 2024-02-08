@@ -6,25 +6,20 @@
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
-        <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]" id="dpiForm"
+        <FormKit type="form" v-model.lazy="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
               <li v-for="(step, stepName, index) in steps" :key="step" 
                 class="step" :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
-                :class="{ 
-                  activeItem: activeStep === stepName, 
-                  inactiveStep: stepName != activeStep,
-                  'has-errors': checkStepValidity(stepName),
-                }" 
+                :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName) }" 
                 @click="activeStep = stepName">
 
 
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
-                  <span v-if="checkStepValidity(stepName)" class="step--errors" v-text="step.errorCount + step.blockingCount" />
-                  {{ camel2title(stepName) }}
+                  <span v-if="checkStepValidity(stepName)" class="step--errors" v-text="step.errorCount + step.blockingCount" />{{ camel2title(stepName) }}
                 </div>
                 <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
                 <!-- <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div> -->
@@ -154,11 +149,7 @@ export default defineComponent({
       'saveLocalstorageValues',
       'addCatalogOptions',
       'clearAll',
-      'setDeleteDistributionInline',
     ]),
-    clearForm() {
-      this.$formkit.reset('dpi')
-    },
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
@@ -192,7 +183,7 @@ export default defineComponent({
             this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
           }
         }
-        }
+      }
     },
     async initCatalogues() {
       await axios
@@ -217,31 +208,6 @@ export default defineComponent({
           }
         }
       }
-    },
-    clear() {
-      this.clearValues();
-      this.clearAll();
-      this.setIsEditMode(false);
-    },
-    clearValues() {
-      this.formValues = {};
-      this.failedFields = [];
-    },
-    handleSubmit() {
-      this.$emit('go-to-next');
-    },
-    getFirstPath() {
-      return `${this.$env.content.dataProviderInterface.basePath}/${this.property}?locale=${this.$i18n.locale}`;
-    },
-    jumpToFirstPage() {
-      this.$router.push(this.getFirstPath()).catch(() => { });
-    },
-    checkPathAllowed(to, from) {
-      let allowedPaths = [
-        `${this.$env.content.dataProviderInterface.basePath}/datasets/`,
-        `${this.$env.content.dataProviderInterface.basePath}/catalogues/`,
-      ];
-      return allowedPaths.filter(el => to.path.startsWith(el)).length > 0;
     },
   },
   created() {
@@ -295,26 +261,8 @@ export default defineComponent({
     next(vm => {
       if (from.name && !from.name.startsWith('DataProviderInterface')) {
         vm.clear();
-        vm.jumpToFirstPage();
       }
     });
-  },
-  beforeRouteUpdate(to, from, next) {
-    // Checks if next route within the DPI is a route
-    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from)) {
-      // for singular distribution: when deleteing from inline the mandatory check would return false leading to the display of the mandatory-modal
-      // since the distribution is already deleted the mandatory check would alwaysreturn false so by determining if an inline delete happens 
-      // (by checking getDeleteDistributionInline) we skip the display of the modal and grant redirect 
-      if (this.property === 'distributions' && this.getDeleteDistributionInline) {
-        this.setDeleteDistributionInline(false)
-        next();
-      }
-    } else {
-      // if there are multiple distributions, the mandatory checker might return true so we don't have to skip the modal display
-      // but we have to set the deleteDistributionInline value to false again
-      this.setDeleteDistributionInline(false)
-      next();
-    }
   },
   setup() {
     const {
