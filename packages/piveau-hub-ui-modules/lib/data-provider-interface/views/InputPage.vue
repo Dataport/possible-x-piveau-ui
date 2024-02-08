@@ -48,7 +48,8 @@
             </div>
           </div>
 
-          <Navigation></Navigation>
+          <Navigation :steps="steps" :nextStep="nextStep" :previousStep="previousStep" 
+            :goToNextStep="goToNextStep" :goToPreviousStep="goToPreviousStep"></Navigation>
 
         </FormKit>
 
@@ -158,31 +159,9 @@ export default defineComponent({
     clearForm() {
       this.$formkit.reset('dpi')
     },
-    // handleStep(stepName) {
-    //   this.step = stepName;
-
-    //   if (stepName === "mandatory") {
-    //     this.offsetTopStepper = "60px";
-    //   }
-    //   if (stepName === "advised") {
-
-    //     this.offsetTopStepper = "150px";
-    //   }
-    //   if (stepName === "recommended") {
-
-    //     this.offsetTopStepper = "240px";
-    //   }
-    //   if (stepName === "distribution") {
-
-    //   }
-    //   if (stepName === "overview") {
-    //     this.offsetTopStepper = "60px";
-    //   }
-    // },
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
-        console.log(this.property);
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
         const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, page: this.page, id: this.id });
         // only overwrite empty object if there are values (otherwise the language preselection is gone)
