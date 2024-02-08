@@ -2,8 +2,8 @@
 // dynamic imports are somehow diffcult so we need to import everything :(
 
 // import for DCAT-AP
-import pageContent from './dcatapByte/page-content-config';
-import inputDefinition from './dcatapByte/input-definition';
+import pageContent from './dcatap/page-content-config';
+import inputDefinition from './dcatap/input-definition';
 import prefixes from './dcatap/prefixes';
 import formatTypes from './dcatap/format-types';
 import vocabPrefixes from './dcatap/vocab-prefixes';
