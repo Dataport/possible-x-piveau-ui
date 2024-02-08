@@ -185,7 +185,7 @@ export default {
 .input-with-px::after {
   content: "px";
   position: absolute;
-  right: 22%;
+  right: 30%;
   top: 54%;
   transform: translateY(-50%);
   color: #777;
