@@ -4,7 +4,6 @@
     <div id="stepperAnchor" class="stickyStepper">
       <div class="SSfirstRow">
         <h1 class="small-headline ml-1 my-0">{{ mode }}</h1>
-        <!-- <Navigation @clearStorage="clearStorageAndValues" :nextStep="nextStep" class="w-100 stickyNav"></Navigation> -->
       </div>
     </div>
     <!-- CONTENT -->
@@ -21,9 +20,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'DataProviderInterface',
   components: {
-    Navigation: defineAsyncComponent(() => import('./components/Navigation')),
     InputPage: defineAsyncComponent(() => import('./views/InputPage')),
-    OverviewPage: defineAsyncComponent(() => import('./views/OverviewPage')),
   },
   props: ['name'],
   metaInfo() {
@@ -39,21 +36,13 @@ export default {
   data() {
     return {
       property: this.$route.params.property,
-      page: this.$route.params.page,
       id: this.$route.params.id,
-      nextStep: null,
     };
   },
   computed: {
     ...mapGetters('auth', [
       'getIsEditMode',
     ]),
-    ...mapGetters('dpiStore', [
-      'getNavSteps',
-    ]),
-    steps() {
-      return this.getNavSteps;
-    },
     mode() {
       return this.property === 'catalogues'
         ? this.getIsEditMode
@@ -65,26 +54,6 @@ export default {
             : this.$t('message.dataupload.createNewDataset')
           : 'Edit Distribution';
     },
-    isOverviewPage() {
-      return this.$route.name === 'DataProviderInterface-Overview';
-    },
-    stepNames() {
-      return this.getTranslatedStepNamesByProperty(this.property);
-    },
-    getCurrentStep() {
-      // for some reason overview is not set as page property so must be read from path
-      if (this.$route.path.includes('/overview')) {
-        return this.steps[this.property].indexOf('overview');
-      } else {
-        return this.steps[this.property].indexOf(this.page);
-      }
-    },
-    datasetStepNames() {
-      return this.getTranslatedStepNamesByProperty('datasets');
-    },
-    showDatasetStepper() {
-      return this.property === 'distributions';
-    },
   },
   methods: {
     ...mapActions('dpiStore', [
@@ -93,39 +62,8 @@ export default {
     ...mapActions('auth', [
       'populateDraftAndEdit',
     ]),
-    goToNext() {
-      this.next = this.getCurrentStep();
-    },
-    getTranslatedStepNamesByProperty(property) {
-      const names = this.steps[property].map(s => this.$t(`message.dataupload.${property}.stepper.${s}.name`));
-      if (property !== 'distributions') {
-        // use correct translation for overview page
-        const overviewIndex = names.length - 1;
-        names[overviewIndex] = this.$t(`message.dataupload.${property}.stepper.overview`);
-      }
-      return names;
-    },
-    clearStorageAndValues() {
-      // Clear storage
-      // 1. Clear form values
-      // 2. Clear store values
-      // 3, Clear local storage
-      this.$refs.dpiSubpages.clear();
-
-      // Jump to first page and compare path start because of possible query params
-      if (!this.getClearPath().startsWith(this.$route.path)) {
-        this.jumpToFirstPage();
-      } else {
-        // Hacky solution which accepts a reload to solve the datasetID and preselected languages bug
-        // --> Should be replaced if built-in functionality works
-        this.$router.go();
-      }
-    },
     getClearPath() {
       return `${this.$env.content.dataProviderInterface.basePath}/${this.property}?locale=${this.$i18n.locale}&clear=true`;;
-    },
-    jumpToFirstPage() {
-      this.$router.push(this.getClearPath()).catch(() => { });
     },
     handleScroll() {
       try {
