@@ -2,17 +2,17 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-    <details>{{ formValues }}</details>
+    <!-- <details>{{ formValues }}</details> -->
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
-        <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
+        <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]" id="dpiForm"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
-              <li v-for="(stepName, index) in getNavSteps[property]" :key="index" 
-                class="step" :data-step-active="activeStep === stepName" 
+              <li v-for="(step, stepName, index) in steps" :key="step" 
+                class="step" :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
                 :class="{ 
                   activeItem: activeStep === stepName, 
                   inactiveStep: stepName != activeStep,
@@ -23,17 +23,15 @@
 
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
-                  <span v-if="checkStepValidity(stepName)" class="step--errors"/>
-                    <!-- v-text="step.errorCount + step.blockingCount" /> -->
+                  <span v-if="checkStepValidity(stepName)" class="step--errors" v-text="step.errorCount + step.blockingCount" />
                   {{ camel2title(stepName) }}
                 </div>
                 <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
-                <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div>
+                <!-- <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div> -->
               </li>
 
               <li class="step inactiveStep" v-if="activeStep === 'overview'">
                 <div class="circle stepCircle"></div>
-
               </li>
 
             </ul>
@@ -50,6 +48,8 @@
             </div>
           </div>
 
+          <Navigation></Navigation>
+
         </FormKit>
 
       </div>
@@ -63,14 +63,12 @@ import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import PropertyChooser from './PropertyChooser.vue'
-import {
-  has,
-  isNil,
-  isArray,
-} from 'lodash';
+import { has, isNil } from 'lodash';
 import DistributionInputPage from './DistributionInputPage.vue';
 import InputPageStep from '../components/InputPageStep.vue';
+import Navigation from '../components/Navigation.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
+import axios from 'axios';
 
 export default defineComponent({
   props: {
@@ -103,6 +101,7 @@ export default defineComponent({
     InputPageStep,
     DistributionInputPage,
     PropertyChooser,
+    Navigation
   },
   computed: {
     ...mapGetters('auth', [
@@ -340,6 +339,7 @@ export default defineComponent({
   },
   setup() {
     const {
+      steps,
       activeStep,
       visitedSteps,
       previousStep,
@@ -350,11 +350,11 @@ export default defineComponent({
     } = useDpiStepper();
 
     const checkStepValidity = (stepName) => {
-      return true
-      // return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
+      return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
     return {
+      steps,
       visitedSteps,
       activeStep,
       previousStep,
