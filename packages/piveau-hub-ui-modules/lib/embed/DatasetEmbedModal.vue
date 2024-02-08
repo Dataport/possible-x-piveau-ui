@@ -10,7 +10,7 @@
                   </svg>
                </span>
             </button>
-            <div class="modal-header">
+            <div class="modal-head">
                <h5  class="modal-title" id="exampleModalLabel" style="display: inline-block;">{{ $t('message.datasetDetails.datasets.modal.embedText') }}</h5>
             </div>
             <div class="modal-body">
@@ -124,7 +124,7 @@ export default {
   // line-height: 24px;
   color: #000000;
 }
-.modal-header {
+.modal-head {
   border-bottom: none;
   padding: 0;
   padding-bottom: 1rem;
@@ -185,7 +185,7 @@ export default {
 .input-with-px::after {
   content: "px";
   position: absolute;
-  right: 22%;
+  right: 30%;
   top: 54%;
   transform: translateY(-50%);
   color: #777;

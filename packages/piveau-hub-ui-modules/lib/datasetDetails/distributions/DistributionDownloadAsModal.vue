@@ -191,11 +191,12 @@ export default {
 
                             docUrl.click();
                         })
-                        .catch((e) => {
+                        .catch(async (e) => {              
+                            console.error("Error", e)
                             if (axios.isCancel(e)) {
-                                console.log('Request canceled:', e.message);
+                                console.error('Request canceled:', e.message);
                             } else {
-                                if (e.response) this.errorMsg = e.response.stetusText;
+                                if (e.response) this.errorMsg = await e.response.data.text();
                                 this.error = true;
                                 this.downloadBtnText = 'Download';
                                 this.converting = false;
