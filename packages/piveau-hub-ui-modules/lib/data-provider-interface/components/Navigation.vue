@@ -190,22 +190,27 @@ export default {
       try {
         // Dispatch the right action depending on the mode
 
-        // test id one last time
+        const idIsUnqiue = this.idunique(datasetId);
 
+        if (idIsUnqiue) {
+          await this.$store.dispatch(actionName, actionParams);
+          await new Promise(resolve => setTimeout(resolve, 250));
 
-        await this.$store.dispatch(actionName, actionParams);
-        await new Promise(resolve => setTimeout(resolve, 250));
+          this.$Progress.finish();
+          this.uploading = false;
 
-        this.$Progress.finish();
-        this.uploading = false;
+          if (mode === 'createcatalogue') this.createCatalogue(datasetId);
+          if (mode === 'dataset') this.createDataset(datasetId);
+          if (mode === 'draft') this.createDraft();
 
-        if (mode === 'createcatalogue') this.createCatalogue(datasetId);
-        if (mode === 'dataset') this.createDataset(datasetId);
-        if (mode === 'draft') this.createDraft();
-
-        // store needs to be reset
-        this.clearAll();
-
+          // store needs to be reset
+          this.clearAll();
+        } 
+        else {
+          this.uploading[mode] = false;
+          this.$Progress.fail();
+          this.handleIDError();
+        }
       } catch (err) {
         this.uploading[mode] = false;
         this.$Progress.fail();
@@ -226,7 +231,29 @@ export default {
       this.clearAll();
       this.showSnackbar({ message: 'Catalogue saved successfully', variant: 'success' });
       this.$router.push({ name: 'CatalogueDetails', query: { locale: this.$route.query.locale }, params: { ctlg_id: datasetId } }).catch(() => { });
-    }
+    },
+    async idunique(id) {
+    let isUniqueID = true;
+
+    const draftIDs = store.getters['auth/getUserDraftIds'];
+  
+    new Promise(() => {
+      if (isNil(id) || id === '' || id === undefined) isUniqueID = true;
+      else if (draftIDs.includes(id)) isUniqueID = false;
+      else {
+        // TODO: insert env hubUrl
+        const request = `https://piveau-hub-repo-piveau.apps.osc.fokus.fraunhofer.de/datasets/${id}?useNormalizedId=true`;
+        axios.head(request)
+          .then(() => {
+            isUniqueID = false;
+          })
+          .catch((e) => {
+            isUniqueID = true;
+          });
+      }
+    });
+    return isUniqueID
+  }
   },
 };
 </script>
