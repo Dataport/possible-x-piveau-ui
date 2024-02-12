@@ -212,8 +212,8 @@ export default defineComponent({
   },
   created() {
 
-    if (this.$route.query.edit === false) {
-      this.clear();
+    if (this.$route.query.edit === 'false') {
+      this.clearAll();
     }
 
     // create schema for datasets or catalogues
@@ -260,7 +260,7 @@ export default defineComponent({
     // Always clear storage when entering DPI
     next(vm => {
       if (from.name && !from.name.startsWith('DataProviderInterface')) {
-        vm.clear();
+        vm.clearAll();
       }
     });
   },

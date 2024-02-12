@@ -132,7 +132,7 @@ export default {
     clearStorage() {
       this.closeModal();
       this.$formkit.reset('dpiForm');
-      // clear localStorage and VuexStorage
+      this.clearAll();
     },
     async submit(mode) {
       this.uploading[mode] = true;
