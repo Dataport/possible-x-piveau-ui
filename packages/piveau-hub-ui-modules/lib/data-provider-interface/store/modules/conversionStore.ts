@@ -25,13 +25,13 @@ const getters = {
      * @param0 Object containing property, page and distribution id
      * @returns Object conatining form values for given property, distribution and page
      */
-    getRawValues: (state) => ({ property, page, id }) => {
+    getRawValues: (state) => ({ property, id }) => {
         let data;
 
         if (id) {
-            data = state[property][id][page];
+            data = state[property][id];
         } else {
-            data = state[property][page];
+            data = state[property];
         }
 
         return data;
@@ -80,9 +80,9 @@ const actions = {
      * @param param0 
      * @param param1 Object containing property, page, distrbution id and form values
      */
-    saveFormValues({ commit }, { property, page, distid, values }) {
+    saveFormValues({ commit }, { property, distid, values }) {
 
-        commit('saveFormValuesToStore', { property, page, distid, values });
+        commit('saveFormValuesToStore', { property, distid, values });
 
     },
     /**

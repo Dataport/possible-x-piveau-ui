@@ -154,7 +154,7 @@ export default defineComponent({
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
-        const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, page: this.page, id: this.id });
+        const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
         // only overwrite empty object if there are values (otherwise the language preselection is gone)
 
         if (existingValues) {
