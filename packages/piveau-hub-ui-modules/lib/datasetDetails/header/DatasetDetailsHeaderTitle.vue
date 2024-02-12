@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
-    <div v-if="isErpdActive()" class="d-none d-lg-block dsd-title-tag erpdInfo">
+    <div v-if="isErpdActive()" class="d-none d-lg-flex dsd-title-tag erpdInfo">
       <span>{{$t('message.metadata.protecteddata')}}</span>
     </div>
     <div v-else class="d-none d-lg-block dsd-title-tag">
@@ -51,6 +51,9 @@ export default {
 }
 .erpdInfo{
   background-color: #8f4300 !important;
+  min-width: 20%;
+  align-items: center;
+  justify-content: center;
 }
 @media (min-width: 768px) {
   .dataset-details-title {
