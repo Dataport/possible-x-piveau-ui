@@ -2,7 +2,7 @@
   <div class="container sfo-container">
     <p v-for="facet in getSelectedFacetsOrdered.filter(facet => showSelectedFacet(facet))" :key="facet.field">
       <span>
-        {{ `${findFacetFieldTitle(facet.field)}:` }}
+        {{ `${findFacetFieldTitle(facet)}:` }}
       </span>
       <template v-for="(facetId, i) in facet.facets"
             tabindex="0" v-on:keyup.enter="removeSelectedFacet(facet.field, facetId)">
@@ -71,7 +71,6 @@
             });
           });
         });
-
         return orderedFacets;
       },
       getSelectedFacets() {
@@ -139,20 +138,23 @@
       },
       findFacetTitle(fieldId, facetId) {
         try {
+          if (fieldId === "superCatalog" && facetId === "erpd") return this.$t("message.metadata.yes");
           const facetTitle = this.availableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
           return getFacetTranslation(fieldId, facetId, this.$route.query.locale, facetTitle);
         } catch {
           return facetId;
         }
       },
-      findFacetFieldTitle(fieldId) {
+      findFacetFieldTitle(facet) {
+        const fieldId = facet.field;
         try {
-          let title = ""
+          let title = "";
           if(fieldId==='scoring'){
-           title=this.$t('message.header.navigation.data.metadataquality')
-
+           title=this.$t('message.header.navigation.data.metadataquality');
           }else if(fieldId==='subject'){
-            title = 'Eurovoc Keyword'
+            title = 'Eurovoc Keyword';
+          }else if(fieldId==='superCatalog' && facet.facets.toString() === 'erpd'){
+            title = this.$t('message.datasetFacets.facets.erpd');
           }else{
             title = this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
           }
