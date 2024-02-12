@@ -26,7 +26,7 @@ export default {
     getTranslationFor,
     isErpdActive() {
       // console.log(this.getLanguages);
-      return this.getCatalog.is_part_of  === 'http://data.europa.eu/88u/catalogue/erpd';
+      return this.getCatalog.is_part_of  === 'erpd';
     },
   },
   computed: {
