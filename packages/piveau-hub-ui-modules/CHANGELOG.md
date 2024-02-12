@@ -1,3 +1,12 @@
+## [3.16.10](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.9...v3.16.10) (2024-02-12)
+
+
+### Bug Fixes
+
+* SelectedFacetsOverview.vue: special treatment of erpd supercatalog ([3f43c08](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3f43c085b4b6a62ce501bfbedc1cf7cb07cac6e1))
+
+
+
 ## [3.16.9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.8...v3.16.9) (2024-02-12)
 
 
