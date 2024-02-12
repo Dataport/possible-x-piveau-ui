@@ -137,21 +137,14 @@ export default {
     async submit(mode) {
       this.uploading[mode] = true;
       this.$Progress.start();
-      // adapt submit property for case of distributions
-      let submitProperty;
-      if (this.property === 'distributions') {
-        submitProperty = 'datasets';
-      } else {
-        submitProperty = this.property;
-      }
 
-      const RDFdata = await this.convertToRDF(submitProperty).then((response) => { return response; });
+      const RDFdata = await this.convertToRDF(this.property).then((response) => { return response; });
       const rtpToken = this.getUserData.rtpToken;
 
-      const datasetId = this.getData(submitProperty)['datasetID'];
-      const title = this.getData(submitProperty)['dct:title'];
-      const description = this.getData(submitProperty)['dct:description'];
-      const catalogName = this.getData(submitProperty)['dcat:catalog'] ? this.getData(submitProperty)['dcat:catalog'] : '';
+      const datasetId = this.getData(this.property)['datasetID'];
+      const title = this.getData(this.property)['dct:title'];
+      const description = this.getData(this.property)['dct:description'];
+      const catalogName = this.getData(this.propertyroperty)['dcat:catalog'] ? this.getData(this.propertyroperty)['dcat:catalog'] : '';
 
       let uploadUrl;
       let actionName;
@@ -198,6 +191,7 @@ export default {
         // Dispatch the right action depending on the mode
 
         // test id one last time
+
 
         await this.$store.dispatch(actionName, actionParams);
         await new Promise(resolve => setTimeout(resolve, 250));
