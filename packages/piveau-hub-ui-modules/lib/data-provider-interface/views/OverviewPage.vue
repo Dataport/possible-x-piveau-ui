@@ -50,10 +50,10 @@ export default {
       'getData',
     ]),
     showDatasetsOverview() {
-      return this.$route.params.property === 'datasets';
+      return this.property === 'datasets';
     },
     showCatalogsOverview() {
-      return this.$route.params.property === 'catalogues';
+      return this.property === 'catalogues';
     },
   },
   methods: {
@@ -65,52 +65,52 @@ export default {
       this.clearAll();
     },
     /*** Overview Page checker functionality ***/
-    checkDatasetMandatory() {
-      if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['datasets']) {
-        this.$router.push({ 
-          name: 'DataProviderInterface-Input', 
-          params: { 
-            property: 'datasets', 
-            page: 'step1' 
-          }, 
-          query: { 
-            error: 'mandatoryDataset', 
-            locale: this.$route.query.locale 
-          } 
-        });
-      }
-    },
-    checkDistributionMandatory() {
-      if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['distributions'].length > 0 && !JSON.parse(localStorage.getItem('dpi_mandatory'))['distributions'].every(el => el === true)) {
-        this.$router.push({
-          name: 'DataProviderInterface-Input',
-          path: '/dpi/datasets/distoverview',
-          params: {
-            property: 'datasets',
-            page: 'distoverview',
-          },
-          query: {
-            error: 'mandatoryDistribution',
-            locale: this.$route.query.locale
-          },
-        });
-      }
-    },
-    checkCatalogueMandatory() {
-      if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['catalogues']) {
-        this.$router.push({ 
-          name: 'DataProviderInterface-Input', 
-          params: { 
-            property: 'catalogues', 
-            page: 'step1' 
-          }, 
-          query: { 
-            error: 'mandatoryCatalog', 
-            locale: this.$route.query.locale
-          } 
-        });
-      }
-    },
+    // checkDatasetMandatory() {
+    //   if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['datasets']) {
+    //     this.$router.push({ 
+    //       name: 'DataProviderInterface-Input', 
+    //       params: { 
+    //         property: 'datasets', 
+    //         page: 'step1' 
+    //       }, 
+    //       query: { 
+    //         error: 'mandatoryDataset', 
+    //         locale: this.$route.query.locale 
+    //       } 
+    //     });
+    //   }
+    // },
+    // checkDistributionMandatory() {
+    //   if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['distributions'].length > 0 && !JSON.parse(localStorage.getItem('dpi_mandatory'))['distributions'].every(el => el === true)) {
+    //     this.$router.push({
+    //       name: 'DataProviderInterface-Input',
+    //       path: '/dpi/datasets/distoverview',
+    //       params: {
+    //         property: 'datasets',
+    //         page: 'distoverview',
+    //       },
+    //       query: {
+    //         error: 'mandatoryDistribution',
+    //         locale: this.$route.query.locale
+    //       },
+    //     });
+    //   }
+    // },
+    // checkCatalogueMandatory() {
+    //   if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['catalogues']) {
+    //     this.$router.push({ 
+    //       name: 'DataProviderInterface-Input', 
+    //       params: { 
+    //         property: 'catalogues', 
+    //         page: 'step1' 
+    //       }, 
+    //       query: { 
+    //         error: 'mandatoryCatalog', 
+    //         locale: this.$route.query.locale
+    //       } 
+    //     });
+    //   }
+    // },
     checkID(property) {
       // Check uniqueness of Dataset ID
       if (!this.getIsEditMode) {
@@ -152,13 +152,13 @@ export default {
     this.$nextTick(() => {
       if (this.property === 'datasets') {
         this.checkID('datasets');
-        this.checkDatasetMandatory();
-        this.checkDistributionMandatory();
+        // this.checkDatasetMandatory();
+        // this.checkDistributionMandatory();
       }
 
       if (this.property === 'catalogues') {
         this.checkID('catalogues')
-        this.checkCatalogueMandatory();
+        // this.checkCatalogueMandatory();
       }
     });
   },

@@ -2,14 +2,13 @@
     <div>
         <!-- MULTISTRING -->
         <td v-if="value.type === 'multiString'">
-            <div v-for="(el, index) in data[property]" :key="index">
-                {{ Object.values(el)[0] }}
-            </div>
+            <div v-for="(el, index) in data[property]" :key="index">{{ Object.values(el)[0] }}</div>
         </td>
 
         <!-- SINGULAR STRING -->
-        <td v-if="value.type === 'singularString'">{{ data[property] }} <span
-                v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span></td>
+        <td v-if="value.type === 'singularString'">
+            {{ data[property] }} <span v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span>
+        </td>
 
         <!-- DATES-->
         <td v-if="value.type === 'date'" class="flex-column">{{ data[property]['@value'] }}</td>
@@ -19,7 +18,7 @@
             <div v-for="(el, index) in data[property].filter(elem => elem['@language'] === this.dpiLocale)" :key="index">
                 {{ el['@value'] }}
             </div>
-            <div class="multilang">This property is available in: <span v-for="(el, index) in data[property]" :key="index">({{ el['@language'] }}) </span></div>
+            <!-- <div class="multilang">This property is available in: <span v-for="(el, index) in data[property]" :key="index">({{ el['@language'] }}) </span></div> -->
         </td>
     </div>
 </template>

@@ -1,152 +1,216 @@
 <script setup>
+import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import { getTranslationFor } from "../../utils/helpers";
 
+const props = defineProps({
+  context: Object
+})
+const store = useStore();
+
+let listOfValues = computed(() => {
+  return props.context.value;
+})
+
+let selection;
+let voc = props.context.attrs.voc;
+let matches;
+let inputText = ref({});
+let cacheList = [];
+const loadMatches = async () => {
+  matches = [{ name: '--- Type in anything for a live search of the vocabulary ---', resource: 'invalid' }]
+  await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
+    const results = response.data.result.results.map((r) => ({
+      name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
+      resource: r.resource,
+    }));
+    matches = results;
+  });
+}
+
+onBeforeMount(() => {
+  loadMatches();
+
+})
+onMounted(async () => {
+
+  inputText.value = ""
+  // console.log('Context: ', props.context);
+});
+
+watch(inputText, async () => {
+  getAutocompleteSuggestions();
+}
+)
+function findPropertyToUpdate() {
+  let finalPath = { step: '', prop: props.context.node.name }
+  let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
+
+  for (let index = 0; index < Object.keys(pathToLocalStorage.step1).length; index++) {
+    for (let innerIndex = 0; innerIndex < Object.keys(pathToLocalStorage.step1)[index].length; innerIndex++) {
+      let ntry = Object.entries((pathToLocalStorage.step1))
+      try {
+        Object.keys(ntry[index][innerIndex]).filter(e => {
+          if (e === props.context.node.name) {
+            finalPath.step = ntry[index][0]
+
+            if (typeof selection === 'object') {
+              pathToLocalStorage.step1[finalPath.step][finalPath.prop] = selection
+            }
+            else pathToLocalStorage.step1[finalPath.step][finalPath.prop] = cacheList
+            localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
+          }
+        });
+      } catch (error) {
+      }
+    }
+  }
+
+}
+// Catches the OutsideClick for the input fields
+function onClickOutside(e) {
+  let element = document.getElementsByClassName("autocompleteResultList")
+  if (!e.target.classList.contains('choosableItemsAC') && !e.target.classList.contains('autocompleteInputfield')) {
+    for (let index = 0; index < element.length; index++) {
+      if (!element[index].classList.contains('inactiveResultList')) {
+        try {
+          element[index].classList.toggle('inactiveResultList');
+        } catch (error) {
+        }
+      }
+    }
+  }
+  else {
+    for (let i = 0; i < element.length; i++) {
+      if (!element[i].classList.contains("inactiveResultList")) {
+        element[i].classList.toggle("inactiveResultList");
+      }
+    }
+    e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList')
+  }
+
+}
+
+// Need to append the classes to the formkit-outer element
+props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.identifier
+
+// // Register the outside click to close the list of suggested values
+window.addEventListener("click", onClickOutside);
+
+// // Todo need to remove the eventlistener after adding it
+// // setTimeout(() => {
+// //   window.removeEventListener("click", onClickOutside);
+// // }, 100);
+
+// node.props.selection = {};
+// node.props.isMulti = node.context.context.attrs.multiple;
+
+const setValue = async (e) => {
+  if (listOfValues.value.length > 0) {
+    cacheList = listOfValues.value
+  }
+  // when its a multi input
+  if (props.context.attrs.multiple) {
+    // check for doubled values
+    if (cacheList.length != 0) {
+      let filteredProperty = { name: e.name, resource: e.resource };
+      // console.log(cacheList, 'before');
+      let filteredList = cacheList.filter((element) => element.name != e.name);
+      filteredList.push(filteredProperty)
+      cacheList = filteredList;
+      // console.log(filteredList, 'after');
+      await props.context.node.input(cacheList);
+    }
+    else {
+      cacheList.push({ name: e.name, resource: e.resource })
+      selection = cacheList
+      await props.context.node.input(selection);
+    }
+
+  }
+  else if (e.resource === "invalid") return
+  else if (e === "erase") { await props.context.node.input({}); }
+  else {
+    selection = { name: e.name, resource: e.resource };
+    await props.context.node.input(selection);
+  }
+  // inputText.value = e.name
+  findPropertyToUpdate();
+}
+
+const getAutocompleteSuggestions = async () => {
+  let text = inputText.value;
+  // this.clearAutocompleteSuggestions();
+
+  await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: text }).then((response) => {
+    const results = response.data.result.results.map((r) => ({
+      name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
+      resource: r.resource,
+    }));
+    matches = results;
+  });
+}
+function toTitleCase(str) {
+  return str.toLowerCase().replace(/(^|\s|-|\')(\w)/g, function (match) {
+    return match.toUpperCase();
+  });
+}
+
+function removeProperty(e) {
+  props.context.value = {}
+  setValue('erase');
+  findPropertyToUpdate();
+
+}
+function removeMultipleProperty(e) {
+  if (listOfValues.value.length > 0) {
+    cacheList = listOfValues.value
+  }
+  // Get Index in the array where all values of the Span are stored and cut it out of the list of Values
+  cacheList.splice(cacheList.findIndex((element) => element.name == e.name), 1)
+  selection = cacheList;
+  props.context.node.input(selection);
+  findPropertyToUpdate();
+}
+function toggleList(e) {
+  inputText.value = "";
+  e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList');
+}
 </script>
+
 <template>
-  <div class="autoCompleteWrapper" :class="[context.attrs.identifier]">
-    <FormKit type="text" @click="this.openSuggestedList = !this.openSuggestedList" class="w-100"
-      @input="getAutocompleteSuggestions" :placeholder="this.context.attrs.placeholder" />
-    <div v-if="openSuggestedList" class="suggestedItemsContainer">
-      <ul>
-        <li v-for="items, key in this.autocomplete.suggestions" :key="key" @click="this.chooseSuggestedItem(items)">{{
-          items.name }}
-        </li>
-      </ul>
-    </div>
-    <div v-if="this.context.attrs.multiple" :class="{ 'chosenItemsContainer': true, 'd-none': this.values.length < 1 }">
-      <hr>
-      <ul>
-        <li v-for="chosenItems, index in this.values" :key="index">
-          <p>{{ chosenItems.name }}</p>
-          <div class="removeX" @click="removeActiveItem($event)" @mouseover="hoverEffect($event, true)"
-            @mouseleave="hoverEffect($event, false)">
+  <h4>{{ toTitleCase(props.context.attrs.identifier) }}</h4>
+  <div class="formkitCmpWrap">
+    <div class="formkit-outer ">
+
+      <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
+        <!-- <label class="formkit-label" for="autocompleteInputSingleValue">{{ props.context.attrs.identifier }}</label> -->
+        <div class="infoI">
+          <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
+        </div>
+        <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
+        <div class="removeX" @click="removeProperty"></div>
+      </div>
+      <div v-else>
+        <!-- <label class="formkit-label" for="autocompleteInputfield">{{ props.context.attrs.identifier }}</label> -->
+        <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
+          <div class="infoI">
+            <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
           </div>
-        </li>
-      </ul>
+          <input class="autocompleteInputfield" placeholder="Search for fitting properties" v-model="inputText"
+            type="text" @click="toggleList">
+        </div>
+        <ul class="autocompleteResultList inactiveResultList">
+          <li v-for="match in matches" :key="match" @click="setValue(match)"
+            class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}</li>
+        </ul>
+        <div class="d-flex flex-wrap">
+          <div class="activeResultsAutocompleteWrapper" v-for="item in props.context.value" :key="item">
+            <span>{{ item.name }}</span>
+            <div class="removeX" @click="removeMultipleProperty(item)"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
-<script>
-import { ref } from "vue";
-import { mapActions } from "vuex";
-import { getTranslationFor } from "../../utils/helpers";
-import { getNode } from '@formkit/core'
-
-export default {
-  props: {
-    context: Object,
-  },
-
-  data() {
-    return {
-      openSuggestedList: false,
-      node: getNode(this.context.id),
-      autocomplete: {
-        text: "",
-        selected: false,
-        suggestions: [],
-        clicked: false,
-      },
-      values: [],
-    }
-  },
-  methods: {
-    ...mapActions("dpiStore", [
-      "requestFirstEntrySuggestions",
-      "requestAutocompleteSuggestions",
-      "requestResourceName",
-    ]),
-    hoverEffect(e, bool) {
-      if (bool) e.target.previousElementSibling.classList.add('eraseItem');
-      else e.target.previousElementSibling.classList.remove('eraseItem');
-    },
-    getAutocompleteSuggestions(searchText) {
-
-      if (!searchText) {
-        if (this.autocomplete.text.length <= 1) {
-          this.requestFirstEntrySuggestions(this.context.voc).then((response) => {
-         
-            const results = response.data.result.results.map((r) => ({
-              name: getTranslationFor(r.pref_label, this.$i18n.locale, []),
-              resource: r.resource,
-            }));
-
-            this.autocomplete.suggestions = results;
-            this.autocomplete.suggestions.splice(0, 0, { name: "--- Choose from the suggested entries or search the vocabulary ---", resource: "None" });
-          });
-        } else {
-          this.requestAutocompleteSuggestions(this.context.voc, text).then((response) => {
-
-            const results = response.data.result.results.map((r) => ({
-              name: getTranslationFor(r.pref_label, this.$i18n.locale, []) + " (" + r.id + ")",
-              resource: r.resource,
-            }));
-
-            if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
-            else this.autocomplete.suggestions = results;
-          });
-        }
-      }
-      else {
-        this.requestAutocompleteSuggestions({ voc: this.context.voc, text: searchText }).then((response) => {
-          const results = response.data.result.results.map((r) => ({
-            name: getTranslationFor(r.pref_label, this.$i18n.locale, []) + " (" + r.id + ")",
-            resource: r.resource,
-          }));
-
-          if (results.length === 0) this.autocomplete.suggestions = [{ name: "--- No results found! ---", resource: "None" }];
-          else this.autocomplete.suggestions = results;
-        });
-      }
-    },
-    removeActiveItem(e) {
-      let itemToEraseText = e.target.previousElementSibling.innerHTML
-      this.values = this.values.filter(filtered => filtered.name != itemToEraseText)
-
-      // Todo need to refresh the context Object
-    },
-    chooseSuggestedItem(chosenObject) {
-
-      if (this.context.attrs.multiple) {
-        if (this.values.includes(chosenObject)) {
-        } else {
-          this.values.push(chosenObject)
-        }
-      }
-      else {
-        this.values[0] = chosenObject;
-        this.context.attrs.placeholder = chosenObject.name
-      }
-
-      this.context.model = this.values;
-      this.node.input(this.values)
-
-      if (this.values.length > 0) this.itemsChosen = true;
-      else this.itemsChosen = false;
-
-      this.openSuggestedList = !this.openSuggestedList
-    },
-    searchVocabulary(typedText) {
-      //console.log(typedText);
-    }
-  },
-  computed: {
-    getformerValues() {
-      return ref(this.context.value)._rawValue;
-    }
-  },
-  mounted() {
-    this.getAutocompleteSuggestions();
-    if (ref(this.context.value)._rawValue) {
-      this.values = ref(this.context.value)._rawValue;
-    }
-  },
-  watch: {
-    getformerValues: {
-      handler() {
-        this.values = this.getformerValues
-      },
-    }
-  }
-}
-</script>
-<style></style>

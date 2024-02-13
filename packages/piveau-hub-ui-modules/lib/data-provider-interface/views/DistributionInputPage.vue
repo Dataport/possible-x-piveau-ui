@@ -2,13 +2,12 @@
   <div name="distribution-stepper-list">
     <FormKit type="list" name="distributionList">
       <section v-for="i in distributionList" :key="i">
-        <DistributionStepper :name="`Distribution ${i + 1}`" :index=i :schema="schema" :values=values />
+        <DistributionStepper :name="`Distribution ${i + 1}`" :index=i :schema="schema" :values="values" />
       </section>
-
     </FormKit>
 
-    <button class="btn btn-secondary" @click="pushDistribution">Add Distribution</button>
-    <button class="btn btn-secondary" @click="popDistribution">Remove Distribution</button>
+    <button class="btn btn-secondary" @click="pushDistribution">{{ $t('message.dataupload.newDistribution') }}</button>
+    <button class="btn btn-secondary" @click="popDistribution">{{ $t('message.dataupload.deletemodal.deleteDistribution') }}</button>
   </div>
 </template>
 

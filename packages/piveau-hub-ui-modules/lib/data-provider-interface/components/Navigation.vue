@@ -3,49 +3,39 @@
     <div id="nav" class="d-flex ">
       <div class="left-form-nav w-25">
         <!-- PREVIOUS STEP -->
-        <FormKit type="button" :label="$t('message.dataupload.preview')" @click="previous()" v-if="showPrevious"
-          class="prev-btn mx-1 my-0"></FormKit>
+        <FormKit type="button" :label="$t('message.dataupload.preview')" @click="goToPreviousStep" v-if="previousStep" class="prev-btn mx-1 my-0"></FormKit>
 
         <!-- CLEAR FORM -->
-        <FormKit type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn">
-        </FormKit>
+        <FormKit type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn"></FormKit>
       </div>
       <div class="right-form-nav w-75">
 
         <!-- DELETE DISTRIBUTION -->
-        <FormKit type="button" label="Delete Distribution" @click="handleDeleteDistribution()"
-          v-if="isDistribution" class="mx-1 my-0 delDisBtn"></FormKit>
+        <!-- <FormKit type="button" label="Delete Distribution" @click="handleDeleteDistribution()"
+          v-if="isDistribution" class="mx-1 my-0 delDisBtn"></FormKit> -->
 
         <!-- PUBLISH NEW CATALOGUE -->
-        <FormKit type="button" @click="submit('createcatalogue')"
-          v-if="(isOverviewPage) && !getIsEditMode && !getIsDraft && property === 'catalogues'"
-          class="mr-2"><span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{
-            $t('message.dataupload.publishcatalogue') }}</FormKit>
+        <FormKit type="button" @click="submit('createcatalogue')" v-if="!getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2">
+          <span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue') }}
+        </FormKit>
+
         <!-- PUBLISH EDITED CATALOGUE -->
-        <FormKit type="button" @click="submit('createcatalogue')"
-          v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0"><span
-            v-if="uploading.createcatalogue" class="loading-spinner"></span>{{ $t('message.dataupload.publishcatalogue')
-            }}
+        <FormKit type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0">
+          <span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{ $t('message.dataupload.publishcatalogue') }}
         </FormKit>
 
         <!-- PUBLISH DATASET -->
-        <FormKit type="button" @click="submit('dataset')" v-if="showDatasetSavingButton" class="mx-1 my-0">
-          <span v-if="uploading.dataset" class="loading-spinner"></span>
-          {{ $t('message.dataupload.publishdataset') }}
+        <FormKit type="button" @click="submit('dataset')" :disabled="formErrorCount" class="mx-1 my-0">
+          <span v-if="uploading.dataset" class="loading-spinner"></span>{{ $t('message.dataupload.publishdataset') }}
         </FormKit>
 
         <!-- SAVE AS DRAFT -->
-        <FormKit type="button" @click="submit('draft')" v-if="showDatasetSavingButton" class="mx-1 my-0">
-          <span v-if="uploading.draft" class="loading-spinner"></span>
-          {{ $t('message.dataupload.saveasdraft') }}
+        <FormKit type="button" @click="submit('draft')" :disabled="formErrorCount" class="mx-1 my-0">
+          <span v-if="uploading.draft" class="loading-spinner"></span>{{ $t('message.dataupload.saveasdraft') }}
         </FormKit>
 
         <!-- NEXT STEP -->
-        <!-- label triggers form submit and therefore handles error mesaages if required values are missing -->
-        <label for="submit-form" v-if="showNextLabel" class="submit-label mx-1 my-0">{{ $t('message.dataupload.next')
-        }}</label>
-        <FormKit type="button" :label="$t('message.dataupload.next')" @click="next()" v-if="showNext">
-        </FormKit>
+        <FormKit type="button" :label="$t('message.dataupload.next')" @click="goToNextStep" v-if="nextStep"></FormKit>
       </div>
     </div>
 
@@ -61,16 +51,9 @@ import $ from 'jquery';
 import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'Navigation',
-  components: {},
-  props: {
-    nextStep: {
-      type: Number,
-      default: null,
-    }
-  },
+  props: ['steps', 'nextStep', 'previousStep', 'goToNextStep', 'goToPreviousStep'],
   data() {
     return {
-      openClear: false,
       uploading: {
         dataset: false,
         draft: false,
@@ -91,14 +74,13 @@ export default {
           message: 'Are your sure you want to clear the form? BE AWARE: this can not be reverted and all of your Data is lost!',
           callback: this.clearStorage,
         },
-        deleteDistribution: {
-          confirm: 'Delete Distribution',
-          message: 'Are you sure you want to delete the distribution? The whole content will be deleted permanently!',
-          callback: this.deleteCurrentDistribution,
-        }
+        // deleteDistribution: {
+        //   confirm: 'Delete Distribution',
+        //   message: 'Are you sure you want to delete the distribution? The whole content will be deleted permanently!',
+        //   callback: this.deleteCurrentDistribution,
+        // }
       },
       property: this.$route.params.property,
-      page: this.$route.params.page,
       id: this.$route.params.id,
     };
   },
@@ -110,43 +92,14 @@ export default {
     ]),
     ...mapGetters('dpiStore', [
       'getData',
-      'getNavSteps',
     ]),
-    iDError() { return this.$route.query.error === 'id' },
-    datasetMandatoryError() { return this.$route.query.error === 'mandatoryDataset' },
-    distributionMandatoryError() { return this.$route.query.error === 'mandatoryDistribution' },
-    catalogMandatoryError() { return this.$route.query.error === 'mandatoryCatalog' },
-    showPrevious() {
-      return this.isPreviousPage || this.property === 'distributions';
-    },
-    showDatasetSavingButton() {
-      return this.property !== 'catalogues';
-    },
-    showNextLabel() {
-      return !(this.isOverviewPage || this.page === 'distoverview');
-    },
-    showNext() {
-      return !this.isOverviewPage && this.page === 'distoverview';
-    },
-    isPreviousPage() {
-      let currentPageIndex;
-      if (this.page) {
-        currentPageIndex = this.getNavSteps[this.property].indexOf(this.page);
-      } else {
-        // overview page has no 'page' parameter -> index would be -1
-        // set to > 0 to enable previous button
-        if (this.$route.path.endsWith('overview')) currentPageIndex = 99;
-      }
-      return currentPageIndex > 0;
-    },
-    isOverviewPage() {
-      // overview part of url not given as route parameter
-      const path = this.$route.path;
-      return path.includes('/overview');
-    },
-    isDistribution() {
-      const isDistribution = this.property === 'distributions';
-      return isDistribution;
+    formErrorCount() {
+      let errorCount = 0;
+      Object.keys(this.steps).forEach(key => {
+        errorCount = errorCount + this.steps[key].blockingCount
+      })
+
+      return errorCount > 0;
     }
   },
   methods: {
@@ -160,8 +113,8 @@ export default {
     ...mapActions('dpiStore', [
       'convertToRDF',
       'clearAll',
-      'deleteDistribution',
-      'setDeleteDistributionInline',
+      // 'deleteDistribution',
+      // 'setDeleteDistributionInline',
     ]),
     closeModal() {
       $('#modal').modal('hide');
@@ -170,98 +123,26 @@ export default {
       this.modal = this.modals.id;
       $('#modal').modal({ show: true });
     },
-    handleDatasetMandatoryError() {
-      this.modal = this.modals.mandatory;
-      $('#modal').modal({ show: true });
-    },
-    handleDistributionMandatoryError() {
-      this.modal = this.modals.mandatory;
-      $('#modal').modal({ show: true });
-    },
-    handleCatalogMandatoryError() {
-      this.modal = this.modals.mandatory;
-      $('#modal').modal({ show: true });
-    },
     handleClear() {
-      $('#navbar-toggle').css("z-index", "0")
       this.modal = this.modals.clear;
-      $('#modal').modal({ show: true });
-    },
-    handleDeleteDistribution() {
-      this.modal = this.modals.deleteDistribution;
       $('#modal').modal({ show: true });
     },
     clearStorage() {
       this.closeModal();
-      this.$emit('clearStorage'); // clear gets called within main DPI component
-    },
-    deleteCurrentDistribution() {
-      this.deleteDistribution(this.id);
-      this.setDeleteDistributionInline(true);
-      this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => { });
-    },
-    previous() {
-      let currentPage;
-      if (this.isOverviewPage) {
-        currentPage = 'overview';
-      } else {
-        currentPage = this.page;
-      }
-
-      const pageIndex = this.getNavSteps[this.property].indexOf(currentPage);
-      const nextIndex = pageIndex - 1;
-
-      if (nextIndex > -1) {
-        const nextPage = this.getNavSteps[this.property][nextIndex];
-        // preserve distribution index
-        if (this.id) {
-          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => { });
-        } else {
-          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => { });
-        }
-      } else if (nextIndex === -1 && this.property === 'distributions') {
-        // when on the first page of the distributions form the previous button directs to the first distribution overview page
-        this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/distoverview?locale=${this.$i18n.locale}`).catch(() => { });
-      }
-    },
-    next() {
-      const pageIndex = this.getNavSteps[this.property].indexOf(this.page);
-      const numberOfPages = this.getNavSteps[this.property].length;
-      const nextIndex = pageIndex + 1;
-
-      if (nextIndex < numberOfPages) {
-        const nextPage = this.getNavSteps[this.property][nextIndex];
-        if (this.id) {
-          // preserve distribution id in path
-          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}/${this.id}?locale=${this.$i18n.locale}`).catch(() => { });
-        } else {
-          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/${this.property}/${nextPage}?locale=${this.$i18n.locale}`).catch(() => { });
-        }
-      } else if (nextIndex === numberOfPages) {
-        if (this.property === 'distributions') {
-          // when within distributions the next button lead to datasets overview page
-          this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/datasets/overview?locale=${this.$i18n.locale}`).catch(() => { });
-        }
-      }
+      this.$formkit.reset('dpiForm');
+      this.clearAll();
     },
     async submit(mode) {
       this.uploading[mode] = true;
       this.$Progress.start();
-      // adapt submit property for case of distributions
-      let submitProperty;
-      if (this.property === 'distributions') {
-        submitProperty = 'datasets';
-      } else {
-        submitProperty = this.property;
-      }
 
-      const RDFdata = await this.convertToRDF(submitProperty).then((response) => { return response; });
+      const RDFdata = await this.convertToRDF(this.property).then((response) => { return response; });
       const rtpToken = this.getUserData.rtpToken;
 
-      const datasetId = this.getData(submitProperty)['datasetID'];
-      const title = this.getData(submitProperty)['dct:title'];
-      const description = this.getData(submitProperty)['dct:description'];
-      const catalogName = this.getData(submitProperty)['dcat:catalog'] ? this.getData(submitProperty)['dcat:catalog'] : '';
+      const datasetId = this.getData(this.property)['datasetID'];
+      const title = this.getData(this.property)['dct:title'];
+      const description = this.getData(this.property)['dct:description'];
+      const catalogName = this.getData(this.propertyroperty)['dcat:catalog'] ? this.getData(this.propertyroperty)['dcat:catalog'] : '';
 
       let uploadUrl;
       let actionName;
@@ -306,19 +187,28 @@ export default {
 
       try {
         // Dispatch the right action depending on the mode
-        await this.$store.dispatch(actionName, actionParams);
-        await new Promise(resolve => setTimeout(resolve, 250));
 
-        this.$Progress.finish();
-        this.uploading = false;
+        const idIsUnqiue = this.idunique(datasetId);
 
-        if (mode === 'createcatalogue') this.createCatalogue(datasetId);
-        if (mode === 'dataset') this.createDataset(datasetId);
-        if (mode === 'draft') this.createDraft();
+        if (idIsUnqiue) {
+          await this.$store.dispatch(actionName, actionParams);
+          await new Promise(resolve => setTimeout(resolve, 250));
 
-        // store needs to be reset
-        this.clearAll();
+          this.$Progress.finish();
+          this.uploading = false;
 
+          if (mode === 'createcatalogue') this.createCatalogue(datasetId);
+          if (mode === 'dataset') this.createDataset(datasetId);
+          if (mode === 'draft') this.createDraft();
+
+          // store needs to be reset
+          this.clearAll();
+        } 
+        else {
+          this.uploading[mode] = false;
+          this.$Progress.fail();
+          this.handleIDError();
+        }
       } catch (err) {
         this.uploading[mode] = false;
         this.$Progress.fail();
@@ -339,21 +229,29 @@ export default {
       this.clearAll();
       this.showSnackbar({ message: 'Catalogue saved successfully', variant: 'success' });
       this.$router.push({ name: 'CatalogueDetails', query: { locale: this.$route.query.locale }, params: { ctlg_id: datasetId } }).catch(() => { });
-    }
-  },
-  mounted() {
-    // Show error if ID was already taken in meantime
-    if (this.iDError) this.handleIDError();
-    if (this.datasetMandatoryError) this.handleDatasetMandatoryError();
-    if (this.distributionMandatoryError) this.handleDistributionMandatoryError();
-    if (this.catalogMandatoryError) this.handleCatalogMandatoryError();
-  },
-  watch: {
-    nextStep: {
-      handler() {
-        this.next();
-      },
     },
+    async idunique(id) {
+      let isUniqueID = true;
+
+      const draftIDs = store.getters['auth/getUserDraftIds'];
+    
+      new Promise(() => {
+        if (isNil(id) || id === '' || id === undefined) isUniqueID = true;
+        else if (draftIDs.includes(id)) isUniqueID = false;
+        else {
+          // TODO: insert env hubUrl
+          const request = `https://piveau-hub-repo-piveau.apps.osc.fokus.fraunhofer.de/datasets/${id}?useNormalizedId=true`;
+          axios.head(request)
+            .then(() => {
+              isUniqueID = false;
+            })
+            .catch((e) => {
+              isUniqueID = true;
+            });
+        }
+      });
+      return isUniqueID
+    }
   },
 };
 </script>

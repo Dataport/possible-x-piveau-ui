@@ -4,23 +4,20 @@
 
             <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
 
-            <URIProp :property="property" :value="value" :data="data">
-                <p>{{ value.type }}</p>
-            </URIProp>
+            <URIProp :property="property" :value="value" :data="data"><p>{{ value.type }}</p></URIProp>
             <URLProp :property="property" :value="value" :data="data"></URLProp>
             <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
             <ConditionalProp :property="property" :value="value" :data="data"></ConditionalProp>
 
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
-                <div v-if="property != 'dct:creator'">
+                <div v-if="property != 'dct:creator' && property !== 'dcat:temporalResolution'">
                     <div v-for="(elem, index) in data[property]" :key="index">
                         <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
                     </div>
                 </div>
                 <div v-else>
-                    <SpecialProp :property="property" :value="value" :data="data[property]" :dpiLocale="dpiLocale">
-                    </SpecialProp>
+                    <SpecialProp :property="property" :value="value" :data="data[property]" :dpiLocale="dpiLocale"></SpecialProp>
                 </div>
 
             </div>
@@ -29,7 +26,6 @@
 </template>
 
 <script>
-import AppLink from "../../../widgets/AppLink.vue";
 import URIProp from './Properties/URIProp.vue';
 import URLProp from './Properties/URLProp.vue';
 import StringProp from './Properties/StringProp.vue';
