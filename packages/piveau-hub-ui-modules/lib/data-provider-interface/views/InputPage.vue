@@ -5,7 +5,6 @@
     <details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
-
         <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" class="d-flex">
 
@@ -47,7 +46,6 @@
               </div>
             </div>
           </div>
-
         </FormKit>
 
       </div>

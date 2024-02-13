@@ -131,11 +131,7 @@ export default {
 
   &:hover {
     background-color: darkgreen;
-
   }
 }
 
-button {
-  align-self: flex-start;
-}
 </style>
