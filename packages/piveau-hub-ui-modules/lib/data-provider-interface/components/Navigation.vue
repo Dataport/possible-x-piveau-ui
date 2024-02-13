@@ -54,7 +54,6 @@ export default {
   props: ['steps', 'nextStep', 'previousStep', 'goToNextStep', 'goToPreviousStep'],
   data() {
     return {
-      openClear: false,
       uploading: {
         dataset: false,
         draft: false,
@@ -75,11 +74,11 @@ export default {
           message: 'Are your sure you want to clear the form? BE AWARE: this can not be reverted and all of your Data is lost!',
           callback: this.clearStorage,
         },
-        deleteDistribution: {
-          confirm: 'Delete Distribution',
-          message: 'Are you sure you want to delete the distribution? The whole content will be deleted permanently!',
-          callback: this.deleteCurrentDistribution,
-        }
+        // deleteDistribution: {
+        //   confirm: 'Delete Distribution',
+        //   message: 'Are you sure you want to delete the distribution? The whole content will be deleted permanently!',
+        //   callback: this.deleteCurrentDistribution,
+        // }
       },
       property: this.$route.params.property,
       id: this.$route.params.id,
@@ -114,8 +113,8 @@ export default {
     ...mapActions('dpiStore', [
       'convertToRDF',
       'clearAll',
-      'deleteDistribution',
-      'setDeleteDistributionInline',
+      // 'deleteDistribution',
+      // 'setDeleteDistributionInline',
     ]),
     closeModal() {
       $('#modal').modal('hide');
@@ -125,7 +124,6 @@ export default {
       $('#modal').modal({ show: true });
     },
     handleClear() {
-      $('#navbar-toggle').css("z-index", "0")
       this.modal = this.modals.clear;
       $('#modal').modal({ show: true });
     },
@@ -233,27 +231,27 @@ export default {
       this.$router.push({ name: 'CatalogueDetails', query: { locale: this.$route.query.locale }, params: { ctlg_id: datasetId } }).catch(() => { });
     },
     async idunique(id) {
-    let isUniqueID = true;
+      let isUniqueID = true;
 
-    const draftIDs = store.getters['auth/getUserDraftIds'];
-  
-    new Promise(() => {
-      if (isNil(id) || id === '' || id === undefined) isUniqueID = true;
-      else if (draftIDs.includes(id)) isUniqueID = false;
-      else {
-        // TODO: insert env hubUrl
-        const request = `https://piveau-hub-repo-piveau.apps.osc.fokus.fraunhofer.de/datasets/${id}?useNormalizedId=true`;
-        axios.head(request)
-          .then(() => {
-            isUniqueID = false;
-          })
-          .catch((e) => {
-            isUniqueID = true;
-          });
-      }
-    });
-    return isUniqueID
-  }
+      const draftIDs = store.getters['auth/getUserDraftIds'];
+    
+      new Promise(() => {
+        if (isNil(id) || id === '' || id === undefined) isUniqueID = true;
+        else if (draftIDs.includes(id)) isUniqueID = false;
+        else {
+          // TODO: insert env hubUrl
+          const request = `https://piveau-hub-repo-piveau.apps.osc.fokus.fraunhofer.de/datasets/${id}?useNormalizedId=true`;
+          axios.head(request)
+            .then(() => {
+              isUniqueID = false;
+            })
+            .catch((e) => {
+              isUniqueID = true;
+            });
+        }
+      });
+      return isUniqueID
+    }
   },
 };
 </script>
