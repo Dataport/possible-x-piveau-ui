@@ -18,7 +18,7 @@
                   inactiveStep: stepName != activeStep,
                   'has-errors': checkStepValidity(stepName),
                 }" 
-                @click="activeStep = stepName">
+                @click="activeStep = stepName; update()">
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
                   <span v-if="checkStepValidity(stepName)" class="step--errors"/>
@@ -29,8 +29,8 @@
                 <div v-if="activeStep === 'Overview'" class="seperatorHorizontalStepper"></div>
               </li>
 
-              <li class="step inactiveStep" v-if="activeStep === 'overview'">
-                <div class="circle stepCircle"></div>
+              <li class="step inactiveStep" v-if="activeStep === 'Overview'">
+                <div  class="circle stepCircle"></div>
 
               </li>
 
@@ -149,6 +149,9 @@ export default defineComponent({
       'clearAll',
       'setDeleteDistributionInline',
     ]),
+    update(){
+      this.$forceUpdate();
+    },
     clearForm() {
       this.$formkit.reset('dpi')
     },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+    <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
     <!-- SINGULAR URIs -->
     <td v-if="value.type === 'singularURI'" class="">{{ nameOfProperty }}</td>
 
@@ -22,7 +22,6 @@
         {{ el['@id'] }}
       </div>
     </td>
-  </div>
 </template>
 
 <script>

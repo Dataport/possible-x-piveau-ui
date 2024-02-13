@@ -1,5 +1,5 @@
 <template>
-    <div class="dpiSpecialPropWrap">
+    
         <!-- CREATOR -->
         <tr v-if="property === 'dct:creator'" class="marginBot">
            
@@ -20,7 +20,7 @@
         </tr>
 
         <!-- CONTACT POINT -->
-        <tr v-if="property === 'dcat:contactPoint'">
+        <tr v-if="property === 'dcat:contactPoint' && showValue(data, 'rdf:type')">
             <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td class="">
                 <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1]
@@ -62,7 +62,7 @@
         </div>
 
         <!-- ADMS IDENTIFIER -->
-        <div v-if="property === 'adms:identifier' && Object.keys(data).length > 1" class="d-flex">
+        <div v-if="property === 'adms:identifier' && checkadms('adms:identifier')" class="d-flex">
             <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div v-if="showValue(data, '@id') && property === 'adms:identifier'">{{ $t('message.metadata.url') }}:
@@ -76,7 +76,7 @@
         </div>
 
         <!-- TEMPORAL -->
-        <tr v-if="property === 'dct:temporal'">
+        <tr v-if="property === 'dct:temporal' && showValue(data, 'dcat:startDate')">
             <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td class="d-flex flex-column">
                 <div v-if="showValue(data, 'dcat:startDate')"><b>From:</b> {{ new Date(data['dcat:startDate']) }}&nbsp;
@@ -117,7 +117,7 @@
         </div>
 
         <!-- CONFORMS TO -->
-        <div v-if="property === 'dct:conformsTo'" class="w-100 d-flex">
+        <div v-if="property === 'dct:conformsTo' && showValue(data, 'rdfs:label')" class="w-100 d-flex">
             <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
             <td>
                 <div v-if="showValue(data, 'rdfs:label')">{{ data['rdfs:label'] }}</div>
@@ -158,7 +158,7 @@
 
             </tr>
 
-    </div>
+ 
 </template>
 
 <script>
@@ -191,8 +191,19 @@ export default {
 
             return nonEmptyProperty && (existingLocalValues || existingOtherValues);
         },
+        checkadms(str){
+            if (this.property === str) {
+                console.log(this.showValue(this.data, '@id'), this.showValue(this.data, 'skos:notation') );
+                return this.showValue(this.data, '@id') && this.showValue(this.data, 'skos:notation')
+            }
+        },
         showValue(property, value) {
-            return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
+            console.log(property, value);
+             try {
+                return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]) && property[value] !== undefined;
+             } catch (error) {
+                
+             }           
         },
         filterDateFormatEU(date) {
             return dateFilters.formatEU(date);
