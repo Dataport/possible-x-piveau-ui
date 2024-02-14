@@ -21,6 +21,9 @@ export default {
         type: 'group',
         component: AutocompleteInput
     },
-    fileupload: createInput(FileUpload, {}),
+    fileupload: {
+        type: 'group',
+        component:FileUpload
+    },
 
 } as FormKitLibrary;

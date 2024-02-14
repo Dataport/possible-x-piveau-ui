@@ -1180,33 +1180,33 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'accessUrl',
           name: 'dcat:accessURL',
-          $formkit: 'group',
-          children: [
-            {
-              identifier: "accessUrl",
-              $formkit: "select",
-              id: "accessUrlMode",
-              name: "accessUrlMode",
-              options: { url: 'Provide an URL', file: 'Upload a file' }
-            },
-            {
-              $cmp: "FormKit",
-              if: "$get(accessUrlMode).value",
-              props: {
-                if: "$get(accessUrlMode).value === url",
-                then: {
-                  type: "url",
-                  validation: "required",
-                  name: "@id"
-                },
-                else: {
-                  $formkit: "fileupload",
-                  validation: "required",
-                  name: "@id"
-                }
-              },
-            },
-          ],
+          $formkit: 'fileupload',
+          // children: [
+          //   {
+          //     identifier: "accessUrl",
+          //     $formkit: "fileupload",
+          //     id: "accessUrlMode",
+          //     name: "accessUrlMode",
+          //     options: { url: 'Provide an URL', file: 'Upload a file' }
+          //   },
+          //   {
+          //     $cmp: "FormKit",
+          //     if: "$get(accessUrlMode).value",
+          //     props: {
+          //       if: "$get(accessUrlMode).value === url",
+          //       then: {
+          //         type: "url",
+          //         validation: "required",
+          //         name: "@id"
+          //       },
+          //       else: {
+          //         $formkit: "fileupload",
+          //         validation: "required",
+          //         name: "@id"
+          //       }
+          //     },
+          //   },
+          // ],
         }
       ]
     },

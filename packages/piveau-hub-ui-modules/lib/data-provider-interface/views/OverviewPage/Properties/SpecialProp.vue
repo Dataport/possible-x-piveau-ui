@@ -193,12 +193,12 @@ export default {
         },
         checkadms(str){
             if (this.property === str) {
-                console.log(this.showValue(this.data, '@id'), this.showValue(this.data, 'skos:notation') );
+                // console.log(this.showValue(this.data, '@id'), this.showValue(this.data, 'skos:notation') );
                 return this.showValue(this.data, '@id') && this.showValue(this.data, 'skos:notation')
             }
         },
         showValue(property, value) {
-            console.log(property, value);
+            // console.log(property, value);
              try {
                 return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]) && property[value] !== undefined;
              } catch (error) {
