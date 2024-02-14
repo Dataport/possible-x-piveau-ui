@@ -30,7 +30,7 @@ const RuntimeConfiguration = {
     };
     const opts = Object.assign({}, defaultOptions, options);
 
-    // Custom merge rule to ignore values that start with $VUE_APP_
+    // Custom merge rule to ignore values that start with $VITE_
     // i.e., use this.$env property when environment variable is not set
     const ignoreUnusedVariables = (originVal, newVal) => {
       const result = newVal;
@@ -76,7 +76,7 @@ const RuntimeConfiguration = {
       // Take originVal when env variable is not set
       if (originVal !== undefined && typeof newVal === 'string') {
         // Environment variable not set (e.g., development env)
-        if (newVal.startsWith('$VUE_APP_')) {
+        if (newVal.startsWith('$VITE_')) {
           return originVal;
         }
       }

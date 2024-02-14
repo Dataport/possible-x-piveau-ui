@@ -13,9 +13,10 @@
                     </a>
 
                 </div>
-                <!-- <div class="dsPublisher">
-                    <PropertyEntry :data="getData('datasets')" profile="datasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
-                </div> -->
+                <div class="dsPublisher">
+                    <span><b>Published by:</b></span>
+                    <a> {{ getData('datasets')['dct:publisher']['name'] }}</a>
+                </div>
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>
@@ -72,7 +73,7 @@ export default {
         return {
             pageLoaded: false,
             tableProperties: {
-                // 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
+                'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
                 'dct:creator': { type: 'special', voc: '', label: 'message.metadata.creator' },
                 'dct:issued': { type: 'date', label: 'message.metadata.created' },
@@ -137,7 +138,7 @@ export default {
     },
     async mounted() {
         this.$nextTick(() => {
-
+            
             this.pageLoaded = true
 
         })

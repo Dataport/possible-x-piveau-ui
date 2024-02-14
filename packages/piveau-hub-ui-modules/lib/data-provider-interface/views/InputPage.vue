@@ -14,7 +14,7 @@
               <li v-for="(step, stepName, index) in steps" :key="step" 
                 class="step" :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
                 :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName) }" 
-                @click="activeStep = stepName">
+                @click="activeStep = stepName; update()">
 
 
                 <div class="stepBubbleWrap">
@@ -22,7 +22,6 @@
                   <span v-if="checkStepValidity(stepName)" class="step--errors" v-text="step.errorCount + step.blockingCount" />{{ camel2title(stepName) }}
                 </div>
                 <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
-                <!-- <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div> -->
               </li>
 
               <li class="step inactiveStep" v-if="activeStep === 'overview'">
@@ -86,6 +85,7 @@ export default defineComponent({
       info: {},
       catalogues: [],
       byte: true,
+      // steps:{},
       camel2title: (str) =>
         str
           .replace(/([A-Z])/g, (match) => ` ${match}`)
@@ -150,9 +150,16 @@ export default defineComponent({
       'addCatalogOptions',
       'clearAll',
     ]),
+    update(){
+      this.$forceUpdate();
+    },
+    clearForm() {
+      this.$formkit.reset('dpi')
+    },
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
+        // console.log(this.property);
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
         const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
         // only overwrite empty object if there are values (otherwise the language preselection is gone)

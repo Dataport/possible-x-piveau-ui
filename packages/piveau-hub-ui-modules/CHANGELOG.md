@@ -1,3 +1,23 @@
+# [4.0.0-alpha.22](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.21...v4.0.0-alpha.22) (2024-01-25)
+
+
+### Bug Fixes
+
+* adapted ids in input definition to avoid duplication between datasets and distributions ([da67a5f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/da67a5f58bb8e5d230aa06d7549d25d4be60e52b))
+* cleanup and remove old components ([01959ae](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/01959ae8ec7889216cc52fbdf848bb373a2e14c1))
+* correct api schema ([01e4680](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/01e4680d84e71e9e279cf1e7e500265e5df683fe))
+* **DistributionInputPage:** init with 0 distributions ([ce50063](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ce50063dd0fe8eee104fd9e728d0d3175c48001c))
+* remove global button style in Repeatable.vue ([29eb050](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/29eb05004a7a57189606e8a789f1262ad0117ad2))
+* robustness of erpd handling ([6848a2b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6848a2b28a35a32cd8cdc5569a8bcd77dd15bd67))
+* runtime-config prefixes ([fe38527](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fe385273320c3c2a66e1ed037d411937594c86b0))
+
+
+### Features
+
+* **DistributionInputPage:** implement support for multiple distributions ([1134745](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/11347452221935f17de33c9eafe2a2387545ffd0))
+
+
+
 # [4.0.0-alpha.21](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.20...v4.0.0-alpha.21) (2024-01-09)
 
 

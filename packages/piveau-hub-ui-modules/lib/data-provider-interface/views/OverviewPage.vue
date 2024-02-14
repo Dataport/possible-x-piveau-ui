@@ -1,6 +1,5 @@
 <template>
   <div class="col-12">
-    
     <!-- LANGUAGE SELECTOR -->
     <div class="mt-5 mb-0" >
       <div class="row">
@@ -10,11 +9,9 @@
         </div>
       </div>
     </div>
-
     <div class="mb-3" v-if="showDatasetsOverview">
       <DatasetOverview :dpiLocale="dpiLocale"/>
     </div>
-
     <div class="mb-3" v-if="showCatalogsOverview">
       <CatalogueOverview :dpiLocale="dpiLocale"/>
     </div>

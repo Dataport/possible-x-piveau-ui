@@ -46,18 +46,18 @@ function findPropertyToUpdate() {
   let finalPath = { step: '', prop: props.context.node.name }
   let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
 
-  for (let index = 0; index < Object.keys(pathToLocalStorage.step1).length; index++) {
-    for (let innerIndex = 0; innerIndex < Object.keys(pathToLocalStorage.step1)[index].length; innerIndex++) {
-      let ntry = Object.entries((pathToLocalStorage.step1))
+  for (let index = 0; index < Object.keys(pathToLocalStorage).length; index++) {
+    for (let innerIndex = 0; innerIndex < Object.keys(pathToLocalStorage)[index].length; innerIndex++) {
+      let ntry = Object.entries((pathToLocalStorage))
       try {
         Object.keys(ntry[index][innerIndex]).filter(e => {
           if (e === props.context.node.name) {
             finalPath.step = ntry[index][0]
 
             if (typeof selection === 'object') {
-              pathToLocalStorage.step1[finalPath.step][finalPath.prop] = selection
+              pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             }
-            else pathToLocalStorage.step1[finalPath.step][finalPath.prop] = cacheList
+            else pathToLocalStorage[finalPath.step][finalPath.prop] = cacheList
             localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
           }
         });

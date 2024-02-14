@@ -2,7 +2,3 @@
 	path = apps/vanilla-piveau-hub-ui
 	url = https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui.git
 	branch = develop
-[submodule "apps/possible-piveau-hub-ui"]
-	path = apps/possible-piveau-hub-ui
-	url = https://gitlab.fokus.fraunhofer.de/possible/piveau-hub-ui.git
-	branch = develop

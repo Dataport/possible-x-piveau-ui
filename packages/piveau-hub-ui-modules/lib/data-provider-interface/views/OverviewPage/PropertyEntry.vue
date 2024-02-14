@@ -2,13 +2,13 @@
     <div>
         <tr v-if="showValue(data, property)">
 
-            <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
-
-            <URIProp :property="property" :value="value" :data="data"><p>{{ value.type }}</p></URIProp>
+            <!-- <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td> -->
+            <URIProp :property="property" :value="value" :data="data">
+                <p>{{ value.type }}</p>
+            </URIProp>
             <URLProp :property="property" :value="value" :data="data"></URLProp>
             <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
             <ConditionalProp :property="property" :value="value" :data="data"></ConditionalProp>
-
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
                 <div v-if="property != 'dct:creator' && property !== 'dcat:temporalResolution'">
@@ -17,7 +17,8 @@
                     </div>
                 </div>
                 <div v-else>
-                    <SpecialProp :property="property" :value="value" :data="data[property]" :dpiLocale="dpiLocale"></SpecialProp>
+                    <SpecialProp :property="property" :value="value" :data="data[property]" :dpiLocale="dpiLocale">
+                    </SpecialProp>
                 </div>
 
             </div>
@@ -51,8 +52,24 @@ export default {
         distId: Number,
     },
     methods: {
+        // Check if there's a valid value present
         showValue(property, value) {
-            return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
+            try {
+                if (!isEmpty(property[value][0])) {
+                    // console.log(value, Object.keys(property[value][0]));
+                    if (Object.keys(property[value][0]).length === 1) {
+                        // console.log(Object.values(property[value][0]));
+                        if (Object.values(property[value][0])[0] === undefined) {
+                            return false
+                        }
+                    }
+                    if (!isEmpty(property[value][0]['@language'])) {
+                    }
+                    else if (value === "foaf:page") { return false }
+                    else return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
+                }
+            } catch (error) {
+            }
         },
     }
 }
