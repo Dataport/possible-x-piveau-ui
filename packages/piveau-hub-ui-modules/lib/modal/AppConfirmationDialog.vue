@@ -1,6 +1,6 @@
 <template>
   <!-- Modals -->
-  <div class="modal fade modalWrapper" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
+  <div id="modal" class="modal fade modalWrapper" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
     data-backdrop="false" data-cy="create-doi-modal">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
