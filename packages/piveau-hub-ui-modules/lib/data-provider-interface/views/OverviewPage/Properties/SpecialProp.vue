@@ -1,5 +1,4 @@
 <template>
-    
         <!-- CREATOR -->
         <tr v-if="property === 'dct:creator'" class="marginBot">
            

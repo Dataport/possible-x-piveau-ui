@@ -1,6 +1,8 @@
 <template>
     <div>
-        <tr v-if="showValue(data, property)">
+        <!-- <h5>({{ property }})</h5> -->
+
+        <tr v-if="showValue(data, property) || property === 'dct:creator'">
 
             <!-- <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td> -->
             <URIProp :property="property" :value="value" :data="data">
@@ -11,6 +13,7 @@
             <ConditionalProp :property="property" :value="value" :data="data"></ConditionalProp>
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
+
                 <div v-if="property != 'dct:creator' && property !== 'dcat:temporalResolution'">
                     <div v-for="(elem, index) in data[property]" :key="index">
                         <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
@@ -34,6 +37,7 @@ import SpecialProp from './Properties/SpecialProp.vue';
 import ConditionalProp from './Properties/ConditionalProp';
 
 import { has, isNil, isEmpty } from 'lodash';
+import { object } from 'zod';
 
 export default {
     components: {
@@ -54,11 +58,16 @@ export default {
     methods: {
         // Check if there's a valid value present
         showValue(property, value) {
+
             try {
+
+                if (Object.keys(property[value])[0] != 0) {
+                    if(value === "dct:issued" ) return false
+                    property[value] = [property[value]]
+                    return true
+                }
                 if (!isEmpty(property[value][0])) {
-                    // console.log(value, Object.keys(property[value][0]));
                     if (Object.keys(property[value][0]).length === 1) {
-                        // console.log(Object.values(property[value][0]));
                         if (Object.values(property[value][0])[0] === undefined) {
                             return false
                         }
@@ -70,6 +79,7 @@ export default {
                 }
             } catch (error) {
             }
+
         },
     }
 }
