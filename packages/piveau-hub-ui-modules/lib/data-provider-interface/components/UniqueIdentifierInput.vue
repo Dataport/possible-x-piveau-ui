@@ -41,14 +41,21 @@
 </script>
 
 <template>
-  <h4>ID</h4>
+  <h4>{{ $t(`message.dataupload.datasets.datasetID.label`) }}</h4>
+  
   <FormKit v-if="!isEditMode" type="text" name="datasetID" id="datasetID"
+    :placeholder="$t(`message.dataupload.datasets.datasetID.label`)"
+    :info="$t(`message.dataupload.datasets.datasetID.info`)"
+    :help="$t(`message.dataupload.datasets.datasetID.help`)"
     :validation-rules="{ idformatvalid, idunique }" 
     validation="idformatvalid|idunique|required" 
     validation-visibility="live"
     :validation-messages="validationMessages">
   </FormKit>
-  <FormKit v-else type="text" name="datasetID" id="datasetID" :disabled="true"></FormKit>
+  <FormKit v-else type="text" name="datasetID" id="datasetID" :disabled="true"
+    :info="$t(`message.dataupload.datasets.datasetID.info`)"
+    :help="$t(`message.dataupload.datasets.datasetID.help`)">
+  </FormKit>
 </template>
 
 <script>

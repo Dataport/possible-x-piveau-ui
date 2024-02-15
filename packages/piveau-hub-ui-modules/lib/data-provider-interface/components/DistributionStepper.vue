@@ -38,7 +38,7 @@
           <InputPageStep :name="stepName">
             <!-- <PropertyChooser></PropertyChooser> -->
             <FormKitSchema :schema="schema[stepName]"/>
-            <p class="p-1"> <b>*</b> mandatory</p>
+            <p class="p-1"> <b>*</b> {{ $t('message.dataupload.info.mandatory') }}</p>
           </InputPageStep>
         </div>
       </div>

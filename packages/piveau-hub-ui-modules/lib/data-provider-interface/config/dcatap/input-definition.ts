@@ -604,7 +604,7 @@ const dcatapProperties: InputDefinition = {
                       },
                     },
                     {
-                      identifier: 'pageDesc',
+                      identifier: 'pageDescription',
                       $formkit: 'textarea',
                       name: '@value',
                       classes: {
@@ -1216,12 +1216,12 @@ const dcatapProperties: InputDefinition = {
       id:'availability'
     },
     description: {
-      identifier: 'datasetDescription',
+      identifier: 'description',
       $formkit: 'repeatable',
       name: 'dct:description',
       children: [
         {
-          identifier: 'datasetDescription',
+          identifier: 'description',
           $formkit: 'group',
           name: 'dct:description',
           mandatory: true,
@@ -1231,7 +1231,9 @@ const dcatapProperties: InputDefinition = {
               identifier: 'description',
               $formkit: 'textarea',
               name: '@value',
-             
+              classes: {
+                outer: 'w75-descField'
+              }
             },
             {
               identifier: 'language',
@@ -1509,7 +1511,7 @@ const dcatapProperties: InputDefinition = {
                       },
                     },
                     {
-                      identifier: 'pageTitleSub',
+                      identifier: 'pageTitle',
                       $formkit: 'text',
                       name: '@value',
                       classes: {
@@ -1531,7 +1533,7 @@ const dcatapProperties: InputDefinition = {
                   name: 'dct:description',
                   children: [
                     {
-                      identifier: 'pageDesc',
+                      identifier: 'pageDescription',
                       $formkit: 'textarea',
                       name: '@value',
                     },
@@ -1696,7 +1698,7 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:rights',
       children: [
         {
-          identifier: 'rightsCond',
+          identifier: 'rights',
           name: "rightsMode",
           $formkit: "select",
           options: { url: 'URL', str: 'String' },

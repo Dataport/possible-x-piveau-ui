@@ -9,7 +9,7 @@
         <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>        
       </div>
     </div>
-    <p class="dURLText">Download-URL: <a class="dURLText" :href="context.model">{{ context.model }}</a></p>
+    <p class="dURLText">{{ $t('message.metadata.downloadUrl') }}: <a class="dURLText" :href="context.model">{{ context.model }}</a></p>
   </div>
 </template>
 
