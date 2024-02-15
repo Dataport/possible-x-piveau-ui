@@ -149,10 +149,12 @@
         "dataupload": {
             "info": {
                 "defaultdescription": "Click information-icon to display detailed explanation of field.",
-                "information": "Information"
+                "information": "Information",
+                "mandatory": "Mandatory",
+                "repeatable": "This is a repeatable property. You can {add} or {remove}.",
+                "add": "add another one",
+                "remove": "remove this property"
             },
-
-
             "datasets": {
                 "titleLabel": {
                     "label": "Title Text",
@@ -214,7 +216,8 @@
                 "subject": {
                     "label": "Subject",
                     "help": "A category of the Dataset.",
-                    "info": "This property refers to a category of the Dataset. A Dataset may be associated with multiple themes."
+                    "info": "This property refers to a category of the Dataset. A Dataset may be associated with multiple themes.",
+                    "placeholder": "Dataset Subject placeholder text"
                 },
                 "qualifiedRelationUrl": {
                     "placeholder": "Dataset Qualified Relation Url placeholder text",
@@ -601,7 +604,9 @@
                 },
                 "admsIdentifierType": {
                     "label": "Type",
-                    "help": "The admsIdentifier's type."
+                    "help": "The admsIdentifier's type.",
+                    "info": "The admsIdentifier's type.",
+                    "placeholder": "Dataset admsIdentifier placeholder text"
                 },
                 "admsIdentifierCheckbox": {
                     "label": "adms:Identifier Checkbox"
@@ -1493,8 +1498,7 @@
                 "loggedInAs": "Logged in as"
             },
             "createNewCatalogue": "Create a new Catalogue",
-            "createNewDataset": "Create a new Dataset",
-            "additionalInformation": "Additional Information"
+            "createNewDataset": "Create a new Dataset"
         },
         "datasetDetails": {
             "subnav": {

@@ -133,7 +133,10 @@
         "dataupload": {
             "info": {
                 "defaultdescription": "Klicken Sie auf Information-icon, um eine ausführliche Erläuterung des Feldes anzuzeigen.",
-                "information": "Informationen"
+                "information": "Informationen",
+                "repeatable": "Dies ist eine wiederholbare Eigenschaft. Sie können {add} oder {remove}.",
+                "add": "eine weitere Eigenschaft hinzufügen",
+                "remove": "diese Eigenschaft entfernen"
             },
             "distributions": {
                 "licenseAttributionByText": {
