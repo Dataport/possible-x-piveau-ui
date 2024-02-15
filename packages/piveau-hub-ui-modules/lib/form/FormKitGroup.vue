@@ -1,5 +1,6 @@
 <template>
     <div class="repeatable" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
+      <h4>{{ context.label }}</h4>
       
       <div class="horizontal-wrapper">
         
