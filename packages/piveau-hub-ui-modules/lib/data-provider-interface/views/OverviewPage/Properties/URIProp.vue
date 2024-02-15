@@ -1,5 +1,5 @@
 <template>
-  <div>
+    <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
     <!-- SINGULAR URIs -->
     <td v-if="value.type === 'singularURI'" class="">{{ nameOfProperty }}</td>
 
@@ -22,7 +22,6 @@
         {{ el['@id'] }}
       </div>
     </td>
-  </div>
 </template>
 
 <script>
@@ -101,7 +100,7 @@ export default {
 
             // New function to gather values from multiURIs -ToDo return to the requestResourceName function because this way
             this.namesOfMulti = this.data[this.property];
-            console.log(this.namesOfMulti);
+            // console.log(this.namesOfMulti);
             // 
             
             // this.namesOfMulti.push(preValues.name)
