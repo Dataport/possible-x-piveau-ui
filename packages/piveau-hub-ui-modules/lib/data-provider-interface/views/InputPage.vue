@@ -2,35 +2,30 @@
 <template>
   <div class="form-container ">
     <slot></slot>
-    <details>{{ formValues }}</details>
+    <!-- <details>{{ formValues }}</details> -->
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
-        <FormKit type="form" v-model.lazy="formValues" :actions="false" @submit="handleSubmit" :plugins="[stepPlugin]"
+
+        <FormKit type="form" v-model.lazy="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
-              <li v-for="(stepName, index) in getNavSteps[property]" :key="index" 
-                class="step" :data-step-active="activeStep === stepName" 
-                :class="{ 
-                  activeItem: activeStep === stepName, 
-                  inactiveStep: stepName != activeStep,
-                  'has-errors': checkStepValidity(stepName),
-                }" 
+              <li v-for="(step, stepName, index) in steps" :key="step" 
+                class="step" :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
+                :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName) }" 
                 @click="activeStep = stepName; update()">
+
+
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
-                  <span v-if="checkStepValidity(stepName)" class="step--errors"/>
-                    <!-- v-text="step.errorCount + step.blockingCount" /> -->
-                  {{ camel2title(stepName) }}
+                  <span v-if="checkStepValidity(stepName)" class="step--errors" v-text="step.errorCount + step.blockingCount" />{{ camel2title(stepName) }}
                 </div>
-                <div v-if="index + 1 != getNavSteps[property].length" class="seperatorHorizontalStepper"></div>
-                <div v-if="activeStep === 'Overview'" class="seperatorHorizontalStepper"></div>
+                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
               </li>
 
-              <li class="step inactiveStep" v-if="activeStep === 'Overview'">
-                <div  class="circle stepCircle"></div>
-
+              <li class="step inactiveStep" v-if="activeStep === 'overview'">
+                <div class="circle stepCircle"></div>
               </li>
 
             </ul>
@@ -46,6 +41,10 @@
               </div>
             </div>
           </div>
+
+          <Navigation :steps="steps" :nextStep="nextStep" :previousStep="previousStep" 
+            :goToNextStep="goToNextStep" :goToPreviousStep="goToPreviousStep"></Navigation>
+
         </FormKit>
 
       </div>
@@ -59,13 +58,10 @@ import { defineComponent } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import PropertyChooser from './PropertyChooser.vue'
-import {
-  has,
-  isNil,
-  isArray,
-} from 'lodash';
+import { has, isNil } from 'lodash';
 import DistributionInputPage from './DistributionInputPage.vue';
 import InputPageStep from '../components/InputPageStep.vue';
+import Navigation from '../components/Navigation.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import axios from 'axios';
 
@@ -101,6 +97,7 @@ export default defineComponent({
     InputPageStep,
     DistributionInputPage,
     PropertyChooser,
+    Navigation
   },
   computed: {
     ...mapGetters('auth', [
@@ -112,22 +109,29 @@ export default defineComponent({
       'getNavSteps',
       'getDeleteDistributionInline',
     ]),
-    getFirstTitleFromForm() {
-      return has(this.formValues, 'dct:title')
-        && this.formValues['dct:title'].length > 0
-        && has(this.formValues['dct:title'][0], '@value')
-        && !isNil(this.formValues['dct:title'][0], '@value')
-        ? this.formValues['dct:title'][0]['@value']
-        : '';
+    getTitleStep() {
+      return Object.keys(this.formValues).filter(key => has(this.formValues[key], 'dct:title'))[0];
     },
     createIDFromTitle() {
-      const title = this.getFirstTitleFromForm;
+
+      const title = this.formValues[this.getTitleStep]['dct:title'][0]['@value'];
+
       if (title != undefined) {
         return title
           .toLowerCase()
           .replace(/ /g, '-');
       }
       else return;
+    },
+    getFirstTitleFromForm() {
+      const allValues = this.formValues[this.getTitleStep];
+
+      return has(allValues, 'dct:title')
+        && allValues['dct:title'].length > 0
+        && has(allValues['dct:title'][0], '@value')
+        && !isNil(allValues['dct:title'][0], '@value')
+        ? allValues['dct:title'][0]['@value']
+        : '';
     },
     isInput() {
       return this.$route.params.page !== 'overview' && this.$route.params.page !== 'distoverview';
@@ -145,7 +149,6 @@ export default defineComponent({
       'saveLocalstorageValues',
       'addCatalogOptions',
       'clearAll',
-      'setDeleteDistributionInline',
     ]),
     update(){
       this.$forceUpdate();
@@ -153,33 +156,12 @@ export default defineComponent({
     clearForm() {
       this.$formkit.reset('dpi')
     },
-    // handleStep(stepName) {
-    //   this.step = stepName;
-
-    //   if (stepName === "mandatory") {
-    //     this.offsetTopStepper = "60px";
-    //   }
-    //   if (stepName === "advised") {
-
-    //     this.offsetTopStepper = "150px";
-    //   }
-    //   if (stepName === "recommended") {
-
-    //     this.offsetTopStepper = "240px";
-    //   }
-    //   if (stepName === "distribution") {
-
-    //   }
-    //   if (stepName === "overview") {
-    //     this.offsetTopStepper = "60px";
-    //   }
-    // },
     initInputPage() {
       if (this.page !== 'overview' && this.page !== 'distoverview') {
         this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
         // console.log(this.property);
         this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
-        const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, page: this.page, id: this.id });
+        const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
         // only overwrite empty object if there are values (otherwise the language preselection is gone)
 
         if (existingValues) {
@@ -193,12 +175,28 @@ export default defineComponent({
         });
       }
     },
+    createDatasetID() {
+      const valueObject = this.formValues[this.getTitleStep];
+
+      // Create Dataset ID from title if not existing
+      if (has(valueObject, 'dct:title') && !isNil(valueObject['dct:title'] && valueObject['dct:title'].length > 0)
+        && has(valueObject['dct:title'][0], '@value') && !isNil(valueObject['dct:title'][0]['@value'])) {
+
+        if (!has(valueObject, 'datasetID') || isNil(valueObject['datasetID'])) {
+          this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
+        }
+        else {
+          if (this.createIDFromTitle.startsWith(valueObject.datasetID) || valueObject.datasetID.startsWith(this.createIDFromTitle)) {
+            this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
+          }
+        }
+      }
+    },
     async initCatalogues() {
       await axios
         .get(this.$env.api.baseUrl + 'search?filter=catalogue&limit=100')
         .then(response => (this.info = response))
       this.info.data.result.results.forEach((e) => {
-        // console.log(this.info, this.catalogues);
         try {
           this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
         } catch (error) {
@@ -213,65 +211,16 @@ export default defineComponent({
         for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
           if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
             this.getUserCatalogIds[i] = this.catalogues[a].title;
-            console.log(this.getUserCatalogIds[i]);
             break
           }
         }
       }
     },
-    clear() {
-      this.clearValues();
-      this.clearAll();
-      this.setIsEditMode(false);
-    },
-    clearValues() {
-      this.formValues = {};
-      this.failedFields = [];
-    },
-    handleSubmit() {
-      this.$emit('go-to-next');
-    },
-    getFirstPath() {
-      return `${this.$env.content.dataProviderInterface.basePath}/${this.property}?locale=${this.$i18n.locale}`;
-    },
-    jumpToFirstPage() {
-      this.$router.push(this.getFirstPath()).catch(() => { });
-    },
-    checkPathAllowed(to, from) {
-      let allowedPaths = [
-        `${this.$env.content.dataProviderInterface.basePath}/datasets/`,
-        `${this.$env.content.dataProviderInterface.basePath}/catalogues/`,
-      ];
-      return allowedPaths.filter(el => to.path.startsWith(el)).length > 0;
-    },
-    createDatasetID() {
-      if ((this.property === 'datasets' || this.property === 'catalogues') && this.page === this.getNavSteps[this.property][0]) {
-        // Create Dataset ID from title if not existing
-        if (has(this.formValues, 'dct:title')
-          && !isNil(this.formValues['dct:title']
-            && this.formValues['dct:title'].length > 0)
-          && has(this.formValues['dct:title'][0], '@value')
-          && !isNil(this.formValues['dct:title'][0], '@value')
-          && (!has(this.formValues, 'datasetID')
-            || (has(this.formValues, 'datasetID') && this.createIDFromTitle.startsWith(this.formValues.datasetID))
-            || (has(this.formValues, 'datasetID') && this.formValues.datasetID.startsWith(this.createIDFromTitle)))) {
-          this.formValues.datasetID = this.createIDFromTitle;
-        }
-
-        if (has(this.formValues, 'dct:title')
-          && isArray(this.formValues['dct:title'])
-          && !isNil(this.formValues['dct:title']
-            && this.formValues['dct:title'].length > 0)
-          && has(this.formValues['dct:title'][0], '@value')
-          && isNil(this.formValues['dct:title'][0], '@value')
-          && has(this.formValues, 'datasetID')) this.formValues.datasetID = '';
-      }
-    },
   },
   created() {
 
-    if (this.$route.query.edit === false) {
-      this.clear();
+    if (this.$route.query.edit === 'false') {
+      this.clearAll();
     }
 
     // create schema for datasets or catalogues
@@ -318,30 +267,13 @@ export default defineComponent({
     // Always clear storage when entering DPI
     next(vm => {
       if (from.name && !from.name.startsWith('DataProviderInterface')) {
-        vm.clear();
-        vm.jumpToFirstPage();
+        vm.clearAll();
       }
     });
   },
-  beforeRouteUpdate(to, from, next) {
-    // Checks if next route within the DPI is a route
-    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from)) {
-      // for singular distribution: when deleteing from inline the mandatory check would return false leading to the display of the mandatory-modal
-      // since the distribution is already deleted the mandatory check would alwaysreturn false so by determining if an inline delete happens 
-      // (by checking getDeleteDistributionInline) we skip the display of the modal and grant redirect 
-      if (this.property === 'distributions' && this.getDeleteDistributionInline) {
-        this.setDeleteDistributionInline(false)
-        next();
-      }
-    } else {
-      // if there are multiple distributions, the mandatory checker might return true so we don't have to skip the modal display
-      // but we have to set the deleteDistributionInline value to false again
-      this.setDeleteDistributionInline(false)
-      next();
-    }
-  },
   setup() {
     const {
+      steps,
       activeStep,
       visitedSteps,
       previousStep,
@@ -352,11 +284,11 @@ export default defineComponent({
     } = useDpiStepper();
 
     const checkStepValidity = (stepName) => {
-      return true
-      // return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
+      return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
     return {
+      steps,
       visitedSteps,
       activeStep,
       previousStep,
