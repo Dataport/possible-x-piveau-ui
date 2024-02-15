@@ -108,7 +108,7 @@ export default {
               to: {
                 name: 'DataProviderInterface-Input',
                 query: { locale: this.$route.query.locale, edit: false }, // if edit is false -> reset is triggered
-                params: { property: 'datasets', page: this.getNavSteps.datasets[0] },
+                params: { property: 'datasets' },
               },
             },
             {

@@ -513,7 +513,7 @@
         position: absolute;
         top: 8px;
         right: 8px;
-        
+
     }
 
     &:before {
@@ -530,20 +530,253 @@
 }
 
 // -------------------------------------------------------
-.disInputInteractionButtons span{
-    cursor: pointer;
-  margin-right: 1rem;
+.theme {
+    .formkit-inner {
+        display: flex;
+        flex-direction: column;
+        border-bottom: none;
+
+        &:focus-within {
+            margin-top: 10px;
+            box-shadow: none;
+            background-color: unset;
+            border-bottom: none;
+        }
+
+        input {
+            border-bottom: 1px solid #6610f2;
+            margin-bottom: 0.5rem;
+            transition: all 100ms ease-in-out;
+
+            &:focus-within {
+                margin-top: 10px;
+                box-shadow: none;
+                background-color: #efefef;
+                border-bottom: 3px solid $primary;
+            }
+        }
+    }
 }
+
+.publisher {
+    .formkit-inner {
+        &:focus-within {
+            margin-top: 10px;
+            box-shadow: none;
+            background-color: unset;
+
+            border-bottom: none;
+        }
+    }
+    input {
+        
+        transition: all 100ms ease-in-out;
+
+        &:focus-within {
+            margin-top: 10px;
+            box-shadow: none;
+            background-color: #efefef;
+            border-bottom: 3px solid $primary;
+        }
+    }
+}
+
+.activeResultsAutocompleteWrapper {
+    padding: 1rem;
+    margin: 0 1rem 1rem 0;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    transition: all 100ms ease-in-out;
+    display: flex;
+
+    &:hover {
+        color: #196fd2;
+    }
+
+    .removeX {
+        margin-right: 0;
+    }
+}
+
+.inactiveResultList {
+    display: none;
+}
+
+.autocompleteInputSingleValue {
+    line-height: 3rem;
+    margin-right: auto;
+    color: #000;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.autocompleteInputfield, .selectInputField {
+    width: 100%;
+    border: none;
+    line-height: 3rem;
+    transition: all 100ms ease-in-out;
+
+    &:focus {
+        border: none;
+        box-shadow: none;
+        background-color: #efefef;
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.selectListUpload{
+    -webkit-box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 80px;
+    background-color: white;
+    z-index: 999;
+    list-style: none;
+    padding: 0;
+    width: 93%;
+    cursor: pointer;
+
+    li {
+        &:nth-child(even) {
+            background-color: #efefef;
+        }
+    }
+}
+.autocompleteResultList {
+    -webkit-box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 53px;
+    background-color: white;
+    z-index: 999;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    cursor: pointer;
+
+    li {
+        &:nth-child(even) {
+            background-color: #efefef;
+        }
+    }
+}
+
+.listItemsByte{
+    border: 1px solid lightgray;
+    cursor: pointer;
+    color: #000;
+    
+    transition: all ease 200ms;
+    &:hover{
+        color: #fff;
+        text-decoration: none;
+        background-color: #40A6D8;
+        border: 1px solid #40A6D8;
+    }
+}
+.byteHelpBox{
+    border-radius: 15px;
+}
+.byteButtonsBack {
+    color: #196fd2;
+    background-color: unset;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    border: none;
+    font-weight: 500;
+}
+
+.byteButtons {
+    font-weight: 500;
+    color: #fff;
+    border: none;
+    background-color: #40A6D8;
+    padding: 1rem;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    margin: 1rem;
+
+}
+
+.formkit-inner {
+    textarea {
+        min-height: 32px;
+    }
+
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid $primary;
+    transition: all 100ms ease-in-out;
+
+    &:focus-within {
+        margin-top: 10px;
+        box-shadow: none;
+        background-color: #efefef;
+        border-bottom: 3px solid $primary;
+    }
+}
+
+.formkitWrapRepeatable {
+    display: flex;
+}
+
+.repeatableWrap {
+    width: 100%;
+    border-left: 1px solid lightgray;
+}
+
+.interactionHeaderRepeatable {
+    margin-left: 1rem;
+    font-size: 0.7rem;
+
+    a {
+        cursor: pointer;
+    }
+
+    .add {
+        color: lightseagreen;
+    }
+
+    .remove {
+        color: lightcoral;
+    }
+}
+
+.dsd-title-tag {
+    background-color: $primary;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+
+    span {
+        color: white;
+    }
+}
+
+.disInputInteractionButtons span {
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
 .disInputInteractionButtons {
     display: flex;
     flex-direction: row;
 }
-.admsIdentifier .horizontal-wrapper{
+
+.admsIdentifier .horizontal-wrapper {
     flex-direction: column;
 }
-.autoCompleteWrapper .formkit-input{
-margin-left:1rem
+
+.autoCompleteWrapper .formkit-input {
+    margin-left: 1rem
 }
+
 .tooltipFormkit {
     width: max-content;
     z-index: 9999;
@@ -559,15 +792,16 @@ margin-left:1rem
     transition: all 0.2s ease-in-out;
     max-width: 15vw;
     border-radius: 5px;
-    &:after{
+
+    &:after {
         content: "";
-    background-color: rgb(82, 82, 82);
-    width: 10px;
-    height: 10px;
-    display: block;
-    position: absolute;
-    bottom: -5px;
-    rotate: 45deg;
+        background-color: rgb(82, 82, 82);
+        width: 10px;
+        height: 10px;
+        display: block;
+        position: absolute;
+        bottom: -5px;
+        rotate: 45deg;
     }
 }
 
@@ -602,18 +836,18 @@ margin-left:1rem
     position: relative;
 
     .formkit-outer {
-        width: 97%;
+        width: 64%;
     }
 }
 
 .suggestedItemsContainer {
     margin: 0 2% 2% 2.1%;
-    top: 70px;
+    top: 56px;
     border-radius: 5px;
     position: absolute;
     z-index: 999;
     background-color: white;
-    width: 96%;
+    width: 63%;
     -webkit-box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
 
@@ -639,6 +873,7 @@ margin-left:1rem
     width: 100%;
 }
 
+
 .pageTitle,
 .pageDescription {
     .interactionWrapper {
@@ -648,12 +883,67 @@ margin-left:1rem
 
 }
 
-.contactPoint,
-.page {
-    .horizontal-wrapper {
-        flex-direction: column;
+.propertyChooser {
+    ul {
+        margin-top: 1rem;
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
     }
 
+    li {
+        cursor: pointer;
+        transition: all 50ms ease-in-out;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        display: flex;
+        padding-right:1rem;
+        align-items: center;
+    }
+}
+
+.contactPoint,
+.creator,
+.page,
+.temporalResolution,
+.admsIdentifier {
+    .horizontal-wrapper {
+        .repeatableWrap {
+            .formkitWrapRepeatable {
+                flex-direction: column;
+            }
+
+        }
+
+    }
+
+}
+
+.pageDescription,
+.pageTitle {
+    .formkitWrapRepeatable {
+        flex-direction: row !important;
+    }
+}
+
+.admsIdentifier,
+.page {
+    .repeatableWrap {
+        h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-left: 1rem;
+            margin-bottom: 0;
+        }
+
+        .repeatableWrap {
+            border: none;
+        }
+    }
 }
 
 .suggestion-input-group {
@@ -682,7 +972,7 @@ margin-left:1rem
 }
 
 #datasetID {
-    width: 100%;
+    width: 65%;
 
     div {
         .formkit-outer {
@@ -696,11 +986,11 @@ margin-left:1rem
 .formkit-outer {
     margin: 1rem;
     position: relative;
-    width: 88%;
+    width: 64%;
 }
 
 .w75-descField {
-    width: 75%;
+    width: 35%;
 
 
     .formkit-icon {
@@ -729,7 +1019,7 @@ margin-left:1rem
 }
 
 .w75-textfield {
-    width: 75%;
+    width: 35%;
 }
 
 .w88-textfield {
@@ -737,7 +1027,7 @@ margin-left:1rem
 }
 
 .w100-textfield {
-    width: 100%;
+    width: 64%;
 }
 
 .w97-textfield {
@@ -756,15 +1046,14 @@ margin-left:1rem
 }
 
 .repeatable {
-    // display: flex;
-    // position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .formkit-label {
     position: absolute;
     padding: 3px;
     top: -12px;
-    left: 10px;
     background-color: #fff;
     z-index: 99;
 
@@ -827,7 +1116,9 @@ margin-left:1rem
 
     }
 }
-
+.formkitCmpWrap{
+    border-left: 1px solid lightgray;
+}
 .inactiveStep {
     .stepCircle {
         width: 25px;

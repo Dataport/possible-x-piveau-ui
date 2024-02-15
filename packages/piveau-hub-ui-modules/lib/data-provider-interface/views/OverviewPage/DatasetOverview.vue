@@ -1,29 +1,27 @@
 <template>
-    <details>{{ values['mandatory']['dct:publisher'] }}</details>
-    <div class="mt-2" v-if="pageLoaded">
+        <div class="mt-2" v-if="pageLoaded">
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
-                <h1 class="dsTitle"> {{ values['mandatory']['dct:title'][0]['@value'] }}</h1>
-
+                <h1 class="dsTitle"> {{ checkIfSet(getData('datasets')['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0]) }}</h1>
             </div>
             <div class="secondRow d-flex justify-content-between">
                 <div class="dsCatalogue ">
                     <span><b>Catalog:</b></span>
                     <a href="">
-                        {{ checkIfSet(values['mandatory']['dcat:catalog']) }}
+                        {{ checkIfSet(getData('datasets')['dcat:catalog']) }}
                     </a>
 
                 </div>
                 <div class="dsPublisher">
-                    <PropertyEntry :data="values['mandatory']" profile="datasets" :property="'dct:publisher'"
-                        :value="publisherValues" :dpiLocale="dpiLocale"></PropertyEntry>
+                    <span><b>Published by:</b></span>
+                    <a> {{ getData('datasets')['dct:publisher']['name'] }}</a>
                 </div>
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>
-                        {{ checkIfSet(new Date(values['mandatory']['dct:modified']['@value']).toDateString()) }}
-                        <!-- {{ new Date(values['datasets']['dct:modified']).toISOString().split('T')[0] }} -->
+                        {{ checkIfSet(new Date(getData('datasets')['dct:modified']['@value']).toDateString()) }}
+                        <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
 
                 </div>
@@ -32,41 +30,29 @@
         <div class="dsMainWrap d-flex flex-column mt-3">
             <div class="">
                 <p class="dsDesc px-3">
-                    {{ values['mandatory']['dct:description'].filter(el => el['@language'] ===
-                        dpiLocale).map(el =>
-                            el['@value'])[0] }}
+                    {{ checkIfSet(getData('datasets')['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0]) }}
                 </p>
-
             </div>
             <div class="">
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
-
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <PropertyEntry :data="values['mandatory']" profile="datasets" :property="name" :value="value"
-                            :dpiLocale="dpiLocale"></PropertyEntry>
-                        <PropertyEntry :data="values['advised']" profile="datasets" :property="name" :value="value"
-                            :dpiLocale="dpiLocale"></PropertyEntry>
-
+                        <PropertyEntry :data="getData('datasets')" profile="datasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
                 </table>
             </div>
         </div>
-        <div class="dsDist b-top p-3" v-if="values['distribution']['distributionList'].length > 0">
-            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{
-                values['distribution']['distributionList'].length
+        <!-- <div class="dsDist b-top p-3" v-if="getData('distributions').length > 0">
+            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('distributions').length
             }})</h2>
-            <DistributionOverview :disList="values['distribution']['distributionList']" :dpiLocale="dpiLocale"></DistributionOverview>
-        </div>
+            <DistributionOverview :dpiLocale="dpiLocale"></DistributionOverview>
+        </div> -->
 
         <div class="dsKeywords b-top my-2 p-3"
-            v-if="values['advised']['dct:keyword'] != undefined && values['advised']['dct:keyword'][0]['@language'] != undefined">
-            <h2 class="my-4">Keywords <span>({{ values['advised']['dct:keyword'].length }})</span></h2>
+            v-if="getData('datasets')['dct:keyword'] != undefined && getData('datasets')['dct:keyword'][0]['@value'] != undefined && getData('datasets')['dct:keyword'].length > 0">
+            <h2 class="my-4">Keywords <span>({{ getData('datasets')['dct:keyword'].length }})</span></h2>
             <div class="d-flex">
-                <span class="mx-1"
-                    v-for="( element, index ) in  values['advised']['dct:keyword'].filter(el => el['@language'] === dpiLocale) "
-                    :key="index">
-                    <small :title="element"
-                        class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
+                <span class="mx-1" v-for="( element, index ) in  getData('datasets')['dct:keyword'].filter(el => el['@language'] === dpiLocale)" :key="index">
+                    <small :title="element" class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
                         {{ element['@value'] }}
                     </small>
                 </span>
@@ -81,18 +67,11 @@ import PropertyEntry from './PropertyEntry.vue';
 import DistributionOverview from './DistributionOverview.vue';
 import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
-import Distribution from '../../../datasetDetails/distributions/Distribution.vue';
-
-
 
 export default {
     data() {
         return {
-            dpiLocale: "en",
             pageLoaded: false,
-            pageData: {},
-            URIcache: "",
-            publisherValues: { "type": "singularURI", "voc": "corporate-body", "label": "message.metadata.publisher" },
             tableProperties: {
                 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
@@ -137,29 +116,15 @@ export default {
                 'dcatde:geocodingDescription': { type: 'multiLingual', voc: '', label: 'message.dataupload.datasets.geocodingDescription.label' },
                 'dcatde:politicalGeocodingLevelURI': { type: 'multiURI', voc: '', label: 'message.dataupload.datasets.politicalGeocodingLevelURI.label' },
                 'dcatde:politicalGeocodingURI': { type: 'multiURIspecial', voc: '', label: 'message.dataupload.datasets.politicalGeocodingURI.label' },
-
-
             }
         }
     },
-    methods: {
-        ...mapActions("dpiStore", [
-            "requestFirstEntrySuggestions",
-            "requestAutocompleteSuggestions",
-            "requestResourceName",
-        ]),
-    },
     props: {
-        // dpiLocale: String,
-        values: {
-            required: true
-        },
+        dpiLocale: String,
     },
     components: {
         PropertyEntry,
         DistributionOverview,
-        Distribution,
-
     },
     computed: {
         ...mapGetters('dpiStore', [
@@ -171,26 +136,24 @@ export default {
         }
 
     },
-    created() {
-
-    },
     async mounted() {
         this.$nextTick(() => {
-
+            
             this.pageLoaded = true
 
         })
     },
-    updated() {
-
-    },
     methods: {
+        ...mapActions("dpiStore", [
+            "requestFirstEntrySuggestions",
+            "requestAutocompleteSuggestions",
+            "requestResourceName",
+        ]),
         checkIfSet(data) {
 
             if (data != undefined) return data
             else {
-                console.log(data + "- Datentyp");
-                return "unset"
+                return "No data available"
             }
         },
         getTitle(propertyName) {
@@ -202,7 +165,6 @@ export default {
             let req = `${this.$env.api.baseUrl}vocabularies/${nameOfProperty[nameOfProperty.length - 2]}/${nameOfProperty[nameOfProperty.length - 1]}`
 
             const data = await axios.get(req)
-            console.log(data['data']['result']['pref_label'][this.dpiLocale]);
             return data['data']['result']['pref_label'][this.dpiLocale]
         }
     }
