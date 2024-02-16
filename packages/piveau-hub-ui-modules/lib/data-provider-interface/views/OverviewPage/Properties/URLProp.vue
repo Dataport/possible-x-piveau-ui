@@ -1,26 +1,34 @@
 <template>
-  <div>
-    <!-- SINGULAR URL -->
-    <td v-if="value.type === 'singularURL'">
-        <app-link :to="data[property]">
-            {{ data[property] }}
+    <div>
+        <!-- SINGULAR URL -->
+        <td v-if="value.type === 'singularURL'">
+            <app-link :to="data[property]">
+                {{ data[property] }}
             </app-link>
-    </td>
+        </td>
 
-    <!-- MULTI URLs -->
-    <td v-if="value.type === 'multiURL'">
-        <div v-for="(el, index) in data[property]" :key="index">
-            <!-- regular multiple URLs -->
-            <app-link v-if="showValue(el, '@id')" :to="el['@id']">
-            {{ el['@id'] }}
-            </app-link>
-            <!-- IS USED BY -->
-            <app-link v-if="showValue(el, 'dext:isUsedBy')" :to="el['dext:isUsedBy']">
-                {{ el['dext:isUsedBy'] }}
-            </app-link>
-        </div>
-    </td>
-  </div>
+        <!-- MULTI URLs -->
+        <td class="d-flex align-items-center" v-if="value.type === 'multiURL'">
+
+            <div v-if="isEditMode">
+                <input type="text" v-model="contentOfProp">
+            </div>
+            <div v-else>
+                <div v-for="(el, index) in data[property]" :key="index">
+                    <!-- regular multiple URLs -->
+                    <app-link v-if="showValue(el, '@id')" :to="el['@id']">
+                        {{ el['@id'] }}
+                    </app-link>
+                    <!-- IS USED BY -->
+                    <app-link v-if="showValue(el, 'dext:isUsedBy')" :to="el['dext:isUsedBy']">
+                        {{ el['dext:isUsedBy'] }}
+                    </app-link>
+
+                </div>
+            </div>
+            <div class="infoI" @click="editProp(property)"></div>
+        </td>
+    </div>
 </template>
 
 <script>
@@ -28,6 +36,13 @@ import AppLink from "../../../../widgets/AppLink.vue";
 import { has, isNil, isEmpty } from 'lodash-es';
 
 export default {
+    data() {
+        return {
+            isEditMode: false,
+            contentOfProp: ''
+        }
+
+    },
     props: {
         property: String,
         value: Object,
@@ -40,6 +55,16 @@ export default {
         showValue(property, value) {
             return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
         },
+        async editProp(e) {
+            if (this.isEditMode) {
+                await this.$formkit.get(e).context.node.input([{ '@id': this.contentOfProp }])
+            }
+            else {
+                this.contentOfProp = this.$formkit.get(e).context.value[0]['@id']
+            }
+            this.isEditMode = !this.isEditMode;
+
+        }
     }
 }
 </script>

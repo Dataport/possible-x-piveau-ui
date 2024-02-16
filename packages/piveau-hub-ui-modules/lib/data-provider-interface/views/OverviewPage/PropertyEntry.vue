@@ -1,9 +1,9 @@
 <template>
     <div>
         <!-- <h5>({{ property }})</h5> -->
-
-        <tr v-if="showValue(data, property) || property === 'dct:creator'">
-
+        
+        <tr class="align-items-center" v-if="showValue(data, property) || property === 'dct:creator'">
+            
             <!-- <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td> -->
             <URIProp :property="property" :value="value" :data="data">
                 <p>{{ value.type }}</p>

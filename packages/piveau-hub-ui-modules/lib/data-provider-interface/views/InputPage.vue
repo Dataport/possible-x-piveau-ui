@@ -1,8 +1,8 @@
 
 <template>
   <div class="form-container ">
-    <slot></slot>
-    <!-- <details>{{ formValues }}</details> -->
+  
+    <details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -21,10 +21,9 @@
                   <div class="circle stepCircle">{{ index + 1 }}</div>
                   <span v-if="checkStepValidity(stepName)" class="step--errors" v-text="step.errorCount + step.blockingCount" />{{ camel2title(stepName) }}
                 </div>
-                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
+                <div v-if="index != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
               </li>
-
-              <li class="step inactiveStep" v-if="activeStep === 'overview'">
+              <li class="step inactiveStep" v-if="activeStep === 'Overview'">
                 <div class="circle stepCircle"></div>
               </li>
 
@@ -219,9 +218,10 @@ export default defineComponent({
   },
   created() {
 
-    if (this.$route.query.edit === 'false') {
-      this.clearAll();
-    }
+    // Needs to be reworked
+    // if (this.$route.query.edit === 'false') {
+    //   this.clearAll();
+    // }
 
     // create schema for datasets or catalogues
     for (let index = 0; index < this.getNavSteps[this.property].length; index++) {
