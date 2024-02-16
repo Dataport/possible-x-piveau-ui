@@ -263,7 +263,8 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatTypes);
 
                 // now conversion run based on newly defined format Type
-                convertPropertyValues(RDFdataset, data, property, mainURI, mainType, false, dpiConfig);
+                const currentData = { 'dct:publisher': data[key] };
+                convertPropertyValues(RDFdataset, currentData, property, mainURI, mainType, false, dpiConfig);
 
                 // to handle changes: undo prior changes back to default behavior (conditional Property)
                 generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatTypes);
