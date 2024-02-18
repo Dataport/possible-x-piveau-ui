@@ -1,4 +1,4 @@
-import { isEmpty, isNil } from 'lodash';
+import { isEmpty, isNil, has } from 'lodash';
 
 /**
  * Merges multiple Objects nested within an object into one main objects with al key-value-pairs originally located within the nested objects
@@ -215,7 +215,25 @@ function checkMandatory(data, property) {
         && !isEmpty(data['dcat:catalog']);
     } else if (property === 'distributions') {
         // distribution mandatory properties: dcat:accessUrl
-        status = !isNil(data) && !isEmpty(data) && !isEmpty(data['dcat:accessURL']);
+
+        const hasAccessUrl = !isNil(data) && !isEmpty(data) && !isEmpty(data['dcat:accessURL']);
+        // if dataservice is given the title as well as the endpointUrl is mandatory
+        if (has(data, 'dcat:accessService')) {
+            const serviceNumber = data['dcat:accessService'].length;
+            const allServicesHaveEnpointUrl = (data['dcat:accessService'].filter(obj => has(obj, 'dcat:endpointURL') && !isEmpty(obj['dcat:endpointURL']))).length === serviceNumber;
+            let servicesTitleAvailability = [];
+
+            for (let index in data['dcat:accessService']) {
+                // accessService always provides a field title because of the prefilling with a language tag (so testing against that is not necessary)
+                const service = data['dcat:accessService'][index];
+                // only testing if at least one title for each service is available
+                servicesTitleAvailability.push(!isEmpty(service['dct:title'].filter(el => has(el, '@value') && !isEmpty(el['@value']))))
+            }
+            const allServicesHaveATtitle = servicesTitleAvailability.every(el => el === true);
+            status = hasAccessUrl && allServicesHaveATtitle && allServicesHaveEnpointUrl;
+        } else {
+            status = hasAccessUrl
+        }
     } else if (property === 'catalogues') {
         // catalogue mandatory properties: datasetId, dct:title and dct:descirption with language tag, dct:publisher and at least one language (dct:language)
         status = !isEmpty(data['datasetID']) && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
