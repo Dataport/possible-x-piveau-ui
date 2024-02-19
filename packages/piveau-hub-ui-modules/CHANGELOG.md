@@ -1,3 +1,14 @@
+## [3.16.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.11...v3.16.12) (2024-02-19)
+
+
+### Bug Fixes
+
+* fixed check for mandatory properties of dataservice ([1ffa1a7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/1ffa1a77693920d4437000faf79d497151a81e22))
+* fixed duplicated creator caused by publisher conditional field ([c841c43](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c841c438b59f12e9f95e5d77993388b376afa537))
+* fixed handling of converted temporal resolution for seconds data ([b9c5bae](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b9c5bae12e0be9ad362c374f9cfab6168fb1fd7a))
+
+
+
 ## [3.16.11](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.10...v3.16.11) (2024-02-13)
 
 
