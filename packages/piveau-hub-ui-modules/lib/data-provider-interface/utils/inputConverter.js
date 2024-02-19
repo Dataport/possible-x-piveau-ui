@@ -158,16 +158,32 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     resolutionValue = el.object.value;
                 }
 
-                // find index of letter for time period
-                // extract substring until this index
-                // extract number from string and set as according value for input
-                for (let tempIndex = 0; tempIndex < shorts.length; tempIndex += 1) {
-                    const position = resolutionValue.indexOf(shorts[tempIndex]); // position of duration letter
-                    const subDuration = resolutionValue.substring(0, position); // substring until position of duration letter
-                    const value = subDuration.match(/\d+/g)[0]; // extract number
-                    resolutionValue = resolutionValue.substring(position); // overwrite resolution string with shortened version (missing the extracted part)
-                    state[key][0][forms[tempIndex]] = value; // write to result object
-                }
+                // backend converts temporalResolution values without a date into seconds for time values
+                if (!resolutionValue.startsWith("P")) {
+
+                    // setting year, month and day to 0
+                    state[key][0][forms[0]] = 0;
+                    state[key][0][forms[1]] = 0;
+                    state[key][0][forms[2]] = 0;
+
+                    // converting seconds into HH:MM:SS
+                    const data = new Date(resolutionValue * 1000).toISOString().slice(11, 19);
+                    state[key][0][forms[3]] = data.slice(0, 2);
+                    state[key][0][forms[4]] = data.slice(3, 5);
+                    state[key][0][forms[5]] = data.slice(7, 9);
+
+                } else {
+                    // find index of letter for time period
+                    // extract substring until this index
+                    // extract number from string and set as according value for input
+                    for (let tempIndex = 0; tempIndex < shorts.length; tempIndex += 1) {
+                        const position = resolutionValue.indexOf(shorts[tempIndex]); // position of duration letter
+                        const subDuration = resolutionValue.substring(0, position); // substring until position of duration letter
+                        const value = subDuration.match(/\d+/g)[0]; // extract number
+                        resolutionValue = resolutionValue.substring(position); // overwrite resolution string with shortened version (missing the extracted part)
+                        state[key][0][forms[tempIndex]] = value; // write to result object
+                    }
+                }               
             }
         } else if (key === 'dct:identifier') {
             if (subData.size > 0) {
