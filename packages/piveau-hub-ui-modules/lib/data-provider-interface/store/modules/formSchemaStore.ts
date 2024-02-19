@@ -30,12 +30,12 @@ const actions = {
         
         try {
             const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
-            const pageProperties = [Object.keys(dpiConfig.pageConent[property][page]),]
+            const pageProperties = dpiConfig.pageConent[property][page]
             const propertyDefinitions = dpiConfig.inputDefinition[property]
             commit('extractSchema', { pageProperties, propertyDefinitions, property, page });
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];
-            const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
+            const pageProperties = dpiConfig.pageConent[property][page];
             const propertyDefinitions = dpiConfig.inputDefinition[property]
             commit('extractSchema', { pageProperties, propertyDefinitions, property, page });
         }
