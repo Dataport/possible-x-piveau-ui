@@ -7,11 +7,10 @@
 
     <div class="d-flex">
       <ul class="steps">
-        <li v-for="(stepName, index) in getNavSteps['distributions']" :key="index" 
-          class="step" :data-step-active="activeStep === stepName" 
+        <li v-for="(step, stepName, index) in steps" :key="index" 
+          class="step" :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
           :class="{ 
-            activeItem: activeStep === stepName, 
-            inactiveStep: stepName != activeStep,
+            activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName)
           }" 
           @click="activeStep = stepName">
 
@@ -43,6 +42,9 @@
         </div>
       </div>
     </div>
+
+    <!-- <Navigation :steps="distSteps" :nextStep="distNextStep" :previousStep="distPreviousStep" 
+            :goToNextStep="distGoToNextStep" :goToPreviousStep="distGoToPreviousStep"></Navigation> -->
 
     <!-- <h5>{{ getDisName() }}</h5> -->
     <!-- <div class="disInputInteractionButtons">
@@ -113,6 +115,7 @@ export default defineComponent({
   },
   setup() {
     const {
+      steps,
       activeStep,
       visitedSteps,
       previousStep,
@@ -123,11 +126,11 @@ export default defineComponent({
     } = useDpiStepper();
 
     const checkStepValidity = (stepName) => {
-      return true
-      // return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
+      return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
     return {
+      steps,
       visitedSteps,
       activeStep,
       previousStep,

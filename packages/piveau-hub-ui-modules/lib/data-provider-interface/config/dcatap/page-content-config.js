@@ -44,9 +44,9 @@ const config = {
       wasGeneratedBy: {},
     },
     distributions: {},
-    Overview: {
-      overview: {}
-    }
+    // Overview: {
+    //   overview: {}
+    // }
   },
   distributions: {
     step1: {
