@@ -188,7 +188,8 @@ function getPagePrefixedNames(property, formDefinitions, pageContent) {
     // get property keys for each page
     for (let pageName in pageContent[property]) {
         prefixedNames[property][pageName] = [];
-        for (let propertyName in pageContent[property][pageName]) {
+        for (let propertyindex in pageContent[property][pageName]) {
+            const propertyName = pageContent[property][propertyindex];
             const prefixedName = formDefinitions[property][propertyName].name; // form definition includes name-property which contains key
             prefixedNames[property][pageName].push(prefixedName);
         }
