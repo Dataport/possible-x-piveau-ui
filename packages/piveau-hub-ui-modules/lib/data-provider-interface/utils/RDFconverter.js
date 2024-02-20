@@ -17,9 +17,10 @@ function convertToRDF(data, property) {
     let finishedRDFdata;
 
     let dpiConfig;
-    if (generalDpiConfig[process.env.content.dataProviderInterface.specification] == undefined) {
-        dpiConfig = generalDpiConfig["dcatap"]
-    } else dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification]
+    // if (generalDpiConfig[process.env.content.dataProviderInterface.specification] == undefined) {
+    //     dpiConfig = generalDpiConfig["dcatap"]
+    // } else dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification]
+    dpiConfig = generalDpiConfig['dcatap'];
 
     // writer for adding data as quads
     const RDFdata = new N3.Writer({ prefixes: dpiConfig.prefixes, format: 'N-Triples' });
@@ -55,9 +56,10 @@ function convertToRDF(data, property) {
 function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI) {
 
     let dpiConfig;
-    if (generalDpiConfig[process.env.content.dataProviderInterface.specification] == undefined) {
-        dpiConfig = generalDpiConfig["dcatap"]
-    } else dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification]
+    // if (generalDpiConfig[process.env.content.dataProviderInterface.specification] == undefined) {
+    //     dpiConfig = generalDpiConfig["dcatap"]
+    // } else dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification]
+    dpiConfig = generalDpiConfig['dcatap'];
 
     const formatTypes = dpiConfig.formatTypes;
 
@@ -100,6 +102,8 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     const valueKeys = Object.keys(data);
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index]; // key format: either a normal name for special properties (e.g. datasetID) or namespaced keys (e.g. dct:title)
+
+        console.log('**', key, data[key]);
 
         // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
         // depending on the format the corresponding conversion-method is used, writing the result to the overall RDF-writer
@@ -549,36 +553,38 @@ function convertMultipleURI(RDFdataset, id, data, key, property, dpiConfig) {
  */
 function convertTypedString(RDFdataset, id, data, key, dpiConfig) {
     if (!isEmpty(data[key])) {
+
         // there is a variety of properties which can have different types
-        let valueType;
-
-        // dct:issued and dct:modified can eihter be xsd:date or xsd:dateTime
-        // date format: 2022-09-25
-        // dateTime format: 2022-09-25T00:00
+        // issued and motified already provide a type definition ({'@type': 'date/datetime', '@value': '...'})
         if (key === 'dct:issued' || key === 'dct:modified') {
-            if (data[key].includes('T')) {
-                // dateTime
-                valueType = generalHelper.addNamespace('xsd:dateTime', dpiConfig);
-            } else {
-                // date
-                valueType = generalHelper.addNamespace('xsd:date', dpiConfig);
-            }
-        } else if (key === 'dcat:endDate' || key === 'dcat:startDate') {
-            // dcat:endDate and dcat:startDate are xsd:dateTime
-            valueType = generalHelper.addNamespace('xsd:dateTime', dpiConfig);
-        } else if (key === 'xds:dateTime') {
-          
-        } else if (key === 'dcat:spatialResolutionInMeters' || key === "dcat:byteSize") {
-            // dcat:spatialResolutionInMeters and dcat:byteSize are xsd:decimal
-            valueType = generalHelper.addNamespace('xsd:decimal', dpiConfig);
-        }
+            if (has(data[key], '@value') && !isEmpty(data[key]['@value'])) {
+                const imValueType = data[key]['@type'] ? data[key]['@type'] === 'date' : 'dateTime';
 
-        /// save quad to dataset
-        RDFdataset.addQuad(N3.DataFactory.quad(
-            id,
-            N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
-            N3.DataFactory.literal(data[key], N3.DataFactory.namedNode(valueType))
-        ));
+                /// save quad to dataset
+                RDFdataset.addQuad(N3.DataFactory.quad(
+                    id,
+                    N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
+                    N3.DataFactory.literal(data[key]['@value'], N3.DataFactory.namedNode(imValueType))
+                ));
+            }
+        } else {
+            // all other properties are given as a simple string
+            let valueType;
+            if (key === 'dcat:endDate' || key === 'dcat:startDate') {
+                // dcat:endDate and dcat:startDate are xsd:dateTime
+                valueType = generalHelper.addNamespace('xsd:dateTime', dpiConfig);
+            } else if (key === 'dcat:spatialResolutionInMeters' || key === "dcat:byteSize") {
+                // dcat:spatialResolutionInMeters and dcat:byteSize are xsd:decimal
+                valueType = generalHelper.addNamespace('xsd:decimal', dpiConfig);
+            }
+
+            /// save quad to dataset
+            RDFdataset.addQuad(N3.DataFactory.quad(
+                id,
+                N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
+                N3.DataFactory.literal(data[key], N3.DataFactory.namedNode(valueType))
+            ));
+        }
     }
 }
 
