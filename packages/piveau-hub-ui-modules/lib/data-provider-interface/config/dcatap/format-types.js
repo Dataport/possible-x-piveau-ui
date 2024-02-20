@@ -179,46 +179,6 @@ const additionalPropertyTypes = {
     'dcat:accessService': 'dcat:DataService',
 }
 
-// multiple URIs provided by the form can be formated as an array of objects containing the URI as value of key '@id'
-const multiURIobjects = {
-    datasets: [
-        "dct:source",
-        "dcat:landingPage",
-        "dct:relation",
-        "dcat:qualifiedRelation",
-        "prov:qualifiedAttribution",
-        "dct:isReferencedBy",
-        "prov:wasGeneratedBy",
-        "dct:isVersionOf",
-        "dct:hasVersion",
-        "dct:spatial",
-    ],
-    distributions: [
-        "dcat:accessURL",
-        "dcat:downloadURL",
-        "odrl:hasPolicy",
-    ],
-    catalogues: [
-        "dct:hasPart",
-        'dcat:catalog',
-    ]
-}
-
-// multiple URIs provided by the form can be also formated as an array of URIs (autocomplete fields)
-const multiURIarray = {
-    datasets: [
-        "dct:language", 
-        "dct:subject",  
-        "dcat:theme",
-    ],
-    distributions: [
-        "dct:language",
-    ],
-    catalogues: [
-        'dct:language',
-    ]
-}
-
 export default {
     singularURI,
     multipleURI,
@@ -227,7 +187,5 @@ export default {
     multilingualStrings,
     groupedProperties,
     additionalPropertyTypes,
-    multiURIobjects,
-    multiURIarray,
     conditionalProperties,
 };

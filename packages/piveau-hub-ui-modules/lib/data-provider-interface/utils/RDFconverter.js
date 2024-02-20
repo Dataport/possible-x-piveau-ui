@@ -529,21 +529,16 @@ function convertSingularURI(RDFdataset, id, data, key, dpiConfig) {
  */
 function convertMultipleURI(RDFdataset, id, data, key, property, dpiConfig) {
     // there are two different formats the frontend delivers multiple URIs
-    // 1: [ "URI1", "URI2" ] -> multi-autocomplete fields
+    // 1: [ {"name": '...', "resource": 'URI'}, {...} ] -> multi-autocomplete fields
     // 2: [ { "@id": "URI1" }, { "@id": "URI2" } ] repeatable fields
-
-    const formatTypes = dpiConfig.formatTypes;
 
     for (let uriIndex = 0; uriIndex < data[key].length; uriIndex += 1) {
 
         let currentURI;
-        if (formatTypes.multiURIarray[property].includes(key) && !isEmpty(data[key][uriIndex])) {
-            // array of URLs from multi-autocomplete fields
-            currentURI = data[key][uriIndex];
-        } else if (formatTypes.multiURIobjects[property].includes(key) && has(data[key][uriIndex], '@id') && !isEmpty(data[key][uriIndex])) {
-            // array of objects with key-value-pair from repeatable fields
-            currentURI = data[key][uriIndex]['@id'];
-
+        const valueObject = data[key][uriIndex];
+        if (!isEmpty(valueObject)) {
+            if (has(valueObject, 'resource')) currentURI = valueObject.resource;
+            else if (has(valueObject, '@id')) currentURI = valueObject['@id'];
         }
 
         // save quad to dataset
