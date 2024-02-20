@@ -564,7 +564,7 @@ function convertTypedString(RDFdataset, id, data, key, dpiConfig) {
         // issued and motified already provide a type definition ({'@type': 'date/datetime', '@value': '...'})
         if (key === 'dct:issued' || key === 'dct:modified') {
             if (has(data[key], '@value') && !isEmpty(data[key]['@value'])) {
-                const imValueType = data[key]['@type'] ? data[key]['@type'] === 'date' : 'dateTime';
+                const imValueType = data[key]['@type'] === 'date' ? data[key]['@type'] : 'dateTime';
 
                 /// save quad to dataset
                 RDFdataset.addQuad(N3.DataFactory.quad(
