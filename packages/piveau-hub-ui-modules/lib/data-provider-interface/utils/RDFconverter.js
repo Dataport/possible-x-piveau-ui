@@ -487,16 +487,27 @@ function convertSingularString(RDFdataset, id, data, key, dpiConfig) {
  * @param {String} key Name of current value (e.g. dct:title) used as predicate in quad
  */
 function convertSingularURI(RDFdataset, id, data, key, dpiConfig) {
+    // there are two different formats the frontend delivers URIs
+    // 1: 'URI' or 2: {'name': 'abc', 'resource': 'URI'}
+
     // URIs can either be a normal URL or an email address
-    // mail addresses typicall include '@' which is ised to determine if the given string is a normal URL or an email address
+    // mail addresses typicall include '@' which is used to determine if the given string is a normal URL or an email address
     if (!isEmpty(data[key])) {
+
         let singleURI;
-        if (data[key].includes('@')) {
-            // mail address
-            singleURI = `mailto:${data[key]}`;
+
+        if (typeof data[key] === 'object') {
+            if (has(data[key], 'resource')) {
+                singleURI = data[key].resource;
+            }
         } else {
-            // normal URL
-            singleURI = data[key];
+            if (data[key].includes('@')) {
+                // mail address
+                singleURI = `mailto:${data[key]}`;
+            } else {
+                // normal URL
+                singleURI = data[key];
+            }
         }
 
         // save quad to dataset
