@@ -1,4 +1,4 @@
-import { has } from 'lodash-es';
+import { has, isObject } from 'lodash-es';
 import {useI18n} from "vue-i18n";
 
 /**
@@ -31,7 +31,18 @@ function translateProperty(propertyDefinition, property) {
                     translation = parameter;
                 }
 
-                propertyDefinition[parameter] = translation;
+                const isCustomComponentWithProps = !!propertyDefinition.$cmp
+                    && !propertyDefinition.$formkit
+                    && isObject(propertyDefinition.props);
+
+                const isSelectControlledGroupCustomComponent = isCustomComponentWithProps
+                    && propertyDefinition.$cmp === 'SelectControlledGroup';
+
+                if (isSelectControlledGroupCustomComponent) {
+                    propertyDefinition.props[parameter] = translation;
+                } else {
+                    propertyDefinition[parameter] = translation;
+                }
 
                 if(parameter === "info"){
 
