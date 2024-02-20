@@ -34,7 +34,7 @@
               <div v-for="(stepName, index) in getNavSteps[property]" :key="index">
                 <InputPageStep :name="stepName">
                   <!-- <PropertyChooser></PropertyChooser> -->
-                  <FormKitSchema v-if="stepName !== 'distributions'" :schema="getSchema(property)[stepName]"/>
+                  <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"/>
                   <DistributionInputPage v-else :schema="getSchema('distributions')" :values="formValues"/>
                   <p class="p-1"> <b>*</b> mandatory</p>
                 </InputPageStep>
