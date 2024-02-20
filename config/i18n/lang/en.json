@@ -151,6 +151,11 @@
                 "defaultdescription": "Click information-icon to display detailed explanation of field.",
                 "information": "Information",
                 "mandatory": "Mandatory",
+                "advised": "Advised",
+                "recommended": "Recommended",
+                "distributions": "Distributions",
+                "overview": "Overview",
+                "selectDisplayLanguage": "Select display language",
                 "repeatable": "This is a repeatable property. You can {add} or {remove}.",
                 "add": "add another one",
                 "remove": "remove this property"
@@ -184,7 +189,8 @@
                 "contactPointAddressCity": {
                     "placeholder": "Dataset Contact Point Address City placeholder text",
                     "label": "Address City",
-                    "help": "The city of the contact point's address"
+                    "help": "The city of the contact point's address",
+                    "info": "The city of the contact point's address"
                 },
                 "source": {
                     "label": "Source",
@@ -202,7 +208,8 @@
                 "pageUrl": {
                     "label": "Url",
                     "placeholder": "Dataset Page Url placeholder text",
-                    "help": "The link to the webpage of the page."
+                    "help": "The link to the webpage of the page.",
+                    "info": "The link to the webpage of the page."
                 },
                 "admsIdentifierSkosNotation": {
                     "help": "Datasets adms:Identifier Scheme help text",
@@ -246,7 +253,8 @@
                 "contactPointAddressStreet": {
                     "label": "Address Street",
                     "placeholder": "Dataset Contact Point Address Street placeholder text",
-                    "help": "The street of the contact point's address"
+                    "help": "The street of the contact point's address",
+                    "info": "The street of the contact point's address"
                 },
                 "relationUrl": {
                     "label": "Url",
@@ -268,7 +276,8 @@
                 "pageFormat": {
                     "placeholder": "Dataset Page Format placeholder text",
                     "label": "Format",
-                    "help": "The format of the page."
+                    "help": "The format of the page.",
+                    "info": "The format of the page."
                 },
                 "qualifiedAttributionUrl": {
                     "placeholder": "Dataset Qualified Attribution Url placeholder text",
@@ -317,7 +326,7 @@
                 },
                 "spatialResolutionInMeters": {
                     "help": "This property refers to the minimum spatial separation resolvable in a dataset, measured in meters.",
-                    "info": "",
+                    "info": "This property refers to the minimum spatial separation resolvable in a dataset, measured in meters.",
                     "label": "Spatial Resolution in Meters",
                     "placeholder": "Dataset Spatial Resolution In Meters placeholder text"
                 },
@@ -338,7 +347,8 @@
                 "temporalResolutionYear": {
                     "placeholder": "Dataset Temporal Resolution Year placeholder text",
                     "label": "Temporal Resolution Year",
-                    "help": "The number of years."
+                    "help": "The number of years.",
+                    "info": "The number of years."
                 },
                 "admsIdentifier": {
                     "add-label": "Add another adms:Identifier",
@@ -356,7 +366,7 @@
                     "label": "Description",
                     "placeholder": "Dataset Page Description placeholder text",
                     "help": "A description of the page.",
-                    "add-label": "Add more"
+                    "info": "A description of the page."
                 },
                 "identifier": {
                     "add-label": "Add Identifier",
@@ -368,7 +378,8 @@
                 "creatorName": {
                     "placeholder": "Dataset Creator Name placeholder text",
                     "label": "Name",
-                    "help": "This property refers to the name of the creator."
+                    "help": "This property refers to the name of the creator.",
+                    "info": "This property refers to the name of the creator."
                 },
                 "hasVersionUrl": {
                     "label": "Url",
@@ -410,7 +421,8 @@
                 "temporalResolutionHour": {
                     "placeholder": "Dataset Temporal Resolution Hour placeholder text",
                     "label": "Temporal Resolution Hour",
-                    "help": "The number of hours."
+                    "help": "The number of hours.",
+                    "info": "The number of hours."
                 },
                 "qualifiedRelation": {
                     "help": "This property provides a link to a description of a relationship with another resource",
@@ -421,35 +433,34 @@
                 },
                 "pageTitle": {
                     "placeholder": "Dataset Page Title placeholder text",
-                    "label": "",
+                    "label": "Title",
                     "help": "",
                     "info": "",
-                    "add": "Add another page title",
                     "add-label": "Add more"
                 },
                 "pageTitleSub": {
-                    "placeholder": "Pleaase provide a descriptive title",
-                    "label": "Title text",
+                    "placeholder": "Please provide a descriptive title",
+                    "label": "Title",
                     "help": "Text for the page title.",
-                    "info": ""
+                    "info": "Text for the page title."
                 },
                 "landingPageUrl": {
                     "label": "Url",
                     "placeholder": "Dataset Landing Page Url placeholder text",
-                    "help": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information. ",
-                    "info": ""
+                    "help": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information.",
+                    "info": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information."
                 },
                 "conformsToTitle": {
                     "placeholder": "Dataset Conforms To Title placeholder text",
                     "label": "Title",
                     "help": "The propertie's title.",
-                    "info": ""
+                    "info": "The propertie's title."
                 },
                 "conformsToUrl": {
                     "placeholder": "Dataset Conforms To Url placeholder text",
                     "label": "Url",
                     "help": "The propertie's link.",
-                    "info": ""
+                    "info": "The propertie's link."
                 },
                 "landingPage": {
                     "help": "This property refers to a web page that provides access to the Dataset.",
@@ -461,17 +472,20 @@
                 "creatorType": {
                     "label": "Type",
                     "placeholder": "Dataset Creator Type placeholder text",
-                    "help": "This property refers to the type of the creator."
+                    "help": "This property refers to the type of the creator.",
+                    "info": "This property refers to the type of the creator."
                 },
                 "contactPointAddressPostcode": {
                     "label": "Address Postcode",
                     "placeholder": "Dataset Contact Point Address Postcode placeholder text",
-                    "help": "The postcode of the contact point's address"
+                    "help": "The postcode of the contact point's address",
+                    "info": "The postcode of the contact point's address"
                 },
                 "contactPointTelephone": {
                     "label": "Telephone",
                     "placeholder": "Dataset Contact Point Telephone placeholder text",
-                    "help": "The telephone number of the contact point"
+                    "help": "The telephone number of the contact point",
+                    "info": "The telephone number of the contact point"
                 },
                 "spatial": {
                     "placeholder": "Dataset Spatial placeholder text",
@@ -489,12 +503,14 @@
                 "temporalResolutionMonth": {
                     "placeholder": "Dataset Temporal Resolution Month placeholder text",
                     "label": "Temporal Resolution Month",
-                    "help": "The number of months."
+                    "help": "The number of months.",
+                    "info": "The number of months."
                 },
                 "temporalResolutionSecond": {
                     "placeholder": "Dataset Temporal Resolution Second placeholder text",
                     "label": "Temporal Resolution Second",
-                    "help": "The number of seconds."
+                    "help": "The number of seconds.",
+                    "info": "The number of seconds."
                 },
                 "identifierText": {
                     "placeholder": "Dataset Identifier Text placeholder text",
@@ -503,12 +519,14 @@
                 "contactPointAddressCountry": {
                     "label": "Address Country",
                     "placeholder": "Dataset Contact Point Address Country placeholder text",
-                    "help": "The country of the contact point's address"
+                    "help": "The country of the contact point's address",
+                    "info": "The country of the contact point's address"
                 },
                 "contactPointName": {
                     "placeholder": "Dataset Contact Point Name placeholder text",
                     "label": "Name",
-                    "help": "The name of the contact point"
+                    "help": "The name of the contact point",
+                    "info": "The name of the contact point"
                 },
                 "isUsedBy": {
                     "help": "This property refers to an application or other work that uses the Dataset in any form.",
@@ -520,12 +538,14 @@
                 "contactPointType": {
                     "label": "Type",
                     "placeholder": "Dataset Contact Point Type placeholder text",
-                    "help": "The type of the contact point"
+                    "help": "The type of the contact point",
+                    "info": "The type of the contact point"
                 },
                 "temporalResolutionMinute": {
                     "placeholder": "Dataset Temporal Resolution Minute placeholder text",
                     "label": "Temporal Resolution Minute",
-                    "help": "The number of minutes."
+                    "help": "The number of minutes.",
+                    "info": "The number of minutes."
                 },
                 "sourceUrl": {
                     "label": "Url",
@@ -540,30 +560,31 @@
                 "creatorEmail": {
                     "label": "Email",
                     "placeholder": "Dataset Creator Email placeholder text",
-                    "help": "This property refers to the creator's e-mail."
+                    "help": "This property refers to the creator's e-mail.",
+                    "info": "This property refers to the creator's e-mail."
                 },
                 "contactPointEmail": {
                     "label": "Email",
                     "placeholder": "Dataset Contact Point Email placeholder text",
-                    "help": "The e-mail address of the contact point"
-                },
-                "contactPointAddress": {
-                    "label": "Contact Point Address",
-                    "help": "The full address of the contact point"
+                    "help": "The e-mail address of the contact point",
+                    "info": "The e-mail address of the contact point"
                 },
                 "admsIdentifierUrl": {
                     "label": "Url",
                     "placeholder": "Dataset adms:Identifier Url placeholder text",
-                    "help": "The link to the admsIdentifier's webpage."
+                    "help": "The link to the admsIdentifier's webpage.",
+                    "info": "The link to the admsIdentifier's webpage."
                 },
                 "temporalStart": {
                     "label": "Start",
-                    "help": "This property refers to the start of a temporal period that the Dataset covers."
+                    "help": "This property refers to the start of a temporal period that the Dataset covers.",
+                    "info": "This property refers to the start of a temporal period that the Dataset covers."
                 },
                 "contactPointOrganisationName": {
                     "placeholder": "Dataset Contact Point Organisation Name placeholder text",
                     "label": "Organisation Name",
-                    "help": "The oranization name contact point."
+                    "help": "The oranization name contact point.",
+                    "info": "The oranization name contact point."
                 },
                 "creator": {
                     "help": "This property refers to the entity responsible for producing the dataset.",
@@ -581,26 +602,31 @@
                 "admsIdentifierValue": {
                     "placeholder": "Dataset adms:Identifier Identifier placeholder text",
                     "label": "Identifier",
-                    "help": "The identifier String of the admsIdentifier."
+                    "help": "The identifier String of the admsIdentifier.",
+                    "info": "The identifier String of the admsIdentifier."
                 },
                 "temporalEnd": {
                     "label": "End",
-                    "help": "This property refers to the end of a temporal period that the Dataset covers."
+                    "help": "This property refers to the end of a temporal period that the Dataset covers.",
+                    "info": "This property refers to the end of a temporal period that the Dataset covers."
                 },
                 "contactPointUrl": {
                     "label": "Url",
                     "placeholder": "Dataset Contact Point Url placeholder text",
-                    "help": "The web page of the contact point"
+                    "help": "The web page of the contact point",
+                    "info": "The web page of the contact point"
                 },
                 "temporalResolutionDay": {
                     "label": "Temporal Resolution Day",
                     "placeholder": "Dataset Temporal Resolution Day placeholder text",
-                    "help": "The number of days."
+                    "help": "The number of days.",
+                    "info": "The number of days."
                 },
                 "creatorHomepage": {
                     "placeholder": "Dataset Creator Homepage placeholder text",
                     "label": "Homepage",
-                    "help": "This property refers to the homepage of the creator."
+                    "help": "This property refers to the homepage of the creator.",
+                    "info": "This property refers to the homepage of the creator."
                 },
                 "admsIdentifierType": {
                     "label": "Type",
@@ -1270,32 +1296,38 @@
                 "temporalResolutionSecond": {
                     "placeholder": "Dataset Temporal Resolution Second placeholder text",
                     "label": "Temporal Resolution Second",
-                    "help": "The number of seconds."
+                    "help": "The number of seconds.",
+                    "info": "The number of seconds."
                 },
                 "temporalResolutionHour": {
                     "label": "Temporal Resolution Hour",
                     "placeholder": "Dataset Temporal Resolution Hour placeholder text",
-                    "help": "The number of hours."
+                    "help": "The number of hours.",
+                    "info": "The number of hours."
                 },
                 "temporalResolutionMinute": {
                     "placeholder": "Dataset Temporal Resolution Minute placeholder text",
                     "label": "Temporal Resolution Minute",
-                    "help": "The number of minutes."
+                    "help": "The number of minutes.",
+                    "info": "The number of minutes."
                 },
                 "temporalResolutionMonth": {
                     "label": "Temporal Resolution Month",
                     "placeholder": "Dataset Temporal Resolution Month placeholder text",
-                    "help": "The number of months."
+                    "help": "The number of months.",
+                    "info": "The number of months."
                 },
                 "temporalResolutionYear": {
                     "label": "Temporal Resolution Year",
                     "placeholder": "Dataset Temporal Resolution Year placeholder text",
-                    "help": "The number of years."
+                    "help": "The number of years.",
+                    "info": "The number of years."
                 },
                 "temporalResolutionDay": {
                     "label": "Temporal Resolution Day",
                     "placeholder": "Dataset Temporal Resolution Day placeholder text",
-                    "help": "The number of days."
+                    "help": "The number of days.",
+                    "info": "The number of days."
                 },
                 "temporalResolution": {
                     "add-label": "Add Temporal Resolution",
@@ -1336,7 +1368,9 @@
                 },
                 "checksumAlgorithm": {
                     "label": "Checksum Algorithm",
-                    "help": "Algorithm used for checksum."
+                    "help": "Algorithm used for checksum.",
+                    "info": "Algorithm used for checksum.",
+                    "placeholder": "Distribution Checksum Algorithm placeholder text"
                 },
                 "mediaType": {
                     "label": "Media Type",
@@ -1357,14 +1391,16 @@
                     "placeholder": "Distribution Byte Size placeholder text"
                 },
                 "type": {
-                    "info": "This property refers to the media type of the Distribution as defined in the official register of media types managed by IANA.",
-                    "help": "The media type of the Distribution.",
+                    "placeholder": "Distribution Type placeholder text",
+                    "info": "This property refers to the type of the Distribution.",
+                    "help": "The type of the Distribution.",
                     "label": "Type"
                 },
                 "accessServiceEndpointURL": {
                     "label": "Data Service Endpoint URL",
                     "placeholder": "Distribution Data Service Endpoint URL placeholder text",
-                    "help": "The link to the data service's webpage."
+                    "help": "The link to the data service's webpage.",
+                    "info": "The link to the data service's webpage."
                 },
                 "rights": {
                     "info": "This property refers to a statement that specifies rights associated with the Distribution.",
@@ -1385,7 +1421,8 @@
                 "conformsToUrl": {
                     "label": "Url",
                     "placeholder": "Distribution Conforms To Url placeholder text",
-                    "help": "The propertie's link."
+                    "help": "The propertie's link.",
+                    "info": "The propertie's link."
                 },
                 "conformsTo": {
                     "add-label": "Add Conforms To",
@@ -1397,7 +1434,8 @@
                 "conformsToTitle": {
                     "label": "Title",
                     "placeholder": "Distribution Conforms To Title placeholder text",
-                    "help": "The propertie's title."
+                    "help": "The propertie's title.",
+                    "info": "The propertie's title."
                 },
                 "hasPolicy": {
                     "label": "Has Policy",
@@ -1408,23 +1446,26 @@
                 "hasPolicyUrl": {
                     "placeholder": "Distribution Has Policy Url placeholder text",
                     "label": "Url",
-                    "help": "The policy link."
+                    "info": "This property refers to the policy expressing the rights associated with the distribution if using the ODRL vocabulary",
+                    "help": "The policy expressing the rights."
                 },
                 "pageFormat": {
                     "placeholder": "Distribution Page Format placeholder text",
                     "label": "Format",
-                    "help": "The format of the page."
+                    "help": "The format of the page.",
+                    "info": "The format of the page."
                 },
                 "pageUrl": {
                     "label": "Url",
                     "placeholder": "Distribution Page Url placeholder text",
-                    "help": "The link to the webpage of the page."
+                    "help": "The link to the webpage of the page.",
+                    "info": "The link to the webpage of the page."
                 },
                 "pageDescription": {
                     "label": "Description",
                     "placeholder": "Distribution Page Description placeholder text",
-                    "add-label": "Add page description",
-                    "help": "The page's description."
+                    "help": "The page's description.",
+                    "info": "The page's description."
                 },
                 "page": {
                     "info": "This property refers to a page or document about this Distribution.",
@@ -1443,7 +1484,7 @@
                     "placeholder": "Distribution Page Title placeholder text",
                     "label": "Title",
                     "help": "The page title.",
-                    "add-label": "Add page title"
+                    "info": "The page title."
                 },
                 "stepper": {
                     "distoverview": {
