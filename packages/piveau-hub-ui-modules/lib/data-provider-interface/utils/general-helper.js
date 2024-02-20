@@ -21,7 +21,6 @@ function mergeNestedObjects(data) {
 function addNamespace(prefix, dpiConfig) {
     // the prefix had the following format: namespace:property (e.g. dct:title)
     // the short version of the namespace noe should be replaced by the long version (e.g. http://purl.org/dc/terms/title)
-
     let fullDescriptor;
     const colonIndex = prefix.indexOf(':');
 
@@ -188,10 +187,11 @@ function getPagePrefixedNames(property, formDefinitions, pageContent) {
     // get property keys for each page
     for (let pageName in pageContent[property]) {
         prefixedNames[property][pageName] = [];
-        for (let propertyindex in pageContent[property][pageName]) {
-            const propertyName = pageContent[property][propertyindex];
+        const propertyKeys = pageContent[property][pageName];
+        for (let propertyindex = 0; propertyindex < propertyKeys.length; propertyindex++) {
+            const propertyName = propertyKeys[propertyindex];
             const prefixedName = formDefinitions[property][propertyName].name; // form definition includes name-property which contains key
-            prefixedNames[property][pageName].push(prefixedName);
+            if (prefixedName !== undefined) prefixedNames[property][pageName].push(prefixedName);
         }
     }
 
