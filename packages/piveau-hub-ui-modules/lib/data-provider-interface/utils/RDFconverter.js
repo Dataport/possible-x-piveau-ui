@@ -103,8 +103,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index]; // key format: either a normal name for special properties (e.g. datasetID) or namespaced keys (e.g. dct:title)
 
-        console.log('**', key, data[key]);
-
         // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
         // depending on the format the corresponding conversion-method is used, writing the result to the overall RDF-writer
         if (formatTypes.singularString[property].includes(key)) {
@@ -283,11 +281,15 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 const resolutionValues = data[key];
                 const valueString = `P${resolutionValues.Year ? resolutionValues.Year : 0}Y${resolutionValues.Month ? resolutionValues.Month : 0}M${resolutionValues.Day ? resolutionValues.Day : 0}DT${resolutionValues.Hour ? resolutionValues.Hour : 0}H${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
 
-                RDFdataset.addQuad(N3.DataFactory.quad(
-                    mainURI,
-                    N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
-                    N3.DataFactory.literal(valueString, N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration', dpiConfig)))
-                ))
+                // frontend always provides temporalResolution even if there is no value resulting in P0Y0M0DT0H0M0S
+                // don't save if value is equal to P0Y0M0DT0H0M0S
+                if (valueString !== "P0Y0M0DT0H0M0S") {
+                    RDFdataset.addQuad(N3.DataFactory.quad(
+                        mainURI,
+                        N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
+                        N3.DataFactory.literal(valueString, N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration', dpiConfig)))
+                    ))
+                }
             }
         } else if (key === 'dct:identifier') {
             // form provides data as array of objects with strings: [ { '@value': 'string1' }, { '@value': 'string2' }, ... ]
