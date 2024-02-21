@@ -39,7 +39,7 @@ const getAutocompleteSuggestions = async () => {
 <template>
     <div class="d-flex flex-column w-100 spatialWrap">
         <div class=" w-100 d-flex">
-            <div class="d-flex position-relative m-3 w-50">
+            <div class="d-flex position-relative m-3 ">
                 <label class="w-100"> Choose the the way you want to provide the spatial info <input type="text"
                         class="selectInputField formkit-inner" placeholder="Select input method"
                         @click="chooseSpatialInput($event)">

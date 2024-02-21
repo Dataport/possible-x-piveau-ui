@@ -23,7 +23,6 @@
                         {{ checkIfSet(new Date(getData('datasets')['dct:modified']['@value']).toDateString()) }}
                         <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
-
                 </div>
             </div>
         </div>

@@ -1,9 +1,9 @@
 <template>
     <div>
         <!-- <h5>({{ property }})</h5> -->
-        
-        <tr class="align-items-center" v-if="showValue(data, property) || property === 'dct:creator'">
-            
+
+        <tr class="align-items-center" v-if="showValue(data, property)">
+
             <!-- <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td> -->
             <URIProp :property="property" :value="value" :data="data">
                 <p>{{ value.type }}</p>
@@ -37,7 +37,6 @@ import SpecialProp from './Properties/SpecialProp.vue';
 import ConditionalProp from './Properties/ConditionalProp';
 
 import { has, isNil, isEmpty } from 'lodash';
-import { object } from 'zod';
 
 export default {
     components: {
@@ -58,24 +57,38 @@ export default {
     methods: {
         // Check if there's a valid value present
         showValue(property, value) {
-
+            let listOfEmptyObjects = [];
             try {
-
-                if (Object.keys(property[value])[0] != 0) {
-                    if(value === "dct:issued" ) return false
-                    property[value] = [property[value]]
-                    return true
+                // console.log("Before if statements:  ", Object.keys(property[value][0]).length, isNil(Object.keys(property[value][0])), Object.keys(property[value][0]), property[value][0], value);
+                if (Object.keys(property[value][0]).length < 2) {
+                    if (property[value][0][Object.keys(property[value][0])] === undefined) {
+                        return false
+                    }
+                    else return true
                 }
-                if (!isEmpty(property[value][0])) {
-                    if (Object.keys(property[value][0]).length === 1) {
-                        if (Object.values(property[value][0])[0] === undefined) {
+                if (Object.keys(property[value][0]).length > 0) {
+                    //    todo --- Page and Creator
+                    if (value === "foaf:page") {
+                        return false
+                    }
+                    if (value === "dct:creator") {
+                        return false
+                    }
+                    for (let index = 0; index < Object.keys(property[value][0]).length; index++) {
+                        if (Object.keys(property[value][0]).length <= 1 && property[value][0][Object.keys(property[value][0])[index]] === undefined) {
                             return false
                         }
+                        if (Object.keys(property[value][0]).length > 1) {
+                            listOfEmptyObjects.push(property[value][0][Object.keys(property[value][0])[index]] === undefined)
+                            if (index + 1 === Object.keys(property[value][0]).length) {
+                                if (Object.keys(property[value][0])[0] === '@language' && property[value][0]['@value'] === undefined || property[value][0]['@value'] === "") return false
+                                // console.log(Object.keys(property[value][0]), listOfEmptyObjects.every(v => v === true));
+                                if (!listOfEmptyObjects.every(v => v === true)) return true;
+
+                                else return false
+                            }
+                        }
                     }
-                    if (!isEmpty(property[value][0]['@language'])) {
-                    }
-                    else if (value === "foaf:page") { return false }
-                    else return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
                 }
             } catch (error) {
             }

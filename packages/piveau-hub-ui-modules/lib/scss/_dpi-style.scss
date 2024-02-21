@@ -835,9 +835,7 @@
     width: 100%;
     position: relative;
 
-    .formkit-outer {
-        width: 64%;
-    }
+    
 }
 
 .suggestedItemsContainer {
@@ -972,13 +970,8 @@
 }
 
 #datasetID {
-    width: 65%;
+    width: 100%;
 
-    div {
-        .formkit-outer {
-            width: 97%;
-        }
-    }
 
 
 }
@@ -986,11 +979,10 @@
 .formkit-outer {
     margin: 1rem;
     position: relative;
-    width: 64%;
 }
 
 .w75-descField {
-    width: 35%;
+    width: 75%;
 
 
     .formkit-icon {
@@ -1019,7 +1011,7 @@
 }
 
 .w75-textfield {
-    width: 35%;
+    width: 75%;
 }
 
 .w88-textfield {
@@ -1027,7 +1019,7 @@
 }
 
 .w100-textfield {
-    width: 64%;
+    width: 100%;
 }
 
 .w97-textfield {

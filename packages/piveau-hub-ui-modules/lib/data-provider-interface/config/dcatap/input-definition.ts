@@ -85,20 +85,20 @@ export type DcatApDistributionsProperty =
   | 'status';
 
 export type DcatApCataloguesProperty =
-// Append new properties here for accurate type checking
-'datasetID'
-| 'title'
-| 'description'
-| 'publisher'
-| 'language'
-| 'licence'
-| 'spatial'
-| 'homepage'
-| 'hasPart'
-| 'isPartOf'
-| 'rights'
-| 'catalog'
-| 'creator';
+  // Append new properties here for accurate type checking
+  'datasetID'
+  | 'title'
+  | 'description'
+  | 'publisher'
+  | 'language'
+  | 'licence'
+  | 'spatial'
+  | 'homepage'
+  | 'hasPart'
+  | 'isPartOf'
+  | 'rights'
+  | 'catalog'
+  | 'creator';
 
 export type InputDefinition = {
   datasets: Record<DcatApDatasetsProperty, FormKitSchemaDefinition>;
@@ -119,7 +119,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'id',
       mandatory: true,
       name: 'datasetID',
-      id:'datasetID'
+      id: 'datasetID'
     },
     description: {
       identifier: 'description',
@@ -168,16 +168,16 @@ const dcatapProperties: InputDefinition = {
           identifier: 'title',
           $formkit: 'group',
           name: 'dct:title',
-         
+
           minimum: 1,
           children: [
             {
               identifier: 'dctTitle',
-              value: 'en',
+              
               $formkit: 'select',
               validation: 'required',
               options: language,
-             
+              value: 'en',
               name: '@language',
               classes: {
                 outer: 'w25-textfield'
@@ -314,9 +314,9 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       annifTheme: true,
       voc: 'eurovoc',
-      name:'dct:subject',
+      name: 'dct:subject',
       '@annifSuggestion': false,
-      id:'subjectDataset',
+      id: 'subjectDataset',
       classes: {
         outer: 'w88-textfield'
       }
@@ -370,64 +370,7 @@ const dcatapProperties: InputDefinition = {
           $formkit: 'spatialinput',
           name: 'dct:spatial',
           identifier: 'spatial',
-          
-          // children: [
-          //   {
-          //     $formkit: "select",
-          //     identifier: "spatial",
-          //     id: "spatialModeDataset",
-          //     name: "spatialMode",
-          //     options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-          //   },
-          //   {
-          //     $cmp: "FormKit",
-          //     identifier: "spatial",
-          //     if: "$get(spatialModeDataset).value",
-          //     props: {
-          //       type: "radio",
-          //       name: "vocabulary",
-          //       id: "spatialVocabularyDataset",
-          //       if: "$get(spatialModeDataset).value === man",
-          //       options: {
-          //         if: "$get(spatialModeDataset).value === voc",
-          //         then: [
-          //           { value: "continent", label: "Continent" },
-          //           { value: "country", label: "Country" },
-          //           { value: "place", label: "Place" }
-          //         ],
-          //         else: {
-          //           if: "$get(spatialModeDataset).value === man",
-          //           then: [
-          //             { label: "Other", value: "other" }
-          //           ],
-          //         }
-          //       }
-          //     }
-          //   },
-          //   {
-          //     $cmp: "FormKit",
-          //     identifier: "spatial",
-          //     if: "$get(spatialVocabularyDataset).value",
-          //     props: {
-          //       identifier: "spatial",
-          //       if: "$get(spatialVocabularyDataset).value === other",
-          //       then: {
-          //         type: "url",
-          //         identifier: "spatial",
-          //         name: '@id'
-          //       },
-          //       else: {
-          //         then: {
-          //           type: "text",
-          //           identifier: "spatial",
-          //           name: '@id'
-          //         }
-          //       }
-          //     }
-          //   }
-          // ]
-        }
-      ]
+        }]
     },
     temporal: {
       identifier: 'temporal',
@@ -462,21 +405,21 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     theme: {
-          identifier: 'theme',
-          $formkit: 'auto',
-          multiple: true,
-          annifTheme: true,
-          voc: 'data-theme',
-          '@annifSuggestion': false,
-          name: 'dcat:theme',
-          id: 'theme',
+      identifier: 'theme',
+      $formkit: 'auto',
+      multiple: true,
+      annifTheme: true,
+      voc: 'data-theme',
+      '@annifSuggestion': false,
+      name: 'dcat:theme',
+      id: 'theme',
     },
     accessRights: {
       identifier: 'accessRights',
       $formkit: 'auto',
       voc: 'access-right',
       name: 'dct:accessRights',
-      id:'accessRights'
+      id: 'accessRights'
     },
     creator: {
       identifier: 'creator',
@@ -595,7 +538,7 @@ const dcatapProperties: InputDefinition = {
                   $formkit: 'group',
                   name: 'dct:description',
                   children: [
-                   
+
                     {
                       identifier: 'page-desc',
                       value: 'en',
@@ -624,9 +567,9 @@ const dcatapProperties: InputDefinition = {
               voc: 'file-type',
               class: "property",
               name: 'dct:format',
-              id:'pageFormat',
+              id: 'pageFormat',
               classes: {
-        
+
                 outer: 'w97-textfield'
               }
             },
@@ -649,7 +592,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'frequency',
       name: 'dct:accrualPeriodicity',
-      id:'accrualPeriodicity',
+      id: 'accrualPeriodicity',
       classes: {
         outer: 'w88-textfield'
       },
@@ -750,7 +693,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'isReferencedBy',
       $formkit: 'repeatable',
       name: 'dct:isReferencedBy',
-      id:'dct:isReferencedBy',
+      id: 'dct:isReferencedBy',
       children: [
         {
           $formkit: 'group',
@@ -799,13 +742,13 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:language',
       multiple: true,
       voc: 'language',
-      id:'language'
+      id: 'language'
     },
     admsIdentifier: {
       identifier: 'admsIdentifier',
       $formkit: 'repeatable',
       name: 'adms:identifier',
-     
+
       children: [
         {
           $formkit: 'group',
@@ -818,7 +761,7 @@ const dcatapProperties: InputDefinition = {
               name: '@id',
               validation: 'optional|url',
               classes: {
-       
+
                 outer: 'w97-textfield'
               },
             },
@@ -832,7 +775,7 @@ const dcatapProperties: InputDefinition = {
                   $formkit: 'text',
                   name: '@value',
                   classes: {
-       
+
                     outer: 'w97-textfield'
                   },
                 },
@@ -842,9 +785,9 @@ const dcatapProperties: InputDefinition = {
                   identifier: 'admsIdentifierType',
                   voc: 'notation-type',
                   name: '@type',
-                  id:'admsIdentifierType',
+                  id: 'admsIdentifierType',
                   classes: {
-       
+
                     outer: 'w97-textfield'
                   },
                 },
@@ -986,7 +929,7 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'issued',
           $cmp: 'FormKit',
-         
+
           if: '$get(issuedCondDataset).value',
           props: {
             if: '$get(issuedCondDataset).value === date',
@@ -1102,7 +1045,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'dataset-type',
       name: 'dct:type',
-      id:'type'
+      id: 'type'
     },
     versionInfo: {
       identifier: 'versionInfo',
@@ -1191,7 +1134,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'planned-availability',
       name: 'dcatap:availability',
-      id:'availability'
+      id: 'availability'
     },
     description: {
       identifier: 'datasetDescription',
@@ -1209,13 +1152,13 @@ const dcatapProperties: InputDefinition = {
               identifier: 'description',
               $formkit: 'textarea',
               name: '@value',
-             
+
             },
             {
               identifier: 'descriptionLanguage',
               value: 'en',
               $formkit: 'select',
-              options: language,      
+              options: language,
               name: '@language',
             },
           ],
@@ -1227,9 +1170,9 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'file-type',
       name: 'dct:format',
-      id:'format',
+      id: 'format',
       classes: {
-        
+
         outer: 'w88-textfield'
       }
     },
@@ -1285,7 +1228,7 @@ const dcatapProperties: InputDefinition = {
           ]
         }
       ]
-    },    
+    },
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1302,13 +1245,13 @@ const dcatapProperties: InputDefinition = {
               identifier: 'titleLabel',
               $formkit: 'text',
               name: '@value',
-              
+
             },
             {
               identifier: 'dctTitle',
               value: 'en',
               $formkit: 'select',
-            
+
               options: language,
               name: '@language',
             },
@@ -1321,7 +1264,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:mediaType',
-      id:'mediaType'
+      id: 'mediaType'
     },
     downloadUrl: {
       identifier: 'downloadUrl',
@@ -1448,14 +1391,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:compressFormat',
-      id:'compressFormat'
+      id: 'compressFormat'
     },
     packageFormat: {
       identifier: 'packageFormat',
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:packageFormat',
-      id:'packageFormat'
+      id: 'packageFormat'
     },
     page: {
       identifier: 'page',
@@ -1477,7 +1420,7 @@ const dcatapProperties: InputDefinition = {
                   $formkit: 'group',
                   name: 'dct:title',
                   children: [
-                   
+
                     {
                       identifier: 'pageTitlelang',
                       value: 'en',
@@ -1532,9 +1475,9 @@ const dcatapProperties: InputDefinition = {
               voc: 'file-type',
               name: 'dct:format',
               class: "property",
-              id:'pageFormat',
+              id: 'pageFormat',
               classes: {
-        
+
                 outer: 'w88-textfield'
               }
             },
@@ -1578,7 +1521,7 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       name: 'dct:language',
       voc: 'language',
-      id:'language'
+      id: 'language'
     },
     conformsTo: {
       identifier: 'conformsTo',
@@ -1755,14 +1698,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'distribution-type',
       name: 'dct:type',
-      id:'type'
+      id: 'type'
     },
     status: {
       identifier: 'status',
       $formkit: 'auto',
       voc: 'dataset-status',
       name: 'adms:status',
-      id:'status'
+      id: 'status'
     },
   },
   catalogues: {
@@ -1837,7 +1780,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'publisher',
       name: 'dct:publisher',
       voc: 'corporate-body',
-      id:'publisher'
+      id: 'publisher'
     },
     language: {
       identifier: 'language',
@@ -1845,7 +1788,7 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       name: 'dct:language',
       voc: 'language',
-      id:'language'
+      id: 'language'
     },
     licence: {
       $formkit: 'group',
@@ -1899,7 +1842,7 @@ const dcatapProperties: InputDefinition = {
           ]
         }
       ]
-    },    
+    },
     spatial: {
       $formkit: 'repeatable',
       name: 'dct:spatial',
