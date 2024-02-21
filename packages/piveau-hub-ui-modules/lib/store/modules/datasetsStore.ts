@@ -66,13 +66,10 @@ const GETTERS = {
   getLoading: state => state.loading,
   getOffset: state => state.searchParameters.offset,
   getFacets: (state) => {
-    // Hacky solution for facet category bug
-    if (state.searchParameters.facets.categories) state.searchParameters.facets.categories = state.searchParameters.facets.categories.map(c => c.toUpperCase());
-
-    // Hacky solution for country data
-    if (state.searchParameters.facets.dataScope) delete state.searchParameters.facets.dataScope;
-
-    return state.searchParameters.facets;
+    const preparedFacets = {...state.searchParameters.facets};
+    if (preparedFacets.categories) preparedFacets.categories = preparedFacets.categories.map(c => c.toUpperCase());
+    if (preparedFacets.dataScope) delete preparedFacets.dataScope;
+    return preparedFacets;
   },
   getFacetOperator: state => state.searchParameters.facetOperator,
   getFacetGroupOperator: state => state.searchParameters.facetGroupOperator,
@@ -158,7 +155,7 @@ const actions = {
       facets.catalog = [];
       superCatalogue = 'erpd';
     }
-    
+
     return new Promise((resolve, reject) => {
       this.$datasetService.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, superCatalogue, facets, geoBounds, minScoring, dataScope)
         .then((response) => {
@@ -176,7 +173,7 @@ const actions = {
           reject(error);
         });
     });
-    
+
   },
 
     /**
