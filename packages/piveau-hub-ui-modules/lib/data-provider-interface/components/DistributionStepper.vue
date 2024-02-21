@@ -37,8 +37,8 @@
         <div v-for="(stepName, index) in getNavSteps.distributions" :key="index">
           <InputPageStep :name="stepName">
             <!-- <PropertyChooser></PropertyChooser> -->
-            <FormKitSchema :schema="schema[stepName]" :library="library" />
-            <p class="p-1"> <b>*</b> mandatory</p>
+            <FormKitSchema :schema="schema[stepName]" :library="library"/>
+            <p class="p-1"> <b>*</b> {{ $t('message.dataupload.info.mandatory') }}</p>
           </InputPageStep>
         </div>
       </div>

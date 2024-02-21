@@ -4,7 +4,7 @@
     <div class="mt-5 mb-0" >
       <div class="row">
         <div class="col-10 ">
-          Select Display Language:
+          {{ $t('message.dataupload.info.selectDisplayLanguage') }}:
           <LanguageSelector class="ml-1" v-model="dpiLocale"></LanguageSelector>
         </div>
       </div>

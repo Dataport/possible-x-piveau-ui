@@ -1,6 +1,7 @@
 <template>
     <div class="repeatable" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
-      <h4>{{ camel2title(context.attrs.identifier) }}</h4>
+      <h4>{{ context.label }}</h4>
+      
       <div class="horizontal-wrapper">
         
         <div class="repeatableWrap">

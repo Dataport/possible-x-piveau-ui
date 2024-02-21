@@ -36,7 +36,7 @@
                   <!-- <PropertyChooser></PropertyChooser> -->
                   <FormKitSchema v-if="stepName !== 'distributions'" :schema="datasetSchema[stepName]"/>
                   <DistributionInputPage v-else :schema="distributionSchema" :values="formValues"/>
-                  <p class="p-1"> <b>*</b> mandatory</p>
+                  <p class="p-1"> <b>*</b> {{ $t('message.dataupload.info.mandatory') }}</p>
                 </InputPageStep>
               </div>
             </div>
