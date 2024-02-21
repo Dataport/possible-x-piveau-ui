@@ -217,13 +217,24 @@ export default {
       const facetFields = this.$env.content.datasets.facets.defaultFacetOrder;
       const wantsToLoadCatalogByParamOrProp = this.showCatalogDetails;
 
-      return facetFields.reduce((acc, field) => {
-        acc[field] = (wantsToLoadCatalogByParamOrProp && field === 'catalog' )
+      const facetObj = facetFields.reduce((acc, field) => {
+        acc[field] = (wantsToLoadCatalogByParamOrProp && field === 'catalog' && !this.fixedCatalogFilter)
           ? []
           : this.getUrlFacetsOrDefault(field);
 
         return acc;
       }, {});
+
+      // if fixedCatalogFilter is set, then set it as superCatalog
+      // requirement by bayern
+      const facetObjWithMaybeDefaultSuperCatalog = this.fixedCatalogFilter
+        ? {
+          ...facetObj,
+          superCatalog: [this.fixedCatalogFilter],
+        }
+        : facetObj;
+
+        return facetObjWithMaybeDefaultSuperCatalog;
     },
 
 
