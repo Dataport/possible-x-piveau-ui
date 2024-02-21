@@ -175,7 +175,7 @@
                 "titleLabel": {
                     "label": "Title Text",
                     "help": "Please provide a title.",
-                    "info": "",
+                    "info": "Please provide a title.",
                     "placeholder": "Add a title"
                 },
                 "datasetDescription": {
@@ -225,7 +225,7 @@
                 "admsIdentifierSkosNotation": {
                     "help": "The adms:identifiers scheme",
                     "label": "Scheme",
-                    "info": ""
+                    "info": "The adms:identifiers scheme"
                 },
                 "spatialPlace": {
                     "placeholder": "Please choose",
@@ -242,7 +242,7 @@
                     "placeholder": "Provide a qualified relation Url",
                     "label": "Url",
                     "help": "The link to the propertie's webpage.",
-                    "info": ""
+                    "info": "The link to the propertie's webpage."
                 },
                 "accrualPeriodicity": {
                     "info": "This property refers to the frequency at which the Dataset is updated.",
@@ -254,7 +254,7 @@
                     "label": "Url",
                     "placeholder": "Provide a Url",
                     "help": "The link to the propertie's webpage.",
-                    "info": ""
+                    "info": "The link to the propertie's webpage."
                 },
                 "versionNotes": {
                     "placeholder": "Please provide version notes.",
@@ -273,13 +273,13 @@
                     "label": "Url",
                     "placeholder": "Provide a Url",
                     "help": "The link to the relation's webpage.",
-                    "info": ""
+                    "info": "The link to the relation's webpage."
                 },
                 "isVersionOfUrl": {
                     "placeholder": "Provide a Url",
                     "label": "Url",
                     "help": "The link to the propertie's webpage.",
-                    "info": ""
+                    "info": "The link to the propertie's webpage."
                 },
                 "conformsTo": {
                     "label": "Conforms To",
@@ -298,7 +298,7 @@
                     "placeholder": "Provide a Url",
                     "label": "Url",
                     "help": "The link to the propertie's webpage.",
-                    "info": ""
+                    "info": "The link to the propertie's webpage."
                 },
                 "isVersionOf": {
                     "add-label": "Add Is Version Of",
@@ -318,7 +318,7 @@
                     "label": "Provenance Text",
                     "help": "This property contains a statement about the lineage of a Dataset.",
                     "add-label": "Add Provenance",
-                    "info": "",
+                    "info": "This property contains a statement about the lineage of a Dataset.",
                     "placeholder": "please provide a provenance"
                 },
                 "provenanceGroup": {
@@ -402,7 +402,7 @@
                     "label": "Url",
                     "placeholder": "Provide a Url",
                     "help": "The link to the propertie's webpage.",
-                    "info": ""
+                    "info": "The link to the propertie's webpage."
                 },
                 "versionInfo": {
                     "label": "Version Info",
@@ -453,7 +453,7 @@
                     "placeholder": "Title of the page",
                     "label": "Title",
                     "help": "A descriptive title for the page",
-                    "info": "",
+                    "info": "A descriptive title for the page",
                     "add": "Add another page title",
                     "add-label": "Add more"
                 },
@@ -571,7 +571,7 @@
                     "label": "Url",
                     "placeholder": "Provide a Url",
                     "help": "The link to the propertie's webpage.",
-                    "info": ""
+                    "info": "The link to the propertie's webpage."
                 },
                 "spatialCountry": {
                     "label": "Country",
@@ -588,7 +588,7 @@
                     "label": "Email",
                     "placeholder": "Email address of the contact point",
                     "help": "The e-mail address of the contact point",
-                    "info": ""
+                    "info": "The e-mail address of the contact point"
                 },
                 "contactPointAddress": {
                     "label": "Contact Point Address",
@@ -667,7 +667,7 @@
                     "label": "Url",
                     "placeholder": "Provide a Url",
                     "help": "The link to the propertie's webpage.",
-                    "info": ""
+                    "info": "The link to the propertie's webpage."
                 },
                 "provenanceText": {
                     "label": "Text",
@@ -681,7 +681,7 @@
                     "add-label": "Add Description in another language",
                     "placeholder": "Dataset Description placeholder text",
                     "help": "Please select a language and provide a description of the dataset.",
-                    "info": ""
+                    "info": "Please select a language and provide a description of the dataset."
                 },
                 "publisherType": {
                     "label": "Type",
@@ -707,7 +707,7 @@
                     "add-label": "Add Keyword",
                     "help": "Comma-separated terms that may link this dataset to similar ones.",
                     "placeholder": "Provide descriptive Keywords",
-                    "info": "",
+                    "info": "Comma-separated terms that may link this dataset to similar ones.",
                     "label": "Keyword Text"
                 },
                 "modified": {
@@ -795,13 +795,13 @@
                     "label": "SpatialUrl",
                     "placeholder": "Spatial Url",
                     "help": "Spatial Url help text",
-                    "info": ""
+                    "info": "Spatial Url help text"
                 },
                 "spatialVocabulary": {
                     "label": "Spatial",
                     "placeholder": "Choose a vocabulary",
                     "help": "Either a continent, a country or a place.",
-                    "info": ""
+                    "info": "Either a continent, a country or a place."
                 },
                 "qualifiedRelationHadRole": {
                     "placeholder": "Had Role placeholder",
@@ -869,25 +869,25 @@
                 },
                 "contributorType": {
                     "help": "Type of the contributor",
-                    "info": "",
+                    "info": "Type of the contributor",
                     "label": "Contributor type",
                     "placeholder": "Please provide a type"
                 },
                 "contributorEmail": {
                     "help": "Email adress of the contributor",
-                    "info": "",
+                    "info": "Email adress of the contributor",
                     "label": "Contributor email adress",
                     "placeholder": "Please provide an Email"
                 },
                 "contributorName": {
                     "help": "Name of the contributor",
-                    "info": "",
+                    "info": "Name of the contributor",
                     "label": "Contributor name",
                     "placeholder": "Please provide a name"
                 },
                 "contributorHomepage": {
                     "help": "Homepage of the contributor",
-                    "info": "",
+                    "info": "Homepage of the contributor",
                     "label": "Contributor Homepage",
                     "placeholder": "Please provide a Homepage"
                 },
@@ -1004,7 +1004,7 @@
                     "label": "Rights Url",
                     "help": "A link to the rights definition",
                     "placeholder": "Rights Url placeholder",
-                    "info": ""
+                    "info": "A link to the rights definition"
                 },
                 "rightsString": {
                     "label": "Rights Statement",
@@ -1101,7 +1101,7 @@
                     "label": "Homepage",
                     "placeholder": "Catalogue Creator Homepage placeholder text",
                     "help": "This property refers to the homepage of the creator.",
-                    "info": ""
+                    "info": "This property refers to the homepage of the creator."
                 },
                 "creatorName": {
                     "placeholder": "Catalogue Creator Name placeholder text",
@@ -1241,7 +1241,7 @@
                     "label": "Data Service Title",
                     "add-label": "Add Data Service Title in another language",
                     "help": "The title of the data access service.",
-                    "info": ""
+                    "info": "The title of the data access service."
                 },
                 "accessService": {
                     "label": "Data Service",
@@ -1323,7 +1323,7 @@
                 "description": {
                     "label": "Description",
                     "placeholder": "Distribution Description placeholder text",
-                    "info": "",
+                    "info": "This property contains a free-text account of the Distribution.",
                     "help": "This property contains a free-text account of the Distribution.",
                     "add-label": "Add Description in another language"
                 },
@@ -1445,7 +1445,7 @@
                 "availability": {
                     "label": "Availability",
                     "placeholder": "Distribution Availability placeholder text",
-                    "info": "",
+                    "info": "How long it is planned to keep the Distribution of the Dataset available.",
                     "help": "How long it is planned to keep the Distribution of the Dataset available."
                 },
                 "byteSize": {
@@ -1476,7 +1476,7 @@
                     "label": "Rights Url",
                     "placeholder": "Rights Url placeholder",
                     "help": "A link to the rights definition",
-                    "info": ""
+                    "info": "A link to the rights definition"
                 },
                 "rightsString": {
                     "label": "Rights Statement",
