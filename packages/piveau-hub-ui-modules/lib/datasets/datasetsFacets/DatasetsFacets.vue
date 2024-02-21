@@ -505,11 +505,6 @@ export default {
     for(var i in sessionStorage){
       if(sessionStorage.length > 0 && i =="Filter") this.toggleCutoff();
     }
-    /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
-    /* fill in here */
-    // Note: sets fixedCatalogFilter as superCatalogue as 'fallback'
-    // This is necessary for Open Data Bayern to work properly.
-    this.setSuperCatalogue_DEPRECATED(this.fixedCatalogFilter);
   }
 };
 </script>
