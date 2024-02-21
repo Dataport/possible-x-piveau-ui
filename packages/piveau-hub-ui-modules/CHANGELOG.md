@@ -1,3 +1,12 @@
+## [3.16.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.12...v3.16.13) (2024-02-21)
+
+
+### Bug Fixes
+
+* **Datasets:** set superCatalog facet if fixedCatalogFilter is set ([b49b698](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b49b698698f1d92f233e4bc7a5b8541cfe247207))
+
+
+
 ## [3.16.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.11...v3.16.12) (2024-02-19)
 
 
