@@ -160,7 +160,16 @@
         "dataupload": {
             "info": {
                 "defaultdescription": "Click information-icon to display detailed explanation of field.",
-                "information": "Information"
+                "information": "Information",
+                "mandatory": "Mandatory",
+                "advised": "Advised",
+                "recommended": "Recommended",
+                "distributions": "Distributions",
+                "overview": "Overview",
+                "selectDisplayLanguage": "Select display language",
+                "repeatable": "This is a repeatable property. You can {add} or {remove}.",
+                "add": "add another one",
+                "remove": "remove this property"
             },
             "datasets": {
                 "titleLabel": {
@@ -192,7 +201,7 @@
                     "placeholder": "City of the contact point",
                     "label": "Address City",
                     "help": "The city of the contact point's address",
-                    "info": ""
+                    "info": "The city of the contact point's address"
                 },
                 "source": {
                     "label": "Source",
@@ -211,7 +220,7 @@
                     "label": "Url",
                     "placeholder": "Provide a page Url",
                     "help": "The link to the webpage of the page.",
-                    "info": ""
+                    "info": "The link to the webpage of the page."
                 },
                 "admsIdentifierSkosNotation": {
                     "help": "The adms:identifiers scheme",
@@ -226,7 +235,8 @@
                 "subject": {
                     "label": "Subject",
                     "help": "A category of the Dataset.",
-                    "info": "This property refers to a category of the Dataset. A Dataset may be associated with multiple themes."
+                    "info": "This property refers to a category of the Dataset. A Dataset may be associated with multiple themes.",
+                    "placeholder": "Dataset Subject placeholder text"
                 },
                 "qualifiedRelationUrl": {
                     "placeholder": "Provide a qualified relation Url",
@@ -257,7 +267,7 @@
                     "label": "Address Street",
                     "placeholder": "Name of the street",
                     "help": "The street of the contact point's address",
-                    "info": ""
+                    "info": "The street of the contact point's address"
                 },
                 "relationUrl": {
                     "label": "Url",
@@ -282,7 +292,7 @@
                     "placeholder": "The page format",
                     "label": "Format",
                     "help": "The format of the page.",
-                    "info": ""
+                    "info": "The format of the page."
                 },
                 "qualifiedAttributionUrl": {
                     "placeholder": "Provide a Url",
@@ -332,7 +342,7 @@
                 },
                 "spatialResolutionInMeters": {
                     "help": "This property refers to the minimum spatial separation resolvable in a dataset, measured in meters.",
-                    "info": "",
+                    "info": "This property refers to the minimum spatial separation resolvable in a dataset, measured in meters.",
                     "label": "Spatial Resolution in Meters",
                     "placeholder": "Dataset Spatial Resolution In Meters placeholder text"
                 },
@@ -354,7 +364,7 @@
                     "placeholder": "Year",
                     "label": "Year",
                     "help": "Year of the temporal resolution.",
-                    "info": ""
+                    "info": "The number of years."
                 },
                 "admsIdentifier": {
                     "add-label": "Add another adms:Identifier",
@@ -372,7 +382,7 @@
                     "label": "Page description",
                     "placeholder": "Please provide a page description",
                     "help": "Please describe the page as accurately as possible",
-                    "info": "",
+                    "info": "A description of the page.",
                     "add-label": "Add more"
                 },
                 "identifier": {
@@ -386,7 +396,7 @@
                     "placeholder": "Name of the creator",
                     "label": "Name",
                     "help": "This property refers to the name of the creator.",
-                    "info": ""
+                    "info": "This property refers to the name of the creator."
                 },
                 "hasVersionUrl": {
                     "label": "Url",
@@ -430,7 +440,7 @@
                     "placeholder": "Hour",
                     "label": "Hour",
                     "help": "Hour of the temporal resolution.",
-                    "info": ""
+                    "info": "The number of hours."
                 },
                 "qualifiedRelation": {
                     "help": "This property provides a link to a description of a relationship with another resource",
@@ -441,7 +451,7 @@
                 },
                 "pageTitle": {
                     "placeholder": "Title of the page",
-                    "label": "Page title",
+                    "label": "Title",
                     "help": "A descriptive title for the page",
                     "info": "",
                     "add": "Add another page title",
@@ -449,27 +459,27 @@
                 },
                 "pageTitleSub": {
                     "placeholder": "Please provide a descriptive title",
-                    "label": "Title text",
+                    "label": "Title",
                     "help": "Text for the page title.",
-                    "info": ""
+                    "info": "Text for the page title."
                 },
                 "landingPageUrl": {
                     "label": "Url",
                     "placeholder": "The Url to the landing page",
                     "help": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information. ",
-                    "info": ""
+                    "info": "This property refers to a web page that provides access to the Dataset, its Distributions and/or additional information."
                 },
                 "conformsToTitle": {
                     "placeholder": "Provide a title the dataset conforms to",
                     "label": "Title",
                     "help": "The propertie's title.",
-                    "info": ""
+                    "info": "The propertie's title."
                 },
                 "conformsToUrl": {
                     "placeholder": "Provide a Url",
                     "label": "Url",
                     "help": "The propertie's link.",
-                    "info": ""
+                    "info": "The propertie's link."
                 },
                 "landingPage": {
                     "help": "This property refers to a web page that provides access to the Dataset.",
@@ -482,19 +492,19 @@
                     "label": "Type",
                     "placeholder": "Person or organization?",
                     "help": "This property refers to the type of the creator.",
-                    "info": ""
+                    "info": "This property refers to the type of the creator."
                 },
                 "contactPointAddressPostcode": {
                     "label": "Address Postcode",
                     "placeholder": "Postcode",
                     "help": "The postcode of the contact point's address",
-                    "info": ""
+                    "info": "The postcode of the contact point's address"
                 },
                 "contactPointTelephone": {
                     "label": "Telephone",
                     "placeholder": "Telephone number",
                     "help": "The telephone number of the contact point",
-                    "info": ""
+                    "info": "The telephone number of the contact point"
                 },
                 "spatial": {
                     "placeholder": "Please choose",
@@ -514,13 +524,13 @@
                     "placeholder": "Month",
                     "label": "Month",
                     "help": "Month of the temporal resolution.",
-                    "info": ""
+                    "info": "The number of months."
                 },
                 "temporalResolutionSecond": {
                     "placeholder": "Seconds",
                     "label": "Second",
                     "help": "The number of seconds.",
-                    "info": ""
+                    "info": "The number of seconds."
                 },
                 "identifierText": {
                     "placeholder": "Dataset Identifier Text placeholder text",
@@ -530,13 +540,13 @@
                     "label": "Address Country",
                     "placeholder": "The name of the Country",
                     "help": "The country of the contact point's address",
-                    "info": ""
+                    "info": "The country of the contact point's address"
                 },
                 "contactPointName": {
                     "placeholder": "Name of the contact point",
                     "label": "Name",
                     "help": "The name of the contact point",
-                    "info": ""
+                    "info": "The name of the contact point"
                 },
                 "isUsedBy": {
                     "help": "This property refers to an application or other work that uses the Dataset in any form.",
@@ -549,13 +559,13 @@
                     "label": "Type",
                     "placeholder": "Person or organisation?",
                     "help": "The type of the contact point",
-                    "info": ""
+                    "info": "The type of the contact point"
                 },
                 "temporalResolutionMinute": {
                     "placeholder": "Minute",
                     "label": "Minute",
                     "help": "Minutes of the temporal resolution.",
-                    "info": ""
+                    "info": "The number of minutes."
                 },
                 "sourceUrl": {
                     "label": "Url",
@@ -572,7 +582,7 @@
                     "label": "Email",
                     "placeholder": "Email of the creator",
                     "help": "This property refers to the creator's e-mail.",
-                    "info": ""
+                    "info": "This property refers to the creator's e-mail."
                 },
                 "contactPointEmail": {
                     "label": "Email",
@@ -583,24 +593,24 @@
                 "contactPointAddress": {
                     "label": "Contact Point Address",
                     "help": "The full address of the contact point",
-                    "info": ""
+                    "info": "The e-mail address of the contact point"
                 },
                 "admsIdentifierUrl": {
                     "label": "Url",
                     "placeholder": "The Url to the adms:Identifier",
                     "help": "The link to the admsIdentifier's webpage.",
-                    "info": ""
+                    "info": "The link to the admsIdentifier's webpage."
                 },
                 "temporalStart": {
                     "label": "Start",
                     "help": "This property refers to the start of a temporal period that the Dataset covers.",
-                    "info": ""
+                    "info": "This property refers to the start of a temporal period that the Dataset covers."
                 },
                 "contactPointOrganisationName": {
                     "placeholder": "Organisation Name",
                     "label": "Organisation Name",
                     "help": "The organization name contact point.",
-                    "info": ""
+                    "info": "The oranization name contact point."
                 },
                 "creator": {
                     "help": "This property refers to the entity responsible for producing the dataset.",
@@ -619,35 +629,36 @@
                     "placeholder": "Please provide a descripition for the identifier",
                     "label": "Identifier",
                     "help": "The identifier String of the admsIdentifier.",
-                    "info": ""
+                    "info": "The identifier String of the admsIdentifier."
                 },
                 "temporalEnd": {
                     "label": "End",
                     "help": "This property refers to the end of a temporal period that the Dataset covers.",
-                    "info": ""
+                    "info": "This property refers to the end of a temporal period that the Dataset covers."
                 },
                 "contactPointUrl": {
                     "label": "Url",
                     "placeholder": "Please provide a URL",
                     "help": "The web page of the contact point.",
-                    "info": ""
+                    "info": "The web page of the contact point"
                 },
                 "temporalResolutionDay": {
                     "label": "Day",
                     "placeholder": "Day",
                     "help": "Day of the temporal resolution.",
-                    "info": ""
+                    "info": "The number of days."
                 },
                 "creatorHomepage": {
                     "placeholder": "Dataset Creator Homepage placeholder text",
                     "label": "Homepage",
                     "help": "This property refers to the homepage of the creator.",
-                    "info": ""
+                    "info": "This property refers to the homepage of the creator."
                 },
                 "admsIdentifierType": {
                     "label": "Type",
                     "help": "The admsIdentifier's type.",
-                    "info": ""
+                    "info": "The admsIdentifier's type.",
+                    "placeholder": "Dataset admsIdentifier placeholder text"
                 },
                 "admsIdentifierCheckbox": {
                     "label": "adms:Identifier Checkbox"
@@ -1350,37 +1361,37 @@
                     "placeholder": "Seconds",
                     "label": "Second",
                     "help": "The number of seconds.",
-                    "info": ""
+                    "info": "The number of seconds."
                 },
                 "temporalResolutionHour": {
                     "label": "Hour",
                     "placeholder": "Hour",
                     "help": "The number of hours.",
-                    "info": ""
+                    "info": "The number of hours."
                 },
                 "temporalResolutionMinute": {
                     "placeholder": "Minutes",
                     "label": "Minute",
                     "help": "The number of minutes.",
-                    "info": ""
+                    "info": "The number of minutes."
                 },
                 "temporalResolutionMonth": {
                     "label": "Month",
                     "placeholder": "Month",
                     "help": "The month of the temporal resolution.",
-                    "info": ""
+                    "info": "The number of months."
                 },
                 "temporalResolutionYear": {
                     "label": "Year",
                     "placeholder": "Year",
                     "help": "Year of the temporal resolution.",
-                    "info": ""
+                    "info": "The number of years."
                 },
                 "temporalResolutionDay": {
                     "label": "Day",
                     "placeholder": "Day",
                     "help": "The day of the temporal resolution",
-                    "info": ""
+                    "info": "The number of days."
                 },
                 "temporalResolution": {
                     "add-label": "Add Temporal Resolution",
@@ -1422,7 +1433,8 @@
                 "checksumAlgorithm": {
                     "label": "Checksum Algorithm",
                     "help": "Algorithm used for checksum.",
-                    "info": ""
+                    "info": "Algorithm used for checksum.",
+                    "placeholder": "Distribution Checksum Algorithm placeholder text"
                 },
                 "mediaType": {
                     "label": "Media Type",
@@ -1443,15 +1455,16 @@
                     "placeholder": "Distribution Byte Size placeholder text"
                 },
                 "type": {
-                    "info": "This property refers to the media type of the Distribution as defined in the official register of media types managed by IANA.",
-                    "help": "The media type of the Distribution.",
-                    "label": "Type"
+                    "info": "This property refers to the type of the Distribution.",
+                    "help": "The type of the Distribution.",
+                    "label": "Type",
+                    "placeholder": "Distribution Type placeholder text"
                 },
                 "accessServiceEndpointURL": {
                     "label": "Data Service Endpoint URL",
                     "placeholder": "Provide a Url",
                     "help": "The link to the data service's webpage.",
-                    "info": ""
+                    "info": "The link to the data service's webpage."
                 },
                 "rights": {
                     "info": "This property refers to a statement that specifies rights associated with the Distribution.",
@@ -1474,7 +1487,7 @@
                     "label": "Url",
                     "placeholder": "Provide a Url",
                     "help": "Link to the property.",
-                    "info": ""
+                    "info": "The propertie's link."
                 },
                 "conformsTo": {
                     "add-label": "Add more",
@@ -1487,7 +1500,7 @@
                     "label": "Title",
                     "placeholder": "Distribution Conforms To Title placeholder text",
                     "help": "Title of the property.",
-                    "info": ""
+                    "info": "The propertie's title."
                 },
                 "hasPolicy": {
                     "label": "Has Policy",
@@ -1498,26 +1511,27 @@
                 "hasPolicyUrl": {
                     "placeholder": "Provide a Url",
                     "label": "Url",
-                    "help": "The policy link.",
-                    "info": ""
+                    "help": "The policy expressing the rights",
+                    "info": "This property refers to the policy expressing the rights associated with the distribution if using the ODRL vocabulary"
                 },
                 "pageFormat": {
                     "placeholder": "Distribution Page Format placeholder text",
                     "label": "Format",
                     "help": "The format of the page.",
-                    "info": ""
+                    "info": "The format of the page."
                 },
                 "pageUrl": {
                     "label": "Url",
                     "placeholder": "The Url to the distribution page",
                     "help": "The link to the webpage of the page.",
-                    "info": ""
+                    "info": "The link to the webpage of the page."
                 },
                 "pageDescription": {
                     "label": "Description",
                     "placeholder": "Distribution Page Description placeholder text",
                     "help": "The page's description.",
-                    "add-label": "Add more"
+                    "add-label": "Add more",
+                    "info": "The page's description."
                 },
                 "page": {
                     "info": "This property refers to a page or document about this Distribution.",
