@@ -37,8 +37,8 @@
         <div v-for="(stepName, index) in getNavSteps.distributions" :key="index">
           <InputPageStep :name="stepName">
             <!-- <PropertyChooser></PropertyChooser> -->
-            <FormKitSchema :schema="schema[stepName]"/>
-            <p class="p-1"> <b>*</b> mandatory</p>
+            <FormKitSchema :schema="schema[stepName]" :library="library"/>
+            <p class="p-1"> <b>*</b> {{ $t('message.dataupload.info.mandatory') }}</p>
           </InputPageStep>
         </div>
       </div>
@@ -61,10 +61,11 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, markRaw } from 'vue';
 import { mapGetters } from 'vuex';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import InputPageStep from '../components/InputPageStep.vue';
+import SelectControlledGroup from './SelectControlledGroup.vue';
 
 
 export default defineComponent({
@@ -86,6 +87,7 @@ export default defineComponent({
   },
   components: {
     InputPageStep,
+    SelectControlledGroup,
   },
   data() {
     return {
@@ -94,6 +96,9 @@ export default defineComponent({
           .replace(/([A-Z])/g, (match) => ` ${match}`)
           .replace(/^./, (match) => match.toUpperCase())
           .trim(),
+      library: markRaw({
+        SelectControlledGroup,
+      })
     }
   }, methods: {
     handleClick(i) {

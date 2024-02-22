@@ -1,5 +1,6 @@
 import { type FormKitSchemaDefinition } from '@formkit/core'
-import OverviewPage from '../../views/OverviewPage';
+import OverviewPage from '../../views/OverviewPage.vue';
+import SelectControlledGroup from '../../components/SelectControlledGroup.vue';
 
 import language from '../selector-languages.json';
 import config from './page-content-config';
@@ -133,11 +134,10 @@ const dcatapProperties: InputDefinition = {
           name: 'dct:description',
           children: [
             {
-              identifier: 'descriptionLanguage',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
               options: language,
-
               validation: 'required',
               name: '@language',
               classes: {
@@ -165,7 +165,7 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:title',
       children: [
         {
-          identifier: 'title',
+          identifier: 'datasetTitle',
           $formkit: 'group',
           name: 'dct:title',
 
@@ -173,7 +173,6 @@ const dcatapProperties: InputDefinition = {
           children: [
             {
               identifier: 'dctTitle',
-              
               $formkit: 'select',
               validation: 'required',
               options: language,
@@ -184,7 +183,7 @@ const dcatapProperties: InputDefinition = {
               }
             },
             {
-              identifier: 'titleLabel',
+              identifier: 'title',
               $formkit: 'text',
               name: '@value',
               validation: 'required',
@@ -332,7 +331,7 @@ const dcatapProperties: InputDefinition = {
           name: 'dct:keyword',
           children: [
             {
-              identifier: 'keywordsLanguage',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
               name: '@language',
@@ -507,7 +506,7 @@ const dcatapProperties: InputDefinition = {
                   name: 'dct:title',
                   children: [
                     {
-                      identifier: 'pageTitlelang',
+                      identifier: 'language',
                       value: 'en',
                       $formkit: 'select',
                       options: language,
@@ -540,7 +539,7 @@ const dcatapProperties: InputDefinition = {
                   children: [
 
                     {
-                      identifier: 'page-desc',
+                      identifier: 'language',
                       value: 'en',
                       $formkit: 'select',
                       options: language,
@@ -550,7 +549,7 @@ const dcatapProperties: InputDefinition = {
                       },
                     },
                     {
-                      identifier: 'pageDesc',
+                      identifier: 'pageDescription',
                       $formkit: 'textarea',
                       name: '@value',
                       classes: {
@@ -1137,12 +1136,12 @@ const dcatapProperties: InputDefinition = {
       id: 'availability'
     },
     description: {
-      identifier: 'datasetDescription',
+      identifier: 'description',
       $formkit: 'repeatable',
       name: 'dct:description',
       children: [
         {
-          identifier: 'datasetDescription',
+          identifier: 'description',
           $formkit: 'group',
           name: 'dct:description',
           mandatory: true,
@@ -1152,10 +1151,9 @@ const dcatapProperties: InputDefinition = {
               identifier: 'description',
               $formkit: 'textarea',
               name: '@value',
-
             },
             {
-              identifier: 'descriptionLanguage',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
               options: language,
@@ -1242,16 +1240,15 @@ const dcatapProperties: InputDefinition = {
           minimum: 1,
           children: [
             {
-              identifier: 'titleLabel',
+              identifier: 'title',
               $formkit: 'text',
               name: '@value',
 
             },
             {
-              identifier: 'dctTitle',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
-
               options: language,
               name: '@language',
             },
@@ -1347,7 +1344,7 @@ const dcatapProperties: InputDefinition = {
                       name: '@value',
                     },
                     {
-                      identifier: 'descriptionLanguage',
+                      identifier: 'language',
                       value: 'en',
                       $formkit: 'select',
                       name: '@language',
@@ -1422,7 +1419,7 @@ const dcatapProperties: InputDefinition = {
                   children: [
 
                     {
-                      identifier: 'pageTitlelang',
+                      identifier: 'language',
                       value: 'en',
                       $formkit: 'select',
                       options: language,
@@ -1432,7 +1429,7 @@ const dcatapProperties: InputDefinition = {
                       },
                     },
                     {
-                      identifier: 'pageTitleSub',
+                      identifier: 'pageTitle',
                       $formkit: 'text',
                       name: '@value',
                       classes: {
@@ -1454,12 +1451,12 @@ const dcatapProperties: InputDefinition = {
                   name: 'dct:description',
                   children: [
                     {
-                      identifier: 'pageDesc',
+                      identifier: 'pageDescription',
                       $formkit: 'textarea',
                       name: '@value',
                     },
                     {
-                      identifier: 'page-desc',
+                      identifier: 'language',
                       value: 'en',
                       $formkit: 'select',
                       options: language,
@@ -1555,22 +1552,21 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     issued: {
-      $formkit: 'group',
-      name: 'dct:issued',
+      identifier: 'issued',
+      $cmp: 'SelectControlledGroup',
+      props: {
+        identifier: 'issued',
+        name: 'dct:issued',
+        selectName: '@type',
+        options: { date: 'Date', datetime: 'Datetime' },
+        initialValue: '',
+      },
       children: [
         {
-          identifier: 'issued',
-          id: 'issuedCondDistribution',
-          $formkit: 'select',
-          name: '@type',
-          options: { date: 'Date', datetime: 'Datetime' },
-        },
-        {
-          identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$get(issuedCondDistribution).value',
+          if: '$selectValue',
           props: {
-            if: '$get(issuedCondDistribution).value === date',
+            if: '$selectValue === date',
             then: {
               type: 'date',
               name: '@value',
@@ -1584,54 +1580,47 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     modified: {
-      $formkit: 'group',
-      name: 'dct:modified',
+      identifier: 'modified',
+      $cmp: 'SelectControlledGroup',
+      props: {
+        name: 'dct:modified',
+        selectName: '@type',
+        options: { date: 'Date', datetime: 'Datetime' },
+        initialValue: '',
+      },
       children: [
         {
-          identifier: 'modified',
-          id: 'modifiedCondDistribution',
-          name: '@type',
-          $formkit: 'select',
-          options: { date: 'Date', datetime: 'Datetime' },
-        },
-        {
-          identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$get(modifiedCondDistribution).value',
+          if: '$selectValue',
           props: {
-            name: 'dct:modified',
-            if: '$get(modifiedCondDistribution).value === date',
+            if: '$selectValue === date',
             then: {
               type: 'date',
               name: '@value',
             },
             else: {
               type: 'datetime-local',
-              name: '@value'
+              name: '@value',
             }
           }
         },
       ]
     },
     rights: {
-      identifier: "rights",
-      $formkit: 'group',
-      name: 'dct:rights',
+      identifier: 'rights',
+      $cmp: 'SelectControlledGroup',
+      props: {
+        name: 'dct:rights',
+        selectName: '@type',
+        options: { url: 'URL', str: 'String' },
+        initialValue: '',
+      },
       children: [
         {
-          identifier: 'rightsCond',
-          name: "rightsMode",
-          $formkit: "select",
-          options: { url: 'URL', str: 'String' },
-          id: "rightsModeDistribution"
-        },
-        {
-          identifier: 'rights',
-          $cmp: "FormKit",
-          if: "$get(rightsModeDistribution).value",
+          $cmp: 'FormKit',
+          if: '$selectValue',
           props: {
-            name: 'rdfs:label',
-            if: "$get(rightsModeDistribution).value === url",
+            if: '$selectValue === url',
             then: {
               identifier: 'rightsUrl',
               type: "url",
@@ -1641,7 +1630,7 @@ const dcatapProperties: InputDefinition = {
               type: "text",
             }
           }
-        }
+        },
       ]
     },
     spatialResolutionInMeters: {
@@ -1734,7 +1723,7 @@ const dcatapProperties: InputDefinition = {
               validation: 'required',
             },
             {
-              identifier: 'dctTitle',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
               validation: 'required',
@@ -1764,7 +1753,7 @@ const dcatapProperties: InputDefinition = {
               validation: 'required',
             },
             {
-              identifier: 'descriptionLanguage',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
               options: language,

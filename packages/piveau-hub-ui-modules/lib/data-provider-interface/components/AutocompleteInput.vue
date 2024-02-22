@@ -179,7 +179,7 @@ function toggleList(e) {
 </script>
 
 <template>
-  <h4>{{ toTitleCase(props.context.attrs.identifier) }}</h4>
+  <h4>{{ props.context.label }}</h4>
   <div class="formkitCmpWrap">
     <div class="formkit-outer ">
 
@@ -197,8 +197,11 @@ function toggleList(e) {
           <div class="infoI">
             <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
           </div>
-          <input class="autocompleteInputfield" placeholder="Search for fitting properties" v-model="inputText"
+          <input class="autocompleteInputfield" :placeholder="props.context.attrs.placeholder" v-model="inputText"
             type="text" @click="toggleList">
+        </div>
+        <div class="formkit-wrapper">
+          <div class="formkit-help">{{ props.context.help }}</div>
         </div>
         <ul class="autocompleteResultList inactiveResultList">
           <li v-for="match in matches" :key="match" @click="setValue(match)"

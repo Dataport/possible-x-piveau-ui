@@ -1,14 +1,20 @@
 <template>
   <div class="repeatable" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
-      <h4>{{ camel2title(context.attrs.identifier) }}</h4>
-    
+    <h4>{{ context.label }}</h4>
+
     <div class="horizontal-wrapper">
 
       <div class="repeatableWrap">
-        <div class="interactionHeaderRepeatable my-1">This is a repeatable property. You can <a class="add"
-            @click="addItem">add another
-            one</a> or <a class="remove" @click="removeItem" :data-key="key">remove
-            this property</a> </div>
+        <div class="interactionHeaderRepeatable my-1">
+          <i18n-t keypath="message.dataupload.info.repeatable" tag="p">
+            <template v-slot:add>
+              <a class="add" @click="addItem">{{ $t('message.dataupload.info.add') }}</a>
+            </template>
+            <template v-slot:remove>
+              <a class="remove" @click="removeItem" :data-key="key">{{ $t('message.dataupload.info.remove') }}</a>
+            </template>
+          </i18n-t>
+        </div>
         <!-- <pre>{{ context.attrs }}</pre> -->
         <div class="formkitWrapRepeatable">
           <slot>
