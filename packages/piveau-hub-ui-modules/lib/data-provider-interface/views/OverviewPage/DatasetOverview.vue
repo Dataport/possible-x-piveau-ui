@@ -186,7 +186,7 @@ export default {
 }
 
 .disOverview td:first-child {
-    width: 25%;
+    min-width: 25%;
 }
 
 .disOverview td:last-child {

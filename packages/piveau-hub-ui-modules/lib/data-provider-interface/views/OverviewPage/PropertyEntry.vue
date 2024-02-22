@@ -14,7 +14,7 @@
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
 
-                <div v-if="property != 'dct:creator' && property !== 'dcat:temporalResolution'">
+                <div v-if="property != 'dct:creator' && property != 'dcat:temporalResolution'">
                     <div v-for="(elem, index) in data[property]" :key="index">
                         <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
                     </div>
@@ -58,21 +58,34 @@ export default {
         // Check if there's a valid value present
         showValue(property, value) {
             let listOfEmptyObjects = [];
+            if (value === "dct:creator") {
+                if (isNil(property["dct:creator"]['foaf:name']) && isNil(property["dct:creator"]['foaf:mbox']) && isNil(property["dct:creator"]['foaf:homepage'])) {
+                    return false
+                }
+                return true
+            }
             try {
                 // console.log("Before if statements:  ", Object.keys(property[value][0]).length, isNil(Object.keys(property[value][0])), Object.keys(property[value][0]), property[value][0], value);
                 if (Object.keys(property[value][0]).length < 2) {
-                    if (property[value][0][Object.keys(property[value][0])] === undefined) {
+                    console.log(Object.keys(property[value][0]));
+                    if (property[value][0][Object.keys(property[value][0])] === undefined || Object.keys(property[value][0])[0] === '@language') {
                         return false
                     }
                     else return true
                 }
                 if (Object.keys(property[value][0]).length > 0) {
-                    //    todo --- Page and Creator
                     if (value === "foaf:page") {
-                        return false
-                    }
-                    if (value === "dct:creator") {
-                        return false
+
+                        for (let index = 0; index < Object.keys(property[value][0]).length; index++) {
+
+                            if (Object.keys(property[value][0])[index] === 'dct:format' && isNil(property[value][0][index])) {
+                                return false
+                            }
+                            if (property[value][0][Object.keys(property[value][0])[index]][0]['@value'] === undefined || property[value][0][Object.keys(property[value][0])[index]][0]['@value'] === "") {
+                                return false
+                            }
+                            else return true
+                        }
                     }
                     for (let index = 0; index < Object.keys(property[value][0]).length; index++) {
                         if (Object.keys(property[value][0]).length <= 1 && property[value][0][Object.keys(property[value][0])[index]] === undefined) {
@@ -82,9 +95,7 @@ export default {
                             listOfEmptyObjects.push(property[value][0][Object.keys(property[value][0])[index]] === undefined)
                             if (index + 1 === Object.keys(property[value][0]).length) {
                                 if (Object.keys(property[value][0])[0] === '@language' && property[value][0]['@value'] === undefined || property[value][0]['@value'] === "") return false
-                                // console.log(Object.keys(property[value][0]), listOfEmptyObjects.every(v => v === true));
                                 if (!listOfEmptyObjects.every(v => v === true)) return true;
-
                                 else return false
                             }
                         }

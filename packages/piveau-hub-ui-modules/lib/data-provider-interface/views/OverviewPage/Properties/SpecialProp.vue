@@ -1,5 +1,6 @@
 <template>
         <!-- CREATOR -->
+       
         <tr v-if="property === 'dct:creator'" class="marginBot">
            
             <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
@@ -14,7 +15,6 @@
                         :to="data['foaf:homepage']">{{ data['foaf:homepage'] }}</app-link>
                 </div>
             </td>
-
 
         </tr>
 
