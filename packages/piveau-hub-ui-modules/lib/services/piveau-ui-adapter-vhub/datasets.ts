@@ -131,7 +131,7 @@
      distribution.spatialResolutionInMeters = dataGetters.getArrayOfNumbers(dist, 'spatial_resolution_in_meters');
      distribution.status = dataGetters.getObject(dist, 'status', ['label', 'resource']);
      distribution.temporalResolution = dataGetters.getArrayOfStrings(dist, 'temporal_resolution');
-     distribution.title = dataGetters.getObjectLanguage(dist, 'title', 'No title available');
+     distribution.title = dataGetters.getObjectLanguage(dist, 'title', '');
      distribution.type = dataGetters.getObject(dist, 'type', ['label', 'resource']);
 
     // High-value dataset fields

@@ -558,7 +558,9 @@
         return this.getDistributionFormat(distribution).length > 4;
       },
       getDistributionTitle(distribution) {
-        return distribution.title ? getTranslationFor(distribution.title, this.$route.query.locale, this.getLanguages) : '-';
+        return distribution.title
+          ? getTranslationFor(distribution.title, this.$route.query.locale, this.getLanguages)
+          : this.getID || '-';
       },
       getVisualisationLink(distribution) {
         // Return Visualisation Link
