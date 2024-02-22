@@ -1,3 +1,15 @@
+## [3.16.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.13...v3.16.14) (2024-02-22)
+
+
+### Bug Fixes
+
+* adjust fallback value for dataset title 'No title available' -> '' ([8b7b333](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8b7b33397dc0be57532767ae34ce60b19ccfdbe9))
+* **datasets:** un-hardcode fallback dataset description value ([fdfeb81](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fdfeb81c36d1de7e98d8a63331033c766d00422f))
+* distribution description handling ([976760f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/976760fb13b2ae250fa8e8f92da93d27dca8f000))
+* unhardcode distribution title handling ([a96d146](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a96d146544b726ddd7fc6f353e50e71e5c701a3f))
+
+
+
 ## [3.16.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.12...v3.16.13) (2024-02-21)
 
 
