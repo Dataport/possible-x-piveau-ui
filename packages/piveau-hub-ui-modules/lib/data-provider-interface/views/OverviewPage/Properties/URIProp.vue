@@ -20,7 +20,7 @@
   <!-- Spatial -->
   <td v-if="value.type === 'multiURISpatial'">
     <div v-for="(el, index) in data[property]" :key="index">
-      {{ el['@id'] }}
+      {{ el['name'] }}
     </div>
   </td>
 </template>

@@ -17,6 +17,13 @@
                     <span><b>Published by:</b></span>
                     <a> {{ getData('datasets')['dct:publisher']['name'] }}</a>
                 </div>
+                <div class="dsIssued ">
+                    <span><b>Issued:</b></span>
+                    <a>
+                        {{ checkIfSet(new Date(getData('datasets')['dct:issued']['@value']).toDateString()) }}
+                        <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
+                    </a>
+                </div>
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>

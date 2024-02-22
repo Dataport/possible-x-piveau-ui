@@ -58,17 +58,41 @@ export default {
         // Check if there's a valid value present
         showValue(property, value) {
             let listOfEmptyObjects = [];
+
+            if (value === "dct:modified" || value === "dct:issued") return false
             if (value === "dct:creator") {
-                if (isNil(property["dct:creator"]['foaf:name']) && isNil(property["dct:creator"]['foaf:mbox']) && isNil(property["dct:creator"]['foaf:homepage'])) {
+                if (isNil(property["dct:creator"]['foaf:name']) &&
+                    isNil(property["dct:creator"]['foaf:mbox']) &&
+                    isNil(property["dct:creator"]['foaf:homepage'])) {
                     return false
                 }
                 return true
             }
+            if (value === "dcat:temporalResolution") {
+                // console.log(property[value], Object.keys(property[value]).length);
+                try {
+                    if (Object.keys(property[value]).length > 0) {
+                        if (isNil(property[value]['Day']) && isNil(property[value]['Hour']) &&
+                            isNil(property[value]['Minute']) && isNil(property[value]['Year']) &&
+                            isNil(property[value]['Month']) && isNil(property[value]['Second'])) {
+                            return false
+                        }
+                        else {
+                            return true
+                        }
+                    }
+                    else return false
+                } catch (error) {
+
+                }
+            }
             try {
-                // console.log("Before if statements:  ", Object.keys(property[value][0]).length, isNil(Object.keys(property[value][0])), Object.keys(property[value][0]), property[value][0], value);
+
+                // console.log(Object.keys(property[value][0]).length, isNil(Object.keys(property[value][0])), Object.keys(property[value][0]), property[value][0], value);
+
                 if (Object.keys(property[value][0]).length < 2) {
-                    console.log(Object.keys(property[value][0]));
-                    if (property[value][0][Object.keys(property[value][0])] === undefined || Object.keys(property[value][0])[0] === '@language') {
+                    if (property[value][0][Object.keys(property[value][0])] === undefined ||
+                        Object.keys(property[value][0])[0] === '@language') {
                         return false
                     }
                     else return true
@@ -81,20 +105,23 @@ export default {
                             if (Object.keys(property[value][0])[index] === 'dct:format' && isNil(property[value][0][index])) {
                                 return false
                             }
-                            if (property[value][0][Object.keys(property[value][0])[index]][0]['@value'] === undefined || property[value][0][Object.keys(property[value][0])[index]][0]['@value'] === "") {
+                            if (property[value][0][Object.keys(property[value][0])[index]][0]['@value'] === undefined ||
+                                property[value][0][Object.keys(property[value][0])[index]][0]['@value'] === "") {
                                 return false
                             }
                             else return true
                         }
                     }
                     for (let index = 0; index < Object.keys(property[value][0]).length; index++) {
-                        if (Object.keys(property[value][0]).length <= 1 && property[value][0][Object.keys(property[value][0])[index]] === undefined) {
+                        if (Object.keys(property[value][0]).length <= 1 &&
+                            property[value][0][Object.keys(property[value][0])[index]] === undefined) {
                             return false
                         }
                         if (Object.keys(property[value][0]).length > 1) {
                             listOfEmptyObjects.push(property[value][0][Object.keys(property[value][0])[index]] === undefined)
                             if (index + 1 === Object.keys(property[value][0]).length) {
-                                if (Object.keys(property[value][0])[0] === '@language' && property[value][0]['@value'] === undefined || property[value][0]['@value'] === "") return false
+                                if (Object.keys(property[value][0])[0] === '@language' && property[value][0]['@value'] === undefined ||
+                                    property[value][0]['@value'] === "") return false
                                 if (!listOfEmptyObjects.every(v => v === true)) return true;
                                 else return false
                             }
@@ -103,7 +130,12 @@ export default {
                 }
             } catch (error) {
             }
-
+            if (property[value] != null && value !== 'dct:publisher' && value !== 'dcat:temporalResolution') {
+                // console.log(property[value], value, Object.keys(property[value]).length === 0);
+                if (Object.keys(property[value]).length === 0) {
+                    return false
+                } else return true
+            }
         },
     }
 }
