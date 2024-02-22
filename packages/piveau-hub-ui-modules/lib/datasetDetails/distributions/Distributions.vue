@@ -142,8 +142,8 @@ export default {
     ])
   },
   methods: {
-    getDistributionDescription(distribution) {
-      return (has(distribution, 'description') && !isNil(distribution.description)) ? getTranslationFor(distribution.description, this.$route.query.locale, this.getLanguages) : '-';
+    getDistributionDescription(distribution, fallback = '-') {
+      return (has(distribution, 'description') && !isNil(distribution.description)) ? getTranslationFor(distribution.description, this.$route.query.locale, this.getLanguages) : fallback;
     }
   }
 };

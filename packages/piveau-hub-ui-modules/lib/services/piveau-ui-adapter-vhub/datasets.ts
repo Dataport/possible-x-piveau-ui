@@ -115,7 +115,7 @@
      distribution.checksum = dataGetters.getObject(dist, 'checksum', ['algorithm', 'checksum_value']);
      distribution.compressFormat = dataGetters.getObject(dist, 'compress_format', ['label', 'resource']);
      distribution.conformsTo = dataGetters.getArrayOfObjects(dist, 'conforms_to', ['label', 'resource']);
-     distribution.description = dataGetters.getObjectLanguage(dist, 'description', 'No description available');
+     distribution.description = dataGetters.getObjectLanguage(dist, 'description', '');
      distribution.downloadUrls = dataGetters.getArrayOfStrings(dist, 'download_url');
      distribution.format = dataGetters.getObject(dist, 'format', ['id', 'resource', { key: 'label', default: 'UNKNOWN' }]);
      distribution.hasPolicy = dataGetters.getString(dist, 'has_policy');
