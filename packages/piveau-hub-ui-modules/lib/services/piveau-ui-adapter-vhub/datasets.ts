@@ -80,7 +80,7 @@
    ds.temporalResolution = dataGetters.getString(dataset, 'temporal_resolution');
    ds.theme = dataGetters.getArrayOfObjects(dataset, 'categories', ['id', 'label', 'resource']);
    ds.translationMetaData = dataGetters.getTranslationMetaData(dataset);
-   ds.title = dataGetters.getObjectLanguage(dataset, 'title', 'No title available');
+   ds.title = dataGetters.getObjectLanguage(dataset, 'title', '');
    ds.type = dataGetters.getObject(dataset, 'type', ['id', 'label', 'resource']);
    ds.resource = dataGetters.getString(dataset, 'resource');
    ds.versionInfo = dataGetters.getString(dataset, 'version_info');

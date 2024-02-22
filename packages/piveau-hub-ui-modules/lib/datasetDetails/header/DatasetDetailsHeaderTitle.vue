@@ -9,7 +9,8 @@
 
       </span>
     </div>
-    <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
+    <h1 v-if="getTitle" class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
+    <h1 v-else class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getID }}</h1>
   </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
       'getLanguages',
       'getTitle',
       'getCatalog',
-
+      'getID',
     ]),
   }
 }
