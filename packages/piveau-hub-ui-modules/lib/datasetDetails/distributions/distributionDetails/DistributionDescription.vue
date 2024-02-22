@@ -35,6 +35,16 @@ export default {
     'toggleDistributionDescription',
     'distributionDescriptionIsExpandable'
   ],
+  computed: {
+    resolvedDistributionDescription() {
+      const noDescriptionKey = 'message.catalogsAndDatasets.noDescriptionAvailable'
+      const noDescriptionAvailable = this.$te(noDescriptionKey)
+        ? this.$t(noDescriptionKey)
+        : 'No description available'
+      if (!this.distribution) return noDescriptionAvailable
+      return this.getDistributionDescription(this.distribution, '') || noDescriptionAvailable
+    },
+  },
   methods: {
     truncate
   }

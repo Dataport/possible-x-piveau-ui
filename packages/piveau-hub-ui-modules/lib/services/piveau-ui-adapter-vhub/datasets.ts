@@ -38,7 +38,7 @@
    ds.country = dataGetters.getObject(dataset, 'country', [{ key: 'id', default: 'eu' }, { key: 'title', default: 'European Union' }]);
    ds.creator = dataGetters.getObject(dataset, 'creator', ['name', 'type', 'email', 'resource', 'homepage']);
    ds.deadline = dataGetters.getString(dataset, 'deadline');
-   ds.description = dataGetters.getObjectLanguage(dataset, 'description', 'No description available');
+   ds.description = dataGetters.getObjectLanguage(dataset, 'description');
    ds.dimensions = dataGetters.getArrayOfStrings(dataset, 'dimension');
    ds.distributions = [];
    ds.distributionFormats = [];
@@ -80,7 +80,7 @@
    ds.temporalResolution = dataGetters.getString(dataset, 'temporal_resolution');
    ds.theme = dataGetters.getArrayOfObjects(dataset, 'categories', ['id', 'label', 'resource']);
    ds.translationMetaData = dataGetters.getTranslationMetaData(dataset);
-   ds.title = dataGetters.getObjectLanguage(dataset, 'title', 'No title available');
+   ds.title = dataGetters.getObjectLanguage(dataset, 'title', '');
    ds.type = dataGetters.getObject(dataset, 'type', ['id', 'label', 'resource']);
    ds.resource = dataGetters.getString(dataset, 'resource');
    ds.versionInfo = dataGetters.getString(dataset, 'version_info');
@@ -115,7 +115,7 @@
      distribution.checksum = dataGetters.getObject(dist, 'checksum', ['algorithm', 'checksum_value']);
      distribution.compressFormat = dataGetters.getObject(dist, 'compress_format', ['label', 'resource']);
      distribution.conformsTo = dataGetters.getArrayOfObjects(dist, 'conforms_to', ['label', 'resource']);
-     distribution.description = dataGetters.getObjectLanguage(dist, 'description', 'No description available');
+     distribution.description = dataGetters.getObjectLanguage(dist, 'description', '');
      distribution.downloadUrls = dataGetters.getArrayOfStrings(dist, 'download_url');
      distribution.format = dataGetters.getObject(dist, 'format', ['id', 'resource', { key: 'label', default: 'UNKNOWN' }]);
      distribution.hasPolicy = dataGetters.getString(dist, 'has_policy');
@@ -131,7 +131,7 @@
      distribution.spatialResolutionInMeters = dataGetters.getArrayOfNumbers(dist, 'spatial_resolution_in_meters');
      distribution.status = dataGetters.getObject(dist, 'status', ['label', 'resource']);
      distribution.temporalResolution = dataGetters.getArrayOfStrings(dist, 'temporal_resolution');
-     distribution.title = dataGetters.getObjectLanguage(dist, 'title', 'No title available');
+     distribution.title = dataGetters.getObjectLanguage(dist, 'title', '');
      distribution.type = dataGetters.getObject(dist, 'type', ['label', 'resource']);
 
     // High-value dataset fields
