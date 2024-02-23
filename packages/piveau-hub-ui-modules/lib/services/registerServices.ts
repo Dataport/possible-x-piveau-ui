@@ -13,7 +13,7 @@ export default (services: {[key: string]: object}, params?: {[key: string]: unkn
       injector.constant(key, params[key]);
     });
   }
-  injector.service('DatasetService', ['baseUrl', 'similarityBaseUrl', 'similarityEndpoint', 'defaultScoringFacets', 'qualityBaseUrl', 'hubUrl'], services.datasetService);
+  injector.service('DatasetService', ['baseUrl', 'similarityBaseUrl', 'similarityServiceName', 'defaultScoringFacets', 'qualityBaseUrl', 'hubUrl'], services.datasetService);
   injector.service('catalogService', ['baseUrl'], services.catalogService);
   if (services.mapService) injector.service('MapService', ['baseUrl'], services.mapService);
   if (services.datastoreService) injector.service('DatastoreService', ['baseUrl'], services.datastoreService);
