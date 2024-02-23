@@ -180,15 +180,15 @@
 
    private readonly baseUrl: string;
    private readonly similarityBaseUrl: string;
-   private readonly similarityEndpoint: string;
+   private readonly similarityServiceName: string;
    private readonly defaultScoringFacets: any[];
    private readonly qualityBaseUrl: string;
    private readonly hubUrl: string;
 
-   constructor(baseUrl, similarityBaseUrl, similarityEndpoint, defaultScoringFacets, qualityBaseUrl, hubUrl) {
+   constructor(baseUrl, similarityBaseUrl, similarityServiceName, defaultScoringFacets, qualityBaseUrl, hubUrl) {
      this.baseUrl = baseUrl;
      this.similarityBaseUrl = similarityBaseUrl;
-     this.similarityEndpoint = similarityEndpoint;
+     this.similarityServiceName = similarityServiceName;
      this.defaultScoringFacets = defaultScoringFacets;
      this.qualityBaseUrl = qualityBaseUrl;
      this.hubUrl = hubUrl;
@@ -363,22 +363,32 @@
    */
     getSimilarDatasets(id, description, query?: SimilarDatasetsQuery) {
       return new Promise((resolve, reject) => {
-        // const endpoint = 'similarity';
-        const url = this.similarityBaseUrl;
-        const endpoint = this.similarityEndpoint;
-        let reqStr = `${url}${endpoint}`;
-        if ( ! reqStr.endsWith('/')) {
-          reqStr += '/';
+        let url = this.similarityBaseUrl;
+        if ( ! url.endsWith('/')) {
+          url += '/';
         }
-        axios.post(reqStr, { query: description, k: 10}, )
-          .then((response) => {
-            // console.log("RESPONSE", response)
-            resolve(response);
-          })
-          .catch((error) => {
-            // console.log("ERROR", error)
-            reject(error);
-          });
+        const similarityServiceName = this.similarityServiceName;
+        console.log("similarityServiceName", similarityServiceName)
+        if (similarityServiceName === 'knn_request') {
+            console.log("BOLLKSHJDKSHF")
+            axios.post(`${url}knn_request/`, { query: description, k: 10}, )
+              .then((response) => {
+                resolve(response);
+              })
+              .catch((error) => {
+                reject(error);
+              });
+        } else {
+            const reqStr = `${url}similarity/${id}`;
+            axios.get(reqStr, {
+                params: query,
+            }).then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+        }
       });
     }
     // curl -i -X POST -H "Content-Type: application/json" -d '{"k": 10, "query": "This dataset presents all the political groups of the French National Assembly since the 14th legislature (2012). The data comes from open data from the National Assembly."}' https://live-service-server-data-europa-eu.apps.osc.fokus.fraunhofer.de/knn_request
