@@ -1,3 +1,12 @@
+## [3.16.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.14...v3.16.15) (2024-02-23)
+
+
+### Bug Fixes
+
+* old similarity service reactivated ([620b084](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/620b0844f1c90fca3965b731e5769a9926dd97fe))
+
+
+
 ## [3.16.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.13...v3.16.14) (2024-02-22)
 
 

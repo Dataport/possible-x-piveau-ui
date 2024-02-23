@@ -368,9 +368,7 @@
           url += '/';
         }
         const similarityServiceName = this.similarityServiceName;
-        console.log("similarityServiceName", similarityServiceName)
         if (similarityServiceName === 'knn_request') {
-            console.log("BOLLKSHJDKSHF")
             axios.post(`${url}knn_request/`, { query: description, k: 10}, )
               .then((response) => {
                 resolve(response);
