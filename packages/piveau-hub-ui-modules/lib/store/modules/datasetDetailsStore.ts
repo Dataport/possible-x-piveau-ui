@@ -428,15 +428,24 @@ const actions = {
             const service = getters.getService(state);
             service.getSimilarDatasets(id, description, query)
                 .then((response) => {
-                    const result = response.data.result;
-                    const prefix = "<http://dataeuropaeu/88u/dataset/"
-                    result.forEach(item => {
-                        item.id = item.uri.substring(prefix.length, item.uri.length - 2);
-                        item.uri = "https://data.europa.eu/88u/dataset/" + item.id;
-                    });
-                    commit('SET_SIMILAR_DATASETS', result);
-                    commit('SET_LOADING', false);
-                    resolve(result);
+                    const result = response.data?.result;
+                    if(result){
+                        //new similarity service
+                        const prefix = "<http://dataeuropaeu/88u/dataset/"
+                        result.forEach(item => {
+                            item.id = item.uri.substring(prefix.length, item.uri.length - 2);
+                            item.uri = "https://data.europa.eu/88u/dataset/" + item.id;
+                        });
+                        commit('SET_SIMILAR_DATASETS', result);
+                        commit('SET_LOADING', false);
+                        resolve(result);
+                    }else{
+                        // old similarity service
+                        commit('SET_SIMILAR_DATASETS', response.data);
+                        commit('SET_LOADING', false);
+                        resolve(response.data);
+                    }
+
                 })
                 .catch((err) => {
                     console.error(err);
