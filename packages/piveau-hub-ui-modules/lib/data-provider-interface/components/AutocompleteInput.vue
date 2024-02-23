@@ -200,9 +200,6 @@ function toggleList(e) {
           <input class="autocompleteInputfield" :placeholder="props.context.attrs.placeholder" v-model="inputText"
             type="text" @click="toggleList">
         </div>
-        <div class="formkit-wrapper">
-          <div class="formkit-help">{{ props.context.help }}</div>
-        </div>
         <ul class="autocompleteResultList inactiveResultList">
           <li v-for="match in matches" :key="match" @click="setValue(match)"
             class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}</li>
@@ -212,6 +209,9 @@ function toggleList(e) {
             <span>{{ item.name }}</span>
             <div class="removeX" @click="removeMultipleProperty(item)"></div>
           </div>
+        </div>
+        <div class="formkit-wrapper">
+          <div class="formkit-help">{{ props.context.help }}</div>
         </div>
       </div>
     </div>
