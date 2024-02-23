@@ -1,6 +1,16 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import axios from 'axios';
+import { getCurrentInstance } from "vue";
+import { inject } from 'vue';
+
+function getEnv() {
+    return getCurrentInstance().appContext.app.config.globalProperties.$env;
+}
+
+function getGlobalEnv() {
+    return inject('env');
+}
 
 const state = {};
 const getters = {};
@@ -8,7 +18,7 @@ const getters = {};
 const actions = {
     requestFirstEntrySuggestions({ commit }, voc) {
         return new Promise((resolve, reject) => {
-            const req = `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
+            const req = `${getGlobalEnv().api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -19,9 +29,14 @@ const actions = {
         });
     },
     requestAutocompleteSuggestions({ commit }, { voc, text }) {
+
+        console.log(getEnv().api.baseUrl)
+        console.log(getGlobalEnv().api.baseUrl)
+
+        let url = getGlobalEnv().api.baseUrl; 
         return new Promise((resolve, reject) => {
             const input = text;
-            const req = `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
+            const req = `${url}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -36,16 +51,16 @@ const actions = {
         if(voc === undefined) return
         if(voc === "application") return 
 
-        const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];   
+        const dpiConfig = generalDpiConfig[getGlobalEnv().content.dataProviderInterface.specification];   
         const value = encodeURIComponent(resource.replace(dpiConfig.vocabPrefixes[voc], ""));
         let req;
 
         // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
         if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
-            req = `https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/vocabularies/${voc}`;
+            req = `${getGlobalEnv().api.baseUrl}vocabularies/${voc}`;
            
         } else {
-            req = `https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/vocabularies/${voc}/${value}`;
+            req = `${getGlobalEnv().api.baseUrl}vocabularies/${voc}/${value}`;
             
         }
         return new Promise((resolve, reject) => {
