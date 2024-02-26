@@ -94,13 +94,8 @@ function onClickOutside(e) {
 // Need to append the classes to the formkit-outer element
 props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.identifier
 
-// // Register the outside click to close the list of suggested values
-window.addEventListener("click", onClickOutside);
 
-// // Todo need to remove the eventlistener after adding it
-// // setTimeout(() => {
-// //   window.removeEventListener("click", onClickOutside);
-// // }, 100);
+
 
 // node.props.selection = {};
 // node.props.isMulti = node.context.context.attrs.multiple;
@@ -136,6 +131,7 @@ const setValue = async (e) => {
   }
   // inputText.value = e.name
   findPropertyToUpdate();
+  window.removeEventListener("click", onClickOutside);
 }
 
 const getAutocompleteSuggestions = async () => {
@@ -175,6 +171,8 @@ function removeMultipleProperty(e) {
 function toggleList(e) {
   inputText.value = "";
   e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList');
+  // // Register the outside click to close the list of suggested values
+  window.addEventListener("click", onClickOutside);
 }
 </script>
 
