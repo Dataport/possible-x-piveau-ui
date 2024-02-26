@@ -1,3 +1,12 @@
+## [3.16.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.17...v3.16.18) (2024-02-26)
+
+
+### Bug Fixes
+
+* **Datasets.vue:** set catalog facet if ctlg_id route param is set ([4d18e26](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/4d18e267085ab85e2c034e7d2680d3008c4c98c1))
+
+
+
 ## [3.16.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.16...v3.16.17) (2024-02-26)
 
 
