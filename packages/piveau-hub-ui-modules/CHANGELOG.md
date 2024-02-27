@@ -1,3 +1,12 @@
+## [3.16.20](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.19...v3.16.20) (2024-02-27)
+
+
+### Bug Fixes
+
+* integrated id validity check into mandatory checking ([b2bf9f4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b2bf9f45b587acb17d0d54914237e8619b3edaea))
+
+
+
 ## [3.16.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.18...v3.16.19) (2024-02-26)
 
 
