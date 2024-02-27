@@ -8,7 +8,7 @@
     <div v-else>
       <FormulateInput v-model="uniqueID" @input="checkUniqueID()" id="datasetIDForm" type="text" :label="context.label"
         :name="context.attributes.name" :placeholder="$t('message.dataupload.createUniqueID')" :validation="validation"
-        :validation-rules="validationRules" :validation-messages="validationMessages">
+        :validation-rules="validationRules" :validation-messages="validationMessages" error-behavior="live">
       </FormulateInput>
       <FormulateInput v-model="uniqueIDHidden" id="datasetIDFormHidden" type="hidden" :label="context.label"
         :validation="validationHidden">
@@ -133,7 +133,6 @@ export default {
     },
     uniqueID: {
       handler(newValue) {
-        // console.log("hallo");
         this.uniqueIDHidden = this.validationRules.validateID()
           ? newValue
           : '';

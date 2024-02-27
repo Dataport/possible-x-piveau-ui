@@ -71,7 +71,7 @@ export default {
       failedFields: [],
       mandatoryModal: {
         confirm: '',
-        message: 'Mandatory Properties missing - make sure to fill out every field marked with an *. If you submitted information for a Data Service make sure to provide a title and an endpoint URL.',
+        message: 'Mandatory Properties missing or incorrect - make sure to fill out every field marked with an *. Make sure the provided ID contains only lower case letters, numbers and dashes. If you submitted information for a Data Service make sure to provide a title and an endpoint URL.',
         callback: $('#modal').modal('hide'),
       },
       validationModal: {
