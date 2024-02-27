@@ -33,9 +33,9 @@
               <div v-for="(stepName, index) in getNavSteps[property]" :key="index">
                 <InputPageStep :name="stepName">
                   <!-- <PropertyChooser></PropertyChooser> -->
-                  <FormKitSchema v-if="stepName !== 'distributions'" :schema="datasetSchema[stepName]"/>
-                  <DistributionInputPage v-else :schema="distributionSchema" :values="formValues"/>
-                  <p class="p-1" v-if="activeStep != 'Overview'"> <b>*</b> {{ $t('message.dataupload.info.mandatory') }}</p>
+                  <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"/>
+                  <DistributionInputPage v-else :schema="getSchema('distributions')" :values="formValues"/>
+                  <p class="p-1"> <b>*</b> mandatory</p>
                 </InputPageStep>
               </div>
             </div>
@@ -77,8 +77,6 @@ export default defineComponent({
   data() {
     return {
       heightActiveSec: "10vh",
-      datasetSchema: {},
-      distributionSchema: {},
       formValues: {},
       offsetTopStepper: "60px",
       info: {},
@@ -156,23 +154,20 @@ export default defineComponent({
       this.$formkit.reset('dpi')
     },
     initInputPage() {
-      if (this.page !== 'overview' && this.page !== 'distoverview') {
-        this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
-        // console.log(this.property);
-        this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
-        const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
-        // only overwrite empty object if there are values (otherwise the language preselection is gone)
+      this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
+      this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
+      const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
+      // only overwrite empty object if there are values (otherwise the language preselection is gone)
 
-        if (existingValues) {
-          this.formValues = existingValues;
-        }
-
-        this.$nextTick(() => {
-          $('[data-toggle="tooltip"]').tooltip({
-            container: 'body',
-          });
-        });
+      if (existingValues) {
+        this.formValues = existingValues;
       }
+
+      this.$nextTick(() => {
+        $('[data-toggle="tooltip"]').tooltip({
+          container: 'body',
+        });
+      });
     },
     createDatasetID() {
       const valueObject = this.formValues[this.getTitleStep];
@@ -215,6 +210,12 @@ export default defineComponent({
         }
       }
     },
+    generateandTranslateSchema(property) {
+        for (let index = 0; index < this.getNavSteps[property].length; index++) {
+        this.createSchema({ property: property, page: this.getNavSteps[property][index] });
+        this.translateSchema({ property: property, page: this.getNavSteps[property][index] });
+      }
+    }
   },
   created() {
 
@@ -224,19 +225,11 @@ export default defineComponent({
     // }
 
     // create schema for datasets or catalogues
-    for (let index = 0; index < this.getNavSteps[this.property].length; index++) {
-      this.createSchema({ property: this.property, page: this.getNavSteps[this.property][index] });
-      this.translateSchema({ property: this.property });
-      this.datasetSchema[this.getNavSteps[this.property][index]] = this.getSchema;
-    }
+    this.generateandTranslateSchema(this.property);
 
     // for datasets also create schema for distributions
     if (this.property === 'datasets') {
-      for (let index = 0; index < this.getNavSteps['distributions'].length; index++) {
-        this.createSchema({property: 'distributions', page: this.getNavSteps['distributions'][index] });
-        this.translateSchema({property: 'distributions'});
-        this.distributionSchema[this.getNavSteps['distributions'][index]] = this.getSchema;
-      }
+      this.generateandTranslateSchema('distributions');
     }
   },
   mounted() {
@@ -258,8 +251,8 @@ export default defineComponent({
     // the schema is a computed value which gets computed only once so on language change this value must be re-computed
     '$i18n.locale': {
       handler() {
-        this.createSchema({ property: this.property, page: this.page });
-        this.translateSchema({ property: this.property });
+        this.generateandTranslateSchema(this.property);
+        if (this.property === 'datasets') this.generateandTranslateSchema('distributions');
       }
     },
   },
