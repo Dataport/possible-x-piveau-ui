@@ -7,7 +7,7 @@
       <div class="formContainer formkit position-relative">
 
         <FormKit type="form" v-model.lazy="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" class="d-flex">
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" @submit.prevent="" class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
