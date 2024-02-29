@@ -1,5 +1,5 @@
 <template>
-  <div v-if="getDistributions.length > 1" class="dsd-download-all-distributions-button">
+  <div v-if="getDistributions.length > 1 && getCatalog.is_part_of  !== 'erpd'" class="dsd-download-all-distributions-button">
     <pv-button v-if="isLoadingAllDistributionFiles" :small="small" :rounded="true" :primary="primary" :download="true"
             class="download-all-btn"
             data-toggle="modal" data-target="#downloadAllModal"
