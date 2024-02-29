@@ -1,34 +1,19 @@
 <template>
   <div class="d-flex flex-sm-row flex-md-column flex-lg-row justify-content-start
     justify-content-lg-end mt-2 text-md-right col text-left distribution-actions">
-     <distribution-preview
-     v-if="!hidePreviewButton"
-      :isUrlInvalid="isUrlInvalid"
-      :getVisualisationLink="getVisualisationLink"
-      :distribution="distribution"
-      :openIfValidUrl="openIfValidUrl"
-      :previewLinkCallback="previewLinkCallback"
-      class="distribution-action"
-      />
-    <distribution-download
-      v-if="showDownloadDropdown(distribution)"
-      :getDownloadUrl="getDownloadUrl"
-      :showAccessUrls="showAccessUrls"
-      :isOnlyOneUrl="isOnlyOneUrl"
-      :trackGoto="trackGoto"
-      :getDistributionFormat="getDistributionFormat"
-      :replaceHttp="replaceHttp"
-      :distribution="distribution"
-      class="distribution-action"
-    />
-    <linked-data-buttons-dropdown
-      :distributions="distributions"
-      :distribution="distribution"
-      class="distribution-action"
-    />
+    <distribution-preview v-if="!hidePreviewButton" :isUrlInvalid="isUrlInvalid"
+      :getVisualisationLink="getVisualisationLink" :distribution="distribution" :openIfValidUrl="openIfValidUrl"
+      :previewLinkCallback="previewLinkCallback" class="distribution-action" />
+    <distribution-download v-if="showDownloadDropdown(distribution)" :getDownloadUrl="getDownloadUrl"
+      :showAccessUrls="showAccessUrls" :isOnlyOneUrl="isOnlyOneUrl" :trackGoto="trackGoto"
+      :getDistributionFormat="getDistributionFormat" :replaceHttp="replaceHttp" :distribution="distribution"
+      class="distribution-action" />
+    <linked-data-buttons-dropdown :distributions="distributions" :distribution="distribution"
+      class="distribution-action" />
     <div>
-      <app-link v-if="showValidateButton" class="btn-sm pt-0" :to="{ name: 'DatasetDetailsQuality', query: { locale: $route.query.locale, validate: distribution.id }}">
-          Validate
+      <app-link v-if="showValidateButton" class="btn-sm validate-btn pt-0"
+        :to="{ name: 'DatasetDetailsQuality', query: { locale: $route.query.locale, validate: distribution.id } }">
+        Validate
       </app-link>
     </div>
   </div>
@@ -42,7 +27,7 @@ import LinkedDataButtonsDropdown
   from "../../../datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
 export default {
   name: "DistributionActions",
-  components: {AppLink, LinkedDataButtonsDropdown, DistributionDownload, DistributionPreview},
+  components: { AppLink, LinkedDataButtonsDropdown, DistributionDownload, DistributionPreview },
   props: {
     distribution: Object,
     distributions: Object,
@@ -72,5 +57,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.validate-btn {
+  color: #0e47cb;
+  vertical-align: text-bottom;
+  text-decoration: none;
+}
 </style>
