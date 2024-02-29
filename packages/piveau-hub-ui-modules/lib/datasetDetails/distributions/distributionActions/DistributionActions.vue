@@ -13,7 +13,7 @@
     <div>
       <app-link v-if="showValidateButton" class="btn-sm validate-btn pt-0"
         :to="{ name: 'DatasetDetailsQuality', query: { locale: $route.query.locale, validate: distribution.id } }">
-        Validate
+        Validate 
       </app-link>
     </div>
   </div>
