@@ -213,7 +213,7 @@ function checkMandatory(data, property) {
 
     if (property === 'datasets') {
         // dataset mandatory properties: datasetID, dct:title with language tag, dct:description with language tag and catalog literal
-        status = !isEmpty(data['datasetID']) && isValid(data['datasetID'])
+        status = !isEmpty(data['datasetID'])
         && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
         && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
         && !isEmpty(data['dcat:catalog']);
@@ -240,7 +240,7 @@ function checkMandatory(data, property) {
         }
     } else if (property === 'catalogues') {
         // catalogue mandatory properties: datasetId, dct:title and dct:descirption with language tag, dct:publisher and at least one language (dct:language)
-        status = !isEmpty(data['datasetID']) && isValid(data['datasetID']) && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
+        status = !isEmpty(data['datasetID']) && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
         && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
         && !isEmpty(data['dct:publisher']) && !isEmpty(data['dct:language']);
     }
