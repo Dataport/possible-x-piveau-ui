@@ -198,7 +198,7 @@ export default {
                             } else {
                                 if (e.response) this.errorMsg = await e.response.data.text();
                                 this.error = true;
-                                this.downloadBtnText = 'Download';
+                                this.downloadBtnText = 'Retry';
                                 this.converting = false;
                             }
                         });
