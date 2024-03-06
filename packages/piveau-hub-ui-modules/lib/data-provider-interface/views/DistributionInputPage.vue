@@ -1,5 +1,8 @@
+
 <template>
-  <div name="distribution-stepper-list">
+  <h1>Distributions</h1>
+  <hr>
+  <div name="distribution-stepper-list" class="distributionsListClass">
     <FormKit type="list" name="distributionList">
       <section v-for="i in distributionList" :key="i">
         <DistributionStepper :name="`Distribution ${i + 1}`" :index=i :schema="schema" :values="values" />
@@ -7,7 +10,8 @@
     </FormKit>
 
     <button class="btn btn-secondary" @click="pushDistribution">{{ $t('message.dataupload.newDistribution') }}</button>
-    <button class="btn btn-secondary" @click="popDistribution">{{ $t('message.dataupload.deletemodal.deleteDistribution') }}</button>
+    <button class="btn btn-secondary" @click="popDistribution">{{ $t('message.dataupload.deletemodal.deleteDistribution')
+    }}</button>
   </div>
 </template>
 
@@ -32,8 +36,24 @@ export default defineComponent({
     return {
       latestNonce: 0,
       distributionList: [],
-      nameOfDistribution: ""
+      nameOfDistribution: "",
+      presentDistributions: 0
     }
+  },
+  created() {
+    try {
+      this.presentDistributions = JSON.parse(localStorage.getItem('dpi_datasets'))['Distributions']['distributionList'].length
+    console.log(this.presentDistributions);
+    } catch (error) {
+      console.log(error);
+    }
+
+    for (let index = 0; index < this.presentDistributions; index++) {
+      this.distributionList.push(index)
+    }
+
+    //  console.log( this.pathToLocalStorage['Distributions']['distributionList'].length);
+    // console.log(this.values['Distributions']['distributionList'].length);
   },
   methods: {
     pushDistribution() {
@@ -46,7 +66,6 @@ export default defineComponent({
     removeDistributionByIndex(index) {
       this.distributionList.splice(index, 1);
     },
-
   },
 });
 </script>

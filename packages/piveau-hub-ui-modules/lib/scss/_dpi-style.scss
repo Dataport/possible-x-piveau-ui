@@ -1000,7 +1000,39 @@
         margin-right: -1rem;
     }
 }
-
+.interactionDis{
+    a{
+        margin: 0.5rem;
+        padding: 0.5rem;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+.disInfoWrapper{
+    display: flex;
+}
+.singleDistributions{
+    margin-left: 2rem;
+    .steps{
+        position: absolute;
+        left: 55px;
+        top: 365px;
+        .activeItem{
+            flex-grow: unset;
+            background-color: unset !important;
+        }
+        .step{
+            font-size: 12px;
+        }
+    }
+    .activeItem .stepCircle{
+        font-size: 14px;
+        width: 35px;
+        height: 35px;
+        padding: 0;
+    }
+}
 .w25-textfield {
     width: 25%;
 

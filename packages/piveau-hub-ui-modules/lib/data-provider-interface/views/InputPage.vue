@@ -34,8 +34,8 @@
                 <InputPageStep :name="stepName">
                   <!-- <PropertyChooser></PropertyChooser> -->
                   <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"/>
-                  <DistributionInputPage v-else :schema="getSchema('distributions')" :values="formValues"/>
-                  <p class="p-1"> <b>*</b> mandatory</p>
+                  <DistributionInputPage v-if="stepName === 'Distributions'" :schema="getSchema('distributions')" :values="formValues"/>
+                  <p class="p-1" v-if="stepName === 'Mandatory'"> <b>*</b> mandatory</p>
                 </InputPageStep>
               </div>
             </div>

@@ -50,7 +50,9 @@ function idformatvalid(node) {
     :validation-rules="{ idformatvalid, idunique }" 
     validation="idformatvalid|idunique|required" 
     validation-visibility="live"
-    :validation-messages="validationMessages">
+    :validation-messages="validationMessages"
+    outer-class="formkitCmpWrap m-0 p-3"
+    >
   </FormKit>
   <FormKit v-else type="text" name="datasetID" id="datasetID" :disabled="true"
     :info="$t(`message.dataupload.datasets.datasetID.info`)"
