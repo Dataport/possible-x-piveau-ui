@@ -22,6 +22,7 @@ import VueSkeletonLoader from 'skeleton-loader-vue';
 // import {
 // ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv,
 // } from '@braid/vue-formulate-i18n';
+import SmartTable from 'vuejs-smart-table';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -157,6 +158,8 @@ Vue.component('SelectedFacetsOverview', SelectedFacetsOverview);
 Vue.component('vue-skeleton-loader', VueSkeletonLoader);
 
 Vue.use(VueCookie);
+
+Vue.use(SmartTable);
 
 Vue.use(VueFormulate, {
   // plugins: [ca, cs, da, nl, de, en, fr, hu, it, lt, nb, pl, pt, ru, sr, sk, es, tr, sv],

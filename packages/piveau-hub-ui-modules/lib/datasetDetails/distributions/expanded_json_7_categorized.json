@@ -1,0 +1,313 @@
+{
+    "default_view_options": {
+        "default_view": "numerical",
+        "default_numerical_view": "line",
+        "default_categorical_view": "bar",
+        "default_axes": {
+            "numerical_chart": {
+                "x": "Abgangsjahr",
+                "y": "insgesamt"
+            },
+            "categorical_chart": "Abgangsjahr"
+        }
+    },
+    "labels": {
+        "all_labels": [
+            "Abgangsjahr",
+            "insgesamt",
+            "Hauptschulabschluss nach Jahrgang 9",
+            "Hauptschulabschluss nach Jahrgang 10",
+            "Fachoberschulreife",
+            "ohne Abschluss"
+        ],
+        "numerical_labels": [
+            "Abgangsjahr",
+            "insgesamt",
+            "Hauptschulabschluss nach Jahrgang 9",
+            "Hauptschulabschluss nach Jahrgang 10",
+            "Fachoberschulreife",
+            "ohne Abschluss"
+        ],
+        "categorical_labels": [
+            "Abgangsjahr"
+        ],
+        "time_labels": [
+            "Abgangsjahr"
+        ]
+    },
+    "default_axis": {
+        "x": "Abgangsjahr",
+        "y": "Abgangsjahr"
+    },
+    "data": [
+        {
+            "Abgangsjahr": 1990,
+            "insgesamt": 1031,
+            "Hauptschulabschluss nach Jahrgang 9": 19,
+            "Hauptschulabschluss nach Jahrgang 10": 20,
+            "Fachoberschulreife": 990,
+            "ohne Abschluss": 2
+        },
+        {
+            "Abgangsjahr": 1991,
+            "insgesamt": 950,
+            "Hauptschulabschluss nach Jahrgang 9": 30,
+            "Hauptschulabschluss nach Jahrgang 10": 30,
+            "Fachoberschulreife": 881,
+            "ohne Abschluss": 9
+        },
+        {
+            "Abgangsjahr": 1992,
+            "insgesamt": 1005,
+            "Hauptschulabschluss nach Jahrgang 9": 29,
+            "Hauptschulabschluss nach Jahrgang 10": 20,
+            "Fachoberschulreife": 941,
+            "ohne Abschluss": 15
+        },
+        {
+            "Abgangsjahr": 1993,
+            "insgesamt": 1061,
+            "Hauptschulabschluss nach Jahrgang 9": 36,
+            "Hauptschulabschluss nach Jahrgang 10": 17,
+            "Fachoberschulreife": 994,
+            "ohne Abschluss": 14
+        },
+        {
+            "Abgangsjahr": 1994,
+            "insgesamt": 1020,
+            "Hauptschulabschluss nach Jahrgang 9": 14,
+            "Hauptschulabschluss nach Jahrgang 10": 9,
+            "Fachoberschulreife": 983,
+            "ohne Abschluss": 14
+        },
+        {
+            "Abgangsjahr": 1995,
+            "insgesamt": 997,
+            "Hauptschulabschluss nach Jahrgang 9": 15,
+            "Hauptschulabschluss nach Jahrgang 10": 15,
+            "Fachoberschulreife": 957,
+            "ohne Abschluss": 10
+        },
+        {
+            "Abgangsjahr": 1996,
+            "insgesamt": 1145,
+            "Hauptschulabschluss nach Jahrgang 9": 30,
+            "Hauptschulabschluss nach Jahrgang 10": 10,
+            "Fachoberschulreife": 1090,
+            "ohne Abschluss": 15
+        },
+        {
+            "Abgangsjahr": 1997,
+            "insgesamt": 1204,
+            "Hauptschulabschluss nach Jahrgang 9": 27,
+            "Hauptschulabschluss nach Jahrgang 10": 72,
+            "Fachoberschulreife": 1088,
+            "ohne Abschluss": 17
+        },
+        {
+            "Abgangsjahr": 1998,
+            "insgesamt": 1173,
+            "Hauptschulabschluss nach Jahrgang 9": 28,
+            "Hauptschulabschluss nach Jahrgang 10": 29,
+            "Fachoberschulreife": 1106,
+            "ohne Abschluss": 10
+        },
+        {
+            "Abgangsjahr": 1999,
+            "insgesamt": 1270,
+            "Hauptschulabschluss nach Jahrgang 9": 29,
+            "Hauptschulabschluss nach Jahrgang 10": 28,
+            "Fachoberschulreife": 1201,
+            "ohne Abschluss": 12
+        },
+        {
+            "Abgangsjahr": 2000,
+            "insgesamt": 1282,
+            "Hauptschulabschluss nach Jahrgang 9": 38,
+            "Hauptschulabschluss nach Jahrgang 10": 34,
+            "Fachoberschulreife": 1193,
+            "ohne Abschluss": 17
+        },
+        {
+            "Abgangsjahr": 2001,
+            "insgesamt": 1202,
+            "Hauptschulabschluss nach Jahrgang 9": 25,
+            "Hauptschulabschluss nach Jahrgang 10": 22,
+            "Fachoberschulreife": 1121,
+            "ohne Abschluss": 34
+        },
+        {
+            "Abgangsjahr": 2002,
+            "insgesamt": 1213,
+            "Hauptschulabschluss nach Jahrgang 9": 45,
+            "Hauptschulabschluss nach Jahrgang 10": 41,
+            "Fachoberschulreife": 1116,
+            "ohne Abschluss": 11
+        },
+        {
+            "Abgangsjahr": 2003,
+            "insgesamt": 1329,
+            "Hauptschulabschluss nach Jahrgang 9": 36,
+            "Hauptschulabschluss nach Jahrgang 10": 45,
+            "Fachoberschulreife": 1228,
+            "ohne Abschluss": 20
+        },
+        {
+            "Abgangsjahr": 2004,
+            "insgesamt": 1311,
+            "Hauptschulabschluss nach Jahrgang 9": 39,
+            "Hauptschulabschluss nach Jahrgang 10": 30,
+            "Fachoberschulreife": 1218,
+            "ohne Abschluss": 24
+        },
+        {
+            "Abgangsjahr": 2005,
+            "insgesamt": 1320,
+            "Hauptschulabschluss nach Jahrgang 9": 24,
+            "Hauptschulabschluss nach Jahrgang 10": 15,
+            "Fachoberschulreife": 1247,
+            "ohne Abschluss": 34
+        },
+        {
+            "Abgangsjahr": 2006,
+            "insgesamt": 1423,
+            "Hauptschulabschluss nach Jahrgang 9": 29,
+            "Hauptschulabschluss nach Jahrgang 10": 35,
+            "Fachoberschulreife": 1326,
+            "ohne Abschluss": 33
+        },
+        {
+            "Abgangsjahr": 2007,
+            "insgesamt": 1430,
+            "Hauptschulabschluss nach Jahrgang 9": 29,
+            "Hauptschulabschluss nach Jahrgang 10": 33,
+            "Fachoberschulreife": 1351,
+            "ohne Abschluss": 17
+        },
+        {
+            "Abgangsjahr": 2008,
+            "insgesamt": 1491,
+            "Hauptschulabschluss nach Jahrgang 9": 23,
+            "Hauptschulabschluss nach Jahrgang 10": 15,
+            "Fachoberschulreife": 1408,
+            "ohne Abschluss": 45
+        },
+        {
+            "Abgangsjahr": 2009,
+            "insgesamt": 1440,
+            "Hauptschulabschluss nach Jahrgang 9": 23,
+            "Hauptschulabschluss nach Jahrgang 10": 32,
+            "Fachoberschulreife": 1364,
+            "ohne Abschluss": 21
+        },
+        {
+            "Abgangsjahr": 2010,
+            "insgesamt": 1334,
+            "Hauptschulabschluss nach Jahrgang 9": 32,
+            "Hauptschulabschluss nach Jahrgang 10": 18,
+            "Fachoberschulreife": 1269,
+            "ohne Abschluss": 15
+        },
+        {
+            "Abgangsjahr": 2011,
+            "insgesamt": 1330,
+            "Hauptschulabschluss nach Jahrgang 9": 32,
+            "Hauptschulabschluss nach Jahrgang 10": 33,
+            "Fachoberschulreife": 1245,
+            "ohne Abschluss": 20
+        },
+        {
+            "Abgangsjahr": 2012,
+            "insgesamt": 1315,
+            "Hauptschulabschluss nach Jahrgang 9": 16,
+            "Hauptschulabschluss nach Jahrgang 10": 47,
+            "Fachoberschulreife": 1229,
+            "ohne Abschluss": 23
+        },
+        {
+            "Abgangsjahr": 2013,
+            "insgesamt": 1357,
+            "Hauptschulabschluss nach Jahrgang 9": 17,
+            "Hauptschulabschluss nach Jahrgang 10": 43,
+            "Fachoberschulreife": 1276,
+            "ohne Abschluss": 21
+        },
+        {
+            "Abgangsjahr": 2014,
+            "insgesamt": 1388,
+            "Hauptschulabschluss nach Jahrgang 9": 14,
+            "Hauptschulabschluss nach Jahrgang 10": 43,
+            "Fachoberschulreife": 1302,
+            "ohne Abschluss": 29
+        },
+        {
+            "Abgangsjahr": 2015,
+            "insgesamt": 1296,
+            "Hauptschulabschluss nach Jahrgang 9": 12,
+            "Hauptschulabschluss nach Jahrgang 10": 27,
+            "Fachoberschulreife": 1238,
+            "ohne Abschluss": 19
+        },
+        {
+            "Abgangsjahr": 2016,
+            "insgesamt": 1212,
+            "Hauptschulabschluss nach Jahrgang 9": 28,
+            "Hauptschulabschluss nach Jahrgang 10": 34,
+            "Fachoberschulreife": 1143,
+            "ohne Abschluss": 7
+        },
+        {
+            "Abgangsjahr": 2017,
+            "insgesamt": 1355,
+            "Hauptschulabschluss nach Jahrgang 9": 23,
+            "Hauptschulabschluss nach Jahrgang 10": 37,
+            "Fachoberschulreife": 1257,
+            "ohne Abschluss": 38
+        },
+        {
+            "Abgangsjahr": 2018,
+            "insgesamt": 1141,
+            "Hauptschulabschluss nach Jahrgang 9": 25,
+            "Hauptschulabschluss nach Jahrgang 10": 37,
+            "Fachoberschulreife": 1045,
+            "ohne Abschluss": 34
+        }
+    ],
+    "categorized": [
+        {
+            "column": "Abgangsjahr",
+            "categories": {
+                "1990": 1,
+                "2005": 1,
+                "2017": 1,
+                "2016": 1,
+                "2015": 1,
+                "2014": 1,
+                "2013": 1,
+                "2012": 1,
+                "2011": 1,
+                "2010": 1,
+                "2009": 1,
+                "2008": 1,
+                "2007": 1,
+                "2006": 1,
+                "2004": 1,
+                "1991": 1,
+                "2003": 1,
+                "2002": 1,
+                "2001": 1,
+                "2000": 1,
+                "1999": 1,
+                "1998": 1,
+                "1997": 1,
+                "1996": 1,
+                "1995": 1,
+                "1994": 1,
+                "1993": 1,
+                "1992": 1,
+                "2018": 1
+            },
+            "view_chart": "bar"
+        }
+    ]
+}

@@ -1,19 +1,23 @@
 <template>
     <div class="mt-1 dsd-distributions">
+
+      <distribution-visualization class="mb-4" :distributionTitle="previewedDistributionTitle"></distribution-visualization>
+
+      <distributions-header
+        :getDistributionDescription="getDistributionDescription"
+        :openModal="openModal"
+        :getDistributionTitle="getDistributionTitle"
+        :showDownloadUrls="showDownloadUrls"
+        :isUrlInvalid="isUrlInvalid"
+        :showPublisher="showPublisher"
+        :embed="embed"
+      />
       <div class="row">
-        <distributions-header
-          :getDistributionDescription="getDistributionDescription"
-          :openModal="openModal"
-          :getDistributionTitle="getDistributionTitle"
-          :showDownloadUrls="showDownloadUrls"
-          :isUrlInvalid="isUrlInvalid"
-          :showPublisher="showPublisher"
-          :embed="embed"
-        />
         <ul class="list list-unstyled w-100">
           <div class="distributions" :key="`${expandedDistributions.length}--${expandedDistributionDescriptions.length}`">
             <distribution
                 v-for="(distribution, index) in displayedDistributions"
+                @selectForPreview="selectDistribution"
                 :key="`${index}--${distribution.id}`"
                 :distribution="distribution"
                 :fading="!distributions.displayAll && !isDistributionsAllDisplayed && index === distributions.displayCount - 1"
@@ -78,13 +82,15 @@ import {has, isNil} from "lodash";
 import {getTranslationFor} from "../../utils/helpers";
 import { mapGetters } from "vuex";
 import DownloadAsModal from "../../datasetDetails/distributions/DistributionDownloadAsModal";
+import DistributionVisualization from "./DistributionVisualization.vue";
 
 export default {
   name: 'Distributions',
   components: {
     DownloadAllDistributions,
     // Distribution,
-    DownloadAsModal
+    DownloadAsModal,
+    DistributionVisualization,
   },
   props: {
     openModal: Function,
@@ -132,20 +138,24 @@ export default {
   },
   data() {
     return {
-      downloadAllTop: this.$env.content.datasetDetails.bulkDownload.buttonPosition === "top"
+      downloadAllTop: this.$env.content.datasetDetails.bulkDownload.buttonPosition === "top",
+      previewedDistributionTitle: this.getDistributionTitle(this.displayedDistributions[0])
     };
   },
   computed: {
     ...mapGetters('datasetDetails', [
       'getLanguages',
       'getCatalog',
-    ])
+    ]),
   },
   methods: {
     getDistributionDescription(distribution) {
       return (has(distribution, 'description') && !isNil(distribution.description)) ? getTranslationFor(distribution.description, this.$route.query.locale, this.getLanguages) : '-';
+    },
+    selectDistribution(distribution) {
+      this.previewedDistributionTitle = distribution;
     }
-  }
+  },
 };
 </script>
 
