@@ -358,9 +358,10 @@ export default {
         acc[field] = [];
         return acc;
       }, {});
-
       // Add the route query params that are missing
-      this.$router.push({ query: {...this.$route.query, ...routeQueryParamsToBeAdded} });
+      if (Object.keys(routeQueryParamsToBeAdded) > 0) {
+        this.$router.push({query: {...this.$route.query, ...routeQueryParamsToBeAdded}});
+      }
 
       this.setFacets(facetsFromRouteParams);
     },
