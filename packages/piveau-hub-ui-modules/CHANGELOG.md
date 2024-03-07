@@ -1,3 +1,12 @@
+## [3.16.24](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.23...v3.16.24) (2024-03-07)
+
+
+### Bug Fixes
+
+* avoid duplicate navigation ([5c8d4fd](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5c8d4fd2f34f58652e68d8ac8858d739231d9843))
+
+
+
 ## [3.16.23](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.22...v3.16.23) (2024-03-06)
 
 
@@ -260,11 +269,7 @@
 
 
 
-## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.3...v3.15.4) (2023-12-21)
-
-
-
-## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
+## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.4) (2023-12-21)
 
 
 ### Bug Fixes
