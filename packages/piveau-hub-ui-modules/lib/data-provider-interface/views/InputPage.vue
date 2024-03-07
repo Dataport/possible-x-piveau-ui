@@ -33,7 +33,7 @@
               <div v-for="(stepName, index) in getNavSteps[property]" :key="index">
                 <InputPageStep :name="stepName">
                   <!-- <PropertyChooser></PropertyChooser> -->
-                  <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"/>
+                  <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]" :library="library"/>
                   <DistributionInputPage v-if="stepName === 'Distributions'" :schema="getSchema('distributions')" :values="formValues"/>
                   <p class="p-1" v-if="stepName === 'Mandatory'"> <b>*</b> mandatory</p>
                 </InputPageStep>
@@ -53,12 +53,13 @@
 
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
-import { defineComponent } from 'vue';
+import { defineComponent, markRaw } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import PropertyChooser from './PropertyChooser.vue'
 import { has, isNil } from 'lodash';
 import DistributionInputPage from './DistributionInputPage.vue';
+import OverviewPage from './OverviewPage.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import Navigation from '../components/Navigation.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
@@ -280,6 +281,8 @@ export default defineComponent({
       return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
+    const library = markRaw({ OverviewPage })
+
     return {
       steps,
       visitedSteps,
@@ -290,6 +293,8 @@ export default defineComponent({
       checkStepValidity,
       goToNextStep,
       goToPreviousStep,
+
+      library,
     }
   }
 });

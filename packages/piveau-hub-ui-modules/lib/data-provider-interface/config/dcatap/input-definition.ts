@@ -1,6 +1,5 @@
-import { type FormKitSchemaDefinition } from '@formkit/core'
-import OverviewPage from '../../views/OverviewPage.vue';
-import SelectControlledGroup from '../../components/SelectControlledGroup.vue';
+import { type FormKitSchemaDefinition } from '@formkit/core';
+import { markRaw } from 'vue';
 
 import language from '../selector-languages.json';
 import config from './page-content-config';
@@ -110,7 +109,7 @@ export type InputDefinition = {
 const dcatapProperties: InputDefinition = {
   datasets: {
     overview: {
-      $cmp: OverviewPage,
+      $cmp: 'OverviewPage',
       props: {
         property: 'datasets'
       }

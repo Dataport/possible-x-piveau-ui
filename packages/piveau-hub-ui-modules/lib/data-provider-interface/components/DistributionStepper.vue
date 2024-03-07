@@ -29,7 +29,7 @@
           <div v-for="(stepName, index) in getNavSteps.distributions" :key="index">
             <InputPageStep :name="stepName">
               <!-- <PropertyChooser></PropertyChooser> -->
-              <FormKitSchema :schema="schema[stepName]" />
+              <FormKitSchema :schema="schema[stepName]" :library="library" />
               <p class="p-1"> <b>*</b> mandatory</p>
             </InputPageStep>
           </div>
@@ -81,7 +81,6 @@ export default defineComponent({
   },
   components: {
     InputPageStep,
-    SelectControlledGroup,
   },
   data() {
     return {
@@ -90,9 +89,6 @@ export default defineComponent({
           .replace(/([A-Z])/g, (match) => ` ${match}`)
           .replace(/^./, (match) => match.toUpperCase())
           .trim(),
-      library: markRaw({
-        SelectControlledGroup,
-      }),
       isActive: false
     }
   }, methods: {
@@ -143,6 +139,10 @@ export default defineComponent({
       return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
+    const library = markRaw({
+      SelectControlledGroup,
+    })
+
     return {
       steps,
       visitedSteps,
@@ -153,6 +153,8 @@ export default defineComponent({
       checkStepValidity,
       goToNextStep,
       goToPreviousStep,
+      
+      library,
     }
   }
 });
