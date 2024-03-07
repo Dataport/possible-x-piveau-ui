@@ -1,9 +1,11 @@
+
 <template>
   <FormKit type="form" :actions="false" :plugins="[stepPlugin]">
     <div name="distribution-stepper" class="singleDistributions">
       <h3 v-if="name">{{ name }}</h3>
       <div class="interactionDis"><a @click="isActive = !isActive; editDis()">
-          Edit</a><a @click="deleteDis(index)">Delete</a>
+          Edit</a>
+        <a @click="deleteDis(index)">Delete</a>
       </div>
       <div class=" disInfoWrapper">
         <ul class="steps">
@@ -96,19 +98,19 @@ export default defineComponent({
       this.distributionSteps.filter(e => e.show = false)
       this.distributionSteps[i].show = !this.distributionSteps[i].show;
     },
-    deleteDis(e){
+    deleteDis(e) {
       console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
     },
-    editDis(){
+    editDis() {
       var activeDisArray = document.getElementsByClassName('disInfoWrapper');
       for (let index = 0; index < document.getElementsByClassName('disInfoWrapper').length; index++) {
-       if (this.index != index && !activeDisArray[index].classList.contains('d-none')) {
-        activeDisArray[index].classList.toggle('d-none')
-       }
-       if (this.index === index){
-        activeDisArray[index].classList.toggle('d-none')
-       }
-        
+        if (this.index != index && !activeDisArray[index].classList.contains('d-none')) {
+          activeDisArray[index].classList.toggle('d-none')
+        }
+        if (this.index === index) {
+          activeDisArray[index].classList.toggle('d-none')
+        }
+
       }
       console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
     }
@@ -119,9 +121,11 @@ export default defineComponent({
     listElementShow() {
       return this.distributionSteps.filter(e => e.show);
     }
+
   },
   created() {
-    console.log(this.name, this.index);
+   
+
   },
   setup() {
     const {
