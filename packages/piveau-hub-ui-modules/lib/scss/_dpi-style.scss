@@ -1009,6 +1009,25 @@
         cursor: pointer;
     }
 }
+.accessService{
+    .formkitWrapRepeatable{
+                flex-direction: column;
+                .formkitWrapRepeatable{
+                    border: none;
+                }
+    }
+}
+.repeatableWrap{
+    .repeatable{
+        h4{
+            margin-left:1rem;
+        }
+    }
+    .repeatableWrap{
+        border: none !important;
+        
+    }
+}
 .disInfoWrapper{
     display: flex;
 }
