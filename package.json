@@ -49,5 +49,5 @@
     "chart.js": "^3.9.1",
     "vue-chartjs": "^4.1.2",
     "vuejs-smart-table": "^0.0.8"
-  },
+  }
 }
