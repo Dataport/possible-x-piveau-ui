@@ -61,6 +61,12 @@
                                     >
                                     remove chart
                             </button>
+                            <button
+                                    class="btn btn-light btn-sm"
+                                    @click="hideXLabels = !hideXLabels" 
+                                    >
+                                    {{  hideXLabels ? 'show labels' : 'hide labels' }}
+                            </button>
                         </div>
                         <bar-chart v-if="viewType === 'bar'" :chartData="this.datacollection" :chartOptions="this.options"></bar-chart>
                         <line-chart v-else-if="viewType === 'line'" :chartData="this.datacollection" :chartOptions="this.options"></line-chart>
@@ -113,12 +119,12 @@
                             </tbody>
                         </v-table>
                     </div>
-                    <!-- <smart-pagination
+                    <smart-pagination
                         :currentPage.sync="currentPage"
                         :totalPages="totalPages"
                         :maxPageLinks="10"
                         :boundaryLinks="true"
-                    /> -->
+                    />
                 </div>
                 
             </div>
@@ -220,7 +226,8 @@
                 datasets: [],  // dataRows, label, backgroundColor
                 dataRows: [],  // only the data arrays
                 downsampledData: [],
-                
+                hideXLabels: false,
+
                 catViewOptions: [
                     // { value: "table", label:"Table" },
                     { value: "bar", label:"Bar Chart" },
@@ -333,14 +340,21 @@
             
             fillNumPlotData() {
                 // In case there are no assigned lables, create empty lables (chart.js needs an array of lables, otherwise empty chart will display)
-                if (this.xLabels.length === 0) {
-                    this.xLabels = Array(this.datasets[0].data.length).fill('');
-                }
-
-                this.datacollection = {
-                        labels: this.xLabels,
+                if (this.xLabels.length === 0 || this.hideXLabels) {
+                    let emptyValues = Array(this.datasets[0].data.length).fill('');
+                
+                    this.datacollection = {
+                        labels: emptyValues,
                         datasets: structuredClone(this.datasets),
                 };
+                }
+
+                else {
+                    this.datacollection = {
+                            labels: this.xLabels,
+                            datasets: structuredClone(this.datasets),
+                    };
+                }
 
             },
             fillCatPlotData() {
@@ -438,6 +452,9 @@
                 },
             
             this.fillNumPlotData();
+            },
+            hideXLabels() {
+                this.fillNumPlotData();
             },
             catViewType() {
                 if (this.catViewType === 'pie') this.nCatToShow = 20;
