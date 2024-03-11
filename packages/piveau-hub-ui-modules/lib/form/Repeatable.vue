@@ -6,7 +6,7 @@
 
       <div class="repeatableWrap">
         <div class="interactionHeaderRepeatable my-1">
-          <i18n-t keypath="message.dataupload.info.repeatable" tag="p">
+          <i18n-t keypath="message.dataupload.info.repeatable" scope="global" tag="p">
             <template v-slot:add>
               <a class="add" @click="addItem">{{ $t('message.dataupload.info.add') }}</a>
             </template>

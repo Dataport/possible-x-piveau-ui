@@ -58,7 +58,8 @@ export default {
         // Check if there's a valid value present
         showValue(property, value) {
             let listOfEmptyObjects = [];
-
+            // console.log(property,value);
+            if (property === undefined) { return false }
             if (value === "dct:modified" || value === "dct:issued") return false
             if (value === "dct:creator") {
                 if (isNil(property["dct:creator"]['foaf:name']) &&
@@ -129,7 +130,7 @@ export default {
                     }
                 }
             } catch (error) {
-            }
+            }     
             if (property[value] != null && value !== 'dct:publisher' && value !== 'dcat:temporalResolution') {
                 // console.log(property[value], value, Object.keys(property[value]).length === 0);
                 if (Object.keys(property[value]).length === 0) {

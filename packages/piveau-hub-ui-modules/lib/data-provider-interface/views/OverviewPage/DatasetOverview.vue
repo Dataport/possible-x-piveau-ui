@@ -47,11 +47,12 @@
                 </table>
             </div>
         </div>
-        <!-- <div class="dsDist b-top p-3" v-if="getData('distributions').length > 0">
-            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('distributions').length
+        <details>{{ getData('datasets')['distributionList'] }}</details>
+        <div class="dsDist b-top p-3" v-if="getData('datasets')['distributionList'].length > 0">
+            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('datasets')['distributionList'].length
             }})</h2>
-            <DistributionOverview :dpiLocale="dpiLocale"></DistributionOverview>
-        </div> -->
+            <DistributionOverview :dpiLocale="dpiLocale" :disList="getData('datasets')['distributionList']"></DistributionOverview>
+        </div>
 
         <div class="dsKeywords b-top my-2 p-3"
             v-if="getData('datasets')['dct:keyword'] != undefined && getData('datasets')['dct:keyword'][0]['@value'] != undefined && getData('datasets')['dct:keyword'].length > 0">
@@ -186,10 +187,10 @@ export default {
     align-items: center;
 }
 
-.dsDist td {
+.dsDist td:first-child {
     padding: 1rem;
-    max-width: 250px;
-    width: 250px;
+    width: 25%;
+    
 }
 
 .disOverview td:first-child {

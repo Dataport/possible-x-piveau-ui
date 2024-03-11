@@ -43,11 +43,9 @@ export default defineComponent({
   created() {
     try {
       this.presentDistributions = JSON.parse(localStorage.getItem('dpi_datasets'))['Distributions']['distributionList'].length
-      console.log(this.presentDistributions);
     } catch (error) {
-      console.log(error);
-    }
 
+    }
     for (let index = 0; index < this.presentDistributions; index++) {
       this.distributionList.push(index)
     }
@@ -56,7 +54,6 @@ export default defineComponent({
     try {
       for (let arrInd = 0; arrInd < document.getElementsByClassName('disInfoWrapper').length; arrInd++) {
         document.getElementsByClassName('disInfoWrapper')[arrInd].classList.toggle('d-none');
-        console.log('hallooo');
       }
       document.getElementsByClassName('disInfoWrapper')[0].classList.toggle('d-none');
     } catch (error) {
@@ -69,7 +66,7 @@ export default defineComponent({
       for (let arrInd = 0; arrInd < document.getElementsByClassName('disInfoWrapper').length; arrInd++) {
         if (!document.getElementsByClassName('disInfoWrapper')[arrInd].classList.contains('d-none')) {
           document.getElementsByClassName('disInfoWrapper')[arrInd].classList.toggle('d-none');
-          
+
         }
       }
     },
@@ -77,7 +74,9 @@ export default defineComponent({
       this.distributionList.push(this.latestNonce);
       this.latestNonce++;
       this.closeAllDis();
-      document.getElementsByClassName('disInfoWrapper')[this.latestNonce].classList.toggle('d-none');
+      try { document.getElementsByClassName('disInfoWrapper')[this.latestNonce].classList.toggle('d-none') } 
+      catch (error) { }
+
     },
     popDistribution() {
       this.distributionList.pop();
