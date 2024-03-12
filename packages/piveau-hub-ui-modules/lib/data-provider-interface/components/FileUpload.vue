@@ -1,5 +1,5 @@
 <template>
-  <div class="position-relative w-50 p-3 ">
+  <div class="position-relative w-100 p-3 ">
     <input type="text" class="selectInputField formkit-inner" @click="showTable = !showTable"
       placeholder="Choose between fileupload and providing a URL">
     <ul v-if="showTable" class="selectListUpload">
@@ -10,13 +10,13 @@
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Provide an URL</li>
     </ul>
   </div>
-  <div class="w-50 p-3 position-relative" v-if="uploadURL">
-    <label class=" formkit-label w-100" for="aUrlLink">Provide an URL
+  <div class="w-100 p-3 position-relative" v-if="uploadURL">
+    <label class=" formkit-label w-100" for="aUrlLink">Provide an URL</label>
       <input id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id"
         @input="saveUrl">
-    </label>
+    
   </div>
-  <div v-if="uploadFileSwitch" ref="fileupload" class="p-3" :class="`formkit-input-element formkit-input-element--${context.type}`"
+  <div v-if="uploadFileSwitch" ref="fileupload" class="p-3 w-100" :class="`formkit-input-element formkit-input-element--${context.type}`"
     :data-type="context.type" v-bind="$attrs">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
     <div class="file-div position-relative">
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       URLValue: '',
-      uploadURL: true,
+      uploadURL: false,
       uploadFileSwitch: false,
       showTable: false,
       isLoading: false,

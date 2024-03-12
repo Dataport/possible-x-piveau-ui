@@ -1,6 +1,5 @@
-import { type FormKitSchemaDefinition } from '@formkit/core'
-import OverviewPage from '../../views/OverviewPage.vue';
-import SelectControlledGroup from '../../components/SelectControlledGroup.vue';
+import { type FormKitSchemaDefinition } from '@formkit/core';
+import { markRaw } from 'vue';
 
 import language from '../selector-languages.json';
 import config from './page-content-config';
@@ -86,20 +85,20 @@ export type DcatApDistributionsProperty =
   | 'status';
 
 export type DcatApCataloguesProperty =
-// Append new properties here for accurate type checking
-'datasetID'
-| 'title'
-| 'description'
-| 'publisher'
-| 'language'
-| 'licence'
-| 'spatial'
-| 'homepage'
-| 'hasPart'
-| 'isPartOf'
-| 'rights'
-| 'catalog'
-| 'creator';
+  // Append new properties here for accurate type checking
+  'datasetID'
+  | 'title'
+  | 'description'
+  | 'publisher'
+  | 'language'
+  | 'licence'
+  | 'spatial'
+  | 'homepage'
+  | 'hasPart'
+  | 'isPartOf'
+  | 'rights'
+  | 'catalog'
+  | 'creator';
 
 export type InputDefinition = {
   datasets: Record<DcatApDatasetsProperty, FormKitSchemaDefinition>;
@@ -110,7 +109,7 @@ export type InputDefinition = {
 const dcatapProperties: InputDefinition = {
   datasets: {
     overview: {
-      $cmp: OverviewPage,
+      $cmp: 'OverviewPage',
       props: {
         property: 'datasets'
       }
@@ -120,7 +119,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'id',
       mandatory: true,
       name: 'datasetID',
-      id:'datasetID'
+      id: 'datasetID'
     },
     description: {
       identifier: 'description',
@@ -168,15 +167,15 @@ const dcatapProperties: InputDefinition = {
           identifier: 'datasetTitle',
           $formkit: 'group',
           name: 'dct:title',
-         
+
           minimum: 1,
           children: [
             {
-              identifier: 'language',
-              value: 'en',
+              identifier: 'dctTitle',
               $formkit: 'select',
               validation: 'required',
               options: language,
+              value: 'en',
               name: '@language',
               classes: {
                 outer: 'w25-textfield'
@@ -313,9 +312,9 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       annifTheme: true,
       voc: 'eurovoc',
-      name:'dct:subject',
+      name: 'dct:subject',
       '@annifSuggestion': false,
-      id:'subjectDataset',
+      id: 'subjectDataset',
       classes: {
         outer: 'w88-textfield'
       }
@@ -366,66 +365,10 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:spatial',
       children: [
         {
-          $formkit: 'group',
+          $formkit: 'spatialinput',
           name: 'dct:spatial',
           identifier: 'spatial',
-          children: [
-            {
-              $formkit: "select",
-              identifier: "spatial",
-              id: "spatialModeDataset",
-              name: "spatialMode",
-              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-            },
-            {
-              $cmp: "FormKit",
-              identifier: "spatial",
-              if: "$get(spatialModeDataset).value",
-              props: {
-                type: "radio",
-                name: "vocabulary",
-                id: "spatialVocabularyDataset",
-                if: "$get(spatialModeDataset).value === man",
-                options: {
-                  if: "$get(spatialModeDataset).value === voc",
-                  then: [
-                    { value: "continent", label: "Continent" },
-                    { value: "country", label: "Country" },
-                    { value: "place", label: "Place" }
-                  ],
-                  else: {
-                    if: "$get(spatialModeDataset).value === man",
-                    then: [
-                      { label: "Other", value: "other" }
-                    ],
-                  }
-                }
-              }
-            },
-            {
-              $cmp: "FormKit",
-              identifier: "spatial",
-              if: "$get(spatialVocabularyDataset).value",
-              props: {
-                identifier: "spatial",
-                if: "$get(spatialVocabularyDataset).value === other",
-                then: {
-                  type: "url",
-                  identifier: "spatial",
-                  name: '@id'
-                },
-                else: {
-                  then: {
-                    type: "text",
-                    identifier: "spatial",
-                    name: '@id'
-                  }
-                }
-              }
-            }
-          ]
-        }
-      ]
+        }]
     },
     temporal: {
       identifier: 'temporal',
@@ -460,25 +403,25 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     theme: {
-          identifier: 'theme',
-          $formkit: 'auto',
-          multiple: true,
-          annifTheme: true,
-          voc: 'data-theme',
-          '@annifSuggestion': false,
-          name: 'dcat:theme',
-          id: 'theme',
+      identifier: 'theme',
+      $formkit: 'auto',
+      multiple: true,
+      annifTheme: true,
+      voc: 'data-theme',
+      '@annifSuggestion': false,
+      name: 'dcat:theme',
+      id: 'theme',
     },
     accessRights: {
       identifier: 'accessRights',
       $formkit: 'auto',
       voc: 'access-right',
       name: 'dct:accessRights',
-      id:'accessRights'
+      id: 'accessRights'
     },
     creator: {
       identifier: 'creator',
-      $formkit: 'group',
+      $formkit: 'formkitGroup',
       name: 'dct:creator',
       children: [
         {
@@ -593,7 +536,7 @@ const dcatapProperties: InputDefinition = {
                   $formkit: 'group',
                   name: 'dct:description',
                   children: [
-                   
+
                     {
                       identifier: 'language',
                       value: 'en',
@@ -622,9 +565,9 @@ const dcatapProperties: InputDefinition = {
               voc: 'file-type',
               class: "property",
               name: 'dct:format',
-              id:'pageFormat',
+              id: 'pageFormat',
               classes: {
-        
+
                 outer: 'w97-textfield'
               }
             },
@@ -647,7 +590,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'frequency',
       name: 'dct:accrualPeriodicity',
-      id:'accrualPeriodicity',
+      id: 'accrualPeriodicity',
       classes: {
         outer: 'w88-textfield'
       },
@@ -748,6 +691,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'isReferencedBy',
       $formkit: 'repeatable',
       name: 'dct:isReferencedBy',
+      id: 'dct:isReferencedBy',
       children: [
         {
           $formkit: 'group',
@@ -796,13 +740,13 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:language',
       multiple: true,
       voc: 'language',
-      id:'language'
+      id: 'language'
     },
     admsIdentifier: {
       identifier: 'admsIdentifier',
       $formkit: 'repeatable',
       name: 'adms:identifier',
-     
+
       children: [
         {
           $formkit: 'group',
@@ -815,7 +759,7 @@ const dcatapProperties: InputDefinition = {
               name: '@id',
               validation: 'optional|url',
               classes: {
-       
+
                 outer: 'w97-textfield'
               },
             },
@@ -829,7 +773,7 @@ const dcatapProperties: InputDefinition = {
                   $formkit: 'text',
                   name: '@value',
                   classes: {
-       
+
                     outer: 'w97-textfield'
                   },
                 },
@@ -839,9 +783,9 @@ const dcatapProperties: InputDefinition = {
                   identifier: 'admsIdentifierType',
                   voc: 'notation-type',
                   name: '@type',
-                  id:'admsIdentifierType',
+                  id: 'admsIdentifierType',
                   classes: {
-       
+
                     outer: 'w97-textfield'
                   },
                 },
@@ -967,14 +911,15 @@ const dcatapProperties: InputDefinition = {
     },
     issued: {
       identifier: 'issued',
-      $formkit: 'group',
+      $formkit: 'formkitGroup',
       name: 'dct:issued',
+
       children: [
         {
           identifier: 'issued',
           id: 'issuedCondDataset',
           classes: {
-            outer: 'w25-textfield'
+            outer: 'w-100'
           },
           $formkit: 'select',
           name: '@type',
@@ -983,7 +928,6 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'issued',
           $cmp: 'FormKit',
-         
           if: '$get(issuedCondDataset).value',
           props: {
             if: '$get(issuedCondDataset).value === date',
@@ -991,14 +935,14 @@ const dcatapProperties: InputDefinition = {
               type: 'date',
               name: '@value',
               classes: {
-                outer: 'w75-textfield'
+                outer: 'w-100'
               },
             },
             else: {
               type: 'datetime-local',
               name: '@value',
               classes: {
-                outer: 'w75-textfield'
+                outer: 'w-100'
               },
             }
           }
@@ -1007,7 +951,7 @@ const dcatapProperties: InputDefinition = {
     },
     modified: {
       identifier: 'modified',
-      $formkit: 'group',
+      $formkit: 'formkitGroup',
       name: 'dct:modified',
       children: [
         {
@@ -1015,7 +959,7 @@ const dcatapProperties: InputDefinition = {
           id: 'modifiedCondDataset',
           name: '@type',
           classes: {
-            outer: 'w25-textfield'
+            outer: 'w-100'
           },
           $formkit: 'select',
           options: { date: 'Date', datetime: 'Datetime' },
@@ -1031,14 +975,14 @@ const dcatapProperties: InputDefinition = {
               type: 'date',
               name: '@value',
               classes: {
-                outer: 'w75-textfield'
+                outer: 'w-100'
               },
             },
             else: {
               type: 'datetime-local',
               name: '@value',
               classes: {
-                outer: 'w75-textfield'
+                outer: 'w-100'
               },
             }
           }
@@ -1050,10 +994,11 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'number',
       name: 'dcat:spatialResolutionInMeters',
       validation: 'number',
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
     },
     temporalResolution: {
       identifier: 'temporalResolution',
-      $formkit: 'group',
+      $formkit: 'formkitGroup',
       name: 'dcat:temporalResolution',
       children: [
         {
@@ -1099,12 +1044,13 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'dataset-type',
       name: 'dct:type',
-      id:'type'
+      id: 'type'
     },
     versionInfo: {
       identifier: 'versionInfo',
-      $formkit: 'text',
+      $formkit: 'number',
       name: 'owl:versionInfo',
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
     },
     versionNotes: {
       identifier: 'versionNotes',
@@ -1144,7 +1090,8 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:catalog',
       mandatory: true,
       validation: 'required',
-      options: { "title": "hallo" }
+      options: {},
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
     },
     isUsedBy: {
       identifier: 'isUsedBy',
@@ -1180,32 +1127,6 @@ const dcatapProperties: InputDefinition = {
           identifier: 'accessUrl',
           name: 'dcat:accessURL',
           $formkit: 'fileupload',
-          // children: [
-          //   {
-          //     identifier: "accessUrl",
-          //     $formkit: "fileupload",
-          //     id: "accessUrlMode",
-          //     name: "accessUrlMode",
-          //     options: { url: 'Provide an URL', file: 'Upload a file' }
-          //   },
-          //   {
-          //     $cmp: "FormKit",
-          //     if: "$get(accessUrlMode).value",
-          //     props: {
-          //       if: "$get(accessUrlMode).value === url",
-          //       then: {
-          //         type: "url",
-          //         validation: "required",
-          //         name: "@id"
-          //       },
-          //       else: {
-          //         $formkit: "fileupload",
-          //         validation: "required",
-          //         name: "@id"
-          //       }
-          //     },
-          //   },
-          // ],
         }
       ]
     },
@@ -1214,7 +1135,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'planned-availability',
       name: 'dcatap:availability',
-      id:'availability'
+      id: 'availability'
     },
     description: {
       identifier: 'description',
@@ -1232,15 +1153,12 @@ const dcatapProperties: InputDefinition = {
               identifier: 'description',
               $formkit: 'textarea',
               name: '@value',
-              classes: {
-                outer: 'w75-descField'
-              }
             },
             {
               identifier: 'language',
               value: 'en',
               $formkit: 'select',
-              options: language,            
+              options: language,
               name: '@language',
             },
           ],
@@ -1252,9 +1170,9 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'file-type',
       name: 'dct:format',
-      id:'format',
+      id: 'format',
       classes: {
-        
+
         outer: 'w88-textfield'
       }
     },
@@ -1267,6 +1185,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'licence',
           name: 'licenceMode',
           id: 'licenceModeDistribution',
+          classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
@@ -1310,7 +1229,7 @@ const dcatapProperties: InputDefinition = {
           ]
         }
       ]
-    },    
+    },
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
@@ -1326,7 +1245,8 @@ const dcatapProperties: InputDefinition = {
             {
               identifier: 'title',
               $formkit: 'text',
-              name: '@value', 
+              name: '@value',
+
             },
             {
               identifier: 'language',
@@ -1344,7 +1264,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:mediaType',
-      id:'mediaType'
+      id: 'mediaType'
     },
     downloadUrl: {
       identifier: 'downloadUrl',
@@ -1445,16 +1365,19 @@ const dcatapProperties: InputDefinition = {
       identifier: 'byteSize',
       $formkit: 'text',
       name: 'dcat:byteSize',
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
     },
     checksum: {
       $formkit: 'group',
       identifier: 'checksum',
       name: 'spdx:checksum',
+      
       children: [
         {
           identifier: 'checksum',
           $formkit: 'text',
           name: 'spdx:checksumValue',
+          classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
         },
         {
           // todo: check if this is correct
@@ -1471,14 +1394,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:compressFormat',
-      id:'compressFormat'
+      id: 'compressFormat'
     },
     packageFormat: {
       identifier: 'packageFormat',
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:packageFormat',
-      id:'packageFormat'
+      id: 'packageFormat'
     },
     page: {
       identifier: 'page',
@@ -1500,7 +1423,7 @@ const dcatapProperties: InputDefinition = {
                   $formkit: 'group',
                   name: 'dct:title',
                   children: [
-                   
+
                     {
                       identifier: 'language',
                       value: 'en',
@@ -1555,9 +1478,9 @@ const dcatapProperties: InputDefinition = {
               voc: 'file-type',
               name: 'dct:format',
               class: "property",
-              id:'pageFormat',
+              id: 'pageFormat',
               classes: {
-        
+
                 outer: 'w88-textfield'
               }
             },
@@ -1601,7 +1524,7 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       name: 'dct:language',
       voc: 'language',
-      id:'language'
+      id: 'language'
     },
     conformsTo: {
       identifier: 'conformsTo',
@@ -1636,27 +1559,39 @@ const dcatapProperties: InputDefinition = {
     },
     issued: {
       identifier: 'issued',
-      $cmp: 'SelectControlledGroup',
-      props: {
-        identifier: 'issued',
-        name: 'dct:issued',
-        selectName: '@type',
-        options: { date: 'Date', datetime: 'Datetime' },
-        initialValue: '',
-      },
+      $formkit: 'formkitGroup',
+      name: 'dct:issued',
+
       children: [
         {
+          identifier: 'issued',
+          id: 'issuedCondDist',
+          classes: {
+            outer: 'w-100'
+          },
+          $formkit: 'select',
+          name: '@type',
+          options: { date: 'Date', datetime: 'Datetime' },
+        },
+        {
+          identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$selectValue',
+          if: '$get(issuedCondDist).value',
           props: {
-            if: '$selectValue === date',
+            if: '$get(issuedCondDist).value === date',
             then: {
               type: 'date',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
             },
             else: {
               type: 'datetime-local',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
             }
           }
         },
@@ -1664,26 +1599,39 @@ const dcatapProperties: InputDefinition = {
     },
     modified: {
       identifier: 'modified',
-      $cmp: 'SelectControlledGroup',
-      props: {
-        name: 'dct:modified',
-        selectName: '@type',
-        options: { date: 'Date', datetime: 'Datetime' },
-        initialValue: '',
-      },
+      $formkit: 'formkitGroup',
+      name: 'dct:modified',
       children: [
         {
+          identifier: 'modified',
+          id: 'modifiedCondDist',
+          name: '@type',
+          classes: {
+            outer: 'w-100'
+          },
+          $formkit: 'select',
+          options: { date: 'Date', datetime: 'Datetime' },
+        },
+        {
+          identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$selectValue',
+          if: '$get(modifiedCondDist).value',
           props: {
-            if: '$selectValue === date',
+            name: 'dct:modified',
+            if: '$get(modifiedCondDist).value === date',
             then: {
               type: 'date',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
             },
             else: {
               type: 'datetime-local',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
             }
           }
         },
@@ -1721,10 +1669,11 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'number',
       name: 'dcat:spatialResolutionInMeters',
       validation: 'number',
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
     },
     temporalResolution: {
       identifier: 'temporalResolution',
-      $formkit: 'group',
+      $formkit: 'formkitGroup',
       name: 'dcat:temporalResolution',
       children: [
         {
@@ -1770,14 +1719,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'distribution-type',
       name: 'dct:type',
-      id:'type'
+      id: 'type'
     },
     status: {
       identifier: 'status',
       $formkit: 'auto',
       voc: 'dataset-status',
       name: 'adms:status',
-      id:'status'
+      id: 'status'
     },
   },
   catalogues: {
@@ -1852,7 +1801,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'publisher',
       name: 'dct:publisher',
       voc: 'corporate-body',
-      id:'publisher'
+      id: 'publisher'
     },
     language: {
       identifier: 'language',
@@ -1860,17 +1809,19 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       name: 'dct:language',
       voc: 'language',
-      id:'language'
+      id: 'language'
     },
     licence: {
       $formkit: 'group',
       name: 'dct:license',
+      
       children: [
         {
           $formkit: 'select',
           identifier: 'licence',
           name: 'licenceMode',
           id: 'licenceModeCatalogue',
+          
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
@@ -1914,14 +1865,14 @@ const dcatapProperties: InputDefinition = {
           ]
         }
       ]
-    },    
+    },
     spatial: {
       $formkit: 'repeatable',
       name: 'dct:spatial',
       identifier: 'spatial',
       children: [
         {
-          $formkit: 'group',
+          $formkit: 'spatial',
           name: 'dct:spatial',
           identifier: 'spatial',
           children: [

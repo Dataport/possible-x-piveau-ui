@@ -1,8 +1,8 @@
 
 <template>
   <div class="form-container ">
-    <slot></slot>
-    <!-- <details>{{ formValues }}</details> -->
+  
+    <details>{{ formValues }}</details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -21,10 +21,9 @@
                   <div class="circle stepCircle">{{ index + 1 }}</div>
                   <span v-if="checkStepValidity(stepName)" class="step--errors" v-text="step.errorCount + step.blockingCount" />{{ camel2title(stepName) }}
                 </div>
-                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
+                <div v-if="index != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
               </li>
-
-              <li class="step inactiveStep" v-if="activeStep === 'overview'">
+              <li class="step inactiveStep" v-if="activeStep === 'Overview'">
                 <div class="circle stepCircle"></div>
               </li>
 
@@ -34,9 +33,9 @@
               <div v-for="(stepName, index) in getNavSteps[property]" :key="index">
                 <InputPageStep :name="stepName">
                   <!-- <PropertyChooser></PropertyChooser> -->
-                  <FormKitSchema v-if="stepName !== 'distributions'" :schema="datasetSchema[stepName]"/>
-                  <DistributionInputPage v-else :schema="distributionSchema" :values="formValues"/>
-                  <p class="p-1"> <b>*</b> {{ $t('message.dataupload.info.mandatory') }}</p>
+                  <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]" :library="library"/>
+                  <DistributionInputPage v-if="stepName === 'Distributions'" :schema="getSchema('distributions')" :values="formValues"/>
+                  <p class="p-1" v-if="stepName === 'Mandatory'"> <b>*</b> mandatory</p>
                 </InputPageStep>
               </div>
             </div>
@@ -54,12 +53,13 @@
 
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
-import { defineComponent } from 'vue';
+import { defineComponent, markRaw } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import PropertyChooser from './PropertyChooser.vue'
 import { has, isNil } from 'lodash';
 import DistributionInputPage from './DistributionInputPage.vue';
+import OverviewPage from './OverviewPage.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import Navigation from '../components/Navigation.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
@@ -78,8 +78,6 @@ export default defineComponent({
   data() {
     return {
       heightActiveSec: "10vh",
-      datasetSchema: {},
-      distributionSchema: {},
       formValues: {},
       offsetTopStepper: "60px",
       info: {},
@@ -157,23 +155,20 @@ export default defineComponent({
       this.$formkit.reset('dpi')
     },
     initInputPage() {
-      if (this.page !== 'overview' && this.page !== 'distoverview') {
-        this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
-        // console.log(this.property);
-        this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
-        const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
-        // only overwrite empty object if there are values (otherwise the language preselection is gone)
+      this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
+      this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
+      const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
+      // only overwrite empty object if there are values (otherwise the language preselection is gone)
 
-        if (existingValues) {
-          this.formValues = existingValues;
-        }
-
-        this.$nextTick(() => {
-          $('[data-toggle="tooltip"]').tooltip({
-            container: 'body',
-          });
-        });
+      if (existingValues) {
+        this.formValues = existingValues;
       }
+
+      this.$nextTick(() => {
+        $('[data-toggle="tooltip"]').tooltip({
+          container: 'body',
+        });
+      });
     },
     createDatasetID() {
       const valueObject = this.formValues[this.getTitleStep];
@@ -216,27 +211,26 @@ export default defineComponent({
         }
       }
     },
+    generateandTranslateSchema(property) {
+        for (let index = 0; index < this.getNavSteps[property].length; index++) {
+        this.createSchema({ property: property, page: this.getNavSteps[property][index] });
+        this.translateSchema({ property: property, page: this.getNavSteps[property][index] });
+      }
+    }
   },
   created() {
 
-    if (this.$route.query.edit === 'false') {
-      this.clearAll();
-    }
+    // Needs to be reworked
+    // if (this.$route.query.edit === 'false') {
+    //   this.clearAll();
+    // }
 
     // create schema for datasets or catalogues
-    for (let index = 0; index < this.getNavSteps[this.property].length; index++) {
-      this.createSchema({ property: this.property, page: this.getNavSteps[this.property][index] });
-      this.translateSchema({ property: this.property });
-      this.datasetSchema[this.getNavSteps[this.property][index]] = this.getSchema;
-    }
+    this.generateandTranslateSchema(this.property);
 
     // for datasets also create schema for distributions
     if (this.property === 'datasets') {
-      for (let index = 0; index < this.getNavSteps['distributions'].length; index++) {
-        this.createSchema({property: 'distributions', page: this.getNavSteps['distributions'][index] });
-        this.translateSchema({property: 'distributions'});
-        this.distributionSchema[this.getNavSteps['distributions'][index]] = this.getSchema;
-      }
+      this.generateandTranslateSchema('distributions');
     }
   },
   mounted() {
@@ -258,8 +252,8 @@ export default defineComponent({
     // the schema is a computed value which gets computed only once so on language change this value must be re-computed
     '$i18n.locale': {
       handler() {
-        this.createSchema({ property: this.property, page: this.page });
-        this.translateSchema({ property: this.property });
+        this.generateandTranslateSchema(this.property);
+        if (this.property === 'datasets') this.generateandTranslateSchema('distributions');
       }
     },
   },
@@ -287,6 +281,8 @@ export default defineComponent({
       return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
+    const library = markRaw({ OverviewPage })
+
     return {
       steps,
       visitedSteps,
@@ -297,6 +293,8 @@ export default defineComponent({
       checkStepValidity,
       goToNextStep,
       goToPreviousStep,
+
+      library,
     }
   }
 });

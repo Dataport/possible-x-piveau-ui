@@ -9,7 +9,7 @@
                 <p class="">Updated</p>
                 <p class="">Actions</p>
             </div>
-            <div v-for="( distribution, id) in disList" :key="'distribution' + id">
+            <div v-for="( distribution, id) in newList" :key="'distribution' + id">
 
                 <div class="tdWrap" v-if="id % 2 == 0">
                     <p v-if="distribution['dct:title'] != undefined && distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
@@ -27,7 +27,7 @@
                         No format provided
                     </p>
                     <p v-if="distribution['dct:modified'] != undefined && distribution['dct:modified']">
-                        {{ new Date(distribution['dct:modified']).toDateString() }}
+                        {{ new Date(distribution['dct:modified']['@value']).toDateString() }}
                     </p>
                     <p v-else>
                         -
@@ -59,7 +59,7 @@
                         No format provided
                     </p>
                     <p v-if="distribution['dct:modified'] != undefined && distribution['dct:modified']">
-                        {{ new Date(distribution['dct:modified']).toDateString() }}
+                        {{ new Date(distribution['dct:modified']['@value']).toDateString() }}
                     </p>
                     <p v-else>
                         -
@@ -102,8 +102,8 @@
                                     </table>
                                     <table class="table table-borderless table-responsive pl-3 bg-light">
                                         <div v-for="( value, name, index ) in  tableProperties " :key="index">
-                                            <PropertyEntry profile="distributions" :data="disList['@id']"
-                                                :property="name" :value="value" :dpiLocale="dpiLocale" :distId="id">
+                                            <PropertyEntry profile="distributions" :data="newList[id]" :property="name"
+                                                :value="value" :dpiLocale="dpiLocale" :distId="id">
                                             </PropertyEntry>
                                         </div>
                                     </table>
@@ -123,13 +123,14 @@ import { mapGetters } from 'vuex';
 import PropertyEntry from './PropertyEntry.vue';
 import { has, isNil, isEmpty } from 'lodash';
 import { truncate } from '../../../utils/helpers';
+import generalHelper from '../../utils/general-helper.js'
 
 
 export default {
     props: {
         dpiLocale: String,
         disList: {
-            required:true
+            required: true
         }
     },
     components: {
@@ -140,12 +141,18 @@ export default {
             'getData',
         ]),
     },
+    mounted() {
+        for (let index = 0; index < this.disList.length; index++) {
+            this.newList.push(generalHelper.mergeNestedObjects(this.disList[index]))
+        }
+        // console.log(this.newList);
+    },
     methods: {
         truncate,
         getDistributionFormat(distribution) {
 
             try {
-                return distribution['dct:format'].split('/')[6];
+                return distribution['dct:format']['name'];
             } catch (error) {
                 return "No format provided"
             }
@@ -164,6 +171,7 @@ export default {
         return {
             showThis: false,
             disId: '',
+            newList: [],
             tableProperties: {
                 'dcat:downloadURL': { type: 'multiURL', voc: '', label: 'message.metadata.downloadUrl' },
                 'dcat:accessService': { type: 'special', voc: '', label: 'message.dataupload.distributions.accessService.label' },
