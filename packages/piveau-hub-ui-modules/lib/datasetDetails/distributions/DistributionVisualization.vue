@@ -30,7 +30,13 @@
                                 <!-- <option selected>Select the Y axe</option> -->
                                 <option v-for="viewOption in viewOptions" :value="viewOption.value" :key="viewOption.value">{{ viewOption.label }} </option>
                             </select>
-                            <br>
+                            <div class="data-range-container">
+                                (#Records: {{ this.dataRows.length }}) Show records
+                                <label for="from">from:</label>
+                                <input @change="updateRange" type="number" id="from" v-model.number="fromIndex" min="1">
+                                <label for="to">to:</label>
+                                <input @change="updateRange" type="number" id="to" v-model.number="toIndex" :min="fromIndex" :max="this.dataRows.length">
+                            </div>
                             <small>Labels: </small>
                             <select v-model="xPicked" class="" aria-label="select a view option">
                                 <!-- <option selected>Select the X axe</option> -->
@@ -204,13 +210,12 @@
                 numericalLabels: [],
                 xList: [],
                 yList: [],
-                
+                fromIndex: 1,
+                toIndex: null,
+
                 viewOptions: [
-                    // { value: "table", label:"Table" },
                     { value: "bar", label:"Bar Chart" },
                     { value: "line", label:"Line Chart" },
-                    // { value: "pie", label:"Pie Chart" },
-                    // { value: "doughnut", label:"Doughnut Chart" }
                 ],
                 showNumTabContent: true,
                 chartValues: [],
@@ -229,9 +234,8 @@
                 hideXLabels: false,
 
                 catViewOptions: [
-                    // { value: "table", label:"Table" },
                     { value: "bar", label:"Bar Chart" },
-                    { value: "pie", label:"Pie Chart" },
+                    // { value: "pie", label:"Pie Chart" },
                     // { value: "line", label:"Line Chart" },
                     { value: "doughnut", label:"Doughnut Chart" }
                 ], 
@@ -257,16 +261,6 @@
                         yAxes: {
                             beginAtZero: false
                         },
-                        x: {
-                            ticks: {
-                                // display: false
-                            }
-                        }
-                        // x: {
-                        //     ticks: {
-                        //         maxTicksLimit: 10
-                        //     }
-                        // }
                     },
                 },
                 // Feedback tool
@@ -280,7 +274,7 @@
         },
         mounted() {
         // Einlesen
-        fetch("/expanded_json_7_categorized.json")
+        fetch("/test_json_7.json")
         // fetch("/expanded_json_16.json")
         // fetch("/expanded_json_16_shorted.json")
         .then(response => {
@@ -333,9 +327,12 @@
                 this.catViewType = this.catViewType ? this.catViewType : this.jsonData.default_view_options.default_categorical_view;
                 this.catYPicked = this.catYPicked ? this.catYPicked : this.jsonData.default_view_options.default_axes.categorical_chart;
                 this.dataRows = this.jsonData.data; // this line can take time
+                if (!this.toIndex) this.toIndex = this.dataRows.length < 100 ? this.dataRows.length : 100;
                 this.categorizedData = this.jsonData.categorized;
                 this.skipFactor = this.calculateSkipFactor(this.dataRows.length, this.desiredPoints);
-                this.downsampledData = this.downsampleData(this.dataRows, this.skipFactor);
+                // this.downsampledData = this.downsampleData(this.dataRows, this.skipFactor);
+                this.downsampledData = this.dataRows;  // (testing) ignore downsampling and replace it with ranged data
+                // TODO: replace downsampledData with dataRows
             },
             
             fillNumPlotData() {
@@ -371,6 +368,17 @@
                         datasets: structuredClone(this.catDatasets).slice(0, this.nCatToShow),
                 };
             },
+            updateRange() {
+                console.log('firing updateRange()')
+                this.datasets[0].data = this.yValues.slice(this.fromIndex-1, this.toIndex);
+                // for (const dataset of this.datasets) {
+                //     dataset.data = this.yValues.slice(this.fromIndex-1, this.toIndex);
+                // }
+                this.xLabels = this.chartLabels.slice(this.fromIndex-1, this.toIndex);
+                console.log(this.chartLabels)
+                this.fillNumPlotData();
+            },
+            // TODO: fix bug: changing range after adding a new chart doesn't update data (.slice() will not be rendered)
             addSelectedChart() {
                 // this.chartValues = this.dataRows.map(e => e[this.yNewPicked])
                 this.chartValues = this.downsampledData.map(e => e[this.yNewPicked])
@@ -378,7 +386,7 @@
                 this.datasets.push(
                     {
                         label: this.yNewPicked,
-                        data: this.yNewValues,
+                        data: this.yNewValues.slice(this.fromIndex-1, this.toIndex),
                         backgroundColor: this.randomColor(), 
                     },
                 )
@@ -433,25 +441,23 @@
             this.$data._chart.update();
             },
             xPicked() {
-            this.$emit("input", this.xPicked);
-            // this.chartLabels = this.dataRows.map(e => e[this.xPicked])
-            this.chartLabels = this.downsampledData.map(e => e[this.xPicked])
-            this.xLabels = this.chartLabels;
-            this.fillNumPlotData();
+                this.$emit("input", this.xPicked);
+                this.chartLabels = this.downsampledData.map(e => e[this.xPicked])
+                this.xLabels = this.chartLabels;
+                this.fillNumPlotData();
             },
             yPicked() {
-            this.$emit("input", this.yPicked);
-            // this.chartValues = this.dataRows.map(e => e[this.yPicked])
-            this.chartValues = this.downsampledData.map(e => e[this.yPicked])
+                this.$emit("input", this.yPicked);
+                this.chartValues = this.downsampledData.map(e => e[this.yPicked])
                 this.yValues = this.chartValues;
-            this.datasets[0] =
-                {
-                    label: this.yPicked,
-                    data: this.yValues,
-                    backgroundColor: this.randomColor(), 
-                },
-            
-            this.fillNumPlotData();
+                this.datasets[0] =
+                    {
+                        label: this.yPicked,
+                        data: this.yValues,
+                        backgroundColor: this.randomColor(), 
+                    },
+                
+                this.fillNumPlotData();
             },
             hideXLabels() {
                 this.fillNumPlotData();
@@ -464,9 +470,8 @@
                 this.fillCatPlotData();
             },
             catYPicked() {
-            this.$emit("input", this.catYPicked);
-            this.fillCatPlotData();
-            
+                this.$emit("input", this.catYPicked);
+                this.fillCatPlotData();
             },
         }
     }
@@ -481,6 +486,10 @@
         border-top: 1px solid gray; */
         max-width: 100%;
         overflow: auto;
+    }
+
+    .data-range-container input {
+        width: 75px;
     }
 
     select {
