@@ -109,13 +109,13 @@ export default defineComponent({
       for (let index = 0; index < document.getElementsByClassName('disInfoWrapper').length; index++) {
         if (this.index != index && !activeDisArray[index].classList.contains('d-none')) {
           activeDisArray[index].classList.toggle('d-none')
+          
         }
         if (this.index === index) {
           activeDisArray[index].classList.toggle('d-none')
         }
-
       }
-      console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
+      // console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
     }
   }, computed: {
     ...mapGetters('dpiStore', [

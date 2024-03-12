@@ -47,7 +47,6 @@
                 </table>
             </div>
         </div>
-        <details>{{ getData('datasets')['distributionList'] }}</details>
         <div class="dsDist b-top p-3" v-if="getData('datasets')['distributionList'].length > 0">
             <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('datasets')['distributionList'].length
             }})</h2>

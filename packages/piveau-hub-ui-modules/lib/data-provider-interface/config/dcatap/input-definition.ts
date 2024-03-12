@@ -994,9 +994,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'number',
       name: 'dcat:spatialResolutionInMeters',
       validation: 'number',
-      classes: {
-        outer: 'w-100 number'
-      }
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
     },
     temporalResolution: {
       identifier: 'temporalResolution',
@@ -1052,9 +1050,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'versionInfo',
       $formkit: 'number',
       name: 'owl:versionInfo',
-      classes: {
-        outer: 'w-100 number'
-      }
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
     },
     versionNotes: {
       identifier: 'versionNotes',
@@ -1189,6 +1185,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'licence',
           name: 'licenceMode',
           id: 'licenceModeDistribution',
+          classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
@@ -1368,16 +1365,19 @@ const dcatapProperties: InputDefinition = {
       identifier: 'byteSize',
       $formkit: 'text',
       name: 'dcat:byteSize',
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
     },
     checksum: {
       $formkit: 'group',
       identifier: 'checksum',
       name: 'spdx:checksum',
+      
       children: [
         {
           identifier: 'checksum',
           $formkit: 'text',
           name: 'spdx:checksumValue',
+          classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
         },
         {
           // todo: check if this is correct
@@ -1559,27 +1559,39 @@ const dcatapProperties: InputDefinition = {
     },
     issued: {
       identifier: 'issued',
-      $cmp: 'SelectControlledGroup',
-      props: {
-        identifier: 'issued',
-        name: 'dct:issued',
-        selectName: '@type',
-        options: { date: 'Date', datetime: 'Datetime' },
-        initialValue: '',
-      },
+      $formkit: 'formkitGroup',
+      name: 'dct:issued',
+
       children: [
         {
+          identifier: 'issued',
+          id: 'issuedCondDist',
+          classes: {
+            outer: 'w-100'
+          },
+          $formkit: 'select',
+          name: '@type',
+          options: { date: 'Date', datetime: 'Datetime' },
+        },
+        {
+          identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$selectValue',
+          if: '$get(issuedCondDist).value',
           props: {
-            if: '$selectValue === date',
+            if: '$get(issuedCondDist).value === date',
             then: {
               type: 'date',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
             },
             else: {
               type: 'datetime-local',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
             }
           }
         },
@@ -1587,26 +1599,39 @@ const dcatapProperties: InputDefinition = {
     },
     modified: {
       identifier: 'modified',
-      $cmp: 'SelectControlledGroup',
-      props: {
-        name: 'dct:modified',
-        selectName: '@type',
-        options: { date: 'Date', datetime: 'Datetime' },
-        initialValue: '',
-      },
+      $formkit: 'formkitGroup',
+      name: 'dct:modified',
       children: [
         {
+          identifier: 'modified',
+          id: 'modifiedCondDist',
+          name: '@type',
+          classes: {
+            outer: 'w-100'
+          },
+          $formkit: 'select',
+          options: { date: 'Date', datetime: 'Datetime' },
+        },
+        {
+          identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$selectValue',
+          if: '$get(modifiedCondDist).value',
           props: {
-            if: '$selectValue === date',
+            name: 'dct:modified',
+            if: '$get(modifiedCondDist).value === date',
             then: {
               type: 'date',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
             },
             else: {
               type: 'datetime-local',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
             }
           }
         },
@@ -1644,6 +1669,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'number',
       name: 'dcat:spatialResolutionInMeters',
       validation: 'number',
+      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
     },
     temporalResolution: {
       identifier: 'temporalResolution',
@@ -1788,12 +1814,14 @@ const dcatapProperties: InputDefinition = {
     licence: {
       $formkit: 'group',
       name: 'dct:license',
+      
       children: [
         {
           $formkit: 'select',
           identifier: 'licence',
           name: 'licenceMode',
           id: 'licenceModeCatalogue',
+          
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
