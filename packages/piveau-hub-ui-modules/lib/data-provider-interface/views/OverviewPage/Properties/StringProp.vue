@@ -7,7 +7,12 @@
 
         <!-- SINGULAR STRING -->
         <td v-if="value.type === 'singularString'">
-            {{ data[property] }} <span v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span>
+
+            <span v-if="data[property]['@type'] != ''">{{ data[property][Object.keys(data[property])[1]] }}</span>
+            <span v-if="property != 'dct:rights'">
+                {{ data[property] }} <span v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span>
+            </span>
+
         </td>
 
         <!-- DATES-->
@@ -39,15 +44,15 @@ export default {
             availableLang: [],
         }
     },
-    mounted(){
-        
-        if(this.value.type === "multiLingual"){
+    mounted() {
+
+        if (this.value.type === "multiLingual") {
             this.availableLang.push(this.data[this.property][0]['@language'])
         }
     },
     methods: {
         filterDateFormatEU(date) {
-           
+
             return date
         },
     }
@@ -55,7 +60,7 @@ export default {
 }
 </script>
 <style>
-.multilang{
+.multilang {
     font-size: 0.8rem;
 }
 </style>

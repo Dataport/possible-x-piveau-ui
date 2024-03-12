@@ -59,7 +59,6 @@
                 :to="data['foaf:homepage']">{{ data['foaf:homepage'] }}</app-link>
         </div>
     </div>
-
     <!-- ADMS IDENTIFIER -->
     <div v-if="property === 'adms:identifier' && checkadms('adms:identifier')" class="d-flex">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
@@ -87,14 +86,14 @@
 
 
     <!-- CHECKSUM -->
-    <div v-if="property === 'spdx:checksum'" class="d-flex">
+    <div v-if="property === 'spdx:checksum' && Object.keys(data).length > 0" class="d-flex">
         <td class="font-weight-bold ">{{ $t(`${value.label}`) }}:</td>
         <td class="">
-            <div v-if="showValue(data, 'spdx:checksumValue')">{{ data['spdx:checksumValue'] }}</div>
-            <div v-if="showValue(data, 'spdx:algorithm')">{{ data['spdx:algorithm'] }}</div>
+
+            <div v-if="typeof data === 'string'">{{ data }}</div>
+            <div v-if="typeof data === 'object'">{{ data['name'] }}</div>
         </td>
     </div>
-
 
     <!-- PAGE -->
     <div v-if="property === 'foaf:page'" class="w-100 d-flex">
@@ -108,7 +107,8 @@
                 data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
             <!-- <div v-if="showMultilingualValue(data, 'dct:description')" class="multilang">This property is available in: -->
             <!-- <span v-for="(el, index) in data['dct:description']" :key="index">({{ el['@language'] }}) </span></div> -->
-            <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}: {{ data['dct:format']['name'] }}</div>
+            <div v-if="showValue(data, 'dct:format')">{{ $t('message.metadata.format') }}: {{ data['dct:format']['name'] }}
+            </div>
             <div v-if="showValue(data, '@id')">{{ $t('message.metadata.url') }}: <app-link :to="data['@id']">{{
                 data['@id']
             }}</app-link></div>
@@ -133,8 +133,9 @@
     </tr>
 
     <!-- DATA SERVICE -->
-    <tr v-if="property === 'dcat:accessService'">
-
+    <tr
+        v-if="property === 'dcat:accessService' && Object.keys(data[Object.keys(data)[0]][0]).length > 1 && Object.keys(data[Object.keys(data)[1]][0]).length > 1">
+      
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td class="">
             <div v-if="showValue(data, 'dct:title')">
@@ -162,6 +163,7 @@
 import AppLink from "../../../../widgets/AppLink.vue";
 import dateFilters from "../../../../filters/dateFilters";
 import { has, isNil, isEmpty } from 'lodash-es';
+import { object } from "zod";
 
 export default {
     props: {
@@ -195,7 +197,7 @@ export default {
             }
         },
         showValue(property, value) {
-            // console.log(property, value);
+            console.log(property[value], value, has(property, value) && !isNil(property[value]) && !isEmpty(property[value]) && property[value] !== undefined);
             try {
                 return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]) && property[value] !== undefined;
             } catch (error) {
@@ -233,7 +235,7 @@ export default {
                         else values[key] = "00";
                     }
                 } catch (error) {
-                    
+
                 }
 
             }

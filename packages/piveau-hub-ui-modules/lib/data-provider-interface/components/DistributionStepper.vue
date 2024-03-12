@@ -2,11 +2,14 @@
 <template>
   <FormKit type="form" :actions="false" :plugins="[stepPlugin]">
     <div name="distribution-stepper" class="singleDistributions">
-      <h3 v-if="name">{{ name }}</h3>
-      <div class="interactionDis"><a @click="isActive = !isActive; editDis()">
-          Edit</a>
+     <div class="disSectionHead d-flex align-items-center">
+      <h3 @click="isActive = !isActive; editDis()" v-if="name">{{ name }}</h3>
+      <div class="interactionDis">
+        <a @click="isActive = !isActive; editDis()">Edit</a>
         <a @click="deleteDis(index)">Delete</a>
       </div>
+     </div>
+      
       <div class=" disInfoWrapper">
         <ul class="steps">
           <li v-for="(step, stepName, index) in steps" :key="index" class="step"

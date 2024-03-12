@@ -2,18 +2,21 @@
     <div>
         <!-- SINGULAR URL -->
         <td v-if="value.type === 'singularURL'">
+          
             <app-link :to="data[property]">
-                {{ data[property] }}
+                {{ data[property]['@type'] }}
             </app-link>
+
         </td>
 
         <!-- MULTI URLs -->
-        <td class="d-flex align-items-center" v-if="value.type === 'multiURL'">
+        <td class="d-flex align-items-center" v-if="value.type === 'multiURL' && data[property][0]['@id'] != ''">
 
             <div v-if="isEditMode">
                 <input type="text" v-model="contentOfProp">
             </div>
             <div v-else>
+             
                 <div v-for="(el, index) in data[property]" :key="index">
                     <!-- regular multiple URLs -->
                     <app-link v-if="showValue(el, '@id')" :to="el['@id']">

@@ -1009,6 +1009,12 @@
         cursor: pointer;
     }
 }
+.disSectionHead{
+    justify-content: space-between;
+    h3{
+        cursor: pointer;
+    }
+}
 .accessService{
     .formkitWrapRepeatable{
                 flex-direction: column;
