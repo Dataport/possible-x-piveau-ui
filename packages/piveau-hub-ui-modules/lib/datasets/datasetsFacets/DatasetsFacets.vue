@@ -290,7 +290,7 @@ export default {
       if(fieldId==='scoring'){
         return Vue.i18n.t('message.header.navigation.data.metadataquality')
       }else if(fieldId==='subject'){
-       return 'Eurovoc Keyword'
+       return 'EuroVoc keywords'
       }else{
         return Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`)
       }

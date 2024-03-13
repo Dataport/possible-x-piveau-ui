@@ -152,7 +152,7 @@
           if(fieldId==='scoring'){
            title=this.$t('message.header.navigation.data.metadataquality');
           }else if(fieldId==='subject'){
-            title = 'Eurovoc Keyword';
+            title = 'EuroVoc keywords';
           }else if(fieldId==='superCatalog' && facet.facets.toString() === 'erpd'){
             title = this.$t('message.datasetFacets.facets.erpd');
           }else{
