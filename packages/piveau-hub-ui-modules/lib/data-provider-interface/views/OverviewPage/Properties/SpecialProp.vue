@@ -197,7 +197,7 @@ export default {
             }
         },
         showValue(property, value) {
-            console.log(property[value], value, has(property, value) && !isNil(property[value]) && !isEmpty(property[value]) && property[value] !== undefined);
+            // console.log(property[value], value, has(property, value) && !isNil(property[value]) && !isEmpty(property[value]) && property[value] !== undefined);
             try {
                 return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]) && property[value] !== undefined;
             } catch (error) {

@@ -5,16 +5,20 @@
 import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
+import { onClickOutside } from '@vueuse/core'
+
 
 const props = defineProps({
-    context: Object
+    context: Object,
+
 })
+
 let inputText = ref({});
 let voc = ref({})
 let matches = ref({})
 let manURL = ref({})
 const store = useStore();
-let hasValue = false;
+
 
 watch(inputText, async () => {
     getAutocompleteSuggestions();
@@ -23,22 +27,20 @@ watch(voc, async () => {
     voc.value = voc.value.toLowerCase();
 })
 watch(manURL, async () => {
-//    ToDo needs a better way - maybe if the input looses its focus?
+    //    ToDo needs a better way - maybe if the input looses its focus?
     setTimeout(() => {
         props.context.node.input({ 'name': manURL, 'resource': manURL })
     }, 10000);
- 
+
 })
 onMounted(async () => {
     matches = [{ name: '--- Type in anything for a live search of the vocabulary ---', resource: 'invalid' }]
-    //     window.addEventListener("click", function(){
-    // console.log('HelloWorld');
-    // });
+
 });
 function removeProperty(e) {
-//   props.context.value = {}
-  props.context.node.input({})
- }
+    //   props.context.value = {}
+    props.context.node.input({})
+}
 const getAutocompleteSuggestions = async () => {
 
     try {
@@ -54,7 +56,32 @@ const getAutocompleteSuggestions = async () => {
     }
 }
 
+var showTable = reactive({
+    first: false,
+    second: false,
+    third: false,
+})
+
+const I1 = ref(null);
+const I2 = ref(null);
+const I3 = ref(null);
+
+onClickOutside(I1, event => showTable.first = false)
+onClickOutside(I2, event => showTable.second = false)
+onClickOutside(I3, event => showTable.third = false)
+function activeInput(e) {
+
+    console.log('in', showTable);
+    if (e === "showTable") showTable.first = !showTable.first;
+    if (e === "showVocTable") showTable.second = !showTable.second;
+    if (e === "showVocEntries") {
+        if (showTable.third === true) {
+        }
+        else showTable.third = !showTable.third;
+    }
+}
 </script>
+
 <template>
     <div class="d-flex flex-column w-100 spatialWrap">
         <div class="d-flex formkit-inner mx-3 mb-3" v-if="!props.context.attrs.multiple && props.context.value.name">
@@ -67,36 +94,37 @@ const getAutocompleteSuggestions = async () => {
         </div>
         <div v-else>
             <div class=" w-100 d-flex">
-                <div class="d-flex position-relative m-3 w-50">
-                    <label class="w-100"> Choose the the way you want to provide the spatial info <input id="I1" type="text"
-                            class="selectInputField formkit-inner" placeholder="Select input method"
-                            @click="activeInput(); showTable = !showTable;">
+                <div class="d-flex position-relative m-3 w-100">
+                    <label class="w-100"> Choose the the way you want to provide the spatial info <input id="I1"
+                            type="text" class="selectInputField formkit-inner" placeholder="Select input method"
+                            @click="activeInput('showTable')" />
                     </label>
-                    <ul v-show="showTable" class="spatialListUpload">
-                        <li @click="showTable = !showTable; man = true; if (vocSearch) { vocSearch = false; };"
+
+                    <ul ref="I1" v-show="showTable.first" class="spatialListUpload">
+                        <li @click="activeInput('showTable'); man = true; if (vocSearch) { vocSearch = false; };"
                             class="p-2 border-b border-gray-200 choosableItemsAC">
                             Manually submit information
                         </li>
-                        <li @click="showTable = !showTable; vocSearch = true; if (man) {
-                            man = false
-                        }" class="p-2 border-b border-gray-200 choosableItemsAC">
+                        <li @click="activeInput('showTable'); vocSearch = true; if (man) { man = false }"
+                            class="p-2 border-b border-gray-200 choosableItemsAC">
                             Choose from vocabulary
                         </li>
                     </ul>
                 </div>
-                <div v-if="man" class="d-flex position-relative m-3 w-50">
+                <div v-if="man" class="d-flex position-relative m-3 w-100">
                     <label class="w-100"> Provide spatial URL
-                        <input type="URL" class="selectInputField formkit-inner" placeholder="Spatial URL" v-model="manURL">
+                        <input type="URL" class="selectInputField formkit-inner" placeholder="Spatial URL"
+                            v-model="manURL">
                     </label>
                 </div>
-                <div v-if="vocSearch" class="d-flex position-relative m-3 w-50">
+                <div v-if="vocSearch" class="d-flex position-relative m-3 w-100">
                     <label class="w-100"> Choose type of vocabulary
                         <input id="I2" type="text" class="selectInputField formkit-inner"
-                            placeholder="Search the vocabulary" @click="activeInput(); showVocTable = !showVocTable;">
+                            placeholder="Search the vocabulary" @click="activeInput('showVocTable');">
                     </label>
-                    <ul v-if="showVocTable" class="spatialListUpload">
+                    <ul ref="I2" v-if="showTable.second" class="spatialListUpload">
                         <li v-for="el in listOfVoc" :key="el" class="p-2 border-b border-gray-200 choosableItemsAC"
-                            @click=" closeAll(); el.active = !el.active; showVocTable = !showVocTable; inputText = ''; voc = el.item">
+                            @click=" closeAll(); el.active = !el.active; activeInput('showVocTable'); inputText = ''; voc = el.item">
                             {{ el.item }}</li>
                     </ul>
                 </div>
@@ -106,11 +134,11 @@ const getAutocompleteSuggestions = async () => {
                 <div v-for="el in listOfVoc" :key="el" class="position-relative">
                     <label class="w-100" v-if="el.active"> Search the vocabulary <input id="I3" type="text"
                             v-model="inputText" class="selectInputField formkit-inner" :placeholder="el.item"
-                            @click="activeInput(); showVocEntries = !showVocEntries;">
+                            @click="activeInput('showVocEntries'); inputText = ''">
                     </label>
-                    <ul v-if="showVocEntries && el.active" class="spatialListUpload">
+                    <ul ref="I3" v-if="showTable.third && el.active" class="spatialListUpload">
                         <li v-for="el in matches" :key="el" class="p-2 border-b border-gray-200 choosableItemsAC"
-                            @click="props.context.node.input(el); inputText = el.name; showVocEntries = false">
+                            @click="props.context.node.input(el); inputText = el.name; activeInput('showVocEntries')">
                             {{ el.name }}</li>
                     </ul>
                 </div>
@@ -120,17 +148,16 @@ const getAutocompleteSuggestions = async () => {
         </div>
     </div>
 </template>
+
 <script>
 
 export default {
     data() {
         return {
             listOfVoc: [{ item: 'Country', active: false }, { item: 'Place', active: false }, { item: 'Continent', active: false }],
-            showTable: false,
             man: false,
             vocSearch: false,
-            showVocTable: false,
-            showVocEntries: false,
+
         }
     },
     methods: {
@@ -140,24 +167,10 @@ export default {
                 element.active = false;
             });
         },
-        activeInput(e) {
-            if (this.showTable || this.showVocTable || this.showVocEntries) {
-                this.showTable = this.showVocTable = this.showVocEntries = false
-            }
-        },
-        onClose(e) {
-            console.log(e);
-            this.showPopup = false
-        },
-        addEvent(e) {
-            document.addEventListener("click", this.onClickOutside());
-        },
-        onClickOutside() {
-            console.log('Hallo');
-        }
     }
 }
 </script>
+
 <style lang="scss" scoped>
 .spatialWrap label {
     font-family: var(--fk-font-family-label);

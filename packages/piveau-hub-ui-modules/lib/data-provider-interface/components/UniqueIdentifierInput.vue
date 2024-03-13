@@ -12,7 +12,6 @@ const validationMessages = {
 
 async function idunique(node) {
   let isUniqueID = true;
-
   const draftIDs = store.getters['auth/getUserDraftIds'];
 
   new Promise(() => {
@@ -30,7 +29,6 @@ async function idunique(node) {
         });
     }
   });
-
   return isUniqueID
 }
 
@@ -41,23 +39,20 @@ function idformatvalid(node) {
 </script>
 
 <template>
-  <h4>{{ $t(`message.dataupload.datasets.datasetID.label`) }}</h4>
-  
-  <FormKit v-if="!isEditMode" type="text" name="datasetID" id="datasetID"
-    :placeholder="$t(`message.dataupload.datasets.datasetID.label`)"
-    :info="$t(`message.dataupload.datasets.datasetID.info`)"
-    :help="$t(`message.dataupload.datasets.datasetID.help`)"
-    :validation-rules="{ idformatvalid, idunique }" 
-    validation="idformatvalid|idunique|required" 
-    validation-visibility="live"
-    :validation-messages="validationMessages"
-    outer-class="formkitCmpWrap m-0 p-3"
-    >
-  </FormKit>
-  <FormKit v-else type="text" name="datasetID" id="datasetID" :disabled="true"
-    :info="$t(`message.dataupload.datasets.datasetID.info`)"
-    :help="$t(`message.dataupload.datasets.datasetID.help`)">
-  </FormKit>
+  <div class="formkitProperty DSid">
+    <h4>{{ $t(`message.dataupload.datasets.datasetID.label`) }}</h4>
+
+    <FormKit v-if="!isEditMode" type="text" name="datasetID" id="datasetID"
+      :placeholder="$t(`message.dataupload.datasets.datasetID.label`)"
+      :info="$t(`message.dataupload.datasets.datasetID.info`)" :help="$t(`message.dataupload.datasets.datasetID.help`)"
+      :validation-rules="{ idformatvalid, idunique }" validation="idformatvalid|idunique|required"
+      validation-visibility="live" :validation-messages="validationMessages" outer-class="formkitCmpWrap m-0 p-3">
+    </FormKit>
+    <FormKit v-else type="text" name="datasetID" id="datasetID" :disabled="true"
+      :info="$t(`message.dataupload.datasets.datasetID.info`)" :help="$t(`message.dataupload.datasets.datasetID.help`)">
+    </FormKit>
+  </div>
+
 </template>
 
 <script>

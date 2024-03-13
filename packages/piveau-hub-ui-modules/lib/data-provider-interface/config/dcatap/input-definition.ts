@@ -994,7 +994,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'number',
       name: 'dcat:spatialResolutionInMeters',
       validation: 'number',
-      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     temporalResolution: {
       identifier: 'temporalResolution',
@@ -1050,7 +1050,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'versionInfo',
       $formkit: 'number',
       name: 'owl:versionInfo',
-      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     versionNotes: {
       identifier: 'versionNotes',
@@ -1091,7 +1091,7 @@ const dcatapProperties: InputDefinition = {
       mandatory: true,
       validation: 'required',
       options: {},
-      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     isUsedBy: {
       identifier: 'isUsedBy',
@@ -1185,7 +1185,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'licence',
           name: 'licenceMode',
           id: 'licenceModeDistribution',
-          classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
+          classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' },
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
@@ -1365,7 +1365,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'byteSize',
       $formkit: 'text',
       name: 'dcat:byteSize',
-      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' }
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     checksum: {
       $formkit: 'group',
@@ -1377,7 +1377,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'checksum',
           $formkit: 'text',
           name: 'spdx:checksumValue',
-          classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
+          classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' },
         },
         {
           // todo: check if this is correct
@@ -1669,7 +1669,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'number',
       name: 'dcat:spatialResolutionInMeters',
       validation: 'number',
-      classes: { outer: 'formkitCmpWrap mx-0 my-3 p-3' },
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' },
     },
     temporalResolution: {
       identifier: 'temporalResolution',

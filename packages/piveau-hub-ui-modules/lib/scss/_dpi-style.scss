@@ -732,6 +732,9 @@
 
 .formkitWrapRepeatable {
     display: flex;
+    .formkitProperty{
+        margin: 0;
+    }
 }
 
 .repeatableWrap {
@@ -1028,7 +1031,12 @@
         margin: 2rem 0;
     }
     .formkit-outer{
-        width: 100%;
+        
+    }
+    .title, .description{
+        .formkit-outer{
+            width: 100%;
+        }
     }
     .formkit-form {
         border: 1px solid lightgray;
@@ -1134,7 +1142,15 @@
     margin-right: -1rem;
 }
 
-
+.infoTextDPISteps{
+    max-width: 100%;
+    border: 1px solid #6610f2;
+    padding: 1rem;
+    margin-bottom: 0;
+    margin: 1rem 1rem 1rem 0;
+    border-radius: 15px;
+    font-size: 18px;
+}
 
 .activeSection {
    
@@ -1150,7 +1166,9 @@
         border: none;
     }
 }
-
+.formkitProperty{
+    margin: 2rem 0;
+}
 .formkit-label {
     position: absolute;
     padding: 3px;

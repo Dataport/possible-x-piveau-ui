@@ -1,23 +1,39 @@
+<script setup>
+import { reactive, ref } from 'vue';
+import { onClickOutside } from '@vueuse/core'
+
+
+var drop = reactive({
+  active: false,
+})
+
+const fLoad = ref(null);
+
+onClickOutside(fLoad, event => drop.active = false)
+function triggerDropdown(e) {
+  drop.active = !drop.active
+}
+</script>
+
 <template>
   <div class="position-relative w-100 p-3 ">
-    <input type="text" class="selectInputField formkit-inner" @click="showTable = !showTable"
+    <input type="text" class="selectInputField formkit-inner" @click="triggerDropdown()"
       placeholder="Choose between fileupload and providing a URL">
-    <ul v-if="showTable" class="selectListUpload">
-      <li @click="showTable = !showTable; uploadFileSwitch = true; if (uploadURL) { uploadURL = !uploadURL }"
+    <ul ref="fLoad" v-if="drop.active" class="selectListUpload">
+      <li @click="triggerDropdown(); uploadFileSwitch = true; if (uploadURL) { uploadURL = !uploadURL }"
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Upload a file</li>
-      <li
-        @click="showTable = !showTable; uploadURL = true; if (uploadFileSwitch) { uploadFileSwitch = !uploadFileSwitch }"
+      <li @click="triggerDropdown(); uploadURL = true; if (uploadFileSwitch) { uploadFileSwitch = !uploadFileSwitch }"
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Provide an URL</li>
     </ul>
   </div>
   <div class="w-100 p-3 position-relative" v-if="uploadURL">
     <label class=" formkit-label w-100" for="aUrlLink">Provide an URL</label>
-      <input id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id"
-        @input="saveUrl">
-    
+    <input id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id"
+      @input="saveUrl">
+
   </div>
-  <div v-if="uploadFileSwitch" ref="fileupload" class="p-3 w-100" :class="`formkit-input-element formkit-input-element--${context.type}`"
-    :data-type="context.type" v-bind="$attrs">
+  <div v-if="uploadFileSwitch" ref="fileupload" class="p-3 w-100"
+    :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
     <div class="file-div position-relative">
       <label class="formkit-label" for="aUrlFL">Upload a file</label>
@@ -30,9 +46,11 @@
         <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>
       </div>
     </div>
-    <p class="dURLText">{{ $t('message.metadata.downloadUrl') }}: <a class="dURLText" :href="context.model">{{ context.model }}</a></p>
+    <p class="dURLText">{{ $t('message.metadata.downloadUrl') }}: <a class="dURLText" :href="context.model">{{
+      context.model }}</a></p>
   </div>
 </template>
+
 <script>
 /* eslint-disable consistent-return, no-unused-vars */
 import { mapGetters, mapActions } from 'vuex';
@@ -51,7 +69,7 @@ export default {
       URLValue: '',
       uploadURL: false,
       uploadFileSwitch: false,
-      showTable: false,
+
       isLoading: false,
       success: false,
       fail: false,
@@ -144,7 +162,7 @@ export default {
         }
 
       }
-      
+
       return await this.uploadFile(file);
     },
     async uploadFile(file, options = {}) {

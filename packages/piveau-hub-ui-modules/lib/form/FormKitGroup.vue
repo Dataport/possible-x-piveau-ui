@@ -1,5 +1,5 @@
 <template>
-    <div class="" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
+    <div class="formkitProperty" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
       <h4>{{ context.label }}</h4>
       
       <div class="horizontal-wrapper">

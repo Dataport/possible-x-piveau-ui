@@ -6,6 +6,27 @@ import generalDpiConfig from '../config/dpi-spec-config';
 
 import generalHelper from './general-helper';
 
+window.process = {
+    env: {
+        content: {
+            dataProviderInterface: {
+                useService: true,
+                basePath: '/dpi',
+                specification: 'dcatap',
+                annifIntegration: false,
+                enableFileUploadReplace: false,
+                buttons: {
+                    Dataset: true,
+                    Catalogue: false,
+                },
+                doiRegistrationService: {
+                    persistentIdentifierType: 'eu-ra-doi',
+                },
+            },
+        }
+
+    }
+}
 /**
  * Converts all properties for given data from form input data into RDF (N-Triples)
  * @param {Object} data Data given within an object. Data stored as follows { datasets: {...}, distributions: [{...},...], catalogues: {...}} 
@@ -14,6 +35,7 @@ import generalHelper from './general-helper';
  */
 function convertToRDF(data, property) {
 
+    console.log(data);
     let finishedRDFdata;
 
     let dpiConfig;
@@ -487,6 +509,7 @@ function convertSingularURI(RDFdataset, id, data, key, dpiConfig) {
     // mail addresses typicall include '@' which is ised to determine if the given string is a normal URL or an email address
     if (!isEmpty(data[key])) {
         let singleURI;
+        console.log(data[key]);
         if (data[key].includes('@')) {
             // mail address
             singleURI = `mailto:${data[key]}`;
@@ -567,7 +590,7 @@ function convertTypedString(RDFdataset, id, data, key, dpiConfig) {
             // dcat:endDate and dcat:startDate are xsd:dateTime
             valueType = generalHelper.addNamespace('xsd:dateTime', dpiConfig);
         } else if (key === 'xds:dateTime') {
-          
+
         } else if (key === 'dcat:spatialResolutionInMeters' || key === "dcat:byteSize") {
             // dcat:spatialResolutionInMeters and dcat:byteSize are xsd:decimal
             valueType = generalHelper.addNamespace('xsd:decimal', dpiConfig);
