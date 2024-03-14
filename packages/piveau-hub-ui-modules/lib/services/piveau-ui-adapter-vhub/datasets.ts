@@ -369,7 +369,7 @@
         }
         const similarityServiceName = this.similarityServiceName;
         if (similarityServiceName === 'knn_request') {
-            axios.post(`${url}knn_request/`, { query: description, k: 10}, )
+            axios.post(`${url}knn_request/`, { query: description, k: 10})
               .then((response) => {
                 resolve(response);
               })
