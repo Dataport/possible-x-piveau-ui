@@ -96,7 +96,6 @@ const externalPackages = [
 // packages are also treated as external
 const regexesOfPackages = externalPackages
     .map(packageName => new RegExp(`^${packageName}(/.*)?`));
-    
 export default defineConfig({
   plugins: [
     Components({ /* options */ }),

@@ -17,13 +17,19 @@
                     <span><b>Published by:</b></span>
                     <a> {{ getData('datasets')['dct:publisher']['name'] }}</a>
                 </div>
+                <div class="dsIssued ">
+                    <span><b>Issued:</b></span>
+                    <a>
+                        {{ checkIfSet(new Date(getData('datasets')['dct:issued']['@value']).toDateString()) }}
+                        <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
+                    </a>
+                </div>
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>
                         {{ checkIfSet(new Date(getData('datasets')['dct:modified']['@value']).toDateString()) }}
                         <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
-
                 </div>
             </div>
         </div>
@@ -41,11 +47,11 @@
                 </table>
             </div>
         </div>
-        <!-- <div class="dsDist b-top p-3" v-if="getData('distributions').length > 0">
-            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('distributions').length
+        <div class="dsDist b-top p-3" v-if="getData('datasets')['distributionList'].length > 0">
+            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('datasets')['distributionList'].length
             }})</h2>
-            <DistributionOverview :dpiLocale="dpiLocale"></DistributionOverview>
-        </div> -->
+            <DistributionOverview :dpiLocale="dpiLocale" :disList="getData('datasets')['distributionList']"></DistributionOverview>
+        </div>
 
         <div class="dsKeywords b-top my-2 p-3"
             v-if="getData('datasets')['dct:keyword'] != undefined && getData('datasets')['dct:keyword'][0]['@value'] != undefined && getData('datasets')['dct:keyword'].length > 0">
@@ -180,14 +186,14 @@ export default {
     align-items: center;
 }
 
-.dsDist td {
+.dsDist td:first-child {
     padding: 1rem;
-    max-width: 250px;
-    width: 250px;
+    width: 25%;
+    
 }
 
 .disOverview td:first-child {
-    width: 25%;
+    min-width: 25%;
 }
 
 .disOverview td:last-child {

@@ -1,30 +1,30 @@
-
 <template>
   <div class="form-container ">
-    <slot></slot>
+    
     <!-- <details>{{ formValues }}</details> -->
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
         <FormKit type="form" v-model.lazy="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" class="d-flex">
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+          @submit.prevent="" class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
-              <li v-for="(step, stepName, index) in steps" :key="step" 
-                class="step" :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
-                :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName) }" 
+              <li v-for="(step, stepName, index) in steps" :key="step" class="step"
+                :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
+                :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName) }"
                 @click="activeStep = stepName; update()">
 
 
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
-                  <span v-if="checkStepValidity(stepName)" class="step--errors" v-text="step.errorCount + step.blockingCount" />{{ camel2title(stepName) }}
+                  <span v-if="checkStepValidity(stepName)" class="step--errors"
+                    v-text="step.errorCount + step.blockingCount" />{{ camel2title(stepName) }}
                 </div>
-                <div v-if="index + 1 != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
+                <div v-if="index != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
               </li>
-
-              <li class="step inactiveStep" v-if="activeStep === 'overview'">
+              <li class="step inactiveStep" v-if="activeStep === 'Overview'">
                 <div class="circle stepCircle"></div>
               </li>
 
@@ -33,17 +33,30 @@
             <div class="d-flex flex-column w-100">
               <div v-for="(stepName, index) in getNavSteps[property]" :key="index">
                 <InputPageStep :name="stepName">
+                  <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'" class="w-100">
+                    <h1 style="min-width:100%">{{ stepName }} fields</h1>
+                    <p class="infoTextDPISteps">This text can and schould be altered to describe the following
+                      properties in a short way. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
+                      kasd gubergren, no sea
+                      takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+                      elitr, sed diam nonumy
+                      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+                      et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
+                      est Lorem ipsum dolor sit amet.</p>
+                  </div>
                   <!-- <PropertyChooser></PropertyChooser> -->
-                  <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"/>
-                  <DistributionInputPage v-else :schema="getSchema('distributions')" :values="formValues"/>
-                  <p class="p-1"> <b>*</b> mandatory</p>
+                  <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"
+                    :library="library" />
+                  <DistributionInputPage v-if="stepName === 'Distributions'" :schema="getSchema('distributions')"
+                    :values="formValues" />
+                  <p class="p-1" v-if="stepName === 'Mandatory'"> <b>*</b> mandatory</p>
                 </InputPageStep>
               </div>
             </div>
           </div>
 
-          <Navigation :steps="steps" :nextStep="nextStep" :previousStep="previousStep" 
-            :goToNextStep="goToNextStep" :goToPreviousStep="goToPreviousStep"></Navigation>
+          <Navigation :steps="steps" :nextStep="nextStep" :previousStep="previousStep" :goToNextStep="goToNextStep"
+            :goToPreviousStep="goToPreviousStep"></Navigation>
 
         </FormKit>
 
@@ -54,12 +67,13 @@
 
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
-import { defineComponent } from 'vue';
+import { defineComponent, markRaw } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import PropertyChooser from './PropertyChooser.vue'
 import { has, isNil } from 'lodash';
 import DistributionInputPage from './DistributionInputPage.vue';
+import OverviewPage from './OverviewPage.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import Navigation from '../components/Navigation.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
@@ -148,7 +162,7 @@ export default defineComponent({
       'addCatalogOptions',
       'clearAll',
     ]),
-    update(){
+    update() {
       this.$forceUpdate();
     },
     clearForm() {
@@ -212,7 +226,7 @@ export default defineComponent({
       }
     },
     generateandTranslateSchema(property) {
-        for (let index = 0; index < this.getNavSteps[property].length; index++) {
+      for (let index = 0; index < this.getNavSteps[property].length; index++) {
         this.createSchema({ property: property, page: this.getNavSteps[property][index] });
         this.translateSchema({ property: property, page: this.getNavSteps[property][index] });
       }
@@ -220,9 +234,10 @@ export default defineComponent({
   },
   created() {
 
-    if (this.$route.query.edit === 'false') {
-      this.clearAll();
-    }
+    // Needs to be reworked
+    // if (this.$route.query.edit === 'false') {
+    //   this.clearAll();
+    // }
 
     // create schema for datasets or catalogues
     this.generateandTranslateSchema(this.property);
@@ -280,6 +295,8 @@ export default defineComponent({
       return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
+    const library = markRaw({ OverviewPage })
+
     return {
       steps,
       visitedSteps,
@@ -290,10 +307,13 @@ export default defineComponent({
       checkStepValidity,
       goToNextStep,
       goToPreviousStep,
+
+      library,
     }
   }
 });
 </script>
+
 <style lang="scss">
 @import 'https://cdn.formk.it/web-assets/multistep-form.css';
 

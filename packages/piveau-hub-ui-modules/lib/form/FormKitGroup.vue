@@ -1,13 +1,14 @@
 <template>
-    <div class="repeatable" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
-      <h4>{{ camel2title(context.attrs.identifier) }}</h4>
+    <div class="formkitProperty" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
+      <h4>{{ context.label }}</h4>
+      
       <div class="horizontal-wrapper">
         
-        <div class="repeatableWrap">
+        <div class="formkitCmpWrap w-100">
         
           <div class="formkitWrapRepeatable">
             <slot>
-              <FormKit />
+              <FormKit outer-class="w-100" placeholder="Please provide a number"/>
             </slot>
           </div>
   

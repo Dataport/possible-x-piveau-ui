@@ -6,6 +6,27 @@ import generalDpiConfig from '../config/dpi-spec-config';
 
 import generalHelper from './general-helper';
 
+window.process = {
+    env: {
+        content: {
+            dataProviderInterface: {
+                useService: true,
+                basePath: '/dpi',
+                specification: 'dcatap',
+                annifIntegration: false,
+                enableFileUploadReplace: false,
+                buttons: {
+                    Dataset: true,
+                    Catalogue: false,
+                },
+                doiRegistrationService: {
+                    persistentIdentifierType: 'eu-ra-doi',
+                },
+            },
+        }
+
+    }
+}
 /**
  * Converts all properties for given data from form input data into RDF (N-Triples)
  * @param {Object} data Data given within an object. Data stored as follows { datasets: {...}, distributions: [{...},...], catalogues: {...}} 
@@ -14,6 +35,7 @@ import generalHelper from './general-helper';
  */
 function convertToRDF(data, property) {
 
+    console.log(data);
     let finishedRDFdata;
 
     let dpiConfig;

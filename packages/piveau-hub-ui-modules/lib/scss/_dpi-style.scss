@@ -568,8 +568,9 @@
             border-bottom: none;
         }
     }
+
     input {
-        
+
         transition: all 100ms ease-in-out;
 
         &:focus-within {
@@ -612,7 +613,8 @@
     }
 }
 
-.autocompleteInputfield, .selectInputField {
+.autocompleteInputfield,
+.selectInputField {
     width: 100%;
     border: none;
     line-height: 3rem;
@@ -629,7 +631,8 @@
     }
 }
 
-.selectListUpload{
+.selectListUpload,
+.spatialListUpload {
     -webkit-box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
     position: absolute;
@@ -647,6 +650,7 @@
         }
     }
 }
+
 .autocompleteResultList {
     -webkit-box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
@@ -666,22 +670,25 @@
     }
 }
 
-.listItemsByte{
+.listItemsByte {
     border: 1px solid lightgray;
     cursor: pointer;
     color: #000;
-    
+
     transition: all ease 200ms;
-    &:hover{
+
+    &:hover {
         color: #fff;
         text-decoration: none;
         background-color: #40A6D8;
         border: 1px solid #40A6D8;
     }
 }
-.byteHelpBox{
+
+.byteHelpBox {
     border-radius: 15px;
 }
+
 .byteButtonsBack {
     color: #196fd2;
     background-color: unset;
@@ -725,6 +732,9 @@
 
 .formkitWrapRepeatable {
     display: flex;
+    .formkitProperty{
+        margin: 0;
+    }
 }
 
 .repeatableWrap {
@@ -835,9 +845,7 @@
     width: 100%;
     position: relative;
 
-    .formkit-outer {
-        width: 64%;
-    }
+
 }
 
 .suggestedItemsContainer {
@@ -972,13 +980,8 @@
 }
 
 #datasetID {
-    width: 65%;
+    width: 100%;
 
-    div {
-        .formkit-outer {
-            width: 97%;
-        }
-    }
 
 
 }
@@ -986,11 +989,10 @@
 .formkit-outer {
     margin: 1rem;
     position: relative;
-    width: 64%;
 }
 
 .w75-descField {
-    width: 35%;
+    width: 75%;
 
 
     .formkit-icon {
@@ -1009,6 +1011,108 @@
     }
 }
 
+.interactionDis {
+    a {
+        margin: 0.5rem;
+        padding: 0.5rem;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+.hovershdw{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.distributionsListClass {
+    .activeSection{
+        border-top: 1px solid lightgray;
+    }
+    .repeatable {
+        margin: 2rem 0;
+    }
+    .formkit-outer{
+        
+    }
+    .title, .description{
+        .formkit-outer{
+            width: 100%;
+        }
+    }
+    .formkit-form {
+        border: 1px solid lightgray;
+        border-radius: 25px;
+        padding: 1rem;
+        margin: 2rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    }
+    .formkitCmpWrap{
+       
+        margin-right: 1rem;
+    }
+}
+
+.disSectionHead {
+    justify-content: space-between;
+
+    h3 {
+        cursor: pointer;
+    }
+}
+
+.accessService {
+    .formkitWrapRepeatable {
+        flex-direction: column;
+
+        .formkitWrapRepeatable {
+            border: none;
+        }
+    }
+}
+
+.repeatableWrap {
+    .repeatable {
+        h4 {
+            margin-left: 1rem;
+        }
+    }
+
+    .repeatableWrap {
+        border: none !important;
+
+    }
+}
+
+.disInfoWrapper {
+    display: flex;
+}
+
+.singleDistributions {
+    margin-left: 2rem;
+
+    .steps {
+        position: absolute;
+        left: 55px;
+        top: 365px;
+
+        .activeItem {
+            flex-grow: unset;
+            background-color: unset !important;
+        }
+
+        .step {
+            font-size: 12px;
+        }
+    }
+
+    .activeItem .stepCircle {
+        font-size: 14px;
+        width: 35px;
+        height: 35px;
+        padding: 0;
+    }
+}
+
 .w25-textfield {
     width: 25%;
 
@@ -1019,7 +1123,7 @@
 }
 
 .w75-textfield {
-    width: 35%;
+    width: 75%;
 }
 
 .w88-textfield {
@@ -1027,7 +1131,7 @@
 }
 
 .w100-textfield {
-    width: 64%;
+    width: 100%;
 }
 
 .w97-textfield {
@@ -1038,18 +1142,33 @@
     margin-right: -1rem;
 }
 
-
+.infoTextDPISteps{
+    max-width: 100%;
+    border: 1px solid #6610f2;
+    padding: 1rem;
+    margin-bottom: 0;
+    margin: 1rem 1rem 1rem 0;
+    border-radius: 15px;
+    font-size: 18px;
+}
 
 .activeSection {
+   
     width: 100%;
-    padding: 1rem;
+    padding: 0 1rem;
+    margin: 1rem 0;
 }
 
 .repeatable {
     display: flex;
     flex-direction: column;
+    .formkitCmpWrap{
+        border: none;
+    }
 }
-
+.formkitProperty{
+    margin: 2rem 0;
+}
 .formkit-label {
     position: absolute;
     padding: 3px;
@@ -1116,9 +1235,11 @@
 
     }
 }
-.formkitCmpWrap{
+
+.formkitCmpWrap {
     border-left: 1px solid lightgray;
 }
+
 .inactiveStep {
     .stepCircle {
         width: 25px;

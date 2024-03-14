@@ -1,3 +1,28 @@
+# [4.0.0-alpha.23](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.22...v4.0.0-alpha.23) (2024-02-21)
+
+
+### Bug Fixes
+
+* adapted autocomplete to actual querying vocabulary ([e2a7c6e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e2a7c6ef81889232f12f53987cd911c6b5db9005))
+* adapted component to trigger value update globally ([5c9f0ae](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5c9f0ae40b491bd9dd1911ea524998b487dc04d3))
+* added last id check before submitting data ([7c467d3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/7c467d365941d09805c4da80a9cdeca92d0bc3d8))
+* added navigation, fixed buttons for next and previous step ([b65901e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b65901ef128726bd6577cc4864aae722d8ea15b6))
+* added validation messages to unique id component ([c7011ae](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c7011ae9d827609d8b6e462fc0ff0b7ac961f405))
+* Adjust DPI language selector identifier values ([ce3462f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ce3462fd8b250e4c12a25817375e0ba0389b0a9b))
+* Autocomplete help text ([ce210c9](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/ce210c91d942ea5b6cbfdf067a1dd66d262ae412))
+* datahandling of autocomplete ([a44ca30](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a44ca30c3e81e0fc1ee6d2ae2ddb3f129340630d))
+* DPI translation issues ([37d09d1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/37d09d13ce6e918bae0c00348ed6a4b28ed12095))
+* enabled display of modal for clearing form and id errors ([40265fe](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/40265fee6a8314c82115308d6b14e2d5fd6ff51c))
+* feedback loop in store getter ([3764b93](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3764b9302c81874bc4f8632b7ba0dc95cba7b773))
+* fix bug that prevents input elements depending on select value to be working properly when repeated ([91d6c6a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/91d6c6a85f3547bfe62bea12ed58c047e4e859b1))
+* fix uniqueID component ([63ac5c7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/63ac5c7bebda3cffc01bd4374f1922296a4f76b0))
+* fixed clearance of form on site visit and clear command ([b9a6f32](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b9a6f326acad19345de214ffacf1b284af9ff884))
+* fixed input configuration ([94d0c01](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/94d0c01a183b535122f989b2294a280291a9a629))
+* reenabled stepper error counting ([d1fb50d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d1fb50d1a5a00e1e7000ed39dbb92f63cd4b7796))
+* Remove harcoded string from OverviewPage ([5b9aadf](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5b9aadfb885f572b336a3251366832de52ea3fc2))
+
+
+
 # [4.0.0-alpha.22](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.21...v4.0.0-alpha.22) (2024-01-25)
 
 

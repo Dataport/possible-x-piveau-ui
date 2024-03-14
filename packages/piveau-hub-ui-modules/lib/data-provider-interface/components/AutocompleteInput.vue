@@ -94,13 +94,8 @@ function onClickOutside(e) {
 // Need to append the classes to the formkit-outer element
 props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.identifier
 
-// // Register the outside click to close the list of suggested values
-window.addEventListener("click", onClickOutside);
 
-// // Todo need to remove the eventlistener after adding it
-// // setTimeout(() => {
-// //   window.removeEventListener("click", onClickOutside);
-// // }, 100);
+
 
 // node.props.selection = {};
 // node.props.isMulti = node.context.context.attrs.multiple;
@@ -136,6 +131,7 @@ const setValue = async (e) => {
   }
   // inputText.value = e.name
   findPropertyToUpdate();
+  window.removeEventListener("click", onClickOutside);
 }
 
 const getAutocompleteSuggestions = async () => {
@@ -175,42 +171,51 @@ function removeMultipleProperty(e) {
 function toggleList(e) {
   inputText.value = "";
   e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList');
+  // // Register the outside click to close the list of suggested values
+  window.addEventListener("click", onClickOutside);
 }
 </script>
 
 <template>
-  <h4>{{ toTitleCase(props.context.attrs.identifier) }}</h4>
-  <div class="formkitCmpWrap">
-    <div class="formkit-outer ">
+  <div class="formkitProperty">
+    <h4>{{ props.context.label }}</h4>
+    <div class="formkitCmpWrap">
+      <div class="formkit-outer ">
 
-      <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
-        <!-- <label class="formkit-label" for="autocompleteInputSingleValue">{{ props.context.attrs.identifier }}</label> -->
-        <div class="infoI">
-          <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-        </div>
-        <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
-        <div class="removeX" @click="removeProperty"></div>
-      </div>
-      <div v-else>
-        <!-- <label class="formkit-label" for="autocompleteInputfield">{{ props.context.attrs.identifier }}</label> -->
-        <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
+        <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
+          <!-- <label class="formkit-label" for="autocompleteInputSingleValue">{{ props.context.attrs.identifier }}</label> -->
           <div class="infoI">
             <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
           </div>
-          <input class="autocompleteInputfield" placeholder="Search for fitting properties" v-model="inputText"
-            type="text" @click="toggleList">
+          <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
+          <div class="removeX" @click="removeProperty"></div>
         </div>
-        <ul class="autocompleteResultList inactiveResultList">
-          <li v-for="match in matches" :key="match" @click="setValue(match)"
-            class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}</li>
-        </ul>
-        <div class="d-flex flex-wrap">
-          <div class="activeResultsAutocompleteWrapper" v-for="item in props.context.value" :key="item">
-            <span>{{ item.name }}</span>
-            <div class="removeX" @click="removeMultipleProperty(item)"></div>
+        <div v-else>
+          <!-- <label class="formkit-label" for="autocompleteInputfield">{{ props.context.attrs.identifier }}</label> -->
+          <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
+            <div class="infoI">
+              <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
+            </div>
+            <input class="autocompleteInputfield" :placeholder="props.context.attrs.placeholder" v-model="inputText"
+              type="text" @click="toggleList">
+          </div>
+          <ul class="autocompleteResultList inactiveResultList">
+            <li v-for="match in matches" :key="match" @click="setValue(match)"
+              class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}
+            </li>
+          </ul>
+          <div class="d-flex flex-wrap">
+            <div class="activeResultsAutocompleteWrapper" v-for="item in props.context.value" :key="item">
+              <span>{{ item.name }}</span>
+              <div class="removeX" @click="removeMultipleProperty(item)"></div>
+            </div>
+          </div>
+          <div class="formkit-wrapper">
+            <div class="formkit-help">{{ props.context.help }}</div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>

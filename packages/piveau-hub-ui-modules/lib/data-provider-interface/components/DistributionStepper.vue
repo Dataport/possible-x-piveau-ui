@@ -1,25 +1,29 @@
-<script setup>
 
-</script>
 <template>
-  <FormKit type="form" v-model.lazy="formValues" :actions="false" :plugins="[stepPlugin]">
-    <div name="distribution-stepper">
-      <h3 v-if="name">{{ name }}</h3>
-      <div class="d-flex">
+  <FormKit type="form" :actions="false" :plugins="[stepPlugin]">
+    <div name="distribution-stepper" class="singleDistributions">
+     <div class="disSectionHead d-flex align-items-center">
+      <h3 @click="isActive = !isActive; editDis()" v-if="name">{{ name }}</h3>
+      <div class="interactionDis">
+        <a @click="isActive = !isActive; editDis()">Edit</a>
+        <a @click="deleteDis(index)">Delete</a>
+      </div>
+     </div>
+      
+      <div class=" disInfoWrapper">
         <ul class="steps">
-          <li v-for="(step, stepName, index) in steps" :key="index"
-            class="step" :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
-            :class="{
+          <li v-for="(step, stepName, index) in steps" :key="index" class="step"
+            :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0" :class="{
               activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName)
-            }"
-            @click="activeStep = stepName">
+            }" @click="activeStep = stepName">
             <div class="stepBubbleWrap">
               <div class="circle stepCircle">{{ index + 1 }}</div>
-              <span v-if="checkStepValidity(stepName)" class="step--errors"/>
-                <!-- v-text="step.errorCount + step.blockingCount" /> -->
+              <span v-if="checkStepValidity(stepName)" class="step--errors" />
+              <!-- v-text="step.errorCount + step.blockingCount" /> -->
               {{ camel2title(stepName) }}
             </div>
-            <div v-if="index + 1 != Object.keys(getNavSteps.distributions).length" class="seperatorHorizontalStepper"></div>
+            <div v-if="index + 1 != Object.keys(getNavSteps.distributions).length" class="seperatorHorizontalStepper">
+            </div>
             <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div>
           </li>
           <li class="step inactiveStep" v-if="activeStep === 'overview'">
@@ -30,7 +34,7 @@
           <div v-for="(stepName, index) in getNavSteps.distributions" :key="index">
             <InputPageStep :name="stepName">
               <!-- <PropertyChooser></PropertyChooser> -->
-              <FormKitSchema :schema="schema[stepName]"/>
+              <FormKitSchema :schema="schema[stepName]" :library="library" />
               <p class="p-1"> <b>*</b> mandatory</p>
             </InputPageStep>
           </div>
@@ -56,10 +60,11 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, markRaw } from 'vue';
 import { mapGetters } from 'vuex';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import InputPageStep from '../components/InputPageStep.vue';
+import SelectControlledGroup from './SelectControlledGroup.vue';
 
 
 export default defineComponent({
@@ -89,14 +94,28 @@ export default defineComponent({
           .replace(/([A-Z])/g, (match) => ` ${match}`)
           .replace(/^./, (match) => match.toUpperCase())
           .trim(),
+      isActive: false
     }
   }, methods: {
     handleClick(i) {
       this.distributionSteps.filter(e => e.show = false)
       this.distributionSteps[i].show = !this.distributionSteps[i].show;
     },
-    getDisName() {
-      // return this.values['distribution']['distributionList'][this.index]
+    deleteDis(e) {
+      console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
+    },
+    editDis() {
+      var activeDisArray = document.getElementsByClassName('disInfoWrapper');
+      for (let index = 0; index < document.getElementsByClassName('disInfoWrapper').length; index++) {
+        if (this.index != index && !activeDisArray[index].classList.contains('d-none')) {
+          activeDisArray[index].classList.toggle('d-none')
+          
+        }
+        if (this.index === index) {
+          activeDisArray[index].classList.toggle('d-none')
+        }
+      }
+      // console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
     }
   }, computed: {
     ...mapGetters('dpiStore', [
@@ -105,6 +124,11 @@ export default defineComponent({
     listElementShow() {
       return this.distributionSteps.filter(e => e.show);
     }
+
+  },
+  created() {
+   
+
   },
   setup() {
     const {
@@ -122,6 +146,10 @@ export default defineComponent({
       return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
 
+    const library = markRaw({
+      SelectControlledGroup,
+    })
+
     return {
       steps,
       visitedSteps,
@@ -132,6 +160,8 @@ export default defineComponent({
       checkStepValidity,
       goToNextStep,
       goToPreviousStep,
+      
+      library,
     }
   }
 });
