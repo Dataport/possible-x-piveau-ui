@@ -117,10 +117,18 @@
         this.$Progress.start();
         this.loadDatasetDetails(this.$route.params.ds_id)
           .then(() => {
-            this.loadSimilarDatasets({
-              id: this.$route.params.ds_id,
-              description: this.getDescription.en
-            })
+            const isKNN = this.$env.api.similarityServiceName === 'knn_request';
+            if (isKNN && ! this.getDescription.en) {
+              // The knn_request service only works for English descriptions
+              this.similarDatasetsFetched = true;
+              this.similarDatasetsPresent = false;
+              this.$Progress.fail();
+            } else {
+              const description = isKNN ? this.getDescription.en : getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages);
+              this.loadSimilarDatasets({
+                id: this.$route.params.ds_id,
+                description
+              })
               .then((response) => {
                 this.$nextTick(() => {
                   this.updateSimilarDatasets();
@@ -133,6 +141,7 @@
                 this.similarDatasetsFetched = true;
                 this.$Progress.fail();
               });
+            }
           })
           .catch(() => {
             this.$Progress.fail();
