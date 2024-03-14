@@ -431,10 +431,13 @@ const actions = {
                     const result = response.data?.result;
                     if(result){
                         //new similarity service
-                        const prefix = "<http://dataeuropaeu/88u/dataset/"
+                        const prefix = "http://data.europa.eu/88u/dataset/";
+                        // const prefix = "<http://dataeuropaeu/88u/dataset/";
                         result.forEach(item => {
-                            item.id = item.uri.substring(prefix.length, item.uri.length - 2);
+                            item.id = item.uri.substring(prefix.length);
                             item.uri = "https://data.europa.eu/88u/dataset/" + item.id;
+                            // item.id = item.uri.substring(prefix.length, item.uri.length - 2);
+                            // item.uri = "https://data.europa.eu/88u/dataset/" + item.id;
                         });
                         commit('SET_SIMILAR_DATASETS', result);
                         commit('SET_LOADING', false);
