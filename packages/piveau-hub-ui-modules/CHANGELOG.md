@@ -1,3 +1,12 @@
+## [3.16.26](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.25...v3.16.26) (2024-03-14)
+
+
+### Bug Fixes
+
+* adapt similar datasets component to knn_request requirements (English description!) ([58bf39f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/58bf39fe3070f840e363d2e00887ba6ea9a663e6))
+
+
+
 ## [3.16.25](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.24...v3.16.25) (2024-03-13)
 
 
