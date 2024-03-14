@@ -1,3 +1,12 @@
+## [3.16.27](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.26...v3.16.27) (2024-03-14)
+
+
+### Bug Fixes
+
+* change data preparation for similar datasets ([8ebe2c3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8ebe2c329654ee93bb434ff150b85b0804f3fc3b))
+
+
+
 ## [3.16.26](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.25...v3.16.26) (2024-03-14)
 
 
