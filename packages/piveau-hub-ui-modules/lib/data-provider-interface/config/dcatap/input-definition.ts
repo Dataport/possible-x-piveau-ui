@@ -1371,7 +1371,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'group',
       identifier: 'checksum',
       name: 'spdx:checksum',
-      
+
       children: [
         {
           identifier: 'checksum',
@@ -1643,8 +1643,8 @@ const dcatapProperties: InputDefinition = {
       props: {
         name: 'dct:rights',
         selectName: '@type',
-        options: { url: 'URL', str: 'String' },
-        initialValue: '',
+        options: { url: 'URL', str: 'Text' },
+        initialValue: ''
       },
       children: [
         {
@@ -1655,10 +1655,14 @@ const dcatapProperties: InputDefinition = {
             then: {
               identifier: 'rightsUrl',
               type: "url",
+              label:"URL",
+              placeholder:"Provide a URL"
             },
             else: {
               identifier: 'rightsString',
               type: "text",
+              label:"Text",
+              placeholder:"Provide a text"
             }
           }
         },
@@ -1814,14 +1818,14 @@ const dcatapProperties: InputDefinition = {
     licence: {
       $formkit: 'group',
       name: 'dct:license',
-      
+
       children: [
         {
           $formkit: 'select',
           identifier: 'licence',
           name: 'licenceMode',
           id: 'licenceModeCatalogue',
-          
+
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
@@ -1974,7 +1978,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'rightsCond',
           name: "rightsMode",
           $formkit: "select",
-          options: { url: 'URL', str: 'String' },
+          options: { url: 'Provide an URL', str: 'String' },
           id: "rightsModeCatalogue"
         },
         {
