@@ -2,7 +2,7 @@
 
 // ################ ToDo Need to make sure, that the values get saved when the property gets clicked
 
-import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
+import { ref, reactive, watch, computed, onBeforeMount, onMounted, nextTick } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { onClickOutside } from '@vueuse/core'
@@ -28,17 +28,25 @@ watch(voc, async () => {
 })
 watch(manURL, async () => {
     //    ToDo needs a better way - maybe if the input looses its focus?
-    setTimeout(() => {
-        props.context.node.input({ 'name': manURL, 'resource': manURL })
-    }, 10000);
+
+    props.context.node.input({ 'name': manURL, 'resource': manURL })
+
 
 })
 onMounted(async () => {
     matches = [{ name: '--- Type in anything for a live search of the vocabulary ---', resource: 'invalid' }]
 
+    await nextTick()
+    // DOM loaded
+    if (props.context.value.name === undefined || props.context.value.name === "") {
+        showTable.activeValue = false
+    } else showTable.activeValue = true
+    // console.log(showTable.activeValue);
+
 });
 function removeProperty(e) {
     //   props.context.value = {}
+    showTable.activeValue = false
     props.context.node.input({})
 }
 const getAutocompleteSuggestions = async () => {
@@ -60,6 +68,7 @@ var showTable = reactive({
     first: false,
     second: false,
     third: false,
+    activeValue: false
 })
 
 const I1 = ref(null);
@@ -80,12 +89,14 @@ function activeInput(e) {
         else showTable.third = !showTable.third;
     }
 }
+function manURLInput(e) {
+    props.context.node.input({ 'name': e.target.value, 'resource': e.target.value })
+}
 </script>
 
 <template>
     <div class="d-flex flex-column w-100 spatialWrap">
-        <div class="d-flex formkit-inner mx-3 mb-3" v-if="!props.context.attrs.multiple && props.context.value.name">
-            <!-- <label class="formkit-label" for="autocompleteInputSingleValue">{{ props.context.attrs.identifier }}</label> -->
+        <div class="d-flex formkit-inner mx-3 mb-3" v-if="!props.context.attrs.multiple && showTable.activeValue">
             <div class="infoI">
                 <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
             </div>
@@ -96,7 +107,7 @@ function activeInput(e) {
             <div class=" w-100 d-flex">
                 <div class="d-flex position-relative m-3 w-100">
                     <label class="w-100"> Choose the the way you want to provide the spatial info <input id="I1"
-                            type="text" class="selectInputField formkit-inner" placeholder="Select input method"
+                            type="text" class="selectInputField formkit-inner" readonly="readonly" placeholder="Select input method"
                             @click="activeInput('showTable')" />
                     </label>
 
@@ -114,12 +125,12 @@ function activeInput(e) {
                 <div v-if="man" class="d-flex position-relative m-3 w-100">
                     <label class="w-100"> Provide spatial URL
                         <input type="URL" class="selectInputField formkit-inner" placeholder="Spatial URL"
-                            v-model="manURL">
+                            @input="manURLInput($event)">
                     </label>
                 </div>
                 <div v-if="vocSearch" class="d-flex position-relative m-3 w-100">
                     <label class="w-100"> Choose type of vocabulary
-                        <input id="I2" type="text" class="selectInputField formkit-inner"
+                        <input id="I2" type="text" class="selectInputField formkit-inner" readonly="readonly"
                             placeholder="Search the vocabulary" @click="activeInput('showVocTable');">
                     </label>
                     <ul ref="I2" v-if="showTable.second" class="spatialListUpload">

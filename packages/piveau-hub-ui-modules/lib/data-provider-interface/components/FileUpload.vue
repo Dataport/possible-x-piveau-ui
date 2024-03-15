@@ -22,7 +22,7 @@ onMounted(async () => {
 <template>
 
   <div class="position-relative w-100 p-3 ">
-    <input type="text" class="selectInputField formkit-inner" @click="triggerDropdown()"
+    <input type="text" class="selectInputField formkit-inner" readonly="readonly" @click="triggerDropdown()"
       placeholder="Choose between fileupload and providing a URL">
     <ul ref="fLoad" v-if="drop.active" class="selectListUpload">
       <li @click="triggerDropdown(); uploadFileSwitch = true; if (uploadURL) { uploadURL = !uploadURL }"
@@ -35,7 +35,6 @@ onMounted(async () => {
     <label class=" formkit-label w-100" for="aUrlLink">Provide an URL</label>
     <input id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id"
       @input="saveUrl">
-
   </div>
   <div v-if="uploadFileSwitch" ref="fileupload" class="p-3 w-100"
     :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
