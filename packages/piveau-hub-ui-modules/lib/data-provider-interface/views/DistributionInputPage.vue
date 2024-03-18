@@ -5,7 +5,7 @@
   <div name="distribution-stepper-list" class="distributionsListClass">
     <FormKit type="list" name="distributionList">
       <section v-for="i in distributionList" :key="i">
-        <DistributionStepper :name="`Distribution ${i + 1}`" :index=i :schema="schema" :values="values" />
+        <DistributionStepper :name="`${i + 1}`" :index=i :schema="schema" :values="values" />
       </section>
     </FormKit>
 
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, nextTick } from 'vue';
 import DistributionStepper from '../components/DistributionStepper.vue';
 
 export default defineComponent({
@@ -50,15 +50,17 @@ export default defineComponent({
       this.distributionList.push(index)
     }
   },
-  mounted() {
+  async mounted() {
     try {
       for (let arrInd = 0; arrInd < document.getElementsByClassName('disInfoWrapper').length; arrInd++) {
         document.getElementsByClassName('disInfoWrapper')[arrInd].classList.toggle('d-none');
       }
       document.getElementsByClassName('disInfoWrapper')[0].classList.toggle('d-none');
     } catch (error) {
-
     }
+
+    await nextTick()
+    
 
   },
   methods: {
@@ -74,7 +76,7 @@ export default defineComponent({
       this.distributionList.push(this.latestNonce);
       this.latestNonce++;
       this.closeAllDis();
-      try { document.getElementsByClassName('disInfoWrapper')[this.latestNonce].classList.toggle('d-none') } 
+      try { document.getElementsByClassName('disInfoWrapper')[this.latestNonce].classList.toggle('d-none') }
       catch (error) { }
 
     },

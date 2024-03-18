@@ -1,15 +1,15 @@
-
 <template>
   <FormKit type="form" :actions="false" :plugins="[stepPlugin]">
     <div name="distribution-stepper" class="singleDistributions">
-     <div class="disSectionHead d-flex align-items-center">
-      <h3 @click="isActive = !isActive; editDis()" v-if="name">{{ name }}</h3>
-      <div class="interactionDis">
-        <a @click="isActive = !isActive; editDis()">Edit</a>
-        <a @click="deleteDis(index)">Delete</a>
+      <div class="disSectionHead d-flex align-items-center">
+        <h3 @click="isActive = !isActive; editDis()" v-if="!nameSet">Distribution {{ name }}</h3>
+        <h3 v-else>{{values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id']}}</h3>
+        <div class="interactionDis">
+          <a @click="isActive = !isActive; editDis()">Edit</a>
+          <a @click="deleteDis(index)">Delete</a>
+        </div>
       </div>
-     </div>
-      
+
       <div class=" disInfoWrapper">
         <ul class="steps">
           <li v-for="(step, stepName, index) in steps" :key="index" class="step"
@@ -35,7 +35,7 @@
             <InputPageStep :name="stepName">
               <!-- <PropertyChooser></PropertyChooser> -->
               <FormKitSchema :schema="schema[stepName]" :library="library" />
-              <p class="p-1"> <b>*</b> mandatory</p>
+              <p v-if="stepName === 'Mandatory'" class="p-1"> <b>*</b> mandatory</p>
             </InputPageStep>
           </div>
         </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { defineComponent, markRaw } from 'vue';
+import { defineComponent, markRaw, nextTick } from 'vue';
 import { mapGetters } from 'vuex';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import InputPageStep from '../components/InputPageStep.vue';
@@ -82,6 +82,9 @@ export default defineComponent({
     },
     values: {
       type: Object,
+    },
+    context: {
+      type: Object
     }
   },
   components: {
@@ -89,6 +92,7 @@ export default defineComponent({
   },
   data() {
     return {
+      nameSet: false,
       camel2title: (str) =>
         str
           .replace(/([A-Z])/g, (match) => ` ${match}`)
@@ -127,8 +131,15 @@ export default defineComponent({
 
   },
   created() {
-   
 
+
+  },
+  async mounted() {
+    await nextTick()
+    if (this.values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'] != undefined || this.values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'] != "") {
+      this.nameSet = true
+    }else this.nameSet = false
+    
   },
   setup() {
     const {

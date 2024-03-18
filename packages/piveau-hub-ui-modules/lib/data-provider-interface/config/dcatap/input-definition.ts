@@ -1451,6 +1451,17 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'repeatable',
               name: 'dct:description',
               children: [
+
+                {
+                  identifier: 'language',
+                  value: 'en',
+                  $formkit: 'select',
+                  options: language,
+                  name: '@language',
+                  classes: {
+                    outer: 'w25-textfield'
+                  },
+                },
                 {
                   identifier: 'pageDescription',
                   $formkit: 'group',
@@ -1643,8 +1654,8 @@ const dcatapProperties: InputDefinition = {
       props: {
         name: 'dct:rights',
         selectName: '@type',
-        options: { url: 'URL', str: 'String' },
-        initialValue: '',
+        options: { url: 'URL', str: 'Text' },
+        initialValue: ''
       },
       children: [
         {
@@ -1655,10 +1666,14 @@ const dcatapProperties: InputDefinition = {
             then: {
               identifier: 'rightsUrl',
               type: "url",
+              label:"URL",
+              placeholder:"Provide a URL"
             },
             else: {
               identifier: 'rightsString',
               type: "text",
+              label:"Text",
+              placeholder:"Provide a text"
             }
           }
         },
@@ -1974,7 +1989,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'rightsCond',
           name: "rightsMode",
           $formkit: "select",
-          options: { url: 'URL', str: 'String' },
+          options: { url: 'Provide an URL', str: 'String' },
           id: "rightsModeCatalogue"
         },
         {

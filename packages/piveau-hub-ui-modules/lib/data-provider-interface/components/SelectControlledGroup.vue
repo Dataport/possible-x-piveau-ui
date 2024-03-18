@@ -29,32 +29,23 @@ const data = reactive({
 </script>
 
 <template>
-  <FormKit
-    :id="props.id"
-    type="group"
-    :name="name"
-    :index="props.index"
-    v-model="data.groupValue"
-  >
-    <FormKit
-      v-model="data.selectValue"
-      type="select"
-      :options="props.options"
-      :name="props.selectName"
-      :label="props.label"
-      :placeholder="props.placeholder"
-    >
-      <template #prefix>
-        <div
-          v-if="props.info"
-          class="infoI"
-        >
-          <div class="tooltipFormkit">
-            {{ props.info  }}
-          </div>
-        </div>
-      </template>
-    </FormKit>
-    <slot :select-value="data.selectValue" />
-  </FormKit>
+  <div class="formkitProperty">
+    <h4>{{ props.label }}</h4>
+    <div class="formkitCmpWrap  d-flex">
+      <FormKit :id="props.id" type="group" :name="name" :index="props.index" v-model="data.groupValue">
+        <FormKit v-model="data.selectValue" type="select" :options="props.options" :name="props.selectName">
+          <template #prefix>
+            <div v-if="props.info" class="infoI">
+              <div class="tooltipFormkit">
+                {{ props.info }}
+              </div>
+            </div>
+          </template>
+        </FormKit>
+        <slot :select-value="data.selectValue" />
+      </FormKit>
+    </div>
+
+  </div>
+
 </template>

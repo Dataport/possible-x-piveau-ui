@@ -1,7 +1,6 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { onClickOutside } from '@vueuse/core'
-
 
 var drop = reactive({
   active: false,
@@ -13,11 +12,17 @@ onClickOutside(fLoad, event => drop.active = false)
 function triggerDropdown(e) {
   drop.active = !drop.active
 }
+
+onMounted(async () => {
+
+  // console.log('Context: ', props.context);
+});
 </script>
 
 <template>
+
   <div class="position-relative w-100 p-3 ">
-    <input type="text" class="selectInputField formkit-inner" @click="triggerDropdown()"
+    <input type="text" class="selectInputField formkit-inner" readonly="readonly" @click="triggerDropdown()"
       placeholder="Choose between fileupload and providing a URL">
     <ul ref="fLoad" v-if="drop.active" class="selectListUpload">
       <li @click="triggerDropdown(); uploadFileSwitch = true; if (uploadURL) { uploadURL = !uploadURL }"
@@ -26,11 +31,10 @@ function triggerDropdown(e) {
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Provide an URL</li>
     </ul>
   </div>
-  <div class="w-100 p-3 position-relative" v-if="uploadURL">
+  <div class="w-100 p-3 position-relative" v-if="uploadURL && !uploadFileSwitch">
     <label class=" formkit-label w-100" for="aUrlLink">Provide an URL</label>
     <input id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id"
       @input="saveUrl">
-
   </div>
   <div v-if="uploadFileSwitch" ref="fileupload" class="p-3 w-100"
     :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
@@ -69,7 +73,7 @@ export default {
       URLValue: '',
       uploadURL: false,
       uploadFileSwitch: false,
-
+      checkifSet: false,
       isLoading: false,
       success: false,
       fail: false,
@@ -97,6 +101,15 @@ export default {
     async saveUrl() {
       // console.log(this.context);
       await this.context.node.input({ '@id': this.URLValue })
+    },
+    checkIfPresent() {
+      console.log(this.context.value['@id']);
+      if (this.context.value['@id']) {
+        console.log(this.context.value['@id']);
+        this.URLValue = this.context.value['@id']
+        return true
+      }
+      else false
     },
     // finds the parent input group of a given element.
     findParentInputGroupOfElement(element) {
@@ -211,6 +224,16 @@ export default {
   },
   mounted() {
     this.saveLocalstorageValues('datasets');
+
+    this.$nextTick(function(){
+  
+      if (this.context.value['@id']) {
+        this.uploadURL = true
+        this.URLValue = this.context.value['@id']
+        return true
+      }
+      else false
+    })
   }
 };
 </script>
