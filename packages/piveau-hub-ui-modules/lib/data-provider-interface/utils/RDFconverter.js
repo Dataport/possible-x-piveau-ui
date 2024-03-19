@@ -35,7 +35,6 @@ window.process = {
  */
 function convertToRDF(data, property) {
 
-    console.log(data);
     let finishedRDFdata;
 
     let dpiConfig;
@@ -125,32 +124,33 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index]; // key format: either a normal name for special properties (e.g. datasetID) or namespaced keys (e.g. dct:title)
 
-        // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
-        // depending on the format the corresponding conversion-method is used, writing the result to the overall RDF-writer
-        if (formatTypes.singularString[property].includes(key)) {
-            convertSingularString(RDFdataset, mainURI, data, key, dpiConfig);
-        } else if (formatTypes.singularURI[property].includes(key)) {
-            convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
-        } else if (formatTypes.multipleURI[property].includes(key)) {
-            // if no dowloadURL is provided, set accessUrls as downloadUrls
-            // if (!downloadUrlsProvided && key === 'dcat:accessURL') {
-            //     // copy accessurl array to donwloadurl array and convert data
+        if(generalHelper.propertyHasValue(data[key])) {
+            // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
+            // depending on the format the corresponding conversion-method is used, writing the result to the overall RDF-writer
+            if (formatTypes.singularString[property].includes(key)) {
+                convertSingularString(RDFdataset, mainURI, data, key, dpiConfig);
+            } else if (formatTypes.singularURI[property].includes(key)) {
+                convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
+            } else if (formatTypes.multipleURI[property].includes(key)) {
+                // if no dowloadURL is provided, set accessUrls as downloadUrls
+                // if (!downloadUrlsProvided && key === 'dcat:accessURL') {
+                //     // copy accessurl array to donwloadurl array and convert data
 
-            //     data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
-            //     convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
-            // }
+                //     data['dcat:downloadURL'] = cloneDeep(data['dcat:accessURL']);
+                //     convertMultipleURI(RDFdataset, mainURI, data, 'dcat:downloadURL', property, dpiConfig);
+                // }
 
-            convertMultipleURI(RDFdataset, mainURI, data, key, property, dpiConfig);
-        } else if (formatTypes.typedStrings[property].includes(key)) {
-            convertTypedString(RDFdataset, mainURI, data, key, dpiConfig);
-        } else if (formatTypes.multilingualStrings[property].includes(key)) {
-            convertMultilingual(RDFdataset, mainURI, data, key, dpiConfig);
-        } else if (formatTypes.groupedProperties[property].includes(key)) {
+                convertMultipleURI(RDFdataset, mainURI, data, key, property, dpiConfig);
+            } else if (formatTypes.typedStrings[property].includes(key)) {
+                convertTypedString(RDFdataset, mainURI, data, key, dpiConfig);
+            } else if (formatTypes.multilingualStrings[property].includes(key)) {
+                convertMultilingual(RDFdataset, mainURI, data, key, dpiConfig);
+            } else if (formatTypes.groupedProperties[property].includes(key)) {
 
-            // grouped properties are properties provided by the form which consist of multiple properties (e.g contactPoint)
-            // the properties values are stored within an object located within an array
-            // for repeatable properties there are multiple objects in this array, otherwise there is just one
-            if (!isEmpty(data[key])) {
+                // grouped properties are properties provided by the form which consist of multiple properties (e.g contactPoint)
+                // the properties values are stored within an object located within an array
+                // for repeatable properties there are multiple objects in this array, otherwise there is just one
+                
                 // looping trough all existing objects within the array
                 for (let groupId = 0; groupId < data[key].length; groupId += 1) {
                     let currentGroupData = data[key][groupId];
@@ -273,33 +273,31 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                         }
                     }
                 }
-            }
-        } else if (formatTypes.conditionalProperties[property].includes(key)) {
-            // publisher either is an URI or a group with multiple values (name, homepage, email)
-            if (key === 'dct:publisher') {
-                // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
-                if (typeof data[key] === 'string') {
-                    generalHelper.addKeyToFormatType(key, 'singularURI', property, formatTypes);
-                } else if (Array.isArray(data[key])) {
-                    generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatTypes);
+            } else if (formatTypes.conditionalProperties[property].includes(key)) {
+                // publisher either is an URI or a group with multiple values (name, homepage, email)
+                if (key === 'dct:publisher') {
+                    // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
+                    if (typeof data[key] === 'string') {
+                        generalHelper.addKeyToFormatType(key, 'singularURI', property, formatTypes);
+                    } else if (Array.isArray(data[key])) {
+                        generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatTypes);
+                    }
+                    generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatTypes);
+
+                    // now conversion run based on newly defined format Type
+                    convertPropertyValues(RDFdataset, data, property, mainURI, mainType, false, dpiConfig);
+
+                    // to handle changes: undo prior changes back to default behavior (conditional Property)
+                    generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatTypes);
+                    generalHelper.removeKeyFromFormatType(key, 'singularURI', property, formatTypes);
+                    generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatTypes);
                 }
-                generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatTypes);
+            } else if (key === 'dcat:temporalResolution') {
+                // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
+                // the form provides the data as following: [ { 'Year': '...', 'Month': '...', ... } ]
+                // the final format of this property should look like this: P?Y?M?DT?H?M?S
+                // not all values must be filled and therefore be present -> default behavior if not given: value = 0
 
-                // now conversion run based on newly defined format Type
-                convertPropertyValues(RDFdataset, data, property, mainURI, mainType, false, dpiConfig);
-
-                // to handle changes: undo prior changes back to default behavior (conditional Property)
-                generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatTypes);
-                generalHelper.removeKeyFromFormatType(key, 'singularURI', property, formatTypes);
-                generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatTypes);
-            }
-        } else if (key === 'dcat:temporalResolution') {
-            // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
-            // the form provides the data as following: [ { 'Year': '...', 'Month': '...', ... } ]
-            // the final format of this property should look like this: P?Y?M?DT?H?M?S
-            // not all values must be filled and therefore be present -> default behavior if not given: value = 0
-
-            if (!isEmpty(data[key])) {
                 const resolutionValues = data[key];
                 const valueString = `P${resolutionValues.Year ? resolutionValues.Year : 0}Y${resolutionValues.Month ? resolutionValues.Month : 0}M${resolutionValues.Day ? resolutionValues.Day : 0}DT${resolutionValues.Hour ? resolutionValues.Hour : 0}H${resolutionValues.Minute ? resolutionValues.Minute : 0}M${resolutionValues.Second ? resolutionValues.Second : 0}S`;
 
@@ -312,23 +310,20 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                         N3.DataFactory.literal(valueString, N3.DataFactory.namedNode(generalHelper.addNamespace('xsd:duration', dpiConfig)))
                     ))
                 }
-            }
-        } else if (key === 'dct:identifier') {
-            // form provides data as array of objects with strings: [ { '@value': 'string1' }, { '@value': 'string2' }, ... ]
-            // create quadruple for each given object in the array
-            for (let valueId = 0; valueId < data[key].length; valueId += 1) {
-                const currentValue = data[key][valueId];
-                if (has(currentValue, '@value') && !isEmpty(currentValue['@value'])) {
-                    RDFdataset.addQuad(N3.DataFactory.quad(
-                        mainURI,
-                        N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
-                        N3.DataFactory.literal(currentValue['@value'])
-                    ))
+            } else if (key === 'dct:identifier') {
+                // form provides data as array of objects with strings: [ { '@value': 'string1' }, { '@value': 'string2' }, ... ]
+                // create quadruple for each given object in the array
+                for (let valueId = 0; valueId < data[key].length; valueId += 1) {
+                    const currentValue = data[key][valueId];
+                    if (has(currentValue, '@value') && !isEmpty(currentValue['@value'])) {
+                        RDFdataset.addQuad(N3.DataFactory.quad(
+                            mainURI,
+                            N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
+                            N3.DataFactory.literal(currentValue['@value'])
+                        ))
+                    }
                 }
-            }
-        } else if (key === 'dct:rights') {
-            if (!isEmpty(data[key])) {
-
+            } else if (key === 'dct:rights') {
                 // rights has a static type (RightsStatement) which needs to be added to linked data as additional node
                 // therefore we need to create an initial quadruple for with 'rights' being the predicate having a blank node
                 // blank node serves as subject for the following quadruples which contain the type and actual value of the form field
@@ -368,10 +363,8 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     N3.DataFactory.namedNode(generalHelper.addNamespace('rdfs:label', dpiConfig)),
                     rightsValue
                 ))
-            }
-        } else if (key === 'dct:license') {
-            // licence is a conditional property providing either an URI or a group of values
-            if (!isEmpty(data[key])) {
+            } else if (key === 'dct:license') {
+                // licence is a conditional property providing either an URI or a group of values
                 if (typeof data[key] === 'string') { // URI
                     convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
                 } else {
@@ -419,18 +412,16 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     // add nested properties as quadruples using the blank node as subject
                     convertPropertyValues(RDFdataset, data[key][0], property, licenceBlankNode, mainType, false, dpiConfig);
                 }
-            }
-        } else if (key === 'rdf:type') {
-            // some properties have additional type information which needs to be added to graph
-            // e.g contactPoint -> vcard:Individual
-            if (!isEmpty(data[key])) {
+            } else if (key === 'rdf:type') {
+                // some properties have additional type information which needs to be added to graph
+                // e.g contactPoint -> vcard:Individual
                 RDFdataset.addQuad(N3.DataFactory.quad(
                     mainURI,
                     N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
                     N3.DataFactory.namedNode(generalHelper.addNamespace(data[key], dpiConfig))
                 ))
             }
-        }
+        }  
     }
 }
 

@@ -1,4 +1,5 @@
-import { isEmpty, isNil } from 'lodash';
+import { useArrayIncludes } from '@vueuse/core';
+import { isEmpty, isNil, has } from 'lodash';
 
 /**
  * Merges multiple Objects nested within an object into one main objects with al key-value-pairs originally located within the nested objects
@@ -246,6 +247,68 @@ function removeKeyFromFormatType(key, format, property, typeDefinition) {
     typeDefinition[format][property].splice(typeDefinition[format][property].indexOf(key), 1);
 }
 
+function propertyObjectHasValues(objectData) {
+    let objectHasValues = false;
+
+    if (!isNil(objectData) && !isEmpty(objectData)) {
+        // language tag is always given
+        if (has(objectData, '@language')) {
+            delete objectData['@language'];
+        }
+
+        // removing all falsy values (undefined, null, "", '', NaN, 0)
+        const actualValues = Object.values(objectData).filter(el => el); // filters all real values
+        if (!isEmpty(actualValues)) {
+            // there are keys containing an object or array as value
+            for (let valueIndex = 0; valueIndex < actualValues.length; valueIndex++) {
+                // if at least one elemnt within the array is set, return true
+                const currentValue = actualValues[valueIndex];
+
+                // testing content of array
+                if (Array.isArray(currentValue)) {
+                    // there are only objects wihtin those arrays
+                    for (let arrIndex = 0; arrIndex < currentValue.length; arrIndex++) {
+                        if (propertyObjectHasValues(currentValue[arrIndex])) objectHasValues = true;
+                    }
+                } else if (typeof currentValue === 'object') { // testing content of object
+                    if (propertyObjectHasValues(currentValue)) objectHasValues = true;
+                } else {
+                    objectHasValues = true;
+                }
+            }
+        }
+    }
+
+    return objectHasValues;
+}
+
+function propertyHasValue(data) {
+
+    let isSet = false;
+
+    if (data !== undefined && data !== "" && !isEmpty(data) && !isNil(data)) {
+        // testing array data
+        if (Array.isArray(data)) {
+            // there are arreay of objects or arrays of values
+            if (data.every(el => typeof el === 'string')) {
+                isSet = !isEmpty(data.filter(el => el)); 
+            } else if (data.every(el => typeof el === 'object')) {
+                for (let index = 0; index < data.length; index++) {
+                    // if at least one array element is set, return true
+                    if (propertyObjectHasValues(data[index])) isSet = true; 
+                }
+            }
+        } else if (typeof data === 'object') {
+            // testing object data
+            isSet = propertyObjectHasValues(data);
+        } else {
+            isSet = true;
+        }
+    }
+
+    return isSet;
+}
+
 export default {
     mergeNestedObjects,
     addNamespace,
@@ -258,4 +321,5 @@ export default {
     getFileIdByAccessUrl,
     addKeyToFormatType,
     removeKeyFromFormatType,
+    propertyHasValue,
 };
