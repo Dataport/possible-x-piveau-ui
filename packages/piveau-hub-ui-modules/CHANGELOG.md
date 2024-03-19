@@ -1,3 +1,12 @@
+## [3.16.28](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.27...v3.16.28) (2024-03-19)
+
+
+### Bug Fixes
+
+* better treatment of similar datasets breakpoints ([984d09d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/984d09d0f34d3503d82112bc50bb7dbfb4ca5c8b))
+
+
+
 ## [3.16.27](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.26...v3.16.27) (2024-03-14)
 
 
