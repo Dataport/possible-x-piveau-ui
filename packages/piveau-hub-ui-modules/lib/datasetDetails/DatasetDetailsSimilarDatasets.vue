@@ -103,7 +103,7 @@
         this.loadSimilarDatasetDetails(similarDataset.id);
       },
       showSimilarbadge(distance, similarType) {
-        return distance > this.breakpoints[similarType].start && distance <= this.breakpoints[similarType].end;
+        return distance >= this.breakpoints[similarType].start && distance < this.breakpoints[similarType].end;
       },
       similarDatasetLink(url) {
         const idIndex = 'https://data.europa.eu/88u/dataset/'.length;
