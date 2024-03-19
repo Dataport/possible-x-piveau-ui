@@ -1,8 +1,5 @@
 <template>
     <div class="mt-1 dsd-distributions">
-
-      <distribution-visualization class="mb-4" :distributionTitle="previewedDistributionTitle"></distribution-visualization>
-
       <distributions-header
         :getDistributionDescription="getDistributionDescription"
         :openModal="openModal"
@@ -71,6 +68,7 @@
         </div>
       </div>
       <download-as-modal />
+      <distribution-visualization class="mb-4" :distributionTitle="previewedDistributionTitle"></distribution-visualization>
     </div>
 </template>
 

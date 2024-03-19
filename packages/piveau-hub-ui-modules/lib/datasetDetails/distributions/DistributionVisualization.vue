@@ -1,6 +1,14 @@
 <template>
-    <div class="preview-container">
-        <h2>Visual box - {{ distributionTitle }}</h2>
+    <div class="dsd-item preview-container">
+        <h2 class=" mb-lg-4 mt-lg-4"
+            data-toggle="tooltip"
+            data-placement="top"
+            data-cy="dataset-distribution-preview"
+        >
+        <!-- TODO: translate! -->
+            Preview 
+        </h2>
+        <!-- <h2>Visual box - {{ distributionTitle }}</h2> -->
         <!-- Card -->
         <div v-if="this.jsonData" class="card text-center">
             <div class="card-header">
@@ -230,7 +238,7 @@
                 datacollection: {},
                 datasets: [],  // dataRows, label, backgroundColor
                 dataRows: [],  // only the data arrays
-                downsampledData: [],
+                // downsampledData: [],
                 hideXLabels: false,
 
                 catViewOptions: [
@@ -331,7 +339,7 @@
                 this.categorizedData = this.jsonData.categorized;
                 this.skipFactor = this.calculateSkipFactor(this.dataRows.length, this.desiredPoints);
                 // this.downsampledData = this.downsampleData(this.dataRows, this.skipFactor);
-                this.downsampledData = this.dataRows;  // (testing) ignore downsampling and replace it with ranged data
+                // this.downsampledData = this.dataRows;  // (testing) ignore downsampling and replace it with ranged data
                 // TODO: replace downsampledData with dataRows
             },
             
@@ -381,13 +389,16 @@
             // TODO: fix bug: changing range after adding a new chart doesn't update data (.slice() will not be rendered)
             addSelectedChart() {
                 // this.chartValues = this.dataRows.map(e => e[this.yNewPicked])
-                this.chartValues = this.downsampledData.map(e => e[this.yNewPicked])
+                this.chartValues = this.dataRows.map(e => e[this.yNewPicked])
                 this.yNewValues = this.chartValues;
+                const randomColor = this.randomColor();
                 this.datasets.push(
                     {
                         label: this.yNewPicked,
                         data: this.yNewValues.slice(this.fromIndex-1, this.toIndex),
-                        backgroundColor: this.randomColor(), 
+                        backgroundColor: randomColor, 
+                        borderColor: randomColor,
+                        borderWidth: 1,
                     },
                 )
                 this.fillNumPlotData();
@@ -421,7 +432,7 @@
                 this.showAlert = true;
             },
             calculateSkipFactor(totalPoints) {
-                const desiredPoints = 100;
+                const desiredPoints = 50;
                 if (totalPoints <= desiredPoints) {
                     return 1; // No downsampling needed
                 }
@@ -429,9 +440,9 @@
                 const skipFactor = Math.ceil(totalPoints / desiredPoints);
                 return skipFactor;
             },
-            downsampleData(data, skipFactor) {
-                return data.filter((point, index) => index % skipFactor === 0);
-            },
+            // downsampleData(data, skipFactor) {
+            //     return data.filter((point, index) => index % skipFactor === 0);
+            // },
             // testLogger(smth) {
             //     console.log("something: ", smth)
             // }
@@ -442,19 +453,22 @@
             },
             xPicked() {
                 this.$emit("input", this.xPicked);
-                this.chartLabels = this.downsampledData.map(e => e[this.xPicked])
+                this.chartLabels = this.dataRows.map(e => e[this.xPicked]).slice(this.fromIndex-1, this.toIndex)
                 this.xLabels = this.chartLabels;
                 this.fillNumPlotData();
             },
             yPicked() {
                 this.$emit("input", this.yPicked);
-                this.chartValues = this.downsampledData.map(e => e[this.yPicked])
+                this.chartValues = this.dataRows.map(e => e[this.yPicked]).slice(this.fromIndex-1, this.toIndex)
                 this.yValues = this.chartValues;
+                const randomColor = this.randomColor();
                 this.datasets[0] =
                     {
                         label: this.yPicked,
                         data: this.yValues,
-                        backgroundColor: this.randomColor(), 
+                        backgroundColor: randomColor, 
+                        borderColor: randomColor,
+                        borderWidth: 1,
                     },
                 
                 this.fillNumPlotData();

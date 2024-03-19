@@ -108,8 +108,14 @@ export default {
                 beginAtZero: false
             },
         },
+        elements: {
+          point: {
+            radius: 0,
+            // pointStyle: 'line',
+          }
+        }
       }
     }
-  }
+  },
 }
 </script>
