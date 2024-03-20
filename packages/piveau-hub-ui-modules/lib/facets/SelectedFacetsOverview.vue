@@ -148,19 +148,19 @@
       findFacetFieldTitle(facet) {
         const fieldId = facet.field;
         try {
-          let title = "";
-          if(fieldId==='scoring'){
-           title=this.$t('message.header.navigation.data.metadataquality');
-          }else if(fieldId==='subject'){
-            title = 'EuroVoc keywords';
-          }else if(fieldId==='superCatalog' && facet.facets.toString() === 'erpd'){
-            title = this.$t('message.datasetFacets.facets.erpd');
-          }else{
-            title = this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
-          }
-          // const title = fieldId === 'scoring' ?
-          //   this.$t('message.header.navigation.data.metadataquality')
-          //   : this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+          // let title = "";
+          // if(fieldId==='scoring'){
+          //  title=this.$t('message.header.navigation.data.metadataquality');
+          // }else if(fieldId==='subject'){
+          //   title = 'EuroVoc keywords';
+          // }else if(fieldId==='superCatalog' && facet.facets.toString() === 'erpd'){
+          //   title = this.$t('message.datasetFacets.facets.erpd');
+          // }else{
+          //   title = this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+          // }
+          const title = fieldId === 'scoring' ?
+            this.$t('message.header.navigation.data.metadataquality')
+            : this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
 
           return !title.includes("@: message.metadata")? title : this.availableFacets.find(field => field.id === fieldId).title;
 
