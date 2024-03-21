@@ -168,6 +168,9 @@ export default defineComponent({
     clearForm() {
       this.$formkit.reset('dpi')
     },
+    scrollToTop() {
+      window.scrollTo(0,0);
+    },
     initInputPage() {
       this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
       this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
@@ -252,6 +255,11 @@ export default defineComponent({
     this.initCatalogues();
   },
   watch: {
+    activeStep: {
+      handler() {
+        this.scrollToTop();
+      },
+    },
     getFirstTitleFromForm: {
       handler() {
         // only create id from title if the user is not editing an existing dataset with an existing datasetID
