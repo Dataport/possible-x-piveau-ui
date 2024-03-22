@@ -2,20 +2,19 @@
   <FormKit type="form" :actions="false" :plugins="[stepPlugin]">
     <div name="distribution-stepper" class="singleDistributions">
       <div class="disSectionHead d-flex align-items-center">
-        <h3 @click="isActive = !isActive; editDis()" v-if="!nameSet">Distribution {{ name }}</h3>
-        <h3 v-else>{{values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id']}}</h3>
+        <h3 @click="isActive = !isActive; editDistribution()">{{ getName }}</h3>
         <div class="interactionDis">
-          <a @click="isActive = !isActive; editDis()">Edit</a>
-          <a @click="deleteDis(index)">Delete</a>
+          <a @click="isActive = !isActive; editDistribution()">Edit</a>
+          <a @click="deleteDistribution(index)">Delete</a>
         </div>
       </div>
 
-      <div class=" disInfoWrapper">
+      <div class="disInfoWrapper" v-if="!isCollapsed">
         <ul class="steps">
           <li v-for="(step, stepName, index) in steps" :key="index" class="step"
             :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0" :class="{
-    activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName)
-  }" @click="activeStep = stepName">
+              activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName)
+            }" @click="activeStep = stepName">
             <div class="stepBubbleWrap">
               <div class="circle stepCircle">{{ index + 1 }}</div>
               <span v-if="checkStepValidity(stepName)" class="step--errors" />
@@ -40,6 +39,7 @@
           </div>
         </div>
       </div>
+
       <!-- <Navigation :steps="distSteps" :nextStep="distNextStep" :previousStep="distPreviousStep"
               :goToNextStep="distGoToNextStep" :goToPreviousStep="distGoToPreviousStep"></Navigation> -->
       <!-- <h5>{{ getDisName() }}</h5> -->
@@ -84,7 +84,10 @@ export default defineComponent({
       type: Object,
     },
     context: {
-      type: Object
+      type: Object,
+    },
+    deleteDistribution: {
+      type: Function,
     }
   },
   components: {
@@ -92,7 +95,7 @@ export default defineComponent({
   },
   data() {
     return {
-      nameSet: false,
+      isCollapsed: false,
       camel2title: (str) =>
         str
           .replace(/([A-Z])/g, (match) => ` ${match}`)
@@ -100,47 +103,29 @@ export default defineComponent({
           .trim(),
       isActive: false
     }
-  }, methods: {
+  }, 
+  methods: {
     handleClick(i) {
       this.distributionSteps.filter(e => e.show = false)
       this.distributionSteps[i].show = !this.distributionSteps[i].show;
     },
-    deleteDis(e) {
-      console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
-    },
-    editDis() {
-      var activeDisArray = document.getElementsByClassName('disInfoWrapper');
-      for (let index = 0; index < document.getElementsByClassName('disInfoWrapper').length; index++) {
-        if (this.index != index && !activeDisArray[index].classList.contains('d-none')) {
-          activeDisArray[index].classList.toggle('d-none')
-
-        }
-        if (this.index === index) {
-          activeDisArray[index].classList.toggle('d-none')
-        }
-      }
-      // console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
+    editDistribution() {
+      this.isCollapsed = !this.isCollapsed;
     }
-  }, computed: {
+  }, 
+  computed: {
     ...mapGetters('dpiStore', [
       'getNavSteps'
     ]),
+    getName() {
+      return this.name 
+        || values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'];
+    },
     listElementShow() {
       return this.distributionSteps.filter(e => e.show);
     }
-
   },
-  created() {
-
-
-  },
-  async mounted() {
-    await nextTick()
-    if (this.values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'] != undefined || this.values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'] != "") {
-      this.nameSet = true
-    }else this.nameSet = false
-    
-  },
+  created() {},
   setup() {
     const {
       steps,

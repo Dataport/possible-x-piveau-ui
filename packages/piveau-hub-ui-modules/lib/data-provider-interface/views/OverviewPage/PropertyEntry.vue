@@ -59,8 +59,9 @@ export default {
         // Check if there's a valid value present
         showValue(property, value) {
             let listOfEmptyObjects = [];
-            // console.log(property,value);
+            console.log(property,value);
             if (property === undefined) { return false }
+            if (isNil(property)) { return false }
             if (value === "dct:modified" || value === "dct:issued") return false
             if (value === "dct:creator") {
                 if (isNil(property["dct:creator"]['foaf:name']) &&

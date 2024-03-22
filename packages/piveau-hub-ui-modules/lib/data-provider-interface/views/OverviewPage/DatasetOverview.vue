@@ -1,34 +1,34 @@
 <template>
-        <div class="mt-2" v-if="pageLoaded">
+    <div class="mt-2" v-if="pageLoaded">
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
-                <h1 class="dsTitle"> {{ checkIfSet(getData('datasets')['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0]) }}</h1>
+                <h1 class="dsTitle"> {{ getTitle() }}</h1>
             </div>
             <div class="secondRow d-flex justify-content-between">
                 <div class="dsCatalogue ">
                     <span><b>Catalog:</b></span>
                     <a href="">
-                        {{ checkIfSet(getData('datasets')['dcat:catalog']) }}
+                        {{ checkIfPropertySet(getDatasets, 'dcat:catalog') }}
                     </a>
 
                 </div>
                 <div class="dsPublisher">
                     <span><b>Published by:</b></span>
-                    <a> {{ getData('datasets')['dct:publisher']['name'] }}</a>
+                    <a> {{ checkIfPropertyValueSet(getDatasets, 'dct:publisher', 'name') }}</a>
                 </div>
                 <div class="dsIssued ">
                     <span><b>Issued:</b></span>
                     <a>
-                        {{ checkIfSet(new Date(getData('datasets')['dct:issued']['@value']).toDateString()) }}
-                        <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
+                        {{ new Date(checkIfPropertyValueSet(getDatasets, 'dct:issued', '@value')).toDateString() }}
+                        <!-- {{ new Date(getDatasets['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
                 </div>
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>
-                        {{ checkIfSet(new Date(getData('datasets')['dct:modified']['@value']).toDateString()) }}
-                        <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
+                        {{ new Date(checkIfPropertyValueSet(getDatasets, 'dct:modified', '@value')).toDateString() }}
+                        <!-- {{ new Date(getDatasets['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
                 </div>
             </div>
@@ -36,28 +36,27 @@
         <div class="dsMainWrap d-flex flex-column mt-3">
             <div class="">
                 <p class="dsDesc px-3">
-                    {{ checkIfSet(getData('datasets')['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0]) }}
+                    {{ getDescription() }}
                 </p>
             </div>
             <div class="">
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <PropertyEntry :data="getData('datasets')" profile="datasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
+                        <PropertyEntry :data="getDatasets" profile="datasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
                 </table>
             </div>
         </div>
-        <div class="dsDist b-top p-3" v-if="getData('datasets')['distributionList'].length > 0">
-            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('datasets')['distributionList'].length
-            }})</h2>
-            <DistributionOverview :dpiLocale="dpiLocale" :disList="getData('datasets')['distributionList']"></DistributionOverview>
+        <div class="dsDist b-top p-3" v-if="getDistributions.length > 0">
+            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getDistributions.length }})</h2>
+            <DistributionOverview :dpiLocale="dpiLocale" :disList="getDistributions"></DistributionOverview>
         </div>
 
         <div class="dsKeywords b-top my-2 p-3"
-            v-if="getData('datasets')['dct:keyword'] != undefined && getData('datasets')['dct:keyword'][0]['@value'] != undefined && getData('datasets')['dct:keyword'].length > 0">
-            <h2 class="my-4">Keywords <span>({{ getData('datasets')['dct:keyword'].length }})</span></h2>
+            v-if="getDatasets['dct:keyword'] != undefined && getDatasets['dct:keyword'][0]['@value'] != undefined && getDatasets['dct:keyword'].length > 0">
+            <h2 class="my-4">Keywords <span>({{ getDatasets['dct:keyword'].length }})</span></h2>
             <div class="d-flex">
-                <span class="mx-1" v-for="( element, index ) in  getData('datasets')['dct:keyword'].filter(el => el['@language'] === dpiLocale)" :key="index">
+                <span class="mx-1" v-for="( element, index ) in  getDatasets['dct:keyword'].filter(el => el['@language'] === dpiLocale)" :key="index">
                     <small :title="element" class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
                         {{ element['@value'] }}
                     </small>
@@ -136,18 +135,15 @@ export default {
         ...mapGetters('dpiStore', [
             'getData',
         ]),
-
+        getDatasets() {
+            return this.getData('datasets');
+        },
+        getDistributions() {
+            return this.getDatasets['distributionList'] || [];
+        },
         showTable() {
-            return Object.keys(this.tableProperties).filter(prop => this.getData('datasets')[prop]).length > 0;
+            return Object.keys(this.tableProperties).filter(prop => this.getDatasets[prop]).length > 0;
         }
-
-    },
-    async mounted() {
-        this.$nextTick(() => {
-            
-            this.pageLoaded = true
-
-        })
     },
     methods: {
         ...mapActions("dpiStore", [
@@ -155,16 +151,23 @@ export default {
             "requestAutocompleteSuggestions",
             "requestResourceName",
         ]),
-        checkIfSet(data) {
-
-            if (data != undefined) return data
+        checkIfPropertySet(data, property) {
+            if (data[property] != undefined) return data[property]
             else {
                 return "No data available"
             }
         },
-        getTitle(propertyName) {
-            return propertyName.split(':')[1]
-
+        checkIfPropertyValueSet(data, property, value) {
+            if (data[property] != undefined && data[property][value] != undefined) return data[property][value]
+            else {
+                return "No data available"
+            }
+        },
+        getTitle() {
+            return this.getDatasets['dct:title'] && this.getDatasets['dct:title'].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value'])[0];
+        },
+        getDescription() {
+            return this.getDatasets['dct:description'] && this.getDatasets['dct:description'].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value'])[0];
         },
         async reqName(URI) {
             let nameOfProperty = URI.split('/')
@@ -173,9 +176,15 @@ export default {
             const data = await axios.get(req)
             return data['data']['result']['pref_label'][this.dpiLocale]
         }
-    }
+    },
+    async mounted() {
+        this.$nextTick(() => {         
+            this.pageLoaded = true;
+        })
+    },
 }
 </script>
+
 <style>
 .overviewHeader {
 
@@ -206,4 +215,5 @@ export default {
 
 .dist-edit {
     cursor: pointer
-}</style>
+}
+</style>

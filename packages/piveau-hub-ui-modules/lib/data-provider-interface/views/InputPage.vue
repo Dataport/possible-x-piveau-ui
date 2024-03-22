@@ -1,7 +1,9 @@
 <template>
   <div class="form-container ">
     
-    <details>{{ formValues }}</details>
+    <details>
+      <pre>{{ formValues }}</pre>
+    </details>
     <div class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -163,7 +165,7 @@ export default defineComponent({
       'clearAll',
     ]),
     update() {
-      this.$forceUpdate();
+      // this.$forceUpdate();
     },
     clearForm() {
       this.$formkit.reset('dpi')
