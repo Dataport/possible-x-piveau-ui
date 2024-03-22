@@ -80,7 +80,7 @@ onClickOutside(I2, event => showTable.second = false)
 onClickOutside(I3, event => showTable.third = false)
 function activeInput(e) {
 
-    console.log('in', showTable);
+    // console.log('in', showTable);
     if (e === "showTable") showTable.first = !showTable.first;
     if (e === "showVocTable") showTable.second = !showTable.second;
     if (e === "showVocEntries") {

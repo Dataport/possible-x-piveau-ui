@@ -1,8 +1,8 @@
 <template>
   <div class="form-container ">
-    
-    <details>{{ formValues }}</details>
-    <div class="inputContainer" v-if="isInput">
+
+    <!-- <details>{{ formValues }}</details> -->
+    <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
         <FormKit type="form" v-model.lazy="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
@@ -14,7 +14,7 @@
               <li v-for="(step, stepName, index) in steps" :key="step" class="step"
                 :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
                 :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName) }"
-                @click="activeStep = stepName; update()">
+                @click="activeStep = stepName; update(); scrollToTop()">
 
 
                 <div class="stepBubbleWrap">
@@ -78,6 +78,7 @@ import InputPageStep from '../components/InputPageStep.vue';
 import Navigation from '../components/Navigation.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import axios from 'axios';
+import { useWindowScroll } from '@vueuse/core'
 
 export default defineComponent({
   props: {
@@ -164,6 +165,8 @@ export default defineComponent({
     ]),
     update() {
       this.$forceUpdate();
+
+
     },
     clearForm() {
       this.$formkit.reset('dpi')
@@ -291,6 +294,12 @@ export default defineComponent({
       goToPreviousStep,
     } = useDpiStepper();
 
+    const scrollToTop = () => {
+      let { x, y } = useWindowScroll({ behavior: 'smooth' })
+      y.value = 0
+
+    }
+
     const checkStepValidity = (stepName) => {
       return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
     }
@@ -307,7 +316,7 @@ export default defineComponent({
       checkStepValidity,
       goToNextStep,
       goToPreviousStep,
-
+      scrollToTop,
       library,
     }
   }
