@@ -164,7 +164,9 @@ const groupedProperties = {
 // for properties with dynamic input type
 const conditionalProperties = {
     datasets: [],
-    distributions: [],
+    distributions: [
+        'dct:license'
+    ],
     catalogues: [],
 }
 

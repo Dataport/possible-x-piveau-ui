@@ -275,17 +275,21 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 }
             } else if (formatTypes.conditionalProperties[property].includes(key)) {
                 // publisher either is an URI or a group with multiple values (name, homepage, email)
-                if (key === 'dct:publisher') {
+                // license either is an URI or a group with multiple values ()
+                if (key === 'dct:publisher' || key === 'dct:license') {
+                    const modeKey = Object.keys(data[key]).filter(key => key !== 'details')[0]; 
                     // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
-                    if (typeof data[key] === 'string') {
+                    if (data[key][modeKey] === 'voc') {
                         generalHelper.addKeyToFormatType(key, 'singularURI', property, formatTypes);
-                    } else if (Array.isArray(data[key])) {
+                    } else {
                         generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatTypes);
                     }
                     generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatTypes);
 
+                    const propertyData = {};
+                    propertyData[key] = data[key].details['@id'];
                     // now conversion run based on newly defined format Type
-                    convertPropertyValues(RDFdataset, data, property, mainURI, mainType, false, dpiConfig);
+                    convertPropertyValues(RDFdataset, propertyData, property, mainURI, mainType, false, dpiConfig);
 
                     // to handle changes: undo prior changes back to default behavior (conditional Property)
                     generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatTypes);
@@ -363,8 +367,12 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     N3.DataFactory.namedNode(generalHelper.addNamespace('rdfs:label', dpiConfig)),
                     rightsValue
                 ))
-            } else if (key === 'dct:license') {
+            // } else if (key === 'dct:license') {
+                console.log('######', data[key])
                 // licence is a conditional property providing either an URI or a group of values
+                if (data[key].licenceMode === 'voc') {
+                    console.log()
+                }
                 if (typeof data[key] === 'string') { // URI
                     convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
                 } else {
