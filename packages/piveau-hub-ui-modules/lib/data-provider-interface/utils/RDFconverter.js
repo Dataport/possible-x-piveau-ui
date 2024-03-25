@@ -123,7 +123,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     const valueKeys = Object.keys(data);
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index]; // key format: either a normal name for special properties (e.g. datasetID) or namespaced keys (e.g. dct:title)
-        console.log('####', key)
 
         if(generalHelper.propertyHasValue(data[key])) {
             // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
@@ -154,7 +153,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 
                 let actualData;
                 // vcard:hasAdress is not an object
-                if (key === 'vcard:hasAddress') actualData = [data[key]];
+                if (key === 'vcard:hasAddress' || key === 'dct:creator') actualData = [data[key]];
                 else actualData = data[key];
 
                 // looping trough all existing objects within the array
@@ -374,7 +373,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     rightsValue
                 ))
             // } else if (key === 'dct:license') {
-                console.log('######', data[key])
                 // licence is a conditional property providing either an URI or a group of values
                 if (data[key].licenceMode === 'voc') {
                     console.log()
