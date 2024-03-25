@@ -42,14 +42,14 @@
             <div class="">
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <PropertyEntry :data="getDatasets" profile="datasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
+                        <PropertyEntry profile="datasets" :data="getDatasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
                 </table>
             </div>
         </div>
         <div class="dsDist b-top p-3" v-if="getDistributions.length > 0">
             <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getDistributions.length }})</h2>
-            <DistributionOverview :dpiLocale="dpiLocale" :disList="getDistributions"></DistributionOverview>
+            <DistributionOverview :dpiLocale="dpiLocale" :distributions="getDistributions"></DistributionOverview>
         </div>
 
         <div class="dsKeywords b-top my-2 p-3"

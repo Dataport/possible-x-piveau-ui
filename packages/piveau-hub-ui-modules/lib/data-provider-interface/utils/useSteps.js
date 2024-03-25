@@ -11,9 +11,12 @@ export default function useSteps () {
     if (oldStep && !visitedSteps.value.includes(oldStep)) {
       visitedSteps.value.push(oldStep)
     }
+
     // Trigger showing validation on fields if a group has been visited
     visitedSteps.value.forEach((step) => {
       const node = getNode(step)
+
+      if (node === undefined) return;
 
       // the node.walk() method walks through all the descendants of the current node
       // and executes the provided function.

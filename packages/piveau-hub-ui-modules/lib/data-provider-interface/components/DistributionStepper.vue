@@ -39,28 +39,12 @@
           </div>
         </div>
       </div>
-
-      <!-- <Navigation :steps="distSteps" :nextStep="distNextStep" :previousStep="distPreviousStep"
-              :goToNextStep="distGoToNextStep" :goToPreviousStep="distGoToPreviousStep"></Navigation> -->
-      <!-- <h5>{{ getDisName() }}</h5> -->
-      <!-- <div class="disInputInteractionButtons">
-        <div v-for="step, index in distributionSteps" :key="step">
-          <span v-on:click="handleClick(index)"> {{ step.name }}</span>
-        </div>
-      </div>
-      <FormKit type="group">
-        <div v-for="step, index in distributionSteps" :key="step">
-          <div v-show="step['show']">
-            <FormKitSchema :schema="schema[index]" />
-          </div>
-        </div>
-      </FormKit> -->
     </div>
   </FormKit>
 </template>
 
 <script>
-import { defineComponent, markRaw, nextTick } from 'vue';
+import { defineComponent, markRaw } from 'vue';
 import { mapGetters } from 'vuex';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import InputPageStep from '../components/InputPageStep.vue';
@@ -86,9 +70,15 @@ export default defineComponent({
     context: {
       type: Object,
     },
+    distributionIsCollapsed: {
+      type: Boolean,
+    },
+    collapseDistributions: {
+      type: Function,
+    },
     deleteDistribution: {
       type: Function,
-    }
+    },
   },
   components: {
     InputPageStep,
@@ -105,12 +95,9 @@ export default defineComponent({
     }
   }, 
   methods: {
-    handleClick(i) {
-      this.distributionSteps.filter(e => e.show = false)
-      this.distributionSteps[i].show = !this.distributionSteps[i].show;
-    },
     editDistribution() {
       this.isCollapsed = !this.isCollapsed;
+      this.collapseDistributions(this.index);
     }
   }, 
   computed: {
@@ -121,9 +108,13 @@ export default defineComponent({
       return this.name 
         || values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'];
     },
-    listElementShow() {
-      return this.distributionSteps.filter(e => e.show);
-    }
+  },
+  watch: {
+    distributionIsCollapsed: {
+      handler(newValue) {
+        this.isCollapsed = newValue;
+      },
+    },
   },
   created() {},
   setup() {
