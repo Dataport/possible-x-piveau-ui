@@ -137,6 +137,7 @@ export default {
       this.$Progress.start();
 
       const RDFdata = await this.convertToRDF(this.property).then((response) => { return response; });
+      console.log(RDFdata);
       const rtpToken = this.getUserData.rtpToken;
 
       const datasetId = this.getData(this.property)['datasetID'];
@@ -185,35 +186,35 @@ export default {
         actionName = 'auth/createCatalogue';
       }
 
-      try {
+      // try {
         // Dispatch the right action depending on the mode
 
-        const idIsUnqiue = this.idunique(datasetId);
+        // const idIsUnqiue = this.idunique(datasetId);
 
-        if (idIsUnqiue) {
-          await this.$store.dispatch(actionName, actionParams);
-          await new Promise(resolve => setTimeout(resolve, 250));
+        // if (idIsUnqiue) {
+          // await this.$store.dispatch(actionName, actionParams);
+          // await new Promise(resolve => setTimeout(resolve, 250));
 
-          this.$Progress.finish();
-          this.uploading = false;
+          // this.$Progress.finish();
+          // this.uploading = false;
 
-          if (mode === 'createcatalogue') this.createCatalogue(datasetId);
-          if (mode === 'dataset') this.createDataset(datasetId);
-          if (mode === 'draft') this.createDraft();
+          // if (mode === 'createcatalogue') this.createCatalogue(datasetId);
+          // if (mode === 'dataset') this.createDataset(datasetId);
+          // if (mode === 'draft') this.createDraft();
 
           // store needs to be reset
-          this.clearAll();
-        } 
-        else {
-          this.uploading[mode] = false;
-          this.$Progress.fail();
-          this.handleIDError();
-        }
-      } catch (err) {
-        this.uploading[mode] = false;
-        this.$Progress.fail();
-        this.showSnackbar({ message: 'Network Error', variant: 'error' });
-      }
+          // this.clearAll();
+        // } 
+        // else {
+          // this.uploading[mode] = false;
+          // this.$Progress.fail();
+          // this.handleIDError();
+        // }
+      // } catch (err) {
+        // this.uploading[mode] = false;
+        // this.$Progress.fail();
+        // this.showSnackbar({ message: 'Network Error', variant: 'error' });
+      // }
     },
     createDataset(datasetId) {
       this.clearAll();

@@ -588,12 +588,13 @@ function convertTypedString(RDFdataset, id, data, key, dpiConfig) {
         if (key === 'dct:issued' || key === 'dct:modified') {
             if (has(data[key], '@value') && !isEmpty(data[key]['@value'])) {
                 const imValueType = data[key]['@type'] === 'date' ? data[key]['@type'] : 'dateTime';
+                const valueType = generalHelper.addNamespace(`xsd:${imValueType}`, dpiConfig);
 
                 /// save quad to dataset
                 RDFdataset.addQuad(N3.DataFactory.quad(
                     id,
                     N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
-                    N3.DataFactory.literal(data[key]['@value'], N3.DataFactory.namedNode(imValueType))
+                    N3.DataFactory.literal(data[key]['@value'], N3.DataFactory.namedNode(valueType))
                 ));
             }
         } else {
