@@ -1048,7 +1048,7 @@ const dcatapProperties: InputDefinition = {
     },
     versionInfo: {
       identifier: 'versionInfo',
-      $formkit: 'number',
+      $formkit: 'text',
       name: 'owl:versionInfo',
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
