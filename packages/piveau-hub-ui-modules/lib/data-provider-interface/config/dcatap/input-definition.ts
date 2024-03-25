@@ -106,6 +106,8 @@ export type InputDefinition = {
   catalogues: Record<DcatApCataloguesProperty, FormKitSchemaDefinition>;
 }
 
+const currentDate = new Date();
+
 const dcatapProperties: InputDefinition = {
   datasets: {
     overview: {
@@ -924,6 +926,7 @@ const dcatapProperties: InputDefinition = {
           $formkit: 'select',
           name: '@type',
           options: { date: 'Date', datetime: 'Datetime' },
+
         },
         {
           identifier: 'issued',
@@ -934,6 +937,8 @@ const dcatapProperties: InputDefinition = {
             then: {
               type: 'date',
               name: '@value',
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
               classes: {
                 outer: 'w-100'
               },
@@ -941,6 +946,8 @@ const dcatapProperties: InputDefinition = {
             else: {
               type: 'datetime-local',
               name: '@value',
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
               classes: {
                 outer: 'w-100'
               },
@@ -977,6 +984,8 @@ const dcatapProperties: InputDefinition = {
               classes: {
                 outer: 'w-100'
               },
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
             },
             else: {
               type: 'datetime-local',
@@ -984,6 +993,8 @@ const dcatapProperties: InputDefinition = {
               classes: {
                 outer: 'w-100'
               },
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
             }
           }
         },
@@ -1582,6 +1593,7 @@ const dcatapProperties: InputDefinition = {
             then: {
               type: 'date',
               name: '@value',
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
               classes: {
                 outer: 'w-100'
               },
@@ -1589,6 +1601,7 @@ const dcatapProperties: InputDefinition = {
             else: {
               type: 'datetime-local',
               name: '@value',
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
               classes: {
                 outer: 'w-100'
               },
@@ -1622,6 +1635,7 @@ const dcatapProperties: InputDefinition = {
             then: {
               type: 'date',
               name: '@value',
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
               classes: {
                 outer: 'w-100'
               },
@@ -1629,6 +1643,7 @@ const dcatapProperties: InputDefinition = {
             else: {
               type: 'datetime-local',
               name: '@value',
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
               classes: {
                 outer: 'w-100'
               },
@@ -1655,14 +1670,14 @@ const dcatapProperties: InputDefinition = {
             then: {
               identifier: 'rightsUrl',
               type: "url",
-              label:"URL",
-              placeholder:"Provide a URL"
+              label: "URL",
+              placeholder: "Provide a URL"
             },
             else: {
               identifier: 'rightsString',
               type: "text",
-              label:"Text",
-              placeholder:"Provide a text"
+              label: "Text",
+              placeholder: "Provide a text"
             }
           }
         },
