@@ -20,8 +20,8 @@
                     <p v-else>
                         No title in this language
                     </p>
-                    <p v-if="distribution['dct:format'] != undefined">
-                        {{ getDistributionFormat(distribution) }}
+                    <p v-if="Object.keys(distribution['dct:format']).length != 0 ">
+                        {{ getDistributionFormat(distribution) }} 
                     </p>
                     <p v-else>
                         No format provided
