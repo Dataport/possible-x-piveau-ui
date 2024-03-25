@@ -1,16 +1,8 @@
 <template>
   <div class="form-container ">
-<<<<<<< HEAD
-    
-    <details>
-      <pre>{{ formValues }}</pre>
-    </details>
-    <div class="inputContainer" v-if="isInput">
-=======
 
     <!-- <details>{{ formValues }}</details> -->
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
->>>>>>> f/Vue-3
       <div class="formContainer formkit position-relative">
 
         <FormKit type="form" v-model.lazy="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
