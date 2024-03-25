@@ -2,16 +2,26 @@
   <h1>Distributions</h1>
   <hr>
   <div name="distribution-stepper-list" class="distributionsListClass">
+
     <FormKit type="list" name="distributionList">
-      <section v-for="i in distributionList" :key="i">
-        <DistributionStepper :name="`${i + 1}`" :index=i :schema="schema" :values="values" />
+      <section v-for="(dist, index) in distributionList" :key="index">
+        <DistributionStepper 
+          :name="dist" 
+          :index="index" 
+          :schema="schema" 
+          :values="values" 
+          :distributionIsCollapsed="collapsedDistributions[index]" 
+          :collapseDistributions="collapseDistributions" 
+          :deleteDistribution="deleteDistribution" 
+          :distributionList="distributionList"
+          ></DistributionStepper>
       </section>
     </FormKit>
 
-    <button class="btn btn-secondary" @click="pushDistribution">{{ $t('message.dataupload.newDistribution') }}</button>
-    <button class="btn btn-secondary" @click="popDistribution">{{
-        $t('message.dataupload.deletemodal.deleteDistribution')
-      }}</button>
+    <button class="btn btn-secondary" @click="addDistribution">{{ $t('message.dataupload.newDistribution') }}</button>
+    <button class="btn btn-secondary" @click="deleteAllDistributions">Delete all Distributions</button>
+    <!-- <button class="btn btn-secondary" @click="deleteAllDistributions">{{ $t('message.dataupload.deletemodal.deleteAllDistributions') }}</button> -->
+
   </div>
 </template>
 
@@ -34,57 +44,45 @@ export default defineComponent({
   },
   data() {
     return {
-      latestNonce: 0,
       distributionList: [],
-      nameOfDistribution: "",
-      presentDistributions: 0
+      collapsedDistributions: [],
+      existingDistributions: 0,
     }
   },
   created() {
-    try {
-      this.presentDistributions = JSON.parse(localStorage.getItem('dpi_datasets'))['Distributions']['distributionList'].length
-    } catch (error) {
+    // TODO: Load from LOCAL STORAGE
+    // try {
+    //   this.existingDistributions = JSON.parse(localStorage.getItem('dpi_datasets'))['Distributions']['distributionList'].length
+    // } catch (error) {
 
-    }
-    for (let index = 0; index < this.presentDistributions; index++) {
-      this.distributionList.push(index)
-    }
-  },
-  async mounted() {
-    try {
-      for (let arrInd = 0; arrInd < document.getElementsByClassName('disInfoWrapper').length; arrInd++) {
-        document.getElementsByClassName('disInfoWrapper')[arrInd].classList.toggle('d-none');
-      }
-      document.getElementsByClassName('disInfoWrapper')[0].classList.toggle('d-none');
-    } catch (error) {
-    }
-
-    await nextTick()
-    
-
+    // }
+    // for (let index = 0; index < this.existingDistributions; index++) {
+    //   this.distributionList.push(index)
+    // }
   },
   methods: {
-    closeAllDis() {
-      for (let arrInd = 0; arrInd < document.getElementsByClassName('disInfoWrapper').length; arrInd++) {
-        if (!document.getElementsByClassName('disInfoWrapper')[arrInd].classList.contains('d-none')) {
-          document.getElementsByClassName('disInfoWrapper')[arrInd].classList.toggle('d-none');
-
-        }
-      }
+    addDistribution() {
+      this.distributionList.push(`Distribution ${this.existingDistributions + 1}`);
+      this.collapseAllDistributions();
+      this.collapsedDistributions.push(false);
+      this.existingDistributions++;
     },
-    pushDistribution() {
-      this.distributionList.push(this.latestNonce);
-      this.latestNonce++;
-      this.closeAllDis();
-      try { document.getElementsByClassName('disInfoWrapper')[this.latestNonce].classList.toggle('d-none') }
-      catch (error) { }
-
-    },
-    popDistribution() {
-      this.distributionList.pop();
-    },
-    removeDistributionByIndex(index) {
+    deleteDistribution(index) {
       this.distributionList.splice(index, 1);
+      this.collapsedDistributions.splice(index, 1);
+      this.collapseAllDistributions();
+    },
+    deleteAllDistributions() {
+      this.distributionList = [];
+      this.collapsedDistributions = [];
+      this.existingDistributions = 0;
+    },
+    collapseDistributions(index) {
+      this.collapseAllDistributions();
+      this.collapsedDistributions[index] = false;
+    },
+    collapseAllDistributions() {
+      this.collapsedDistributions = this.collapsedDistributions.map(cd => true);
     },
   },
 });

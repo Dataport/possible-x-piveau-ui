@@ -202,7 +202,7 @@ export default {
             && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
               if(activeFields.includes(field.id)) activeFacets.push(field);
               else inactiveFacets.push(field);
-              }
+          }
         });
       });
       const sortedFacets = activeFacets.concat(inactiveFacets);

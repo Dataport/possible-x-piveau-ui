@@ -134,7 +134,7 @@
 
     <!-- DATA SERVICE -->
     <tr
-        v-if="property === 'dcat:accessService' && Object.keys(data[Object.keys(data)[0]][0]).length > 1 && Object.keys(data[Object.keys(data)[1]][0]).length > 1">
+        v-if="showDataService()">
       
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td class="">
@@ -176,6 +176,12 @@ export default {
         AppLink,
     },
     methods: {
+        showDataService() {
+            try {
+                return this.property === 'dcat:accessService' && Object.keys(this.data[Object.keys(this.data)[0]][0]).length > 1 && Object.keys(this.data[Object.keys(this.data)[1]][0]).length > 1;
+            } catch (error) {
+            }
+        },
         showMultilingualValue(property, value) {
             const nonEmptyProperty = has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
 

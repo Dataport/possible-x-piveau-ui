@@ -23,6 +23,10 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  has,
+  isNil,
+} from 'lodash-es';
 import AppLink from "../../widgets/AppLink.vue";
 import axios from 'axios'
 
@@ -46,6 +50,8 @@ export default {
 
   },
   methods: {
+    has,
+    isNil,
     // handleEdit(catalog) {
     //   this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'catalogues' }, query: { locale: this.$route.query.locale }}).catch(() => {});
     // },
@@ -57,20 +63,23 @@ export default {
         .catch((err) => {
           reject(err);
         });
+
       this.info.data.result.results.forEach((e) => {
-        this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
+        if (has(e, 'title') && !isNil(e.title) && has(e, 'id') && !isNil(e.id)) this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
       });
-      let cache = []
-      for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
-        for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
-          if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
-            this.getUserCatalogIds[i] = this.catalogues[a].title;
-            cache.push({id:this.catalogues[a].id, title: this.catalogues[a].title})
-            break
-          }
-        }
-      }
-      this.catalogues = cache
+
+      // TODO: Do we need this?
+      // let cache = []
+      // for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
+      //   for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
+      //     if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
+      //       this.getUserCatalogIds[i] = this.catalogues[a].title;
+      //       cache.push({id:this.catalogues[a].id, title: this.catalogues[a].title})
+      //       break
+      //     }
+      //   }
+      // }
+      // this.catalogues = cache
     },
   },
   created() {

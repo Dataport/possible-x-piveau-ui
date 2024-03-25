@@ -59,16 +59,16 @@ export default {
         // Check if there's a valid value present
         showValue(property, value) {
             let listOfEmptyObjects = [];
-            // console.log(property,value);
-            if (property === undefined) { return false }
+
+            if (isNil(property)) return false;
+            if (!has(property, value)) return false;
+            if (property === undefined) return false;
+
             if (value === "dct:modified" || value === "dct:issued") return false
             if (value === "dct:creator") {
-                if (isNil(property["dct:creator"]['foaf:name']) &&
-                    isNil(property["dct:creator"]['foaf:mbox']) &&
-                    isNil(property["dct:creator"]['foaf:homepage'])) {
-                    return false
-                }
-                return true
+                return isNil(property["dct:creator"]['foaf:name']) 
+                    && isNil(property["dct:creator"]['foaf:mbox']) 
+                    && isNil(property["dct:creator"]['foaf:homepage']) 
             }
             if (value === "dcat:temporalResolution") {
                 // console.log(property[value], Object.keys(property[value]).length);
