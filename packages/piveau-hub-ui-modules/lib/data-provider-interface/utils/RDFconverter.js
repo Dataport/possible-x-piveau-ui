@@ -123,6 +123,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
     const valueKeys = Object.keys(data);
     for (let index = 0; index < valueKeys.length; index += 1) {
         const key = valueKeys[index]; // key format: either a normal name for special properties (e.g. datasetID) or namespaced keys (e.g. dct:title)
+        console.log('####', key)
 
         if(generalHelper.propertyHasValue(data[key])) {
             // all properties are sorted by their format (see .../data-provider-interface/config/format-types.js)
@@ -151,9 +152,14 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 // the properties values are stored within an object located within an array
                 // for repeatable properties there are multiple objects in this array, otherwise there is just one
                 
+                let actualData;
+                // vcard:hasAdress is not an object
+                if (key === 'vcard:hasAddress') actualData = [data[key]];
+                else actualData = data[key];
+
                 // looping trough all existing objects within the array
-                for (let groupId = 0; groupId < data[key].length; groupId += 1) {
-                    let currentGroupData = data[key][groupId];
+                for (let groupId = 0; groupId < actualData.length; groupId += 1) {
+                    let currentGroupData = actualData[groupId];
 
                     if (!isEmpty(currentGroupData)) {
                         if (key === 'skos:notation') {
