@@ -1,14 +1,19 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import axios from 'axios';
+import { inject } from 'vue';
+
+function getEnvironmentVariables() {
+    return inject('env');
+}
 
 const state = {};
 const getters = {};
-// ToDo URL is hardcoded, have to get it from the config
+
 const actions = {
     requestFirstEntrySuggestions({ commit }, voc) {
         return new Promise((resolve, reject) => {
-            const req = `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
+            const req = `${getEnvironmentVariables().api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -21,7 +26,7 @@ const actions = {
     requestAutocompleteSuggestions({ commit }, { voc, text }) {
         return new Promise((resolve, reject) => {
             const input = text;
-            const req = `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
+            const req = `${getEnvironmentVariables().api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -36,16 +41,16 @@ const actions = {
         if(voc === undefined) return
         if(voc === "application") return 
 
-        const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];   
+        const dpiConfig = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];   
         const value = encodeURIComponent(resource.replace(dpiConfig.vocabPrefixes[voc], ""));
         let req;
 
         // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
         if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
-            req = `https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/vocabularies/${voc}`;
+            req = `${getEnvironmentVariables().api.baseUrl}vocabularies/${voc}`;
            
         } else {
-            req = `https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/vocabularies/${voc}/${value}`;
+            req = `${getEnvironmentVariables().api.baseUrl}vocabularies/${voc}/${value}`;
             
         }
         return new Promise((resolve, reject) => {
