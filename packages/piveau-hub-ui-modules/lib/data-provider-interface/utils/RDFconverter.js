@@ -152,8 +152,8 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 // for repeatable properties there are multiple objects in this array, otherwise there is just one
                 
                 let actualData;
-                // vcard:hasAdress is not an object
-                if (key === 'vcard:hasAddress' || key === 'dct:creator') actualData = [data[key]];
+                // vcard:hasAdress is an object as well as dct:creator and skos:notation
+                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation') actualData = [data[key]];
                 else actualData = data[key];
 
                 // looping trough all existing objects within the array
