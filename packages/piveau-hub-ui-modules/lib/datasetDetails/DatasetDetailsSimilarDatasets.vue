@@ -106,7 +106,7 @@
         return distance >= this.breakpoints[similarType].start && distance < this.breakpoints[similarType].end;
       },
       similarDatasetLink(url) {
-        const idIndex = 'https://data.europa.eu/88u/dataset/'.length;
+        const idIndex = url.lastIndexOf('/') + 1;
         const id = url.substring(idIndex);
         return "../" + id + `?locale=${this.$route.query.locale}`;
       }
