@@ -8,7 +8,7 @@
         <div class="mt-4" v-if="similarDatasetsPresent && similarDatasetsFetched">
           <div v-for="(similarDataset, i) in similarDatasets" :key="i">
             <div class="mt-3 border-bottom border-secondary" v-if="has(similarDataset, 'title') && has(similarDataset, 'description')">
-              <app-link v-if="has(similarDataset, 'uri')" class="text-dark font-weight-bold" :path="similarDatasetLink(similarDataset.uri)">
+              <app-link v-if="has(similarDataset, 'uri')" class="text-dark font-weight-bold" :to="similarDatasetLink(similarDataset.uri)">
                 <h3>{{ getTranslationFor(similarDataset.title, $route.query.locale, getLanguages) }}</h3>
               </app-link>
               <p class="text-muted text-truncate">
@@ -108,7 +108,7 @@
       similarDatasetLink(url) {
         const idIndex = 'https://data.europa.eu/88u/dataset/'.length;
         const id = url.substring(idIndex);
-        return '/datasets/' + id + `?locale=${this.$route.query.locale}`;
+        return "../" + id + `?locale=${this.$route.query.locale}`;
       }
     },
     created() {
