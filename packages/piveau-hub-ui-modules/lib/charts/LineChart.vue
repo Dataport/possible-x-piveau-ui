@@ -113,6 +113,21 @@ export default {
             radius: 0,
             // pointStyle: 'line',
           }
+        },
+        plugins: {
+            legend: {
+              onClick: (e, legendItem) => {
+                this.$emit('remove-chart', legendItem)
+              },
+              display: true,
+              labels: {
+                  borderRadius: 10,
+                  useBorderRadius: true,
+                  pointStyle: 'circle',
+                  usePointStyle: true,
+                  padding: 20,
+              }
+            }
         }
       }
     }
