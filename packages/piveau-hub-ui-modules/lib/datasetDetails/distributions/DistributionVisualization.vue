@@ -33,57 +33,90 @@
                 <div v-if="activeTab == 'numerical'" role="tabpanel" id="numerical-chart">
                     <div v-if="showNumTabContent">
                         <div> 
-                            <span>Chart type: </span>
-                            <select v-model="viewType" class="form-select" aria-label="Default select example">
-                                <!-- <option selected>Select the Y axe</option> -->
-                                <option v-for="viewOption in viewOptions" :value="viewOption.value" :key="viewOption.value">{{ viewOption.label }} </option>
-                            </select>
-                            <div class="data-range-container">
-                                (#Records: {{ this.dataRows.length }}) Show records
-                                <label for="from">from:</label>
-                                <input @change="updateRange" type="number" id="from" v-model.number="fromIndex" min="1">
-                                <label for="to">to:</label>
-                                <input @change="updateRange" type="number" id="to" v-model.number="toIndex" :min="fromIndex" :max="this.dataRows.length">
+                            <div class="d-flex justify-content-between">
+                                <div class="mb-2 d-flex">
+                                    <div class="mr-3 d-flex flex-column align-items-start">
+                                        <!-- TODO: make a componant out of the following headers? -->
+                                        <div
+                                            class="mb-2 d-flex align-items-center w-100 justify-content-between">
+                                            <span class="font-weight-bold ml-1">Labels</span>
+                                            <i
+                                            class="tooltip-icon material-icons  align-right text-dark pl-1"
+                                            data-toggle="tooltip"
+                                            data-placement="right">
+                                            help_outline
+                                            </i>
+                                        </div>
+                                        <select v-model="xPicked" class="form-select form-select-lg" aria-label="select a view option">
+                                            <!-- <option selected>Select the X axe</option> -->
+                                            <option v-for="(value, index) in categoricalLabels" :key="index" :value="value">{{ value }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-start">
+                                        <div
+                                            class="mb-2 d-flex align-items-center w-100 justify-content-between">
+                                            <span class="font-weight-bold ml-1">Values</span>
+                                            <i
+                                            class="tooltip-icon material-icons  align-right text-dark pl-1"
+                                            data-toggle="tooltip"
+                                            data-placement="right">
+                                            help_outline
+                                            </i>
+                                        </div>
+                                        <select v-model="yPicked" class="form-select form-select-lg" aria-label="select X coerdinator">
+                                            <!-- <option selected>Select the Y axe</option> -->
+                                            <option v-for="(value, index) in numericalLabels" :key="index" :value="value">{{ value }}</option>
+                                        </select>
+                                    </div>
+                                </div>                            
+                                <div class="d-flex flex-column align-items-start">
+                                    <div
+                                            class="mb-2 d-flex align-items-center w-100 justify-content-between">
+                                            <span class="font-weight-bold ml-1">Chart type</span>
+                                            <i
+                                            class="tooltip-icon material-icons  align-right text-dark pl-1"
+                                            data-toggle="tooltip"
+                                            data-placement="right">
+                                            help_outline
+                                            </i>
+                                        </div>
+                                    <select v-model="viewType" class="form-select" aria-label="Default select example">
+                                        <!-- <option selected>Select the Y axe</option> -->
+                                        <option v-for="viewOption in viewOptions" :value="viewOption.value" :key="viewOption.value">{{ viewOption.label }} </option>
+                                    </select>
+                                </div>
                             </div>
-                            <small>Labels: </small>
-                            <select v-model="xPicked" class="" aria-label="select a view option">
-                                <!-- <option selected>Select the X axe</option> -->
-                                <option v-for="(value, index) in categoricalLabels" :key="index" :value="value">{{ value }}</option>
-                            </select>
-                            <small>Values: </small>
-                            <select v-model="yPicked" class="form-select" aria-label="select X coerdinator">
-                                <!-- <option selected>Select the Y axe</option> -->
-                                <option v-for="(value, index) in numericalLabels" :key="index" :value="value">{{ value }}</option>
-                            </select>
-                            <span>
-                                <small>Add chart: </small>
-                                <select v-model="yNewPicked" ref="yNewPicked" class="form-select" aria-label="select Y coerdinator">
-                                    <option disabled value="">select chart to add</option>
-                                    <option v-for="(value, index) in numericalLabels" :key="index" :value="value">{{ value }}</option>
-                                </select>
-                            </span>
-                            <button :disabled="!yNewPicked"
-                                    :class="{disabled: !yNewPicked}"
-                                    class="btn btn-light btn-sm"
-                                    @click="addSelectedChart" 
-                                    >
-                                    add chart
-                            </button>
-                            <button v-if="this.datasets.length > 1"
-                                    class="btn btn-light btn-sm"
-                                    @click="removeLastChart" 
-                                    >
-                                    remove chart
-                            </button>
-                            <button
+                            <div class="d-flex justify-content-start">
+                                <span>
+                                    <small>Add chart: </small>
+                                    <select v-model="yNewPicked" ref="yNewPicked" class="form-select" aria-label="select Y coerdinator">
+                                        <option disabled value="">select chart to add</option>
+                                        <option v-for="(value, index) in numericalLabels" :key="index" :value="value">{{ value }}</option>
+                                    </select>
+                                </span>
+                                <button :disabled="!yNewPicked"
+                                        :class="{disabled: !yNewPicked}"
+                                        class="btn btn-light btn-sm"
+                                        @click="addSelectedChart" 
+                                        >
+                                        add chart
+                                </button>
+                                <!-- <button v-if="this.datasets.length > 1"
+                                        class="btn btn-light btn-sm"
+                                        @click="removeLastChart" 
+                                        >
+                                        remove chart
+                                </button> -->
+                                <!-- <button
                                     class="btn btn-light btn-sm"
                                     @click="hideXLabels = !hideXLabels" 
                                     >
                                     {{  hideXLabels ? 'show labels' : 'hide labels' }}
-                            </button>
+                                </button> -->
+                            </div>
                         </div>
                         <bar-chart v-if="viewType === 'bar'" :chartData="this.datacollection" :chartOptions="this.options"></bar-chart>
-                        <line-chart v-else-if="viewType === 'line'" :chartData="this.datacollection" :chartOptions="this.options"></line-chart>
+                        <line-chart v-else-if="viewType === 'line'" :chartData="this.datacollection" :chartOptions="this.options" @remove-chart="removeChart"></line-chart>
                         <pie-chart v-else-if="viewType === 'pie'" :chartData="this.datacollection" :chartOptions="this.options"></pie-chart>
                         <doughnut-chart v-else-if="viewType === 'doughnut'" :chartData="this.datacollection" :chartOptions="this.options"></doughnut-chart>
                     </div>
@@ -104,9 +137,10 @@
                                 <!-- <option selected>Select the X axe</option> -->
                                 <option v-for="(value, index) in categoricalLabels" :key="index" :value="value">{{ value }}</option>
                             </select>
+                            
                         </div>
                         <bar-chart v-if="catViewType === 'bar'" :chartData="this.catDatacollection" :chartOptions="this.options"></bar-chart>
-                        <line-chart v-else-if="catViewType === 'line'" :chartData="this.catDatacollection" :chartOptions="this.options"></line-chart>
+                        <line-chart v-else-if="catViewType === 'line'" :chartData="this.catDatacollection" :chartOptions="this.options" @remove-chart="removeChart"></line-chart>
                         <pie-chart v-else-if="catViewType === 'pie'" :chartData="this.catDatacollection" :chartOptions="this.options"></pie-chart>
                         <doughnut-chart v-else-if="catViewType === 'doughnut'" :chartData="this.catDatacollection" :chartOptions="this.options"></doughnut-chart>
                     </div>
@@ -139,16 +173,28 @@
                         :maxPageLinks="10"
                         :boundaryLinks="true"
                     />
-                </div>
-                
+                </div>  
             </div>
         </div>
         
         <!-- Feedback Tool -->
-        <br>
-        <small class="text-muted">
-            Don't like the default view? suggest a better one <span @click="showFeedbackTool = !showFeedbackTool" class="text-primary pointer" type="button">here</span> 
-        </small>
+        <br> 
+        <div class="d-flex justify-content-between align-items-center">
+            <small class="text-muted">
+                Don't like the default view? suggest a better one <span @click="showFeedbackTool = !showFeedbackTool" class="text-primary pointer" type="button">here</span> 
+            </small>
+    
+            <div class="dv-records-range-container text-center">
+                <small class="dv-records-range-container-record-number mr-1">{{ this.dataRows.length }} Records</small>
+                <small v-if="activeTab === 'numerical'">
+                    <label for="from">show records from</label>
+                    <input @change="updateRange" type="number" id="from" v-model.number="fromIndex" min="1">
+                    <label for="to">-</label>
+                    <input @change="updateRange" type="number" id="to" v-model.number="toIndex" :min="fromIndex" :max="this.dataRows.length">
+                </small>
+            </div>
+        </div>
+
         <div v-if="showFeedbackTool" class="feedback-tool-wrapper">
             <form action="" class="feedback-tool-form">
                 <span>Suggest a view type and graph-indicators to be set as default: </span>
@@ -200,7 +246,7 @@
     import PieChart from '../../charts/PieChart.vue'
 
     export default {
-        name: "distributionPreview",
+        name: "distributionVisualization",
         components: {
             BarChart,
             LineChart,
@@ -238,7 +284,6 @@
                 datacollection: {},
                 datasets: [],  // dataRows, label, backgroundColor
                 dataRows: [],  // only the data arrays
-                // downsampledData: [],
                 hideXLabels: false,
 
                 catViewOptions: [
@@ -270,6 +315,21 @@
                             beginAtZero: false
                         },
                     },
+                    plugins: {
+                        legend: {
+                            onClick: (e, legendItem) => {
+                                this.removeChart(legendItem)
+                            },
+                            display: true,
+                            labels: {
+                                borderRadius: 10,
+                                useBorderRadius: true,
+                                pointStyle: 'circle',
+                                usePointStyle: true,
+                                padding: 20,
+                            }
+                        }
+                    }
                 },
                 // Feedback tool
                 suggestedViewType: '',
@@ -282,9 +342,7 @@
         },
         mounted() {
         // Einlesen
-        fetch("/test_json_7.json")
-        // fetch("/expanded_json_16.json")
-        // fetch("/expanded_json_16_shorted.json")
+        fetch("/test_json_8.json")
         .then(response => {
                 const reader = response.body.getReader();
                 return new ReadableStream({
@@ -338,9 +396,6 @@
                 if (!this.toIndex) this.toIndex = this.dataRows.length < 100 ? this.dataRows.length : 100;
                 this.categorizedData = this.jsonData.categorized;
                 this.skipFactor = this.calculateSkipFactor(this.dataRows.length, this.desiredPoints);
-                // this.downsampledData = this.downsampleData(this.dataRows, this.skipFactor);
-                // this.downsampledData = this.dataRows;  // (testing) ignore downsampling and replace it with ranged data
-                // TODO: replace downsampledData with dataRows
             },
             
             fillNumPlotData() {
@@ -377,13 +432,13 @@
                 };
             },
             updateRange() {
-                console.log('firing updateRange()')
+                // console.log('firing updateRange()')
                 this.datasets[0].data = this.yValues.slice(this.fromIndex-1, this.toIndex);
                 // for (const dataset of this.datasets) {
                 //     dataset.data = this.yValues.slice(this.fromIndex-1, this.toIndex);
                 // }
                 this.xLabels = this.chartLabels.slice(this.fromIndex-1, this.toIndex);
-                console.log(this.chartLabels)
+                // console.log(this.chartLabels)
                 this.fillNumPlotData();
             },
             // TODO: fix bug: changing range after adding a new chart doesn't update data (.slice() will not be rendered)
@@ -403,11 +458,15 @@
                 )
                 this.fillNumPlotData();
             },
-            removeLastChart() {
-                if (this.datasets.length > 1) {
-                    this.datasets.pop();
-                    this.fillNumPlotData();
-                }
+            // removeLastChart() {
+            //     if (this.datasets.length > 1) {
+            //         this.datasets.pop();
+            //         this.fillNumPlotData();
+            //     }
+            // },
+            removeChart(label){
+                this.datasets = this.datasets.filter(o => o.label !== label.text)
+                this.fillNumPlotData();
             },
             randomColor() {
             const letters = '0123456789ABCDEF';
@@ -492,7 +551,7 @@
 
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 
     .preview-container {
         /* padding: 3px; */
@@ -502,12 +561,38 @@
         overflow: auto;
     }
 
-    .data-range-container input {
-        width: 75px;
+    .preview-container .card-header {
+        background-color: transparent;
+    }
+
+    .preview-container .card {
+        border: none;
+    }
+
+    .dv-records-range-container input {
+        text-align: center;
+        width: 50px;
+    }
+
+    .dv-records-range-container-record-number {
+        background-color: #f0efed;
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-weight: 650;
+    }
+
+    .dv-records-range-container small label {
+        padding: 0 5px;
+    }
+
+    .tooltip-icon{
+        cursor: default;
+        font-size: 15px;
     }
 
     select {
         margin: 5px 2px;
+        width: 200px
     }
 
     .table-wrapper {
