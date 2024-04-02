@@ -219,16 +219,22 @@ export default {
       let activeFields = Object.keys(this.getFacets).filter(key => this.getFacets[key].length > 0);
       this.defaultFacetOrder.forEach((facet) => {
         availableFacets.forEach((field) => {
-          if (facet === field.id && field.items.length > 0
-            && (field.id !== 'country' || this.dataScope || this.$route.path === '/catalogues/erpd' || this.$route.query.superCatalog === 'erpd')
-            && (field.id !== 'catalog' || this.useCatalogFacets)
-            && (field.id !== 'scoring' || this.useScoringFacets)
-            && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
-              if(activeFields.includes(field.id))
+          // if (facet === field.id && field.items.length > 0
+          //   && (field.id !== 'country' || this.dataScope || this.$route.path === '/catalogues/erpd' || this.$route.query.superCatalog === 'erpd')
+          //   && (field.id !== 'catalog' || this.useCatalogFacets)
+          //   && (field.id !== 'scoring' || this.useScoringFacets)
+          //   && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
+          //     if(activeFields.includes(field.id))
+          //       activeFacets.push(field);
+          //     else
+          //       inactiveFacets.push(field);
+          //   }
+          if (facet === field.id && field.items.length > 0){
+          if(activeFields.includes(field.id))
                 activeFacets.push(field);
               else
                 inactiveFacets.push(field);
-            }
+          }
         });
       });
       const sortedFacets = activeFacets.concat(inactiveFacets);
