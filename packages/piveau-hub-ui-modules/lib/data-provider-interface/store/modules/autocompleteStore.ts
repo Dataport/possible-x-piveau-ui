@@ -1,10 +1,10 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import axios from 'axios';
-import { inject } from 'vue';
+import { getCurrentInstance } from "vue";
 
 function getEnvironmentVariables() {
-    return inject('env');
+    return getCurrentInstance().appContext.app.config.globalProperties.$env; 
 }
 
 const state = {};
