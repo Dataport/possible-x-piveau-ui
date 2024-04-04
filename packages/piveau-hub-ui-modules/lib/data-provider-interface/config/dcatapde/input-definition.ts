@@ -578,12 +578,12 @@ const dcatapProperties: InputDefinition = {
     keyword: {
       identifier: 'keyword',
       $formkit: 'repeatable',
-      name: 'dct:keyword',
+      name: 'dcat:keyword',
       children: [
         {
           identifier: 'keywordHeader',
           $formkit:'group',
-          name: 'dct:keyword',
+          name: 'dcat:keyword',
           class: 'property langStringInput',
           children: [
             {
