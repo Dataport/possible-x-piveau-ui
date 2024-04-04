@@ -117,7 +117,7 @@ export default {
         plugins: {
             legend: {
               onClick: (e, legendItem) => {
-                this.$emit('remove-chart', legendItem)
+                // this.$emit('remove-chart', legendItem.text)
               },
               display: true,
               labels: {

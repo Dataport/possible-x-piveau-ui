@@ -80,7 +80,7 @@ import {has, isNil} from "lodash";
 import {getTranslationFor} from "../../utils/helpers";
 import { mapGetters } from "vuex";
 import DownloadAsModal from "../../datasetDetails/distributions/DistributionDownloadAsModal";
-import DistributionVisualization from "./DistributionVisualization.vue";
+import DistributionVisualization from "./distributionPreview/DistributionVisualization.vue";
 
 export default {
   name: 'Distributions',
