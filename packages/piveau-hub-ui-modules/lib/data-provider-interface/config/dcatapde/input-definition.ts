@@ -332,7 +332,7 @@ const dcatapProperties: InputDefinition = {
     },
     originator: {
       identifier: 'originator',
-      $formkit: 'repetable',
+      $formkit: 'repeatable',
       name: 'dcatde:originator',
       children: [
         {
@@ -374,7 +374,7 @@ const dcatapProperties: InputDefinition = {
     },
     maintainer: {
       identifier: 'maintainer',
-      $formkit: 'repetable',
+      $formkit: 'repeatable',
       name: 'dcatde:maintainer',
       children: [
         {
