@@ -35,59 +35,26 @@
                         <div> 
                             <div class="d-flex justify-content-between">
                                 <div class="mb-2 d-flex">
-                                    <div class="mr-3 d-flex flex-column align-items-start">
-                                        <!-- TODO: make a componant out of the following headers? -->
-                                        <div
-                                            class="mb-2 d-flex align-items-center w-100 justify-content-between">
-                                            <span class="font-weight-bold ml-1">Labels</span>
-                                            <i
-                                            class="tooltip-icon material-icons  align-right text-dark pl-1"
-                                            data-toggle="tooltip"
-                                            data-placement="right">
-                                            help_outline
-                                            </i>
-                                        </div>
-                                        <select v-model="xPicked" class="form-select form-select-lg" aria-label="select a view option">
-                                            <!-- <option selected>Select the X axe</option> -->
-                                            <option v-for="(value, index) in categoricalLabels" :key="index" :value="value">{{ value }}</option>
-                                        </select>
+
+                                    <div class="mr-3 d-flex flex-column align-items-start">                                        
+                                        <distribution-preview-select-header title="Labels" :labels="categoricalLabels" @updatePicked="(label) => this.xPicked = label">
+                                            {{  xPicked }}
+                                        </distribution-preview-select-header>
                                     </div>
                                     <div class="d-flex flex-column align-items-start">
-                                        <div
-                                            class="mb-2 d-flex align-items-center w-100 justify-content-between">
-                                            <span class="font-weight-bold ml-1">Values</span>
-                                            <i
-                                            class="tooltip-icon material-icons  align-right text-dark pl-1"
-                                            data-toggle="tooltip"
-                                            data-placement="right">
-                                            help_outline
-                                            </i>
-                                        </div>
-                                        <select v-model="yPicked" class="form-select form-select-lg" aria-label="select X coerdinator">
-                                            <!-- <option selected>Select the Y axe</option> -->
-                                            <option v-for="(value, index) in numericalLabels" :key="index" :value="value">{{ value }}</option>
-                                        </select>
+                                        <distribution-preview-select-header title="Values" :labels="numericalLabels" :multiSelect="true" :defaultLabel="yPicked" @updatePicked="updateYPicked">
+                                            {{  yPicked }}
+                                        </distribution-preview-select-header>
                                     </div>
                                 </div>                            
                                 <div class="d-flex flex-column align-items-start">
-                                    <div
-                                            class="mb-2 d-flex align-items-center w-100 justify-content-between">
-                                            <span class="font-weight-bold ml-1">Chart type</span>
-                                            <i
-                                            class="tooltip-icon material-icons  align-right text-dark pl-1"
-                                            data-toggle="tooltip"
-                                            data-placement="right">
-                                            help_outline
-                                            </i>
-                                        </div>
-                                    <select v-model="viewType" class="form-select" aria-label="Default select example">
-                                        <!-- <option selected>Select the Y axe</option> -->
-                                        <option v-for="viewOption in viewOptions" :value="viewOption.value" :key="viewOption.value">{{ viewOption.label }} </option>
-                                    </select>
+                                    <distribution-preview-select-header title="Chart type" :labels="viewOptions.map(e => e.label)" @updatePicked="(label) => {this.viewType = label}">
+                                        {{  viewType }}
+                                    </distribution-preview-select-header>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-start">
-                                <span>
+                                <!-- <span>
                                     <small>Add chart: </small>
                                     <select v-model="yNewPicked" ref="yNewPicked" class="form-select" aria-label="select Y coerdinator">
                                         <option disabled value="">select chart to add</option>
@@ -100,7 +67,7 @@
                                         @click="addSelectedChart" 
                                         >
                                         add chart
-                                </button>
+                                </button> -->
                                 <!-- <button v-if="this.datasets.length > 1"
                                         class="btn btn-light btn-sm"
                                         @click="removeLastChart" 
@@ -112,13 +79,13 @@
                                     @click="hideXLabels = !hideXLabels" 
                                     >
                                     {{  hideXLabels ? 'show labels' : 'hide labels' }}
-                                </button> -->
+                                </button> --> 
                             </div>
                         </div>
-                        <bar-chart v-if="viewType === 'bar'" :chartData="this.datacollection" :chartOptions="this.options"></bar-chart>
-                        <line-chart v-else-if="viewType === 'line'" :chartData="this.datacollection" :chartOptions="this.options" @remove-chart="removeChart"></line-chart>
-                        <pie-chart v-else-if="viewType === 'pie'" :chartData="this.datacollection" :chartOptions="this.options"></pie-chart>
-                        <doughnut-chart v-else-if="viewType === 'doughnut'" :chartData="this.datacollection" :chartOptions="this.options"></doughnut-chart>
+                        <bar-chart v-if="viewType.toLowerCase() === 'bar'" :chartData="this.datacollection" :chartOptions="this.options"></bar-chart>
+                        <line-chart v-else-if="viewType.toLowerCase() === 'line'" :chartData="this.datacollection" :chartOptions="this.options" @remove-chart="removeChart"></line-chart>
+                        <pie-chart v-else-if="viewType.toLowerCase() === 'pie'" :chartData="this.datacollection" :chartOptions="this.options"></pie-chart>
+                        <doughnut-chart v-else-if="viewType.toLowerCase() === 'doughnut'" :chartData="this.datacollection" :chartOptions="this.options"></doughnut-chart>
                     </div>
                     <div v-else><emp>No numerical data to show.</emp></div>
                 </div>
@@ -139,10 +106,10 @@
                             </select>
                             
                         </div>
-                        <bar-chart v-if="catViewType === 'bar'" :chartData="this.catDatacollection" :chartOptions="this.options"></bar-chart>
-                        <line-chart v-else-if="catViewType === 'line'" :chartData="this.catDatacollection" :chartOptions="this.options" @remove-chart="removeChart"></line-chart>
-                        <pie-chart v-else-if="catViewType === 'pie'" :chartData="this.catDatacollection" :chartOptions="this.options"></pie-chart>
-                        <doughnut-chart v-else-if="catViewType === 'doughnut'" :chartData="this.catDatacollection" :chartOptions="this.options"></doughnut-chart>
+                        <bar-chart v-if="catViewType.toLowerCase() === 'bar'" :chartData="this.catDatacollection" :chartOptions="this.options"></bar-chart>
+                        <line-chart v-else-if="catViewType.toLowerCase() === 'line'" :chartData="this.catDatacollection" :chartOptions="this.options" @remove-chart="removeChart"></line-chart>
+                        <pie-chart v-else-if="catViewType.toLowerCase() === 'pie'" :chartData="this.catDatacollection" :chartOptions="this.options"></pie-chart>
+                        <doughnut-chart v-else-if="catViewType.toLowerCase() === 'doughnut'" :chartData="this.catDatacollection" :chartOptions="this.options"></doughnut-chart>
                     </div>
                     <div v-else>
                         No categorical data to show.
@@ -240,10 +207,11 @@
 
 <script>
 
-    import BarChart from "../../charts/barChart.vue";
-    import LineChart from '../../charts/LineChart.vue';
-    import DoughnutChart from '../../charts/DoughnutChart.vue'
-    import PieChart from '../../charts/PieChart.vue'
+    import BarChart from "../../../charts/barChart.vue";
+    import LineChart from '../../../charts/LineChart.vue';
+    import DoughnutChart from '../../../charts/DoughnutChart.vue';
+    import PieChart from '../../../charts/PieChart.vue';
+    import DistributionPreviewSelectHeader from './DistributionPreviewSelectHeader.vue';
 
     export default {
         name: "distributionVisualization",
@@ -252,6 +220,7 @@
             LineChart,
             DoughnutChart,
             PieChart,
+            DistributionPreviewSelectHeader,
         },
         data() {
             return {
@@ -266,10 +235,9 @@
                 yList: [],
                 fromIndex: 1,
                 toIndex: null,
-
                 viewOptions: [
-                    { value: "bar", label:"Bar Chart" },
-                    { value: "line", label:"Line Chart" },
+                    { value: "Bar", label:"Bar" },
+                    { value: "Line", label:"Line" },
                 ],
                 showNumTabContent: true,
                 chartValues: [],
@@ -287,10 +255,10 @@
                 hideXLabels: false,
 
                 catViewOptions: [
-                    { value: "bar", label:"Bar Chart" },
-                    // { value: "pie", label:"Pie Chart" },
-                    // { value: "line", label:"Line Chart" },
-                    { value: "doughnut", label:"Doughnut Chart" }
+                    { value: "Bar", label:"Bar" },
+                    // { value: "Pie", label:"Pie" },
+                    // { value: "Line", label:"Line" },
+                    { value: "Doughnut", label:"Doughnut" }
                 ], 
                 showCatTabContent: true,
                 nCatToShow: 100, // 
@@ -318,7 +286,7 @@
                     plugins: {
                         legend: {
                             onClick: (e, legendItem) => {
-                                this.removeChart(legendItem)
+                                // this.removeChart(legendItem.text)
                             },
                             display: true,
                             labels: {
@@ -397,7 +365,6 @@
                 this.categorizedData = this.jsonData.categorized;
                 this.skipFactor = this.calculateSkipFactor(this.dataRows.length, this.desiredPoints);
             },
-            
             fillNumPlotData() {
                 // In case there are no assigned lables, create empty lables (chart.js needs an array of lables, otherwise empty chart will display)
                 if (this.xLabels.length === 0 || this.hideXLabels) {
@@ -441,6 +408,19 @@
                 // console.log(this.chartLabels)
                 this.fillNumPlotData();
             },
+            updateYPicked(label){
+                // this.yPicked = label
+                console.log(this.datasets.map(e => e.label))
+                if (this.datasets.map(e => e.label).includes(label)) {
+                    console.log('label exists already')
+                    this.removeChart(label)
+                }
+                else {
+                    console.log('label doesnt exist')
+                    this.yNewPicked = label
+                    this.addSelectedChart()
+                }
+            },
             // TODO: fix bug: changing range after adding a new chart doesn't update data (.slice() will not be rendered)
             addSelectedChart() {
                 // this.chartValues = this.dataRows.map(e => e[this.yNewPicked])
@@ -458,14 +438,10 @@
                 )
                 this.fillNumPlotData();
             },
-            // removeLastChart() {
-            //     if (this.datasets.length > 1) {
-            //         this.datasets.pop();
-            //         this.fillNumPlotData();
-            //     }
-            // },
             removeChart(label){
-                this.datasets = this.datasets.filter(o => o.label !== label.text)
+                console.log(label)
+                this.datasets = this.datasets.filter(o => o.label !== label)
+                console.log('datasets after', this.datasets)
                 this.fillNumPlotData();
             },
             randomColor() {
@@ -536,9 +512,9 @@
                 this.fillNumPlotData();
             },
             catViewType() {
-                if (this.catViewType === 'pie') this.nCatToShow = 20;
-                else if (this.catViewType === 'bar') this.nCatToShow = 50;
-                else if (this.catViewType === 'line') this.nCatToShow = 100;
+                if (this.catViewType === 'Pie') this.nCatToShow = 20;
+                else if (this.catViewType === 'Bar') this.nCatToShow = 50;
+                else if (this.catViewType === 'Line') this.nCatToShow = 100;
                 // this.$emit("input", this.catYPicked);
                 this.fillCatPlotData();
             },
@@ -583,11 +559,6 @@
 
     .dv-records-range-container small label {
         padding: 0 5px;
-    }
-
-    .tooltip-icon{
-        cursor: default;
-        font-size: 15px;
     }
 
     select {
