@@ -1060,32 +1060,42 @@ const dcatapProperties: InputDefinition = {
       name: 'adms:identifier',
       children: [
         {
-          $formkit:'group',
-          class: 'property',
+          $formkit: 'group',
           name: 'adms:identifier',
           identifier: 'admsIdentifier',
           children: [
             {
               identifier: 'admsIdentifierUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'admsIdentifierSkosNotation',
-              $formkit:'group',
+              $formkit: 'group',
               name: 'skos:notation',
               children: [
                 {
                   identifier: 'admsIdentifierValue',
-                  $formkit:'text',
+                  $formkit: 'text',
                   name: '@value',
+                  classes: {
+                    outer: 'w97-textfield'
+                  },
                 },
                 {
-                  identifier: 'admsIdentifierType',
+                  // todo: check if this is correct
                   $formkit: 'auto',
+                  identifier: 'admsIdentifierType',
                   voc: 'notation-type',
                   name: '@type',
+                  id: 'admsIdentifierType',
+                  classes: {
+                    outer: 'w97-textfield'
+                  },
                 },
               ],
             },

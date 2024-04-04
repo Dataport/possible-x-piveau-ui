@@ -171,7 +171,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                 // if a type is given, use to form typed literal
                                 // if no type is given, only use value to create literal
                                 if (has(currentGroupData, '@type') && !isEmpty(currentGroupData['@type'])) { // typed literal
-                                    notationValue = N3.DataFactory.literal(currentGroupData['@value'], N3.DataFactory.namedNode(currentGroupData['@type']));
+                                    notationValue = N3.DataFactory.literal(currentGroupData['@value'], N3.DataFactory.namedNode(currentGroupData['@type'].resource));
                                 } else { // literal
                                     notationValue = N3.DataFactory.literal(currentGroupData['@value']);
                                 }
