@@ -153,7 +153,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 
                 let actualData;
                 // vcard:hasAdress is an object as well as dct:creator and skos:notation
-                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation') actualData = [data[key]];
+                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation' || key === 'spdx:checksum') actualData = [data[key]];
                 else actualData = data[key];
 
                 // looping trough all existing objects within the array
