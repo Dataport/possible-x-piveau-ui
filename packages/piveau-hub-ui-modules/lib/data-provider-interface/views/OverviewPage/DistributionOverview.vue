@@ -9,7 +9,7 @@
                 <p class="">Updated</p>
                 <p class="">Actions</p>
             </div>
-            <div v-for="( distribution, id) in newList" :key="'distribution' + id">
+            <div v-for="( distribution, id) in distributionList" :key="'distribution' + id">
 
                 <div class="tdWrap" v-if="id % 2 == 0">
                     <p v-if="distribution['dct:title'] != undefined && distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
@@ -20,8 +20,8 @@
                     <p v-else>
                         No title in this language
                     </p>
-                    <p v-if="distribution['dct:format'] != undefined">
-                        {{ getDistributionFormat(distribution) }}
+                    <p v-if="Object.keys(distribution['dct:format']).length != 0 ">
+                        {{ getDistributionFormat(distribution) }} 
                     </p>
                     <p v-else>
                         No format provided
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="disInfoWrap">
-                    <ul class="list list-unstyled" v-if="disList.length > 0">
+                    <ul class="list list-unstyled" v-if="distributions.length > 0">
                         <li class="disWrapper" :key="`distribution${id + 1}`">
                             <!-- DISTRIBUTIONS FORMAT -->
 
@@ -102,7 +102,7 @@
                                     </table>
                                     <table class="table table-borderless table-responsive pl-3 bg-light">
                                         <div v-for="( value, name, index ) in  tableProperties " :key="index">
-                                            <PropertyEntry profile="distributions" :data="newList[id]" :property="name"
+                                            <PropertyEntry profile="distributions" :data="distributionList[id]" :property="name"
                                                 :value="value" :dpiLocale="dpiLocale" :distId="id">
                                             </PropertyEntry>
                                         </div>
@@ -129,7 +129,7 @@ import generalHelper from '../../utils/general-helper.js'
 export default {
     props: {
         dpiLocale: String,
-        disList: {
+        distributions: {
             required: true
         }
     },
@@ -140,13 +140,16 @@ export default {
         ...mapGetters('dpiStore', [
             'getData',
         ]),
+        distributionList() {
+            let list = [];
+
+            for (let index = 0; index < this.distributions.length; index++) {
+                list.push(generalHelper.mergeNestedObjects(this.distributions[index]))
+            }
+            return list;
+        },
     },
-    mounted() {
-        for (let index = 0; index < this.disList.length; index++) {
-            this.newList.push(generalHelper.mergeNestedObjects(this.disList[index]))
-        }
-        // console.log(this.newList);
-    },
+    mounted() {},
     methods: {
         truncate,
         getDistributionFormat(distribution) {
@@ -169,9 +172,6 @@ export default {
     },
     data() {
         return {
-            showThis: false,
-            disId: '',
-            newList: [],
             tableProperties: {
                 'dcat:downloadURL': { type: 'multiURL', voc: '', label: 'message.metadata.downloadUrl' },
                 'dcat:accessService': { type: 'special', voc: '', label: 'message.dataupload.distributions.accessService.label' },

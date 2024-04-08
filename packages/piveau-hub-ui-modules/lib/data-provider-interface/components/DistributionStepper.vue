@@ -2,15 +2,14 @@
   <FormKit type="form" :actions="false" :plugins="[stepPlugin]">
     <div name="distribution-stepper" class="singleDistributions">
       <div class="disSectionHead d-flex align-items-center">
-        <h3 @click="isActive = !isActive; editDis()" v-if="!nameSet">Distribution {{ name }}</h3>
-        <h3 v-else>{{values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id']}}</h3>
+        <h3 @click="isActive = !isActive; editDistribution()">{{ getName }}</h3>
         <div class="interactionDis">
-          <a @click="isActive = !isActive; editDis()">Edit</a>
-          <a @click="deleteDis(index)">Delete</a>
+          <a @click="isActive = !isActive; editDistribution()">Edit</a>
+          <a @click="deleteDistribution(index)">Delete</a>
         </div>
       </div>
 
-      <div class=" disInfoWrapper">
+      <div class="disInfoWrapper" v-if="!isCollapsed">
         <ul class="steps">
           <li v-for="(step, stepName, index) in steps" :key="index" class="step"
             :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0" :class="{
@@ -40,27 +39,12 @@
           </div>
         </div>
       </div>
-      <!-- <Navigation :steps="distSteps" :nextStep="distNextStep" :previousStep="distPreviousStep"
-              :goToNextStep="distGoToNextStep" :goToPreviousStep="distGoToPreviousStep"></Navigation> -->
-      <!-- <h5>{{ getDisName() }}</h5> -->
-      <!-- <div class="disInputInteractionButtons">
-        <div v-for="step, index in distributionSteps" :key="step">
-          <span v-on:click="handleClick(index)"> {{ step.name }}</span>
-        </div>
-      </div>
-      <FormKit type="group">
-        <div v-for="step, index in distributionSteps" :key="step">
-          <div v-show="step['show']">
-            <FormKitSchema :schema="schema[index]" />
-          </div>
-        </div>
-      </FormKit> -->
     </div>
   </FormKit>
 </template>
 
 <script>
-import { defineComponent, markRaw, nextTick } from 'vue';
+import { defineComponent, markRaw } from 'vue';
 import { mapGetters } from 'vuex';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import InputPageStep from '../components/InputPageStep.vue';
@@ -84,15 +68,24 @@ export default defineComponent({
       type: Object,
     },
     context: {
-      type: Object
-    }
+      type: Object,
+    },
+    distributionIsCollapsed: {
+      type: Boolean,
+    },
+    collapseDistributions: {
+      type: Function,
+    },
+    deleteDistribution: {
+      type: Function,
+    },
   },
   components: {
     InputPageStep,
   },
   data() {
     return {
-      nameSet: false,
+      isCollapsed: false,
       camel2title: (str) =>
         str
           .replace(/([A-Z])/g, (match) => ` ${match}`)
@@ -100,47 +93,30 @@ export default defineComponent({
           .trim(),
       isActive: false
     }
-  }, methods: {
-    handleClick(i) {
-      this.distributionSteps.filter(e => e.show = false)
-      this.distributionSteps[i].show = !this.distributionSteps[i].show;
-    },
-    deleteDis(e) {
-      console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
-    },
-    editDis() {
-      var activeDisArray = document.getElementsByClassName('disInfoWrapper');
-      for (let index = 0; index < document.getElementsByClassName('disInfoWrapper').length; index++) {
-        if (this.index != index && !activeDisArray[index].classList.contains('d-none')) {
-          activeDisArray[index].classList.toggle('d-none')
-          
-        }
-        if (this.index === index) {
-          activeDisArray[index].classList.toggle('d-none')
-        }
-      }
-      // console.log(document.getElementsByClassName('disInfoWrapper'), this.index);
+  }, 
+  methods: {
+    editDistribution() {
+      this.isCollapsed = !this.isCollapsed;
+      this.collapseDistributions(this.index);
     }
-  }, computed: {
+  }, 
+  computed: {
     ...mapGetters('dpiStore', [
       'getNavSteps'
     ]),
-    listElementShow() {
-      return this.distributionSteps.filter(e => e.show);
-    }
-
+    getName() {
+      return this.name 
+        || values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'];
+    },
   },
-  created() {
-
-
+  watch: {
+    distributionIsCollapsed: {
+      handler(newValue) {
+        this.isCollapsed = newValue;
+      },
+    },
   },
-  async mounted() {
-    await nextTick()
-    if (this.values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'] != undefined || this.values['Distributions']['distributionList'][this.name - 1]['Mandatory']['dcat:accessURL'][0]['@id'] != "") {
-      this.nameSet = true
-    }else this.nameSet = false
-    
-  },
+  created() {},
   setup() {
     const {
       steps,

@@ -3,7 +3,8 @@
     <div id="nav" class="d-flex ">
       <div class="left-form-nav w-25">
         <!-- PREVIOUS STEP -->
-        <FormKit type="button" :label="$t('message.dataupload.preview')" @click="goToPreviousStep" v-if="previousStep" class="prev-btn mx-1 my-0"></FormKit>
+        <FormKit type="button" :label="$t('message.dataupload.preview')" @click="goToPreviousStep; scrollToTop()" v-if="previousStep"
+          class="prev-btn mx-1 my-0"></FormKit>
 
         <!-- CLEAR FORM -->
         <FormKit type="button" :label="$t('message.dataupload.clear')" @click="handleClear" class="clear-btn"></FormKit>
@@ -15,13 +16,17 @@
           v-if="isDistribution" class="mx-1 my-0 delDisBtn"></FormKit> -->
 
         <!-- PUBLISH NEW CATALOGUE -->
-        <FormKit type="button" @click="submit('createcatalogue')" v-if="!getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2">
-          <span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{$t('message.dataupload.publishcatalogue') }}
+        <FormKit type="button" @click="submit('createcatalogue')"
+          v-if="!getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2">
+          <span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{
+          $t('message.dataupload.publishcatalogue') }}
         </FormKit>
 
         <!-- PUBLISH EDITED CATALOGUE -->
-        <FormKit type="button" @click="submit('createcatalogue')" v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0">
-          <span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{ $t('message.dataupload.publishcatalogue') }}
+        <FormKit type="button" @click="submit('createcatalogue')"
+          v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0">
+          <span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{
+          $t('message.dataupload.publishcatalogue') }}
         </FormKit>
 
         <!-- PUBLISH DATASET -->
@@ -35,7 +40,7 @@
         </FormKit>
 
         <!-- NEXT STEP -->
-        <FormKit type="button" :label="$t('message.dataupload.next')" @click="goToNextStep" v-if="nextStep"></FormKit>
+        <FormKit type="button" :label="$t('message.dataupload.next')" @click="goToNextStep; scrollToTop()" v-if="nextStep"></FormKit>
       </div>
     </div>
 
@@ -49,6 +54,7 @@
 /* eslint-disable */
 import $ from 'jquery';
 import { mapGetters, mapActions } from 'vuex';
+import { useWindowScroll } from '@vueuse/core'
 export default {
   name: 'Navigation',
   props: ['steps', 'nextStep', 'previousStep', 'goToNextStep', 'goToPreviousStep'],
@@ -83,6 +89,16 @@ export default {
       property: this.$route.params.property,
       id: this.$route.params.id,
     };
+  },
+  setup() {
+    const scrollToTop = () => {
+      let { x, y } = useWindowScroll({ behavior: 'smooth' })
+      y.value = 0
+
+    }
+    return{
+      scrollToTop
+    }
   },
   computed: {
     ...mapGetters('auth', [
@@ -186,35 +202,35 @@ export default {
         actionName = 'auth/createCatalogue';
       }
 
-      // try {
+      try {
         // Dispatch the right action depending on the mode
 
-        // const idIsUnqiue = this.idunique(datasetId);
+        const idIsUnqiue = this.idunique(datasetId);
 
-        // if (idIsUnqiue) {
-          // await this.$store.dispatch(actionName, actionParams);
-          // await new Promise(resolve => setTimeout(resolve, 250));
+        if (idIsUnqiue) {
+          await this.$store.dispatch(actionName, actionParams);
+          await new Promise(resolve => setTimeout(resolve, 250));
 
-          // this.$Progress.finish();
-          // this.uploading = false;
+          this.$Progress.finish();
+          this.uploading = false;
 
-          // if (mode === 'createcatalogue') this.createCatalogue(datasetId);
-          // if (mode === 'dataset') this.createDataset(datasetId);
-          // if (mode === 'draft') this.createDraft();
+          if (mode === 'createcatalogue') this.createCatalogue(datasetId);
+          if (mode === 'dataset') this.createDataset(datasetId);
+          if (mode === 'draft') this.createDraft();
 
           // store needs to be reset
-          // this.clearAll();
-        // } 
-        // else {
-          // this.uploading[mode] = false;
-          // this.$Progress.fail();
-          // this.handleIDError();
-        // }
-      // } catch (err) {
-        // this.uploading[mode] = false;
-        // this.$Progress.fail();
-        // this.showSnackbar({ message: 'Network Error', variant: 'error' });
-      // }
+          this.clearAll();
+        } 
+        else {
+          this.uploading[mode] = false;
+          this.$Progress.fail();
+          this.handleIDError();
+        }
+      } catch (err) {
+        this.uploading[mode] = false;
+        this.$Progress.fail();
+        this.showSnackbar({ message: 'Network Error', variant: 'error' });
+      }
     },
     createDataset(datasetId) {
       this.clearAll();
@@ -235,7 +251,7 @@ export default {
       let isUniqueID = true;
 
       const draftIDs = store.getters['auth/getUserDraftIds'];
-    
+
       new Promise(() => {
         if (isNil(id) || id === '' || id === undefined) isUniqueID = true;
         else if (draftIDs.includes(id)) isUniqueID = false;
@@ -287,9 +303,8 @@ export default {
     color: #fff;
     border-radius: 0.3em;
     font-size: 16px;
-    font-family: "Ubuntu";
     padding: 0.75em;
-    font-weight: 100;
+
     display: inline-flex;
     align-items: center;
     margin-bottom: 0px;
@@ -298,14 +313,14 @@ export default {
   }
 
   button {
-    background-color: #001d85;
+
+    background-color: #fff;
     border-color: #001d85;
-    color: #fff;
+    color: #000;
     border-radius: 0.3em;
     font-size: 16px;
-    font-family: "Ubuntu";
     padding: 0.75em;
-    font-weight: 100;
+
     display: inline-flex;
     align-items: center;
     height: 50px;
@@ -331,7 +346,7 @@ export default {
   font-size: 16px;
   font-family: "Ubuntu";
   padding: 0.75em;
-  font-weight: 100;
+
   display: inline-flex;
   align-items: center;
   margin-bottom: 0px;
@@ -343,7 +358,4 @@ export default {
 .submit-label:hover {
   cursor: pointer;
 }
-
- 
-
 </style>
