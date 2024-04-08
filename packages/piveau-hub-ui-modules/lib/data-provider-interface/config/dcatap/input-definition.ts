@@ -1451,17 +1451,6 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'repeatable',
               name: 'dct:description',
               children: [
-
-                {
-                  identifier: 'language',
-                  value: 'en',
-                  $formkit: 'select',
-                  options: language,
-                  name: '@language',
-                  classes: {
-                    outer: 'w25-textfield'
-                  },
-                },
                 {
                   identifier: 'pageDescription',
                   $formkit: 'group',
