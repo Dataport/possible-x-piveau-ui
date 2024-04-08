@@ -1880,35 +1880,33 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     rights: {
-      identifier: "rights",
-      $formkit:'group',
+      identifier: 'rights',
+      $formkit: 'group',
       name: 'dct:rights',
       children: [
         {
-          identifier: 'rightsCond',
-          name: "rightsMode",
-          $formkit: "select",
-          options: { url: 'URL', str: 'String' },
-          id: "rightsModeDistribution"
+          identifier: 'rights',
+          id: 'rightsCondDataset',
+          $formkit: 'select',
+          name: '@type',
+          options: {url: 'Provide URL', text: 'Provide a text'},
         },
         {
           identifier: 'rights',
-          $cmp: "FormKit",
-          if: "$get(rightsModeDistribution).value",
+          $cmp: 'FormKit',
+          if: '$get(rightsCondDataset).value',
           props: {
-            name: 'rdfs:label',
-            if: "$get(rightsModeDistribution).value === url",
+            if: '$get(rightsCondDataset).value === url',
             then: {
-              identifier: 'rightsUrl',
-              type: "url",              
+              type: 'url',
+              name: 'rdfs:value',
             },
             else: {
-              identifier: 'rightsString',
-              type: "text",
+              type: 'text',
+              name: 'rdfs:value',
             }
           }
-
-        }
+        },
       ]
     },
     spatialResolutionInMeters: {

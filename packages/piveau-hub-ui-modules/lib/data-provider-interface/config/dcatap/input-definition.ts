@@ -1650,30 +1650,29 @@ const dcatapProperties: InputDefinition = {
     },
     rights: {
       identifier: 'rights',
-      $cmp: 'SelectControlledGroup',
-      props: {
-        name: 'dct:rights',
-        selectName: '@type',
-        options: { url: 'URL', str: 'Text' },
-        initialValue: ''
-      },
+      $formkit: 'group',
+      name: 'dct:rights',
       children: [
         {
+          identifier: 'rights',
+          id: 'rightsCondDataset',
+          $formkit: 'select',
+          name: '@type',
+          options: {url: 'Provide URL', text: 'Provide a text'},
+        },
+        {
+          identifier: 'rights',
           $cmp: 'FormKit',
-          if: '$selectValue',
+          if: '$get(rightsCondDataset).value',
           props: {
-            if: '$selectValue === url',
+            if: '$get(rightsCondDataset).value === url',
             then: {
-              identifier: 'rightsUrl',
-              type: "url",
-              label:"URL",
-              placeholder:"Provide a URL"
+              type: 'url',
+              name: 'rdfs:value',
             },
             else: {
-              identifier: 'rightsString',
-              type: "text",
-              label:"Text",
-              placeholder:"Provide a text"
+              type: 'text',
+              name: 'rdfs:value',
             }
           }
         },

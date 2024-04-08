@@ -333,6 +333,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     }
                 }
             } else if (key === 'dct:rights') {
+                console.log('######', data[key])
                 // rights has a static type (RightsStatement) which needs to be added to linked data as additional node
                 // therefore we need to create an initial quadruple for with 'rights' being the predicate having a blank node
                 // blank node serves as subject for the following quadruples which contain the type and actual value of the form field
@@ -360,10 +361,10 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 // rights is a conditional property and provides either an URI or a string ( { rdfs:label : 'URL/string' } )
                 let rightsValue;
 
-                if (generalHelper.isUrl(data[key])) {
-                    rightsValue = N3.DataFactory.namedNode(data[key]);
+                if (data[key]['@type'] === 'url') {
+                    rightsValue = N3.DataFactory.namedNode(data[key]['rdfs:value']);
                 } else {
-                    rightsValue = N3.DataFactory.literal(data[key]);
+                    rightsValue = N3.DataFactory.literal(data[key]['rdfs:value']);
                 }
 
                 // add actual value
@@ -372,7 +373,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     N3.DataFactory.namedNode(generalHelper.addNamespace('rdfs:label', dpiConfig)),
                     rightsValue
                 ))
-            // } else if (key === 'dct:license') {
+            } else if (key === 'dct:license') {
                 // licence is a conditional property providing either an URI or a group of values
                 if (data[key].licenceMode === 'voc') {
                     console.log()
