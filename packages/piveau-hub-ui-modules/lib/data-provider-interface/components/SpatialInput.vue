@@ -1,16 +1,15 @@
 <script setup>
 
-// ################ ToDo Need to make sure, that the values get saved when the property gets clicked
-
 import { ref, reactive, watch, computed, onBeforeMount, onMounted, nextTick } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { onClickOutside } from '@vueuse/core'
+import { getCurrentInstance } from "vue";
 
+let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
 
 const props = defineProps({
     context: Object,
-
 })
 
 let inputText = ref({});
@@ -49,11 +48,25 @@ function removeProperty(e) {
     showTable.activeValue = false
     props.context.node.input({})
 }
+function saveToLocal(el) {
+    let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
+    let arr = pathToLocalStorage.Advised['dct:spatial'];
+
+    arr.forEach((element, index) => {
+        if (Object.keys(element).length === 0) {
+            arr.splice(index, 1)
+        }
+    })
+    arr.push(props.context.node._value)
+    pathToLocalStorage.Advised['dct:spatial'] = arr
+
+    localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
+}
 const getAutocompleteSuggestions = async () => {
 
     try {
         let text = inputText.value;
-        await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc.value, text: text }).then((response) => {
+        await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc.value, text: text, base: instance.api.baseUrl }).then((response) => {
             const results = response.data.result.results.map((r) => ({
                 name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
                 resource: r.resource,
@@ -106,8 +119,8 @@ function manURLInput(e) {
         <div v-else>
             <div class=" w-100 d-flex">
                 <div class="d-flex position-relative m-3 w-100">
-                    <label class="w-100"> Choose the the way you want to provide the spatial info <input id="I1"
-                            type="text" class="selectInputField formkit-inner" readonly="readonly" placeholder="Select input method"
+                    <label class="w-100"> Choose the the way you want to provide the spatial info <input id="I1" type="text"
+                            class="selectInputField formkit-inner" readonly="readonly" placeholder="Select input method"
                             @click="activeInput('showTable')" />
                     </label>
 
@@ -135,7 +148,7 @@ function manURLInput(e) {
                     </label>
                     <ul ref="I2" v-if="showTable.second" class="spatialListUpload">
                         <li v-for="el in listOfVoc" :key="el" class="p-2 border-b border-gray-200 choosableItemsAC"
-                            @click=" closeAll(); el.active = !el.active; activeInput('showVocTable'); inputText = ''; voc = el.item">
+                            @click=" closeAll(); el.active = !el.active; activeInput('showVocTable'); inputText = ''; voc = el.item;">
                             {{ el.item }}</li>
                     </ul>
                 </div>
@@ -149,7 +162,7 @@ function manURLInput(e) {
                     </label>
                     <ul ref="I3" v-if="showTable.third && el.active" class="spatialListUpload">
                         <li v-for="el in matches" :key="el" class="p-2 border-b border-gray-200 choosableItemsAC"
-                            @click="props.context.node.input(el); inputText = el.name; activeInput('showVocEntries')">
+                            @click="props.context.node.input(el); inputText = el.name; activeInput('showVocEntries'); showTable.third = false; saveToLocal(el)">
                             {{ el.name }}</li>
                     </ul>
                 </div>
@@ -172,7 +185,6 @@ export default {
         }
     },
     methods: {
-
         closeAll() {
             this.listOfVoc.forEach(element => {
                 element.active = false;

@@ -55,7 +55,6 @@ function findPropertyToUpdate(trigger) {
       let ntry = Object.entries((pathToLocalStorage))
       try {
         Object.keys(ntry[index][innerIndex]).filter(e => {
-          console.log(selection);
           if (e === props.context.node.name) {
             finalPath.step = ntry[index][0]
 
@@ -121,11 +120,11 @@ const setValue = async (e) => {
     // check for doubled values
     if (cacheList.length != 0) {
       let filteredProperty = { name: e.name, resource: e.resource };
-      console.log(cacheList, 'before');
+      // console.log(cacheList, 'before');
       let filteredList = cacheList.filter((element) => element.name != e.name);
       filteredList.push(filteredProperty)
       cacheList = filteredList;
-      console.log(filteredList, 'after');
+      // console.log(filteredList, 'after');
       await props.context.node.input(cacheList);
     }
     else {
