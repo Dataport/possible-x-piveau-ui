@@ -2,8 +2,12 @@
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import axios from 'axios';
 import { getCurrentInstance } from "vue";
+const accesToken = import.meta.env
+
 
 function getEnvironmentVariables() {
+    console.log(getCurrentInstance());
+    
     return getCurrentInstance().appContext.app.config.globalProperties.$env; 
 }
 
@@ -11,9 +15,9 @@ const state = {};
 const getters = {};
 
 const actions = {
-    requestFirstEntrySuggestions({ commit }, voc) {
+    requestFirstEntrySuggestions({ commit }, voc, base) {      
         return new Promise((resolve, reject) => {
-            const req = `${getEnvironmentVariables().api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
+            const req = `${base}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -23,20 +27,23 @@ const actions = {
             });
         });
     },
-    requestAutocompleteSuggestions({ commit }, { voc, text }) {
-        return new Promise((resolve, reject) => {
-            const input = text;
-            const req = `${getEnvironmentVariables().api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
-            axios.get(req)
-            .then((res) => {
-                resolve(res);
-            })
-            .catch((err) => {
-                reject(err);
+    requestAutocompleteSuggestions({ commit }, { voc, text, base }) {
+        if (base != undefined) {
+            return new Promise((resolve, reject) => {
+                const req = `${base}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${text}`;
+                axios.get(req)
+                .then((res) => {
+                    resolve(res);         
+                })
+                .catch((err) => {
+                    reject(err);
+                });
             });
-        });
+        }
+        else return
+        
     },
-    requestResourceName({ commit }, { voc, resource }) {
+    requestResourceName({ commit }, { voc, resource, base }) {
         // Catching invalid URI's
         if(voc === undefined) return
         if(voc === "application") return 
