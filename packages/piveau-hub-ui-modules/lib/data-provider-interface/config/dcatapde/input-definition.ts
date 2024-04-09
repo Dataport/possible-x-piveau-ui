@@ -264,21 +264,26 @@ const dcatapProperties: InputDefinition = {
       class: 'property',
       $formkit: 'url',
     },
-    // ???? autocomplete or url
     references: {
       identifier: 'references',
       name: 'dct:references',
       $formkit: 'repeatable',
       children: [
         {
+          $formkit:'group',
           identifier: 'references',
           name: 'dct:references',
           class: 'property',
-          $formkit: 'url',
-          voc: 'planned-availability',
+          children: [
+            {
+              name: '@id',
+              identifier: 'referencesUrl',
+              $formkit:'url',
+              validation: 'optional|url',
+            },
+          ],
         }
       ]
-      
     },
     contributor: {
       identifier: 'contributor',

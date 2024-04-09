@@ -7,8 +7,6 @@ const singularURI = {
         "dct:type",
         "dcatap:availability",
         "dcatde:qualityProcessURI",
-        "dct:references",
-
 
         // singular URIs nested within other properties
         'vcard:hasEmail', // contact point
@@ -60,6 +58,7 @@ const multipleURI = {
         "prov:wasGeneratedBy",
         "dct:isVersionOf",
         "dct:hasVersion",
+        "dct:references",
     ],
     distributions: [
         "dcat:accessURL",

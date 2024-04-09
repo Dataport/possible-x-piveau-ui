@@ -4,7 +4,7 @@ const config = {
       Advised: [ 'politicalGeocodingLevelURI', 'politicalGeocodingURI', 'availabilityDE', 'contributorID', 'geocodingDescription', 'legalBasis', 'qualityProcessURI', 'references', 'contributor', 'originator', 'maintainer', 'keyword', 'subject', 'contactPoint', 'landingPage', 'accrualPeriodicity', 'language', 'spatial', 'temporal', 'creator', 'identifier', 'admsIdentifier', 'page', 'accessRights' ],
       Recommended: [ 'type', 'isUsedBy', 'conformsTo', 'versionInfo', 'versionNotes', 'temporalResolution', 'spatialResolutionInMeters', 'relation', 'qualifiedRelation', 'isReferencedBy', 'hasVersion', 'isVersionOf', 'source', 'provenance', 'qualifiedAttribution', 'wasGeneratedBy' ],
       Distributions: [],
-      Overview: [ 'overview' ]
+      // Overview: [ 'overview' ]
     },
     distributions: {
       Mandatory: [ 'accessURL', 'title', 'description' ],
