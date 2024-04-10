@@ -1,9 +1,9 @@
 <template>
     <div class="mr-md-2 mt-0 ">
             <!-- Header -->
-            <div class="dv-header mb-2 d-flex align-items-center w-100 justify-content-between">
+            <div class="dpsh-header mb-2 d-flex align-items-center w-100 justify-content-between">
                 <span class="font-weight-bold ml-1"> {{ title }}</span>
-                <i
+                <i v-if="tooltipText"
                     class="tooltip-icon material-icons align-right text-dark pl-1"
                     data-toggle="tooltip"
                     data-placement="right">
@@ -17,9 +17,10 @@
               role="group"
               aria-label="Dropdown"
             >
-              <div class="btn-group dv-dropdown" role="group">
+              <div class="btn-group dpsh-dropdown" role="group">
                 <button
                   class="
+                    dpsh-button
                     list-group-item
                     col
                     w-100
@@ -29,6 +30,7 @@
                     p-0
                     align-items-center
                     overflow-hidden
+                    text-truncate
                   "
                   type="button"
                   data-toggle="dropdown"
@@ -37,7 +39,7 @@
                     <div class="pl-2 h-100 d-flex align-items-center">
                         <slot></slot>
                     </div>
-                    <div class="dv-select__icon">
+                    <div class="dpsh-select__icon">
                         <i
                         class="material-icons"
                         focusable="false"
@@ -47,30 +49,41 @@
                         </i>
                     </div>
                 </button>
+
                 <ul
-                  class="dropdown-menu dv-dropdown-items"
-                  aria-labelledby="btnGroupDrop1"
+                  class="dropdown-menu dpsh-dropdown-items btnGroupDrop"
+                  aria-labelledby="btnGroupDrop"
                 >
+                <div v-if="multiSelect">
+                  <button
+                    v-for="(label, index) in labels" :key="index"
+                    class="dropdown-item pl-3">
+                    <label :for="'input-' + index"> 
+                      <input
+                      v-if="multiSelect"
+                      :id="'input-' + index" type="checkbox"
+                      class="mr-1"
+                      :checked="checkedItems[label]"
+                      @click="emitChoice(label)"
+                      aria-label="Checkbox">
+                      {{ label }}
+                    </label>
+                  </button>
+                </div>
+                <div v-else>
                   <button
                     v-for="(label, index) in labels" :key="index"
                     class="dropdown-item pl-3"
                     @click="emitChoice(label)"
-
                   >
-                  <label :for="'input-' + index"> 
-                    <input
-                    v-if="multiSelect"
-                    :id="'input-' + index" type="checkbox"
-                    class="mr-1"
-                    :checked="checkedItems[label]"
-                    @click.stop
-                    aria-label="Checkbox">
                     {{ label }}
-                  </label>
                   </button>
+                </div>
                 </ul>
               </div>
             </div>
+            <!-- <button v-if="multiSelect" class="btn dpsh-add-btn" type="button" role="group" data-toggle="dropdown">+ add multiple values</button> -->
+
           </div>
   </template>
   
@@ -80,14 +93,17 @@
     name: "DistributionPreviewSelectHeader",
     props: {
         title: {
-            type: String,
+          type: String,
+        },
+        tooltipText: {
+          type: String,
         },
         multiSelect: {
           type: Boolean,
           // default: false,
         },
         labels: {
-            type: Array,
+          type: Array,
         },
         defaultLabel: {
           type: String,
@@ -114,8 +130,15 @@
   </script>
   
   <style lang="scss" scoped>
-    
-    .dv-header {
+    .dpsh-button {
+      // white-space: nowrap;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      // flex-wrap: nowrap;
+      // width: 150px;
+    }
+
+    .dpsh-header {
         max-width: 200px;
     }
 
@@ -124,7 +147,7 @@
         font-size: 15px;
     }
     
-    .dv-dropdown {
+    .dpsh-dropdown {
         width: 200px;
         height: 48px;
         > button {
@@ -136,7 +159,7 @@
         }
     }
 
-    .dv-select__icon {
+    .dpsh-select__icon {
         align-items: center;
         display: flex;
         height: 100%;
@@ -148,12 +171,23 @@
         z-index: 0;
     }
 
-    .dv-dropdown-items {
+    .dpsh-dropdown-items {
         border-radius: 4px !important;
         border: dashed 1px var(--primary) !important;
         width: 198px;
         padding: 0;
         overflow: auto
+    }
+
+    .dpsh-add-btn {
+        height: 48px;
+        align-self: end;
+        background-color: var(--primary-light);
+        color: white;
+
+        &:hover {
+            color: white;
+        }
     }
   </style>
   
