@@ -1,9 +1,10 @@
 <template>
-  <div class="repeatable formkitProperty" :class="[context.attrs.identifier]" v-for="key in items" :key="key">
+  <div class="repeatable formkitProperty" :class="[context.attrs.identifier]" v-for="key, repeatableIndex in items"
+    :key="key">
     <h4>{{ context.label }}</h4>
 
     <div class="horizontal-wrapper">
-
+      <details>{{ items }}</details>
       <div class="repeatableWrap">
         <div class="interactionHeaderRepeatable my-1">
           <i18n-t keypath="message.dataupload.info.repeatable" scope="global" tag="p">
@@ -11,26 +12,17 @@
               <a class="add" @click="addItem">{{ $t('message.dataupload.info.add') }}</a>
             </template>
             <template v-slot:remove>
-              <a class="remove" @click="removeItem" :data-key="key">{{ $t('message.dataupload.info.remove') }}</a>
+              <a class="remove" @click="removeItem(repeatableIndex)" :data-key="key">{{
+                $t('message.dataupload.info.remove') }}</a>
             </template>
           </i18n-t>
         </div>
-        <!-- <pre>{{ context.attrs }}</pre> -->
+
         <div class="formkitWrapRepeatable">
-          <slot>
-            <FormKit />
-          </slot>
-        </div>
-
+          <slot></slot>
+              </div>
       </div>
-
     </div>
-    <!-- <div class="interactionWrapper">
-      <div class="formkit-remover ball" @click="removeItem" :data-key="key">
-        <span>x</span>
-      </div>
-      <div @click="addItem" class="ball formkit-adder"><span>+</span></div>
-    </div> -->
   </div>
 </template>
 
@@ -39,105 +31,25 @@ import { token } from "@formkit/utils";
 
 export default {
   props: {
-    name: String,
-    children: Array,
     context: Object,
-
   },
   data() {
     return {
-      values: [],
-      items: [this.newId()],
-      camel2title: (str) =>
-        str
-          .replace(/([A-Z])/g, (match) => ` ${match}`)
-          .replace(/^./, (match) => match.toUpperCase())
-          .trim(),
+      items: [this.newId()], 
     }
   },
   methods: {
     newId() {
-      return `${this.name}_${token()}`;
+      console.log(this.context.value);
+      return `${this.context.attrs.identifier}_${token()}`;
     },
     addItem() {
       this.items.push(this.newId());
     },
-    removeItem(e) {
-      const key = e.target.getAttribute('data-key');
-      const index = this.items.indexOf(key);
-      if (index >= 0) {
-        this.items.splice(index, 1);
-      }
+    removeItem(index) {
+      this.items.splice(index, 1);
     }
   }
 }
 </script>
 
-
-
-<style lang="scss">
-.horizontal-wrapper {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-
-.interactionWrapper {
-  width: 10%;
-  display: flex;
-  align-items: center;
-  position: relative;
-
-}
-
-.ball {
-  position: absolute;
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-  height: 1.5rem;
-  width: 1.5rem;
-  font-size: 1em;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 50%;
-  margin: 5px;
-  transition: all ease-in-out 200ms;
-}
-
-.formkit-remover {
-  left: 30px;
-  top: 22px;
-  background-color: red;
-  color: white;
-
-
-  span {
-    pointer-events: none;
-    position: relative;
-    bottom: 0.1rem;
-  }
-
-  &:hover {
-    background-color: darkred;
-
-  }
-}
-
-.formkit-adder {
-  top: 22px;
-  background-color: darkseagreen;
-  color: white;
-
-  span {
-    position: relative;
-    bottom: 0.13rem;
-  }
-
-  &:hover {
-    background-color: darkgreen;
-  }
-}
-
-</style>
