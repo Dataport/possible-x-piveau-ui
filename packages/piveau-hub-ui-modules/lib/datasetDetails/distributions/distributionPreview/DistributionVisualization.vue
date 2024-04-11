@@ -37,20 +37,16 @@
                                 <div class="mb-2 d-flex">
 
                                     <div class="mr-3 d-flex flex-column align-items-start">                                        
-                                        <distribution-preview-select-header title="Labels" :labels="categoricalLabels" @updatePicked="(label) => this.xPicked = label">
-                                            {{  xPicked }}
-                                        </distribution-preview-select-header>
+                                        <distribution-preview-select-header title="Labels" :tooltip-text="' '" :labels="categoricalLabels" :defaultLabel="xPicked" @updatePicked="(label) => this.xPicked = label"></distribution-preview-select-header>
                                     </div>
                                     <div class="d-flex flex-column align-items-start">
-                                        <distribution-preview-select-header title="Values" :labels="numericalLabels" :multiSelect="true" :defaultLabel="yPicked" @updatePicked="updateYPicked">
-                                            {{  yPicked }}
-                                        </distribution-preview-select-header>
+                                        <distribution-preview-select-header title="Values" :tooltip-text="' '" :labels="numericalLabels" :multiSelect="true" :defaultLabel="yPicked" @updatePicked="updateYPicked"></distribution-preview-select-header>
                                     </div>
+                                    <!-- <button class="btn dv-add-btn" type="button" @click="toggleDropdown">+ add multiple values</button> -->
+
                                 </div>                            
                                 <div class="d-flex flex-column align-items-start">
-                                    <distribution-preview-select-header title="Chart type" :labels="viewOptions.map(e => e.label)" @updatePicked="(label) => {this.viewType = label}">
-                                        {{  viewType }}
-                                    </distribution-preview-select-header>
+                                    <distribution-preview-select-header title="Chart type" :tooltip-text="' '" :labels="viewOptions.map(e => e.label)" :defaultLabel="viewType" @updatePicked="(label) => {this.viewType = label}"></distribution-preview-select-header>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-start">
@@ -87,23 +83,26 @@
                         <pie-chart v-else-if="viewType.toLowerCase() === 'pie'" :chartData="this.datacollection" :chartOptions="this.options"></pie-chart>
                         <doughnut-chart v-else-if="viewType.toLowerCase() === 'doughnut'" :chartData="this.datacollection" :chartOptions="this.options"></doughnut-chart>
                     </div>
-                    <div v-else><emp>No numerical data to show.</emp></div>
+                    <div v-else class="m-5">No numerical data to show.</div>
                 </div>
                 <!-- Tab for Categorical Charts -->
                 <div v-else-if="activeTab == 'categorical'" role="tabpanel" id="categorical-chart">
                     <div v-if="showCatTabContent">
                         <div > 
-                            <span>Chart type: </span>
+                            <div class="d-flex justify-content-between mb-2">
+                                <distribution-preview-select-header title="Labels" :tooltip-text="' '" :labels="categoricalLabels" :defaultLabel="catYPicked" @updatePicked="(label) => this.catYPicked = label"></distribution-preview-select-header>
+                                <distribution-preview-select-header title="Chart type" :tooltip-text="' '" :labels="catViewOptions.map(e => e.label)" :defaultLabel="catViewType" @updatePicked="(label) => {this.catViewType = label}"></distribution-preview-select-header>
+                            </div>
+
+                            <!-- <span>Chart type: </span>
                             <select v-model="catViewType" class="form-select" aria-label="Default select example">
-                                <!-- <option selected>Select the Y axe</option> -->
                                 <option v-for="viewOption in catViewOptions" :value="viewOption.value" :key="viewOption.value">{{ viewOption.label }} </option>
                             </select>
                             <br>
                             <small>Labels: </small>
                             <select v-model="catYPicked" class="" aria-label="select a view option">
-                                <!-- <option selected>Select the X axe</option> -->
                                 <option v-for="(value, index) in categoricalLabels" :key="index" :value="value">{{ value }}</option>
-                            </select>
+                            </select> -->
                             
                         </div>
                         <bar-chart v-if="catViewType.toLowerCase() === 'bar'" :chartData="this.catDatacollection" :chartOptions="this.options"></bar-chart>
@@ -150,7 +149,8 @@
             <small class="text-muted">
                 Don't like the default view? suggest a better one <span @click="showFeedbackTool = !showFeedbackTool" class="text-primary pointer" type="button">here</span> 
             </small>
-    
+            
+            <!-- Records range bar -->
             <div class="dv-records-range-container text-center">
                 <small class="dv-records-range-container-record-number mr-1">{{ this.dataRows.length }} Records</small>
                 <small v-if="activeTab === 'numerical'">
@@ -163,12 +163,17 @@
         </div>
 
         <div v-if="showFeedbackTool" class="feedback-tool-wrapper">
-            <form action="" class="feedback-tool-form">
-                <span>Suggest a view type and graph-indicators to be set as default: </span>
-                <br><br>
+            <form v-if="showFeedbackForm" action="" class="feedback-tool-form" @submit.prevent>
+                <span>Suggest a Chart type and/or Labels and Values to be set as default: </span>
+
+                <div class="d-flex dv-fb-options py-3">
+                    <distribution-preview-select-header title="Chart type" :labels="allChartOptions"  :updatePicked="() => {console.log('todo')}"></distribution-preview-select-header>
+                    <distribution-preview-select-header title="Labels" :labels="allLabels" :updatePicked="() => {console.log('todo')}"></distribution-preview-select-header>
+                    <distribution-preview-select-header title="Values" :labels="allLabels" :updatePicked="() => {console.log('todo')}"></distribution-preview-select-header>
+                </div>
+                <!-- <br><br>
                 <label for="view-type">View type:</label>
                 <select id="view-type" class="form-select" v-model="suggestedViewType" aria-label="select a view option" required>
-                    <!-- <option selected disabled hidden>Choose here</option> -->
                     <option disabled value="">Please select type</option>
                     <option value="num-view">Numerical View</option>
                     <option value="cat-view">Categorical View</option>
@@ -182,7 +187,7 @@
                         <option v-for="(value, index) in allLabels" :key="index" :value="value">{{ value }}</option>
                     </select>
                     <br>
-                    <label for="y-label">Label for X-axis:</label>
+                    <label for="y-label">Label for Y-axis:</label>
                     <select id="y-label" v-model="suggestedY" aria-label="select Y coerdinator">
                         <option disabled value="">select default Y-axis</option>
                         <option v-for="(value, index) in allLabels" :key="index" :value="value">{{ value }}</option>
@@ -194,13 +199,14 @@
                         <option disabled value="">select default categorical label</option>
                         <option v-for="(value, index) in categoricalLabels" :key="index" :value="value">{{ value }}</option>
                     </select>
-                </div>
+                </div> -->
                 <br>
-                <input @click="submitFeedbackInput" class="btn btn-primary btn-sm" type="button" value="Submit">
+                <input @click="showFeedbackTool = false" class="btn btn-outline-dark mr-2 mb-1" type="button" value="Cancel">
+                <input @click="submitFeedbackInput" class="btn btn-primary mb-1" type="button" value="Submit">
             </form>
-        </div>
-        <div v-if="showAlert" class="alert alert-success" role="alert">
-            Your suggestions were submit successfully!
+            <div v-else class="text-center m-5">
+                Thank you for your feedback!
+            </div>
         </div>
     </div>
 </template>
@@ -274,6 +280,7 @@
                 currentPage: 1,
                 totalPages: 0,
                 showFeedbackTool: false,
+                showFeedbackForm: true,
                 showAlert: false,
                 options: {
                     responsive: true,
@@ -300,6 +307,7 @@
                     }
                 },
                 // Feedback tool
+                allChartOptions: ['Line', 'Bar', 'Pie', 'Doughnut'],
                 suggestedViewType: '',
                 suggestedX: '',
                 suggestedY: '',
@@ -310,7 +318,7 @@
         },
         mounted() {
         // Einlesen
-        fetch("/test_json_8.json")
+        fetch("/test_json_6.json")
         .then(response => {
                 const reader = response.body.getReader();
                 return new ReadableStream({
@@ -461,10 +469,10 @@
                 localStorage.xPicked = '';
                 localStorage.yPicked = '';
                 console.log('Selected View Type: ', this.suggestedViewType);
-                this.showFeedbackTool = false;
+                this.showFeedbackForm = false;
 
                 // TODO: only if successful
-                this.showAlert = true;
+                // this.showAlert = true;
             },
             calculateSkipFactor(totalPoints) {
                 const desiredPoints = 50;
@@ -543,6 +551,17 @@
 
     .preview-container .card {
         border: none;
+    }
+
+    .dv-add-btn {
+        height: 48px;
+        align-self: end;
+        background-color: var(--primary-light);
+        color: white;
+
+        &:hover {
+            color: white;
+        }
     }
 
     .dv-records-range-container input {
