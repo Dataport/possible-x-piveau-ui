@@ -37,7 +37,7 @@
                   aria-expanded="false"
                 >
                     <div class="pl-2 h-100 d-flex align-items-center">
-                        <slot></slot>
+                        {{ displayedLabel }}
                     </div>
                     <div class="dpsh-select__icon">
                         <i
@@ -106,6 +106,7 @@
           type: Array,
         },
         defaultLabel: {
+          // in case of multiSelect, this is the label that should be selected (checked) by default
           type: String,
         },
         updatePicked: Function,
@@ -114,17 +115,22 @@
     data() {
       return {
         checkedItems: {},
+        displayedLabel: ''
       };
     },
     methods: {
         emitChoice(label){
+          this.displayedLabel = label;
           this.$emit('updatePicked', label);
         },
     },
     created() {
-      this.labels.forEach(label => {
-        label === this.defaultLabel ? this.$set(this.checkedItems, label, true) : this.$set(this.checkedItems, label, false);
-      })
+      if(this.multiSelect) {
+        this.labels.forEach(label => {
+          label === this.defaultLabel ? this.$set(this.checkedItems, label, true) : this.$set(this.checkedItems, label, false);
+        })
+      }
+      this.displayedLabel = this.defaultLabel ? this.defaultLabel : this.labels[0]
     },
   }
   </script>
@@ -151,7 +157,7 @@
         width: 200px;
         height: 48px;
         > button {
-            border: 1px dashed var(--primary);
+            border: 1px dashed var(--primary-light);
             border-radius: 4px;
         }
         .dropdown-menu {
@@ -173,7 +179,7 @@
 
     .dpsh-dropdown-items {
         border-radius: 4px !important;
-        border: dashed 1px var(--primary) !important;
+        border: dashed 1px var(--primary-light) !important;
         width: 198px;
         padding: 0;
         overflow: auto
