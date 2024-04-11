@@ -1,27 +1,27 @@
-# Contributing to piveau-hub-ui-modules
+# Contributing to piveau-cookie-consent
 
 ### Basics
 
-We are developing an npm package named `@piveau/piveau-hub-ui-modules`
+We are developing an npm package named `@piveau/piveau-cookie-consent`
 Component development takes place in the `lib` folder and
 all components that should be part of our npm package must be
 exported from there.
 
 You can test your components in consuming apps (for example, apps/modules-demo).
-Any consuming app must have a dependency `@piveau/piveau-hub-ui-modules` in
+Any consuming app must have a dependency `@piveau/piveau-cookie-consent` in
 its `package.json` and import components like this:
 
 ```
-import { MyComponent } from '@piveau/piveau-hub-ui-modules';
+import { MyComponent } from '@piveau/piveau-cookie-consent';
 ```
 
 ### Development workflow
 
 * Develop your component in `lib`
 * Export the component in `lib/index.ts` if it is not yet
-* Import the component in your consuming app from `@piveau/piveau-hub-ui-modules`
+* Import the component in your consuming app from `@piveau/piveau-cookie-consent`
 * Merge your feature branch to the master branch (for now, no CI script will be triggered!)
-* When a new version of the package should be published (for use outside of the monorepo), 
+* When a new version of the package should be published (for use outside of the monorepo),
   run the the following command (from the monorepo root level):
   ```
   npm run release
