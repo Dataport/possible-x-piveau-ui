@@ -27,10 +27,7 @@ watch(voc, async () => {
 })
 watch(manURL, async () => {
     //    ToDo needs a better way - maybe if the input looses its focus?
-
     props.context.node.input({ 'name': manURL, 'resource': manURL })
-
-
 })
 onMounted(async () => {
     matches = [{ name: '--- Type in anything for a live search of the vocabulary ---', resource: 'invalid' }]

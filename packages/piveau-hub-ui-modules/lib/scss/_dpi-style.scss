@@ -23,6 +23,69 @@
 
 }
 
+.horizontal-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  .interactionWrapper {
+    width: 10%;
+    display: flex;
+    align-items: center;
+    position: relative;
+  
+  }
+  
+  .ball {
+    position: absolute;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+    margin: 5px;
+    transition: all ease-in-out 200ms;
+  }
+  
+  .formkit-remover {
+    left: 30px;
+    top: 22px;
+    background-color: red;
+    color: white;
+  
+  
+    span {
+      pointer-events: none;
+      position: relative;
+      bottom: 0.1rem;
+    }
+  
+    &:hover {
+      background-color: darkred;
+  
+    }
+  }
+  
+  .formkit-adder {
+    top: 22px;
+    background-color: darkseagreen;
+    color: white;
+  
+    span {
+      position: relative;
+      bottom: 0.13rem;
+    }
+  
+    &:hover {
+      background-color: darkgreen;
+    }
+  }
 .formkit-input-group-repeatable-remove:hover:after {
     left: unset !important;
 }

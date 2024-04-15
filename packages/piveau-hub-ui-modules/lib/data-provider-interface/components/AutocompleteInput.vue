@@ -36,7 +36,6 @@ onBeforeMount(() => {
 
 })
 onMounted(async () => {
-
   inputText.value = ""
   // console.log('Context: ', props.context);
 });
