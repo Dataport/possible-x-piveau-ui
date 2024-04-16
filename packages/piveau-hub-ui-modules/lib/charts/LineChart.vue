@@ -107,6 +107,11 @@ export default {
             yAxes: {
                 beginAtZero: false
             },
+            x: {
+              ticks: {
+                maxTicksLimit: 20,
+              }
+            }
         },
         elements: {
           point: {

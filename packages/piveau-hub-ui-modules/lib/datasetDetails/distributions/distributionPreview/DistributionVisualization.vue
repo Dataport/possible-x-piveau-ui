@@ -289,6 +289,11 @@
                         yAxes: {
                             beginAtZero: false
                         },
+                        x: {
+                            ticks: {
+                                maxTicksLimit: 20,
+                            }
+                        }
                     },
                     plugins: {
                         legend: {
