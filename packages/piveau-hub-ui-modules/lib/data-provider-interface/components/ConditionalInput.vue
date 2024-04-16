@@ -11,7 +11,7 @@
     </div>
     <div v-else>
       <FormulateForm v-model="conditionalValues" key="intern">
-        <FormulateInput type="select" :options="context.options" :name="context.name"
+        <FormulateInput type="select" :options="context.options" :name="context.name" v-model="conditionalValues[context.name]"
           :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormulateInput>
       </FormulateForm>
 
@@ -52,7 +52,7 @@ export default {
   },
   computed: {},
   methods: {
-   
+
     /**
      * Saving changed values to context which will be given to parent form
      */
@@ -99,7 +99,7 @@ export default {
         else this.conditionalValues[this.context.name] = 'man';
         // both options return an URI
         this.inputValues = { '@id': this.context.model };
-      } else if (this.context.attributes.identifier = 'spatialVocabulary') {
+      } else if (this.context.attributes.identifier === 'spatialVocabulary') {
         const vocProps = this.context.model.replace("http://publications.europa.eu/resource/authority/", "");
         const vocab = vocProps.slice(0, vocProps.indexOf("/"));
         this.conditionalValues[this.context.name] = vocab;
