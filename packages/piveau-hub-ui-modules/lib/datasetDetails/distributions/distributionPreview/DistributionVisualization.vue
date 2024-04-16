@@ -10,9 +10,9 @@
         </h2>
         <!-- <h2>Visual box - {{ distributionTitle }}</h2> -->
         <!-- Card -->
-        <div v-if="this.jsonData" class="card text-center">
-            <div class="card-header">
-                <ul class="nav nav-tabs card-header-tabs">
+        <div v-if="this.jsonData" class="dv-card card text-center">
+            <div class="dv-card-header card-header">
+                <ul class="dv-nav-tabs nav nav-tabs card-header-tabs">
                     <li class="nav-item" role="tab" :aria-controls="'numerical-chart'"
                     :aria-selected="activeTab === 'numerical'" aria-label="Numerical chart tab">
                         <a class="nav-link" :class="{active: activeTab === 'numerical'}" href="#" @click.prevent="showTab('numerical')">Numerical Data</a>
@@ -551,6 +551,19 @@
 
     .preview-container .card {
         border: none;
+    }
+
+    .dv-nav-tabs li .nav-link{
+        color: inherit;
+        &.active {
+            // background-color: oldlace;
+            font-weight: bold;
+            color: var(--primary-light);
+            border-top: 4px solid var(--primary-light);
+        }
+        &:hover:not(.active) {
+            border-color: transparent;
+        }
     }
 
     .dv-add-btn {

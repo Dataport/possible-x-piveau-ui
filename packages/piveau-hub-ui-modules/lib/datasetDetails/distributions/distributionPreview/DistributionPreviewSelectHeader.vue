@@ -57,7 +57,8 @@
                 <div v-if="multiSelect">
                   <button
                     v-for="(label, index) in labels" :key="index"
-                    class="dropdown-item pl-3">
+                    class="dropdown-item pl-3"
+                    :class="{ 'picked': checkedItems[label] }">
                     <label :for="'input-' + index"> 
                       <input
                       v-if="multiSelect"
@@ -65,7 +66,8 @@
                       class="mr-1"
                       :checked="checkedItems[label]"
                       @click="emitChoice(label)"
-                      aria-label="Checkbox">
+                      aria-label="Checkbox"
+                     >
                       {{ label }}
                     </label>
                   </button>
@@ -82,7 +84,7 @@
                 </ul>
               </div>
             </div>
-            <!-- <button v-if="multiSelect" class="btn dpsh-add-btn" type="button" role="group" data-toggle="dropdown">+ add multiple values</button> -->
+            <!-- <button v-if="multiSelect" class="btn dpsh-add-btn" type="button" role="group" data-toggle="dropdown" data-target="">+ add multiple values</button> -->
 
           </div>
   </template>
@@ -121,6 +123,7 @@
     methods: {
         emitChoice(label){
           this.displayedLabel = label;
+          this.checkedItems[label] = !this.checkedItems[label];
           this.$emit('updatePicked', label);
         },
     },
@@ -182,8 +185,16 @@
         border: dashed 1px var(--primary-light) !important;
         width: 198px;
         padding: 0;
-        overflow: auto
+        overflow: auto;
+
+        & .dropdown-item.picked {
+          background-color: var(--primary-light);
+          color: white;
+        }
     }
+    // .dpsh-dropdown-items div button label input {
+      // accent-color: transparent;
+    // }
 
     .dpsh-add-btn {
         height: 48px;
