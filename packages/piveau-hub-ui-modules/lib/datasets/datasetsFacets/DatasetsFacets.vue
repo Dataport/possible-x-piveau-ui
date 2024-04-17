@@ -2,72 +2,31 @@
   <div class="container dataset-facets">
     <div class="row mx-3 mr-md-0">
       <div class="col">
-        <datasets-map-facet
-          :showCatalogDetails="showCatalogDetails"
-        />
-        <catalog-details-facet
-          class="catalog-details"
-          v-if="showCatalogDetails"
-          :catalog="catalog"
-          :catalogLanguageIds="catalogLanguageIds"
-        />
+        <datasets-map-facet :showCatalogDetails="showCatalogDetails" />
+        <catalog-details-facet class="catalog-details" v-if="showCatalogDetails" :catalog="catalog"
+          :catalogLanguageIds="catalogLanguageIds" />
         <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
-        <settings-facet
-          class="row facet-field mb-3"
-        />
-        <div class="row facet-field mb-3"
-             v-for="(field, index) in getSortedFacets"
-             :key="`facet@${field.id}`"
-             :class="{'mt-3': (index > 0)}"
-        >
-          <radio-facet
-            v-if="(field.id === 'dataServices')"
-            :title="dataServices.title"
-            :property="dataServices.property"
-            :toolTipTitle="dataServices.toolTipTitle"
-            :optionIds="['true', 'false']"
-            :optionLabels="[dataServices.yes, dataServices.no]"
-            :initialOption="getDataServices"
-            :change="changeDataServices"
-          />
-          <radio-facet
-            v-if="(field.id === 'superCatalog')"
-            :title="erpd.title"
-            :property="erpd.property"
-            :toolTipTitle="erpd.toolTipTitle"
-            :optionIds="['true', 'false']"
-            :optionLabels="[erpd.yes, erpd.no]"
-            :initialOption="isErdp"
-            :change="changeErpd"
-          />
-          <select-facet
-              v-if="(field.id !== 'superCatalog' && field.id !== 'dataServices')"
-            :fieldId="field.id"
-            :header="facetTitle(field.id)"
-            :items="sortByCount(field.items, field.id)"
-            :toolTipTitle="tooltip(field.id)"
-            :getFacetTranslationWrapper="getFacetTranslationWrapper"
-            :facetIsSelected="facetIsSelected"
-            :facetClicked="facetClicked"
-            :multiSelect="isMultiSelect(field.id)"
-            class="col pr-0"
-          />
+        <settings-facet class="row facet-field mb-3" />
+        <div class="row facet-field mb-3" v-for="(field, index) in getSortedFacets" :key="`facet@${field.id}`"
+          :class="{ 'mt-3': (index > 0) }">
+          <radio-facet v-if="(field.id === 'dataServices')" :title="dataServices.title"
+            :property="dataServices.property" :toolTipTitle="dataServices.toolTipTitle" :optionIds="['true', 'false']"
+            :optionLabels="[dataServices.yes, dataServices.no]" :initialOption="getDataServices"
+            :change="changeDataServices" />
+          <radio-facet v-if="(field.id === 'superCatalog')" :title="erpd.title" :property="erpd.property"
+            :toolTipTitle="erpd.toolTipTitle" :optionIds="['true', 'false']" :optionLabels="[erpd.yes, erpd.no]"
+            :initialOption="isErdp" :change="changeErpd" />
+          <select-facet v-if="(field.id !== 'superCatalog' && field.id !== 'dataServices')" :fieldId="field.id"
+            :header="facetTitle(field.id)" :items="sortByCount(field.items, field.id)" :toolTipTitle="tooltip(field.id)"
+            :getFacetTranslationWrapper="getFacetTranslationWrapper" :facetIsSelected="facetIsSelected"
+            :facetClicked="facetClicked" :multiSelect="isMultiSelect(field.id)" class="col pr-0" />
         </div>
         <div>
-          <pv-show-more
-            v-if="showMoreFacetsShown"
-            :label="cutoff >= 0? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.lessFilters')"
-            :upArrow="cutoff === -1"
-            :action="toggleCutoff"
-            class="p-0 row facets-show-more"
-          />
+          <pv-show-more v-if="showMoreFacetsShown"
+            :label="cutoff >= 0 ? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.lessFilters')"
+            :upArrow="cutoff === -1" :action="toggleCutoff" class="p-0 row facets-show-more" />
         </div>
-        <pv-button
-          v-if="showClearButton"
-          label="Clear filters"
-          class="row mt-5 facets-clear"
-          :action="clearFacets"
-        />
+        <pv-button v-if="showClearButton" label="Clear filters" class="row mt-5 facets-clear" :action="clearFacets" />
       </div>
     </div>
   </div>
@@ -108,11 +67,11 @@ export default {
       type: Array,
       default: null,
     },
-        /**
-     * @description Sets the catalog filter to a fixed catalog id. Disables the catalog facet and hides the facet in the selected facets overview.
-     * @dev Use this prop if you want to use this component in a catalog page context where the catalog is already known (e.g., provider's page).
-     */
-     fixedCatalogFilter: {
+    /**
+ * @description Sets the catalog filter to a fixed catalog id. Disables the catalog facet and hides the facet in the selected facets overview.
+ * @dev Use this prop if you want to use this component in a catalog page context where the catalog is already known (e.g., provider's page).
+ */
+    fixedCatalogFilter: {
       type: String,
       default: '',
     },
@@ -219,16 +178,22 @@ export default {
       let activeFields = Object.keys(this.getFacets).filter(key => this.getFacets[key].length > 0);
       this.defaultFacetOrder.forEach((facet) => {
         availableFacets.forEach((field) => {
-          if (facet === field.id && field.items.length > 0
-            && (field.id !== 'country' || this.dataScope || this.$route.path === '/catalogues/erpd' || this.$route.query.superCatalog === 'erpd')
-            && (field.id !== 'catalog' || this.useCatalogFacets)
-            && (field.id !== 'scoring' || this.useScoringFacets)
-            && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
-              if(activeFields.includes(field.id))
-                activeFacets.push(field);
-              else
-                inactiveFacets.push(field);
-            }
+          // if (facet === field.id && field.items.length > 0
+          //   && (field.id !== 'country' || this.dataScope || this.$route.path === '/catalogues/erpd' || this.$route.query.superCatalog === 'erpd')
+          //   && (field.id !== 'catalog' || this.useCatalogFacets)
+          //   && (field.id !== 'scoring' || this.useScoringFacets)
+          //   && (field.id !== 'dataScope' || this.useDataScopeFacets)) {
+          //     if(activeFields.includes(field.id))
+          //       activeFacets.push(field);
+          //     else
+          //       inactiveFacets.push(field);
+          //   }
+          if (facet === field.id && field.items.length > 0) {
+            if (activeFields.includes(field.id))
+              activeFacets.push(field);
+            else
+              inactiveFacets.push(field);
+          }
         });
       });
       const sortedFacets = activeFacets.concat(inactiveFacets);
@@ -252,7 +217,7 @@ export default {
       if (this.$route.path === '/catalogues/erpd') {
         return 'true';
       } else {
-      // if (this.$route.path.startsWith('/datasets')) {
+        // if (this.$route.path.startsWith('/datasets')) {
         const superCatalogs = this.getFacets.superCatalog;
         return (superCatalogs && superCatalogs[0] === 'erpd') ? 'true' : 'false'
       }
@@ -295,8 +260,8 @@ export default {
       //   return Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`)
       // }
 
-       return fieldId === 'scoring' ?
-         Vue.i18n.t('message.header.navigation.data.metadataquality')
+      return fieldId === 'scoring' ?
+        Vue.i18n.t('message.header.navigation.data.metadataquality')
         : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
     },
     tooltip(fieldId) {
@@ -336,7 +301,7 @@ export default {
       if (fieldId === 'scoring') {
         const qMinScoring = parseInt(this.getMinScoring, 10);
         const minScoringIsSelected = this.$route.query[fieldId];
-        if ( ! minScoringIsSelected || ! qMinScoring) return item.minScoring === 0;
+        if (!minScoringIsSelected || !qMinScoring) return item.minScoring === 0;
         return minScoringIsSelected && qMinScoring === item.minScoring;
       }
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, fieldId)) {
@@ -352,13 +317,26 @@ export default {
       }
 
       return qField.indexOf(facet) > -1;
-      },
+    },
     facetClicked(field, item) {
       const facet = item.id;
       if (field === "dataScope") {
         this.dataScopeFacetClicked(facet);
       } else {
         if (field === 'scoring') this.scoringFacetClicked(item);
+
+        //filtering dataScope when provenance is selected
+        if (field === 'country') {
+          if (facet === 'eu') {
+            this.$route.query.dataScope = 'eu'
+          } else if (facet === 'io') {
+            this.$route.query.dataScope = 'io'
+          } else {
+            this.$route.query.dataScope = 'countryData'
+          }
+          console.log('test message');
+        }
+        
         this.toggleFacet(field, facet);
       }
     },
@@ -503,15 +481,14 @@ export default {
     this.useCatalogService(this.catalogService);
     this.initShowCatalogDetails();
     this.initMinScoring();
-    for(var i in sessionStorage){
-      if(sessionStorage.length > 0 && i =="Filter") this.toggleCutoff();
+    for (var i in sessionStorage) {
+      if (sessionStorage.length > 0 && i == "Filter") this.toggleCutoff();
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
 .facet:hover {
   cursor: pointer;
 }
@@ -520,15 +497,18 @@ export default {
   padding-left: 1.5rem;
   margin-right: 1rem;
 }
+
 .custom-control-label {
   &::before {
     left: -1.5rem !important;
   }
+
   &::after {
     left: -1.5rem !important;
   }
 }
-.custom-control-input:checked ~ .custom-control-label::before {
+
+.custom-control-input:checked~.custom-control-label::before {
   border-color: var(--primary);
   background-color: var(--primary);
 }
@@ -543,11 +523,11 @@ export default {
   margin-bottom: 3px;
   opacity: 0.8;
 }
-.dropdown-menu.show{
+
+.dropdown-menu.show {
   transform: translate3d(0px, 15px, 0px) !important;
   width: max-content;
   display: block;
 
 }
-
 </style>
