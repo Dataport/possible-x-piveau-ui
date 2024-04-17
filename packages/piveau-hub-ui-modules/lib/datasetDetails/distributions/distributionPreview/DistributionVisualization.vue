@@ -213,7 +213,7 @@
 
 <script>
 
-    import BarChart from "../../../charts/barChart.vue";
+    import BarChart from "../../../charts/BarChart";
     import LineChart from '../../../charts/LineChart.vue';
     import DoughnutChart from '../../../charts/DoughnutChart.vue';
     import PieChart from '../../../charts/PieChart.vue';
