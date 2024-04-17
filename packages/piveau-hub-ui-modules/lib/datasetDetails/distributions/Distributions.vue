@@ -68,7 +68,7 @@
         </div>
       </div>
       <download-as-modal />
-      <distribution-visualization class="mb-4" :distributionTitle="previewedDistributionTitle"></distribution-visualization>
+      <distribution-visualization v-if="showDistibutionVisualisation" class="mb-4" :distributionTitle="previewedDistributionTitle"></distribution-visualization>
     </div>
 </template>
 
@@ -137,7 +137,8 @@ export default {
   data() {
     return {
       downloadAllTop: this.$env.content.datasetDetails.bulkDownload.buttonPosition === "top",
-      previewedDistributionTitle: this.getDistributionTitle(this.displayedDistributions[0])
+      previewedDistributionTitle: this.getDistributionTitle(this.displayedDistributions[0]),
+      showDistibutionVisualisation: this.$env.content.datasetDetails.distributions.showVisualisation,
     };
   },
   computed: {
@@ -154,6 +155,9 @@ export default {
       this.previewedDistributionTitle = distribution;
     }
   },
+  // created() {
+  //   this.showDistibutionVisualisation = this.$env.content.datasetDetails.distributions.showVisualisation
+  // }
 };
 </script>
 
