@@ -1,3 +1,17 @@
+## [3.16.33](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.32...v3.16.33) (2024-04-17)
+
+
+### Bug Fixes
+
+* ConditionalInput.vue shows select values ([073e65a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/073e65a2728a771a98b284ca4682137a97d4a79b))
+
+
+### Features
+
+* add Piveau-cookie-consent package ([d4595af](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d4595af2d0ad8156000a15f5a1ac71902e45747f))
+
+
+
 ## [3.16.32](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.31...v3.16.32) (2024-03-27)
 
 
