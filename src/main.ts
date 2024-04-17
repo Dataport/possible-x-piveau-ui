@@ -91,6 +91,7 @@ configureModules(app, store, {
     baseUrl: env.api.baseUrl,
     qualityBaseUrl: env.api.qualityBaseUrl,
     similarityBaseUrl: env.api.similarityBaseUrl,
+    similarityServiceName: env.api.similarityServiceName,
     gazetteerBaseUrl: env.api.gazetteerBaseUrl,
     hubUrl: env.api.hubUrl,
     keycloak: env.authentication.keycloak,

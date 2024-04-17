@@ -16,7 +16,10 @@ const glueConfig = {
 
     // similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
     // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
+    similarityEndpoint: 'similarities',
     similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-piveau.apps.osc.fokus.fraunhofer.de/',
+
+    similarityServiceName: 'similarity',
 
     // fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
     // fileUploadUrl: 'https://ppe.data.europa.eu/api/hub/store/',
@@ -33,12 +36,12 @@ const glueConfig = {
       useLogin: true,
 
       loginTitle: 'Login',
-      loginURL: '/login',
-      loginRedirectUri: '/',
+      loginURL: '/data/login',
+      loginRedirectUri: '/data',
 
       logoutTitle: 'Logout',
-      logoutURL: '/logout',
-      logoutRedirectUri: '/',
+      logoutURL: '/data/logout',
+      logoutRedirectUri: '/data',
     },
     keycloak: {
       realm: 'vanilla',
@@ -63,7 +66,11 @@ const glueConfig = {
   },
   routing: {
     routerOptions: {
+<<<<<<< HEAD
       base: '/',
+=======
+      base: '/data', // TODO: Include piveau-header-footer instead of deu-header-footer to make test app working with default base path #2765
+>>>>>>> develop
       mode: 'history',
     },
     navigation: {
@@ -78,7 +85,7 @@ const glueConfig = {
     },
   },
   metadata: {
-    title: 'piveau Hub-UI',
+    title: '',
     description: 'A modern and customizable web application for data management of extensive data catalogs.',
     keywords: 'Open Data',
   },
@@ -154,6 +161,7 @@ const glueConfig = {
       },
     },
     datasetDetails: {
+      properties: "",
       header: {
         navigation: "top",
         hidePublisher: false,
@@ -177,10 +185,11 @@ const glueConfig = {
         incrementSteps: [10, 50],
         descriptionMaxLines: 3,
         descriptionMaxChars: 250,
-        showValidationButton: false, // TODO: Make use of this property #2764
+        showValidationButton: true,
+        hidePreviewButton: true,
       },
       downloadAs: {
-        enable: true,
+        enable: false,
         proxyUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
         url: 'https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert',
         conversionFormats: [
@@ -194,6 +203,10 @@ const glueConfig = {
           { sourceFileFormat: 'PDF', targetFileFormat: [ 'pdf', 'txt',]}
         ]
       },
+<<<<<<< HEAD
+=======
+      // Embed Dataset feat
+>>>>>>> develop
       embed: {
         enable: false,
         defaultWidth: 900,
@@ -225,7 +238,7 @@ const glueConfig = {
         descriptionMaxChars: 250,
       },
       dataServices: {
-        isVisible: false,
+        isVisible: true,
         displayAll: false,
         displayCount: 7,
         incrementSteps: [10, 50],
@@ -239,7 +252,7 @@ const glueConfig = {
         isVisible: false,
       },
       bulkDownload: {
-        buttonPosition: "top",
+        buttonPosition: "bottom",
         MAX_FILE_TITLE_LENGTH: 80,
         MAX_REQUESTS_COUNT: 5, // TODO: Make use of this property #2764
         INTERVAL_MS: 10, // TODO: Make use of this property #2764
@@ -266,7 +279,7 @@ const glueConfig = {
       }
     },
     maps: {
-      mapVisible: true,
+      mapVisible: false,
       useAnimation: true,
       location: [[52.526, 13.314], 10],
       spatialType: 'Point',
@@ -306,6 +319,8 @@ const glueConfig = {
       basePath: '/dpi',
       specification: 'dcatap',
       annifIntegration: false,
+      annifLinkSubject:'https://data.europa.eu/annif/v1/projects/eurovoc-nn-ensemble-eurlex-en/suggest',
+      annifLinkTheme:'https://data.europa.eu/annif/v1/projects/data-theme-nn-ensemble-en/suggest',
       enableFileUploadReplace: false,
       buttons: {
         Dataset: true,

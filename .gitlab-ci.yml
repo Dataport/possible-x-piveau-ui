@@ -1,3 +1,8 @@
+include:
+  - project: piveau/misc/gitlab-ci-templates
+    file:
+      - /templates/.gitlab-ci-publish-template.yml
+
 cache:
   paths:
    - node_modules/
@@ -27,7 +32,7 @@ build-asset:
 
 semantic-release:
   image:
-    name: node:18-buster-slim
+    name: node:20-buster-slim
     #entrypoint: [ '/bin/bash', '-c', 'ln -snf /bin/bash /bin/sh && /bin/bash -c $0' ]
   stage: create-tags
   only:
@@ -35,7 +40,7 @@ semantic-release:
     - develop
   before_script:
     - apt-get update && apt-get install -y --no-install-recommends git-core ca-certificates
-    - npm install -g semantic-release @semantic-release/gitlab
+    - npm install -g semantic-release @semantic-release/gitlab@13.0.2
   script:
     - semantic-release
 
@@ -63,7 +68,6 @@ register theme-builder latest:
     - docker build --pull -f theme-builder-dockerfile -t "${CI_REGISTRY_IMAGE}/theme-builder":latest .
     - docker push "${CI_REGISTRY_IMAGE}/theme-builder":latest
 
-
 register theme-builder release:
   stage: register
   tags:
@@ -85,7 +89,6 @@ register theme-builder release:
     - docker push "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG
     - docker tag "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":$CI_COMMIT_TAG "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
     - docker push "${GITLAB_COM_REGISTRY_IMAGE}/theme-builder":latest
-
 
 build-theme-branches:
   stage: build
@@ -109,8 +112,6 @@ build-theme-branches:
 #
 # Theme builder end
 #
-
-
 
 
 register develop as latest:
@@ -178,14 +179,14 @@ deploy to openshift:
     - oc get services $CI_PROJECT_NAME 2> /dev/null || oc new-app --name=$CI_PROJECT_NAME --image-stream=$CI_PROJECT_NAME
     - oc get routes $CI_PROJECT_NAME 2> /dev/null || oc create route edge --service=$CI_PROJECT_NAME --hostname=$CI_PROJECT_NAME-$OPENSHIFT_DOMAIN --insecure-policy=Redirect --port=8080
 
-publish to gitlab.com:
-  image: appropriate/curl
-  stage: publish
-  only:
-    - master
-  script:
-    # Publish code to GitLab.com
-    - curl -X POST -F token=$PIVEAU_PUBLISH_TOKEN -F ref=master -F "variables[VAR_PROJECT_PATH]=$CI_PROJECT_PATH " -F "variables[VAR_PROJECT_NAME]=$CI_PROJECT_NAME" https://gitlab.fokus.fraunhofer.de/api/v4/projects/9624/trigger/pipeline
+#publish to gitlab.com:
+# image: curlimages/curl
+# stage: publish
+# only:
+#   - master
+# script:
+#   # Publish code to GitLab.com
+#   - curl -X POST -F token=$PIVEAU_PUBLISH_TOKEN -F ref=master -F "variables[VAR_PROJECT_PATH]=$CI_PROJECT_PATH " -F "variables[VAR_PROJECT_NAME]=$CI_PROJECT_NAME" https://gitlab.fokus.fraunhofer.de/api/v4/projects/9624/trigger/pipeline
 
 
 downstream triggers:
