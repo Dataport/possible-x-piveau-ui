@@ -153,7 +153,7 @@
            title=this.$t('message.header.navigation.data.metadataquality');
           }else if(fieldId==='superCatalog' && facet.facets.toString() === 'erpd'){
             title = this.$t('message.datasetFacets.facets.erpd');
-          }if (this.$route.path === '/catalogues' && fieldId==='country') {
+          }else if (this.$route.path === '/catalogues' && fieldId==='country') {
             title = this.$t(`message.datasetFacets.facets.origin`)
           }else{
             title = this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
