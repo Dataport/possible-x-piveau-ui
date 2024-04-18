@@ -1332,11 +1332,17 @@ const dcatapProperties: InputDefinition = {
                       $formkit: 'select',
                       name: '@language',
                       options: language,
+                      classes: {
+                        outer: 'w25-textfield'
+                      }
                     },
                     {
                       identifier: 'title',
                       $formkit: 'text',
                       name: '@value',
+                      classes: {
+                        outer: 'w75-textfield'
+                      }
                     },
                   ],
                 }
@@ -1353,17 +1359,23 @@ const dcatapProperties: InputDefinition = {
                   name: 'dct:description',
                   children: [
                     {
-                      identifier: 'description',
-                      $formkit: 'textarea',
-                      name: '@value',
-                    },
-                    {
                       identifier: 'language',
                       value: 'en',
                       $formkit: 'select',
                       name: '@language',
                       options: language,
+                      classes: {
+                        outer: 'w25-textfield'
+                      }
                     },
+                    {
+                      identifier: 'description',
+                      $formkit: 'textarea',
+                      name: '@value',
+                      classes: {
+                        outer: 'w75-descField'
+                      }
+                    }
                   ],
                 }
               ]
@@ -1382,7 +1394,6 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'group',
       identifier: 'checksum',
       name: 'spdx:checksum',
-
       children: [
         {
           identifier: 'checksum',
@@ -1395,8 +1406,7 @@ const dcatapProperties: InputDefinition = {
           $formkit: 'auto',
           identifier: 'checksumAlgorithm',
           voc: 'spdx-checksum-algorithm',
-          name: 'spdx:algorithm',
-
+          name: 'spdx:algorithm',        
         },
       ],
     },
@@ -1576,24 +1586,26 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'issued',
-          id: 'issuedCondDist',
+          id: 'issuedCondDataset',
           classes: {
             outer: 'w-100'
           },
           $formkit: 'select',
           name: '@type',
           options: { date: 'Date', datetime: 'Datetime' },
+
         },
         {
           identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$get(issuedCondDist).value',
+          if: '$get(issuedCondDataset).value',
           props: {
-            if: '$get(issuedCondDist).value === date',
+            if: '$get(issuedCondDataset).value === date',
             then: {
               type: 'date',
               name: '@value',
               validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
               classes: {
                 outer: 'w-100'
               },
@@ -1602,6 +1614,7 @@ const dcatapProperties: InputDefinition = {
               type: 'datetime-local',
               name: '@value',
               validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
               classes: {
                 outer: 'w-100'
               },
@@ -1617,7 +1630,7 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'modified',
-          id: 'modifiedCondDist',
+          id: 'modifiedCondDataset',
           name: '@type',
           classes: {
             outer: 'w-100'
@@ -1628,25 +1641,27 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$get(modifiedCondDist).value',
+          if: '$get(modifiedCondDataset).value',
           props: {
             name: 'dct:modified',
-            if: '$get(modifiedCondDist).value === date',
+            if: '$get(modifiedCondDataset).value === date',
             then: {
               type: 'date',
               name: '@value',
-              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
               classes: {
                 outer: 'w-100'
               },
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
             },
             else: {
               type: 'datetime-local',
               name: '@value',
-              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
               classes: {
                 outer: 'w-100'
               },
+              validation: 'required|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
             }
           }
         },
@@ -1833,7 +1848,6 @@ const dcatapProperties: InputDefinition = {
     licence: {
       $formkit: 'group',
       name: 'dct:license',
-
       children: [
         {
           $formkit: 'select',

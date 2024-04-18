@@ -1,3 +1,11 @@
+.distributionOuter {
+    border: 1px solid lightgray;
+    border-radius: 25px;
+    margin: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
 .formkit-input {
     height: 50px;
     padding-left: 0;
@@ -27,17 +35,17 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-  }
-  
-  .interactionWrapper {
+}
+
+.interactionWrapper {
     width: 10%;
     display: flex;
     align-items: center;
     position: relative;
-  
-  }
-  
-  .ball {
+
+}
+
+.ball {
     position: absolute;
     display: flex;
     text-align: center;
@@ -51,41 +59,42 @@
     border-radius: 50%;
     margin: 5px;
     transition: all ease-in-out 200ms;
-  }
-  
-  .formkit-remover {
+}
+
+.formkit-remover {
     left: 30px;
     top: 22px;
     background-color: red;
     color: white;
-  
-  
+
+
     span {
-      pointer-events: none;
-      position: relative;
-      bottom: 0.1rem;
+        pointer-events: none;
+        position: relative;
+        bottom: 0.1rem;
     }
-  
+
     &:hover {
-      background-color: darkred;
-  
+        background-color: darkred;
+
     }
-  }
-  
-  .formkit-adder {
+}
+
+.formkit-adder {
     top: 22px;
     background-color: darkseagreen;
     color: white;
-  
+
     span {
-      position: relative;
-      bottom: 0.13rem;
+        position: relative;
+        bottom: 0.13rem;
     }
-  
+
     &:hover {
-      background-color: darkgreen;
+        background-color: darkgreen;
     }
-  }
+}
+
 .formkit-input-group-repeatable-remove:hover:after {
     left: unset !important;
 }
@@ -447,9 +456,9 @@
 
 #nav {
 
-button:hover{
-    background-color: #F4F4F4 !important;
-}
+    button:hover {
+        background-color: #F4F4F4 !important;
+    }
 
     .right-form-nav {
 
@@ -460,7 +469,7 @@ button:hover{
 
         label:hover,
         button:hover {
-            
+
             transform: scale(97%);
 
         }
@@ -800,7 +809,8 @@ button:hover{
 
 .formkitWrapRepeatable {
     display: flex;
-    .formkitProperty{
+
+    .formkitProperty {
         margin: 0;
     }
 }
@@ -1088,34 +1098,44 @@ button:hover{
         cursor: pointer;
     }
 }
-.hovershdw{
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+.hovershdw {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
+
 .distributionsListClass {
-    .activeSection{
+    .activeSection {
         border-top: 1px solid lightgray;
     }
+
     .repeatable {
         margin: 2rem 0;
     }
-    .formkit-outer{
-        
-    }
-    .title, .description{
-        .formkit-outer{
+
+    .formkit-outer {}
+
+    .title,
+    .description {
+        .formkit-outer {
             width: 100%;
         }
     }
-    .formkit-form {
-        border: 1px solid lightgray;
-        border-radius: 25px;
-        padding: 1rem;
-        margin: 2rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+
+    button {
+        background-color: #fff;
+        border-color: #001d85;
+        color: #000;
+        border-radius: 0.3em;
+        font-size: 16px;
+        padding: 0.75em;
+        display: inline-flex;
+        align-items: center;
+        height: 50px;
+
     }
-    .formkitCmpWrap{
-       
+
+    .formkitCmpWrap {
+
         margin-right: 1rem;
     }
 }
@@ -1133,6 +1153,7 @@ button:hover{
         flex-direction: column;
 
         .formkitWrapRepeatable {
+            flex-direction: row;
             border: none;
         }
     }
@@ -1210,7 +1231,7 @@ button:hover{
     margin-right: -1rem;
 }
 
-.infoTextDPISteps{
+.infoTextDPISteps {
     max-width: 100%;
     border: 1px solid #6610f2;
     padding: 1rem;
@@ -1221,7 +1242,7 @@ button:hover{
 }
 
 .activeSection {
-   
+
     width: 100%;
     padding: 0 1rem;
     margin: 1rem 0;
@@ -1230,13 +1251,16 @@ button:hover{
 .repeatable {
     display: flex;
     flex-direction: column;
-    .formkitCmpWrap{
+
+    .formkitCmpWrap {
         border: none;
     }
 }
-.formkitProperty{
+
+.formkitProperty {
     margin: 2rem 0;
 }
+
 .formkit-label {
     position: absolute;
     padding: 3px;
@@ -1306,7 +1330,8 @@ button:hover{
 
 .formkitCmpWrap {
     border-left: 1px solid lightgray;
-    .formkit-outer{
+
+    .formkit-outer {
         width: 100%;
     }
 }

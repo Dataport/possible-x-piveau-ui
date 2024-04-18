@@ -1,14 +1,6 @@
 <template>
   <FormKit type="form" :actions="false" :plugins="[stepPlugin]">
     <div name="distribution-stepper" class="singleDistributions">
-      <div class="disSectionHead d-flex align-items-center">
-        <h3 @click="isActive = !isActive; editDistribution()">{{ getName }}</h3>
-        <div class="interactionDis">
-          <a @click="isActive = !isActive; editDistribution()">Edit</a>
-          <a @click="deleteDistribution(index)">Delete</a>
-        </div>
-      </div>
-
       <div class="disInfoWrapper" v-if="!isCollapsed">
         <ul class="steps">
           <li v-for="(step, stepName, index) in steps" :key="index" class="step"
@@ -62,9 +54,6 @@ export default defineComponent({
     },
     schema: {
       required: true,
-      type: Object,
-    },
-    values: {
       type: Object,
     },
     context: {

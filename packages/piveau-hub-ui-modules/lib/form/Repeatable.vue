@@ -14,7 +14,9 @@ setTimeout(() => {
   }
   else {
     for (let index = 0; index < props.context.value.length; index++) {
-      counter.value.push(props.context.value[index]['@value'])
+      if (props.context.value[index] != null) {
+        counter.value.push(props.context.value[index]['@value'])
+      }
     }
   }
 });
