@@ -179,6 +179,7 @@ export default {
 
                             this.progress = '100';
                             this.readyForDownload = true;
+
                             const locale = this.$route.query.locale;
                             const FILE = window.URL.createObjectURL(res.data);
                            
@@ -215,10 +216,14 @@ export default {
             return Math.floor(Math.random() * max);
         },
         setFileName(locale) {
+             if (typeof this.getDistributionDownloadAs.title === 'undefined') {
+                return 'file'
+            } 
             if (this.getDistributionDownloadAs.title[locale]) {
                 return this.getDistributionDownloadAs.title[locale].split('.')[0] + '.' + this.selected;
             } else {
                 return Object.values(this.getDistributionDownloadAs.title)[0].split('.')[0] + '.' + this.selected;
+                
             }
         }
     }
