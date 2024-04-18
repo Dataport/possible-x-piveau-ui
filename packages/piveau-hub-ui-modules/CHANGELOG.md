@@ -1,3 +1,24 @@
+# [3.17.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.34...v3.17.0) (2024-04-18)
+
+
+### Bug Fixes
+
+* add 'hide labels' button ([8765d69](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8765d69c0c0cc9ec3b2609ec33c253ec6763943d))
+* add the abitily for users to specify range of records to be displayed ([aec20cb](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/aec20cb1557677fce7619dc17ed68913c3934db3))
+* belongs to previous commit ([867c696](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/867c6969bd7139dd9170fde0c6670258de320499))
+* create dedicated dropdowns that support multi selections ([144e913](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/144e91379454ea3c8e38a9dd66d8810a3327744d))
+* deu redesign ([3cf1e1f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3cf1e1f19e9ef9779dec723a949b9ee1d9118077))
+* feedback tool + categorical view deu adjustments ([b7beae0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7beae0e01c51fea7246fd1caef242ed15572124))
+* fix import BarChart to avoid build error ([f50f1bf](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f50f1bfc1d910937f9a2cfa73c4b23605f4cf48b))
+* fix multi choice bug + css clean up ([fd2a43a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fd2a43a0dd657ac5950c688281bba71e7155d0d5))
+* link visualisation to an env variable (set to false by default) ([fc21ef6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fc21ef6473d921fa5bf128bae9c25c8739bdc378))
+* nav-bar & checkbox selected due customisation ([b7fa42d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7fa42d6d08c762e3505b96362ca6cf6df65ebdd))
+* starting with DEU design ticket ([98ea59e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/98ea59e4cbb00c4f9ba1b867c05a2995263a4484))
+* trial to fix build ([d1659cf](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d1659cfe8a21ceb25a9cd30634d2897a3ae6856c))
+* x axis tick skip ([2694dbe](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2694dbea2c3e1c3ebef68e8922654ccb33094b65))
+
+
+
 ## [3.16.34](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.33...v3.16.34) (2024-04-18)
 
 
@@ -344,11 +365,7 @@
 
 
 
-## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.3...v3.15.4) (2023-12-21)
-
-
-
-## [3.15.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.3) (2023-12-21)
+## [3.15.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.15.2...v3.15.4) (2023-12-21)
 
 
 ### Bug Fixes
