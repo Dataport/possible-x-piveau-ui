@@ -1,3 +1,12 @@
+## [3.17.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.0...v3.17.1) (2024-04-18)
+
+
+### Bug Fixes
+
+* temporarly disable charts to avoid breaking change in feature projects ([cdd4a2b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/cdd4a2ba6130aa98059108fa89f020d5f654e606))
+
+
+
 # [3.17.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.16.34...v3.17.0) (2024-04-18)
 
 
