@@ -78,10 +78,10 @@
                                 </button> --> 
                             </div>
                         </div>
-                        <bar-chart v-if="viewType.toLowerCase() === 'bar'" :chartData="this.datacollection" :chartOptions="this.options"></bar-chart>
+                        <!-- <bar-chart v-if="viewType.toLowerCase() === 'bar'" :chartData="this.datacollection" :chartOptions="this.options"></bar-chart>
                         <line-chart v-else-if="viewType.toLowerCase() === 'line'" :chartData="this.datacollection" :chartOptions="this.options" @remove-chart="removeChart"></line-chart>
                         <pie-chart v-else-if="viewType.toLowerCase() === 'pie'" :chartData="this.datacollection" :chartOptions="this.options"></pie-chart>
-                        <doughnut-chart v-else-if="viewType.toLowerCase() === 'doughnut'" :chartData="this.datacollection" :chartOptions="this.options"></doughnut-chart>
+                        <doughnut-chart v-else-if="viewType.toLowerCase() === 'doughnut'" :chartData="this.datacollection" :chartOptions="this.options"></doughnut-chart> -->
                     </div>
                     <div v-else class="m-5">No numerical data to show.</div>
                 </div>
@@ -105,10 +105,10 @@
                             </select> -->
                             
                         </div>
-                        <bar-chart v-if="catViewType.toLowerCase() === 'bar'" :chartData="this.catDatacollection" :chartOptions="this.options"></bar-chart>
+                        <!-- <bar-chart v-if="catViewType.toLowerCase() === 'bar'" :chartData="this.catDatacollection" :chartOptions="this.options"></bar-chart>
                         <line-chart v-else-if="catViewType.toLowerCase() === 'line'" :chartData="this.catDatacollection" :chartOptions="this.options" @remove-chart="removeChart"></line-chart>
                         <pie-chart v-else-if="catViewType.toLowerCase() === 'pie'" :chartData="this.catDatacollection" :chartOptions="this.options"></pie-chart>
-                        <doughnut-chart v-else-if="catViewType.toLowerCase() === 'doughnut'" :chartData="this.catDatacollection" :chartOptions="this.options"></doughnut-chart>
+                        <doughnut-chart v-else-if="catViewType.toLowerCase() === 'doughnut'" :chartData="this.catDatacollection" :chartOptions="this.options"></doughnut-chart> -->
                     </div>
                     <div v-else>
                         No categorical data to show.
@@ -116,7 +116,7 @@
                 </div>
                 <!-- Tab for Table View -->
                 <div v-show="activeTab == 'table-view'" role="tabpanel" id="table-view">
-                    <div class="table-wrapper">
+                    <!-- <div class="table-wrapper">
                         <v-table 
                                 class="dist-table"
                                 :data="dataRows"
@@ -138,7 +138,7 @@
                         :totalPages="totalPages"
                         :maxPageLinks="10"
                         :boundaryLinks="true"
-                    />
+                    /> -->
                 </div>  
             </div>
         </div>
@@ -213,19 +213,19 @@
 
 <script>
 
-    import BarChart from "../../../charts/BarChart";
-    import LineChart from '../../../charts/LineChart.vue';
-    import DoughnutChart from '../../../charts/DoughnutChart.vue';
-    import PieChart from '../../../charts/PieChart.vue';
+    // import BarChart from "../../../charts/BarChart";
+    // import LineChart from '../../../charts/LineChart.vue';
+    // import DoughnutChart from '../../../charts/DoughnutChart.vue';
+    // import PieChart from '../../../charts/PieChart.vue';
     import DistributionPreviewSelectHeader from './DistributionPreviewSelectHeader.vue';
 
     export default {
         name: "distributionVisualization",
         components: {
-            BarChart,
-            LineChart,
-            DoughnutChart,
-            PieChart,
+            // BarChart,
+            // LineChart,
+            // DoughnutChart,
+            // PieChart,
             DistributionPreviewSelectHeader,
         },
         data() {
