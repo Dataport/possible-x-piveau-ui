@@ -182,7 +182,7 @@ export default defineConfig({
     },
 
     rollupOptions: {
-      external: ['vue', ...regexesOfPackages],
+      external: ['vue', 'chart.js', ...regexesOfPackages],
 
       output: {
         // Provide global variables to use in the UMD build
