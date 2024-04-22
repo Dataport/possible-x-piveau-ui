@@ -973,6 +973,21 @@
 
 }
 
+.checksum {
+    
+    .formkitProperty {
+        width: 100%;
+        h4 {
+            display: none;
+        }
+        .formkitCmpWrap {
+            border-left: none;
+        }
+    }
+
+    
+}
+
 .propertyChooser {
     ul {
         margin-top: 1rem;

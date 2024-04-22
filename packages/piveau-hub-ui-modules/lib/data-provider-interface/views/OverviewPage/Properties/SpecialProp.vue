@@ -17,7 +17,6 @@
         </td>
 
     </tr>
-
     <!-- CONTACT POINT -->
     <tr v-if="property === 'dcat:contactPoint' && showValue(data, 'rdf:type')">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
@@ -86,14 +85,14 @@
 
 
     <!-- CHECKSUM -->
-    <!-- <div v-if="property === 'spdx:checksum' && Object.keys(data).length > 0" class="d-flex">
+    <div v-if="property === 'spdx:checksum' && Object.keys(data).length > 0" class="d-flex">
         <td class="font-weight-bold ">{{ $t(`${value.label}`) }}:</td>
         <td class="">
 
-            <div v-if="typeof data === 'string'">{{ data }}</div>
-            <div v-if="typeof data === 'object'">{{ data['name'] }}</div>
+            <div v-if="typeof data['spdx:checksumValue'] === 'string'">{{ data['spdx:checksumValue'] }}</div>
+            <div v-if="typeof data['spdx:algorithm'] === 'object'">{{ data['spdx:algorithm']['name'] }}</div>
         </td>
-    </div> -->
+    </div>
 
     <!-- PAGE -->
     <div v-if="property === 'foaf:page'" class="w-100 d-flex">

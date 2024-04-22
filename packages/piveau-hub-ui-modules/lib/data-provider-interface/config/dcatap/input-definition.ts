@@ -1406,18 +1406,18 @@ const dcatapProperties: InputDefinition = {
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     checksum: {
-      $formkit: 'group',
+      $formkit: 'formkitGroup',
       identifier: 'checksum',
       name: 'spdx:checksum',
+      
       children: [
         {
           identifier: 'checksum',
           $formkit: 'text',
           name: 'spdx:checksumValue',
-          classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' },
         },
         {
-          // todo: check if this is correct
+          label:'test',
           $formkit: 'auto',
           identifier: 'checksumAlgorithm',
           voc: 'spdx-checksum-algorithm',
@@ -1430,14 +1430,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:compressFormat',
-      id: 'compressFormat'
+     
     },
     packageFormat: {
       identifier: 'packageFormat',
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:packageFormat',
-      id: 'packageFormat'
+     
     },
     page: {
       identifier: 'page',
@@ -1514,7 +1514,6 @@ const dcatapProperties: InputDefinition = {
               voc: 'file-type',
               name: 'dct:format',
               class: "property",
-              id: 'pageFormat',
               classes: {
 
                 outer: 'w88-textfield'
@@ -1560,7 +1559,7 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       name: 'dct:language',
       voc: 'language',
-      id: 'language'
+
     },
     conformsTo: {
       identifier: 'conformsTo',
@@ -1725,14 +1724,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'distribution-type',
       name: 'dct:type',
-      id: 'type'
+    
     },
     status: {
       identifier: 'status',
       $formkit: 'auto',
       voc: 'dataset-status',
       name: 'adms:status',
-      id: 'status'
+    
     },
   },
   catalogues: {
