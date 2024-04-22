@@ -1,91 +1,72 @@
+<script setup>
+import { ref, onMounted, nextTick } from 'vue';
+import DistributionStepper from '../components/DistributionStepper.vue';
+
+const props = defineProps({
+  values: Object,
+  schema: Object,
+})
+
+const disIndex = ref([])
+
+const list = ref({
+  disList: [],
+})
+onMounted(async () => {
+  // Load DOM
+  await nextTick()
+  if (props.values.Distributions.distributionList.length != 0) {
+    for (let index = 0; index < props.values.Distributions.distributionList.length; index++) {
+      disIndex.value.push('distribution ' + index)
+      list.value.disList.push({ 'name': 'distribution ' + index, 'isActive': false })
+    }
+  }
+})
+const addDistribution = () => {
+  list.value.disList.push({ 'name': 'distribution ' + list.value.disList.length, 'isActive': false })
+  editDis(list.value.disList.length - 1)
+}
+const editDis = (i) => {
+  list.value.disList.forEach((el, index) => {
+    if (i != index) {
+      el.isActive = false
+    }
+  }
+  )
+  list.value.disList[i].isActive = !list.value.disList[i].isActive
+}
+const removeDis = (i) => {
+  list.value.disList.splice(i, 1)
+}
+const deleteAllDistributions = () => {
+  list.value.disList = []
+}
+</script>
+
 <template>
   <h1>Distributions</h1>
   <hr>
   <div name="distribution-stepper-list" class="distributionsListClass">
 
     <FormKit type="list" name="distributionList">
-      <section v-for="(dist, index) in distributionList" :key="index">
-        <DistributionStepper 
-          :name="dist" 
-          :index="index" 
-          :schema="schema" 
-          :values="values" 
-          :distributionIsCollapsed="collapsedDistributions[index]" 
-          :collapseDistributions="collapseDistributions" 
-          :deleteDistribution="deleteDistribution" 
-          :distributionList="distributionList"
-          ></DistributionStepper>
+
+      <section v-for="(dist, index) in list.disList" :key="index" class="distributionOuter">
+        <div class="d-flex m-4 align-items-center justify-content-between">
+          <h2 class="m-0">Distribution {{ index + 1 }}</h2>
+          <div>
+            <button class="btn btn-secondary" type="button" @click="editDis(index)">Edit</button>
+            <button class="btn btn-secondary" type="button" @click="removeDis(index)">Remove</button>
+          </div>
+        </div>
+        <div class="disInputWrapper" :class="{ 'd-none': !list.disList[index].isActive }">
+          <DistributionStepper :name="dist.name" :index="index" :schema="props.schema" :values="props.values"
+            :distributionList="disIndex">
+          </DistributionStepper>
+        </div>
       </section>
     </FormKit>
-
-    <button class="btn btn-secondary" @click="addDistribution">{{ $t('message.dataupload.newDistribution') }}</button>
-    <button class="btn btn-secondary" @click="deleteAllDistributions">Delete all Distributions</button>
-    <!-- <button class="btn btn-secondary" @click="deleteAllDistributions">{{ $t('message.dataupload.deletemodal.deleteAllDistributions') }}</button> -->
-
+    <button type="button" class="btn btn-secondary" @click="addDistribution">{{ $t('message.dataupload.newDistribution')
+    }}</button>
+    <button type="button" class="btn btn-secondary" @click="deleteAllDistributions">Delete all Distributions</button>
   </div>
 </template>
-
-<script>
-import { defineComponent, nextTick } from 'vue';
-import DistributionStepper from '../components/DistributionStepper.vue';
-
-export default defineComponent({
-  props: {
-    schema: {
-      required: true,
-      type: Object,
-    },
-    values: {
-      required: true,
-    }
-  },
-  components: {
-    DistributionStepper,
-  },
-  data() {
-    return {
-      distributionList: [],
-      collapsedDistributions: [],
-      existingDistributions: 0,
-    }
-  },
-  created() {
-    // TODO: Load from LOCAL STORAGE
-    // try {
-    //   this.existingDistributions = JSON.parse(localStorage.getItem('dpi_datasets'))['Distributions']['distributionList'].length
-    // } catch (error) {
-
-    // }
-    // for (let index = 0; index < this.existingDistributions; index++) {
-    //   this.distributionList.push(index)
-    // }
-  },
-  methods: {
-    addDistribution() {
-      this.distributionList.push(`Distribution ${this.existingDistributions + 1}`);
-      this.collapseAllDistributions();
-      this.collapsedDistributions.push(false);
-      this.existingDistributions++;
-    },
-    deleteDistribution(index) {
-      this.distributionList.splice(index, 1);
-      this.collapsedDistributions.splice(index, 1);
-      this.collapseAllDistributions();
-    },
-    deleteAllDistributions() {
-      this.distributionList = [];
-      this.collapsedDistributions = [];
-      this.existingDistributions = 0;
-    },
-    collapseDistributions(index) {
-      this.collapseAllDistributions();
-      this.collapsedDistributions[index] = false;
-    },
-    collapseAllDistributions() {
-      this.collapsedDistributions = this.collapsedDistributions.map(cd => true);
-    },
-  },
-});
-</script>
-
-<style></style>
