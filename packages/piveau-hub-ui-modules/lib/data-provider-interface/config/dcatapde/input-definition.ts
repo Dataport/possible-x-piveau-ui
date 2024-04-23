@@ -9,6 +9,7 @@ import config from './page-content-config';
 export type DcatApDatasetsProperty =
   // Append new properties here for accurate type checking
   'datasetID'
+  | 'overview'
   | 'politicalGeocodingLevelURI'
   | 'politicalGeocodingURI'
   | 'availabilityDE'
@@ -119,6 +120,12 @@ export type InputDefinition = {
 
 const dcatapProperties: InputDefinition = {
   datasets: {
+    overview: {
+      $cmp: 'OverviewPage',
+      props: {
+        property: 'datasets'
+      }
+    },
     // Dcatap.de Properties #### Start ####
     politicalGeocodingLevelURI: {
       identifier: 'politicalGeocodingLevelURI',
@@ -1930,6 +1937,29 @@ const dcatapProperties: InputDefinition = {
       voc: 'dataset-status',
       name: 'adms:status',
       class: 'property',
+    },
+    hasPolicy: {
+      identifier: 'hasPolicy',
+      $formkit: 'repeatable',
+      name: 'odrl:hasPolicy',
+      children: [
+        {
+          identifier: 'hasPolicy',
+          $formkit: 'group',
+          name: 'odrl:hasPolicy',
+          children: [
+            {
+              identifier: 'hasPolicyUrl',
+              $formkit: 'url',
+              name: '@id',
+              validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
+            },
+          ],
+        }
+      ]
     },
   },
   catalogues: {
