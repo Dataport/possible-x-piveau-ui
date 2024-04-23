@@ -131,67 +131,13 @@ const dcatapProperties: InputDefinition = {
     politicalGeocodingURI: {
       identifier: 'politicalGeocodingURI',
       $formkit: 'repeatable',
-      name:'dcatde:politicalGeocodingURI',
+      name: 'dcatde:politicalGeocodingURI',
       children: [
         {
-          identifier: 'politicalGeocodingURI',
-          $formkit: "group",
+          $formkit: 'spatialinput',
           name: 'dcatde:politicalGeocodingURI',
-          class: 'property',
-          children: [
-            {
-              identifier: "politicalGeocodingURI",
-              $formkit: "select",
-              id: "geocodingModeDataset",
-              name: 'dcatde:politicalGeocodingURI',
-              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-            },
-            {
-              $cmp: "FormKit",
-              if: "$get(geocodingModeDataset).value",
-              props: {
-                if: "$get(geocodingModeDataset).value === voc",
-                then: {
-                  type: "radio",
-                  id: "geocodingVocDataset",
-                  name: 'geocodingVoc',
-                  options: { municipalityKey: 'Municipality Key', regionalKey: 'Regional Key', municipalAssociationKey: 'Municipal Association Key', districtKey: 'District Key',
-                  governmentDistrictKey: 'Government District Key', stateKey: 'State Key'}
-                },
-                else: {
-                  then: {
-                    type: "radio",
-                    id: "geocodingVocDataset",
-                    name: 'geocodingVoc',
-                    options: { other: "Other"}
-                  }
-                }
-
-              }
-            },
-            {
-              $cmp: "FormKit",
-              if: "$get(geocodingVocDataset).value",
-              props: {
-                if: "$get(geocodingVocDataset).value === other",
-                then: {
-                  identifier: 'politicalGeocodingURI',
-                  $formkit: "url",
-                  name: '@id'
-                },
-                else: {
-                  then: {
-                    identifier: 'politicalGeocodingURI',
-                    $formkit: "auto",
-                    name: '@id',
-                    voc: ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      ]
+          identifier: 'politicalGeocodingURI',
+        }]
     },
     availabilityDE: {
       identifier: 'availabilityDE',
