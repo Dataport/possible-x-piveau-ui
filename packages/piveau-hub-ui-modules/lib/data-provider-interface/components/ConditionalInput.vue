@@ -64,8 +64,7 @@ export default {
       this.context.rootEmit('change');
     },
     fillValues() {
-      this.checkName();
-      this.checkIdentifier();
+      this.checkName() || this.checkIdentifier();
     },
     checkName() {
       const semanticName = this.context.attributes.name;
@@ -78,7 +77,7 @@ export default {
             this.conditionalValues[this.context.name] = 'date';
           }
           this.inputValues = { '@value': this.context.model };
-          break;
+          return true;
         case 'dct:license':
           // either an array with an object containing multiple properties
           if (Array.isArray(this.context.model)) {
@@ -91,12 +90,12 @@ export default {
             this.conditionalValues[this.context.name] = 'voc';
             this.inputValues = { '@id': this.context.model };
           }
-          break;
+          return true;
         case 'dcatde:politicalGeocodingURI':
           // this.conditionalValues[this.context.name] = 'voc';
           // this.inputValues = { '@id': this.context.model };2
           this.context.placeholder = this.context.model;
-          break;
+          return true;
         case 'dct:rights':
           // url and string provided as normal string
           if (generalHelper.isUrl(this.context.model)) {
@@ -105,9 +104,8 @@ export default {
             this.conditionalValues[this.context.name] = 'str';
           }
           this.inputValues = { 'rdfs:label': this.context.model };
-          break;
+          return true;
         case 'dct:publisher':
-          console.log("dct:publisher", this.context)
           if (Array.isArray(this.context.model)) {
             if (!isEmpty(this.context.model[0])) {
               this.conditionalValues[this.context.name] = 'man';
@@ -118,7 +116,9 @@ export default {
             this.conditionalValues[this.context.name] = 'voc';
             this.inputValues = { '@id': this.context.model };
           }
-          break;
+          return true;
+        default:
+          return false;
       }
     },
     checkIdentifier() {
@@ -131,7 +131,7 @@ export default {
             this.conditionalValues[this.context.name] = 'url';
           }
           this.inputValues = { '@id': this.context.model };
-          break;
+          return true;
         case 'spatial':
           // && this.$env.content.dataProviderInterface.specification === "dcatap"
           // find better differentiation instead of hardcoded URL
@@ -139,13 +139,15 @@ export default {
           else this.conditionalValues[this.context.name] = 'man';
           // both options return an URI
           this.inputValues = { '@id': this.context.model };
-          break;
+          return true;
         case 'spatialVocabulary':
           const vocProps = this.context.model.replace("http://publications.europa.eu/resource/authority/", "");
           const vocab = vocProps.slice(0, vocProps.indexOf("/"));
           this.conditionalValues[this.context.name] = vocab;
           this.inputValues = { '@id': this.context.model };
-          break;
+          return true;
+        default:
+          return false;
       }
     }
   },
