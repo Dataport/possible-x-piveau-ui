@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 <script setup>
 import { ref, onMounted, nextTick } from 'vue';
 import DistributionStepper from '../components/DistributionStepper.vue';
@@ -44,7 +42,6 @@ const deleteAllDistributions = () => {
   list.value.disList = []
 }
 </script>
->>>>>>> f/Vue-3
 
 <template>
   <h1>Distributions</h1>

@@ -617,7 +617,7 @@ const dcatapProperties: InputDefinition = {
           $formkit: 'select',
           identifier: 'publisher',
           name: 'publisherMode',
-          id: 'publishereModeDataset',
+          id: 'publisherModeDataset',
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {

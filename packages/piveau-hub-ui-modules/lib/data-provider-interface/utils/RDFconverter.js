@@ -153,7 +153,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 
                 let actualData;
                 // vcard:hasAdress is an object as well as dct:creator and skos:notation
-                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation' || key === 'spdx:checksum') actualData = [data[key]];
+                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation' || key === 'spdx:checksum' || key === 'dct:publisher') actualData = [data[key]];
                 else actualData = data[key];
 
                 // looping trough all existing objects within the array
@@ -283,16 +283,19 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 // license either is an URI or a group with multiple values ()
                 if (key === 'dct:publisher' || key === 'dct:license') {
                     const modeKey = Object.keys(data[key]).filter(key => key !== 'details')[0]; 
+                    const propertyData = {};
+
                     // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
                     if (data[key][modeKey] === 'voc') {
                         generalHelper.addKeyToFormatType(key, 'singularURI', property, formatTypes);
+                        propertyData[key] = data[key].details['@id'];
                     } else {
                         generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatTypes);
+                        propertyData[key] = data[key].details;
+
                     }
                     generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatTypes);
 
-                    const propertyData = {};
-                    propertyData[key] = data[key].details['@id'];
                     // now conversion run based on newly defined format Type
                     convertPropertyValues(RDFdataset, propertyData, property, mainURI, mainType, false, dpiConfig);
 
@@ -333,7 +336,6 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     }
                 }
             } else if (key === 'dct:rights') {
-                console.log('######', data[key])
                 // rights has a static type (RightsStatement) which needs to be added to linked data as additional node
                 // therefore we need to create an initial quadruple for with 'rights' being the predicate having a blank node
                 // blank node serves as subject for the following quadruples which contain the type and actual value of the form field
