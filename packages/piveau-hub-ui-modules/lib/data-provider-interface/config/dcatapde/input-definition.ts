@@ -619,66 +619,10 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:spatial',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'spatialinput',
           name: 'dct:spatial',
           identifier: 'spatial',
-          children: [
-            {
-              $formkit: "select",
-              identifier: "spatial",
-              id: "spatialModeDataset",
-              name: "spatialMode",
-              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-            },
-            {
-              $cmp: "FormKit",
-              identifier: "spatial",
-              if: "$get(spatialModeDataset).value",
-              props: {
-                type: "radio",
-                name: "vocabulary",
-                id: "spatialVocabularyDataset",
-                if: "$get(spatialModeDataset).value === man",
-                options: {
-                  if: "$get(spatialModeDataset).value === voc",
-                  then: [
-                    { value: "continent", label: "Continent" },
-                    { value: "country", label: "Country" }, 
-                    { value: "place", label: "Place"}
-                  ],
-                  else: {
-                    if: "$get(spatialModeDataset).value === man",
-                    then: [
-                      {label: "Other", value: "other" }
-                    ],
-                  }
-                }
-              }
-            },
-            {
-              $cmp: "FormKit",
-              identifier: "spatial",
-              if: "$get(spatialVocabularyDataset).value",
-              props: {
-                identifier: "spatial",
-                if: "$get(spatialVocabularyDataset).value === other",
-                then: {
-                  type: "url",
-                  identifier: "spatial",
-                  name: '@id'
-                },
-                else: {
-                  then: {
-                    type: "text",
-                    identifier: "spatial",
-                    name: '@id'
-                  }
-                }
-              }
-            }
-          ]
-        }
-      ]
+        }]
     },
     temporal: {
       identifier: 'temporal',
