@@ -1732,62 +1732,48 @@ const dcatapProperties: InputDefinition = {
       ],
     },
     issued: {
-      $formkit: 'group',
+      identifier: 'issued',
+      $formkit: 'formkitGroup',
       name: 'dct:issued',
+
       children: [
         {
           identifier: 'issued',
-          id: 'issuedCondDistribution',
-          $formkit: 'select',
-          name: '@type',
-          options: {date: 'Date', datetime: 'Datetime'},
-        },
-        {
-          identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$get(issuedCondDistribution).value',
+
           props: {
-            if: '$get(issuedCondDistribution).value === date',
-            then: {
-              type: 'date',
-              name: '@value',
+
+            type: 'datetime-local',
+            name: '@value',
+            validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+            'validation-visibility': 'live',
+            classes: {
+              outer: 'w-100'
             },
-            else: {
-              type: 'datetime-local',
-              name: '@value',
-            }
+
           }
         },
       ]
     },
     modified: {
-      $formkit: 'group',
+      identifier: 'modified',
+      $formkit: 'formkitGroup',
       name: 'dct:modified',
       children: [
-        {
-          identifier: 'modified',
-          id: 'modifiedCondDistribution',
-          name: '@type',
-          $formkit: 'select',
-          options: {date: 'Date', datetime: 'Datetime'},
-        },
+
         {
           identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$get(modifiedCondDistribution).value',
           props: {
-            name: 'dct:modified',
-            if: '$get(modifiedCondDistribution).value === date',
-            then: {
-              type: 'date',
-              name: '@value',
+            type: 'datetime-local',
+            name: '@value',
+            classes: {
+              outer: 'w-100'
             },
-            else: {
-              type: 'datetime-local',
-              name: '@value'
-            }
+            validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+
           }
-        },
+        }
       ]
     },
     rights: {
