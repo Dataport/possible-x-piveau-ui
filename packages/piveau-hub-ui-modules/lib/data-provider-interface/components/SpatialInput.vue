@@ -11,13 +11,22 @@ let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
 const props = defineProps({
     context: Object,
 })
-
-let inputText = ref({});
+// let listOfVoc: [{ item: 'Country', active: false }, { item: 'Place', active: false }, { item: 'Continent', active: false }],
+let listOfVoc = ref([])
+let inputText = ref({})
 let voc = ref({})
 let matches = ref({})
 let manURL = ref({})
 const store = useStore();
 
+if (props.context.attrs.identifier === 'politicalGeocodingURI') {
+    listOfVoc.value.push({ item: 'Municipality Key', active: false }, { item: 'Regional Key', active: false }, { item: 'Municipal Association Key', active: false }, { item: 'District Key', active: false }, { item: 'Government District Key', active: false }, { item: 'State Key', active: false })
+
+}
+if (props.context.attrs.identifier === 'spatial') {
+    listOfVoc.value.push({ item: 'Country', active: false }, { item: 'Place', active: false }, { item: 'Continent', active: false })
+
+}
 
 watch(inputText, async () => {
     getAutocompleteSuggestions();
@@ -26,7 +35,6 @@ watch(voc, async () => {
     voc.value = voc.value.toLowerCase();
 })
 watch(manURL, async () => {
-    //    ToDo needs a better way - maybe if the input looses its focus?
     props.context.node.input({ 'name': manURL, 'resource': manURL })
 })
 onMounted(async () => {
@@ -40,6 +48,12 @@ onMounted(async () => {
     // console.log(showTable.activeValue);
 
 });
+
+function closeAll() {
+    listOfVoc.value.forEach(element => {
+        element.active = false;
+    });
+}
 function removeProperty(e) {
     //   props.context.value = {}
     showTable.activeValue = false
@@ -60,18 +74,37 @@ function saveToLocal(el) {
     localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
 }
 const getAutocompleteSuggestions = async () => {
+    let vocCache = voc.value
 
-    try {
-        let text = inputText.value;
-        await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc.value, text: text, base: instance.api.baseUrl }).then((response) => {
-            const results = response.data.result.results.map((r) => ({
-                name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
-                resource: r.resource,
-            }));
-            matches = results;
-        });
-    } catch (error) {
+    if (props.context.attrs.identifier === 'politicalGeocodingURI') {
+        vocCache = 'political-geocoding-' + vocCache.toLowerCase().replace(" ", '-')
+        try {
+            let text = inputText.value;
+            await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: vocCache, text: text, base: instance.api.baseUrl }).then((response) => {
+                const results = response.data.result.results.map((r) => ({
+                    name: getTranslationFor(r.alt_label, 'en', []) + " (" + r.id + ")",
+                    resource: r.resource,
+                }));
+                matches = results;
+            });
+        } catch (error) {
+        }
+        console.log(vocCache);
     }
+    else {
+        try {
+            let text = inputText.value;
+            await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: vocCache, text: text, base: instance.api.baseUrl }).then((response) => {
+                const results = response.data.result.results.map((r) => ({
+                    name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
+                    resource: r.resource,
+                }));
+                matches = results;
+            });
+        } catch (error) {
+        }
+    }
+
 }
 
 var showTable = reactive({
@@ -102,6 +135,7 @@ function activeInput(e) {
 function manURLInput(e) {
     props.context.node.input({ 'name': e.target.value, 'resource': e.target.value })
 }
+console.log(voc);
 </script>
 
 <template>
@@ -116,7 +150,7 @@ function manURLInput(e) {
         <div v-else>
             <div class=" w-100 d-flex">
                 <div class="d-flex position-relative m-3 w-100">
-                    <label class="w-100"> Choose the the way you want to provide the spatial info <input id="I1" type="text"
+                    <label class="w-100"> Choose the the way you want to provide the info <input id="I1" type="text"
                             class="selectInputField formkit-inner" readonly="readonly" placeholder="Select input method"
                             @click="activeInput('showTable')" />
                     </label>
@@ -133,8 +167,8 @@ function manURLInput(e) {
                     </ul>
                 </div>
                 <div v-if="man" class="d-flex position-relative m-3 w-100">
-                    <label class="w-100"> Provide spatial URL
-                        <input type="URL" class="selectInputField formkit-inner" placeholder="Spatial URL"
+                    <label class="w-100"> Provide an URL
+                        <input type="URL" class="selectInputField formkit-inner" placeholder="URL"
                             @input="manURLInput($event)">
                     </label>
                 </div>
@@ -145,13 +179,12 @@ function manURLInput(e) {
                     </label>
                     <ul ref="I2" v-if="showTable.second" class="spatialListUpload">
                         <li v-for="el in listOfVoc" :key="el" class="p-2 border-b border-gray-200 choosableItemsAC"
-                            @click=" closeAll(); el.active = !el.active; activeInput('showVocTable'); inputText = ''; voc = el.item;">
+                            @click=" closeAll(); el.active = !el.active; activeInput('showVocTable'); inputText = ''; voc = el.item">
                             {{ el.item }}</li>
                     </ul>
                 </div>
             </div>
             <div class="m-3" v-if="vocSearch">
-
                 <div v-for="el in listOfVoc" :key="el" class="position-relative">
                     <label class="w-100" v-if="el.active"> Search the vocabulary <input id="I3" type="text"
                             v-model="inputText" class="selectInputField formkit-inner" :placeholder="el.item"
@@ -175,19 +208,11 @@ function manURLInput(e) {
 export default {
     data() {
         return {
-            listOfVoc: [{ item: 'Country', active: false }, { item: 'Place', active: false }, { item: 'Continent', active: false }],
             man: false,
             vocSearch: false,
-
         }
     },
-    methods: {
-        closeAll() {
-            this.listOfVoc.forEach(element => {
-                element.active = false;
-            });
-        },
-    }
+
 }
 </script>
 
