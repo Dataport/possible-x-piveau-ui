@@ -1,13 +1,15 @@
+
+
 <template>
   <div class="form-container ">
 
-    <!-- <details>{{ formValues }}</details> -->
+    <details>{{ formValues }}</details>
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
-        <FormKit type="form" v-model.lazy="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
-          @submit.prevent="" class="d-flex">
+        <FormKit type="form" v-model="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" @submit.prevent=""
+          class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
@@ -35,14 +37,14 @@
                 <InputPageStep :name="stepName">
                   <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'" class="w-100">
                     <h1 style="min-width:100%">{{ stepName }} fields</h1>
-                    <p class="infoTextDPISteps">This text can and schould be altered to describe the following
+                    <!-- <p class="infoTextDPISteps">This text can and schould be altered to describe the following
                       properties in a short way. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
                       kasd gubergren, no sea
                       takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
                       elitr, sed diam nonumy
                       eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
                       et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
-                      est Lorem ipsum dolor sit amet.</p>
+                      est Lorem ipsum dolor sit amet.</p> -->
                   </div>
                   <!-- <PropertyChooser></PropertyChooser> -->
                   <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"
@@ -79,6 +81,7 @@ import Navigation from '../components/Navigation.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
 import axios from 'axios';
 import { useWindowScroll } from '@vueuse/core'
+import { ref } from 'vue';
 
 export default defineComponent({
   props: {
@@ -93,7 +96,7 @@ export default defineComponent({
   data() {
     return {
       heightActiveSec: "10vh",
-      formValues: {},
+      formValues:{},
       offsetTopStepper: "60px",
       info: {},
       catalogues: [],
@@ -170,15 +173,17 @@ export default defineComponent({
       this.$formkit.reset('dpi')
     },
     scrollToTop() {
-      window.scrollTo(0,0);
+      window.scrollTo(0, 0);
     },
     initInputPage() {
+
       this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
       this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
       const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
-      // only overwrite empty object if there are values (otherwise the language preselection is gone)
+      // console.log(existingValues.Mandatory);
+      // only overwrite empty object if there are values (otherwise the language preselection is gone -- Needed to add "Mandatory", otherwise the condition would be true everytime)
 
-      if (existingValues) {
+      if (existingValues.Mandatory) {
         this.formValues = existingValues;
       }
 
@@ -300,6 +305,10 @@ export default defineComponent({
       goToPreviousStep,
     } = useDpiStepper();
 
+   
+
+    
+    
     const scrollToTop = () => {
       let { x, y } = useWindowScroll({ behavior: 'smooth' })
       y.value = 0

@@ -2,6 +2,9 @@
 import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
+import { getCurrentInstance } from "vue";
+
+let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
 
 const props = defineProps({
   context: Object
@@ -19,13 +22,13 @@ let inputText = ref({});
 let cacheList = [];
 const loadMatches = async () => {
   matches = [{ name: '--- Type in anything for a live search of the vocabulary ---', resource: 'invalid' }]
-  await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
-    const results = response.data.result.results.map((r) => ({
-      name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
-      resource: r.resource,
-    }));
-    matches = results;
-  });
+  // await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
+  //   const results = response.data.result.results.map((r) => ({
+  //     name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
+  //     resource: r.resource,
+  //   }));
+  //   matches = results;
+  // });
 }
 
 onBeforeMount(() => {
@@ -33,7 +36,6 @@ onBeforeMount(() => {
 
 })
 onMounted(async () => {
-
   inputText.value = ""
   // console.log('Context: ', props.context);
 });
@@ -42,7 +44,8 @@ watch(inputText, async () => {
   getAutocompleteSuggestions();
 }
 )
-function findPropertyToUpdate() {
+function findPropertyToUpdate(trigger) {
+
   let finalPath = { step: '', prop: props.context.node.name }
   let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
 
@@ -54,8 +57,15 @@ function findPropertyToUpdate() {
           if (e === props.context.node.name) {
             finalPath.step = ntry[index][0]
 
-            if (typeof selection === 'object') {
+            if (trigger === 'erase') {
+
+              selection = {}
               pathToLocalStorage[finalPath.step][finalPath.prop] = selection
+            }
+            if (typeof selection === 'object') {
+
+              pathToLocalStorage[finalPath.step][finalPath.prop] = selection
+              // console.log(pathToLocalStorage[finalPath.step][finalPath.prop]);
             }
             else pathToLocalStorage[finalPath.step][finalPath.prop] = cacheList
             localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
@@ -124,7 +134,7 @@ const setValue = async (e) => {
 
   }
   else if (e.resource === "invalid") return
-  else if (e === "erase") { await props.context.node.input({}); }
+  else if (e === "erase") { await props.context.node.input({}); findPropertyToUpdate(e) }
   else {
     selection = { name: e.name, resource: e.resource };
     await props.context.node.input(selection);
@@ -137,8 +147,8 @@ const setValue = async (e) => {
 const getAutocompleteSuggestions = async () => {
   let text = inputText.value;
   // this.clearAutocompleteSuggestions();
-
-  await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: text }).then((response) => {
+  // console.log(instance);
+  await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: text, base: instance.api.baseUrl }).then((response) => {
     const results = response.data.result.results.map((r) => ({
       name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
       resource: r.resource,
@@ -153,10 +163,8 @@ function toTitleCase(str) {
 }
 
 function removeProperty(e) {
-  props.context.value = {}
+  props.context.node.input({})
   setValue('erase');
-  findPropertyToUpdate();
-
 }
 function removeMultipleProperty(e) {
   if (listOfValues.value.length > 0) {
@@ -217,5 +225,4 @@ function toggleList(e) {
       </div>
     </div>
   </div>
-
 </template>

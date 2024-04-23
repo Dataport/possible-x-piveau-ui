@@ -20,8 +20,8 @@
                     <p v-else>
                         No title in this language
                     </p>
-                    <p v-if="Object.keys(distribution['dct:format']).length != 0 ">
-                        {{ getDistributionFormat(distribution) }} 
+                    <p v-if="Object.keys(distribution['dct:format']).length != 0">
+                        {{ getDistributionFormat(distribution) }}
                     </p>
                     <p v-else>
                         No format provided
@@ -102,8 +102,8 @@
                                     </table>
                                     <table class="table table-borderless table-responsive pl-3 bg-light">
                                         <div v-for="( value, name, index ) in  tableProperties " :key="index">
-                                            <PropertyEntry profile="distributions" :data="distributionList[id]" :property="name"
-                                                :value="value" :dpiLocale="dpiLocale" :distId="id">
+                                            <PropertyEntry profile="distributions" :data="distributionList[id]"
+                                                :property="name" :value="value" :dpiLocale="dpiLocale" :distId="id">
                                             </PropertyEntry>
                                         </div>
                                     </table>
@@ -149,7 +149,7 @@ export default {
             return list;
         },
     },
-    mounted() {},
+    mounted() { },
     methods: {
         truncate,
         getDistributionFormat(distribution) {

@@ -14,7 +14,7 @@
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
 
-                <div v-if="property != 'dct:creator' && property != 'dcat:temporalResolution'">
+                <div v-if="property != 'dct:creator' && property != 'dcat:temporalResolution' && property!= 'spdx:checksum'">
                     <div v-for="(elem, index) in data[property]" :key="index">
                         <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
                     </div>
