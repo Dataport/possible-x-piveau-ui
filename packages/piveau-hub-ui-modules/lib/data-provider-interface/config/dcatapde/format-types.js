@@ -27,7 +27,8 @@ const singularURI = {
         // singular URIs nested within other properties
         'spdx:algorithm', // checksum
         'dcat:endpointURL', // accessservice
-        "skos:exactMatch", // license
+        "skos:exactMatch", // license,
+        'dct:license'
     ],
     catalogues: [
         'foaf:homepage', // homepage and creator

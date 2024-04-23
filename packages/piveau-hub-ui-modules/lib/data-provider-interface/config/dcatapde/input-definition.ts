@@ -1475,9 +1475,8 @@ const dcatapProperties: InputDefinition = {
       identifier: 'licence',
       $formkit: 'auto',
       name: 'dct:license',
-      '@change': true,
-      class: 'property',
-      voc: 'licenses'
+      voc: 'licenses',
+      property: 'dct:license'
     },
     title: {
       identifier: 'title',
@@ -1519,18 +1518,27 @@ const dcatapProperties: InputDefinition = {
       class: 'property',
     },
     downloadUrl: {
-      $formkit:'repeatable',
       identifier: 'downloadUrl',
+      $formkit: 'repeatable',
       name: 'dcat:downloadURL',
-      class: 'property',
       children: [
         {
+          $formkit: 'group',
           identifier: 'downloadUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          name: 'dcat:downloadURL',
+          children: [
+            {
+              identifier: 'downloadUrl',
+              $formkit: 'url',
+              name: '@id',
+              validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
+            },
+          ],
+        }
+      ]
     },
     availabilityDisDE: {
       identifier: 'availabilityDisDE',
