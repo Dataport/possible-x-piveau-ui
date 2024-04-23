@@ -93,6 +93,7 @@ export type DcatApDistributionsProperty =
   | 'spatialResolutionInMeters'
   | 'temporalResolution'
   | 'type'
+  | 'hasPolicy'
   | 'status';
 
 export type DcatApCataloguesProperty =
