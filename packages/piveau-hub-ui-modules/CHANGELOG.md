@@ -1,3 +1,14 @@
+## [3.17.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.2...v3.17.3) (2024-04-23)
+
+
+### Bug Fixes
+
+* error in dcatap input-definition.js ([9cd1c1e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/9cd1c1e0c5b1e4f9f6d82c1162454f5cf91399a4))
+* fillvalues handling in Conditional Input ([5a3e831](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/5a3e831fdfeaa0d838be71355ede1c2ed83c07a9))
+* fillvalues handling in Conditional Input ([c57ec7b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c57ec7b198a00d134f28350158a8f2128bf661dd))
+
+
+
 ## [3.17.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.1...v3.17.2) (2024-04-18)
 
 
