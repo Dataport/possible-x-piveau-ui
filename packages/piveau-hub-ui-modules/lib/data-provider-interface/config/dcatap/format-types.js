@@ -179,6 +179,7 @@ const additionalPropertyTypes = {
     'dext:metadataExtension': 'dext:MetadataExtension',
     'spdx:checksum': 'spdx:Checksum',
     'dcat:accessService': 'dcat:DataService',
+    'dct:license': 'dct:LicenseDocument'
 }
 
 export default {

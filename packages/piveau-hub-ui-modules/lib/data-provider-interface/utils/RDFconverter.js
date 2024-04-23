@@ -153,7 +153,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 
                 let actualData;
                 // vcard:hasAdress is an object as well as dct:creator and skos:notation
-                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation' || key === 'spdx:checksum' || key === 'dct:publisher') actualData = [data[key]];
+                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation' || key === 'spdx:checksum' || key === 'dct:publisher' || key === 'dct:license') actualData = [data[key]];
                 else actualData = data[key];
 
                 // looping trough all existing objects within the array
@@ -375,58 +375,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     N3.DataFactory.namedNode(generalHelper.addNamespace('rdfs:label', dpiConfig)),
                     rightsValue
                 ))
-            } else if (key === 'dct:license') {
-                // licence is a conditional property providing either an URI or a group of values
-                if (data[key].licenceMode === 'voc') {
-                    console.log()
-                }
-                if (typeof data[key] === 'string') { // URI
-                    convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
-                } else {
-                    // license provides an array containing an object with all subproperties
-
-                    // (grouped) licence has an additional type declaration
-                    // to save grouped values and type related to licence property we have to define an initial quadruple with a blank node as object 
-                    // serving as subject for all following quadruples containing the actual values and type
-                    // RDF:
-                    // datasetID  dct:licence  blankNodeId
-                    //   blankNodeId  rdf:type  LicenceStatement
-                    //   blankNodeId  dct:title  LicenceName
-                    const licenceBlankNode = N3.DataFactory.blankNode('');
-
-                    // parent quadruple with blank node as object
-                    RDFdataset.addQuad(N3.DataFactory.quad(
-                        mainURI,
-                        N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
-                        licenceBlankNode
-                    ))
-
-                    // add additional type (blank node as subject)
-                    RDFdataset.addQuad(N3.DataFactory.quad(
-                        licenceBlankNode,
-                        N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
-                        N3.DataFactory.namedNode(generalHelper.addNamespace('dct:LicenseDocument', dpiConfig))
-                    ))
-
-                    // licence includes 'dct:title' which exceptionally isn't a multilingual field
-                    // multilingual method doesn't handle singular strings and therefore dosn't set the licence title
-                    // therefore we can set it here and it won't get overwritten
-
-                    // licence data is grouped and therefore the from returns the values within an object stored within an array
-                    // licenceis singular so we only have on object
-                    const licenceData = data[key][0];
-
-                    if (has(licenceData, 'dct:title') && !isEmpty(licenceData['dct:title'])) {
-                        RDFdataset.addQuad(N3.DataFactory.quad(
-                            licenceBlankNode,
-                            N3.DataFactory.namedNode(generalHelper.addNamespace('dct:title', dpiConfig)),
-                            N3.DataFactory.literal(licenceData['dct:title'])
-                        ))
-                    }
-
-                    // add nested properties as quadruples using the blank node as subject
-                    convertPropertyValues(RDFdataset, data[key][0], property, licenceBlankNode, mainType, false, dpiConfig);
-                }
+           
             } else if (key === 'rdf:type') {
                 // some properties have additional type information which needs to be added to graph
                 // e.g contactPoint -> vcard:Individual
@@ -633,30 +582,41 @@ function convertTypedString(RDFdataset, id, data, key, dpiConfig) {
  * @param {String} key Name of current value (e.g. dct:title) used as predicate in quads
  */
 function convertMultilingual(RDFdataset, id, data, key, dpiConfig) {
-    // multilingual fields always provide data as followed
+    // multilingual fields mostly provide data as followed
     // [ { '@value': '....', '@language': '...' }, ... ]
+    // only the licence title provides no language
 
     if (!isEmpty(data[key])) {
-        for (let langIndex = 0; langIndex < data[key].length; langIndex += 1) {
-            const currentData = data[key][langIndex];
-            // only save data if a value is given (forntend provides preselected language which don't need to be saved if there is no actaul value)
-            if (!isEmpty(currentData) && has(currentData, '@value') && !isEmpty(currentData['@value'])) {
-                let languageTag;
 
-                // if there is no langauge given, set language to english
-                if (!has(currentData, '@language') || isEmpty(currentData, '@language')) {
-                    languageTag = 'en';
-                } else {
-                    // if language is given, use given tag
-                    languageTag = currentData['@language'];
+        // licence title
+        if (!Array.isArray(data[key])) {
+            RDFdataset.addQuad(N3.DataFactory.quad(
+                id,
+                N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
+                N3.DataFactory.literal(data[key])
+            ))
+        } else {
+            for (let langIndex = 0; langIndex < data[key].length; langIndex += 1) {
+                const currentData = data[key][langIndex];
+                // only save data if a value is given (forntend provides preselected language which don't need to be saved if there is no actaul value)
+                if (!isEmpty(currentData) && has(currentData, '@value') && !isEmpty(currentData['@value'])) {
+                    let languageTag;
+    
+                    // if there is no langauge given, set language to english
+                    if (!has(currentData, '@language') || isEmpty(currentData, '@language')) {
+                        languageTag = 'en';
+                    } else {
+                        // if language is given, use given tag
+                        languageTag = currentData['@language'];
+                    }
+    
+                    // saving quad to dataset
+                    RDFdataset.addQuad(N3.DataFactory.quad(
+                        id,
+                        N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
+                        N3.DataFactory.literal(currentData['@value'], languageTag)
+                    ))
                 }
-
-                // saving quad to dataset
-                RDFdataset.addQuad(N3.DataFactory.quad(
-                    id,
-                    N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
-                    N3.DataFactory.literal(currentData['@value'], languageTag)
-                ))
             }
         }
     }
