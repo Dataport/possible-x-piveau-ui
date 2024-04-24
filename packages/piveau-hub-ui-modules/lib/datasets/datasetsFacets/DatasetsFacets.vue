@@ -319,6 +319,7 @@ export default {
       return qField.indexOf(facet) > -1;
     },
     facetClicked(field, item) {
+      
       const facet = item.id;
       if (field === "dataScope") {
         this.dataScopeFacetClicked(facet);
@@ -334,15 +335,15 @@ export default {
           } else {
             this.$route.query.dataScope = 'countryData'
           }
-          console.log('test message');
         }
-        
         this.toggleFacet(field, facet);
       }
     },
+    
     toggleFacet(field, facet) {
+    
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
-        return this.setRouteQuery({ [field]: [], page: 1 });
+        this.setRouteQuery({ [field]: [], page: 1 });
       }
       let facets = this.$route.query[field].slice();
       if (!Array.isArray(facets)) facets = [facets];
@@ -355,6 +356,7 @@ export default {
         // Empty facets as scoring facets are disjoint
         facets = (facet === 'badScoring') ? [] : [facet];
       } else {
+         
         const index = facets.indexOf(facet);
         if (index > -1) {
           facets.splice(index, 1);
@@ -362,7 +364,9 @@ export default {
           facets.push(facet);
         }
       }
+     
       return this.setRouteQuery({ [field]: facets, page: 1 });
+      
     },
     clearFacets() {
       if (Object.keys(this.$route.query).some(key => (key !== 'locale' && key !== 'page') && this.$route.query[key].length)) {
