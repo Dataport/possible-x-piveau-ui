@@ -66,9 +66,9 @@ const actions = {
      * @param param0 
      * @param param1 Object containing property, page, distrbution id and form values
      */
-    saveFormValues({ commit }, { property, distid, values }) {
+    saveFormValues({ commit }, { property, values }) {
 
-        commit('saveFormValuesToStore', { property, distid, values });
+        commit('saveFormValuesToStore', { property, values });
 
     },
     /**
