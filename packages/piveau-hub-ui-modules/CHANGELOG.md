@@ -1,8 +1,13 @@
-## [3.17.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.4...v3.17.5) (2024-04-24)
+## [3.17.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.5...v3.17.6) (2024-04-25)
+
+
+### Bug Fixes
+
+* shift visualisation implimentation to feature project ([a87aaa8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/a87aaa8fb63e8f7c2771c2eee2463bf4ceb3d59f))
 
 
 
-## [3.17.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.3...v3.17.4) (2024-04-24)
+## [3.17.5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.3...v3.17.5) (2024-04-24)
 
 
 
