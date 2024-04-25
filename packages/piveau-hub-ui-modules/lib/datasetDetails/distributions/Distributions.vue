@@ -68,7 +68,8 @@
         </div>
       </div>
       <download-as-modal />
-      <distribution-visualization v-if="showDistibutionVisualisation" class="mb-4" :distributionTitle="previewedDistributionTitle"></distribution-visualization>
+      <!-- <distribution-visualization v-if="showDistibutionVisualisation" class="mb-4"></distribution-visualization> -->
+      <distribution-visualisation-slot v-if="showDistibutionVisualisation" class="mb-4"></distribution-visualisation-slot>
     </div>
 </template>
 
@@ -80,7 +81,7 @@ import {has, isNil} from "lodash";
 import {getTranslationFor} from "../../utils/helpers";
 import { mapGetters } from "vuex";
 import DownloadAsModal from "../../datasetDetails/distributions/DistributionDownloadAsModal";
-import DistributionVisualization from "./distributionPreview/DistributionVisualization.vue";
+// import DistributionVisualisation from "./distributionPreview/DistributionVisualisation.vue";
 
 export default {
   name: 'Distributions',
@@ -88,7 +89,7 @@ export default {
     DownloadAllDistributions,
     // Distribution,
     DownloadAsModal,
-    DistributionVisualization,
+    // DistributionVisualisation,
   },
   props: {
     openModal: Function,
@@ -137,7 +138,7 @@ export default {
   data() {
     return {
       downloadAllTop: this.$env.content.datasetDetails.bulkDownload.buttonPosition === "top",
-      previewedDistributionTitle: this.getDistributionTitle(this.displayedDistributions[0]),
+      // previewedDistributionTitle: this.getDistributionTitle(this.displayedDistributions[0]),
       showDistibutionVisualisation: this.$env.content.datasetDetails.distributions.showVisualisation,
     };
   },

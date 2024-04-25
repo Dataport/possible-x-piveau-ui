@@ -8,7 +8,6 @@
         <!-- TODO: translate! -->
             Preview 
         </h2>
-        <!-- <h2>Visual box - {{ distributionTitle }}</h2> -->
         <!-- Card -->
         <div v-if="this.jsonData" class="dv-card card text-center">
             <div class="dv-card-header card-header">
@@ -220,7 +219,7 @@
     import DistributionPreviewSelectHeader from './DistributionPreviewSelectHeader.vue';
 
     export default {
-        name: "distributionVisualization",
+        name: "DistributionVisualisation",
         components: {
             // BarChart,
             // LineChart,
@@ -318,9 +317,9 @@
                 suggestedY: '',
             }
         },
-        props: {
-            distributionTitle: String
-        },
+        // props: {
+        //     distributionTitle: String
+        // },
         mounted() {
         // Einlesen
         fetch("/test_json_6.json")
