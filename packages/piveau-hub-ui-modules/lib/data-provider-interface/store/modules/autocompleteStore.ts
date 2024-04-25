@@ -30,7 +30,7 @@ const actions = {
     requestAutocompleteSuggestions({ commit }, { voc, text, base }) {
         if (base != undefined) {
             return new Promise((resolve, reject) => {
-                const req = `${base}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${text}`;
+                const req = `${base}search?filter=vocabulary&vocabulary=${voc}&q=${text}`;            
                 axios.get(req)
                 .then((res) => {
                     resolve(res);         

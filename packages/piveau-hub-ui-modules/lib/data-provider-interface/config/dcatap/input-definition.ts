@@ -388,7 +388,7 @@ const dcatapProperties: InputDefinition = {
               name: 'dcat:startDate',
               end: 'dct:temporal',
               classes: {
-                outer: 'w25-textfield'
+                outer: 'w100-textfield'
               },
             },
             {
@@ -397,7 +397,7 @@ const dcatapProperties: InputDefinition = {
               name: 'dcat:endDate',
               start: 'dct:temporal',
               classes: {
-                outer: 'w75-textfield'
+                outer: 'w100-textfield'
               },
             },
           ],

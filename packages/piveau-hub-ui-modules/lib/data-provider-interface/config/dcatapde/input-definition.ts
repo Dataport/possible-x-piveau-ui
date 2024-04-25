@@ -96,21 +96,21 @@ export type DcatApDistributionsProperty =
   | 'status';
 
 export type DcatApCataloguesProperty =
-// Append new properties here for accurate type checking
-'datasetID'
-| 'availabilityCatDE'
-| 'title'
-| 'description'
-| 'publisher'
-| 'language'
-| 'licence'
-| 'spatial'
-| 'homepage'
-| 'hasPart'
-| 'isPartOf'
-| 'rights'
-| 'catalog'
-| 'creator';
+  // Append new properties here for accurate type checking
+  'datasetID'
+  | 'availabilityCatDE'
+  | 'title'
+  | 'description'
+  | 'publisher'
+  | 'language'
+  | 'licence'
+  | 'spatial'
+  | 'homepage'
+  | 'hasPart'
+  | 'isPartOf'
+  | 'rights'
+  | 'catalog'
+  | 'creator';
 
 export type InputDefinition = {
   datasets: Record<DcatApDatasetsProperty, FormKitSchemaDefinition>;
@@ -155,7 +155,7 @@ const dcatapProperties: InputDefinition = {
     },
     geocodingDescription: {
       identifier: 'geocodingDescription',
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       name: 'dcatde:geocodingDescription',
       children: [
         {
@@ -165,26 +165,31 @@ const dcatapProperties: InputDefinition = {
           class: 'property langDescriptionInput',
           children: [
             {
-              identifier: 'geocodingDescription',
-              $formkit: 'textarea',
-              name: '@value',
-              class: 'w-100 inputTextfield',
-            },
-            {
               identifier: 'language',
               value: 'de',
               $formkit: 'select',
               options: language,
               name: '@language',
-              class: 'selectLangField',
+              classes: {
+                outer: 'w25-textfield'
+              },
             },
+            {
+              identifier: 'geocodingDescription',
+              $formkit: 'textarea',
+              name: '@value',
+              classes: {
+                outer: 'w75-textfield'
+              },
+            },
+
           ],
         }
       ]
     },
     legalBasis: {
       identifier: 'legalBasis',
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       name: 'dcatde:legalBasis',
       children: [
         {
@@ -194,19 +199,24 @@ const dcatapProperties: InputDefinition = {
           class: 'property langDescriptionInput',
           children: [
             {
-              identifier: 'legalBasis',
-              $formkit: 'textarea',
-              name: '@value',
-              class: 'w-100 inputTextfield',
-            },
-            {
               identifier: 'language',
               value: 'de',
               $formkit: 'select',
               options: language,
               name: '@language',
-              class: 'selectLangField',
+              classes: {
+                outer: 'w25-textfield'
+              },
             },
+            {
+              identifier: 'legalBasis',
+              $formkit: 'textarea',
+              name: '@value',
+              classes: {
+                outer: 'w75-textfield'
+              },
+            },
+
           ],
         }
       ]
@@ -216,6 +226,7 @@ const dcatapProperties: InputDefinition = {
       name: 'dcatde:qualityProcessURI',
       class: 'property',
       $formkit: 'url',
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     references: {
       identifier: 'references',
@@ -223,7 +234,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'repeatable',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'references',
           name: 'dct:references',
           class: 'property',
@@ -231,8 +242,11 @@ const dcatapProperties: InputDefinition = {
             {
               name: '@id',
               identifier: 'referencesUrl',
-              $formkit:'url',
+              $formkit: 'url',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
           ],
         }
@@ -375,7 +389,7 @@ const dcatapProperties: InputDefinition = {
     // Dcatap.de Properties #### End ####
     datasetID: {
       identifier: 'datasetID',
-      $formkit:'id',
+      $formkit: 'id',
       name: 'datasetID',
       class: 'property mandatory',
     },
@@ -387,26 +401,30 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'datasetDescription',
-          $formkit:'group',
+          $formkit: 'group',
           name: 'dct:description',
           class: 'property langDescriptionInput mandatory',
           children: [
             {
-              identifier: 'description',
-              $formkit:'textarea',
-              name: '@value',
-              validation: 'required',
-              class: 'w-100 inputTextfield',
-            },
-            {
-              identifier: 'descriptionLanguage',
+              identifier: 'language',
               value: 'en',
-              $formkit:'select',
+              $formkit: 'select',
               options: language,
               validation: 'required',
               name: '@language',
-              class: 'selectLangField',
+              classes: {
+                outer: 'w25-textfield'
+              }
             },
+            {
+              identifier: 'description',
+              $formkit: 'textarea',
+              name: '@value',
+              validation: 'required',
+              classes: {
+                outer: 'w75-descField'
+              }
+            }
           ],
         }
       ]
@@ -415,7 +433,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'title',
       $formkit: 'repeatable',
       name: 'dct:title',
-      children:[
+      children: [
         {
           identifier: 'title',
           $formkit: 'group',
@@ -425,20 +443,24 @@ const dcatapProperties: InputDefinition = {
           minimum: 1,
           children: [
             {
-              identifier: 'titleLabel',
-              $formkit: 'text',
-              name: '@value',
-              validation: 'required',
-              class: 'w-100 inputTextfield',
-            },
-            {
               identifier: 'dctTitle',
               value: 'en',
               $formkit: 'select',
               validation: 'required',
               options: language,
               name: '@language',
-              class: 'selectLangField',
+              classes: {
+                outer: 'w25-textfield'
+              }
+            },
+            {
+              identifier: 'title',
+              $formkit: 'text',
+              name: '@value',
+              validation: 'required',
+              classes: {
+                outer: 'w75-textfield'
+              }
             },
           ],
         }
@@ -451,13 +473,13 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'contactPoint',
-          $formkit:'group',
+          $formkit: 'group',
           name: 'dcat:contactPoint',
           class: 'property',
           children: [
             {
               identifier: 'contactPointType',
-              $formkit:'select',
+              $formkit: 'select',
               name: 'rdf:type',
               options: {
                 '': '---',
@@ -467,56 +489,56 @@ const dcatapProperties: InputDefinition = {
             },
             {
               identifier: 'contactPointName',
-              $formkit:'text',
+              $formkit: 'text',
               name: 'vcard:fn',
             },
             {
               identifier: 'contactPointEmail',
-              $formkit:'email',
+              $formkit: 'email',
               name: 'vcard:hasEmail',
               validation: 'optional|email',
             },
             {
               identifier: 'contactPointAddress',
-              $formkit:'group',
+              $formkit: 'group',
               name: 'vcard:hasAddress',
               children: [
                 {
                   identifier: 'contactPointAddressStreet',
-                  $formkit:'text',
+                  $formkit: 'text',
                   name: 'vcard:street_address',
                 },
                 {
                   identifier: 'contactPointAddressPostcode',
-                  $formkit:'text',
+                  $formkit: 'text',
                   name: 'vcard:postal_code',
                 },
                 {
                   identifier: 'contactPointAddressCity',
-                  $formkit:'text',
+                  $formkit: 'text',
                   name: 'vcard:locality',
                 },
                 {
                   identifier: 'contactPointAddressCountry',
-                  $formkit:'text',
+                  $formkit: 'text',
                   name: 'vcard:country_name',
                 },
               ],
             },
             {
               identifier: 'contactPointTelephone',
-              $formkit:'tel',
+              $formkit: 'tel',
               name: 'vcard:hasTelephone',
             },
             {
               identifier: 'contactPointUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: 'vcard:hasURL',
               validation: 'optional|url',
             },
             {
               identifier: 'contactPointOrganisationName',
-              $formkit:'text',
+              $formkit: 'text',
               name: 'vcard:hasOrganizationName',
             },
           ],
@@ -540,79 +562,93 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'keywordHeader',
-          $formkit:'group',
+          $formkit: 'group',
           name: 'dcat:keyword',
           class: 'property langStringInput',
           children: [
             {
-              identifier: 'keyword',
-              $formkit:'text',
-              name: '@value',
-              class: 'w-100 inputTextfield',
-            },
-            {
               identifier: 'keywordsLanguage',
               value: 'en',
-              $formkit:'select',
+              $formkit: 'select',
               name: '@language',
-              class: 'selectLangField',
+              classes: {
+                outer: 'w25-textfield'
+              },
               options: language,
             },
+            {
+              identifier: 'keyword',
+              $formkit: 'text',
+              name: '@value',
+              classes: {
+                outer: 'w75-descField'
+              }
+            },
+
           ],
         }
       ]
     },
     publisher: {
-      $formkit: 'group',
+      $formkit: 'simpleConditional',
       name: 'dct:publisher',
-      children: [
-        {
-          $formkit: 'select',
-          identifier: 'publisher',
-          name: 'publisherMode',
-          id: 'publisherModeDataset',
-          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-        },
-        {
-          $formkit: 'group',
-          name: 'details',
-          key: '$get(publisherModeDataset).value',
-          if: '$get(publisherModeDataset).value === "voc"',
-          children: [
-            {
-              $formkit: 'auto',
-              identifier: 'licenceVocabulary',
-              name: '@id',
-              voc: 'corporate-body',
-              property: 'dct:license',
-            }
-          ]
-        },
-        {
-          $formkit: 'group',
-          name: 'details',
-          key: '$get(publisherModeDataset).value',
-          if: '$get(publisherModeDataset).value === "man"',
-          children: [
-            {
-              $formkit: 'text',
-              identifier: 'publisherName',
-              name: 'foaf:name',
-            },
-            {
-              $formkit: 'email',
-              identifier: 'publisherEmail',
-              name: 'foaf:mbox',
-            },
-            {
-              $formkit: 'url',
-              identifier: 'publisherHomepage',
-              name: 'foaf:homepage',
-            },
-          ]
-        }
-      ]
+      identifier:'publisher',
+      voc: 'corporate-body',
+      options: { text: 'foaf:name', email: 'foaf:mbox', url: 'foaf:homepage' },
+      selection: { 1: 'vocabulary', 2: 'manually' }
+
     },
+    // publisher: {
+    //   $formkit: 'group',
+    //   name: 'dct:publisher',
+    //   children: [
+    //     {
+    //       $formkit: 'select',
+    //       identifier: 'publisher',
+    //       name: 'publisherMode',
+    //       id: 'publisherModeDataset',
+    //       options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
+    //     },
+    //     {
+    //       $formkit: 'group',
+    //       name: 'details',
+    //       key: '$get(publisherModeDataset).value',
+    //       if: '$get(publisherModeDataset).value === "voc"',
+    //       children: [
+    //         {
+    //           $formkit: 'auto',
+    //           identifier: 'licenceVocabulary',
+    //           name: '@id',
+    //           voc: 'corporate-body',
+    //           property: 'dct:license',
+    //         }
+    //       ]
+    //     },
+    //     {
+    //       $formkit: 'group',
+    //       name: 'details',
+    //       key: '$get(publisherModeDataset).value',
+    //       if: '$get(publisherModeDataset).value === "man"',
+    //       children: [
+    //         {
+    //           $formkit: 'text',
+    //           identifier: 'publisherName',
+    //           name: 'foaf:name',
+    //         },
+    //         {
+    //           $formkit: 'email',
+    //           identifier: 'publisherEmail',
+    //           name: 'foaf:mbox',
+    //         },
+    //         {
+    //           $formkit: 'url',
+    //           identifier: 'publisherHomepage',
+    //           name: 'foaf:homepage',
+    //         },
+    //       ]
+    //     }
+    //   ]
+    // },
     spatial: {
       identifier: 'spatial',
       $formkit: 'repeatable',
@@ -630,22 +666,27 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:temporal',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           name: 'dct:temporal',
           identifier: 'temporal',
-          class: 'property besides startEndDate',
           children: [
             {
               identifier: 'temporalStart',
-              $formkit:'datetime-local',
+              $formkit: 'datetime-local',
               name: 'dcat:startDate',
               end: 'dct:temporal',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
             {
               identifier: 'temporalEnd',
-              $formkit:'datetime-local',
+              $formkit: 'datetime-local',
               name: 'dcat:endDate',
               start: 'dct:temporal',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -670,13 +711,13 @@ const dcatapProperties: InputDefinition = {
     },
     creator: {
       identifier: 'creator',
-      $formkit:'group',
+      $formkit: 'formkitGroup',
       name: 'dct:creator',
       class: 'property',
       children: [
         {
           identifier: 'creatorType',
-          $formkit:'select',
+          $formkit: 'select',
           name: 'rdf:type',
           options: {
             '': '---',
@@ -686,18 +727,18 @@ const dcatapProperties: InputDefinition = {
         },
         {
           identifier: 'creatorName',
-          $formkit:'text',
+          $formkit: 'text',
           name: 'foaf:name',
         },
         {
           identifier: 'creatorEmail',
-          $formkit:'email',
+          $formkit: 'email',
           name: 'foaf:mbox',
           validation: 'optional|email',
         },
         {
           identifier: 'creatorHomepage',
-          $formkit:'url',
+          $formkit: 'url',
           name: 'foaf:homepage',
           validation: 'optional|url',
         },
@@ -710,20 +751,25 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'conformsTo',
-          $formkit:'group',
+          $formkit: 'group',
           name: 'dct:conformsTo',
-          class: 'property',
           children: [
             {
               identifier: 'conformsToTitle',
-              $formkit:'text',
+              $formkit: 'text',
               name: 'rdfs:label',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
             {
               identifier: 'conformsToUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
           ],
         }
@@ -736,9 +782,8 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'page',
-          $formkit:'group',
+          $formkit: 'group',
           name: 'foaf:page',
-          class: 'property',
           children: [
             {
               identifier: 'pageTitle',
@@ -747,23 +792,26 @@ const dcatapProperties: InputDefinition = {
               children: [
                 {
                   identifier: 'pageTitle',
-                  $formkit:'group',
+                  $formkit: 'group',
                   name: 'dct:title',
-                  class: 'property langStringInput',
                   children: [
                     {
-                      identifier: 'pageTitleSub',
-                      $formkit:'text',
-                      name: '@value',
-                      class: 'w-100 inputTextfield',
-                    },
-                    {
-                      identifier: 'pageTitlelang',
+                      identifier: 'language',
                       value: 'en',
-                      $formkit:'select',
+                      $formkit: 'select',
                       options: language,
                       name: '@language',
-                      class: 'selectLangField',
+                      classes: {
+                        outer: 'w25-textfield'
+                      },
+                    },
+                    {
+                      identifier: 'pageTitleSub',
+                      $formkit: 'text',
+                      name: '@value',
+                      classes: {
+                        outer: 'w75-textfield'
+                      },
                     },
                   ]
                 }
@@ -776,41 +824,51 @@ const dcatapProperties: InputDefinition = {
               children: [
                 {
                   identifier: 'pageDescription',
-                  $formkit:'group',
+                  $formkit: 'group',
                   name: 'dct:description',
-                  class: 'property langDescriptionInput',
                   children: [
                     {
-                      identifier: 'pageDesc',
-                      $formkit:'textarea',
-                      name: '@value',
-                      class: 'inputTextfield w-100',
-                    },
-                    {
-                      identifier: 'page-desc',
+                      identifier: 'language',
                       value: 'en',
-                      $formkit:'select',
+                      $formkit: 'select',
                       options: language,
                       name: '@language',
-                      class: 'selectLangField',
+                      classes: {
+                        outer: 'w25-textfield'
+                      },
+                    },
+                    {
+                      identifier: 'pageDescription',
+                      $formkit: 'textarea',
+                      name: '@value',
+                      classes: {
+                        outer: 'w75-textfield'
+                      },
                     },
                   ]
                 }
               ]
             },
             {
-              identifier: 'pageFormat',
               $formkit: 'auto',
+              identifier: 'pageFormat',
               voc: 'file-type',
-              name: 'dct:format',
               class: "property",
+              name: 'dct:format',
+              id: 'pageFormat',
+              classes: {
+                outer: 'w97-textfield'
+              }
             },
             {
               identifier: 'pageUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
               class: "property",
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
           ],
         }
@@ -829,16 +887,19 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:hasVersion',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'hasVersion',
           name: 'dct:hasVersion',
           class: 'property',
           children: [
             {
               identifier: 'hasVersionUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -850,16 +911,19 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:isVersionOf',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'isVersionOf',
           name: 'dct:isVersionOf',
           class: 'property',
           children: [
             {
               identifier: 'isVersionOfUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -871,7 +935,7 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:source',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'source',
           name: 'dct:source',
           class: 'property',
@@ -879,8 +943,11 @@ const dcatapProperties: InputDefinition = {
             {
               name: '@id',
               identifier: 'sourceUrl',
-              $formkit:'url',
+              $formkit: 'url',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -892,7 +959,7 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:identifier',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           class: 'property',
           name: 'dct:identifier',
           identifier: 'identifier',
@@ -900,7 +967,10 @@ const dcatapProperties: InputDefinition = {
             {
               identifier: 'identifier',
               name: '@value',
-              $formkit:'text',
+              $formkit: 'text',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
           ],
         }
@@ -912,16 +982,19 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:isReferencedBy',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'isReferencedBy',
           name: 'dct:isReferencedBy',
           class: 'property',
           children: [
             {
               identifier: 'isReferencedByUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -933,16 +1006,19 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:landingPage',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'landingPage',
           name: 'dcat:landingPage',
           class: 'property',
           children: [
             {
               identifier: 'landingPageUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
           ],
         }
@@ -1011,15 +1087,18 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:provenance',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'provenanceGroup',
           name: 'dct:provenance',
           class: 'property',
           children: [
             {
               identifier: 'provenance',
-              $formkit:'text',
+              $formkit: 'text',
               name: 'rdfs:label',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -1031,16 +1110,19 @@ const dcatapProperties: InputDefinition = {
       name: 'prov:qualifiedAttribution',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'qualifiedAttribution',
           name: 'prov:qualifiedAttribution',
           class: 'property',
           children: [
             {
               identifier: 'qualifiedAttributionUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -1052,16 +1134,19 @@ const dcatapProperties: InputDefinition = {
       name: 'prov:wasGeneratedBy',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'wasGeneratedBy',
           name: 'prov:wasGeneratedBy',
           class: 'property',
           children: [
             {
               identifier: 'wasGeneratedByUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -1073,16 +1158,19 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:qualifiedRelation',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'qualifiedRelation',
           name: 'dcat:qualifiedRelation',
           class: 'property',
           children: [
             {
               identifier: 'qualifiedRelationUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -1094,16 +1182,19 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:relation',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'relation',
           name: 'dct:relation',
           class: 'property',
           children: [
             {
               identifier: 'relationUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
             },
           ],
         }
@@ -1111,15 +1202,19 @@ const dcatapProperties: InputDefinition = {
     },
     issued: {
       identifier: 'issued',
-      $formkit: 'group',
+      $formkit: 'formkitGroup',
       name: 'dct:issued',
       children: [
         {
           identifier: 'issued',
           id: 'issuedCondDataset',
+          classes: {
+            outer: 'w-100'
+          },
           $formkit: 'select',
           name: '@type',
-          options: {date: 'Date', datetime: 'Datetime'},
+          options: { date: 'Date', datetime: 'Datetime' },
+
         },
         {
           identifier: 'issued',
@@ -1130,10 +1225,20 @@ const dcatapProperties: InputDefinition = {
             then: {
               type: 'date',
               name: '@value',
+              validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
+              classes: {
+                outer: 'w-100'
+              },
             },
             else: {
               type: 'datetime-local',
               name: '@value',
+              validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
+              classes: {
+                outer: 'w-100'
+              },
             }
           }
         },
@@ -1141,15 +1246,18 @@ const dcatapProperties: InputDefinition = {
     },
     modified: {
       identifier: 'modified',
-      $formkit: 'group',
+      $formkit: 'formkitGroup',
       name: 'dct:modified',
       children: [
         {
           identifier: 'modified',
           id: 'modifiedCondDataset',
           name: '@type',
+          classes: {
+            outer: 'w-100'
+          },
           $formkit: 'select',
-          options: {date: 'Date', datetime: 'Datetime'},
+          options: { date: 'Date', datetime: 'Datetime' },
         },
         {
           identifier: 'modified',
@@ -1161,10 +1269,20 @@ const dcatapProperties: InputDefinition = {
             then: {
               type: 'date',
               name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
+              validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
             },
             else: {
               type: 'datetime-local',
-              name: '@value'
+              name: '@value',
+              classes: {
+                outer: 'w-100'
+              },
+              validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
             }
           }
         },
@@ -1172,57 +1290,52 @@ const dcatapProperties: InputDefinition = {
     },
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
-      $formkit:'number',
+      $formkit: 'number',
       name: 'dcat:spatialResolutionInMeters',
       class: 'property',
       validation: 'number',
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     temporalResolution: {
       identifier: 'temporalResolution',
-      $formkit:'group',
+      $formkit: 'formkitGroup',
       name: 'dcat:temporalResolution',
       class: 'property tempResWrapper',
       children: [
         {
           identifier: 'temporalResolutionYear',
-          $formkit:'number',
+          $formkit: 'number',
           validation: 'min:1950|max:2100|optional',
-          "validation-behavior": 'live',
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
-          $formkit:'number',
+          $formkit: 'number',
           validation: 'min:1|max:12|optional',
-          "validation-behavior": 'live',       
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
-          $formkit:'number',
+          $formkit: 'number',
           validation: 'min:1|max:31|optional',
-          "validation-behavior": 'live',
           name: 'Day',
         },
         {
           identifier: 'temporalResolutionHour',
-          $formkit:'number',
+          $formkit: 'number',
           validation: 'min:0|max:23|optional',
-          "validation-behavior": 'live',
           name: 'Hour',
         },
         {
           identifier: 'temporalResolutionMinute',
-          $formkit:'number',
+          $formkit: 'number',
           validation: 'min:0|max:59|optional',
-          "validation-behavior": 'live',
           name: 'Minute',
         },
         {
           identifier: 'temporalResolutionSecond',
-          $formkit:'number',
+          $formkit: 'number',
           validation: 'min:0|max:59|optional',
-          "validation-behavior": 'live',
           name: 'Second',
         },
       ],
@@ -1236,9 +1349,10 @@ const dcatapProperties: InputDefinition = {
     },
     versionInfo: {
       identifier: 'versionInfo',
-      $formkit:'text',
+      $formkit: 'text',
       name: 'owl:versionInfo',
       class: 'property',
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     versionNotes: {
       identifier: 'versionNotes',
@@ -1247,23 +1361,26 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'versionNotes',
-          $formkit:'group',
+          $formkit: 'group',
           name: 'adms:versionNotes',
-          class: 'property langDescriptionInput',
           children: [
-            {
-              identifier: 'versionNotes',
-              $formkit:'textarea',
-              name: '@value',
-              class: 'inputTextfield w-100',
-            },
             {
               identifier: 'language',
               value: 'en',
-              $formkit:'select',
+              $formkit: 'select',
               name: '@language',
               options: language,
-              class: 'selectLangField',
+              classes: {
+                outer: 'w25-textfield'
+              },
+            },
+            {
+              identifier: 'versionNotes',
+              $formkit: 'textarea',
+              name: '@value',
+              classes: {
+                outer: 'w75-textfield'
+              },
             },
           ],
         }
@@ -1271,11 +1388,12 @@ const dcatapProperties: InputDefinition = {
     },
     catalog: {
       identifier: 'catalog',
-      $formkit:'select',
+      $formkit: 'select',
       name: 'dcat:catalog',
       class: 'property mandatory',
       validation: 'required',
       options: {},
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     isUsedBy: {
       identifier: 'isUsedBy',
@@ -1283,16 +1401,18 @@ const dcatapProperties: InputDefinition = {
       name: 'dext:metadataExtension',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'group',
           identifier: 'isUsedBy',
           name: 'dext:metadataExtension',
-          class: 'property',
           children: [
             {
-              $formkit:'url',
+              $formkit: 'url',
               identifier: 'isUsedBy',
               validation: 'optional|url',
               name: 'dext:isUsedBy',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
           ],
         }
@@ -1312,19 +1432,24 @@ const dcatapProperties: InputDefinition = {
           class: 'property langStringInput',
           children: [
             {
-              identifier: 'licenseAttributionByTextTitle',
-              $formkit: 'textarea',
-              name: '@value',
-              class: 'w-100 inputTextfield',
-            },
-            {
               identifier: 'language',
               value: 'de',
               $formkit: 'select',
               options: language,
               name: '@language',
-              class: 'selectLangField',
+              classes: {
+                outer: 'w25-textfield'
+              }
             },
+            {
+              identifier: 'licenseAttributionByTextTitle',
+              $formkit: 'textarea',
+              name: '@value',
+              classes: {
+                outer: 'w100-textfield'
+              }
+            },
+
           ],
         }
       ]
@@ -1337,34 +1462,8 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'accessUrl',
           name: 'dcat:accessURL',
-          $formkit:'group',
-          class: 'property',
-          children: [
-            {
-              identifier: "accessUrl",
-              $formkit: "select",
-              id: "accessUrlMode",
-              name: "accessUrlMode",
-              options: { url: 'Provide an URL', file: 'Upload a file' }
-            },
-            {
-              $cmp: "FormKit",
-              if: "$get(accessUrlMode).value",
-              props: {
-                if: "$get(accessUrlMode).value === url",
-                then: {
-                  type: "url",
-                  validation: "required",
-                  name: "@id"
-                },
-                else: {
-                  $formkit: "fileupload",
-                  validation: "required",
-                  name: "@id"
-                }
-              },
-            },
-          ],
+          $formkit: 'fileupload',
+
         }
       ]
     },
@@ -1377,35 +1476,40 @@ const dcatapProperties: InputDefinition = {
     },
     description: {
       identifier: 'datasetDescription',
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       name: 'dct:description',
       class: 'property langDescriptionInput mandatory',
       minimum: 1,
       children: [
         {
-          identifier: 'datasetDescription',
-          name: 'dct:description',
+          identifier: 'description',
           $formkit: 'group',
+          name: 'dct:description',
+          mandatory: true,
+          minimum: 1,
           children: [
+
+            {
+              identifier: 'language',
+              value: 'en',
+              $formkit: 'select',
+              options: language,
+              name: '@language',
+              classes: {
+                outer: 'w25-textfield'
+              }
+            },
             {
               identifier: 'description',
-              $formkit:'textarea',
+              $formkit: 'textarea',
               name: '@value',
-              validation: 'required',
-              class: 'w-100 inputTextfield',
+              classes: {
+                outer: 'w75-descField'
+              }
             },
-            {
-              identifier: 'descriptionLanguage',
-              value: 'en',
-              $formkit:'select',
-              options: language,
-              validation: 'required',
-              name: '@language',
-              class: 'selectLangField',
-            },
-          ]
+          ],
         }
-      ],
+      ]
     },
     format: {
       identifier: 'format',
@@ -1431,28 +1535,34 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'title',
-          name: 'dct:title',
           $formkit: 'group',
+          name: 'dct:title',
+          mandatory: true,
+          minimum: 1,
           children: [
             {
-              identifier: 'titleLabel',
-              $formkit: 'text',
-              name: '@value',
-              validation: 'required',
-              class: 'w-100 inputTextfield',
-            },
-            {
-              identifier: 'dctTitle',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
-              validation: 'required',
               options: language,
               name: '@language',
-              class: 'selectLangField',
+              classes: {
+                outer: 'w25-textfield'
+              }
             },
-          ]
+            {
+              identifier: 'title',
+              $formkit: 'text',
+              name: '@value',
+              classes: {
+                outer: 'w75-textfield'
+              }
+
+            },
+
+          ],
         }
-      ],
+      ]
     },
     mediaType: {
       identifier: 'mediaType',
@@ -1462,16 +1572,19 @@ const dcatapProperties: InputDefinition = {
       class: 'property',
     },
     downloadUrl: {
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       identifier: 'downloadUrl',
       name: 'dcat:downloadURL',
       class: 'property',
       children: [
         {
           identifier: 'downloadUrl',
-          $formkit:'url',
+          $formkit: 'url',
           name: '@id',
           validation: 'optional|url',
+          classes: {
+            outer: 'w100-textfield'
+          }
         },
       ],
     },
@@ -1484,43 +1597,43 @@ const dcatapProperties: InputDefinition = {
     },
     accessService: {
       identifier: 'accessService',
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       name: 'dcat:accessService',
       class: 'property',
       children: [
         {
           identifier: 'accessService',
-          $formkit:'group',
+          $formkit: 'group',
           name: 'dcat:accessService',
           children: [
             {
               identifier: 'accessServiceEndpointURL',
-              $formkit:'url',
+              $formkit: 'url',
               name: 'dcat:endpointURL',
               class: 'property ',
               validation: 'optional|url',
             },
             {
               identifier: 'accessServiceTitle',
-              $formkit:'repeatable',
+              $formkit: 'repeatable',
               name: 'dct:title',
               class: 'property langStringInput',
               children: [
                 {
                   identifier: 'accessServiceTitle',
-                  $formkit:'group',
+                  $formkit: 'group',
                   name: 'dct:title',
                   children: [
                     {
                       identifier: 'title',
-                      $formkit:'text',
+                      $formkit: 'text',
                       name: '@value',
                       class: 'w-100 inputTextfield',
                     },
                     {
                       identifier: 'language',
                       value: 'en',
-                      $formkit:'select',
+                      $formkit: 'select',
                       name: '@language',
                       class: 'selectLangField',
                       options: language,
@@ -1531,25 +1644,25 @@ const dcatapProperties: InputDefinition = {
             },
             {
               identifier: 'accessServiceDescription',
-              $formkit:'repeatable',
+              $formkit: 'repeatable',
               name: 'dct:description',
               class: 'property langDescriptionInput',
               children: [
                 {
                   identifier: 'accessServiceDescription',
-                  $formkit:'group',
+                  $formkit: 'group',
                   name: 'dct:description',
                   children: [
                     {
                       identifier: 'description',
-                      $formkit:'textarea',
+                      $formkit: 'textarea',
                       name: '@value',
                       class: 'inputTextfield',
                     },
                     {
                       identifier: 'descriptionLanguage',
                       value: 'en',
-                      $formkit:'select',
+                      $formkit: 'select',
                       name: '@language',
                       class: 'selectLangField',
                       options: language,
@@ -1564,20 +1677,22 @@ const dcatapProperties: InputDefinition = {
     },
     byteSize: {
       identifier: 'byteSize',
-      $formkit:'text',
+      $formkit: 'text',
       name: 'dcat:byteSize',
       class: 'property',
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     checksum: {
-      $formkit:'group',
+      $formkit: 'formkitGroup',
       identifier: 'checksum',
       name: 'spdx:checksum',
       class: 'property',
       children: [
         {
           identifier: 'checksum',
-          $formkit:'text',
+          $formkit: 'text',
           name: 'spdx:checksumValue',
+          classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
         },
         {
           identifier: 'checksumAlgorithm',
@@ -1603,39 +1718,43 @@ const dcatapProperties: InputDefinition = {
     },
     page: {
       identifier: 'page',
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       name: 'foaf:page',
       class: 'property',
       children: [
         {
           identifier: 'page',
-          name: 'foaf:page',
           $formkit: 'group',
+          name: 'foaf:page',
           children: [
             {
               identifier: 'pageTitle',
-              $formkit:'repeatable',
+              $formkit: 'repeatable',
               name: 'dct:title',
-              class: 'property langStringInput',
               children: [
                 {
                   identifier: 'pageTitle',
-                  name: 'dct:title',
                   $formkit: 'group',
+                  name: 'dct:title',
                   children: [
+
                     {
-                      identifier: 'pageTitleSub',
-                      $formkit:'text',
-                      name: '@value',
-                      class: 'w-100 inputTextfield',
-                    },
-                    {
-                      identifier: 'pageTitlelang',
+                      identifier: 'language',
                       value: 'en',
-                      $formkit:'select',
+                      $formkit: 'select',
                       options: language,
                       name: '@language',
-                      class: 'selectLangField',
+                      classes: {
+                        outer: 'w25-textfield'
+                      },
+                    },
+                    {
+                      identifier: 'pageTitle',
+                      $formkit: 'text',
+                      name: '@value',
+                      classes: {
+                        outer: 'w75-textfield'
+                      },
                     },
                   ]
                 }
@@ -1643,50 +1762,58 @@ const dcatapProperties: InputDefinition = {
             },
             {
               identifier: 'pageDescription',
-              $formkit:'repeatable',
+              $formkit: 'repeatable',
               name: 'dct:description',
-              class: 'property langDescriptionInput',
               children: [
                 {
                   identifier: 'pageDescription',
-                  name: 'dct:description',
                   $formkit: 'group',
+                  name: 'dct:description',
                   children: [
+
                     {
-                      identifier: 'pageDesc',
-                      $formkit:'textarea',
-                      name: '@value',
-                      class: 'inputTextfield w-100',
-                    },
-                    {
-                      identifier: 'page-desc',
+                      identifier: 'language',
                       value: 'en',
-                      $formkit:'select',
+                      $formkit: 'select',
                       options: language,
                       name: '@language',
-                      class: 'selectLangField',
+                      classes: {
+                        outer: 'w25-textfield'
+                      },
+                    },
+                    {
+                      identifier: 'pageDescription',
+                      $formkit: 'textarea',
+                      name: '@value',
+                      classes: {
+                        outer: 'w75-textfield'
+                      },
                     },
                   ]
                 }
               ]
             },
             {
-              identifier: 'pageFormat',
               $formkit: 'auto',
+              identifier: 'pageFormat',
               voc: 'file-type',
               name: 'dct:format',
               class: "property",
+              classes: {
+
+                outer: 'w88-textfield'
+              }
             },
             {
               identifier: 'pageUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
               class: "property",
             },
-          ]
+          ],
         }
-      ],
+      ]
     },
     language: {
       identifier: 'language',
@@ -1698,87 +1825,78 @@ const dcatapProperties: InputDefinition = {
     },
     conformsTo: {
       identifier: 'conformsTo',
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       name: 'dct:conformsTo',
       class: 'property',
       children: [
         {
           identifier: 'conformsTo',
-          name: 'dct:conformsTo',
           $formkit: 'group',
+          name: 'dct:conformsTo',
           children: [
             {
               identifier: 'conformsToTitle',
-              $formkit:'text',
+              $formkit: 'text',
               name: 'rdfs:label',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
             {
               identifier: 'conformsToUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              }
             },
-          ]
+          ],
         }
-      ],
+      ]
     },
     issued: {
-      $formkit: 'group',
+      identifier: 'issued',
+      $formkit: 'formkitGroup',
       name: 'dct:issued',
       children: [
         {
           identifier: 'issued',
-          id: 'issuedCondDistribution',
-          $formkit: 'select',
-          name: '@type',
-          options: {date: 'Date', datetime: 'Datetime'},
-        },
-        {
-          identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$get(issuedCondDistribution).value',
+
           props: {
-            if: '$get(issuedCondDistribution).value === date',
-            then: {
-              type: 'date',
-              name: '@value',
+
+            type: 'datetime-local',
+            name: '@value',
+            validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+            'validation-visibility': 'live',
+            classes: {
+              outer: 'w-100'
             },
-            else: {
-              type: 'datetime-local',
-              name: '@value',
-            }
+
           }
         },
       ]
     },
     modified: {
-      $formkit: 'group',
+      identifier: 'modified',
+      $formkit: 'formkitGroup',
       name: 'dct:modified',
       children: [
-        {
-          identifier: 'modified',
-          id: 'modifiedCondDistribution',
-          name: '@type',
-          $formkit: 'select',
-          options: {date: 'Date', datetime: 'Datetime'},
-        },
+
         {
           identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$get(modifiedCondDistribution).value',
           props: {
-            name: 'dct:modified',
-            if: '$get(modifiedCondDistribution).value === date',
-            then: {
-              type: 'date',
-              name: '@value',
+            type: 'datetime-local',
+            name: '@value',
+            classes: {
+              outer: 'w-100'
             },
-            else: {
-              type: 'datetime-local',
-              name: '@value'
-            }
+            validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+
           }
-        },
+        }
       ]
     },
     rights: {
@@ -1791,7 +1909,7 @@ const dcatapProperties: InputDefinition = {
           id: 'rightsCondDataset',
           $formkit: 'select',
           name: '@type',
-          options: {url: 'Provide URL', text: 'Provide a text'},
+          options: { url: 'Provide URL', text: 'Provide a text' },
         },
         {
           identifier: 'rights',
@@ -1813,55 +1931,56 @@ const dcatapProperties: InputDefinition = {
     },
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
-      $formkit:'number',
+      $formkit: 'number',
       name: 'dcat:spatialResolutionInMeters',
       class: 'property',
       validation: 'number',
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     temporalResolution: {
       identifier: 'temporalResolution',
-      $formkit:'group',
+      $formkit: 'formkitGroup',
       name: 'dcat:temporalResolution',
       class: 'property tempResWrapper',
       children: [
         {
           identifier: 'temporalResolutionYear',
-          $formkit:'number',
+          $formkit: 'number',
           min: 0,
           max: 2023,
           name: 'Year',
         },
         {
           identifier: 'temporalResolutionMonth',
-          $formkit:'number',
+          $formkit: 'number',
           min: 0,
           max: 12,
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
-          $formkit:'number',
+          $formkit: 'number',
           min: 0,
           max: 31,
           name: 'Day',
         },
         {
           identifier: 'temporalResolutionHour',
-          $formkit:'number',
+          $formkit: 'number',
           min: 0,
           max: 23,
           name: 'Hour',
         },
         {
           identifier: 'temporalResolutionMinute',
-          $formkit:'number',
+          $formkit: 'number',
           min: 0,
           max: 59,
           name: 'Minute',
         },
         {
           identifier: 'temporalResolutionSecond',
-          $formkit:'number',
+          $formkit: 'number',
           min: 0,
           max: 59,
           name: 'Second',
@@ -1916,7 +2035,7 @@ const dcatapProperties: InputDefinition = {
     },
     datasetID: {
       identifier: 'datasetID',
-      $formkit:'id',
+      $formkit: 'id',
       name: 'datasetID',
       class: 'property',
       mandatory: true,
@@ -1955,7 +2074,7 @@ const dcatapProperties: InputDefinition = {
     },
     description: {
       identifier: 'datasetDescription',
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       name: 'dct:description',
       class: 'property langDescriptionInput mandatory',
       minimum: 1,
@@ -1967,7 +2086,7 @@ const dcatapProperties: InputDefinition = {
           children: [
             {
               identifier: 'description',
-              $formkit:'textarea',
+              $formkit: 'textarea',
               name: '@value',
               validation: 'required',
               class: 'w-100 inputTextfield',
@@ -1975,7 +2094,7 @@ const dcatapProperties: InputDefinition = {
             {
               identifier: 'descriptionLanguage',
               value: 'en',
-              $formkit:'select',
+              $formkit: 'select',
               options: language,
               validation: 'required',
               name: '@language',
@@ -2095,9 +2214,9 @@ const dcatapProperties: InputDefinition = {
           ]
         }
       ]
-    },    
+    },
     spatial: {
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       name: 'dct:spatial',
       identifier: 'spatial',
       children: [
@@ -2121,13 +2240,13 @@ const dcatapProperties: InputDefinition = {
               if: "$get(spatialModeCatalogue).value === voc",
               then: [
                 { value: "continent", label: "Continent" },
-                { value: "country", label: "Country" }, 
-                { value: "place", label: "Place"}
+                { value: "country", label: "Country" },
+                { value: "place", label: "Place" }
               ],
               else: {
                 if: "$get(spatialModeCatalogue).value === man",
                 then: [
-                  {label: "Other", value: "other" }
+                  { label: "Other", value: "other" }
                 ],
               }
             }
@@ -2158,20 +2277,20 @@ const dcatapProperties: InputDefinition = {
     },
     homepage: {
       identifier: 'homepage',
-      $formkit:'url',
+      $formkit: 'url',
       name: 'foaf:homepage',
       class: 'property',
       validation: 'optional|url',
     },
     hasPart: {
-      $formkit:'repeatable',
+      $formkit: 'repeatable',
       identifier: 'hasPart',
       name: 'dct:hasPart',
       class: 'property',
       children: [
         {
           identifier: 'hasPartURL',
-          $formkit:'url',
+          $formkit: 'url',
           name: '@id',
           validation: 'optional|url',
         },
@@ -2181,12 +2300,12 @@ const dcatapProperties: InputDefinition = {
       identifier: 'isPartOf',
       name: 'dct:isPartOf',
       class: 'property',
-      $formkit:'url',
+      $formkit: 'url',
       validation: 'optional|url',
     },
     rights: {
       identifier: "rights",
-      $formkit:'group',
+      $formkit: 'group',
       name: 'dct:rights',
       children: [
         {
@@ -2205,7 +2324,7 @@ const dcatapProperties: InputDefinition = {
             if: "$get(rightsModeCatalogue).value === url",
             then: {
               identifier: 'rightsUrl',
-              type: "url",              
+              type: "url",
             },
             else: {
               identifier: 'rightsString',
@@ -2223,7 +2342,7 @@ const dcatapProperties: InputDefinition = {
       children: [
         {
           identifier: 'catalogURL',
-          $formkit:'url',
+          $formkit: 'url',
           validation: 'optional|url',
           name: '@id',
         },
@@ -2231,13 +2350,13 @@ const dcatapProperties: InputDefinition = {
     },
     creator: {
       identifier: 'creator',
-      $formkit:'group',
+      $formkit: 'group',
       name: 'dct:creator',
       class: 'property',
       children: [
         {
           identifier: 'creatorType',
-          $formkit:'select',
+          $formkit: 'select',
           name: 'rdf:type',
           options: {
             '': '---',
@@ -2247,18 +2366,18 @@ const dcatapProperties: InputDefinition = {
         },
         {
           identifier: 'creatorName',
-          $formkit:'text',
+          $formkit: 'text',
           name: 'foaf:name',
         },
         {
           identifier: 'creatorEmail',
-          $formkit:'email',
+          $formkit: 'email',
           name: 'foaf:mbox',
           validation: 'optional|email',
         },
         {
           identifier: 'creatorHomepage',
-          $formkit:'url',
+          $formkit: 'url',
           name: 'foaf:homepage',
           validation: 'optional|url',
         },

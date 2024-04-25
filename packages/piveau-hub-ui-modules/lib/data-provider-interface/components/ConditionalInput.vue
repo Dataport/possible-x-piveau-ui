@@ -1,145 +1,65 @@
+
+<script setup>
+import { ref, nextTick } from 'vue';
+import AutocompleteInput from './AutocompleteInput.vue';
+import { onClickOutside } from '@vueuse/core'
+
+const props = defineProps({
+  context: Object,
+})
+let selectModeVal = ref()
+let selectedItem = ref(false)
+let showSelect = ref(false)
+const I1 = ref(null)
+
+const openSelect = (e) => {
+  showSelect.value = !showSelect.value
+}
+const selectMode = (e) => {
+  selectModeVal.value = e.target.innerHTML
+  if (e.target.innerHTML === 'manually') {
+    selectedItem.value = "manually"
+  }
+  else selectedItem.value = "vocabulary"
+  props.context.node.reset()
+}
+onClickOutside(I1, event => showSelect.value = false)
+
+// console.log(Object.keys(props.context.value));
+// determine which property is already there
+
+</script>
 <template>
-  <div :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
-    <!-- <FormulateSlot name="prefix" :context="context">
-      <component :is="context.slotComponents.prefix" v-if="context.slotComponents.prefix" :context="context" />
-    </FormulateSlot> -->
-    <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
-    <!-- temporal solution for license only using vocabulary -->
-    <div v-if="context.attributes.name === 'dct:license'">
-      <FormKitSchema v-model="inputValues" :schema="data['voc']" @change="setContext"></FormKitSchema>
-    </div>
-    <div v-else>
-      <FormKitSchema v-model="conditionalValues" key="intern">
-        <FormKit type="select" :options="context.options" :name="context.name"
-          :label="$t('message.dataupload.type')" :placeholder="context.attributes.placeholder"></FormKit>
-      </FormKitSchema>
-
-      <div v-if="conditionalValues === 'file'">
-        <FormKitSchema v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
-          @input="setContext"></FormKitSchema>
+  <h4>{{ props.context.attrs.identifier }}</h4>
+  <div class="formkitCmpWrap simpleConditional">
+    <div class="m-3">
+      <div class="conditionalSelectDiv">
+        <input ref="I1" type="text" class="conditionalSelect formkit-input formkit-inner" @click="openSelect($event)"
+          placeholder="Choose input method" v-model="selectModeVal">
+        <div v-if="showSelect">
+          <ul class="selectListConditional">
+            <li v-for="el, index in props.context.attrs.selection" class="p-2 border-b border-gray-200 "
+              @click="selectMode($event)">{{ el }}</li>
+          </ul>
+        </div>
       </div>
-      <div v-else>
-        <FormKitSchema v-model="inputValues" v-if="conditionalValues" :schema="data[conditionalValues[context.name]]"
-          @change="setContext"></FormKitSchema>
+      <div class="conditionalManual">
+        <div class="d-flex" v-if="selectedItem === 'manually' ||
+          Object.keys(props.context.value).length > 0 && Object.keys(props.context.value)[0] === 'foaf:name'
+          && selectedItem != 'vocabulary'">
+          <FormKit v-for="el, key in props.context.attrs.options" :type="key" :placeholder="key" :name="el"
+            :validation="key"></FormKit>
+        </div>
+
       </div>
+      <div v-if="selectedItem === 'vocabulary' || Object.keys(props.context.value).length > 0
+        && Object.keys(props.context.value)[0] === 'name' && selectedItem === 'manually'"
+        class="conditionalVocabulary">
+        <AutocompleteInput :context="props.context"></AutocompleteInput>
+      </div>
+
     </div>
 
-    <!-- <FormulateSlot name="suffix" :context="context">
-      <component :is="context.slotComponents.suffix" v-if="context.slotComponents.suffix" :context="context" />
-    </FormulateSlot> -->
   </div>
 </template>
 
-<script>
-import { isEmpty } from 'lodash';
-import generalHelper from '../utils/general-helper';
-
-
-export default {
-  props: {
-    context: {
-      type: Object,
-      required: true,
-    },
-    data: {},
-  },
-  data() {
-    return {
-      conditionalValues: {},
-      inputValues: {},
-    };
-  },
-  computed: {},
-  methods: {
-   
-    /**
-     * Saving changed values to context which will be given to parent form
-     */
-    setContext() {
-      const dataKey = Object.keys(this.inputValues);
-      if (dataKey.length > 0) {
-        this.context.model = this.inputValues[dataKey[0]];
-      }
-      this.context.rootEmit('change');
-    },
-    fillValues() {
-      const semanticName = this.context.attributes.name;
-
-      if (semanticName === 'dct:issued' || semanticName === 'dct:modified') {
-        //   // date time includes an 'T' to delimit date and time
-        if (this.context.model.includes('T')) {
-          this.conditionalValues[this.context.name] = 'datetime';
-        } else {
-          this.conditionalValues[this.context.name] = 'date';
-        }
-        this.inputValues = { '@value': this.context.model };
-      } else if (semanticName === 'dct:license') {
-        // either an array with an object containing multiple properties
-        if (Array.isArray(this.context.model)) {
-          if (!isEmpty(this.context.model[0])) {
-            this.conditionalValues[this.context.name] = 'man';
-            this.inputValues = { ...this.inputValues, 'dct:license': this.context.model };
-          }
-        } else {
-          // singular URI
-          this.conditionalValues[this.context.name] = 'voc';
-          this.inputValues = { '@id': this.context.model };
-        }
-      } else if (this.context.attributes.identifier === 'accessUrl') {
-        if (this.context.model.startsWith(this.$env.api.fileUploadUrl)) {
-          this.conditionalValues[this.context.name] = 'file';
-        } else {
-          this.conditionalValues[this.context.name] = 'url';
-        }
-        this.inputValues = { '@id': this.context.model };
-      } else if (this.context.attributes.identifier === 'spatial') {
-        // find better differentiation instead of hardcoded URL
-        if (this.context.model.startsWith("http://publications.europa.eu/resource/authority")) this.conditionalValues[this.context.name] = 'voc';
-        else this.conditionalValues[this.context.name] = 'man';
-        // both options return an URI
-        this.inputValues = { '@id': this.context.model };
-      } else if (this.context.attributes.identifier = 'spatialVocabulary') {
-        const vocProps = this.context.model.replace("http://publications.europa.eu/resource/authority/", "");
-        const vocab = vocProps.slice(0, vocProps.indexOf("/"));
-        this.conditionalValues[this.context.name] = vocab;
-        this.inputValues = { '@id': this.context.model };
-      } else if (semanticName === 'dcatde:politicalGeocodingURI') {
-        // this.conditionalValues[this.context.name] = 'voc';
-        // this.inputValues = { '@id': this.context.model };2
-        this.context.placeholder = this.context.model;
-
-      } else if (semanticName === 'dct:rights') {
-        // url and string provided as normal string
-        if (generalHelper.isUrl(this.context.model)) {
-          this.conditionalValues[this.context.name] = 'url';
-        } else {
-          this.conditionalValues[this.context.name] = 'str';
-        }
-        this.inputValues = { 'rdfs:label': this.context.model };
-      } else if (semanticName === 'dct:publisher') {
-        if (Array.isArray(this.context.model)) {
-          if (!isEmpty(this.context.model[0])) {
-            this.conditionalValues[this.context.name] = 'man';
-            this.inputValues = { ...this.inputValues, 'dct:publisher': this.context.model };
-          }
-        } else {
-          // singular URI
-          this.conditionalValues[this.context.name] = 'voc';
-          this.inputValues = { '@id': this.context.model };
-        }
-      }
-    },
-  },
-  watch: {
-    context: {
-      handler() {
-        if (this.context.model !== "") {
-          this.fillValues();
-        }
-      }
-    }
-  }
-};
-</script>
-
-<style></style>

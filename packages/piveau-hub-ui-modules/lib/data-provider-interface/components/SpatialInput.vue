@@ -77,7 +77,9 @@ const getAutocompleteSuggestions = async () => {
     let vocCache = voc.value
 
     if (props.context.attrs.identifier === 'politicalGeocodingURI') {
-        vocCache = 'political-geocoding-' + vocCache.toLowerCase().replace(" ", '-')
+
+        vocCache = 'political-geocoding-' + vocCache.toLowerCase().replaceAll(" ", '-')
+
         try {
             let text = inputText.value;
             await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: vocCache, text: text, base: instance.api.baseUrl }).then((response) => {
@@ -89,7 +91,6 @@ const getAutocompleteSuggestions = async () => {
             });
         } catch (error) {
         }
-        console.log(vocCache);
     }
     else {
         try {
@@ -135,7 +136,7 @@ function activeInput(e) {
 function manURLInput(e) {
     props.context.node.input({ 'name': e.target.value, 'resource': e.target.value })
 }
-console.log(voc);
+// console.log(voc);
 </script>
 
 <template>

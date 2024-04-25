@@ -5,6 +5,7 @@ import AutocompleteInput from "../data-provider-interface/components/Autocomplet
 import FileUpload from "../data-provider-interface/components/FileUpload.vue";
 import UniqueIdentifierInput from "../data-provider-interface/components/UniqueIdentifierInput.vue";
 import SpatialInput from "../data-provider-interface/components/SpatialInput.vue";
+import ConditionalInput from "../data-provider-interface/components/ConditionalInput.vue";
 
 export default {
     repeatable: {
@@ -30,6 +31,10 @@ export default {
     formkitGroup: {
         type: 'group',
         component: FormKitGroup
+    },
+    simpleConditional: {
+        type: 'group',
+        component: ConditionalInput
     }
 
 
