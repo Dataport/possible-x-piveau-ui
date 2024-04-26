@@ -68,6 +68,7 @@ export default {
     },
     checkName() {
       const semanticName = this.context.attributes.name;
+      console.log("checkName", semanticName)
       switch (semanticName) {
         case 'dct:issued':case 'dct:modified':
           //   // date time includes an 'T' to delimit date and time
@@ -92,6 +93,7 @@ export default {
           }
           return true;
         case 'dcatde:politicalGeocodingURI':
+          console.log("HELOOOO")
           // this.conditionalValues[this.context.name] = 'voc';
           // this.inputValues = { '@id': this.context.model };2
           this.context.placeholder = this.context.model;
@@ -122,6 +124,7 @@ export default {
       }
     },
     checkIdentifier() {
+      console.log("checkIdentifier")
       const identifier = this.context.attributes.identifier;
       switch (identifier) {
         case 'accessUrl':
@@ -135,10 +138,14 @@ export default {
         case 'spatial':
           // && this.$env.content.dataProviderInterface.specification === "dcatap"
           // find better differentiation instead of hardcoded URL
-          if (this.context.model.startsWith("http://publications.europa.eu/resource/authority")) this.conditionalValues[this.context.name] = 'voc';
-          else this.conditionalValues[this.context.name] = 'man';
+          if (this.context.model.startsWith("http://publications.europa.eu/resource/authority")) {
+            this.conditionalValues[this.context.name] = 'voc';
+          }
+          else {
+            this.conditionalValues[this.context.name] = 'man';
+          }
           // both options return an URI
-          this.inputValues = { '@id': this.context.model };
+          this.inputValues = { [this.context.name]: this.context.model };
           return true;
         case 'spatialVocabulary':
           const vocProps = this.context.model.replace("http://publications.europa.eu/resource/authority/", "");
