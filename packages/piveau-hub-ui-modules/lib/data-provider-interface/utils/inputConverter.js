@@ -293,6 +293,7 @@ function convertSingularStrings(data, state, key) {
 function convertSingularURI(data, state, key, dpiConfig) {
 
     const formatType = dpiConfig.formatTypes;
+    const vocabPrefixes = dpiConfig.vocabPrefixes;
 
     if (data.size > 0) {
         state[key] = '';
@@ -327,7 +328,7 @@ function convertMultipleURI(data, state, key, property, dpiConfig) {
     if (data.size > 0) {
         state[key] = [];
         for (let el of data) {
-            if (formatType.URIformat.voc.includes(key)) state[key].push({name: '', resource: el.object.value});
+            if (formatType.URIformat.voc.includes(key)) state[key].push({name: 'test', resource: el.object.value});
             else if (formatType.URIformat.string.includes(key)) state[key].push(el.object.value);
             else state[key].push({'@id': el.object.value});
         }        

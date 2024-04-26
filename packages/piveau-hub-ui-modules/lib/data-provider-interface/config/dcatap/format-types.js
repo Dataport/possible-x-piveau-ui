@@ -187,15 +187,49 @@ const URIformat = {
     // {'name': '', 'resource': ''} mainly needed for vocabulary data
     voc: [
         'dct:publisher',
-        'dcat:theme'
+        'dcat:theme',
+        "dct:accrualPeriodicity",
+        "dct:accessRights",
+        "dct:type",
+        "dct:format",
+        "dcat:mediaType",
+        "dcatap:availability",
+        "dcat:compressFormat",
+        "dcat:packageFormat",
+        'spdx:algorithm',
+        "dct:subject",
+        "dct:language",
+        "adms:status",
+
     ],
     // 'URI' mainly used for mail addresses
     string: [
-
+        'vcard:hasEmail',
+        'vcard:hasURL',
+        'foaf:mbox',
+        "skos:exactMatch",
+        'foaf:homepage',
+        'dext:isUsedBy'
     ],
     // {'@id': ''} mainly used for repeated links
     id: [
-        'dct:source'
+        'dct:source',
+        "dcat:accessURL",
+        "dcat:downloadURL",
+        "odrl:hasPolicy",
+        "dct:hasPart",
+        'dcat:catalog',
+        "dct:source",
+        "dcat:landingPage",
+        "dct:relation",
+        "dcat:qualifiedRelation",
+        "prov:qualifiedAttribution",
+        "dct:isReferencedBy",
+        "prov:wasGeneratedBy",
+        "dct:isVersionOf",
+        "dct:hasVersion",
+        'dct:isPartOf',
+        'dcat:endpointURL',
     ]
 }
 
