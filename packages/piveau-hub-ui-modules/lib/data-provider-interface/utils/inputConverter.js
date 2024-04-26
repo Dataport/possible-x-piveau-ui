@@ -126,7 +126,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
             // the linked data format of this property looks like this: P?Y?M?DT?H?M?S
             if (subData.size > 0) {
 
-                state[key] = [{}];
+                state[key] = {};
 
                 const shorts = ['Y', 'M', 'D', 'H', 'M', 'S'];
                 const forms = {
@@ -148,15 +148,15 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                 if (!resolutionValue.startsWith("P")) {
 
                     // setting year, month and day to 0
-                    state[key][0][forms[0]] = 0;
-                    state[key][0][forms[1]] = 0;
-                    state[key][0][forms[2]] = 0;
+                    state[key][forms[0]] = 0;
+                    state[key][forms[1]] = 0;
+                    state[key][forms[2]] = 0;
 
                     // converting seconds into HH:MM:SS
                     const data = new Date(resolutionValue * 1000).toISOString().slice(11, 19);
-                    state[key][0][forms[3]] = data.slice(0, 2);
-                    state[key][0][forms[4]] = data.slice(3, 5);
-                    state[key][0][forms[5]] = data.slice(7, 9);
+                    state[key][forms[3]] = data.slice(0, 2);
+                    state[key][forms[4]] = data.slice(3, 5);
+                    state[key][forms[5]] = data.slice(7, 9);
 
                 } else {
                     // find index of letter for time period
@@ -167,7 +167,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         const subDuration = resolutionValue.substring(0, position); // substring until position of duration letter
                         const value = subDuration.match(/\d+/g)[0]; // extract number
                         resolutionValue = resolutionValue.substring(position); // overwrite resolution string with shortened version (missing the extracted part)
-                        state[key][0][forms[tempIndex]] = value; // write to result object
+                        state[key][forms[tempIndex]] = value; // write to result object
                     }
                 }          
             }
