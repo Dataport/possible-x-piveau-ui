@@ -61,10 +61,17 @@ export default {
       if (this.toggleDownloadPopup) {
         $('#downloadAllModal').modal('show');
       }
+      if (this.checked) {
+        this.$cookie.set('externalContent', this.checked, this.expires);
+      } else if (!this.checked) {
+        if (this.$cookie.get('externalContent')) {
+          this.$cookie.set('externalContent', this.checked, this.expires);
+        }
+      }
       this.callback();
     },
   },
-  watch: {
+
     checked() {
       if (this.checked) {
         this.$cookie.set('externalContent', this.checked, this.expires);
@@ -74,7 +81,7 @@ export default {
         }
       }
     },
-  },
+  
   created() {
     if (this.$cookie.get('externalContent') == null) {
       this.$cookie.set('externalContent', false, this.expires);
