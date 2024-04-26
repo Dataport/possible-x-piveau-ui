@@ -344,7 +344,7 @@ function convertTypedString(data, state, key) {
     if (data.size > 0) {
         state[key] = '';
         for (let el of data) {
-            if (key === 'dcat:spatialResolutionInMeters') state[key] =  el.object.value;
+            if (key === 'dcat:spatialResolutionInMeters' || key === 'dcat:byteSize') state[key] =  el.object.value;
             else if (key === 'dcat:startDate' || key === 'dcat:endDate') {
                 state[key] = el.object.value;
             }
