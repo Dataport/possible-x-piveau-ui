@@ -209,7 +209,8 @@ const URIformat = {
         'foaf:mbox',
         "skos:exactMatch",
         'foaf:homepage',
-        'dext:isUsedBy'
+        'dext:isUsedBy',
+        'dcat:endpointURL',
     ],
     // {'@id': ''} mainly used for repeated links
     id: [
@@ -229,7 +230,6 @@ const URIformat = {
         "dct:isVersionOf",
         "dct:hasVersion",
         'dct:isPartOf',
-        'dcat:endpointURL',
     ]
 }
 
