@@ -182,6 +182,23 @@ const additionalPropertyTypes = {
     'dct:license': 'dct:LicenseDocument'
 }
 
+// some inputs need URIs in diefferent formats
+const URIformat = {
+    // {'name': '', 'resource': ''} mainly needed for vocabulary data
+    voc: [
+        'dct:publisher',
+        'dcat:theme'
+    ],
+    // 'URI' mainly used for mail addresses
+    string: [
+
+    ],
+    // {'@id': ''} mainly used for repeated links
+    id: [
+        'dct:source'
+    ]
+}
+
 export default {
     singularURI,
     multipleURI,
@@ -191,4 +208,5 @@ export default {
     groupedProperties,
     additionalPropertyTypes,
     conditionalProperties,
+    URIformat
 };

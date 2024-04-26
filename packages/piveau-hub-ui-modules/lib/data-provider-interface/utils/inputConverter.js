@@ -1,4 +1,9 @@
+import formatTypes from "../config/dcatap/format-types";
 import generalHelper from "./general-helper";
+import { useStore } from "vuex";
+
+const store = useStore();
+
 
 /**
  * Converts given data for given property into input form format
@@ -69,7 +74,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
         if (formatType.singularString[property].includes(key)) {
             convertSingularStrings(subData, state, key);
         } else if (formatType.singularURI[property].includes(key)) {
-            convertSingularURI(subData, state, key);
+            convertSingularURI(subData, state, key, dpiConfig);
         } else if (formatType.multipleURI[property].includes(key)) {
             convertMultipleURI(subData, state, key, property, dpiConfig);
         } else if (formatType.typedStrings[property].includes(key)) {
@@ -285,7 +290,10 @@ function convertSingularStrings(data, state, key) {
  * @param {*} state 
  * @param {*} key 
  */
-function convertSingularURI(data, state, key) {
+function convertSingularURI(data, state, key, dpiConfig) {
+
+    const formatType = dpiConfig.formatTypes;
+
     if (data.size > 0) {
         state[key] = '';
 
@@ -295,7 +303,9 @@ function convertSingularURI(data, state, key) {
             if (value.startsWith('mailto:')) {
                 state[key] = value.replace('mailto:', '');
             } else {
-                state[key] = value;
+                if (formatType.URIformat.voc.includes(key)) state[key] = {name: 'test', resource: value};
+                else if (formatType.URIformat.string.includes(key)) state[key] = value;
+                else state[key] = {'@id': value};
             }
         }
     }
@@ -317,11 +327,9 @@ function convertMultipleURI(data, state, key, property, dpiConfig) {
     if (data.size > 0) {
         state[key] = [];
         for (let el of data) {
-            if (formatType.multiURIarray[property].includes(key)) {
-                state[key].push(el.object.value);
-            } else if (formatType.multiURIobjects[property].includes(key)) {
-                state[key].push({'@id': el.object.value});
-            }
+            if (formatType.URIformat.voc.includes(key)) state[key].push({name: '', resource: el.object.value});
+            else if (formatType.URIformat.string.includes(key)) state[key].push(el.object.value);
+            else state[key].push({'@id': el.object.value});
         }        
     }
 }
@@ -338,7 +346,11 @@ function convertTypedString(data, state, key) {
     if (data.size > 0) {
         state[key] = '';
         for (let el of data) {
-            state[key] = el.object.value;
+            let dateType;
+            if (el.object.value.includes('T')) dateType = 'dateTime';
+            else dateType = 'date';
+
+            state[key] = {'@type': dateType, '@value': el.object.value};
         }
     }
     
