@@ -100,6 +100,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
             }
         } else if (formatType.groupedProperties[property].includes(key)) {
             if (subData.size > 0) {
+                
                 state[key] = [];
                 // there could be multiple nodes with data for a property
                 for (let el of subData) {
@@ -116,8 +117,9 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null), dpiConfig);
                         convertProperties(property, currentState, el.object, data, nestedKeys, dpiConfig);
                     }
-                    // temporal ist nested
-                    state[key].push(currentState);
+                    // creator not an array
+                    if (key === 'dct:creator') state[key] = currentState;
+                    else state[key].push(currentState);
                 }
             }
         } else if (key === 'dcat:temporalResolution') {
@@ -299,7 +301,7 @@ function convertSingularURI(data, state, key, dpiConfig) {
             if (value.startsWith('mailto:')) {
                 state[key] = value.replace('mailto:', '');
             } else {
-                if (formatType.URIformat.voc.includes(key)) state[key] = {name: 'test', resource: value};
+                if (formatType.URIformat.voc.includes(key)) state[key] = {name: value, resource: value};
                 else if (formatType.URIformat.string.includes(key)) state[key] = value;
                 else state[key] = {'@id': value};
             }
@@ -323,7 +325,7 @@ function convertMultipleURI(data, state, key, property, dpiConfig) {
     if (data.size > 0) {
         state[key] = [];
         for (let el of data) {
-            if (formatType.URIformat.voc.includes(key)) state[key].push({name: 'test', resource: el.object.value});
+            if (formatType.URIformat.voc.includes(key)) state[key].push({name: el.object.value, resource: el.object.value});
             else if (formatType.URIformat.string.includes(key)) state[key].push(el.object.value);
             else state[key].push({'@id': el.object.value});
         }        
