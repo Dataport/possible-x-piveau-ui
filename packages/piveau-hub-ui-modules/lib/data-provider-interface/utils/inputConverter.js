@@ -1,8 +1,4 @@
-import formatTypes from "../config/dcatap/format-types";
 import generalHelper from "./general-helper";
-import { useStore } from "vuex";
-
-const store = useStore();
 
 
 /**
@@ -121,7 +117,6 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         convertProperties(property, currentState, el.object, data, nestedKeys, dpiConfig);
                     }
                     // temporal ist nested
-                    if (key === "dct:temporal") currentState = {'dct:temporal': currentState };
                     state[key].push(currentState);
                 }
             }
@@ -347,11 +342,17 @@ function convertTypedString(data, state, key) {
     if (data.size > 0) {
         state[key] = '';
         for (let el of data) {
-            let dateType;
-            if (el.object.value.includes('T')) dateType = 'dateTime';
-            else dateType = 'date';
+            if (key === 'dcat:spatialResolutionInMeters') state[key] =  el.object.value;
+            else if (key === 'dcat:startDate' || key === 'dcat:endDate') {
+                state[key] = el.object.value;
+            }
+            else {
+                let dateType;
+                if (el.object.value.includes('T')) dateType = 'dateTime';
+                else dateType = 'date';
 
-            state[key] = {'@type': dateType, '@value': el.object.value};
+                state[key] = {'@type': dateType, '@value': el.object.value};
+            }
         }
     }
     
