@@ -37,7 +37,7 @@ function convertToInput(state, property, data, dpiConfig) {
     if (property === 'datasets') {
         const distributionQuads = data.match(generalID, 'http://www.w3.org/ns/dcat#distribution', null, null);
         namespaceKeys = generalHelper.getPagePrefixedNames('distributions', dpiConfig.inputDefinition, dpiConfig.pageConent);
-        state.distributions = [];
+        state.datasets.Distributions['distributionList'] = [];
         for (let el of distributionQuads) {
             const currentDistribution = {};
             
@@ -46,7 +46,7 @@ function convertToInput(state, property, data, dpiConfig) {
                 currentDistribution[pageName] = {};
                 convertProperties('distributions', currentDistribution[pageName], distributionId, data, namespaceKeys['distributions'][pageName], dpiConfig);
             }  
-            state.distributions.push(currentDistribution);
+            state.datasets.Distributions.distributionList.push(currentDistribution);
         }
     }
 }
