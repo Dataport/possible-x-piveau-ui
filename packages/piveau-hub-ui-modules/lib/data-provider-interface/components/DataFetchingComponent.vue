@@ -23,9 +23,6 @@ export default {
     token() {
       return this.getUserData.rtpToken;
     },
-    firstStep() {
-      return this.getNavSteps[this.property][0];
-    },
     redirectUri() {
       return `${this.$env.content.dataProviderInterface.basePath}/${this.property}?locale=${this.$i18n.locale}`;
     },
@@ -60,7 +57,6 @@ export default {
       this.$router.push(this.redirectUri).catch(() => {});
     },
   },
-  created() {},
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (from.fullPath.startsWith(vm.redirectUri)) {
