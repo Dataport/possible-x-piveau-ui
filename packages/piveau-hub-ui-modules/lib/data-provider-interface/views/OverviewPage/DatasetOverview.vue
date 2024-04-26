@@ -42,7 +42,8 @@
             <div class="">
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <PropertyEntry profile="datasets" :data="getDatasets" :property="name" :value="value" :dpiLocale="dpiLocale"></PropertyEntry>
+                        <PropertyEntry profile="datasets" :data="getDatasets" :property="name" :value="value"
+                            :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
                 </table>
             </div>
@@ -51,13 +52,15 @@
             <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getDistributions.length }})</h2>
             <DistributionOverview :dpiLocale="dpiLocale" :distributions="getDistributions"></DistributionOverview>
         </div>
-
         <div class="dsKeywords b-top my-2 p-3"
             v-if="getDatasets['dct:keyword'] != undefined && getDatasets['dct:keyword'][0]['@value'] != undefined && getDatasets['dct:keyword'].length > 0">
             <h2 class="my-4">Keywords <span>({{ getDatasets['dct:keyword'].length }})</span></h2>
             <div class="d-flex">
-                <span class="mx-1" v-for="( element, index ) in  getDatasets['dct:keyword'].filter(el => el['@language'] === dpiLocale)" :key="index">
-                    <small :title="element" class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
+                <span class="mx-1"
+                    v-for="( element, index ) in  getDatasets['dct:keyword'].filter(el => el['@language'] === dpiLocale)"
+                    :key="index">
+                    <small :title="element"
+                        class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
                         {{ element['@value'] }}
                     </small>
                 </span>
@@ -78,7 +81,7 @@ export default {
         return {
             pageLoaded: false,
             tableProperties: {
-                'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
+                // 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
                 'dct:creator': { type: 'special', voc: '', label: 'message.metadata.creator' },
                 'dct:issued': { type: 'date', label: 'message.metadata.created' },
@@ -178,7 +181,7 @@ export default {
         }
     },
     async mounted() {
-        this.$nextTick(() => {         
+        this.$nextTick(() => {
             this.pageLoaded = true;
         })
     },
@@ -198,7 +201,7 @@ export default {
 .dsDist td:first-child {
     padding: 1rem;
     width: 25%;
-    
+
 }
 
 .disOverview td:first-child {
@@ -215,5 +218,4 @@ export default {
 
 .dist-edit {
     cursor: pointer
-}
-</style>
+}</style>

@@ -53,7 +53,7 @@ onClickOutside(I1, event => showSelect.value = false)
 
       </div>
       <div v-if="selectedItem === 'vocabulary' || Object.keys(props.context.value).length > 0
-        && Object.keys(props.context.value)[0] === 'name' && selectedItem === 'manually'"
+        && Object.keys(props.context.value)[0] === 'name' && selectedItem != 'manually'"
         class="conditionalVocabulary">
         <AutocompleteInput :context="props.context"></AutocompleteInput>
       </div>

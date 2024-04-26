@@ -17,7 +17,7 @@ const getters = {};
 const actions = {
     requestFirstEntrySuggestions({ commit }, voc, base) {      
         return new Promise((resolve, reject) => {
-            const req = `${base}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
+            const req = `${base}search?filter=vocabulary&vocabulary=${voc}`;
             axios.get(req)
             .then((res) => {
                 resolve(res);
@@ -28,20 +28,19 @@ const actions = {
         });
     },
     requestAutocompleteSuggestions({ commit }, { voc, text, base }) {
-        if (base != undefined) {
+        console.log(voc,text,base); 
             return new Promise((resolve, reject) => {
                 const req = `${base}search?filter=vocabulary&vocabulary=${voc}&q=${text}`;            
                 axios.get(req)
                 .then((res) => {
+                    console.log(res);
+                    
                     resolve(res);         
                 })
                 .catch((err) => {
                     reject(err);
                 });
             });
-        }
-        else return
-        
     },
     requestResourceName({ commit }, { voc, resource, base }) {
         // Catching invalid URI's

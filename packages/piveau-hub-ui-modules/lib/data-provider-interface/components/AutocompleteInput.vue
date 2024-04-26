@@ -4,6 +4,7 @@ import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { getCurrentInstance } from "vue";
 
+
 let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
 
 const props = defineProps({
@@ -17,33 +18,22 @@ let listOfValues = computed(() => {
 
 let selection;
 let voc = props.context.attrs.voc;
-let matches;
+let matches = ref({
+  value: { name: '--- Type in anything for a live search of the vocabulary ---' }
+})
 let inputText = ref({});
 let cacheList = [];
-const loadMatches = async () => {
-  matches = [{ name: '--- Type in anything for a live search of the vocabulary ---', resource: 'invalid' }]
-  // await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: "" }).then((response) => {
-  //   const results = response.data.result.results.map((r) => ({
-  //     name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
-  //     resource: r.resource,
-  //   }));
-  //   matches = results;
-  // });
-}
 
-onBeforeMount(() => {
-  loadMatches();
-
-})
 onMounted(async () => {
+
   inputText.value = ""
   // console.log('Context: ', props.context);
 });
 
-watch(inputText, async () => {
-  getAutocompleteSuggestions();
-}
-)
+watch(matches, async () => {
+  console.log('####Update');
+})
+
 function findPropertyToUpdate(trigger) {
 
   let finalPath = { step: '', prop: props.context.node.name }
@@ -63,9 +53,7 @@ function findPropertyToUpdate(trigger) {
               pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             }
             if (typeof selection === 'object') {
-
               pathToLocalStorage[finalPath.step][finalPath.prop] = selection
-              // console.log(pathToLocalStorage[finalPath.step][finalPath.prop]);
             }
             else pathToLocalStorage[finalPath.step][finalPath.prop] = cacheList
             localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
@@ -111,6 +99,9 @@ props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.ident
 // node.props.isMulti = node.context.context.attrs.multiple;
 
 const setValue = async (e) => {
+  if (Object.keys(e).length === 1) {
+    return
+  }
   if (listOfValues.value.length > 0) {
     cacheList = listOfValues.value
   }
@@ -119,11 +110,11 @@ const setValue = async (e) => {
     // check for doubled values
     if (cacheList.length != 0) {
       let filteredProperty = { name: e.name, resource: e.resource };
-      // console.log(cacheList, 'before');
+
       let filteredList = cacheList.filter((element) => element.name != e.name);
       filteredList.push(filteredProperty)
       cacheList = filteredList;
-      // console.log(filteredList, 'after');
+
       await props.context.node.input(cacheList);
     }
     else {
@@ -144,16 +135,19 @@ const setValue = async (e) => {
   window.removeEventListener("click", onClickOutside);
 }
 
-const getAutocompleteSuggestions = async () => {
-  let text = inputText.value;
-  // this.clearAutocompleteSuggestions();
-  // console.log(instance);
-  await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: text, base: instance.api.baseUrl }).then((response) => {
+const getAutocompleteSuggestions = async (e) => {
+  let innerText = e.target.value
+  
+  await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: innerText, base: instance.api.baseUrl }).then((response) => {
     const results = response.data.result.results.map((r) => ({
       name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
       resource: r.resource,
     }));
-    matches = results;
+    if (results.length === 0) {
+      matches.value = { value: { name: '--- No match found ---' } }
+      console.log(matches);
+    }
+    else matches.value = results;
   });
 }
 function toTitleCase(str) {
@@ -161,7 +155,6 @@ function toTitleCase(str) {
     return match.toUpperCase();
   });
 }
-
 function removeProperty(e) {
   props.context.node.input({})
   setValue('erase');
@@ -205,10 +198,10 @@ function toggleList(e) {
               <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
             </div>
             <input class="autocompleteInputfield" :placeholder="props.context.attrs.placeholder" v-model="inputText"
-              type="text" @click="toggleList">
+              type="text" @click="toggleList" v-on:keyup="getAutocompleteSuggestions($event)">
           </div>
           <ul class="autocompleteResultList inactiveResultList">
-            <li v-for="match in matches" :key="match" @click="setValue(match)"
+            <li v-for="match in matches" :key="match" @click="setValue(match);"
               class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}
             </li>
           </ul>
