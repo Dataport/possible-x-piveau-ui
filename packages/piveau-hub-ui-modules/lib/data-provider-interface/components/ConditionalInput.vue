@@ -135,16 +135,35 @@ export default {
         case 'spatial':
           // && this.$env.content.dataProviderInterface.specification === "dcatap"
           // find better differentiation instead of hardcoded URL
-          if (this.context.model.startsWith("http://publications.europa.eu/resource/authority")) this.conditionalValues[this.context.name] = 'voc';
-          else this.conditionalValues[this.context.name] = 'man';
+          if (this.context.model.startsWith("http://publications.europa.eu/resource/authority")) {
+            this.conditionalValues[this.context.name] = 'voc';
+          }
+          else {
+            this.conditionalValues[this.context.name] = 'man';
+          }
           // both options return an URI
-          this.inputValues = { '@id': this.context.model };
+          this.inputValues = { [this.context.name]: this.context.model };
           return true;
         case 'spatialVocabulary':
           const vocProps = this.context.model.replace("http://publications.europa.eu/resource/authority/", "");
           const vocab = vocProps.slice(0, vocProps.indexOf("/"));
           this.conditionalValues[this.context.name] = vocab;
           this.inputValues = { '@id': this.context.model };
+          return true;
+        case 'politicalGeocodingURI':
+          if (this.context.model?.startsWith('http://dcat-ap.de/def/politicalGeocoding/')) {
+            this.conditionalValues[this.context.name] = 'voc';
+          } else {
+            this.conditionalValues[this.context.name] = 'man';
+          }
+          this.inputValues = { [this.context.name]: this.context.model };
+          return true;
+        case 'politicalGeocodingURIVocabulary':
+          const items = this.context.model?.substring('http://dcat-ap.de/def/politicalGeocoding/'.length).split('/');
+          if (items) {
+            this.conditionalValues[this.context.name] = items[0];
+            this.inputValues = { [this.context.name]: this.context.model };
+          }
           return true;
         default:
           return false;

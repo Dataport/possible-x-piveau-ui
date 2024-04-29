@@ -29,7 +29,7 @@ const dcatapProperties = {
         {
           identifier: 'politicalGeocodingURI',
           type: 'conditional-input',
-          name: 'dcatde:politicalGeocodingURI',
+          name: '@id',
           '@dcatDE': true,
           '@change': true,
           options: {
@@ -39,9 +39,9 @@ const dcatapProperties = {
           data: {
             voc: [
               {
-                identifier: 'politicalGeocodingURI',
+                identifier: 'politicalGeocodingURIVocabulary',
                 type: 'conditional-input',
-                name: 'geoCodingURIVoc',
+                name: '@id',
                 options: {
                   municipalityKey: 'Municipality Key',
                   regionalKey: 'Regional Key',
@@ -113,7 +113,7 @@ const dcatapProperties = {
               {
                 identifier: 'politicalGeocodingURIUrl',
                 type: 'custom-url',
-                name: 'geoCodingURIMan',
+                name: '@id',
                 validation: 'optional|url',
                 '@change': true,
               },
@@ -195,7 +195,7 @@ const dcatapProperties = {
       name: 'dcatde:qualityProcessURI',
       class: 'property',
       type: 'custom-url',
-      
+
       '@change': true,
       '@dcatDE': true,
 
@@ -371,7 +371,7 @@ const dcatapProperties = {
           validation: 'required',
           class: 'w-100 inputTextfield',
           '@change': true,
-          
+
         },
         {
           identifier: 'language',
@@ -642,7 +642,7 @@ const dcatapProperties = {
           {
             identifier: 'spatialUrl',
             type: 'custom-url',
-            name: '@id',
+            name: 'dct:spatial',
             validation: 'optional|url',
             '@change': true,
           },
@@ -1161,7 +1161,7 @@ const dcatapProperties = {
           identifier: 'temporalResolutionMonth',
           type: 'number',
           validation: 'min:1|max:12|optional',
-          "validation-behavior": 'live',         
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Month',
         },
@@ -1169,7 +1169,7 @@ const dcatapProperties = {
           identifier: 'temporalResolutionDay',
           type: 'number',
           validation: 'min:1|max:31|optional',
-          "validation-behavior": 'live',        
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Day',
         },
@@ -1177,7 +1177,7 @@ const dcatapProperties = {
           identifier: 'temporalResolutionHour',
           type: 'number',
           validation: 'min:0|max:23|optional',
-          "validation-behavior": 'live',      
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Hour',
         },
@@ -1185,7 +1185,7 @@ const dcatapProperties = {
           identifier: 'temporalResolutionMinute',
           type: 'number',
           validation: 'min:0|max:59|optional',
-          "validation-behavior": 'live',    
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Minute',
         },
@@ -1193,7 +1193,7 @@ const dcatapProperties = {
           identifier: 'temporalResolutionSecond',
           type: 'number',
           validation: 'min:0|max:59|optional',
-          "validation-behavior": 'live',       
+          "validation-behavior": 'live',
           '@change': true,
           name: 'Second',
         },
