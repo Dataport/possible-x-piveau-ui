@@ -39,9 +39,9 @@ const dcatapProperties = {
           data: {
             voc: [
               {
-                identifier: 'politicalGeocodingURI',
+                identifier: 'politicalGeocodingURIVocabulary',
                 type: 'conditional-input',
-                name: 'geoCodingURIVoc',
+                name: '@id',
                 options: {
                   municipalityKey: 'Municipality Key',
                   regionalKey: 'Regional Key',
@@ -113,7 +113,7 @@ const dcatapProperties = {
               {
                 identifier: 'politicalGeocodingURIUrl',
                 type: 'custom-url',
-                name: 'geoCodingURIMan',
+                name: '@id',
                 validation: 'optional|url',
                 '@change': true,
               },

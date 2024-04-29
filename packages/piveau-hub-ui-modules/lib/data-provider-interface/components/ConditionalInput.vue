@@ -68,7 +68,6 @@ export default {
     },
     checkName() {
       const semanticName = this.context.attributes.name;
-      console.log("checkName", semanticName)
       switch (semanticName) {
         case 'dct:issued':case 'dct:modified':
           //   // date time includes an 'T' to delimit date and time
@@ -93,7 +92,6 @@ export default {
           }
           return true;
         case 'dcatde:politicalGeocodingURI':
-          console.log("HELOOOO")
           // this.conditionalValues[this.context.name] = 'voc';
           // this.inputValues = { '@id': this.context.model };2
           this.context.placeholder = this.context.model;
@@ -124,7 +122,6 @@ export default {
       }
     },
     checkIdentifier() {
-      console.log("checkIdentifier")
       const identifier = this.context.attributes.identifier;
       switch (identifier) {
         case 'accessUrl':
@@ -152,6 +149,21 @@ export default {
           const vocab = vocProps.slice(0, vocProps.indexOf("/"));
           this.conditionalValues[this.context.name] = vocab;
           this.inputValues = { '@id': this.context.model };
+          return true;
+        case 'politicalGeocodingURI':
+          if (this.context.model?.startsWith('http://dcat-ap.de/def/politicalGeocoding/')) {
+            this.conditionalValues[this.context.name] = 'voc';
+          } else {
+            this.conditionalValues[this.context.name] = 'man';
+          }
+          this.inputValues = { [this.context.name]: this.context.model };
+          return true;
+        case 'politicalGeocodingURIVocabulary':
+          const items = this.context.model?.substring('http://dcat-ap.de/def/politicalGeocoding/'.length).split('/');
+          if (items) {
+            this.conditionalValues[this.context.name] = items[0];
+            this.inputValues = { [this.context.name]: this.context.model };
+          }
           return true;
         default:
           return false;
