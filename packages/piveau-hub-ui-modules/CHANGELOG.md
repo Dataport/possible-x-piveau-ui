@@ -1,3 +1,15 @@
+## [3.17.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.7...v3.17.8) (2024-04-29)
+
+
+### Bug Fixes
+
+* correction in dcatapde input-definition.js ([f39ac22](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f39ac22e60b796ae889e875bed1b4eecf0caa3ab))
+* politicalGeocodingURI ([d7c5f6f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d7c5f6fcf9a98b5df0c89b0892538538c0638654))
+* spatial property ([3433822](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/3433822b9c3f0ccd6cfb6a2a82dc7214cb0c3fbe))
+* ui element special treatment of spatial ([eada57a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/eada57ad0dbf4706517693c73028e0209e2e318d))
+
+
+
 ## [3.17.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v3.17.6...v3.17.7) (2024-04-26)
 
 
