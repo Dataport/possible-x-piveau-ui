@@ -197,7 +197,8 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     const rightsBlankNode = el.object;
                     nodeData = data.match(rightsBlankNode, generalHelper.addNamespace('rdfs:label', dpiConfig), null, null);
                     for (let label of nodeData) {
-                        state[key] = label.object.value;
+                        if (generalHelper.isUrl(label.object.value)) state[key] = {'@type': 'url', 'rdfs:value': label.object.value};
+                        else state[key] = {'@type': 'text', 'rdfs:value': label.object.value};
                     }
                 }
             }
