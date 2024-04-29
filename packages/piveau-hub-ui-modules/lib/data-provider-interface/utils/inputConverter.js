@@ -1,4 +1,3 @@
-import { object } from "zod";
 import generalHelper from "./general-helper";
 
 
@@ -80,7 +79,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
             convertMultilingual(subData, state,  key);
         } else if (formatType.conditionalProperties[property].includes(key)) {
             // publisher either is an URI or a group with multiple values (name, homepage, email)
-            if (key === 'dct:publisher') {
+            if (key === 'dct:publisher' || key === 'dct:license') {
                 for (let el of subData) {
                     // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
                     if (el.object.termType === 'BlankNode') {
@@ -119,7 +118,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         convertProperties(property, currentState, el.object, data, nestedKeys, dpiConfig);
                     }
                     // creator not an array
-                    if (key === 'dct:creator' || key === 'vcard:hasAddress' || key === 'skos:notation') state[key] = currentState;
+                    if (key === 'dct:creator' || key === 'vcard:hasAddress' || key === 'skos:notation' || key === 'spdx:checksum') state[key] = currentState;
                     else if (key === 'dct:publisher') {
                         state[key] = { publisherMode: 'man', details: currentState };
                     }
@@ -202,32 +201,32 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     }
                 }
             }
-        } else if (key === 'dct:license') {
-            // licence can either be a simple URI or an additional node containing a title, description and url
-            // detailed input format: []
-            if (subData.size > 0) {
-                // for both cases the parent node is singular (either object is namedNode or blankNode)
-                for (let el of subData) {
-                    if (el.object.termType === 'NamedNode') {
-                        state[key] = el.object.value;
-                    } else if (el.object.termType === "BlankNode") {
-                        state[key] = []; // grouped values are stored within an array
-                        // get keys for nested values without dct'title (special format)
-                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null)).filter(el => el !== 'dct:title');
-                        const licenceProperties = {};
-                        // convert nested values
+        // } else if (key === 'dct:license') {
+        //     // licence can either be a simple URI or an additional node containing a title, description and url
+        //     // detailed input format: []
+        //     if (subData.size > 0) {
+        //         // for both cases the parent node is singular (either object is namedNode or blankNode)
+        //         for (let el of subData) {
+        //             if (el.object.termType === 'NamedNode') {
+        //                 state[key] = el.object.value;
+        //             } else if (el.object.termType === "BlankNode") {
+        //                 state[key] = []; // grouped values are stored within an array
+        //                 // get keys for nested values without dct'title (special format)
+        //                 const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null)).filter(el => el !== 'dct:title');
+        //                 const licenceProperties = {};
+        //                 // convert nested values
 
-                        const licenceTitleQuad = data.match(el.object, generalHelper.addNamespace('dct:title', dpiConfig), null, null);
-                        for (let el of licenceTitleQuad) {
-                            licenceProperties['dct:title'] = el.object.value;
+        //                 const licenceTitleQuad = data.match(el.object, generalHelper.addNamespace('dct:title', dpiConfig), null, null);
+        //                 for (let el of licenceTitleQuad) {
+        //                     licenceProperties['dct:title'] = el.object.value;
 
-                        }
+        //                 }
 
-                        convertProperties(property, licenceProperties, el.object, data, nestedKeys, dpiConfig);
-                        state[key].push(licenceProperties);
-                    }
-                }
-            }            
+        //                 convertProperties(property, licenceProperties, el.object, data, nestedKeys, dpiConfig);
+        //                 state[key].push(licenceProperties);
+        //             }
+        //         }
+        //     }            
         } else if (key === 'datasetID' && property !== 'datatsets') {
             // id is given as complete URI
             // dataset-/catalogue-id is string following the last /
