@@ -642,7 +642,7 @@ const dcatapProperties = {
           {
             identifier: 'spatialUrl',
             type: 'custom-url',
-            name: '@id',
+            name: 'dct:spatial',
             validation: 'optional|url',
             '@change': true,
           },
