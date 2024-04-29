@@ -119,7 +119,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         convertProperties(property, currentState, el.object, data, nestedKeys, dpiConfig);
                     }
                     // creator not an array
-                    if (key === 'dct:creator') state[key] = currentState;
+                    if (key === 'dct:creator' || key === 'vcard:hasAddress') state[key] = currentState;
                     else if (key === 'dct:publisher') {
                         state[key] = { publisherMode: 'man', details: currentState };
                     }
