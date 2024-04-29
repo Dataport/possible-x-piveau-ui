@@ -200,6 +200,7 @@ const URIformat = {
         "dct:subject",
         "dct:language",
         "adms:status",
+        "dct:spatial",
 
     ],
     // 'URI' mainly used for mail addresses
