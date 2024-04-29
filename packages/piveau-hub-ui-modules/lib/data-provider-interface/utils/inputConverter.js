@@ -1,3 +1,4 @@
+import { object } from "zod";
 import generalHelper from "./general-helper";
 
 
@@ -84,18 +85,18 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
                     if (el.object.termType === 'BlankNode') {
                         generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatType);
+                        generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatType);
+
+                        // now conversion run based on newly defined format Type
+                        convertProperties(property, state, id, data, propertyKeys, dpiConfig);
+
+                        // to handle changes: undo prior changes back to default behavior (conditional Property)
+                        generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatType);
+                        generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatType);
+
                     } else if (el.object.termType === 'NamedNode') {
-                        generalHelper.addKeyToFormatType(key, 'singularURI', property, formatType);
+                        state[key] = { publisherMode: 'voc', details:  {name: el.object.value, resource: el.object.value }};
                     }
-                    generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatType);
-
-                    // now conversion run based on newly defined format Type
-                    convertProperties(property, state, id, data, propertyKeys, dpiConfig);
-
-                    // to handle changes: undo prior changes back to default behavior (conditional Property)
-                    generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatType);
-                    generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatType);
-                    generalHelper.removeKeyFromFormatType(key, 'singularURI', property, formatType);
                 }
             }
         } else if (formatType.groupedProperties[property].includes(key)) {
@@ -119,6 +120,9 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     }
                     // creator not an array
                     if (key === 'dct:creator') state[key] = currentState;
+                    else if (key === 'dct:publisher') {
+                        state[key] = { publisherMode: 'man', details: currentState };
+                    }
                     else state[key].push(currentState);
                 }
             }
@@ -290,7 +294,6 @@ function convertSingularStrings(data, state, key) {
 function convertSingularURI(data, state, key, dpiConfig) {
 
     const formatType = dpiConfig.formatTypes;
-    const vocabPrefixes = dpiConfig.vocabPrefixes;
 
     if (data.size > 0) {
         state[key] = '';
