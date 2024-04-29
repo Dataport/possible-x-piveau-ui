@@ -1194,14 +1194,14 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'temporalResolutionMonth',
           $formkit:'number',
-          validation: 'min:1|max:12|optional',
+          validation: 'min:0|max:12|optional',
           "validation-behavior": 'live',       
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
           $formkit:'number',
-          validation: 'min:1|max:31|optional',
+          validation: 'min:0|max:31|optional',
           "validation-behavior": 'live',
           name: 'Day',
         },

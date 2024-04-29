@@ -2,7 +2,6 @@
 const singularURI = {
     datasets: [
         "dct:accrualPeriodicity",
-        "dct:spatial",
         "dct:accessRights",
         "dct:type",
         "dcatap:availability",
@@ -60,6 +59,7 @@ const multipleURI = {
         "dct:isVersionOf",
         "dct:hasVersion",
         "dct:references",
+        "dct:spatial",
     ],
     distributions: [
         "dcat:accessURL",
@@ -217,6 +217,10 @@ const URIformat = {
         "dct:subject",
         "dct:language",
         "adms:status",
+        "dct:spatial",
+        "dcatde:politicalGeocodingLevelURI",
+        "dcatde:contributorID",
+        "dcatde:politicalGeocodingURI",
 
     ],
     // 'URI' mainly used for mail addresses
@@ -228,6 +232,7 @@ const URIformat = {
         'foaf:homepage',
         'dext:isUsedBy',
         'dcat:endpointURL',
+        'dcatde:qualityProcessURI',
     ],
     // {'@id': ''} mainly used for repeated links
     id: [
@@ -247,7 +252,7 @@ const URIformat = {
         "dct:isVersionOf",
         "dct:hasVersion",
         'dct:isPartOf',
-        'dcatde:qualityProcessURI'
+        "dct:references",
     ]
 }
 
