@@ -110,7 +110,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         // skos notation behaves differently
                         // there should be a typed literal given which should be seperated into @value and @type
                         if (el.object.value) currentState['@value'] = el.object.value;
-                        if (el.object.datatypeString) currentState['@type'] = el.object.datatypeString;
+                        if (el.object.datatypeString) currentState['@type'] = {name: el.object.datatypeString, resource: el.object.datatypeString};
                     } else {
                         // some properties have a named node containing data, the value of this named node also is a value form the input form (typically @id)
                         if (el.object.termType === 'NamedNode') currentState['@id'] = el.object.value;
