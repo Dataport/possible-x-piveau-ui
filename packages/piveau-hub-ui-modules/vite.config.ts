@@ -62,7 +62,6 @@ const peerDependencies = {
   "vue-select-3": "x.x.x",
   "vue-skeletor": "x.x.x",
   "vue3-click-away": "x.x.x",
-  "vue-step-progress": "x.x.x",
   "vue3-datepicker": "x.x.x",
   "vuex": "x.x.x",
   "@unhead/vue": "x.x.x",

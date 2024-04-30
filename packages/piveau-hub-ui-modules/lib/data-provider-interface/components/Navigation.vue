@@ -53,8 +53,11 @@
 <script>
 /* eslint-disable */
 import $ from 'jquery';
+import { isNil } from 'lodash';
 import { mapGetters, mapActions } from 'vuex';
 import { useWindowScroll } from '@vueuse/core'
+import axios from 'axios';
+
 export default {
   name: 'Navigation',
   props: ['steps', 'nextStep', 'previousStep', 'goToNextStep', 'goToPreviousStep'],
@@ -158,7 +161,7 @@ export default {
       const datasetId = this.getData(this.property)['datasetID'];
       const title = this.getData(this.property)['dct:title'];
       const description = this.getData(this.property)['dct:description'];
-      const catalogName = this.getData(this.propertyroperty)['dcat:catalog'] ? this.getData(this.propertyroperty)['dcat:catalog'] : '';
+      const catalogName = this.getData(this.property)['dcat:catalog'] ? this.getData(this.property)['dcat:catalog'] : '';
 
       let uploadUrl;
       let actionName;
@@ -219,7 +222,7 @@ export default {
 
           // store needs to be reset
           this.clearAll();
-        }
+        } 
         else {
           this.uploading[mode] = false;
           this.$Progress.fail();
@@ -249,7 +252,7 @@ export default {
     async idunique(id) {
       let isUniqueID = true;
 
-      const draftIDs = store.getters['auth/getUserDraftIds'];
+      const draftIDs = this.$store.getters['auth/getUserDraftIds'];
 
       new Promise(() => {
         if (isNil(id) || id === '' || id === undefined) isUniqueID = true;

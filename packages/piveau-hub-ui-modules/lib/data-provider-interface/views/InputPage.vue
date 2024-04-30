@@ -3,7 +3,7 @@
 <template>
   <div class="form-container ">
 
-    <details>{{ formValues }}</details>
+    <!-- <details>{{ formValues }}</details> -->
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -73,7 +73,7 @@ import { defineComponent, markRaw } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import PropertyChooser from './PropertyChooser.vue'
-import { has, isNil } from 'lodash';
+import { has, isNil, isEmpty } from 'lodash';
 import DistributionInputPage from './DistributionInputPage.vue';
 import OverviewPage from './OverviewPage.vue';
 import InputPageStep from '../components/InputPageStep.vue';
@@ -183,9 +183,9 @@ export default defineComponent({
       // console.log(existingValues.Mandatory);
       // only overwrite empty object if there are values (otherwise the language preselection is gone -- Needed to add "Mandatory", otherwise the condition would be true everytime)
 
-      if (existingValues.Mandatory) {
-        this.formValues = existingValues;
-      }
+      if (!isEmpty(existingValues)) this.formValues = existingValues;
+
+      console.log('#####', this.formValues);
 
       this.$nextTick(() => {
         $('[data-toggle="tooltip"]').tooltip({

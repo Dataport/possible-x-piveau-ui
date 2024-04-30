@@ -324,12 +324,12 @@ const dcatapProperties: InputDefinition = {
     keyword: {
       identifier: 'keyword',
       $formkit: 'repeatable',
-      name: 'dct:keyword',
+      name: 'dcat:keyword',
       children: [
         {
           identifier: 'keywordHeader',
           $formkit: 'group',
-          name: 'dct:keyword',
+          name: 'dcat:keyword',
           children: [
             {
               identifier: 'language',
@@ -1021,13 +1021,13 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'temporalResolutionMonth',
           $formkit: 'number',
-          validation: 'min:1|max:12|optional',
+          validation: 'min:0|max:12|optional',
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
           $formkit: 'number',
-          validation: 'min:1|max:31|optional',
+          validation: 'min:0|max:31|optional',
           name: 'Day',
         },
         {
@@ -1059,7 +1059,7 @@ const dcatapProperties: InputDefinition = {
     },
     versionInfo: {
       identifier: 'versionInfo',
-      $formkit: 'number',
+      $formkit: 'text',
       name: 'owl:versionInfo',
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
@@ -1487,25 +1487,25 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'repeatable',
               name: 'dct:description',
               children: [
-
-                {
-                  identifier: 'language',
-                  value: 'en',
-                  $formkit: 'select',
-                  options: language,
-                  name: '@language',
-                  classes: {
-                    outer: 'w25-textfield'
-                  },
-                },
                 {
                   identifier: 'pageDescription',
-                  $formkit: 'textarea',
-                  name: '@value',
-                  classes: {
-                    outer: 'w75-textfield'
-                  },
-                },
+                  $formkit: 'group',
+                  name: 'dct:description',
+                  children: [
+                    {
+                      identifier: 'pageDescription',
+                      $formkit: 'textarea',
+                      name: '@value',
+                    },
+                    {
+                      identifier: 'language',
+                      value: 'en',
+                      $formkit: 'select',
+                      options: language,
+                      name: '@language',
+                    },
+                  ]
+                }
               ]
             },
             {
@@ -1639,31 +1639,32 @@ const dcatapProperties: InputDefinition = {
     },
     rights: {
       identifier: 'rights',
-      $cmp: 'SelectControlledGroup',
-      props: {
-        name: 'dct:rights',
-        selectName: '@type',
-        options: { url: 'URL', str: 'Text' },
-        initialValue: ''
-      },
+      $formkit: 'group',
+      name: 'dct:rights',
       children: [
         {
+          identifier: 'rights',
+          id: 'rightsCondDataset',
+          $formkit: 'select',
+          name: '@type',
+          options: {url: 'Provide URL', text: 'Provide a text'},
+        },
+        {
+          identifier: 'rights',
           $cmp: 'FormKit',
-          if: '$selectValue',
+          if: '$get(rightsCondDataset).value',
           props: {
-            if: '$selectValue === url',
+            if: '$get(rightsCondDataset).value === url',
             then: {
               identifier: 'rightsUrl',
               type: "url",
               label: "URL",
               placeholder: "Provide a URL",
-              validation: 'optional|url'
+              name: 'rdfs:value'
             },
             else: {
-              identifier: 'rightsString',
-              type: "text",
-              label: "Text",
-              placeholder: "Provide a text"
+              type: 'text',
+              name: 'rdfs:value',
             }
           }
         },
@@ -1833,7 +1834,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'licence',
           name: 'licenceMode',
           id: 'licenceModeCatalogue',
-
+          
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {

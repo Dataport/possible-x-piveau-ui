@@ -136,7 +136,7 @@ export default defineComponent({
       checkStepValidity,
       goToNextStep,
       goToPreviousStep,
-
+      
       library,
     }
   }

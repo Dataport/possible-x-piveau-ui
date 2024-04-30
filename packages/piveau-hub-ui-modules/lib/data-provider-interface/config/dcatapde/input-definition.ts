@@ -9,6 +9,7 @@ import config from './page-content-config';
 export type DcatApDatasetsProperty =
   // Append new properties here for accurate type checking
   'datasetID'
+  | 'overview'
   | 'politicalGeocodingLevelURI'
   | 'politicalGeocodingURI'
   | 'availabilityDE'
@@ -92,6 +93,7 @@ export type DcatApDistributionsProperty =
   | 'spatialResolutionInMeters'
   | 'temporalResolution'
   | 'type'
+  | 'hasPolicy'
   | 'status';
 
 export type DcatApCataloguesProperty =
@@ -119,6 +121,12 @@ export type InputDefinition = {
 
 const dcatapProperties: InputDefinition = {
   datasets: {
+    overview: {
+      $cmp: 'OverviewPage',
+      props: {
+        property: 'datasets'
+      }
+    },
     // Dcatap.de Properties #### Start ####
     politicalGeocodingLevelURI: {
       identifier: 'politicalGeocodingLevelURI',
@@ -131,67 +139,13 @@ const dcatapProperties: InputDefinition = {
     politicalGeocodingURI: {
       identifier: 'politicalGeocodingURI',
       $formkit: 'repeatable',
-      name:'dcatde:politicalGeocodingURI',
+      name: 'dcatde:politicalGeocodingURI',
       children: [
         {
-          identifier: 'politicalGeocodingURI',
-          $formkit: "group",
+          $formkit: 'spatialinput',
           name: 'dcatde:politicalGeocodingURI',
-          class: 'property',
-          children: [
-            {
-              identifier: "politicalGeocodingURI",
-              $formkit: "select",
-              id: "geocodingModeDataset",
-              name: 'dcatde:politicalGeocodingURI',
-              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-            },
-            {
-              $cmp: "FormKit",
-              if: "$get(geocodingModeDataset).value",
-              props: {
-                if: "$get(geocodingModeDataset).value === voc",
-                then: {
-                  type: "radio",
-                  id: "geocodingVocDataset",
-                  name: 'geocodingVoc',
-                  options: { municipalityKey: 'Municipality Key', regionalKey: 'Regional Key', municipalAssociationKey: 'Municipal Association Key', districtKey: 'District Key',
-                  governmentDistrictKey: 'Government District Key', stateKey: 'State Key'}
-                },
-                else: {
-                  then: {
-                    type: "radio",
-                    id: "geocodingVocDataset",
-                    name: 'geocodingVoc',
-                    options: { other: "Other"}
-                  }
-                }
-
-              }
-            },
-            {
-              $cmp: "FormKit",
-              if: "$get(geocodingVocDataset).value",
-              props: {
-                if: "$get(geocodingVocDataset).value === other",
-                then: {
-                  identifier: 'politicalGeocodingURI',
-                  $formkit: "url",
-                  name: '@id'
-                },
-                else: {
-                  then: {
-                    identifier: 'politicalGeocodingURI',
-                    $formkit: "auto",
-                    name: '@id',
-                    voc: ""
-                  }
-                }
-              }
-            }
-          ]
-        }
-      ]
+          identifier: 'politicalGeocodingURI',
+        }]
     },
     availabilityDE: {
       identifier: 'availabilityDE',
@@ -264,21 +218,26 @@ const dcatapProperties: InputDefinition = {
       class: 'property',
       $formkit: 'url',
     },
-    // ???? autocomplete or url
     references: {
       identifier: 'references',
       name: 'dct:references',
       $formkit: 'repeatable',
       children: [
         {
+          $formkit:'group',
           identifier: 'references',
           name: 'dct:references',
           class: 'property',
-          $formkit: 'url',
-          voc: 'planned-availability',
+          children: [
+            {
+              name: '@id',
+              identifier: 'referencesUrl',
+              $formkit:'url',
+              validation: 'optional|url',
+            },
+          ],
         }
       ]
-      
     },
     contributor: {
       identifier: 'contributor',
@@ -332,7 +291,7 @@ const dcatapProperties: InputDefinition = {
     },
     originator: {
       identifier: 'originator',
-      $formkit: 'repetable',
+      $formkit: 'repeatable',
       name: 'dcatde:originator',
       children: [
         {
@@ -374,7 +333,7 @@ const dcatapProperties: InputDefinition = {
     },
     maintainer: {
       identifier: 'maintainer',
-      $formkit: 'repetable',
+      $formkit: 'repeatable',
       name: 'dcatde:maintainer',
       children: [
         {
@@ -578,12 +537,12 @@ const dcatapProperties: InputDefinition = {
     keyword: {
       identifier: 'keyword',
       $formkit: 'repeatable',
-      name: 'dct:keyword',
+      name: 'dcat:keyword',
       children: [
         {
           identifier: 'keywordHeader',
           $formkit:'group',
-          name: 'dct:keyword',
+          name: 'dcat:keyword',
           class: 'property langStringInput',
           children: [
             {
@@ -612,7 +571,7 @@ const dcatapProperties: InputDefinition = {
           $formkit: 'select',
           identifier: 'publisher',
           name: 'publisherMode',
-          id: 'publishereModeDataset',
+          id: 'publisherModeDataset',
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {
@@ -661,66 +620,10 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:spatial',
       children: [
         {
-          $formkit:'group',
+          $formkit: 'spatialinput',
           name: 'dct:spatial',
           identifier: 'spatial',
-          children: [
-            {
-              $formkit: "select",
-              identifier: "spatial",
-              id: "spatialModeDataset",
-              name: "spatialMode",
-              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-            },
-            {
-              $cmp: "FormKit",
-              identifier: "spatial",
-              if: "$get(spatialModeDataset).value",
-              props: {
-                type: "radio",
-                name: "vocabulary",
-                id: "spatialVocabularyDataset",
-                if: "$get(spatialModeDataset).value === man",
-                options: {
-                  if: "$get(spatialModeDataset).value === voc",
-                  then: [
-                    { value: "continent", label: "Continent" },
-                    { value: "country", label: "Country" }, 
-                    { value: "place", label: "Place"}
-                  ],
-                  else: {
-                    if: "$get(spatialModeDataset).value === man",
-                    then: [
-                      {label: "Other", value: "other" }
-                    ],
-                  }
-                }
-              }
-            },
-            {
-              $cmp: "FormKit",
-              identifier: "spatial",
-              if: "$get(spatialVocabularyDataset).value",
-              props: {
-                identifier: "spatial",
-                if: "$get(spatialVocabularyDataset).value === other",
-                then: {
-                  type: "url",
-                  identifier: "spatial",
-                  name: '@id'
-                },
-                else: {
-                  then: {
-                    type: "text",
-                    identifier: "spatial",
-                    name: '@id'
-                  }
-                }
-              }
-            }
-          ]
-        }
-      ]
+        }]
     },
     temporal: {
       identifier: 'temporal',
@@ -1060,32 +963,42 @@ const dcatapProperties: InputDefinition = {
       name: 'adms:identifier',
       children: [
         {
-          $formkit:'group',
-          class: 'property',
+          $formkit: 'group',
           name: 'adms:identifier',
           identifier: 'admsIdentifier',
           children: [
             {
               identifier: 'admsIdentifierUrl',
-              $formkit:'url',
+              $formkit: 'url',
               name: '@id',
               validation: 'optional|url',
+              classes: {
+                outer: 'w97-textfield'
+              },
             },
             {
               identifier: 'admsIdentifierSkosNotation',
-              $formkit:'group',
+              $formkit: 'group',
               name: 'skos:notation',
               children: [
                 {
                   identifier: 'admsIdentifierValue',
-                  $formkit:'text',
+                  $formkit: 'text',
                   name: '@value',
+                  classes: {
+                    outer: 'w97-textfield'
+                  },
                 },
                 {
-                  identifier: 'admsIdentifierType',
+                  // todo: check if this is correct
                   $formkit: 'auto',
+                  identifier: 'admsIdentifierType',
                   voc: 'notation-type',
                   name: '@type',
+                  id: 'admsIdentifierType',
+                  classes: {
+                    outer: 'w97-textfield'
+                  },
                 },
               ],
             },
@@ -1281,14 +1194,14 @@ const dcatapProperties: InputDefinition = {
         {
           identifier: 'temporalResolutionMonth',
           $formkit:'number',
-          validation: 'min:1|max:12|optional',
+          validation: 'min:0|max:12|optional',
           "validation-behavior": 'live',       
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
           $formkit:'number',
-          validation: 'min:1|max:31|optional',
+          validation: 'min:0|max:31|optional',
           "validation-behavior": 'live',
           name: 'Day',
         },
@@ -1419,40 +1332,14 @@ const dcatapProperties: InputDefinition = {
     },
     accessURL: {
       identifier: 'accessUrl',
-      name: 'dcat:accessURL',
       $formkit: 'repeatable',
+      name: 'dcat:accessURL',
       children: [
         {
           identifier: 'accessUrl',
           name: 'dcat:accessURL',
-          $formkit:'group',
-          class: 'property',
-          children: [
-            {
-              identifier: "accessUrl",
-              $formkit: "select",
-              id: "accessUrlMode",
-              name: "accessUrlMode",
-              options: { url: 'Provide an URL', file: 'Upload a file' }
-            },
-            {
-              $cmp: "FormKit",
-              if: "$get(accessUrlMode).value",
-              props: {
-                if: "$get(accessUrlMode).value === url",
-                then: {
-                  type: "url",
-                  validation: "required",
-                  name: "@id"
-                },
-                else: {
-                  $formkit: "fileupload",
-                  validation: "required",
-                  name: "@id"
-                }
-              },
-            },
-          ],
+          $formkit: 'fileupload',
+
         }
       ]
     },
@@ -1479,7 +1366,6 @@ const dcatapProperties: InputDefinition = {
               identifier: 'description',
               $formkit:'textarea',
               name: '@value',
-              validation: 'required',
               class: 'w-100 inputTextfield',
             },
             {
@@ -1487,7 +1373,6 @@ const dcatapProperties: InputDefinition = {
               value: 'en',
               $formkit:'select',
               options: language,
-              validation: 'required',
               name: '@language',
               class: 'selectLangField',
             },
@@ -1506,9 +1391,8 @@ const dcatapProperties: InputDefinition = {
       identifier: 'licence',
       $formkit: 'auto',
       name: 'dct:license',
-      '@change': true,
-      class: 'property',
-      voc: 'licenses'
+      voc: 'licenses',
+      property: 'dct:license'
     },
     title: {
       identifier: 'title',
@@ -1526,14 +1410,12 @@ const dcatapProperties: InputDefinition = {
               identifier: 'titleLabel',
               $formkit: 'text',
               name: '@value',
-              validation: 'required',
               class: 'w-100 inputTextfield',
             },
             {
               identifier: 'dctTitle',
               value: 'en',
               $formkit: 'select',
-              validation: 'required',
               options: language,
               name: '@language',
               class: 'selectLangField',
@@ -1550,18 +1432,27 @@ const dcatapProperties: InputDefinition = {
       class: 'property',
     },
     downloadUrl: {
-      $formkit:'repeatable',
       identifier: 'downloadUrl',
+      $formkit: 'repeatable',
       name: 'dcat:downloadURL',
-      class: 'property',
       children: [
         {
+          $formkit: 'group',
           identifier: 'downloadUrl',
-          $formkit:'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          name: 'dcat:downloadURL',
+          children: [
+            {
+              identifier: 'downloadUrl',
+              $formkit: 'url',
+              name: '@id',
+              validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
+            },
+          ],
+        }
+      ]
     },
     availabilityDisDE: {
       identifier: 'availabilityDisDE',
@@ -1811,94 +1702,78 @@ const dcatapProperties: InputDefinition = {
       ],
     },
     issued: {
-      $formkit: 'group',
+      identifier: 'issued',
+      $formkit: 'formkitGroup',
       name: 'dct:issued',
+
       children: [
         {
           identifier: 'issued',
-          id: 'issuedCondDistribution',
-          $formkit: 'select',
-          name: '@type',
-          options: {date: 'Date', datetime: 'Datetime'},
-        },
-        {
-          identifier: 'issued',
           $cmp: 'FormKit',
-          if: '$get(issuedCondDistribution).value',
+
           props: {
-            if: '$get(issuedCondDistribution).value === date',
-            then: {
-              type: 'date',
-              name: '@value',
+
+            type: 'datetime-local',
+            name: '@value',
+            validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+            'validation-visibility': 'live',
+            classes: {
+              outer: 'w-100'
             },
-            else: {
-              type: 'datetime-local',
-              name: '@value',
-            }
+
           }
         },
       ]
     },
     modified: {
-      $formkit: 'group',
+      identifier: 'modified',
+      $formkit: 'formkitGroup',
       name: 'dct:modified',
       children: [
-        {
-          identifier: 'modified',
-          id: 'modifiedCondDistribution',
-          name: '@type',
-          $formkit: 'select',
-          options: {date: 'Date', datetime: 'Datetime'},
-        },
+
         {
           identifier: 'modified',
           $cmp: 'FormKit',
-          if: '$get(modifiedCondDistribution).value',
           props: {
-            name: 'dct:modified',
-            if: '$get(modifiedCondDistribution).value === date',
-            then: {
-              type: 'date',
-              name: '@value',
+            type: 'datetime-local',
+            name: '@value',
+            classes: {
+              outer: 'w-100'
             },
-            else: {
-              type: 'datetime-local',
-              name: '@value'
-            }
+            validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+
           }
-        },
+        }
       ]
     },
     rights: {
-      identifier: "rights",
-      $formkit:'group',
+      identifier: 'rights',
+      $formkit: 'group',
       name: 'dct:rights',
       children: [
         {
-          identifier: 'rightsCond',
-          name: "rightsMode",
-          $formkit: "select",
-          options: { url: 'URL', str: 'String' },
-          id: "rightsModeDistribution"
+          identifier: 'rights',
+          id: 'rightsCondDataset',
+          $formkit: 'select',
+          name: '@type',
+          options: {url: 'Provide URL', text: 'Provide a text'},
         },
         {
           identifier: 'rights',
-          $cmp: "FormKit",
-          if: "$get(rightsModeDistribution).value",
+          $cmp: 'FormKit',
+          if: '$get(rightsCondDataset).value',
           props: {
-            name: 'rdfs:label',
-            if: "$get(rightsModeDistribution).value === url",
+            if: '$get(rightsCondDataset).value === url',
             then: {
-              identifier: 'rightsUrl',
-              type: "url",              
+              type: 'url',
+              name: 'rdfs:value',
             },
             else: {
-              identifier: 'rightsString',
-              type: "text",
+              type: 'text',
+              name: 'rdfs:value',
             }
           }
-
-        }
+        },
       ]
     },
     spatialResolutionInMeters: {
@@ -1971,6 +1846,29 @@ const dcatapProperties: InputDefinition = {
       voc: 'dataset-status',
       name: 'adms:status',
       class: 'property',
+    },
+    hasPolicy: {
+      identifier: 'hasPolicy',
+      $formkit: 'repeatable',
+      name: 'odrl:hasPolicy',
+      children: [
+        {
+          identifier: 'hasPolicy',
+          $formkit: 'group',
+          name: 'odrl:hasPolicy',
+          children: [
+            {
+              identifier: 'hasPolicyUrl',
+              $formkit: 'url',
+              name: '@id',
+              validation: 'optional|url',
+              classes: {
+                outer: 'w100-textfield'
+              },
+            },
+          ],
+        }
+      ]
     },
   },
   catalogues: {

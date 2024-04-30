@@ -1,4 +1,6 @@
 import generalHelper from "./general-helper";
+import { has, isEmpty } from 'lodash';
+
 
 /**
  * Converts given data for given property into input form format
@@ -36,7 +38,7 @@ function convertToInput(state, property, data, dpiConfig) {
     if (property === 'datasets') {
         const distributionQuads = data.match(generalID, 'http://www.w3.org/ns/dcat#distribution', null, null);
         namespaceKeys = generalHelper.getPagePrefixedNames('distributions', dpiConfig.inputDefinition, dpiConfig.pageConent);
-        state.distributions = [];
+        state.datasets.Distributions['distributionList'] = [];
         for (let el of distributionQuads) {
             const currentDistribution = {};
             
@@ -45,7 +47,7 @@ function convertToInput(state, property, data, dpiConfig) {
                 currentDistribution[pageName] = {};
                 convertProperties('distributions', currentDistribution[pageName], distributionId, data, namespaceKeys['distributions'][pageName], dpiConfig);
             }  
-            state.distributions.push(currentDistribution);
+            state.datasets.Distributions.distributionList.push(currentDistribution);
         }
     }
 }
@@ -69,7 +71,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
         if (formatType.singularString[property].includes(key)) {
             convertSingularStrings(subData, state, key);
         } else if (formatType.singularURI[property].includes(key)) {
-            convertSingularURI(subData, state, key);
+            convertSingularURI(subData, state, key, dpiConfig);
         } else if (formatType.multipleURI[property].includes(key)) {
             convertMultipleURI(subData, state, key, property, dpiConfig);
         } else if (formatType.typedStrings[property].includes(key)) {
@@ -78,27 +80,28 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
             convertMultilingual(subData, state,  key);
         } else if (formatType.conditionalProperties[property].includes(key)) {
             // publisher either is an URI or a group with multiple values (name, homepage, email)
-            if (key === 'dct:publisher') {
+            if (key === 'dct:publisher' || key === 'dct:license') {
                 for (let el of subData) {
                     // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
                     if (el.object.termType === 'BlankNode') {
                         generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatType);
+                        generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatType);
+
+                        // now conversion run based on newly defined format Type
+                        convertProperties(property, state, id, data, propertyKeys, dpiConfig);
+
+                        // to handle changes: undo prior changes back to default behavior (conditional Property)
+                        generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatType);
+                        generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatType);
+
                     } else if (el.object.termType === 'NamedNode') {
-                        generalHelper.addKeyToFormatType(key, 'singularURI', property, formatType);
+                        state[key] = { publisherMode: 'voc', details:  {name: el.object.value, resource: el.object.value }};
                     }
-                    generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatType);
-
-                    // now conversion run based on newly defined format Type
-                    convertProperties(property, state, id, data, propertyKeys, dpiConfig);
-
-                    // to handle changes: undo prior changes back to default behavior (conditional Property)
-                    generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatType);
-                    generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatType);
-                    generalHelper.removeKeyFromFormatType(key, 'singularURI', property, formatType);
                 }
             }
         } else if (formatType.groupedProperties[property].includes(key)) {
             if (subData.size > 0) {
+                
                 state[key] = [];
                 // there could be multiple nodes with data for a property
                 for (let el of subData) {
@@ -107,7 +110,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         // skos notation behaves differently
                         // there should be a typed literal given which should be seperated into @value and @type
                         if (el.object.value) currentState['@value'] = el.object.value;
-                        if (el.object.datatypeString) currentState['@type'] = el.object.datatypeString;
+                        if (el.object.datatypeString) currentState['@type'] = {name: el.object.datatypeString, resource: el.object.datatypeString};
                     } else {
                         // some properties have a named node containing data, the value of this named node also is a value form the input form (typically @id)
                         if (el.object.termType === 'NamedNode') currentState['@id'] = el.object.value;
@@ -115,9 +118,19 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null), dpiConfig);
                         convertProperties(property, currentState, el.object, data, nestedKeys, dpiConfig);
                     }
-                    // temporal ist nested
-                    if (key === "dct:temporal") currentState = {'dct:temporal': currentState };
-                    state[key].push(currentState);
+                    // creator not an array
+                    if (key === 'dct:creator' || key === 'vcard:hasAddress' || key === 'skos:notation' || key === 'spdx:checksum') state[key] = currentState;
+                    else if (key === 'dct:publisher' || key === 'dct:license') {
+                        if (key === 'dct:license') {
+                            // title of licence is not multilingual for some reasons
+                            // convert dct:title : [{@value: '...', @language: ''}] t singular string
+
+                            if (has(currentState, 'dct:title') && !isEmpty(currentState['dct:title']) 
+                            && has(currentState['dct:title'][0],'@value') && !isEmpty(currentState['dct:title'][0]['@value'])) currentState['dct:title'] = currentState['dct:title'][0]['@value'];
+                        }
+                        state[key] = { publisherMode: 'man', details: currentState };
+                    }
+                    else state[key].push(currentState);
                 }
             }
         } else if (key === 'dcat:temporalResolution') {
@@ -126,7 +139,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
             // the linked data format of this property looks like this: P?Y?M?DT?H?M?S
             if (subData.size > 0) {
 
-                state[key] = [{}];
+                state[key] = {};
 
                 const shorts = ['Y', 'M', 'D', 'H', 'M', 'S'];
                 const forms = {
@@ -148,15 +161,15 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                 if (!resolutionValue.startsWith("P")) {
 
                     // setting year, month and day to 0
-                    state[key][0][forms[0]] = 0;
-                    state[key][0][forms[1]] = 0;
-                    state[key][0][forms[2]] = 0;
+                    state[key][forms[0]] = 0;
+                    state[key][forms[1]] = 0;
+                    state[key][forms[2]] = 0;
 
                     // converting seconds into HH:MM:SS
                     const data = new Date(resolutionValue * 1000).toISOString().slice(11, 19);
-                    state[key][0][forms[3]] = data.slice(0, 2);
-                    state[key][0][forms[4]] = data.slice(3, 5);
-                    state[key][0][forms[5]] = data.slice(7, 9);
+                    state[key][forms[3]] = data.slice(0, 2);
+                    state[key][forms[4]] = data.slice(3, 5);
+                    state[key][forms[5]] = data.slice(7, 9);
 
                 } else {
                     // find index of letter for time period
@@ -167,7 +180,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         const subDuration = resolutionValue.substring(0, position); // substring until position of duration letter
                         const value = subDuration.match(/\d+/g)[0]; // extract number
                         resolutionValue = resolutionValue.substring(position); // overwrite resolution string with shortened version (missing the extracted part)
-                        state[key][0][forms[tempIndex]] = value; // write to result object
+                        state[key][forms[tempIndex]] = value; // write to result object
                     }
                 }          
             }
@@ -192,36 +205,11 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     const rightsBlankNode = el.object;
                     nodeData = data.match(rightsBlankNode, generalHelper.addNamespace('rdfs:label', dpiConfig), null, null);
                     for (let label of nodeData) {
-                        state[key] = label.object.value;
+                        if (generalHelper.isUrl(label.object.value)) state[key] = {'@type': 'url', 'rdfs:value': label.object.value};
+                        else state[key] = {'@type': 'text', 'rdfs:value': label.object.value};
                     }
                 }
-            }
-        } else if (key === 'dct:license') {
-            // licence can either be a simple URI or an additional node containing a title, description and url
-            // detailed input format: []
-            if (subData.size > 0) {
-                // for both cases the parent node is singular (either object is namedNode or blankNode)
-                for (let el of subData) {
-                    if (el.object.termType === 'NamedNode') {
-                        state[key] = el.object.value;
-                    } else if (el.object.termType === "BlankNode") {
-                        state[key] = []; // grouped values are stored within an array
-                        // get keys for nested values without dct'title (special format)
-                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null)).filter(el => el !== 'dct:title');
-                        const licenceProperties = {};
-                        // convert nested values
-
-                        const licenceTitleQuad = data.match(el.object, generalHelper.addNamespace('dct:title', dpiConfig), null, null);
-                        for (let el of licenceTitleQuad) {
-                            licenceProperties['dct:title'] = el.object.value;
-
-                        }
-
-                        convertProperties(property, licenceProperties, el.object, data, nestedKeys, dpiConfig);
-                        state[key].push(licenceProperties);
-                    }
-                }
-            }            
+            }        
         } else if (key === 'datasetID' && property !== 'datatsets') {
             // id is given as complete URI
             // dataset-/catalogue-id is string following the last /
@@ -285,7 +273,10 @@ function convertSingularStrings(data, state, key) {
  * @param {*} state 
  * @param {*} key 
  */
-function convertSingularURI(data, state, key) {
+function convertSingularURI(data, state, key, dpiConfig) {
+
+    const formatType = dpiConfig.formatTypes;
+
     if (data.size > 0) {
         state[key] = '';
 
@@ -295,7 +286,9 @@ function convertSingularURI(data, state, key) {
             if (value.startsWith('mailto:')) {
                 state[key] = value.replace('mailto:', '');
             } else {
-                state[key] = value;
+                if (formatType.URIformat.voc.includes(key)) state[key] = {name: value, resource: value};
+                else if (formatType.URIformat.string.includes(key)) state[key] = value;
+                else state[key] = {'@id': value};
             }
         }
     }
@@ -317,11 +310,9 @@ function convertMultipleURI(data, state, key, property, dpiConfig) {
     if (data.size > 0) {
         state[key] = [];
         for (let el of data) {
-            if (formatType.multiURIarray[property].includes(key)) {
-                state[key].push(el.object.value);
-            } else if (formatType.multiURIobjects[property].includes(key)) {
-                state[key].push({'@id': el.object.value});
-            }
+            if (formatType.URIformat.voc.includes(key)) state[key].push({name: el.object.value, resource: el.object.value});
+            else if (formatType.URIformat.string.includes(key)) state[key].push(el.object.value);
+            else state[key].push({'@id': el.object.value});
         }        
     }
 }
@@ -338,7 +329,17 @@ function convertTypedString(data, state, key) {
     if (data.size > 0) {
         state[key] = '';
         for (let el of data) {
-            state[key] = el.object.value;
+            if (key === 'dcat:spatialResolutionInMeters' || key === 'dcat:byteSize') state[key] =  el.object.value;
+            else if (key === 'dcat:startDate' || key === 'dcat:endDate') {
+                state[key] = el.object.value;
+            }
+            else {
+                let dateType;
+                if (el.object.value.includes('T')) dateType = 'dateTime';
+                else dateType = 'date';
+
+                state[key] = {'@type': dateType, '@value': el.object.value};
+            }
         }
     }
     

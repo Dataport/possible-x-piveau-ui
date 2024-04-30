@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import N3 from 'n3';
 
-import { isEmpty, cloneDeep } from 'lodash';
+import { isEmpty, has } from 'lodash';
 import datasetFactory from '@rdfjs/dataset';
 
 import generalHelper from '../../utils/general-helper';
@@ -10,6 +10,12 @@ import toRDF from '../../utils/RDFconverter';
 import toInput from '../../utils/inputConverter';
 
 import generalDpiConfig from '../../config/dpi-spec-config.js';
+
+import { getCurrentInstance } from "vue";
+
+function getEnvironmentVariables() {
+    return getCurrentInstance().appContext.app.config.globalProperties.$env; 
+}
 
 const state = {
     datasets: {},
@@ -58,22 +64,6 @@ const getters = {
         
         return data;
     },
-    /**
-     * Returns the number of distributions
-     * @param state 
-     * @returns Number of distributions 
-     */
-    getNumberOfDistributions(state) {
-        return state.distributions.length;
-    },
-    /**
-     * Returns boolean value of deleteDistributionInline
-     * @param state 
-     * @returns Boolean
-     */
-    getDeleteDistributionInline: (state) => {
-        return state.deleteDistributionInline;
-    }
 };
 
 const actions = {
@@ -82,9 +72,9 @@ const actions = {
      * @param param0 
      * @param param1 Object containing property, page, distrbution id and form values
      */
-    saveFormValues({ commit }, { property, distid, values }) {
+    saveFormValues({ commit }, { property, values }) {
 
-        commit('saveFormValuesToStore', { property, distid, values });
+        commit('saveFormValuesToStore', { property, values });
 
     },
     /**
@@ -124,8 +114,6 @@ const actions = {
      */
     convertToRDF({ state }, property) {
 
-
-
         // merging objects with nested objects containing the values of each page into one main object containing all values for the given property
         const data = {
             datasets: generalHelper.mergeNestedObjects(state.datasets),
@@ -134,30 +122,23 @@ const actions = {
         };
 
         // merging each distribution object within the overall array of distributions
-        if (!isEmpty(state.distributions)) {
-            for (let index = 0; index < state.distributions.length; index += 1) {
-                data.distributions.push(generalHelper.mergeNestedObjects(state.distributions[index]));
+        if (has(state.datasets, 'Distributions') && has(state.datasets.Distributions, 'distributionList') && !isEmpty(state.datasets.Distributions.distributionList)) {
+            for (let index = 0; index < state.datasets.Distributions.distributionList.length; index++) {
+                data.distributions.push(generalHelper.mergeNestedObjects(state.datasets.Distributions.distributionList[index]))
             }
         }
 
-        const RDFdata = toRDF.convertToRDF(data, property);
+
+        let RDFdata;
+        try {
+            const specification = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
+            RDFdata = toRDF.convertToRDF(data, property, specification);
+        } catch (error) {
+            const specification = "dcatap";
+            RDFdata = toRDF.convertToRDF(data, property, specification);
+        }
 
         return RDFdata;
-    },
-    /**
-     * Calls mutation to add distribution
-     * @param param0 
-     */
-    addDistribution({ commit }) {
-        commit('createDistribution');
-    },
-    /**
-     * Calls mutation to delte a specific distribution
-     * @param param0 
-     * @param index Index of distribution to delete
-     */
-    deleteDistribution({ commit }, index) {
-        commit('removeDistribution', index);
     },
     /**
      * Calls mutation to clear values and store
@@ -165,32 +146,18 @@ const actions = {
      */
     clearAll({ commit }) {
         commit('resetStore');
-    },
-    /**
-     * Sets value of deleteDistributionInline to given value
-     * @param param0 
-     * @param value Boolean
-     */
-    setDeleteDistributionInline({ commit }, value) {
-        commit('changeDeleteInlineValue', value);
-    }
+    },  
 };
 
 const mutations = {
     /**
      * Saves input values from form into vuex as well as into localStorage of browser
      * @param state 
-     * @param param1 Object containing the property, page, distribution id and values of input form
+     * @param param1 Object containing the property, page and values of input form
      */
-    saveFormValuesToStore(state, { property, distid, values }) {
+    saveFormValuesToStore(state, { property, values }) {
 
-        
-        if (distid) {
-            state[property][distid] = values;
-            localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
-        } else {
-            state[property] = values;
-        }
+        state[property] = values;
 
         // save to local storage
         localStorage.setItem(`dpi_${property}`, JSON.stringify(state[property]));
@@ -215,16 +182,6 @@ const mutations = {
             if (property === 'catalogues') state[property] = localStorageData;
             else state.datasets = localStorageData;
         }
-
-        // additionally get distribution data if existing
-        if (property === 'datasets' || property === 'distributions') {
-            const distName = 'dpi_distributions';
-
-            if (Object.keys(localStorage).includes(distName)) {
-                const distributionsData = JSON.parse(localStorage.getItem(distName));
-                state.distributions = distributionsData;
-            }
-        }
     },
     /**
      * Converts RDF data into input form data
@@ -232,8 +189,8 @@ const mutations = {
      * @param param1 Object containing data and property and state
      */
     saveLinkedDataToStore(state, { property, data }) {
-        try {
-            const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
+        try {getEnvironment
+            const dpiConfig = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
             toInput.convertToInput(state, property, data, dpiConfig);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];
@@ -242,59 +199,21 @@ const mutations = {
         // const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
         // toInput.convertToInput(state, property, data, dpiConfig);
 
-        if (property === 'datasets') {
-            localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));
-        }
         localStorage.setItem(`dpi_${property}`, JSON.stringify(state[property]));
-    },
-    /**
-    * Creates a new distribution within state
-    * @param {*} state
-    */
-    createDistribution(state) {
-        if (!state.distributions) {
-            state.distributions = [];
-        }
-        const newDistribution = {};
-        state.distributions.push(newDistribution);
-
-        // save changes to local storage
-        localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));
-    },
-    /**
-    * Removes current distribution from state
-    * @param {*} state
-    * @param {*} index Index of current distribution (within the state distributions array)
-    */
-    removeDistribution(state, index) {
-        if (index > -1 && index < state.distributions.length) {
-            state.distributions.splice(index, 1);
-            localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
-        }
     },
     resetStore(state) {
         // remove dpi values from local store
         localStorage.removeItem('dpi_datasets');
         localStorage.removeItem('dpi_catalogues');
-        localStorage.removeItem('dpi_distributions');
 
         // resetting all store data properties
         state.datasets = {};
         state.catalogues = {};
-        state.distributions = [];
 
         // edit and draft mode not within this store so resetting via local storage
         localStorage.setItem('dpi_editmode', false);
         localStorage.setItem('dpi_draftmode', false);
     },
-    /**
-     * Sets value of deleteDistributionInline to given value
-     * @param state 
-     * @param value Boolean
-     */
-    changeDeleteInlineValue(state, value) {
-        state.deleteDistributionInline = value;
-    }
 };
 
 const conversionModule = {
