@@ -1,4 +1,5 @@
 import generalHelper from "./general-helper";
+import { has, isEmpty } from 'lodash';
 
 
 /**
@@ -119,7 +120,14 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     }
                     // creator not an array
                     if (key === 'dct:creator' || key === 'vcard:hasAddress' || key === 'skos:notation' || key === 'spdx:checksum') state[key] = currentState;
-                    else if (key === 'dct:publisher') {
+                    else if (key === 'dct:publisher' || key === 'dct:license') {
+                        if (key === 'dct:license') {
+                            // title of licence is not multilingual for some reasons
+                            // convert dct:title : [{@value: '...', @language: ''}] t singular string
+
+                            if (has(currentState, 'dct:title') && !isEmpty(currentState['dct:title']) 
+                            && has(currentState['dct:title'][0],'@value') && !isEmpty(currentState['dct:title'][0]['@value'])) currentState['dct:title'] = currentState['dct:title'][0]['@value'];
+                        }
                         state[key] = { publisherMode: 'man', details: currentState };
                     }
                     else state[key].push(currentState);
@@ -201,33 +209,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         else state[key] = {'@type': 'text', 'rdfs:value': label.object.value};
                     }
                 }
-            }
-        // } else if (key === 'dct:license') {
-        //     // licence can either be a simple URI or an additional node containing a title, description and url
-        //     // detailed input format: []
-        //     if (subData.size > 0) {
-        //         // for both cases the parent node is singular (either object is namedNode or blankNode)
-        //         for (let el of subData) {
-        //             if (el.object.termType === 'NamedNode') {
-        //                 state[key] = el.object.value;
-        //             } else if (el.object.termType === "BlankNode") {
-        //                 state[key] = []; // grouped values are stored within an array
-        //                 // get keys for nested values without dct'title (special format)
-        //                 const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null)).filter(el => el !== 'dct:title');
-        //                 const licenceProperties = {};
-        //                 // convert nested values
-
-        //                 const licenceTitleQuad = data.match(el.object, generalHelper.addNamespace('dct:title', dpiConfig), null, null);
-        //                 for (let el of licenceTitleQuad) {
-        //                     licenceProperties['dct:title'] = el.object.value;
-
-        //                 }
-
-        //                 convertProperties(property, licenceProperties, el.object, data, nestedKeys, dpiConfig);
-        //                 state[key].push(licenceProperties);
-        //             }
-        //         }
-        //     }            
+            }        
         } else if (key === 'datasetID' && property !== 'datatsets') {
             // id is given as complete URI
             // dataset-/catalogue-id is string following the last /

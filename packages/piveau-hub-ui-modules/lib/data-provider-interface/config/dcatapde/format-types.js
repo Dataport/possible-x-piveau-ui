@@ -219,6 +219,7 @@ const URIformat = {
         "dcatde:politicalGeocodingLevelURI",
         "dcatde:contributorID",
         "dcatde:politicalGeocodingURI",
+        'dct:license'
 
     ],
     // 'URI' mainly used for mail addresses
