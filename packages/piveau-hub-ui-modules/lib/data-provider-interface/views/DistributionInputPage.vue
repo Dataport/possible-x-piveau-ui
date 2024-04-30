@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, nextTick } from 'vue';
+import { useStore } from 'vuex';
 import DistributionStepper from '../components/DistributionStepper.vue';
+import { cloneDeep } from 'lodash';
 
 const props = defineProps({
   values: Object,
@@ -8,6 +10,7 @@ const props = defineProps({
 })
 
 const disIndex = ref([])
+const store = useStore();
 
 const list = ref({
   disList: [],
@@ -36,6 +39,10 @@ const editDis = (i) => {
   list.value.disList[i].isActive = !list.value.disList[i].isActive
 }
 const removeDis = (i) => {
+  const newValues = cloneDeep(props.values);
+  newValues.Distributions.distributionList.splice(i, 1);
+
+  store.dispatch('dpiStore/saveFormValues', {property: 'datasets', values: newValues});
   list.value.disList.splice(i, 1)
 }
 const deleteAllDistributions = () => {
