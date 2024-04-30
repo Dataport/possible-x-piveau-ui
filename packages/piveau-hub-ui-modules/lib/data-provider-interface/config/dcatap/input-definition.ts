@@ -1660,7 +1660,6 @@ const dcatapProperties: InputDefinition = {
               type: "url",
               label: "URL",
               placeholder: "Provide a URL",
-              validation: 'optional|url',
               name: 'rdfs:value'
             },
             else: {

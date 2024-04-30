@@ -66,13 +66,11 @@ const multipleURI = {
         "dcat:downloadURL",
         "dct:language",
         "odrl:hasPolicy",
-        "dcatap:availability",
     ],
     catalogues: [
         "dct:hasPart",
         'dcat:catalog',
         'dct:language',
-        "dcatap:availability",
     ],
 };
 
