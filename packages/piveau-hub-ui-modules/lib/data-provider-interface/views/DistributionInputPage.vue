@@ -46,6 +46,10 @@ const removeDis = (i) => {
   list.value.disList.splice(i, 1)
 }
 const deleteAllDistributions = () => {
+  const newValues = cloneDeep(props.values);
+  newValues.Distributions.distributionList = [];
+  store.dispatch('dpiStore/saveFormValues', {property: 'datasets', values: newValues});
+
   list.value.disList = []
 }
 </script>
