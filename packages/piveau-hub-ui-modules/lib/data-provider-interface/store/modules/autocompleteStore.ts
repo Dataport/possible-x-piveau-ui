@@ -5,9 +5,7 @@ import { getCurrentInstance } from "vue";
 const accesToken = import.meta.env
 
 
-function getEnvironmentVariables() {
-    console.log(getCurrentInstance());
-    
+function getEnvironmentVariables() {    
     return getCurrentInstance().appContext.app.config.globalProperties.$env; 
 }
 

@@ -11,6 +11,12 @@ import toInput from '../../utils/inputConverter';
 
 import generalDpiConfig from '../../config/dpi-spec-config.js';
 
+import { getCurrentInstance } from "vue";
+
+function getEnvironmentVariables() {
+    return getCurrentInstance().appContext.app.config.globalProperties.$env; 
+}
+
 const state = {
     datasets: {},
     distributions: [],
@@ -122,7 +128,15 @@ const actions = {
             }
         }
 
-        const RDFdata = toRDF.convertToRDF(data, property);
+
+        let RDFdata;
+        try {
+            const specification = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
+            RDFdata = toRDF.convertToRDF(data, property, specification);
+        } catch (error) {
+            const specification = "dcatap";
+            RDFdata = toRDF.convertToRDF(data, property, specification);
+        }
 
         return RDFdata;
     },
@@ -175,8 +189,8 @@ const mutations = {
      * @param param1 Object containing data and property and state
      */
     saveLinkedDataToStore(state, { property, data }) {
-        try {
-            const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
+        try {getEnvironment
+            const dpiConfig = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
             toInput.convertToInput(state, property, data, dpiConfig);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];

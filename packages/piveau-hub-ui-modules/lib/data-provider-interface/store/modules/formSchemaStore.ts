@@ -6,6 +6,12 @@ import generalDpiConfig from '../../config/dpi-spec-config.js';
 // external translation method
 import translate from '../../utils/translation-helper';
 
+import { getCurrentInstance } from "vue";
+
+function getEnvironmentVariables() {
+    return getCurrentInstance().appContext.app.config.globalProperties.$env; 
+}
+
 const state = {
     schema: {
         datasets: {},
@@ -29,7 +35,7 @@ const actions = {
     createSchema({ commit }, { property, page }) {
         
         try {
-            const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
+            const dpiConfig = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
             const pageProperties = dpiConfig.pageConent[property][page]
             const propertyDefinitions = dpiConfig.inputDefinition[property]
             commit('extractSchema', { pageProperties, propertyDefinitions, property, page });
