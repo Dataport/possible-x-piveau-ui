@@ -14,8 +14,8 @@ import {
   Datasets,
   Catalogues,
   NotFound,
-  // Imprint,
-  // PrivacyPolicy,
+  Imprint,
+  PrivacyPolicy,
   SparqlSearch,
   DataProviderInterface,
   DataFetchingComponent,
@@ -27,9 +27,6 @@ import {
   UserCataloguesPage,
   decode,
 } from "@piveau/piveau-hub-ui-modules";
-
-import Imprint from './components/Imprint.vue'
-import PrivacyPolicy from './components/PrivacyPolicy.vue'
 
 const title = GLUE_CONFIG.metadata.title;
 
@@ -45,9 +42,6 @@ const router = Router.createRouter({
     {
       path: '/',
       redirect: { name: 'Datasets' },
-      meta: {
-        title,
-      },
     },
     {
       path: '/datasets',
@@ -193,30 +187,30 @@ if (GLUE_CONFIG.content.dataProviderInterface.useService) {
     children: [
       {
         path: ":property",
-        name: "DataProviderInterface-Home",
-        redirect: { path: ':property/step1' },
-        props: true
-      },
-      {
-        path: ":property/overview",
-        name: "DataProviderInterface-Overview",
-        component: OverviewPage,
-        props: true
-      },
-      {
-        path: ":property/:page",
         name: "DataProviderInterface-Input",
         component: InputPage,
-        props: true,
-        children: [
-          {
-            path: ":id",
-            name: "DataProviderInterface-ID",
-            component: InputPage,
-            props: true,
-          },
-        ],
+        props: true
       },
+      // {
+      //   path: ":property/overview",
+      //   name: "DataProviderInterface-Overview",
+      //   component: OverviewPage,
+      //   props: true
+      // },
+      // {
+      //   path: ":property/:page",
+      //   name: "DataProviderInterface-Input",
+      //   component: InputPage,
+      //   props: true,
+      //   children: [
+      //     {
+      //       path: ":id",
+      //       name: "DataProviderInterface-ID",
+      //       component: InputPage,
+      //       props: true,
+      //     },
+      //   ],
+      // },
     ]
   });
 }

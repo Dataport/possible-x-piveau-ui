@@ -36,12 +36,12 @@ const glueConfig = {
       useLogin: true,
 
       loginTitle: 'Login',
-      loginURL: '/data/login',
-      loginRedirectUri: '/data',
+      loginURL: '/login',
+      loginRedirectUri: '/',
 
       logoutTitle: 'Logout',
-      logoutURL: '/data/logout',
-      logoutRedirectUri: '/data',
+      logoutURL: '/logout',
+      logoutRedirectUri: '/',
     },
     keycloak: {
       realm: 'vanilla',
@@ -66,11 +66,7 @@ const glueConfig = {
   },
   routing: {
     routerOptions: {
-<<<<<<< HEAD
       base: '/',
-=======
-      base: '/data', // TODO: Include piveau-header-footer instead of deu-header-footer to make test app working with default base path #2765
->>>>>>> develop
       mode: 'history',
     },
     navigation: {
@@ -85,7 +81,7 @@ const glueConfig = {
     },
   },
   metadata: {
-    title: '',
+    title: 'piveau Hub-UI',
     description: 'A modern and customizable web application for data management of extensive data catalogs.',
     keywords: 'Open Data',
   },
@@ -189,7 +185,7 @@ const glueConfig = {
         hidePreviewButton: true,
       },
       downloadAs: {
-        enable: false,
+        enable: true,
         proxyUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
         url: 'https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert',
         conversionFormats: [
@@ -203,10 +199,6 @@ const glueConfig = {
           { sourceFileFormat: 'PDF', targetFileFormat: [ 'pdf', 'txt',]}
         ]
       },
-<<<<<<< HEAD
-=======
-      // Embed Dataset feat
->>>>>>> develop
       embed: {
         enable: false,
         defaultWidth: 900,
