@@ -93,6 +93,7 @@ export type DcatApDistributionsProperty =
   | 'spatialResolutionInMeters'
   | 'temporalResolution'
   | 'type'
+  | 'hasPolicy'
   | 'status';
 
 export type DcatApCataloguesProperty =
@@ -1310,14 +1311,16 @@ const dcatapProperties: InputDefinition = {
         },
         {
           identifier: 'temporalResolutionMonth',
-          $formkit: 'number',
-          validation: 'min:1|max:12|optional',
+          $formkit:'number',
+          validation: 'min:0|max:12|optional',
+          "validation-behavior": 'live',       
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
-          $formkit: 'number',
-          validation: 'min:1|max:31|optional',
+          $formkit:'number',
+          validation: 'min:0|max:31|optional',
+          "validation-behavior": 'live',
           name: 'Day',
         },
         {
@@ -1456,8 +1459,8 @@ const dcatapProperties: InputDefinition = {
     },
     accessURL: {
       identifier: 'accessUrl',
-      name: 'dcat:accessURL',
       $formkit: 'repeatable',
+      name: 'dcat:accessURL',
       children: [
         {
           identifier: 'accessUrl',
@@ -1522,9 +1525,8 @@ const dcatapProperties: InputDefinition = {
       identifier: 'licence',
       $formkit: 'auto',
       name: 'dct:license',
-      '@change': true,
-      class: 'property',
-      voc: 'licenses'
+      voc: 'licenses',
+      property: 'dct:license'
     },
     title: {
       identifier: 'title',
@@ -1574,10 +1576,11 @@ const dcatapProperties: InputDefinition = {
     downloadUrl: {
       $formkit: 'repeatable',
       identifier: 'downloadUrl',
+      $formkit: 'repeatable',
       name: 'dcat:downloadURL',
-      class: 'property',
       children: [
         {
+          $formkit: 'group',
           identifier: 'downloadUrl',
           $formkit: 'url',
           name: '@id',
@@ -1859,6 +1862,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'issued',
       $formkit: 'formkitGroup',
       name: 'dct:issued',
+
       children: [
         {
           identifier: 'issued',

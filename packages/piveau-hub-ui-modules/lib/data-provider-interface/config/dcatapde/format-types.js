@@ -2,7 +2,6 @@
 const singularURI = {
     datasets: [
         "dct:accrualPeriodicity",
-        "dct:spatial",
         "dct:accessRights",
         "dct:type",
         "dcatap:availability",
@@ -27,7 +26,8 @@ const singularURI = {
         // singular URIs nested within other properties
         'spdx:algorithm', // checksum
         'dcat:endpointURL', // accessservice
-        "skos:exactMatch", // license
+        "skos:exactMatch", // license,
+        'dct:license'
     ],
     catalogues: [
         'foaf:homepage', // homepage and creator
@@ -59,19 +59,18 @@ const multipleURI = {
         "dct:isVersionOf",
         "dct:hasVersion",
         "dct:references",
+        "dct:spatial",
     ],
     distributions: [
         "dcat:accessURL",
         "dcat:downloadURL",
         "dct:language",
         "odrl:hasPolicy",
-        "dcatap:availability",
     ],
     catalogues: [
         "dct:hasPart",
         'dcat:catalog',
         'dct:language',
-        "dcatap:availability",
     ],
 };
 
@@ -198,6 +197,64 @@ const additionalPropertyTypes = {
     'dct:publisher': 'foaf:Agent',
 }
 
+// some inputs need URIs in diefferent formats
+const URIformat = {
+    // {'name': '', 'resource': ''} mainly needed for vocabulary data
+    voc: [
+        'dct:publisher',
+        'dcat:theme',
+        "dct:accrualPeriodicity",
+        "dct:accessRights",
+        "dct:type",
+        "dct:format",
+        "dcat:mediaType",
+        "dcatap:availability",
+        "dcat:compressFormat",
+        "dcat:packageFormat",
+        'spdx:algorithm',
+        "dct:subject",
+        "dct:language",
+        "adms:status",
+        "dct:spatial",
+        "dcatde:politicalGeocodingLevelURI",
+        "dcatde:contributorID",
+        "dcatde:politicalGeocodingURI",
+        'dct:license'
+
+    ],
+    // 'URI' mainly used for mail addresses
+    string: [
+        'vcard:hasEmail',
+        'vcard:hasURL',
+        'foaf:mbox',
+        "skos:exactMatch",
+        'foaf:homepage',
+        'dext:isUsedBy',
+        'dcat:endpointURL',
+        'dcatde:qualityProcessURI',
+    ],
+    // {'@id': ''} mainly used for repeated links
+    id: [
+        'dct:source',
+        "dcat:accessURL",
+        "dcat:downloadURL",
+        "odrl:hasPolicy",
+        "dct:hasPart",
+        'dcat:catalog',
+        "dct:source",
+        "dcat:landingPage",
+        "dct:relation",
+        "dcat:qualifiedRelation",
+        "prov:qualifiedAttribution",
+        "dct:isReferencedBy",
+        "prov:wasGeneratedBy",
+        "dct:isVersionOf",
+        "dct:hasVersion",
+        'dct:isPartOf',
+        "dct:references",
+    ]
+}
+
 export default {
     singularURI,
     multipleURI,
@@ -207,4 +264,5 @@ export default {
     groupedProperties,
     additionalPropertyTypes,
     conditionalProperties,
+    URIformat,
 };

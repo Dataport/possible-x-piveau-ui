@@ -182,6 +182,58 @@ const additionalPropertyTypes = {
     'dct:license': 'dct:LicenseDocument'
 }
 
+// some inputs need URIs in diefferent formats
+const URIformat = {
+    // {'name': '', 'resource': ''} mainly needed for vocabulary data
+    voc: [
+        'dct:publisher',
+        'dcat:theme',
+        "dct:accrualPeriodicity",
+        "dct:accessRights",
+        "dct:type",
+        "dct:format",
+        "dcat:mediaType",
+        "dcatap:availability",
+        "dcat:compressFormat",
+        "dcat:packageFormat",
+        'spdx:algorithm',
+        "dct:subject",
+        "dct:language",
+        "adms:status",
+        "dct:spatial",
+
+    ],
+    // 'URI' mainly used for mail addresses
+    string: [
+        'vcard:hasEmail',
+        'vcard:hasURL',
+        'foaf:mbox',
+        "skos:exactMatch",
+        'foaf:homepage',
+        'dext:isUsedBy',
+        'dcat:endpointURL',
+    ],
+    // {'@id': ''} mainly used for repeated links
+    id: [
+        'dct:source',
+        "dcat:accessURL",
+        "dcat:downloadURL",
+        "odrl:hasPolicy",
+        "dct:hasPart",
+        'dcat:catalog',
+        "dct:source",
+        "dcat:landingPage",
+        "dct:relation",
+        "dcat:qualifiedRelation",
+        "prov:qualifiedAttribution",
+        "dct:isReferencedBy",
+        "prov:wasGeneratedBy",
+        "dct:isVersionOf",
+        "dct:hasVersion",
+        'dct:isPartOf',
+    ]
+}
+
 export default {
     singularURI,
     multipleURI,
@@ -191,4 +243,5 @@ export default {
     groupedProperties,
     additionalPropertyTypes,
     conditionalProperties,
+    URIformat
 };

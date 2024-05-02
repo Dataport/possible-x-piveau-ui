@@ -10,7 +10,7 @@ const config = {
       Mandatory: [ 'accessURL', 'title', 'description' ],
       Advised: [ 'licence', 'licenseAttributionByText', 'downloadUrl', 'format', 'mediaType', 'status', 'availability', 'issued', 'modified' ],
       Recommended: [ 'type', 'byteSize', 'checksum', 'compressFormat', 'packageFormat', 'language', 'page', 'conformsTo', 'rights', 'hasPolicy', 'temporalResolution', 'spatialResolutionInMeters' ],
-      DataService: [ 'accessService', 'availabilityDisDE' ]
+      DataService: [ 'accessService' ]
     },
     catalogues: {
       Mandatory: [ 'title', 'availabilityCatDE', 'datasetID', 'description', 'publisher', 'language', 'homepage', 'licence' ],

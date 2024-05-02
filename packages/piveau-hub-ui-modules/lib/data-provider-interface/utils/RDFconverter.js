@@ -6,42 +6,20 @@ import generalDpiConfig from '../config/dpi-spec-config';
 
 import generalHelper from './general-helper';
 
-window.process = {
-    env: {
-        content: {
-            dataProviderInterface: {
-                useService: true,
-                basePath: '/dpi',
-                specification: 'dcatap',
-                annifIntegration: false,
-                enableFileUploadReplace: false,
-                buttons: {
-                    Dataset: true,
-                    Catalogue: false,
-                },
-                doiRegistrationService: {
-                    persistentIdentifierType: 'eu-ra-doi',
-                },
-            },
-        }
-
-    }
-}
 /**
  * Converts all properties for given data from form input data into RDF (N-Triples)
  * @param {Object} data Data given within an object. Data stored as follows { datasets: {...}, distributions: [{...},...], catalogues: {...}} 
  * @param {String} property Name of property which should be converted (either 'datasets' or 'catalogues')
  * @returns String of converted data in RDF format (N-Triples)
  */
-function convertToRDF(data, property) {
+function convertToRDF(data, property, specification) {
 
     let finishedRDFdata;
 
     let dpiConfig;
-    // if (generalDpiConfig[process.env.content.dataProviderInterface.specification] == undefined) {
-    //     dpiConfig = generalDpiConfig["dcatap"]
-    // } else dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification]
-    dpiConfig = generalDpiConfig['dcatap'];
+    if (specification === undefined) {
+        dpiConfig = generalDpiConfig["dcatap"]
+    } else dpiConfig = generalDpiConfig[specification];
 
     // writer for adding data as quads
     const RDFdata = new N3.Writer({ prefixes: dpiConfig.prefixes, format: 'N-Triples' });
@@ -49,14 +27,14 @@ function convertToRDF(data, property) {
     const datasetURI = `https://piveau.eu/set/data/${data.datasets.datasetID}`;
 
     // convert values for datasets/catalogues
-    convertPropertyValues(RDFdata, data[property], property, '', '', true, datasetURI); // datasets and catalogues
+    convertPropertyValues(RDFdata, data[property], property, '', '', true, datasetURI, dpiConfig); // datasets and catalogues
 
     // include distribution data into same graph
     // differentiation neccessary because datasets also include distributions
     if (property === 'datasets') {
         // multiple distributions possible -> [{data of distribution 1}, {data of distribution 2}, ...]
         for (let index = 0; index < data.distributions.length; index += 1) {
-            convertPropertyValues(RDFdata, data.distributions[index], 'distributions', '', '', true, datasetURI);
+            convertPropertyValues(RDFdata, data.distributions[index], 'distributions', '', '', true, datasetURI, dpiConfig);
         }
     }
 
@@ -74,14 +52,9 @@ function convertToRDF(data, property) {
  * @param {Boolean} setMain Value determining if additional values should be set (type, id, sample...)
  * @param {String} datasetURI URI of dataset for use in distribution conversion 
  */
-function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI) {
+function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI, dpiConfig) {
 
-    let dpiConfig;
-    // if (generalDpiConfig[process.env.content.dataProviderInterface.specification] == undefined) {
-    //     dpiConfig = generalDpiConfig["dcatap"]
-    // } else dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification]
-    dpiConfig = generalDpiConfig['dcatap'];
-
+    console.log('####', dpiConfig);
     const formatTypes = dpiConfig.formatTypes;
 
     // method can be called recursively for nested properties
@@ -273,7 +246,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                                 }
 
                                 // convert all nested values provided by form
-                                convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false, dpiConfig);
+                                convertPropertyValues(RDFdataset, currentGroupData, property, groupBlankNode, mainType, false, dpiConfig, dpiConfig);
                             }
                         }
                     }
@@ -297,7 +270,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                     generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatTypes);
 
                     // now conversion run based on newly defined format Type
-                    convertPropertyValues(RDFdataset, propertyData, property, mainURI, mainType, false, dpiConfig);
+                    convertPropertyValues(RDFdataset, propertyData, property, mainURI, mainType, false, dpiConfig, dpiConfig);
 
                     // to handle changes: undo prior changes back to default behavior (conditional Property)
                     generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatTypes);
