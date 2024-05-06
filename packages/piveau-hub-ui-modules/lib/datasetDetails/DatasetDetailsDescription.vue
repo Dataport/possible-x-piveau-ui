@@ -100,5 +100,9 @@ export default {
 </script>
 
 <style scoped>
+.dsd-description{
+  max-width: 100%;
+  overflow: hidden
+}
 
 </style>
