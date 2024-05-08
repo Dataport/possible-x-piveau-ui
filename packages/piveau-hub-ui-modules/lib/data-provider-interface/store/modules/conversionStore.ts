@@ -90,8 +90,8 @@ const actions = {
      * @param param0 
      * @param param1 Object containing endpoint and token for data fetching as well as property
      */
-    async convertToInput({ commit }, { endpoint, token, property }) {
-
+    async convertToInput({ commit }, { endpoint, token, property, locale }) {
+        
         const fetchedData = await generalHelper.fetchLinkedData(endpoint, token).then((response) => {
             return response;
         });
@@ -104,7 +104,7 @@ const actions = {
             if (quad) data.add(quad);
         })
 
-        commit('saveLinkedDataToStore', { property, data });
+        commit('saveLinkedDataToStore', { property, data, locale });
     },
     /**
      * Merges store data and converts the given input values into RDF format
@@ -188,13 +188,13 @@ const mutations = {
      * @param state 
      * @param param1 Object containing data and property and state
      */
-    saveLinkedDataToStore(state, { property, data }) {
+    saveLinkedDataToStore(state, { property, data, locale }) {
         try {getEnvironment
             const dpiConfig = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
-            toInput.convertToInput(state, property, data, dpiConfig);
+            toInput.convertToInput(state, property, data, dpiConfig,locale);
         } catch (error) {
             const dpiConfig = generalDpiConfig["dcatap"];
-            toInput.convertToInput(state, property, data, dpiConfig);
+            toInput.convertToInput(state, property, data, dpiConfig, locale);
         }
         // const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
         // toInput.convertToInput(state, property, data, dpiConfig);

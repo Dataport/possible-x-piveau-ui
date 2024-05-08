@@ -17,6 +17,7 @@
         </td>
 
     </tr>
+
     <!-- CONTACT POINT -->
     <tr v-if="property === 'dcat:contactPoint' && showValue(data, 'rdf:type')">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
@@ -89,8 +90,8 @@
         <td class="font-weight-bold ">{{ $t(`${value.label}`) }}:</td>
         <td class="">
 
-            <div v-if="typeof data['spdx:checksumValue'] === 'string'">{{ data['spdx:checksumValue'] }}</div>
-            <div v-if="typeof data['spdx:algorithm'] === 'object'">{{ data['spdx:algorithm']['name'] }}</div>
+            <div v-if="typeof data === 'string'">{{ data }}</div>
+            <div v-if="typeof data === 'object'">{{ data['name'] }}</div>
         </td>
     </div>
 

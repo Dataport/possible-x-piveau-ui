@@ -25,14 +25,10 @@ let inputText = ref({});
 let cacheList = [];
 
 onMounted(async () => {
-
   inputText.value = ""
-  // console.log('Context: ', props.context);
 });
 
-watch(matches, async () => {
-  console.log('####Update');
-})
+watch(matches, async () => {})
 
 function findPropertyToUpdate(trigger) {
 

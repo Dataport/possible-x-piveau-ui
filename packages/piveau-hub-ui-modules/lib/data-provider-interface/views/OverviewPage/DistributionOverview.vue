@@ -20,7 +20,7 @@
                     <p v-else>
                         No title in this language
                     </p>
-                    <p v-if="Object.keys(distribution['dct:format']).length != 0">
+                    <p v-if="distribution['dct:format'] != '' || Object.keys(distribution['dct:format']).length != 0">
                         {{ getDistributionFormat(distribution) }}
                     </p>
                     <p v-else>
