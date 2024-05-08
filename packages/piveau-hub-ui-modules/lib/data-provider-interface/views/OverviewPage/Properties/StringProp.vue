@@ -8,7 +8,7 @@
         <!-- SINGULAR STRING -->
         <td v-if="value.type === 'singularString'">
 
-            <span v-if="data[property]['@type'] != ''">{{ data[property][Object.keys(data[property])[1]] }}</span>
+            <!-- <span v-if="data[property]['@type'] != ''">{{ data[property][Object.keys(data[property])[1]] }}</span> -->
             <span v-if="property != 'dct:rights'">
                 {{ data[property] }} <span v-if="property === 'dcat:spatialResolutionInMeters'">Meters</span>
             </span>

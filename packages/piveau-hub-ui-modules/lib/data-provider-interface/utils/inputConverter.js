@@ -8,7 +8,8 @@ import { has, isEmpty } from 'lodash';
  * @param {*} property Property to convert data for (datasets/catalogues)
  * @param {*} data Linked data within a dataset
  */
-function convertToInput(state, property, data, dpiConfig) {
+function convertToInput(state, property, data, dpiConfig, locale) {
+
 
     let generalID;
     let namespaceKeys;
@@ -19,7 +20,7 @@ function convertToInput(state, property, data, dpiConfig) {
     } else {
         propertyQuads = data.match(null, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://www.w3.org/ns/dcat#Catalog', null);
     }
-        
+
     // extract data for datasets/catalogues
     namespaceKeys = generalHelper.getPagePrefixedNames(property, dpiConfig.inputDefinition, dpiConfig.pageConent);
     state[property] = {};
@@ -29,9 +30,9 @@ function convertToInput(state, property, data, dpiConfig) {
 
         for (let pageName in namespaceKeys[property]) {
             state[property][pageName] = {};
-            convertProperties(property, state[property][pageName], generalID, data, namespaceKeys[property][pageName],dpiConfig);
+            convertProperties(property, state[property][pageName], generalID, data, namespaceKeys[property][pageName], dpiConfig, locale);
         }
-        
+
     }
 
     // also add distribution data
@@ -41,12 +42,12 @@ function convertToInput(state, property, data, dpiConfig) {
         state.datasets.Distributions['distributionList'] = [];
         for (let el of distributionQuads) {
             const currentDistribution = {};
-            
+
             const distributionId = el.object.value;
             for (let pageName in namespaceKeys['distributions']) {
                 currentDistribution[pageName] = {};
                 convertProperties('distributions', currentDistribution[pageName], distributionId, data, namespaceKeys['distributions'][pageName], dpiConfig);
-            }  
+            }
             state.datasets.Distributions.distributionList.push(currentDistribution);
         }
     }
@@ -60,7 +61,7 @@ function convertToInput(state, property, data, dpiConfig) {
  * @param {*} data Linked data
  * @param {*} propertyKeys Keys of properties to check
  */
-function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
+function convertProperties(property, state, id, data, propertyKeys, dpiConfig, locale) {
 
     const formatType = dpiConfig.formatTypes;
 
@@ -71,13 +72,13 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
         if (formatType.singularString[property].includes(key)) {
             convertSingularStrings(subData, state, key);
         } else if (formatType.singularURI[property].includes(key)) {
-            convertSingularURI(subData, state, key, dpiConfig);
+            convertSingularURI(subData, state, key, dpiConfig, locale);
         } else if (formatType.multipleURI[property].includes(key)) {
-            convertMultipleURI(subData, state, key, property, dpiConfig);
+            convertMultipleURI(subData, state, key, property, dpiConfig, locale);
         } else if (formatType.typedStrings[property].includes(key)) {
             convertTypedString(subData, state, key);
         } else if (formatType.multilingualStrings[property].includes(key)) {
-            convertMultilingual(subData, state,  key);
+            convertMultilingual(subData, state, key);
         } else if (formatType.conditionalProperties[property].includes(key)) {
             // publisher either is an URI or a group with multiple values (name, homepage, email)
             if (key === 'dct:publisher' || key === 'dct:license') {
@@ -95,13 +96,13 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatType);
 
                     } else if (el.object.termType === 'NamedNode') {
-                        state[key] = { publisherMode: 'voc', details:  {name: el.object.value, resource: el.object.value }};
+                        state[key] = { publisherMode: 'voc', details: { name: el.object.value, resource: el.object.value } };
                     }
                 }
             }
         } else if (formatType.groupedProperties[property].includes(key)) {
             if (subData.size > 0) {
-                
+
                 state[key] = [];
                 // there could be multiple nodes with data for a property
                 for (let el of subData) {
@@ -110,7 +111,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         // skos notation behaves differently
                         // there should be a typed literal given which should be seperated into @value and @type
                         if (el.object.value) currentState['@value'] = el.object.value;
-                        if (el.object.datatypeString) currentState['@type'] = {name: el.object.datatypeString, resource: el.object.datatypeString};
+                        if (el.object.datatypeString) currentState['@type'] = { name: el.object.datatypeString, resource: el.object.datatypeString };
                     } else {
                         // some properties have a named node containing data, the value of this named node also is a value form the input form (typically @id)
                         if (el.object.termType === 'NamedNode') currentState['@id'] = el.object.value;
@@ -125,8 +126,8 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                             // title of licence is not multilingual for some reasons
                             // convert dct:title : [{@value: '...', @language: ''}] t singular string
 
-                            if (has(currentState, 'dct:title') && !isEmpty(currentState['dct:title']) 
-                            && has(currentState['dct:title'][0],'@value') && !isEmpty(currentState['dct:title'][0]['@value'])) currentState['dct:title'] = currentState['dct:title'][0]['@value'];
+                            if (has(currentState, 'dct:title') && !isEmpty(currentState['dct:title'])
+                                && has(currentState['dct:title'][0], '@value') && !isEmpty(currentState['dct:title'][0]['@value'])) currentState['dct:title'] = currentState['dct:title'][0]['@value'];
                         }
                         state[key] = { publisherMode: 'man', details: currentState };
                     }
@@ -143,12 +144,12 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
 
                 const shorts = ['Y', 'M', 'D', 'H', 'M', 'S'];
                 const forms = {
-                0: 'Year',
-                1: 'Month',
-                2: 'Day',
-                3: 'Hour',
-                4: 'Minute',
-                5: 'Second',
+                    0: 'Year',
+                    1: 'Month',
+                    2: 'Day',
+                    3: 'Hour',
+                    4: 'Minute',
+                    5: 'Second',
                 };
 
                 // should be oly one quad
@@ -182,7 +183,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                         resolutionValue = resolutionValue.substring(position); // overwrite resolution string with shortened version (missing the extracted part)
                         state[key][forms[tempIndex]] = value; // write to result object
                     }
-                }          
+                }
             }
         } else if (key === 'dct:identifier') {
             if (subData.size > 0) {
@@ -191,7 +192,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                 state[key] = [];
 
                 for (let el of subData) {
-                    state[key].push({'@value': el.object.value});
+                    state[key].push({ '@value': el.object.value });
                 }
             }
         } else if (key === 'dct:rights') {
@@ -205,11 +206,11 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     const rightsBlankNode = el.object;
                     nodeData = data.match(rightsBlankNode, generalHelper.addNamespace('rdfs:label', dpiConfig), null, null);
                     for (let label of nodeData) {
-                        if (generalHelper.isUrl(label.object.value)) state[key] = {'@type': 'url', 'rdfs:value': label.object.value};
-                        else state[key] = {'@type': 'text', 'rdfs:value': label.object.value};
+                        if (generalHelper.isUrl(label.object.value)) state[key] = { '@type': 'url', 'rdfs:value': label.object.value };
+                        else state[key] = { '@type': 'text', 'rdfs:value': label.object.value };
                     }
                 }
-            }        
+            }
         } else if (key === 'datasetID' && property !== 'datatsets') {
             // id is given as complete URI
             // dataset-/catalogue-id is string following the last /
@@ -223,7 +224,7 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                 // therefore it is also possible to get the data by using the shortned key
                 subData = data.match(id, 'dcat:catalog', null, null);
             }
-               
+
             state[key] = '';
 
             // there should only be one catalog
@@ -245,6 +246,31 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
     }
 }
 
+async function getUriName(uri, conf, locale) {
+
+    let voc = uri.split('/')
+    let preValues = { name: '', resource: '' }
+
+    let vocMatch =
+        voc[voc.length - 2] === "iana-media-types" ||
+        voc[voc.length - 2] === "spdx-checksum-algorithm";
+        
+    // need to import the autocomplete store to make this function usable
+    await autocompleteStore.actions.requestResourceName(voc[voc.length - 2], uri, conf).then(
+        (response) => {
+            let result = vocMatch
+                ? response.data.result.results
+                    .filter((dataset) => dataset.resource === uri)
+                    .map((dataset) => dataset.pref_label)[0].en
+                : getTranslationFor(response.data.result.pref_label, locale, []);
+
+            preValues.name = result;
+            preValues.resource = uri;
+        }
+    );
+    console.log(preValues);
+    return preValues
+}
 //-----------------------------------------------------------------------------------------------------
 //                  basic conversion methods for different categories of data
 //-----------------------------------------------------------------------------------------------------
@@ -273,22 +299,24 @@ function convertSingularStrings(data, state, key) {
  * @param {*} state 
  * @param {*} key 
  */
-function convertSingularURI(data, state, key, dpiConfig) {
+function convertSingularURI(data, state, key, dpiConfig, locale) {
 
     const formatType = dpiConfig.formatTypes;
 
     if (data.size > 0) {
+
         state[key] = '';
 
         for (let el of data) {
+
             const value = el.object.value;
 
             if (value.startsWith('mailto:')) {
                 state[key] = value.replace('mailto:', '');
             } else {
-                if (formatType.URIformat.voc.includes(key)) state[key] = {name: value, resource: value};
+                if (formatType.URIformat.voc.includes(key)) state[key] = { name: value, resource: value };
                 else if (formatType.URIformat.string.includes(key)) state[key] = value;
-                else state[key] = {'@id': value};
+                else state[key] = { '@id': value };
             }
         }
     }
@@ -300,7 +328,7 @@ function convertSingularURI(data, state, key, dpiConfig) {
  * @param {*} state 
  * @param {*} key 
  */
-function convertMultipleURI(data, state, key, property, dpiConfig) {
+function convertMultipleURI(data, state, key, property, dpiConfig, locale) {
     // there are two different formats the frontend need to deliver multiple URIs
     // 1: [ "URI1", "URI2" ]
     // 2: [ { "@id": "URI1" }, { "@id": "URI2" } ]
@@ -310,10 +338,10 @@ function convertMultipleURI(data, state, key, property, dpiConfig) {
     if (data.size > 0) {
         state[key] = [];
         for (let el of data) {
-            if (formatType.URIformat.voc.includes(key)) state[key].push({name: el.object.value, resource: el.object.value});
+            if (formatType.URIformat.voc.includes(key)) state[key].push({ name: el.object.value, resource: el.object.value });
             else if (formatType.URIformat.string.includes(key)) state[key].push(el.object.value);
-            else state[key].push({'@id': el.object.value});
-        }        
+            else state[key].push({ '@id': el.object.value });
+        }
     }
 }
 
@@ -329,7 +357,7 @@ function convertTypedString(data, state, key) {
     if (data.size > 0) {
         state[key] = '';
         for (let el of data) {
-            if (key === 'dcat:spatialResolutionInMeters' || key === 'dcat:byteSize') state[key] =  el.object.value;
+            if (key === 'dcat:spatialResolutionInMeters' || key === 'dcat:byteSize') state[key] = el.object.value;
             else if (key === 'dcat:startDate' || key === 'dcat:endDate') {
                 state[key] = el.object.value;
             }
@@ -338,11 +366,11 @@ function convertTypedString(data, state, key) {
                 if (el.object.value.includes('T')) dateType = 'dateTime';
                 else dateType = 'date';
 
-                state[key] = {'@type': dateType, '@value': el.object.value};
+                state[key] = { '@type': dateType, '@value': el.object.value };
             }
         }
     }
-    
+
 }
 
 /**
@@ -368,6 +396,6 @@ function convertMultilingual(data, state, key) {
     }
 }
 
-export default { 
+export default {
     convertToInput,
 };
