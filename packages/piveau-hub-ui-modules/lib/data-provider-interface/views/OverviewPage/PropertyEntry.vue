@@ -1,16 +1,14 @@
 <template>
     <div>
-        <!-- <h5>({{ property }})</h5> -->
-
         <tr class="align-items-center" v-if="isSet">
 
             <!-- <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td> -->
             <URIProp :property="property" :value="value" :data="data">
-                <p>{{ value.type }}</p>
             </URIProp>
             <URLProp :property="property" :value="value" :data="data"></URLProp>
             <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
             <ConditionalProp :property="property" :value="value" :data="data"></ConditionalProp>
+
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
 
