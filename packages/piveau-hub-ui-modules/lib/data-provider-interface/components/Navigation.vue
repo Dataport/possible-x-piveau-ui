@@ -3,7 +3,7 @@
     <div id="nav" class="d-flex ">
       <div class="left-form-nav w-25">
         <!-- PREVIOUS STEP -->
-        <FormKit type="button" :label="$t('message.dataupload.preview')" @click="goToPreviousStep; scrollToTop()" v-if="previousStep"
+        <FormKit type="button" :label="$t('message.dataupload.preview')" @click="goToPreviousStep" v-if="previousStep"
           class="prev-btn mx-1 my-0"></FormKit>
 
         <!-- CLEAR FORM -->
@@ -40,7 +40,7 @@
         </FormKit>
 
         <!-- NEXT STEP -->
-        <FormKit type="button" :label="$t('message.dataupload.next')" @click="goToNextStep; scrollToTop()" v-if="nextStep"></FormKit>
+        <FormKit type="button" :label="$t('message.dataupload.next')" @click="goToNextStep" v-if="nextStep"></FormKit>
       </div>
     </div>
 
