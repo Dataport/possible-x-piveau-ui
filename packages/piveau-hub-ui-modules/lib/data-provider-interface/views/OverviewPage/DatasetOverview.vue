@@ -12,11 +12,14 @@
                     <a href="">
                         {{ checkIfPropertySet(getDatasets, 'dcat:catalog') }}
                     </a>
+                    <!-- <details>{{ values }}</details> -->
 
                 </div>
                 <div class="dsPublisher">
-                    <span><b>Published by:</b></span>
-                    <a> {{ checkIfPropertyValueSet(getDatasets, 'dct:publisher', 'name') }}</a>
+
+                    <PropertyEntry profile="datasets" :data="values" property='dct:publisher'
+                        :value="tableProperties['dct:publisher']" :dpiLocale="dpiLocale"></PropertyEntry>
+
                 </div>
                 <div class="dsIssued ">
                     <span><b>Issued:</b></span>
@@ -44,7 +47,7 @@
 
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <!-- <details>{{ values }}</details> -->
+                        <!-- <details>{{ values}}</details> -->
                         <PropertyEntry v-if="trigger" profile="datasets" :data="values" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
@@ -86,7 +89,7 @@ export default {
             values: [],
             pageLoaded: false,
             tableProperties: {
-                // 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
+                'dct:publisher': { type: 'singularURI', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
                 'dct:creator': { type: 'special', voc: '', label: 'message.metadata.creator' },
                 // 'dct:issued': { type: 'date', label: 'message.metadata.created' },

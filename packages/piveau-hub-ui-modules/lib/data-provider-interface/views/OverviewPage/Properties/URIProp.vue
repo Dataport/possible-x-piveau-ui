@@ -1,16 +1,15 @@
 <template>
-  <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
+  <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
+  </td>
+  
   <!-- SINGULAR URIs -->
-  <!-- <a>{{ nameOfProperty}}</a> -->
-  <td v-if="value.type === 'singularURI'" class="">{{ nameOfProperty }}</td>
-
+  <td v-if="value.type === 'singularURI'" class=""> {{ nameOfProperty }}</td>
   <!-- MULTIPLE URIs -->
   <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
     <div v-for="(el, index) in namesOfMulti" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
       {{ el['name'] }}
     </div>
   </td>
-  
 </template>
 
 <script>
@@ -54,6 +53,7 @@ export default {
     getTranslationFor,
     async getUriName(voc, res) {
 
+
       if (res != undefined) {
         let vocMatch =
           this.voc === "iana-media-types" ||
@@ -63,19 +63,24 @@ export default {
         await this.requestResourceName({ voc: voc, uri: res }).then(
           (response) => {
             if (this.property === 'dcatde:politicalGeocodingURI') {
-              let result = vocMatch
-                ? response.data.result.results
-                  .filter((dataset) => dataset.resource === res)
-                  .map((dataset) => dataset.alt_label)[0].en
-                : getTranslationFor(response.data.result.alt_label, this.$i18n.locale, []);
-              name = result;
+              if (response != undefined) {
+                let result = vocMatch
+                  ? response.data.result.results
+                    .filter((dataset) => dataset.resource === res)
+                    .map((dataset) => dataset.alt_label)[0].en
+                  : getTranslationFor(response.data.result.alt_label, this.$i18n.locale, []);
+                name = result;
+              }
             } else {
-              let result = vocMatch
-                ? response.data.result.results
-                  .filter((dataset) => dataset.resource === res)
-                  .map((dataset) => dataset.pref_label)[0].en
-                : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
-              name = result;
+              if (response != undefined) {
+                let result = vocMatch
+                  ? response.data.result.results
+                    .filter((dataset) => dataset.resource === res)
+                    .map((dataset) => dataset.pref_label)[0].en
+                  : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
+                name = result;
+              }
+
             }
 
 
@@ -97,7 +102,6 @@ export default {
                 geocodingVoc += '-' + element.toLowerCase()
               });
               voc = 'political-geocoding' + geocodingVoc
-              console.log(voc);
             }
           }
           if (this.value.type === "multiURI") {
@@ -107,7 +111,7 @@ export default {
             if (this.namesOfMulti.find(({ name }) => name === resolvedURI.name) === undefined) {
               if (resolvedURI.name != undefined) {
                 this.namesOfMulti.push(resolvedURI)
-              } 
+              }
             }
           }
 
