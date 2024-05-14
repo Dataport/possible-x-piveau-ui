@@ -61,7 +61,11 @@ function removeProperty(e) {
 }
 function saveToLocal(el) {
     let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
-    let arr = pathToLocalStorage.Advised['dct:spatial'];
+    let arr
+    if (props.context.attrs.identifier === 'politicalGeocodingURI') {
+        arr = pathToLocalStorage.Advised['dcatde:politicalGeocodingURI'];
+    }
+    else arr = pathToLocalStorage.Advised['dct:spatial'];
 
     arr.forEach((element, index) => {
         if (Object.keys(element).length === 0) {
@@ -69,7 +73,10 @@ function saveToLocal(el) {
         }
     })
     arr.push(props.context.node._value)
-    pathToLocalStorage.Advised['dct:spatial'] = arr
+    if (props.context.attrs.identifier === 'politicalGeocodingURI') {
+        pathToLocalStorage.Advised['dcatde:politicalGeocodingURI'] = arr
+    }
+    else pathToLocalStorage.Advised['dct:spatial'] = arr
 
     localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
 }

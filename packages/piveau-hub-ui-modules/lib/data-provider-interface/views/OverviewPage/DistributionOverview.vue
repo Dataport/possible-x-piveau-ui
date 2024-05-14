@@ -21,7 +21,10 @@
                         No title in this language
                     </p>
                     <p v-if="distribution['dct:format'] != '' || Object.keys(distribution['dct:format']).length != 0">
-                        {{ getDistributionFormat(distribution) }}
+
+                        <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
+                            :value="tableProperties['dct:format']" :dpiLocale="dpiLocale" :distId="id">
+                        </PropertyEntry>
                     </p>
                     <p v-else>
                         No format provided
@@ -53,7 +56,10 @@
                         No title in this language
                     </p>
                     <p v-if="distribution['dct:format'] != undefined">
-                        {{ getDistributionFormat(distribution) }}
+                    <details>{{ distribution['dct:format'] }}</details>
+                    <!-- <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
+                        :value="distribution['dct:format']" :dpiLocale="dpiLocale" :distId="id">
+                    </PropertyEntry> -->
                     </p>
                     <p v-else>
                         No format provided
@@ -173,6 +179,7 @@ export default {
     data() {
         return {
             tableProperties: {
+                'dct:format': { type: 'singularURI', voc: 'file-type', label: 'message.metadata.format' },
                 'dcat:downloadURL': { type: 'multiURL', voc: '', label: 'message.metadata.downloadUrl' },
                 'dcat:accessService': { type: 'special', voc: '', label: 'message.dataupload.distributions.accessService.label' },
                 'dct:license': { type: 'singularURI', voc: '', label: 'message.metadata.license' },

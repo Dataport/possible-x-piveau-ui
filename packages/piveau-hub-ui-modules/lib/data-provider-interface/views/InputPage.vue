@@ -3,7 +3,7 @@
 <template>
   <div class="form-container ">
 
-    <details>{{ formValues }}</details>
+   <details>{{ formValues }}</details>
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -96,7 +96,7 @@ export default defineComponent({
   data() {
     return {
       heightActiveSec: "10vh",
-      formValues:{},
+      formValues: {},
       offsetTopStepper: "60px",
       info: {},
       catalogues: [],
@@ -301,10 +301,10 @@ export default defineComponent({
       goToPreviousStep,
     } = useDpiStepper();
 
-   
 
-    
-    
+
+
+
     const scrollToTop = () => {
       let { x, y } = useWindowScroll({ behavior: 'smooth' })
       y.value = 0

@@ -1,5 +1,6 @@
 <template>
     <div class="mt-2" v-if="pageLoaded">
+        <!-- <details>{{ values }}</details> -->
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
@@ -11,11 +12,14 @@
                     <a href="">
                         {{ checkIfPropertySet(getDatasets, 'dcat:catalog') }}
                     </a>
+                    <!-- <details>{{ values }}</details> -->
 
                 </div>
                 <div class="dsPublisher">
-                    <span><b>Published by:</b></span>
-                    <a> {{ checkIfPropertyValueSet(getDatasets, 'dct:publisher', 'name') }}</a>
+
+                    <PropertyEntry profile="datasets" :data="values" property='dct:publisher'
+                        :value="tableProperties['dct:publisher']" :dpiLocale="dpiLocale"></PropertyEntry>
+
                 </div>
                 <div class="dsIssued ">
                     <span><b>Issued:</b></span>
@@ -40,9 +44,11 @@
                 </p>
             </div>
             <div class="">
+
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <PropertyEntry profile="datasets" :data="getDatasets" :property="name" :value="value"
+                        <!-- <details>{{ values}}</details> -->
+                        <PropertyEntry v-if="trigger" profile="datasets" :data="values" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
                 </table>
@@ -79,13 +85,15 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            trigger: true,
+            values: [],
             pageLoaded: false,
             tableProperties: {
-                // 'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
+                'dct:publisher': { type: 'singularURI', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
                 'dct:creator': { type: 'special', voc: '', label: 'message.metadata.creator' },
-                'dct:issued': { type: 'date', label: 'message.metadata.created' },
-                'dct:modified': { type: 'date', label: 'message.metadata.updated' },
+                // 'dct:issued': { type: 'date', label: 'message.metadata.created' },
+                // 'dct:modified': { type: 'date', label: 'message.metadata.updated' },
                 'dct:language': { type: 'multiURI', voc: 'language', label: 'message.metadata.languages' },
                 'dct:subject': { type: 'multiURI', voc: 'eurovoc', label: 'message.dataupload.datasets.subject.label' },
                 'dcat:theme': { type: 'multiURI', voc: 'data-theme', label: 'message.dataupload.datasets.theme.label' },
@@ -102,7 +110,7 @@ export default {
                 'dct:relation': { type: 'multiURL', voc: '', label: 'message.dataupload.datasets.relation.label' },
                 'dcat:qualifiedRelation': { type: 'multiURL', voc: '', label: 'message.dataupload.datasets.qualifiedRelation.label' },
                 'prov:qualifiedAttribution': { type: 'multiURL', voc: '', label: 'message.dataupload.datasets.qualifiedAttribution.label' },
-                'dct:spatial': { type: 'multiURISpatial', voc: '', label: 'message.metadata.spatial' },
+                'dct:spatial': { type: 'multiURI', voc: '', label: 'message.metadata.spatial' },
                 'dcat:spatialResolutionInMeters': { type: 'singularString', voc: '', label: 'message.dataupload.datasets.spatialResolutionInMeters.label' },
                 'dct:temporal': { type: 'special', voc: '', label: 'message.metadata.temporal' },
                 'dcat:temporalResolution': { type: 'special', voc: '', label: 'message.dataupload.datasets.temporalResolution.label' },
@@ -123,12 +131,13 @@ export default {
                 'dcatap:availability': { type: 'singularURI', voc: 'planned-availability', label: 'message.dataupload.datasets.availabilityDE.label' },
                 'dcatde:geocodingDescription': { type: 'multiLingual', voc: '', label: 'message.dataupload.datasets.geocodingDescription.label' },
                 'dcatde:politicalGeocodingLevelURI': { type: 'multiURI', voc: '', label: 'message.dataupload.datasets.politicalGeocodingLevelURI.label' },
-                'dcatde:politicalGeocodingURI': { type: 'multiURIspecial', voc: '', label: 'message.dataupload.datasets.politicalGeocodingURI.label' },
+                'dcatde:politicalGeocodingURI': { type: 'multiURI', voc: '', label: 'message.dataupload.datasets.politicalGeocodingURI.label' },
             }
         }
     },
     props: {
         dpiLocale: String,
+
     },
     components: {
         PropertyEntry,
@@ -146,7 +155,8 @@ export default {
         },
         showTable() {
             return Object.keys(this.tableProperties).filter(prop => this.getDatasets[prop]).length > 0;
-        }
+        },
+
     },
     methods: {
         ...mapActions("dpiStore", [
@@ -183,8 +193,22 @@ export default {
     async mounted() {
         this.$nextTick(() => {
             this.pageLoaded = true;
+            this.values = this.getDatasets
         })
+
+
     },
+    watch: {
+        // ugly solution needs rework
+        getDatasets: function (e) {
+            this.trigger = false
+            this.values = e
+            this.$nextTick(() => {
+                this.trigger = true;
+            })
+        }
+
+    }
 }
 </script>
 
@@ -218,4 +242,5 @@ export default {
 
 .dist-edit {
     cursor: pointer
-}</style>
+}
+</style>

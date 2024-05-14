@@ -1,7 +1,7 @@
 <template>
   <div class="col-12">
     <!-- LANGUAGE SELECTOR -->
-    <div class="mt-5 mb-0" >
+    <div class="mt-5 mb-0">
       <div class="row">
         <div class="col-10 ">
           {{ $t('message.dataupload.info.selectDisplayLanguage') }}:
@@ -10,10 +10,10 @@
       </div>
     </div>
     <div class="mb-3" v-if="showDatasetsOverview">
-      <DatasetOverview :dpiLocale="dpiLocale"/>
+      <DatasetOverview :dpiLocale="dpiLocale" />
     </div>
     <div class="mb-3" v-if="showCatalogsOverview">
-      <CatalogueOverview :dpiLocale="dpiLocale"/>
+      <CatalogueOverview :dpiLocale="dpiLocale" />
     </div>
   </div>
 </template>
@@ -33,7 +33,14 @@ export default {
     DatasetOverview,
     CatalogueOverview,
   },
-  props: ['property'],
+  props: {
+    property: {
+      type: String
+    },
+    context: {
+      type: Object,
+    },
+  },
   data() {
     return {
       dpiLocale: 'en',
@@ -115,16 +122,16 @@ export default {
           .then((isUniqueID) => {
             if (!isUniqueID) {
               // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
-              this.$router.push({ 
+              this.$router.push({
                 name: 'DataProviderInterface-Input',
-                params: { 
-                  property: property, 
-                  page: 'step1' 
-                }, 
-                query: { 
-                  error: 'id', 
-                  locale: this.$route.query.locale 
-                } 
+                params: {
+                  property: property,
+                  page: 'step1'
+                },
+                query: {
+                  error: 'id',
+                  locale: this.$route.query.locale
+                }
               });
             }
           });
@@ -159,27 +166,29 @@ export default {
       }
     });
   },
-  mounted(){
+  mounted() {
     this.saveLocalstorageValues(this.property);
   }
 };
 </script>
 
 <style lang="scss" scoped>
-  .heading, .description, .arrow {
-    cursor: pointer;
-  }
+.heading,
+.description,
+.arrow {
+  cursor: pointer;
+}
 
-  .options, .download {
-    .dropdown-menu {
-      min-width: 300px;
-      .dropdown-item {
-        &:hover {
-          color: initial;
-          background-color: initial;
-        }
+.options,
+.download {
+  .dropdown-menu {
+    min-width: 300px;
+
+    .dropdown-item {
+      &:hover {
+        color: initial;
+        background-color: initial;
       }
     }
   }
-
-</style>
+}</style>
