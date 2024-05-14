@@ -176,13 +176,11 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
-
       this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
       this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
-      const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, id: this.id });
-      // console.log(existingValues.Mandatory);
-      // only overwrite empty object if there are values (otherwise the language preselection is gone -- Needed to add "Mandatory", otherwise the condition would be true everytime)
-
+      const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
+      
+      // only overwrite empty object if there are values
       if (!isEmpty(existingValues)) this.formValues = existingValues;
 
       this.$nextTick(() => {
