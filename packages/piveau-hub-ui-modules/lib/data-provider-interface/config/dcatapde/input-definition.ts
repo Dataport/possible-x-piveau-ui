@@ -1576,11 +1576,9 @@ const dcatapProperties: InputDefinition = {
     downloadUrl: {
       $formkit: 'repeatable',
       identifier: 'downloadUrl',
-      $formkit: 'repeatable',
       name: 'dcat:downloadURL',
       children: [
         {
-          $formkit: 'group',
           identifier: 'downloadUrl',
           $formkit: 'url',
           name: '@id',
