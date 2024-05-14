@@ -42,7 +42,7 @@ export default {
       if (this.getIsDraft) {
         this.setIsDraft(true);
         endpoint = `${this.$env.api.hubUrl}drafts/datasets/${this.id}.nt?catalogue=${this.catalog}`;
-         this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id, locale: this.$i18n.locale});
+        await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id, locale: this.$i18n.locale});
       } else {
         this.setIsDraft(false);
         if (this.property === 'catalogues') {
@@ -50,7 +50,7 @@ export default {
           await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.catalog});
         } else {
           endpoint = `${this.$env.api.hubUrl}datasets/${this.id}.nt?useNormalizedId=true`;
-           this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id, locale: this.$i18n.locale});
+          await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id, locale: this.$i18n.locale});
         } 
       }
 
