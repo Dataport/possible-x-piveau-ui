@@ -31,16 +31,8 @@ const getters = {
      * @param0 Object containing property, page and distribution id
      * @returns Object conatining form values for given property, distribution and page
      */
-    getRawValues: (state) => ({ property, id }) => {
-        let data;
-        if (id) {
-            // data = state[property][id];
-            data = state[property];
-        } else {
-            data = state[property];
-        }
-       
-        return data;
+    getRawValues: (state) => ({ property }) => {
+        return state[property];
     },
     /**
      * Provides property data
