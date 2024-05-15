@@ -31,12 +31,12 @@
     "*.scss"
   ],
   "dependencies": {
-    "@cyclonedx/bom": "^4.0.5",
     "@braid/vue-formulate": "^2.5.3",
     "@citation-js/core": "^0.5.7",
     "@citation-js/plugin-bibtex": "^0.5.7",
     "@citation-js/plugin-csl": "^0.5.7",
     "@citation-js/plugin-doi": "^0.5.7",
+    "@cyclonedx/bom": "^4.0.5",
     "@deu/deu-cookie-consent": "^3.0.3",
     "@deu/deu-header-footer": "^5.2.19",
     "@ecl/preset-ec": "^3.4.0",
