@@ -68,14 +68,14 @@ dependency-track:
     - npm install --silent
     - npm run sbom
     - |
-      curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/api/v1/bom' \
-      -H 'Content-Type: multipart/form-data' -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ'' \
-      -F 'project='$PROJECT_UUID'' -F 'bom=@./bom.json';
+      curl --location --request POST '$DEPENDENCY_TRACK_BASE_URL/api/v1/bom' \
+      -H 'Content-Type: multipart/form-data' -H 'X-Api-Key: '$DEPENDENCY_TRACK_API_KEY'' \
+      -F 'projectName='$CI_PROJECT_NAME'' -F 'bom=@./bom.json';
     - |
-      curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/api/v1/project' \
-      -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ''  \
+      curl --location --request POST '$DEPENDENCY_TRACK_BASE_URL/api/v1/project' \
+      -H 'X-Api-Key: '$DEPENDENCY_TRACK_API_KEY''  \
       -H 'Content-Type: application/json' \
-      --data-raw '{"uuid": "'$PROJECT_UUID'","name": "project name","version": "'$VERSION'"}'
+      --data-raw '{"projectName": $CI_PROJECT_NAME}'
   only:
     - DependencyTrack
 
