@@ -78,3 +78,5 @@ dependency-track:
       --data-raw '{"uuid": "'$PROJECT_UUID'","name": "project name","version": "'$VERSION'"}'
   only:
     - DependencyTrack
+  tags:
+    - dps
