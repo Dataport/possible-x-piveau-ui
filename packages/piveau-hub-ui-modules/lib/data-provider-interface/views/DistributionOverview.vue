@@ -119,7 +119,7 @@ export default {
       }
     },
     redirectToDistributionForm(distributionIndex) {
-      const firstDistPage = this.getNavSteps.distributions[0];
+      const firstDistPage = this.getNavSteps(this.$env.content.dataProviderInterface.specification).distributions[0];
       this.$router.push({
         path: `${this.$env.content.dataProviderInterface.basePath}/distributions/${firstDistPage}/${distributionIndex}`,
         query: {
@@ -133,7 +133,7 @@ export default {
       this.addDistribution();
       const distNumber = this.getNumberOfDistributions;
       const distIndex = distNumber - 1; // distributions are stored within an array and indexed by their position in array
-      const firstDistPage = this.getNavSteps.distributions[0];
+      const firstDistPage = this.getNavSteps(this.$env.content.dataProviderInterface.specification).distributions[0];
 
       // direct to distribution input form
       this.$router.push(`${this.$env.content.dataProviderInterface.basePath}/distributions/${firstDistPage}/${distIndex}?locale=${this.$i18n.locale}`);

@@ -8,8 +8,7 @@ import { has, isEmpty } from 'lodash';
  * @param {*} property Property to convert data for (datasets/catalogues)
  * @param {*} data Linked data within a dataset
  */
-function convertToInput(state, property, data, dpiConfig, locale) {
-
+async function convertToInput(state, property, data, dpiConfig ) {
 
     let generalID;
     let namespaceKeys;
@@ -30,7 +29,7 @@ function convertToInput(state, property, data, dpiConfig, locale) {
 
         for (let pageName in namespaceKeys[property]) {
             state[property][pageName] = {};
-            convertProperties(property, state[property][pageName], generalID, data, namespaceKeys[property][pageName], dpiConfig, locale);
+            convertProperties(property, state[property][pageName], generalID, data, namespaceKeys[property][pageName], dpiConfig);
         }
 
     }
@@ -61,7 +60,7 @@ function convertToInput(state, property, data, dpiConfig, locale) {
  * @param {*} data Linked data
  * @param {*} propertyKeys Keys of properties to check
  */
-function convertProperties(property, state, id, data, propertyKeys, dpiConfig, locale) {
+function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
 
     const formatType = dpiConfig.formatTypes;
 
@@ -72,9 +71,9 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig, l
         if (formatType.singularString[property].includes(key)) {
             convertSingularStrings(subData, state, key);
         } else if (formatType.singularURI[property].includes(key)) {
-            convertSingularURI(subData, state, key, dpiConfig, locale);
+            convertSingularURI(subData, state, key, dpiConfig);
         } else if (formatType.multipleURI[property].includes(key)) {
-            convertMultipleURI(subData, state, key, property, dpiConfig, locale);
+            convertMultipleURI(subData, state, key, property, dpiConfig);
         } else if (formatType.typedStrings[property].includes(key)) {
             convertTypedString(subData, state, key);
         } else if (formatType.multilingualStrings[property].includes(key)) {
@@ -246,31 +245,6 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig, l
     }
 }
 
-async function getUriName(uri, conf, locale) {
-
-    let voc = uri.split('/')
-    let preValues = { name: '', resource: '' }
-
-    let vocMatch =
-        voc[voc.length - 2] === "iana-media-types" ||
-        voc[voc.length - 2] === "spdx-checksum-algorithm";
-        
-    // need to import the autocomplete store to make this function usable
-    await autocompleteStore.actions.requestResourceName(voc[voc.length - 2], uri, conf).then(
-        (response) => {
-            let result = vocMatch
-                ? response.data.result.results
-                    .filter((dataset) => dataset.resource === uri)
-                    .map((dataset) => dataset.pref_label)[0].en
-                : getTranslationFor(response.data.result.pref_label, locale, []);
-
-            preValues.name = result;
-            preValues.resource = uri;
-        }
-    );
-    console.log(preValues);
-    return preValues
-}
 //-----------------------------------------------------------------------------------------------------
 //                  basic conversion methods for different categories of data
 //-----------------------------------------------------------------------------------------------------
@@ -299,16 +273,14 @@ function convertSingularStrings(data, state, key) {
  * @param {*} state 
  * @param {*} key 
  */
-function convertSingularURI(data, state, key, dpiConfig, locale) {
+function convertSingularURI(data, state, key, dpiConfig) {
 
     const formatType = dpiConfig.formatTypes;
 
     if (data.size > 0) {
-
         state[key] = '';
 
         for (let el of data) {
-
             const value = el.object.value;
 
             if (value.startsWith('mailto:')) {
@@ -328,7 +300,7 @@ function convertSingularURI(data, state, key, dpiConfig, locale) {
  * @param {*} state 
  * @param {*} key 
  */
-function convertMultipleURI(data, state, key, property, dpiConfig, locale) {
+function convertMultipleURI(data, state, key, property, dpiConfig) {
     // there are two different formats the frontend need to deliver multiple URIs
     // 1: [ "URI1", "URI2" ]
     // 2: [ { "@id": "URI1" }, { "@id": "URI2" } ]

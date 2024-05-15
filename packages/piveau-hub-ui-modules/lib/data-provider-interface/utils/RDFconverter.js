@@ -54,7 +54,6 @@ function convertToRDF(data, property, specification) {
  */
 function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainType, setMain, datasetURI, dpiConfig) {
 
-    console.log('####', dpiConfig);
     const formatTypes = dpiConfig.formatTypes;
 
     // method can be called recursively for nested properties

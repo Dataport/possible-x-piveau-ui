@@ -1,16 +1,8 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
 import axios from 'axios';
-import { getCurrentInstance } from "vue";
 import generalDpiConfig from '../../config/dpi-spec-config.js';
-const accesToken = import.meta.env
 
-
-async function getEnvironmentVariables() {
-
-    return getCurrentInstance().appContext.app.config.globalProperties.$env;
-
-}
 const state = {};
 const getters = {};
 
@@ -42,27 +34,23 @@ const actions = {
                 });
         });
     },
-    async requestResourceName({ commit }, { voc, uri }) {
+    async requestResourceName({ commit }, { voc, uri, envs }) {
         try {
-            let config = await getCurrentInstance().appContext.app.config.globalProperties.$env
+            const specification = envs.content.dataProviderInterface.specification;
 
-            // console.log(config);
             // Catching invalid URI's
-
             if (voc === undefined) return
             if (voc === "application") return
 
-            // console.log(voc, uri);
-
-            const value = encodeURIComponent(uri.replace(generalDpiConfig.dcatapde.vocabPrefixes[voc], ""));
             let req;
 
             // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
             if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
-                req = `${await config.api.baseUrl}vocabularies/${voc}`;
+                req = `${envs.api.baseUrl}vocabularies/${voc}`;
 
             } else {
-                req = `${await config.api.baseUrl}vocabularies/${voc}/${value}`;
+                const value = encodeURIComponent(uri.replace(generalDpiConfig[specification].vocabPrefixes[voc], ""));
+                req = `${envs.api.baseUrl}vocabularies/${voc}/${value}`;
 
             }
             return new Promise((resolve, reject) => {

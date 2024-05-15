@@ -13,7 +13,7 @@
               <!-- v-text="step.errorCount + step.blockingCount" /> -->
               {{ camel2title(stepName) }}
             </div>
-            <div v-if="index + 1 != Object.keys(getNavSteps.distributions).length" class="seperatorHorizontalStepper">
+            <div v-if="index + 1 != Object.keys(getNavSteps($env.content.dataProviderInterface.specification).distributions).length" class="seperatorHorizontalStepper">
             </div>
             <div v-if="activeStep === 'overview'" class="seperatorHorizontalStepper"></div>
           </li>
@@ -22,7 +22,7 @@
           </li>
         </ul>
         <div class="d-flex flex-column w-100">
-          <div v-for="(stepName, index) in getNavSteps.distributions" :key="index">
+          <div v-for="(stepName, index) in getNavSteps($env.content.dataProviderInterface.specification).distributions" :key="index">
             <InputPageStep :name="stepName">
               <!-- <PropertyChooser></PropertyChooser> -->
               <FormKitSchema :schema="schema[stepName]" :library="library" />

@@ -155,7 +155,8 @@ export default {
       this.uploading[mode] = true;
       this.$Progress.start();
 
-      const RDFdata = await this.convertToRDF(this.property).then((response) => { return response; });
+      const specification = this.$env.content.dataProviderInterface.specification;
+      const RDFdata = await this.convertToRDF({property: this.property, specification: specification}).then((response) => { return response; });
       const rtpToken = this.getUserData.rtpToken;
 
       const datasetId = this.getData(this.property)['datasetID'];

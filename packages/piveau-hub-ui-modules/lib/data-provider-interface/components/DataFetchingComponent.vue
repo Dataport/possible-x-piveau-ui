@@ -17,9 +17,6 @@ export default {
       'getIsDraft',
       'getUserData',
     ]),
-    ...mapGetters('dpiStore', [
-      'getNavSteps',
-    ]),
     token() {
       return this.getUserData.rtpToken;
     },
@@ -38,19 +35,20 @@ export default {
     async setupEditPage() {
       let endpoint;
       this.setIsEditMode(true);
+      const specification = this.$env.content.dataProviderInterface.specification;
 
       if (this.getIsDraft) {
         this.setIsDraft(true);
         endpoint = `${this.$env.api.hubUrl}drafts/datasets/${this.id}.nt?catalogue=${this.catalog}`;
-        await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id, locale: this.$i18n.locale});
+        await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id, specification: specification });
       } else {
         this.setIsDraft(false);
         if (this.property === 'catalogues') {
           endpoint = `${this.$env.api.hubUrl}catalogues/${this.catalog}.nt`;
-          await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.catalog});
+          await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.catalog, specification: specification });
         } else {
           endpoint = `${this.$env.api.hubUrl}datasets/${this.id}.nt?useNormalizedId=true`;
-          await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id, locale: this.$i18n.locale});
+          await this.convertToInput({endpoint, token: this.token, property: this.property, id: this.id, specification: specification });
         } 
       }
 
