@@ -46,15 +46,15 @@ const actions = {
         try {
             let config = await getCurrentInstance().appContext.app.config.globalProperties.$env
 
-            // console.log(config);
+            
             // Catching invalid URI's
 
             if (voc === undefined) return
             if (voc === "application") return
-
-            // console.log(voc, uri);
-
+           
+            // encodeURIComponent doesnt work with the planned availability voc - needs rework
             const value = encodeURIComponent(uri.replace(generalDpiConfig.dcatapde.vocabPrefixes[voc], ""));
+            
             let req;
 
             // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies

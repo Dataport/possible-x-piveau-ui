@@ -133,9 +133,8 @@
     </tr>
 
     <!-- DATA SERVICE -->
-    <tr
-        v-if="showDataService()">
-      
+    <tr v-if="showDataService()">
+
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td class="">
             <div v-if="showValue(data, 'dct:title')">
@@ -157,12 +156,41 @@
 
 
     </tr>
+    <!-- PUBLISHER -->
+    <details>{{ data }}</details>
+    <tr v-if="manualPublisher(data)">
+        <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+        <td>
+            <div v-if="data['dct:publisher']['foaf:name'] != undefined && data['dct:publisher']['foaf:name'] != ''
+                && Object.values(data['dct:publisher']['foaf:name']).length > 1">
+                <span class="">{{ $t('message.dataupload.datasets.publisherName.label') }}:</span>
+                {{ data['dct:publisher']['foaf:name'] }}
+            </div>
+            <div v-if="data['dct:publisher']['foaf:mbox'] != undefined && data['dct:publisher']['foaf:mbox'] != ''
+                && Object.values(data['dct:publisher']['foaf:mbox']).length > 1" class="pr-1">
+                <span class="">{{ $t('message.dataupload.datasets.publisherEmail.label') }}:</span>
+                <app-link class="w-100" :to="data['dct:publisher']['foaf:mbox']">{{ data['dct:publisher']['foaf:mbox']
+                }}</app-link>
+            </div>
+            <div v-if="data['dct:publisher']['foaf:homepage'] != undefined && data['dct:publisher']['foaf:homepage'] != ''
+                && Object.values(data['dct:publisher']['foaf:homepage']).length > 1">
+                <span class="">{{ $t('message.dataupload.datasets.publisherHomepage.label') }}:</span>
+                <app-link class="w-100" :to="data['dct:publisher']['foaf:homepage']">{{
+                    data['dct:publisher']['foaf:homepage'] }}</app-link>
+            </div>
+        </td>
+    </tr>
+    <tr v-else>
+        <URIProp :property="property" :value="value" :data="data">
+        </URIProp>
+    </tr>
 </template>
 
 <script>
 import AppLink from "../../../../widgets/AppLink.vue";
 import dateFilters from "../../../../filters/dateFilters";
 import { has, isNil, isEmpty } from 'lodash-es';
+import URIProp from './URIProp.vue';
 import { object } from "zod";
 
 export default {
@@ -174,6 +202,7 @@ export default {
     },
     components: {
         AppLink,
+        URIProp,
     },
     methods: {
         showDataService() {
@@ -181,6 +210,14 @@ export default {
                 return this.property === 'dcat:accessService' && Object.keys(this.data[Object.keys(this.data)[0]][0]).length > 1 && Object.keys(this.data[Object.keys(this.data)[1]][0]).length > 1;
             } catch (error) {
             }
+        },
+       async manualPublisher(e) {
+            console.log(await e['dct:publisher']);
+            if (e != undefined && Object.keys(e)[0] != 'name') {
+                return true
+            }
+            else return false
+
         },
         showMultilingualValue(property, value) {
             const nonEmptyProperty = has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);

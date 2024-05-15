@@ -1,7 +1,6 @@
 <template>
   <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
   </td>
-  
   <!-- SINGULAR URIs -->
   <td v-if="value.type === 'singularURI'" class=""> {{ nameOfProperty }}</td>
   <!-- MULTIPLE URIs -->
@@ -10,6 +9,9 @@
       {{ el['name'] }}
     </div>
   </td>
+  <!-- SPECIAL CASES -->
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class="font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class=""> {{ nameOfProperty }}</td>
 </template>
 
 <script>
@@ -80,10 +82,7 @@ export default {
                   : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
                 name = result;
               }
-
             }
-
-
           }
         );
         return name

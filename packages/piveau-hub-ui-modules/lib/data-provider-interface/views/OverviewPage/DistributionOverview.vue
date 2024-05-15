@@ -56,10 +56,10 @@
                         No title in this language
                     </p>
                     <p v-if="distribution['dct:format'] != undefined">
-                    <details>{{ distribution['dct:format'] }}</details>
-                    <!-- <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
-                        :value="distribution['dct:format']" :dpiLocale="dpiLocale" :distId="id">
-                    </PropertyEntry> -->
+                    
+                    <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
+                            :value="tableProperties['dct:format']" :dpiLocale="dpiLocale" :distId="id">
+                        </PropertyEntry>
                     </p>
                     <p v-else>
                         No format provided
@@ -182,7 +182,7 @@ export default {
                 'dct:format': { type: 'singularURI', voc: 'file-type', label: 'message.metadata.format' },
                 'dcat:downloadURL': { type: 'multiURL', voc: '', label: 'message.metadata.downloadUrl' },
                 'dcat:accessService': { type: 'special', voc: '', label: 'message.dataupload.distributions.accessService.label' },
-                'dct:license': { type: 'singularURI', voc: '', label: 'message.metadata.license' },
+                'dct:license': { type: 'special', voc: '', label: 'message.metadata.license' },
                 'dct:issued': { type: 'date', voc: '', label: 'message.metadata.created' },
                 'dct:modified': { type: 'date', voc: '', label: 'message.metadata.updated' },
                 'dct:type': { type: 'singularURI', voc: '', label: 'message.metadata.type' },

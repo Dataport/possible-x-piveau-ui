@@ -47,7 +47,6 @@
 
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <!-- <details>{{ values}}</details> -->
                         <PropertyEntry v-if="trigger" profile="datasets" :data="values" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
@@ -89,7 +88,7 @@ export default {
             values: [],
             pageLoaded: false,
             tableProperties: {
-                'dct:publisher': { type: 'singularURI', voc: 'corporate-body', label: 'message.metadata.publisher' },
+                'dct:publisher': { type: 'special', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
                 'dct:creator': { type: 'special', voc: '', label: 'message.metadata.creator' },
                 // 'dct:issued': { type: 'date', label: 'message.metadata.created' },
