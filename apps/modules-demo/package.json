@@ -31,6 +31,7 @@
     "*.scss"
   ],
   "dependencies": {
+    "@cyclonedx/bom": "^4.0.5",
     "@braid/vue-formulate": "^2.5.3",
     "@citation-js/core": "^0.5.7",
     "@citation-js/plugin-bibtex": "^0.5.7",

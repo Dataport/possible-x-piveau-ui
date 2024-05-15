@@ -1,2 +1,2 @@
 #!/bin/bash
-cyclonedx-node -d -t application -o ./bom.json
+cyclonedx-npm --output-format JSON --output-file ./bom.json
