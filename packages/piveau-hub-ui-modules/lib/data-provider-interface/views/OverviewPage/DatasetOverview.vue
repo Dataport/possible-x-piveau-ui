@@ -162,7 +162,6 @@ export default {
         ...mapActions("dpiStore", [
             "requestFirstEntrySuggestions",
             "requestAutocompleteSuggestions",
-            "requestResourceName",
         ]),
         checkIfPropertySet(data, property) {
             if (data[property] != undefined) return data[property]

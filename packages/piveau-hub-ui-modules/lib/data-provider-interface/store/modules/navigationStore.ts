@@ -4,12 +4,6 @@
 // config defining which properties are displayed on which page
 import generalDpiConfig from '../../config/dpi-spec-config.js';
 
-import { getCurrentInstance } from "vue";
-
-function getEnvironmentVariables() {
-    return getCurrentInstance().appContext.app.config.globalProperties.$env; 
-}
-
 const state = {
     navigation: {
         datasets: [],
@@ -19,14 +13,10 @@ const state = {
 };
 
 const getters = {
-    getNavSteps(state) {
-        try {
-            const dpiConfig = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
-            setConfig(dpiConfig);
-        } catch (error) {
-            const dpiConfig = generalDpiConfig["dcatap"];
-            setConfig(dpiConfig);
-        }
+    getNavSteps: (state) => (specification) => {
+        const dpiConfig = generalDpiConfig[specification];
+        setConfig(dpiConfig);
+       
         return state.navigation;
     },
 };

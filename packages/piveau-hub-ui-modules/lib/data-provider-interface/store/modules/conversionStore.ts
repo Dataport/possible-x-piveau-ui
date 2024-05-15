@@ -11,12 +11,6 @@ import toInput from '../../utils/inputConverter';
 
 import generalDpiConfig from '../../config/dpi-spec-config.js';
 
-import { getCurrentInstance } from "vue";
-
-function getEnvironmentVariables() {
-    return getCurrentInstance().appContext.app.config.globalProperties.$env; 
-}
-
 const state = {
     datasets: {},
     distributions: [],
@@ -82,7 +76,7 @@ const actions = {
      * @param param0 
      * @param param1 Object containing endpoint and token for data fetching as well as property
      */
-    async convertToInput({ commit }, { endpoint, token, property, locale }) {
+    async convertToInput({ commit }, { endpoint, token, property, specification }) {
         
         const fetchedData = await generalHelper.fetchLinkedData(endpoint, token).then((response) => {
             return response;
@@ -96,7 +90,7 @@ const actions = {
             if (quad) data.add(quad);
         })
 
-        commit('saveLinkedDataToStore', { property, data, locale });
+        commit('saveLinkedDataToStore', { property, data, specification });
     },
     /**
      * Merges store data and converts the given input values into RDF format
@@ -104,7 +98,7 @@ const actions = {
      * @param property Object containing all values within nested objects for each page of the frontend
      * @returns Data values in RDF format
      */
-    convertToRDF({ state }, property) {
+    convertToRDF({ state }, { property, specification }) {
 
         // merging objects with nested objects containing the values of each page into one main object containing all values for the given property
         const data = {
@@ -120,15 +114,7 @@ const actions = {
             }
         }
 
-
-        let RDFdata;
-        try {
-            const specification = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
-            RDFdata = toRDF.convertToRDF(data, property, specification);
-        } catch (error) {
-            const specification = "dcatap";
-            RDFdata = toRDF.convertToRDF(data, property, specification);
-        }
+        const RDFdata = toRDF.convertToRDF(data, property, specification);
 
         return RDFdata;
     },
@@ -180,16 +166,10 @@ const mutations = {
      * @param state 
      * @param param1 Object containing data and property and state
      */
-    saveLinkedDataToStore(state, { property, data, locale }) {
-        try {getEnvironment
-            const dpiConfig = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
-            toInput.convertToInput(state, property, data, dpiConfig,locale);
-        } catch (error) {
-            const dpiConfig = generalDpiConfig["dcatap"];
-            toInput.convertToInput(state, property, data, dpiConfig, locale);
-        }
-        // const dpiConfig = generalDpiConfig[process.env.content.dataProviderInterface.specification];
-        // toInput.convertToInput(state, property, data, dpiConfig);
+    saveLinkedDataToStore(state, { property, data, specification }) {
+
+        const dpiConfig = generalDpiConfig[specification];
+        toInput.convertToInput(state, property, data, dpiConfig );
 
         localStorage.setItem(`dpi_${property}`, JSON.stringify(state[property]));
     },

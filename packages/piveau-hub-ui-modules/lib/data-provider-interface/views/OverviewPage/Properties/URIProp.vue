@@ -53,6 +53,7 @@ export default {
     getTranslationFor,
     async getUriName(voc, res) {
 
+      const specification = this.$env.content.dataProviderInterface.specification;
 
       if (res != undefined) {
         let vocMatch =
@@ -60,7 +61,7 @@ export default {
           this.voc === "spdx-checksum-algorithm";
 
         let name;
-        await this.requestResourceName({ voc: voc, uri: res }).then(
+        await this.requestResourceName({ voc: voc, uri: res, specification: specification }).then(
           (response) => {
             if (this.property === 'dcatde:politicalGeocodingURI') {
               if (response != undefined) {

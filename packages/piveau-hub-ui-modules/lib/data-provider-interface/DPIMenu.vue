@@ -94,9 +94,6 @@ export default {
     ...mapGetters('auth', [
       'getUserData',
     ]),
-    ...mapGetters('dpiStore', [
-      'getNavSteps',
-    ]),
     menuGroups() {
       return [
         {
