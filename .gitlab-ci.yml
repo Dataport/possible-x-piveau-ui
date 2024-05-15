@@ -62,21 +62,19 @@ publish to gitlab.com DEU dataeuropa:
 
 
 dependency-track:
-stage: dependency track
-image:
-name: node:14.16
-entrypoint: ['']
-script:
-  - npm install --silent
-  - npm run sbom
-  - |
-    curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/v1/bom' 
-    -H 'Content-Type: multipart/form-data' -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ'' 
-    -F 'project='$PROJECT_UUID'' -F 'bom=@./bom.json';
-  - |
-    curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/v1/project' \
-    -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ''  \
-    -H 'Content-Type: application/json' \
-    --data-raw '{"uuid": "'$PROJECT_UUID'","name": "project name","version": "'$VERSION'"}'
-only:
-  - DependencyTrack
+  stage: dependency track
+  image: node:16-alpine3.16
+  script:
+    - npm install --silent
+    - npm run sbom
+    - |
+      curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/v1/bom' 
+      -H 'Content-Type: multipart/form-data' -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ'' 
+      -F 'project='$PROJECT_UUID'' -F 'bom=@./bom.json';
+    - |
+      curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/v1/project' \
+      -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ''  \
+      -H 'Content-Type: application/json' \
+      --data-raw '{"uuid": "'$PROJECT_UUID'","name": "project name","version": "'$VERSION'"}'
+  only:
+    - DependencyTrack
