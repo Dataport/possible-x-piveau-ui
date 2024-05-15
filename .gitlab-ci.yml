@@ -11,6 +11,7 @@ stages:
   - build
   - publish
   - publish sources
+  - dependency track
 
 build-asset:
   stage: build
@@ -58,3 +59,24 @@ publish to gitlab.com DEU dataeuropa:
     - git remote add modified-source ..
     - git pull modified-source master --allow-unrelated-histories --tags --force
     - git push origin master --tags --force
+
+
+dependency-track:
+stage: dependency track
+image:
+name: node:14.16
+entrypoint: ['']
+script:
+  - npm install --silent
+  - npm run sbom
+  - |
+    curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/v1/bom' 
+    -H 'Content-Type: multipart/form-data' -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ'' 
+    -F 'project='$PROJECT_UUID'' -F 'bom=@./bom.json';
+  - |
+    curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/v1/project' \
+    -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ''  \
+    -H 'Content-Type: application/json' \
+    --data-raw '{"uuid": "'$PROJECT_UUID'","name": "project name","version": "'$VERSION'"}'
+only:
+  - DependencyTrack
