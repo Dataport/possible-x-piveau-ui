@@ -12,7 +12,8 @@
     "ci-publish": "esno scripts/publish-ci.ts",
     "initialize": "git submodule update --init && npx -yes esno scripts/utils/removeAllNodeModules.ts && npx esno scripts/createUserConfigs.ts && npm i",
     "clear": "npx -yes esno scripts/utils/removeAllNodeModules.ts",
-    "create-runtime-config": "esno scripts/createRuntimeConfig.ts"
+    "create-runtime-config": "esno scripts/createRuntimeConfig.ts",
+    "sbom": "sh ./bomGenerator.sh"
   },
   "author": "",
   "license": "ISC",
@@ -45,6 +46,7 @@
     "vue-i18n": "^8.28.2"
   },
   "dependencies": {
+    "@cyclonedx/bom": "^4.0.5",
     "@piveau/piveau-hub-ui-modules": "^3.16.0",
     "@piveau/piveau-universal-piwik": "^3.1.1",
     "chart.js": "^3.9.1",

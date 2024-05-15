@@ -5,6 +5,7 @@ cache:
 stages:
   - build
   - publish
+  - Dependency Track
 
 build-asset:
   stage: build
@@ -17,6 +18,7 @@ build-asset:
     - npm ci
     - npm run link-module
     - npm run build
+    - cyclonedx-npm --output-format XML --output-file bom.xml
   artifacts:
     paths:
       - dist
@@ -42,3 +44,23 @@ publish to gitlab.com:
   script:
     # Publish code to GitLab.com
     - curl -X POST -F token=$PIVEAU_PUBLISH_TOKEN -F ref=master -F "variables[VAR_PROJECT_PATH]=$CI_PROJECT_PATH " -F "variables[VAR_PROJECT_NAME]=$CI_PROJECT_NAME" https://gitlab.fokus.fraunhofer.de/api/v4/projects/9624/trigger/pipeline
+
+dependency-track:
+stage: Dependency Track
+image:
+name: node:14.16
+entrypoint: ['']
+script:
+  - npm install --silent
+  - npm run sbom
+  - |
+    curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/v1/bom' 
+    -H 'Content-Type: multipart/form-data' -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ'' 
+    -F 'project='$PROJECT_UUID'' -F 'bom=@./bom.json';
+  - |
+    curl --location --request POST 'https://dps-dependencytrack-api.fokus.fraunhofer.de/v1/project' \
+    -H 'X-Api-Key: 'odt_Bwcj1EhF3VdUZyNheVwyR8leTb55biQZ''  \
+    -H 'Content-Type: application/json' \
+    --data-raw '{"uuid": "'$PROJECT_UUID'","name": "project name","version": "'$VERSION'"}'
+only:
+  - DependencyTrack
