@@ -72,6 +72,6 @@ dependency-track:
       -H 'Content-Type: multipart/form-data' -H "X-Api-Key: $DEPENDENCY_TRACK_API_KEY" \
       -F "projectName=$CI_PROJECT_NAME" -F "autoCreate=true"  -F "bom=@./bom.json";
   only:
-    - master
+    - DependencyTrack
   tags:
     - dps
