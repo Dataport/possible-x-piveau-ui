@@ -33,7 +33,7 @@
             </ul>
 
             <div class="d-flex flex-column w-100">
-              <div v-for="(stepName, index) in getNavSteps[property]" :key="index">
+              <div v-for="(stepName, index) in getNavSteps($env.content.dataProviderInterface.specification)[property]" :key="index">
                 <InputPageStep :name="stepName">
                   <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'" class="w-100">
                     <h1 style="min-width:100%">{{ stepName }} fields</h1>
@@ -231,9 +231,9 @@ export default defineComponent({
       }
     },
     generateandTranslateSchema(property) {
-      for (let index = 0; index < this.getNavSteps[property].length; index++) {
-        this.createSchema({ property: property, page: this.getNavSteps[property][index] });
-        this.translateSchema({ property: property, page: this.getNavSteps[property][index] });
+      for (let index = 0; index < this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property].length; index++) {
+        this.createSchema({ property: property, page: this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property][index], specification: this.$env.content.dataProviderInterface.specification });
+        this.translateSchema({ property: property, page: this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property][index] });
       }
     }
   },

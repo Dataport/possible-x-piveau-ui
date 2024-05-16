@@ -127,7 +127,7 @@ export default {
                 'dcatap:availability': { type: 'singularURI', voc: 'planned-availability', label: 'message.dataupload.datasets.availabilityDE.label' },
                 'dcatde:geocodingDescription': { type: 'multiLingual', voc: '', label: 'message.dataupload.datasets.geocodingDescription.label' },
                 'dcatde:politicalGeocodingLevelURI': { type: 'multiURI', voc: '', label: 'message.dataupload.datasets.politicalGeocodingLevelURI.label' },
-                'dcatde:politicalGeocodingURI': { type: 'multiURI', voc: '', label: 'message.dataupload.datasets.politicalGeocodingURI.label' },
+                'dcatde:politicalGeocodingURI': { type: 'multiURI', voc: 'political-geocoding-level', label: 'message.dataupload.datasets.politicalGeocodingURI.label' },
             }
         }
     },
@@ -158,7 +158,6 @@ export default {
         ...mapActions("dpiStore", [
             "requestFirstEntrySuggestions",
             "requestAutocompleteSuggestions",
-            "requestResourceName",
         ]),
         checkIfPropertySet(data, property) {
             if (data[property] != undefined) return data[property]

@@ -6,12 +6,6 @@ import generalDpiConfig from '../../config/dpi-spec-config.js';
 // external translation method
 import translate from '../../utils/translation-helper';
 
-import { getCurrentInstance } from "vue";
-
-function getEnvironmentVariables() {
-    return getCurrentInstance().appContext.app.config.globalProperties.$env; 
-}
-
 const state = {
     schema: {
         datasets: {},
@@ -32,19 +26,12 @@ const actions = {
      * @param {Object} param0
      * @param {Object} param1 Object containing property (datasets/catalogues), page (step1/step2/step3) and subpage (distribution1/distribution2/distribution3) of current view
      */
-    createSchema({ commit }, { property, page }) {
-        
-        try {
-            const dpiConfig = generalDpiConfig[getEnvironmentVariables().content.dataProviderInterface.specification];
-            const pageProperties = dpiConfig.pageConent[property][page]
-            const propertyDefinitions = dpiConfig.inputDefinition[property]
-            commit('extractSchema', { pageProperties, propertyDefinitions, property, page });
-        } catch (error) {
-            const dpiConfig = generalDpiConfig["dcatap"];
-            const pageProperties = dpiConfig.pageConent[property][page];
-            const propertyDefinitions = dpiConfig.inputDefinition[property]
-            commit('extractSchema', { pageProperties, propertyDefinitions, property, page });
-        }
+    createSchema({ commit }, { property, page, specification }) {
+
+        const dpiConfig = generalDpiConfig[specification];
+        const pageProperties = dpiConfig.pageConent[property][page]
+        const propertyDefinitions = dpiConfig.inputDefinition[property]
+        commit('extractSchema', { pageProperties, propertyDefinitions, property, page });
 
     },
     /**

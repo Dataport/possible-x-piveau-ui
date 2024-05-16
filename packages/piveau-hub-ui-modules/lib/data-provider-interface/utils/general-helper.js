@@ -1,5 +1,7 @@
-import { useArrayIncludes } from '@vueuse/core';
 import { isEmpty, isNil, has } from 'lodash';
+import axios from 'axios';
+import { getTranslationFor } from "../../utils/helpers";
+
 
 /**
  * Merges multiple Objects nested within an object into one main objects with al key-value-pairs originally located within the nested objects
@@ -309,6 +311,68 @@ function propertyHasValue(data) {
     return isSet;
 }
 
+/**
+ * 
+ */
+async function requestUriLabel(uri, dpiConfig, envs) {
+
+    // get vocabulary by finding vocab-url within given URI
+    const voc = Object.keys(dpiConfig.vocabPrefixes).find(key => uri.includes(dpiConfig.vocabPrefixes[key]));
+
+    try {
+        let req;
+
+        // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
+        if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
+            req = `${envs.api.baseUrl}vocabularies/${voc}`;
+
+        } else {
+            const value = uri.replace(dpiConfig.vocabPrefixes[voc], '');
+            req = `${envs.api.baseUrl}vocabularies/${voc}/${value}`;
+        }
+
+        return new Promise((resolve, reject) => {
+            axios.get(req)
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((err) => {
+                    reject(err);
+
+                });
+        });
+    } catch (error) {
+        // 
+    }    
+}
+
+
+/**
+ * 
+ */
+async function getUriLabel(uri, dpiConfig, locale, envs) {
+    let URIlabel;
+
+    const voc = Object.keys(dpiConfig.vocabPrefixes).find(key => uri.includes(dpiConfig.vocabPrefixes[key]));
+
+    // if vocabulary iana media type or spdx checksum endpoint returns values in a different way
+    let vocMatch = (voc === "iana-media-types" || voc === "spdx-checksum-algorithm");
+
+    await requestUriLabel(uri, dpiConfig, envs).then(
+        (response) => {
+            let result = vocMatch
+                ? response.data.result.results
+                    .filter((dataset) => dataset.resource === uri)
+                    .map((dataset) => dataset.pref_label)[0].en
+                : getTranslationFor(response.data.result.pref_label, locale, []);
+
+            URIlabel = result;
+        }
+    );
+
+    return URIlabel;
+}
+
 export default {
     mergeNestedObjects,
     addNamespace,
@@ -322,4 +386,5 @@ export default {
     addKeyToFormatType,
     removeKeyFromFormatType,
     propertyHasValue,
+    getUriLabel,
 };
