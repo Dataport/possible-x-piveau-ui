@@ -18,7 +18,7 @@
                     <SpecialProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></SpecialProp>
                 </div>
                 <div
-                    v-if="property != 'dct:creator' && property != 'dcat:temporalResolution' && property != 'spdx:checksum'">
+                    v-else-if="property != 'dct:creator' && property != 'dcat:temporalResolution' && property != 'spdx:checksum'">
                     <div v-for="(elem, index) in data[property]" :key="index">
                         <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
                     </div>
