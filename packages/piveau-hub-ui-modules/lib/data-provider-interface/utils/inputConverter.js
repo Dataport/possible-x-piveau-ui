@@ -82,20 +82,24 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
             // publisher either is an URI or a group with multiple values (name, homepage, email)
             if (key === 'dct:publisher' || key === 'dct:license') {
                 for (let el of subData) {
-                    // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
-                    if (el.object.termType === 'BlankNode') {
-                        generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatType);
-                        generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatType);
+                    if (el.object.termType === 'NamedNode') {
+                        state[key] = {name: el.object.value, resource: el.object.value };
+                    } else if (el.object.termType === "BlankNode") {
 
-                        // now conversion run based on newly defined format Type
-                        convertProperties(property, state, id, data, propertyKeys, dpiConfig);
+                        // get keys for nested values without dct'title (special format)
+                        const nestedKeys = generalHelper.getNestedKeys(data.match(el.object, null, null, null), dpiConfig).filter(el => el !== 'dct:title');
+                        const nestedProperties = {};
 
-                        // to handle changes: undo prior changes back to default behavior (conditional Property)
-                        generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatType);
-                        generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatType);
+                        // convert nested values
+                        if (key === 'dct:license') {
+                            const licenceTitleQuad = data.match(el.object, generalHelper.addNamespace('dct:title', dpiConfig), null, null);
+                            for (let el of licenceTitleQuad) {
+                                nestedProperties['dct:title'] = el.object.value;
+                            }
+                        }
 
-                    } else if (el.object.termType === 'NamedNode') {
-                        state[key] = { publisherMode: 'voc', details: { name: el.object.value, resource: el.object.value } };
+                        convertProperties(property, nestedProperties, el.object, data, nestedKeys, dpiConfig);
+                        state[key] = nestedProperties;
                     }
                 }
             }
@@ -120,16 +124,6 @@ function convertProperties(property, state, id, data, propertyKeys, dpiConfig) {
                     }
                     // creator not an array
                     if (key === 'dct:creator' || key === 'vcard:hasAddress' || key === 'skos:notation' || key === 'spdx:checksum') state[key] = currentState;
-                    else if (key === 'dct:publisher' || key === 'dct:license') {
-                        if (key === 'dct:license') {
-                            // title of licence is not multilingual for some reasons
-                            // convert dct:title : [{@value: '...', @language: ''}] t singular string
-
-                            if (has(currentState, 'dct:title') && !isEmpty(currentState['dct:title'])
-                                && has(currentState['dct:title'][0], '@value') && !isEmpty(currentState['dct:title'][0]['@value'])) currentState['dct:title'] = currentState['dct:title'][0]['@value'];
-                        }
-                        state[key] = { publisherMode: 'man', details: currentState };
-                    }
                     else state[key].push(currentState);
                 }
             }
