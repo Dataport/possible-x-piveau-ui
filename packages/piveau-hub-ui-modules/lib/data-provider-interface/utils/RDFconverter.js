@@ -125,7 +125,7 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 
                 let actualData;
                 // vcard:hasAdress is an object as well as dct:creator and skos:notation
-                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation' || key === 'spdx:checksum' || key === 'dct:publisher' || key === 'dct:license') actualData = [data[key]];
+                if (key === 'vcard:hasAddress' || key === 'dct:creator' || key === 'skos:notation' || key === 'spdx:checksum' ) actualData = [data[key]];
                 else actualData = data[key];
 
                 // looping trough all existing objects within the array
@@ -254,27 +254,34 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 // publisher either is an URI or a group with multiple values (name, homepage, email)
                 // license either is an URI or a group with multiple values ()
                 if (key === 'dct:publisher' || key === 'dct:license') {
-                    const modeKey = Object.keys(data[key]).filter(key => key !== 'details')[0]; 
-                    const propertyData = {};
 
-                    // depeding on format given by input form the key will be added to a format type (singularURI / groupedProperties) and removed as conditional Property
-                    if (data[key][modeKey] === 'voc') {
-                        generalHelper.addKeyToFormatType(key, 'singularURI', property, formatTypes);
-                        propertyData[key] = data[key].details['@id'];
+                    // data contains either {resource: '...', name: '...'} or object containing other keys
+                    if (has(data[key], 'resource')) {
+                        convertSingularURI(RDFdataset, mainURI, data, key, dpiConfig);
                     } else {
-                        generalHelper.addKeyToFormatType(key, 'groupedProperties', property, formatTypes);
-                        propertyData[key] = data[key].details;
+                        const groupBlankNode = N3.DataFactory.blankNode('');
 
+                        // some properties provide additional types
+                        if (has(formatTypes.additionalPropertyTypes, key)) {
+                            RDFdataset.addQuad(N3.DataFactory.quad(
+                                groupBlankNode,
+                                N3.DataFactory.namedNode(generalHelper.addNamespace('rdf:type', dpiConfig)),
+                                N3.DataFactory.namedNode(generalHelper.addNamespace(formatTypes.additionalPropertyTypes[key], dpiConfig))
+                            ))
+                        }
+
+                        // save inital quadruple using the named or blank node as object
+                        // e.g.  datasetId  dct:contactPoint  blankNode/namedNode
+                        RDFdataset.addQuad(N3.DataFactory.quad(
+                            mainURI,
+                            N3.DataFactory.namedNode(generalHelper.addNamespace(key, dpiConfig)),
+                            groupBlankNode
+                        ))
+
+                        convertPropertyValues(RDFdataset, data[key], property, groupBlankNode, mainType, false, dpiConfig, dpiConfig);
                     }
-                    generalHelper.removeKeyFromFormatType(key, 'conditionalProperties', property, formatTypes);
+                    
 
-                    // now conversion run based on newly defined format Type
-                    convertPropertyValues(RDFdataset, propertyData, property, mainURI, mainType, false, dpiConfig, dpiConfig);
-
-                    // to handle changes: undo prior changes back to default behavior (conditional Property)
-                    generalHelper.addKeyToFormatType(key, 'conditionalProperties', property, formatTypes);
-                    generalHelper.removeKeyFromFormatType(key, 'singularURI', property, formatTypes);
-                    generalHelper.removeKeyFromFormatType(key, 'groupedProperties', property, formatTypes);
                 }
             } else if (key === 'dcat:temporalResolution') {
                 // temporal resolution is displayed as group of input forms for each property (year, month, day, ...)
