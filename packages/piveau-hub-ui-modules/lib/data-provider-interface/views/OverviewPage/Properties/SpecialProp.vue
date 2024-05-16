@@ -157,22 +157,23 @@
 
     </tr>
     <!-- PUBLISHER -->
-    <tr v-if="manualPublisher(data) == 'man'">
+    <tr v-if="manualPublisher(data) === 'man'">
+
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td>
-           
+
             <div v-for="item, index in Object.values(data['dct:publisher']) ">
-                <div v-if="item != null && item != ''  && index === 0">
+                <div v-if="item != null && item != '' && index === 0">
                     <span class="">{{
                         $t('message.dataupload.datasets.publisherName.label') }}:</span>
                     <span>{{ item }}</span>
                 </div>
-                <div v-if="item != null && item != ''  && index === 1">
+                <div v-if="item != null && item != '' && index === 1">
                     <span class="">{{
                         $t('message.dataupload.datasets.publisherEmail.label') }}:</span>
                     <app-link class="w-100" :to="item">{{ item }}</app-link>
                 </div>
-                <div v-if="item != null && item != ''  && index === 2">
+                <div v-if="item != null && item != '' && index === 2">
                     <span class="">{{
                         $t('message.dataupload.datasets.publisherHomepage.label') }}:</span>
                     <app-link class="w-100" :to="item">{{
@@ -181,7 +182,7 @@
             </div>
         </td>
     </tr>
-    <tr v-if="manualPublisher(data['dct:publisher']) === 'auto'">
+    <tr v-if="manualPublisher(data) === 'auto'">
         <URIProp :property="property" :value="value" :data="data">
         </URIProp>
     </tr>
@@ -212,18 +213,22 @@ export default {
             } catch (error) {
             }
         },
-        manualPublisher(e) {1
-            console.log(e);
-            if (typeof e === String) {
-                return false
+        manualPublisher(e) {
+            1
+            console.log(typeof e, e);
+            if (e != undefined) {
+                if (typeof e === 'string') {
+                    return false
+                }
+                if (Object.keys(e['dct:publisher'])[1] != 'resource') {
+                    return 'man'
+                }
+                if (Object.keys(e['dct:publisher'])[0] != 'foaf:name') {
+                    return 'auto'
+                }
+                else return false
             }
-            if (e != undefined && Object.keys(e)[0] != 'resource') {
-                return 'man'
-            }
-            if (e != undefined && Object.keys(e)[0] != 'foaf:name') {
-                return 'auto'
-            }
-            else return false
+
 
         },
         showMultilingualValue(property, value) {

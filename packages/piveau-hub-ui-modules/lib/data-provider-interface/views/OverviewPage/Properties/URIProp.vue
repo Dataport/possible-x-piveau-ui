@@ -1,4 +1,5 @@
 <template>
+  <details>{{ data }}</details>
   <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
   </td>
   <!-- SINGULAR URIs -->
@@ -55,7 +56,8 @@ export default {
     getTranslationFor,
     async getUriName(voc, res) {
 
-      const specification = this.$env.content.dataProviderInterface.specification;
+      
+      const specification = this.$env;
 
       if (res != undefined) {
         let vocMatch =
@@ -63,8 +65,9 @@ export default {
           this.voc === "spdx-checksum-algorithm";
 
         let name;
-        await this.requestResourceName({ voc: voc, uri: res, specification: specification }).then(
+        await this.requestResourceName({ voc: voc, uri: res, envs: specification }).then(
           (response) => {
+            console.log(voc,res,specification);
             if (this.property === 'dcatde:politicalGeocodingURI') {
               if (response != undefined) {
                 let result = vocMatch
@@ -86,6 +89,7 @@ export default {
             }
           }
         );
+        // console.log(name);
         return name
       }
     },
