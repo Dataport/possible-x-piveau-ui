@@ -1,2 +1,4 @@
 #!/bin/bash
-cyclonedx-npm --output-format JSON --output-file ./bom.json
+cd packages\piveau-hub-ui-modules\
+cyclonedx-npm --output-format JSON --output-file ..\..\bom.json
+cd ..\..
