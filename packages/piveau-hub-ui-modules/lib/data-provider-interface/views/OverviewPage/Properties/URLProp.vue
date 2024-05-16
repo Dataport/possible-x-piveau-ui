@@ -1,5 +1,6 @@
 <template>
-    <div>
+  
+        <td class="font-weight-bold">{{ $t(`${value.label}`) }}</td>
         <!-- SINGULAR URL -->
         <td v-if="value.type === 'singularURL'">
           
@@ -31,7 +32,7 @@
             </div>
             <div class="infoI" @click="editProp(property)"></div>
         </td>
-    </div>
+    
 </template>
 
 <script>

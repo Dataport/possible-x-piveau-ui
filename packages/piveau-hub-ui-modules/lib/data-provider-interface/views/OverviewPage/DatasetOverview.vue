@@ -14,8 +14,8 @@
                 </div>
                 <div class="dsPublisher">
                     <PropertyEntry profile="datasets" :data="values" property='dct:publisher'
-                        :value="{ type: 'special', voc: 'corporate-body', label: 'message.metadata.publisher' }"
-                        :dpiLocale="dpiLocale"  ></PropertyEntry>
+                        :value="{ type: 'special', voc: 'corporate-body', label: 'message.metadata.publisher', isHeader: true }"
+                        :dpiLocale="dpiLocale"></PropertyEntry>
                 </div>
                 <div class="dsIssued ">
                     <span><b>Issued:</b></span>
@@ -43,7 +43,7 @@
 
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        
+
                         <PropertyEntry v-if="trigger" profile="datasets" :data="values" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>

@@ -1,5 +1,4 @@
 <template>
-  <details>{{ data }}</details>
   <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
   </td>
   <!-- SINGULAR URIs -->
@@ -67,7 +66,7 @@ export default {
         let name;
         await this.requestResourceName({ voc: voc, uri: res, envs: specification }).then(
           (response) => {
-            console.log(voc,res,specification);
+           
             if (this.property === 'dcatde:politicalGeocodingURI') {
               if (response != undefined) {
                 let result = vocMatch
@@ -89,7 +88,6 @@ export default {
             }
           }
         );
-        // console.log(name);
         return name
       }
     },
@@ -121,10 +119,7 @@ export default {
 
           this.nameOfProperty = await this.getUriName(voc, URI)
         }
-        // else {
-        //   this.nameOfProperty = this.data[this.property][0]['name']
-        //   return
-        // }
+     
       } catch (error) {
         this.nameOfProperty = await this.getUriName(voc, URI)
       }

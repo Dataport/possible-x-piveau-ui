@@ -157,8 +157,12 @@
 
     </tr>
     <!-- PUBLISHER -->
-    <tr v-if="manualPublisher(data) === 'man'">
-
+    <tr v-if="value.isHeader && manualPublisher(data, value.isHeader) === 'man'">
+        <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+        <td>{{ data['dct:publisher'][Object.keys(data['dct:publisher'])[0]] }}</td>
+    </tr>
+    <tr v-if="manualPublisher(data, value.isHeader) === 'man' && !value.isHeader">
+       
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td>
 
@@ -213,18 +217,20 @@ export default {
             } catch (error) {
             }
         },
-        manualPublisher(e) {
-            1
-            console.log(typeof e, e);
-            if (e != undefined) {
-                if (typeof e === 'string') {
+        manualPublisher(propData, head) {
+
+            if (propData != undefined) {
+                if (typeof propData === 'string') {
                     return false
                 }
-                if (Object.keys(e['dct:publisher'])[1] != 'resource') {
+                if (Object.keys(propData['dct:publisher'])[1] != 'resource') {
                     return 'man'
                 }
-                if (Object.keys(e['dct:publisher'])[0] != 'foaf:name') {
+                if (Object.keys(propData['dct:publisher'])[0] != 'foaf:name') {
                     return 'auto'
+                }
+                if (head === true) {
+                    return 'head'
                 }
                 else return false
             }
