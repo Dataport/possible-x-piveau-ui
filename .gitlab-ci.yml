@@ -70,7 +70,7 @@ dependency-track:
     - |
       curl --location --request POST "$DEPENDENCY_TRACK_BASE_URL/api/v1/bom" \
       -H 'Content-Type: multipart/form-data' -H 'X-Api-Key: '$DEPENDENCY_TRACK_API_KEY'' \
-      -F 'projectName='$CI_PROJECT_NAME'' -F 'bom=@./bom.json';
+      -F 'projectName='$CI_PROJECT_NAME'' -F 'autoCreate=true'  -F 'bom=@./bom.json';
     - |
       curl --location --request POST "$DEPENDENCY_TRACK_BASE_URL/api/v1/project" \
       -H 'X-Api-Key: '$DEPENDENCY_TRACK_API_KEY''  \
