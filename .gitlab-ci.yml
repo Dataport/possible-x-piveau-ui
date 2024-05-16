@@ -69,9 +69,9 @@ dependency-track:
     - npm run sbom
     - |
       curl --location --request POST "$DEPENDENCY_TRACK_BASE_URL/api/v1/bom" \
-      -H 'Content-Type: multipart/form-data' -H "X-Api-Key: '$DEPENDENCY_TRACK_API_KEY'" \
-      -F "projectName='$CI_PROJECT_NAME'" -F "autoCreate=true"  -F "bom=@./bom.json";
+      -H 'Content-Type: multipart/form-data' -H "X-Api-Key: $DEPENDENCY_TRACK_API_KEY" \
+      -F "projectName=$CI_PROJECT_NAME" -F "autoCreate=true"  -F "bom=@./bom.json";
   only:
-    - DependencyTrack
+    - master
   tags:
     - dps
