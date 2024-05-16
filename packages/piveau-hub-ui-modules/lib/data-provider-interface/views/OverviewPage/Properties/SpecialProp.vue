@@ -157,30 +157,31 @@
 
     </tr>
     <!-- PUBLISHER -->
-    <details>{{ data }}</details>
-    <tr v-if="manualPublisher(data)">
+    <tr v-if="manualPublisher(data) == 'man'">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td>
-            <div v-if="data['dct:publisher']['foaf:name'] != undefined && data['dct:publisher']['foaf:name'] != ''
-                && Object.values(data['dct:publisher']['foaf:name']).length > 1">
-                <span class="">{{ $t('message.dataupload.datasets.publisherName.label') }}:</span>
-                {{ data['dct:publisher']['foaf:name'] }}
-            </div>
-            <div v-if="data['dct:publisher']['foaf:mbox'] != undefined && data['dct:publisher']['foaf:mbox'] != ''
-                && Object.values(data['dct:publisher']['foaf:mbox']).length > 1" class="pr-1">
-                <span class="">{{ $t('message.dataupload.datasets.publisherEmail.label') }}:</span>
-                <app-link class="w-100" :to="data['dct:publisher']['foaf:mbox']">{{ data['dct:publisher']['foaf:mbox']
-                }}</app-link>
-            </div>
-            <div v-if="data['dct:publisher']['foaf:homepage'] != undefined && data['dct:publisher']['foaf:homepage'] != ''
-                && Object.values(data['dct:publisher']['foaf:homepage']).length > 1">
-                <span class="">{{ $t('message.dataupload.datasets.publisherHomepage.label') }}:</span>
-                <app-link class="w-100" :to="data['dct:publisher']['foaf:homepage']">{{
-                    data['dct:publisher']['foaf:homepage'] }}</app-link>
+           
+            <div v-for="item, index in Object.values(data['dct:publisher']) ">
+                <div v-if="item != null && item != ''  && index === 0">
+                    <span class="">{{
+                        $t('message.dataupload.datasets.publisherName.label') }}:</span>
+                    <span>{{ item }}</span>
+                </div>
+                <div v-if="item != null && item != ''  && index === 1">
+                    <span class="">{{
+                        $t('message.dataupload.datasets.publisherEmail.label') }}:</span>
+                    <app-link class="w-100" :to="item">{{ item }}</app-link>
+                </div>
+                <div v-if="item != null && item != ''  && index === 2">
+                    <span class="">{{
+                        $t('message.dataupload.datasets.publisherHomepage.label') }}:</span>
+                    <app-link class="w-100" :to="item">{{
+                        item }}</app-link>
+                </div>
             </div>
         </td>
     </tr>
-    <tr v-else>
+    <tr v-if="manualPublisher(data['dct:publisher']) === 'auto'">
         <URIProp :property="property" :value="value" :data="data">
         </URIProp>
     </tr>
@@ -211,10 +212,16 @@ export default {
             } catch (error) {
             }
         },
-       async manualPublisher(e) {
-            console.log(await e['dct:publisher']);
-            if (e != undefined && Object.keys(e)[0] != 'name') {
-                return true
+        manualPublisher(e) {1
+            console.log(e);
+            if (typeof e === String) {
+                return false
+            }
+            if (e != undefined && Object.keys(e)[0] != 'resource') {
+                return 'man'
+            }
+            if (e != undefined && Object.keys(e)[0] != 'foaf:name') {
+                return 'auto'
             }
             else return false
 

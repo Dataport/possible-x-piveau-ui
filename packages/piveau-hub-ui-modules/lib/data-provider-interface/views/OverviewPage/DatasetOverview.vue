@@ -1,6 +1,5 @@
 <template>
     <div class="mt-2" v-if="pageLoaded">
-        <!-- <details>{{ values }}</details> -->
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
@@ -12,14 +11,11 @@
                     <a href="">
                         {{ checkIfPropertySet(getDatasets, 'dcat:catalog') }}
                     </a>
-                    <!-- <details>{{ values }}</details> -->
-
                 </div>
                 <div class="dsPublisher">
-
                     <PropertyEntry profile="datasets" :data="values" property='dct:publisher'
-                        :value="tableProperties['dct:publisher']" :dpiLocale="dpiLocale"></PropertyEntry>
-
+                        :value="{ type: 'special', voc: 'corporate-body', label: 'message.metadata.publisher' }"
+                        :dpiLocale="dpiLocale"  ></PropertyEntry>
                 </div>
                 <div class="dsIssued ">
                     <span><b>Issued:</b></span>
@@ -47,6 +43,7 @@
 
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
+                        
                         <PropertyEntry v-if="trigger" profile="datasets" :data="values" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
