@@ -1,7 +1,9 @@
 <template>
+    <td class="font-weight-bold">{{ $t(`${value.label}`) }}</td>
     <div>
         <!-- MULTISTRING -->
         <td v-if="value.type === 'multiString'">
+
             <div v-for="(el, index) in data[property]" :key="index">{{ Object.values(el)[0] }}</div>
         </td>
 
