@@ -1271,18 +1271,18 @@
                     "help": "The license under which the Distribution is made available."
                 },
                 "licenceURL": {
-                    "label": "Licence URL",
+                    "label": "URL",
                     "placeholder": "Provide a Url",
                     "help": "A link to the licence."
                 },
                 "licenceTitle": {
-                    "label": "Licence Title",
+                    "label": "Title",
                     "placeholder": "Catalogue Licence Title placeholder text",
                     "help": "The licence's name."
                 },
                 "licenceDescription": {
                     "placeholder": "Catalogue Licence Description placeholder text",
-                    "label": "Licence Description",
+                    "label": "Description",
                     "help": "A licence description"
                 },
                 "modified": {
@@ -1921,6 +1921,14 @@
             "licensingAssistant": "Licensing Assistant",
             "notFound": "No licence information found.",
             "notFoundExtended": "No licence information found, please check source for further information about the licence."
+        },
+        "distributionLicenseDescription": {
+            "label": "Description of the license",
+            "placeholder": "Provide a description"
+        },
+        "distributionLicenseURL": {
+            "label": "URL of the license",
+            "placeholder": "Provide a URL"
         },
         "catalogs": {
             "countMessageSingular": "catalogue found",
