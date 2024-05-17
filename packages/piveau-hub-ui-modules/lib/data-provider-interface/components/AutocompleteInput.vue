@@ -28,7 +28,7 @@ onMounted(async () => {
   inputText.value = ""
 });
 
-watch(matches, async () => {})
+watch(matches, async () => { })
 
 function findPropertyToUpdate(trigger) {
 
@@ -133,7 +133,7 @@ const setValue = async (e) => {
 
 const getAutocompleteSuggestions = async (e) => {
   let innerText = e.target.value
-  
+
   await store.dispatch('dpiStore/requestAutocompleteSuggestions', { voc: voc, text: innerText, base: instance.api.baseUrl }).then((response) => {
     const results = response.data.result.results.map((r) => ({
       name: getTranslationFor(r.pref_label, 'en', []) + " (" + r.id + ")",
@@ -180,7 +180,7 @@ function toggleList(e) {
       <div class="formkit-outer ">
 
         <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
-          <!-- <label class="formkit-label" for="autocompleteInputSingleValue">{{ props.context.attrs.identifier }}</label> -->
+
           <div class="infoI">
             <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
           </div>
@@ -188,7 +188,7 @@ function toggleList(e) {
           <div class="removeX" @click="removeProperty"></div>
         </div>
         <div v-else>
-          <!-- <label class="formkit-label" for="autocompleteInputfield">{{ props.context.attrs.identifier }}</label> -->
+
           <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
             <div class="infoI">
               <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>

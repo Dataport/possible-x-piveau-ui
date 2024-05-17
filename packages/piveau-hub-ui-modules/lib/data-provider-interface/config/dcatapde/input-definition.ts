@@ -593,63 +593,12 @@ const dcatapProperties: InputDefinition = {
     publisher: {
       $formkit: 'simpleConditional',
       name: 'dct:publisher',
-      identifier:'publisher',
+      identifier: 'publisher',
       voc: 'corporate-body',
       options: { text: 'foaf:name', email: 'foaf:mbox', url: 'foaf:homepage' },
       selection: { 1: 'vocabulary', 2: 'manually' }
 
     },
-    // publisher: {
-    //   $formkit: 'group',
-    //   name: 'dct:publisher',
-    //   children: [
-    //     {
-    //       $formkit: 'select',
-    //       identifier: 'publisher',
-    //       name: 'publisherMode',
-    //       id: 'publisherModeDataset',
-    //       options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-    //     },
-    //     {
-    //       $formkit: 'group',
-    //       name: 'details',
-    //       key: '$get(publisherModeDataset).value',
-    //       if: '$get(publisherModeDataset).value === "voc"',
-    //       children: [
-    //         {
-    //           $formkit: 'auto',
-    //           identifier: 'licenceVocabulary',
-    //           name: '@id',
-    //           voc: 'corporate-body',
-    //           property: 'dct:license',
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       $formkit: 'group',
-    //       name: 'details',
-    //       key: '$get(publisherModeDataset).value',
-    //       if: '$get(publisherModeDataset).value === "man"',
-    //       children: [
-    //         {
-    //           $formkit: 'text',
-    //           identifier: 'publisherName',
-    //           name: 'foaf:name',
-    //         },
-    //         {
-    //           $formkit: 'email',
-    //           identifier: 'publisherEmail',
-    //           name: 'foaf:mbox',
-    //         },
-    //         {
-    //           $formkit: 'url',
-    //           identifier: 'publisherHomepage',
-    //           name: 'foaf:homepage',
-    //         },
-    //       ]
-    //     }
-    //   ]
-    // },
     spatial: {
       identifier: 'spatial',
       $formkit: 'repeatable',
@@ -1311,14 +1260,14 @@ const dcatapProperties: InputDefinition = {
         },
         {
           identifier: 'temporalResolutionMonth',
-          $formkit:'number',
+          $formkit: 'number',
           validation: 'min:0|max:12|optional',
-          "validation-behavior": 'live',       
+          "validation-behavior": 'live',
           name: 'Month',
         },
         {
           identifier: 'temporalResolutionDay',
-          $formkit:'number',
+          $formkit: 'number',
           validation: 'min:0|max:31|optional',
           "validation-behavior": 'live',
           name: 'Day',
@@ -1522,11 +1471,12 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:format',
     },
     licence: {
-      identifier: 'licence',
-      $formkit: 'auto',
+      $formkit: 'simpleConditional',
       name: 'dct:license',
-      voc: 'licenses',
-      property: 'dct:license'
+      identifier: 'licence',
+      voc: 'licence',
+      options: { text: 'dct:title', textarea: 'skos:prefLabel', url: 'skos:exactMatch' },
+      selection: { 1: 'vocabulary', 2: 'manually' },
     },
     title: {
       identifier: 'title',
@@ -2166,56 +2116,12 @@ const dcatapProperties: InputDefinition = {
       class: 'property',
     },
     licence: {
-      $formkit: 'group',
+      $formkit: 'simpleConditional',
       name: 'dct:license',
-      children: [
-        {
-          $formkit: 'select',
-          identifier: 'licence',
-          name: 'licenceMode',
-          id: 'licenceModeCatalogue',
-          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-        },
-        {
-          $formkit: 'group',
-          name: 'details',
-          key: '$get(licenceModeCatalogue).value',
-          if: '$get(licenceModeCatalogue).value === "voc"',
-          children: [
-            {
-              $formkit: 'auto',
-              identifier: 'licenceVocabulary',
-              name: '@id',
-              voc: 'licence',
-              property: 'dct:license',
-            }
-          ]
-        },
-        {
-          $formkit: 'group',
-          name: 'details',
-          key: '$get(licenceModeCatalogue).value',
-          if: '$get(licenceModeCatalogue).value === "man"',
-          children: [
-            {
-              $formkit: 'text',
-              identifier: 'licenceTitle',
-              name: 'dct:title',
-            },
-            {
-              $formkit: 'textarea',
-              identifier: 'licenceDescription',
-              name: 'skos:prefLabel',
-            },
-            {
-              $formkit: 'url',
-              identifier: 'licenceURL',
-              name: 'skos:exactMatch',
-              validation: 'optional|url',
-            },
-          ]
-        }
-      ]
+      identifier: 'licence',
+      voc: 'licence',
+      options: { text: 'dct:title', textarea: 'skos:prefLabel', url: 'skos:exactMatch' },
+      selection: { 1: 'vocabulary', 2: 'manually' },
     },
     spatial: {
       $formkit: 'repeatable',

@@ -1,6 +1,6 @@
 
 <script setup>
-import { ref, nextTick } from 'vue';
+import { ref, computed } from 'vue';
 import AutocompleteInput from './AutocompleteInput.vue';
 import { onClickOutside } from '@vueuse/core'
 
@@ -25,7 +25,6 @@ const selectMode = (e) => {
 }
 onClickOutside(I1, event => showSelect.value = false)
 
-// console.log(Object.keys(props.context.value));
 // determine which property is already there
 
 </script>
@@ -45,7 +44,7 @@ onClickOutside(I1, event => showSelect.value = false)
       </div>
       <div class="conditionalManual">
         <div class="d-flex" v-if="selectedItem === 'manually' ||
-          Object.keys(props.context.value).length > 0 && Object.keys(props.context.value)[0] === 'foaf:name'
+          Object.keys(props.context.value).length > 0 && props.context.value['foaf:name']
           && selectedItem != 'vocabulary'">
           <FormKit v-for="el, key in props.context.attrs.options" :type="key" :placeholder="key" :name="el"
             :validation="key"></FormKit>
@@ -53,8 +52,7 @@ onClickOutside(I1, event => showSelect.value = false)
 
       </div>
       <div v-if="selectedItem === 'vocabulary' || Object.keys(props.context.value).length > 0
-        && Object.keys(props.context.value)[0] === 'name' && selectedItem != 'manually'"
-        class="conditionalVocabulary">
+        && props.context.value['name'] && selectedItem != 'manually'" class="conditionalVocabulary">
         <AutocompleteInput :context="props.context"></AutocompleteInput>
       </div>
 

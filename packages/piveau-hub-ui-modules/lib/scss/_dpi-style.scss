@@ -1146,7 +1146,9 @@
     }
 
 }
-
+.firstRow{
+    margin: 1rem 0
+}
 
 .simpleConditional{
    h4{
@@ -1154,6 +1156,12 @@
    } 
    .formkitCmpWrap{
     border:none
+   }
+   .formkit-outer:nth-child(even){
+    margin:  1rem;
+   }
+   .formkit-outer:nth-child(odd){
+    margin:  1rem 0;
    }
    
 }

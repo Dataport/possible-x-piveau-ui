@@ -2,7 +2,10 @@
   <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
   </td>
   <!-- SINGULAR URIs -->
-  <td v-if="value.type === 'singularURI'" class=""> {{ data[property].name }}</td>
+  <details>{{ data[property] }}</details>
+  <td v-if="value.type === 'singularURI' && typeof data[property] === 'string' " class=""> {{ data[property] }}</td>
+  <td v-if="Object.keys(data[property]).length ===  1 && value.type === 'singularURI' " class=""> {{ data[property][0]['@id'] }}</td>
+  <td v-if="value.type === 'singularURI' && typeof data[property] != 'string' && Object.keys(data[property]).length >  1 " class=""> {{ data[property]['name']  }}</td>
   <!-- MULTIPLE URIs -->
   <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
     <div v-for="(el, index) in data[property]" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
@@ -82,7 +85,10 @@ export default {
 
     try {
       if (this.value.type === 'singularURI') {
-      this.data[this.property].name = await this.getURILabel(this.data[this.property]);
+        if (typeof this.data[this.property] != 'string') {
+          this.data[this.property].name = await this.getURILabel(this.data[this.property]);
+        }
+      
       } else if (this.value.type === 'multiURI') {
         for (let index = 0; index < this.data[this.property].length; index ++) {
           this.data[this.property][index].name = await this.getURILabel(this.data[this.property][index]);
