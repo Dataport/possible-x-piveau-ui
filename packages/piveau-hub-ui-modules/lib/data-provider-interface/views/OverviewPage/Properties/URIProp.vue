@@ -8,8 +8,8 @@
   <td v-if="value.type === 'singularURI'" class=""> {{ nameOfProperty }}</td>
   <!-- MULTIPLE URIs -->
   <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
-    <div v-for="(el, index) in namesOfMulti" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
-      {{ el['name'] }}
+    <div v-for="(el, index) in data[property]" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
+      {{ el.name }}
     </div>
   </td>
   <!-- SPECIAL CASES -->
@@ -20,46 +20,23 @@
 <script>
 import { mapActions } from 'vuex';
 import { getTranslationFor } from "../../../../utils/helpers";
+import generalHelper from '../../../utils/general-helper';
+import dpiConfig from '../../../config/dpi-spec-config';
 
 export default {
-  data() {
-    return {
-      nameOfProperty: "Unchanged Value",
-      namesOfMulti: []
-    }
-
-  },
   props: {
     property: String,
     value: Object,
     data: Object,
-  },
-  created() {
-    try {
-      if (this.data[this.property]) {
-        this.displayURIName(this.value.voc, this.data[this.property]['resource'])
-      }
-      this.displayURIName(this.value.voc, this.data[this.property][0]['resource'])
-      if (this.value.type == "multiURI") {
-        for (let index = 0; index < this.data[this.property].length; index++) {
-          const element = this.data[this.property][index]['resource'];
-          this.displayURIName(this.value.voc, element)
-        }
-      }
-    }
-    catch (error) {
-
-    }
   },
   methods: {
     ...mapActions("dpiStore", [
       "requestResourceName",
     ]),
     getTranslationFor,
-    async getUriName(voc, res) {
+    async requestURILabel(voc, res) {
 
-      
-      const specification = this.$env;
+      const envs = this.$env;
 
       if (res != undefined) {
         let vocMatch =
@@ -67,7 +44,7 @@ export default {
           this.voc === "spdx-checksum-algorithm";
 
         let name;
-        await this.requestResourceName({ voc: voc, uri: res, envs: specification }).then(
+        await this.requestResourceName({ voc: voc, uri: res, envs: envs }).then(
           (response) => {
            
             if (this.property === 'dcatde:politicalGeocodingURI') {
@@ -94,43 +71,30 @@ export default {
         return name
       }
     },
-
-    async displayURIName(voc, URI) {
-      try {
-        if (voc != undefined) {
-          if (voc == "") {
-            var arr = URI.split('/');
-            voc = arr[arr.length - 2]
-            if (this.property === 'dcatde:politicalGeocodingURI') {
-              let geocodingVoc = ""
-              voc.split(/(?=[A-Z])/).forEach(element => {
-                geocodingVoc += '-' + element.toLowerCase()
-              });
-              voc = 'political-geocoding' + geocodingVoc
-            }
-          }
-          if (this.value.type === "multiURI") {
-
-            let resolvedURI = { name: await this.getUriName(voc, URI), resource: URI }
-
-            if (this.namesOfMulti.find(({ name }) => name === resolvedURI.name) === undefined) {
-              if (resolvedURI.name != undefined) {
-                this.namesOfMulti.push(resolvedURI)
-              }
-            }
-          }
-
-          this.nameOfProperty = await this.getUriName(voc, URI)
-        }
-     
-      } catch (error) {
-        this.nameOfProperty = await this.getUriName(voc, URI)
+    async getURILabel(value) {
+      // only request name if there is no name already given
+      if (generalHelper.isUrl(value.name)) {
+        const prefixes = dpiConfig[this.$env.content.dataProviderInterface.specification].vocabPrefixes;
+        const vocabulary = Object.keys(prefixes).find(key => value.name.includes(prefixes[key]));
+        return await this.requestURILabel(vocabulary, value.name);
       }
-
+      else return value.name;
     }
+  },
+  async created() {
 
-  }
-
+    try {
+      if (this.value.type === 'singularURI') {
+      this.data[this.property].name = await this.getURILabel(this.data[this.property]);
+      } else if (this.value.type === 'multiURI') {
+        for (let index = 0; index < this.data[this.property].length; index ++) {
+          this.data[this.property][index].name = await this.getURILabel(this.data[this.property][index]);
+        }
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  },
 }
 
 </script>
