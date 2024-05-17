@@ -157,36 +157,68 @@
 
     </tr>
     <!-- PUBLISHER -->
-    <tr v-if="value.isHeader && manualPublisher(data, value.isHeader) === 'man'">
+    <tr v-if="value.isHeader && manualSwitch(data, value.isHeader) === 'man'">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-        <td>{{ data['dct:publisher'][Object.keys(data['dct:publisher'])[0]] }}</td>
+        <td>{{ data['dct:publisher']['foaf:name'] }}</td>
     </tr>
-    <tr v-if="manualPublisher(data, value.isHeader) === 'man' && !value.isHeader">
-       
+    <tr v-if="manualSwitch(data, value.isHeader) === 'man' && !value.isHeader">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td>
-
-            <div v-for="item, index in Object.values(data['dct:publisher']) ">
-                <div v-if="item != null && item != '' && index === 0">
+            <div v-for="item, index in Object.keys(data['dct:publisher']) ">
+                <div
+                    v-if="data['dct:publisher'][item] != null && data['dct:publisher'][item] != '' && item === 'foaf:name'">
                     <span class="">{{
                         $t('message.dataupload.datasets.publisherName.label') }}:</span>
-                    <span>{{ item }}</span>
+                    <span>{{ data['dct:publisher'][item] }}</span>
                 </div>
-                <div v-if="item != null && item != '' && index === 1">
+                <div
+                    v-if="data['dct:publisher'][item] != null && data['dct:publisher'][item] != '' && item === 'foaf:mbox'">
                     <span class="">{{
                         $t('message.dataupload.datasets.publisherEmail.label') }}:</span>
-                    <app-link class="w-100" :to="item">{{ item }}</app-link>
+                    <app-link class="w-100" :to="item">{{ data['dct:publisher'][item] }}</app-link>
                 </div>
-                <div v-if="item != null && item != '' && index === 2">
+                <div
+                    v-if="data['dct:publisher'][item] != null && data['dct:publisher'][item] != '' && item === 'foaf:homepage'">
                     <span class="">{{
                         $t('message.dataupload.datasets.publisherHomepage.label') }}:</span>
                     <app-link class="w-100" :to="item">{{
-                        item }}</app-link>
+                        data['dct:publisher'][item] }}</app-link>
                 </div>
             </div>
         </td>
     </tr>
-    <tr v-if="manualPublisher(data) === 'auto'">
+    <tr v-if="manualSwitch(data) === 'auto'">
+        <URIProp :property="property" :value="value" :data="data">
+        </URIProp>
+    </tr>
+    <!-- License -->
+    <tr v-if="manualSwitch(data) === 'liMan'">
+        <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+        <td>
+            <div v-for="item, index in Object.keys(data['dct:license']) ">
+                <div
+                    v-if="data['dct:license'][item] != null && data['dct:license'][item] != '' && item === 'dct:title'">
+                    <span class="">{{
+                        $t('message.dataupload.datasets.publisherName.label') }}:</span>
+                    <span>{{ data['dct:license'][item] }}</span>
+                </div>
+                <div
+                    v-if="data['dct:license'][item] != null && data['dct:license'][item] != '' && item === 'skos:prefLabel'">
+                    <span class="">{{
+                        $t('message.dataupload.datasets.publisherEmail.label') }}:</span>
+                    <app-link class="w-100" :to="item">{{ data['dct:license'][item] }}</app-link>
+                </div>
+                <div
+                    v-if="data['dct:license'][item] != null && data['dct:license'][item] != '' && item === 'skos:exactMatch'">
+                    <span class="">{{
+                        $t('message.dataupload.datasets.publisherHomepage.label') }}:</span>
+                    <app-link class="w-100" :to="item">{{
+                        data['dct:license'][item] }}</app-link>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr v-if="manualSwitch(data) === 'liAuto'">
         <URIProp :property="property" :value="value" :data="data">
         </URIProp>
     </tr>
@@ -217,22 +249,37 @@ export default {
             } catch (error) {
             }
         },
-        manualPublisher(propData, head) {
+        manualSwitch(propData, head) {
 
             if (propData != undefined) {
-                if (typeof propData === 'string') {
-                    return false
+                if (propData['dct:publisher'] != undefined) {
+                    if (typeof propData === 'string') {
+                        return false
+                    }
+                    if (Object.keys(propData['dct:publisher'])[1] != 'resource') {
+                        return 'man'
+                    }
+                    if (Object.keys(propData['dct:publisher'])[0] != 'foaf:name') {
+                        return 'auto'
+                    }
+                    if (head === true) {
+                        return 'head'
+                    }
+                    else return false
                 }
-                if (Object.keys(propData['dct:publisher'])[1] != 'resource') {
-                    return 'man'
+                if (propData['dct:license'] != undefined) {
+                    if (typeof propData === 'string') {
+                        return false
+                    }
+                    if (Object.keys(propData['dct:license'])[1] != 'resource') {
+                        return 'liMan'
+                    }
+                    if (Object.keys(propData['dct:license'])[0] != 'foaf:name') {
+                        return 'liAuto'
+                    }
+                    else return false
                 }
-                if (Object.keys(propData['dct:publisher'])[0] != 'foaf:name') {
-                    return 'auto'
-                }
-                if (head === true) {
-                    return 'head'
-                }
-                else return false
+
             }
 
 
