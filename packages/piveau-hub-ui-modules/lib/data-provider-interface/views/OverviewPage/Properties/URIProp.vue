@@ -2,6 +2,9 @@
   <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
   </td>
   <!-- SINGULAR URIs -->
+  <details>{{ data[property]}}</details>
+  <td v-if="value.type === 'singularURI' && typeof data[property] === 'string' " class=""> {{ data[property] }}</td>
+  <td v-if="Object.keys(data[property]).length ===  1 && value.type === 'singularURI' " class=""> {{ data[property][0]['@id'] }}</td>
   <td v-if="value.type === 'singularURI'" class=""> {{ nameOfProperty }}</td>
   <!-- MULTIPLE URIs -->
   <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">

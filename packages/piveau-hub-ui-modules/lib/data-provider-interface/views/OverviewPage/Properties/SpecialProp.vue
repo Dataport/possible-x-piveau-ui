@@ -48,17 +48,20 @@
         </td>
     </tr>
     <!-- CONTRIBUTOR / MAINTAINER / ORIGINATOR-->
-    <div v-if="property === 'dct:contributor' || property === 'dcatde:maintainer' || property === 'dcatde:originator'">
+    <tr v-if="property === 'dct:contributor' || property === 'dcatde:maintainer' || property === 'dcatde:originator'">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
-        <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1] }}
-        </div>
-        <div v-if="showValue(data, 'foaf:name')">{{ $t('message.metadata.name') }}: {{ data['foaf:name'] }}</div>
-        <div v-if="showValue(data, 'foaf:mbox')">{{ $t('message.metadata.email') }}: <app-link
-                :to="`mailto:${data['foaf:mbox']}`">{{ data['foaf:mbox'] }}</app-link></div>
-        <div v-if="showValue(data, 'foaf:homepage')">{{ $t('message.metadata.homepage') }}: <app-link
-                :to="data['foaf:homepage']">{{ data['foaf:homepage'] }}</app-link>
-        </div>
-    </div>
+        <td>
+            <div v-if="showValue(data, 'rdf:type')">{{ $t('message.metadata.type') }}: {{ data['rdf:type'].split(':')[1] }}
+            </div>
+            <div v-if="showValue(data, 'foaf:name')">{{ $t('message.metadata.name') }}: {{ data['foaf:name'] }}</div>
+            <div v-if="showValue(data, 'foaf:mbox')">{{ $t('message.metadata.email') }}: <app-link
+                    :to="`mailto:${data['foaf:mbox']}`">{{ data['foaf:mbox'] }}</app-link></div>
+            <div v-if="showValue(data, 'foaf:homepage')">{{ $t('message.metadata.homepage') }}: <app-link
+                    :to="data['foaf:homepage']">{{ data['foaf:homepage'] }}</app-link>
+            </div>
+        </td>
+
+    </tr>
     <!-- ADMS IDENTIFIER -->
     <div v-if="property === 'adms:identifier' && checkadms('adms:identifier')" class="d-flex">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
@@ -196,8 +199,7 @@
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td>
             <div v-for="item, index in Object.keys(data['dct:license']) ">
-                <div
-                    v-if="data['dct:license'][item] != null && data['dct:license'][item] != '' && item === 'dct:title'">
+                <div v-if="data['dct:license'][item] != null && data['dct:license'][item] != '' && item === 'dct:title'">
                     <span class="">{{
                         $t('message.dataupload.distributions.licenceTitle.label') }}:</span>
                     <span>{{ data['dct:license'][item] }}</span>
