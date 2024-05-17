@@ -199,19 +199,19 @@
                 <div
                     v-if="data['dct:license'][item] != null && data['dct:license'][item] != '' && item === 'dct:title'">
                     <span class="">{{
-                        $t('message.dataupload.datasets.publisherName.label') }}:</span>
+                        $t('message.dataupload.distributions.licenceTitle.label') }}:</span>
                     <span>{{ data['dct:license'][item] }}</span>
                 </div>
                 <div
                     v-if="data['dct:license'][item] != null && data['dct:license'][item] != '' && item === 'skos:prefLabel'">
                     <span class="">{{
-                        $t('message.dataupload.datasets.publisherEmail.label') }}:</span>
+                        $t('message.dataupload.distributions.licenceDescription.label') }}:</span>
                     <app-link class="w-100" :to="item">{{ data['dct:license'][item] }}</app-link>
                 </div>
                 <div
                     v-if="data['dct:license'][item] != null && data['dct:license'][item] != '' && item === 'skos:exactMatch'">
                     <span class="">{{
-                        $t('message.dataupload.datasets.publisherHomepage.label') }}:</span>
+                        $t('message.dataupload.distributions.licenceURL.label') }}:</span>
                     <app-link class="w-100" :to="item">{{
                         data['dct:license'][item] }}</app-link>
                 </div>
