@@ -51,6 +51,7 @@
     "leaflet": "^1.9.4",
     "leaflet-easybutton": "^2.4.0",
     "vue": "^3.3.8",
+    "vue-demi": "^0.13.1",
     "vue-router": "^4.1.6",
     "vuex": "^4.0.2",
     "zod": "^3.21.4"

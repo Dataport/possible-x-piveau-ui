@@ -26,7 +26,7 @@
   </template>
   
   <script>
-  import { token } from "@formkit/utils";
+  import { token } from "../../node_modules/@formkit/utils";
   
   export default {
     props: {

@@ -1,5 +1,5 @@
 import { reactive, toRef, ref, watch } from 'vue'
-import { getNode, createMessage } from '@formkit/core'
+import { getNode, createMessage } from '../../../node_modules/@formkit/core'
 
 export default function useSteps () {
   const activeStep = ref('')
