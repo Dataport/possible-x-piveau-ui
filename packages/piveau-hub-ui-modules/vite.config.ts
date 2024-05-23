@@ -7,6 +7,7 @@ import { lstatSync } from 'fs';
 import Components from 'unplugin-vue-components/vite'
 
 const peerDependencies = {
+  "@formkit/core": "x.x.x",
   "@formkit/vue": "x.x.x",
   "@citation-js/core": "x.x.x",
   "@citation-js/plugin-bibtex": "x.x.x",

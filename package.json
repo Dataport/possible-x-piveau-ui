@@ -47,6 +47,8 @@
     "unplugin-vue-components": "^0.25.1"
   },
   "dependencies": {
+    "@formkit/core": "^1.2.2",
+    "@formkit/vue": "^1.2.2",
     "@formkit/themes": "^1.2.2",
     "@vueuse/core": "^10.9.0"
   }
