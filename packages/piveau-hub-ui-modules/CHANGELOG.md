@@ -1,3 +1,12 @@
+# [4.0.0-alpha.26](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.25...v4.0.0-alpha.26) (2024-05-23)
+
+
+### Bug Fixes
+
+* dependency issues ([26c722a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/26c722ae805fd6cdd2b8233f87f45d8c72c5033c))
+
+
+
 # [4.0.0-alpha.25](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.24...v4.0.0-alpha.25) (2024-05-22)
 
 
