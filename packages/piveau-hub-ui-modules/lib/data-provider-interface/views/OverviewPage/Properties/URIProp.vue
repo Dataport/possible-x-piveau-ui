@@ -2,9 +2,11 @@
   <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
   </td>
   <!-- SINGULAR URIs -->
-  <td v-if="value.type === 'singularURI' && typeof data[property] === 'string' " class=""> {{ data[property] }}</td>
-  <td v-if="Object.keys(data[property]).length ===  1 && value.type === 'singularURI' " class=""> {{ data[property][0]['@id'] }}</td>
-  <td v-if="value.type === 'singularURI' && typeof data[property] != 'string' && Object.keys(data[property]).length >  1 " class=""> {{ data[property]['name']  }}</td>
+  <td v-if="value.type === 'singularURI' && typeof data[property] === 'string'" class=""> {{ data[property] }}</td>
+  <td v-if="Object.keys(data[property]).length === 1 && value.type === 'singularURI'" class=""> {{
+    data[property][0]['@id'] }}</td>
+  <td v-if="value.type === 'singularURI' && typeof data[property] != 'string' && Object.keys(data[property]).length > 1"
+    class=""> {{ data[property]['name'] }}</td>
   <!-- MULTIPLE URIs -->
   <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
     <div v-for="(el, index) in data[property]" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
@@ -12,8 +14,11 @@
     </div>
   </td>
   <!-- SPECIAL CASES -->
-  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class="font-weight-bold">{{ $t(`${value.label}`) }}:</td>
+
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class="font-weight-bold">{{
+    $t(`${value.label}`) }}:</td>
   <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class=""> {{ nameOfProperty }}</td>
+  <!-- <details>{{ data[property] }}</details> -->
 </template>
 
 <script>
@@ -23,6 +28,12 @@ import generalHelper from '../../../utils/general-helper';
 import dpiConfig from '../../../config/dpi-spec-config';
 
 export default {
+  data() {
+    return {
+      nameOfProperty: "Unchanged Value",
+      namesOfMulti: []
+    }
+  },
   props: {
     property: String,
     value: Object,
@@ -45,7 +56,7 @@ export default {
         let name;
         await this.requestResourceName({ voc: voc, uri: res, envs: envs }).then(
           (response) => {
-           
+
             if (this.property === 'dcatde:politicalGeocodingURI') {
               if (response != undefined) {
                 let result = vocMatch
@@ -87,12 +98,18 @@ export default {
         if (typeof this.data[this.property] != 'string') {
           this.data[this.property].name = await this.getURILabel(this.data[this.property]);
         }
-      
+
       } else if (this.value.type === 'multiURI') {
-        for (let index = 0; index < this.data[this.property].length; index ++) {
+        for (let index = 0; index < this.data[this.property].length; index++) {
           this.data[this.property][index].name = await this.getURILabel(this.data[this.property][index]);
         }
       }
+      else if (this.value.type === 'special') {
+
+        this.nameOfProperty = await this.getURILabel(this.data[this.property]);
+
+      }
+
     } catch (e) {
       console.warn(e);
     }
