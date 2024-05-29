@@ -1,7 +1,7 @@
 {
   "name": "@piveau/piveau-hub-ui-modules",
   "private": false,
-  "version": "4.0.0-alpha.23",
+  "version": "4.0.0-alpha.26",
   "type": "module",
   "exports": {
     ".": {
@@ -44,13 +44,14 @@
     "vue-tsc": "^1.2.0"
   },
   "dependencies": {
-    "@formkit/core": "^1.4.0",
-    "@formkit/vue": "^1.4.0",
+    "@formkit/core": "^1.2.2",
+    "@formkit/vue": "^1.2.2",
     "@triply/yasqe": "^4.2.23",
     "@unhead/vue": "^1.8.8",
     "leaflet": "^1.9.4",
     "leaflet-easybutton": "^2.4.0",
     "vue": "^3.3.8",
+    "vue-demi": "^0.13.1",
     "vue-router": "^4.1.6",
     "vuex": "^4.0.2",
     "zod": "^3.21.4"
