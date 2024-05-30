@@ -176,6 +176,7 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
+      console.log(this.getUserCatalogIds);
       this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
       this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
       const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
@@ -184,6 +185,7 @@ export default defineComponent({
       if (!isEmpty(existingValues)) this.formValues = existingValues;
 
       this.$nextTick(() => {
+        
         $('[data-toggle="tooltip"]').tooltip({
           container: 'body',
         });
@@ -207,24 +209,29 @@ export default defineComponent({
       }
     },
     async initCatalogues() {
+    
       await axios
         .get(this.$env.api.baseUrl + 'search?filter=catalogue&limit=100')
         .then(response => (this.info = response))
       this.info.data.result.results.forEach((e) => {
+      
         try {
           this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
+         
         } catch (error) {
         }
       });
       this.findcatalogues()
       // need to forceupdate to display the filtered catalogues
       this.$forceUpdate();
+    
     },
     findcatalogues() {
+      console.log(this.catalogues);
       for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
         for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
           if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
-            this.getUserCatalogIds[i] = this.catalogues[a].title;
+            // this.getUserCatalogIds[i] = this.catalogues[a].title;
             break
           }
         }
