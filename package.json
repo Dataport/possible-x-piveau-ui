@@ -48,8 +48,9 @@
   },
   "dependencies": {
     "@formkit/core": "^1.2.2",
-    "@formkit/vue": "^1.2.2",
     "@formkit/themes": "^1.2.2",
+    "@formkit/vue": "^1.2.2",
+    "@piveau/piveau-hub-ui-modules": "^4.0.0-alpha.28",
     "@vueuse/core": "^10.9.0"
   }
 }
