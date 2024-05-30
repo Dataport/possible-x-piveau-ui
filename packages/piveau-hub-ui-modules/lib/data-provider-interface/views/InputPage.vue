@@ -176,7 +176,7 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
-      console.log(this.getUserCatalogIds);
+      // console.log(this.getUserCatalogIds);
       this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
       this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
       const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
@@ -209,12 +209,10 @@ export default defineComponent({
       }
     },
     async initCatalogues() {
-    
       await axios
         .get(this.$env.api.baseUrl + 'search?filter=catalogue&limit=100')
         .then(response => (this.info = response))
       this.info.data.result.results.forEach((e) => {
-      
         try {
           this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
          
@@ -227,11 +225,11 @@ export default defineComponent({
     
     },
     findcatalogues() {
-      console.log(this.catalogues);
       for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
         for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
           if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
-            // this.getUserCatalogIds[i] = this.catalogues[a].title;
+            console.log(this.catalogues[a]);
+            this.getUserCatalogIds[i] = this.catalogues[a].id;
             break
           }
         }
@@ -247,9 +245,9 @@ export default defineComponent({
   created() {
 
     // Needs to be reworked
-    // if (this.$route.query.edit === 'false') {
-    //   this.clearAll();
-    // }
+    if (this.$route.query.edit === 'false') {
+      this.clearAll();
+    }
 
     // create schema for datasets or catalogues
     this.generateandTranslateSchema(this.property);
