@@ -1,10 +1,14 @@
 <script setup>
+import { ref, onMounted, watchEffect } from 'vue'
 import { isNil } from 'lodash';
 import axios from 'axios';
 import { useStore } from 'vuex';
 
 const store = useStore();
-const isEditMode = store.getters['auth/getIsEditMode'];
+// const isEditMode = store.getters['auth/getIsEditMode'];
+const isEditMode = ref();
+isEditMode.value = store.getters['auth/getIsEditMode'];
+
 const validationMessages = {
   idformatvalid: "Dataset ID must only contain lower case letters, numbers and single dashes (-). Please choose a different ID.",
   idunique: "This ID is already in use, please choose a different one."
@@ -52,7 +56,6 @@ function idformatvalid(node) {
       :info="$t(`message.dataupload.datasets.datasetID.info`)" :help="$t(`message.dataupload.datasets.datasetID.help`)">
     </FormKit>
   </div>
-
 </template>
 
 <script>

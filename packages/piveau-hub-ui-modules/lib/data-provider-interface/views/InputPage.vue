@@ -33,7 +33,8 @@
             </ul>
 
             <div class="d-flex flex-column w-100">
-              <div v-for="(stepName, index) in getNavSteps($env.content.dataProviderInterface.specification)[property]" :key="index">
+              <div v-for="(stepName, index) in getNavSteps($env.content.dataProviderInterface.specification)[property]"
+                :key="index">
                 <InputPageStep :name="stepName">
                   <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'" class="w-100">
                     <h1 style="min-width:100%">{{ stepName }} fields</h1>
@@ -176,16 +177,19 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
-      // console.log(this.getUserCatalogIds);
+      if (localStorage.getItem('dpi_editmode') === 'false') {
+        this.setIsDraft(false)
+        this.setIsEditMode(false)
+      }
       this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
       this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
       const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
-      
+
       // only overwrite empty object if there are values
       if (!isEmpty(existingValues)) this.formValues = existingValues;
 
       this.$nextTick(() => {
-        
+
         $('[data-toggle="tooltip"]').tooltip({
           container: 'body',
         });
@@ -193,18 +197,15 @@ export default defineComponent({
     },
     createDatasetID() {
       const valueObject = this.formValues[this.getTitleStep];
+      if (!has(valueObject, 'datasetID') || isNil(valueObject['datasetID'])) {
+        console.log('in if');
+        this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
+      }
+      else {
 
-      // Create Dataset ID from title if not existing
-      if (has(valueObject, 'dct:title') && !isNil(valueObject['dct:title'] && valueObject['dct:title'].length > 0)
-        && has(valueObject['dct:title'][0], '@value') && !isNil(valueObject['dct:title'][0]['@value'])) {
-
-        if (!has(valueObject, 'datasetID') || isNil(valueObject['datasetID'])) {
+        if (this.createIDFromTitle.startsWith(valueObject.datasetID) || valueObject.datasetID.startsWith(this.createIDFromTitle)) {
+          console.log('in else');
           this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
-        }
-        else {
-          if (this.createIDFromTitle.startsWith(valueObject.datasetID) || valueObject.datasetID.startsWith(this.createIDFromTitle)) {
-            this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
-          }
         }
       }
     },
@@ -215,20 +216,19 @@ export default defineComponent({
       this.info.data.result.results.forEach((e) => {
         try {
           this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
-         
+
         } catch (error) {
         }
       });
       this.findcatalogues()
       // need to forceupdate to display the filtered catalogues
       this.$forceUpdate();
-    
+
     },
     findcatalogues() {
       for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
         for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
           if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
-            console.log(this.catalogues[a]);
             this.getUserCatalogIds[i] = this.catalogues[a].id;
             break
           }
@@ -247,6 +247,7 @@ export default defineComponent({
     // Needs to be reworked
     if (this.$route.query.edit === 'false') {
       this.clearAll();
+      // localStorage.clear();
     }
 
     // create schema for datasets or catalogues
@@ -269,8 +270,14 @@ export default defineComponent({
     },
     getFirstTitleFromForm: {
       handler() {
+        if (localStorage.getItem('dpi_editmode') === 'false') {
+          this.setIsDraft(false)
+          this.setIsEditMode(false)
+        }
         // only create id from title if the user is not editing an existing dataset with an existing datasetID
-        if (!this.getIsEditMode) this.createDatasetID();
+        if (!this.getIsEditMode) {
+          this.createDatasetID();
+        }
       },
     },
     getUserCatalogIds: {
