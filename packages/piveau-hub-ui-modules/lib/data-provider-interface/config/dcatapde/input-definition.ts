@@ -1175,8 +1175,8 @@ const dcatapProperties: InputDefinition = {
             then: {
               type: 'date',
               name: '@value',
-              validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
-              'validation-visibility': 'live',
+              // validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              // 'validation-visibility': 'live',
               classes: {
                 outer: 'w-100'
               },
@@ -1184,8 +1184,8 @@ const dcatapProperties: InputDefinition = {
             else: {
               type: 'datetime-local',
               name: '@value',
-              validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
-              'validation-visibility': 'live',
+              // validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              // 'validation-visibility': 'live',
               classes: {
                 outer: 'w-100'
               },
@@ -1222,8 +1222,8 @@ const dcatapProperties: InputDefinition = {
               classes: {
                 outer: 'w-100'
               },
-              validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
-              'validation-visibility': 'live',
+              // validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              // 'validation-visibility': 'live',
             },
             else: {
               type: 'datetime-local',
@@ -1820,8 +1820,8 @@ const dcatapProperties: InputDefinition = {
 
             type: 'datetime-local',
             name: '@value',
-            validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
-            'validation-visibility': 'live',
+            // validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+            // 'validation-visibility': 'live',
             classes: {
               outer: 'w-100'
             },
@@ -1845,7 +1845,7 @@ const dcatapProperties: InputDefinition = {
             classes: {
               outer: 'w-100'
             },
-            validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+            // validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
 
           }
         }
