@@ -165,7 +165,7 @@ const glueConfig = {
       },
       keywords: {
         isVisible: true,
-        showTitle: false,
+        showTitle: true,
         collapsed: false,  // displayAll
       },
       categoriesKey: {
