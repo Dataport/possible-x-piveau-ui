@@ -30,7 +30,7 @@
 
                 </div>
             </div>
-            <div class="infoI" @click="editProp(property)"></div>
+            <!-- <div class="infoI" @click="editProp(property)"></div> -->
         </td>
     
 </template>
