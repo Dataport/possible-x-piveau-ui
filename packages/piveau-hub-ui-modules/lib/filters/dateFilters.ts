@@ -37,10 +37,16 @@ const dateFilters = {
    * @returns {String}
    */
   formatEU(date : string) {
+    // Need to be reworked ######### Start ########
+    if (String(date)[0] === '_') {
+      date = String(date).replace('_','')
+    }
+     // Need to be reworked ######### End ########
     if (date === undefined) return INVALID_DATE_STRING;
     const m = dayjs(String(date));
     const splittedDate = date.split('T');
     if (m.isValid()) {
+      
       if (splittedDate.length === 1) return m.format('DD.MM.YYYY');
       return m.format('DD MMMM YYYY');
     }
