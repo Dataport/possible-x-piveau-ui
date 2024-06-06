@@ -21,7 +21,6 @@
                         No title in this language
                     </p>
                     <p v-if="distribution['dct:format'] != '' || Object.keys(distribution['dct:format']).length != 0">
-
                         <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
                             :value="tableProperties['dct:format']" :dpiLocale="dpiLocale" :distId="id">
                         </PropertyEntry>
@@ -56,8 +55,8 @@
                         No title in this language
                     </p>
                     <p v-if="distribution['dct:format'] != undefined">
-                    
-                    <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
+
+                        <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
                             :value="tableProperties['dct:format']" :dpiLocale="dpiLocale" :distId="id">
                         </PropertyEntry>
                     </p>
@@ -185,21 +184,21 @@ export default {
                 'dct:license': { type: 'special', voc: '', label: 'message.metadata.license' },
                 'dct:issued': { type: 'date', voc: '', label: 'message.metadata.created' },
                 'dct:modified': { type: 'date', voc: '', label: 'message.metadata.updated' },
-                'dct:type': { type: 'singularURI', voc: '', label: 'message.metadata.type' },
-                'dcat:mediaType': { type: 'singularURI', voc: '', label: 'message.metadata.mediaType' },
-                'dcatap:availability': { type: 'singularURI', voc: '', label: 'message.metadata.availability' },
+                'dct:type': { type: 'singularURI', voc: 'distribution-type', label: 'message.metadata.type' },
+                'dcat:mediaType': { type: 'singularURI', voc: 'iana-media-types', label: 'message.metadata.mediaType' },
+                'dcatap:availability': { type: 'singularURI', voc: 'planned-availability', label: 'message.metadata.availability' },
                 'dcat:byteSize': { type: 'singularString', voc: '', label: 'message.metadata.byteSize' },
-                'dcat:packageFormat': { type: 'singularURI', voc: '', label: 'message.metadata.packageFormat' },
-                'dcat:compressFormat': { type: 'singularURI', voc: '', label: 'message.metadata.compressFormat' },
-                'adms:status': { type: 'singularURI', voc: '', label: 'message.metadata.status' },
+                'dcat:packageFormat': { type: 'singularURI', voc: 'iana-media-types', label: 'message.metadata.packageFormat' },
+                'dcat:compressFormat': { type: 'singularURI', voc: 'iana-media-types', label: 'message.metadata.compressFormat' },
+                'adms:status': { type: 'singularURI', voc: 'dataset-status', label: 'message.metadata.status' },
                 'dcat:spatialResolutionInMeters': { type: 'singularString', voc: '', label: 'message.metadata.spatialResolutionInMeters.label' },
                 'dcat:temporalResolution': { type: 'special', voc: '', label: 'message.dataupload.datasets.temporalResolution.label' },
                 'dct:conformsTo': { type: 'special', voc: '', label: 'message.metadata.conformsTo' },
-                'dct:language': { type: 'multiURI', voc: '', label: 'message.metadata.languages' },
+                'dct:language': { type: 'multiURI', voc: 'language', label: 'message.metadata.languages' },
                 'dct:rights': { type: 'singularString', voc: '', label: 'message.metadata.rights' },
                 'foaf:page': { type: 'special', voc: '', label: 'message.dataupload.datasets.page.label' },
                 'odrl:hasPolicy': { type: 'multiURL', voc: '', label: 'message.metadata.hasPolicy' },
-                'spdx:checksum': { type: 'special', voc: '', label: 'message.metadata.checksum' },
+                'spdx:checksum': { type: 'special', voc: 'spdx-checksum-algorithm', label: 'message.metadata.checksum' },
                 'dcatde:licenseAttributionByText': { type: 'multiLingual', voc: '', label: 'message.dataupload.distributions.licenseAttributionByText.label' },
             }
         }

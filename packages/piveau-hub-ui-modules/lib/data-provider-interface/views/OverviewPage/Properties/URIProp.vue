@@ -1,12 +1,14 @@
 <template>
+  <!-- <details>{{ value.label }}</details> -->
   <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
   </td>
+  
   <!-- SINGULAR URIs -->
   <td v-if="value.type === 'singularURI' && typeof data[property] === 'string'" class=""> {{ data[property] }}</td>
   <td v-if="Object.keys(data[property]).length === 1 && value.type === 'singularURI'" class=""> {{
-    data[property][0]['@id'] }}</td>
+    data[property][0]['@id'] }} </td>
   <td v-if="value.type === 'singularURI' && typeof data[property] != 'string' && Object.keys(data[property]).length > 1"
-    class=""> {{ data[property]['name'] }}</td>
+    class=""> {{ nameOfProperty }}</td>
   <!-- MULTIPLE URIs -->
   <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
     <div v-for="(el, index) in data[property]" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
@@ -18,6 +20,8 @@
   <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class="font-weight-bold">{{
     $t(`${value.label}`) }}:</td>
   <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class=""> {{ nameOfProperty }}</td>
+  <!-- License Edge case -->
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value' && value.label === 'message.metadata.license'" class=""> {{ nameOfProperty }}</td>
   <!-- <details>{{ data[property] }}</details> -->
 </template>
 
@@ -78,14 +82,18 @@ export default {
             }
           }
         );
+        // console.log(name);
         return name
       }
     },
     async getURILabel(value) {
       // only request name if there is no name already given
+      // console.log('########',value);
       if (generalHelper.isUrl(value.name)) {
+        
         const prefixes = dpiConfig[this.$env.content.dataProviderInterface.specification].vocabPrefixes;
         const vocabulary = Object.keys(prefixes).find(key => value.name.includes(prefixes[key]));
+        console.log(vocabulary);
         return await this.requestURILabel(vocabulary, value.name);
       }
       else return value.name;
@@ -96,7 +104,8 @@ export default {
     try {
       if (this.value.type === 'singularURI') {
         if (typeof this.data[this.property] != 'string') {
-          this.data[this.property].name = await this.getURILabel(this.data[this.property]);
+
+          this.nameOfProperty = await this.getURILabel(this.data[this.property]);
         }
 
       } else if (this.value.type === 'multiURI') {
