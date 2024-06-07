@@ -92,8 +92,7 @@ export default {
       if (generalHelper.isUrl(value.name)) {
         
         const prefixes = dpiConfig[this.$env.content.dataProviderInterface.specification].vocabPrefixes;
-        const vocabulary = Object.keys(prefixes).find(key => value.name.includes(prefixes[key]));
-        console.log(vocabulary);
+        const vocabulary = Object.keys(prefixes).find(key => value.name.includes(key));
         return await this.requestURILabel(vocabulary, value.name);
       }
       else return value.name;
@@ -114,7 +113,7 @@ export default {
         }
       }
       else if (this.value.type === 'special') {
-
+console.log('########');
         this.nameOfProperty = await this.getURILabel(this.data[this.property]);
 
       }
