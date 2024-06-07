@@ -287,18 +287,24 @@ export default {
 
         },
         showMultilingualValue(property, value) {
-            const nonEmptyProperty = has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
+            if (property[value] != undefined) {
+                const nonEmptyProperty = has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
 
-            // there should only be one value for each language (so only one item within the array)
-            const localeValues = property[value].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
-            const otherLocaleValues = property[value].filter(el => el['@language'] !== this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
+                // there should only be one value for each language (so only one item within the array)
+                const localeValues = property[value].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
+                const otherLocaleValues = property[value].filter(el => el['@language'] !== this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
+                
+                const existingLocalValues = localeValues.length > 0;
+                const existingOtherValues = otherLocaleValues.length > 0;
 
-            const existingLocalValues = localeValues.length > 0;
-            const existingOtherValues = otherLocaleValues.length > 0;
+                // if values for other languages are available, that will be noted
 
-            // if values for other languages are available, that will be noted
+                return nonEmptyProperty && (existingLocalValues || existingOtherValues);
+            }
+            else {
+                return ''
+            }
 
-            return nonEmptyProperty && (existingLocalValues || existingOtherValues);
         },
         checkadms(str) {
             if (this.property === str) {
