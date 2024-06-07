@@ -92,9 +92,9 @@
     <div v-if="property === 'spdx:checksum' && Object.keys(data).length > 0" class="d-flex">
         <td class="font-weight-bold ">{{ $t(`${value.label}`) }}:</td>
         <td class="">
-
             <div v-if="typeof data === 'string'">{{ data }}</div>
-            <div v-if="typeof data === 'object'">{{ data['name'] }}</div>
+            <div v-if="typeof data === 'object'">{{ data['spdx:checksumValue'] }}</div>
+            <div v-if="typeof data === 'object'">{{ data['spdx:algorithm']['name'] }}</div>
         </td>
     </div>
 
@@ -195,6 +195,7 @@
         </URIProp>
     </tr>
     <!-- License -->
+    
     <tr v-if="manualSwitch(data) === 'liMan'">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td>
@@ -287,18 +288,24 @@ export default {
 
         },
         showMultilingualValue(property, value) {
-            const nonEmptyProperty = has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
+            if (property[value] != undefined) {
+                const nonEmptyProperty = has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
 
-            // there should only be one value for each language (so only one item within the array)
-            const localeValues = property[value].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
-            const otherLocaleValues = property[value].filter(el => el['@language'] !== this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
+                // there should only be one value for each language (so only one item within the array)
+                const localeValues = property[value].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
+                const otherLocaleValues = property[value].filter(el => el['@language'] !== this.dpiLocale).map(el => el['@value']).filter(el => el !== undefined);
 
-            const existingLocalValues = localeValues.length > 0;
-            const existingOtherValues = otherLocaleValues.length > 0;
+                const existingLocalValues = localeValues.length > 0;
+                const existingOtherValues = otherLocaleValues.length > 0;
 
-            // if values for other languages are available, that will be noted
+                // if values for other languages are available, that will be noted
 
-            return nonEmptyProperty && (existingLocalValues || existingOtherValues);
+                return nonEmptyProperty && (existingLocalValues || existingOtherValues);
+            }
+            else {
+                return ''
+            }
+
         },
         checkadms(str) {
             if (this.property === str) {
