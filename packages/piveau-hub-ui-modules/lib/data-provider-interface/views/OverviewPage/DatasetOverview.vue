@@ -13,7 +13,7 @@
                     </a>
                 </div>
                 <div class="dsPublisher">
-                    <PropertyEntry profile="datasets" :data="values" property='dct:publisher'
+                    <PropertyEntry profile="datasets" :data="getDatasets" property='dct:publisher'
                         :value="{ type: 'special', voc: 'corporate-body', label: 'message.metadata.publisher', isHeader: true }"
                         :dpiLocale="dpiLocale"></PropertyEntry>
                 </div>
@@ -144,7 +144,7 @@ export default {
             'getData',
         ]),
         getDatasets() {
-            return this.getData('datasets');
+            return this.values;
         },
         getDistributions() {
             return this.getDatasets['distributionList'] || [];
@@ -188,7 +188,7 @@ export default {
     async mounted() {
         this.$nextTick(() => {
             this.pageLoaded = true;
-            this.values = this.getDatasets
+            this.values = this.getData('datasets');
         })
 
 
@@ -202,7 +202,6 @@ export default {
                 this.trigger = true;
             })
         }
-
     }
 }
 </script>
