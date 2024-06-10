@@ -148,10 +148,6 @@ export default {
       return !isEmpty(data['dcat:accessURL']) && !isEmpty(data['dcat:accessURL'][0]) && has(data['dcat:accessURL'][0], '@id') && !isEmpty(data['dcat:accessURL'][0]['@id']);
     },
   },
-  mounted() {
-    // saving existing dataset and distrbution data from localStorage to vuex store
-    this.saveLocalstorageValues('datasets');
-  }
 };
 </script>
 
