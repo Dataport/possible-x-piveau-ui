@@ -197,7 +197,17 @@ const datasetDetailsQualitySchema = z.object({
   }).default({}),
 }).default({})
 
+const embedSchema = z.object({
+  enable: z.boolean().default(true),
+  defaultWidth: z.number().default(900),
+  defaultHeight: z.number().default(600),
+  minRange: z.number().default(0),
+  maxRange: z.number().default(9999),
+}).default({});
+
 const datasetDetailsSchema = z.object({
+  properties: z.string().default(""),
+  embed: embedSchema,
   header: datasetDetailsHeaderSchema,
   keywords: datasetDetailsKeywordsSchema,
   description: datasetDetailsDescriptionSchema,
@@ -276,6 +286,8 @@ const dataProviderInterfaceSchema = z.object({
     },
   }).default('dcatap'),
   annifIntegration: z.boolean().default(false),
+  annifLinkTheme: z.string().default(""),
+  annifLinkSubject: z.string().default(""),
   buttons: z.object({
     Dataset: z.boolean().default(true),
     Catalogue: z.boolean().default(false),
