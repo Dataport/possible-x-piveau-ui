@@ -29,6 +29,13 @@ const keycloakInitSchema = z.object({
   silentCheckSsoRedirectUri: z.string().optional(),
 }).passthrough()
 
+const authMiddlewareSchema = z.object({
+  enable: z.boolean().default(true),
+  baseUrl: z.string().default(""),
+  loginRedirectUrl: z.string().default(""),
+  logoutRedirectUrl: z.string().default("")
+});
+
 export const authenticationSchema = z.object({
   useService: z.boolean().default(false),
   login: z.object({
@@ -47,4 +54,5 @@ export const authenticationSchema = z.object({
     audience: z.string().default('piveau-hub-repo'),
   }).default({}),
   authToken: z.string().default(''),
+  authMiddleware: authMiddlewareSchema.default({})
 }).passthrough().default({})
