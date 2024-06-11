@@ -2,6 +2,7 @@ import fs, {Stats} from "fs";
 
 import {configSchema} from "../packages/piveau-hub-ui-modules/lib/configurations/config-schema";
 import oldConfig from "../apps/vanilla-piveau-hub-ui/config/runtime-config.js";
+// import oldConfig from "../local/deu-piveau-hub-ui/config/runtime-config.js";
 import {ZodObject, ZodType, ZodDefault, ZodEffects} from 'zod';
 import {pathByWorkspaceName} from "./utils/pathByWorkspaceName";
 import {doForApps} from "./utils/doForApp";
@@ -36,8 +37,8 @@ function convert(z: ZodType, keyPath: string = '') {
             const extendedKeyPath = keyPath === '' ? camelToSnake(key).toUpperCase() : keyPath + '_' + camelToSnake(key).toUpperCase();
             const convertedValue = convert(value as ZodType, extendedKeyPath);
             if (convertedValue === null) {
-                entries[key] = "$VITE_" + keyPath + "_"
-                    + camelToSnake(key).toUpperCase();
+                entries[key] = ("$VITE_" + keyPath + "_"
+                    + camelToSnake(key).toUpperCase()).replace(/-/g, "_");
             } else {
                 entries[key] = convertedValue;
             }
@@ -83,16 +84,16 @@ export function writeRuntimeConfig(filePath: string) {
 export function createRuntimeConfig(workspaceName) {
     if (workspaceName) {
         pathByWorkspaceName(workspaceName).then((filePath) => {
-            writeRuntimeConfig(`${filePath}/config/runtime-config2.js`);
+            writeRuntimeConfig(`${filePath}/config/runtime-config.js`);
         });
     } else {
         doForApps((file: string, stats: Stats, folder: string) => {
-            writeRuntimeConfig(`${folder}/${file}/config/runtime-config2.js`);
+            writeRuntimeConfig(`${folder}/${file}/config/runtime-config.js`);
         });
     }
 }
 
-// createRuntimeConfig(process.argv[2]);
+createRuntimeConfig(process.argv[2]);
 
 
 //////////////////////////////////////////////////////////
@@ -118,7 +119,8 @@ function compareObjects(source: object, comparison: object, mode: string = "all"
         } else if (typeof sourceValue === 'string') {
            if (sourceValue !== targetValue) {
                if (mode === "all" || mode === "difference") {
-                   console.log('\x1b[31m', "DIFFERENT: " + extendedPathString + ": " + targetValue + " instead of " + sourceValue);
+                   console.log('\x1b[31m', sourceValue + " --> " + targetValue);
+                   // console.log('\x1b[31m', "DIFFERENT: " + extendedPathString + ": " + targetValue + " instead of " + sourceValue);
                }
            }
         } else if (typeof sourceValue === 'object' && typeof targetValue === 'object') {
@@ -128,5 +130,5 @@ function compareObjects(source: object, comparison: object, mode: string = "all"
 }
 // compareObjects(convert(configSchema), oldConfig, "missing");
 // compareObjects(convert(configSchema), oldConfig, "difference");
-compareObjects(oldConfig, convert(configSchema), "missing");
+// compareObjects(oldConfig, convert(configSchema), "missing");
 // compareObjects(oldConfig, convert(configSchema), "difference");
