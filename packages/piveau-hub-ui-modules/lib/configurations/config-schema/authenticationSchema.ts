@@ -4,6 +4,11 @@ const keycloakSchema = z.object({
   realm: z.string().default('piveau'),
   url: z.string().url().optional(),
   clientId: z.string().default('piveau-hub-ui'),
+  'ssl-required': z.string().default('external'),
+  'public-client': z.boolean().default(true),
+  'verify-token-audience': z.boolean().default(true),
+  'use-resource-role-mappings': z.boolean().default(true),
+  'confidential-port': z.number().default(0)
 })
 
 const keycloakInitSchema = z.object({

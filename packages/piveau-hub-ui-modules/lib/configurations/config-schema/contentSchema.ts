@@ -94,6 +94,7 @@ const catalogsSchema = z.object({
     FACET_OPERATORS: facetOrAndOperatorLabelSchema,
     FACET_GROUP_OPERATORS: facetOrAndOperatorLabelSchema,
     defaultFacetOrder: z.array(z.string()).default(['country']),
+    useDatasetFacetsMap: z.boolean().default(false)
   }).default({}),
 }).default({})
 
@@ -105,6 +106,8 @@ const datasetDetailsHeaderSchema = z.object({
 
 const datasetDetailsKeywordsSchema = z.object({
   showTitle: z.boolean().default(false),
+  isVisible: z.boolean().default(true),
+  collapsed: z.boolean().default(false)
 }).default({})
 
 const datasetDetailsDescriptionSchema = z.object({
@@ -259,6 +262,7 @@ const mapsSchema = z.object({
 
 const dataProviderInterfaceSchema = z.object({
   useService: z.boolean().default(true),
+  enableFileUploadReplace: z.boolean().default(false),
   basePath: z.string().default('/dpi'),
   specification: z.union([
     z.literal('dcatap'),
