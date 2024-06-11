@@ -223,7 +223,6 @@ export default {
     },
   },
   mounted() {
-    this.saveLocalstorageValues('datasets');
 
     this.$nextTick(function(){
   

@@ -182,7 +182,7 @@ export default defineComponent({
         this.setIsEditMode(false)
       }
       this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
-      this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
+      // this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
       const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
 
       // only overwrite empty object if there are values

@@ -102,11 +102,15 @@
     <div v-if="property === 'foaf:page'" class="w-100 d-flex">
         <td class=" font-weight-bold">{{ $t(`${value.label}`) }}:</td>
         <td>
-            <div v-if="showMultilingualValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{
+            <div v-if="showMultilingualValue(data, 'dct:title')">{{ $t('message.metadata.title') }}: {{ 
+                data['dct:title'].filter(el => el['@language']).length === 0 ? 
+                data['dct:title'].map(el => el['@value'])[0] : 
                 data['dct:title'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
             <!-- <div v-if="showMultilingualValue(data, 'dct:title')" class="multilang">This property is available in: <span -->
             <!-- v-for="(el, index) in data['dct:title']" :key="index">({{ el['@language'] }}) </span></div> -->
-            <div v-if="showMultilingualValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{
+            <div v-if="showMultilingualValue(data, 'dct:description')">{{ $t('message.metadata.description') }}: {{ 
+                data['dct:description'].filter(el => el['@language']).length === 0 ? 
+                data['dct:description'].map(el => el['@value'])[0] : 
                 data['dct:description'].filter(el => el['@language'] === dpiLocale).map(el => el['@value'])[0] }}</div>
             <!-- <div v-if="showMultilingualValue(data, 'dct:description')" class="multilang">This property is available in: -->
             <!-- <span v-for="(el, index) in data['dct:description']" :key="index">({{ el['@language'] }}) </span></div> -->

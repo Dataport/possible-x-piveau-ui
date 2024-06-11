@@ -166,9 +166,6 @@ export default {
       }
     });
   },
-  mounted() {
-    this.saveLocalstorageValues(this.property);
-  }
 };
 </script>
 
