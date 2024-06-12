@@ -286,7 +286,7 @@ const glueConfig = {
     sparqlUrl: 'https://data.europa.eu/sparql',
     gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
     catalogBaseUrl: 'https://europeandataportal.eu/',
-    vueAppCorsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
+    corsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
   },
   authentication: {
     useService: true,

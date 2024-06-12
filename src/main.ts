@@ -185,8 +185,8 @@ app.use(UniversalPiwik, {
 });
 
 // Cors Proxy and Bulk Download Services
-app.use(corsProxyService, env.api.vueAppCorsproxyApiUrl);
-app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.vueAppCorsproxyApiUrl);
+app.use(corsProxyService, env.api.corsproxyApiUrl);
+app.use(bulkDownloadCorsProxyService, GLUE_CONFIG, env.api.corsproxyApiUrl);
 
 // Form Kit
 app.use(FormKitPlugin, defaultConfig(config));
