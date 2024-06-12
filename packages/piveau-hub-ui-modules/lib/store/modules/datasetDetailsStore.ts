@@ -30,6 +30,7 @@ const state = {
         politicalGeocodingURI: [],
         contributorID: [],
         geocodingDescriptionDe: {},
+        hvdCategory: [{}],
         legalBasis: {},
         qualityProcessURI: '',
         typeDe: '',
@@ -62,6 +63,7 @@ const state = {
         id: '',
         identifiers: [],
         idName: '',
+        isHvd : false,
         isReferencedBy: [],
         isVersionOf: [],
         keywords: [],
@@ -212,6 +214,8 @@ const getters = {
     getDistributionDownloadAs: state => state.dataset.distributionDownloadAs,
     getDistributionDownloadAsOptions: state => state.dataset.distributionDownloadAsOptions,
     getDatasetDescriptionHeight: state => state.dataset.descriptionHeight,
+    getIsHvd: state => state.dataset.isHvd,
+    getHvdCategory: state => state.dataset.hvdCategory,
 };
 
 const actions = {
@@ -301,6 +305,8 @@ const actions = {
                     commit('SET_THEME', response.theme);
                     commit('SET_TYPE', response.type);
                     commit('SET_EXTENDET_METADATA', response.extendetMetadata);
+                    commit('SET_IS_HVD', response.isHvd);
+                    commit('SET_HVD_CATEGORY', response.hvdCategory);
                     commit('SET_LOADING', false);
                     resolve();
                 })
@@ -762,8 +768,14 @@ const mutations = {
         state.dataset.distributionDownloadAsOptions = selectOptions;
     },
     SET_DATASET_DESCRIPTION_HEIGHT (state, height) {
-     state.dataset.descriptionHeight = height;
-   }
+        state.dataset.descriptionHeight = height;
+    },
+    SET_IS_HVD(state, isHvd) {
+        state.dataset.isHvd = isHvd;
+    },
+    SET_HVD_CATEGORY(state, hvdCategory) {
+        state.dataset.hvdCategory = [...hvdCategory];
+    },
 };
 
 const module = {

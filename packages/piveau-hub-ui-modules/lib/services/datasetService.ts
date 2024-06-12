@@ -47,6 +47,8 @@
    ds.id = dataGetters.getString(dataset, 'id');
    ds.identifiers = dataGetters.getArrayOfStrings(dataset, 'identifier');
    ds.idName = dataGetters.getString(dataset, 'idName');
+   ds.isHvd = dataset.is_hvd || false;
+   ds.hvdCategory = dataGetters.getArrayOfObjects(dataset, 'hvd_category', ['id', 'label', 'resource']);
    ds.isReferencedBy = dataGetters.getArrayOfStrings(dataset, 'is_referenced_by');
    ds.isVersionOf = dataGetters.getArrayOfStrings(dataset, 'is_version_of');
    ds.keywords = dataGetters.getArrayOfObjects(dataset, 'keywords', ['id', 'label', 'language']);
@@ -86,7 +88,7 @@
    for (const dist of dataGetters.getDistributions(dataset)) {
      const distribution : {[key: string]: unknown} = {};
      distribution.accessUrl = dataGetters.getArrayOfStrings(dist, 'access_url');
-     distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url', 'availability']); // availability field for DCAT-AP.de
+     distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url', 'availability', 'hvd_category']); // availability field for DCAT-AP.de
      // distribution.accessService = dataGetters.getArrayOfStrings(dist, 'access_service');
      distribution.licenseAttributionByText = dataGetters.getObjectLanguage(dist, 'license_attribution_by_text');
      distribution.byteSize = dataGetters.getNumber(dist, 'byte_size');

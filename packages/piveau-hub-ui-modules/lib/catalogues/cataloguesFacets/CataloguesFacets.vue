@@ -158,7 +158,6 @@
       getTranslationFor,
       ...mapActions('catalogDetails', [
         'loadCatalog',
-        'useCatalogService',
       ]),
       ...mapActions('catalogs', [
         'toggleFacet',
@@ -304,7 +303,6 @@
     },
     created() {
       if (this.$route.query.showsubcatalogs) {
-        this.useCatalogService(this.catalogService);
         const superCatalogUrl = this.$route.query.superCatalog;
         if (typeof superCatalogUrl === 'string') {
           const catalogId = superCatalogUrl.substring(superCatalogUrl.lastIndexOf('/') + 1);
