@@ -1,3 +1,21 @@
+# [4.0.0-alpha.34](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.33...v4.0.0-alpha.34) (2024-06-12)
+
+
+### Bug Fixes
+
+* augmenting Zod schema ([695c875](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/695c8753d293a9a2783be8943ab7269f3a053c77))
+* augmenting Zod schema ([4a0611a](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/4a0611a8dfc82b26143973df9261d2a7f022e652))
+* change env variable vueAppCorsproxyApiUrl to corsproxyApiUrl in Zod Schema ([fadb8e8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fadb8e895c4a56a857c7c72547901228e1931c05))
+* completing Zod config schema ([dab1950](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/dab1950dcad2c16203228db57a0d3ad5acba9367))
+* fixed handling of page title and description when language tag is missing ([6daa5d8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/6daa5d80d2a5001d5ff476e4933333348fc296da))
+
+
+### Features
+
+* implement High-Value Datasets ([89cae21](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/89cae212e4554b0461653a3ea24f541851273f78))
+
+
+
 # [4.0.0-alpha.33](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.31...v4.0.0-alpha.33) (2024-06-07)
 
 
