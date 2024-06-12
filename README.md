@@ -101,7 +101,7 @@ URL to the Hub-Search Gazetteer API (default: `https://data.europa.eu/api/hub/se
 Catalog Base URL (default: `https://europeandataportal.eu/`).
 
 
-#### vueAppCorsproxyApiUrl
+#### corsproxyApiUrl
 URL to the CORS Proxy API (default: `https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de`).
 
 
