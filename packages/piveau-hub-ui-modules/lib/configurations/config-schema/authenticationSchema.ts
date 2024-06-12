@@ -4,6 +4,11 @@ const keycloakSchema = z.object({
   realm: z.string().default('piveau'),
   url: z.string().url().optional(),
   clientId: z.string().default('piveau-hub-ui'),
+  'ssl-required': z.string().default('external'),
+  'public-client': z.boolean().default(true),
+  'verify-token-audience': z.boolean().default(true),
+  'use-resource-role-mappings': z.boolean().default(true),
+  'confidential-port': z.number().default(0)
 })
 
 const keycloakInitSchema = z.object({
@@ -24,6 +29,13 @@ const keycloakInitSchema = z.object({
   silentCheckSsoRedirectUri: z.string().optional(),
 }).passthrough()
 
+const authMiddlewareSchema = z.object({
+  enable: z.boolean().default(true),
+  baseUrl: z.string().default(""),
+  loginRedirectUrl: z.string().default(""),
+  logoutRedirectUrl: z.string().default("")
+});
+
 export const authenticationSchema = z.object({
   useService: z.boolean().default(false),
   login: z.object({
@@ -42,4 +54,5 @@ export const authenticationSchema = z.object({
     audience: z.string().default('piveau-hub-repo'),
   }).default({}),
   authToken: z.string().default(''),
+  authMiddleware: authMiddlewareSchema.default({})
 }).passthrough().default({})
