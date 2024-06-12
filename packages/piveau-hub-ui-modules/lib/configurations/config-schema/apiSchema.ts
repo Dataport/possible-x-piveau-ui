@@ -20,5 +20,5 @@ export const apiSchema = z.object({
   sparqlUrl: z.string().url().transform(addTrailingSlash),
   gazetteerBaseUrl: z.string().url().transform(addTrailingSlash),
   catalogBaseUrl: z.string().url().transform(addTrailingSlash),
-  vueAppCorsproxyApiUrl: z.string().url().transform(addTrailingSlash),
+  corsproxyApiUrl: z.string().url().transform(addTrailingSlash),
 })
