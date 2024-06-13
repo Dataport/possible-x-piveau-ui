@@ -89,7 +89,7 @@ const RuntimeConfiguration = {
       extensions: [ignoreUnusedVariables],
     };
 
-    const merged = merge(mergeOptions, opts.baseConfig, runtimeConfig);
+    const merged = clean(merge(mergeOptions, opts.baseConfig, runtimeConfig));
     if (opts.debug) {
       console.debug(`Runtime configuration = ${JSON.stringify(merged)}`); // eslint-disable-line
     }
@@ -107,5 +107,24 @@ const RuntimeConfiguration = {
     app.provide(injectionKey, merged);
   },
 };
+
+/**
+ * Removes all elements from the config that have a non-replaced runtime-config.js key
+ * @param o
+ * @param current
+ */
+function clean(o, current = {}): ResolvedConfig {
+  Object.keys(o).forEach(key => {
+    const value = o[key];
+    if (value?.constructor === Object) {
+      current[key] = clean(value);
+    } else if (typeof value === 'string' && ! value.startsWith("$VITE_")) {
+      current[key] = value;
+    } else if (typeof value !== 'string') {
+      current[key] = value;
+    }
+  });
+  return current as ResolvedConfig;
+}
 
 export default RuntimeConfiguration;
