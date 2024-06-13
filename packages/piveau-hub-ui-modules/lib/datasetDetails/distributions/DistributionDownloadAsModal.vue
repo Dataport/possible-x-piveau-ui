@@ -88,7 +88,10 @@ import {
     mapGetters
 } from 'vuex'
 import axios from 'axios'
-import { late } from 'zod'
+import {
+    late
+} from 'zod'
+
 
 export default {
     name: "download-as-modal",
@@ -162,14 +165,13 @@ export default {
                     // Create a cancel token
                     const CancelToken = axios.CancelToken;
                     this.source = CancelToken.source();
-
                     axios({
                             url: `${this.$env.content.datasetDetails.downloadAs.proxyUrl}/?uri=${uri}/?url=${downloadOrAccessUrl}`,
                             method: 'GET',
+                            responseType: 'blob',
                             headers: {
                                 'Content-Type': 'application/octet-stream; charset=UTF-8'
                             },
-                            // Add the cancel token to the request config
                             cancelToken: this.source.token,
                         }).then((res) => {
                             this.progress = '8' + this.randomNumber();
@@ -178,15 +180,11 @@ export default {
 
                             this.progress = '100';
                             this.readyForDownload = true;
+
                             const locale = this.$route.query.locale;
-                            let FILE;
-                              if (this.selected === 'json') {
-                                const jsonString = JSON.stringify(res.data);
-                                FILE = window.URL.createObjectURL(new Blob([jsonString], { type: 'application/json' }));
-                              } else {
-                                FILE = window.URL.createObjectURL(new Blob([res.data]));
-                              }
-                              
+                            const FILE = window.URL.createObjectURL(res.data);
+                           
+
                             let docUrl = document.createElement('a');
                             docUrl.href = FILE;
                             docUrl.setAttribute('download', this.setFileName(locale));
@@ -195,13 +193,14 @@ export default {
 
                             docUrl.click();
                         })
-                        .catch((e) => {
+                        .catch(async (e) => {              
+                            console.error("Error", e)
                             if (axios.isCancel(e)) {
-                                console.log('Request canceled:', e.message);
+                                console.error('Request canceled:', e.message);
                             } else {
-                                if (e.response) this.errorMsg = e.response.data;
+                                if (e.response) this.errorMsg = await e.response.data.text();
                                 this.error = true;
-                                this.downloadBtnText = 'Download';
+                                this.downloadBtnText = 'Retry';
                                 this.converting = false;
                             }
                         });
@@ -218,10 +217,14 @@ export default {
             return Math.floor(Math.random() * max);
         },
         setFileName(locale) {
+             if (typeof this.getDistributionDownloadAs.title === 'undefined') {
+                return 'file'
+            } 
             if (this.getDistributionDownloadAs.title[locale]) {
                 return this.getDistributionDownloadAs.title[locale].split('.')[0] + '.' + this.selected;
             } else {
                 return Object.values(this.getDistributionDownloadAs.title)[0].split('.')[0] + '.' + this.selected;
+                
             }
         }
     }

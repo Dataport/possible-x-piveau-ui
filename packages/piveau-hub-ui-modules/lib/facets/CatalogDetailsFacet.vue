@@ -1,24 +1,18 @@
 <template>
   <div class="row position-relative">
     <span class="px-3">
-      <img v-if="has(catalog, 'country.id')"
-           class="catalog-flag border border-dark"
-           :class="{ 'io': catalog.country.id === 'io' }"
-           :src="getImg(getCatalogImage(catalog))"
-           width="100%"
-           height="auto"
-           :alt="catalog.country.id">
+      <img v-if="has(catalog, 'country.id')" class="catalog-flag border border-dark"
+        :class="{ 'io': catalog.country.id === 'io' }" :src="getImg(getCatalogImage(catalog))" width="100%" height="auto"
+        :alt="catalog.country.id">
     </span>
     <div class="catalog-details-table col mt-3" v-if="showObject(catalog)">
       <div class="small">
         <!-- TITLE -->
         <dl v-if="has(catalog, 'title') && showObject(catalog.title)">
           <dt>
-                  <span :title="$t('message.tooltip.catalogDetails.title')"
-                        data-toggle="tooltip"
-                        data-placement="right">
-                        {{ $t('message.metadata.title') }}
-                  </span>
+            <span class="pointer" :title="$t('message.tooltip.catalogDetails.title')" data-toggle="tooltip" data-placement="right">
+              {{ $t('message.metadata.title') }}
+            </span>
           </dt>
           <dd>{{ getTranslationFor(catalog.title, $route.query.locale, catalog.languages) }}</dd>
           <dd>
@@ -30,10 +24,8 @@
         <!-- DESCRIPTION -->
         <dl v-if="has(catalog, 'description') && showObject(catalog.description)">
           <dt>
-            <span :title="$t('message.tooltip.catalogDetails.description')"
-                  data-toggle="tooltip"
-                  data-placement="right">
-                 {{ $t('message.metadata.description') }}
+            <span class="pointer" :title="$t('message.tooltip.catalogDetails.description')" data-toggle="tooltip">
+              {{ $t('message.metadata.description') }}
             </span>
           </dt>
           <dd>{{ getTranslationFor(catalog.description, $route.query.locale, catalog.languages) }}</dd>
@@ -41,20 +33,21 @@
         <!-- PUBLISHER -->
         <dl v-if="has(catalog, 'publisher') && showObject(catalog.publisher)">
           <dt>
-                  <span :title="$t('message.tooltip.catalogDetails.publisher')"
-                        data-toggle="tooltip"
-                        data-placement="right">
-                          {{ $t('message.metadata.publisher') }}
-                  </span>
+            <span class="pointer" :title="$t('message.tooltip.catalogDetails.publisher')" data-toggle="tooltip">
+              {{ $t('message.metadata.publisher') }}
+            </span>
           </dt>
-          <dd v-if="has(catalog, 'publisher.name')  && showString(catalog.publisher.name)">{{ catalog.publisher.name }}</dd>
+          <dd v-if="has(catalog, 'publisher.name') && showString(catalog.publisher.name)">{{ catalog.publisher.name }}
+          </dd>
           <dd>
-            <app-link v-if="has(catalog, 'publisher.homepage') && showString(catalog.publisher.homepage)" :to="catalog.publisher.homepage">
+            <app-link v-if="has(catalog, 'publisher.homepage') && showString(catalog.publisher.homepage)"
+              :to="catalog.publisher.homepage">
               {{ catalog.publisher.homepage }}
             </app-link>
           </dd>
           <dd>
-            <app-link v-if="has(catalog, 'publisher.email') && showString(catalog.publisher.email)" :to="catalog.publisher.email">
+            <app-link v-if="has(catalog, 'publisher.email') && showString(catalog.publisher.email)"
+              :to="catalog.publisher.email">
               {{ catalog.publisher.email }}
             </app-link>
           </dd>
@@ -62,14 +55,16 @@
         <!-- CREATOR -->
         <dl v-if="has(catalog, 'creator') && showObject(catalog.creator)">
           <dt>{{ $t('message.metadata.creator') }}</dt>
-          <dd v-if="has(catalog, 'creator.name')  && showString(catalog.creator.name)">{{ catalog.creator.name }}</dd>
+          <dd v-if="has(catalog, 'creator.name') && showString(catalog.creator.name)">{{ catalog.creator.name }}</dd>
           <dd>
-            <app-link v-if="has(catalog, 'creator.homepage') && showString(catalog.creator.homepage)" :to="catalog.creator.homepage">
+            <app-link v-if="has(catalog, 'creator.homepage') && showString(catalog.creator.homepage)"
+              :to="catalog.creator.homepage">
               {{ catalog.creator.homepage }}
             </app-link>
           </dd>
           <dd>
-            <app-link v-if="has(catalog, 'creator.email') && showString(catalog.creator.email)" :to="catalog.creator.email">
+            <app-link v-if="has(catalog, 'creator.email') && showString(catalog.creator.email)"
+              :to="catalog.creator.email">
               {{ catalog.creator.email }}
             </app-link>
           </dd>
@@ -77,10 +72,8 @@
         <!-- LANGUAGES -->
         <dl v-if="has(catalog, 'languages') && showArray(catalog.languages)">
           <dt>
-            <span :title="$t('message.tooltip.catalogDetails.language')"
-                  data-toggle="tooltip"
-                  data-placement="right">
-                   {{ $t('message.metadata.languages') }}
+            <span class="pointer" :title="$t('message.tooltip.catalogDetails.language')" data-toggle="tooltip">
+              {{ $t('message.metadata.languages') }}
             </span>
           </dt>
           <dd v-for="lang in catalogLanguageIds" :key="lang">{{ lang }}</dd>
@@ -89,27 +82,31 @@
         <dl v-if="has(catalog, 'availability') && showObject(catalog.availability)">
           <dt>
             <!-- TODO Tooltip string -->
-            <span :title="$t('message.tooltip.catalogDetails.availability')"
-                data-toggle="tooltip"
-                data-placement="right">
-                {{ $t('message.metadata.availability') }}
+            <span class="pointer" :title="$t('message.tooltip.catalogDetails.availability')" data-toggle="tooltip">
+              {{ $t('message.metadata.availability') }}
             </span>
           </dt>
-          <dd v-if="has(catalog.availability, 'label') && !isNil(catalog.availability.label)"> {{ $t('message.metadata.label') }}: {{ catalog.availability.label }}</dd>
-          <dd v-if="has(catalog.availability, 'resource') && !isNil(catalog.availability.resource)"> {{ $t('message.metadata.resource') }}: <a :href="catalog.availability.resource">{{ catalog.availability.resource }}</a></dd>
+          <dd v-if="has(catalog.availability, 'label') && !isNil(catalog.availability.label)"> {{
+            $t('message.metadata.label') }}: {{ catalog.availability.label }}</dd>
+          <dd v-if="has(catalog.availability, 'resource') && !isNil(catalog.availability.resource)"> {{
+            $t('message.metadata.resource') }}: <a :href="catalog.availability.resource">{{ catalog.availability.resource
+  }}</a></dd>
         </dl>
         <!-- LICENCE -->
         <dl v-if="has(catalog, 'licence') && showObject(catalog.licence)">
           <dt>{{ $t('message.catalogFacets.facets.licences') }}</dt>
           <dd v-if="has(catalog, 'licence.label') && showString(catalog.licence.label)">{{ catalog.licence.label }}</dd>
-          <dd v-if="has(catalog, 'licence.description') && showString(catalog.licence.description)">{{ catalog.licence.description }}</dd>
+          <dd v-if="has(catalog, 'licence.description') && showString(catalog.licence.description)">{{
+            catalog.licence.description }}</dd>
           <dd>
-            <app-link v-if="has(catalog, 'licence.resource') && showString(catalog.licence.resource)" :to="catalog.licence.resource">
+            <app-link v-if="has(catalog, 'licence.resource') && showString(catalog.licence.resource)"
+              :to="catalog.licence.resource">
               {{ catalog.licence.resource }}
             </app-link>
           </dd>
           <dd>
-            <app-link v-if="has(catalog, 'licence.la_url') && showString(catalog.licence.la_url)" :to="catalog.licence.la_url">
+            <app-link v-if="has(catalog, 'licence.la_url') && showString(catalog.licence.la_url)"
+              :to="catalog.licence.la_url">
               {{ catalog.licence.la_url }}
             </app-link>
           </dd>
@@ -117,9 +114,7 @@
         <!-- ISSUED -->
         <dl v-if="has(catalog, 'issued') && !isNil(catalog.issued)">
           <dt>
-            <span :title="$t('message.tooltip.catalogDetails.created')"
-                    data-toggle="tooltip"
-                    data-placement="right">
+            <span class="pointer" :title="$t('message.tooltip.catalogDetails.created')" data-toggle="tooltip">
               {{ $t('message.metadata.created') }}
             </span>
           </dt>
@@ -127,10 +122,8 @@
         </dl>
         <!-- MODIFIED -->
         <dl v-if="has(catalog, 'modified') && !isNil(catalog.modified)">
-          <dt :title="$t('message.tooltip.catalogDetails.updated')">
-             <span :title="$t('message.tooltip.catalogDetails.updated')"
-                     data-toggle="tooltip"
-                     data-placement="right">
+          <dt>
+            <span class="pointer" :title="$t('message.tooltip.catalogDetails.updated')" data-toggle="tooltip">
               {{ $t('message.metadata.updated') }}
             </span>
           </dt>
@@ -149,9 +142,10 @@
         <!-- RIGHTS -->
         <dl v-if="has(catalog, 'rights') && showObject(catalog.rights)">
           <dt>{{ $t('message.metadata.rights') }}</dt>
-          <dd v-if="has(catalog, 'rights.label')  && showString(catalog.rights.label)">{{ catalog.rights.label }}</dd>
+          <dd v-if="has(catalog, 'rights.label') && showString(catalog.rights.label)">{{ catalog.rights.label }}</dd>
           <dd>
-            <app-link v-if="has(catalog, 'rights.resource') && showString(catalog.rights.resource)" :to="catalog.rights.resource">
+            <app-link v-if="has(catalog, 'rights.resource') && showString(catalog.rights.resource)"
+              :to="catalog.rights.resource">
               {{ catalog.rights.resource }}
             </app-link>
           </dd>
@@ -179,8 +173,10 @@
         <dl v-if="has(catalog, 'spatial') && showObjectArray(catalog.spatial)">
           <dt>{{ $t('message.metadata.spatial') }}</dt>
           <dl v-for="(spatial, i) of catalog.spatial" :key="i">
-            <dd v-if="has(spatial, 'coordinates') && showString(spatial.coordinates)">{{ $t('message.metadata.coordinates') }}: {{ spatial.coordinates }}</dd>
-            <dd v-if="has(spatial, 'type') && showString(spatial.type)">{{ $t('message.metadata.type') }}: {{ spatial.type }}</dd>
+            <dd v-if="has(spatial, 'coordinates') && showString(spatial.coordinates)">{{
+              $t('message.metadata.coordinates') }}: {{ spatial.coordinates }}</dd>
+            <dd v-if="has(spatial, 'type') && showString(spatial.type)">{{ $t('message.metadata.type') }}: {{ spatial.type
+            }}</dd>
           </dl>
         </dl>
         <!-- SPATIAL RESOURCE -->
@@ -197,19 +193,24 @@
         <!-- LINKED DATA -->
         <dl>
           <div class="dropdown d-inline-block">
-            <app-link class="text-dark p-0 font-weight-bold nav-link underline dropdown-toggle text-nowrap" fragment="#" role="button" id="linkedDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <span :title="$t('message.tooltip.catalogDetails.metadata')"
-                           data-toggle="tooltip"
-                           data-placement="right">
-              {{ $t('message.catalogs.downloadAsLinkedData') }}
-             </span>
+            <app-link class="text-dark p-0 font-weight-bold nav-link underline dropdown-toggle text-nowrap" fragment="#"
+              role="button" id="linkedDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <span :title="$t('message.tooltip.catalogDetails.metadata')" data-toggle="tooltip">
+                {{ $t('message.catalogs.downloadAsLinkedData') }}
+              </span>
             </app-link>
             <div class="dropdown-menu" aria-labelledby="linkedDataDropdownMenuLink">
-              <resource-details-linked-data-button class="dropdown-item" format="rdf" text="RDF/XML" resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
-              <resource-details-linked-data-button class="dropdown-item" format="ttl" text="Turtle" resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
-              <resource-details-linked-data-button class="dropdown-item" format="n3" text="Notation3" resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
-              <resource-details-linked-data-button class="dropdown-item" format="nt" text="N-Triples" resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
-              <resource-details-linked-data-button class="dropdown-item" format="jsonld" text="JSON-LD" resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
+              <resource-details-linked-data-button class="dropdown-item" format="rdf" text="RDF/XML"
+                resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
+              <resource-details-linked-data-button class="dropdown-item" format="ttl" text="Turtle" resources="catalogues"
+                v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
+              <resource-details-linked-data-button class="dropdown-item" format="n3" text="Notation3"
+                resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
+              <resource-details-linked-data-button class="dropdown-item" format="nt" text="N-Triples"
+                resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
+              <resource-details-linked-data-button class="dropdown-item" format="jsonld" text="JSON-LD"
+                resources="catalogues" v-bind:resources-id="catalog.id"></resource-details-linked-data-button>
             </div>
           </div>
         </dl>
@@ -270,8 +271,12 @@ export default {
 </script>
 
 <style lang="scss">
-  .catalog-details-table {
-    overflow: auto;
-    margin-bottom: 15px;
-  }
+.catalog-details-table {
+  overflow: auto;
+  margin-bottom: 15px;
+}
+
+.pointer {
+    cursor: pointer;
+}
 </style>

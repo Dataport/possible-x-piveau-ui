@@ -14,9 +14,10 @@ import DatasetDetailsHeader  from "../datasetDetails/header/DatasetDetailsHeader
 import DatasetDetailsDescription from "../datasetDetails/DatasetDetailsDescription.vue";
 import Distribution from "../datasetDetails/distributions/Distribution.vue";
 import DistributionActions from "../datasetDetails/distributions/distributionActions/DistributionActions.vue";
-import DatasetDetailsProperties from "../datasetDetails/DatasetDetailsProperties.vue";
+import DatasetDetailsProperties from "../datasetDetails/properties/DatasetDetailsProperties.vue";
 import DatasetDetailsFeatures from "../datasetDetails/features/DatasetDetailsFeatures.vue";
 import DatasetDetailsFeatureHeader from "../datasetDetails/features/DatasetDetailsFeatureHeader.vue"
+import DistributionVisualisationSlot from "../datasetDetails/distributions/distributionPreview/DistributionVisualisationSlot.vue";
 
 export type ComponentMap = { [key: string]: any };
 
@@ -39,7 +40,8 @@ const defaultComponents: ComponentMap = {
   DistributionActions,
   DatasetDetailsProperties,
   DatasetDetailsFeatures,
-  DatasetDetailsFeatureHeader
+  DatasetDetailsFeatureHeader,
+  DistributionVisualisationSlot
 };
 
 export function configureComponents(app: any, components?: ComponentMap) {

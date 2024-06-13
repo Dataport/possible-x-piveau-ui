@@ -7,7 +7,7 @@
       <dataset-details-skeleton type="DatasetDetails"></dataset-details-skeleton>
     </div>
     <div v-if="!loadingDatasetDetails" class="dsd-dataset">
-      <dataset-details-description 
+      <dataset-details-description
         v-if="showDatasetDescription"
         :dateIncorrect="dateIncorrect"
         :machineTranslated="machineTranslated"
@@ -71,14 +71,8 @@
         :showObject="showObject"
       />
 
-      <dataset-details-properties 
+      <dataset-details-properties
         v-if="showDatasetProperties"
-        :filterDateFormatEU="filterDateFormatEU"
-        :showObjectArray="showObjectArray"
-        :showArray="showArray"
-        :showString="showString"
-        :showObject="showObject"
-        :showNumber="showNumber"
       />
     </div>
   </div>
@@ -361,7 +355,9 @@
         return this.getDistributionFormat(distribution).length > 4;
       },
       getDistributionTitle(distribution) {
-        return distribution.title ? getTranslationFor(distribution.title, this.$route.query.locale, this.getLanguages) : '-';
+        return distribution.title
+          ? getTranslationFor(distribution.title, this.$route.query.locale, this.getLanguages)
+          : this.getID || '-';
       },
       getVisualisationLink(distribution) {
         // Return Visualisation Link

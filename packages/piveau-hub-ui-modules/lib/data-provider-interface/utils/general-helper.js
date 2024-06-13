@@ -201,6 +201,10 @@ function getPagePrefixedNames(property, formDefinitions, pageContent) {
     return prefixedNames;
 }
 
+function isValid(id) {
+    return /^[a-z0-9-]*$/.test(id);
+}
+
 /**
  * Get file id from accessUrl, if it is a file upload url.
  * accessUrls are file upload urls, iff they start with fileUploadUrl.
