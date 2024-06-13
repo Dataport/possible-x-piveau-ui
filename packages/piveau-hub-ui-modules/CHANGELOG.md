@@ -1,3 +1,12 @@
+# [4.0.0-alpha.38](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.37...v4.0.0-alpha.38) (2024-06-13)
+
+
+### Bug Fixes
+
+* merge conflicts from master ([931538e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/931538e129d7a50833a72748e445de05d9cb2ef4))
+
+
+
 # [4.0.0-alpha.37](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.36...v4.0.0-alpha.37) (2024-06-13)
 
 
