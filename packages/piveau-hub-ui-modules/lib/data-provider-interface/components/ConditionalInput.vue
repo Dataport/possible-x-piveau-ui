@@ -60,4 +60,3 @@ onClickOutside(I1, event => showSelect.value = false)
 
   </div>
 </template>
-

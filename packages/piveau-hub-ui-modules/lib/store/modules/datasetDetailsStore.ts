@@ -26,9 +26,10 @@ const state = {
     dataset: {
         // DCAT-AP.de
         availability: {},
-        politicalGeocodingLevelURI: [],
-        politicalGeocodingURI: [],
-        contributorID: [],
+        applicableLegislation: [{}],
+        politicalGeocodingLevelURI: [{}],
+        politicalGeocodingURI: [{}],
+        contributorID: [{}],
         geocodingDescriptionDe: {},
         hvdCategory: [{}],
         legalBasis: {},
@@ -63,7 +64,7 @@ const state = {
         id: '',
         identifiers: [],
         idName: '',
-        isHvd : false,
+        isHvd: false,
         isReferencedBy: [],
         isVersionOf: [],
         keywords: [],
@@ -123,6 +124,7 @@ const state = {
 };
 
 const getters = {
+    getProperty: state => property => state.dataset[property],
     // DCAT-AP.de fields
     getAvailability: state => state.dataset.availability,
     getPoliticalGeocodingLevelURI: state => state.dataset.politicalGeocodingLevelURI,
@@ -214,7 +216,9 @@ const getters = {
     getDistributionDownloadAs: state => state.dataset.distributionDownloadAs,
     getDistributionDownloadAsOptions: state => state.dataset.distributionDownloadAsOptions,
     getDatasetDescriptionHeight: state => state.dataset.descriptionHeight,
+
     getIsHvd: state => state.dataset.isHvd,
+    getApplicableLegislation: state => state.dataset.applicableLegislation,
     getHvdCategory: state => state.dataset.hvdCategory,
 };
 
@@ -308,6 +312,11 @@ const actions = {
                     commit('SET_IS_HVD', response.isHvd);
                     commit('SET_HVD_CATEGORY', response.hvdCategory);
                     commit('SET_LOADING', false);
+
+                    commit('SET_IS_HVD', response.isHvd);
+                    commit('SET_APPLICABLE_LEGISLATION', response.applicableLegislation);
+                    commit('SET_HVD_CATEGORY', response.hvdCategory);
+
                     resolve();
                 })
                 .catch((err) => {
@@ -349,15 +358,17 @@ const actions = {
     loadSimilarDatasets({ commit }, idOrPayload: string | LoadSimilarDatasetsPayload) {
         let id;
         let query;
+        let description;
         if (typeof idOrPayload === "string") {
             id = idOrPayload;
             query = {};
         } else if (isObject(idOrPayload)) {
             id = idOrPayload.id;
-            query = idOrPayload.query;
+            query = idOrPayload?.query;
+            description = idOrPayload?.description;
         } else {
             throw new Error('invalid payload argument passed to method loadSimilarDatasets: '
-              + JSON.stringify(payload))
+              + JSON.stringify(idOrPayload))
         }
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
@@ -365,9 +376,27 @@ const actions = {
             commit('SET_SIMILAR_DATASETS_REQUESTED', id);
             this.$datasetService.getSimilarDatasets(id, query)
                 .then((response) => {
-                    commit('SET_SIMILAR_DATASETS', response.data);
-                    commit('SET_LOADING', false);
-                    resolve(response.data);
+                    const result = response.data?.result;
+                    if(result){
+                        //new similarity service
+                        const prefix = "http://data.europa.eu/88u/dataset/";
+                        // const prefix = "<http://dataeuropaeu/88u/dataset/";
+                        result.forEach(item => {
+                            item.id = item.uri.substring(prefix.length);
+                            item.uri = "https://data.europa.eu/88u/dataset/" + item.id;
+                            // item.id = item.uri.substring(prefix.length, item.uri.length - 2);
+                            // item.uri = "https://data.europa.eu/88u/dataset/" + item.id;
+                        });
+                        commit('SET_SIMILAR_DATASETS', result);
+                        commit('SET_LOADING', false);
+                        resolve(result);
+                    }else{
+                        // old similarity service
+                        commit('SET_SIMILAR_DATASETS', response.data);
+                        commit('SET_LOADING', false);
+                        resolve(response.data);
+                    }
+
                 })
                 .catch((err) => {
                     console.error(err);
@@ -448,10 +477,10 @@ const actions = {
         commit('SET_DISTRIBUTION_DOWNLOAD_AS', distribution);
         commit('SET_DISTRIBUTION_DOWNLOAD_AS_OPTIONS', selectOptions);
     },
-    /** 
+    /**
     * @description Sets datasetDescription height
     * @param commit
-    * @param height 
+    * @param height
     */
     setDatasetDescriptionHeight({ commit }, height) {
       commit('SET_DATASET_DESCRIPTION_HEIGHT', height)
@@ -773,6 +802,9 @@ const mutations = {
     SET_IS_HVD(state, isHvd) {
         state.dataset.isHvd = isHvd;
     },
+    SET_APPLICABLE_LEGISLATION(state, applicableLegislation) {
+        state.dataset.applicableLegislation = [...applicableLegislation];
+    },
     SET_HVD_CATEGORY(state, hvdCategory) {
         state.dataset.hvdCategory = [...hvdCategory];
     },
@@ -790,5 +822,6 @@ export default module;
 
 export interface LoadSimilarDatasetsPayload {
     id: string,
-    query: SimilarDatasetsQuery
+    query?: SimilarDatasetsQuery,
+    description?: string
 }

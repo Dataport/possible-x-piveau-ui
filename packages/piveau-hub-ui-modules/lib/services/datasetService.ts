@@ -34,7 +34,7 @@
    ds.country = dataGetters.getObject(dataset, 'country', [{ key: 'id', default: 'eu' }, { key: 'title', default: 'European Union' }]);
    ds.creator = dataGetters.getObject(dataset, 'creator', ['name', 'type', 'email', 'resource', 'homepage']);
    ds.deadline = dataGetters.getString(dataset, 'deadline');
-   ds.description = dataGetters.getObjectLanguage(dataset, 'description', 'No description available');
+   ds.description = dataGetters.getObjectLanguage(dataset, 'description');
    ds.dimensions = dataGetters.getArrayOfStrings(dataset, 'dimension');
    ds.distributions = [];
    ds.distributionFormats = [];
@@ -65,7 +65,7 @@
    ds.qualifiedAttributions = dataGetters.getArrayOfStrings(dataset, 'qualified_attribution');
    ds.qualifiedRelations = dataGetters.getArrayOfObjects(dataset, 'qualified_relation', ['relation', 'had_role']);
    ds.relations = dataGetters.getArrayOfStrings(dataset, 'relation');
-   ds.relatedResources = dataGetters.getArrayOfStrings(dataset, 'related_resources');
+   // ds.relatedResources = dataGetters.getArrayOfStrings(dataset, 'related_resources');
    ds.releaseDate = dataGetters.getString(dataset, 'issued');
    ds.sample = dataGetters.getArrayOfStrings(dataset, 'sample');
    ds.sources = dataGetters.getArrayOfStrings(dataset, 'source');
@@ -73,35 +73,53 @@
    ds.spatialResolutionInMeters = dataGetters.getArrayOfNumbers(dataset, 'spatial_resolution_in_meters');
    ds.spatialResource = dataGetters.getArrayOfObjects(dataset, 'spatial_resource', ['label', 'resource']);
    ds.statUnitMeasures = dataGetters.getArrayOfStrings(dataset, 'stat_unit_measure');
-   ds.subject = dataGetters.getArrayOfObjects(dataset, 'subject', ['resource', 'label']);
+   ds.subject = dataGetters.getArrayOfObjects(dataset, 'subject', ['resource', 'label', 'id']);
    ds.temporal = dataGetters.getArrayOfObjects(dataset, 'temporal', ['gte', 'lte']);
-   ds.temporalResolution = dataGetters.getArrayOfStrings(dataset, 'temporal_resolution');
+   ds.temporalResolution = dataGetters.getString(dataset, 'temporal_resolution');
    ds.theme = dataGetters.getArrayOfObjects(dataset, 'categories', ['id', 'label', 'resource']);
    ds.translationMetaData = dataGetters.getTranslationMetaData(dataset);
-   ds.title = dataGetters.getObjectLanguage(dataset, 'title', 'No title available');
+   ds.title = dataGetters.getObjectLanguage(dataset, 'title', '');
    ds.type = dataGetters.getObject(dataset, 'type', ['id', 'label', 'resource']);
    ds.resource = dataGetters.getString(dataset, 'resource');
    ds.versionInfo = dataGetters.getString(dataset, 'version_info');
    ds.versionNotes = dataGetters.getObjectLanguage(dataset, 'version_notes');
    ds.visualisations = [];
    ds.wasGeneratedBy = dataGetters.getArrayOfStrings(dataset, 'was_generated_by');
+
+  // High-value dataset fields
+  // https://semiceu.github.io/DCAT-AP/releases/2.2.0-hvd/
+  // NOTE: This is a solution primarily addressing Open Data Bayern's needs.
+  ds.isHvd = dataset.is_hvd || false;
+  ds.applicableLegislation = dataGetters.getArrayOfStrings(dataset, 'applicable_legislation');
+  ds.hvdCategory = dataGetters.getArrayOfObjects(dataset, 'hvd_category', ['id', 'label', 'resource']);
+
    for (const dist of dataGetters.getDistributions(dataset)) {
      const distribution : {[key: string]: unknown} = {};
      distribution.accessUrl = dataGetters.getArrayOfStrings(dist, 'access_url');
-     distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', ['title', 'description', 'endpoint_url', 'availability', 'hvd_category']); // availability field for DCAT-AP.de
+     distribution.accessService = dataGetters.getArrayOfObjects(dist, 'access_service', [
+      'title',
+      'description',
+      'endpoint_url',
+      'availability',
+      'applicable_legislation',
+      'contact_point',
+      'page',
+      'hvd_category',
+      'rights',
+    ]); // availability field for DCAT-AP.de
      // distribution.accessService = dataGetters.getArrayOfStrings(dist, 'access_service');
      distribution.licenseAttributionByText = dataGetters.getObjectLanguage(dist, 'license_attribution_by_text');
      distribution.byteSize = dataGetters.getNumber(dist, 'byte_size');
      distribution.checksum = dataGetters.getObject(dist, 'checksum', ['algorithm', 'checksum_value']);
      distribution.compressFormat = dataGetters.getObject(dist, 'compress_format', ['label', 'resource']);
      distribution.conformsTo = dataGetters.getArrayOfObjects(dist, 'conforms_to', ['label', 'resource']);
-     distribution.description = dataGetters.getObjectLanguage(dist, 'description', 'No description available');
+     distribution.description = dataGetters.getObjectLanguage(dist, 'description', '');
      distribution.downloadUrls = dataGetters.getArrayOfStrings(dist, 'download_url');
      distribution.format = dataGetters.getObject(dist, 'format', ['id', 'resource', { key: 'label', default: 'UNKNOWN' }]);
      distribution.hasPolicy = dataGetters.getString(dist, 'has_policy');
      distribution.id = dataGetters.getString(dist, 'id');
      distribution.languages = dataGetters.getArrayOfObjects(dist, 'language', ['id', 'label', 'resource']);
-     distribution.licence = dataGetters.getObject(dist, 'license', ['id', 'label', 'description', 'resource', 'la_url']);
+     distribution.licence = dataGetters.getObject(dist, 'license', ['id', 'label', 'description', 'resource', 'la_url', 'homepage']);
      distribution.mediaType = dataGetters.getString(dist, 'media_type');
      distribution.modificationDate = dataGetters.getString(dist, 'modified');
      distribution.packageFormat = dataGetters.getObject(dist, 'package_format', ['label', 'resource']);
@@ -111,18 +129,28 @@
      distribution.spatialResolutionInMeters = dataGetters.getArrayOfNumbers(dist, 'spatial_resolution_in_meters');
      distribution.status = dataGetters.getObject(dist, 'status', ['label', 'resource']);
      distribution.temporalResolution = dataGetters.getArrayOfStrings(dist, 'temporal_resolution');
-     distribution.title = dataGetters.getObjectLanguage(dist, 'title', 'No title available');
+     distribution.title = dataGetters.getObjectLanguage(dist, 'title', '');
      distribution.type = dataGetters.getObject(dist, 'type', ['label', 'resource']);
+
+    // High-value dataset fields
+    // https://semiceu.github.io/DCAT-AP/releases/2.2.0-hvd/
+    // NOTE: This is a solution primarily addressing Open Data Bayern's needs.
+    distribution.applicableLegislation = dataGetters.getArrayOfObjects(dist, 'applicable_legislation', ['id', 'label', 'resource']);
+
+
      // Check type of ditribution
      if (distribution.type.resource === 'http://publications.europa.eu/resource/authority/distribution-type/VISUALIZATION') {
        ds.visualisations.push(distribution);
      } else {
        ds.distributions.push(distribution);
      }
+
      ds.distributionFormats.push(distribution.format);
      ds.licences.push(distribution.licence);
+
    }
-   return ds;
+
+  return ds;
  };
 
  const checkBounds = (bounds) => {
@@ -148,272 +176,287 @@
 
  export default class Datasets {
 
-  private readonly baseUrl: string;
-  private readonly hubUrl: string;
-  private readonly qualityBaseUrl: string;
-  private readonly similarityBaseUrl: string;
-  private readonly defaultScoringFacets: any[];
+   private readonly baseUrl: string;
+   private readonly similarityBaseUrl: string;
+   private readonly similarityServiceName: string;
+   private readonly defaultScoringFacets: any[];
+   private readonly qualityBaseUrl: string;
+   private readonly hubUrl: string;
 
+   constructor(baseUrl, similarityBaseUrl, similarityServiceName, defaultScoringFacets, qualityBaseUrl, hubUrl) {
+     this.baseUrl = baseUrl;
+     this.similarityBaseUrl = similarityBaseUrl;
+     this.similarityServiceName = similarityServiceName;
+     this.defaultScoringFacets = defaultScoringFacets;
+     this.qualityBaseUrl = qualityBaseUrl;
+     this.hubUrl = hubUrl;
+   }
 
-  constructor(baseUrl, hubUrl, qualityBaseUrl, similarityBaseUrl, defaultScoringFacets) {
-    this.baseUrl = baseUrl;
-    this.hubUrl = hubUrl;
-    this.qualityBaseUrl = qualityBaseUrl;
-    this.similarityBaseUrl = similarityBaseUrl;
-    this.defaultScoringFacets = defaultScoringFacets;
-  }
+   /**
+      * @description GET dataset by given id.
+      * @param id
+      */
+   getSingle(id) {
+     return new Promise((resolve, reject) => {
+       const endpoint = 'datasets';
+       const reqStr = `${this.baseUrl}${endpoint}/${id}`;
+       axios.get(reqStr, {
+         params: {},
+       })
+         .then((response) => {
+           const dataset = response.data.result;
+           let ds = {};
+           try {
+             ds = getResponseData(dataset);
+           } catch (error) {
+             console.warn('Error in datasets.js while checking response:', error.message);
+             console.error(error.stack);
+           }
+           resolve(ds);
+         })
+         .catch((error) => {
+           reject(error);
+         });
+     });
+   }
 
-  /**
-    * @description GET dataset by given id.
-    * @param id
-    */
-  getSingle(id) {
-    return new Promise((resolve, reject) => {
-      const endpoint = 'datasets';
-      const reqStr = `${this.baseUrl}${endpoint}/${id}`;
-      axios.get(reqStr, {
-        params: {},
-      })
-        .then((response) => {
-          const dataset = response.data.result;
-          let ds = {};
-          try {
-            ds = getResponseData(dataset);
-          } catch (error) {
-            console.warn('Error in datasets.js while checking response:', error.message);
-            console.error(error.stack);
-          }
-          resolve(ds);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
+   /**
+      * @description GET all datasets matching the given criteria.
+      * @param q
+      * @param locale
+      * @param facets
+      * @param geoBounds
+      * @param minScoring
+      * @param dataScope
+      * @returns {Promise}
+      */
+   get(q, locale, limit, page = 0, sort = `relevance+desc, modified+desc, title.${locale}+asc`, facetOperator = 'AND', facetGroupOperator = 'AND', dataServices = 'false', facets, geoBounds, minScoring = 0, dataScope) {
 
-  /**
-    * @description GET all datasets matching the given criteria.
-    * @param q
-    * @param locale
-    * @param facets
-    * @param geoBounds
-    * @param minScoring
-    * @param dataScope
-    * @returns {Promise}
-    */
-  get(q, locale, limit, page = 0, sort = `relevance+desc, modified+desc, title.${locale}+asc`, facetOperator = 'AND', facetGroupOperator = 'AND', dataServices = 'false', superCatalogue, facets, geoBounds, minScoring = 0, dataScope) {
-    facets = { ...facets }; // create a copy to prevent side effects
-    delete facets.scoring; // Those are not facets in the api call! They are separate query parameters
-    delete facets.dataServices; // ...
-    // The request parameters
-    const params: {[key: string]: unknown} = {
-      q,
-      filter: 'dataset',
-      limit,
-      page: page - 1,
-      sort,
-      facetOperator,
-      facetGroupOperator,
-      dataServices,
-      superCatalogue,
-      includes: `id,title.${locale},description.${locale},languages,modified,issued,catalog.id,catalog.title,catalog.country.id,distributions.id,distributions.format.label,distributions.format.id,distributions.license,categories.label,publisher`,
-      facets,
-    };
+     facets = { ...facets }; // create a copy to prevent side effects
+     delete facets.scoring; // Those are not facets in the api call! They are separate query parameters
+     delete facets.dataServices; // ...
+     // The request parameters
+     const params: {[key: string]: unknown} = {
+       q,
+       filter: 'dataset',
+       limit,
+       page: page - 1,
+       sort,
+       facetOperator,
+       facetGroupOperator,
+       dataServices,
+       includes: `id,title.${locale},description.${locale},languages,modified,issued,catalog.id,catalog.title,catalog.country.id,distributions.id,distributions.format.label,distributions.format.id,distributions.license,categories.label,publisher`,
+       facets,
+     };
 
-    // Check if minScoring is set
-    if (minScoring > 0) params.minScoring = minScoring;
+     // Check if minScoring is set
+     if (minScoring > 0) params.minScoring = minScoring;
 
-    // Check if dataScope is set and then modify params to fullfil the corresponding data scope criterias
-    if (!isNil(dataScope)) {
-      // Set countryData param to true if Country data is requested
-      params.countryData = dataScope === 'countryData';
-      // Set country facets param
-      if (params.countryData) {
-        params.facets.country = params.facets.country.filter(c => c !== 'countryData');
-      } else {
-        params.facets.country = [];
-        params.facets.country.push(dataScope);
+     // Check if dataScope is set and then modify params to fullfil the corresponding data scope criterias
+     if (!isNil(dataScope)) {
+        // Set countryData param to true if Country data is requested
+        params.countryData = dataScope === 'countryData';
+        // Set country facets param
+        if (params.countryData) {
+          params.facets.country = params.facets.country.filter(c => c !== 'countryData');
+        } else {
+          params.facets.country = [];
+          params.facets.country.push(dataScope);
+        }
       }
-    }
 
-    // Add geoBounds parameters if the bounds are valid
-    const bounds = checkBounds(geoBounds);
-    if (!isNil(bounds)) {
-      params.bboxMinLat = bounds[0];
-      params.bboxMaxLat = bounds[2];
-      params.bboxMinLon = bounds[1];
-      params.bboxMaxLon = bounds[3];
-    }
+      // Add geoBounds parameters if the bounds are valid
+      const bounds = checkBounds(geoBounds);
+      if (!isNil(bounds)) {
+        params.bboxMinLat = bounds[0];
+        params.bboxMaxLat = bounds[2];
+        params.bboxMinLon = bounds[1];
+        params.bboxMaxLon = bounds[3];
+      }
 
-    return new Promise((resolve, reject) => {
-      const endpoint = 'search';
-      const reqStr = `${this.baseUrl}${endpoint}`;
-      axios.get(reqStr, {
-        params,
-      })
-        .then((response) => {
-          if (!has(response.data, 'result')) {
-            console.warn('Error in datasets.js while checking response');
-            return reject(new Error('Empty Response Data'));
-          }
-          /**
-          * @property availableFacets
-          * @type {availableFacets: Array, datasetsCount, datasets: Array}
-          * @description The set union of all available facets for the .
-          */
-          const resData = {
-            availableFacets: [],
-            scoringCount: {},
-            datasetsCount: response.data.result.count,
-            datasets: [],
-          };
+      return new Promise((resolve, reject) => {
+        const endpoint = 'search';
+        const reqStr = `${this.baseUrl}${endpoint}`;
+        axios.get(reqStr, {
+          params,
+        })
+          .then((response) => {
+            if (!has(response.data, 'result')) {
+              console.warn('Error in datasets.js while checking response');
+              return reject(new Error('Empty Response Data'));
+            }
+            /**
+            * @property availableFacets
+            * @type {availableFacets: Array, datasetsCount, datasets: Array}
+            * @description The set union of all available facets for the .
+            */
+            const resData = {
+              availableFacets: [],
+              scoringCount: {},
+              datasetsCount: response.data.result.count,
+              datasets: [],
+            };
 
-          // Transform fetched facets
-          for (const field of response.data.result.facets) {
-            // Check for required field keys
-            if (has(field, 'id') && has(field, 'title') && has(field, 'items')) {
-              const items = [];
-              for (const facet of field.items) {
-                const item: {id?, title?, count?, minScoring?, maxScoring?} = {};
-                // Check for required facet/item keys
-                if (has(facet, 'id') && has(facet, 'title') && has(facet, 'count')) {
-                  item.id = facet.id;
-                  item.title = facet.title;
-                  item.count = facet.count;
+            // Transform fetched facets
+            for (const field of response.data.result.facets) {
+              // Check for required field keys
+              if (has(field, 'id') && has(field, 'title') && has(field, 'items')) {
+                const items = [];
+                for (const facet of field.items) {
+                  const item: {id?, title?, count?, minScoring?, maxScoring?} = {};
+                  // Check for required facet/item keys
+                  if (has(facet, 'id') && has(facet, 'title') && has(facet, 'count')) {
+                    item.id = facet.id;
+                    item.title = facet.title;
+                    item.count = facet.count;
+                  }
+                  // Handle Scoring Facets
+                  if (has(facet, 'from') && has(facet, 'to')) {
+                    const currentScoringFacet: {id?, title?, count?, minScoring?, maxScoring?} = this.defaultScoringFacets[facet.id];
+                    item.minScoring = facet.from;
+                    item.maxScoring = facet.to;
+
+                    // Use config values to overwrite the default values from the backend
+                    if (currentScoringFacet.title) item.title = currentScoringFacet.title;
+                    if (currentScoringFacet.minScoring) item.minScoring = currentScoringFacet.minScoring;
+                    if (currentScoringFacet.maxScoring) item.maxScoring = currentScoringFacet.maxScoring;
+                  }
+                  items.push(item);
                 }
-                // Handle Scoring Facets
-                if (has(facet, 'from') && has(facet, 'to')) {
-                  const currentScoringFacet: {id?, title?, count?, minScoring?, maxScoring?} = this.defaultScoringFacets[facet.id];
-                  item.minScoring = facet.from;
-                  item.maxScoring = facet.to;
-
-                  // Use config values to overwrite the default values from the backend
-                  if (currentScoringFacet.title) item.title = currentScoringFacet.title;
-                  if (currentScoringFacet.minScoring) item.minScoring = currentScoringFacet.minScoring;
-                  if (currentScoringFacet.maxScoring) item.maxScoring = currentScoringFacet.maxScoring;
-                }
-                items.push(item);
+                // Add to response array
+                resData.availableFacets.push({
+                  id: field.id,
+                  title: field.title,
+                  items,
+                });
               }
-              // Add to response array
-              resData.availableFacets.push({
-                id: field.id,
-                title: field.title,
-                items,
+            }
+
+            // Transform Datasets Data model
+            const datasets = response.data.result.results;
+
+            for (const dataset of datasets) {
+              let ds = {};
+              try {
+                ds = getResponseData(dataset);
+              } catch (error) {
+                console.warn('Error in datasets.js while checking response:', error.message);
+                console.error(error.stack);
+              }
+              resData.datasets.push(ds);
+            }
+            return resolve(resData);
+          })
+          .catch((error) => {
+            console.error(error);
+            reject(error);
+          });
+      });
+    }
+
+    /**
+   * @description Get similar datasets to the dataset represented by the provided id.
+   * @param id {string} The dataset id to get similar datasets for.
+   * @param query {SimilarDatasetsQuery} query params
+   */
+    getSimilarDatasets(id, description, query?: SimilarDatasetsQuery) {
+      return new Promise((resolve, reject) => {
+        let url = this.similarityBaseUrl;
+        if ( ! url.endsWith('/')) {
+          url += '/';
+        }
+        const similarityServiceName = this.similarityServiceName;
+        if (similarityServiceName === 'knn_request') {
+            axios.post(`${url}knn_request/`, { query: description, k: 10})
+              .then((response) => {
+                resolve(response);
+              })
+              .catch((error) => {
+                reject(error);
               });
-            }
-          }
+        } else {
+            const reqStr = `${url}similarity/${id}`;
+            axios.get(reqStr, {
+                params: query,
+            }).then((response) => {
+                resolve(response);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+        }
+      });
+    }
+    // curl -i -X POST -H "Content-Type: application/json" -d '{"k": 10, "query": "This dataset presents all the political groups of the French National Assembly since the 14th legislature (2012). The data comes from open data from the National Assembly."}' https://live-service-server-data-europa-eu.apps.osc.fokus.fraunhofer.de/knn_request
 
-          // Transform Datasets Data model
-          const datasets = response.data.result.results;
-
-          for (const dataset of datasets) {
-            let ds = {};
-            try {
-              ds = getResponseData(dataset);
-            } catch (error) {
-              console.warn('Error in datasets.js while checking response:', error.message);
-              console.error(error.stack);
-            }
-            resData.datasets.push(ds);
-          }
-          return resolve(resData);
+    getQualityData(id) {
+      return new Promise((resolve, reject) => {
+        const endpoint = 'datasets';
+        const reqStr = `${this.qualityBaseUrl}${endpoint}/${id} `;
+        axios.get(reqStr, {
+          timeout: 30000,
         })
-        .catch((error) => {
-          console.error(error);
-          reject(error);
-        });
-    });
-  }
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    }
 
-  /**
-    * @description Get similar datasets to the dataset represented by the provided id.
-    * @param id {string} The dataset id to get similar datasets for.
-    * @param query {SimilarDatasetsQuery} query params
-    */
-  getSimilarDatasets(id, query?: SimilarDatasetsQuery) {
-    return new Promise((resolve, reject) => {
-      const endpoint = 'similarity';
-      const reqStr = `${this.similarityBaseUrl}${endpoint}/${id}`;
-      axios.get(reqStr, {
-        params: query,
-      })
-        .then((response) => {
-          resolve(response);
+    getQualityDistributionData(id) {
+      return new Promise((resolve, reject) => {
+        const endpoint = `datasets/${id}/distributions`;
+        const reqStr = `${this.qualityBaseUrl}${endpoint} `;
+        axios.get(reqStr, {
+          timeout: 30000,
         })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    }
 
-  getQualityData(id) {
-    return new Promise((resolve, reject) => {
-      const endpoint = 'datasets';
-      const reqStr = `${this.qualityBaseUrl}${endpoint}/${id} `;
-      axios.get(reqStr, {
-        timeout: 30000,
-      })
-        .then((response) => {
-          resolve(response);
+    getDQVDataHead(id, format, locale) {
+      return new Promise((resolve, reject) => {
+        // const reqStr = `${this.hubUrl}datasets/${id}.${format}/metrics`;
+        const reqStr = `${this.hubUrl}datasets/${id}/metrics`;
+        axios.head(reqStr, {
         })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    }
 
-  getQualityDistributionData(id) {
-    return new Promise((resolve, reject) => {
-      const endpoint = `datasets/${id}/distributions`;
-      const reqStr = `${this.qualityBaseUrl}${endpoint} `;
-      axios.get(reqStr, {
-        timeout: 30000,
-      })
-        .then((response) => {
-          resolve(response);
+    /**
+   * @description Autocomplete the given query.
+   * @param q {String} The Query to autocomplete.
+   */
+    autocomplete(q) {
+      return new Promise((resolve, reject) => {
+        const endpoint = 'autocomplete';
+        const reqStr = `${this.baseUrl}${endpoint}`;
+        axios.get(reqStr, {
+          params: {
+            q,
+          },
         })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
-  getDQVDataHead(id, format, locale) {
-    return new Promise((resolve, reject) => {
-      const reqStr = `${this.hubUrl}datasets/${id}.${format}/metrics`;
-      //const reqStr = `${this.hubUrl}metrics/${id}.${format}?useNormalizedId=true&locale=${locale}`;
-      axios.head(reqStr, {
-      })
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  }
-
-  /**
-    * @description Autocomplete the given query.
-    * @param q {String} The Query to autocomplete.
-    */
-  autocomplete(q) {
-    return new Promise((resolve, reject) => {
-      const endpoint = 'autocomplete';
-      const reqStr = `${this.baseUrl}${endpoint}`;
-      axios.get(reqStr, {
-        params: {
-          q,
-        },
-      })
-        .then((response) => {
-          resolve(response);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
-  }
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
+    }
 }
 
 export interface SimilarDatasetsQuery {

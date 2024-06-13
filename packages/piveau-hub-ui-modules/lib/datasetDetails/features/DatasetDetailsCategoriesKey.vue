@@ -9,7 +9,7 @@
     tag="keywords-toggle"
     :onClick="toggleDisplayCount"
   />
-    </div>
+    </div> 
     <div v-if="isCategoriesAllDisplayed"  class="keywords__item row mt-4">
         <span
           v-for='(category, i) in getCategories'

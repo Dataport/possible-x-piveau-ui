@@ -72,6 +72,7 @@
                         </p>
                       </small>
                     </span>
+                    <slot name="data-service-description" :data-service="dataService"/>
                     <!-- additional field for DCAT-AP.de -->
                     <span>
                       <small v-if="getDataServiceResource(dataService)">

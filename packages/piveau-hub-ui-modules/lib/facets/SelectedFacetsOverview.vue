@@ -2,7 +2,7 @@
   <div class="container sfo-container">
     <p v-for="facet in getSelectedFacetsOrdered.filter(facet => showSelectedFacet(facet))" :key="facet.field">
       <span>
-        {{ `${findFacetFieldTitle(facet.field)}:` }}
+        {{ `${findFacetFieldTitle(facet)}:` }}
       </span>
       <template v-for="(facetId, i) in facet.facets"
             tabindex="0" v-on:keyup.enter="removeSelectedFacet(facet.field, facetId)">
@@ -50,7 +50,8 @@
         const isDatasetsErpd = this.$route.path === '/datasets' && this.$route.query?.superCatalogue === 'erpd';
         let isCataloguesErpd = false;
         if (this.$route.path === '/catalogues') {
-          const cat = 'http://data.europa.eu/88u/catalogue/erpd';
+          const cat = 'erpd';
+          // const cat = 'http://data.europa.eu/88u/catalogue/erpd';
           const sc = this.$route.query.superCatalog;
           if (!sc) return false;
           if (sc === cat) isCataloguesErpd = true;
@@ -63,13 +64,7 @@
 
         this.defaultFacetOrder.forEach((facet) => {
           if (this.showCatalogDetails && facet === 'catalog') return;
-          if (this.showCatalogDetails && facet === 'erpd') return;
-          if (facet === 'erpd' && this.isErpdActive) { // Special case: erpd facet
-            orderedFacets.push({
-              field: 'erpd',
-              facets: ['true'],
-            });
-          }
+          if (this.showCatalogDetails && facet === 'superCatalog') return;
           Object.keys(this.getSelectedFacets).forEach((field) => {
             if (facet === field && this.getSelectedFacets[field].length > 0) orderedFacets.push({
               field,
@@ -77,7 +72,6 @@
             });
           });
         });
-
         return orderedFacets;
       },
       getSelectedFacets() {
@@ -145,17 +139,29 @@
       },
       findFacetTitle(fieldId, facetId) {
         try {
+          if (fieldId === "superCatalog" && facetId === "erpd") return this.$t("message.metadata.yes");
           const facetTitle = this.availableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
           return getFacetTranslation(fieldId, facetId, this.$route.query.locale, facetTitle);
         } catch {
           return facetId;
         }
       },
-      findFacetFieldTitle(fieldId) {
+      findFacetFieldTitle(facet) {
+        const fieldId = facet.field;
         try {
-          const title = fieldId === 'scoring' ?
-            this.$t('message.header.navigation.data.metadataquality')
-            : this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+          let title = "";
+          if(fieldId==='scoring'){
+           title=this.$t('message.header.navigation.data.metadataquality');
+          }else if(fieldId==='superCatalog' && facet.facets.toString() === 'erpd'){
+            title = this.$t('message.datasetFacets.facets.erpd');
+          }else if (this.$route.path === '/catalogues' && fieldId==='country') {
+            title = this.$t(`message.datasetFacets.facets.origin`)
+          }else{
+            title = this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+          }
+          // const title = fieldId === 'scoring' ?
+          //   this.$t('message.header.navigation.data.metadataquality')
+          //   : this.$t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
 
           return !title.includes("@: message.metadata")? title : this.availableFacets.find(field => field.id === fieldId).title;
 
@@ -164,16 +170,15 @@
         }
       },
       removeSelectedFacet(field, facet) {
-        if (field === 'erpd') {
+        if (field === 'superCatalog') {
           const query = Object.assign({}, this.$route.query)
-          if (this.$route.path === '/datasets') delete query.superCatalogue;
+          delete query.superCatalog;
           if (this.$route.path === '/catalogues') {
-            delete query.superCatalog;
             delete query.showsubcatalogs;
           }
           this.$router.push({
             query
-          })
+          });
         } else {
           this.toggleFacet(field, facet);
         }

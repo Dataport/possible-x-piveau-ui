@@ -10,8 +10,8 @@
                   </svg>
                </span>
             </button>
-            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">{{ $t('message.datasetDetails.datasets.modal.embedText') }}</h5>
+            <div class="modal-head">
+               <h5  class="modal-title" id="exampleModalLabel" style="display: inline-block;">{{ $t('message.datasetDetails.datasets.modal.embedText') }}</h5>
             </div>
             <div class="modal-body">
                <div class="container" style="padding:0; margin:0;">
@@ -46,12 +46,12 @@
                </div>
                <div class="ecl-form-group">
                   <label class="ecl-form-label" for="ebmedTextarea" style="font-size:18px; font-weight: 400; color: #000000;">{{ $t('message.datasetDetails.datasets.modal.code')}}</label>
-                  <textarea id="ebmedTextarea" style="width: 100%; resize: none; padding: 20px 25px 0px 20px; overflow: hidden; font-size:18px; line-height: 1.1; color:#888888; margin-top: 1.375rem; word-break: break-all;"
+                  <textarea id="ebmedTextarea" style="width: 100%; resize: none; padding: 20px 25px 0px 20px; overflow: hidden; font-size:18px; line-height: 1.1; color:#888888; margin-top: 1.375rem; word-break: break-all;float: left!important;"
                      class="ecl-text-area ecl-text-area--m" rows="4" :value="embedCode" readonly></textarea>
                </div>
             </div>
             <div class="modal-footer justify-content-start">
-               <button @click="copy" class="ecl-button ecl-button--secondary px-4 py-3" type="button">{{ $t('message.datasetDetails.datasets.modal.copy')}}</button>
+               <button @click="copy" class="ecl-button ecl-button--secondary px-4 py-3" style="float: left!important;" type="button">{{ $t('message.datasetDetails.datasets.modal.copy')}}</button>
                <span v-show="copied" class="copied">
                   <svg width="20" height="23" viewBox="0 0 20 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <g clip-path="url(#clip0_13_474)">
@@ -116,6 +116,7 @@ export default {
 
 <style scoped lang="scss">
 .modal-title {
+  float: left!important;
   font-family: 'Arial';
   font-style: normal;
   font-weight: 700;
@@ -123,7 +124,7 @@ export default {
   // line-height: 24px;
   color: #000000;
 }
-.modal-header {
+.modal-head {
   border-bottom: none;
   padding: 0;
   padding-bottom: 1rem;
@@ -172,7 +173,7 @@ export default {
 .input-with-px {
   position: relative;
   margin-top: 5px;
-  
+
 }
 
 .input-with-px input {
@@ -184,7 +185,7 @@ export default {
 .input-with-px::after {
   content: "px";
   position: absolute;
-  right: 22%;
+  right: 30%;
   top: 54%;
   transform: translateY(-50%);
   color: #777;

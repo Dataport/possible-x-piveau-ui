@@ -1,15 +1,16 @@
 <template>
   <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
-    <div v-if="isErpdActive()" class="d-none d-lg-block dsd-title-tag erpdInfo">
-      <span  >Protected Data</span>
+    <div v-if="isErpdActive()" class="d-none d-lg-flex dsd-title-tag erpdInfo">
+      <span>{{$t('message.metadata.protecteddata')}}</span>
     </div>
     <div v-else class="d-none d-lg-block dsd-title-tag">
       <span  :style="{ fontSize: titleFontSize }">
         {{$t('message.metadata.dataset')}}
-        
+
       </span>
     </div>
-    <h1 class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
+    <h1 v-if="getTitle" class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getTranslationFor(getTitle, $route.query.locale, getLanguages) }}</h1>
+    <h1 v-else class="d-none d-lg-block dataset-details-title" data-cy="dataset-title">{{ getID }}</h1>
   </div>
 </template>
 
@@ -25,7 +26,8 @@ export default {
   methods: {
     getTranslationFor,
     isErpdActive() {
-      return this.getCatalog.is_part_of  === 'http://data.europa.eu/88u/catalogue/erpd';
+      // console.log(this.getLanguages);
+      return this.getCatalog.is_part_of  === 'erpd';
     },
   },
   computed: {
@@ -33,7 +35,7 @@ export default {
       'getLanguages',
       'getTitle',
       'getCatalog',
-      
+      'getID',
     ]),
   }
 }
@@ -50,6 +52,9 @@ export default {
 }
 .erpdInfo{
   background-color: #8f4300 !important;
+  min-width: 20%;
+  align-items: center;
+  justify-content: center;
 }
 @media (min-width: 768px) {
   .dataset-details-title {

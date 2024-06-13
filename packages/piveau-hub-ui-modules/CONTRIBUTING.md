@@ -18,17 +18,15 @@ import { MyComponent } from '@piveau/piveau-hub-ui-modules';
 ### Development workflow
 
 * Develop your component in `lib`
-* Export the component in `lib/index.mjs` if it is not yet
+* Export the component in `lib/index.ts` if it is not yet
 * Import the component in your consuming app from `@piveau/piveau-hub-ui-modules`
 * Merge your feature branch to the master branch (for now, no CI script will be triggered!)
 * When a new version of the package should be published (for use outside of the monorepo), 
-  run one of the following commands (from the monorepo root level):
+  run the the following command (from the monorepo root level):
   ```
-  npm run release:patch
-  npm run release:minor
-  npm run release:major
+  npm run release
   ```
-  This results in a package build, a version increase (patch, minor or major) and
+  In the command line choose the appropriate package name when asked. This results in a package build, a version increase (patch, minor or major) and
   an npm publish to the paca registry.
 
 
