@@ -349,10 +349,6 @@ export default defineComponent({
 <style lang="scss">
 @import 'https://cdn.formk.it/web-assets/multistep-form.css';
 
-.activeSection {
-  // margin-top: v-bind(offsetTopStepper)
-}
-
 .activeItem {
   flex-grow: 1;
 

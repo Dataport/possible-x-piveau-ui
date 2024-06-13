@@ -397,7 +397,8 @@ export default {
                 container: 'body',
               });
             })
-            .catch(() => {
+            .catch((error) => {
+              console.error(error)
               this.$Progress.fail();
             })
             .finally(() => this.$root.$emit('contentLoaded'));

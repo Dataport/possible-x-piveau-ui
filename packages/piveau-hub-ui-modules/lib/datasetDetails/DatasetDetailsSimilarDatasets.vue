@@ -32,6 +32,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash-es';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
+  import AppLink from '../widgets/AppLink.vue';
   import * as metaInfo from '../composables/head';
   import PvBadge from "../PvBadge/PvBadge.vue";
 

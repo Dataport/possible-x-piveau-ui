@@ -71,15 +71,15 @@ export default {
       }
       this.callback();
     },
-    checked() {
-      if (this.checked) {
+  },
+  checked() {
+    if (this.checked) {
+      this.cookies.set('externalContent', this.checked, this.expires);
+    } else if (!this.checked) {
+      if (this.cookies.get('externalContent')) {
         this.cookies.set('externalContent', this.checked, this.expires);
-      } else if (!this.checked) {
-        if (this.cookies.get('externalContent')) {
-          this.cookies.set('externalContent', this.checked, this.expires);
-        }
       }
-    },
+    }
   },
   setup() {
     const { cookies } = useCookies();

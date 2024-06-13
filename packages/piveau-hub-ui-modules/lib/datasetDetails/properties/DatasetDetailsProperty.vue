@@ -150,9 +150,9 @@ export default {
     },
     interpretTranslateKey(key, prefix) {
       if (key === '') return '';
-      if (key.startsWith('/')) return `${this.$i18n.t(key.substring(1))}:`;
+      if (key.startsWith('/')) return `${this.i18n.global.t(key.substring(1))}:`;
       if (key.startsWith('\'')) return key.substring(1, key.length - 1);
-      return `${this.$i18n.t(`${prefix}.${key}`)}:`;
+      return `${this.i18n.global.t(`${prefix}.${key}`)}:`;
     },
   }
 }

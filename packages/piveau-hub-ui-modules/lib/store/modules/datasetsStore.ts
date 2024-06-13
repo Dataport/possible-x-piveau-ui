@@ -156,7 +156,7 @@ const actions = {
     }
 
     return new Promise((resolve, reject) => {
-      this.$datasetService.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, superCatalogue, facets, geoBounds, minScoring, dataScope)
+      this.$datasetService.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, facets, geoBounds, minScoring, dataScope)
         .then((response) => {
           commit('SET_AVAILABLE_FACETS', response.availableFacets);
           commit('SET_SCORING_COUNT', response.scoringCount);

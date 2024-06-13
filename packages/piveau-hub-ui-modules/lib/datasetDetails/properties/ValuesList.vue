@@ -52,7 +52,7 @@ export default {
       if (typeof v.translation === 'string') {
         return this.interpretTranslateKey(v.translation, prefix);
       }
-      return `${this.$i18n.t(`${prefix}.${v.key}`)}:`;
+      return `${this.i18n.global.t(`${prefix}.${v.key}`)}:`;
     },
     isLink(v) {
       const key = v.key.toLowerCase();

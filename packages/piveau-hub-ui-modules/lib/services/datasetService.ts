@@ -5,7 +5,7 @@
 
  import dataGetters from './getters/data-getters';
 
- const getResponseData = (dataset) => {
+ const getResponseData = (dataset: { is_hvd: boolean; }) => {
    const ds: {[key: string]: unknown} = {};
    // New fields from DCAT-AP.de
    // Dataset
@@ -153,7 +153,7 @@
   return ds;
  };
 
- const checkBounds = (bounds) => {
+ const checkBounds = (bounds: any) => {
    try {
      let gb = bounds;
      if (isNil(gb)) return undefined;
@@ -177,26 +177,26 @@
  export default class Datasets {
 
    private readonly baseUrl: string;
+   private readonly hubUrl: string;
+   private readonly qualityBaseUrl: string;
    private readonly similarityBaseUrl: string;
    private readonly similarityServiceName: string;
    private readonly defaultScoringFacets: any[];
-   private readonly qualityBaseUrl: string;
-   private readonly hubUrl: string;
 
-   constructor(baseUrl, similarityBaseUrl, similarityServiceName, defaultScoringFacets, qualityBaseUrl, hubUrl) {
+   constructor(baseUrl: string, hubUrl: string, qualityBaseUrl: string, similarityBaseUrl: string, similarityServiceName: string, defaultScoringFacets: any[]) {
      this.baseUrl = baseUrl;
+     this.hubUrl = hubUrl;
+     this.qualityBaseUrl = qualityBaseUrl;
      this.similarityBaseUrl = similarityBaseUrl;
      this.similarityServiceName = similarityServiceName;
      this.defaultScoringFacets = defaultScoringFacets;
-     this.qualityBaseUrl = qualityBaseUrl;
-     this.hubUrl = hubUrl;
    }
 
    /**
       * @description GET dataset by given id.
       * @param id
       */
-   getSingle(id) {
+   getSingle(id: any) {
      return new Promise((resolve, reject) => {
        const endpoint = 'datasets';
        const reqStr = `${this.baseUrl}${endpoint}/${id}`;
@@ -230,7 +230,7 @@
       * @param dataScope
       * @returns {Promise}
       */
-   get(q, locale, limit, page = 0, sort = `relevance+desc, modified+desc, title.${locale}+asc`, facetOperator = 'AND', facetGroupOperator = 'AND', dataServices = 'false', facets, geoBounds, minScoring = 0, dataScope) {
+   get(q: any, locale: any, limit: any, page = 0, sort = `relevance+desc, modified+desc, title.${locale}+asc`, facetOperator = 'AND', facetGroupOperator = 'AND', dataServices = 'false', facets: { scoring: any; dataServices: any; }, geoBounds: any, minScoring = 0, dataScope: string) {
 
      facets = { ...facets }; // create a copy to prevent side effects
      delete facets.scoring; // Those are not facets in the api call! They are separate query parameters
@@ -258,7 +258,7 @@
         params.countryData = dataScope === 'countryData';
         // Set country facets param
         if (params.countryData) {
-          params.facets.country = params.facets.country.filter(c => c !== 'countryData');
+          params.facets.country = params.facets.country.filter((c: string) => c !== 'countryData');
         } else {
           params.facets.country = [];
           params.facets.country.push(dataScope);
@@ -303,7 +303,7 @@
               if (has(field, 'id') && has(field, 'title') && has(field, 'items')) {
                 const items = [];
                 for (const facet of field.items) {
-                  const item: {id?, title?, count?, minScoring?, maxScoring?} = {};
+                  const item: {id?: any, title?: any, count?: any, minScoring?: any, maxScoring?: any} = {};
                   // Check for required facet/item keys
                   if (has(facet, 'id') && has(facet, 'title') && has(facet, 'count')) {
                     item.id = facet.id;
@@ -312,7 +312,7 @@
                   }
                   // Handle Scoring Facets
                   if (has(facet, 'from') && has(facet, 'to')) {
-                    const currentScoringFacet: {id?, title?, count?, minScoring?, maxScoring?} = this.defaultScoringFacets[facet.id];
+                    const currentScoringFacet: {id?: any, title?: any, count?: any, minScoring?: any, maxScoring?: any} = this.defaultScoringFacets[facet.id];
                     item.minScoring = facet.from;
                     item.maxScoring = facet.to;
 
@@ -359,7 +359,7 @@
    * @param id {string} The dataset id to get similar datasets for.
    * @param query {SimilarDatasetsQuery} query params
    */
-    getSimilarDatasets(id, description, query?: SimilarDatasetsQuery) {
+    getSimilarDatasets(id: any, description: any, query?: SimilarDatasetsQuery) {
       return new Promise((resolve, reject) => {
         let url = this.similarityBaseUrl;
         if ( ! url.endsWith('/')) {
@@ -389,7 +389,7 @@
     }
     // curl -i -X POST -H "Content-Type: application/json" -d '{"k": 10, "query": "This dataset presents all the political groups of the French National Assembly since the 14th legislature (2012). The data comes from open data from the National Assembly."}' https://live-service-server-data-europa-eu.apps.osc.fokus.fraunhofer.de/knn_request
 
-    getQualityData(id) {
+    getQualityData(id: any) {
       return new Promise((resolve, reject) => {
         const endpoint = 'datasets';
         const reqStr = `${this.qualityBaseUrl}${endpoint}/${id} `;
@@ -405,7 +405,7 @@
       });
     }
 
-    getQualityDistributionData(id) {
+    getQualityDistributionData(id: any) {
       return new Promise((resolve, reject) => {
         const endpoint = `datasets/${id}/distributions`;
         const reqStr = `${this.qualityBaseUrl}${endpoint} `;
@@ -421,7 +421,7 @@
       });
     }
 
-    getDQVDataHead(id, format, locale) {
+    getDQVDataHead(id: any, format: any, locale: any) {
       return new Promise((resolve, reject) => {
         // const reqStr = `${this.hubUrl}datasets/${id}.${format}/metrics`;
         const reqStr = `${this.hubUrl}datasets/${id}/metrics`;
@@ -440,7 +440,7 @@
    * @description Autocomplete the given query.
    * @param q {String} The Query to autocomplete.
    */
-    autocomplete(q) {
+    autocomplete(q: any) {
       return new Promise((resolve, reject) => {
         const endpoint = 'autocomplete';
         const reqStr = `${this.baseUrl}${endpoint}`;

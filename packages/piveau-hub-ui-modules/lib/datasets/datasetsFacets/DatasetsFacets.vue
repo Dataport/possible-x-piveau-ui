@@ -472,9 +472,6 @@ export default {
     for (var i in sessionStorage) {
       if (sessionStorage.length > 0 && i == "Filter") this.toggleCutoff();
     }
-    /* console.log(document.getElementsByClassName("value-display")[2].firstElementChild.innerHTML); */
-    /* fill in here */
-    this.setSuperCatalogue(this.$route.query.superCatalogue);
   },
   setup() {
     useDatasetsFacetsHead();
