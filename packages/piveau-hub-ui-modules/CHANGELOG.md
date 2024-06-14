@@ -1,3 +1,13 @@
+# [4.0.0-alpha.40](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.39...v4.0.0-alpha.40) (2024-06-14)
+
+
+### Bug Fixes
+
+* fixed date validation based on edit mode ([86bdec6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/86bdec6ce608caa9260cebfa1a904b7d81b776c9))
+* runtimeConfigurationService.ts ([b7c699d](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7c699d49200236e159776c516cf8b3f44413b21))
+
+
+
 # [4.0.0-alpha.39](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.38...v4.0.0-alpha.39) (2024-06-14)
 
 
