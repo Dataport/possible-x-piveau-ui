@@ -74,7 +74,6 @@ const GETTERS = {
   getFacetOperator: state => state.searchParameters.facetOperator,
   getFacetGroupOperator: state => state.searchParameters.facetGroupOperator,
   getDataServices: state => state.searchParameters.dataServices,
-  getSuperCatalogue: state => state.searchParameters.superCatalogue,
   getSuperCatalogue_DEPRECATED: state => state.searchParameters.superCatalogue, // !!!!! Project specific (Bayern). Should be removed as soon as possible !!!!
   getDatasetGeoBounds: state => state.searchParameters.datasetGeoBounds,
   getAvailableFacets: state => state.availableFacets,
@@ -134,7 +133,6 @@ const actions = {
       facetOperator = GETTERS.getFacetOperator(state),
       facetGroupOperator = GETTERS.getFacetGroupOperator(state),
       dataServices = GETTERS.getDataServices(state),
-      superCatalogue = GETTERS.getSuperCatalogue(state),
       facets = GETTERS.getFacets(state),
       geoBounds = GETTERS.getDatasetGeoBounds(state),
       minScoring = GETTERS.getMinScoring(state),
@@ -154,7 +152,6 @@ const actions = {
 
     if (facets.catalog[0] === 'erpd') { // Special case: do not load datasets of catalog but rather all datasets of all sub-catalogs
       facets.catalog = [];
-      superCatalogue = 'erpd';
       facets.superCatalog = ['erpd'];
     }
 
