@@ -10,6 +10,7 @@ export function configureServices(store: any, serviceParams: {[key: string]: unk
     serviceParams.hubUrl,
     serviceParams.qualityBaseUrl,
     serviceParams.similarityBaseUrl,
+    serviceParams.similarityServiceName,
     serviceParams.defaultScoringFacets,
   );
 

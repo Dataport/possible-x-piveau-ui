@@ -62,19 +62,24 @@ export default {
       if (this.toggleDownloadPopup) {
         $('#downloadAllModal').modal('show');
       }
+      if (this.checked) {
+        this.$cookie.set('externalContent', this.checked, this.expires);
+      } else if (!this.checked) {
+        if (this.$cookie.get('externalContent')) {
+          this.$cookie.set('externalContent', this.checked, this.expires);
+        }
+      }
       this.callback();
     },
   },
-  watch: {
-    checked() {
-      if (this.checked) {
+  checked() {
+    if (this.checked) {
+      this.cookies.set('externalContent', this.checked, this.expires);
+    } else if (!this.checked) {
+      if (this.cookies.get('externalContent')) {
         this.cookies.set('externalContent', this.checked, this.expires);
-      } else if (!this.checked) {
-        if (this.cookies.get('externalContent')) {
-          this.cookies.set('externalContent', this.checked, this.expires);
-        }
       }
-    },
+    }
   },
   setup() {
     const { cookies } = useCookies();

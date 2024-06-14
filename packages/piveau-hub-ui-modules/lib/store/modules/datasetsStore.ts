@@ -16,7 +16,7 @@ const state = {
     facetOperator: 'AND',
     facetGroupOperator: 'AND',
     dataServices: 'false',
-    superCatalogue: undefined,
+    superCatalogue: undefined, // !!!!! Project specific (Bayern). Should be removed as soon as possible !!!!
     datasetGeoBounds: undefined,
     sort: 'relevance+desc, modified+desc, title.en+asc',
   },
@@ -74,7 +74,7 @@ const GETTERS = {
   getFacetOperator: state => state.searchParameters.facetOperator,
   getFacetGroupOperator: state => state.searchParameters.facetGroupOperator,
   getDataServices: state => state.searchParameters.dataServices,
-  getSuperCatalogue: state => state.searchParameters.superCatalogue,
+  getSuperCatalogue_DEPRECATED: state => state.searchParameters.superCatalogue, // !!!!! Project specific (Bayern). Should be removed as soon as possible !!!!
   getDatasetGeoBounds: state => state.searchParameters.datasetGeoBounds,
   getAvailableFacets: state => state.availableFacets,
   // Hacky solutiohn to insert special facets
@@ -90,14 +90,14 @@ const GETTERS = {
         ],
         title: 'Data services',
       });
-    allAvailableFacets.push({
-      id: 'erpd',
-      items: [
-        { count: undefined, id: 'true', title: 'yes' },
-        { count: undefined, id: 'false', title: 'no' },
-      ],
-      title: 'ERPD',
-    });
+    // allAvailableFacets.push({
+    //   id: 'erpd',
+    //   items: [
+    //     { count: undefined, id: 'true', title: 'yes' },
+    //     { count: undefined, id: 'false', title: 'no' },
+    //   ],
+    //   title: 'ERPD',
+    // });
     return allAvailableFacets;
   },
   getPage: state => state.page,
@@ -133,7 +133,6 @@ const actions = {
       facetOperator = GETTERS.getFacetOperator(state),
       facetGroupOperator = GETTERS.getFacetGroupOperator(state),
       dataServices = GETTERS.getDataServices(state),
-      superCatalogue = GETTERS.getSuperCatalogue(state),
       facets = GETTERS.getFacets(state),
       geoBounds = GETTERS.getDatasetGeoBounds(state),
       minScoring = GETTERS.getMinScoring(state),
@@ -153,11 +152,11 @@ const actions = {
 
     if (facets.catalog[0] === 'erpd') { // Special case: do not load datasets of catalog but rather all datasets of all sub-catalogs
       facets.catalog = [];
-      superCatalogue = 'erpd';
+      facets.superCatalog = ['erpd'];
     }
 
     return new Promise((resolve, reject) => {
-      this.$datasetService.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, superCatalogue, facets, geoBounds, minScoring, dataScope)
+      this.$datasetService.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, facets, geoBounds, minScoring, dataScope)
         .then((response) => {
           commit('SET_AVAILABLE_FACETS', response.availableFacets);
           commit('SET_SCORING_COUNT', response.scoringCount);
@@ -289,7 +288,7 @@ const actions = {
    * @param commit
    * @param operator {String} - Only Erpd data. Possible Operators : ['true', 'false'].
    */
-  setSuperCatalogue({ commit }, superCatalogue) {
+  setSuperCatalogue_DEPRECATED({ commit }, superCatalogue) { // !!!!! Project specific (Bayern). Should be removed as soon as possible !!!!
     commit('SET_SUPER_CATALOGUE', superCatalogue);
   },
   setPage({ commit }, page) {
@@ -373,7 +372,7 @@ const mutations = {
   SET_DATA_SERVICES(state, dataServices) {
     state.searchParameters.dataServices = dataServices;
   },
-  SET_SUPER_CATALOGUE(state, superCatalogue) {
+  SET_SUPER_CATALOGUE(state, superCatalogue) { // !!!!! Project specific (Bayern). Should be removed as soon as possible !!!!
     state.searchParameters.superCatalogue = superCatalogue;
   },
   SET_PAGE(state, page) {

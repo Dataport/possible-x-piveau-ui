@@ -189,3 +189,14 @@ Below is an outline of steps to do when modifying the schema:
 1. Locate your target of modification in the [config-schema](./packages/piveau-hub-ui-modules/lib/configurations/config-schema/) directory. The configuration schema is an object of top-level keys, each key having a dedicated sub-directory. If the aim is to modify a top-level configuration key, take a look at `configSchema.ts` as your entry point; if the aim is to modify a key inside one of the top-level keys, then your entry point is inside the respective sub-directory.
 2. Add/modify/remove the keys as appropriate, following the same pattern as the other key schemas whenever possible. Consider marking new keys as optional by appending `.default(DEFAULT_VALUE)`. This helps reducing the amount of mandatory keys
 3. When committing the changes, don't forget to mark the changes as a breaking change as per the commit message guidelines.
+
+### Generate a runtime-config file
+
+The Zod configuration is the single point of truth for the environment variable structure. There is a script which
+can generate runtime-config.js files from the Zod schema and integrate it into the config folder of a Vue app:
+
+```
+npm run create-runtime-config <workspace-name>
+```
+
+If `<workspace-name>` is omitted, runtime-config.js files will be created in all app workspaces.

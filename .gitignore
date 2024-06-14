@@ -4,9 +4,14 @@ dist
 storage
 local/*
 !local/.gitkeep
+local/packages/*
+!local/packages
+!local/packages/.gitkeep
 *.iml
 config/*.env.js
 config/user-config.js
+
+package-lock.json
 
 tests/unit/coverage
 tests/e2e/reports
@@ -32,4 +37,7 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-package-lock.json
+# Dependency Track files
+bom.json
+
+

@@ -8,9 +8,9 @@
         <div class="mt-4" v-if="similarDatasetsPresent && similarDatasetsFetched">
           <div v-for="(similarDataset, i) in similarDatasets" :key="i">
             <div class="mt-3 border-bottom border-secondary" v-if="has(similarDataset, 'title') && has(similarDataset, 'description')">
-              <a v-if="has(similarDataset, 'uri')" class="text-dark font-weight-bold" :href="appendCurrentLocaleToURL(similarDataset.uri)">
+              <app-link v-if="has(similarDataset, 'uri')" class="text-dark font-weight-bold" :to="similarDatasetLink(similarDataset.uri)">
                 <h3>{{ getTranslationFor(similarDataset.title, $route.query.locale, getLanguages) }}</h3>
-              </a>
+              </app-link>
               <p class="text-muted text-truncate">
                 <small>{{ getTranslationFor(similarDataset.description, $route.query.locale, getLanguages) }}</small>
               </p>
@@ -32,6 +32,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash-es';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
+  import AppLink from '../widgets/AppLink.vue';
   import * as metaInfo from '../composables/head';
   import PvBadge from "../PvBadge/PvBadge.vue";
 
@@ -39,6 +40,7 @@
     name: 'datasetDetailsSimilarDatasets',
     components: {
       PvBadge,
+      AppLink
     },
     data() {
       return {
@@ -55,6 +57,8 @@
         'getLanguages',
         'getSimilarDatasetsRequested',
         'getSimilarDatasets',
+        'getTitle',
+        'getDescription'
       ]),
       similarDatasets() {
         return this.getSimilarDatasets;
@@ -84,8 +88,13 @@
         this.loadSimilarDatasetDetails(similarDataset.id);
       },
       showSimilarbadge(distance, similarType) {
-        return distance > this.breakpoints[similarType].start && distance <= this.breakpoints[similarType].end;
+        return distance >= this.breakpoints[similarType].start && distance < this.breakpoints[similarType].end;
       },
+      similarDatasetLink(url) {
+        const idIndex = url.lastIndexOf('/') + 1;
+        const id = url.substring(idIndex);
+        return "../" + id + `?locale=${this.$route.query.locale}`;
+      }
     },
     created() {
       this.$nextTick(() => {

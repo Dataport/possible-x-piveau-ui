@@ -175,21 +175,32 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
+      // adding validation of modified and issued based on edit mode
+      // no validation in edit mode
 
-      // if (localStorage.getItem('dpi_editmode') === 'true') {
-      //   this.getSchema(this.property)['Mandatory'].forEach((el) => {
-      //     if (el['identifier'] === 'issued' || el['identifier'] === 'modified' ) {
-      // el['children'][1]['props']['else']['validation'] = ''
-      // el['children'][1]['props']['else']['validation-visibility'] = ''
+      // get step name where issued and modified are included
+      const initialSchema = this.getSchema(this.property);
+      const stepWithDates = Object.keys(initialSchema).find(
+        key => initialSchema[key].map(el => el.name).includes('dct:issued') || initialSchema[key].map(el => el.name).includes('dct:modified')
+      );
 
-      // el['children'][1]['props']['then']['validation'] = ''
-      // el['children'][1]['props']['then']['validation-visibility'] = ''
+      if (localStorage.getItem('dpi_editmode') === 'true') {
+        initialSchema[stepWithDates].forEach((el) => {
+          if (el['identifier'] === 'issued' || el['identifier'] === 'modified' ) {
+              el['children'][1]['props']['else']['validation'] = ''
+              el['children'][1]['props']['else']['validation-visibility'] = ''
 
-      // console.log(el)
-      //     }
-      //   }
-      //   );
-      // }
+              el['children'][1]['props']['then']['validation'] = ''
+              el['children'][1]['props']['then']['validation-visibility'] = ''
+              el['children'][1]['props']['then']['validation'] = ''
+              el['children'][1]['props']['then']['validation-visibility'] = ''
+
+              console.log(el)
+            }
+          }
+        );
+      }
+
       if (localStorage.getItem('dpi_editmode') === 'false') {
         this.setIsDraft(false)
         this.setIsEditMode(false)
@@ -272,6 +283,7 @@ export default defineComponent({
     }
   },
   mounted() {
+    if (localStorage.getItem('dpi_editmode')) 
     this.initInputPage();
     this.initCatalogues();
   },
@@ -361,10 +373,6 @@ export default defineComponent({
 
 <style lang="scss">
 @import 'https://cdn.formk.it/web-assets/multistep-form.css';
-
-.activeSection {
-  // margin-top: v-bind(offsetTopStepper)
-}
 
 .activeItem {
   flex-grow: 1;

@@ -5,9 +5,6 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "serve:vanilla": "npm run prepare-dev -w @piveau/piveau-hub-ui-modules && npm run serve -w vanilla-piveau-hub-ui",
-    "serve:deu": "npm run prepare-dev -w @piveau/piveau-hub-ui-modules && npm run serve -w deu-piveau-hub-ui",
-    "serve:possible": "npm run prepare-dev -w @piveau/piveau-hub-ui-modules && npm run serve -w possible-piveau-hub-ui",
     "serve": "esno scripts/serveApp.ts",
     "dev": "npm run serve",
     "build": "npm run build -w @piveau/piveau-hub-ui-modules -w @piveau/piveau-ui-cli",
@@ -15,7 +12,8 @@
     "ci-publish": "esno scripts/publish-ci.ts",
     "initialize": "git submodule update --init && npx -yes esno scripts/utils/removeAllNodeModules.ts && npx esno scripts/createUserConfigs.ts && npm i",
     "clear": "npx -yes esno scripts/utils/removeAllNodeModules.ts",
-    "create-runtime-config": "esno scripts/createRuntimeConfig.ts"
+    "create-runtime-config": "esno scripts/createRuntimeConfig.ts",
+    "sbom": "sh ./bomGenerator.sh"
   },
   "author": "",
   "license": "ISC",
@@ -50,7 +48,7 @@
     "@formkit/core": "^1.2.2",
     "@formkit/themes": "^1.2.2",
     "@formkit/vue": "^1.2.2",
-    "@piveau/piveau-hub-ui-modules": "^4.0.0-alpha.28",
+    "@piveau/piveau-hub-ui-modules": "4.0.0-alpha.36",
     "@vueuse/core": "^10.9.0"
   }
 }

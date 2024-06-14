@@ -94,6 +94,7 @@ const catalogsSchema = z.object({
     FACET_OPERATORS: facetOrAndOperatorLabelSchema,
     FACET_GROUP_OPERATORS: facetOrAndOperatorLabelSchema,
     defaultFacetOrder: z.array(z.string()).default(['country']),
+    useDatasetFacetsMap: z.boolean().default(false)
   }).default({}),
 }).default({})
 
@@ -105,6 +106,8 @@ const datasetDetailsHeaderSchema = z.object({
 
 const datasetDetailsKeywordsSchema = z.object({
   showTitle: z.boolean().default(false),
+  isVisible: z.boolean().default(true),
+  collapsed: z.boolean().default(false)
 }).default({})
 
 const datasetDetailsDescriptionSchema = z.object({
@@ -194,7 +197,17 @@ const datasetDetailsQualitySchema = z.object({
   }).default({}),
 }).default({})
 
+const embedSchema = z.object({
+  enable: z.boolean().default(true),
+  defaultWidth: z.number().default(900),
+  defaultHeight: z.number().default(600),
+  minRange: z.number().default(0),
+  maxRange: z.number().default(9999),
+}).default({});
+
 const datasetDetailsSchema = z.object({
+  properties: z.string().default(""),
+  embed: embedSchema,
   header: datasetDetailsHeaderSchema,
   keywords: datasetDetailsKeywordsSchema,
   description: datasetDetailsDescriptionSchema,
@@ -259,6 +272,7 @@ const mapsSchema = z.object({
 
 const dataProviderInterfaceSchema = z.object({
   useService: z.boolean().default(true),
+  enableFileUploadReplace: z.boolean().default(false),
   basePath: z.string().default('/dpi'),
   specification: z.union([
     z.literal('dcatap'),
@@ -272,6 +286,8 @@ const dataProviderInterfaceSchema = z.object({
     },
   }).default('dcatap'),
   annifIntegration: z.boolean().default(false),
+  annifLinkTheme: z.string().default(""),
+  annifLinkSubject: z.string().default(""),
   buttons: z.object({
     Dataset: z.boolean().default(true),
     Catalogue: z.boolean().default(false),

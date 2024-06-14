@@ -59,6 +59,8 @@ SELECT * WHERE { ?d a dcat:Dataset } LIMIT 10`;
       },
     );
 
+    this.$root.$emit('contentLoaded');
+
     // this.$nextTick(() => {
     //   vm.yasr = new Yasr(
     //     document.getElementById('yasr'),

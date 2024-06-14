@@ -203,13 +203,24 @@ export default {
       const facetFields = this.$env.content.datasets.facets.defaultFacetOrder;
       const wantsToLoadCatalogByParamOrProp = this.showCatalogDetails;
 
-      return facetFields.reduce((acc, field) => {
-        acc[field] = (wantsToLoadCatalogByParamOrProp && field === 'catalog' )
-          ? [this.fixedCatalogFilter || this.$route.params.ctlg_id]
+      const facetObj = facetFields.reduce((acc, field) => {
+        acc[field] = (wantsToLoadCatalogByParamOrProp && field === 'catalog' && !this.fixedCatalogFilter)
+          ? [this.$route.params.ctlg_id || undefined]
           : this.getUrlFacetsOrDefault(field);
 
         return acc;
       }, {});
+
+      // if fixedCatalogFilter is set, then set it as superCatalog
+      // requirement by bayern
+      const facetObjWithMaybeDefaultSuperCatalog = this.fixedCatalogFilter
+        ? {
+          ...facetObj,
+          superCatalog: [this.fixedCatalogFilter],
+        }
+        : facetObj;
+
+        return facetObjWithMaybeDefaultSuperCatalog;
     },
 
 
@@ -332,11 +343,11 @@ export default {
         acc[field] = [];
         return acc;
       }, {});
-
       // Add the route query params that are missing
-      // sets empty arrays for the fields that don't exist in the router query
-      // todo: is this still necessary?
-      this.$router.push({ query: {...this.$route.query, ...routeQueryParamsToBeAdded} });
+      if (Object.keys(routeQueryParamsToBeAdded) > 0) {
+        this.$router.push({query: {...this.$route.query, ...routeQueryParamsToBeAdded}});
+      }
+
       this.setFacets(facetsFromRouteParams);
     },
 
@@ -386,7 +397,8 @@ export default {
                 container: 'body',
               });
             })
-            .catch(() => {
+            .catch((error) => {
+              console.error(error)
               this.$Progress.fail();
             })
             .finally(() => this.$root.$emit('contentLoaded'));

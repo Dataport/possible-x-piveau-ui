@@ -1,5 +1,5 @@
 <template>
-  <div class="position-relative">
+  <div class="position-relative" @click="selectForPreview">
     <div class="mb-3 d-flex flex-row flex-wrap flex-md-nowrap distributions__item">
       <distribution-format
         :distribution="distribution"
@@ -141,7 +141,10 @@ export default {
   methods: {
     has,
     isNil,
-    truncate
+    truncate,
+    selectForPreview(){
+      this.$emit('selectForPreview', this.getDistributionTitle(this.distribution))
+    }
   }
 };
 </script>
