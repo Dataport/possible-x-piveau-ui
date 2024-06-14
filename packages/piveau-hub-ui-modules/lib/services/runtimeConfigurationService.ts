@@ -89,6 +89,7 @@ const RuntimeConfiguration = {
       extensions: [ignoreUnusedVariables],
     };
 
+    // const merged = merge(mergeOptions, opts.baseConfig, runtimeConfig);
     const merged = clean(merge(mergeOptions, opts.baseConfig, runtimeConfig));
     if (opts.debug) {
       console.debug(`Runtime configuration = ${JSON.stringify(merged)}`); // eslint-disable-line
