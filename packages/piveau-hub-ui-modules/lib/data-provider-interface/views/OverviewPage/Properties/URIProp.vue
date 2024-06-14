@@ -113,7 +113,7 @@ export default {
         }
       }
       else if (this.value.type === 'special') {
-console.log('########');
+
         this.nameOfProperty = await this.getURILabel(this.data[this.property]);
 
       }

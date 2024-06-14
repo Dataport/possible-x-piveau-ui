@@ -3,7 +3,10 @@ import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { getCurrentInstance } from "vue";
+import { getNode } from '@formkit/core'
 
+import qs from 'qs';
+import axios from 'axios';
 
 let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
 
@@ -21,14 +24,23 @@ let voc = props.context.attrs.voc;
 let matches = ref({
   value: { name: '--- Type in anything for a live search of the vocabulary ---' }
 })
+let inputTextHidden = ref({})
 let inputText = ref({});
 let cacheList = [];
+let annifList = [];
+let annifTrigger = ref({
+  value: false
+});
+let annifSelectionList = ref({})
 
 onMounted(async () => {
   inputText.value = ""
+
 });
 
 watch(matches, async () => { })
+watch(annifSelectionList, async () => { })
+
 
 function findPropertyToUpdate(trigger) {
 
@@ -49,9 +61,10 @@ function findPropertyToUpdate(trigger) {
               pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             }
             if (typeof selection === 'object') {
+
               pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             }
-            else pathToLocalStorage[finalPath.step][finalPath.prop] = cacheList
+            else pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
           }
         });
@@ -61,6 +74,7 @@ function findPropertyToUpdate(trigger) {
   }
 
 }
+
 // Catches the OutsideClick for the input fields
 function onClickOutside(e) {
   let element = document.getElementsByClassName("autocompleteResultList")
@@ -85,33 +99,106 @@ function onClickOutside(e) {
 
 }
 
+let annifHandlerTheme = async (input) => {
+
+  let query = qs.stringify({
+    'text': input,
+    'limit': 10
+  });
+
+  var config = {
+    method: 'post',
+    url: voc == "eurovoc"
+      ? instance.content.dataProviderInterface.annifLinkSubject
+      : instance.content.dataProviderInterface.annifLinkTheme,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    },
+    data: query
+  };
+
+  let list = []
+
+  axios(config)
+    .then(async (response) => {
+      for (let i = 0; i < response.data.results.length; i++) {
+
+        annifList[i] = { "name": response.data.results[i].label, "resource": response.data.results[i].uri, "activeValue": false }
+
+      }
+      let annifCacheList = []
+      if (listOfValues.value.length > 0) {
+        listOfValues.value.forEach(element => {
+          annifCacheList.push({ "name": element.name, "resource": element.resource, "activeValue": true })
+        });
+      }
+      annifSelectionList.value = eraseDuplicates(annifCacheList, annifList)
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+async function updateAnnifselection(item) {
+  setValue({ name: item.name, resource: item.resource })
+  fillAnnifsuggestions()
+
+}
+function eraseDuplicates(array1, array2) {
+
+  let mergedArray = array1.concat(array2);
+  let filteredArray = [];
+  let resourceSet = new Set();
+
+  mergedArray.forEach(obj => {
+    if (!resourceSet.has(obj.resource)) {
+      resourceSet.add(obj.resource);
+      if (!obj.activeValue) {
+        filteredArray.push(obj);
+      }
+    }
+  });
+
+
+  return filteredArray;
+}
+const fillAnnifsuggestions = async () => {
+ 
+
+  let arr = getNode('Mandatory').value['dct:description']
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]['@language'] === 'en') {
+      await annifHandlerTheme(arr[i]['@value'])
+    }
+  }
+
+}
+
 // Need to append the classes to the formkit-outer element
 props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.identifier
 
-
-
-
-// node.props.selection = {};
-// node.props.isMulti = node.context.context.attrs.multiple;
-
 const setValue = async (e) => {
+  
+  console.log(e);
   if (Object.keys(e).length === 1) {
     return
   }
   if (listOfValues.value.length > 0) {
+
     cacheList = listOfValues.value
   }
+
   // when its a multi input
   if (props.context.attrs.multiple) {
     // check for doubled values
     if (cacheList.length != 0) {
       let filteredProperty = { name: e.name, resource: e.resource };
-
       let filteredList = cacheList.filter((element) => element.name != e.name);
       filteredList.push(filteredProperty)
-      cacheList = filteredList;
+      selection = filteredList;
+      await props.context.node.input(selection);
 
-      await props.context.node.input(cacheList);
     }
     else {
       cacheList.push({ name: e.name, resource: e.resource })
@@ -126,9 +213,10 @@ const setValue = async (e) => {
     selection = { name: e.name, resource: e.resource };
     await props.context.node.input(selection);
   }
-  // inputText.value = e.name
+
   findPropertyToUpdate();
-  window.removeEventListener("click", onClickOutside);
+  
+
 }
 
 const getAutocompleteSuggestions = async (e) => {
@@ -141,21 +229,20 @@ const getAutocompleteSuggestions = async (e) => {
     }));
     if (results.length === 0) {
       matches.value = { value: { name: '--- No match found ---' } }
-      console.log(matches);
     }
     else matches.value = results;
   });
 }
-function toTitleCase(str) {
-  return str.toLowerCase().replace(/(^|\s|-|\')(\w)/g, function (match) {
-    return match.toUpperCase();
-  });
-}
+
 function removeProperty(e) {
   props.context.node.input({})
   setValue('erase');
 }
 function removeMultipleProperty(e) {
+
+  if (props.context.attrs.annifTheme) {
+    fillAnnifsuggestions()
+  }
   if (listOfValues.value.length > 0) {
     cacheList = listOfValues.value
   }
@@ -170,17 +257,18 @@ function toggleList(e) {
   e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList');
   // // Register the outside click to close the list of suggested values
   window.addEventListener("click", onClickOutside);
+  //  todo - remove the eventlistener after an item has been chosen
+  // window.removeEventListener("click", onClickOutside);
 }
 </script>
 
 <template>
+
   <div class="formkitProperty">
     <h4>{{ props.context.label }}</h4>
     <div class="formkitCmpWrap">
-      <div class="formkit-outer ">
-
+      <div class="formkit-outer">
         <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
-
           <div class="infoI">
             <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
           </div>
@@ -188,7 +276,6 @@ function toggleList(e) {
           <div class="removeX" @click="removeProperty"></div>
         </div>
         <div v-else>
-
           <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
             <div class="infoI">
               <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
@@ -201,7 +288,37 @@ function toggleList(e) {
               class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}
             </li>
           </ul>
-          <div class="d-flex flex-wrap">
+          <div v-if="instance.content.dataProviderInterface.annifIntegration && props.context.attrs.annifTheme"
+            class="d-flex flex-wrap">
+            <div v-for="item in listOfValues" :key="item">
+              <div class="activeResultsAutocompleteWrapper">
+                <div class="d-flex" @click="item.activeValue = !item.activeValue;">
+                  <span>{{ item.name }}</span>
+                  <div class="removeX" @click="removeMultipleProperty(item)"></div>
+                </div>
+              </div>
+            </div>
+            <div class="w-100 mt-4">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <h3>Annif Suggestions</h3>
+                <span>You can generate suggestions based on the description you provided</span>
+                <div class="annifSeperator"></div>
+                <button class="navlikeButton" @click="fillAnnifsuggestions(); annifTrigger.value = true">Try it</button>
+              </div>
+              <div class="annifresultContainer" v-if="annifTrigger.value">
+                <div v-for="item in annifSelectionList" :key="item" class="d-flex ">
+                  <div class="activeResultsAutocompleteWrapper annifResults"
+                    @click="item.activeValue = !item.activeValue; updateAnnifselection(item)">
+                    <div class="d-flex">
+                      <span>{{ item.name }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div v-else class="d-flex flex-wrap">
             <div class="activeResultsAutocompleteWrapper" v-for="item in props.context.value" :key="item">
               <span>{{ item.name }}</span>
               <div class="removeX" @click="removeMultipleProperty(item)"></div>

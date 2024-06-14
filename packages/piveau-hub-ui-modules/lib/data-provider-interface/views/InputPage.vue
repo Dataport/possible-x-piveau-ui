@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="form-container ">
 
@@ -8,8 +6,9 @@
       <div class="formContainer formkit position-relative">
 
         <FormKit type="form" v-model="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" @submit.prevent=""
-          class="d-flex">
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+          @click="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+          @submit.prevent="" class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
@@ -17,7 +16,6 @@
                 :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
                 :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName) }"
                 @click="activeStep = stepName; update(); scrollToTop()">
-
 
                 <div class="stepBubbleWrap">
                   <div class="circle stepCircle">{{ index + 1 }}</div>
@@ -188,18 +186,18 @@ export default defineComponent({
 
       if (localStorage.getItem('dpi_editmode') === 'true') {
         initialSchema[stepWithDates].forEach((el) => {
-          if (el['identifier'] === 'issued' || el['identifier'] === 'modified' ) {
-              el['children'][1]['props']['else']['validation'] = ''
-              el['children'][1]['props']['else']['validation-visibility'] = ''
+          if (el['identifier'] === 'issued' || el['identifier'] === 'modified') {
+            el['children'][1]['props']['else']['validation'] = ''
+            el['children'][1]['props']['else']['validation-visibility'] = ''
 
-              el['children'][1]['props']['then']['validation'] = ''
-              el['children'][1]['props']['then']['validation-visibility'] = ''
-              el['children'][1]['props']['then']['validation'] = ''
-              el['children'][1]['props']['then']['validation-visibility'] = ''
+            el['children'][1]['props']['then']['validation'] = ''
+            el['children'][1]['props']['then']['validation-visibility'] = ''
+            el['children'][1]['props']['then']['validation'] = ''
+            el['children'][1]['props']['then']['validation-visibility'] = ''
 
-              console.log(el)
-            }
+            // console.log(el)
           }
+        }
         );
       }
 
@@ -224,13 +222,13 @@ export default defineComponent({
     createDatasetID() {
       const valueObject = this.formValues[this.getTitleStep];
       if (!has(valueObject, 'datasetID') || isNil(valueObject['datasetID'])) {
-        console.log('in if');
+        // console.log('in if');
         this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
       }
       else {
 
         if (this.createIDFromTitle.startsWith(valueObject.datasetID) || valueObject.datasetID.startsWith(this.createIDFromTitle)) {
-          console.log('in else');
+          // console.log('in else');
           this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
         }
       }
@@ -285,8 +283,8 @@ export default defineComponent({
     }
   },
   mounted() {
-    if (localStorage.getItem('dpi_editmode')) 
-    this.initInputPage();
+    if (localStorage.getItem('dpi_editmode'))
+      this.initInputPage();
     this.initCatalogues();
   },
   watch: {
