@@ -1,15 +1,13 @@
-
-
 <template>
   <div class="form-container ">
 
-    <!-- <details>{{ formValues }}</details> -->
+    <details>{{ formValues }}</details>
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
         <FormKit type="form" v-model="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })" @submit.prevent=""
-          class="d-flex">
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+          @submit.prevent="" class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
@@ -177,12 +175,27 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
+
+      // if (localStorage.getItem('dpi_editmode') === 'true') {
+      //   this.getSchema(this.property)['Mandatory'].forEach((el) => {
+      //     if (el['identifier'] === 'issued' || el['identifier'] === 'modified' ) {
+      // el['children'][1]['props']['else']['validation'] = ''
+      // el['children'][1]['props']['else']['validation-visibility'] = ''
+
+      // el['children'][1]['props']['then']['validation'] = ''
+      // el['children'][1]['props']['then']['validation-visibility'] = ''
+
+      // console.log(el)
+      //     }
+      //   }
+      //   );
+      // }
       if (localStorage.getItem('dpi_editmode') === 'false') {
         this.setIsDraft(false)
         this.setIsEditMode(false)
       }
       this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
-      // this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
+      this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
       const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
 
       // only overwrite empty object if there are values
@@ -198,13 +211,13 @@ export default defineComponent({
     createDatasetID() {
       const valueObject = this.formValues[this.getTitleStep];
       if (!has(valueObject, 'datasetID') || isNil(valueObject['datasetID'])) {
-        console.log('in if');
+        // console.log('in if');
         this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
       }
       else {
 
         if (this.createIDFromTitle.startsWith(valueObject.datasetID) || valueObject.datasetID.startsWith(this.createIDFromTitle)) {
-          console.log('in else');
+          // console.log('in else');
           this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
         }
       }
