@@ -43,7 +43,7 @@ watch(matches, async () => { })
 watch(annifSelectionList, async () => { })
 
 function findPropertyToUpdate(trigger) {
-  console.log(cacheList);
+  
   let finalPath = { step: '', prop: props.context.node.name }
   let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
 
@@ -64,7 +64,7 @@ function findPropertyToUpdate(trigger) {
              
               pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             }
-            else pathToLocalStorage[finalPath.step][finalPath.prop] = cacheList
+            else pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
           }
         });
@@ -72,7 +72,7 @@ function findPropertyToUpdate(trigger) {
       }
     }
   }
-
+  console.log(selection);
 }
 
 // Catches the OutsideClick for the input fields
@@ -248,9 +248,6 @@ function removeMultipleProperty(e) {
   selection = cacheList;
   props.context.node.input(selection);
   findPropertyToUpdate();
-}
-function removeAnnifProperty(e) {
-
 }
 function toggleList(e) {
   inputText.value = "";
