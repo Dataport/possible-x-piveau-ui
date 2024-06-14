@@ -1,3 +1,13 @@
+# [4.0.0-alpha.39](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.38...v4.0.0-alpha.39) (2024-06-14)
+
+
+### Bug Fixes
+
+* erpd issues ([8a5913e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8a5913e124a4f8905ca1b0b2fed73d132b0a13b5))
+* erpd issues ([8357c94](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8357c94c2bbfc0d7f38bd1560e4e24f2931117d6))
+
+
+
 # [4.0.0-alpha.38](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.37...v4.0.0-alpha.38) (2024-06-13)
 
 
