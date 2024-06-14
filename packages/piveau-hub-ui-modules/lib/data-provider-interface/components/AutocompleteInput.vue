@@ -24,6 +24,7 @@ let voc = props.context.attrs.voc;
 let matches = ref({
   value: { name: '--- Type in anything for a live search of the vocabulary ---' }
 })
+let inputTextHidden = ref({})
 let inputText = ref({});
 let cacheList = [];
 let annifList = [];
@@ -34,16 +35,15 @@ let annifSelectionList = ref({})
 
 onMounted(async () => {
   inputText.value = ""
-  if (props.context.attrs.annifTheme) {
-    // annifHandlerTheme('president of america health sector in science')
-  }
+
 });
 
 watch(matches, async () => { })
 watch(annifSelectionList, async () => { })
 
+
 function findPropertyToUpdate(trigger) {
-  
+
   let finalPath = { step: '', prop: props.context.node.name }
   let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
 
@@ -61,7 +61,7 @@ function findPropertyToUpdate(trigger) {
               pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             }
             if (typeof selection === 'object') {
-             
+
               pathToLocalStorage[finalPath.step][finalPath.prop] = selection
             }
             else pathToLocalStorage[finalPath.step][finalPath.prop] = selection
@@ -72,7 +72,7 @@ function findPropertyToUpdate(trigger) {
       }
     }
   }
-  console.log(selection);
+
 }
 
 // Catches the OutsideClick for the input fields
@@ -141,9 +141,9 @@ let annifHandlerTheme = async (input) => {
     });
 }
 async function updateAnnifselection(item) {
-  console.log(item);
   setValue({ name: item.name, resource: item.resource })
   fillAnnifsuggestions()
+
 }
 function eraseDuplicates(array1, array2) {
 
@@ -157,7 +157,6 @@ function eraseDuplicates(array1, array2) {
       if (!obj.activeValue) {
         filteredArray.push(obj);
       }
-
     }
   });
 
@@ -165,6 +164,7 @@ function eraseDuplicates(array1, array2) {
   return filteredArray;
 }
 const fillAnnifsuggestions = async () => {
+ 
 
   let arr = getNode('Mandatory').value['dct:description']
   for (let i = 0; i < arr.length; i++) {
@@ -179,11 +179,13 @@ const fillAnnifsuggestions = async () => {
 props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.identifier
 
 const setValue = async (e) => {
+  
+  console.log(e);
   if (Object.keys(e).length === 1) {
     return
   }
   if (listOfValues.value.length > 0) {
-   
+
     cacheList = listOfValues.value
   }
 
@@ -195,15 +197,15 @@ const setValue = async (e) => {
       let filteredList = cacheList.filter((element) => element.name != e.name);
       filteredList.push(filteredProperty)
       selection = filteredList;
-      props.context.node.input(selection);
+      await props.context.node.input(selection);
 
     }
-    else {    
+    else {
       cacheList.push({ name: e.name, resource: e.resource })
       selection = cacheList
-      props.context.node.input(selection);
+      await props.context.node.input(selection);
     }
-    
+
   }
   else if (e.resource === "invalid") return
   else if (e === "erase") { await props.context.node.input({}); findPropertyToUpdate(e) }
@@ -211,9 +213,10 @@ const setValue = async (e) => {
     selection = { name: e.name, resource: e.resource };
     await props.context.node.input(selection);
   }
-  // inputText.value = e.name
+
   findPropertyToUpdate();
-  window.removeEventListener("click", onClickOutside);
+  
+
 }
 
 const getAutocompleteSuggestions = async (e) => {
@@ -254,6 +257,8 @@ function toggleList(e) {
   e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList');
   // // Register the outside click to close the list of suggested values
   window.addEventListener("click", onClickOutside);
+  //  todo - remove the eventlistener after an item has been chosen
+  // window.removeEventListener("click", onClickOutside);
 }
 </script>
 
@@ -294,8 +299,8 @@ function toggleList(e) {
               </div>
             </div>
             <div class="w-100 mt-4">
-              <div class="d-flex justify-content-between align-items-center">
-                <h3>Annif Autocompletion</h3>
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <h3>Annif Suggestions</h3>
                 <span>You can generate suggestions based on the description you provided</span>
                 <div class="annifSeperator"></div>
                 <button class="navlikeButton" @click="fillAnnifsuggestions(); annifTrigger.value = true">Try it</button>
