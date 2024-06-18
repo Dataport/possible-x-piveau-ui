@@ -492,8 +492,16 @@
     flex-direction: column;
 
 }
-
+.loadMore{
+    background-color: #e0e0e0;
+}
 .navlikeButton {
+    transition: all 0.1s ease-in-out !important;
+
+    &:hover {
+        transform: scale(97%);
+        background-color: #F4F4F4 !important;
+    }
 
     background-color: #fff;
     // border-color: #001d85;
@@ -503,7 +511,7 @@
     padding: 0.75em;
     display: inline-flex;
     align-items: center;
-   
+
 
 }
 

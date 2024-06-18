@@ -99,12 +99,18 @@ function onClickOutside(e) {
 
 }
 
-let annifHandlerTheme = async (input) => {
+let annifHandlerTheme = async (input, limit) => {
+
+  let finalLimit = 10;
+  if (limit != undefined) {
+    finalLimit = finalLimit + 10
+  }
 
   let query = qs.stringify({
     'text': input,
-    'limit': 10
+    'limit': finalLimit
   });
+
 
   var config = {
     method: 'post',
@@ -123,9 +129,7 @@ let annifHandlerTheme = async (input) => {
   axios(config)
     .then(async (response) => {
       for (let i = 0; i < response.data.results.length; i++) {
-
         annifList[i] = { "name": response.data.results[i].label, "resource": response.data.results[i].uri, "activeValue": false }
-
       }
       let annifCacheList = []
       if (listOfValues.value.length > 0) {
@@ -133,6 +137,10 @@ let annifHandlerTheme = async (input) => {
           annifCacheList.push({ "name": element.name, "resource": element.resource, "activeValue": true })
         });
       }
+      if (response.data.results.length > 9) {
+        annifList[annifList.length + 1] = { "name": "...", "resource": "invalid", "activeValue": false }
+      }
+
       annifSelectionList.value = eraseDuplicates(annifCacheList, annifList)
 
     })
@@ -141,8 +149,15 @@ let annifHandlerTheme = async (input) => {
     });
 }
 async function updateAnnifselection(item) {
-  setValue({ name: item.name, resource: item.resource })
-  fillAnnifsuggestions()
+
+  if (item.resource === 'invalid') {
+    fillAnnifsuggestions(5);
+  }
+  else {
+    setValue({ name: item.name, resource: item.resource })
+    fillAnnifsuggestions()
+  }
+
 
 }
 function eraseDuplicates(array1, array2) {
@@ -163,13 +178,15 @@ function eraseDuplicates(array1, array2) {
 
   return filteredArray;
 }
-const fillAnnifsuggestions = async () => {
- 
+const fillAnnifsuggestions = async (limitChange) => {
 
   let arr = getNode('Mandatory').value['dct:description']
   for (let i = 0; i < arr.length; i++) {
     if (arr[i]['@language'] === 'en') {
-      await annifHandlerTheme(arr[i]['@value'])
+      if (limitChange != undefined) {
+        await annifHandlerTheme(arr[i]['@value'], 5)
+      }
+      else await annifHandlerTheme(arr[i]['@value'])
     }
   }
 
@@ -179,8 +196,6 @@ const fillAnnifsuggestions = async () => {
 props.context.classes.outer += ' autocompleteInput ' + props.context.attrs.identifier
 
 const setValue = async (e) => {
-  
-  console.log(e);
   if (Object.keys(e).length === 1) {
     return
   }
@@ -213,10 +228,7 @@ const setValue = async (e) => {
     selection = { name: e.name, resource: e.resource };
     await props.context.node.input(selection);
   }
-
   findPropertyToUpdate();
-  
-
 }
 
 const getAutocompleteSuggestions = async (e) => {
@@ -257,6 +269,7 @@ function toggleList(e) {
   e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList');
   // // Register the outside click to close the list of suggested values
   window.addEventListener("click", onClickOutside);
+
   //  todo - remove the eventlistener after an item has been chosen
   // window.removeEventListener("click", onClickOutside);
 }
@@ -300,14 +313,16 @@ function toggleList(e) {
             </div>
             <div class="w-100 mt-4">
               <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <h3>Annif Suggestions</h3>
+                <h3>{{ props.context.label }} Suggestions</h3>
                 <span>You can generate suggestions based on the description you provided</span>
                 <div class="annifSeperator"></div>
-                <button class="navlikeButton" @click="fillAnnifsuggestions(); annifTrigger.value = true">Try it</button>
+                <button class="navlikeButton" type="button"
+                  @click="fillAnnifsuggestions(); annifTrigger.value = true">Try it</button>
               </div>
               <div class="annifresultContainer" v-if="annifTrigger.value">
                 <div v-for="item in annifSelectionList" :key="item" class="d-flex ">
                   <div class="activeResultsAutocompleteWrapper annifResults"
+                    :class="{ loadMore: item.resource === 'invalid' }"
                     @click="item.activeValue = !item.activeValue; updateAnnifselection(item)">
                     <div class="d-flex">
                       <span>{{ item.name }}</span>
