@@ -194,14 +194,7 @@ export default {
 
     },
     watch: {
-        // ugly solution needs rework
-        getDatasets: function (e) {
-            this.trigger = false
-            this.values = e
-            this.$nextTick(() => {
-                this.trigger = true;
-            })
-        }
+        
     }
 }
 </script>
