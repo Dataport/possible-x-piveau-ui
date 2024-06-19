@@ -487,6 +487,41 @@
 
 //     }
 // }
+
+// Overview Page Start
+
+.overviewHeader {
+
+    border-bottom: 1px solid lightgray
+}
+
+.firstRow {
+    align-items: center;
+}
+
+.dsDist td:first-child {
+    padding: 1rem;
+    width: 25%;
+
+}
+
+.disOverview td:first-child {
+    min-width: 25%;
+}
+
+.disOverview td:last-child {
+    width: 75%;
+}
+
+.b-top {
+    border-top: 1px solid lightgray
+}
+
+.dist-edit {
+    cursor: pointer
+}
+// Overview Page End
+
 .step-progress__bar {
     display: flex;
     flex-direction: column;
