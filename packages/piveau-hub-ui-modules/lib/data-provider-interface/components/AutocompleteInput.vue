@@ -252,7 +252,7 @@ function removeProperty(e) {
 }
 function removeMultipleProperty(e) {
 
-  if (props.context.attrs.annifTheme) {
+  if (instance.content.dataProviderInterface.annifIntegration) {
     fillAnnifsuggestions()
   }
   if (listOfValues.value.length > 0) {
