@@ -1,5 +1,6 @@
 <template>
     <div class="mt-2" v-if="pageLoaded">
+
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
@@ -44,7 +45,7 @@
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
 
-                        <PropertyEntry v-if="trigger" profile="datasets" :data="values" :property="name" :value="value"
+                        <PropertyEntry profile="datasets" :data="values" :property="name" :value="value"
                             :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
                 </table>
@@ -59,7 +60,7 @@
             <h2 class="my-4">Keywords <span>({{ getDatasets['dct:keyword'].length }})</span></h2>
             <div class="d-flex">
                 <span class="mx-1"
-                    v-for="( element, index ) in  getDatasets['dct:keyword'].filter(el => el['@language'] === dpiLocale)"
+                    v-for="( element, index ) in getDatasets['dct:keyword'].filter(el => el['@language'] === dpiLocale)"
                     :key="index">
                     <small :title="element"
                         class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
@@ -81,7 +82,6 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            trigger: true,
             values: [],
             pageLoaded: false,
             tableProperties: {
@@ -152,7 +152,9 @@ export default {
         showTable() {
             return Object.keys(this.tableProperties).filter(prop => this.getDatasets[prop]).length > 0;
         },
-
+        storeData() {
+            return this.getData('datasets')
+        }
     },
     methods: {
         ...mapActions("dpiStore", [
@@ -194,13 +196,8 @@ export default {
 
     },
     watch: {
-        // ugly solution needs rework
-        getDatasets: function (e) {
-            this.trigger = false
-            this.values = e
-            this.$nextTick(() => {
-                this.trigger = true;
-            })
+        storeData(newValue, oldValue) {
+            this.values = newValue
         }
     }
 }
@@ -208,7 +205,6 @@ export default {
 
 <style>
 .overviewHeader {
-
     border-bottom: 1px solid lightgray
 }
 
