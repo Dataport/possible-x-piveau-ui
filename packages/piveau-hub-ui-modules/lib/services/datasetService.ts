@@ -423,8 +423,8 @@
 
     getDQVDataHead(id: any, format: any, locale: any) {
       return new Promise((resolve, reject) => {
-        // const reqStr = `${this.hubUrl}datasets/${id}.${format}/metrics`;
-        const reqStr = `${this.hubUrl}datasets/${id}/metrics`;
+        const reqStr = `${this.hubUrl}datasets/${id}.${format}/metrics`;
+        // const reqStr = `${this.hubUrl}datasets/${id}/metrics`;
         axios.head(reqStr, {
         })
           .then((response) => {
