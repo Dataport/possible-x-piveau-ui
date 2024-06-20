@@ -1,3 +1,14 @@
+## [4.0.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0...v4.0.1) (2024-06-20)
+
+
+### Bug Fixes
+
+* DQV data calls ([97ff51e](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/97ff51e07a4ce678719b329105fe43206a3d2bd0))
+* use env hubUrl value ([dc078f3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/dc078f3dc317e89ed4e33f68c489f42b4a4deb38))
+* use env hubUrl value ([15853c3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/15853c3bc9e286ada7b29a56f67952dad484f4c7))
+
+
+
 # [4.0.0](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0-alpha.41...v4.0.0) (2024-06-20)
 
 
