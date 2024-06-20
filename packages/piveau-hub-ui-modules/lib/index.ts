@@ -8,9 +8,9 @@ import bulkDownloadCorsProxyService from "./services/bulkDownloadCorsProxyServic
 import corsProxyService from "./services/corsProxyService";
 import uploadService from "./services/uploadService";
 import runtimeConfigurationService from "./services/runtimeConfigurationService";
-import datasetService from "./services/piveau-ui-adapter-vhub/datasets";
-import catalogService from "./services/piveau-ui-adapter-vhub/catalogs";
-import gazetteerService from "./services/piveau-ui-adapter-vhub/gazetteer";
+import datasetService from "./services/datasetService";
+import catalogService from "./services/catalogService";
+import gazetteerService from "./services/gazetteerService";
 
 
 // Import Stores
@@ -55,20 +55,15 @@ import DatasetCitationTable from "./citation/DatasetCitationTable";
 
 // Import data-provider-interface components
 import AutocompleteInput from "./data-provider-interface/components/AutocompleteInput";
-import CustomURL from './data-provider-interface/components/CustomURL.vue';
-import CustomNumber from './data-provider-interface/components/CustomNumber.vue';
 import ConditionalInput from "./data-provider-interface/components/ConditionalInput";
 import DataFetchingComponent from "./data-provider-interface/components/DataFetchingComponent";
-import DatePicker from "./data-provider-interface/components/DatePicker";
-import DateTimePicker from "./data-provider-interface/components/DateTimePicker";
 import Dropup from "./data-provider-interface/components/Dropup";
 import FileUpload from "./data-provider-interface/components/FileUpload";
-import Groupedinput from "./data-provider-interface/components/Groupedinput";
 import InfoSlot from "./data-provider-interface/components/InfoSlot";
 import LanguageSelector from "./data-provider-interface/components/LanguageSelector";
 import Navigation from "./data-provider-interface/components/Navigation";
 import UniqueIdentifierInput from "./data-provider-interface/components/UniqueIdentifierInput";
-import ValidationModal from "./data-provider-interface/components/ValidationModal";
+import inputDefinitions from "./form/inputDefinitions";
 
 // Import data-provider-interface views OverviewPage
 import CatalogueOverview from "./data-provider-interface/views/OverviewPage/CatalogueOverview";
@@ -93,7 +88,7 @@ import DpiMenu from "./data-provider-interface/DPIMenu";
 import DistributionActions from "./datasetDetails/distributions/distributionActions/DistributionActions";
 import DistributionDownload from "./datasetDetails/distributions/distributionActions/DistributionDownload";
 import DistributionDownloadAs from "./datasetDetails/distributions/distributionActions/DistributionDownloadAs";
-import DistributionsDropdownDownload from "./datasetDetails/distributions/distributionActions/DistributionDropdownDownload";
+import DistributionDropdownDownload from "./datasetDetails/distributions/distributionActions/DistributionDropdownDownload";
 import DistributionOptionsDropdown from "./datasetDetails/distributions/distributionActions/DistributionOptionsDropdown";
 import DistributionPreview from "./datasetDetails/distributions/distributionActions/DistributionPreview";
 import LinkedDataButtonsDropdown from "./datasetDetails/distributions/distributionActions/LinkedDataButtonsDropdown";
@@ -219,8 +214,10 @@ import ResourceAccessPopup from "./widgets/ResourceAccessPopup";
 import ResourceDetailsLinkedDataButton from "./widgets/ResourceDetailsLinkedDataButton";
 import Tooltip from "./widgets/Tooltip";
 
+
 import {configSchema} from "./configurations/config-schema";
 export {
+  inputDefinitions,
   configSchema,
   vueKeycloak,
   bulkDownloadCorsProxyService,
@@ -258,20 +255,15 @@ export {
   DatasetCitationTable,
 
   AutocompleteInput,
-  CustomURL,
-  CustomNumber,
+ 
   ConditionalInput,
   DataFetchingComponent,
-  DatePicker,
-  DateTimePicker,
   Dropup,
   FileUpload,
-  Groupedinput,
   InfoSlot,
   LanguageSelector,
   Navigation,
   UniqueIdentifierInput,
-  ValidationModal,
   CatalogueOverview,
   DatasetOverview,
   DistributionOverview,
@@ -289,7 +281,7 @@ export {
   DistributionActions,
   DistributionDownload,
   DistributionDownloadAs,
-  DistributionsDropdownDownload,
+  DistributionDropdownDownload,
   DistributionOptionsDropdown,
   DistributionPreview,
   LinkedDataButtonsDropdown,
@@ -394,4 +386,7 @@ export {
 
 // @ts-ignore
 export * as helpers from "./utils/helpers";
-export { defineUserConfig } from "./configurations/config-schema";
+export { defineUserConfig, type Config, type ResolvedConfig } from "./configurations/config-schema";
+
+export { useRuntimeEnv } from './composables/useRuntimeEnv';
+export * as head from './composables/head';

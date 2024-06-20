@@ -84,7 +84,6 @@ import {isNil} from "lodash";
 import {mapActions, mapGetters} from "vuex";
 export default {
   name: "DatasetFacetMap",
-  dependencies: ['GazetteerService'],
   components: {
     MapBoundsReceiver,
     MapBoundsSender
@@ -137,7 +136,6 @@ export default {
   methods: {
     ...mapActions('gazetteer', [
       'autocomplete',
-      'useService',
     ]),
     ...mapActions('geo', [
       'setGeoBoundsForId',
@@ -208,9 +206,7 @@ export default {
       },
     }
   },
-  created() {
-    this.useService(this.GazetteerService);
-  }
+  created() {}
 }
 </script>
 

@@ -47,14 +47,14 @@
     },
     computed: {
       isErpdActive() {
-        const isDatasetsErpd = this.$route.path === '/datasets' && this.$route.query.superCatalog === 'erpd';
+        const isDatasetsErpd = this.$route.path === '/datasets' && this.$route.query?.superCatalogue === 'erpd';
         let isCataloguesErpd = false;
         if (this.$route.path === '/catalogues') {
           const cat = 'erpd';
-          // const cat = 'http://data.europa.eu/88u/catalogue/erpd';
           const sc = this.$route.query.superCatalog;
+          if (!sc) return false;
           if (sc === cat) isCataloguesErpd = true;
-          if (sc.constructor === Array && sc.length > 0 && sc[0] === cat) isCataloguesErpd = true;
+          if (sc?.constructor === Array && sc.length > 0 && sc[0] === cat) isCataloguesErpd = true;
         }
         return isDatasetsErpd || isCataloguesErpd;
       },

@@ -3,31 +3,34 @@
  * Vue.js plugin to consume configurations using environment variables
  */
 
+import { InjectionKey, type App } from 'vue';
 import merge from 'merge-anything';
 import { configSchema, type ResolvedConfig } from '../configurations/config-schema';
 // The configuration object that contains symbols for overwriting during runtime
 // import config from '../../config/runtime-config';
 
-declare module 'vue/types/vue' {
-  interface Vue {
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
     $env: ResolvedConfig;
   }
 }
+
+export const injectionKey: InjectionKey<ResolvedConfig> = Symbol('runtimeConfig');
 
 // Takes a base configuration (e.g., process.env) and a runtime configuration
 // and merges the runtime configuration over the base configuration to overwrite it.
 // Overwritten values are always of type string. Pass an empty string to model a falsy value.
 
 const RuntimeConfiguration = {
-  install(Vue, runtimeConfig, options = {}) {
+  install(app: App, runtimeConfig, options = {}) {
     const defaultOptions = {
       debug: true,
-      baseConfig: process.env,
+      baseConfig: import.meta.env,
       useExperimentalRuntimeParser: false,
     };
     const opts = Object.assign({}, defaultOptions, options);
 
-    // Custom merge rule to ignore values that start with $VUE_APP_
+    // Custom merge rule to ignore values that start with $VITE_
     // i.e., use this.$env property when environment variable is not set
     const ignoreUnusedVariables = (originVal, newVal) => {
       const result = newVal;
@@ -50,7 +53,7 @@ const RuntimeConfiguration = {
 
         // 2. Evaluate Objects
         // TODO: Do we need this? It seems that no values are objects
-        if (  newVal.startsWith('{') && newVal.endsWith('}')  ) {
+        if ( newVal.startsWith('{') && newVal.endsWith('}')  ) {
           // This looks like an object
           // Use JSON.parse to transform it into a real object
           try {
@@ -73,7 +76,7 @@ const RuntimeConfiguration = {
       // Take originVal when env variable is not set
       if (originVal !== undefined && typeof newVal === 'string') {
         // Environment variable not set (e.g., development env)
-        if (newVal.startsWith('$VUE_APP_')) {
+        if (newVal.startsWith('$VITE_')) {
           return originVal;
         }
       }
@@ -86,7 +89,8 @@ const RuntimeConfiguration = {
       extensions: [ignoreUnusedVariables],
     };
 
-    const merged = merge(mergeOptions, opts.baseConfig, runtimeConfig);
+    // const merged = merge(mergeOptions, opts.baseConfig, runtimeConfig);
+    const merged = clean(merge(mergeOptions, opts.baseConfig, runtimeConfig));
     if (opts.debug) {
       console.debug(`Runtime configuration = ${JSON.stringify(merged)}`); // eslint-disable-line
     }
@@ -100,8 +104,28 @@ const RuntimeConfiguration = {
       }
     }
 
-    Vue.prototype.$env = merged; // eslint-disable-line
+    app.config.globalProperties.$env = merged; // eslint-disable-line
+    app.provide(injectionKey, merged);
   },
 };
+
+/**
+ * Removes all elements from the config that have a non-replaced runtime-config.js key
+ * @param o
+ * @param current
+ */
+function clean(o, current = {}): ResolvedConfig {
+  Object.keys(o).forEach(key => {
+    const value = o[key];
+    if (value?.constructor === Object) {
+      current[key] = clean(value);
+    } else if (typeof value === 'string' && ! value.startsWith("$VITE_")) {
+      current[key] = value;
+    } else if (typeof value !== 'string') {
+      current[key] = value;
+    }
+  });
+  return current as ResolvedConfig;
+}
 
 export default RuntimeConfiguration;

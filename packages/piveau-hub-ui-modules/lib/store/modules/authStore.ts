@@ -1,9 +1,5 @@
 // @ts-nocheck
-
 /* eslint-disable no-param-reassign, no-shadow, no-console */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
 import axios from 'axios';
 import { cloneDeep, get } from 'lodash-es';
 import createDraftApi from '../../utils/draftApi';
@@ -12,8 +8,6 @@ import { decode } from '../../utils/jwt';
 
 let draftApi;
 let identifiersApi;
-
-Vue.use(Vuex);
 
 const state = {
   authenticated: false,

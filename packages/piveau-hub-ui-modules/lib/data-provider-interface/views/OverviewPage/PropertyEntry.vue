@@ -1,31 +1,45 @@
 <template>
     <div>
-      
-        <tr v-if="showValue(data, property)">
-            <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td>
+        <tr class="align-items-center" v-if="isSet">
 
-            <URIProp :property="property" :value="value" :data="data"><p>{{value.type}}</p></URIProp>
-            <URLProp :property="property" :value="value" :data="data"></URLProp>
-            <StringProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
-            <ConditionalProp :property="property" :value="value" :data="data"></ConditionalProp>
+            <!-- <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td> -->
+            <URIProp v-if="value.type === 'singularURI' || value.type === 'multiURI' || value.type === 'singularURI'"
+                :property="property" :value="value" :data="data">
+            </URIProp>
+            <URLProp v-if="value.type === 'singularURL' || value.type === 'multiURL'" :property="property" :value="value"
+                :data="data"></URLProp>
+            <StringProp v-if="value.type === 'singularString' || value.type === 'multiString'" :property="property"
+                :value="value" :data="data" :dpiLocale="dpiLocale"></StringProp>
+
 
             <!-- SPECIAL -->
             <div class="w-100" v-if="value.type === 'special'">
-                <div v-for="(elem, index) in data[property]" :key="index">
-                    <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
+                <div v-if="property === 'dct:publisher' || property === 'dct:license'">
+                    <SpecialProp :property="property" :value="value" :data="data" :dpiLocale="dpiLocale"></SpecialProp>
                 </div>
+                <div
+                    v-else-if="property != 'dct:creator' && property != 'dcat:temporalResolution' && property != 'spdx:checksum'">
+                    <div v-for="(elem, index) in data[property]" :key="index">
+                        <SpecialProp :property="property" :value="value" :data="elem" :dpiLocale="dpiLocale"></SpecialProp>
+                    </div>
+                </div>
+                <div v-else>
+                    <SpecialProp :property="property" :value="value" :data="data[property]" :dpiLocale="dpiLocale">
+                    </SpecialProp>
+                </div>
+
             </div>
+
         </tr>
     </div>
 </template>
 
 <script>
-import AppLink from "../../../widgets/AppLink.vue";
 import URIProp from './Properties/URIProp.vue';
 import URLProp from './Properties/URLProp.vue';
 import StringProp from './Properties/StringProp.vue';
 import SpecialProp from './Properties/SpecialProp.vue';
-import ConditionalProp from './Properties/ConditionalProp';
+import generalHelper from '../../utils/general-helper';
 
 import { has, isNil, isEmpty } from 'lodash';
 
@@ -35,7 +49,6 @@ export default {
         URLProp,
         StringProp,
         SpecialProp,
-        ConditionalProp,
     },
     props: {
         profile: String,
@@ -44,11 +57,12 @@ export default {
         value: Object,
         dpiLocale: String,
         distId: Number,
+        type: String
     },
-    methods: {
-        showValue(property, value) {
-            return has(property, value) && !isNil(property[value]) && !isEmpty(property[value]);
-        },
+    computed: {
+        isSet() {
+            return generalHelper.propertyHasValue(this.data[this.property]);
+        }
     }
 }
 </script>

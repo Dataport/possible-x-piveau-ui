@@ -165,12 +165,12 @@ import {
   isString
 } from 'lodash-es';
 import {getTranslationFor, truncate} from '../utils/helpers';
+import datasetService from "../services/datasetService";
 
 import Axios from 'axios';
 
 export default {
   name: "CatalogPage",
-  dependencies: ['catalogService', 'DatasetService'],
   components: {
     Datasets,
     DatasetCard,
@@ -200,6 +200,7 @@ export default {
           displayName: 'Kontakt',
         },
       ],
+      datasetService: null,
     };
   },
   computed: {
@@ -225,11 +226,10 @@ export default {
     getTranslationFor,
     ...mapActions('catalogDetails', [
       'loadCatalog',
-      'useCatalogService',
     ]),
     ...mapActions('datasets', [
       'loadDatasets',
-      'useService',
+      'loadSingleDataset',
     ]),
     setActiveTabName(name) {
       this.activeTabName = name;
@@ -251,16 +251,18 @@ export default {
     },
     loadCatalogInterestingDatasets(catalog) {
       for (let id of this.catalog.catalogueInterestingDatasets) {
-        this.DatasetService.getSingle(id)
-            .then(response => {
-              this.interestingDatasets.push(response);
-            })
-            .catch(error => console.log('error: ', error));
+        this.loadSingleDataset(id)
+          .then(response => {
+            this.interestingDatasets.push(response);
+          })
+          .catch(error => {
+            console.log('error: ', error)
+          });
       }
     },
     loadCatalogInterestingDatasetsFallback(catalog) {
       for (let id of this.catalog.catalogueInterestingDatasets) {
-        this.DatasetService.getSingle(id)
+        this.datasetService.getSingle(id)
             .then(response => {
               this.interestingDatasetsFallback.push(response);
             })
@@ -279,10 +281,17 @@ export default {
     },
   },
   created() {
-    console.log('created catalog page')
     this.$Progress.start()
-    this.useCatalogService(this.catalogService)
-    this.useService(this.DatasetService)
+
+    // Hack: define fresh instance of datasetService to avoid going through store.
+    // When going through store, it will cause mutations that will affect datasetDetails page.
+    this.datasetService = new datasetService(
+      this.$env.api.baseUrl,
+      this.$env.api.hubUrl,
+      this.$env.api.qualityBaseUrl,
+      this.$env.api.similarityBaseUrl,
+      this.$env.content.datasets.facets.scoringFacets.defaultScoringFacets,
+    );
 
     let catalogId = this.$route.params.ctlg_id;
     if (catalogId === undefined || catalogId === null) {

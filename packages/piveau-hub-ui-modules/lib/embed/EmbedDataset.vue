@@ -39,9 +39,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: 'EmbedDataset',
-  created() {
-    console.log('embed page created');
-  },
+  created() {},
   components: {
       DatasetDetailsHeaderTitle, DatasetDetailsDataset, DatasetDetailsHeaderCatalogue
   },

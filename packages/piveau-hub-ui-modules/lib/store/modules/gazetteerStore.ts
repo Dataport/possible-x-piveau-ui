@@ -1,21 +1,11 @@
 // @ts-nocheck
-/**
- * @author Dennis Ritter
- * @description Vuex store for data to use together with maps like Open Street Maps. (Markers, Tooltips, etc.)
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
 
 const state = {
   suggestions: [],
-  service: null,
 };
 
 const getters = {
   getSuggestions: state => state.suggestions,
-  getService: state => state.service,
 };
 
 const actions = {
@@ -24,8 +14,7 @@ const actions = {
    */
   autocomplete({ commit, state }, query) {
     return new Promise((resolve, reject) => {
-      const service = getters.getService(state);
-      service.autocomplete(query)
+      this.$gazetteerService.autocomplete(query)
         .then((response) => {
           const res = response.data.results;
           commit('SET_SUGGESTIONS', res);
@@ -35,22 +24,11 @@ const actions = {
       });
     });
   },
-  /**
-   * @description Sets the Service to use when loading data.
-   * @param commit
-   * @param service - The service to use.
-   */
-  useService({ commit }, service) {
-    commit('SET_SERVICE', service);
-  },
 };
 
 const mutations = {
   SET_SUGGESTIONS(state, suggestions) {
     state.suggestions = suggestions;
-  },
-  SET_SERVICE(state, service) {
-    state.service = service;
   },
 };
 

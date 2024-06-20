@@ -6,7 +6,6 @@ import {
   languagesSchema,
   metadataSchema,
   routingSchema,
-  servicesSchema,
   themesSchema,
   trackerSchema,
 } from './'
@@ -34,11 +33,6 @@ export const configSchema = z.object({
    * Language options (optional).
    */
   languages: languagesSchema,
-
-  /**
-   * Services/adapter options (required).
-   */
-  services: servicesSchema,
 
   /**
    * Theming options (optional).

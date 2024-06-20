@@ -23,49 +23,27 @@
   import { has } from 'lodash-es';
   import { getTranslationFor } from '../utils/helpers';
   import AppLink from "../widgets/AppLink.vue";
+  import * as metaInfo from "../composables/head";
 
   export default {
     name: 'datasetDetailsCategories',
-    dependencies: 'DatasetService',
     components: {
       appLink: AppLink,
-    },
-    metaInfo() {
-      return {
-        title: this.$t('message.metadata.categories'),
-        meta: [
-          {
-            name: 'description',
-            vmid: 'description',
-            content: (`${this.$t('message.metadata.categories')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.metadata.description}`).substr(0, 4999),
-          },
-          {
-            name: 'keywords',
-            vmid: 'keywords',
-            content: this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
-          },
-        ],
-      };
     },
     data() {
       return {};
     },
     computed: {
-      // import store-getters
       ...mapGetters('datasetDetails', [
+        'getID',
         'getCategories',
-        'getKeywords',
-        'getLanguages',
-        'getTitle',
       ]),
     },
     methods: {
       has,
       getTranslationFor,
-      // import store-actions
       ...mapActions('datasetDetails', [
         'loadDatasetDetails',
-        'useService',
       ]),
       showCategory(category) {
         return has(category, 'id');
@@ -76,22 +54,27 @@
       },
     },
     created() {
-      this.useService(this.DatasetService);
       this.$nextTick(() => {
-        this.$Progress.start();
-        this.loadDatasetDetails(this.$route.params.ds_id)
-          .then(() => {
-            this.$Progress.finish();
-          })
-          .catch(() => {
-            this.$Progress.fail();
-            this.$router.replace({
-              name: 'NotFound',
-              query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+        // Duplicated API call, execute only if data not already loaded
+        if (this.$route.params.ds_id !== this.getID) {
+          this.$Progress.start();
+          this.loadDatasetDetails(this.$route.params.ds_id)
+            .then(() => {
+              this.$Progress.finish();
+            })
+            .catch(() => {
+              this.$Progress.fail();
+              this.$router.replace({
+                name: 'NotFound',
+                query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+              });
             });
-          });
+        }
       });
     },
+    setup() {
+      metaInfo.useDatasetCategoriesHead();
+    }
   };
 </script>
 

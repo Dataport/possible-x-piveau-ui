@@ -1,23 +1,22 @@
 import { onMounted, watch } from "vue";
-import VueRouter from "vue-router";
 
 /**
  * Initiates a download of the dataset on mount and on route change
  * Needs router param ds_id and query param dl to be available
  * @param options
  */
-export function useDownloadDatasetOnMount(options: { router: VueRouter, hubUrl: string }) {
-  const { router, hubUrl } = options;
-
-  if (!router.currentRoute.params.ds_id) {
+export function useDownloadDatasetOnMount(options: { route: any, hubUrl: string }) {
+  const { route, hubUrl } = options;
+  
+  if (!route.params.ds_id) {
     console.error('No dataset id found in route params');
     return;
   }
 
-  const dlFormat = router.currentRoute.query.dl;
+  const dlFormat = route.query.dl;
   const downloadOnRouteChange = () => {
-    if (router.currentRoute.query.dl) {
-      const url = `${hubUrl}${router.currentRoute.path}.${dlFormat}?useNormalizedId=true${router.currentRoute.query.locale ? `&locale=${router.currentRoute.query.locale}` : ''}`;
+    if (route.query.dl) {
+      const url = `${hubUrl}${route.path}.${dlFormat}?useNormalizedId=true${route.query.locale ? `&locale=${route.query.locale}` : ''}`;
       if (!url) {
         return;
       }
@@ -26,7 +25,7 @@ export function useDownloadDatasetOnMount(options: { router: VueRouter, hubUrl: 
       // This is the most cross browser solution to programmatically downloading content
       const link = document.createElement('a');
       link.href = url;
-      const datasetId = router.currentRoute.params.ds_id;
+      const datasetId = route.params.ds_id;
       link.download = `${datasetId}.${dlFormat}`;
       document.body.appendChild(link);
       link.click();
@@ -36,5 +35,5 @@ export function useDownloadDatasetOnMount(options: { router: VueRouter, hubUrl: 
 
   onMounted(downloadOnRouteChange);
 
-  watch(() => router.currentRoute, downloadOnRouteChange);
+  watch(() => route, downloadOnRouteChange);
 }

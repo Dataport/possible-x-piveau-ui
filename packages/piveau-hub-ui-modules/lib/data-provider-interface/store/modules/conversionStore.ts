@@ -1,10 +1,8 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
-import Vue from 'vue';
-import Vuex from 'vuex';
 import N3 from 'n3';
 
-import { isEmpty, cloneDeep } from 'lodash';
+import { isEmpty, has } from 'lodash';
 import datasetFactory from '@rdfjs/dataset';
 
 import generalHelper from '../../utils/general-helper';
@@ -13,17 +11,10 @@ import toInput from '../../utils/inputConverter';
 
 import generalDpiConfig from '../../config/dpi-spec-config.js';
 
-Vue.use(Vuex);
-
 const state = {
     datasets: {},
     distributions: [],
     catalogues: {},
-    mandatoryStatus: {
-        datasets: false,
-        catalogues: false,
-        distributions: []
-    },
     deleteDistributionInline: false,
 };
 
@@ -34,16 +25,8 @@ const getters = {
      * @param0 Object containing property, page and distribution id
      * @returns Object conatining form values for given property, distribution and page
      */
-    getRawValues: (state) => ({ property, page, id }) => {
-        let data;
-
-        if (id) {
-            data = state[property][id][page];
-        } else {
-            data = state[property][page];
-        }
-
-        return data;
+    getRawValues: (state) => ({ property }) => {
+        return state[property];
     },
     /**
      * Provides property data
@@ -63,42 +46,10 @@ const getters = {
         } else {
             data = generalHelper.mergeNestedObjects(state[property])
         }
+       
+        
         return data;
     },
-    /**
-     * Returns the number of distributions
-     * @param state 
-     * @returns Number of distributions 
-     */
-    getNumberOfDistributions(state) {
-        return state.distributions.length;
-    },
-    /**
-     * Determines wether all mandatory values are given for provided property
-     * @param state 
-     * @param param0 Object containing property and distribution id
-     * @returns Bollean determining of all mandatory properties are given
-     */
-    /**
-     * 
-     * @param state 
-     * @returns 
-     */
-    getMandatoryStatus: (state) => ({ property, id }) => {
-        if (id) {
-            return state.mandatoryStatus.distributions[id];
-        } else {
-            return state.mandatoryStatus[property];
-        }
-    },
-    /**
-     * Returns boolean value of deleteDistributionInline
-     * @param state 
-     * @returns Boolean
-     */
-    getDeleteDistributionInline: (state) => {
-        return state.deleteDistributionInline;
-    }
 };
 
 const actions = {
@@ -107,9 +58,9 @@ const actions = {
      * @param param0 
      * @param param1 Object containing property, page, distrbution id and form values
      */
-    saveFormValues({ commit }, { property, page, distid, values }) {
+    saveFormValues({ commit }, { property, values }) {
 
-        commit('saveFormValuesToStore', { property, page, distid, values });
+        commit('saveFormValuesToStore', { property, values });
 
     },
     /**
@@ -125,8 +76,8 @@ const actions = {
      * @param param0 
      * @param param1 Object containing endpoint and token for data fetching as well as property
      */
-    async convertToInput({ commit }, { endpoint, token, property }) {
-
+    async convertToInput({ commit }, { endpoint, token, property, specification }) {
+        
         const fetchedData = await generalHelper.fetchLinkedData(endpoint, token).then((response) => {
             return response;
         });
@@ -139,7 +90,7 @@ const actions = {
             if (quad) data.add(quad);
         })
 
-        commit('saveLinkedDataToStore', { property, data });
+        commit('saveLinkedDataToStore', { property, data, specification });
     },
     /**
      * Merges store data and converts the given input values into RDF format
@@ -147,9 +98,7 @@ const actions = {
      * @param property Object containing all values within nested objects for each page of the frontend
      * @returns Data values in RDF format
      */
-    convertToRDF({ state }, property) {
-
-
+    convertToRDF({ state }, { property, specification }) {
 
         // merging objects with nested objects containing the values of each page into one main object containing all values for the given property
         const data = {
@@ -159,30 +108,15 @@ const actions = {
         };
 
         // merging each distribution object within the overall array of distributions
-        if (!isEmpty(state.distributions)) {
-            for (let index = 0; index < state.distributions.length; index += 1) {
-                data.distributions.push(generalHelper.mergeNestedObjects(state.distributions[index]));
+        if (has(state.datasets, 'Distributions') && has(state.datasets.Distributions, 'distributionList') && !isEmpty(state.datasets.Distributions.distributionList)) {
+            for (let index = 0; index < state.datasets.Distributions.distributionList.length; index++) {
+                data.distributions.push(generalHelper.mergeNestedObjects(state.datasets.Distributions.distributionList[index]))
             }
         }
 
-        const RDFdata = toRDF.convertToRDF(data, property);
+        const RDFdata = toRDF.convertToRDF(data, property, specification);
 
         return RDFdata;
-    },
-    /**
-     * Calls mutation to add distribution
-     * @param param0 
-     */
-    addDistribution({ commit }) {
-        commit('createDistribution');
-    },
-    /**
-     * Calls mutation to delte a specific distribution
-     * @param param0 
-     * @param index Index of distribution to delete
-     */
-    deleteDistribution({ commit }, index) {
-        commit('removeDistribution', index);
     },
     /**
      * Calls mutation to clear values and store
@@ -190,49 +124,18 @@ const actions = {
      */
     clearAll({ commit }) {
         commit('resetStore');
-    },
-    /**
-     * Checks mandatory status for given property and calls mutation to set mandatoryStatus
-     * @param param0 
-     * @param param1 Object containing property and distribution id
-     */
-    setMandatoryStatus({ commit }, { property, id }) {
-
-        let data;
-        if (id) data = generalHelper.mergeNestedObjects(state[property][id]);
-        else data = generalHelper.mergeNestedObjects(state[property]);
-
-        // check status of given values
-        const status = generalHelper.checkMandatory(data, property);
-
-        commit('changeMandatoryStatus', { property, id, status });
-    },
-    /**
-     * Sets value of deleteDistributionInline to given value
-     * @param param0 
-     * @param value Boolean
-     */
-    setDeleteDistributionInline({ commit }, value) {
-        commit('changeDeleteInlineValue', value);
-    }
+    },  
 };
 
 const mutations = {
     /**
      * Saves input values from form into vuex as well as into localStorage of browser
      * @param state 
-     * @param param1 Object containing the property, page, distribution id and values of input form
+     * @param param1 Object containing the property, page and values of input form
      */
-    saveFormValuesToStore(state, { property, page, distid, values }) {
+    saveFormValuesToStore(state, { property, values }) {
 
-
-
-        if (distid) {
-            state[property][distid][page] = values;
-            localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
-        } else {
-            state[property][page] = values;
-        }
+        state[property] = values;
 
         // save to local storage
         localStorage.setItem(`dpi_${property}`, JSON.stringify(state[property]));
@@ -257,127 +160,32 @@ const mutations = {
             if (property === 'catalogues') state[property] = localStorageData;
             else state.datasets = localStorageData;
         }
-
-        // additionally get distribution data if existing
-        if (property === 'datasets' || property === 'distributions') {
-            const distName = 'dpi_distributions';
-
-            if (Object.keys(localStorage).includes(distName)) {
-                const distributionsData = JSON.parse(localStorage.getItem(distName));
-                state.distributions = distributionsData;
-            }
-        }
-
-        // save mandatoryStatus from localSTorage to vuex-store
-        if (Object.keys(localStorage).includes('dpi_mandatory')) {
-            const savedStatus = JSON.parse(localStorage.getItem('dpi_mandatory'));
-            state.mandatoryStatus = savedStatus;
-        }
     },
     /**
      * Converts RDF data into input form data
      * @param state 
      * @param param1 Object containing data and property and state
      */
-    saveLinkedDataToStore(state, { property, data }) {
-        try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
-            toInput.convertToInput(state, property, data, dpiConfig);
-        } catch (error) {
-            const dpiConfig = generalDpiConfig["dcatap"];
-            toInput.convertToInput(state, property, data, dpiConfig);
-        }
-        // const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
-        // toInput.convertToInput(state, property, data, dpiConfig);
+    saveLinkedDataToStore(state, { property, data, specification }) {
 
-        if (property === 'datasets') {
-            localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));
-        }
+        const dpiConfig = generalDpiConfig[specification];
+        toInput.convertToInput(state, property, data, dpiConfig );
+
         localStorage.setItem(`dpi_${property}`, JSON.stringify(state[property]));
-    },
-    /**
-    * Creates a new distribution within state
-    * @param {*} state
-    */
-    createDistribution(state) {
-        if (!state.distributions) {
-            state.distributions = [];
-        }
-        const newDistribution = {};
-        state.distributions.push(newDistribution);
-        state.mandatoryStatus.distributions.push(false);
-
-        // save changes to local storage
-        localStorage.setItem('dpi_distributions', JSON.stringify(state.distributions));
-        localStorage.setItem('dpi_mandatory', JSON.stringify(state.mandatoryStatus));
-    },
-    /**
-    * Removes current distribution from state
-    * @param {*} state
-    * @param {*} index Index of current distribution (within the state distributions array)
-    */
-    removeDistribution(state, index) {
-        if (index > -1 && index < state.distributions.length) {
-            state.distributions.splice(index, 1);
-            localStorage.setItem(`dpi_distributions`, JSON.stringify(state.distributions));
-
-            state.mandatoryStatus.distributions.splice(index, 1);
-            localStorage.setItem('dpi_mandatory', JSON.stringify(state.mandatoryStatus));
-        }
     },
     resetStore(state) {
         // remove dpi values from local store
         localStorage.removeItem('dpi_datasets');
         localStorage.removeItem('dpi_catalogues');
-        localStorage.removeItem('dpi_distributions');
-        localStorage.removeItem('dpi_mandatory');
 
         // resetting all store data properties
         state.datasets = {};
         state.catalogues = {};
-        state.distributions = [];
-        state.mandatoryStatus = {
-            datasets: false,
-            catalogues: false,
-            distributions: []
-        };
 
         // edit and draft mode not within this store so resetting via local storage
         localStorage.setItem('dpi_editmode', false);
         localStorage.setItem('dpi_draftmode', false);
     },
-    /**
-     * Sets mandatory status of given property to given value
-     * @param state 
-     * @param param1 Object containing property, id of distribution and status
-     */
-    changeMandatoryStatus(state, { property, id, status }) {
-        if (id) {
-            // direct changes within the array won't be aren't ractive in vuex (-> change in mandatoryStatus for distributions will not be update after change)
-            // overwriting whole array -> will be handled reactively
-
-            let mandatoryArray;
-            if (!isEmpty(state.mandatoryStatus.distributions)) {
-                mandatoryArray = cloneDeep(state.mandatoryStatus.distributions);
-            } else {
-                mandatoryArray = [];
-            }
-            mandatoryArray[id] = status;
-            state.mandatoryStatus.distributions = mandatoryArray;
-        } else {
-            state.mandatoryStatus[property] = status;
-        }
-
-        localStorage.setItem('dpi_mandatory', JSON.stringify(state.mandatoryStatus));
-    },
-    /**
-     * Sets value of deleteDistributionInline to given value
-     * @param state 
-     * @param value Boolean
-     */
-    changeDeleteInlineValue(state, value) {
-        state.deleteDistributionInline = value;
-    }
 };
 
 const conversionModule = {

@@ -42,16 +42,15 @@ import {
   isNil,
   isNumber,
 } from 'lodash-es';
-import Vue from 'vue';
 import DatasetsFacetsItem from './DatasetsFacetsItem.vue';
 import { getTranslationFor, getFacetTranslation } from '../../utils/helpers';
 import DatasetsMapFacet from "../../datasets/datasetsFacets/DatasetsMapFacet.vue";
 import CatalogDetailsFacet from "../../facets/CatalogDetailsFacet.vue";
 import SettingsFacet from "../../datasets/datasetsFacets/SettingsFacet.vue";
+import { useDatasetsFacetsHead } from '../../composables/head';
 
 export default {
   name: 'datasetsFacets',
-  dependencies: ['catalogService'],
   components: {
     SettingsFacet,
     CatalogDetailsFacet,
@@ -76,20 +75,6 @@ export default {
       default: '',
     },
   },
-  metaInfo() {
-    const catalogTitle = this.getTranslationFor(this.catalog.title, this.$route.query.locale, this.catalogLanguageIds) || this.catalog.id;
-    const catalogDescription = this.getTranslationFor(this.catalog.description, this.$route.query.locale, this.catalogLanguageIds) || this.catalog.id;
-    const title = this.currentSearchQuery
-      ? `${this.currentSearchQuery}${this.showCatalogDetails ? ` - ${catalogTitle}` : ''}`
-      : `${this.showCatalogDetails ? catalogTitle : this.$t('message.header.navigation.data.datasets')}`;
-    return {
-      title,
-      meta: [
-        { name: 'description', vmid: 'description', content: this.showCatalogDetails ? catalogDescription : `${this.$t('message.datasets.meta.description')}` },
-        { name: 'keywords', vmid: 'keywords', content: this.showCatalogDetails ? `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}` : `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}` },
-      ],
-    };
-  },
   data() {
     return {
       cutoff: this.$env.content.datasets.facets.cutoff,
@@ -105,18 +90,18 @@ export default {
       FACET_OPERATORS: this.$env.content.datasets.facets.FACET_OPERATORS,
       FACET_GROUP_OPERATORS: this.$env.content.datasets.facets.FACET_GROUP_OPERATORS,
       dataServices: {
-        yes: Vue.i18n.t('message.metadata.yes'),
-        no: Vue.i18n.t('message.metadata.no'),
-        property: Vue.i18n.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
-        title: Vue.i18n.t('message.metadata.dataServices'),
-        toolTipTitle: Vue.i18n.t('message.helpIcon.dataServices'),
+        yes: this.i18n.global.t('message.metadata.yes'),
+        no: this.i18n.global.t('message.metadata.no'),
+        property: this.i18n.global.t('message.datasetFacets.facets.dataServices.dataServicesOnly'),
+        title: this.i18n.global.t('message.metadata.dataServices'),
+        toolTipTitle: this.i18n.global.t('message.helpIcon.dataServices'),
       },
       erpd: {
-        yes: Vue.i18n.t('message.metadata.yes'),
-        no: Vue.i18n.t('message.metadata.no'),
-        property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'), //changed key values
-        title: Vue.i18n.t('message.datasetFacets.facets.erpd'),
-        // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
+        yes: this.i18n.global.t('message.metadata.yes'),
+        no: this.i18n.global.t('message.metadata.no'),
+        property: this.i18n.global.t('message.datasetFacets.facets.erpdOnly'),
+        title: this.i18n.global.t('message.metadata.erpd'),
+        // toolTipTitle: "TOOLTIP",//this.i18n.global.t('message.helpIcon.dataServices'),
       }
     };
   },
@@ -235,7 +220,6 @@ export default {
     getFacetTranslation,
     ...mapActions('catalogDetails', [
       'loadCatalog',
-      'useCatalogService',
     ]),
     ...mapActions('datasets', [
       'addFacet',
@@ -261,11 +245,11 @@ export default {
       // }
 
       return fieldId === 'scoring' ?
-        Vue.i18n.t('message.header.navigation.data.metadataquality')
-        : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+      this.i18n.global.t('message.header.navigation.data.metadataquality')
+        : this.i18n.global.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
     },
     tooltip(fieldId) {
-      return fieldId === 'dataScope' ? Vue.i18n.t('message.helpIcon.dataScope') : Vue.i18n.t(`message.helpIcon.${fieldId.toLowerCase()}`);
+      return fieldId === 'dataScope' ? this.i18n.global.t('message.helpIcon.dataScope') : this.i18n.global.t(`message.helpIcon.${fieldId.toLowerCase()}`);
     },
     getFacetTranslationWrapper(fieldId, facetId, userLocale, fallback) {
       return fieldId === 'scoring'
@@ -345,7 +329,8 @@ export default {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
         this.setRouteQuery({ [field]: [], page: 1 });
       }
-      let facets = this.$route.query[field].slice();
+      let facets = this.$route.query?.[field]?.slice();
+      if (!facets) facets = [];
       if (!Array.isArray(facets)) facets = [facets];
       if (field === 'categories') {
         // Ignore Case for categories
@@ -482,12 +467,14 @@ export default {
     },
   },
   created() {
-    this.useCatalogService(this.catalogService);
     this.initShowCatalogDetails();
     this.initMinScoring();
     for (var i in sessionStorage) {
       if (sessionStorage.length > 0 && i == "Filter") this.toggleCutoff();
     }
+  },
+  setup() {
+    useDatasetsFacetsHead();
   }
 };
 </script>

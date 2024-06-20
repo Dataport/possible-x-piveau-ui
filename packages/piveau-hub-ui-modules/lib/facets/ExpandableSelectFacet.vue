@@ -1,6 +1,6 @@
 <template>
   <!-- Component for a collapsible facet -->
-  <div class="list-group" role="group" :aria-labelledby="myTitleId" >
+  <div class="list-group col pr-0" role="group" :aria-labelledby="myTitleId" >
     <template v-if="header">
       <facet-title
         :title="header"
@@ -52,11 +52,13 @@
 </template>
 
 <script>
-
+import { defineComponent } from 'vue';
 import DatasetsFacetsItem from "../datasets/datasetsFacets/DatasetsFacetsItem.vue";
 import FacetTitle from "../facets/FacetTitle.vue";
-export default {
+
+export default defineComponent({
   name: 'ExpandableSelectFacet',
+  inheritAttrs: false,
   components: {FacetTitle, DatasetsFacetsItem},
   props: {
     header: {
@@ -81,7 +83,6 @@ export default {
   },
   data() {
     return {
-      id: null,
       isExpanded: false,
       isGrown: false,
       numItemsAllowed: this.$env.content.datasets.facets.MIN_FACET_LIMIT || 5,
@@ -92,15 +93,15 @@ export default {
   computed: {
     myId() {
       // Use Vue generated uid to set give each facet a unique id
-      return `facet-${this.id}`;
+      return `facet-${this.fieldId}`;
     },
     myListId() {
       // Use Vue generated uid to set give each facet a unique id
-      return `facet-list-${this.id}`;
+      return `facet-list-${this.fieldId}`;
     },
     myTitleId() {
       // Use Vue generated uid to set give each facet a unique id
-      return `facet-title-${this.id}`;
+      return `facet-title-${this.fieldId}`;
     },
   },
   methods: {
@@ -115,7 +116,7 @@ export default {
       return facet.count;
     }
   }
-};
+});
 
 </script>
 

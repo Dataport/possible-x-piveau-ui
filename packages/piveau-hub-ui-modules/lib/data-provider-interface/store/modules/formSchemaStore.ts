@@ -1,23 +1,22 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
 import { isEmpty } from 'lodash-es';
 import generalDpiConfig from '../../config/dpi-spec-config.js';
 
 // external translation method
 import translate from '../../utils/translation-helper';
 
-Vue.use(Vuex);
-
 const state = {
-    schema: []
+    schema: {
+        datasets: {},
+        distributions: {},
+        catalogues: {}
+    }
 };
 
 const getters = {
-    getSchema(state) {
-        return state.schema;
+    getSchema: (state) => (property) => {     
+        return state.schema[property];
     },
 };
 
@@ -27,34 +26,21 @@ const actions = {
      * @param {Object} param0
      * @param {Object} param1 Object containing property (datasets/catalogues), page (step1/step2/step3) and subpage (distribution1/distribution2/distribution3) of current view
      */
-    createSchema({ commit }, { property, page }) {
-        try {
-            const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];
-            const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
-            const propertyDefinitions = dpiConfig.inputDefinition[property]
-            commit('extractSchema', { pageProperties, propertyDefinitions });
-        } catch (error) {
-            const dpiConfig = generalDpiConfig["dcatap"];
-            const pageProperties = Object.keys(dpiConfig.pageConent[property][page]);
-            const propertyDefinitions = dpiConfig.inputDefinition[property]
-            commit('extractSchema', { pageProperties, propertyDefinitions });
-        }
+    createSchema({ commit }, { property, page, specification }) {
+
+        const dpiConfig = generalDpiConfig[specification];
+        const pageProperties = dpiConfig.pageConent[property][page]
+        const propertyDefinitions = dpiConfig.inputDefinition[property]
+        commit('extractSchema', { pageProperties, propertyDefinitions, property, page });
 
     },
     /**
      * Calls mutation function for translating translatable properties of schema
      * @param {*} param0
      */
-    translateSchema({ commit }, { property, subpage }) {
+    translateSchema({ commit }, { property, page }) {
 
-        // if there is a subpage (distribution page) the property 'distribution' needs to be passed to use the right translations
-        if (subpage) {
-            commit('translateSchemaProperties', 'distribution');
-
-        } else {
-            // otherwise use the provided property (datasets/ catalogues)
-            commit('translateSchemaProperties', property);
-        }
+        commit('translateSchemaProperties', { property, page });
     },
     /**
      * Commits current property and users catalogs to mutation function
@@ -73,9 +59,10 @@ const mutations = {
      * @param {Object} param1 Object containing the properties which should be displayed within the view
      * (pageProperties) and the form definitions of the properties defined by DCATAP (propertyDefinition)
      */
-    extractSchema(state, { pageProperties, propertyDefinitions }) {
+    extractSchema(state, { pageProperties, propertyDefinitions, property, page }) {
         // important: create new empty schema each time so already existing schema will be overwritten on route/view-change
         const newSchema = [];
+
         for (let index = 0; index < pageProperties.length; index += 1) {
             const propertyKey = pageProperties[index];
             try {
@@ -84,15 +71,16 @@ const mutations = {
                 console.warn(`DCATAP doens't include a property called: ${propertyKey}`);
             }
         }
-        state.schema = newSchema;
+
+        state.schema[property][page] = newSchema;
     },
     /**
      * All translatable properties within the existing schema will be translated and added to the schema
      * @param {*} state
      * @param {String} property String defining current property (datasets/ distribution/ catalogues)
      */
-    translateSchemaProperties(state, property) {
-        translate(state.schema, property);
+    translateSchemaProperties(state, { property, page }) {
+        translate(state.schema[property][page], property);
     },
     /**
      * Saves all catalogs the current user has permissions for as options within the schema
@@ -101,7 +89,12 @@ const mutations = {
      */
     saveCatalogOptions(state, { property, catalogs }) {
         if (property === 'datasets') {
-            const catalogSchema = state.schema.filter(dataset => dataset.identifier === 'catalog');
+
+            let catalogSchema;
+            for (let key in state.schema[property]) {
+                const currentSchema = state.schema[property][key].filter(dataset => dataset.name === "dcat:catalog");
+                if (!isEmpty(currentSchema)) catalogSchema = currentSchema[0];
+            }
 
             if (!isEmpty(catalogSchema)) {
                 const catalogOptions = {};
@@ -109,7 +102,7 @@ const mutations = {
                     const value = catalogs[index];
                     catalogOptions[value] = value;
                 }
-                catalogSchema[0].options = catalogOptions;
+                catalogSchema.options = catalogOptions;
             }
         }
     },

@@ -1,111 +1,127 @@
 <template>
-  <div>
-    <!-- SINGULAR URIs -->
-    <td v-if="value.type === 'singularURI'" class="">{{ nameOfProperty }}</td>
+  <!-- <details>{{ value.label }}</details> -->
+  <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
+  </td>
+  
+  <!-- SINGULAR URIs -->
+  <td v-if="value.type === 'singularURI' && typeof data[property] === 'string'" class=""> {{ data[property] }}</td>
+  <td v-if="Object.keys(data[property]).length === 1 && value.type === 'singularURI'" class=""> {{
+    data[property][0]['@id'] }} </td>
+  <td v-if="value.type === 'singularURI' && typeof data[property] != 'string' && Object.keys(data[property]).length > 1"
+    class=""> {{ nameOfProperty }}</td>
+  <!-- MULTIPLE URIs -->
+  <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
+    <div v-for="(el, index) in data[property]" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
+      {{ el.name }}
+    </div>
+  </td>
+  <!-- SPECIAL CASES -->
 
-    <!-- MULTIPLE URIs -->
-    <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
-      <div v-for="(el, index) in namesOfMulti" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
-        {{ el }}
-      </div>
-    </td>
-    <!-- political geocoding URI -->
-    <td v-if="value.type === 'multiURIspecial'">
-      <div v-for="(el, index) in data[property]" :key="index">
-        {{ el['dcatde:politicalGeocodingURI'] }}
-      </div>
-    </td>
-    <!-- Saptial -->
-    <td v-if="value.type === 'multiURISpatial'">
-      <div v-for="(el, index) in data[property]" :key="index">
-        {{ el['@id'] }}
-      </div>
-    </td>
-  </div>
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class="font-weight-bold">{{
+    $t(`${value.label}`) }}:</td>
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class=""> {{ nameOfProperty }}</td>
+  <!-- License Edge case -->
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value' && value.label === 'message.metadata.license'" class=""> {{ nameOfProperty }}</td>
+  <!-- <details>{{ data[property] }}</details> -->
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import { getTranslationFor } from "../../../../utils/helpers";
+import generalHelper from '../../../utils/general-helper';
+import dpiConfig from '../../../config/dpi-spec-config';
+
 export default {
   data() {
     return {
-      nameOfProperty: "",
+      nameOfProperty: "Unchanged Value",
       namesOfMulti: []
     }
-
   },
   props: {
     property: String,
     value: Object,
     data: Object,
   },
-  created() {
-    try {
-      this.displayURIName(this.value.voc, this.data[this.property])
-      if (this.value.type == "multiURI") {
-        for (let index = 0; index < this.data[this.property].length; index++) {
-          const element = this.data[this.property][index];
-          this.displayURIName(this.value.voc, element)
-        }
-      }
-    }
-    catch (error) {
-
-    }
-  },
   methods: {
     ...mapActions("dpiStore", [
       "requestResourceName",
     ]),
     getTranslationFor,
-    // Try to avoid that the function gets called whenever the page gets changed - performance wise this is not optimal
-    async displayURIName(voc, URI) {
-      let preValues = { name: "", resource: "" };
+    async requestURILabel(voc, res) {
 
-      let vocMatch =
-        this.voc === "iana-media-types" ||
-        this.voc === "spdx-checksum-algorithm";
-      try {
-        if (voc !== undefined) {
-          // this is a temporary fix - it should be investiated why country(e.g.) has no vocabulary set!
-          if (voc == "") {
-            var arr = URI.split('/');
-            voc = arr[arr.length - 2]
-          }
-          if (voc === undefined) {
-          }
+      const envs = this.$env;
 
-          await this.requestResourceName({ voc: voc, resource: URI }).then(
-            (response) => {
-              let result = vocMatch
-                ? response.data.result.results
-                  .filter((dataset) => dataset.resource === URI)
-                  .map((dataset) => dataset.pref_label)[0].en
-                : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
-              preValues.name = result;
-              preValues.resource = URI;
+      if (res != undefined) {
+        let vocMatch =
+          this.voc === "iana-media-types" ||
+          this.voc === "spdx-checksum-algorithm";
+
+        let name;
+        await this.requestResourceName({ voc: voc, uri: res, envs: envs }).then(
+          (response) => {
+
+            if (this.property === 'dcatde:politicalGeocodingURI') {
+              if (response != undefined) {
+                let result = vocMatch
+                  ? response.data.result.results
+                    .filter((dataset) => dataset.resource === res)
+                    .map((dataset) => dataset.alt_label)[0].en
+                  : getTranslationFor(response.data.result.alt_label, this.$i18n.locale, []);
+                name = result;
+              }
+            } else {
+              if (response != undefined) {
+                let result = vocMatch
+                  ? response.data.result.results
+                    .filter((dataset) => dataset.resource === res)
+                    .map((dataset) => dataset.pref_label)[0].en
+                  : getTranslationFor(response.data.result.pref_label, this.$i18n.locale, []);
+                name = result;
+              }
             }
-          );
-          if (this.value.type == "multiURI") {
-            this.namesOfMulti.push(preValues.name)
           }
-          this.nameOfProperty = preValues.name
+        );
+        // console.log(name);
+        return name
+      }
+    },
+    async getURILabel(value) {
+      // only request name if there is no name already given
+      // console.log('########',value);
+      if (generalHelper.isUrl(value.name)) {
+        
+        const prefixes = dpiConfig[this.$env.content.dataProviderInterface.specification].vocabPrefixes;
+        const vocabulary = Object.keys(prefixes).find(key => value.name.includes(key));
+        return await this.requestURILabel(vocabulary, value.name);
+      }
+      else return value.name;
+    }
+  },
+  async created() {
 
-          return preValues;
-        }
-        else {
-          return
-        }
-      } catch (error) {
+    try {
+      if (this.value.type === 'singularURI') {
+        if (typeof this.data[this.property] != 'string') {
 
-        this.nameOfProperty = URI
+          this.nameOfProperty = await this.getURILabel(this.data[this.property]);
+        }
+
+      } else if (this.value.type === 'multiURI') {
+        for (let index = 0; index < this.data[this.property].length; index++) {
+          this.data[this.property][index].name = await this.getURILabel(this.data[this.property][index]);
+        }
+      }
+      else if (this.value.type === 'special') {
+
+        this.nameOfProperty = await this.getURILabel(this.data[this.property]);
+
       }
 
+    } catch (e) {
+      console.warn(e);
     }
-
-  }
-
+  },
 }
 
 </script>

@@ -58,7 +58,7 @@ export default {
       'getDatasetDescriptionHeight'
     ]),
     fieldSchema() {
-      return Object.assign(dcatSchema(this.$i18n.t), dcatDeSchema())
+      return Object.assign(dcatSchema(this.i18n.global.t), dcatDeSchema())
     },
     propertyFields() {
       let properties = this.$env.content?.datasetDetails?.properties;

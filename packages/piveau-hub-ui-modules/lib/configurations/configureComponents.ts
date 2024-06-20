@@ -1,4 +1,3 @@
-import Vue from "vue";
 import ExpandableSelectFacet from "../facets/ExpandableSelectFacet.vue";
 import RadioFacet from "../facets/RadioFacet.vue";
 import PvShowMore from "../widgets/PvShowMore.vue";
@@ -45,10 +44,10 @@ const defaultComponents: ComponentMap = {
   DistributionVisualisationSlot
 };
 
-export function configureComponents(components?: ComponentMap) {
+export function configureComponents(app: any, components?: ComponentMap) {
   const allComponents: ComponentMap = { ...defaultComponents, ...components };
   const componentKeys: string[] = Object.keys(allComponents);
-  componentKeys.forEach((key: string) => {
-    Vue.component(key, allComponents[key]);
+  componentKeys.forEach((key: string) => { 
+    app.component(key, allComponents[key]);
   });
 }

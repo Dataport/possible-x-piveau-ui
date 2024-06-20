@@ -1,17 +1,57 @@
-<template>
-  <div ref="fileupload" :class="`formulate-input-element formulate-input-element--${context.type}`" :data-type="context.type" v-on="$listeners">
-    <input type="text" v-model="context.model" @blur="context.blurHandler" hidden/>
-    <div class="file-div position-relative">
+<script setup>
+import { reactive, ref, onMounted } from 'vue';
+import { onClickOutside } from '@vueuse/core'
 
-      <input v-if="context.model" type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })" name="test">
-      <input v-else type="file" @change="uploadOrReplaceFile({ file: $event.target.files[0] })">
+var drop = reactive({
+  active: false,
+})
+
+const fLoad = ref(null);
+
+onClickOutside(fLoad, event => drop.active = false)
+function triggerDropdown(e) {
+  drop.active = !drop.active
+}
+
+onMounted(async () => {
+
+  // console.log('Context: ', props.context);
+});
+</script>
+
+<template>
+
+  <div class="position-relative w-100 p-3 ">
+    <input type="text" class="selectInputField formkit-inner" readonly="readonly" @click="triggerDropdown()"
+      placeholder="Choose between fileupload and providing a URL">
+    <ul ref="fLoad" v-if="drop.active" class="selectListUpload">
+      <li @click="triggerDropdown(); uploadFileSwitch = true; if (uploadURL) { uploadURL = !uploadURL }"
+        class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Upload a file</li>
+      <li @click="triggerDropdown(); uploadURL = true; if (uploadFileSwitch) { uploadFileSwitch = !uploadFileSwitch }"
+        class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Provide an URL</li>
+    </ul>
+  </div>
+  <div class="w-100 p-3 position-relative" v-if="uploadURL && !uploadFileSwitch">
+    <label class=" formkit-label w-100" for="aUrlLink">Provide an URL</label>
+    <input id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id"
+      @input="saveUrl">
+  </div>
+  <div v-if="uploadFileSwitch" ref="fileupload" class="p-3 w-100"
+    :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
+    <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
+    <div class="file-div position-relative">
+      <label class="formkit-label" for="aUrlFL">Upload a file</label>
+      <input class="mt-3" type="file" id="aUrlFL" name="fileUpload"
+        @change="uploadOrReplaceFile({ file: $event.target.files[0] })">
       <div class="upload-feedback position-absolute d-flex" style="right: 0">
-        <div v-if="isLoading" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div v-if="isLoading" class="lds-ring">
+        </div>
         <div v-if="success"><i class="material-icons d-flex check-icon">check_circle</i></div>
-        <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>        
+        <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>
       </div>
     </div>
-    <p class="dURLText">Download-URL: <a class="dURLText" :href="context.model">{{ context.model }}</a></p>
+    <p class="dURLText">{{ $t('message.metadata.downloadUrl') }}: <a class="dURLText" :href="context.model">{{
+      context.model }}</a></p>
   </div>
 </template>
 
@@ -30,6 +70,10 @@ export default {
   },
   data() {
     return {
+      URLValue: '',
+      uploadURL: false,
+      uploadFileSwitch: false,
+      checkifSet: false,
       isLoading: false,
       success: false,
       fail: false,
@@ -44,7 +88,9 @@ export default {
       'getData',
     ]),
     getCatalogue() {
-      const catalog = this.getData('datasets')['dcat:catalog'];
+      // Need to reanable the setting of the catalog after fixing the error
+      // const catalog = this.$formkit.get("catalog").context.value;
+      const catalog = "dpi";
       return catalog;
     },
   },
@@ -52,6 +98,19 @@ export default {
     ...mapActions('dpiStore', [
       'saveLocalstorageValues',
     ]),
+    async saveUrl() {
+      // console.log(this.context);
+      await this.context.node.input({ '@id': this.URLValue })
+    },
+    checkIfPresent() {
+      console.log(this.context.value['@id']);
+      if (this.context.value['@id']) {
+        console.log(this.context.value['@id']);
+        this.URLValue = this.context.value['@id']
+        return true
+      }
+      else false
+    },
     // finds the parent input group of a given element.
     findParentInputGroupOfElement(element) {
       // Start with the given element.
@@ -60,7 +119,7 @@ export default {
       // Traverse the DOM tree upwards.
       while (currentElement) {
         // If the current element is an input group, return it.
-        if (currentElement.classList.contains('formulate-input-group-repeatable')) {
+        if (currentElement.classList.contains('formkit-input-group-repeatable')) {
           return currentElement;
         }
         // If not, move to the parent element.
@@ -84,7 +143,7 @@ export default {
 
       // Get the parent element of all input groups.
       const parentOfAllInputGroups = parentInputGroup.parentElement;
-      const allInputGroupsNodeList = parentOfAllInputGroups.querySelectorAll('.formulate-input-group-repeatable');
+      const allInputGroupsNodeList = parentOfAllInputGroups.querySelectorAll('.formkit-input-group-repeatable');
       const allInputGroupsArray = Array.from(allInputGroupsNodeList);
 
       // Find the index of the parent input group within the array of all input groups.
@@ -93,7 +152,7 @@ export default {
       return indexOfParentInputGroup;
     },
     async uploadOrReplaceFile({ file }) {
-      
+
       const replaceEnabled = this.$env?.content?.dataProviderInterface?.enableFileUploadReplace || false;
       const wantsToReplace = this.$route.query?.edit ?? false;
 
@@ -116,10 +175,11 @@ export default {
         }
 
       }
+
       return await this.uploadFile(file);
     },
     async uploadFile(file, options = {}) {
-      
+
       this.isLoading = true;
 
       const form = new FormData();
@@ -145,16 +205,17 @@ export default {
       };
 
       try {
-        
+
         const result = await axios.request(requestOptions);
         const path = result.data.result.location.substring(result.data.result.location.indexOf('/') + 1);
         this.context.model = `${this.$env.api.fileUploadUrl}${path}`;
         this.isLoading = false;
         this.success = true;
-        this.context.rootEmit('change');
-        
+        await this.context.node.input({ '@id': `${this.$env.api.fileUploadUrl}${path}` })
+        // this.context.rootEmit('change');
+
       } catch (err) {
-        
+
         this.isLoading = false;
         this.fail = true;
         console.error(err); // eslint-disable-line
@@ -162,7 +223,16 @@ export default {
     },
   },
   mounted() {
-    this.saveLocalstorageValues('datasets');
+
+    this.$nextTick(function(){
+  
+      if (this.context.value['@id']) {
+        this.uploadURL = true
+        this.URLValue = this.context.value['@id']
+        return true
+      }
+      else false
+    })
   }
 };
 </script>
@@ -170,9 +240,10 @@ export default {
 <style lang="scss" scoped>
 // @import '../../../styles/bootstrap_theme';
 // @import '../../../styles/utils/css-animations';
-.dURLText{
+.dURLText {
   font-size: 12px;
 }
+
 .file-div {
   display: flex;
   align-items: center;
@@ -182,27 +253,29 @@ export default {
   padding: 10px;
 }
 
-  /*** MATERIAL ICONS ***/
-  %modal-icon {
-    font-size: 20px;
-    cursor: default;
-  }
+/*** MATERIAL ICONS ***/
+%modal-icon {
+  font-size: 20px;
+  cursor: default;
+}
 
-  .check-icon {
-    @extend %modal-icon;
-    color: #28a745;
-  }
+.check-icon {
+  @extend %modal-icon;
+  color: #28a745;
+}
 
-  .close-icon {
-    @extend %modal-icon;
-    color: red;
-  }
-  .lds-ring {
+.close-icon {
+  @extend %modal-icon;
+  color: red;
+}
+
+.lds-ring {
   display: inline-block;
   position: relative;
   width: 30px;
   height: 30px;
 }
+
 .lds-ring div {
   box-sizing: border-box;
   display: block;
@@ -215,19 +288,24 @@ export default {
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: lightgray transparent transparent transparent;
 }
+
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
 }
+
 .lds-ring div:nth-child(2) {
   animation-delay: -0.3s;
 }
+
 .lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
+
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

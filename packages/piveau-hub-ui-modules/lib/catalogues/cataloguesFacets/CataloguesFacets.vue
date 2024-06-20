@@ -38,7 +38,6 @@ import DatasetsFacetsItem from '../../datasets/datasetsFacets/DatasetsFacetsItem
 import { getTranslationFor, getCountryFlagImg, getFacetTranslation } from '../../utils/helpers';
 import SettingsFacet from "../../datasets/datasetsFacets/SettingsFacet";
 import CatalogDetailsFacet from '../../facets/CatalogDetailsFacet.vue'
-import Vue from "vue";
 
 export default {
   name: 'catalogueFacets',
@@ -65,11 +64,11 @@ export default {
       FACET_OPERATORS: this.$env.content.catalogs.facets.FACET_OPERATORS,
       FACET_GROUP_OPERATORS: this.$env.content.catalogs.facets.FACET_GROUP_OPERATORS,
       erpd: {
-        yes: Vue.i18n.t('message.metadata.yes'),
-        no: Vue.i18n.t('message.metadata.no'),
-        property: Vue.i18n.t('message.datasetFacets.facets.erpdOnly'),
-        title: Vue.i18n.t('message.datasetFacets.facets.erpd'),
-        // toolTipTitle: "TOOLTIP",//Vue.i18n.t('message.helpIcon.dataServices'),
+        yes: this.i18n.global.t('message.metadata.yes'),
+        no: this.i18n.global.t('message.metadata.no'),
+        property: this.i18n.global.t('message.datasetFacets.facets.erpdOnly'),
+        title: this.i18n.global.t('message.metadata.erpd'),
+        // toolTipTitle: "TOOLTIP",//this.i18n.global.t('message.helpIcon.dataServices'),
       }
     };
   },
@@ -127,10 +126,8 @@ export default {
     getTranslationFor,
     ...mapActions('catalogDetails', [
       'loadCatalog',
-      'useCatalogService',
     ]),
     ...mapActions('catalogs', [
-      'toggleFacet',
       'addFacet',
       'removeFacet',
       'setFacetOperator',
@@ -158,18 +155,9 @@ export default {
       });
     },
     facetTitle(fieldId) {
-      // return fieldId === 'scoring' ?
-      //   Vue.i18n.t('message.header.navigation.data.metadataquality')
-      //   : Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
-
-      if (fieldId === 'scoring') {
-        return Vue.i18n.t('message.header.navigation.data.metadataquality')
-      } else if (fieldId === 'country') {
-        return Vue.i18n.t(`message.datasetFacets.facets.origin`)
-      } else {
-        return Vue.i18n.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`)
-      }
-
+      return fieldId === 'scoring' ?
+      this.i18n.global.t('message.header.navigation.data.metadataquality')
+        : this.i18n.global.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
     },
     /**
      * @description Returns whether a facet is selected or not.
@@ -211,7 +199,8 @@ export default {
       if (!Object.prototype.hasOwnProperty.call(this.$route.query, [field])) {
         this.$router.push({ query: Object.assign({}, this.$route.query, { [field]: [] }) });
       }
-      let facets = this.$route.query[field].slice();
+      let facets = this.$route.query?.[field]?.slice();
+      if (!facets) facets = [];
       if (!Array.isArray(facets)) facets = [facets];
       const index = facets.indexOf(facet);
       if (index > -1) {
@@ -226,17 +215,14 @@ export default {
       this.setFacetGroupOperator(op);
     },
     isErpd() {
-      const superCatalogs = this.$route.query['superCatalog'];
-      const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
-      return superCatalog === 'erpd' ? 'true' : 'false';
-      // return superCatalog === 'http://data.europa.eu/88u/catalogue/erpd' ?  'true' : 'false';
+      const superCatalogs = this.$route.query?.superCatalog;
+      const superCatalog = (superCatalogs && superCatalogs.constructor === Array) ? superCatalogs[0] : superCatalogs;
+      return superCatalog === 'erpd' ?  'true' : 'false';
     },
     changeErpd(erpd) {
-      //https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&facets={%22superCatalog%22:[%22http://data.europa.eu/88u/catalogue/erpd%22]}
       const erdpCatalog = 'erpd';
-      // const erdpCatalog = 'http://data.europa.eu/88u/catalogue/erpd';
-      const superCatalogs = this.$route.query['superCatalog'];
-      const superCatalog = superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
+      const superCatalogs = this.$route.query?.superCatalog;
+      const superCatalog = superCatalogs && superCatalogs.constructor === Array ? superCatalogs[0] : superCatalogs;
       if ((erpd === 'false' && superCatalog === erdpCatalog) || (erpd === 'true' && superCatalog !== erdpCatalog)) {
         if (superCatalog === erdpCatalog) {
           delete this.$route.query.showsubcatalogs;
@@ -283,14 +269,13 @@ export default {
   },
   created() {
     if (this.$route.query.showsubcatalogs) {
-      this.useCatalogService(this.catalogService);
       const superCatalogUrl = this.$route.query.superCatalog;
       if (typeof superCatalogUrl === 'string') {
         const catalogId = superCatalogUrl.substring(superCatalogUrl.lastIndexOf('/') + 1);
         this.loadCatalog(catalogId)
           .then(result => {
-            // console.log("HELLLLO", result)
-          }
+                // console.log("HELLLLO", result)
+              }
           )
       }
     }

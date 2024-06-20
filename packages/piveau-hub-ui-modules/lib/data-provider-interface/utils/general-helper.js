@@ -1,4 +1,7 @@
 import { isEmpty, isNil, has } from 'lodash';
+import axios from 'axios';
+import { getTranslationFor } from "../../utils/helpers";
+
 
 /**
  * Merges multiple Objects nested within an object into one main objects with al key-value-pairs originally located within the nested objects
@@ -21,7 +24,6 @@ function mergeNestedObjects(data) {
 function addNamespace(prefix, dpiConfig) {
     // the prefix had the following format: namespace:property (e.g. dct:title)
     // the short version of the namespace noe should be replaced by the long version (e.g. http://purl.org/dc/terms/title)
-
     let fullDescriptor;
     const colonIndex = prefix.indexOf(':');
 
@@ -188,9 +190,11 @@ function getPagePrefixedNames(property, formDefinitions, pageContent) {
     // get property keys for each page
     for (let pageName in pageContent[property]) {
         prefixedNames[property][pageName] = [];
-        for (let propertyName in pageContent[property][pageName]) {
+        const propertyKeys = pageContent[property][pageName];
+        for (let propertyindex = 0; propertyindex < propertyKeys.length; propertyindex++) {
+            const propertyName = propertyKeys[propertyindex];
             const prefixedName = formDefinitions[property][propertyName].name; // form definition includes name-property which contains key
-            prefixedNames[property][pageName].push(prefixedName);
+            if (prefixedName !== undefined) prefixedNames[property][pageName].push(prefixedName);
         }
     }
 
@@ -199,53 +203,6 @@ function getPagePrefixedNames(property, formDefinitions, pageContent) {
 
 function isValid(id) {
     return /^[a-z0-9-]*$/.test(id);
-}
-
-/**
- * Determines if all mandatory values are given for the given property
- * @param {*} data Object containing data values
- * @param {*} property Property (dtaset/catalogue/distribution) the given data values belong to
- * @returns Boolean describing if all mandatory fields are filled
- */
-function checkMandatory(data, property) {
-
-    let status;
-
-    if (property === 'datasets') {
-        // dataset mandatory properties: datasetID, dct:title with language tag, dct:description with language tag and catalog literal
-        status = !isEmpty(data['datasetID'])
-        && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dcat:catalog']);
-    } else if (property === 'distributions') {
-        // distribution mandatory properties: dcat:accessUrl
-
-        const hasAccessUrl = !isNil(data) && !isEmpty(data) && !isEmpty(data['dcat:accessURL']);
-        // if dataservice is given the title as well as the endpointUrl is mandatory
-        if (has(data, 'dcat:accessService')) {
-            const serviceNumber = data['dcat:accessService'].length;
-            const allServicesHaveEnpointUrl = (data['dcat:accessService'].filter(obj => has(obj, 'dcat:endpointURL') && !isEmpty(obj['dcat:endpointURL']))).length === serviceNumber;
-            let servicesTitleAvailability = [];
-
-            for (let index in data['dcat:accessService']) {
-                // accessService always provides a field title because of the prefilling with a language tag (so testing against that is not necessary)
-                const service = data['dcat:accessService'][index];
-                // only testing if at least one title for each service is available
-                servicesTitleAvailability.push(!isEmpty(service['dct:title'].filter(el => has(el, '@value') && !isEmpty(el['@value']))))
-            }
-            const allServicesHaveATtitle = servicesTitleAvailability.every(el => el === true);
-            status = hasAccessUrl && allServicesHaveATtitle && allServicesHaveEnpointUrl;
-        } else {
-            status = hasAccessUrl
-        }
-    } else if (property === 'catalogues') {
-        // catalogue mandatory properties: datasetId, dct:title and dct:descirption with language tag, dct:publisher and at least one language (dct:language)
-        status = !isEmpty(data['datasetID']) && !isEmpty(data['dct:title']) && data['dct:title'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dct:description']) && data['dct:description'].map(a => !isEmpty(a['@language']) && !isEmpty(a['@value'])).reduce((a, b) => b)
-        && !isEmpty(data['dct:publisher']) && !isEmpty(data['dct:language']);
-    }
-
-    return status;
 }
 
 /**
@@ -296,6 +253,130 @@ function removeKeyFromFormatType(key, format, property, typeDefinition) {
     typeDefinition[format][property].splice(typeDefinition[format][property].indexOf(key), 1);
 }
 
+function propertyObjectHasValues(objectData) {
+    let objectHasValues = false;
+
+    if (!isNil(objectData) && !isEmpty(objectData)) {
+        // language tag is always given
+        if (has(objectData, '@language')) {
+            delete objectData['@language'];
+        }
+
+        // removing all falsy values (undefined, null, "", '', NaN, 0)
+        const actualValues = Object.values(objectData).filter(el => el); // filters all real values
+        if (!isEmpty(actualValues)) {
+            // there are keys containing an object or array as value
+            for (let valueIndex = 0; valueIndex < actualValues.length; valueIndex++) {
+                // if at least one elemnt within the array is set, return true
+                const currentValue = actualValues[valueIndex];
+
+                // testing content of array
+                if (Array.isArray(currentValue)) {
+                    // there are only objects wihtin those arrays
+                    for (let arrIndex = 0; arrIndex < currentValue.length; arrIndex++) {
+                        if (propertyObjectHasValues(currentValue[arrIndex])) objectHasValues = true;
+                    }
+                } else if (typeof currentValue === 'object') { // testing content of object
+                    if (propertyObjectHasValues(currentValue)) objectHasValues = true;
+                } else {
+                    objectHasValues = true;
+                }
+            }
+        }
+    }
+
+    return objectHasValues;
+}
+
+function propertyHasValue(data) {
+
+    let isSet = false;
+
+    if (data !== undefined && data !== "" && !isEmpty(data) && !isNil(data)) {
+        // testing array data
+        if (Array.isArray(data)) {
+            // there are arreay of objects or arrays of values
+            if (data.every(el => typeof el === 'string')) {
+                isSet = !isEmpty(data.filter(el => el)); 
+            } else if (data.every(el => typeof el === 'object')) {
+                for (let index = 0; index < data.length; index++) {
+                    // if at least one array element is set, return true
+                    if (propertyObjectHasValues(data[index])) isSet = true; 
+                }
+            }
+        } else if (typeof data === 'object') {
+            // testing object data
+            isSet = propertyObjectHasValues(data);
+        } else {
+            isSet = true;
+        }
+    }
+
+    return isSet;
+}
+
+/**
+ * 
+ */
+async function requestUriLabel(uri, dpiConfig, envs) {
+
+    // get vocabulary by finding vocab-url within given URI
+    const voc = Object.keys(dpiConfig.vocabPrefixes).find(key => uri.includes(dpiConfig.vocabPrefixes[key]));
+
+    try {
+        let req;
+
+        // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
+        if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
+            req = `${envs.api.baseUrl}vocabularies/${voc}`;
+
+        } else {
+            const value = uri.replace(dpiConfig.vocabPrefixes[voc], '');
+            req = `${envs.api.baseUrl}vocabularies/${voc}/${value}`;
+        }
+
+        return new Promise((resolve, reject) => {
+            axios.get(req)
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((err) => {
+                    reject(err);
+
+                });
+        });
+    } catch (error) {
+        // 
+    }    
+}
+
+
+/**
+ * 
+ */
+async function getUriLabel(uri, dpiConfig, locale, envs) {
+    let URIlabel;
+
+    const voc = Object.keys(dpiConfig.vocabPrefixes).find(key => uri.includes(dpiConfig.vocabPrefixes[key]));
+
+    // if vocabulary iana media type or spdx checksum endpoint returns values in a different way
+    let vocMatch = (voc === "iana-media-types" || voc === "spdx-checksum-algorithm");
+
+    await requestUriLabel(uri, dpiConfig, envs).then(
+        (response) => {
+            let result = vocMatch
+                ? response.data.result.results
+                    .filter((dataset) => dataset.resource === uri)
+                    .map((dataset) => dataset.pref_label)[0].en
+                : getTranslationFor(response.data.result.pref_label, locale, []);
+
+            URIlabel = result;
+        }
+    );
+
+    return URIlabel;
+}
+
 export default {
     mergeNestedObjects,
     addNamespace,
@@ -305,8 +386,9 @@ export default {
     getPagePrefixedNames,
     getNestedKeys,
     removeNamespace,
-    checkMandatory,
     getFileIdByAccessUrl,
     addKeyToFormatType,
     removeKeyFromFormatType,
+    propertyHasValue,
+    getUriLabel,
 };

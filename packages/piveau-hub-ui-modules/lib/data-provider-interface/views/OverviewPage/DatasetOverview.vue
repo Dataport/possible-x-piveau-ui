@@ -1,64 +1,66 @@
 <template>
     <div class="mt-2" v-if="pageLoaded">
+
         <div class="overviewHeader p-3">
             <div class="firstRow d-flex  ">
                 <div class="datasetNotation dsd-title-tag d-flex align-items-center"><span>Dataset</span></div>
-                <h1 class="dsTitle"> {{ getData('datasets')['dct:title'][0]['@value'] }}</h1>
-
+                <h1 class="dsTitle"> {{ getTitle() }}</h1>
             </div>
             <div class="secondRow d-flex justify-content-between">
                 <div class="dsCatalogue ">
                     <span><b>Catalog:</b></span>
                     <a href="">
-                        {{ checkIfSet(getData('datasets')['dcat:catalog']) }}
+                        {{ checkIfPropertySet(getDatasets, 'dcat:catalog') }}
                     </a>
-
                 </div>
                 <div class="dsPublisher">
-                    <PropertyEntry :data="getData('datasets')" profile="datasets" :property="'dct:publisher'"
-                        :value="publisherValues" :dpiLocale="dpiLocale"></PropertyEntry>
+                    <PropertyEntry profile="datasets" :data="getDatasets" property='dct:publisher'
+                        :value="{ type: 'special', voc: 'corporate-body', label: 'message.metadata.publisher', isHeader: true }"
+                        :dpiLocale="dpiLocale"></PropertyEntry>
+                </div>
+                <div class="dsIssued ">
+                    <span><b>Issued:</b></span>
+                    <a>
+                        {{ new Date(checkIfPropertyValueSet(getDatasets, 'dct:issued', '@value')).toDateString() }}
+                        <!-- {{ new Date(getDatasets['dct:modified']).toISOString().split('T')[0] }} -->
+                    </a>
                 </div>
                 <div class="dsUpdated ">
                     <span><b>Updated:</b></span>
                     <a>
-                        {{ checkIfSet(new Date(getData('datasets')['dct:modified']).toDateString()) }}
-                        <!-- {{ new Date(getData('datasets')['dct:modified']).toISOString().split('T')[0] }} -->
+                        {{ new Date(checkIfPropertyValueSet(getDatasets, 'dct:modified', '@value')).toDateString() }}
+                        <!-- {{ new Date(getDatasets['dct:modified']).toISOString().split('T')[0] }} -->
                     </a>
-
                 </div>
             </div>
         </div>
         <div class="dsMainWrap d-flex flex-column mt-3">
             <div class="">
                 <p class="dsDesc px-3">
-                    {{ getData('datasets')['dct:description'].filter(el => el['@language'] ===
-                        dpiLocale).map(el =>
-                            el['@value'])[0] }}
+                    {{ getDescription() }}
                 </p>
-
             </div>
             <div class="">
+
                 <table class="table table-borderless table-responsive  bg-light disOverview p-3">
                     <div v-for="(value, name, index) in tableProperties" :key="index">
-                        <PropertyEntry :data="getData('datasets')" profile="datasets" :property="name" :value="value"
-                            :dpiLocale="dpiLocale"></PropertyEntry>
 
+                        <PropertyEntry profile="datasets" :data="values" :property="name" :value="value"
+                            :dpiLocale="dpiLocale"></PropertyEntry>
                     </div>
                 </table>
             </div>
         </div>
-        <div class="dsDist b-top p-3" v-if="getData('distributions').length > 0">
-            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getData('distributions').length
-            }})</h2>
-            <DistributionOverview :dpiLocale="dpiLocale"></DistributionOverview>
+        <div class="dsDist b-top p-3" v-if="getDistributions.length > 0">
+            <h2 class="my-4">{{ $t('message.metadata.distributions') }} ({{ getDistributions.length }})</h2>
+            <DistributionOverview :dpiLocale="dpiLocale" :distributions="getDistributions"></DistributionOverview>
         </div>
-
         <div class="dsKeywords b-top my-2 p-3"
-            v-if="getData('datasets')['dcat:keyword'] != undefined && getData('datasets')['dcat:keyword'][0]['@language'] != undefined && getData('datasets')['dcat:keyword'].length > 0">
-            <h2 class="my-4">Keywords <span>({{ getData('datasets')['dcat:keyword'].length }})</span></h2>
+            v-if="getDatasets['dct:keyword'] != undefined && getDatasets['dct:keyword'][0]['@value'] != undefined && getDatasets['dct:keyword'].length > 0">
+            <h2 class="my-4">Keywords <span>({{ getDatasets['dct:keyword'].length }})</span></h2>
             <div class="d-flex">
                 <span class="mx-1"
-                    v-for="( element, index ) in  getData('datasets')['dcat:keyword'].filter(el => el['@language'] === dpiLocale) "
+                    v-for="( element, index ) in getDatasets['dct:keyword'].filter(el => el['@language'] === dpiLocale)"
                     :key="index">
                     <small :title="element"
                         class="d-inline-block w-100 p-2 ml-1 rounded-pill text-center text-white text-truncate bg-primary">
@@ -75,25 +77,19 @@
 import PropertyEntry from './PropertyEntry.vue';
 import DistributionOverview from './DistributionOverview.vue';
 import { mapGetters, mapActions } from 'vuex';
-import Vue from 'vue';
 import axios from 'axios';
-import Distribution from '../../../datasetDetails/distributions/Distribution.vue';
-
-
 
 export default {
     data() {
         return {
+            values: [],
             pageLoaded: false,
-            pageData: {},
-            URIcache: "",
-            publisherValues: { "type": "singularURI", "voc": "corporate-body", "label": "message.metadata.publisher" },
             tableProperties: {
-                'dct:publisher': { type: 'conditional', voc: 'corporate-body', label: 'message.metadata.publisher' },
+                'dct:publisher': { type: 'special', voc: 'corporate-body', label: 'message.metadata.publisher' },
                 'dcat:contactPoint': { type: 'special', voc: '', label: 'message.metadata.contactPoints' },
                 'dct:creator': { type: 'special', voc: '', label: 'message.metadata.creator' },
-                'dct:issued': { type: 'date', label: 'message.metadata.created' },
-                'dct:modified': { type: 'date', label: 'message.metadata.updated' },
+                // 'dct:issued': { type: 'date', label: 'message.metadata.created' },
+                // 'dct:modified': { type: 'date', label: 'message.metadata.updated' },
                 'dct:language': { type: 'multiURI', voc: 'language', label: 'message.metadata.languages' },
                 'dct:subject': { type: 'multiURI', voc: 'eurovoc', label: 'message.dataupload.datasets.subject.label' },
                 'dcat:theme': { type: 'multiURI', voc: 'data-theme', label: 'message.dataupload.datasets.theme.label' },
@@ -110,7 +106,7 @@ export default {
                 'dct:relation': { type: 'multiURL', voc: '', label: 'message.dataupload.datasets.relation.label' },
                 'dcat:qualifiedRelation': { type: 'multiURL', voc: '', label: 'message.dataupload.datasets.qualifiedRelation.label' },
                 'prov:qualifiedAttribution': { type: 'multiURL', voc: '', label: 'message.dataupload.datasets.qualifiedAttribution.label' },
-                'dct:spatial': { type: 'multiURISpatial', voc: '', label: 'message.metadata.spatial' },
+                'dct:spatial': { type: 'multiURI', voc: '', label: 'message.metadata.spatial' },
                 'dcat:spatialResolutionInMeters': { type: 'singularString', voc: '', label: 'message.dataupload.datasets.spatialResolutionInMeters.label' },
                 'dct:temporal': { type: 'special', voc: '', label: 'message.metadata.temporal' },
                 'dcat:temporalResolution': { type: 'special', voc: '', label: 'message.dataupload.datasets.temporalResolution.label' },
@@ -131,74 +127,84 @@ export default {
                 'dcatap:availability': { type: 'singularURI', voc: 'planned-availability', label: 'message.dataupload.datasets.availabilityDE.label' },
                 'dcatde:geocodingDescription': { type: 'multiLingual', voc: '', label: 'message.dataupload.datasets.geocodingDescription.label' },
                 'dcatde:politicalGeocodingLevelURI': { type: 'multiURI', voc: '', label: 'message.dataupload.datasets.politicalGeocodingLevelURI.label' },
-                'dcatde:politicalGeocodingURI': { type: 'multiURIspecial', voc: '', label: 'message.dataupload.datasets.politicalGeocodingURI.label' },
-
-
+                'dcatde:politicalGeocodingURI': { type: 'multiURI', voc: 'political-geocoding-level', label: 'message.dataupload.datasets.politicalGeocodingURI.label' },
             }
+        }
+    },
+    props: {
+        dpiLocale: String,
+
+    },
+    components: {
+        PropertyEntry,
+        DistributionOverview,
+    },
+    computed: {
+        ...mapGetters('dpiStore', [
+            'getData',
+        ]),
+        getDatasets() {
+            return this.values;
+        },
+        getDistributions() {
+            return this.getDatasets['distributionList'] || [];
+        },
+        showTable() {
+            return Object.keys(this.tableProperties).filter(prop => this.getDatasets[prop]).length > 0;
+        },
+        storeData() {
+            return this.getData('datasets')
         }
     },
     methods: {
         ...mapActions("dpiStore", [
             "requestFirstEntrySuggestions",
             "requestAutocompleteSuggestions",
-            "requestResourceName",
         ]),
-    },
-    props: {
-        dpiLocale: String,
-    },
-    components: {
-        PropertyEntry,
-        DistributionOverview,
-        Distribution,
-
-    },
-    computed: {
-        ...mapGetters('dpiStore', [
-            'getData',
-        ]),
-
-        showTable() {
-            return Object.keys(this.tableProperties).filter(prop => this.getData('datasets')[prop]).length > 0;
-        }
-
-    },
-    created() {
-
-    },
-    async mounted() {
-        this.$nextTick(() => {
-
-            this.pageLoaded = true
-
-        })
-    },
-    updated() {
-
-    },
-    methods: {
-        checkIfSet(data) {
-            if (data != undefined) return data
-            else return "unset"
+        checkIfPropertySet(data, property) {
+            if (data[property] != undefined) return data[property]
+            else {
+                return "No data available"
+            }
         },
-        getTitle(propertyName) {
-            return propertyName.split(':')[1]
-
+        checkIfPropertyValueSet(data, property, value) {
+            if (data[property] != undefined && data[property][value] != undefined) return data[property][value]
+            else {
+                return "No data available"
+            }
+        },
+        getTitle() {
+            return this.getDatasets['dct:title'] && this.getDatasets['dct:title'].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value'])[0];
+        },
+        getDescription() {
+            return this.getDatasets['dct:description'] && this.getDatasets['dct:description'].filter(el => el['@language'] === this.dpiLocale).map(el => el['@value'])[0];
         },
         async reqName(URI) {
             let nameOfProperty = URI.split('/')
-            let req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${nameOfProperty[nameOfProperty.length - 2]}/${nameOfProperty[nameOfProperty.length - 1]}`
+            let req = `${this.$env.api.baseUrl}vocabularies/${nameOfProperty[nameOfProperty.length - 2]}/${nameOfProperty[nameOfProperty.length - 1]}`
 
             const data = await axios.get(req)
-            console.log(data['data']['result']['pref_label'][this.dpiLocale]);
             return data['data']['result']['pref_label'][this.dpiLocale]
+        }
+    },
+    async mounted() {
+        this.$nextTick(() => {
+            this.pageLoaded = true;
+            this.values = this.getData('datasets');
+        })
+
+
+    },
+    watch: {
+        storeData(newValue, oldValue) {
+            this.values = newValue
         }
     }
 }
 </script>
+
 <style>
 .overviewHeader {
-
     border-bottom: 1px solid lightgray
 }
 
@@ -206,14 +212,14 @@ export default {
     align-items: center;
 }
 
-.dsDist td {
+.dsDist td:first-child {
     padding: 1rem;
-    max-width: 250px;
-    width: 250px;
+    width: 25%;
+
 }
 
 .disOverview td:first-child {
-    width: 25%;
+    min-width: 25%;
 }
 
 .disOverview td:last-child {
@@ -226,4 +232,5 @@ export default {
 
 .dist-edit {
     cursor: pointer
-}</style>
+}
+</style>

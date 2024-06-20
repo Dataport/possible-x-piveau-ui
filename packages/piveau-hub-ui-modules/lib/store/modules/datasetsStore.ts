@@ -1,45 +1,13 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign,no-unused-vars,no-console,consistent-return */
-/**
- * @author Dennis Ritter
- * @description Vuex store for the datasets module
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
 
 const RESULTS_PER_PAGE = 10;
 // const RESULTS_PER_PAGE = GLUE_CONFIG.routing.pagination.defaultItemsPerPage;
 
-// Datasets Module State
 const state = {
-  /**
-   * @property datasets
-   * @type Array
-   * @description An array of datasets.
-   * @example datasets = [{
-   *  catalog: { title: 'catalog One', description: 'This is catalog One.', id: "catalog-one" },
-   *  categories: [{ id: 'energy', title: 'Energy' }, ..],
-   *  country: { title: 'Germany', id: 'FR' },
-   *  description: 'This is dataset1',
-   *  distributions: [{}],
-   *  distributionFormats: [{title: 'PDF', id: 'pdf'}, {title: 'CSV', id: 'csv'}],
-   *  id: 'abc123qwe345',
-   *  idName: 'dataset-1',
-   *  keywords: { someCategory1: ['kw1', 'kw2'], category2['someKeyword']},
-   *  languages: ["de", "en"],
-   *  licence: {},
-   *  modificationDate: '2002-02-02T00:00',
-   *  publisher: { name: 'Publisher One', type: 'organization', resource: 'https://abc.de/res', email: 'asd@123.de' },
-   *  releaseDate: '2001-01-01T00:00',
-   *  title: { de: 'Der Titel', en: 'The Title' },
-   * }, {...}, ]
-   */
   datasets: [],
   loading: false,
   searchParameters: {
-    // Text entered in the search input field
     query: '',
     limit: RESULTS_PER_PAGE,
     offset: 0,
@@ -52,28 +20,10 @@ const state = {
     datasetGeoBounds: undefined,
     sort: 'relevance+desc, modified+desc, title.en+asc',
   },
-  /**
-   * @property availableFacets
-   * @type Array
-   * @description The set union of all available facets for the .
-   * @example availableFacets = [
-   *  {
-   *    items: [{
-   *      count: 42,
-   *      title: 'facet1',
-   *      id: 'facet-1',
-   *    }, {..}],
-   *    id: 'tagsId'
-   *    title: 'tags',
-   *  }, {..}]
-   */
   availableFacets: [],
   page: 1,
-  // The total number of datasets available with last request
   pageCount: 1,
   datasetsCount: 0,
-  // The Service that implemented server requests for Datasets
-  service: null,
   dataScope: undefined,
   minScoring: undefined,
   scoringFacets: [
@@ -116,13 +66,10 @@ const GETTERS = {
   getLoading: state => state.loading,
   getOffset: state => state.searchParameters.offset,
   getFacets: (state) => {
-    // Hacky solution for facet category bug
-    if (state.searchParameters.facets.categories) state.searchParameters.facets.categories = state.searchParameters.facets.categories.map(c => c.toUpperCase());
-
-    // Hacky solution for country data
-    if (state.searchParameters.facets.dataScope) delete state.searchParameters.facets.dataScope;
-
-    return state.searchParameters.facets;
+    const preparedFacets = {...state.searchParameters.facets};
+    if (preparedFacets.categories) preparedFacets.categories = preparedFacets.categories.map(c => c.toUpperCase());
+    if (preparedFacets.dataScope) delete preparedFacets.dataScope;
+    return preparedFacets;
   },
   getFacetOperator: state => state.searchParameters.facetOperator,
   getFacetGroupOperator: state => state.searchParameters.facetGroupOperator,
@@ -130,7 +77,7 @@ const GETTERS = {
   getSuperCatalogue_DEPRECATED: state => state.searchParameters.superCatalogue, // !!!!! Project specific (Bayern). Should be removed as soon as possible !!!!
   getDatasetGeoBounds: state => state.searchParameters.datasetGeoBounds,
   getAvailableFacets: state => state.availableFacets,
-  // inserts data services facet
+  // Hacky solutiohn to insert special facets
   getAllAvailableFacets: (state) => {
     const allAvailableFacets = [...state.availableFacets];
     const indexOfScoring = allAvailableFacets.findIndex(facet => facet.id === 'scoring');
@@ -155,7 +102,6 @@ const GETTERS = {
   },
   getPage: state => state.page,
   getPageCount: state => state.pageCount,
-  getService: state => state.service,
   getSort: state => state.searchParameters.sort,
   getMinScoring: state => state.minScoring,
   getScoringFacets: state => state.scoringFacets,
@@ -194,20 +140,23 @@ const actions = {
       append = false,
     },
   ) {
+
     commit('SET_LOADING', true);
+
     const gb = geoBounds;
     if (gb instanceof Array && gb[0] && gb[1]) {
       geoBounds = `${gb[0][0]},${gb[0][1]},${gb[1][0]},${gb[1][1]}`;
     } else {
       geoBounds = undefined;
     }
+
     if (facets.catalog[0] === 'erpd') { // Special case: do not load datasets of catalog but rather all datasets of all sub-catalogs
       facets.catalog = [];
       facets.superCatalog = ['erpd'];
     }
+
     return new Promise((resolve, reject) => {
-      const service = GETTERS.getService(state);
-      service.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, facets, geoBounds, minScoring, dataScope)
+      this.$datasetService.get(query, locale, limit, page, sort, facetOperator, facetGroupOperator, dataServices, facets, geoBounds, minScoring, dataScope)
         .then((response) => {
           commit('SET_AVAILABLE_FACETS', response.availableFacets);
           commit('SET_SCORING_COUNT', response.scoringCount);
@@ -223,7 +172,28 @@ const actions = {
           reject(error);
         });
     });
+
   },
+
+    /**
+   * @description Loads more datasets.
+   * @param commit
+   * @param state
+   * @param {number} amount - The amount of datasets to add.
+   */
+  loadSingleDataset({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      this.$datasetService.getSingle(id)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
+    });
+  },
+
   /**
    * @description Loads more datasets.
    * @param commit
@@ -235,17 +205,17 @@ const actions = {
     // const datasetsCount = GETTERS.getDatasetsCount(state);
     actions.loadDatasets({ commit, state }, { page, append: true });
   },
+
   /**
    * @description Autocomplete a query String by using a autocompletion service
    * @param commit
    * @param q {String} The Query to autocomplete
    */
   autocompleteQuery({ commit }, q) {
-    const service = GETTERS.getService(state);
     // If autocomplete function does not exist in this service -> Abort
-    if (typeof service.autocomplete !== 'function') return;
+    if (typeof this.$datasetService.autocomplete !== 'function') return;
     return new Promise((resolve, reject) => {
-      service.autocomplete(q)
+      this.$datasetService.autocomplete(q)
         .then((response) => {
           resolve(response);
         })
@@ -254,6 +224,7 @@ const actions = {
         });
     });
   },
+
   /**
    * @description Replace the current state facets by the given facets
    * @param commit
@@ -262,6 +233,7 @@ const actions = {
   setFacets({ commit }, facets) {
     if (facets) commit('SET_FACETS', facets);
   },
+
   /**
    * @description Add the given facet to the states facets.
    * @param commit
@@ -272,6 +244,7 @@ const actions = {
   addFacet({ commit }, { field, facet }) {
     commit('ADD_FACET', { field, facet });
   },
+
   /**
    * @description Remove the given facet from the states facets.
    * @param commit
@@ -282,6 +255,7 @@ const actions = {
   removeFacet({ commit }, { field, facet }) {
     commit('REMOVE_FACET', { field, facet });
   },
+
   /**
    * @description Remove the given facet from the states facets.
    * @param commit
@@ -290,6 +264,7 @@ const actions = {
   setFacetOperator({ commit }, operator) {
     commit('SET_FACET_OPERATOR', operator);
   },
+
   /**
    * @description Remove the given facet from the states facets.
    * @param commit
@@ -298,6 +273,7 @@ const actions = {
   setFacetGroupOperator({ commit }, operator) {
     commit('SET_FACET_GROUP_OPERATOR', operator);
   },
+
   /**
    * @description Remove the given facet from the states facets.
    * @param commit
@@ -306,6 +282,7 @@ const actions = {
   setDataServices({ commit }, dataServices) {
     commit('SET_DATA_SERVICES', dataServices);
   },
+
   /**
    * @description Remove the given facet from the states facets.
    * @param commit
@@ -314,31 +291,15 @@ const actions = {
   setSuperCatalogue_DEPRECATED({ commit }, superCatalogue) { // !!!!! Project specific (Bayern). Should be removed as soon as possible !!!!
     commit('SET_SUPER_CATALOGUE', superCatalogue);
   },
-  /**
-   * @description Handles page changes by through URL query.
-   * @param commit
-   * @param state
-   * @param page {String} The given page number as a String
-   */
   setPage({ commit }, page) {
     commit('SET_PAGE', page);
   },
   setPageCount({ commit }, count) {
     commit('SET_PAGE_COUNT', count);
   },
-  /**
-   * @description Replace the current state query by the given query
-   * @param commit
-   * @param query {String} - The given query
-   */
   setQuery({ commit }, query) {
     commit('SET_QUERY', query);
   },
-  /**
-   * @description Replace the current sort method
-   * @param commit
-   * @param sort {String} - The given sort method to use now
-   */
   setSort({ commit }, sort) {
     commit('SET_SORT', sort);
   },
@@ -356,14 +317,6 @@ const actions = {
   },
   setDataScope({ commit }, dataScope) {
     commit('SET_DATA_SCOPE', dataScope);
-  },
-  /**
-   * @description Sets the Service to use when loading data.
-   * @param commit
-   * @param service - The service to use.
-   */
-  useService({ commit }, service) {
-    commit('SET_SERVICE', service);
   },
 };
 
@@ -430,9 +383,6 @@ const mutations = {
   },
   SET_QUERY(state, query) {
     state.searchParameters.query = query;
-  },
-  SET_SERVICE(state, service) {
-    state.service = service;
   },
   SET_SORT(state, sort) {
     state.searchParameters.sort = sort;

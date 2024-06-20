@@ -16,20 +16,11 @@
 
 <script>
 import AppLink from "../widgets/AppLink.vue";
+import * as metaInfo from '../composables/head';
 
 export default {
   name: 'NotFound',
   components: { AppLink },
-  metaInfo() {
-    return {
-      title: this.$t('message.metadata.notFound'),
-      meta: [
-        { name: 'description', vmid: 'description', content: `${this.$t('message.metadata.notFound')} - ${this.$env.metadata.description}` },
-        { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.metadata.notFound')}` },
-        { name: 'robots', content: 'noindex, follow' },
-      ],
-    };
-  },
   mounted() {
     if (this.$piwik) {
       this.$piwik.trackInteraction('not_found', {
@@ -39,5 +30,8 @@ export default {
       });
     }
   },
+  setup() {
+    metaInfo.useNotFoundHead();
+  }
 };
 </script>

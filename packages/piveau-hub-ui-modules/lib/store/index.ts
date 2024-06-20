@@ -1,12 +1,6 @@
 // @ts-nocheck
-/**
- * @author Dennis Ritter
- * @description The Main vuex store.
- */
+import { createStore } from 'vuex'
 
-// Import Vue & Vuex Store
-import Vue from 'vue';
-import Vuex from 'vuex';
 // Import store modules
 import catalogs from './modules/cataloguesStore';
 import catalogDetails from './modules/catalogueDetailsStore';
@@ -18,9 +12,6 @@ import geo from './modules/geoStore';
 import auth from './modules/authStore';
 import snackbar from './modules/snackbarStore';
 import dpiStore from '../data-provider-interface/store/dpiStore';
-
-Vue.use(Vuex);
-
 
 const state = {};
 
@@ -36,7 +27,7 @@ const getters = {
   getCurrentRoute: state => state.route,
 };
 
-const store = new Vuex.Store({
+const store = createStore({
   state,
   actions,
   mutations,

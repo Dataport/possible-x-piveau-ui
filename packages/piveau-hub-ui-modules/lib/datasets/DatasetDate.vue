@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
   import dayjs from 'dayjs';
   import dateFilters from '../filters/dateFilters';
 
@@ -31,19 +32,22 @@
       },
     },
     methods: {
+      ...mapActions('datasetDetails', [
+        'setDateIncorrect',
+      ]),
       // Checks date plausibility. Returns true, if the date is not plausible.
       isIncorrectDate() {
         // Falsy dates are considered as intentionally blank and are correct.
         if (!this.date) return false;
         const m = dayjs(String(this.date));
         if (!m.isValid()) {
-          this.$root.$emit('date-incorrect');
+          this.setDateIncorrect();
           return true;
         }
 
         // Dates in the future are incorrect.
         if (dayjs().diff(m) < 0) {
-          this.$root.$emit('date-incorrect');
+          this.setDateIncorrect();
           return true;
         }
 

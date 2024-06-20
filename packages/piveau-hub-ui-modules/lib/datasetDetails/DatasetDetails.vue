@@ -16,11 +16,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { useRoute } from 'vue-router';
+
 import DatasetDetailsHeader from './header/DatasetDetailsHeader.vue';
 import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue';
-import { getRepresentativeLocaleOf, getTranslationFor } from '../utils/helpers';
+import { getRepresentativeLocaleOf } from '../utils/helpers';
 import { useDownloadDatasetOnMount } from '../composables/useDownloadDatasetOnMount';
-import { getCurrentInstance } from 'vue';
+import * as metaInfo from '../composables/head';
+
 
 export default {
   name: 'datasetDetails',
@@ -28,18 +31,9 @@ export default {
     DatasetDetailsHeader,
     DatasetDetailsNavigation,
   },
-  metaInfo() {
-    const datasetTitleTranslated = this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages);
-    const title = datasetTitleTranslated ? `${datasetTitleTranslated} - ${this.$env.metadata.title}` : undefined;
-    return {
-      titleTemplate(chunk) {
-        return chunk ? `${chunk} - ${title}` : title;
-      },
-    };
-  },
   data() {
     return {
-      topTitle: this.$env.content.datasetDetails.header.navigation === "top"
+      topTitle: this.$env.content.datasetDetails.header.navigation === "top",
     };
   },
   props: {
@@ -54,18 +48,17 @@ export default {
       'getID',
       'getLanguages',
       'getTitle',
-      'getDescription',
     ]),
   },
   methods: {
     getRepresentativeLocaleOf,
-    getTranslationFor,
+  },
+  created() {
+    const route = useRoute();
+    useDownloadDatasetOnMount({ route, hubUrl: this.$env.api.hubUrl });
   },
   setup() {
-    const vm = getCurrentInstance();
-    const router = vm.proxy.$router;
-    const hubUrl = vm.proxy.$env.api.hubUrl;
-    useDownloadDatasetOnMount({ router, hubUrl });
+    metaInfo.useDatasetDetailsHead();
   }
 };
 </script>

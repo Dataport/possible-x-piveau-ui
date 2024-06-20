@@ -16,7 +16,6 @@
 
   export default {
     name: 'MapBoundsReceiver',
-    dependencies: ['DatasetService'],
     data() {
       return {
         map: {},
@@ -53,9 +52,6 @@
       },
     },
     methods: {
-      ...mapActions('datasets', [
-        'useService',
-      ]),
       ...mapActions('geo', [
         'setGeoBoundsForId',
         'setHoldedGeoBoundsForId',
@@ -154,7 +150,6 @@
       },
     },
     created() {
-      this.useService(this.DatasetService);
       this.initBounds();
     },
     mounted() {

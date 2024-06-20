@@ -2,17 +2,13 @@
   <div id="wrapper" data-cy="dpi-menu">
     <nav v-if="visible">
       <div>
-        <h4 class="text-white">{{$t('message.dataupload.menu.dpi')}}</h4>
+        <h4 class="text-white">{{ $t('message.dataupload.menu.dpi') }}</h4>
       </div>
 
       <div style="margin-top:1%;">
-        <dropup v-for="(group, index) in menuGroups"
-                :key="`Group${index}`"
-                :groupName="group.group"
-                :groupItems="group.items"
-                :show="$env.content.dataProviderInterface.buttons[group.group]"
-                :isOperator="getUserData.roles.includes('operator')"
-                :isCatalog="group.group === 'Catalogue' ? true : false">
+        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" :groupName="group.group"
+          :groupItems="group.items" :show="$env.content.dataProviderInterface.buttons[group.group]"
+          :isOperator="getUserData.roles.includes('operator')" :isCatalog="group.group === 'Catalogue' ? true : false">
         </dropup>
         <ul>
           <div class="btn-group dropup">
@@ -20,13 +16,9 @@
               <button type="button" class="btn btn-default">
                 <!-- Menu items are either buttons or router-link -->
                 <!-- depending if they have a 'to' or 'handler' property -->
-                <component
-                  :is="menuItem.handler ? 'button' : 'router-link'"
-                  :class="{ 'disabled': menuItem.disabled }"
-                  :to="menuItem.to"
-                  @click.native="menuItem.handler ? menuItem.handler() : null"
-                >
-                  {{menuItem.handler}}
+                <component :is="menuItem.handler ? 'button' : 'router-link'" :class="{ 'disabled': menuItem.disabled }"
+                  :to="menuItem.to" @click.native="menuItem.handler ? menuItem.handler() : null">
+                  {{ menuItem.handler }}
                   {{ menuItem.name }}
                 </component>
               </button>
@@ -38,20 +30,16 @@
 
       <div v-if="getUserData.userName">
         <slot name="right" :get-user-data="getUserData">
-          <small class="text-white">{{ $t('message.dataupload.menu.loggedInAs')}} {{ getUserData.userName }}</small><br>
+          <small class="text-white">{{ $t('message.dataupload.menu.loggedInAs') }} {{ getUserData.userName }}</small><br>
           <button type="button" class="btn btn-default logout">
-            <router-link :to="{ name: 'Logout'}">{{$t('message.dataupload.menu.logout')}}</router-link>
+            <router-link :to="{ name: 'Logout' }">{{ $t('message.dataupload.menu.logout') }}</router-link>
           </button>
         </slot>
       </div>
     </nav>
 
-    <app-confirmation-dialog
-      id="DPIMenuModal"
-      :loading="modal.loading"
-      :confirm="modal.confirm"
-      @confirm="modal.confirmHandler"
-    >
+    <app-confirmation-dialog id="DPIMenuModal" :loading="modal.loading" :confirm="modal.confirm"
+      @confirm="modal.confirmHandler">
       {{ modal.message }}
     </app-confirmation-dialog>
   </div>
@@ -94,9 +82,6 @@ export default {
     ...mapGetters('auth', [
       'getUserData',
     ]),
-    ...mapGetters('dpiStore', [
-      'getNavSteps',
-    ]),
     menuGroups() {
       return [
         {
@@ -108,7 +93,7 @@ export default {
               to: {
                 name: 'DataProviderInterface-Input',
                 query: { locale: this.$route.query.locale, edit: false }, // if edit is false -> reset is triggered
-                params: { property: 'datasets', page: this.getNavSteps.datasets[0] },
+                params: { property: 'datasets' },
               },
             },
             {
@@ -123,7 +108,7 @@ export default {
                     confirmHandler: () => this.handleDelete({ id: this.getID, property: 'datasets', catalog: this.getCatalog.id }),
                   },
                 };
-                $('#DPIMenuModal').modal({ show: true });
+                $('#modal').modal({ show: true });
               },
             },
             {
@@ -159,7 +144,7 @@ export default {
                     }),
                   },
                 };
-                $('#DPIMenuModal').modal({ show: true });
+                $('#modal').modal({ show: true });
               },
             },
             {
@@ -175,7 +160,7 @@ export default {
                     confirmHandler: () => this.handleRegisterDoi({ id: this.getID, catalog: this.getCatalog.id, type: this.$env.content.dataProviderInterface.doiRegistrationService.persistentIdentifierType || 'mock' }),
                   },
                 };
-                $('#DPIMenuModal').modal({ show: true });
+                $('#modal').modal({ show: true });
               },
             },
           ],
@@ -203,7 +188,7 @@ export default {
                     confirmHandler: () => this.handleDelete({ id: this.$route.params.ctlg_id, property: 'catalogues', catalog: this.$route.params.ctlg_id }),
                   },
                 };
-                $('#DPIMenuModal').modal({ show: true });
+                $('#modal').modal({ show: true });
               }
             },
             {
@@ -356,7 +341,7 @@ export default {
         });
       } finally {
         this.modal.loading = false;
-        $('#DPIMenuModal').modal('hide');
+        $('#modal').modal('hide');
       }
     },
     async handleRegisterDoi({ id, catalog, type = 'eu-ra-doi' }) {
@@ -370,8 +355,8 @@ export default {
       );
     },
     async handleMarkAsDraft({
-                              id, catalog, title, description,
-                            }) {
+      id, catalog, title, description,
+    }) {
       await this.handleConfirm('auth/putDatasetToDraft', {
         id, catalog, title, description,
       }, {
@@ -379,22 +364,26 @@ export default {
         errorMessage: { prefix: this.$te('message.snackbar.markAsDraft.error') ? this.$t('message.snackbar.markAsDraft.error') : 'Failed to mark dataset as draft' },
       });
 
-      this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale }}).catch(() => {});
+      this.$router.push({ name: 'DataProviderInterface-Draft', query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     async handleDelete({ id, property, catalog }) {
       // todo: create user dataset api (and maybe integrate to store)
       // For now, do request manually using axios
+      
       this.modal.loading = true;
       this.$Progress.start();
       try {
         let endpoint;
+        
         if (property === 'datasets') {
+          
           endpoint = `${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true&catalogue=${catalog}`;
         } else if (property === 'catalogues') {
           endpoint = `${this.$env.api.hubUrl}catalogues/${id}`
         }
 
         await axios.delete(endpoint, {
+
           headers: {
             'Content-Type': 'text/turtle',
             Authorization: `Bearer ${this.getUserData.rtpToken}`,
@@ -416,7 +405,7 @@ export default {
         this.$Progress.finish();
 
         // Redirect to Home
-        this.$router.push({ name: 'Datasets', query: { locale: this.$route.query.locale, refresh: true }}).catch(() => {});
+        this.$router.push({ name: 'Datasets', query: { locale: this.$route.query.locale, refresh: true } }).catch(() => { });
       } catch (ex) {
         this.$Progress.fail();
 
@@ -434,7 +423,7 @@ export default {
         });
       } finally {
         this.modal.loading = false;
-        $('#DPIMenuModal').modal('hide');
+        $('#modal').modal('hide');
       }
     },
   },
@@ -465,8 +454,10 @@ nav {
 
 ul {
   float: right;
+
   li {
     display: inline;
+
     a {
       color: white;
     }

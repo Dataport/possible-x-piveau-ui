@@ -50,7 +50,7 @@
       </table>
     </div>
 
-    <app-confirmation-dialog id="draftsModal" confirm="Confirm" :loading="modalProps.loading"
+    <app-confirmation-dialog id="modal" confirm="Confirm" :loading="modalProps.loading"
       @confirm="modalProps.confirm">
       {{ modalProps.message }}
     </app-confirmation-dialog>
@@ -106,7 +106,7 @@ export default {
     },
     async handleDelete(id, catalog) {
       await this.doRequest('auth/deleteUserDraftById', { id, catalog });
-      $('#draftsModal').modal('hide');
+      $('#modal').modal('hide');
       this.showSnackbar({
         message: 'Draft successfully deleted',
         variant: 'success',
@@ -114,7 +114,7 @@ export default {
     },
     async handlePublish(id, catalog) {
       await this.doRequest('auth/publishUserDraftById', { id, catalog });
-      $('#draftsModal').modal('hide');
+      $('#modal').modal('hide');
       this.showSnackbar({
         message: 'Draft successfully published',
         variant: 'success',
@@ -122,18 +122,18 @@ export default {
       this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: id }, query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     handleConfirmPublish(id, catalog) {
-      this.$set(this.modalProps, 'message', 'Are you sure you want to publish this draft?');
-      this.$set(this.modalProps, 'confirm', () => this.handlePublish(id, catalog));
-      $('#draftsModal').modal('show');
+      this.modalProps.message = 'Are you sure you want to publish this draft?';
+      this.modalProps.confirm = () => this.handlePublish(id, catalog);
+      $('#modal').modal('show');
     },
     handleConfirmDelete(id, catalog) {
-      this.$set(this.modalProps, 'message', 'Are you sure you want to delete this draft?');
-      this.$set(this.modalProps, 'confirm', () => this.handleDelete(id, catalog));
-      $('#draftsModal').modal('show');
+      this.modalProps.message = 'Are you sure you want to delete this draft?';
+      this.modalProps.confirm = () => this.handleDelete(id, catalog);
+      $('#modal').modal('show');
     },
     async doRequest(action, { id, catalog }) {
       this.$Progress.start();
-      this.$set(this.modalProps, 'loading', true);
+      this.modalProps.loading = true;
       try {
         await this.$store.dispatch(action, { id, catalog });
         this.$Progress.finish();
@@ -146,7 +146,7 @@ export default {
         this.$Progress.fail();
       } finally {
         await new Promise(resolve => setTimeout(resolve, 500));
-        this.$set(this.modalProps, 'loading', false);
+        this.modalProps.loading = false;
       }
     },
   },

@@ -61,11 +61,12 @@
               </div>
             </slot>
             <div class="alert alert-warning mt-3 d-flex flex-row" v-if="showScoreDisclaimer">
-              <i18n path="message.datasets.scoreDisclaimer" tag="span">
+              <span>
+                {{ $t("message.datasets.scoreDisclaimer") }}
                 <app-link path="/mqa" :query="{ locale: $route.query.locale }" target="_blank">
-                  <i18n path="message.metadata.methodologyPage"></i18n>
+                  <span>{{ $t("message.metadata.methodologyPage") }}</span>
                 </app-link>
-              </i18n>
+              </span>
             </div>
             <!--
             <div class="alert alert-info mt-3" v-if="getGeoBoundsById('modal-map')">
@@ -103,32 +104,31 @@
 </template>
 
 <script>
-/* eslint-disable no-undef */
-// Import vuex helpers
-import {mapActions, mapGetters} from 'vuex';
-import {
-  debounce,
-  has,
-  groupBy,
-  uniqBy,
-  toPairs,
-  isArray,
-  isNil,
-} from 'lodash-es';
-import $ from 'jquery';
-import fileTypes from '../utils/fileTypes';
-import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
-import Pagination from '../widgets/Pagination.vue';
-import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
-import AppLink from '../widgets/AppLink.vue';
-import {getTranslationFor, truncate, getImg} from '../utils/helpers';
-import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
-import DatasetsFilters from "../datasets/DatasetsFilters.vue";
-import DatasetList from './DatasetList.vue'
+  /* eslint-disable no-undef */
+  import { mapActions, mapGetters } from 'vuex';
+  import {
+    debounce,
+    has,
+    groupBy,
+    uniqBy,
+    toPairs,
+    isArray,
+    isNil,
+  } from 'lodash-es';
+  import $ from 'jquery';
+  import fileTypes from '../utils/fileTypes';
+  import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
+  import Pagination from '../widgets/Pagination.vue';
+  import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
+  import AppLink from '../widgets/AppLink.vue';
+  import { getTranslationFor, truncate, getImg } from '../utils/helpers';
+  import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
+  import DatasetsFilters from "../datasets/DatasetsFilters.vue";
+  import DatasetList from './DatasetList.vue'
+  import { useDatasetsHead } from '../composables/head'
 
 export default {
   name: 'Datasets',
-  dependencies: ['DatasetService'],
   components: {
     DatasetsFilters,
     DatasetsTopControls,
@@ -151,20 +151,6 @@ export default {
       type: String,
       default: '',
     }
-  },
-  metaInfo() {
-    return {
-      title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.datasets')}`,
-      meta: [
-        {name: 'description', vmid: 'description', content: `${this.$t('message.datasets.meta.description')}`},
-        {
-          name: 'keywords',
-          vmid: 'keywords',
-          content: `${this.$env.metadata.keywords} ${this.$t('message.datasets.meta.description')}}`
-        },
-        {name: 'robots', content: 'noindex, follow'},
-      ],
-    };
   },
   data() {
     return {
@@ -273,7 +259,6 @@ export default {
       'loadDatasets',
       'loadAdditionalDatasets',
       'setPage',
-      'useService',
       'addFacet',
       'removeFacet',
       'setFacets',
@@ -405,17 +390,18 @@ export default {
         this.$nextTick(() => {
           this.$Progress.start();
           this.loadDatasets({locale: this.$route.query.locale})
-              .then(() => {
-                this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
-                this.$Progress.finish();
-                $('[data-toggle="tooltip"]').tooltip({
-                  container: 'body',
-                });
-              })
-              .catch(() => {
-                this.$Progress.fail();
-              })
-              .finally(() => this.$root.$emit('contentLoaded'));
+            .then(() => {
+              this.setPageCount(Math.ceil(this.getDatasetsCount / this.getLimit));
+              this.$Progress.finish();
+              $('[data-toggle="tooltip"]').tooltip({
+                container: 'body',
+              });
+            })
+            .catch((error) => {
+              console.error(error)
+              this.$Progress.fail();
+            })
+            .finally(() => this.$root.$emit('contentLoaded'));
         });
       });
     },
@@ -441,7 +427,6 @@ export default {
     },
   },
   created() {
-    this.useService(this.DatasetService);
     this.initDataScope();
     this.initLimit();
     this.initPage();
@@ -468,10 +453,13 @@ export default {
       });
     }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     $('.tooltip').remove();
     if (this.infiniteScrolling) window.removeEventListener('scroll', this.onScroll);
   },
+  setup() {
+    useDatasetsHead();
+  }
 };
 </script>
 

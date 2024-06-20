@@ -9,7 +9,7 @@
                 <p class="">Updated</p>
                 <p class="">Actions</p>
             </div>
-            <div v-for="( distribution, id) in getData('distributions')" :key="'distribution' + id">
+            <div v-for="( distribution, id) in distributionList" :key="'distribution' + id">
 
                 <div class="tdWrap" v-if="id % 2 == 0">
                     <p v-if="distribution['dct:title'] != undefined && distribution['dct:title'].filter(el => el['@language'] === dpiLocale).map(el =>
@@ -20,14 +20,16 @@
                     <p v-else>
                         No title in this language
                     </p>
-                    <p v-if="distribution['dct:format'] != undefined">
-                        {{ getDistributionFormat(distribution) }}
+                    <p v-if="distribution['dct:format'] != '' || Object.keys(distribution['dct:format']).length != 0">
+                        <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
+                            :value="tableProperties['dct:format']" :dpiLocale="dpiLocale" :distId="id">
+                        </PropertyEntry>
                     </p>
                     <p v-else>
                         No format provided
                     </p>
                     <p v-if="distribution['dct:modified'] != undefined && distribution['dct:modified']">
-                        {{ new Date(distribution['dct:modified']).toDateString() }}
+                        {{ new Date(distribution['dct:modified']['@value']).toDateString() }}
                     </p>
                     <p v-else>
                         -
@@ -53,13 +55,16 @@
                         No title in this language
                     </p>
                     <p v-if="distribution['dct:format'] != undefined">
-                        {{ getDistributionFormat(distribution) }}
+
+                        <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
+                            :value="tableProperties['dct:format']" :dpiLocale="dpiLocale" :distId="id">
+                        </PropertyEntry>
                     </p>
                     <p v-else>
                         No format provided
                     </p>
                     <p v-if="distribution['dct:modified'] != undefined && distribution['dct:modified']">
-                        {{ new Date(distribution['dct:modified']).toDateString() }}
+                        {{ new Date(distribution['dct:modified']['@value']).toDateString() }}
                     </p>
                     <p v-else>
                         -
@@ -77,7 +82,7 @@
                 </div>
 
                 <div class="disInfoWrap">
-                    <ul class="list list-unstyled" v-if="getData('distributions').length > 0">
+                    <ul class="list list-unstyled" v-if="distributions.length > 0">
                         <li class="disWrapper" :key="`distribution${id + 1}`">
                             <!-- DISTRIBUTIONS FORMAT -->
 
@@ -102,7 +107,7 @@
                                     </table>
                                     <table class="table table-borderless table-responsive pl-3 bg-light">
                                         <div v-for="( value, name, index ) in  tableProperties " :key="index">
-                                            <PropertyEntry profile="distributions" :data="getData('distributions')[id]"
+                                            <PropertyEntry profile="distributions" :data="distributionList[id]"
                                                 :property="name" :value="value" :dpiLocale="dpiLocale" :distId="id">
                                             </PropertyEntry>
                                         </div>
@@ -123,10 +128,15 @@ import { mapGetters } from 'vuex';
 import PropertyEntry from './PropertyEntry.vue';
 import { has, isNil, isEmpty } from 'lodash';
 import { truncate } from '../../../utils/helpers';
+import generalHelper from '../../utils/general-helper.js'
+
 
 export default {
     props: {
         dpiLocale: String,
+        distributions: {
+            required: true
+        }
     },
     components: {
         PropertyEntry,
@@ -135,13 +145,22 @@ export default {
         ...mapGetters('dpiStore', [
             'getData',
         ]),
+        distributionList() {
+            let list = [];
+
+            for (let index = 0; index < this.distributions.length; index++) {
+                list.push(generalHelper.mergeNestedObjects(this.distributions[index]))
+            }
+            return list;
+        },
     },
+    mounted() { },
     methods: {
         truncate,
         getDistributionFormat(distribution) {
 
             try {
-                return distribution['dct:format'].split('/')[6];
+                return distribution['dct:format']['name'];
             } catch (error) {
                 return "No format provided"
             }
@@ -158,29 +177,28 @@ export default {
     },
     data() {
         return {
-            showThis: false,
-            disId: '',
             tableProperties: {
+                'dct:format': { type: 'singularURI', voc: 'file-type', label: 'message.metadata.format' },
                 'dcat:downloadURL': { type: 'multiURL', voc: '', label: 'message.metadata.downloadUrl' },
                 'dcat:accessService': { type: 'special', voc: '', label: 'message.dataupload.distributions.accessService.label' },
-                'dct:license': { type: 'singularURI', voc: '', label: 'message.metadata.license' },
+                'dct:license': { type: 'special', voc: '', label: 'message.metadata.license' },
                 'dct:issued': { type: 'date', voc: '', label: 'message.metadata.created' },
                 'dct:modified': { type: 'date', voc: '', label: 'message.metadata.updated' },
-                'dct:type': { type: 'singularURI', voc: '', label: 'message.metadata.type' },
-                'dcat:mediaType': { type: 'singularURI', voc: '', label: 'message.metadata.mediaType' },
-                'dcatap:availability': { type: 'singularURI', voc: '', label: 'message.metadata.availability' },
+                'dct:type': { type: 'singularURI', voc: 'distribution-type', label: 'message.metadata.type' },
+                'dcat:mediaType': { type: 'singularURI', voc: 'iana-media-types', label: 'message.metadata.mediaType' },
+                'dcatap:availability': { type: 'singularURI', voc: 'planned-availability', label: 'message.metadata.availability' },
                 'dcat:byteSize': { type: 'singularString', voc: '', label: 'message.metadata.byteSize' },
-                'dcat:packageFormat': { type: 'singularURI', voc: '', label: 'message.metadata.packageFormat' },
-                'dcat:compressFormat': { type: 'singularURI', voc: '', label: 'message.metadata.compressFormat' },
-                'adms:status': { type: 'singularURI', voc: '', label: 'message.metadata.status' },
+                'dcat:packageFormat': { type: 'singularURI', voc: 'iana-media-types', label: 'message.metadata.packageFormat' },
+                'dcat:compressFormat': { type: 'singularURI', voc: 'iana-media-types', label: 'message.metadata.compressFormat' },
+                'adms:status': { type: 'singularURI', voc: 'dataset-status', label: 'message.metadata.status' },
                 'dcat:spatialResolutionInMeters': { type: 'singularString', voc: '', label: 'message.metadata.spatialResolutionInMeters.label' },
                 'dcat:temporalResolution': { type: 'special', voc: '', label: 'message.dataupload.datasets.temporalResolution.label' },
                 'dct:conformsTo': { type: 'special', voc: '', label: 'message.metadata.conformsTo' },
-                'dct:language': { type: 'multiURI', voc: '', label: 'message.metadata.languages' },
+                'dct:language': { type: 'multiURI', voc: 'language', label: 'message.metadata.languages' },
                 'dct:rights': { type: 'singularString', voc: '', label: 'message.metadata.rights' },
                 'foaf:page': { type: 'special', voc: '', label: 'message.dataupload.datasets.page.label' },
                 'odrl:hasPolicy': { type: 'multiURL', voc: '', label: 'message.metadata.hasPolicy' },
-                'spdx:checksum': { type: 'special', voc: '', label: 'message.metadata.checksum' },
+                'spdx:checksum': { type: 'special', voc: 'spdx-checksum-algorithm', label: 'message.metadata.checksum' },
                 'dcatde:licenseAttributionByText': { type: 'multiLingual', voc: '', label: 'message.dataupload.distributions.licenseAttributionByText.label' },
             }
         }

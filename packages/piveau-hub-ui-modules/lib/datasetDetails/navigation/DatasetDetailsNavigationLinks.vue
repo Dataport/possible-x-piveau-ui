@@ -44,8 +44,9 @@
         </div>
       </div>
       <div class="d-inline dropdown dsd-link-dqv" v-if="showDQV">
-        <app-link class="nav-item nav-link dropdown-toggle text-nowrap" :class="{'disabled': !(this.getIsDQVDataRDFAvailable)}"
-                  fragment="#" role="button" id="metaDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <app-link class="nav-item nav-link dropdown-toggle text-nowrap" 
+          :class="{'disabled': !(getIsDQVDataRDFAvailable || getIsDQVDataTTLAvailable || getIsDQVDataN3Available || getIsDQVDataNTAvailable || getIsDQVDataJSONLDAvailable)}"
+          fragment="#" role="button" id="metaDataDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <!--<i class="material-icons small-icon align-bottom text-dark">***FIND A LINKED DATA ICON***</i>-->
           <span :title="$t('message.tooltip.datasetDetails.dqvData')"
                 data-toggle="tooltip"
@@ -55,10 +56,10 @@
         </app-link>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="metaDataDropdownMenuLink">
           <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="rdf" text="RDF/XML" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
-          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="ttl" text="Turtle" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
-          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="n3" text="Notation3" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
-          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="nt" text="N-Triples" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
-          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataRDFAvailable}" format="jsonld" text="JSON-LD" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
+          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataTTLAvailable}" format="ttl" text="Turtle" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
+          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataN3Available}" format="n3" text="Notation3" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
+          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataNTAvailable}" format="nt" text="N-Triples" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
+          <dataset-details-linked-metrics-button class="dropdown-item" :class="{'disabled': !getIsDQVDataJSONLDAvailable}" format="jsonld" text="JSON-LD" v-bind:dataset-id="datasetId"></dataset-details-linked-metrics-button>
         </div>
       </div>
       <div class="d-inline dropdown dsd-link-cite">
@@ -118,18 +119,15 @@
 </template>
 
 <script>
-import DatasetDetailsFeedbackButton from "../../datasetDetails/DatasetDetailsFeedbackButton";
-import AppLink from "../../widgets/AppLink";
-import DatasetDetailsShareButton from "../../datasetDetails/DatasetDetailsShareButton";
-import ResourceDetailsLinkedDataButton from "../../widgets/ResourceDetailsLinkedDataButton";
-import DatasetDetailsLinkedMetricsButton from "../../datasetDetails/DatasetDetailsLinkedMetricsButton";
-import {mapGetters, mapActions} from "vuex";
+import { defineAsyncComponent } from 'vue';
+import { mapGetters, mapActions } from "vuex";
 import $ from "jquery";
-// import DatasetCitationModal from "../../citation/DatasetCitationModal";
-import {getTranslationFor} from "../../utils/helpers";
+import * as metaInfo from '../../composables/head';
+import { getTranslationFor } from "../../utils/helpers";
+
+
 export default {
   name: "DatasetDetailsNavigationLinks",
-  dependencies: 'DatasetService',
   props: {
     datasetId: {
       type: String,
@@ -137,17 +135,18 @@ export default {
     },
   },
   components: {
-    DatasetCitationModal: () => import('../../citation/DatasetCitationModal'),
-    DatasetEmbedModal: () => import('../../embed/DatasetEmbedModal'),
-    DatasetDetailsLinkedMetricsButton,
-    ResourceDetailsLinkedDataButton,
-    DatasetDetailsFeedbackButton,
-    AppLink,
-    DatasetDetailsShareButton
+    AppLink: defineAsyncComponent(() => import('../../widgets/AppLink')),
+    DatasetCitationModal: defineAsyncComponent(() => import('../../citation/DatasetCitationModal')),
+    DatasetEmbedModal: defineAsyncComponent(() => import('../../embed/DatasetEmbedModal')),
+    DatasetDetailsFeedbackButton: defineAsyncComponent(() => import('../../datasetDetails/DatasetDetailsFeedbackButton')),
+    DatasetDetailsShareButton: defineAsyncComponent(() => import('../../datasetDetails/DatasetDetailsShareButton')),
+    DatasetDetailsLinkedMetricsButton: defineAsyncComponent(() => import('../../datasetDetails/DatasetDetailsLinkedMetricsButton')),
+    ResourceDetailsLinkedDataButton: defineAsyncComponent(() => import('../../widgets/ResourceDetailsLinkedDataButton')),
   },
   data() {
     return {
       baseUrl: this.$env.api.baseUrl,
+      useDQVDataDropdown: this.$env.content.datasetDetails.quality.useDQVDataDropdown,
       citationModalId: 'citationModal',
       // Note: leave citationStyle empty so that the app does not try to load the citation
       // on navigation to the dataset details page in the background.
@@ -157,7 +156,7 @@ export default {
         apa: 'APA',
         harvard1: 'Harvard',
         vancouver: 'Vancouver',
-      }
+      },
     };
   },
   computed: {
@@ -166,20 +165,21 @@ export default {
       'getLanguages',
       'getLoading',
       'getIsDQVDataRDFAvailable',
-      'getID'
+      'getIsDQVDataTTLAvailable',
+      'getIsDQVDataN3Available',
+      'getIsDQVDataNTAvailable',
+      'getIsDQVDataJSONLDAvailable',
+      'getID',
     ]),
-    url() { return window.location.href; },
+    url() { 
+      return window.location.href; 
+    },
     showDQV() {
-      const path = this.$router.currentRoute.path;
-      return path.endsWith("quality");
-    }
+      return this.useDQVDataDropdown && this.$route.path.endsWith("quality");
+    },
   },
   methods: {
     getTranslationFor,
-    ...mapActions('datasetDetails', [
-      'useService',
-      'loadDQVData'
-    ]),
     getFeedLink() {
       return `${this.baseUrl}${this.$route.query.locale}/feeds/datasets/${this.datasetId}.rss`;
     },
@@ -192,31 +192,9 @@ export default {
       $('#citationModal').modal({ show: true });
     },
   },
-  metaInfo() {
-    return {
-      link: [{
-        rel: 'alternate', type: 'application/rss+xml', title: `${this.$env.metadata.title} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)}`, href: `https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/de/feeds/datasets/${this.getID}.rss`,
-      }],
-    };
-  },
-  mounted() {
-    this.useService(this.DatasetService);
-    this.$nextTick(() => {
-      this.$Progress.start();
-      this.loadDQVData({ id: this.$route.params.ds_id, formats: ['rdf'], locale: this.$route.query.locale })
-        .then(() => {
-          this.$Progress.finish();
-          $('[data-toggle="tooltip"]').tooltip({
-            container: 'body',
-          });
-        })
-        .catch(() => {
-          this.$Progress.fail();
-        })
-        .finally(() => {
-          // console.clear();
-        });
-    });
+  mounted() {},
+  setup() {
+    metaInfo.useDatasetDetailsNavigationLinksHead();
   }
 }
 </script>

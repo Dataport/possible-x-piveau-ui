@@ -1,159 +1,67 @@
+<script setup>
+import { ref, onMounted, watchEffect } from 'vue'
+import { isNil } from 'lodash';
+import axios from 'axios';
+import { useStore } from 'vuex';
+
+const store = useStore();
+// const isEditMode = store.getters['auth/getIsEditMode'];
+const isEditMode = ref();
+isEditMode.value = store.getters['auth/getIsEditMode'];
+
+const validationMessages = {
+  idformatvalid: "Dataset ID must only contain lower case letters, numbers and single dashes (-). Please choose a different ID.",
+  idunique: "This ID is already in use, please choose a different one."
+};
+
+async function idunique(node) {
+  let isUniqueID = true;
+  const draftIDs = store.getters['auth/getUserDraftIds'];
+
+  new Promise(() => {
+    if (isNil(node.value) || node.value === '' || node.value === undefined) isUniqueID = true;
+    else if (draftIDs.includes(node.value)) isUniqueID = false;
+    else {
+      // TODO: insert env hubUrl
+      const request = `https://piveau-hub-repo-piveau.apps.osc.fokus.fraunhofer.de/datasets/${node.value}?useNormalizedId=true`;
+      axios.head(request)
+        .then(() => {
+          isUniqueID = false;
+        })
+        .catch((e) => {
+          isUniqueID = true;
+        });
+    }
+  });
+  return isUniqueID
+}
+
+function idformatvalid(node) {
+  return /^[a-z0-9-]*$/.test(node.value);
+}
+
+</script>
+
 <template>
-  <div :class="`formulate-input-element formulate-input-element--${context.type}`" id="datasetID" ref="datasetID"
-    :data-type="context.type" v-on="$listeners">
-    <div v-if="getIsEditMode">
-      <FormulateInput v-model="uniqueID" type="text" :disabled="true">
-      </FormulateInput>
-    </div>
-    <div v-else>
-      <FormulateInput v-model="uniqueID" @input="checkUniqueID()" id="datasetIDForm" type="text" :label="context.label"
-        :name="context.attributes.name" :placeholder="$t('message.dataupload.createUniqueID')" :validation="validation"
-        :validation-rules="validationRules" :validation-messages="validationMessages" error-behavior="live">
-      </FormulateInput>
-      <FormulateInput v-model="uniqueIDHidden" id="datasetIDFormHidden" type="hidden" :label="context.label"
-        :validation="validationHidden">
-      </FormulateInput>
-    </div>
+  <div class="formkitProperty DSid">
+    <h4>{{ $t(`message.dataupload.datasets.datasetID.label`) }}</h4>
+
+    <FormKit v-if="!isEditMode" type="text" name="datasetID" id="datasetID"
+      :placeholder="$t(`message.dataupload.datasets.datasetID.label`)"
+      :info="$t(`message.dataupload.datasets.datasetID.info`)" :help="$t(`message.dataupload.datasets.datasetID.help`)"
+      :validation-rules="{ idformatvalid, idunique }" validation="idformatvalid|idunique|required"
+      validation-visibility="live" :validation-messages="validationMessages" outer-class="formkitCmpWrap m-0 p-3">
+    </FormKit>
+    <FormKit v-else type="text" name="datasetID" id="datasetID" :disabled="true"
+      :info="$t(`message.dataupload.datasets.datasetID.info`)" :help="$t(`message.dataupload.datasets.datasetID.help`)">
+    </FormKit>
   </div>
 </template>
 
 <script>
-/* eslint-disable,arrow-parens,no-param-reassign */
-import axios from 'axios';
-import { mapGetters } from 'vuex';
-import { isNil } from 'lodash-es';
-
 export default {
-  props: {
-    context: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      isUniqueID: true,
-      uniqueID: '',
-      uniqueIDHidden: '',
-      validation: 'optional|validateID|idDuplicate',
-      validationHidden: 'required',
-      draftIDs: [],
-      validationRules: {
-        validateID: () => /^[a-z0-9-]*$/.test(this.uniqueID),
-        idDuplicate: ({ value }) => !this.draftIDs.includes(value)
-      },
-      validationMessages: {
-        validateID: 'Dataset ID must only contain lower case letters, numbers and dashes (-). Please choose a different ID.',
-        idDuplicate: 'This ID is already in use, please choose a different one.'
-      },
-    };
-  },
-  computed: {
-    ...mapGetters('auth', [
-      'getIsEditMode',
-      'getUserDrafts'
-    ]),
-  },
-  methods: {
-    // draftIDs() {
-    //   let draftIDArray;
-    //   this.getUserDrafts.forEach(element => {
-    //     draftIDArray.push(element['id'])
-    //   });
-    //   return draftIDArray
-    // },
-    populateID() {
-
-      // Populate ID field if existing (EDIT)
-      if (this.context.model) this.uniqueID = this.context.model;
-    },
-    checkUniqueID() {
-
-      // Check if ID is already existing in
-      if (this.getUserDrafts.length > this.draftIDs.length) {
-        this.getUserDrafts.forEach(element => {
-          this.draftIDs.push(element['id'])
-        });
-      }
-
-      return new Promise(() => {
-        if (isNil(this.uniqueID) || this.uniqueID === '' || this.uniqueID === undefined) this.isUniqueID = true;
-        else if (this.draftIDs.includes(this.uniqueID)) {
-          this.isUniqueID = false;
-        }
-        else {
-          const request = `${this.$env.api.hubUrl}${this.$route.params.property}/${this.uniqueID}?useNormalizedId=true`;
-
-          axios.head(request)
-            .then(() => {
-
-              this.isUniqueID = false;
-            })
-            .catch((e) => {
-              if (e.response) {
-                console.log(e);
-              }
-              this.isUniqueID = true;
-            });
-
-        }
-
-      });
-    },
-    handleDatasetIDError(newValue) {
-      if (!newValue) {
-        const datasetID = document.getElementById('datasetID').children[0];
-        const text = document.createTextNode('This Dataset ID already exists. Please choose a different one.');
-        const LI = document.createElement('LI');
-        LI.setAttribute('role', 'status');
-        LI.setAttribute('aria-live', 'polite');
-        LI.setAttribute('class', 'formulate-input-error');
-        LI.appendChild(text);
-        const UL = document.createElement('UL');
-        UL.setAttribute('class', 'formulate-input-errors');
-        UL.setAttribute('id', 'datasetIDError');
-        UL.appendChild(LI);
-        datasetID.appendChild(UL);
-      } else document.getElementById('datasetIDError').remove();
-    },
-  },
-  beforeMount() {
-    this.populateID();
-  },
-  mounted() {
-
-    this.checkUniqueID();
-  },
-
-  watch: {
-    context: {
-      handler() {
-        this.populateID();
-      },
-    },
-    uniqueID: {
-      handler(newValue) {
-        this.uniqueIDHidden = this.validationRules.validateID()
-          ? newValue
-          : '';
-      },
-    },
-    isUniqueID: {
-      handler(newValue) {
-        if (this.getIsEditMode) return;
-        this.handleDatasetIDError(newValue);
-      },
-    },
-  },
-};
+  props: ['context']
+}
 </script>
 
-<style>
-#datasetID.formulate-input-element--unique-identifier-input label {
-  display: none !important;
-}
-
-#datasetID.formulate-input-element--unique-identifier-input .formulate-input {
-  margin-bottom: 0.1em;
-}
-</style>
+<style></style>

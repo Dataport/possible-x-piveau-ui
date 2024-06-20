@@ -1,91 +1,118 @@
 <template>
-  <div class="form-container">
-    <slot></slot>
+  <div class="form-container ">
 
-    <div class="inputContainer" v-if="isInput">
-      <div class="formContainer formulate">
-       
-        <FormulateForm name="form" ref="dpiForm" v-model.lazy="formValues" :schema="getSchema" @failed-validation="showValidationFields"
-          @submit="handleSubmit"
-          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })"
-          @repeatableRemoved="saveFormValues({ property: property, page: page, distid: id, values: formValues }); setMandatoryStatus({ property: property, id: id })">
-          
-          <FormulateInput type="submit" id="submit-form" class="display-none"></FormulateInput>
-        </FormulateForm>
-        <FormulateInput type="hidden" class="display-none"></FormulateInput>
+    <!-- <details>{{ formValues }}</details> -->
+    <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
+      <div class="formContainer formkit position-relative">
+
+        <FormKit type="form" v-model="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
+          @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+          @click="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
+          @submit.prevent="" class="d-flex">
+
+          <div class="d-flex">
+            <ul class="steps">
+              <li v-for="(step, stepName, index) in steps" :key="step" class="step"
+                :data-step-active="activeStep === stepName" :data-step-valid="step.valid && step.errorCount === 0"
+                :class="{ activeItem: activeStep === stepName, inactiveStep: stepName != activeStep, 'has-errors': checkStepValidity(stepName) }"
+                @click="activeStep = stepName; update(); scrollToTop()">
+
+                <div class="stepBubbleWrap">
+                  <div class="circle stepCircle">{{ index + 1 }}</div>
+                  <span v-if="checkStepValidity(stepName)" class="step--errors"
+                    v-text="step.errorCount + step.blockingCount" />{{ camel2title(stepName) }}
+                </div>
+                <div v-if="index != Object.keys(steps).length" class="seperatorHorizontalStepper"></div>
+              </li>
+              <li class="step inactiveStep" v-if="activeStep === 'Overview'">
+                <div class="circle stepCircle"></div>
+              </li>
+
+            </ul>
+
+            <div class="d-flex flex-column w-100">
+              <div v-for="(stepName, index) in getNavSteps($env.content.dataProviderInterface.specification)[property]"
+                :key="index">
+                <InputPageStep :name="stepName">
+                  <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'" class="w-100">
+                    <h1 style="min-width:100%">{{ stepName }} fields</h1>
+                    <!-- <p class="infoTextDPISteps">This text can and schould be altered to describe the following
+                      properties in a short way. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
+                      kasd gubergren, no sea
+                      takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
+                      elitr, sed diam nonumy
+                      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
+                      et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
+                      est Lorem ipsum dolor sit amet.</p> -->
+                  </div>
+                  <!-- <PropertyChooser></PropertyChooser> -->
+                  <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"
+                    :library="library" />
+                  <DistributionInputPage v-if="stepName === 'Distributions'" :schema="getSchema('distributions')"
+                    :values="formValues" />
+                  <p class="p-1" v-if="stepName === 'Mandatory'"> <b>*</b> mandatory</p>
+                </InputPageStep>
+              </div>
+            </div>
+          </div>
+
+          <Navigation :steps="steps" :nextStep="nextStep" :previousStep="previousStep" :goToNextStep="goToNextStep"
+            :goToPreviousStep="goToPreviousStep"></Navigation>
+
+        </FormKit>
+
       </div>
     </div>
-    <div v-if="isDistributionOverview">
-      <DistributionOverview :distributionOverviewPage="isDistributionOverview"></DistributionOverview>
-    </div>
-    <ValidationModal :failedFields="failedFields"></ValidationModal>
-    <!-- not the prettiest way but calling it within navigation component seems quiet complicated -->
-    <app-confirmation-dialog id="mandatoryModal" :confirm="mandatoryModal.confirm" @confirm="mandatoryModal.callback">
-      {{ mandatoryModal.message }}
-    </app-confirmation-dialog>
-
-    <app-confirmation-dialog id="validationModal" :confirm="validationModal.confirm" @confirm="validationModal.callback">
-      {{ validationModal.message }}
-    </app-confirmation-dialog>
-
   </div>
 </template>
 
 <script>
 /* eslint-disable no-alert,arrow-parens,no-param-reassign,no-lonely-if */
+import { defineComponent, markRaw } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
-import axios from 'axios';
 import $ from 'jquery';
-import Vue from 'vue';
-import VueFormulate from '@braid/vue-formulate';
-import {
-  has,
-  isNil,
-  isArray,
-} from 'lodash';
-import ValidationModal from '../components/ValidationModal.vue';
-import DistributionOverview from './DistributionOverview.vue';
+import PropertyChooser from './PropertyChooser.vue'
+import { has, isNil, isEmpty } from 'lodash';
+import DistributionInputPage from './DistributionInputPage.vue';
+import OverviewPage from './OverviewPage.vue';
+import InputPageStep from '../components/InputPageStep.vue';
+import Navigation from '../components/Navigation.vue';
+import { useDpiStepper } from '../composables/useDpiStepper';
+import axios from 'axios';
+import { useWindowScroll } from '@vueuse/core'
+import { ref } from 'vue';
 
-export default {
+export default defineComponent({
   props: {
     property: {
-      required: true,
-      type: String,
-    },
-    page: {
       required: true,
       type: String,
     },
     id: {
       type: String,
     },
-    isDistributionOverview: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
     return {
-      
+      heightActiveSec: "10vh",
       formValues: {},
-      failedFields: [],
-      mandatoryModal: {
-        confirm: '',
-        message: 'Mandatory Properties missing or incorrect - make sure to fill out every field marked with an *. Make sure the provided ID contains only lower case letters, numbers and dashes. If you submitted information for a Data Service make sure to provide a title and an endpoint URL.',
-        callback: $('#modal').modal('hide'),
-      },
-      validationModal: {
-        conform: '',
-        message: 'The given values for some input fields are incorrect!',
-        callback: $('#modal').modal('hide'),
-      },
+      offsetTopStepper: "60px",
       info: {},
-      catalogues: []
+      catalogues: [],
+      byte: true,
+      // steps:{},
+      camel2title: (str) =>
+        str
+          .replace(/([A-Z])/g, (match) => ` ${match}`)
+          .replace(/^./, (match) => match.toUpperCase())
+          .trim(),
     };
   },
   components: {
-    ValidationModal,
-    DistributionOverview,
+    InputPageStep,
+    DistributionInputPage,
+    PropertyChooser,
+    Navigation
   },
   computed: {
     ...mapGetters('auth', [
@@ -94,23 +121,32 @@ export default {
     ]),
     ...mapGetters('dpiStore', [
       'getSchema',
-      'getMandatoryStatus',
       'getNavSteps',
       'getDeleteDistributionInline',
     ]),
-    getFirstTitleFromForm() {
-      return has(this.formValues, 'dct:title')
-        && this.formValues['dct:title'].length > 0
-        && has(this.formValues['dct:title'][0], '@value')
-        && !isNil(this.formValues['dct:title'][0], '@value')
-        ? this.formValues['dct:title'][0]['@value']
-        : '';
+    getTitleStep() {
+      return Object.keys(this.formValues).filter(key => has(this.formValues[key], 'dct:title'))[0];
     },
     createIDFromTitle() {
-      const title = this.getFirstTitleFromForm;
-      return title
-        .toLowerCase()
-        .replace(/ /g, '-');
+
+      const title = this.formValues[this.getTitleStep]['dct:title'][0]['@value'];
+
+      if (title != undefined) {
+        return title
+          .toLowerCase()
+          .replace(/ /g, '-');
+      }
+      else return;
+    },
+    getFirstTitleFromForm() {
+      const allValues = this.formValues[this.getTitleStep];
+
+      return has(allValues, 'dct:title')
+        && allValues['dct:title'].length > 0
+        && has(allValues['dct:title'][0], '@value')
+        && !isNil(allValues['dct:title'][0], '@value')
+        ? allValues['dct:title'][0]['@value']
+        : '';
     },
     isInput() {
       return this.$route.params.page !== 'overview' && this.$route.params.page !== 'distoverview';
@@ -128,137 +164,145 @@ export default {
       'saveLocalstorageValues',
       'addCatalogOptions',
       'clearAll',
-      'setMandatoryStatus',
-      'setDeleteDistributionInline',
     ]),
+    update() {
+      this.$forceUpdate();
+    },
+    clearForm() {
+      this.$formkit.reset('dpi')
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
     initInputPage() {
-      if (this.page !== 'overview' && this.page !== 'distoverview') {
-        this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
-        this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
-        const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property, page: this.page, id: this.id });
-        // only overwrite empty object if there are values (otherwise the language preselection is gone)
+      // adding validation of modified and issued based on edit mode
+      // no validation in edit mode
 
-        if (existingValues) {
-          this.formValues = existingValues;
+      // get step name where issued and modified are included
+      const initialSchema = this.getSchema(this.property);
+      const stepWithDates = Object.keys(initialSchema).find(
+        key => initialSchema[key].map(el => el.name).includes('dct:issued') || initialSchema[key].map(el => el.name).includes('dct:modified')
+      );
+
+      if (localStorage.getItem('dpi_editmode') === 'true') {
+        initialSchema[stepWithDates].forEach((el) => {
+          if (el['identifier'] === 'issued' || el['identifier'] === 'modified') {
+            el['children'][1]['props']['else']['validation'] = ''
+            el['children'][1]['props']['else']['validation-visibility'] = ''
+
+            el['children'][1]['props']['then']['validation'] = ''
+            el['children'][1]['props']['then']['validation-visibility'] = ''
+            el['children'][1]['props']['then']['validation'] = ''
+            el['children'][1]['props']['then']['validation-visibility'] = ''
+
+            // console.log(el)
+          }
         }
+        );
+      }
 
-        this.$nextTick(() => {
-          $('[data-toggle="tooltip"]').tooltip({
-            container: 'body',
-          });
+      if (localStorage.getItem('dpi_editmode') === 'false') {
+        this.setIsDraft(false)
+        this.setIsEditMode(false)
+      }
+      this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
+      this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
+      const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
+
+      // only overwrite empty object if there are values
+      if (!isEmpty(existingValues)) this.formValues = existingValues;
+
+      this.$nextTick(() => {
+
+        $('[data-toggle="tooltip"]').tooltip({
+          container: 'body',
         });
-      }
-    },
-    // async initCatalogues() {
-    //   await axios
-    //     .get('https://piveau-hub-search-data-europa-eu.apps.osc.fokus.fraunhofer.de/search?filter=catalogue&limit=100')
-    //     .then(response => (this.info = response))
-    //   this.info.data.result.results.forEach((e) => {
-    //     this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
-    //   });
-    //   this.findcatalogues()
-    //   // need to forceupdate to display the filtered catalogues
-    //   this.$forceUpdate();
-    // },
-    // findcatalogues() {
-    //   for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
-    //     for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
-    //       if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
-    //         this.getUserCatalogIds[i] = this.catalogues[a].title;
-    //         break
-    //       }
-    //     }
-    //   }
-    // },
-    clear() {
-      this.clearValues();
-      this.clearAll();
-      this.setIsEditMode(false);
-    },
-    clearValues() {
-      this.formValues = {};
-      this.failedFields = [];
-    },
-    showValidationFields(fields) {
-      const fieldNames = Object.keys(fields);
-      const translatedFields = [];
-      for (let index = 0; index < fieldNames.length; index += 1) {
-        const fieldLabel = fields[fieldNames[index]].label;
-        if (fields[fieldNames[index]].id !== 'datasetIDFormHidden') translatedFields.push(fieldLabel);
-      }
-      this.failedFields = translatedFields;
-      $('#validationModal').modal({ show: true });
-    },
-    handleSubmit() {
-      this.$root.$emit('go-to-next');
-    },
-    getFirstPath() {
-      let firstStep;
-      let path;
-
-      if (this.property === 'distributions') {
-        firstStep = this.getNavSteps.datasets[0];
-        path = `${this.$env.content.dataProviderInterface.basePath}/datasets/${firstStep}?locale=${this.$i18n.locale}`;
-      } else {
-        firstStep = this.getNavSteps[this.property][0];
-        path = `${this.$env.content.dataProviderInterface.basePath}/${this.property}/${firstStep}?locale=${this.$i18n.locale}`;
-      }
-      return path;
-    },
-    jumpToFirstPage() {
-      this.$router.push(this.getFirstPath()).catch(() => { });
-    },
-    checkPathAllowed(to, from) {
-      let allowedPaths = [
-        `${this.$env.content.dataProviderInterface.basePath}/datasets/${this.getNavSteps.datasets[0]}`,
-        `${this.$env.content.dataProviderInterface.basePath}/catalogues/${this.getNavSteps.catalogues[0]}`,
-      ];
-      return allowedPaths.filter(el => to.path.startsWith(el)).length > 0;
+      });
     },
     createDatasetID() {
-      if ((this.property === 'datasets' || this.property === 'catalogues') && this.page === this.getNavSteps[this.property][0]) {
-        // Create Dataset ID from title if not existing
-        if (has(this.formValues, 'dct:title')
-          && !isNil(this.formValues['dct:title']
-            && this.formValues['dct:title'].length > 0)
-          && has(this.formValues['dct:title'][0], '@value')
-          && !isNil(this.formValues['dct:title'][0], '@value')
-          && (!has(this.formValues, 'datasetID')
-            || (has(this.formValues, 'datasetID') && this.createIDFromTitle.startsWith(this.formValues.datasetID))
-            || (has(this.formValues, 'datasetID') && this.formValues.datasetID.startsWith(this.createIDFromTitle)))) {
-          this.formValues.datasetID = this.createIDFromTitle;
-        }
+      const valueObject = this.formValues[this.getTitleStep];
+      if (!has(valueObject, 'datasetID') || isNil(valueObject['datasetID'])) {
+        // console.log('in if');
+        this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
+      }
+      else {
 
-        if (has(this.formValues, 'dct:title')
-          && isArray(this.formValues['dct:title'])
-          && !isNil(this.formValues['dct:title']
-            && this.formValues['dct:title'].length > 0)
-          && has(this.formValues['dct:title'][0], '@value')
-          && isNil(this.formValues['dct:title'][0], '@value')
-          && has(this.formValues, 'datasetID')) this.formValues.datasetID = '';
+        if (this.createIDFromTitle.startsWith(valueObject.datasetID) || valueObject.datasetID.startsWith(this.createIDFromTitle)) {
+          // console.log('in else');
+          this.formValues[this.getTitleStep].datasetID = this.createIDFromTitle;
+        }
       }
     },
+    async initCatalogues() {
+      await axios
+        .get(this.$env.api.baseUrl + 'search?filter=catalogue&limit=100')
+        .then(response => (this.info = response))
+      this.info.data.result.results.forEach((e) => {
+        try {
+          this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
+
+        } catch (error) {
+        }
+      });
+      this.findcatalogues()
+      // need to forceupdate to display the filtered catalogues
+      this.$forceUpdate();
+
+    },
+    findcatalogues() {
+      for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
+        for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
+          if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
+            this.getUserCatalogIds[i] = this.catalogues[a].id;
+            break
+          }
+        }
+      }
+    },
+    generateandTranslateSchema(property) {
+      for (let index = 0; index < this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property].length; index++) {
+        this.createSchema({ property: property, page: this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property][index], specification: this.$env.content.dataProviderInterface.specification });
+        this.translateSchema({ property: property, page: this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property][index] });
+      }
+    }
   },
   created() {
 
-    if (this.$route.query.edit === false) {
-      this.clear();
+    // Needs to be reworked
+    if (this.$route.query.edit === 'false') {
+      this.clearAll();
+      // localStorage.clear();
     }
-    // form content (schema) created based on defined page properties included in inputconfigMin
-    if (this.page !== 'overview' && this.page !== 'distoverview') {
-      this.createSchema({ property: this.property, page: this.page });
-      this.translateSchema({ property: this.property });
+
+    // create schema for datasets or catalogues
+    this.generateandTranslateSchema(this.property);
+
+    // for datasets also create schema for distributions
+    if (this.property === 'datasets') {
+      this.generateandTranslateSchema('distributions');
     }
   },
   mounted() {
-    this.initInputPage();
-    // this.initCatalogues();
+    if (localStorage.getItem('dpi_editmode'))
+      this.initInputPage();
+    this.initCatalogues();
   },
   watch: {
+    activeStep: {
+      handler() {
+        this.scrollToTop();
+      },
+    },
     getFirstTitleFromForm: {
       handler() {
+        if (localStorage.getItem('dpi_editmode') === 'false') {
+          this.setIsDraft(false)
+          this.setIsEditMode(false)
+        }
         // only create id from title if the user is not editing an existing dataset with an existing datasetID
-        if (!this.getIsEditMode) this.createDatasetID();
+        if (!this.getIsEditMode) {
+          this.createDatasetID();
+        }
       },
     },
     getUserCatalogIds: {
@@ -269,46 +313,75 @@ export default {
     // the schema is a computed value which gets computed only once so on language change this value must be re-computed
     '$i18n.locale': {
       handler() {
-        this.createSchema({ property: this.property, page: this.page });
-        this.translateSchema({ property: this.property });
+        this.generateandTranslateSchema(this.property);
+        if (this.property === 'datasets') this.generateandTranslateSchema('distributions');
       }
-    }
+    },
   },
   beforeRouteEnter(to, from, next) {
     // Always clear storage when entering DPI
     next(vm => {
-      if (from.name !== null && !from.name.startsWith('DataProviderInterface')) {
-        vm.clear();
-        vm.jumpToFirstPage();
+      if (from.name && !from.name.startsWith('DataProviderInterface')) {
+        vm.clearAll();
       }
-      if (from.name === null && !vm.getMandatoryStatus({ property: vm.property, id: vm.id })) {
-        vm.jumpToFirstPage();
-        $('#mandatoryModal').modal({ show: true });
-      }
-      let a = { "step1": { "dct:title": [{ "@value": "DcatDE GeschichTE", "@language": "en" }], "datasetID": "a-test", "hidden_datasetIDFormHidden": "a-test", "dct:description": [{ "@value": "Geo'DAE is the national database of external automated defibrillators (DAEs), listed in France.\n\nBarely 1 in 10 citizens survive a cardiac arrest because they have not benefited at the right time of a person’s intervention.\n\nThe national public health plan plans to train 80 % of the population in first aid actions and to improve access to external automated defibrillators on the national territory, by promoting their geolocation and maintenance.\n\nThe creation of a national database, provision of the law of 28 June 2018 on cardiac defibrillator, is part of this ambition. All AED operators must now report their defibrillator data and characteristics in the national database.\n\nThe reporting portal is available at the following link: https://geodae.atlasante.fr/apropos\n\nIf you have any questions, please contact us at: contact@geodae.sante.gouv.fr.\n\nThis sheet presents the extraction of the public data reported by the operators, as provided for in the Decree of 29 October 2019 on the operation of the national database of external automated defibrillators, published in the OJ of 13 November 2019.\n\nThe public or limited dissemination rules are specified in Annexes 1, 2 and 3 to this Order. Only open access data is disseminated in open data.", "@language": "en" }], "dcat:catalog": "dpi", "dcat:theme": ["http://publications.europa.eu/resource/authority/data-theme/ENER", "http://publications.europa.eu/resource/authority/data-theme/AGRI", "http://publications.europa.eu/resource/authority/data-theme/ENVI", "http://publications.europa.eu/resource/authority/data-theme/EDUC", "http://publications.europa.eu/resource/authority/data-theme/GOVE", "http://publications.europa.eu/resource/authority/data-theme/JUST", "http://publications.europa.eu/resource/authority/data-theme/OP_DATPRO"], "dct:issued": "2023-02-01T03:03:00", "dct:modified": "2023-02-07" }, "step2": { "dcatde:politicalGeocodingLevelURI": ["http://dcat-ap.de/def/politicalGeocoding/Level/international"], "dcatde:politicalGeocodingURI": ["http://dcat-ap.de/def/politicalGeocoding/municipalityKey/01053121"], "dcat:keyword": [{ "@value": "asdsd", "@language": "de" }], "dct:subject": ["http://eurovoc.europa.eu/2753", "http://eurovoc.europa.eu/3011", "http://eurovoc.europa.eu/688", "http://eurovoc.europa.eu/3577", "http://eurovoc.europa.eu/1085", "http://eurovoc.europa.eu/4488", "http://eurovoc.europa.eu/1460", "http://eurovoc.europa.eu/5042", "http://eurovoc.europa.eu/1074", "http://eurovoc.europa.eu/5334", "http://eurovoc.europa.eu/940"], "dct:spatial": "http://publications.europa.eu/resource/authority/country/BGR", "dct:creator": [{ "rdf:type": "foaf:Person", "foaf:name": "dfgdfgd", "foaf:mbox": "test@tes.de", "foaf:homepage": "https://jena-wissensallmende.apps.osc.fokus.fraunhofer.de/" }] }, "step3": {} }
     });
   },
-  beforeRouteUpdate(to, from, next) {
-    // Checks if next route within the DPI is a route which does not require mandatory checking
-    if (to.query.clear !== 'true' && !this.checkPathAllowed(to, from) && !this.getMandatoryStatus({ property: this.property, id: this.id })) {
-      // for singular distribution: when deleteing from inline the mandatory check would return false leading to the display of the mandatory-modal
-      // since the distribution is already deleted the mandatory check would alwaysreturn false so by determining if an inline delete happens 
-      // (by checking getDeleteDistributionInline) we skip the display of the modal and grant redirect 
-      if (this.property === 'distributions' && this.getDeleteDistributionInline) {
-        this.setDeleteDistributionInline(false)
-        next();
-      }
-      else $('#mandatoryModal').modal({ show: true });
-    } else {
-      // if there are multiple distributions, the mandatory checker might return true so we don't have to skip the modal display
-      // but we have to set the deleteDistributionInline value to false again
-      this.setDeleteDistributionInline(false)
-      next();
+  setup() {
+    const {
+      steps,
+      activeStep,
+      visitedSteps,
+      previousStep,
+      nextStep,
+      stepPlugin,
+      goToNextStep,
+      goToPreviousStep,
+    } = useDpiStepper();
+
+
+
+
+
+    const scrollToTop = () => {
+      let { x, y } = useWindowScroll({ behavior: 'smooth' })
+      y.value = 0
+
     }
-  },
-};
+
+    const checkStepValidity = (stepName) => {
+      return (steps[stepName].errorCount > 0 || steps[stepName].blockingCount > 0) && visitedSteps.value.includes(stepName)
+    }
+
+    const library = markRaw({ OverviewPage })
+
+    return {
+      steps,
+      visitedSteps,
+      activeStep,
+      previousStep,
+      nextStep,
+      stepPlugin,
+      checkStepValidity,
+      goToNextStep,
+      goToPreviousStep,
+      scrollToTop,
+      library,
+    }
+  }
+});
 </script>
+
 <style lang="scss">
+@import 'https://cdn.formk.it/web-assets/multistep-form.css';
+
+.activeItem {
+  flex-grow: 1;
+
+  .seperatorHorizontalStepper {
+    height: 100%;
+  }
+}
+
 select {
 
   line-height: unset !important;
@@ -343,7 +416,7 @@ select {
 }
 
 .grid2r2c {
-  .formulate-input-group-repeatable {
+  .formkit-input-group-repeatable {
     display: grid;
     grid-template-columns: 70% 28%;
     grid-template-rows: auto auto;
@@ -353,7 +426,7 @@ select {
 }
 
 .grid1r2c {
-  .formulate-input-group-repeatable {
+  .formkit-input-group-repeatable {
     display: grid;
     grid-template-columns: 70% 28%;
     grid-template-rows: auto;

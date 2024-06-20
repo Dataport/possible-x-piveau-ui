@@ -1,22 +1,19 @@
 <template>
   <div class="col-12">
-    
     <!-- LANGUAGE SELECTOR -->
-    <div class="mt-5 mb-0" >
+    <div class="mt-5 mb-0">
       <div class="row">
         <div class="col-10 ">
-          Select Display Language:
+          {{ $t('message.dataupload.info.selectDisplayLanguage') }}:
           <LanguageSelector class="ml-1" v-model="dpiLocale"></LanguageSelector>
         </div>
       </div>
     </div>
-
     <div class="mb-3" v-if="showDatasetsOverview">
-      <DatasetOverview :dpiLocale="dpiLocale"/>
+      <DatasetOverview :dpiLocale="dpiLocale" />
     </div>
-
     <div class="mb-3" v-if="showCatalogsOverview">
-      <CatalogueOverview :dpiLocale="dpiLocale"/>
+      <CatalogueOverview :dpiLocale="dpiLocale" />
     </div>
   </div>
 </template>
@@ -36,7 +33,14 @@ export default {
     DatasetOverview,
     CatalogueOverview,
   },
-  props: ['property'],
+  props: {
+    property: {
+      type: String
+    },
+    context: {
+      type: Object,
+    },
+  },
   data() {
     return {
       dpiLocale: 'en',
@@ -48,13 +52,12 @@ export default {
     ]),
     ...mapGetters('dpiStore', [
       'getData',
-      'getMandatoryStatus',
     ]),
     showDatasetsOverview() {
-      return this.$route.params.property === 'datasets';
+      return this.property === 'datasets';
     },
     showCatalogsOverview() {
-      return this.$route.params.property === 'catalogues';
+      return this.property === 'catalogues';
     },
   },
   methods: {
@@ -66,52 +69,52 @@ export default {
       this.clearAll();
     },
     /*** Overview Page checker functionality ***/
-    checkDatasetMandatory() {
-      if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['datasets']) {
-        this.$router.push({ 
-          name: 'DataProviderInterface-Input', 
-          params: { 
-            property: 'datasets', 
-            page: 'step1' 
-          }, 
-          query: { 
-            error: 'mandatoryDataset', 
-            locale: this.$route.query.locale 
-          } 
-        });
-      }
-    },
-    checkDistributionMandatory() {
-      if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['distributions'].length > 0 && !JSON.parse(localStorage.getItem('dpi_mandatory'))['distributions'].every(el => el === true)) {
-        this.$router.push({
-          name: 'DataProviderInterface-Input',
-          path: '/dpi/datasets/distoverview',
-          params: {
-            property: 'datasets',
-            page: 'distoverview',
-          },
-          query: {
-            error: 'mandatoryDistribution',
-            locale: this.$route.query.locale
-          },
-        });
-      }
-    },
-    checkCatalogueMandatory() {
-      if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['catalogues']) {
-        this.$router.push({ 
-          name: 'DataProviderInterface-Input', 
-          params: { 
-            property: 'catalogues', 
-            page: 'step1' 
-          }, 
-          query: { 
-            error: 'mandatoryCatalog', 
-            locale: this.$route.query.locale
-          } 
-        });
-      }
-    },
+    // checkDatasetMandatory() {
+    //   if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['datasets']) {
+    //     this.$router.push({ 
+    //       name: 'DataProviderInterface-Input', 
+    //       params: { 
+    //         property: 'datasets', 
+    //         page: 'step1' 
+    //       }, 
+    //       query: { 
+    //         error: 'mandatoryDataset', 
+    //         locale: this.$route.query.locale 
+    //       } 
+    //     });
+    //   }
+    // },
+    // checkDistributionMandatory() {
+    //   if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['distributions'].length > 0 && !JSON.parse(localStorage.getItem('dpi_mandatory'))['distributions'].every(el => el === true)) {
+    //     this.$router.push({
+    //       name: 'DataProviderInterface-Input',
+    //       path: '/dpi/datasets/distoverview',
+    //       params: {
+    //         property: 'datasets',
+    //         page: 'distoverview',
+    //       },
+    //       query: {
+    //         error: 'mandatoryDistribution',
+    //         locale: this.$route.query.locale
+    //       },
+    //     });
+    //   }
+    // },
+    // checkCatalogueMandatory() {
+    //   if (!JSON.parse(localStorage.getItem('dpi_mandatory'))['catalogues']) {
+    //     this.$router.push({ 
+    //       name: 'DataProviderInterface-Input', 
+    //       params: { 
+    //         property: 'catalogues', 
+    //         page: 'step1' 
+    //       }, 
+    //       query: { 
+    //         error: 'mandatoryCatalog', 
+    //         locale: this.$route.query.locale
+    //       } 
+    //     });
+    //   }
+    // },
     checkID(property) {
       // Check uniqueness of Dataset ID
       if (!this.getIsEditMode) {
@@ -119,16 +122,16 @@ export default {
           .then((isUniqueID) => {
             if (!isUniqueID) {
               // Dataset ID not unique / taken in meantime --> Redirect to step1 where the user can choose a new ID
-              this.$router.push({ 
+              this.$router.push({
                 name: 'DataProviderInterface-Input',
-                params: { 
-                  property: property, 
-                  page: 'step1' 
-                }, 
-                query: { 
-                  error: 'id', 
-                  locale: this.$route.query.locale 
-                } 
+                params: {
+                  property: property,
+                  page: 'step1'
+                },
+                query: {
+                  error: 'id',
+                  locale: this.$route.query.locale
+                }
               });
             }
           });
@@ -153,37 +156,36 @@ export default {
     this.$nextTick(() => {
       if (this.property === 'datasets') {
         this.checkID('datasets');
-        this.checkDatasetMandatory();
-        this.checkDistributionMandatory();
+        // this.checkDatasetMandatory();
+        // this.checkDistributionMandatory();
       }
 
       if (this.property === 'catalogues') {
         this.checkID('catalogues')
-        this.checkCatalogueMandatory();
+        // this.checkCatalogueMandatory();
       }
     });
   },
-  mounted(){
-    this.saveLocalstorageValues(this.property);
-  }
 };
 </script>
 
 <style lang="scss" scoped>
-  .heading, .description, .arrow {
-    cursor: pointer;
-  }
+.heading,
+.description,
+.arrow {
+  cursor: pointer;
+}
 
-  .options, .download {
-    .dropdown-menu {
-      min-width: 300px;
-      .dropdown-item {
-        &:hover {
-          color: initial;
-          background-color: initial;
-        }
+.options,
+.download {
+  .dropdown-menu {
+    min-width: 300px;
+
+    .dropdown-item {
+      &:hover {
+        color: initial;
+        background-color: initial;
       }
     }
   }
-
-</style>
+}</style>

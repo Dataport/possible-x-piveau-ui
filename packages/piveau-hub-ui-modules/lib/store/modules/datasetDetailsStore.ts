@@ -1,20 +1,13 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign,no-console */
-/**
- * @Publisher Dennis Ritter
- * @description Vuex store for the the details of a dataset.
- */
-import Vue from 'vue';
-import Vuex from 'vuex';
 
 import {
     has,
     isObject,
     isArray,
 } from 'lodash';
-
 import { mirrorPropertyFn } from '../../utils/helpers';
-import { SimilarDatasetsQuery } from 'lib/services/piveau-ui-adapter-vhub/datasets';
+import { SimilarDatasetsQuery } from 'lib/services/datasetService';
 
 // The helper functions below stabilize the store against API changes without changing everything
 // throughout the whole project.
@@ -24,69 +17,10 @@ import { SimilarDatasetsQuery } from 'lib/services/piveau-ui-adapter-vhub/datase
 // Example: mirrorLabelAsTitle({ label: "hello world" }) == { label: "hello world", title: "hello world" }
 const mirrorLabelAsTitle = mirrorPropertyFn('label', 'title');
 
-Vue.use(Vuex);
-
-// DatasetDetails Module State
 /**
  * @property dataset
  * @type JSON
  * @description A dataset object.
- * @example dataset = {
- *  accessRights: 'public',
- *  accrualPeriodicity: 'annual',
- *  catalog: { title: 'catalog One', description: 'This is catalog One.', id: 'catalog-1' },
- *  categories: [{ id: 'energy', title: 'Energy' }, {...}],
- *  conformsTo: [{ title: 'Title', resource: 'http://resource.eu' }, {...}],
- *  contactPoints: [{ name: 'Benedicto Rebanks', type: 'Individual', resource: 'http://demo-url-to-the-contact-point.com', email: 'brebanks0@posterous.com' }, {...}],
- *  country: { title: 'Germany', id: 'DE' },
- *  creator: { type : 'Agent', name : 'Fraunhofer FOKUS', email : 'mailto:info@fokus.fraunhofer.de', resource: 'http://resource.eu', homepage : 'http://www.fokus.fraunhofer.de' },
- *  description: { de: 'This is dataset1', en: 'This is dataset1' },
- *  distributions: [{
- *     accessUrl: 'http://demo-url-to-this-resource.org/demoID/accessPath',
- *     downloadUrl: 'http://demo-url-to-this-resource.org/demoID/filename.csv',
- *     description: 'A description of this distribution',
- *     format: 'csv',
- *     id: 'demoID',
- *     licence: '{ title: 'Licence One', id: 'licence-1', resource: 'https://demo-url-to-the-licence.com/licence-one' }',
- *     mediaType: 'text/plain',
- *     modificationDate: 2017-05-31T18:33:48.018695,
- *     releaseDate: 2017-05-31T18:33:48.018695,
- *     title: 'demoTitle',
- *     urlType: 'download',
- *   },
- *   {...},
- *  ],
- *  distributionFormats: [{ title: 'PDF', id: 'pdf' }, { title: 'CSV', id: 'csv' }, {...}],
- *  documentations: [...],
- *  frequency: { title: 'Frequency One', resource: 'http://demo-url-to-the-frequency.com' },
- *  hasVersion: [{ resource: 'https://piveau.eu/set/data/2222', id: '2222' }],
- *  id: 'abc123qwe345',
- *  identifiers: ['2222', 'dataset-1234', ...],
- *  idName: 'dataset-1',
- *  isVersionOf: [{ resource: 'https://piveau.eu/set/data/2222', id: '2222' }],
- *  keywords: [{ title: 'KEYWORD1', id: 'keyword1'}, {...}],
- *  landingPages: ['http://landingpage.de', ...],
- *  languages: ['http://publications.europa.eu/resource/authority/language/DEU', 'http://publications.europa.eu/resource/authority/language/ENG', ...],
- *  licences: [{ title: 'Licence One', id: 'licence-1', resource: 'https://asd.com/licence-one' }, {...}],
- *  modificationDate: '2002-02-02T00:00',
- *  originalLanguage: '...',
- *  otherIdentifiers: ['https://gnu.org/blandit/mi/in.xml', ...],
- *  pages: [{format: { title: 'HTML', id: 'HTML' }, description: { en: 'Placeholder description' }, title: { en: 'Placeholder title' }, resource: 'https://documentation-uri-placeholder', ...] or old data structure ['http://www.documentation.com', ...],
- *  provenances: [{ resource: 'https://diigo.com/cras/non/velit/nec/nisi.jpg', label: 'Label'}, {...}],
- *  publisher: { type : 'Agent', name : 'Fraunhofer FOKUS', email : 'mailto:info@fokus.fraunhofer.de', resource: 'http://resource.eu', homepage : 'http://www.fokus.fraunhofer.de' },
- *  relatedResources: ['https://bluehost.com/ac/est/lacinia/nisi/venenatis/tristique/fusce.xml', ...],
- *  releaseDate: '2001-01-01T00:00',
- *  similarDatasets: [{...}],
- *  sources: [{ resource: 'https://piveau.eu/set/data/2222', id: '2222' }],
- *  spatial: [{ coordinates: [52.526, 13.314], type: 'Point' }, {...}],
- *  spatialResource: ['http://publications.europa.eu/resource/authority/country/DEU', ...],
- *  temporal: [{ gte: '2015-06-09T00:00:00', lte: '2015-06-09T00:00:00'}, {...}],
- *  translationMetaData: {},
- *  title: { de: 'Der Titel', en: 'The Title' },
- *  versionInfo: '1.0.0',
- *  versionNotes: { en : 'Release', de: 'Veröffentlichung' },
- *  catalogRecord: { issued: "2021-08-03T13:52:11Z", modified: "2021-08-05T06:45:59Z" },
- * }
  */
 const state = {
     dataset: {
@@ -102,37 +36,38 @@ const state = {
         qualityProcessURI: '',
         typeDe: '',
         references: '',
-        contributor: [{}],
-        originator: [{}],
-        maintainer: [{}],
+        contributor: [],
+        originator: [],
+        maintainer: [],
         //
         accessRights: '',
         accrualPeriodicity: '',
         admsIdentifiers: [],
         attributes: [],
         catalog: {},
-        categories: [{}],
-        conformsTo: [{}],
-        contactPoints: [{}],
+        categories: [],
+        conformsTo: [],
+        contactPoints: [],
         country: {},
         creator: {},
+        dateIncorrect: false,
         deadline: '',
         description: {},
         dimensions: [],
-        distributions: [{}],
+        distributions: [],
         distributionFormats: [],
         documentations: [],
         frequency: {},
         geocodingDescription: {},
         hasQualityAnnotations: [],
-        hasVersion: [{}],
+        hasVersion: [],
         id: '',
         identifiers: [],
         idName: '',
         isHvd: false,
         isReferencedBy: [],
-        isVersionOf: [{}],
-        keywords: [{}],
+        isVersionOf: [],
+        keywords: [],
         landingPages: [],
         languages: [],
         licences: [],
@@ -140,8 +75,8 @@ const state = {
         numSeries: 0,
         originalLanguage: '',
         otherIdentifiers: [],
-        pages: [{}],
-        provenances: [{}],
+        pages: [],
+        provenances: [],
         publisher: {},
         qualifiedAttributions: [],
         qualifiedRelations: [],
@@ -150,14 +85,15 @@ const state = {
         releaseDate: '',
         resource: '',
         sample: [],
-        similarDatasets: [{}],
-        sources: [{}],
-        spatial: [{}],
+        similarDatasetsRequested: '',
+        similarDatasets: [],
+        sources: [],
+        spatial: [],
         spatialResource: [],
         spatialResolutionInMeters: [],
         statUnitMeasures: [],
-        subject: [{}],
-        temporal: [{}],
+        subject: [],
+        temporal: [],
         temporalResolution: [],
         theme: [],
         translationMetaData: {},
@@ -165,11 +101,17 @@ const state = {
         type: {},
         versionInfo: '',
         versionNotes: {},
-        visualisations: [{}],
+        visualisations: [],
         wasGeneratedBy: [],
+        qualityDataRequested: '',
         qualityData: [''],
         qualityDistributionData: [''],
+        isDQVDataRequested: '',
         isDQVDataRDFAvailable: false,
+        isDQVDataTTLAvailable: false,
+        isDQVDataN3Available: false,
+        isDQVDataNTAvailable: false,
+        isDQVDataJSONLDAvailable: false,
         catalogRecord: {},
         isUsedBy: {},
         extendetMetadata: {},
@@ -179,7 +121,6 @@ const state = {
     },
     activeNavigationTab: 0,
     loading: false,
-    service: null,
 };
 
 const getters = {
@@ -208,6 +149,7 @@ const getters = {
     getContactPoints: state => state.dataset.contactPoints,
     getCountry: state => state.dataset.country,
     getCreator: state => state.dataset.creator,
+    getDateIncorrect: state => state.dataset.dateIncorrect,
     getDeadline: state => state.dataset.deadline,
     getDescription: state => state.dataset.description,
     getDimensions: state => state.dataset.dimensions,
@@ -240,6 +182,7 @@ const getters = {
     getRelations: state => state.dataset.relations,
     getRelatedResources: state => state.dataset.relatedResources,
     getReleaseDate: state => state.dataset.releaseDate,
+    getSimilarDatasetsRequested: state => state.dataset.similarDatasetsRequested,
     getSimilarDatasets: state => state.dataset.similarDatasets,
     getSample: state => state.dataset.sample,
     getSources: state => state.dataset.sources,
@@ -259,10 +202,15 @@ const getters = {
     getVisualisations: state => state.dataset.visualisations,
     getWasGeneratedBy: state => state.dataset.wasGeneratedBy,
     getLoading: state => state.loading,
-    getService: state => state.service,
+    getQualityDataRequested: state => state.dataset.qualityDataRequested,
     getQualityData: state => state.dataset.qualityData,
     getQualityDistributionData: state => state.dataset.qualityDistributionData,
+    getIsDQVDataRequested: state => state.dataset.isDQVDataRequested,
     getIsDQVDataRDFAvailable: state => state.dataset.isDQVDataRDFAvailable,
+    getIsDQVDataTTLAvailable: state => state.dataset.isDQVDataTTLAvailable,
+    getIsDQVDataN3Available: state => state.dataset.isDQVDataN3Available,
+    getIsDQVDataNTAvailable: state => state.dataset.isDQVDataNTAvailable,
+    getIsDQVDataJSONLDAvailable: state => state.dataset.isDQVDataJSONLDAvailable,
     getCatalogRecord: state => state.dataset.catalogRecord,
     getExtendedMetadata: state => state.dataset.extendetMetadata,
     getDistributionDownloadAs: state => state.dataset.distributionDownloadAs,
@@ -282,11 +230,10 @@ const actions = {
      * @param id {String} The dataset ID.
      */
     loadDatasetDetails({ state, commit }, id) {
-        commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
+            commit('SET_LOADING', true);
             commit('SET_ID', id);
-            const service = getters.getService(state);
-            service.getSingle(id)
+            this.$datasetService.getSingle(id)
                 .then((response) => {
                     // DCAT-AP.de
                     commit('SET_AVAILABILITY', response.availability);
@@ -362,6 +309,8 @@ const actions = {
                     commit('SET_THEME', response.theme);
                     commit('SET_TYPE', response.type);
                     commit('SET_EXTENDET_METADATA', response.extendetMetadata);
+                    commit('SET_IS_HVD', response.isHvd);
+                    commit('SET_HVD_CATEGORY', response.hvdCategory);
                     commit('SET_LOADING', false);
 
                     commit('SET_IS_HVD', response.isHvd);
@@ -387,8 +336,7 @@ const actions = {
     loadSimilarDatasetDetails({ state, commit }, id) {
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
-            const service = getters.getService(state);
-            service.getSingle(id)
+            this.$datasetService.getSingle(id)
                 .then((response) => {
                     commit('SET_SD_DESCRIPTION', { id, description: response.description });
                     commit('SET_SD_TITLE', { id, title: response.title });
@@ -425,8 +373,8 @@ const actions = {
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
-            const service = getters.getService(state);
-            service.getSimilarDatasets(id, description, query)
+            commit('SET_SIMILAR_DATASETS_REQUESTED', id);
+            this.$datasetService.getSimilarDatasets(id, query)
                 .then((response) => {
                     const result = response.data?.result;
                     if(result){
@@ -461,8 +409,8 @@ const actions = {
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
-            const service = getters.getService(state);
-            service.getQualityData(id)
+            commit('SET_QUALITY_DATA_REQUESTED', id);
+            this.$datasetService.getQualityData(id)
                 .then((response) => {
                     commit('SET_QUALITY_DATA', response.data);
                     commit('SET_LOADING', false);
@@ -479,8 +427,8 @@ const actions = {
         commit('SET_LOADING', true);
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
-            const service = getters.getService(state);
-            service.getQualityDistributionData(id)
+            commit('SET_QUALITY_DATA_REQUESTED', id);
+            this.$datasetService.getQualityDistributionData(id)
                 .then((response) => {
                     commit('SET_QUALITY_DISTRIBUTION_DATA', response.data);
                     commit('SET_LOADING', false);
@@ -503,8 +451,8 @@ const actions = {
     loadDQVData({ commit }, { id, formats, locale }) {
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
-            const service = getters.getService(state);
-            formats.forEach(format => service.getDQVDataHead(id, format, locale)
+            commit('SET_IS_DQV_DATA_REQUESTED', id);
+            formats.forEach(format => this.$datasetService.getDQVDataHead(id, format, locale)
                 .then((response) => {
                     const isAvailable = response.status === 200;
                     commit(`SET_IS_DQV_DATA_${format.toUpperCase()}_AVAILABLE`, isAvailable);
@@ -518,14 +466,6 @@ const actions = {
     },
     setLoading({ commit }, isLoading) {
         commit('SET_LOADING', isLoading);
-    },
-    /**
-     * @description Sets the Service to use when loading data.
-     * @param commit
-     * @param service - The service to use.
-     */
-    useService({ commit }, service) {
-        commit('SET_SERVICE', service);
     },
     /**
      * @description Selects distribution for download as (format convertion) service, sets available format options.
@@ -544,7 +484,14 @@ const actions = {
     */
     setDatasetDescriptionHeight({ commit }, height) {
       commit('SET_DATASET_DESCRIPTION_HEIGHT', height)
-    }
+    },
+    /** 
+    * @description Sets dateIncorrect to true if date is not plausible
+    * @param commit
+    */
+    setDateIncorrect({ commit }) {
+        commit('SET_DATE_INCORRECT')
+    },
 };
 
 const mutations = {
@@ -612,6 +559,9 @@ const mutations = {
     },
     SET_CREATOR(state, creator) {
         state.dataset.creator = creator;
+    },
+    SET_DATE_INCORRECT(state) {
+        state.dataset.dateIncorrect = true;
     },
     SET_DESCRIPTION(state, description) {
         state.dataset.description = description;
@@ -727,6 +677,9 @@ const mutations = {
     SET_WAS_GENERATED_BY(state, wasGeneratedBy) {
         state.dataset.wasGeneratedBy = wasGeneratedBy;
     },
+    SET_SIMILAR_DATASETS_REQUESTED(state, similarDatasetsRequested) {
+        state.dataset.similarDatasetsRequested = similarDatasetsRequested;
+    },
     SET_SIMILAR_DATASETS(state, similarDatasets) {
         state.dataset.similarDatasets = similarDatasets;
     },
@@ -736,7 +689,7 @@ const mutations = {
             const description = payload.description;
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
-                if (isObject(similarDataset)) Vue.set(similarDataset, 'description', description);
+                if (isObject(similarDataset)) similarDataset['description'] = description;
             }
         }
     },
@@ -746,7 +699,7 @@ const mutations = {
             const title = payload.title;
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
-                if (isObject(similarDataset)) Vue.set(similarDataset, 'title', title);
+                if (isObject(similarDataset)) similarDataset['title'] = title;
             }
         }
     },
@@ -757,7 +710,7 @@ const mutations = {
             if (isArray(state.dataset.similarDatasets)) {
                 const similarDataset = state.dataset.similarDatasets.filter(el => el.id === id)[0];
                 if (isObject(similarDataset)) {
-                    Vue.set(similarDataset, 'distributionFormats', distributionFormats);
+                    similarDataset['distributionFormats'] = distributionFormats;
                 }
             }
         }
@@ -768,8 +721,8 @@ const mutations = {
     SET_LOADING(state, isLoading) {
         state.loading = isLoading;
     },
-    SET_SERVICE(state, service) {
-        state.service = service;
+    SET_QUALITY_DATA_REQUESTED(state, qualityDataRequested) {
+        state.dataset.qualityDataRequested = qualityDataRequested;
     },
     SET_QUALITY_DATA(state, qualityData) {
         state.dataset.qualityData = qualityData;
@@ -777,8 +730,23 @@ const mutations = {
     SET_QUALITY_DISTRIBUTION_DATA(state, qualityDistributionData) {
         state.dataset.qualityDistributionData = qualityDistributionData;
     },
+    SET_IS_DQV_DATA_REQUESTED(state, isDQVDataRequested) {
+        state.dataset.isDQVDataRequested = isDQVDataRequested;
+    },
     SET_IS_DQV_DATA_RDF_AVAILABLE(state, isDQVDataRDFAvailable) {
         state.dataset.isDQVDataRDFAvailable = isDQVDataRDFAvailable;
+    },
+    SET_IS_DQV_DATA_TTL_AVAILABLE(state, isDQVDataTTLAvailable) {
+        state.dataset.isDQVDataTTLAvailable = isDQVDataTTLAvailable;
+    },
+    SET_IS_DQV_DATA_N3_AVAILABLE(state, isDQVDataN3Available) {
+        state.dataset.isDQVDataN3Available = isDQVDataN3Available;
+    },
+    SET_IS_DQV_DATA_NT_AVAILABLE(state, isDQVDataNTAvailable) {
+        state.dataset.isDQVDataNTAvailable = isDQVDataNTAvailable;
+    },
+    SET_IS_DQV_DATA_JSONLD_AVAILABLE(state, isDQVDataJSONLDAvailable) {
+        state.dataset.isDQVDataJSONLDAvailable = isDQVDataJSONLDAvailable;
     },
     SET_CATALOG_RECORD(state, catalogRecord) {
         state.dataset.catalogRecord = catalogRecord;
@@ -829,7 +797,7 @@ const mutations = {
         state.dataset.distributionDownloadAsOptions = selectOptions;
     },
     SET_DATASET_DESCRIPTION_HEIGHT (state, height) {
-     state.dataset.descriptionHeight = height;
+        state.dataset.descriptionHeight = height;
     },
     SET_IS_HVD(state, isHvd) {
         state.dataset.isHvd = isHvd;

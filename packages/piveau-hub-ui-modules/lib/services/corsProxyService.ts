@@ -7,7 +7,7 @@
 import axios from 'axios';
 
 const CorsProxyService = {
-  install(Vue, corsproxyUrl = '') {
+  install(app, corsproxyUrl = '') {
     // Create a modified axios instance such that its API
     // works just as if requests are called without proxy
     const corsproxyService = axios.create();
@@ -37,7 +37,7 @@ const CorsProxyService = {
       });
     }
 
-    Vue.prototype.$corsproxyService = corsproxyService; // eslint-disable-line
+    app.config.globalProperties.$corsproxyService = corsproxyService; // eslint-disable-line
   },
 };
 

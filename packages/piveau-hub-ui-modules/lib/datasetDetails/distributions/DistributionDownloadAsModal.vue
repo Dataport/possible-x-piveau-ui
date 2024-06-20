@@ -4,7 +4,7 @@
          <div class="modal-content rounded-0">
             <div class="modal-header">
                <h5 class="modal-title" id="exampleModalLabel">{{ $t('message.datasetDetails.datasets.modal.downloadAs') }} ...</h5>
-               <button type="button" id="modal-close-btn" data-dismiss="modal" class="close" aria-label="Close">
+               <button ref="modal-close-btn" type="button" id="modal-close-btn" data-dismiss="modal" class="close" aria-label="Close">
                   {{ $t('message.datasetDetails.datasets.modal.close') }}
                   <span aria-hidden="true" class="close-icon rounded-circle">
                      <svg xmlns="http://www.w3.org/2000/svg" fill="white" xmlns:xlink="http://www.w3.org/1999/xlink" height="8" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="8" xml:space="preserve">
@@ -117,7 +117,8 @@ export default {
     },
     mounted() {
         // Add a listener to the modal close button
-        document.getElementById('modal-close-btn').addEventListener('click', () => {
+        const modalCloseBtnRef = this.$refs['modal-close-btn'];
+        modalCloseBtnRef.addEventListener('click', () => {
             if (this.source) {
                 // Cancel the ongoing request
                 this.source.cancel('Download was canceled by user');

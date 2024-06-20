@@ -58,12 +58,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 import {has, isNil} from "lodash";
 import axios from "axios";
 import { saveAs } from 'file-saver';
 import $ from "jquery";
 import { getTranslationFor } from "../../utils/helpers";
-import { mapGetters } from "vuex";
+
 
 export default {
   name: "DownloadAllDistributions",
@@ -302,8 +306,16 @@ export default {
     }
   },
   created() {
-    this.$once('hook:destroyed', () => {
-      this.$router.beforeEach((to, from, next) => {
+    window.addEventListener('beforeunload', this.beforeWindowUnload);
+  },
+  beforeUnmount() {
+    window.removeEventListener('beforeunload', this.beforeWindowUnload);
+  },
+  setup() {
+    const router = useRouter();
+    
+    onUnmounted(() => {
+      router.beforeEach((to, from, next) => {
         if (this.isLoadingAllDistributionFiles && !this.isDownloadAllDistributionsCanceled) {
           const answer = window.confirm(this.$t('message.datasetDetails.datasets.leavePageWindow.text')); // eslint-disable-line
           if (answer) {
@@ -319,12 +331,8 @@ export default {
           next();
         }
       })();
-    });
-    window.addEventListener('beforeunload', this.beforeWindowUnload);
+    })
   },
-  beforeDestroy() {
-    window.removeEventListener('beforeunload', this.beforeWindowUnload);
-  }
 }
 </script>
 

@@ -172,10 +172,10 @@
   import dateFilters from '../filters/dateFilters';
   import SubNavigation from '../navigation/SubNavigation.vue';
   import { getImg, getCountryFlagImg, getTranslationFor } from '../utils/helpers';
+  import { useDatasetsHead } from '../composables/head';
 
   export default {
     name: 'catalogs',
-    dependencies: ['catalogService'],
     components: {
       SelectedFacetsOverview,
       CataloguesFacets,
@@ -190,16 +190,6 @@
         type: Boolean,
         default: true,
       },
-    },
-    metaInfo() {
-      return {
-        title: this.currentSearchQuery ? `${this.currentSearchQuery}` : `${this.$t('message.header.navigation.data.catalogs')}`,
-        meta: [
-          { name: 'description', vmid: 'description', content: `${this.$t('message.catalogs.meta.description')}` },
-          { name: 'keywords', vmid: 'keywords', content: `${this.$env.metadata.keywords} ${this.$t('message.catalogs.meta.description')}` },
-          { name: 'robots', content: 'noindex, follow' },
-        ],
-      };
     },
     data() {
       return {
@@ -249,7 +239,6 @@
         'loadAdditionalCatalogs',
         'setQuery',
         'setPage',
-        'useService',
         'addFacet',
         'setFacets',
         'setFacetOperator',
@@ -460,7 +449,6 @@
       },
     },
     created() {
-      this.useService(this.catalogService);
       this.initLimit();
       this.initPage();
       this.initQuery();
@@ -471,10 +459,13 @@
       this.initCatalogues();
       this.initInfiniteScrolling();
     },
-    beforeDestroy() {
+    beforeUnmount() {
       $('.tooltip').remove();
       if (this.infiniteScrolling) window.removeEventListener('scroll', this.onScroll);
     },
+    setup() {
+      useDatasetsHead({ isCatalog: true })
+    }
   };
 </script>
 

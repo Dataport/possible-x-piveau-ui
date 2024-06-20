@@ -1,6 +1,6 @@
 <template>
   <!-- Modals -->
-  <div class="modal fade modalWrapper" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
+  <div id="modal" class="modal fade modalWrapper" tabindex="-1" role="dialog" aria-labelledby="confirmationDialogLabel"
     data-backdrop="false" data-cy="create-doi-modal">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -35,9 +35,12 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import $ from 'jquery';
-export default {
+
+export default defineComponent({
   name: 'ConfirmationDialog',
+  inheritAttrs: false,
   props: {
     confirm: {
       type: String,
@@ -53,8 +56,9 @@ export default {
       $('#navbar-toggle').css("z-index", "99")
     }
   }
-};
+});
 </script>
+
 <style>
 /* If the display:block is active, the modal will appear in the bavaria hub-ui and makes it unusable. But it's actually not needed here.*/
 .modalWrapper {

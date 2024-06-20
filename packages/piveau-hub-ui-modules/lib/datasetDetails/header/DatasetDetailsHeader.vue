@@ -23,13 +23,10 @@
 </template>
 
 <script>
-  // import Actions and Getters from Store Module
   import { mapGetters } from 'vuex';
-  // import helper functions
   import { has, isNil, isObject } from 'lodash-es';
 
   import AppLink from '../../widgets/AppLink.vue';
-  import DatasetDate from '../../datasets/DatasetDate.vue';
   import * as helpers from '../../utils/helpers';
   import dateFilters from '../../filters/dateFilters';
   import DatasetDetailsHeaderTitle from "../../datasetDetails/header/DatasetDetailsHeaderTitle";
@@ -44,10 +41,8 @@
       PropertyValue,
       DatasetDetailsHeaderCatalogue,
       DatasetDetailsHeaderTitle,
-      DatasetDate,
       AppLink,
     },
-    dependencies: 'DatasetService',
     data() {
       return {
         hidePublisher: this.$env.content.datasetDetails.header.hidePublisher,
@@ -55,7 +50,6 @@
       };
     },
     computed: {
-      // import store-getters
       ...mapGetters('datasetDetails', [
         'getCatalog',
         'getCountry',

@@ -32,45 +32,30 @@
   import { mapActions, mapGetters } from 'vuex';
   import { has } from 'lodash-es';
   import { getTranslationFor, appendCurrentLocaleToURL } from '../utils/helpers';
-  import AppLink from "../widgets/AppLink.vue";
+  import AppLink from '../widgets/AppLink.vue';
+  import * as metaInfo from '../composables/head';
   import PvBadge from "../PvBadge/PvBadge.vue";
 
   export default {
     name: 'datasetDetailsSimilarDatasets',
-    dependencies: 'DatasetService',
     components: {
       PvBadge,
       AppLink
-    },
-    metaInfo() {
-      return {
-        title: this.$t('message.similarDatasets.similarDatasets'),
-        meta: [
-          {
-            name: 'description',
-            vmid: 'description',
-            content: (`${this.$t('message.similarDatasets.similarDatasets')} - ${this.getTranslationFor(this.getTitle, this.$route.query.locale, this.getLanguages)} - ${this.$env.metadata.description}`)?.substring(0, 4999),
-          },
-          {
-            name: 'keywords',
-            vmid: 'keywords',
-            content: this.getKeywords.map(k => k.title).join(' ').substring(0, 4999),
-          },
-        ],
-      };
     },
     data() {
       return {
         similarDatasetsFetched: false,
         similarDatasetsPresent: false,
         breakpoints: this.$env.content.datasetDetails.similarDatasets.breakpoints,
+        useSimilarDatasets: this.$env.content.datasetDetails.similarDatasets.useSimilarDatasets,
       };
     },
     computed: {
       // import store-getters
       ...mapGetters('datasetDetails', [
-        'getKeywords',
+        'getID',
         'getLanguages',
+        'getSimilarDatasetsRequested',
         'getSimilarDatasets',
         'getTitle',
         'getDescription'
@@ -85,7 +70,7 @@
         'loadDatasetDetails',
         'loadSimilarDatasets',
         'loadSimilarDatasetDetails',
-        'useService',
+
       ]),
       has,
       appendCurrentLocaleToURL,
@@ -112,46 +97,62 @@
       }
     },
     created() {
-      this.useService(this.DatasetService);
       this.$nextTick(() => {
-        this.$Progress.start();
-        this.loadDatasetDetails(this.$route.params.ds_id)
-          .then(() => {
-            const isKNN = this.$env.api.similarityServiceName === 'knn_request';
-            if (isKNN && ! this.getDescription.en) {
-              // The knn_request service only works for English descriptions
-              this.similarDatasetsFetched = true;
-              this.similarDatasetsPresent = false;
-              this.$Progress.fail();
-            } else {
-              const description = isKNN ? this.getDescription.en : getTranslationFor(this.getDescription, this.$route.query.locale, this.getLanguages);
-              this.loadSimilarDatasets({
-                id: this.$route.params.ds_id,
-                description
-              })
-              .then((response) => {
-                this.$nextTick(() => {
-                  this.updateSimilarDatasets();
-                  this.similarDatasetsFetched = true;
-                  this.similarDatasetsPresent = response.length > 0;
-                });
-                this.$Progress.finish();
+        if (this.useSimilarDatasets) {
+          // Duplicated API call, execute only if data not already loaded
+          if (this.$route.params.ds_id !== this.getID) {
+            this.$Progress.start();
+            this.loadDatasetDetails(this.$route.params.ds_id)
+              .then(() => {
+                this.loadSimilarDatasets(this.$route.params.ds_id)
+                  .then((response) => {
+                    this.$nextTick(() => {
+                      this.updateSimilarDatasets();
+                      this.similarDatasetsFetched = true;
+                      this.similarDatasetsPresent = response.length > 0;
+                    });
+                    this.$Progress.finish();
+                  })
+                  .catch(() => {
+                    this.similarDatasetsFetched = true;
+                    this.$Progress.fail();
+                  });
               })
               .catch(() => {
-                this.similarDatasetsFetched = true;
                 this.$Progress.fail();
+                this.$router.replace({
+                  name: 'NotFound',
+                  query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
+                });
               });
+          } else {
+            // Duplicated API call, execute only if data not already loaded
+            if (this.$route.params.ds_id !== this.getSimilarDatasetsRequested) {
+              this.loadSimilarDatasets(this.$route.params.ds_id)
+                .then((response) => {
+                  this.$nextTick(() => {
+                    this.updateSimilarDatasets();
+                    this.similarDatasetsFetched = true;
+                    this.similarDatasetsPresent = response.length > 0;
+                  });
+                  this.$Progress.finish();
+                })
+                .catch(() => {
+                  this.similarDatasetsFetched = true;
+                  this.$Progress.fail();
+                });
+            } else {
+              this.updateSimilarDatasets();
+              this.similarDatasetsFetched = true;
+              this.similarDatasetsPresent = this.similarDatasets.length > 0;
             }
-          })
-          .catch(() => {
-            this.$Progress.fail();
-            this.$router.replace({
-              name: 'NotFound',
-              query: { locale: this.$route.query.locale, dataset: this.$route.params.ds_id },
-            });
-          });
+          }
+        }
       });
     },
+    setup() {
+      metaInfo.useDatasetDetailsSimilarDatasetsHead();
+    }
   };
 </script>
 

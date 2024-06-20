@@ -164,7 +164,9 @@ const groupedProperties = {
 // for properties with dynamic input type
 const conditionalProperties = {
     datasets: [],
-    distributions: [],
+    distributions: [
+        'dct:license'
+    ],
     catalogues: [],
 }
 
@@ -177,11 +179,48 @@ const additionalPropertyTypes = {
     'dext:metadataExtension': 'dext:MetadataExtension',
     'spdx:checksum': 'spdx:Checksum',
     'dcat:accessService': 'dcat:DataService',
+    'dct:license': 'dct:LicenseDocument'
 }
 
-// multiple URIs provided by the form can be formated as an array of objects containing the URI as value of key '@id'
-const multiURIobjects = {
-    datasets: [
+// some inputs need URIs in diefferent formats
+const URIformat = {
+    // {'name': '', 'resource': ''} mainly needed for vocabulary data
+    voc: [
+        'dct:publisher',
+        'dcat:theme',
+        "dct:accrualPeriodicity",
+        "dct:accessRights",
+        "dct:type",
+        "dct:format",
+        "dcat:mediaType",
+        "dcatap:availability",
+        "dcat:compressFormat",
+        "dcat:packageFormat",
+        'spdx:algorithm',
+        "dct:subject",
+        "dct:language",
+        "adms:status",
+        "dct:spatial",
+
+    ],
+    // 'URI' mainly used for mail addresses
+    string: [
+        'vcard:hasEmail',
+        'vcard:hasURL',
+        'foaf:mbox',
+        "skos:exactMatch",
+        'foaf:homepage',
+        'dext:isUsedBy',
+        'dcat:endpointURL',
+    ],
+    // {'@id': ''} mainly used for repeated links
+    id: [
+        'dct:source',
+        "dcat:accessURL",
+        "dcat:downloadURL",
+        "odrl:hasPolicy",
+        "dct:hasPart",
+        'dcat:catalog',
         "dct:source",
         "dcat:landingPage",
         "dct:relation",
@@ -191,31 +230,7 @@ const multiURIobjects = {
         "prov:wasGeneratedBy",
         "dct:isVersionOf",
         "dct:hasVersion",
-        "dct:spatial",
-    ],
-    distributions: [
-        "dcat:accessURL",
-        "dcat:downloadURL",
-        "odrl:hasPolicy",
-    ],
-    catalogues: [
-        "dct:hasPart",
-        'dcat:catalog',
-    ]
-}
-
-// multiple URIs provided by the form can be also formated as an array of URIs (autocomplete fields)
-const multiURIarray = {
-    datasets: [
-        "dct:language", 
-        "dct:subject",  
-        "dcat:theme",
-    ],
-    distributions: [
-        "dct:language",
-    ],
-    catalogues: [
-        'dct:language',
+        'dct:isPartOf',
     ]
 }
 
@@ -227,7 +242,6 @@ export default {
     multilingualStrings,
     groupedProperties,
     additionalPropertyTypes,
-    multiURIobjects,
-    multiURIarray,
     conditionalProperties,
+    URIformat
 };

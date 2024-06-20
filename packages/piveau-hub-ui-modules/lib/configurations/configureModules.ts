@@ -1,23 +1,14 @@
-import {ComponentMap, configureComponents} from "./configureComponents";
-import registerServices from "../services/registerServices";
-import Vue from 'vue';
+import { configureServices } from "./configureServices";
+import { ComponentMap, configureComponents } from "./configureComponents";
 
 type ModulesConfig = {
-  components?: ComponentMap,
-  services?: {[key: string]: object},
-  serviceParams?: {[key: string]: unknown},
-  // props: object
+  components: ComponentMap,
+  serviceParams: {[key: string]: unknown},
 };
 
-export function configureModules(config?: ModulesConfig) {
+export function configureModules(app: any, store: any, config?: ModulesConfig) {
   if (config) {
-    configureComponents(config.components);
-    if (config.services) {
-      registerServices(config.services, config.serviceParams);
-    }
-    // if (config.props) {
-    //   Vue.prototype.$config = config.props;
-    // }
+    configureServices(store, config.serviceParams);
+    configureComponents(app, config.components);
   }
 }
-

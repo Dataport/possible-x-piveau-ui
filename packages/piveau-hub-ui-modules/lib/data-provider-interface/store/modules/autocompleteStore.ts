@@ -1,68 +1,73 @@
 // @ts-nocheck
 /* eslint-disable no-param-reassign, no-shadow, no-console */
-import Vue from 'vue';
-import Vuex from 'vuex';
 import axios from 'axios';
-
 import generalDpiConfig from '../../config/dpi-spec-config.js';
-
-Vue.use(Vuex);
 
 const state = {};
 const getters = {};
 
 const actions = {
-    requestFirstEntrySuggestions({ commit }, voc) {
+    requestFirstEntrySuggestions({ commit }, voc, base) {
         return new Promise((resolve, reject) => {
-            const req = `${Vue.prototype.$env.api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true`;
+            const req = `${base}search?filter=vocabulary&vocabulary=${voc}`;
             axios.get(req)
-            .then((res) => {
-                resolve(res);
-            })
-            .catch((err) => {
-                reject(err);
-            });
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
         });
     },
-    requestAutocompleteSuggestions({ commit }, { voc, text }) {
+    requestAutocompleteSuggestions({ commit }, { voc, text, base }) {
+        // console.log(voc,text,base); 
         return new Promise((resolve, reject) => {
-            const input = text;
-            const req = `${Vue.prototype.$env.api.baseUrl}search?filter=vocabulary&vocabulary=${voc}&autocomplete=true&q=${input}`;
+            const req = `${base}search?filter=vocabulary&vocabulary=${voc}&q=${text}`;
             axios.get(req)
-            .then((res) => {
-                resolve(res);
-            })
-            .catch((err) => {
-                reject(err);
-            });
+                .then((res) => {
+                    // console.log(res);
+
+                    resolve(res);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
         });
     },
-    requestResourceName({ commit }, { voc, resource }) {
-        // Catching invalid URI's
-        if(voc === undefined) return
-        if(voc === "application") return 
+    async requestResourceName({ commit }, { voc, uri, envs }) {
+        try {
+            const specification = envs.content.dataProviderInterface.specification;
 
-        const dpiConfig = generalDpiConfig[Vue.prototype.$env.content.dataProviderInterface.specification];   
-        const value = encodeURIComponent(resource.replace(dpiConfig.vocabPrefixes[voc], ""));
-        let req;
+            // Catching invalid URI's
+            if (voc === undefined) return
+            if (voc === "application") return
 
-        // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
-        if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
-            req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}`;
-           
-        } else {
-            req = `${Vue.prototype.$env.api.baseUrl}vocabularies/${voc}/${value}`;
+            let req;
+
+            // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
+            if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
+                req = `${envs.api.baseUrl}vocabularies/${voc}`;
+
+            } else {
+                const value = encodeURIComponent(uri.replace(generalDpiConfig[specification].vocabPrefixes[voc], ""));
+                req = `${envs.api.baseUrl}vocabularies/${voc}/${value}`;
+
+            }
+            return new Promise((resolve, reject) => {
+                axios.get(req)
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((err) => {
+                        reject(err);
+
+                    });
+            });
+        } catch (error) {
+            // console.log(error);
+
         }
-        return new Promise((resolve, reject) => {
-            axios.get(req)
-            .then((res) => {              
-                resolve(res);
-            })
-            .catch((err) => {             
-                reject(err);
-                 
-            });
-        });
+
     },
 };
 
