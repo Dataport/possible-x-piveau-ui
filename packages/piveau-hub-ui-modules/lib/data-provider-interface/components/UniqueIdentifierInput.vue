@@ -31,7 +31,6 @@ async function idunique(node) {
           isUniqueID = false;
         })
         .catch((e) => {
-          console.log(e)
           isUniqueID = true;
         });
     }
