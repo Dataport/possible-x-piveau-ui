@@ -145,8 +145,8 @@ const datasetDetailsDownloadAsSchema = z.object({
 }).default({})
 
 const startEndSchema = z.object({
-  start: z.coerce.number().int().gte(0),
-  end: z.coerce.number().int().gte(0),
+  start: z.coerce.number().gte(0),
+  end: z.coerce.number().gte(0),
 }).refine(obj => obj.start <= obj.end, {
   message: 'start must be less than or equal to end',
 })
