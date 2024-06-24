@@ -1,3 +1,12 @@
+## [4.0.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.1...v4.0.2) (2024-06-24)
+
+
+### Bug Fixes
+
+* issues in config schema ([d2554a5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d2554a5a4898aa89ca9ca1a719b7a63f417258b2))
+
+
+
 ## [4.0.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0...v4.0.1) (2024-06-20)
 
 
