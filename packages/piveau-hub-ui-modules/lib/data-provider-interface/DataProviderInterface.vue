@@ -1,11 +1,5 @@
 <template>
   <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi position-relative" :key="property">
-    <!-- TOP -->
-    <div id="stepperAnchor" class="stickyStepper">
-      <div class="SSfirstRow">
-        <h1 class="small-headline ml-1 my-0">{{ mode }}</h1>
-      </div>
-    </div>
     <!-- CONTENT -->
     <router-view ref="view" :key="$route.query.edit">
     </router-view>
