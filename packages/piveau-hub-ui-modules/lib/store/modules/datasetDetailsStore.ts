@@ -452,16 +452,17 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit('SET_ID', id);
             commit('SET_IS_DQV_DATA_REQUESTED', id);
-            formats.forEach(format => this.$datasetService.getDQVDataHead(id, format, locale)
+            
+            this.$datasetService.getDQVDataHead(id, locale)
                 .then((response) => {
                     const isAvailable = response.status === 200;
-                    commit(`SET_IS_DQV_DATA_${format.toUpperCase()}_AVAILABLE`, isAvailable);
+                    formats.forEach(format => commit(`SET_IS_DQV_DATA_${format.toUpperCase()}_AVAILABLE`, isAvailable));
                     resolve(response);
                 })
                 .catch((err) => {
-                    commit(`SET_IS_DQV_DATA_${format.toUpperCase()}_AVAILABLE`, false);
+                    formats.forEach(format => commit(`SET_IS_DQV_DATA_${format.toUpperCase()}_AVAILABLE`, false));
                     reject(err);
-                }));
+                })
         });
     },
     setLoading({ commit }, isLoading) {

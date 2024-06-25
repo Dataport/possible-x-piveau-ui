@@ -421,10 +421,10 @@
       });
     }
 
-    getDQVDataHead(id: any, format: any, locale: any) {
+    getDQVDataHead(id: any, locale: any) {
       return new Promise((resolve, reject) => {
-        const reqStr = `${this.hubUrl}datasets/${id}.${format}/metrics`;
-        // const reqStr = `${this.hubUrl}datasets/${id}/metrics`;
+        // Only check if DQV data is available. No need to request single formats.
+        const reqStr = `${this.hubUrl}datasets/${id}/metrics`;
         axios.head(reqStr, {
         })
           .then((response) => {
