@@ -1,3 +1,12 @@
+## [4.0.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.3...v4.0.4) (2024-06-25)
+
+
+### Bug Fixes
+
+* Only request DQV data once without format but show all formats ([b7eb5bd](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7eb5bd8e36c7da5bb66f141949398762dc18671))
+
+
+
 ## [4.0.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.2...v4.0.3) (2024-06-25)
 
 
