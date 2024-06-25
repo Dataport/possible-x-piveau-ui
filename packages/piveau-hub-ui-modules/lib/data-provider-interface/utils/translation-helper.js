@@ -10,7 +10,6 @@ import { useI18n } from "vue-i18n";
 async function translateProperty(propertyDefinition, property) {
 
         const i18n = await useI18n();
-        console.log(i18n.messages.value); 
   
        if (has(propertyDefinition, 'identifier')) { // hidden fields don't need a label and have no identifier 
         const translatableParameters = ['label', 'info', 'help', 'placeholder', 'add-label'];
