@@ -3,15 +3,15 @@ import { useI18n } from "vue-i18n";
 
 /**
  * Translation of each translatable parameter within the given structure if a translation is available
- * @param {*} propertyDefnition Object containing parameters defining the form and their content
+ * @param {*} propertyDefinition Object containing parameters defining the form and their content
  * @param {String} property String defining which property translation should be used
  */
 
 async function translateProperty(propertyDefinition, property) {
 
         const i18n = await useI18n();
-  
-       if (has(propertyDefinition, 'identifier')) { // hidden fields don't need a label and have no identifier 
+
+       if (has(propertyDefinition, 'identifier')) { // hidden fields don't need a label and have no identifier
         const translatableParameters = ['label', 'info', 'help', 'placeholder', 'add-label'];
         const propertyName = propertyDefinition.identifier;
 
@@ -52,7 +52,7 @@ async function translateProperty(propertyDefinition, property) {
             }
 
             // Highlight mandatory fields
-            if (propertyDefinition.mandatory && parameter == "label") propertyDefinition[parameter] = `${translation}*`
+            if (propertyDefinition.mandatory && parameter === "label") propertyDefinition[parameter] = `${translation}*`
         }
     }
 }
