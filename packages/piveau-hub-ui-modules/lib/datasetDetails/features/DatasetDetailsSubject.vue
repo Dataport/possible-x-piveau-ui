@@ -147,8 +147,8 @@ export default {
     
       
         return {
-        path: `/datasets?subject=${urlResource}`,
-        query: Object.assign({}, { locale: this.$route.query.locale }),
+        path: `/datasets`,
+        query: Object.assign({}, { locale: this.$route.query.locale, subject:urlResource }),
       };
       
       
