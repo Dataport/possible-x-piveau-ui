@@ -9,10 +9,10 @@ cache:
 
 stages:
   - build
-  - create-tags
-  - register
-  - deploy
-  - publish
+  # - create-tags
+  # - register
+  # - deploy
+  # - publish
 
 
 build-asset:
