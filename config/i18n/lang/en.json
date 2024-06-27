@@ -1998,7 +1998,8 @@
                     "title": "Datasets",
                     "euVocabularies": " EU Vocabularies",
                     "persistentUris": " Persistent URIs",
-                    "copyright-notice": "Copyright notice"
+                    "copyright-notice": "Copyright notice",
+                    "resources": "Resources"
                 },
                 "impactStudies": {
                     "opendataimpact": "Open Data Impact",

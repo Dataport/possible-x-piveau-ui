@@ -191,42 +191,11 @@ if (GLUE_CONFIG.content.dataProviderInterface.useService) {
         component: InputPage,
         props: true
       },
-      // {
-      //   path: ":property/overview",
-      //   name: "DataProviderInterface-Overview",
-      //   component: OverviewPage,
-      //   props: true
-      // },
-      // {
-      //   path: ":property/:page",
-      //   name: "DataProviderInterface-Input",
-      //   component: InputPage,
-      //   props: true,
-      //   children: [
-      //     {
-      //       path: ":id",
-      //       name: "DataProviderInterface-ID",
-      //       component: InputPage,
-      //       props: true,
-      //     },
-      //   ],
-      // },
     ]
   });
 }
 
 router.beforeEach((to, from, next) => {
-  // if (to?.redirectedFrom?.substring(0, 3) === '/#/') {
-  //   let path = to.redirectedFrom.substring(2);
-  //   const base = `${GLUE_CONFIG.routing.routerOptions.base}/`;
-  //   if (path.startsWith(base)) {
-  //     // Restore standard Vue behavior when navigated to '/#/base'
-  //     // so you are redirected to '/base' instead of '/base/base'
-  //     path = '/';
-  //   }
-  //   next({ path, replace: true });
-  //   return;
-  // }
 
   let isLinkedDataRequest = false;
 
