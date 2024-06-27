@@ -1,7 +1,14 @@
 
 
 <template>
-  <div id="piveau-footer" class="p-5 d-flex justify-content-center">
+  <div id="piveau-footer" class="p-0 pt-5 d-flex">
+    <div class="w-33">
+      <img id="logo" src="@/assets/img/possible_x_footer.svg" width="190" />
+    </div>
+    <div class="w-33">
+      <h4>POSSIBLE</h4>
+      <p>...</p>
+    </div>
     <div class="w-33">
       <h4>Information</h4>
 
@@ -14,20 +21,18 @@
         </li>
       </ul>
     </div>
-    <div class="w-33">
-      <h4></h4>
-    </div>
-    <div class="w-33">
-      <h4></h4>
-    </div>
   </div>
 </template>
 
 <script>
+import FooterLogo from './FooterLogo.vue'
 
 export default {
   name: 'PiveauFooter',
   inheritAttrs: false,
+  components: {
+    FooterLogo,
+  },
   props: {
 
   },
