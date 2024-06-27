@@ -12,7 +12,8 @@
     "ci-publish": "esno scripts/publish-ci.ts",
     "initialize": "git submodule update --init && npx -yes esno scripts/utils/removeAllNodeModules.ts && npx esno scripts/createUserConfigs.ts && npm i",
     "clear": "npx -yes esno scripts/utils/removeAllNodeModules.ts",
-    "create-runtime-config": "esno scripts/createRuntimeConfig.ts",
+    "create-runtime-config": "esno scripts/config-handling/createRuntimeConfig.ts",
+    "check-user-config": "esno scripts/config-handling/checkUserConfig.ts",
     "sbom": "sh ./bomGenerator.sh"
   },
   "author": "",

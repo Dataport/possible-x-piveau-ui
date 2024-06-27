@@ -1,66 +1,11 @@
 import fs, {Stats} from "fs";
 
-import {configSchema} from "../packages/piveau-hub-ui-modules/lib/configurations/config-schema";
-// import oldConfig from "../apps/vanilla-piveau-hub-ui/config/runtime-config.js";
-// import oldConfig from "../local/deu-piveau-hub-ui/runtime-config_old.js";
-// import oldConfig from "../local/deu-piveau-hub-ui/config/runtime-config.js";
-import {ZodObject, ZodType, ZodDefault, ZodEffects} from 'zod';
-import {pathByWorkspaceName} from "./utils/pathByWorkspaceName";
-import {doForApps} from "./utils/doForApp";
+import {pathByWorkspaceName} from "../utils/pathByWorkspaceName";
+import {doForApps} from "../utils/doForApp";
 
 import prompt_ from 'prompt-sync';
+import {getConfigObject} from "./getConfigSchema";
 const prompt = prompt_();
-
-// import readline_ from "readline";
-// const readline = readline_.createInterface({ input: process.stdin, output: process.stdout });
-// const prompt = (query) => new Promise((resolve) => readline.question(query, resolve));
-// readline.on('close', () => process.exit(0));
-
-/**
- * Turns a Zod object into a regular Javascript key-value object where the values are still Zod objects
- * @param z
- */
-function getShape(z: ZodType) {
-    if (z instanceof ZodDefault) {
-        return getShape(z._def.innerType);
-    } else if (z instanceof ZodEffects) {
-        return getShape(z._def.schema);
-    } else if (z instanceof ZodObject) {
-        return z.shape;
-    } else {
-        return null;
-    }
-}
-
-/**
- * Recursively turns a Zod object into a regular Javascript key-value object, where the values
- * are strings that have the special shape to start with "$VITE_" and then chaining the keys
- * path in upper case separated by underscores.
- * @param z
- * @param keyPath
- */
-function convert(z: ZodType, keyPath: string = '') {
-    const entries = getShape(z);
-    if (entries instanceof Object) {
-        for (const [key, value] of Object.entries(entries)) {
-            const extendedKeyPath = keyPath === '' ? camelToSnake(key).toUpperCase() : keyPath + '_' + camelToSnake(key).toUpperCase();
-            const convertedValue = convert(value as ZodType, extendedKeyPath);
-            if (convertedValue === null) {
-                entries[key] = ("$VITE_" + keyPath + "_"
-                    + camelToSnake(key).toUpperCase()).replace(/-/g, "_");
-            } else {
-                entries[key] = convertedValue;
-            }
-        }
-        return entries;
-    } else {
-        return null;
-    }
-}
-
-function camelToSnake(s: string): string {
-    return s.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (sub, arg) => (arg ? "_" : "") + sub).toLowerCase();
-}
 
 function runtimeConfigAsString(configObject) {
     const fileStart = `/**
@@ -78,7 +23,7 @@ function runtimeConfigAsString(configObject) {
  
 export default `;
 
-    const fileBody = JSON.stringify(configObject || convert(configSchema), null, 2);
+    const fileBody = JSON.stringify(configObject || getConfigObject(), null, 2);
 
     const fileEnd = `;`;
 
@@ -91,7 +36,7 @@ export function writeRuntimeConfig(filePath: string, config) {
 }
 
 export function createRuntimeConfig(workspaceName) {
-    const configObject = convert(configSchema);
+    const configObject = getConfigObject();
     const config = runtimeConfigAsString(configObject);
     if (workspaceName) {
         pathByWorkspaceName(workspaceName).then(filePath => createSingleRuntimeConfig(filePath, configObject, config));
@@ -109,7 +54,7 @@ function createSingleRuntimeConfig(filePath, configObject, config) {
     console.log(" Updating runtime-config for", filePath);
     console.log("============================================================\n");
     const configFilePath = `${filePath}/config/runtime-config.js`
-    import("../" + configFilePath).then(({default: oldConfig}) => {
+    import("../../" + configFilePath).then(({default: oldConfig}) => {
         compareObjects(oldConfig, configObject,"missing", "\x1b[33m Not in in official schema:");
         compareObjects(configObject, oldConfig, "missing", "\x1b[31m Missing in app's runtime-config:");
         compareObjects(configObject, oldConfig, "difference", "", "\x1b[35m Key changed (app value --> official schema value):");
@@ -120,7 +65,7 @@ function createSingleRuntimeConfig(filePath, configObject, config) {
         const r = result.toLowerCase().trim();
         if (r === "y") {
             console.log("Writing file.")
-            // writeRuntimeConfig(configFilePath, config);
+            writeRuntimeConfig(configFilePath, config);
         } else {
             console.log("Aborting runtime-config file generation.")
         }
