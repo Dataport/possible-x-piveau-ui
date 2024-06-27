@@ -8,6 +8,11 @@ import {ZodObject, ZodType, ZodDefault, ZodEffects} from 'zod';
 import {pathByWorkspaceName} from "./utils/pathByWorkspaceName";
 import {doForApps} from "./utils/doForApp";
 
+import readline_ from "readline";
+const readline = readline_.createInterface({ input: process.stdin, output: process.stdout });
+const prompt = (query) => new Promise((resolve) => readline.question(query, resolve));
+readline.on('close', () => process.exit(0));
+
 /**
  * Turns a Zod object into a regular Javascript key-value object where the values are still Zod objects
  * @param z
@@ -90,9 +95,18 @@ export function createRuntimeConfig(workspaceName) {
             const configFilePath = `${filePath}/config/runtime-config.js`
             import("../" + configFilePath).then(({default: oldConfig}) => {
                 compareObjects(oldConfig, configObject,"missing", "\x1b[33m Not in in official schema:");
-                compareObjects(configObject, oldConfig, "missing", "\x1b[31m Missing in app config:");
+                compareObjects(configObject, oldConfig, "missing", "\x1b[31m Missing in app's runtime-config:");
                 compareObjects(configObject, oldConfig, "difference", "", "\x1b[35m Key changed (app value --> official schema value):");
-                writeRuntimeConfig(configFilePath, config);
+                console.log('\x1b[0m');
+                prompt("Write new runtime-config? (y,n)").then(result => {
+                    if (result.toLowerCase().trim() === "y") {
+                        // console.log("Writing file.")
+                        writeRuntimeConfig(configFilePath, config);
+                    } else {
+                        console.log("Aborting runtime-config file generation.")
+                    }
+                    readline.close()
+                })
             });
         });
     } else {
