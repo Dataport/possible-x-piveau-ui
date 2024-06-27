@@ -1340,10 +1340,10 @@ const dcatapProperties: InputDefinition = {
     },
     catalog: {
       identifier: 'catalog',
-      $formkit: 'select',
+      $formkit: 'simpleSelect',
       name: 'dcat:catalog',
+      id:'dcat:catalog',
       class: 'property mandatory',
-      placeholder: 'Katalog',
       validation: 'required',
       options: {},
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
