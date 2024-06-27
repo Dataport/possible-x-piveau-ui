@@ -106,7 +106,6 @@ export type InputDefinition = {
   catalogues: Record<DcatApCataloguesProperty, FormKitSchemaDefinition>;
 }
 
-const currentDate = new Date();
 
 const dcatapProperties: InputDefinition = {
   datasets: {
@@ -121,7 +120,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'id',
       mandatory: true,
       name: 'datasetID',
-      id: 'datasetID'
+      id: 'datasetID',
     },
     description: {
       identifier: 'description',
@@ -1097,12 +1096,12 @@ const dcatapProperties: InputDefinition = {
     },
     catalog: {
       identifier: 'catalog',
-      $formkit: 'select',
+      $formkit: 'simpleSelect',
       name: 'dcat:catalog',
+      id: 'dcat:catalog',
       mandatory: true,
       validation: 'required',
-      placeholder: 'Catalog',
-      options: {},
+      placeholder:'Catalog',
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     isUsedBy: {
@@ -1552,14 +1551,11 @@ const dcatapProperties: InputDefinition = {
       identifier: 'issued',
       $formkit: 'formkitGroup',
       name: 'dct:issued',
-
       children: [
         {
           identifier: 'issued',
           $cmp: 'FormKit',
-
           props: {
-
             type: 'datetime-local',
             name: '@value',
             classes: {
@@ -1614,7 +1610,6 @@ const dcatapProperties: InputDefinition = {
               identifier: 'rightsUrl',
               type: "url",
               label: "URL",
-              placeholder: "Provide a URL",
               name: 'rdfs:value'
             },
             else: {
