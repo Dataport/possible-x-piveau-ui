@@ -54,7 +54,7 @@ function camelToSnake(s: string): string {
     return s.replace(/[A-Z]+(?![a-z])|[A-Z]/g, (sub, arg) => (arg ? "_" : "") + sub).toLowerCase();
 }
 
-function runtimeConfigAsString() {
+function runtimeConfigAsString(configObject) {
     const fileStart = `/**
  * Configuration template file to bind specific properties from user-config.js to environment variables.
  *
@@ -70,7 +70,7 @@ function runtimeConfigAsString() {
  
 export default `;
 
-    const fileBody = JSON.stringify(convert(configSchema), null, 2);
+    const fileBody = JSON.stringify(configObject || convert(configSchema), null, 2);
 
     const fileEnd = `;`;
 
@@ -83,10 +83,17 @@ export function writeRuntimeConfig(filePath: string, config) {
 }
 
 export function createRuntimeConfig(workspaceName) {
-    const config = runtimeConfigAsString();
+    const configObject = convert(configSchema);
+    const config = runtimeConfigAsString(configObject);
     if (workspaceName) {
         pathByWorkspaceName(workspaceName).then((filePath) => {
-            writeRuntimeConfig(`${filePath}/config/runtime-config.js`, config);
+            const configFilePath = `${filePath}/config/runtime-config.js`
+            import("../" + configFilePath).then(({default: oldConfig}) => {
+                compareObjects(oldConfig, configObject,"missing", "\x1b[33m Not in in official schema:");
+                compareObjects(configObject, oldConfig, "missing", "\x1b[31m Missing in app config:");
+                compareObjects(configObject, oldConfig, "difference", "", "\x1b[35m Key changed (app value --> official schema value):");
+                writeRuntimeConfig(configFilePath, config);
+            });
         });
     } else {
         doForApps((file: string, stats: Stats, folder: string) => {
@@ -97,17 +104,15 @@ export function createRuntimeConfig(workspaceName) {
 
 createRuntimeConfig(process.argv[2]);
 
-
 //////////////////////////////////////////////////////////
 // Following are ways to compare the objects created    //
 // automatically by the Zod configuration with the      //
 // existing runtime-config-js in vanilla-piveau-hub-ui: //
 //////////////////////////////////////////////////////////
 
-
-let count = 1;
-
-function compareObjects(source: object, comparison: object, mode: string = "all", path: string[] = []) {
+function compareObjects(source: object, comparison: object, mode: string = "all",
+                        missingPrompt: string = '\x1b[33m MISSING:', changePrompt: string = '\x1b[31m Changed:',
+                        path: string[] = []) {
     const keys = Object.keys(source);
     const pathString = path.join(" > ");
     keys.forEach(key => {
@@ -116,17 +121,17 @@ function compareObjects(source: object, comparison: object, mode: string = "all"
         const targetValue = comparison[key];
         if ( ! targetValue) {
             if (mode === "all" || mode === "missing") {
-                console.log('\x1b[33m', "MISSING: " + extendedPathString);
+                console.log(missingPrompt, extendedPathString);
             }
         } else if (typeof sourceValue === 'string') {
            if (sourceValue !== targetValue) {
                if (mode === "all" || mode === "difference") {
-                   console.log('\x1b[31m', targetValue + " --> " + sourceValue);
+                   console.log(changePrompt, targetValue + " --> " + sourceValue);
                    // console.log('\x1b[31m', "DIFFERENT: " + extendedPathString + ": " + targetValue + " instead of " + sourceValue);
                }
            }
         } else if (typeof sourceValue === 'object' && typeof targetValue === 'object') {
-            compareObjects(sourceValue, targetValue, mode, [...path, key]);
+            compareObjects(sourceValue, targetValue, mode, missingPrompt, changePrompt,[...path, key]);
         }
     });
 }
