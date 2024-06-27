@@ -2,7 +2,9 @@
   <div class="mb-5">
     <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" >
       <slot name="logo">
-        <a class="navbar-brand" href="/"><Logo class="piveau-logo"/></a>
+        <a class="navbar-brand" href="/">
+          <Logo class="piveau-logo"></Logo>
+        </a>
       </slot>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -96,38 +98,6 @@ export default {
       type: Function,
       default: (navItems) => navItems,
     },
-    showDatasets: {
-      type: Boolean,
-      default: true,
-    },
-    showCatalogues: {
-      type: Boolean,
-      default: true,
-    },
-    showSparql: {
-      type: Boolean,
-      default: false,
-    },
-    showMetadataQuality: {
-      type: Boolean,
-      default: true,
-    },
-    hrefDatasets: {
-      type: String,
-      default: undefined,
-    },
-    hrefCatalogues: {
-      type: String,
-      default: undefined,
-    },
-    hrefSparql: {
-      type: String,
-      default: undefined,
-    },
-    hrefMetadataQuality: {
-      type: String,
-      default: undefined,
-    },
     languageObject: {
       type: Array,
       default() {
@@ -153,62 +123,30 @@ export default {
   computed: {
     navItems() {
       const navItems = [
-        /** ToDo add route to landing? Add/change weblate translation */
         {
           title: this.$t('message.header.navigation.data.datasets'),
-          href: this.hrefDatasets || `/data/datasets?locale=${this.$route.query.locale}`,
-          show: this.showDatasets,
+          href: `/datasets?locale=${this.$route.query.locale}`,
+          show: true,
         },
         {
-          title: this.$t('message.header.navigation.data.catalogs'),
-          href: this.hrefCatalogues || `/data/catalogues?locale=${this.$route.query.locale}`,
-          show: this.showCatalogues,
+          title: this.$t('message.header.navigation.data.resources'),
+          href: `/resources?locale=${this.$route.query.locale}`,
+          show: true,
         },
-        {
-          title: this.$t('message.header.navigation.data.sparqlsearch'),
-          href: this.hrefSparql || '/sparql',
-          show: this.showSparql,
-        },
-        /* {
-          title: this.$t('message.header.navigation.data.metadataquality'),
-          href: this.hrefMetadataQuality || `/mqa?locale=${this.$route.query.locale}`,
-          show: this.showMetadataQuality,
-        }, */
       ];
 
-      this.adjustNavItemsToProject(navItems, this.project);
+      this.adjustNavItemsToProject(navItems);
 
       return this.navItemsHook(navItems);
     },
   },
-  created() {
-    // Check if we are in Nuxt by checking nuxt-only properties in vm
-    // https://nuxtjs.org/docs/concepts/context-helpers/#nuxt-the-nuxt-helper
-    this.isNuxt = !!this.$nuxt;
-  },
+  created() {},
   methods: {
-    adjustNavItemsToProject(navItems, project) {
+    adjustNavItemsToProject(navItems) {
       const navigationItems = navItems;
-      switch (project) {
-        case 'hub':
-          if (!this.hrefDatasets) {
-            navigationItems[0].to = { name: 'Datasets', query: { locale: this.$route.query.locale } };
-          }
-          if (!this.hrefCatalogues) {
-            navigationItems[1].to = { name: 'Catalogues', query: { locale: this.$route.query.locale } };
-          }
-          if (!this.hrefSparql) {
-            navigationItems[2].to = { name: 'SparqlEdit', query: { locale: this.$route.query.locale } };
-          }
-          break;
-        case 'metrics':
-          if (!this.hrefMetadataQuality) {
-            navigationItems[3].to = { name: 'Dashboard', query: { locale: this.$route.query.locale } };
-          }
-          break;
-        default:
-          break;
-      }
+
+      navigationItems[0].to = { name: 'Datasets', query: { locale: this.$route.query.locale } };
+      // navigationItems[1].to = { name: 'Resources', query: { locale: this.$route.query.locale } };
     },
   },
 };

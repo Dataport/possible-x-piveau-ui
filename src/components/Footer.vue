@@ -2,16 +2,18 @@
 
 <template>
   <div id="piveau-footer" class="p-0 pt-5 d-flex">
+
     <div class="w-33">
-      <img id="logo" src="@/assets/img/possible_x_footer.svg" width="190" />
+      <img src="@/assets/img/possible_x_footer.svg" width="190">
     </div>
+
     <div class="w-33">
       <h4>POSSIBLE</h4>
       <p>...</p>
     </div>
+
     <div class="w-33">
       <h4>Information</h4>
-
       <ul>
         <li class="mb-2">
           <router-link to="/imprint">Impressum</router-link>
@@ -21,21 +23,15 @@
         </li>
       </ul>
     </div>
+
   </div>
 </template>
 
 <script>
-import FooterLogo from './FooterLogo.vue'
-
 export default {
   name: 'PiveauFooter',
   inheritAttrs: false,
-  components: {
-    FooterLogo,
-  },
-  props: {
-
-  },
+  props: {},
   data() {
     return {
       isNuxt: false
@@ -45,9 +41,7 @@ export default {
 </script>
 
 <style lang="scss">
-// @import '../styles/footer.scss';
 @import '../styles/custom_theme.scss';
-
 
 #piveau-footer {
   margin-top: 60px;
@@ -112,7 +106,6 @@ export default {
 #piveau-footer .btn.btn-footer {
   background-color: $primary;
   border-color: $primary;
-  // border-radius: 4px;
 }
 
 #piveau-footer .btn.btn-footer:hover {
@@ -127,13 +120,6 @@ BOTTOM SITE BRANDING
   margin-bottom: 25px;
 }
 
-// #piveau-footer #footer_first #block-sitebranding > a {
-//   float: left;
-// }
-// #piveau-footer #footer_first #block-sitebranding img {
-//   height: 60px;
-//   margin-right: 10px;
-// }
 #piveau-footer #footer_first #block-sitebranding .site-branding__text a {
   line-height: 60px;
   font-size: 20px;

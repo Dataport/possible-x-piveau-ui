@@ -6,8 +6,6 @@
     <vue-progress-bar />
     <div class="site-wrapper">
       <piveau-header
-        :show-catalogues="true"
-        :show-metadata-quality="false"
         :enable-authentication="authEnabled"
         :authenticated="isAuthenticated"
         @login="login"
