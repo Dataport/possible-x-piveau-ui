@@ -42,10 +42,11 @@ export function createRuntimeConfig(workspaceName) {
     if (workspaceName) {
         pathByWorkspaceName(workspaceName).then(filePath => createSingleRuntimeConfig(filePath, configObject, config));
     } else {
-        doForApps((file: string, stats: Stats, folder: string) => {
-            // createSingleRuntimeConfig(`${folder}/${file}`, configObject, config)
-            writeRuntimeConfig(`${folder}/${file}/config/runtime-config.js`, config);
-        });
+        console.log("Please provide workspace name!")
+        // doForApps((file: string, stats: Stats, folder: string) => {
+        //     // createSingleRuntimeConfig(`${folder}/${file}`, configObject, config)
+        //     writeRuntimeConfig(`${folder}/${file}/config/runtime-config.js`, config);
+        // });
     }
 }
 
