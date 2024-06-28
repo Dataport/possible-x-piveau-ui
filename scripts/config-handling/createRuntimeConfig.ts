@@ -60,14 +60,14 @@ function createSingleRuntimeConfig(filePath, configObject, config) {
         compareObjects(configObject, oldConfig, "difference", "", "\x1b[35m Key changed (app value --> official schema value):");
         console.log('\x1b[0m');
 
-        const result = prompt("Generate and overwrite runtime-config? (y/n) ")
+        const result = prompt("Update app's runtime-config? (y/n) ")
 
         const r = result.toLowerCase().trim();
         if (r === "y") {
             console.log("Writing file.")
             writeRuntimeConfig(configFilePath, config);
         } else {
-            console.log("Aborting runtime-config file generation.")
+            console.log("Aborted runtime-config file generation.")
         }
     });
 }
