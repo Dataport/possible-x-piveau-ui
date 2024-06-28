@@ -5,6 +5,7 @@ import {doForApps} from "../utils/doForApp";
 
 import prompt_ from 'prompt-sync';
 import {getConfigObject} from "./getConfigSchema";
+import {checkUserConfig} from "./checkUserConfig";
 const prompt = prompt_();
 
 function runtimeConfigAsString(configObject) {
@@ -55,23 +56,29 @@ function createSingleRuntimeConfig(filePath, configObject, config) {
     console.log("============================================================\n");
     const configFilePath = `${filePath}/config/runtime-config.js`
     import("../../" + configFilePath).then(({default: oldConfig}) => {
-        compareObjects(oldConfig, configObject,"missing", "\x1b[33m Not in in official schema:");
-        compareObjects(configObject, oldConfig, "missing", "\x1b[31m Missing in app's runtime-config:");
-        compareObjects(configObject, oldConfig, "difference", "", "\x1b[35m Key changed (app value --> official schema value):");
-        console.log('\x1b[0m');
+        let count = 0;
+        count += compareObjects(oldConfig, configObject,"missing", "\x1b[33m Not in in official schema:");
+        count += compareObjects(configObject, oldConfig, "missing", "\x1b[31m Missing in app's runtime-config:");
+        count += compareObjects(configObject, oldConfig, "difference", "", "\x1b[35m Key changed (app value --> official schema value):");
 
-        const result = prompt("Update app's runtime-config? (y/n) ")
+        if (count > 0) {
+            console.log('\x1b[0m', "\n Found", count, "issues\n");
+            const result = prompt("Update app's runtime-config? (y/n) ")
 
-        const r = result.toLowerCase().trim();
-        if (r === "y") {
-            console.log("Writing file.")
-            writeRuntimeConfig(configFilePath, config);
+            const r = result.toLowerCase().trim();
+            if (r === "y") {
+                console.log("Writing file.")
+                writeRuntimeConfig(configFilePath, config);
+            } else {
+                console.log("Aborted runtime-config file generation.")
+            }
         } else {
-            console.log("Aborted runtime-config file generation.")
+            console.log('\x1b[32m', "\u2713  File runtime-config.js is up to date!")
         }
     });
 }
 
+await checkUserConfig(process.argv[2]);
 createRuntimeConfig(process.argv[2]);
 
 //////////////////////////////////////////////////////////
@@ -85,6 +92,7 @@ function compareObjects(source: object, comparison: object, mode: string = "all"
                         path: string[] = []) {
     const keys = Object.keys(source);
     const pathString = path.join(" > ");
+    let count = 0;
     keys.forEach(key => {
         const extendedPathString = pathString + " > " + key;
         const sourceValue = source[key];
@@ -92,16 +100,19 @@ function compareObjects(source: object, comparison: object, mode: string = "all"
         if ( ! targetValue) {
             if (mode === "all" || mode === "missing") {
                 console.log(missingPrompt, extendedPathString);
+                ++count;
             }
         } else if (typeof sourceValue === 'string') {
            if (sourceValue !== targetValue) {
                if (mode === "all" || mode === "difference") {
                    console.log(changePrompt, targetValue + " --> " + sourceValue);
                    // console.log('\x1b[31m', "DIFFERENT: " + extendedPathString + ": " + targetValue + " instead of " + sourceValue);
+                   ++count;
                }
            }
         } else if (typeof sourceValue === 'object' && typeof targetValue === 'object') {
-            compareObjects(sourceValue, targetValue, mode, missingPrompt, changePrompt,[...path, key]);
+            count += compareObjects(sourceValue, targetValue, mode, missingPrompt, changePrompt,[...path, key]);
         }
     });
+    return count;
 }
