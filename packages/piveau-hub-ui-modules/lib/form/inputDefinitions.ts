@@ -6,6 +6,7 @@ import FileUpload from "../data-provider-interface/components/FileUpload.vue";
 import UniqueIdentifierInput from "../data-provider-interface/components/UniqueIdentifierInput.vue";
 import SpatialInput from "../data-provider-interface/components/SpatialInput.vue";
 import ConditionalInput from "../data-provider-interface/components/ConditionalInput.vue";
+import SimpleSelect from "../data-provider-interface/components/SimpleSelect.vue";
 
 export default {
     repeatable: {
@@ -35,7 +36,11 @@ export default {
     simpleConditional: {
         type: 'group',
         component: ConditionalInput
-    }
+    },
+    simpleSelect: {
+        type: 'input',
+        component: SimpleSelect,
+    },
 
 
 } as FormKitLibrary;

@@ -6,14 +6,14 @@
       </div>
 
       <div style="margin-top:1%;">
-        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" :groupName="group.group"
+        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" @click="scrollToTop()" :groupName="group.group"
           :groupItems="group.items" :show="$env.content.dataProviderInterface.buttons[group.group]"
           :isOperator="getUserData.roles.includes('operator')" :isCatalog="group.group === 'Catalogue' ? true : false">
         </dropup>
         <ul>
           <div class="btn-group dropup">
             <li v-for="(menuItem, index) in menuItems" :key="`Menu${index}`">
-              <button type="button" class="btn btn-default">
+              <button type="button" class="btn btn-default" @click="scrollToTop()">
                 <!-- Menu items are either buttons or router-link -->
                 <!-- depending if they have a 'to' or 'handler' property -->
                 <component :is="menuItem.handler ? 'button' : 'router-link'" :class="{ 'disabled': menuItem.disabled }"
@@ -51,6 +51,7 @@ import $ from 'jquery';
 import { has, isEmpty } from 'lodash-es';
 import { mapGetters, mapActions } from 'vuex';
 import Dropup from './components/Dropup';
+import { useWindowScroll } from '@vueuse/core'
 
 export default {
   name: 'DPI-menu',
@@ -70,6 +71,16 @@ export default {
         confirmHandler: () => null,
       },
     };
+  },
+  setup() {
+    const scrollToTop = () => {
+      let { x, y } = useWindowScroll({ behavior: 'smooth' })
+      y.value = 0
+
+    }
+    return{
+      scrollToTop
+    }
   },
   computed: {
     ...mapGetters('datasetDetails', [

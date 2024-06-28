@@ -60,6 +60,7 @@ onMounted(async () => {
 import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
 import helper from '../utils/general-helper'
+import { getNode } from '@formkit/core'
 
 export default {
   props: {
@@ -80,6 +81,7 @@ export default {
     };
   },
   computed: {
+
     ...mapGetters('auth', [
       'getUserData',
       'getIsEditMode'
@@ -88,10 +90,7 @@ export default {
       'getData',
     ]),
     getCatalogue() {
-      // Need to reanable the setting of the catalog after fixing the error
-      // const catalog = this.$formkit.get("catalog").context.value;
-      const catalog = "dpi";
-      return catalog;
+      return getNode('dcat:catalog').value;
     },
   },
   methods: {
@@ -99,7 +98,6 @@ export default {
       'saveLocalstorageValues',
     ]),
     async saveUrl() {
-      // console.log(this.context);
       await this.context.node.input({ '@id': this.URLValue })
     },
     checkIfPresent() {
@@ -224,8 +222,8 @@ export default {
   },
   mounted() {
 
-    this.$nextTick(function(){
-  
+    this.$nextTick(function () {
+
       if (this.context.value['@id']) {
         this.uploadURL = true
         this.URLValue = this.context.value['@id']

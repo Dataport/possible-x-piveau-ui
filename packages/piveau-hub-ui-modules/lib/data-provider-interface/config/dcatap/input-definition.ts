@@ -106,7 +106,6 @@ export type InputDefinition = {
   catalogues: Record<DcatApCataloguesProperty, FormKitSchemaDefinition>;
 }
 
-const currentDate = new Date();
 
 const dcatapProperties: InputDefinition = {
   datasets: {
@@ -121,7 +120,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'id',
       mandatory: true,
       name: 'datasetID',
-      id: 'datasetID'
+      id: 'datasetID',
     },
     description: {
       identifier: 'description',
@@ -1097,11 +1096,12 @@ const dcatapProperties: InputDefinition = {
     },
     catalog: {
       identifier: 'catalog',
-      $formkit: 'select',
+      $formkit: 'simpleSelect',
       name: 'dcat:catalog',
+      id: 'dcat:catalog',
       mandatory: true,
       validation: 'required',
-      options: {},
+      placeholder:'Catalog',
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     isUsedBy: {
@@ -1198,7 +1198,7 @@ const dcatapProperties: InputDefinition = {
     licence: {
       $formkit: 'simpleConditional',
       name: 'dct:license',
-      identifier:'licence',
+      identifier: 'licence',
       voc: 'licence',
       options: { text: 'dct:title', textarea: 'skos:prefLabel', url: 'skos:exactMatch' },
       selection: { 1: 'vocabulary', 2: 'manually' }
@@ -1364,7 +1364,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'formkitGroup',
       identifier: 'checksum',
       name: 'spdx:checksum',
-      
+
       children: [
         {
           identifier: 'checksum',
@@ -1372,7 +1372,7 @@ const dcatapProperties: InputDefinition = {
           name: 'spdx:checksumValue',
         },
         {
-          label:'test',
+          label: 'test',
           $formkit: 'auto',
           identifier: 'checksumAlgorithm',
           voc: 'spdx-checksum-algorithm',
@@ -1385,14 +1385,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:compressFormat',
-     
+
     },
     packageFormat: {
       identifier: 'packageFormat',
       $formkit: 'auto',
       voc: 'iana-media-types',
       name: 'dcat:packageFormat',
-     
+
     },
     page: {
       identifier: 'page',
@@ -1551,14 +1551,11 @@ const dcatapProperties: InputDefinition = {
       identifier: 'issued',
       $formkit: 'formkitGroup',
       name: 'dct:issued',
-
       children: [
         {
           identifier: 'issued',
           $cmp: 'FormKit',
-
           props: {
-
             type: 'datetime-local',
             name: '@value',
             classes: {
@@ -1601,7 +1598,7 @@ const dcatapProperties: InputDefinition = {
           id: 'rightsCondDataset',
           $formkit: 'select',
           name: '@type',
-          options: {url: 'Provide URL', text: 'Provide a text'},
+          options: { url: 'Provide URL', text: 'Provide a text' },
         },
         {
           identifier: 'rights',
@@ -1613,7 +1610,6 @@ const dcatapProperties: InputDefinition = {
               identifier: 'rightsUrl',
               type: "url",
               label: "URL",
-              placeholder: "Provide a URL",
               name: 'rdfs:value'
             },
             else: {
@@ -1679,14 +1675,14 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'auto',
       voc: 'distribution-type',
       name: 'dct:type',
-    
+
     },
     status: {
       identifier: 'status',
       $formkit: 'auto',
       voc: 'dataset-status',
       name: 'adms:status',
-    
+
     },
   },
   catalogues: {
@@ -1788,7 +1784,7 @@ const dcatapProperties: InputDefinition = {
           identifier: 'licence',
           name: 'licenceMode',
           id: 'licenceModeCatalogue',
-          
+
           options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
         },
         {

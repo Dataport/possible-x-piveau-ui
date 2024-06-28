@@ -1,14 +1,14 @@
 <template>
   <div class="form-container ">
 
-    <!-- <details>{{ formValues }}</details> -->
+    <details>{{ formValues }}</details>
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
         <FormKit type="form" v-model="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
-          @click="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
-          @submit.prevent="" class="d-flex">
+          @click="saveFormValues({ property: property, page: page, distid: id, values: formValues })" @submit.prevent=""
+          class="d-flex">
 
           <div class="d-flex">
             <ul class="steps">
@@ -81,6 +81,7 @@ import { useDpiStepper } from '../composables/useDpiStepper';
 import axios from 'axios';
 import { useWindowScroll } from '@vueuse/core'
 import { ref } from 'vue';
+import { getNode } from '@formkit/core'
 
 export default defineComponent({
   props: {
@@ -205,7 +206,7 @@ export default defineComponent({
         this.setIsDraft(false)
         this.setIsEditMode(false)
       }
-      this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
+
       this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
       const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
 
@@ -213,7 +214,6 @@ export default defineComponent({
       if (!isEmpty(existingValues)) this.formValues = existingValues;
 
       this.$nextTick(() => {
-
         $('[data-toggle="tooltip"]').tooltip({
           container: 'body',
         });
@@ -233,32 +233,6 @@ export default defineComponent({
         }
       }
     },
-    async initCatalogues() {
-      await axios
-        .get(this.$env.api.baseUrl + 'search?filter=catalogue&limit=100')
-        .then(response => (this.info = response))
-      this.info.data.result.results.forEach((e) => {
-        try {
-          this.catalogues.push({ title: Object.values(e.title)[0], id: e.id })
-
-        } catch (error) {
-        }
-      });
-      this.findcatalogues()
-      // need to forceupdate to display the filtered catalogues
-      this.$forceUpdate();
-
-    },
-    findcatalogues() {
-      for (let i = 0; i < Object.keys(this.getUserCatalogIds).length; i++) {
-        for (let a = 0; a < Object.keys(this.catalogues).length; a++) {
-          if (this.getUserCatalogIds[i] === this.catalogues[a].id) {
-            this.getUserCatalogIds[i] = this.catalogues[a].id;
-            break
-          }
-        }
-      }
-    },
     generateandTranslateSchema(property) {
       for (let index = 0; index < this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property].length; index++) {
         this.createSchema({ property: property, page: this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property][index], specification: this.$env.content.dataProviderInterface.specification });
@@ -267,6 +241,7 @@ export default defineComponent({
     }
   },
   created() {
+
 
     // Needs to be reworked
     if (this.$route.query.edit === 'false') {
@@ -283,9 +258,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    if (localStorage.getItem('dpi_editmode'))
-      this.initInputPage();
-    this.initCatalogues();
+    this.initInputPage();
   },
   watch: {
     activeStep: {
@@ -303,11 +276,6 @@ export default defineComponent({
         if (!this.getIsEditMode) {
           this.createDatasetID();
         }
-      },
-    },
-    getUserCatalogIds: {
-      handler() {
-        this.addCatalogOptions({ property: this.property, catalogs: this.getUserCatalogIds });
       },
     },
     // the schema is a computed value which gets computed only once so on language change this value must be re-computed
