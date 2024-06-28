@@ -12,7 +12,7 @@
     "ci-publish": "esno scripts/publish-ci.ts",
     "initialize": "git submodule update --init && npx -yes esno scripts/utils/removeAllNodeModules.ts && npx esno scripts/createUserConfigs.ts && npm i",
     "clear": "npx -yes esno scripts/utils/removeAllNodeModules.ts",
-    "create-runtime-config": "esno scripts/createRuntimeConfig.ts",
+    "check-config": "esno scripts/config-handling/createRuntimeConfig.ts",
     "sbom": "sh ./bomGenerator.sh"
   },
   "author": "",
@@ -27,6 +27,7 @@
     "@types/fs-extra": "^11.0.1",
     "@types/minimist": "^1.2.2",
     "@types/node": "^20.2.5",
+    "@types/prompt-sync": "^4.2.3",
     "@types/prompts": "^2.4.4",
     "bumpp": "^9.1.1",
     "conventional-changelog-cli": "^3.0.0",
@@ -50,6 +51,7 @@
     "@formkit/themes": "^1.2.2",
     "@formkit/vue": "^1.2.2",
     "@piveau/piveau-hub-ui-modules": "4.0.0-alpha.36",
-    "@vueuse/core": "^10.9.0"
+    "@vueuse/core": "^10.9.0",
+    "prompt-sync": "^4.2.0"
   }
 }
