@@ -102,7 +102,7 @@ export default {
     },
     handleEdit(id, catalog) {
       this.setIsDraft(true);
-      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
+        this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     async handleDelete(id, catalog) {
       await this.doRequest('auth/deleteUserDraftById', { id, catalog });
@@ -120,6 +120,9 @@ export default {
         variant: 'success',
       });
       this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: id }, query: { locale: this.$route.query.locale } }).catch(() => { });
+      setTimeout(() => {
+        this.$router.go();
+      });
     },
     handleConfirmPublish(id, catalog) {
       this.modalProps.message = 'Are you sure you want to publish this draft?';

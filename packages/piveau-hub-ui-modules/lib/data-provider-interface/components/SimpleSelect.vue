@@ -4,6 +4,7 @@ import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { getCurrentInstance } from "vue";
 import { getNode } from '@formkit/core'
+import { onClickOutside } from '@vueuse/core'
 
 
 const props = defineProps({
@@ -14,6 +15,9 @@ const userCats = computed(() => store.getters['auth/getUserCatalogIds']);
 let showList = ref()
 let selection = ref()
 const store = useStore();
+const dropdownList = ref(null)
+
+onClickOutside(dropdownList, event => showList.value = false)
 
 const setvalue = async (e) => {
     selection.value = e
@@ -35,7 +39,7 @@ const setvalue = async (e) => {
                         v-model="getNode('dcat:catalog').value" :placeholder="props.context.attrs.placeholder"
                         type="text" @click="showList = !showList">
                 </div>
-                <ul v-show="showList" class="autocompleteResultList selectListFK">
+                <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
                     <li v-for="match in userCats" :key="match" @click="setvalue(match)"
                         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
                             match }}
