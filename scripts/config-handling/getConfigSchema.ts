@@ -24,7 +24,7 @@ function getShape(z: ZodType) {
     } else if (z instanceof ZodEffects) {
         return getShape(z._def.schema);
     } else if (z instanceof ZodObject) {
-        return z.shape;
+        return {...z.shape}; // Avoid side-effects on z by creating a new object!
     } else {
         return null;
     }
