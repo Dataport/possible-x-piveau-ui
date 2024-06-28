@@ -19,14 +19,14 @@
         <FormKit type="button" @click="submit('createcatalogue')"
           v-if="!getIsEditMode && !getIsDraft && property === 'catalogues'" class="mr-2">
           <span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{
-          $t('message.dataupload.publishcatalogue') }}
+            $t('message.dataupload.publishcatalogue') }}
         </FormKit>
 
         <!-- PUBLISH EDITED CATALOGUE -->
         <FormKit type="button" @click="submit('createcatalogue')"
           v-if="getIsEditMode && !getIsDraft && property === 'catalogues'" class="mx-1 my-0">
           <span v-if="uploading.createcatalogue" class="loading-spinner"></span>{{
-          $t('message.dataupload.publishcatalogue') }}
+            $t('message.dataupload.publishcatalogue') }}
         </FormKit>
 
         <!-- PUBLISH DATASET -->
@@ -99,7 +99,7 @@ export default {
       y.value = 0
 
     }
-    return{
+    return {
       scrollToTop
     }
   },
@@ -156,7 +156,7 @@ export default {
       this.$Progress.start();
 
       const specification = this.$env.content.dataProviderInterface.specification;
-      const RDFdata = await this.convertToRDF({property: this.property, specification: specification}).then((response) => { return response; });
+      const RDFdata = await this.convertToRDF({ property: this.property, specification: specification }).then((response) => { return response; });
       const rtpToken = this.getUserData.rtpToken;
 
       const datasetId = this.getData(this.property)['datasetID'];
@@ -223,7 +223,7 @@ export default {
 
           // store needs to be reset
           this.clearAll();
-        } 
+        }
         else {
           this.uploading[mode] = false;
           this.$Progress.fail();
@@ -239,6 +239,10 @@ export default {
       this.clearAll();
       this.showSnackbar({ message: 'Dataset published successfully', variant: 'success' });
       this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale } }).catch(() => { });
+      setTimeout(() => {
+        this.$router.go();
+      });
+      
     },
     createDraft() {
       this.clearAll();
@@ -278,6 +282,4 @@ export default {
 
 <style lang="scss">
 // @import '../../../styles/bootstrap_theme';
-// @import '../../../styles/utils/css-animations';
-
-</style>
+// @import '../../../styles/utils/css-animations';</style>

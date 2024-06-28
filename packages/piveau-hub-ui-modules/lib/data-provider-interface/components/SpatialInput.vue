@@ -158,11 +158,9 @@ function manURLInput(e) {
         <div v-else>
             <div class=" w-100 d-flex">
                 <div class="d-flex position-relative m-3 w-100">
-                    <label class="w-100"> Choose the the way you want to provide the info <input id="I1" type="text"
+                    <input id="I1" type="text"
                             class="selectInputField formkit-inner" readonly="readonly" placeholder="Select input method"
-                            @click="activeInput('showTable')" />
-                    </label>
-
+                            @click="activeInput('showTable')"/>
                     <ul ref="I1" v-show="showTable.first" class="spatialListUpload">
                         <li @click="activeInput('showTable'); man = true; if (vocSearch) { vocSearch = false; };"
                             class="p-2 border-b border-gray-200 choosableItemsAC">

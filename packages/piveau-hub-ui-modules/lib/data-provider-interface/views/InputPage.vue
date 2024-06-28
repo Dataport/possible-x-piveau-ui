@@ -1,7 +1,7 @@
 <template>
   <div class="form-container ">
 
-    <details>{{ formValues }}</details>
+    <!-- <details>{{ formValues }}</details> -->
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -82,6 +82,7 @@ import axios from 'axios';
 import { useWindowScroll } from '@vueuse/core'
 import { ref } from 'vue';
 import { getNode } from '@formkit/core'
+import { getValidationMessages } from '@formkit/validation'
 
 export default defineComponent({
   props: {
@@ -176,6 +177,7 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
+   
       // adding validation of modified and issued based on edit mode
       // no validation in edit mode
 
