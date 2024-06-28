@@ -1,3 +1,17 @@
+## [4.0.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.6...v4.0.7) (2024-06-28)
+
+
+### Bug Fixes
+
+* translation-helper.js typos ([e31aac7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e31aac7b535c22a483855dde723be5167e4de7fe))
+
+
+### Features
+
+* user feedback when generating runtime-configs ([843d459](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/843d4591cbce693ac9839d11591759de5ba8bdec))
+
+
+
 ## [4.0.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.4...v4.0.6) (2024-06-27)
 
 
