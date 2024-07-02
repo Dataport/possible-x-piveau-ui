@@ -1,8 +1,5 @@
 <template>
   <div class="form-container ">
-
-    <!-- <details>{{ formValues }}</details> -->
-    <details>{{ getIsEditMode }}</details>
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
