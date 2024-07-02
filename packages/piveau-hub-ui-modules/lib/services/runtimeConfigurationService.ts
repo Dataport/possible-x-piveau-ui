@@ -33,34 +33,30 @@ const RuntimeConfiguration = {
     // Custom merge rule to ignore values that start with $VITE_
     // i.e., use this.$env property when environment variable is not set
     const ignoreUnusedVariables = (originVal, newVal) => {
-      const result = newVal;
-
       if (typeof newVal === 'string') {
 
         // 1. Evaluate Arrays
-        if (  newVal.startsWith('[') && newVal.endsWith(']')  ) {
+        if (newVal.startsWith('[') && newVal.endsWith(']')) {
           // This looks like an array
           // Use JSON.parse to transform it into a real array
           try {
-            JSON.parse(  newVal  );
-            return JSON.parse(  newVal  );
+            return JSON.parse(newVal);
           } catch (error) {
-            console.error("Invalid JSON, please note that the JSON standard requires double quotes: \n" + newVal );
+            console.error("Invalid JSON, please note that the JSON standard requires double quotes: \n" + newVal);
             console.error(error);
           }
-
         }
 
         // 2. Evaluate Objects
         // TODO: Do we need this? It seems that no values are objects
-        if ( newVal.startsWith('{') && newVal.endsWith('}')  ) {
+        if (newVal.startsWith('{') && newVal.endsWith('}')) {
           // This looks like an object
           // Use JSON.parse to transform it into a real object
           try {
-            JSON.parse(  newVal  );
-            return JSON.parse(  newVal  );
+            JSON.parse(newVal);
+            return JSON.parse(newVal);
           } catch (error) {
-            console.error("Invalid JSON, please note that the JSON standard requires double quotes: \n" + newVal );
+            console.error("Invalid JSON, please note that the JSON standard requires double quotes: \n" + newVal);
             console.error(error);
           }
 
@@ -82,7 +78,7 @@ const RuntimeConfiguration = {
       }
 
       // Use the new value
-      return result;
+      return newVal;
     };
 
     const mergeOptions = {

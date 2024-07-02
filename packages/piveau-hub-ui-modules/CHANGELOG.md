@@ -1,3 +1,47 @@
+## [4.0.8](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.7...v4.0.8) (2024-07-02)
+
+
+
+## [4.0.7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.6...v4.0.7) (2024-06-28)
+
+
+### Bug Fixes
+
+* translation-helper.js typos ([e31aac7](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/e31aac7b535c22a483855dde723be5167e4de7fe))
+
+
+### Features
+
+* user feedback when generating runtime-configs ([843d459](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/843d4591cbce693ac9839d11591759de5ba8bdec))
+
+
+
+## [4.0.6](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.4...v4.0.6) (2024-06-27)
+
+
+
+## [4.0.4](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.3...v4.0.4) (2024-06-25)
+
+
+### Bug Fixes
+
+* Only request DQV data once without format but show all formats ([b7eb5bd](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/b7eb5bd8e36c7da5bb66f141949398762dc18671))
+
+
+
+## [4.0.3](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.2...v4.0.3) (2024-06-25)
+
+
+
+## [4.0.2](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.1...v4.0.2) (2024-06-24)
+
+
+### Bug Fixes
+
+* issues in config schema ([d2554a5](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d2554a5a4898aa89ca9ca1a719b7a63f417258b2))
+
+
+
 ## [4.0.1](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.0...v4.0.1) (2024-06-20)
 
 

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, watch, computed, onBeforeMount, onMounted } from 'vue';
+import { ref, reactive, watch, computed, onBeforeMount, onMounted, watchEffect } from 'vue';
 import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { getCurrentInstance } from "vue";
@@ -31,17 +31,80 @@ let annifList = [];
 let annifTrigger = ref({
   value: false
 });
+let initialValues = ref();
 let annifSelectionList = ref({})
 
 onMounted(async () => {
   inputText.value = ""
-
 });
 
 watch(matches, async () => { })
 watch(annifSelectionList, async () => { })
 
+const requestURIname = async (res) => {
 
+  if (res != undefined) {
+    let vocMatch =
+      voc === "iana-media-types" ||
+      voc === "spdx-checksum-algorithm";
+
+    let name;
+
+    await store.dispatch('dpiStore/requestResourceName', { voc: voc, uri: res, envs: instance }).then(
+      (response) => {
+        if (props.context.attrs.property === 'dcatde:politicalGeocodingURI') {
+          if (response != undefined) {
+            let result = vocMatch
+              ? response.data.result.results
+                .filter((dataset) => dataset.resource === res)
+                .map((dataset) => dataset.alt_label)[0].en
+              : getTranslationFor(response.data.result.alt_label, 'en', []);
+            name = result;
+          }
+        } else {
+
+          if (response != undefined) {
+            let result = vocMatch
+              ? response.data.result.results
+                .filter((dataset) => dataset.resource === res)
+                .map((dataset) => dataset.pref_label)[0].en
+              : getTranslationFor(response.data.result.pref_label, 'en', []);
+            name = result;
+
+          }
+        }
+      }
+    );
+    return name
+  }
+
+}
+
+watchEffect(async () => {
+  const values = listOfValues.value;
+
+  // single URI's
+  if (values.hasOwnProperty('name')) {
+    if (values.name === values.resource) {
+      let uriName;
+      if (!props.context.attrs.multiple) {
+        uriName = requestURIname(values.resource)
+        props.context.node.input({ name: await uriName, resource: values.resource })
+
+      }
+    }
+  }
+  // multiple URI's
+  if (values.length >= 1) {
+    let uriNameList = [];
+    for (let index = 0; index < values.length; index++) {
+      if (values[index].name === values[index].resource) {
+        uriNameList.push({ name: await requestURIname(values[index].resource), resource: values[index].resource })
+        props.context.node.input(uriNameList)
+      }
+    }
+  }
+});
 function findPropertyToUpdate(trigger) {
 
   let finalPath = { step: '', prop: props.context.node.name }
