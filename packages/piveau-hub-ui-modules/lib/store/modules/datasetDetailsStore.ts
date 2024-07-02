@@ -219,7 +219,9 @@ const getters = {
 
     getIsHvd: state => state.dataset.isHvd,
     getApplicableLegislation: state => state.dataset.applicableLegislation,
-    getHvdCategory: state => state.dataset.hvdCategory,
+    // getHvdCategory: state => state.dataset.hvdCategory,
+    getHvdCategories: state => (state.dataset.hvdCategory.length && state.dataset.hvdCategory.map(mirrorLabelAsTitle)) || [],
+
 };
 
 const actions = {

@@ -10,6 +10,12 @@
       v-if="showObjectArray(getCategories)"
       :trackGoto="trackGoto"
     />
+    <dataset-details-hvd-themes
+    class="dsd-categories-feature"
+    v-if="showObjectArray(getHvdCategories)"
+      :trackGoto="trackGoto"
+    />
+
     <dataset-details-subject
      class="dsd-subject-feature"
       v-if="showObjectArray(getSubject)"
@@ -67,6 +73,7 @@ import DatasetDetailsIsUsedBy from "../../datasetDetails/features/DatasetDetails
 import DatasetDetailsRelations from "../../datasetDetails/features/DatasetDetailsRelations";
 import DatasetDetailsMap from "../../datasetDetails/features/DatasetDetailsMap";
 import DatasetDetailsCategoriesKey from "../../datasetDetails/features/DatasetDetailsCategoriesKey";
+import DatasetDetailsHvdThemes from "../../datasetDetails/features/DatasetDetailsHvdThemes.vue"
 
 import {mapGetters} from "vuex";
 import {has, isEmpty} from "lodash";
@@ -82,7 +89,8 @@ export default {
     DatasetDetailsVisualisations,
     DatasetDetailsPages,
     DatasetDetailsSubject,
-    DatasetDetailsKeywords
+    DatasetDetailsKeywords,
+    DatasetDetailsHvdThemes
   },
   props: {
     getKeywords: Array,
@@ -109,7 +117,8 @@ export default {
       'getExtendedMetadata',
       'getRelations',
       'getCategories',
-      'getSpatial'
+      'getSpatial',
+      "getHvdCategories"
     ]),
     getDataServices() {
       if (this.getDistributions) {
