@@ -155,13 +155,13 @@ export default {
   created() {
     this.$nextTick(() => {
       if (this.property === 'datasets') {
-        this.checkID('datasets');
+        // this.checkID('datasets');
         // this.checkDatasetMandatory();
         // this.checkDistributionMandatory();
       }
 
       if (this.property === 'catalogues') {
-        this.checkID('catalogues')
+        // this.checkID('catalogues')
         // this.checkCatalogueMandatory();
       }
     });

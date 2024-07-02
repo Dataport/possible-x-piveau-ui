@@ -2,6 +2,7 @@
   <div class="form-container ">
 
     <!-- <details>{{ formValues }}</details> -->
+    <details>{{ getIsEditMode }}</details>
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
@@ -78,11 +79,8 @@ import OverviewPage from './OverviewPage.vue';
 import InputPageStep from '../components/InputPageStep.vue';
 import Navigation from '../components/Navigation.vue';
 import { useDpiStepper } from '../composables/useDpiStepper';
-import axios from 'axios';
 import { useWindowScroll } from '@vueuse/core'
-import { ref } from 'vue';
-import { getNode } from '@formkit/core'
-import { getValidationMessages } from '@formkit/validation'
+
 
 export default defineComponent({
   props: {
