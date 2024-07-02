@@ -12,6 +12,7 @@ import {
   MapBasic,
   MapBoundsReceiver,
   Datasets,
+  ResourceSearchPage,
   Catalogues,
   NotFound,
   Imprint,
@@ -19,7 +20,6 @@ import {
   SparqlSearch,
   DataProviderInterface,
   DataFetchingComponent,
-  OverviewPage,
   InputPage,
   DraftsPage,
   LinkedDataViewer,
@@ -41,13 +41,23 @@ const router = Router.createRouter({
   routes: [
     {
       path: '/',
-      redirect: { name: 'Datasets' },
+      redirect: { name: 'Resources' },
+    },
+    {
+      path: '/resources',
+      name: 'Resources',
+      component: ResourceSearchPage,
+    },
+    {
+      path: '/resources/:resource_id',
+      name: 'ResourceSearchPage',
+      component: ResourceSearchPage,
     },
     {
       path: '/datasets',
       name: 'Datasets',
       component: Datasets,
-    },
+    },   
     {
       path: '/datasets/:ds_id',
       component: DatasetDetails,

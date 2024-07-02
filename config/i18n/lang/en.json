@@ -1990,7 +1990,7 @@
                 "data": {
                     "euInternationalData": "EU and international data",
                     "datasets": "Datasets",
-                    "catalogs": "Catalogues",
+                    "catalogues": "Catalogues",
                     "metadataquality": "Metadata quality",
                     "sparqleditor": "SPARQL Editor",
                     "statistics": "Statistics",
@@ -1999,7 +1999,9 @@
                     "euVocabularies": " EU Vocabularies",
                     "persistentUris": " Persistent URIs",
                     "copyright-notice": "Copyright notice",
-                    "resources": "Resources"
+                    "resources": "Resources",
+                    "softwareOfferings": "Software Offerings",
+                    "legalPersons": "Legal Persons"
                 },
                 "impactStudies": {
                     "opendataimpact": "Open Data Impact",
