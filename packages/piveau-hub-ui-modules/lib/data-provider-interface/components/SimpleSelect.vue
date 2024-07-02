@@ -1,11 +1,14 @@
 <script setup>
-import { ref, reactive, watch, computed, onBeforeMount, onMounted, watchEffect } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import { getTranslationFor } from "../../utils/helpers";
-import { getCurrentInstance } from "vue";
 import { getNode } from '@formkit/core'
 import { onClickOutside } from '@vueuse/core'
-
+import axios from 'axios'
+import { getCurrentInstance } from "vue";
+import {
+  has,
+  isNil,
+} from 'lodash-es';
 
 const props = defineProps({
     context: Object
@@ -16,6 +19,10 @@ let showList = ref()
 let selection = ref()
 const store = useStore();
 const dropdownList = ref(null)
+const isEditMode = ref();
+isEditMode.value = computed(() => store.getters['auth/getIsEditMode']);
+let filteredCatalogs = ref([])
+let env = getCurrentInstance().appContext.app.config.globalProperties.$env;
 
 onClickOutside(dropdownList, event => showList.value = false)
 
@@ -25,8 +32,29 @@ const setvalue = async (e) => {
     showList.value = !showList.value;
     getNode('dcat:catalog').value = e
 }
+let filterCatList = async () => {
+    let cache;
+    await axios
+        .get(env.api.baseUrl + 'search?filter=catalogue&limit=100')
+        .then(response => (cache = response))
+        .catch((err) => {
+            reject(err);
+        });
+
+    cache.data.result.results.forEach((e) => {
+        if (has(e, 'title') && !isNil(e.title) && has(e, 'id') && !isNil(e.id)) filteredCatalogs.value.push({ title: Object.values(e.title)[0], id: e.id })
+    });
+
+    filteredCatalogs.value = filteredCatalogs.value
+        .filter(item => userCats.value.includes(item.id))
+        .map(item => ({ id: item.id, name: item.title }));
+}
+onMounted(async () => {
+    filterCatList()
+});
 </script>
 <template>
+
     <div class="formkitProperty">
         <h4>{{ props.context.label }}</h4>
         <div class="formkitCmpWrap">
@@ -35,14 +63,15 @@ const setvalue = async (e) => {
                     <div class="infoI">
                         <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
                     </div>
-                    <input class="autocompleteInputfield"
-                        v-model="getNode('dcat:catalog').value" :placeholder="props.context.attrs.placeholder"
-                        type="text" @click="showList = !showList">
+                    <input v-if="isEditMode.value" class="autocompleteInputfield" type="text" readonly
+                        :placeholder="getNode('dcat:catalog').value">
+                    <input v-else class="autocompleteInputfield" v-model="getNode('dcat:catalog').value"
+                        :placeholder="props.context.attrs.placeholder" type="text" @click="showList = !showList">
                 </div>
                 <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
-                    <li v-for="match in userCats" :key="match" @click="setvalue(match)"
+                    <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match.id)"
                         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
-                            match }}
+                            match.name }}
                     </li>
                 </ul>
             </div>
@@ -55,4 +84,5 @@ const setvalue = async (e) => {
 .selectListFK {
     max-height: 20rem;
     overflow: scroll;
-}</style>
+}
+</style>
