@@ -139,6 +139,7 @@
       findFacetTitle(fieldId, facetId) {
         try {
           if (fieldId === "superCatalog" && facetId === "erpd") return this.$t("message.metadata.yes");
+          if (fieldId === "is_hvd") return this.$t("message.metadata.yes");
           const facetTitle = this.availableFacets.find(field => field.id === fieldId).items.find(facet => facet.id === facetId).title;
           return getFacetTranslation(fieldId, facetId, this.$route.query.locale, facetTitle);
         } catch {
