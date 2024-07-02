@@ -1,6 +1,7 @@
 <template>
   <div class="datasets-container d-flex flex-column p-0 bg-transparent">
-    <datasets-top-controls
+    <resource-top-controls
+        :resource="currentResource"
         :facets="facets"
         :getPage="getPage"
         :getLimit="getLimit"
@@ -10,7 +11,7 @@
       <slot name="title">
         <h1 class="row col-12 page-title catalog-title text-primary" v-if="showCatalogDetails">
           {{ getTranslationFor(getCatalog.title, $route.query.locale, getCatalog.languages) }}</h1>
-        <h1 class="row col-12 page-title text-primary" v-else>{{ $t('message.header.navigation.data.datasets') }}</h1>
+        <h1 class="row col-12 page-title text-primary" v-else>{{ $t('message.header.navigation.data.resources') }}</h1>
       </slot>
       <slot
           name="content"
@@ -40,7 +41,7 @@
           ></datasets-facets>
           <section class="col-md-9 col-12">
             <slot name="datasets-filters">
-              <datasets-filters/>
+              <resource-filters :resource="currentResource"></resource-filters>
             </slot>
             <slot name="datasets-found" :data="{
               loading: getLoading,
@@ -117,21 +118,21 @@
   } from 'lodash-es';
   import $ from 'jquery';
   import fileTypes from '../utils/fileTypes';
-  import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
+  import DatasetsFacets from '../datasets/datasetsFacets/DatasetsFacets.vue';
   import Pagination from '../widgets/Pagination.vue';
   import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
   import AppLink from '../widgets/AppLink.vue';
   import { getTranslationFor, truncate, getImg } from '../utils/helpers';
-  import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
-  import DatasetsFilters from "../datasets/DatasetsFilters.vue";
-  import DatasetList from './DatasetList.vue'
+  import ResourceTopControls from "../resources/ResourceTopControls.vue";
+  import ResourceFilters from "../resources/ResourceFilters.vue";
+  import DatasetList from '../datasets/DatasetList.vue'
   import { useDatasetsHead } from '../composables/head'
 
 export default {
   name: 'ResourceSearchPage',
   components: {
-    DatasetsFilters,
-    DatasetsTopControls,
+    ResourceFilters,
+    ResourceTopControls,
     appLink: AppLink,
     selectedFacetsOverview: SelectedFacetsOverview,
     datasetsFacets: DatasetsFacets,
@@ -160,7 +161,8 @@ export default {
       lang: this.locale,
       filterCollapsed: true,
       catalogAllowed: false,
-      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets
+      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets,
+      selectedResource: '',
     };
   },
   computed: {
@@ -183,6 +185,12 @@ export default {
       getAllAvailableFacetsOriginal: 'getAllAvailableFacets',
       getFacetsOriginal: 'getFacets',
     }),
+    currentResource() {
+      return this.selectedResource;
+    },
+    availableResources() {
+      return ['datasets', 'catalogues', 'softwareOfferings'];
+    },
     showCatalogDetails() {
       return !isNil(this.$route.params.ctlg_id) || this.fixedCatalogFilter;
     },
@@ -222,14 +230,11 @@ export default {
 
         return facetObjWithMaybeDefaultSuperCatalog;
     },
-
-
     getAllAvailableFacets() {
       return this.showCatalogDetails
         ? this.getAllAvailableFacetsOriginal.filter(facet => facet.id !== 'catalog')
         : this.getAllAvailableFacetsOriginal;
     },
-
     getFacets() {
       // Returns a record of facets with the catalog facet removed if we're in fixed catalog filter mode
       return this.showCatalogDetails
@@ -239,7 +244,6 @@ export default {
         }
         : this.getFacetsOriginal;
     },
-
     currentSearchQuery() {
       return this.$route.query.query;
     },
@@ -427,15 +431,26 @@ export default {
     },
   },
   created() {
-    this.initDataScope();
-    this.initLimit();
-    this.initPage();
-    this.initFacetOperator();
-    this.initFacetGroupOperator();
-    this.initDataServices();
-    this.initFacets();
-    this.initDatasets();
-    this.initInfiniteScrolling();
+    if (this.$route.params.hasOwnProperty('resource_id')) {
+
+      // Set selected resource
+      this.selectedResource = this.$route.params.resource_id;
+
+      this.initDataScope();
+      this.initLimit();
+      this.initPage();
+      this.initFacetOperator();
+      this.initFacetGroupOperator();
+      this.initDataServices();
+      this.initFacets();
+      this.initDatasets();
+      this.initInfiniteScrolling();
+    } else if (this.availableResources.length > 0) {
+      this.$router.push({ name: 'ResourceSearchPage', params: { resource_id: this.availableResources[0] } });
+    } else {
+      alert('No resources available !');
+    }
+
   },
   mounted() {
     // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)
