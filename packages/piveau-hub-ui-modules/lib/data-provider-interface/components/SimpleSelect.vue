@@ -73,6 +73,10 @@ onMounted(async () => {
                         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
                             match.name }}
                     </li>
+                    <li v-if="filteredCatalogs.length === 0" v-for="idMatch in userCats" :key="idMatch" @click="setvalue(idMatch)"
+                        class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
+                            idMatch }}
+                    </li>
                 </ul>
             </div>
 

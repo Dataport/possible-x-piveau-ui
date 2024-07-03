@@ -34,8 +34,6 @@ let filterCatList = async () => {
 onMounted(async () => {
   filterCatList()
 });
-
-
 </script>
 <template>
   <div class="catOverview">
@@ -47,6 +45,11 @@ onMounted(async () => {
           <app-link
             :to="{ name: 'CatalogueDetails', query: { locale: $route.query.locale }, params: { ctlg_id: catalog.id } }">{{
               catalog.name }}</app-link>
+        </div>
+        <div v-if="filteredCatalogs.length === 0" v-for="(catalog, index) in userCatIDList" :key="index" class="annifItems ">
+          <app-link
+            :to="{ name: 'CatalogueDetails', query: { locale: $route.query.locale }, params: { ctlg_id: catalog } }">{{
+              catalog }}</app-link>
         </div>
       </div>
     </div>
