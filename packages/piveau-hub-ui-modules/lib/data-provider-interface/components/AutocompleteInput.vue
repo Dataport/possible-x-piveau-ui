@@ -378,7 +378,6 @@ function toggleList(e) {
               <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <h3>{{ props.context.label }} Suggestions</h3>
                 <span>You can generate suggestions based on the description you provided</span>
-                <div class="annifSeperator"></div>
                 <button class="navlikeButton" type="button"
                   @click="fillAnnifsuggestions(); annifTrigger.value = true">Try it</button>
               </div>

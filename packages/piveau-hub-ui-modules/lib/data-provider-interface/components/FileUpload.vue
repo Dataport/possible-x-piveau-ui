@@ -34,7 +34,8 @@ onMounted(async () => {
   <div class="w-100 p-3 position-relative" v-if="uploadURL && !uploadFileSwitch">
     <label class=" formkit-label w-100" for="aUrlLink">Provide an URL</label>
     <input id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id"
-      @input="saveUrl">
+      @input="saveUrl" validation="alpha_spaces:latin" validation-visibility="live">
+
   </div>
   <div v-if="uploadFileSwitch" ref="fileupload" class="p-3 w-100"
     :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
@@ -98,7 +99,12 @@ export default {
       'saveLocalstorageValues',
     ]),
     async saveUrl() {
-      await this.context.node.input({ '@id': this.URLValue })
+
+      if (this.URLValue.includes('http://') || this.URLValue.includes('https://')) {
+        await this.context.node.input({ '@id': this.URLValue })
+      }
+      else await this.context.node.input({ '@id': 'https://' + this.URLValue })
+
     },
     checkIfPresent() {
       console.log(this.context.value['@id']);
