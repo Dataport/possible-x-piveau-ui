@@ -38,19 +38,26 @@ onMounted(async () => {
 
 </script>
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content">
-    <h1 class="small-headline">My Catalogues</h1>
-    <p class="m-0 subline">Click the catalogues if you want to be redirected to the associated overview Page.</p>
-    <div class="catWrap">
-      <div v-for="(catalog, index) in filteredCatalogs" :key="index" class="annifItems ">
-        <app-link
-          :to="{ name: 'CatalogueDetails', query: { locale: $route.query.locale }, params: { ctlg_id: catalog.id } }">{{
-            catalog.name }}</app-link>
+  <div class="catOverview">
+    <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content ">
+      <h1 class="small-headline">My Catalogues</h1>
+      <p class="m-0 subline">Click the catalogues if you want to be redirected to the associated overview Page.</p>
+      <div class="catWrap">
+        <div v-for="(catalog, index) in filteredCatalogs" :key="index" class="annifItems ">
+          <app-link
+            :to="{ name: 'CatalogueDetails', query: { locale: $route.query.locale }, params: { ctlg_id: catalog.id } }">{{
+              catalog.name }}</app-link>
+        </div>
       </div>
     </div>
   </div>
+
 </template>
 <style>
+.catOverview {
+  min-height: 60vh;
+}
+
 .catWrap {
   display: flex;
   flex-wrap: wrap;
