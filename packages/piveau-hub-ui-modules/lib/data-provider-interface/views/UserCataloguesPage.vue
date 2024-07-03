@@ -17,7 +17,7 @@ let userCatIDList = computed(() => store.getters['auth/getUserCatalogIds'])
 let filterCatList = async () => {
   let cache;
   await axios
-    .get(env.api.baseUrl + 'search?filter=catalogue&limit=100')
+    .get(env.api.baseUrl + 'search?filter=catalogue')
     .then(response => (cache = response))
     .catch((err) => {
       reject(err);

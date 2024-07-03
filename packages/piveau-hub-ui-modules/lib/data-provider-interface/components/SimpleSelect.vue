@@ -6,8 +6,8 @@ import { onClickOutside } from '@vueuse/core'
 import axios from 'axios'
 import { getCurrentInstance } from "vue";
 import {
-  has,
-  isNil,
+    has,
+    isNil,
 } from 'lodash-es';
 
 const props = defineProps({
@@ -35,7 +35,7 @@ const setvalue = async (e) => {
 let filterCatList = async () => {
     let cache;
     await axios
-        .get(env.api.baseUrl + 'search?filter=catalogue&limit=100')
+        .get(env.api.baseUrl + 'search?filter=catalogue')
         .then(response => (cache = response))
         .catch((err) => {
             reject(err);
