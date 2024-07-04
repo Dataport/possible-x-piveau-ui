@@ -14,7 +14,8 @@ const config = {
     },
     catalogues: {
       Mandatory: [ 'title', 'availabilityCatDE', 'datasetID', 'description', 'publisher', 'language', 'homepage', 'licence' ],
-      Advised: [ 'spatial', 'hasPart', 'isPartOf', 'rights', 'catalog', 'creator' ]
+      Advised: [ 'spatial', 'hasPart', 'isPartOf', 'rights', 'catalog', 'creator' ],
+      Overview: ['overview']
     }
   };
   

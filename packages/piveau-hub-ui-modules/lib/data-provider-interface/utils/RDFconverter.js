@@ -343,9 +343,9 @@ function convertPropertyValues(RDFdataset, data, property, preMainURI, preMainTy
                 let rightsValue;
 
                 if (data[key]['@type'] === 'url') {
-                    rightsValue = N3.DataFactory.namedNode(data[key]['rdfs:value']);
+                    rightsValue = N3.DataFactory.namedNode(data[key]['rdfs:label']);
                 } else {
-                    rightsValue = N3.DataFactory.literal(data[key]['rdfs:value']);
+                    rightsValue = N3.DataFactory.literal(data[key]['rdfs:label']);
                 }
 
                 // add actual value

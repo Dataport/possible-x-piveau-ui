@@ -29,7 +29,6 @@ const singularURI = {
     catalogues: [
         'foaf:homepage', // homepage and creator
         'dct:publisher',
-        'dct:spatial',
         'dct:isPartOf',
         // singular URIs nested within other properties
         'foaf:mbox', // creator
@@ -63,6 +62,7 @@ const multipleURI = {
     ],
     catalogues: [
         "dct:hasPart",
+        'dct:spatial',
         'dcat:catalog',
         'dct:language',
     ],
@@ -167,7 +167,9 @@ const conditionalProperties = {
     distributions: [
         'dct:license'
     ],
-    catalogues: [],
+    catalogues: [
+        'dct:license'
+    ],
 }
 
 // some properties have additional statement included which must be added to the linked data

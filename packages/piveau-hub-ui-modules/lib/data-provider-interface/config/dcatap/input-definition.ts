@@ -87,6 +87,7 @@ export type DcatApDistributionsProperty =
 export type DcatApCataloguesProperty =
   // Append new properties here for accurate type checking
   'datasetID'
+  | 'overview'
   | 'title'
   | 'description'
   | 'publisher'
@@ -1610,11 +1611,11 @@ const dcatapProperties: InputDefinition = {
               identifier: 'rightsUrl',
               type: "url",
               label: "URL",
-              name: 'rdfs:value'
+              name: 'rdfs:label'
             },
             else: {
               type: 'text',
-              name: 'rdfs:value',
+              name: 'rdfs:label',
             }
           }
         },
@@ -1686,6 +1687,12 @@ const dcatapProperties: InputDefinition = {
     },
   },
   catalogues: {
+    overview: {
+      $cmp: 'OverviewPage',
+      props: {
+        property: 'datasets'
+      }
+    },
     datasetID: {
       $formkit: 'id',
       identifier: 'datasetID',
@@ -1776,125 +1783,24 @@ const dcatapProperties: InputDefinition = {
       id: 'language'
     },
     licence: {
-      $formkit: 'group',
+      $formkit: 'simpleConditional',
       name: 'dct:license',
-      children: [
-        {
-          $formkit: 'select',
-          identifier: 'licence',
-          name: 'licenceMode',
-          id: 'licenceModeCatalogue',
+      identifier: 'licence',
+      voc: 'licence',
+      options: { text: 'dct:title', textarea: 'skos:prefLabel', url: 'skos:exactMatch' },
+      selection: { 1: 'Vocabulary', 2: 'Manually' }
 
-          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-        },
-        {
-          $formkit: 'group',
-          name: 'details',
-          key: '$get(licenceModeCatalogue).value',
-          if: '$get(licenceModeCatalogue).value === "voc"',
-          children: [
-            {
-              $formkit: 'auto',
-              identifier: 'licenceVocabulary',
-              name: '@id',
-              voc: 'licence',
-              property: 'dct:license',
-              id: 'licenceVocabularyCatalogue'
-            }
-          ]
-        },
-        {
-          $formkit: 'group',
-          name: 'details',
-          key: '$get(licenceModeCatalogue).value',
-          if: '$get(licenceModeCatalogue).value === "man"',
-          children: [
-            {
-              $formkit: 'text',
-              identifier: 'licenceTitle',
-              name: 'dct:title',
-            },
-            {
-              $formkit: 'textarea',
-              identifier: 'licenceDescription',
-              name: 'skos:prefLabel',
-            },
-            {
-              $formkit: 'url',
-              identifier: 'licenceURL',
-              name: 'skos:exactMatch',
-              validation: 'optional|url',
-            },
-          ]
-        }
-      ]
     },
     spatial: {
+      identifier: 'spatial',
       $formkit: 'repeatable',
       name: 'dct:spatial',
-      identifier: 'spatial',
       children: [
         {
-          $formkit: 'spatial',
+          $formkit: 'spatialinput',
           name: 'dct:spatial',
           identifier: 'spatial',
-          children: [
-            {
-              $formkit: "select",
-              identifier: "spatial",
-              id: "spatialModeCatalogue",
-              name: "spatialMode",
-              options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-            },
-            {
-              $cmp: "FormKit",
-              identifier: "spatial",
-              if: "$get(spatialModeCatalogue).value",
-              props: {
-                type: "radio",
-                name: "vocabulary",
-                id: "spatialVocabularyCatalogue",
-                if: "$get(spatialModeCatalogue).value === man",
-                options: {
-                  if: "$get(spatialModeCatalogue).value === voc",
-                  then: [
-                    { value: "continent", label: "Continent" },
-                    { value: "country", label: "Country" },
-                    { value: "place", label: "Place" }
-                  ],
-                  else: {
-                    if: "$get(spatialModeCatalogue).value === man",
-                    then: [
-                      { label: "Other", value: "other" }
-                    ],
-                  }
-                }
-              }
-            },
-            {
-              $cmp: "FormKit",
-              identifier: "spatial",
-              if: "$get(spatialVocabularyCatalogue).value",
-              props: {
-                identifier: "spatial",
-                if: "$get(spatialVocabularyCatalogue).value === other",
-                then: {
-                  type: "url",
-                  identifier: "spatial",
-                  name: '@id'
-                },
-                else: {
-                  then: {
-                    type: "text",
-                    identifier: "spatial",
-                    name: '@id'
-                  }
-                }
-              }
-            }
-          ]
-        }
-      ]
+        }]
     },
     homepage: {
       identifier: 'homepage',
@@ -1934,9 +1840,9 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:rights',
       children: [
         {
-          identifier: 'rightsCond',
-          name: "rightsMode",
+          identifier: 'rights',
           $formkit: "select",
+          name: '@type',
           options: { url: 'Provide an URL', str: 'String' },
           id: "rightsModeCatalogue"
         },
@@ -1945,15 +1851,16 @@ const dcatapProperties: InputDefinition = {
           $cmp: "FormKit",
           if: "$get(rightsModeCatalogue).value",
           props: {
-            name: 'rdfs:label',
             if: "$get(rightsModeCatalogue).value === url",
             then: {
               identifier: 'rightsUrl',
               type: "url",
+              label: "URL",
+              name: 'rdfs:label',
             },
             else: {
-              identifier: 'rightsString',
               type: "text",
+              name: 'rdfs:label',
             }
           }
         }

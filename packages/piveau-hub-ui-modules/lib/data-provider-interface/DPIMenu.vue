@@ -184,7 +184,7 @@ export default {
             {
               name: 'Create Catalogue',
               to: {
-                name: 'DataProviderInterface-Home',
+                name: 'DataProviderInterface-Input',
                 query: { locale: this.$route.query.locale, edit: false },
                 params: { property: 'catalogues' }
               },

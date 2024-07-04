@@ -3,6 +3,7 @@
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
+        <details>{{ formValues }}</details>
         <FormKit type="form" v-model="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
           @click="saveFormValues({ property: property, page: page, distid: id, values: formValues })" @submit.prevent=""

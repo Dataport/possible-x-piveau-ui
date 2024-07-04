@@ -99,6 +99,7 @@ export type DcatApDistributionsProperty =
 export type DcatApCataloguesProperty =
   // Append new properties here for accurate type checking
   'datasetID'
+  | 'overview'
   | 'availabilityCatDE'
   | 'title'
   | 'description'
@@ -1986,127 +1987,92 @@ const dcatapProperties: InputDefinition = {
       class: 'property',
       voc: 'planned-availability',
     },
+    overview: {
+      $cmp: 'OverviewPage',
+      props: {
+        property: 'datasets'
+      }
+    },
     datasetID: {
-      identifier: 'datasetID',
       $formkit: 'id',
+      identifier: 'datasetID',
       name: 'datasetID',
-      class: 'property',
       mandatory: true,
     },
     title: {
       identifier: 'title',
       $formkit: 'repeatable',
       name: 'dct:title',
-      class: 'property langStringInput mandatory',
-      minimum: 1,
       children: [
         {
-          identifier: '',
+          identifier: 'title',
           $formkit: 'group',
           name: 'dct:title',
+          mandatory: true,
+          minimum: 1,
           children: [
             {
               identifier: 'titleLabel',
               $formkit: 'text',
               name: '@value',
               validation: 'required',
-              class: 'w-100 inputTextfield',
             },
             {
-              identifier: 'dctTitle',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
               validation: 'required',
               options: language,
               name: '@language',
-              class: 'selectLangField',
             },
-          ]
+          ],
         }
-      ],
+      ]
     },
     description: {
       identifier: 'datasetDescription',
       $formkit: 'repeatable',
       name: 'dct:description',
-      class: 'property langDescriptionInput mandatory',
-      minimum: 1,
       children: [
         {
-          identifier: '',
+          identifier: 'datasetDescription',
           $formkit: 'group',
-          name: '',
+          name: 'dct:description',
+          mandatory: true,
+          minimum: 1,
           children: [
             {
               identifier: 'description',
               $formkit: 'textarea',
               name: '@value',
               validation: 'required',
-              class: 'w-100 inputTextfield',
+              classes: {
+                outer: 'w25-textfield'
+              }
             },
             {
-              identifier: 'descriptionLanguage',
+              identifier: 'language',
               value: 'en',
               $formkit: 'select',
               options: language,
               validation: 'required',
               name: '@language',
-              class: 'selectLangField',
+              classes: {
+                outer: 'w75-descField'
+              }
             },
-          ]
-        }
-      ],
-    },
-    publisher: {
-      $formkit: 'group',
-      name: 'dct:publisher',
-      children: [
-        {
-          $formkit: 'select',
-          identifier: 'publisher',
-          name: 'publisherMode',
-          id: 'publishereModeCatalogue',
-          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-        },
-        {
-          $formkit: 'group',
-          name: 'details',
-          key: '$get(publishereModeCatalogue).value',
-          if: '$get(publishereModeCatalogue).value === "voc"',
-          children: [
-            {
-              $formkit: 'auto',
-              identifier: 'licenceVocabulary',
-              name: '@id',
-              voc: 'corporate-body',
-              property: 'dct:license',
-            }
-          ]
-        },
-        {
-          $formkit: 'group',
-          name: 'details',
-          key: '$get(publishereModeCatalogue).value',
-          if: '$get(publishereModeCatalogue).value === "man"',
-          children: [
-            {
-              $formkit: 'text',
-              identifier: 'publisherName',
-              name: 'foaf:name',
-            },
-            {
-              $formkit: 'email',
-              identifier: 'publisherEmail',
-              name: 'foaf:mbox',
-            },
-            {
-              $formkit: 'url',
-              identifier: 'publisherHomepage',
-              name: 'foaf:homepage',
-            },
-          ]
+
+
+          ],
         }
       ]
+    },
+    publisher: {
+      $formkit: 'auto',
+      identifier: 'publisher',
+      name: 'dct:publisher',
+      voc: 'corporate-body',
+      id: 'publisher'
     },
     language: {
       identifier: 'language',
@@ -2114,7 +2080,7 @@ const dcatapProperties: InputDefinition = {
       multiple: true,
       name: 'dct:language',
       voc: 'language',
-      class: 'property',
+      id: 'language'
     },
     licence: {
       $formkit: 'simpleConditional',
@@ -2122,93 +2088,49 @@ const dcatapProperties: InputDefinition = {
       identifier: 'licence',
       voc: 'licence',
       options: { text: 'dct:title', textarea: 'skos:prefLabel', url: 'skos:exactMatch' },
-      selection: { 1: 'vocabulary', 2: 'manually' },
+      selection: { 1: 'Vocabulary', 2: 'Manually' }
+
     },
     spatial: {
+      identifier: 'spatial',
       $formkit: 'repeatable',
       name: 'dct:spatial',
-      identifier: 'spatial',
       children: [
         {
-          $formkit: "select",
-          identifier: "spatial",
-          id: "spatialModeCatalogue",
-          name: "spatialMode",
-          options: { voc: 'Choose from vocabulary', man: 'Manually submit information' }
-        },
-        {
-          $cmp: "FormKit",
-          identifier: "spatial",
-          if: "$get(spatialModeCatalogue).value",
-          props: {
-            type: "radio",
-            name: "vocabulary",
-            id: "spatualVocabularyCatalogue",
-            if: "$get(spatialModeCatalogue).value === man",
-            options: {
-              if: "$get(spatialModeCatalogue).value === voc",
-              then: [
-                { value: "continent", label: "Continent" },
-                { value: "country", label: "Country" },
-                { value: "place", label: "Place" }
-              ],
-              else: {
-                if: "$get(spatialModeCatalogue).value === man",
-                then: [
-                  { label: "Other", value: "other" }
-                ],
-              }
-            }
-          }
-        },
-        {
-          $cmp: "FormKit",
-          identifier: "spatial",
-          if: "$get(spatialVocabularyCatalogue).value",
-          props: {
-            identifier: "spatial",
-            if: "$get(spatialVocabularyCatalogue).value === other",
-            then: {
-              type: "url",
-              identifier: "spatial",
-              name: '@id'
-            },
-            else: {
-              then: {
-                type: "text",
-                identifier: "spatial",
-                name: '@id'
-              }
-            }
-          }
-        }
-      ]
+          $formkit: 'spatialinput',
+          name: 'dct:spatial',
+          identifier: 'spatial',
+        }]
     },
     homepage: {
       identifier: 'homepage',
       $formkit: 'url',
       name: 'foaf:homepage',
-      class: 'property',
       validation: 'optional|url',
     },
     hasPart: {
-      $formkit: 'repeatable',
       identifier: 'hasPart',
+      $formkit: 'repeatable',
       name: 'dct:hasPart',
-      class: 'property',
       children: [
         {
-          identifier: 'hasPartURL',
-          $formkit: 'url',
-          name: '@id',
-          validation: 'optional|url',
-        },
-      ],
+          $formkit: 'group',
+          identifier: 'hasPart',
+          name: 'dct:hasPart',
+          children: [
+            {
+              identifier: 'hasPartURL',
+              $formkit: 'url',
+              name: '@id',
+              validation: 'optional|url',
+            },
+          ],
+        }
+      ]
     },
     isPartOf: {
       identifier: 'isPartOf',
       name: 'dct:isPartOf',
-      class: 'property',
       $formkit: 'url',
       validation: 'optional|url',
     },
@@ -2218,10 +2140,10 @@ const dcatapProperties: InputDefinition = {
       name: 'dct:rights',
       children: [
         {
-          identifier: 'rightsCond',
-          name: "rightsMode",
+          identifier: 'rights',
           $formkit: "select",
-          options: { url: 'URL', str: 'String' },
+          name: '@type',
+          options: { url: 'Provide an URL', str: 'String' },
           id: "rightsModeCatalogue"
         },
         {
@@ -2229,39 +2151,45 @@ const dcatapProperties: InputDefinition = {
           $cmp: "FormKit",
           if: "$get(rightsModeCatalogue).value",
           props: {
-            name: 'rdfs:label',
             if: "$get(rightsModeCatalogue).value === url",
             then: {
               identifier: 'rightsUrl',
               type: "url",
+              label: "URL",
+              name: 'rdfs:label',
             },
             else: {
-              identifier: 'rightsString',
               type: "text",
+              name: 'rdfs:label',
             }
           }
-
         }
       ]
     },
     catalog: {
       identifier: 'catalog',
-      name: 'dcat:catalog',
       $formkit: 'repeatable',
+      name: 'dcat:catalog',
       children: [
         {
-          identifier: 'catalogURL',
-          $formkit: 'url',
-          validation: 'optional|url',
-          name: '@id',
-        },
+          $formkit: 'group',
+          identifier: 'catalog',
+          name: 'dcat:catalog',
+          children: [
+            {
+              identifier: 'catalogURL',
+              $formkit: 'url',
+              validation: 'optional|url',
+              name: '@id',
+            },
+          ],
+        }
       ]
     },
     creator: {
       identifier: 'creator',
       $formkit: 'group',
       name: 'dct:creator',
-      class: 'property',
       children: [
         {
           identifier: 'creatorType',
