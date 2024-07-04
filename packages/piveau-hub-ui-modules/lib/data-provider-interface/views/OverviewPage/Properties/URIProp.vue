@@ -1,6 +1,6 @@
 <template>
-  <!-- <details>{{ value.label }}</details> -->
-  <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
+  <!-- <details>{{ inHeader === true }}</details> -->
+  <td class=" font-weight-bold" v-if="value.type !== 'special' && inHeader != true">{{ $t(`${value.label}`) }}:
   </td>
   
   <!-- SINGULAR URIs -->
@@ -21,7 +21,7 @@
     $t(`${value.label}`) }}:</td>
   <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class=""> {{ nameOfProperty }}</td>
   <!-- License Edge case -->
-  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value' && value.label === 'message.metadata.license'" class=""> {{ nameOfProperty }}</td>
+  <!-- <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value' && value.label === 'message.metadata.license'" class=""> {{ nameOfProperty }}</td> -->
   <!-- <details>{{ data[property] }}</details> -->
 </template>
 
@@ -42,6 +42,7 @@ export default {
     property: String,
     value: Object,
     data: Object,
+    inHeader:String
   },
   methods: {
     ...mapActions("dpiStore", [

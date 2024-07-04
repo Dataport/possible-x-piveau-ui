@@ -22,7 +22,7 @@
                     </p>
                     <p v-if="distribution['dct:format'] != '' || Object.keys(distribution['dct:format']).length != 0">
                         <PropertyEntry profile="distributions" :data="distributionList[id]" property='dct:format'
-                            :value="tableProperties['dct:format']" :dpiLocale="dpiLocale" :distId="id">
+                            :value="tableProperties['dct:format']" :dpiLocale="dpiLocale" :distId="id" :inHeader="true">
                         </PropertyEntry>
                     </p>
                     <p v-else>

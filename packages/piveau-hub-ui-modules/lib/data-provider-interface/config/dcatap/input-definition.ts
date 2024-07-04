@@ -1201,7 +1201,7 @@ const dcatapProperties: InputDefinition = {
       identifier: 'licence',
       voc: 'licence',
       options: { text: 'dct:title', textarea: 'skos:prefLabel', url: 'skos:exactMatch' },
-      selection: { 1: 'vocabulary', 2: 'manually' }
+      selection: { 1: 'Vocabulary', 2: 'Manually' }
 
     },
     title: {
