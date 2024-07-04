@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi position-relative" :key="property">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between dpi position-relative w-100" :key="property">
     <!-- CONTENT -->
     <router-view ref="view" :key="$route.query.edit">
     </router-view>
