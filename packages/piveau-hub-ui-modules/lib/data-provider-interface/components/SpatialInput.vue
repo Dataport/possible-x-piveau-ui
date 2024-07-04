@@ -5,8 +5,10 @@ import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { onClickOutside } from '@vueuse/core'
 import { getCurrentInstance } from "vue";
+import { useRoute } from 'vue-router';
 
 let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
+let route = useRoute();
 
 const props = defineProps({
     context: Object,
@@ -60,7 +62,8 @@ function removeProperty(e) {
     props.context.node.input({})
 }
 function saveToLocal(el) {
-    let pathToLocalStorage = JSON.parse(localStorage.getItem('dpi_datasets'));
+
+    let pathToLocalStorage = JSON.parse(localStorage.getItem(`dpi_${route.params.property}`));
     let arr
     if (props.context.attrs.identifier === 'politicalGeocodingURI') {
         arr = pathToLocalStorage.Advised['dcatde:politicalGeocodingURI'];
@@ -78,7 +81,7 @@ function saveToLocal(el) {
     }
     else pathToLocalStorage.Advised['dct:spatial'] = arr
 
-    localStorage.setItem('dpi_datasets', JSON.stringify(pathToLocalStorage))
+    localStorage.setItem(`dpi_${route.params.property}`, JSON.stringify(pathToLocalStorage))
 }
 const getAutocompleteSuggestions = async () => {
     let vocCache = voc.value

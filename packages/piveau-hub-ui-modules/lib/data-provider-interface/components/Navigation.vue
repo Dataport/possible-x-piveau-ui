@@ -30,12 +30,12 @@
         </FormKit>
 
         <!-- PUBLISH DATASET -->
-        <FormKit type="button" @click="submit('dataset')" :disabled="formErrorCount" class="mx-1 my-0">
+        <FormKit type="button" v-if="property === 'datasets'" @click="submit('dataset')" :disabled="formErrorCount" class="mx-1 my-0">
           <span v-if="uploading.dataset" class="loading-spinner"></span>{{ $t('message.dataupload.publishdataset') }}
         </FormKit>
 
         <!-- SAVE AS DRAFT -->
-        <FormKit type="button" @click="submit('draft')" :disabled="formErrorCount" class="mx-1 my-0">
+        <FormKit type="button" v-if="property === 'datasets'" @click="submit('draft')" :disabled="formErrorCount" class="mx-1 my-0">
           <span v-if="uploading.draft" class="loading-spinner"></span>{{ $t('message.dataupload.saveasdraft') }}
         </FormKit>
 
