@@ -6,8 +6,9 @@
       </div>
 
       <div style="margin-top:1%;">
-        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" @click="scrollToTop()" :groupName="group.group"
-          :groupItems="group.items" :show="$env.content.dataProviderInterface.buttons[group.group]"
+        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" @click="scrollToTop()"
+          :groupName="group.group" :groupItems="group.items"
+          :show="$env.content.dataProviderInterface.buttons[group.group]"
           :isOperator="getUserData.roles.includes('operator')" :isCatalog="group.group === 'Catalogue' ? true : false">
         </dropup>
         <ul>
@@ -28,9 +29,10 @@
       </div>
 
 
-      <div v-if="getUserData.userName">
+      <div v-if="getUserData.userName" class="logoutWrap">
         <slot name="right" :get-user-data="getUserData">
-          <small class="text-white">{{ $t('message.dataupload.menu.loggedInAs') }} {{ getUserData.userName }}</small><br>
+          <small class="text-white">{{ $t('message.dataupload.menu.loggedInAs') }} {{ getUserData.userName
+            }}</small><br>
           <button type="button" class="btn btn-default logout">
             <router-link :to="{ name: 'Logout' }">{{ $t('message.dataupload.menu.logout') }}</router-link>
           </button>
@@ -78,7 +80,7 @@ export default {
       y.value = 0
 
     }
-    return{
+    return {
       scrollToTop
     }
   },
@@ -380,14 +382,14 @@ export default {
     async handleDelete({ id, property, catalog }) {
       // todo: create user dataset api (and maybe integrate to store)
       // For now, do request manually using axios
-      
+
       this.modal.loading = true;
       this.$Progress.start();
       try {
         let endpoint;
-        
+
         if (property === 'datasets') {
-          
+
           endpoint = `${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true&catalogue=${catalog}`;
         } else if (property === 'catalogues') {
           endpoint = `${this.$env.api.hubUrl}catalogues/${id}`
@@ -484,5 +486,12 @@ button a {
   margin: 0 auto;
   border: 1px solid white;
   padding: 0.1rem 1.5rem;
+}
+
+.logoutWrap {
+  width: 13rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

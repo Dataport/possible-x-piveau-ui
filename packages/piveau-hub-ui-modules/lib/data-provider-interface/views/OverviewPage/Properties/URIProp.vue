@@ -1,14 +1,14 @@
 <template>
-  <!-- <details>{{ value.label }}</details> -->
-  <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:
+  <!-- <details>{{ value.isHeader === true }}</details> -->
+  <td class=" font-weight-bold" v-if="value.type !== 'special' && inHeader != true">{{ $t(`${value.label}`) }}:
   </td>
-  
+
   <!-- SINGULAR URIs -->
   <td v-if="value.type === 'singularURI' && typeof data[property] === 'string'" class=""> {{ data[property] }}</td>
   <td v-if="Object.keys(data[property]).length === 1 && value.type === 'singularURI'" class=""> {{
     data[property][0]['@id'] }} </td>
   <td v-if="value.type === 'singularURI' && typeof data[property] != 'string' && Object.keys(data[property]).length > 1"
-    class=""> {{ nameOfProperty }}</td>
+    :class="{ 'p-0': inHeader }"> {{ nameOfProperty }}</td>
   <!-- MULTIPLE URIs -->
   <td v-if="value.type === 'multiURI'" class="flex-wrap d-flex multiURI">
     <div v-for="(el, index) in data[property]" :key="index" class="border shadow-sm p-2 mb-1 mr-1">
@@ -19,9 +19,12 @@
 
   <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class="font-weight-bold">{{
     $t(`${value.label}`) }}:</td>
-  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value'" class=""> {{ nameOfProperty }}</td>
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value' && value.isHeader != true" class=""> {{
+    nameOfProperty }}</td>
+  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value' && value.isHeader === true" class=""> {{
+    trimString(nameOfProperty, 35) }} </td>
   <!-- License Edge case -->
-  <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value' && value.label === 'message.metadata.license'" class=""> {{ nameOfProperty }}</td>
+  <!-- <td v-if="value.type === 'special' && nameOfProperty != 'Unchanged Value' && value.label === 'message.metadata.license'" class=""> {{ nameOfProperty }}</td> -->
   <!-- <details>{{ data[property] }}</details> -->
 </template>
 
@@ -42,11 +45,18 @@ export default {
     property: String,
     value: Object,
     data: Object,
+    inHeader: String
   },
   methods: {
     ...mapActions("dpiStore", [
       "requestResourceName",
     ]),
+    trimString(str, maxLength) {
+      if (str.length > maxLength) {
+        return str.slice(0, maxLength) + '...';
+      }
+      return str;
+    },
     getTranslationFor,
     async requestURILabel(voc, res) {
 
@@ -90,7 +100,7 @@ export default {
       // only request name if there is no name already given
       // console.log('########',value);
       if (generalHelper.isUrl(value.name)) {
-        
+
         const prefixes = dpiConfig[this.$env.content.dataProviderInterface.specification].vocabPrefixes;
         const vocabulary = Object.keys(prefixes).find(key => value.name.includes(key));
         return await this.requestURILabel(vocabulary, value.name);

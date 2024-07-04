@@ -1,10 +1,11 @@
 <template>
     <div>
+        <details v-if="distId">{{ value }}</details>
         <tr class="align-items-center" v-if="isSet">
 
             <!-- <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td> -->
             <URIProp v-if="value.type === 'singularURI' || value.type === 'multiURI' || value.type === 'singularURI'"
-                :property="property" :value="value" :data="data">
+                :property="property" :value="value" :data="data" :inHeader="inHeader">
             </URIProp>
             <URLProp v-if="value.type === 'singularURL' || value.type === 'multiURL'" :property="property" :value="value"
                 :data="data"></URLProp>
@@ -57,7 +58,8 @@ export default {
         value: Object,
         dpiLocale: String,
         distId: Number,
-        type: String
+        type: String,
+        inHeader:String
     },
     computed: {
         isSet() {
