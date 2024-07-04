@@ -67,7 +67,7 @@ export default {
         yes: this.i18n.global.t('message.metadata.yes'),
         no: this.i18n.global.t('message.metadata.no'),
         property: this.i18n.global.t('message.datasetFacets.facets.erpdOnly'),
-        title: this.i18n.global.t('message.metadata.erpd'),
+        title: this.i18n.global.t('message.datasetFacets.facets.erpd'),
         // toolTipTitle: "TOOLTIP",//this.i18n.global.t('message.helpIcon.dataServices'),
       }
     };
@@ -155,9 +155,16 @@ export default {
       });
     },
     facetTitle(fieldId) {
-      return fieldId === 'scoring' ?
-      this.i18n.global.t('message.header.navigation.data.metadataquality')
-        : this.i18n.global.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+      if (fieldId === 'scoring'){
+        return this.i18n.global.t('message.header.navigation.data.metadataquality')
+      }else if (fieldId === 'country'){
+        return this.i18n.global.t(`message.datasetFacets.facets.origin`)
+      }else {
+        return this.i18n.global.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
+      }
+      // return fieldId === 'scoring' ?
+      // this.i18n.global.t('message.header.navigation.data.metadataquality')
+      //   : this.i18n.global.t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
     },
     /**
      * @description Returns whether a facet is selected or not.
