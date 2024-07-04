@@ -1,3 +1,13 @@
+## [4.0.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.12...v4.0.13) (2024-07-04)
+
+
+### Bug Fixes
+
+* adapted create catalog command to handle right media type ([7f55845](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/7f55845b685c65ceaa0b4ba0788bd88cc3ef2b63))
+* fixed feature to create catalogs using the DPI ([49d8a82](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/49d8a820962231c8f83126ddefab5c773dc66c85))
+
+
+
 ## [4.0.12](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.11...v4.0.12) (2024-07-04)
 
 
