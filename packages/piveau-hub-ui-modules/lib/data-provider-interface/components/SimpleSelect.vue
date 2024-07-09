@@ -16,7 +16,7 @@ const props = defineProps({
 
 const userCats = computed(() => store.getters['auth/getUserCatalogIds']);
 let showList = ref()
-let selection = ref()
+// let selection = ref()
 const store = useStore();
 const dropdownList = ref(null)
 const isEditMode = ref();
@@ -27,10 +27,10 @@ let env = getCurrentInstance().appContext.app.config.globalProperties.$env;
 onClickOutside(dropdownList, event => showList.value = false)
 
 const setvalue = async (e) => {
-    selection.value = e
-    props.context.node.input(e)
+    // selection.value = e
+    props.context.node.input(e.id)
     showList.value = !showList.value;
-    getNode('dcat:catalog').value = e
+    getNode('dcat:catalog').value = e.name
 }
 let filterCatList = async () => {
     let cache;
@@ -69,7 +69,7 @@ onMounted(async () => {
                         :placeholder="props.context.attrs.placeholder" type="text" @click="showList = !showList">
                 </div>
                 <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
-                    <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match.id)"
+                    <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match)"
                         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
                             match.name }}
                     </li>
@@ -87,6 +87,7 @@ onMounted(async () => {
 <style>
 .selectListFK {
     max-height: 20rem;
-    overflow: scroll;
+    overflow: overlay;
+    overflow-x: hidden; 
 }
 </style>
