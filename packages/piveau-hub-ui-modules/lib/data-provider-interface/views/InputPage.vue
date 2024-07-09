@@ -234,37 +234,34 @@ export default defineComponent({
                     if (mutation.target.parentNode.parentNode.parentNode.previousElementSibling.tagName === 'H4') {
                       mutation.target.parentNode.parentNode.parentNode.previousElementSibling.classList.add('isInvalidProperty')
                     }
-
-                  } catch (error) {
-                  }
+                  } catch (error) { }
                   try {
                     if (mutation.target.previousElementSibling.tagName === 'H4') {
-                      console.log(mutation.target.previousElementSibling.tagName);
-
                       mutation.target.previousElementSibling.classList.add('isInvalidProperty')
                     }
-                  } catch (error) {
-
-                  }
-                  // mutation.target.parentNode.previousElementSibling.classList.toggle('isInvalidProperty')
+                  } catch (error) { }
+                  try {
+                    if (mutation.target.parentNode.previousElementSibling.tagName === 'H4') {
+                      mutation.target.parentNode.previousElementSibling.classList.add('isInvalidProperty')
+                    }
+                  } catch (error) { }
                 }
-                if (mutation.target.getAttribute('data-invalid') === null) {
+                if (mutation.target.getAttribute('data-invalid') === null || mutation.target.getAttribute('data-invalid') === 'false') {
                   try {
                     if (mutation.target.parentNode.parentNode.parentNode.previousElementSibling.tagName === 'H4') {
                       mutation.target.parentNode.parentNode.parentNode.previousElementSibling.classList.remove('isInvalidProperty')
                     }
-
-                  } catch (error) {
-                  }
+                  } catch (error) { }
                   try {
                     if (mutation.target.previousElementSibling.tagName === 'H4') {
-                      console.log(mutation.target.previousElementSibling.tagName);
-
                       mutation.target.previousElementSibling.classList.remove('isInvalidProperty')
                     }
-                  } catch (error) {
-
-                  }
+                  } catch (error) { }
+                  try {
+                    if (mutation.target.parentNode.previousElementSibling.tagName === 'H4') {
+                      mutation.target.parentNode.previousElementSibling.classList.remove('isInvalidProperty')
+                    }
+                  } catch (error) { }
                 }
               }
             }
@@ -580,9 +577,11 @@ summary {
     padding: 0 1em 1em 1em;
   }
 }
-
+.repeatableWrap, .formkitCmpWrap{
+  margin: 2rem 0 !important
+}
 .isInvalidProperty {
-  background-color: lightcoral !important;
+  background-color: #FFD9D9 !important;
 }
 
 .activeItem {

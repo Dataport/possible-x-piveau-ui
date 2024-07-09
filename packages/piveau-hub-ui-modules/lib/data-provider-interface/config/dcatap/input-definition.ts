@@ -169,7 +169,6 @@ const dcatapProperties: InputDefinition = {
           identifier: 'datasetTitle',
           $formkit: 'group',
           name: 'dct:title',
-
           minimum: 1,
           children: [
             {
@@ -1100,8 +1099,6 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'simpleSelect',
       name: 'dcat:catalog',
       id: 'dcat:catalog',
-      mandatory: true,
-      validation: 'required',
       placeholder:'Catalog',
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
