@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "serve": "esno scripts/serveApp.ts",
-    "dev": "npm run serve",
+    "dev": "npm run serve possible-piveau-hub-ui",
     "build": "npm run build -w @piveau/piveau-hub-ui-modules -w @piveau/piveau-ui-cli",
     "release": "esno scripts/release.ts",
     "ci-publish": "esno scripts/publish-ci.ts",
