@@ -129,8 +129,8 @@ export default {
           show: true,
         },
         {
-          title: this.$t('message.header.navigation.data.resources'),
-          href: `/resources?locale=${this.$route.query.locale}`,
+          title: this.$t('message.header.navigation.data.catalogs'),
+          href: `/catalogues?locale=${this.$route.query.locale}`,
           show: true,
         },
       ];
@@ -146,7 +146,7 @@ export default {
       const navigationItems = navItems;
 
       navigationItems[0].to = { name: 'Datasets', query: { locale: this.$route.query.locale } };
-      // navigationItems[1].to = { name: 'Resources', query: { locale: this.$route.query.locale } };
+      navigationItems[1].to = { name: 'Catalogues', query: { locale: this.$route.query.locale } };
     },
   },
 };
