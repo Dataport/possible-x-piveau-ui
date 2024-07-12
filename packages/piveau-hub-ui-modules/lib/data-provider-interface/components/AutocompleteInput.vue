@@ -315,17 +315,17 @@ function removeMultipleProperty(e) {
     <div class="formkitCmpWrap">
       <div class="formkit-outer">
         <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
-          <div class="infoI">
+          <!-- <div class="infoI">
             <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-          </div>
+          </div> -->
           <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
           <div class="removeX" @click="removeProperty"></div>
         </div>
         <div v-else>
           <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
-            <div class="infoI">
+            <!-- <div class="infoI">
               <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-            </div>
+            </div> -->
             <input class="autocompleteInputfield" :placeholder="props.context.attrs.placeholder" v-model="inputText"
               type="text" v-on:keyup="getAutocompleteSuggestions($event)" @click="activeList = !activeList">
           </div>

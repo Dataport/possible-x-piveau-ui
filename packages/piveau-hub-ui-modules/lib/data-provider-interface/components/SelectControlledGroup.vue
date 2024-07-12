@@ -35,11 +35,11 @@ const data = reactive({
       <FormKit :id="props.id" type="group" :name="name" :index="props.index" v-model="data.groupValue">
         <FormKit v-model="data.selectValue" type="select" :options="props.options" :name="props.selectName">
           <template #prefix>
-            <div v-if="props.info" class="infoI">
+            <!-- <div v-if="props.info" class="infoI">
               <div class="tooltipFormkit">
                 {{ props.info }}
               </div>
-            </div>
+            </div> -->
           </template>
         </FormKit>
         <slot :select-value="data.selectValue" />

@@ -17,9 +17,10 @@
         <hr>
         <ul>
             <li v-for="items in properties" :key="items" class="">
-                <div class="infoI">
+                <!-- <div class="infoI">
                     <div class="tooltipFormkit">{{ items.help }}</div>
-                </div> {{ camel2title(items.identifier) }}
+                </div>  -->
+                {{ camel2title(items.identifier) }}
             </li>
         </ul>
         <hr>

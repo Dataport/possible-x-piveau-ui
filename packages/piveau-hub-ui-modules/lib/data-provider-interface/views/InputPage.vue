@@ -33,8 +33,12 @@
               <div v-for="(stepName, index) in getNavSteps($env.content.dataProviderInterface.specification)[property]"
                 :key="index">
                 <InputPageStep :name="stepName">
-                  <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'" class="w-100">
-                    <h1 style="min-width:100%">{{ stepName }} fields</h1>
+                  <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'"
+                    class="w-100 d-flex justify-content-between">
+                    <h1 style="min-width:80%">{{ stepName }} fields</h1>
+                    <a class="standardButtonDPI" @click="dropdownCLick(); expandall = !expandall"><span
+                        v-if="expandall">Expand all</span>
+                      <span v-else>Hide all</span></a>
                   </div>
                   <hr v-if="stepName !== 'Distributions'">
                   <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"
@@ -90,6 +94,7 @@ export default defineComponent({
       info: {},
       catalogues: [],
       byte: true,
+      expandall: true,
       // steps:{},
       camel2title: (str) =>
         str
@@ -159,18 +164,23 @@ export default defineComponent({
       this.$forceUpdate();
     },
     dropdownCLick() {
-      const h4Elements = document.querySelectorAll('.formkitProperty h4');
-      h4Elements.forEach((h4Element, index) => {
-        // Klick-Effekt hinzufügen
-        if (index != 0) {
-          h4Element.nextElementSibling.classList.toggle('d-none')
-        }
-        h4Element.addEventListener('click', () => {
-          h4Element.classList.toggle('dpiChevUp')
-          h4Element.nextElementSibling.classList.toggle('d-none')
-        });
-      })
 
+      const h4Elements = document.querySelectorAll('.formkitProperty h4');
+      
+        if (this.expandall) {
+          h4Elements.forEach((h4Element, index) => {
+            h4Element.classList.add('dpiChevUp')
+            h4Element.nextElementSibling.classList.remove('d-none')
+          })
+        }
+        if (!this.expandall) {
+          h4Elements.forEach((h4Element, index) => {
+            h4Element.classList.remove('dpiChevUp')
+            h4Element.nextElementSibling.classList.add('d-none')
+          })
+
+        }
+      
     },
     clearForm() {
       this.$formkit.reset('dpi')
@@ -222,7 +232,19 @@ export default defineComponent({
           container: 'body',
         });
         setTimeout(() => {
-          this.dropdownCLick()
+          const h4Elements = document.querySelectorAll('.formkitProperty h4');
+          h4Elements.forEach((h4Element, index) => {
+            // Added the clickeffect to the headers of the individual properties
+            if (!h4Element.parentElement.parentElement.classList.contains('formkitWrapRepeatable')) {
+              if (index != 0 && index != 1 && index != 2 && index != 3) {
+                h4Element.nextElementSibling.classList.toggle('d-none')
+              }
+              h4Element.addEventListener('click', () => {
+                h4Element.classList.toggle('dpiChevUp')
+                h4Element.nextElementSibling.classList.toggle('d-none')
+              });
+            }
+          })
           // Observe the validity of the individual properties
           const elements = document.querySelectorAll('.formkitProperty');
           const attributeChangedCallback = (mutationsList) => {
@@ -398,6 +420,27 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.standardButtonDPI {
+  background-color: #fff;
+  color: #000;
+  border-radius: 0.3em;
+  font-size: 16px;
+  padding: 0.75em;
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  border: 1px solid lightgray;
+  transition: all 100ms ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(98%);
+    background-color: #F4F4F4;
+    border-color: gray;
+    text-decoration: none;
+  }
+}
+
 :root {
   --gray: #ccccd7;
   --gray-l: #eeeef4;
@@ -577,9 +620,12 @@ summary {
     padding: 0 1em 1em 1em;
   }
 }
-.repeatableWrap, .formkitCmpWrap{
+
+.repeatableWrap,
+.formkitCmpWrap {
   margin: 2rem 0 !important
 }
+
 .isInvalidProperty {
   background-color: #FFD9D9 !important;
 }
@@ -688,9 +734,7 @@ select {
 .formkitCmpWrap {
   border-left: 1px solid lightgray;
 
-  .formkit-outer {
-    width: auto !important;
-  }
+
 }
 
 .formkitProperty {
