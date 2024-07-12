@@ -51,10 +51,10 @@ import { useI18n } from 'vue-i18n';
                     propertyDefinition[parameter] = translation;
                 }
 
-                if (parameter === "info") {
+                // if (parameter === "info") {
 
-                    propertyDefinition['sections-schema'] = { prefix: { $el: 'div', attrs: { class: 'infoI', }, children: [{ $el: 'div', children: translation, attrs: { class: 'tooltipFormkit' } }] } }
-                }
+                //     propertyDefinition['sections-schema'] = { prefix: { $el: 'div', attrs: { class: 'infoI', }, children: [{ $el: 'div', children: translation, attrs: { class: 'tooltipFormkit' } }] } }
+                // }
             }
 
             // Highlight mandatory fields

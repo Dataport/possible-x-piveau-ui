@@ -30,12 +30,14 @@
         </FormKit>
 
         <!-- PUBLISH DATASET -->
-        <FormKit type="button" v-if="property === 'datasets'" @click="submit('dataset')" :disabled="formErrorCount" class="mx-1 my-0">
+        <FormKit type="button" v-if="property === 'datasets'" @click="submit('dataset')" :disabled="formErrorCount"
+          class="mx-1 my-0">
           <span v-if="uploading.dataset" class="loading-spinner"></span>{{ $t('message.dataupload.publishdataset') }}
         </FormKit>
 
         <!-- SAVE AS DRAFT -->
-        <FormKit type="button" v-if="property === 'datasets'" @click="submit('draft')" :disabled="formErrorCount" class="mx-1 my-0">
+        <FormKit type="button" v-if="property === 'datasets'" @click="submit('draft')" :disabled="formErrorCount"
+          class="mx-1 my-0">
           <span v-if="uploading.draft" class="loading-spinner"></span>{{ $t('message.dataupload.saveasdraft') }}
         </FormKit>
 
@@ -57,12 +59,15 @@ import { isNil } from 'lodash';
 import { mapGetters, mapActions } from 'vuex';
 import { useWindowScroll } from '@vueuse/core'
 import axios from 'axios';
+import { ref, nextTick } from 'vue'
+import { getCurrentInstance } from "vue";
 
 export default {
   name: 'Navigation',
   props: ['steps', 'nextStep', 'previousStep', 'goToNextStep', 'goToPreviousStep'],
   data() {
     return {
+      instance: getCurrentInstance().appContext.app.config.globalProperties.$env,
       uploading: {
         dataset: false,
         draft: false,
@@ -212,7 +217,7 @@ export default {
 
         if (idIsUnqiue) {
           await this.$store.dispatch(actionName, actionParams);
-          await new Promise(resolve => setTimeout(resolve, 250));
+          // await new Promise(resolve => setTimeout(resolve, 250));
 
           this.$Progress.finish();
           this.uploading = false;
@@ -238,11 +243,10 @@ export default {
     createDataset(datasetId) {
       this.clearAll();
       this.showSnackbar({ message: 'Dataset published successfully', variant: 'success' });
-      this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale } }).catch(() => { });
-      setTimeout(() => {
-        this.$router.go();
-      });
-      
+      // this.$router.push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale } }).catch(() => { });
+      this.$router
+        .push({ name: 'DatasetDetailsDataset', params: { ds_id: datasetId }, query: { locale: this.$route.query.locale } })
+        .then(() => { this.$router.go(0) })
     },
     createDraft() {
       this.clearAll();
