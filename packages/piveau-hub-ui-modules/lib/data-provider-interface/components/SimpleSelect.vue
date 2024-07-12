@@ -29,10 +29,11 @@ let env = getCurrentInstance().appContext.app.config.globalProperties.$env;
 onClickOutside(dropdownList, event => showList.value = false)
 
 const setvalue = async (e) => {
+    console.log(e);
     validationTrigger = false
     props.context.node.input(e.id)
     showList.value = !showList.value;
-    getNode('dcat:catalog').value = e.name
+    getNode('dcat:catalog').value = e
 }
 let filterCatList = async () => {
     let cache;
@@ -52,7 +53,7 @@ let filterCatList = async () => {
         .map(item => ({ id: item.id, name: item.title }));
 }
 onMounted(async () => {
-    filterCatList()
+    // filterCatList()
 });
 </script>
 <template>
@@ -71,9 +72,10 @@ onMounted(async () => {
                 }" />
 
             <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
+
                 <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match)"
                     class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
-                        match.name }}
+                        match.id }}
                 </li>
                 <li v-if="filteredCatalogs.length === 0" v-for="idMatch in userCats" :key="idMatch"
                     @click="setvalue(idMatch)"
