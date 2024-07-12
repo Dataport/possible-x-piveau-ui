@@ -53,12 +53,10 @@ export default {
   methods: {
     getRepresentativeLocaleOf,
   },
-  created() {
-    const route = useRoute();
-    useDownloadDatasetOnMount({ route, hubUrl: this.$env.api.hubUrl });
-  },
   setup() {
     metaInfo.useDatasetDetailsHead();
+    const route = useRoute();
+    useDownloadDatasetOnMount({ route, hubUrl: this.$env.api.hubUrl });
   }
 };
 </script>
