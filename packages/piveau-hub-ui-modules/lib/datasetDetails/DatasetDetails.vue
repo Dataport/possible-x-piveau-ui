@@ -23,6 +23,7 @@ import DatasetDetailsNavigation from './navigation/DatasetDetailsNavigation.vue'
 import { getRepresentativeLocaleOf } from '../utils/helpers';
 import { useDownloadDatasetOnMount } from '../composables/useDownloadDatasetOnMount';
 import * as metaInfo from '../composables/head';
+import {useRuntimeEnv} from "../composables/useRuntimeEnv.ts";
 
 
 export default {
@@ -56,7 +57,8 @@ export default {
   setup() {
     metaInfo.useDatasetDetailsHead();
     const route = useRoute();
-    useDownloadDatasetOnMount({ route, hubUrl: this.$env.api.hubUrl });
+    const env = useRuntimeEnv();
+    useDownloadDatasetOnMount({ route, hubUrl: env.api.hubUrl });
   }
 };
 </script>
