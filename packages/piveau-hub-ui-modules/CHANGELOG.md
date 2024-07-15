@@ -1,3 +1,16 @@
+## [4.0.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.14...v4.0.15) (2024-07-12)
+
+
+
+## [4.0.14](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.13...v4.0.14) (2024-07-12)
+
+
+### Bug Fixes
+
+* move composable application to setup function ([fe87172](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/fe87172d40788796879db41cf5e23cdf9654cd32))
+
+
+
 ## [4.0.13](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.12...v4.0.13) (2024-07-04)
 
 

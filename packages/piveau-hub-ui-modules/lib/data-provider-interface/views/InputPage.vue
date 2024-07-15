@@ -3,7 +3,7 @@
     <div ref="fkInputContainer" class="inputContainer" v-if="isInput">
       <div class="formContainer formkit position-relative">
 
-        <details>{{ formValues }}</details>
+        <!-- <details>{{ formValues }}</details> -->
         <FormKit type="form" v-model="formValues" :actions="false" :plugins="[stepPlugin]" id="dpiForm"
           @change="saveFormValues({ property: property, page: page, distid: id, values: formValues })"
           @click="saveFormValues({ property: property, page: page, distid: id, values: formValues })" @submit.prevent=""
@@ -33,18 +33,14 @@
               <div v-for="(stepName, index) in getNavSteps($env.content.dataProviderInterface.specification)[property]"
                 :key="index">
                 <InputPageStep :name="stepName">
-                  <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'" class="w-100">
-                    <h1 style="min-width:100%">{{ stepName }} fields</h1>
-                    <!-- <p class="infoTextDPISteps">This text can and schould be altered to describe the following
-                      properties in a short way. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
-                      kasd gubergren, no sea
-                      takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing
-                      elitr, sed diam nonumy
-                      eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos
-                      et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus
-                      est Lorem ipsum dolor sit amet.</p> -->
+                  <div v-if="stepName !== 'Distributions' && stepName !== 'Overview'"
+                    class="w-100 d-flex justify-content-between">
+                    <h1 style="min-width:80%">{{ stepName }} fields</h1>
+                    <a class="standardButtonDPI" @click="dropdownCLick(); expandall = !expandall"><span
+                        v-if="expandall">Expand all</span>
+                      <span v-else>Hide all</span></a>
                   </div>
-                  <!-- <PropertyChooser></PropertyChooser> -->
+                  <hr v-if="stepName !== 'Distributions'">
                   <FormKitSchema v-if="stepName !== 'Distributions'" :schema="getSchema(property)[stepName]"
                     :library="library" />
                   <DistributionInputPage v-if="stepName === 'Distributions'" :schema="getSchema('distributions')"
@@ -98,6 +94,7 @@ export default defineComponent({
       info: {},
       catalogues: [],
       byte: true,
+      expandall: true,
       // steps:{},
       camel2title: (str) =>
         str
@@ -166,6 +163,25 @@ export default defineComponent({
     update() {
       this.$forceUpdate();
     },
+    dropdownCLick() {
+
+      const h4Elements = document.querySelectorAll('.formkitProperty h4');
+      
+        if (this.expandall) {
+          h4Elements.forEach((h4Element, index) => {
+            h4Element.classList.add('dpiChevUp')
+            h4Element.nextElementSibling.classList.remove('d-none')
+          })
+        }
+        if (!this.expandall) {
+          h4Elements.forEach((h4Element, index) => {
+            h4Element.classList.remove('dpiChevUp')
+            h4Element.nextElementSibling.classList.add('d-none')
+          })
+
+        }
+      
+    },
     clearForm() {
       this.$formkit.reset('dpi')
     },
@@ -173,6 +189,8 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
+
+
 
       // adding validation of modified and issued based on edit mode
       // no validation in edit mode
@@ -193,8 +211,6 @@ export default defineComponent({
             el['children'][1]['props']['then']['validation-visibility'] = ''
             el['children'][1]['props']['then']['validation'] = ''
             el['children'][1]['props']['then']['validation-visibility'] = ''
-
-            // console.log(el)
           }
         }
         );
@@ -214,6 +230,74 @@ export default defineComponent({
       this.$nextTick(() => {
         $('[data-toggle="tooltip"]').tooltip({
           container: 'body',
+        });
+        setTimeout(() => {
+          const h4Elements = document.querySelectorAll('.formkitProperty h4');
+          h4Elements.forEach((h4Element, index) => {
+            // Added the clickeffect to the headers of the individual properties
+            if (!h4Element.parentElement.parentElement.classList.contains('formkitWrapRepeatable')) {
+              if (index != 0 && index != 1 && index != 2 && index != 3) {
+                h4Element.nextElementSibling.classList.toggle('d-none')
+              }
+              h4Element.addEventListener('click', () => {
+                h4Element.classList.toggle('dpiChevUp')
+                h4Element.nextElementSibling.classList.toggle('d-none')
+              });
+            }
+          })
+          // Observe the validity of the individual properties
+          const elements = document.querySelectorAll('.formkitProperty');
+          const attributeChangedCallback = (mutationsList) => {
+            for (const mutation of mutationsList) {
+
+              if (mutation.type === 'attributes') {
+                if (mutation.target.getAttribute('data-invalid') === 'true') {
+                  try {
+                    if (mutation.target.parentNode.parentNode.parentNode.previousElementSibling.tagName === 'H4') {
+                      mutation.target.parentNode.parentNode.parentNode.previousElementSibling.classList.add('isInvalidProperty')
+                    }
+                  } catch (error) { }
+                  try {
+                    if (mutation.target.previousElementSibling.tagName === 'H4') {
+                      mutation.target.previousElementSibling.classList.add('isInvalidProperty')
+                    }
+                  } catch (error) { }
+                  try {
+                    if (mutation.target.parentNode.previousElementSibling.tagName === 'H4') {
+                      mutation.target.parentNode.previousElementSibling.classList.add('isInvalidProperty')
+                    }
+                  } catch (error) { }
+                }
+                if (mutation.target.getAttribute('data-invalid') === null || mutation.target.getAttribute('data-invalid') === 'false') {
+                  try {
+                    if (mutation.target.parentNode.parentNode.parentNode.previousElementSibling.tagName === 'H4') {
+                      mutation.target.parentNode.parentNode.parentNode.previousElementSibling.classList.remove('isInvalidProperty')
+                    }
+                  } catch (error) { }
+                  try {
+                    if (mutation.target.previousElementSibling.tagName === 'H4') {
+                      mutation.target.previousElementSibling.classList.remove('isInvalidProperty')
+                    }
+                  } catch (error) { }
+                  try {
+                    if (mutation.target.parentNode.previousElementSibling.tagName === 'H4') {
+                      mutation.target.parentNode.previousElementSibling.classList.remove('isInvalidProperty')
+                    }
+                  } catch (error) { }
+                }
+              }
+            }
+          };
+          // MutationObserver 
+          const observer = new MutationObserver(attributeChangedCallback);
+          const config = { attributes: true };
+          let allMatchingElements = [];
+
+          elements.forEach((element, index) => {
+            const matchingChildren = element.querySelectorAll('.formkit-outer');
+            allMatchingElements = allMatchingElements.concat(Array.from(matchingChildren));
+            observer.observe(allMatchingElements[index], config);
+          });
         });
       });
     },
@@ -236,9 +320,11 @@ export default defineComponent({
         this.createSchema({ property: property, page: this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property][index], specification: this.$env.content.dataProviderInterface.specification });
         this.translateSchema({ property: property, page: this.getNavSteps(this.$env.content.dataProviderInterface.specification)[property][index] });
       }
-    }
+    },
+
   },
   created() {
+
 
 
     // Needs to be reworked
@@ -304,10 +390,6 @@ export default defineComponent({
       goToPreviousStep,
     } = useDpiStepper();
 
-
-
-
-
     const scrollToTop = () => {
       let { x, y } = useWindowScroll({ behavior: 'smooth' })
       y.value = 0
@@ -338,7 +420,26 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.standardButtonDPI {
+  background-color: #fff;
+  color: #000;
+  border-radius: 0.3em;
+  font-size: 16px;
+  padding: 0.75em;
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  border: 1px solid lightgray;
+  transition: all 100ms ease-in-out;
+  cursor: pointer;
 
+  &:hover {
+    transform: scale(98%);
+    background-color: #F4F4F4;
+    border-color: gray;
+    text-decoration: none;
+  }
+}
 
 :root {
   --gray: #ccccd7;
@@ -520,6 +621,15 @@ summary {
   }
 }
 
+.repeatableWrap,
+.formkitCmpWrap {
+  margin: 2rem 0 !important
+}
+
+.isInvalidProperty {
+  background-color: #FFD9D9 !important;
+}
+
 .activeItem {
   flex-grow: 1;
 
@@ -613,5 +723,98 @@ select {
 
 .display-none {
   display: none;
+}
+
+.activeSection {
+  >.formkitProperty {
+    >div {}
+  }
+}
+
+.formkitCmpWrap {
+  border-left: 1px solid lightgray;
+
+
+}
+
+.formkitProperty {
+
+  >h4 {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    cursor: pointer;
+    position: relative;
+    transition: all ease-in-out 200ms;
+
+    &:hover {
+
+      background-color: lightgray;
+
+      &:before {
+
+        rotate: -45deg;
+      }
+
+      &:after {
+
+        rotate: 45deg;
+      }
+    }
+
+    &:before {
+      transition: all ease-in-out 200ms;
+      content: "";
+      width: 15px;
+      height: 1.5px;
+      background-color: black;
+      position: absolute;
+      top: 30px;
+      right: 15px;
+      rotate: 45deg;
+    }
+
+    &:after {
+      transition: all ease-in-out 200ms;
+      content: "";
+      width: 15px;
+      height: 1.5px;
+      background-color: black;
+      position: absolute;
+      top: 30px;
+      right: 25px;
+      rotate: -45deg;
+    }
+  }
+
+  .formkitProperty {
+    h4 {
+      padding: 0;
+      background-color: unset !important;
+
+      &::before {
+        display: none !important;
+      }
+
+      &:after {
+        display: none !important;
+      }
+    }
+  }
+}
+
+.dpiChevUp {
+
+  &:before {
+
+    rotate: -45deg !important;
+  }
+
+  &:after {
+
+    rotate: 45deg !important;
+  }
+
+
+
 }
 </style>

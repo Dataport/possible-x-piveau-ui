@@ -4,6 +4,7 @@ import { useStore } from 'vuex';
 import { getTranslationFor } from "../../utils/helpers";
 import { getCurrentInstance } from "vue";
 import { getNode } from '@formkit/core'
+import { onClickOutside } from '@vueuse/core'
 
 import qs from 'qs';
 import axios from 'axios';
@@ -24,8 +25,9 @@ let voc = props.context.attrs.voc;
 let matches = ref({
   value: { name: '--- Type in anything for a live search of the vocabulary ---' }
 })
-let inputTextHidden = ref({})
-let inputText = ref({});
+let activeList = ref()
+let dropdownList = ref(null)
+let inputText = ref({})
 let cacheList = [];
 let annifList = [];
 let annifTrigger = ref({
@@ -136,32 +138,9 @@ function findPropertyToUpdate(trigger) {
     }
   }
 
+  window.removeEventListener("click", onClickOutside);
 }
-
-// Catches the OutsideClick for the input fields
-function onClickOutside(e) {
-  let element = document.getElementsByClassName("autocompleteResultList")
-  if (!e.target.classList.contains('choosableItemsAC') && !e.target.classList.contains('autocompleteInputfield')) {
-    for (let index = 0; index < element.length; index++) {
-      if (!element[index].classList.contains('inactiveResultList')) {
-        try {
-          element[index].classList.toggle('inactiveResultList');
-        } catch (error) {
-        }
-      }
-    }
-  }
-  else {
-    for (let i = 0; i < element.length; i++) {
-      if (!element[i].classList.contains("inactiveResultList")) {
-        element[i].classList.toggle("inactiveResultList");
-      }
-    }
-    e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList')
-  }
-
-}
-
+onClickOutside(dropdownList, event => activeList.value = false)
 let annifHandlerTheme = async (input, limit) => {
 
   let finalLimit = 10;
@@ -327,15 +306,6 @@ function removeMultipleProperty(e) {
   props.context.node.input(selection);
   findPropertyToUpdate();
 }
-function toggleList(e) {
-  inputText.value = "";
-  e.target.parentElement.nextElementSibling.classList.toggle('inactiveResultList');
-  // // Register the outside click to close the list of suggested values
-  window.addEventListener("click", onClickOutside);
-
-  //  todo - remove the eventlistener after an item has been chosen
-  // window.removeEventListener("click", onClickOutside);
-}
 </script>
 
 <template>
@@ -345,22 +315,22 @@ function toggleList(e) {
     <div class="formkitCmpWrap">
       <div class="formkit-outer">
         <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
-          <div class="infoI">
+          <!-- <div class="infoI">
             <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-          </div>
+          </div> -->
           <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
           <div class="removeX" @click="removeProperty"></div>
         </div>
         <div v-else>
           <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
-            <div class="infoI">
+            <!-- <div class="infoI">
               <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-            </div>
+            </div> -->
             <input class="autocompleteInputfield" :placeholder="props.context.attrs.placeholder" v-model="inputText"
-              type="text" @click="toggleList" v-on:keyup="getAutocompleteSuggestions($event)">
+              type="text" v-on:keyup="getAutocompleteSuggestions($event)" @click="activeList = !activeList">
           </div>
-          <ul class="autocompleteResultList inactiveResultList">
-            <li v-for="match in matches" :key="match" @click="setValue(match);"
+          <ul ref="dropdownList" v-show="activeList" class="autocompleteResultList">
+            <li v-for="match in matches" :key="match" @click="setValue(match); activeList = !activeList "
               class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}
             </li>
           </ul>

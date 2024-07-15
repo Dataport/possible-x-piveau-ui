@@ -169,7 +169,6 @@ const dcatapProperties: InputDefinition = {
           identifier: 'datasetTitle',
           $formkit: 'group',
           name: 'dct:title',
-
           minimum: 1,
           children: [
             {
@@ -1002,10 +1001,10 @@ const dcatapProperties: InputDefinition = {
     },
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
-      $formkit: 'number',
+      $formkit: 'simpleInput',
       name: 'dcat:spatialResolutionInMeters',
-      validation: 'number',
-      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
+      validationType: 'number',
+
     },
     temporalResolution: {
       identifier: 'temporalResolution',
@@ -1059,9 +1058,9 @@ const dcatapProperties: InputDefinition = {
     },
     versionInfo: {
       identifier: 'versionInfo',
-      $formkit: 'text',
+      $formkit: 'simpleInput',
       name: 'owl:versionInfo',
-      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
+      validationType: 'number'
     },
     versionNotes: {
       identifier: 'versionNotes',
@@ -1100,9 +1099,7 @@ const dcatapProperties: InputDefinition = {
       $formkit: 'simpleSelect',
       name: 'dcat:catalog',
       id: 'dcat:catalog',
-      mandatory: true,
-      validation: 'required',
-      placeholder:'Catalog',
+      placeholder: 'Catalog',
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
     isUsedBy: {
@@ -1178,7 +1175,7 @@ const dcatapProperties: InputDefinition = {
               $formkit: 'textarea',
               name: '@value',
               classes: {
-                outer: 'w75-descField'
+                outer: 'w75-textfield'
               }
             },
           ],
@@ -1357,9 +1354,9 @@ const dcatapProperties: InputDefinition = {
     },
     byteSize: {
       identifier: 'byteSize',
-      $formkit: 'text',
+      $formkit: 'simpleInput',
       name: 'dcat:byteSize',
-      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
+      validationType: 'number'
     },
     checksum: {
       $formkit: 'formkitGroup',
@@ -1449,17 +1446,21 @@ const dcatapProperties: InputDefinition = {
                   name: 'dct:description',
                   children: [
                     {
-                      identifier: 'pageDescription',
-                      $formkit: 'textarea',
-                      name: '@value',
-                    },
-                    {
                       identifier: 'language',
                       value: 'en',
                       $formkit: 'select',
                       options: language,
                       name: '@language',
                     },
+                    {
+                      identifier: 'pageDescription',
+                      $formkit: 'textarea',
+                      name: '@value',
+                      classes: {
+                        outer: 'w75-descfield'
+                      },
+                    }
+                   
                   ]
                 }
               ]
@@ -1623,7 +1624,7 @@ const dcatapProperties: InputDefinition = {
     },
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
-      $formkit: 'number',
+      $formkit: 'simpleInput',
       name: 'dcat:spatialResolutionInMeters',
       validation: 'number',
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' },

@@ -40,10 +40,10 @@ const removeItem = (index) => {
         <div class="interactionHeaderRepeatable my-1">
           <i18n-t keypath="message.dataupload.info.repeatable" scope="global" tag="p">
             <template v-slot:add>
-              <a class="add" @click="addItem">{{ $t('message.dataupload.info.add') }}</a>
+              <a class="add" @click="addItem">+ {{ $t('message.dataupload.info.add') }}</a>
             </template>
             <template v-slot:remove>
-              <a class="remove" @click="removeItem(repeatableIndex)" :data-key="key">{{
+              <a class="remove" @click="removeItem(repeatableIndex)" :data-key="key">- {{
                 $t('message.dataupload.info.remove') }}</a>
             </template>
           </i18n-t>
@@ -57,5 +57,31 @@ const removeItem = (index) => {
     </div>
   </div>
 </template>
+<style scoped>
+.add,
+.remove {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 5px;
+  transition: all 200ms ease-in-out;
+}
 
+.add {
+  border: 1px solid lightseagreen;
+  &:hover {
+    text-decoration: none;
+    color: white;
+    background-color: lightseagreen;
+  }
+}
 
+.remove {
+  border: 1px solid lightcoral;
+
+  &:hover {
+    text-decoration: none;
+    color: white;
+    background-color: lightcoral;
+  }
+}
+</style>

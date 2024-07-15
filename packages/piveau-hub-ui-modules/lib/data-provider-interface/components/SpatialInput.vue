@@ -152,9 +152,9 @@ function manURLInput(e) {
 <template>
     <div class="d-flex flex-column w-100 spatialWrap">
         <div class="d-flex formkit-inner mx-3 mb-3" v-if="!props.context.attrs.multiple && showTable.activeValue">
-            <div class="infoI">
+            <!-- <div class="infoI">
                 <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-            </div>
+            </div> -->
             <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
             <div class="removeX" @click="removeProperty"></div>
         </div>

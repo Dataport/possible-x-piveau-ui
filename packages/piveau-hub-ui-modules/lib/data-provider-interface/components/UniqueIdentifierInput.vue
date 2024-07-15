@@ -52,7 +52,7 @@ function idformatvalid(node) {
       :placeholder="$t(`message.dataupload.datasets.datasetID.label`)"
       :info="$t(`message.dataupload.datasets.datasetID.info`)" :help="$t(`message.dataupload.datasets.datasetID.help`)"
       :validation-rules="{ idformatvalid, idunique }" validation="idformatvalid|idunique|required"
-      validation-visibility="live" :validation-messages="validationMessages" outer-class="formkitCmpWrap m-0 p-3">
+      validation-visibility="live" :validation-messages="validationMessages" outer-class="formkitCmpWrap p-3">
     </FormKit>
     <FormKit v-else type="text" name="datasetID" id="datasetID" :disabled="true"
       :info="$t(`message.dataupload.datasets.datasetID.info`)" :help="$t(`message.dataupload.datasets.datasetID.help`)">

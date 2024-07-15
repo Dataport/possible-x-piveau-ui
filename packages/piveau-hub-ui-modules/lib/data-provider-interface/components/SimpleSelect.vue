@@ -9,6 +9,7 @@ import {
     has,
     isNil,
 } from 'lodash-es';
+import { FormKit } from '@formkit/vue';
 
 const props = defineProps({
     context: Object
@@ -16,10 +17,11 @@ const props = defineProps({
 
 const userCats = computed(() => store.getters['auth/getUserCatalogIds']);
 let showList = ref()
-let selection = ref()
-const store = useStore();
+// let selection = ref()
+const store = useStore()
 const dropdownList = ref(null)
-const isEditMode = ref();
+const isEditMode = ref()
+let validationTrigger = ref(true)
 isEditMode.value = computed(() => store.getters['auth/getIsEditMode']);
 let filteredCatalogs = ref([])
 let env = getCurrentInstance().appContext.app.config.globalProperties.$env;
@@ -27,8 +29,9 @@ let env = getCurrentInstance().appContext.app.config.globalProperties.$env;
 onClickOutside(dropdownList, event => showList.value = false)
 
 const setvalue = async (e) => {
-    selection.value = e
-    props.context.node.input(e)
+    console.log(e);
+    validationTrigger = false
+    props.context.node.input(e.id)
     showList.value = !showList.value;
     getNode('dcat:catalog').value = e
 }
@@ -50,43 +53,46 @@ let filterCatList = async () => {
         .map(item => ({ id: item.id, name: item.title }));
 }
 onMounted(async () => {
-    filterCatList()
+    // filterCatList()
 });
 </script>
 <template>
 
+
     <div class="formkitProperty">
         <h4>{{ props.context.label }}</h4>
-        <div class="formkitCmpWrap">
-            <div class="formkit-outer">
-                <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
-                    <div class="infoI">
-                        <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-                    </div>
-                    <input v-if="isEditMode.value" class="autocompleteInputfield" type="text" readonly
-                        :placeholder="getNode('dcat:catalog').value">
-                    <input v-else class="autocompleteInputfield" v-model="getNode('dcat:catalog').value"
-                        :placeholder="props.context.attrs.placeholder" type="text" @click="showList = !showList">
-                </div>
-                <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
-                    <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match.id)"
-                        class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
-                            match.name }}
-                    </li>
-                    <li v-if="filteredCatalogs.length === 0" v-for="idMatch in userCats" :key="idMatch" @click="setvalue(idMatch)"
-                        class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
-                            idMatch }}
-                    </li>
-                </ul>
-            </div>
 
+        <div class="position-relative formkitCmpWrap">
+            <FormKit v-if="isEditMode.value" class="autocompleteInputfield" type="text" readonly
+                :placeholder="getNode('dcat:catalog').value" />
+            <FormKit v-else class="autocompleteInputfield" v-model="getNode('dcat:catalog').value"
+                :placeholder="props.context.attrs.placeholder" type="text" @click="showList = !showList"
+                validation="required" mandatory="true" readonly :validation-messages="{
+                    required: 'The catalog is required',
+                }" />
+
+            <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
+
+                <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match)"
+                    class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
+                        match.id }}
+                </li>
+                <li v-if="filteredCatalogs.length === 0" v-for="idMatch in userCats" :key="idMatch"
+                    @click="setvalue(idMatch)"
+                    class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
+                        idMatch }}
+                </li>
+            </ul>
         </div>
+
+
     </div>
 
 </template>
 <style>
 .selectListFK {
     max-height: 20rem;
-    overflow: scroll;
+    overflow: overlay;
+    overflow-x: hidden;
 }
 </style>
