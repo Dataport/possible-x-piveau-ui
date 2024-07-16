@@ -1,8 +1,3 @@
-include:
-  - project: piveau/misc/gitlab-ci-templates
-    file:
-      - /templates/.gitlab-ci-publish-template.yml
-
 cache:
   paths:
    - node_modules/
