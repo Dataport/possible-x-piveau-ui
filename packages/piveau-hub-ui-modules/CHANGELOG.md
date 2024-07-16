@@ -1,3 +1,7 @@
+## [4.0.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.16...v4.0.17) (2024-07-16)
+
+
+
 ## [4.0.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.15...v4.0.16) (2024-07-16)
 
 
