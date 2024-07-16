@@ -63,16 +63,17 @@ export default {
         $('#downloadAllModal').modal('show');
       }
       if (this.checked) {
-        this.$cookie.set('externalContent', this.checked, this.expires);
+        this.cookies.set('externalContent', this.checked, this.expires);
       } else if (!this.checked) {
-        if (this.$cookie.get('externalContent')) {
-          this.$cookie.set('externalContent', this.checked, this.expires);
+        if (this.cookies.get('externalContent')) {
+          this.cookies.set('externalContent', this.checked, this.expires);
         }
       }
       this.callback();
     },
   },
   checked() {
+    console.log("CHECKED!")
     if (this.checked) {
       this.cookies.set('externalContent', this.checked, this.expires);
     } else if (!this.checked) {
