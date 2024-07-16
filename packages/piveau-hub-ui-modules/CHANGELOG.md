@@ -1,3 +1,12 @@
+## [4.0.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.15...v4.0.16) (2024-07-16)
+
+
+### Bug Fixes
+
+* remove use of this in setup function ([f52be5b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f52be5b5f44f9fba247c1a6ea856593fcc911122))
+
+
+
 ## [4.0.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.14...v4.0.15) (2024-07-12)
 
 
