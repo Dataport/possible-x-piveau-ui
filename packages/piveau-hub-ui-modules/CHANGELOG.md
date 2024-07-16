@@ -1,3 +1,29 @@
+## [4.0.19](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.18...v4.0.19) (2024-07-16)
+
+
+
+## [4.0.18](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.17...v4.0.18) (2024-07-16)
+
+
+### Bug Fixes
+
+* cookie handling in ResourceAccessPopup.vue ([038f69f](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/038f69f91049050754c22c446caa4d275f751226))
+
+
+
+## [4.0.17](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.16...v4.0.17) (2024-07-16)
+
+
+
+## [4.0.16](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.15...v4.0.16) (2024-07-16)
+
+
+### Bug Fixes
+
+* remove use of this in setup function ([f52be5b](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/f52be5b5f44f9fba247c1a6ea856593fcc911122))
+
+
+
 ## [4.0.15](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.14...v4.0.15) (2024-07-12)
 
 

@@ -64,12 +64,12 @@ onMounted(async () => {
 
         <div class="position-relative formkitCmpWrap">
             <FormKit v-if="isEditMode.value" class="autocompleteInputfield" type="text" readonly
-                :placeholder="getNode('dcat:catalog').value" />
+                :placeholder="getNode('dcat:catalog').value"  :name="props.context.node.name" />
             <FormKit v-else class="autocompleteInputfield" v-model="getNode('dcat:catalog').value"
                 :placeholder="props.context.attrs.placeholder" type="text" @click="showList = !showList"
                 validation="required" mandatory="true" readonly :validation-messages="{
                     required: 'The catalog is required',
-                }" />
+                }" :name="props.context.node.name" />
 
             <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
 
