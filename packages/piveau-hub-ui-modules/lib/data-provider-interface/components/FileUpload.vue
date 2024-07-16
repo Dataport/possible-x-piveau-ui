@@ -43,7 +43,7 @@ onMounted(async () => {
     <div class="file-div position-relative">
       <label class="formkit-label" for="aUrlFL">Upload a file</label>
       <input class="mt-3" type="file" id="aUrlFL" name="fileUpload" @change="validateFile($event)"
-        :accept="this.$env.content.dataProviderInterface.uploadFileTypes">
+        :accept="validExtensions">
       <div class="upload-feedback position-absolute d-flex" style="right: 0">
         <div v-if="isLoading" class="lds-ring">
         </div>
@@ -55,8 +55,7 @@ onMounted(async () => {
       context.model }}</a></p>
     <p class="errorSub my-3 d-flex " v-if="!success">Allowed types: </p>
     <div class="allowedTypesWrapper">
-      <span v-for="types, index in this.$env.content.dataProviderInterface.uploadFileTypes" :key="types"
-        class="mr-1 mb-1 allowedFTypes ">{{ types
+      <span v-for="types, index in validExtensions" :key="types" class="mr-1 mb-1 allowedFTypes ">{{ types
         }}</span>
     </div>
 
@@ -89,6 +88,7 @@ export default {
       isLoading: false,
       success: false,
       fail: false,
+      validExtensions: this.$env.content.dataProviderInterface.uploadFileTypes
     };
   },
   computed: {
@@ -111,7 +111,7 @@ export default {
     validateFile(event) {
 
       const file = event.target.files[0];
-      const validExtensions = this.$env.content.dataProviderInterface.uploadFileTypes
+
       const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
       if (validExtensions != undefined) {
         if (validExtensions.length != 0) {
@@ -355,9 +355,10 @@ export default {
   border-radius: 5px;
   border: 1px solid lightgrey;
 }
-.allowedTypesWrapper{
+
+.allowedTypesWrapper {
   max-width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
