@@ -53,10 +53,13 @@ onMounted(async () => {
     </div>
     <p class="dURLText my-3" v-if="success">{{ $t('message.metadata.downloadUrl') }}: <a :href="context.model">{{
       context.model }}</a></p>
-    <p class="errorSub my-4" v-if="!success">Allowed types are: <span
-        v-for="types, index in this.$env.content.dataProviderInterface.uploadFileTypes" :key="types"
-        class="m-1 allowedFTypes">{{ types
-        }}</span></p>
+    <p class="errorSub my-3 d-flex " v-if="!success">Allowed types: </p>
+    <div class="allowedTypesWrapper">
+      <span v-for="types, index in this.$env.content.dataProviderInterface.uploadFileTypes" :key="types"
+        class="mr-1 mb-1 allowedFTypes ">{{ types
+        }}</span>
+    </div>
+
 
   </div>
 
@@ -351,5 +354,10 @@ export default {
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid lightgrey;
+}
+.allowedTypesWrapper{
+  max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 </style>
