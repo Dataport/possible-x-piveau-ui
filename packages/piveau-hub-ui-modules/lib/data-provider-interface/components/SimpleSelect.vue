@@ -29,7 +29,7 @@ let env = getCurrentInstance().appContext.app.config.globalProperties.$env;
 onClickOutside(dropdownList, event => showList.value = false)
 
 const setvalue = async (e) => {
-    console.log(e);
+    
     validationTrigger = false
     props.context.node.input(e.id)
     showList.value = !showList.value;
