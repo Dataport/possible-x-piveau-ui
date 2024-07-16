@@ -2,7 +2,7 @@
     <div v-if="value.type === 'conditional'">
         <!-- PUBLISHER -->
         <div v-if="property === 'dct:publisher'">
-            <details>{{ value }}</details>
+           
             
 <!--             
             <div v-if="!data[property][0]['resource']">

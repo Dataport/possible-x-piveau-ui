@@ -1,8 +1,7 @@
 <template>
     <div>
-        <details v-if="distId">{{ value }}</details>
+       
         <tr class="align-items-center" v-if="isSet">
-
             <!-- <td class=" font-weight-bold" v-if="value.type !== 'special'">{{ $t(`${value.label}`) }}:</td> -->
             <URIProp v-if="value.type === 'singularURI' || value.type === 'multiURI' || value.type === 'singularURI'"
                 :property="property" :value="value" :data="data" :inHeader="inHeader">

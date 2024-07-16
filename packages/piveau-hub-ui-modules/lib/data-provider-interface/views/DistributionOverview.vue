@@ -5,10 +5,7 @@
       <hr>
       <ul class="list-unstyled" v-if="getData('distributions').length > 0">
         <li v-for="(dist, i) in getData('distributions')" :key="i" class="dist-item">
-          <div class="pr-md-4">
-            <div class="circle float-md-right text-center text-white" :type="getDistributionFormat(dist)"><span>{{
-              truncate(getDistributionFormat(dist), 4, true) }}</span></div>
-          </div>
+          
           <div class="dist-details">
             <div class="dist-info">
               <!-- accessURL is always an array of URIs, first one might be enough for displaying -->

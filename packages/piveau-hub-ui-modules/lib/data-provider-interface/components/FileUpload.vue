@@ -1,6 +1,8 @@
 <script setup>
 import { reactive, ref, onMounted } from 'vue';
 import { onClickOutside } from '@vueuse/core'
+import { getCurrentInstance } from "vue";
+
 
 var drop = reactive({
   active: false,
@@ -14,13 +16,11 @@ function triggerDropdown(e) {
 }
 
 onMounted(async () => {
-
-  // console.log('Context: ', props.context);
 });
+
 </script>
 
 <template>
-
   <div class="position-relative w-100 p-3 ">
     <input type="text" class="selectInputField formkit-inner" readonly="readonly" @click="triggerDropdown()"
       placeholder="Choose between fileupload and providing a URL">
@@ -42,8 +42,8 @@ onMounted(async () => {
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
     <div class="file-div position-relative">
       <label class="formkit-label" for="aUrlFL">Upload a file</label>
-      <input class="mt-3" type="file" id="aUrlFL" name="fileUpload"
-        @change="uploadOrReplaceFile({ file: $event.target.files[0] })">
+      <input class="mt-3" type="file" id="aUrlFL" name="fileUpload" @change="validateFile($event)"
+        :accept="this.$env.content.dataProviderInterface.uploadFileTypes">
       <div class="upload-feedback position-absolute d-flex" style="right: 0">
         <div v-if="isLoading" class="lds-ring">
         </div>
@@ -51,9 +51,18 @@ onMounted(async () => {
         <div v-if="fail"><i class="material-icons d-flex close-icon">error</i></div>
       </div>
     </div>
-    <p class="dURLText">{{ $t('message.metadata.downloadUrl') }}: <a class="dURLText" :href="context.model">{{
+    <p class="dURLText my-3" v-if="success">{{ $t('message.metadata.downloadUrl') }}: <a :href="context.model">{{
       context.model }}</a></p>
+    <p class="errorSub my-3 d-flex " v-if="!success">Allowed types: </p>
+    <div class="allowedTypesWrapper">
+      <span v-for="types, index in this.$env.content.dataProviderInterface.uploadFileTypes" :key="types"
+        class="mr-1 mb-1 allowedFTypes ">{{ types
+        }}</span>
+    </div>
+
+
   </div>
+
 </template>
 
 <script>
@@ -72,6 +81,7 @@ export default {
   },
   data() {
     return {
+      error: '',
       URLValue: '',
       uploadURL: false,
       uploadFileSwitch: false,
@@ -98,6 +108,25 @@ export default {
     ...mapActions('dpiStore', [
       'saveLocalstorageValues',
     ]),
+    validateFile(event) {
+
+      const file = event.target.files[0];
+      const validExtensions = this.$env.content.dataProviderInterface.uploadFileTypes
+      const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+      if (validExtensions != undefined) {
+        if (validExtensions.length != 0) {
+          if (!validExtensions.includes(fileExtension)) {
+            console.log('Wrong filetype');
+
+          } else {
+            this.uploadOrReplaceFile({ file: event.target.files[0] })
+          }
+        }
+      } else {
+        this.error = ""
+        this.uploadOrReplaceFile({ file: event.target.files[0] })
+      }
+    },
     async saveUrl() {
 
       if (this.URLValue.includes('http://') || this.URLValue.includes('https://')) {
@@ -107,9 +136,9 @@ export default {
 
     },
     checkIfPresent() {
-      console.log(this.context.value['@id']);
+      // console.log(this.context.value['@id']);
       if (this.context.value['@id']) {
-        console.log(this.context.value['@id']);
+        // console.log(this.context.value['@id']);
         this.URLValue = this.context.value['@id']
         return true
       }
@@ -244,9 +273,7 @@ export default {
 <style lang="scss" scoped>
 // @import '../../../styles/bootstrap_theme';
 // @import '../../../styles/utils/css-animations';
-.dURLText {
-  font-size: 12px;
-}
+.dURLText {}
 
 .file-div {
   display: flex;
@@ -305,6 +332,14 @@ export default {
   animation-delay: -0.15s;
 }
 
+.error {
+  color: red;
+}
+
+.errorSub {
+  color: black;
+}
+
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);
@@ -313,5 +348,16 @@ export default {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.allowedFTypes {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}
+.allowedTypesWrapper{
+  max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 </style>
