@@ -271,6 +271,7 @@ const mapsSchema = z.object({
 }).default({})
 
 const dataProviderInterfaceSchema = z.object({
+  uploadFileTypes: z.array(z.string()).default([]),
   useService: z.boolean().default(true),
   enableFileUploadReplace: z.boolean().default(false),
   basePath: z.string().default('/dpi'),
