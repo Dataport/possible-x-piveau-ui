@@ -110,9 +110,6 @@ export default {
       const file = event.target.files[0];
       const validExtensions = this.$env.content.dataProviderInterface.uploadFileTypes
       const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-
-      console.log(fileExtension, validExtensions);
-
       if (validExtensions != undefined) {
         if (validExtensions.length != 0) {
           if (!validExtensions.includes(fileExtension)) {
@@ -136,9 +133,9 @@ export default {
 
     },
     checkIfPresent() {
-      console.log(this.context.value['@id']);
+      // console.log(this.context.value['@id']);
       if (this.context.value['@id']) {
-        console.log(this.context.value['@id']);
+        // console.log(this.context.value['@id']);
         this.URLValue = this.context.value['@id']
         return true
       }
