@@ -267,7 +267,7 @@ export default {
         if (isNil(id) || id === '' || id === undefined) isUniqueID = true;
         else if (draftIDs.includes(id)) isUniqueID = false;
         else {
-          const request = `${this.$env.api.hubUrl}/datasets/${id}?useNormalizedId=true`;
+          const request = `${this.$env.api.hubUrl}datasets/${id}?useNormalizedId=true`;
           axios.head(request)
             .then(() => {
               isUniqueID = false;
