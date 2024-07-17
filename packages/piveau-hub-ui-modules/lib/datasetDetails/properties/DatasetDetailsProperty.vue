@@ -67,7 +67,15 @@ export default {
       return translateItems.map((item, i) => this.interpretTranslateKey(item, prefix[i]));
     },
     data() {
-      return this.getProperty(this.name);
+      let d = this.getProperty(this.name);
+      if (this.name === 'languages') {
+        d.sort((a, b) => {
+          if (a.id < b.id) return -1;
+          if (a.id > b.id) return 1;
+          return 0;
+        });
+      }
+      return d;
     },
     preparedFields() {
       return this.propertyFields?.split(',').map(field => field.split(':'));
@@ -100,7 +108,7 @@ export default {
           });
           break;
         case 'translation':
-          v = this.getTranslationFor(v);
+          v = this.getTranslationFor(v, this.$route.query.locale, ['en']);
           break;
         default:
           if (this.type.startsWith('first')) {
