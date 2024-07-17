@@ -24,7 +24,7 @@
         <div class="col-right mr-2 d-inline" role="group" :aria-label="$t('message.pagination.itemsPerPage')" >
           <div class="btn-group items-per-page-dropdown" role="group">
             <button
-              class="value-display list-group-item col d-flex flex-row justify-content-between p-0 align-items-center"
+              class="value-display list-group-item col d-flex flex-row justify-content-between p-0 align-items-center h-100"
               id="itemsPerPageDropdown" type="button" data-toggle="dropdown" aria-expanded="false">
               <div class="pl-2 d-flex align-items-center">
                 {{ itemsPerPage }}

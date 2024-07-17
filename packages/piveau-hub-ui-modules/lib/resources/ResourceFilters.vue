@@ -2,14 +2,14 @@
     <div class="filters-group ds">
       <slot name="search-bar" :query="query" :bind="{ value: query}" :on="{ input: setSearchQuery }" :search-fn="changeQuery">
         <div class="input-group">
-          <input type="text" class="form-control rounded-lg ds-input"
+          <input type="text" class="form-control ds-input"
                 :aria-label="$t('message.datasets.searchBar.placeholder')"
                 :placeholder="$t('message.datasets.searchBar.placeholder')"
                 v-model="query"
                 @keyup.enter="changeQuery(query)"
                 @click="autocompleteData.show = autocompleteData.suggestions.length > 0 && query.length > 0 ? !autocompleteData.show : false">
           <slot name="update-filter" :query="query" :search-fn="changeQuery">
-            <div class="input-group-append ml-2">
+            <div class="input-group-append">
               <button class="btn btn-sm btn-primary d-flex align-items-center search-button ds-input" type="button" @click="changeQuery(query)">
                 <i class="material-icons align-bottom">search</i>
               </button>
@@ -110,7 +110,7 @@
     font-size: 20px;
   }
   .search-button {
-    border-radius: 100% !important;
+    height: 100% !important;
   
     &:hover {
       background-color: #196fd2;

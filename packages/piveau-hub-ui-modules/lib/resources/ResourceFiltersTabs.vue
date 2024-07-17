@@ -1,67 +1,70 @@
 <template>
-    <ul class="mt-3 d-flex justify-content-between flex-wrap-reverse nav nav-tabs" id="datasets-filters-tab" role="tablist">
-      <div class="datasets-filters-navigation d-flex cursor-pointer">
-        <li v-for="resourceID in availableResources" class="nav-item mb-0" role="tab"
-              :title="$t(`message.tooltip.${resourceID}`)"
-              data-toggle="tooltip"
-              data-placement="top">
-            <router-link
-              :to="{name: 'ResourceSearchPage', params: { resource_id: resourceID }, query: { locale: $route.query.locale }}"
-              class="nav-link"
-              :class="{ 'router-link-active': resourceID === resource, 'router-link-inactive': resourceID !== resource}"
-              role="presentation">
-                  {{ $t(`message.header.navigation.data.${resourceID}`) }}
-            </router-link>
-        </li>
-      </div>
-      <div v-if="useSort" class="datasets-filters-filters btn-group border-1 mb-1 double-button" role="group" aria-label="Button group with nested dropdown">
-        <button
-          type="button"
-          class="custom-button pl-2 pr-2 border-radius-start d-flex align-items-center inactive-styles"
-          :class="{'active-styles': isSortSelectedLabelActive($t('message.sort.lastUpdated'))}"
-          :title="$t('message.tooltip.lastModified')"
+  <div class="d-flex justify-content-between mt-3">
+    <div class="btn-group">
+      <span class="mr-2">Select Resource:</span>
+      <button class="d-flex align-items-center custom-dropdown-button" id="resourceFiltersSelect" type="button" data-toggle="dropdown" aria-expanded="false">
+        <div class="pl-2 h-100 d-flex align-items-center">
+          {{ $t(`message.header.navigation.data.${resource}`) }}
+        </div>
+        <i class="pr-2 material-icons small-icon dropdown-icon">arrow_drop_down</i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="resourceFiltersSelect">
+        <li 
+          v-for="resourceID in availableResources" 
+          class="dropdown-item mb-0" 
+          :title="$t(`message.tooltip.${resourceID}`)"
           data-toggle="tooltip"
-          data-placement="top"
+          data-placement="top">
+          <router-link
+            :to="{name: 'ResourceSearchPage', params: { resource_id: resourceID }, query: { locale: $route.query.locale }}"
+            class="nav-link"
+            :class="{ 'router-link-active': resourceID === resource, 'router-link-inactive': resourceID !== resource}"
+            role="presentation">
+                {{ $t(`message.header.navigation.data.${resourceID}`) }}
+          </router-link>
+        </li>
+      </ul>
+    </div>
+    <div v-if="useSort" class="datasets-filters-filters btn-group border-1 mb-1">
+      <span class="mr-2">Sort by:</span>
+      <button class="d-flex align-items-center custom-dropdown-button" id="resourceFiltersSort" type="button" data-toggle="dropdown" aria-expanded="false">
+        <div class="pl-2 h-100 d-flex align-items-center">
+          {{ sortSelectedLabel }}
+        </div>
+        <i class="pr-2 material-icons small-icon dropdown-icon">arrow_drop_down</i>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="resourceFiltersSort">
+        <button
+          class="dropdown-item"
           @click="setSortMethod('modified', 'desc', $t('message.sort.lastModified'))"
         >
           {{ $t('message.sort.lastUpdated') }}
         </button>
         <button
-          type="button"
-          class="custom-middle-button pl-2 pr-2 d-flex align-items-center inactive-styles"
-          :class="{'active-styles': isSortSelectedLabelActive($t('message.sort.relevance'))}"
-          :title="$t('message.tooltip.relevance')"
-          data-toggle="tooltip"
-          data-placement="top"
+          class="dropdown-item"
           @click="setSortMethod('relevance', 'desc', $t('message.sort.relevance'))"
         >
           {{ $t('message.sort.relevance') }}
         </button>
-        <div class="btn-group" role="group">
-          <button v-if="isSortSelectedLabelInDropdown()" class="active-styles d-flex align-items-center custom-dropdown-button border-radius-end" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-expanded="false">
-            <div class="pl-2 h-100 d-flex align-items-center">
-              {{ sortSelectedLabel }}
-            </div>
-            <i class="pr-2 material-icons small-icon dropdown-icon">arrow_drop_down</i>
-          </button>
-          <button v-else class="d-flex align-items-center custom-dropdown-button border-radius-end inactive-styles" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-expanded="false">
-            <div class="pl-2">
-              {{ $t('message.catalogsAndDatasets.more') }}
-            </div>
-            <i class="pr-2 material-icons small-icon dropdown-icon">arrow_drop_down</i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-          <button class="dropdown-item" @click="setSortMethod(`title.${$route.query.locale}`, 'asc', $t('message.sort.nameAZ'))">
-            {{ $t('message.sort.nameAZ') }}</button>
-          <button class="dropdown-item" @click="setSortMethod(`title.${$route.query.locale}`, 'desc', $t('message.sort.nameZA'))">
-            {{ $t('message.sort.nameZA') }}</button>
-          <button class="dropdown-item" @click="setSortMethod('issued', 'desc', $t('message.sort.lastCreated'))">
-            {{ $t('message.sort.lastCreated') }}</button>
-          </ul>
-        </div>
-      </div>
-    </ul>
-  </template>
+        <button 
+          class="dropdown-item" 
+          @click="setSortMethod(`title.${$route.query.locale}`, 'asc', $t('message.sort.nameAZ'))">
+          {{ $t('message.sort.nameAZ') }}
+        </button>
+        <button 
+          class="dropdown-item" 
+          @click="setSortMethod(`title.${$route.query.locale}`, 'desc', $t('message.sort.nameZA'))">
+          {{ $t('message.sort.nameZA') }}
+        </button>
+        <button 
+          class="dropdown-item" 
+          @click="setSortMethod('issued', 'desc', $t('message.sort.lastCreated'))">
+          {{ $t('message.sort.lastCreated') }}
+        </button>
+      </ul>
+    </div>
+  </div>
+</template>
   
   <script>
   import { defineComponent } from 'vue'
@@ -77,10 +80,6 @@
             type: Boolean,
             default: true
         },
-        useCatalogs: {
-            type: Boolean,
-            default: true
-        },
         locale: {
             type: String,
             default: ''
@@ -88,11 +87,6 @@
     },
     data() {
       return {
-        query: '',
-        autocompleteData: {
-          suggestions: {},
-          show: true,
-        },
         sortSelected: '',
         sortSelectedLabel: this.$t('message.sort.relevance'),
       }
@@ -172,18 +166,6 @@
         if (method === 'issued') this.sortSelected = `${method}+${order}, relevance+desc, title.${this.$route.query.locale}+asc`;
         return this.sortSelected;
       },
-      isSortSelectedLabelActive(label) {
-        if (label === this.sortSelectedLabel) return true;
-        return false;
-      },
-      isSortSelectedLabelInDropdown() {
-        if (this.sortSelectedLabel === this.$t('message.sort.nameAZ')
-          || this.sortSelectedLabel === this.$t('message.sort.nameZA')
-          || this.sortSelectedLabel === this.$t('message.sort.lastCreated')) {
-          return true;
-        }
-        return false;
-      }
     }
   });
   </script>

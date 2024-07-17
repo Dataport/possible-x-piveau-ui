@@ -1,11 +1,12 @@
 <template>
+  <div class="container-fluid">
     <sub-navigation>
-      <div class="container-fluid justify-content-between">
+      <div class="row">
         <div v-if="showFeed" class="navbar-datasets-feed navbar-nav align-items-center justify-content-end">
           <div class="nav-item dropdown">
             <div class="nav-link dropdown-toggle cursor-pointer"
-                 id="dropdown-feeds" data-toggle="dropdown"
-                 aria-haspopup="true" aria-expanded="false">
+                  id="dropdown-feeds" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
               <ins>{{ $t('message.datasets.datasetsFeed') }}</ins>
             </div>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-feeds">
@@ -26,6 +27,7 @@
         </div>
       </div>
     </sub-navigation>
+  </div>
 </template>
   
 <script>

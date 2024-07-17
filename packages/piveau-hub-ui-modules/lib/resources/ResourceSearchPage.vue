@@ -1,62 +1,60 @@
 <template>
-  <div class="resource-container d-flex flex-column p-0 bg-transparent">
-    <resource-top-controls
-        :resource="currentResource"
-        :facets="facets"
-        :getPage="getPage"
-        :getLimit="getLimit"
-        class="resource-top-controls"
-    />
+  <div class="resource-container d-flex flex-column p-0 px-3 mr-5 bg-transparent">
     <div class="container-fluid resource content">
-      <slot name="title">
-        <h1 class="row col-12 page-title text-primary">{{ $t('message.header.navigation.data.resource') }}</h1>
-      </slot>
       <slot
           name="content"
-          :resource-count="getResourcesCount"
+          :resource-count="getResultsCount"
           :resource="getResults"
           :locale="$route.query.locale"
           :loading="getLoading"
           :use-resource-facets="useResourceFacets"
           :facets="getFacets"
       >
+        <resource-top-controls
+                :resource="currentResource"
+                :facets="getFacets"
+                :getPage="getPage"
+                :getLimit="getLimit"
+                class="resource-top-controls"
+              ></resource-top-controls>
         <div class="row">
-          <div class="col d-flex d-md-none justify-content-end flex-wrap">
-            <button class="btn btn-primary mb-3 text-right text-white" data-toggle="collapse"
-                    data-target="#resourceFacets" data-cy="btn-filter-toggle"
-                    @click="filterCollapsed = !filterCollapsed">
-              {{ $t('message.resourceFacets.title') }}
-              <i class="material-icons small-icon align-bottom" v-if="filterCollapsed">arrow_drop_up</i>
-              <i class="material-icons small-icon align-bottom" v-else>arrow_drop_down</i>
-            </button>
-          </div>
-          <resource-facets v-if="useResourceFacets" id="resourceFacets" class="col-md-3 col-12 mb-3 mb-md-0 px-0 collapse"></resource-facets>
-          <section class="col-md-9 col-12">
+          <resource-facets 
+            v-if="useResourceFacets" 
+            id="resourceFacets" 
+            class="col-md-2 col-12 mb-3 mb-md-0"
+            :resource="currentResource"></resource-facets>
+          <section class="col-md-10 col-12">
+            <slot name="title">
+              <div class="row">
+                <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${currentResource}`) }}</h1>
+              </div>
+            </slot>
             <slot name="resource-filters">
               <resource-filters :resource="currentResource"></resource-filters>
             </slot>
             <slot name="resource-found" :data="{
               loading: getLoading,
-              resourceCount: getResourcesCount,
-              resourceCountFormatted: getResourcesCount.toLocaleString('fi'),
-              loadingMessage: $t('message.resource.loadingMessage'),
-              countMessage: $t('message.resource.countMessage'),
+              resourceCount: getResultsCount,
+              resourceCountFormatted: getResultsCount,
+              loadingMessage: $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${currentResource}`) }),
+              countMessage: $t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${currentResource}`) }),
             }">
               <div class="resource-found alert alert-primary mt-3 d-flex flex-row" role="status"
-                   :class="{ 'alert-danger': getResourcesCount <= 0 && !getLoading}">
+                   :class="{ 'alert-danger': getResultsCount <= 0 && !getLoading}">
                 <div>
                   {{
-                    getLoading ? $t('message.resource.loadingMessage') : `${getResourcesCount.toLocaleString('fi')}
-                  ${$t('message.resource.countMessage')}`
+                    getLoading 
+                    ? $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${currentResource}`) }) 
+                    : `${$t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${currentResource}`) })} (${getResultsCount})`
                   }}
                 </div>
                 <div class="loading-spinner ml-3" v-if="getLoading"></div>
               </div>
             </slot>
-            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets"></selectedFacetsOverview>
-            <template v-if="!getLoading">
+            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getFacets"></selectedFacetsOverview>
+            <!-- <template v-if="!getLoading">
               <resource-list :resource="getResults"></resource-list>
-            </template>
+            </template> -->
             <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
           </section>
         </div>
@@ -64,7 +62,7 @@
       <div class="row">
         <div class="column col-12 col-md-9 offset-md-3">
           <pagination class="mt-3"
-                      :items-count="getResourcesCount"
+                      :items-count="getResultsCount"
                       :items-per-page="getLimit"
                       :get-page="getPage"
                       :get-page-count="getPageCount"
@@ -108,27 +106,43 @@ export default {
   props: {},
   data() {
     return {
+      isLoading: false,
       facetFields: [],
       filterCollapsed: true,
       useResourceFacets: this.$env.content.resources.facets.useResourceFacets,
     };
   },
   computed: {
+    currentSearchQuery() {
+      return this.$route.query.query;
+    },
     currentResource() {
       return this.resourcesStore.getSelectedResource;
     },
     availableResources() {
       return this.resourcesStore.getAvailableResources;
     },
-    currentSearchQuery() {
-      return this.$route.query.query;
+    getResultsCount() {
+      return this.resourcesStore.getResultsCount;
     },
-    getResourcesCount() {
-      return 0;
+    getFacets() {
+      return {};
     },
     getResults() {
       this.resourcesStore.getResults;
-    }
+    },
+    getLimit() {
+      return parseInt(this.$route.query.limit || this.resourcesStore.getLimit);
+    },
+    getPage() {
+      return parseInt(this.$route.query.page || this.resourcesStore.getPage);
+    },
+    getPageCount() {
+      return parseInt(this.resourcesStore.getPageCount);
+    },
+    getLoading() {
+      return this.isLoading;
+    },
   },
   methods: {
     isNil,
@@ -146,16 +160,22 @@ export default {
       this.$nextTick(() => {
         this.$nextTick(() => {
           this.$Progress.start();
-          resourcesStore.loadResults()
+          this.isLoading = true;
+          this.resourcesStore.loadResults()
             .then(() => {
               this.$Progress.finish();
+              this.isLoading = false;
             })
             .catch((error) => {
               console.error(error)
               this.$Progress.fail();
+              this.isLoading = false;
             })
         });
       });
+    },
+    setPageLimit(limit) {
+      this.resourcesStore.setLimit(limit);
     },
   },
   watch: {},

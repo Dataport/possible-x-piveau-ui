@@ -1,12 +1,14 @@
 <template>
-    <div>Resource Facets</div>
+    <div class="bg-primary text-white align-self-start p-5">
+        Add facets for {{ $t(`message.header.navigation.data.${resource}`) }} here
+    </div>
 </template>
 
 <script>
 export default {
     name: "ResourceFacets",
     components: {},
-    props: [],
+    props: ['resource'],
     data() {
         return {};
     },
