@@ -1,3 +1,13 @@
+## [4.0.23](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.22...v4.0.23) (2024-07-17)
+
+
+### Bug Fixes
+
+* fix properties with translation type not being translated properly ([86d7718](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/86d7718aa9ff1a88dbdb159866c8dff0d05c0432))
+* sort Languages properies alphabetically ([83a0582](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/83a058209c9fd5dff859ac4382281d65b3e98c3f))
+
+
+
 ## [4.0.22](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.21...v4.0.22) (2024-07-17)
 
 
