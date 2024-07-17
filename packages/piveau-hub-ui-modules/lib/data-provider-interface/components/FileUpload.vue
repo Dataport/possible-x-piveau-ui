@@ -1,8 +1,9 @@
 <script setup>
-import { reactive, ref, onMounted } from 'vue';
+import { reactive, ref, onMounted, computed } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { getCurrentInstance } from "vue";
 
+let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
 
 var drop = reactive({
   active: false,
@@ -14,6 +15,10 @@ onClickOutside(fLoad, event => drop.active = false)
 function triggerDropdown(e) {
   drop.active = !drop.active
 }
+const validExtensions = computed(() => {
+  let arr = instance.content.dataProviderInterface.uploadFileTypes.split(',')
+  return arr
+})
 
 onMounted(async () => {
 });
@@ -78,6 +83,7 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       error: '',
@@ -88,7 +94,7 @@ export default {
       isLoading: false,
       success: false,
       fail: false,
-      validExtensions: this.$env.content.dataProviderInterface.uploadFileTypes
+
     };
   },
   computed: {
