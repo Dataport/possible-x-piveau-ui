@@ -108,7 +108,7 @@ export default {
           });
           break;
         case 'translation':
-          v = this.getTranslationFor(v);
+          v = this.getTranslationFor(v, this.$route.query.locale, ['en']);
           break;
         default:
           if (this.type.startsWith('first')) {
