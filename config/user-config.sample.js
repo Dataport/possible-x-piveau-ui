@@ -85,6 +85,11 @@ const glueConfig = {
     keywords: 'Open Data',
   },
   content: {
+    resources: {
+      facets: {
+        useResourceFacets: true,
+      },
+    },
     datasets: {
       useSort: true,
       useFeed: true,

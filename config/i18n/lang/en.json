@@ -1,5 +1,18 @@
 {
     "message": {
+        "resources": {
+            "countMessageNoResult": "No data",
+            "countMessage": "resources found",
+            "loadingMessage": "Loading resources...",
+            "searchBar": {
+                "placeholder": "Search"
+            },
+            "meta": {
+                "page": {
+                    "title": "Open Datasets Resources | European Data | data.europa.eu"
+                }
+            }
+        },
         "metadata": {
             "politicalGeocodingLevelURI": "Political Geocoding Level URI",
             "politicalGeocodingURI": "Political Geocoding URI",
