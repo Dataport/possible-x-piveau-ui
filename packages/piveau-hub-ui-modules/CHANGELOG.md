@@ -1,3 +1,12 @@
+## [4.0.24](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.23...v4.0.24) (2024-07-18)
+
+
+### Bug Fixes
+
+* don't show links for 'langauges' property in datasetDetailsProperties ([d67828c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/d67828c889164c086f2d0c0456de07ac0de2084e))
+
+
+
 ## [4.0.23](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.22...v4.0.23) (2024-07-17)
 
 
