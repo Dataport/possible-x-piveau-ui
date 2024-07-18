@@ -9,8 +9,8 @@
     <td v-if="type==='uri'"><a :href='value'>{{ value }}</a></td>
     <td v-if="type==='links'">
       <div v-for="(v, i) of value" :key="i">
-        <app-link v-if="!isNil(v) && v.link" :to="v.link">{{ truncate(v.label, 75) }}</app-link>
-        <div v-if="!isNil(v) && !v.link">{{ truncate(v.label, 75) }}</div>
+        <app-link v-if="!isNil(v) && v.link && name !== 'languages'" :to="v.link">{{ truncate(v.label, 75) }}</app-link>
+        <div v-if="(!isNil(v) && !v.link) || name === 'languages'">{{ truncate(v.label, 75) }}</div>
       </div>
     </td>
     <td v-if="type==='object'">
