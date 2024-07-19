@@ -31,10 +31,11 @@
     </div>
     <p class="dURLText my-3" v-if="success">{{ $t('message.metadata.downloadUrl') }}: <a :href="context.model">{{
       context.model }}</a></p>
-    <p class="errorSub my-3 d-flex " v-if="!success">Allowed types: </p>
-    <div class="allowedTypesWrapper">
-      <span v-for="types in validExtensions" :key="types" class="mr-1 mb-1 allowedFTypes ">{{ types
-        }}</span>
+    <div v-if="validExtensions && validExtensions.length" class="allowedTypesWrapper">
+      <p class="errorSub my-3 d-flex " v-if="!success">Allowed types: </p>
+      <span v-for="types in validExtensions" :key="types" class="mr-1 mb-1 allowedFTypes ">
+        {{ types }}
+      </span>
     </div>
 
 
@@ -72,7 +73,7 @@ export default {
       isLoading: false,
       success: false,
       fail: false,
-
+      validExtensions: this.$env.content.dataProviderInterface.uploadFileTypes?.split(',') || []
     };
   },
   computed: {
@@ -86,7 +87,7 @@ export default {
     ]),
     getCatalogue() {
       return getNode('dcat:catalog').value;
-    },
+    }
   },
   methods: {
     ...mapActions('dpiStore', [
@@ -99,18 +100,13 @@ export default {
       if (this.uploadFileSwitch) { this.uploadFileSwitch = !this.uploadFileSwitch }
     },
     validateFile(event) {
-
       const file = event.target.files[0];
-
       const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-      if (validExtensions != undefined) {
-        if (validExtensions.length != 0) {
-          if (!validExtensions.includes(fileExtension)) {
-            console.log('Wrong filetype');
-
-          } else {
-            this.uploadOrReplaceFile({ file: event.target.files[0] })
-          }
+      if (this.validExtensions && this.validExtensions.length) {
+        if (!this.validExtensions.includes(fileExtension)) {
+          console.log('Wrong filetype');
+        } else {
+          this.uploadOrReplaceFile({ file: event.target.files[0] })
         }
       } else {
         this.error = ""
@@ -272,15 +268,11 @@ export default {
     function triggerDropdown(e) {
       drop.active = !drop.active
     }
-    const validExtensions = computed(() => {
-      return env.content.dataProviderInterface.uploadFileTypes?.split(',') || [];
-    });
 
     return {
       drop,
       onClickOutside,
       triggerDropdown,
-      validExtensions
     };
   }
 };
