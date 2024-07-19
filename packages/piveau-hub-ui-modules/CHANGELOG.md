@@ -1,3 +1,13 @@
+## [4.0.25](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.24...v4.0.25) (2024-07-19)
+
+
+### Bug Fixes
+
+* cleanup in FileUpload.vue ([c98018c](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/c98018c011fc5863b60c273b9124de4d1dfbbeeb))
+* logic fixes in FileUpload.vue ([2e81766](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/2e817660ccdbff5278564a23f064e4f72d8e0f80))
+
+
+
 ## [4.0.24](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.23...v4.0.24) (2024-07-18)
 
 
