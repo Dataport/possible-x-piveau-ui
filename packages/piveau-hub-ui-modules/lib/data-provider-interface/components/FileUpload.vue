@@ -1,38 +1,11 @@
-<script setup>
-import { reactive, ref, onMounted, computed } from 'vue';
-import { onClickOutside } from '@vueuse/core'
-import { getCurrentInstance } from "vue";
-
-let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
-
-var drop = reactive({
-  active: false,
-})
-
-const fLoad = ref(null);
-
-onClickOutside(fLoad, event => drop.active = false)
-function triggerDropdown(e) {
-  drop.active = !drop.active
-}
-const validExtensions = computed(() => {
-  let arr = instance.content.dataProviderInterface.uploadFileTypes.split(',')
-  return arr
-})
-
-onMounted(async () => {
-});
-
-</script>
-
 <template>
   <div class="position-relative w-100 p-3 ">
     <input type="text" class="selectInputField formkit-inner" readonly="readonly" @click="triggerDropdown()"
       placeholder="Choose between fileupload and providing a URL">
     <ul ref="fLoad" v-if="drop.active" class="selectListUpload">
-      <li @click="triggerDropdown(); uploadFileSwitch = true; if (uploadURL) { uploadURL = !uploadURL }"
+      <li @click="triggerDropdown(); uploadFileSwitch = true; toggleUploadUrl()"
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Upload a file</li>
-      <li @click="triggerDropdown(); uploadURL = true; if (uploadFileSwitch) { uploadFileSwitch = !uploadFileSwitch }"
+      <li @click="triggerDropdown(); uploadURL = true; toggleUploadFileSwitch()"
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Provide an URL</li>
     </ul>
   </div>
@@ -58,10 +31,11 @@ onMounted(async () => {
     </div>
     <p class="dURLText my-3" v-if="success">{{ $t('message.metadata.downloadUrl') }}: <a :href="context.model">{{
       context.model }}</a></p>
-    <p class="errorSub my-3 d-flex " v-if="!success">Allowed types: </p>
-    <div class="allowedTypesWrapper">
-      <span v-for="types, index in validExtensions" :key="types" class="mr-1 mb-1 allowedFTypes ">{{ types
-        }}</span>
+    <div v-if="validExtensions && validExtensions.length" class="allowedTypesWrapper">
+      <p class="errorSub my-3 d-flex " v-if="!success">Allowed types: </p>
+      <span v-for="types in validExtensions" :key="types" class="mr-1 mb-1 allowedFTypes ">
+        {{ types }}
+      </span>
     </div>
 
 
@@ -75,6 +49,11 @@ import { mapGetters, mapActions } from 'vuex';
 import axios from 'axios';
 import helper from '../utils/general-helper'
 import { getNode } from '@formkit/core'
+
+import { reactive, ref, onMounted, computed } from 'vue';
+import { onClickOutside } from '@vueuse/core'
+import { getCurrentInstance } from "vue";
+import {useRuntimeEnv} from "../../composables/useRuntimeEnv.ts";
 
 export default {
   props: {
@@ -94,7 +73,7 @@ export default {
       isLoading: false,
       success: false,
       fail: false,
-
+      validExtensions: this.$env.content.dataProviderInterface.uploadFileTypes?.split(',') || []
     };
   },
   computed: {
@@ -108,25 +87,26 @@ export default {
     ]),
     getCatalogue() {
       return getNode('dcat:catalog').value;
-    },
+    }
   },
   methods: {
     ...mapActions('dpiStore', [
       'saveLocalstorageValues',
     ]),
+    toggleUploadUrl() {
+      if (this.uploadURL) { this.uploadURL = !this.uploadURL }
+    },
+    toggleUploadFileSwitch() {
+      if (this.uploadFileSwitch) { this.uploadFileSwitch = !this.uploadFileSwitch }
+    },
     validateFile(event) {
-
       const file = event.target.files[0];
-
       const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-      if (validExtensions != undefined) {
-        if (validExtensions.length != 0) {
-          if (!validExtensions.includes(fileExtension)) {
-            console.log('Wrong filetype');
-
-          } else {
-            this.uploadOrReplaceFile({ file: event.target.files[0] })
-          }
+      if (this.validExtensions && this.validExtensions.length) {
+        if (!this.validExtensions.includes(fileExtension)) {
+          console.log('Wrong filetype');
+        } else {
+          this.uploadOrReplaceFile({ file: event.target.files[0] })
         }
       } else {
         this.error = ""
@@ -272,6 +252,28 @@ export default {
       }
       else false
     })
+  },
+  setup() {
+
+// let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
+    const env = useRuntimeEnv();
+
+    var drop = reactive({
+      active: false,
+    })
+
+    const fLoad = ref(null);
+
+    onClickOutside(fLoad, event => drop.active = false)
+    function triggerDropdown(e) {
+      drop.active = !drop.active
+    }
+
+    return {
+      drop,
+      onClickOutside,
+      triggerDropdown,
+    };
   }
 };
 </script>
