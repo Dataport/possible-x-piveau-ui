@@ -33,9 +33,12 @@
       context.model }}</a></p>
     <div v-if="validExtensions && validExtensions.length" class="allowedTypesWrapper">
       <p class="errorSub my-3 d-flex " v-if="!success">Allowed types: </p>
-      <span v-for="types in validExtensions" :key="types" class="mr-1 mb-1 allowedFTypes ">
-        {{ types }}
-      </span>
+      <div class="d-flex flex-wrap w-100">
+        <span v-for="types in validExtensions" :key="types" class="mr-1 mb-1 allowedFTypes ">
+          {{ types }}
+        </span>
+      </div>
+
     </div>
 
 
@@ -53,7 +56,7 @@ import { getNode } from '@formkit/core'
 import { reactive, ref, onMounted, computed } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 import { getCurrentInstance } from "vue";
-import {useRuntimeEnv} from "../../composables/useRuntimeEnv.ts";
+import { useRuntimeEnv } from "../../composables/useRuntimeEnv.ts";
 
 export default {
   props: {
@@ -255,7 +258,7 @@ export default {
   },
   setup() {
 
-// let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
+    // let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
     const env = useRuntimeEnv();
 
     var drop = reactive({
