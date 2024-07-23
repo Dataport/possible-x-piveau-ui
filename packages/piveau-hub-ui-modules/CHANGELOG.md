@@ -1,3 +1,12 @@
+## [4.0.26](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.25...v4.0.26) (2024-07-23)
+
+
+### Bug Fixes
+
+* remove composable access from translation-helper.js ([8fabb75](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/commit/8fabb7557b6822eb27b9c9c361e380fba38159ae))
+
+
+
 ## [4.0.25](https://gitlab.fokus.fraunhofer.de/piveau/ui/piveau-ui/compare/v4.0.24...v4.0.25) (2024-07-19)
 
 
