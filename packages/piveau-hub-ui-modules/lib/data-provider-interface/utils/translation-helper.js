@@ -1,6 +1,5 @@
 import { has, isObject } from 'lodash-es';
-import { useI18n } from 'vue-i18n';
-
+import store from '../../store';
 
 /**
  * Translation of each translatable parameter within the given structure if a translation is available
@@ -8,28 +7,22 @@ import { useI18n } from 'vue-i18n';
  * @param {String} property String defining which property translation should be used
  */
 
- async function translateProperty(propertyDefinition, property) {
+function translateProperty(propertyDefinition, property) {
 
-    // console.log(useI18n().messages);
-        const i18n = await useI18n();
-
-       if (has(propertyDefinition, 'identifier')) { // hidden fields don't need a label and have no identifier
+    const i18n = store.$app.config.globalProperties.i18n.global;
+    if (has(propertyDefinition, 'identifier')) { // hidden fields don't need a label and have no identifier
         const translatableParameters = ['label', 'info', 'help', 'placeholder', 'add-label'];
         const propertyName = propertyDefinition.identifier;
 
         for (let valueIndex = 0; valueIndex < translatableParameters.length; valueIndex += 1) {
             let translation = propertyName;
             const parameter = translatableParameters[valueIndex];
-            
 
             const translationExsists = i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`);
             const translationExsistsEN = i18n.te(`message.dataupload.${property}.${propertyName}.${parameter}`, 'en');
 
             // Check if translation exists
             if (!has(property, parameter)) {
-
-               
-
                 if (translationExsists) {
                     translation = i18n.t(`message.dataupload.${property}.${propertyName}.${parameter}`);
                 } else if (translationExsistsEN) {
