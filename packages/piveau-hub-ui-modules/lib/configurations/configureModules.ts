@@ -7,6 +7,7 @@ type ModulesConfig = {
 };
 
 export function configureModules(app: any, store: any, config?: ModulesConfig) {
+  store.$app = app;
   if (config) {
     configureServices(store, config.serviceParams);
     configureComponents(app, config.components);
