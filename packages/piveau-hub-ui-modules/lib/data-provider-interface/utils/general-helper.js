@@ -1,4 +1,4 @@
-import { isEmpty, isNil, has } from 'lodash';
+import { isEmpty, isNil, has, cloneDeep } from 'lodash';
 import axios from 'axios';
 import { getTranslationFor } from "../../utils/helpers";
 
@@ -29,7 +29,7 @@ function addNamespace(prefix, dpiConfig) {
 
     // there are also prefixes with no namespace which should sty the same
     if (colonIndex !== -1) {
-        const namespaceAbbreviation = prefix.substr(0,colonIndex);
+        const namespaceAbbreviation = prefix.substr(0, colonIndex);
         const propertyName = prefix.substr(colonIndex + 1);
 
         // the long version of the namespace is saved within the context.json (config)
@@ -87,10 +87,10 @@ function getNestedKeys(data, dpiConfig) {
  * @returns String formed of random characters with given length
  */
 function makeId(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
+    for (var i = 0; i < length; i++) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
@@ -104,9 +104,9 @@ function makeId(length) {
 function isUrl(string) {
     let url;
     try {
-      url = new URL(string);
+        url = new URL(string);
     } catch (_) {
-      return false;
+        return false;
     }
     return url.protocol === "http:" || url.protocol === "https:";
 }
@@ -139,32 +139,32 @@ async function fetchLinkedData(endpoint, token) {
 
     try {
         response = fetch(endpoint, requestOptions)
-        .then(response => {
-            const reader = response?.body?.getReader();
-            return new ReadableStream({
-                start(controller) {
-                    // The following function handles each data chunk
-                    function push() {
-                        // "done" is a Boolean and value a "Uint8Array"
-                        reader?.read().then(({done, value}) => {
-                            // If there is no more data to read
-                            if (done) {
-                                controller.close();
-                                return;
-                            }
-                            // Get the data and send it to the browser via the controller
-                            controller.enqueue(value);
-                            // Check chunks by logging to the console
-                            push();
-                        });
-                    }
+            .then(response => {
+                const reader = response?.body?.getReader();
+                return new ReadableStream({
+                    start(controller) {
+                        // The following function handles each data chunk
+                        function push() {
+                            // "done" is a Boolean and value a "Uint8Array"
+                            reader?.read().then(({ done, value }) => {
+                                // If there is no more data to read
+                                if (done) {
+                                    controller.close();
+                                    return;
+                                }
+                                // Get the data and send it to the browser via the controller
+                                controller.enqueue(value);
+                                // Check chunks by logging to the console
+                                push();
+                            });
+                        }
 
-                    push();
-                },
-            });
-        }).then((stream) =>
-            new Response(stream, {headers: {'Content-Type': 'text/html'}}).text()
-        );
+                        push();
+                    },
+                });
+            }).then((stream) =>
+                new Response(stream, { headers: { 'Content-Type': 'text/html' } }).text()
+            );
     } catch (err) {
         // TODO: Handle (network) errors
         throw Error(`Error occured during fetching endpoint: ${endpoint}`);
@@ -185,7 +185,7 @@ function getPagePrefixedNames(property, formDefinitions, pageContent) {
         datasets: {},
         distributions: {},
         catalogues: {}
-      };
+    };
 
     // get property keys for each page
     for (let pageName in pageContent[property]) {
@@ -213,22 +213,22 @@ function isValid(id) {
  * @returns {string|null}
  */
 function getFileIdByAccessUrl({ accessUrl, fileUploadUrl }) {
-  const accessUrlWithTrailingSlash = accessUrl.endsWith('/')
-    ? accessUrl
-    : `${accessUrl}/`;
-  const fileUploadUrlWithTrailingSlash = fileUploadUrl.endsWith('/')
-    ? fileUploadUrl
-    : `${fileUploadUrl}/`;
+    const accessUrlWithTrailingSlash = accessUrl.endsWith('/')
+        ? accessUrl
+        : `${accessUrl}/`;
+    const fileUploadUrlWithTrailingSlash = fileUploadUrl.endsWith('/')
+        ? fileUploadUrl
+        : `${fileUploadUrl}/`;
 
-  // Check if accessUrl starts with fileUploadApi
-  if (accessUrlWithTrailingSlash.startsWith(fileUploadUrlWithTrailingSlash)) {
-    const accessUrlParts = accessUrlWithTrailingSlash.split('/');
-    const fileId = accessUrlParts[accessUrlParts.length - 2];
+    // Check if accessUrl starts with fileUploadApi
+    if (accessUrlWithTrailingSlash.startsWith(fileUploadUrlWithTrailingSlash)) {
+        const accessUrlParts = accessUrlWithTrailingSlash.split('/');
+        const fileId = accessUrlParts[accessUrlParts.length - 2];
 
-    return fileId || null;
-  }
+        return fileId || null;
+    }
 
-  return null;
+    return null;
 }
 
 /**
@@ -255,15 +255,16 @@ function removeKeyFromFormatType(key, format, property, typeDefinition) {
 
 function propertyObjectHasValues(objectData) {
     let objectHasValues = false;
-
     if (!isNil(objectData) && !isEmpty(objectData)) {
         // language tag is always given
-        if (has(objectData, '@language')) {
-            delete objectData['@language'];
+        let copiedData = cloneDeep(objectData)
+
+        if (has(copiedData, '@language')) {
+            delete copiedData['@language'];
         }
 
         // removing all falsy values (undefined, null, "", '', NaN, 0)
-        const actualValues = Object.values(objectData).filter(el => el); // filters all real values
+        const actualValues = Object.values(copiedData).filter(el => el); // filters all real values
         if (!isEmpty(actualValues)) {
             // there are keys containing an object or array as value
             for (let valueIndex = 0; valueIndex < actualValues.length; valueIndex++) {
@@ -297,11 +298,11 @@ function propertyHasValue(data) {
         if (Array.isArray(data)) {
             // there are arreay of objects or arrays of values
             if (data.every(el => typeof el === 'string')) {
-                isSet = !isEmpty(data.filter(el => el)); 
+                isSet = !isEmpty(data.filter(el => el));
             } else if (data.every(el => typeof el === 'object')) {
                 for (let index = 0; index < data.length; index++) {
                     // if at least one array element is set, return true
-                    if (propertyObjectHasValues(data[index])) isSet = true; 
+                    if (propertyObjectHasValues(data[index])) isSet = true;
                 }
             }
         } else if (typeof data === 'object') {
@@ -347,7 +348,7 @@ async function requestUriLabel(uri, dpiConfig, envs) {
         });
     } catch (error) {
         // 
-    }    
+    }
 }
 
 
