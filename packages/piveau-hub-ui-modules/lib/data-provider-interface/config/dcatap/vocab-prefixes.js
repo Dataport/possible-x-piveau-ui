@@ -1,5 +1,5 @@
 const vocabPrefixes = {
-    "licence": "http://europeandataportal.eu/ontologies/", // no unified URI!!
+    "licence": "http://publications.europa.eu/resource/authority/licence/", // no unified URI!!
     "planned-availability": "http://publications.europa.eu/resource/authority/planned-availability/",
     "dataset-type": "http://publications.europa.eu/resource/authority/dataset-type/",
     "eurovoc": "http://eurovoc.europa.eu/",
