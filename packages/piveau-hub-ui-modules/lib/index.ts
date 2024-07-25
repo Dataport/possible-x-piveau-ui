@@ -44,6 +44,7 @@ import Auth from "./auth/Auth";
 
 // Import Resources
 import ResourceSearchPage from './resources/ResourceSearchPage'
+import ResourceDetailsPage from './resources/ResourceDetailsPage'
 
 // Import cataloguesFacets
 import CataloguesFacets from "./catalogues/cataloguesFacets/CataloguesFacets";
@@ -251,6 +252,7 @@ export {
   Auth,
 
   ResourceSearchPage,
+  ResourceDetailsPage,
 
   CataloguesFacets,
   CatalogPage,

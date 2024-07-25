@@ -1,0 +1,38 @@
+<template>
+  <component :is="as">
+    <template v-for="(resource, index) in computedResources">
+      <slot :resource="resource" :raw-resource="resources[index]" :index="index">
+        <resource-info-box
+          :key="resource.id"
+          :to="`/resource/${resource.id}`"
+          :resource="resource"
+          class="mt-3"
+        ></resource-info-box>
+      </slot>
+    </template>
+  </component>
+</template>
+  
+<script lang="ts" setup>
+import resourceInfoBox from './resourceInfoBox/ResourceInfoBox.vue';
+import { useResourceInfoBox } from './composables/useResourceInfoBox';
+import { useRoute } from 'vue-router';
+
+const props = withDefaults(defineProps<{
+  as?: string;
+  resources: any;
+}>(), {
+  as: 'div'
+});
+
+const route = useRoute();
+
+console.log(props.resources)
+
+const computedResources = useResourceInfoBox({ 
+  resources: props.resources,
+  locale: route.query.locale,
+});
+</script>
+  
+<style lang="scss" scoped></style>

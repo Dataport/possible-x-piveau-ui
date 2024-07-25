@@ -2,59 +2,60 @@
   <div class="resource-container d-flex flex-column p-0 px-3 mr-5 bg-transparent">
     <div class="container-fluid resource content">
       <slot
-          name="content"
-          :resource-count="getResultsCount"
-          :resource="getResults"
-          :locale="$route.query.locale"
-          :loading="getLoading"
-          :use-resource-facets="useResourceFacets"
-          :facets="getFacets"
+        name="content"
+        :resource-count="getResultsCount"
+        :resource="getResults"
+        :locale="$route.query.locale"
+        :loading="getLoading"
+        :use-resource-facets="useResourceFacets"
+        :facets="getFacets"
       >
         <resource-top-controls
-                :resource="currentResource"
-                :facets="getFacets"
-                :getPage="getPage"
-                :getLimit="getLimit"
-                class="resource-top-controls"
-              ></resource-top-controls>
+          :resource="getSelectedResource"
+          :facets="getFacets"
+          :getPage="getPage"
+          :getLimit="getLimit"
+          class="resource-top-controls"
+        ></resource-top-controls>
         <div class="row">
           <resource-facets 
             v-if="useResourceFacets" 
             id="resourceFacets" 
             class="col-md-2 col-12 mb-3 mb-md-0"
-            :resource="currentResource"></resource-facets>
+            :resource="getSelectedResource"
+          ></resource-facets>
           <section class="col-md-10 col-12">
             <slot name="title">
               <div class="row">
-                <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${currentResource}`) }}</h1>
+                <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${getSelectedResource}`) }}</h1>
               </div>
             </slot>
             <slot name="resource-filters">
-              <resource-filters :resource="currentResource"></resource-filters>
+              <resource-filters :resource="getSelectedResource"></resource-filters>
             </slot>
             <slot name="resource-found" :data="{
               loading: getLoading,
               resourceCount: getResultsCount,
               resourceCountFormatted: getResultsCount,
-              loadingMessage: $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${currentResource}`) }),
-              countMessage: $t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${currentResource}`) }),
+              loadingMessage: $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) }),
+              countMessage: $t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) }),
             }">
               <div class="resource-found alert alert-primary mt-3 d-flex flex-row" role="status"
                    :class="{ 'alert-danger': getResultsCount <= 0 && !getLoading}">
                 <div>
                   {{
                     getLoading 
-                    ? $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${currentResource}`) }) 
-                    : `${$t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${currentResource}`) })} (${getResultsCount})`
+                    ? $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) }) 
+                    : `${$t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) })} (${getResultsCount})`
                   }}
                 </div>
                 <div class="loading-spinner ml-3" v-if="getLoading"></div>
               </div>
             </slot>
             <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getFacets"></selectedFacetsOverview>
-            <!-- <template v-if="!getLoading">
-              <resource-list :resource="getResults"></resource-list>
-            </template> -->
+            <template v-if="!getLoading">
+              <resource-list :resources="getResults"></resource-list>
+            </template>
             <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
           </section>
         </div>
@@ -62,11 +63,12 @@
       <div class="row">
         <div class="column col-12 col-md-9 offset-md-3">
           <pagination class="mt-3"
-                      :items-count="getResultsCount"
-                      :items-per-page="getLimit"
-                      :get-page="getPage"
-                      :get-page-count="getPageCount"
-                      @setPageLimit="setPageLimit"></pagination>
+            :items-count="getResultsCount"
+            :items-per-page="getLimit"
+            :get-page="getPage"
+            :get-page-count="getPageCount"
+            @setPageLimit="setPageLimit"
+          ></pagination>
         </div>
       </div>
     </div>
@@ -74,34 +76,33 @@
 </template>
 
 <script>
-  import {
-    has,
-    isArray,
-    isNil,
-  } from 'lodash-es';
+import { has, isArray, isNil } from 'lodash-es';
+import { getTranslationFor, truncate, getImg } from '../utils/helpers';
 
-  import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
-  import AppLink from '../widgets/AppLink.vue';
-  import Pagination from '../widgets/Pagination.vue';
-  import { getTranslationFor, truncate, getImg } from '../utils/helpers';
+// Components
+import AppLink from '../widgets/AppLink.vue';
+import Pagination from '../widgets/Pagination.vue';
+import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
 
-  // Resource components
-  import ResourceTopControls from "../resources/ResourceTopControls.vue";
-  import ResourceFilters from "../resources/ResourceFilters.vue";
-  import ResourceFacets from "../resources/ResourceFacets.vue";
+// Generic Resource components
+import ResourceTopControls from "../resources/ResourceTopControls.vue";
+import ResourceFilters from "../resources/ResourceFilters.vue";
+import ResourceFacets from "../resources/ResourceFacets.vue";
+import ResourceList from "../resources/ResourceList.vue";
 
-  // Resource store
-  import { useResourcesStore } from '../store/resourcesStore';
+// Generic Resource stores
+import { useResourcesStore } from '../store/resourcesStore';
 
 export default {
   name: 'ResourceSearchPage',
   components: {
+    AppLink,
+    Pagination,
     SelectedFacetsOverview,
     ResourceTopControls,
     ResourceFilters,
     ResourceFacets,
-    AppLink,
-    Pagination,
+    ResourceList,
   },
   props: {},
   data() {
@@ -113,35 +114,35 @@ export default {
     };
   },
   computed: {
-    currentSearchQuery() {
+    getLoading() {
+      return this.isLoading;
+    },
+    getCurrentSearchQuery() {
       return this.$route.query.query;
     },
-    currentResource() {
-      return this.resourcesStore.getSelectedResource;
+    getSelectedResource() {
+      return this.resourcesStore.getters.getSelectedResource;
     },
-    availableResources() {
-      return this.resourcesStore.getAvailableResources;
-    },
-    getResultsCount() {
-      return this.resourcesStore.getResultsCount;
-    },
-    getFacets() {
-      return {};
+    getAvailableResources() {
+      return this.resourcesStore.getters.getAvailableResources;
     },
     getResults() {
-      this.resourcesStore.getResults;
+      return this.resourcesStore.getters.getResults;
+    },
+    getResultsCount() {
+      return this.resourcesStore.getters.getResultsCount;
     },
     getLimit() {
-      return parseInt(this.$route.query.limit || this.resourcesStore.getLimit);
+      return parseInt(this.$route.query.limit || this.resourcesStore.getters.getLimit);
     },
     getPage() {
       return parseInt(this.$route.query.page || this.resourcesStore.getPage);
     },
     getPageCount() {
-      return parseInt(this.resourcesStore.getPageCount);
+      return parseInt(this.resourcesStore.getters.getPageCount);
     },
-    getLoading() {
-      return this.isLoading;
+    getFacets() {
+      return {};
     },
   },
   methods: {
@@ -161,7 +162,7 @@ export default {
         this.$nextTick(() => {
           this.$Progress.start();
           this.isLoading = true;
-          this.resourcesStore.loadResults()
+          this.resourcesStore.actions.loadResults()
             .then(() => {
               this.$Progress.finish();
               this.isLoading = false;
@@ -175,7 +176,7 @@ export default {
       });
     },
     setPageLimit(limit) {
-      this.resourcesStore.setLimit(limit);
+      this.resourcesStore.mutations.setLimit(limit);
     },
   },
   watch: {},
@@ -186,18 +187,19 @@ export default {
   },
   created() {
     // Setup store
-    this.resourcesStore.loadAvailableResources();
-    this.resourcesStore.setSelectedResource(this.$route.params.resource_id);
-
-    // Init data for selected resource
-    if (this.$route.params.hasOwnProperty('resource_id')) {
-      this.initFacets();
-      this.initResources();
-    } else if (this.availableResources.length > 0) {
-      this.$router.push({ name: 'ResourceSearchPage', params: { resource_id: this.availableResources[0] } });
-    } else {
-      alert('No resources available !');
-    }
+    this.resourcesStore.actions.loadAvailableResources()
+      .then(() => {
+        // Init data for selected resource
+        if (this.$route.params.hasOwnProperty('resource_id')) {
+          this.resourcesStore.mutations.setSelectedResource(this.$route.params.resource_id);
+          this.initFacets();
+          this.initResources();
+        } else if (this.getAvailableResources.length > 0) {
+          this.$router.push({ name: 'ResourceSearchPage', params: { resource_id: this.getAvailableResources[1] } });
+        } else {
+          alert('No resources available !');
+        }
+      });
   },
   mounted() {},
 };

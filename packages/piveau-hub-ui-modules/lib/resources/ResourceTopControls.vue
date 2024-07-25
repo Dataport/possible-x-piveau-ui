@@ -11,17 +11,17 @@
             </div>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-feeds">
               <app-link class="dropdown-item text-decoration-none"
-                        :path="getFeedLink('rss')"
-                        :query="getFeedQuery()"
-                        target="_blank"
-                        matomo-track-page-view>
-                RSS Feed</app-link>
+                :path="getFeedLink('rss')"
+                :query="getFeedQuery()"
+                target="_blank"
+                matomo-track-page-view
+              >RSS Feed</app-link>
               <app-link class="dropdown-item text-decoration-none"
-                        :path="getFeedLink('atom')"
-                        :query="getFeedQuery()"
-                        target="_blank"
-                        matomo-track-page-view>
-                ATOM Feed</app-link>
+                :path="getFeedLink('atom')"
+                :query="getFeedQuery()"
+                target="_blank"
+                matomo-track-page-view
+              >ATOM Feed</app-link>
             </div>
           </div>
         </div>
@@ -31,54 +31,54 @@
 </template>
   
 <script>
-  import AppLink from "../widgets/AppLink.vue";
-  import {mapGetters} from "vuex";
-  
-  export default {
-    name: "ResourceTopControls",
-    components: {
-      AppLink
+import AppLink from "../widgets/AppLink.vue";
+import {mapGetters} from "vuex";
+
+export default {
+  name: "ResourceTopControls",
+  components: {
+    AppLink
+  },
+  props: [
+    "resource",
+    "facets",
+    "getPage",
+    "getLimit"
+  ],
+  data() {
+    return {
+      useFeed: this.$env.content.datasets.useFeed,
+      baseUrl: this.$env.api.baseUrl,
+    }
+  },
+  computed: {
+    ...mapGetters('datasets', [
+      'getSort'
+    ]),
+    showFeed() {
+      return this.useFeed && this.resource === 'datasets';
     },
-    props: [
-      "resource",
-      "facets",
-      "getPage",
-      "getLimit"
-    ],
-    data() {
-      return {
-        useFeed: this.$env.content.datasets.useFeed,
-        baseUrl: this.$env.api.baseUrl,
-      }
+  },
+  methods: {
+    getFeedLink(format) {
+      return `${this.baseUrl}${this.$route.query.locale}/feeds/datasets.${format}`;
     },
-    computed: {
-      ...mapGetters('datasets', [
-        'getSort'
-      ]),
-      showFeed() {
-        return this.useFeed && this.resource === 'datasets';
-      },
+    getFeedQuery() {
+      const feedQuery = {};
+      const query = this.$route?.query
+      if (query?.query) feedQuery.q = query.query;
+      if (this.facetsNotEmpty() && JSON.stringify(this.facets)) feedQuery.facets = JSON.stringify(this.facets);
+      if (this.getPage) feedQuery.page = Math.max(this.getPage - 1, 0);
+      if (this.getLimit) feedQuery.limit = this.getLimit;
+      feedQuery.facetOperator = query?.facetOperator || 'AND';
+      feedQuery.facetGroupOperator = query?.facetOperator || 'AND';
+      feedQuery.dataServices = query?.dataServices || 'false';
+      if (this.getSort) feedQuery.sort = this.getSort;
+      return feedQuery;
     },
-    methods: {
-      getFeedLink(format) {
-        return `${this.baseUrl}${this.$route.query.locale}/feeds/datasets.${format}`;
-      },
-      getFeedQuery() {
-        const feedQuery = {};
-        const query = this.$route?.query
-        if (query?.query) feedQuery.q = query.query;
-        if (this.facetsNotEmpty() && JSON.stringify(this.facets)) feedQuery.facets = JSON.stringify(this.facets);
-        if (this.getPage) feedQuery.page = Math.max(this.getPage - 1, 0);
-        if (this.getLimit) feedQuery.limit = this.getLimit;
-        feedQuery.facetOperator = query?.facetOperator || 'AND';
-        feedQuery.facetGroupOperator = query?.facetOperator || 'AND';
-        feedQuery.dataServices = query?.dataServices || 'false';
-        if (this.getSort) feedQuery.sort = this.getSort;
-        return feedQuery;
-      },
-      facetsNotEmpty() {
-        return Object.values(this.facets).some(facet => facet.length > 0);
-      }
+    facetsNotEmpty() {
+      return Object.values(this.facets).some(facet => facet.length > 0);
     }
   }
+}
 </script>  

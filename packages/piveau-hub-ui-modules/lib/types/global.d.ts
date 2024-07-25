@@ -32,3 +32,10 @@ export type Dataset = {
 
   // todo: information about modified and created date
 }
+
+export type Resource = {
+  id?: string;
+  title?: string;
+  createdDate?: string;
+  updatedDate?: string;
+}
