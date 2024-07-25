@@ -448,7 +448,7 @@ export default {
 
 <style lang="scss" scoped>
 #wrapper {
-  background: #196fd2;
+  background: linear-gradient(90deg, #082b7a, #0e47cb);
   width: 100%;
   position: sticky;
   bottom: 0;

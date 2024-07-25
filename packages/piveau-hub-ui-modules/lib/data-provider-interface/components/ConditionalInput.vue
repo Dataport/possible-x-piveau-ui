@@ -1,32 +1,3 @@
-<script setup>
-import { ref, computed } from 'vue';
-import AutocompleteInput from './AutocompleteInput.vue';
-import { onClickOutside } from '@vueuse/core'
-
-const props = defineProps({
-  context: Object,
-})
-let selectModeVal = ref()
-let selectedItem = ref(false)
-let showSelect = ref(false)
-const I1 = ref(null)
-
-const openSelect = (e) => {
-  showSelect.value = !showSelect.value
-}
-const selectMode = (e) => {
-  selectModeVal.value = e.target.innerHTML
-  if (e.target.innerHTML === 'manually') {
-    selectedItem.value = "manually"
-  }
-  else selectedItem.value = "vocabulary"
-  props.context.node.reset()
-}
-onClickOutside(I1, event => showSelect.value = false)
-
-// determine which property is already there
-
-</script>
 <template>
   <div class="formkitProperty">
     <h4>{{ props.context.attrs.identifier }}</h4>
@@ -47,18 +18,64 @@ onClickOutside(I1, event => showSelect.value = false)
             Object.keys(props.context.value).length > 0 && props.context.value['foaf:name']
             && selectedItem != 'vocabulary'">
             <FormKit v-for="el, key in props.context.attrs.options" :type="key" :placeholder="key" :name="el"
-              :validation="key"></FormKit>
+              :validation="key" class="w-100"></FormKit>
           </div>
-
         </div>
         <div v-if="selectedItem === 'vocabulary' || Object.keys(props.context.value).length > 0
-          && props.context.value['name'] && selectedItem != 'manually'" class="conditionalVocabulary">
+          && props.context.value.name && selectedItem != 'manually'" class="conditionalVocabulary">
           <AutocompleteInput :context="props.context"></AutocompleteInput>
         </div>
-
+ 
+       
       </div>
 
     </div>
   </div>
 
 </template>
+<script setup>
+import { ref } from 'vue';
+import AutocompleteInput from './AutocompleteInput.vue';
+import { onClickOutside } from '@vueuse/core'
+
+const props = defineProps({
+  context: Object,
+})
+let selectModeVal = ref()
+let selectedItem = ref(false)
+let showSelect = ref(false)
+const I1 = ref(null)
+
+const openSelect = (e) => {
+
+  showSelect.value = !showSelect.value
+
+}
+const selectMode = (e) => {
+  selectModeVal.value = e.target.innerHTML
+  if (e.target.innerHTML === 'Manually') {
+    selectedItem.value = "manually"
+  }
+  else selectedItem.value = "vocabulary"
+  props.context.node.reset()
+  console.log(selectedItem.value);
+}
+onClickOutside(I1, event => showSelect.value = false)
+// determine which property is already there
+if (Object.keys(props.context.value)[0] === 'dct:title') {
+  selectModeVal.value = 'Manually'
+  selectedItem.value = 'manually'
+}
+if (Object.keys(props.context.value)[0] === 'name') {
+  selectModeVal.value = 'Vocabulary'
+  selectedItem.value = 'vocabulary'
+}
+
+</script>
+<style>
+.conditionalManual{
+  .formkit-outer{
+    width: 100%;
+  }
+}
+</style>

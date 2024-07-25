@@ -235,6 +235,7 @@ export default defineComponent({
           const h4Elements = document.querySelectorAll('.formkitProperty h4');
           h4Elements.forEach((h4Element, index) => {
             // Added the clickeffect to the headers of the individual properties
+
             if (!h4Element.parentElement.parentElement.classList.contains('formkitWrapRepeatable')) {
               if (index != 0 && index != 1 && index != 2 && index != 3) {
                 h4Element.nextElementSibling.classList.toggle('d-none')

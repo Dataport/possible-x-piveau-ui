@@ -36,6 +36,8 @@ const actions = {
     },
     async requestResourceName({ commit }, { voc, uri, envs }) {
         try {
+           
+            
             const specification = envs.content.dataProviderInterface.specification;
 
             // Catching invalid URI's
@@ -45,11 +47,13 @@ const actions = {
             let req;
 
             // vocabularies for spdx checksum and inana-media-types are structured differently in the backend then other vocabularies
-            if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm') {
+            if (voc === 'iana-media-types' || voc === 'spdx-checksum-algorithm')  {
                 req = `${envs.api.baseUrl}vocabularies/${voc}`;
 
             } else {
                 const value = encodeURIComponent(uri.replace(generalDpiConfig[specification].vocabPrefixes[voc], ""));
+        
+                
                 req = `${envs.api.baseUrl}vocabularies/${voc}/${value}`;
 
             }

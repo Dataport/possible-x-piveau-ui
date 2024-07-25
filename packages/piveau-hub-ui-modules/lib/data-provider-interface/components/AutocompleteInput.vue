@@ -1,3 +1,76 @@
+<template>
+  <div class="formkitProperty">
+    <!-- need to make a condition for the licence property of the distribution - otherwise the dropdown doesnt work-->
+
+    <h4 v-if="props.context.attrs.identifier != 'licence'">{{ props.context.label }}</h4>
+    <div class="formkitCmpWrap">
+      <div class="formkit-outer">
+        <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
+
+          <!-- <div class="infoI">
+            <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
+          </div> -->
+          <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
+          <div class="removeX" @click="removeProperty"></div>
+        </div>
+        <div v-else>
+          <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
+            <!-- <div class="infoI">
+              <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
+            </div> -->
+            <input class="autocompleteInputfield" :placeholder="props.context.attrs.placeholder" v-model="inputText"
+              type="text" v-on:keyup="getAutocompleteSuggestions($event)" @click="activeList = !activeList">
+          </div>
+          <ul ref="dropdownList" v-show="activeList" class="autocompleteResultList">
+            <li v-for="match in matches" :key="match" @click="setValue(match); activeList = !activeList"
+              class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}
+            </li>
+          </ul>
+          <div v-if="instance.content.dataProviderInterface.annifIntegration && props.context.attrs.annifTheme"
+            class="d-flex flex-wrap">
+            <div v-for="item in listOfValues" :key="item">
+              <div class="activeResultsAutocompleteWrapper">
+                <div class="d-flex" @click="item.activeValue = !item.activeValue;">
+                  <span>{{ item.name }}</span>
+                  <div class="removeX" @click="removeMultipleProperty(item)"></div>
+                </div>
+              </div>
+            </div>
+            <div class="w-100 mt-4">
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <h3>{{ props.context.label }} Suggestions</h3>
+                <span>You can generate suggestions based on the description you provided</span>
+                <button class="navlikeButton" type="button"
+                  @click="fillAnnifsuggestions(); annifTrigger.value = true">Try it</button>
+              </div>
+              <div class="annifresultContainer" v-if="annifTrigger.value">
+                <div v-for="item in annifSelectionList" :key="item" class="d-flex ">
+                  <div class="activeResultsAutocompleteWrapper annifResults"
+                    :class="{ loadMore: item.resource === 'invalid' }"
+                    @click="item.activeValue = !item.activeValue; updateAnnifselection(item)">
+                    <div class="d-flex">
+                      <span>{{ item.name }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div v-else class="d-flex flex-wrap">
+            <div class="activeResultsAutocompleteWrapper" v-for="item in props.context.value" :key="item">
+              <span>{{ item.name }}</span>
+              <div class="removeX" @click="removeMultipleProperty(item)"></div>
+            </div>
+          </div>
+          <div class="formkit-wrapper">
+            <div class="formkit-help">{{ props.context.help }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 <script setup>
 import { ref, reactive, watch, computed, onBeforeMount, onMounted, watchEffect } from 'vue';
 import { useStore } from 'vuex';
@@ -307,75 +380,3 @@ function removeMultipleProperty(e) {
   findPropertyToUpdate();
 }
 </script>
-
-<template>
-
-  <div class="formkitProperty">
-    <h4>{{ props.context.label }}</h4>
-    <div class="formkitCmpWrap">
-      <div class="formkit-outer">
-        <div class="d-flex formkit-inner" v-if="!props.context.attrs.multiple && props.context.value.name">
-          <!-- <div class="infoI">
-            <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-          </div> -->
-          <a class="autocompleteInputSingleValue ">{{ props.context.value.name }}</a>
-          <div class="removeX" @click="removeProperty"></div>
-        </div>
-        <div v-else>
-          <div class="d-flex align-items-center justify-content-center formkit-inner mb-2">
-            <!-- <div class="infoI">
-              <div class="tooltipFormkit">{{ props.context.attrs.info }}</div>
-            </div> -->
-            <input class="autocompleteInputfield" :placeholder="props.context.attrs.placeholder" v-model="inputText"
-              type="text" v-on:keyup="getAutocompleteSuggestions($event)" @click="activeList = !activeList">
-          </div>
-          <ul ref="dropdownList" v-show="activeList" class="autocompleteResultList">
-            <li v-for="match in matches" :key="match" @click="setValue(match); activeList = !activeList "
-              class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{ match.name }}
-            </li>
-          </ul>
-          <div v-if="instance.content.dataProviderInterface.annifIntegration && props.context.attrs.annifTheme"
-            class="d-flex flex-wrap">
-            <div v-for="item in listOfValues" :key="item">
-              <div class="activeResultsAutocompleteWrapper">
-                <div class="d-flex" @click="item.activeValue = !item.activeValue;">
-                  <span>{{ item.name }}</span>
-                  <div class="removeX" @click="removeMultipleProperty(item)"></div>
-                </div>
-              </div>
-            </div>
-            <div class="w-100 mt-4">
-              <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <h3>{{ props.context.label }} Suggestions</h3>
-                <span>You can generate suggestions based on the description you provided</span>
-                <button class="navlikeButton" type="button"
-                  @click="fillAnnifsuggestions(); annifTrigger.value = true">Try it</button>
-              </div>
-              <div class="annifresultContainer" v-if="annifTrigger.value">
-                <div v-for="item in annifSelectionList" :key="item" class="d-flex ">
-                  <div class="activeResultsAutocompleteWrapper annifResults"
-                    :class="{ loadMore: item.resource === 'invalid' }"
-                    @click="item.activeValue = !item.activeValue; updateAnnifselection(item)">
-                    <div class="d-flex">
-                      <span>{{ item.name }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div v-else class="d-flex flex-wrap">
-            <div class="activeResultsAutocompleteWrapper" v-for="item in props.context.value" :key="item">
-              <span>{{ item.name }}</span>
-              <div class="removeX" @click="removeMultipleProperty(item)"></div>
-            </div>
-          </div>
-          <div class="formkit-wrapper">
-            <div class="formkit-help">{{ props.context.help }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
