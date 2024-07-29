@@ -1131,12 +1131,12 @@ const dcatapProperties: InputDefinition = {
       identifier: 'accessUrl',
       $formkit: 'repeatable',
       name: 'dcat:accessURL',
+      validation:'required',
       children: [
         {
           identifier: 'accessUrl',
           name: 'dcat:accessURL',
           $formkit: 'fileupload',
-
         }
       ]
     },

@@ -97,4 +97,8 @@ if (Object.keys(props.context.value)[0] === 'name') {
     width: 100%;
   }
 }
+.infoLicense{
+  padding: 1rem;
+  background-color: rgb(171, 225, 165)
+}
 </style>
