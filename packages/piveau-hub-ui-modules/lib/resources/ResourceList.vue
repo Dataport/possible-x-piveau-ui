@@ -14,9 +14,10 @@
 </template>
   
 <script lang="ts" setup>
-import resourceInfoBox from './resourceInfoBox/ResourceInfoBox.vue';
-import { useResourceInfoBox } from './composables/useResourceInfoBox';
 import { useRoute } from 'vue-router';
+import { useResourceInfoBox } from './composables/useResourceInfoBox';
+
+import resourceInfoBox from './resourceInfoBox/ResourceInfoBox.vue';
 
 const props = withDefaults(defineProps<{
   as?: string;
@@ -27,12 +28,8 @@ const props = withDefaults(defineProps<{
 
 const route = useRoute();
 
-console.log(props.resources)
-
 const computedResources = useResourceInfoBox({ 
   resources: props.resources,
   locale: route.query.locale,
 });
 </script>
-  
-<style lang="scss" scoped></style>

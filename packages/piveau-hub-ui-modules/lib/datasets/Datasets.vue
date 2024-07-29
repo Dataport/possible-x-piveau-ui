@@ -123,7 +123,7 @@ import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
 import AppLink from '../widgets/AppLink.vue';
 import { getTranslationFor, truncate, getImg } from '../utils/helpers';
 import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
-import ResourceFilters from "../resources/ResourceFilters.vue";
+import ResourceFilters from "../resources/resourceFilters/ResourceFilters.vue";
 import DatasetList from './DatasetList.vue';
 import { useDatasetsHead } from '../composables/head';
 
@@ -443,10 +443,14 @@ export default {
     this.initDatasets();
     this.initInfiniteScrolling();
 
-    this.resourcesStore.actions.loadAvailableResources()
-      .then(() => {
-          this.resourcesStore.mutations.setSelectedResource('datasets');
-      });
+    if (this.resourcesStore.getters.getAvailableResources.length > 0) {
+      this.resourcesStore.mutations.setSelectedResource('datasets');
+    } else {
+      this.resourcesStore.actions.loadAvailableResources()
+        .then(() => {
+            this.resourcesStore.mutations.setSelectedResource('datasets');
+        });
+    }
   },
   mounted() {
     // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)

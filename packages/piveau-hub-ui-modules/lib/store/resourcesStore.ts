@@ -33,11 +33,11 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         availableResources: ref([] as string[]),
         results: ref([] as string[]),
         resultsCount: ref(0),
+        query: ref(''),
         limit: ref(10),
         page: ref(1),
-        pageCount: ref(10),
-        query: ref(''),
         sort: ref(''),
+        facets: ref([] as string[]),
     };
 
     /*** GETTERS ***/
@@ -46,11 +46,11 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         getAvailableResources: computed(() => state.availableResources.value),
         getResults: computed(() => state.results.value),
         getResultsCount: computed(() => state.resultsCount.value),
+        getQuery: computed(() => state.query.value),
         getLimit: computed(() => state.limit.value),
         getPage: computed(() => state.page.value),
-        getPageCount: computed(() => state.pageCount.value),
-        getQuery: computed(() => state.query.value),
         getSort: computed(() => state.sort.value),
+        getFacets: computed(() => state.facets.value),
     };
 
 
@@ -68,20 +68,20 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         setResultsCount: function (newResultsCount: number) {
             state.resultsCount.value = newResultsCount;
         },   
+        setQuery: function (newQuery: string) {
+            state.query.value = newQuery;
+        },
         setLimit: function (newLimit: number) {
             state.limit.value = newLimit;
         },    
         setPage: function (newPage: number) {
             state.page.value = newPage;
         },    
-        setPageCount: function (newPageCount: number) {
-            state.pageCount.value = newPageCount;
-        },
-        setQuery: function (newQuery: string) {
-            state.query.value = newQuery;
-        },
         setSort: function (newSort: string) {
             state.sort.value = newSort;
+        },
+        setFacets: function (newFacets: string[]) {
+            state.facets.value = newFacets;
         },
     };
 
@@ -100,8 +100,6 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
                 axios.get(reqStr, { params })
                     .then((response: any) => {
     
-                        console.log(response.data);
-        
                         mutations.setAvailableResources(response.data);
         
                         resolve(response.data);
@@ -116,7 +114,13 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
 
             // --> Workaround: Use axios directly
             return new Promise((resolve, reject) => {
-                let params = {};
+                let params = {
+                    q: state.query.value,
+                    limit: state.limit.value,
+                    page: state.page.value,
+                    sort: state.sort.value,
+                    facets: state.facets.value,
+                };
                 const resource = Object.keys(resourceMapping).find(key => resourceMapping[key as keyof object] === state.selectedResource.value);
                 const endpoint = `resources/${resource}`;
                 const reqStr = `${ENV.api.baseUrl}${endpoint}`;
@@ -125,13 +129,8 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
                     .then((response: any) => {
                         let resources = response.data;
                         
-                        // let resources = response.data.map(resource => {
-                        //     return { id: resource };
-                        // });
-
-                        console.log(resources);
-
                         mutations.setResults(resources);
+                        mutations.setResultsCount(resources.length);
 
                         resolve(resources);
                     })
@@ -149,7 +148,6 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         state.resultsCount = ref(0);
         state.limit = ref(10);
         state.page = ref(1);
-        state.pageCount = ref(10);
         state.query = ref('');
         state.sort = ref('');
     };

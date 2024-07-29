@@ -31,20 +31,15 @@
 </template>
   
 <script>
+import { useResourcesStore } from '../store/resourcesStore';
+
 import AppLink from "../widgets/AppLink.vue";
-import {mapGetters} from "vuex";
 
 export default {
   name: "ResourceTopControls",
   components: {
     AppLink
   },
-  props: [
-    "resource",
-    "facets",
-    "getPage",
-    "getLimit"
-  ],
   data() {
     return {
       useFeed: this.$env.content.datasets.useFeed,
@@ -52,11 +47,23 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('datasets', [
-      'getSort'
-    ]),
+    getSelectedResource() {
+      return this.resourcesStore.getters.getSelectedResource;
+    },
+    getLimit() {
+      return parseInt(this.$route.query.limit || this.resourcesStore.getters.getLimit);
+    },
+    getPage() {
+      return parseInt(this.$route.query.page || this.resourcesStore.getters.getPage);
+    },
+    getFacets() {
+      return this.resourcesStore.getters.getFacets;
+    },
+    getSort() {
+      return this.resourcesStore.getters.getSort;
+    },
     showFeed() {
-      return this.useFeed && this.resource === 'datasets';
+      return this.useFeed && this.getSelectedResource === 'datasets';
     },
   },
   methods: {
@@ -67,7 +74,7 @@ export default {
       const feedQuery = {};
       const query = this.$route?.query
       if (query?.query) feedQuery.q = query.query;
-      if (this.facetsNotEmpty() && JSON.stringify(this.facets)) feedQuery.facets = JSON.stringify(this.facets);
+      if (this.facetsNotEmpty() && JSON.stringify(this.getFacets)) feedQuery.facets = JSON.stringify(this.getFacets);
       if (this.getPage) feedQuery.page = Math.max(this.getPage - 1, 0);
       if (this.getLimit) feedQuery.limit = this.getLimit;
       feedQuery.facetOperator = query?.facetOperator || 'AND';
@@ -77,8 +84,12 @@ export default {
       return feedQuery;
     },
     facetsNotEmpty() {
-      return Object.values(this.facets).some(facet => facet.length > 0);
+      return Object.values(this.getFacets).some(facet => facet.length > 0);
     }
-  }
+  },
+  setup() {
+    const resourcesStore = useResourcesStore();
+    return { resourcesStore };
+  },
 }
 </script>  

@@ -11,5 +11,3 @@ const route = useRoute();
 
 const id = route.params?.resource_id;
 </script>
-
-<style lang="scss" scoped></style>

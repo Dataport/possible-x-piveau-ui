@@ -51,10 +51,6 @@ export default {
   name: 'pagination',
   components: {},
   props: {
-    itemsCount: {
-      type: Number,
-      default: () => 0,
-    },
     itemsPerPage: {
       type: Number,
       default: () => 0,
@@ -114,12 +110,8 @@ export default {
       }
       return rangeWithDots;
     },
-    setPageLimit(limit) {
-      this.$emit('setPageLimit', limit);
-      this.changePageTo(1, limit);
-    },
     pageClickedHandler(page) {
-      if (this.clickedPageValid(page)) this.changePageTo(page, this.itemsPerPage);
+      if (this.clickedPageValid(page)) this.setPage(page, this.itemsPerPage);
     },
     clickedPageValid(page) {
       return typeof page === 'number' && page > 0 && page <= this.getPageCount;
@@ -127,6 +119,14 @@ export default {
     changePageTo(page, limit) {
       this.$router.replace({ query: Object.assign({}, this.$route.query, { page, limit }) }).catch(error => { console.error(error); });
       this.scrollTo(0, 0);
+    },
+    setPage(page, itemsPerPage) {
+      this.$emit('setPage', page);
+      this.changePageTo(page, itemsPerPage);
+    },
+    setPageLimit(limit) {
+      this.$emit('setPageLimit', limit);
+      this.changePageTo(1, limit);
     },
     scrollTo(x, y) {
       window.scrollTo(x, y);

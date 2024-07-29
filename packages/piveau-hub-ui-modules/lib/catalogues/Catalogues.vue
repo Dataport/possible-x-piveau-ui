@@ -61,7 +61,7 @@ import fileTypes from '../utils/fileTypes';
 import CataloguesFacets from './cataloguesFacets/CataloguesFacets.vue';
 import Pagination from '../widgets/Pagination.vue';
 import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
-import ResourceFilters from "../resources/ResourceFilters.vue";
+import ResourceFilters from "../resources/resourceFilters/ResourceFilters.vue";
 import dateFilters from '../filters/dateFilters';
 import { getImg, getCountryFlagImg, getTranslationFor } from '../utils/helpers';
 import { useDatasetsHead } from '../composables/head';
@@ -358,10 +358,14 @@ export default {
     this.initCatalogues();
     this.initInfiniteScrolling();
 
-    this.resourcesStore.actions.loadAvailableResources()
-    .then(() => {
-        this.resourcesStore.mutations.setSelectedResource('catalogues');
-    });
+    if (this.resourcesStore.getters.getAvailableResources.length > 0) {
+      this.resourcesStore.mutations.setSelectedResource('catalogues');
+    } else {
+      this.resourcesStore.actions.loadAvailableResources()
+        .then(() => {
+            this.resourcesStore.mutations.setSelectedResource('catalogues');
+        });
+    }
   },
   beforeUnmount() {
     $('.tooltip').remove();

@@ -37,13 +37,11 @@ export default {
       if (!this.date) return false;
       const m = dayjs(String(this.date));
       if (!m.isValid()) {
-        // this.setDateIncorrect();
         return true;
       }
 
       // Dates in the future are incorrect.
       if (dayjs().diff(m) < 0) {
-        // this.setDateIncorrect();
         return true;
       }
 
@@ -51,21 +49,9 @@ export default {
     },
   },
   mounted() {
-    console.log(this.date);
     this.$nextTick(() => {
-      // To force event emit
       this.isIncorrectDate();
     });
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.date-incorrect {
-  color: #a1a1a1;
-}
-
-.date-incorrect-exclamation-triangle {
-  color: #ffaa00;
-}
-</style>

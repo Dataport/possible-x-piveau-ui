@@ -1,45 +1,38 @@
 <template>
   <div class="resource-container d-flex flex-column p-0 px-3 mr-5 bg-transparent">
     <div class="container-fluid resource content">
-      <slot
-        name="content"
-        :resource-count="getResultsCount"
-        :resource="getResults"
-        :locale="$route.query.locale"
-        :loading="getLoading"
-        :use-resource-facets="useResourceFacets"
-        :facets="getFacets"
-      >
-        <resource-top-controls
-          :resource="getSelectedResource"
-          :facets="getFacets"
-          :getPage="getPage"
-          :getLimit="getLimit"
-          class="resource-top-controls"
-        ></resource-top-controls>
+      <slot name="content">
+        
+      <!-- RESOURCE TOP CONTROLS -->
+        <resource-top-controls class="resource-top-controls"></resource-top-controls>
+        
         <div class="row">
+
+          <!-- RESOURCE FACETS -->
           <resource-facets 
             v-if="useResourceFacets" 
             id="resourceFacets" 
             class="col-md-2 col-12 mb-3 mb-md-0"
-            :resource="getSelectedResource"
+            @resetFilters="initFilters"
           ></resource-facets>
-          <section class="col-md-10 col-12">
+
+          <!-- RESOURCES -->
+          <section class="col-md col-12">
+
+            <!-- RESOURCE TITLE -->
             <slot name="title">
               <div class="row">
                 <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${getSelectedResource}`) }}</h1>
               </div>
             </slot>
+
+            <!-- RESOURCE FILTERS -->
             <slot name="resource-filters">
-              <resource-filters :resource="getSelectedResource"></resource-filters>
+              <resource-filters></resource-filters>
             </slot>
-            <slot name="resource-found" :data="{
-              loading: getLoading,
-              resourceCount: getResultsCount,
-              resourceCountFormatted: getResultsCount,
-              loadingMessage: $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) }),
-              countMessage: $t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) }),
-            }">
+
+            <!-- RESOURCE FOUND MSG -->
+            <slot name="resource-found">
               <div class="resource-found alert alert-primary mt-3 d-flex flex-row" role="status"
                    :class="{ 'alert-danger': getResultsCount <= 0 && !getLoading}">
                 <div>
@@ -52,22 +45,31 @@
                 <div class="loading-spinner ml-3" v-if="getLoading"></div>
               </div>
             </slot>
+
+            <!-- SELECTED RESOURCE FACETS -->
             <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getFacets"></selectedFacetsOverview>
+            
+            <!-- RESOURCE RESULTS -->
             <template v-if="!getLoading">
               <resource-list :resources="getResults"></resource-list>
             </template>
+
+            <!-- LOADING SPINNER -->
             <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
           </section>
         </div>
       </slot>
-      <div class="row">
+
+      <!-- PAGINATION -->
+      <div class="row" v-if="usePagination">
         <div class="column col-12 col-md-9 offset-md-3">
-          <pagination class="mt-3"
+          <pagination class="mt-5"
             :items-count="getResultsCount"
             :items-per-page="getLimit"
             :get-page="getPage"
             :get-page-count="getPageCount"
-            @setPageLimit="setPageLimit"
+            @setPage="setPage"
+            @setPageLimit="setLimit"
           ></pagination>
         </div>
       </div>
@@ -76,19 +78,15 @@
 </template>
 
 <script>
-import { has, isArray, isNil } from 'lodash-es';
-import { getTranslationFor, truncate, getImg } from '../utils/helpers';
-
 // Components
-import AppLink from '../widgets/AppLink.vue';
 import Pagination from '../widgets/Pagination.vue';
 import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
 
 // Generic Resource components
 import ResourceTopControls from "../resources/ResourceTopControls.vue";
-import ResourceFilters from "../resources/ResourceFilters.vue";
-import ResourceFacets from "../resources/ResourceFacets.vue";
 import ResourceList from "../resources/ResourceList.vue";
+import ResourceFilters from "../resources/resourceFilters/ResourceFilters.vue";
+import ResourceFacets from "../resources/resourceFacets/ResourceFacets.vue";
 
 // Generic Resource stores
 import { useResourcesStore } from '../store/resourcesStore';
@@ -96,7 +94,6 @@ import { useResourcesStore } from '../store/resourcesStore';
 export default {
   name: 'ResourceSearchPage',
   components: {
-    AppLink,
     Pagination,
     SelectedFacetsOverview,
     ResourceTopControls,
@@ -108,17 +105,15 @@ export default {
   data() {
     return {
       isLoading: false,
-      facetFields: [],
-      filterCollapsed: true,
+      defaultLimit: this.$env.content.resources.limit.defaultLimit,
+      defaultSort: this.$env.content.resources.limit.defaultSort,
+      usePagination: this.$env.content.resources.page.usePagination,
       useResourceFacets: this.$env.content.resources.facets.useResourceFacets,
     };
   },
   computed: {
     getLoading() {
       return this.isLoading;
-    },
-    getCurrentSearchQuery() {
-      return this.$route.query.query;
     },
     getSelectedResource() {
       return this.resourcesStore.getters.getSelectedResource;
@@ -130,32 +125,28 @@ export default {
       return this.resourcesStore.getters.getResults;
     },
     getResultsCount() {
-      return this.resourcesStore.getters.getResultsCount;
+      return parseInt(this.resourcesStore.getters.getResultsCount);
     },
     getLimit() {
       return parseInt(this.$route.query.limit || this.resourcesStore.getters.getLimit);
     },
     getPage() {
-      return parseInt(this.$route.query.page || this.resourcesStore.getPage);
+      return parseInt(this.$route.query.page || this.resourcesStore.getters.getPage);
     },
     getPageCount() {
-      return parseInt(this.resourcesStore.getters.getPageCount);
+      return Math.ceil(this.getResultsCount / this.getLimit);
     },
     getFacets() {
       return {};
     },
   },
   methods: {
-    isNil,
-    has,
-    isArray,
-    truncate,
-    getTranslationFor,
-    getImg,
-    initFacets() {
-      const fields = this.$env.content.datasets.facets.defaultFacetOrder;
-      const facets = [];
- 
+    initResourceSearchPage() {
+      if (this.$route.params.hasOwnProperty('resource_id')) {
+        this.resourcesStore.mutations.setSelectedResource(this.$route.params.resource_id);
+        this.initResources();
+        this.initFilters();
+      } else this.$router.push({ name: 'ResourceSearchPage', params: { resource_id: this.getAvailableResources[0] }});
     },
     initResources() {
       this.$nextTick(() => {
@@ -175,77 +166,68 @@ export default {
         });
       });
     },
-    setPageLimit(limit) {
+    initFilters() {
+      this.initQuery();
+      this.initLimit();
+      this.initPage();
+      this.initSort();
+      this.initFacets();
+    },
+    initQuery() {
+      let query = this.$route.query?.query || '';
+      this.setQuery(query);
+    },
+    initLimit() {
+      let limit = this.$route.query?.limit || this.defaultLimit;
+      this.setLimit(limit);
+    },
+    initPage() {
+      let page = this.$route.query?.page || 1;
+      this.setPage(page);
+    },
+    initSort() {
+      let sort = this.$route.query?.sort || this.defaultSort;
+      this.setSort(sort);
+    },
+    initFacets() {
+      let facets = this.$route.query?.facets || [];
+      this.setFacets(facets);
+    },
+    setQuery(query) {
+      this.resourcesStore.mutations.setQuery(query);
+    },
+    setLimit(limit) {
       this.resourcesStore.mutations.setLimit(limit);
+    },
+    setPage(page) {
+      this.resourcesStore.mutations.setPage(page);
+    },
+    setSort(sort) {
+      this.resourcesStore.mutations.setSort(sort);
+    },
+    setFacets(facets) {
+      this.resourcesStore.mutations.setFacets(facets);
     },
   },
   watch: {},
   setup() {
-    // Make store available in component
     const resourcesStore = useResourcesStore();
     return { resourcesStore };
   },
   created() {
-    // Setup store
-    this.resourcesStore.actions.loadAvailableResources()
+    if (this.getAvailableResources.length > 0) {
+      this.initResourceSearchPage();
+    } else {
+      this.resourcesStore.actions.loadAvailableResources()
       .then(() => {
-        // Init data for selected resource
-        if (this.$route.params.hasOwnProperty('resource_id')) {
-          this.resourcesStore.mutations.setSelectedResource(this.$route.params.resource_id);
-          this.initFacets();
-          this.initResources();
-        } else if (this.getAvailableResources.length > 0) {
-          this.$router.push({ name: 'ResourceSearchPage', params: { resource_id: this.getAvailableResources[1] } });
+        if (this.getAvailableResources.length > 0) {
+          this.initResourceSearchPage();
         } else {
-          alert('No resources available !');
+          console.error('No resources available.');
         }
       });
+    }
   },
   mounted() {},
 };
 </script>
-
-<style lang="scss" scoped>
-.alert-primary {
-  color: #042648;
-  background-color: #cddbe8;
-  border-color: #baccdf;
-}
-
-.page-title {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-
-.content {
-  padding: 30px 30px 0 30px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  background-color: white;
-}
-
-.router-link-active {
-  color: #175baf !important;
-  border: none !important;
-  border-bottom: 2px solid #175baf !important;
-}
-
-.router-link-inactive {
-  color: rgba(0, 0, 0, 0.7);
-  border: none !important;
-
-  &:hover {
-    color: #175baf;
-  }
-}
-
-.material-icons.small-icon {
-  font-size: 20px;
-}
-
-@media screen and (min-width: 768px) {
-  #datasetFacets {
-    display: block
-  }
-}
-</style>

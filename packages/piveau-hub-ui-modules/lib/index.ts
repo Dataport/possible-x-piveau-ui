@@ -43,8 +43,8 @@ import { configureModules } from "./configurations/configureModules";
 import Auth from "./auth/Auth";
 
 // Import Resources
-import ResourceSearchPage from './resources/ResourceSearchPage'
-import ResourceDetailsPage from './resources/ResourceDetailsPage'
+import ResourceSearchPage from './resources/ResourceSearchPage';
+import ResourceDetailsPage from './resources/resourceDetails/ResourceDetailsPage';
 
 // Import cataloguesFacets
 import CataloguesFacets from "./catalogues/cataloguesFacets/CataloguesFacets";

@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts">
-import { Resource } from "../../types/global";
 import { defineComponent, PropType } from "vue";
+import { Resource } from "../../types/global";
 
 import ResourceInfoBoxFooter from "./ResourceInfoBoxFooter.vue";
 
