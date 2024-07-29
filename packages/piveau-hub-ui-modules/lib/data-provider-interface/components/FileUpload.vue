@@ -1,25 +1,29 @@
 <template>
-  <div class="position-relative w-100 p-3 ">
-    <input type="text" class="selectInputField formkit-inner" readonly="readonly" @click="triggerDropdown()"
-      placeholder="Choose between fileupload and providing a URL">
+  
+  <div class="position-relative w-100 ">
+    <FormKit name="mode" validation="required" type="text" class="selectInputField formkit-inner " readonly="readonly"
+      @click="triggerDropdown()" :placeholder="placeholderMessage" v-model="inputChoice" :validation-messages="{
+        required: validationMessage,
+      }" />
     <ul ref="fLoad" v-if="drop.active" class="selectListUpload">
-      <li @click="triggerDropdown(); uploadFileSwitch = true; toggleUploadUrl()"
+      <li @click="uploadFileSwitch = true; toggleUploadUrl()"
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Upload a file</li>
-      <li @click="triggerDropdown(); uploadURL = true; toggleUploadFileSwitch()"
+      <li @click="uploadURL = true; toggleUploadFileSwitch()"
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Provide an URL</li>
     </ul>
   </div>
-  <div class="w-100 p-3 position-relative" v-if="uploadURL && !uploadFileSwitch">
-    <label class=" formkit-label w-100" for="aUrlLink">Provide an URL</label>
-    <input id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id"
-      @input="saveUrl" validation="alpha_spaces:latin" validation-visibility="live">
+  <div class="w-100 position-relative" v-if="uploadURL && !uploadFileSwitch">
+
+    <FormKit id="aUrlLink" v-model="URLValue" class="selectInputField formkit-inner" type="url" name="@id" @input="saveUrl"
+      validation="required|url" validation-visibility="live" :validation-messages="{
+        required: validationMessage,
+      }" />
 
   </div>
   <div v-if="uploadFileSwitch" ref="fileupload" class="p-3 w-100"
     :class="`formkit-input-element formkit-input-element--${context.type}`" :data-type="context.type" v-bind="$attrs">
     <input type="text" v-model="context.model" @blur="context.blurHandler" hidden />
     <div class="file-div position-relative">
-      <label class="formkit-label" for="aUrlFL">Upload a file</label>
       <input class="mt-3" type="file" id="aUrlFL" name="fileUpload" @change="validateFile($event)"
         :accept="validExtensions">
       <div class="upload-feedback position-absolute d-flex" style="right: 0">
@@ -55,8 +59,8 @@ import { getNode } from '@formkit/core'
 
 import { reactive, ref, onMounted, computed } from 'vue';
 import { onClickOutside } from '@vueuse/core'
-import { getCurrentInstance } from "vue";
 import { useRuntimeEnv } from "../../composables/useRuntimeEnv.ts";
+import { FormKit } from '@formkit/vue';
 
 export default {
   props: {
@@ -68,6 +72,7 @@ export default {
 
   data() {
     return {
+      inputChoice: '',
       error: '',
       URLValue: '',
       uploadURL: false,
@@ -97,9 +102,11 @@ export default {
       'saveLocalstorageValues',
     ]),
     toggleUploadUrl() {
+      this.inputChoice = "Upload a file"
       if (this.uploadURL) { this.uploadURL = !this.uploadURL }
     },
     toggleUploadFileSwitch() {
+      this.inputChoice = "Provide an URL"
       if (this.uploadFileSwitch) { this.uploadFileSwitch = !this.uploadFileSwitch }
     },
     validateFile(event) {
@@ -119,9 +126,9 @@ export default {
     async saveUrl() {
 
       if (this.URLValue.includes('http://') || this.URLValue.includes('https://')) {
-        await this.context.node.input({ '@id': this.URLValue })
+        await this.context.node.input({ '@id': this.URLValue , 'mode': this.inputChoice})
       }
-      else await this.context.node.input({ '@id': 'https://' + this.URLValue })
+      else await this.context.node.input({ '@id': 'https://' + this.URLValue , 'mode': this.inputChoice})
 
     },
     checkIfPresent() {
@@ -251,23 +258,27 @@ export default {
       if (this.context.value['@id']) {
         this.uploadURL = true
         this.URLValue = this.context.value['@id']
+        this.inputChoice = "Provide an URL"
         return true
       }
       else false
     })
   },
   setup() {
-
-    // let instance = getCurrentInstance().appContext.app.config.globalProperties.$env
     const env = useRuntimeEnv();
+    let validationMessage = 'This property is required'
+    let placeholderMessage = 'Choose between fileupload and providing a URL'
 
     var drop = reactive({
       active: false,
     })
 
-    const fLoad = ref(null);
 
-    onClickOutside(fLoad, event => drop.active = false)
+    const fLoad = ref('fload');
+
+    onClickOutside(fLoad, event => {
+      drop.active = false
+    })
     function triggerDropdown(e) {
       drop.active = !drop.active
     }
@@ -276,6 +287,8 @@ export default {
       drop,
       onClickOutside,
       triggerDropdown,
+      validationMessage,
+      placeholderMessage
     };
   }
 };
@@ -285,6 +298,11 @@ export default {
 // @import '../../../styles/bootstrap_theme';
 // @import '../../../styles/utils/css-animations';
 .dURLText {}
+
+
+.accessUrl {
+  .formkit-outer {}
+}
 
 .file-div {
   display: flex;

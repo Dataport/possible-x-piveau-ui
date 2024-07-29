@@ -6,6 +6,7 @@ import createDraftApi from '../../utils/draftApi';
 import createIdentifiersApi from '../../utils/identifiersApi';
 import { decode } from '../../utils/jwt';
 
+
 let draftApi;
 let identifiersApi;
 
@@ -207,6 +208,36 @@ const actions = {
 
     return response;
   },
+  async duplicateDataset({ commit, state }, { id, newId, catalog, url }) {
+
+    console.log(id, catalog, url);
+
+    const requestOptions = {
+      method: 'GET',
+      url: url + 'drafts/datasets/' + id,
+    };
+
+    const result = await axios.request(requestOptions);
+
+    // if (!draftApi) return {};
+    // const draftExists = state.userData.drafts.find(draft => draft.id === id);
+    // if (!draftExists) return {};
+
+    // commit('UPDATE_USER_DATA_PENDING');
+    // let response;
+    // try {
+    //   response = await draftApi.publishDatasetDraft({ id, catalogue: catalog, body });
+    //   commit('DELETE_USER_DRAFT', id);
+    //   commit('UPDATE_USER_DATA_SUCCESS');
+    //   commit('CHANGE_IS_DRAFT', false);
+    //   commit('CHANGE_IS_EDIT_MODE', false);
+    // } catch (ex) {
+    //   commit('UPDATE_USER_DATA_ERROR');
+    //   throw ex;
+    // }
+
+    // return response;
+  },
   async publishUserDraft({ dispatch }, { id, catalog, body }) {
     return dispatch('publishUserDraftById', { id, catalog, body });
   },
@@ -266,7 +297,7 @@ const actions = {
 
     const result = await axios.request(requestOptions);
 
-    if (result.status === 201 | result.status === 204 ) {
+    if (result.status === 201 | result.status === 204) {
       commit('CHANGE_IS_EDIT_MODE', false);
       commit('CHANGE_IS_DRAFT', false); // shouldn't be necessary but for safety
 

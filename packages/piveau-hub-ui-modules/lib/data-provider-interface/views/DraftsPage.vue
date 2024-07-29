@@ -39,20 +39,27 @@
                   <app-link :to="createLinkedMetricsURL(id, catalog, 'jsonld')" target="_blank" class="dropdown-item">
                     <div class="px-2 py-1">JSON-LD</div>
                   </app-link>
+
                 </div>
               </button>
               <button type="button" class="btn btn-secondary" @click="handleEdit(id, catalog)">Edit</button>
               <button type="button" class="btn btn-primary" @click="handleConfirmPublish(id, catalog)">Publish</button>
+              <button type="button" class="btn btn-primary" @click="handleConfirmDuplication(id, catalog)">Duplicate
+                this
+                dataset</button>
               <button type="button" class="btn btn-danger" @click="handleConfirmDelete(id, catalog)">Delete</button>
+
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <app-confirmation-dialog id="modal" confirm="Confirm" :loading="modalProps.loading"
-      @confirm="modalProps.confirm">
+    <app-confirmation-dialog id="modal" confirm="Confirm" :loading="modalProps.loading" @confirm="modalProps.confirm">
       {{ modalProps.message }}
+      <input v-if="isDuplication" placeholder="Set new ID" type="text" class="m-3 formkit-input d-inline newIdField"
+        v-model="duplicatedID" required>
+      <p v-if="isDuplication">Only lowercase characters and "-" are allowed</p>
     </app-confirmation-dialog>
   </div>
 </template>
@@ -62,6 +69,7 @@ import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import AppLink from "../../widgets/AppLink.vue";
 
+
 export default {
   props: [],
   components: {
@@ -70,6 +78,8 @@ export default {
   data() {
     return {
       values: {},
+      isDuplication: false,
+      duplicatedID: '',
       modalProps: {
         loading: false,
         message: 'Are you sure you want to delete this draft?',
@@ -102,7 +112,7 @@ export default {
     },
     handleEdit(id, catalog) {
       this.setIsDraft(true);
-        this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
+      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     async handleDelete(id, catalog) {
       await this.doRequest('auth/deleteUserDraftById', { id, catalog });
@@ -111,6 +121,16 @@ export default {
         message: 'Draft successfully deleted',
         variant: 'success',
       });
+    },
+    async handleDuplication(id, catalog) {
+
+      $('#modal').modal('hide');
+      let newId = this.duplicatedID;
+      let url = this.$env.api.baseUrl
+      this.isDuplication = false;
+
+      console.log(url);
+      await this.doRequest('auth/duplicateDataset', { id, newId, catalog, url });
     },
     async handlePublish(id, catalog) {
       await this.doRequest('auth/publishUserDraftById', { id, catalog });
@@ -125,20 +145,28 @@ export default {
       });
     },
     handleConfirmPublish(id, catalog) {
+      this.isDuplication = false;
       this.modalProps.message = 'Are you sure you want to publish this draft?';
       this.modalProps.confirm = () => this.handlePublish(id, catalog);
       $('#modal').modal('show');
     },
     handleConfirmDelete(id, catalog) {
+      this.isDuplication = false;
       this.modalProps.message = 'Are you sure you want to delete this draft?';
       this.modalProps.confirm = () => this.handleDelete(id, catalog);
       $('#modal').modal('show');
     },
-    async doRequest(action, { id, catalog }) {
+    handleConfirmDuplication(id, catalog) {
+      this.isDuplication = true;
+      this.modalProps.message = 'If you want to duplicate this draft, please define a new ID for it:';
+      this.modalProps.confirm = () => this.handleDuplication(id, catalog);
+      $('#modal').modal('show');
+    },
+    async doRequest(action, { id, newId, catalog, url }) {
       this.$Progress.start();
       this.modalProps.loading = true;
       try {
-        await this.$store.dispatch(action, { id, catalog });
+        await this.$store.dispatch(action, { id, newId, catalog, url });
         this.$Progress.finish();
       } catch (ex) {
         // Show snackbar
@@ -187,5 +215,14 @@ export default {
 
 .buttonWrapper button {
   margin: 0.2rem;
+}
+
+.newIdField {
+  margin: 1rem 0 !important;
+
+  box-shadow: none;
+  border-radius: 0;
+  border-bottom: 1px solid #001D85;
+  transition: all 100ms ease-in-out;
 }
 </style>
