@@ -48,6 +48,7 @@ const peerDependencies = {
   "merge-anything": "x.x.x",
   "moment": "x.x.x",
   "n3": "x.x.x",
+  "pinia": "x.x.x",
   "popper.js": "x.x.x",
   "qs": "x.x.x",
   "vee-validate": "x.x.x",
