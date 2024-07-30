@@ -3,6 +3,9 @@
 Repository built for integrating Piveau Frontend apps and
 components in the form of a monorepo. 
 
+## Publication
+- The NPM package is available here: https://www.npmjs.com/package/@piveau/piveau-hub-ui-modules
+
 ## Quickstart
 
 ### Prerequisites
