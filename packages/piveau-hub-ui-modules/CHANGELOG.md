@@ -1,3 +1,12 @@
+# [5.0.0-possible.2](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.1...v5.0.0-possible.2) (2024-07-30)
+
+
+### Bug Fixes
+
+* Add pinia dependency to vite-config ([e2bdf1c](https://gitlab.com/piveau/ui/piveau-ui/commit/e2bdf1c632bb23d0f92f3eaebbf4732ffc084f83))
+
+
+
 # [5.0.0-possible.1](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.0...v5.0.0-possible.1) (2024-07-30)
 
 
