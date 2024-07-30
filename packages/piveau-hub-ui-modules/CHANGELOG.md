@@ -1,3 +1,12 @@
+# [5.0.0-possible.3](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.2...v5.0.0-possible.3) (2024-07-30)
+
+
+### Bug Fixes
+
+* Publish feature branch as tag ([e2d04a2](https://gitlab.com/piveau/ui/piveau-ui/commit/e2d04a2d978423cce701787c7a70e1c763e5ef03))
+
+
+
 # [5.0.0-possible.2](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.1...v5.0.0-possible.2) (2024-07-30)
 
 
