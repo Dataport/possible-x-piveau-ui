@@ -22,7 +22,7 @@
     "prepare-dev": "node scripts/create_links.js",
     "build": "cross-env BUILD_MODE=lib vite build",
     "prerelease": "npm run build",
-    "release": "npm publish",
+    "release": "npm publish --tag possible",
     "release:patch": "npm version patch && npm run release",
     "release:minor": "npm version minor && npm run release",
     "release:major": "npm version major && npm run release",
