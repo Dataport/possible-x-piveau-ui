@@ -20,7 +20,7 @@ const glueConfig = {
     corsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
   },
   authentication: {
-    useService: true,
+    useService: false,
     login: {
       useLogin: true,
 
@@ -76,7 +76,19 @@ const glueConfig = {
   },
   content: {
     resources: {
-      useSort: true,
+      search: {
+        useSearch: true,
+      },
+      limit: {
+        defaultLimit: 10,
+      },
+      page: {
+        usePagination: true,
+      },
+      sort: {
+        useSort: true,
+        defaultSort: 'relevance+desc, modified+desc, title.en+asc',
+      },
       facets: {
         useResourceFacets: true,
       },
