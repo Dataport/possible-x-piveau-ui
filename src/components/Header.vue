@@ -1,6 +1,6 @@
 <template>
   <div class="mb-5">
-    <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" >
+    <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top px-5">
       <slot name="logo">
         <a class="navbar-brand" href="/">
           <Logo class="piveau-logo"></Logo>
@@ -11,32 +11,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="d-flex justify-content-between w-100">
-          <ul class="navbar-nav">
-            <li
-              v-for="(navItem, i) in navItems"
-              :key="`navItem@${i}`"
-              class="nav-item"
-            >
-              <slot name="nav-item" v-bind:nav-item="navItem">
-                <component
-                  v-if="navItem.to && navItem.show === true"
-                  :is="isNuxt ? 'nuxt-link' : 'router-link'"
-                  :to="navItem.to"
-                  class="nav-link"
-                  active-class="router-link-active"
-                >
-                  {{ navItem.title }}
-                </component>
-                <a
-                  v-else-if="navItem.show === true"
-                  :href="navItem.href"
-                  class="nav-link"
-                >
-                  {{ navItem.title }}
-                </a>
-              </slot>
-            </li>
-          </ul>
           <div class="ml-5 flex-row ml-md-auto d-md-flex" role="navigation">
             <slot name="right">
               <ul v-if="enableAuthentication" class="navbar-nav">
@@ -94,10 +68,6 @@ export default {
       type: Boolean,
       default: true,
     },
-    navItemsHook: {
-      type: Function,
-      default: (navItems) => navItems,
-    },
     languageObject: {
       type: Array,
       default() {
@@ -120,35 +90,9 @@ export default {
       default: false,
     },
   },
-  computed: {
-    navItems() {
-      const navItems = [
-        {
-          title: this.$t('message.header.navigation.data.datasets'),
-          href: `/datasets?locale=${this.$route.query.locale}`,
-          show: true,
-        },
-        {
-          title: this.$t('message.header.navigation.data.catalogs'),
-          href: `/catalogues?locale=${this.$route.query.locale}`,
-          show: true,
-        },
-      ];
-
-      this.adjustNavItemsToProject(navItems);
-
-      return this.navItemsHook(navItems);
-    },
-  },
+  computed: {},
   created() {},
-  methods: {
-    adjustNavItemsToProject(navItems) {
-      const navigationItems = navItems;
-
-      navigationItems[0].to = { name: 'Datasets', query: { locale: this.$route.query.locale } };
-      navigationItems[1].to = { name: 'Catalogues', query: { locale: this.$route.query.locale } };
-    },
-  },
+  methods: {},
 };
 
 </script>
