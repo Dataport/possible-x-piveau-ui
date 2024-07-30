@@ -2,8 +2,8 @@
     "message": {
         "resources": {
             "countMessageNoResult": "No data",
-            "countMessage": "resources found",
-            "loadingMessage": "Loading resources...",
+            "countMessage": "{resource} found",
+            "loadingMessage": "Loading {resource} ...",
             "searchBar": {
                 "placeholder": "Search"
             },
@@ -12,6 +12,9 @@
                     "title": "Open Datasets Resources | European Data | data.europa.eu"
                 }
             }
+        },
+        "resourceFacets": {
+            "title": "Resource Facets"
         },
         "metadata": {
             "politicalGeocodingLevelURI": "Political Geocoding Level URI",
@@ -1763,6 +1766,10 @@
             "options": "Options"
         },
         "tooltip": {
+            "resourceDetails": {
+                "updated": "The most recent date on which the resource was changed or modified.",
+                "created": "Date of formal issuance (e.g. publication) of the resource."
+            },
             "catalogDetails": {
                 "availability": "Planned availability of the catalog as a selection from a fixed list of values via DCAT-AP URIs.",
                 "created": "The date of formal issuance (e.g. publication) of the catalogue.",
@@ -1883,7 +1890,10 @@
             "contactPoints": "Contact information that can be used for sending comments about the Dataset.",
             "locationFilter": "To view datasets related to a specific location click on the map and use the pen icon to select it. Next click on \"Apply\" to filter only datasets which refer to the selected area. Note that only datasets which include geo-information metadata will be included in the search results.",
             "catalogues": "Search for catalogues. A catalogue hosts datasets and services",
-            "invalidVisualise": "Preview feature not available, because the provided distribution URL is not a valid URL."
+            "invalidVisualise": "Preview feature not available, because the provided distribution URL is not a valid URL.",
+            "resources": "Resources",
+            "softwareOfferings": "Software Offerings",
+            "legalPersons": "Legal Persons"
         },
         "visualisationDistribution": {
             "barChartExplain": "A bar chart plots numeric values for levels of a categorical feature as bars. Levels are plotted on one chart axis, and values are plotted on the other axis.",
@@ -2003,6 +2013,7 @@
                 "data": {
                     "euInternationalData": "EU and international data",
                     "datasets": "Datasets",
+                    "catalogs": "Catalogues",
                     "catalogues": "Catalogues",
                     "metadataquality": "Metadata quality",
                     "sparqleditor": "SPARQL Editor",

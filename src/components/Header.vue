@@ -1,6 +1,6 @@
 <template>
   <div class="mb-5">
-    <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" >
+    <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top px-5">
       <slot name="logo">
         <a class="navbar-brand" href="/">
           <Logo class="piveau-logo"></Logo>

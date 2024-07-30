@@ -13,6 +13,7 @@ import {
   MapBoundsReceiver,
   Datasets,
   ResourceSearchPage,
+  ResourceDetailsPage,
   Catalogues,
   NotFound,
   Imprint,
@@ -52,6 +53,11 @@ const router = Router.createRouter({
       path: '/resources/:resource_id',
       name: 'ResourceSearchPage',
       component: ResourceSearchPage,
+    },
+    {
+      path: '/resource/:resource_id',
+      name: 'ResourceDetailsPage',
+      component: ResourceDetailsPage,
     },
     {
       path: '/datasets',
