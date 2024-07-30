@@ -214,7 +214,7 @@ const actions = {
 
     const requestOptions = {
       method: 'GET',
-      url: url + 'drafts/datasets/' + id,
+      url: url + 'drafts/datasets/' + id + '.nt?' + 'catalogue=' + catalog,
     };
 
     const result = await axios.request(requestOptions);
