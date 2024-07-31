@@ -3,9 +3,17 @@
     :to="to"
     class="resource-info-box text-dark text-decoration-none"
   >
+    <!-- HEADER SLOT -->
     <slot name="header">
       <div class="resource-info-box-header py-3" data-cy="resource-title">
-        <h2 class="card-title m0">{{ getTitle }}</h2>
+        <h2 class="card-title">{{ getTitle }}</h2>
+      </div>
+    </slot>
+
+    <!-- BODY SLOT -->
+    <slot name="body">
+      <div class="resource-info-box-body py-3" data-cy="resource-body">
+        <p class="card-description">{{ getDescription }}</p>
       </div>
     </slot>
 
@@ -38,8 +46,9 @@ export default defineComponent({
         ({
           id: "",
           title: "",
-          createdDate: "01.01.2024",
-          updatedDate: "01.01.2024",
+          description: "",
+          createdDate: "",
+          updatedDate: "",
         } as Resource),
     },
     to: {
@@ -50,8 +59,15 @@ export default defineComponent({
 
   computed: {
     getTitle() {
-      return this.resource?.title;
-    }
+      return this.resource?.title
+        ? this.resource.title
+        : this.resource.id ;
+    },
+    getDescription() {
+      return this.resource?.description
+        ? this.resource.description
+        : 'No description available';
+    },
   },
 });
 </script>

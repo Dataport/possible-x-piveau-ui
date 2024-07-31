@@ -1,5 +1,4 @@
 import { computed, unref } from "vue";
-import { getTranslationFor } from "../../utils/helpers";
 
 export function useResourceInfoBox({ resources, locale }) {
 
@@ -13,11 +12,12 @@ export function useResourceInfoBox({ resources, locale }) {
 
     const computedResources = resourceList.map((resource) => {
       return {
-        id: resource,
-        title: getTranslationFor(resource?.title, l) || resource,
+        id: resource.id,
+        title: resource?.title,
+        description: resource?.description,
         createdDate: resource?.releaseDate || "01.01.2024",
         updatedDate: resource?.modificationDate || "01.01.2024",
-      }
+      };
     });
 
     return computedResources;

@@ -12,7 +12,7 @@
           <resource-facets 
             v-if="useResourceFacets" 
             id="resourceFacets" 
-            class="col-md-2 col-12 mb-3 mb-md-0"
+            class="col-md-3 col-12 mb-3 mb-md-0"
             @resetFilters="initFilters"
           ></resource-facets>
 

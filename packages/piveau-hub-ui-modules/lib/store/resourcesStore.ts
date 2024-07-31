@@ -31,13 +31,13 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     const state = {
         selectedResource: ref(''),
         availableResources: ref([] as string[]),
-        results: ref([] as string[]),
+        results: ref([] as object[]),
         resultsCount: ref(0),
         query: ref(''),
         limit: ref(10),
         page: ref(1),
         sort: ref(''),
-        facets: ref([] as string[]),
+        facets: ref([] as object[]),
     };
 
     /*** GETTERS ***/
@@ -62,7 +62,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         setAvailableResources: function (newAvailableResources: string[]) {
             state.availableResources.value = newAvailableResources.map((resource => resourceMapping[resource as keyof object]));
         },   
-        setResults: function (newResults: string[]) {
+        setResults: function (newResults: object[]) {
             state.results.value = newResults;
         },       
         setResultsCount: function (newResultsCount: number) {
@@ -80,7 +80,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         setSort: function (newSort: string) {
             state.sort.value = newSort;
         },
-        setFacets: function (newFacets: string[]) {
+        setFacets: function (newFacets: object[]) {
             state.facets.value = newFacets;
         },
     };
@@ -114,23 +114,30 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
 
             // --> Workaround: Use axios directly
             return new Promise((resolve, reject) => {
-                let params = {
+                const resource = Object.keys(resourceMapping).find(key => resourceMapping[key as keyof object] === state.selectedResource.value);
+
+                const filter = `resource_${resource}`;
+                const page = (state.page.value - 1);
+
+                const params = {
+                    filter: filter,
                     q: state.query.value,
                     limit: state.limit.value,
-                    page: state.page.value,
+                    page: page,
                     sort: state.sort.value,
                     facets: state.facets.value,
                 };
-                const resource = Object.keys(resourceMapping).find(key => resourceMapping[key as keyof object] === state.selectedResource.value);
-                const endpoint = `resources/${resource}`;
+
+                const endpoint = `search`;
                 const reqStr = `${ENV.api.baseUrl}${endpoint}`;
 
                 axios.get(reqStr, { params })
                     .then((response: any) => {
-                        let resources = response.data;
+                        console.log(response)
+                        let resources = response.data.result;
                         
-                        mutations.setResults(resources);
-                        mutations.setResultsCount(resources.length);
+                        mutations.setResults(resources.results);
+                        mutations.setResultsCount(resources.count);
 
                         resolve(resources);
                     })
@@ -146,10 +153,11 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         state.availableResources = ref([]);
         state.results = ref([]);
         state.resultsCount = ref(0);
+        state.query = ref('');
         state.limit = ref(10);
         state.page = ref(1);
-        state.query = ref('');
         state.sort = ref('');
+        state.facets = ref([]);
     };
 
     return { state, getters, mutations, actions, resetStore };
