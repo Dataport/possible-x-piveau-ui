@@ -42,6 +42,10 @@ import { configureModules } from "./configurations/configureModules";
 // Import auth
 import Auth from "./auth/Auth";
 
+// Import Resources
+import ResourceSearchPage from './resources/ResourceSearchPage';
+import ResourceDetailsPage from './resources/resourceDetails/ResourceDetailsPage';
+
 // Import cataloguesFacets
 import CataloguesFacets from "./catalogues/cataloguesFacets/CataloguesFacets";
 
@@ -246,6 +250,9 @@ export {
   configureModules,
 
   Auth,
+
+  ResourceSearchPage,
+  ResourceDetailsPage,
 
   CataloguesFacets,
   CatalogPage,

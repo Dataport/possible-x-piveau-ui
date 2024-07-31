@@ -1,0 +1,67 @@
+.alert-primary {
+    color: #042648;
+    background-color: #cddbe8;
+    border-color: #baccdf;
+}
+
+.page-title {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.content {
+    padding: 30px 30px 0 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: white;
+}
+
+.router-link-active {
+    color: #175baf !important;
+    border: none !important;
+    border-bottom: 2px solid #175baf !important;
+}
+
+.router-link-inactive {
+    color: rgba(0, 0, 0, 0.7);
+    border: none !important;
+
+    &:hover {
+        color: #175baf;
+    }
+}
+
+.material-icons.small-icon {
+    font-size: 20px;
+}
+
+.suggestion-list-group {
+    position: relative;
+    width: 100%;
+}
+.suggestion-list {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+}
+
+.material-icons.small-icon {
+    font-size: 20px;
+}
+.search-button {
+    height: 100% !important;
+
+    &:hover {
+        background-color: #196fd2;
+        border-color: #196fd2
+    }
+}
+
+.date-incorrect {
+    color: #a1a1a1;
+}
+  
+.date-incorrect-exclamation-triangle {
+    color: #ffaa00;
+}

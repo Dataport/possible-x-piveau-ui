@@ -36,7 +36,6 @@
 ## [4.0.24](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.23...v4.0.24) (2024-07-18)
 
 
-### Bug Fixes
 
 * don't show links for 'langauges' property in datasetDetailsProperties ([d67828c](https://gitlab.com/piveau/ui/piveau-ui/commit/d67828c889164c086f2d0c0456de07ac0de2084e))
 
@@ -139,6 +138,7 @@
 
 ### Features
 
+<<<<<<< HEAD
 * user feedback when generating runtime-configs ([843d459](https://gitlab.com/piveau/ui/piveau-ui/commit/843d4591cbce693ac9839d11591759de5ba8bdec))
 
 
@@ -147,6 +147,15 @@
 
 
 
+=======
+* Add copy of Datasets.vue as ResourceSearchPage ([cd92b0d](https://gitlab.com/piveau/ui/piveau-ui/commit/cd92b0dd8c37dd20d74f1d336decf24d3db421a5))
+* Finalize Resource Search page ([1a1b8c5](https://gitlab.com/piveau/ui/piveau-ui/commit/1a1b8c5c35e2dc2005a193e59d242738b7fb2505))
+* Implement generic resource selection and add styling ([7d87b45](https://gitlab.com/piveau/ui/piveau-ui/commit/7d87b4591714835230f8f81af4883420cdc802f7))
+* Implement Resource Tabs for Datasets, Catalogs and SoftwareOfferings ([7a35bfc](https://gitlab.com/piveau/ui/piveau-ui/commit/7a35bfcfa6d7f982c55b1bb30fda84a9a7f6ec30))
+
+
+
+>>>>>>> f/Resource-Search-Page
 ## [4.0.4](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.3...v4.0.4) (2024-06-25)
 
 

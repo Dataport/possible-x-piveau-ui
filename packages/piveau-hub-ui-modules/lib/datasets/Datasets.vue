@@ -39,8 +39,8 @@
             :available-facets="getAllAvailableFacets"
           ></datasets-facets>
           <section class="col-md-9 col-12">
-            <slot name="datasets-filters">
-              <datasets-filters/>
+            <slot name="resource-filters">
+              <resource-filters :resource="getSelectedResource"></resource-filters>
             </slot>
             <slot name="datasets-found" :data="{
               loading: getLoading,
@@ -104,33 +104,36 @@
 </template>
 
 <script>
-  /* eslint-disable no-undef */
-  import { mapActions, mapGetters } from 'vuex';
-  import {
-    debounce,
-    has,
-    groupBy,
-    uniqBy,
-    toPairs,
-    isArray,
-    isNil,
-  } from 'lodash-es';
-  import $ from 'jquery';
-  import fileTypes from '../utils/fileTypes';
-  import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
-  import Pagination from '../widgets/Pagination.vue';
-  import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
-  import AppLink from '../widgets/AppLink.vue';
-  import { getTranslationFor, truncate, getImg } from '../utils/helpers';
-  import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
-  import DatasetsFilters from "../datasets/DatasetsFilters.vue";
-  import DatasetList from './DatasetList.vue'
-  import { useDatasetsHead } from '../composables/head'
+/* eslint-disable no-undef */
+import { mapActions, mapGetters } from 'vuex';
+import {
+  debounce,
+  has,
+  groupBy,
+  uniqBy,
+  toPairs,
+  isArray,
+  isNil,
+} from 'lodash-es';
+import $ from 'jquery';
+import fileTypes from '../utils/fileTypes';
+import DatasetsFacets from './datasetsFacets/DatasetsFacets.vue';
+import Pagination from '../widgets/Pagination.vue';
+import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
+import AppLink from '../widgets/AppLink.vue';
+import { getTranslationFor, truncate, getImg } from '../utils/helpers';
+import DatasetsTopControls from "../datasets/DatasetsTopControls.vue";
+import ResourceFilters from "../resources/resourceFilters/ResourceFilters.vue";
+import DatasetList from './DatasetList.vue';
+import { useDatasetsHead } from '../composables/head';
+
+// Generic Resource stores
+import { useResourcesStore } from '../store/resourcesStore';
 
 export default {
   name: 'Datasets',
   components: {
-    DatasetsFilters,
+    ResourceFilters,
     DatasetsTopControls,
     appLink: AppLink,
     selectedFacetsOverview: SelectedFacetsOverview,
@@ -251,6 +254,9 @@ export default {
       if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length > 0) return this.$route.query.dataScope[0];
       if (isArray(this.$route.query.dataScope) && this.$route.query.dataScope.length === 0) return null;
       return this.$route.query.dataScope;
+    },
+    getSelectedResource() {
+      return this.resourcesStore.getters.getSelectedResource;
     },
   },
   methods: {
@@ -436,6 +442,15 @@ export default {
     this.initFacets();
     this.initDatasets();
     this.initInfiniteScrolling();
+
+    if (this.resourcesStore.getters.getAvailableResources.length > 0) {
+      this.resourcesStore.mutations.setSelectedResource('datasets');
+    } else {
+      this.resourcesStore.actions.loadAvailableResources()
+        .then(() => {
+            this.resourcesStore.mutations.setSelectedResource('datasets');
+        });
+    }
   },
   mounted() {
     // This is supposed to fix the browser issue (https://gitlab.fokus.fraunhofer.de/piveau/organisation/piveau-scrum-board/-/issues/2344)
@@ -459,7 +474,11 @@ export default {
   },
   setup() {
     useDatasetsHead();
-  }
+
+    // Make store available in component
+    const resourcesStore = useResourcesStore();
+    return { resourcesStore };
+  },
 };
 </script>
 
