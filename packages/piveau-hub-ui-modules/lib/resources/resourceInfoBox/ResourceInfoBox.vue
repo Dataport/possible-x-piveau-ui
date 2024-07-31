@@ -4,7 +4,7 @@
     class="resource-info-box text-dark text-decoration-none"
   >
     <slot name="header">
-      <div class="resource-info-box-header" data-cy="resource-title">
+      <div class="resource-info-box-header py-3" data-cy="resource-title">
         <h2 class="card-title m0">{{ getTitle }}</h2>
       </div>
     </slot>

@@ -1,7 +1,7 @@
 <template>
   <small class="d-flex justify-content-between align-items-center">
     <slot>
-      <div class="d-flex flex-row">
+      <div class="d-flex flex-row py-2">
         <div v-if="updatedDate" class="resource-info-box-footer-update-date d-flex flex-wrap mr-4">
             <tooltip class="font-weight-bold mr-1" :title="$t('message.tooltip.resourceDetails.updated')">
                 {{ $t('message.metadata.updated') }}:
