@@ -15,9 +15,9 @@
   
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
-import { useResourceInfoBox } from './composables/useResourceInfoBox';
+import { useResourceInfoBox } from '../composables/useResourceInfoBox';
 
-import resourceInfoBox from './resourceInfoBox/ResourceInfoBox.vue';
+import resourceInfoBox from './ResourceInfoBox.vue';
 
 const props = withDefaults(defineProps<{
   as?: string;
@@ -30,6 +30,5 @@ const route = useRoute();
 
 const computedResources = useResourceInfoBox({ 
   resources: props.resources,
-  locale: route.query.locale,
 });
 </script>

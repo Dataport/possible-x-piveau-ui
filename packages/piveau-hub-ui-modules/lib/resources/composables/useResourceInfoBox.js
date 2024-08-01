@@ -1,10 +1,9 @@
 import { computed, unref } from "vue";
 
-export function useResourceInfoBox({ resources, locale }) {
+export function useResourceInfoBox({ resources }) {
 
   return computed(() => {
     const resourceList = unref(resources);
-    const l = unref(locale);
 
     if (!resources || !resourceList) {
       return null;

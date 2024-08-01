@@ -51,7 +51,7 @@
             
             <!-- RESOURCE RESULTS -->
             <template v-if="!getLoading">
-              <resource-list :resources="getResults"></resource-list>
+              <resource-info-box-list :resources="getResults"></resource-info-box-list>
             </template>
 
             <!-- LOADING SPINNER -->
@@ -84,7 +84,7 @@ import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
 
 // Generic Resource components
 import ResourceTopControls from "../resources/ResourceTopControls.vue";
-import ResourceList from "../resources/ResourceList.vue";
+import ResourceInfoBoxList from "../resources/resourceInfoBox/ResourceInfoBoxList.vue";
 import ResourceFilters from "../resources/resourceFilters/ResourceFilters.vue";
 import ResourceFacets from "../resources/resourceFacets/ResourceFacets.vue";
 
@@ -99,7 +99,7 @@ export default {
     ResourceTopControls,
     ResourceFilters,
     ResourceFacets,
-    ResourceList,
+    ResourceInfoBoxList,
   },
   props: {},
   data() {
@@ -230,4 +230,4 @@ export default {
   },
   mounted() {},
 };
-</script>
+</script>./resourceInfoBox/ResourceInfoBoxList.vue
