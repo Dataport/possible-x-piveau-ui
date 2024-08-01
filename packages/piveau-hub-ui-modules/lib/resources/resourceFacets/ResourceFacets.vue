@@ -1,7 +1,12 @@
 <template>
-    <div class="bg-primary text-white align-self-start p-5">
+    <div class="bg-primary text-white align-self-start p-4">
         <div>
-            Add facets for {{ $t(`message.header.navigation.data.${getSelectedResource}`) }} here
+            <div class="mt-2" v-for="facet in getFacets">
+                <h3>{{ facet.title }}</h3>
+                <div class="mt-1" v-for="facetField in facet.items">
+                    <button @click="toggleFacetField(facet.id, facetField.id)"><span>{{ facetField.title }}</span> ({{ facetField.count }})</button>
+                </div>
+            </div>
         </div>
         <div class="mt-5">
             <button @click="resetFilters()">
@@ -18,14 +23,36 @@ export default {
     name: "ResourceFacets",
     components: {},
     data() {
-        return {};
+        return {
+            selectedFacets: {},
+        };
     },
     computed: {
         getSelectedResource() {
             return this.resourcesStore.getters.getSelectedResource;
         },
+        getFacets() {
+            return this.resourcesStore.getters.getFacets;
+        },
     },
     methods: {
+        toggleFacetField(facetID, facetFieldID) {
+            if (!!this.selectedFacets[facetID] && this.selectedFacets[facetID].includes(facetFieldID)) {
+                let index = this.selectedFacets[facetID].indexOf(facetFieldID);
+                this.selectedFacets[facetID].splice(index, 1);
+                if (this.selectedFacets[facetID].length === 0) {
+                    delete this.selectedFacets[facetID];
+                }
+            } else if (!this.selectedFacets[facetID]) {
+                this.selectedFacets[facetID] = [];
+                this.selectedFacets[facetID].push(facetFieldID);
+            } else {
+                this.selectedFacets[facetID].push(facetFieldID);
+            }
+
+            this.$router.replace({ query: Object.assign({}, { locale: this.$route.query.locale, facets: JSON.stringify(this.selectedFacets) }) })
+                .catch(error => { console.error(error); });
+        },
         resetFilters() {
             this.$emit('resetFilters');
             this.$router.replace({ query: Object.assign({}, { locale: this.$route.query.locale }) })
@@ -36,6 +63,10 @@ export default {
         const resourcesStore = useResourcesStore();
         return { resourcesStore };
     },
-    created() {},
+    created() {
+        this.selectedFacets = this.$route.query?.facets 
+            ? JSON.parse(this.$route.query.facets)
+            : {};
+    },
 }
 </script>

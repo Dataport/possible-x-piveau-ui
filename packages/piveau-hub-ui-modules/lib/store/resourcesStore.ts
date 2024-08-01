@@ -133,11 +133,11 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
 
                 axios.get(reqStr, { params })
                     .then((response: any) => {
-                        console.log(response)
                         let resources = response.data.result;
                         
                         mutations.setResults(resources.results);
                         mutations.setResultsCount(resources.count);
+                        mutations.setFacets(resources.facets);
 
                         resolve(resources);
                     })
