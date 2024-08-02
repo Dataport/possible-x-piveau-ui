@@ -1,3 +1,12 @@
+## [4.0.32](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.31...v4.0.32) (2024-08-02)
+
+
+### Bug Fixes
+
+* validate button behavior in firefox ([6decb13](https://gitlab.com/piveau/ui/piveau-ui/commit/6decb131c08763987a4357db63e51420fd04e9d5))
+
+
+
 ## [4.0.31](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.30...v4.0.31) (2024-07-30)
 
 
