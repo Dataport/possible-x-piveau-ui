@@ -1,6 +1,9 @@
 <template>
     <div class="bg-primary text-white align-self-start p-4">
         <div>
+            <div class="mt-2" v-if="facetsEmpty">
+                <h3>{{ facetsEmptyMessage }}</h3>
+            </div>
             <div class="mt-2" v-for="facet in getFacets">
                 <h3>{{ facet.title }}</h3>
                 <div class="mt-1" v-for="facetField in facet.items">
@@ -24,6 +27,7 @@ export default {
     components: {},
     data() {
         return {
+            facetsEmptyMessage: 'No facets available',
             selectedFacets: {},
         };
     },
@@ -33,6 +37,9 @@ export default {
         },
         getFacets() {
             return this.resourcesStore.getters.getFacets;
+        },
+        facetsEmpty() {
+            return !this.getFacets
         },
     },
     methods: {
@@ -58,15 +65,20 @@ export default {
             this.$router.replace({ query: Object.assign({}, { locale: this.$route.query.locale }) })
                 .catch(error => { console.error(error); });
         },
+        initFacets() {
+            let facets = this.$route.query?.facets 
+                ? JSON.parse(this.$route.query.facets)
+                : {};
+            this.resourcesStore.mutations.setFacets(facets);
+            this.selectedFacets = facets;
+        },
     },
     setup() {
         const resourcesStore = useResourcesStore();
         return { resourcesStore };
     },
     created() {
-        this.selectedFacets = this.$route.query?.facets 
-            ? JSON.parse(this.$route.query.facets)
-            : {};
+        this.initFacets();
     },
 }
 </script>

@@ -95,4 +95,3 @@ const showFeed = computed(() => {
   return useFeed && getSelectedResource.value === 'datasets';
 });
 </script>
-  

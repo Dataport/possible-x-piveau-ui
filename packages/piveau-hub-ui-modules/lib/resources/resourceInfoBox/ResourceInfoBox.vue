@@ -28,20 +28,21 @@
   </router-link>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
+<script lang="ts" setup>
+import { ref, computed, PropType } from 'vue';
 import { Resource } from "../../types/global";
+
+import { useRoute } from 'vue-router';
+import { useResourcesStore } from '../../store/resourcesStore';
 
 import ResourceInfoBoxFooter from "./ResourceInfoBoxFooter.vue";
 
-export default defineComponent({
-  name: "ResourceInfoBox",
-  components: {
-    ResourceInfoBoxFooter,
-  },
-  props: {
-    resource: {
-      type: Object as PropType<Resource>,
+const route = useRoute();
+const resourcesStore = useResourcesStore();
+
+const props = defineProps({
+  resource: {
+    type: Object as PropType<Resource>,
       default: () =>
         ({
           id: "",
@@ -50,24 +51,22 @@ export default defineComponent({
           createdDate: "",
           updatedDate: "",
         } as Resource),
-    },
-    to: {
-      type: [Object, String],
-      required: true,
-    },
   },
+  to: {
+    type: [Object, String],
+    required: true,
+  },
+});
 
-  computed: {
-    getTitle() {
-      return this.resource?.title
-        ? this.resource.title
-        : this.resource.id ;
-    },
-    getDescription() {
-      return this.resource?.description
-        ? this.resource.description
+const getTitle = computed(() => {
+  return props.resource?.title
+        ? props.resource.title
+        : props.resource.id;
+});
+
+const getDescription = computed(() => {
+  return props.resource?.description
+        ? props.resource.description
         : 'No description available';
-    },
-  },
 });
 </script>
