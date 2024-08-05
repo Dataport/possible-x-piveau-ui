@@ -57,7 +57,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     /*** MUTATIONS ***/
     const mutations = {
         setSelectedResource: function (newSelectedResource: string) {
-            state.selectedResource.value = newSelectedResource;
+            state.selectedResource.value = newSelectedResource;            
         },   
         setAvailableResources: function (newAvailableResources: string[]) {
             state.availableResources.value = newAvailableResources.map((resource => resourceMapping[resource as keyof object]));
@@ -124,7 +124,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
                 const resource = Object.keys(resourceMapping).find(key => resourceMapping[key as keyof object] === state.selectedResource.value);
                 const endpoint = `resources/${resource}`;
                 const reqStr = `${ENV.api.baseUrl}${endpoint}`;
-
+                
                 axios.get(reqStr, { params })
                     .then((response: any) => {
                         let resources = response.data;
@@ -133,6 +133,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
                         mutations.setResultsCount(resources.length);
 
                         resolve(resources);
+                        
                     })
                     .catch((error: any) => {
                         console.log(error);
