@@ -30,19 +30,14 @@
                      </div>
                      <div v-if="error" class="error mt-4">
                        <div class="error-body">
-                          <span>
-                            <svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <rect width="31" height="30" fill="url(#pattern0)"/>
-                              <defs>
-                              <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-                              <use xlink:href="#image0_29_137" transform="translate(-0.2 -0.358491) scale(0.0181818 0.0188679)"/>
-                              </pattern>
-                              <image id="image0_29_137" width="91" height="88" xlink:href="data:image/png;base64,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"/>
-                              </defs>
-                              </svg>
-                          </span>
-                          <span>
-                            <p class="font-weight-bold ml-3">{{ $t('message.datasetDetails.datasets.modal.fileConversionFail') }}</p>
+                        <svg width="40" height="38" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="warning-icon">
+                        <path d="M0 22L12 0L24 22H0ZM12 18.5263C12.3091 18.5263 12.5684 18.4152 12.7778 18.1928C12.9873 17.9705 13.0916 17.6957 13.0909 17.3684C13.0902 17.0411 12.9855 16.7663 12.7767 16.544C12.568 16.3217 12.3091 16.2105 12 16.2105C11.6909 16.2105 11.432 16.3217 11.2233 16.544C11.0145 16.7663 10.9098 17.0411 10.9091 17.3684C10.9084 17.6957 11.0131 17.9709 11.2233 18.194C11.4335 18.4171 11.6924 18.5279 12 18.5263ZM10.9091 15.0526H13.0909V9.26316H10.9091V15.0526Z" fill="#FBC712"/>
+                        </svg>
+
+                          <span> 
+                            <span class="font-weight-bold ml-3">{{ $t('message.datasetDetails.datasets.modal.fileConversionFail') }}</span> <br>
+                            <span class="ml-3">{{ $t('message.datasetDetails.datasets.modal.fileConversionTarget') }} </span>
+                            <div class="ml-3 details"><strong>Details</strong></div>
                             <p class="ml-3">{{ errorMsg }}</p>
                           </span>
                        </div>
@@ -76,7 +71,9 @@
             <div class="modal-footer justify-content-start">
                <button v-if="!done" @click="download" type="button" class="ecl-button ecl-button--secondary" v-text="downloadBtnText"></button>
                <button v-if="done" type="button" class="ecl-button ecl-button--secondary" data-dismiss="modal" aria-label="Close">Done</button>
+               <button v-if="error == true" @click="alert('todo: download orgiginal')" type="button" class="ecl-button ecl-button--secondary" data-dismiss="modal" aria-label="Close">{{ $t('message.datasetDetails.datasets.modal.fileConversionDownloadOriginal') }}</button>
             </div>
+
          </div>
       </div>
    </div>
@@ -250,7 +247,7 @@ export default {
   color: #000000;
 }
 .modal-content {
-  border: 3px solid #1C3D66;
+  border: 3px solid #0e47cb;
 }
 .modal-header {
   padding: 1.5rem 1.5rem 0rem 1.5rem;
@@ -265,12 +262,12 @@ export default {
 }
 .close {
   font-size: 16px;
-  color: #1C3D66;
+  color: #0e47cb;
   opacity: 1;
   padding: 0.5rem!important;
   .close-icon {
     color:white;
-    background: #1C3D66;
+    background: #0e47cb;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -285,9 +282,9 @@ export default {
   color: #000000!important;
 }
 .error {
-  border: 2px solid #DA2131;
+  border: 2px solid #FBC712;
   .error-body {
-    padding: 1rem;
+    padding: 1.8rem;
     display: flex;
   }
 }
@@ -299,5 +296,14 @@ export default {
 }
 .ecl-select {
   cursor: pointer;
+}
+
+.details {
+    margin-top: 30px;
+}
+
+.warning-icon {
+    margin-top: 5px;
+    margin-right: 7px
 }
 </style>
