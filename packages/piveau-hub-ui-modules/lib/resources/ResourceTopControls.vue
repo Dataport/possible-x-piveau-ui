@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
 import { useRoute } from 'vue-router';
 import { useResourcesStore } from '../store/resourcesStore';
@@ -45,8 +45,8 @@ const resourcesStore = useResourcesStore();
 
 const ENV = useRuntimeEnv();
 
-const useFeed = ref(ENV.content.datasets.useFeed);
-const baseUrl = ref(ENV.api.baseUrl);
+const useFeed = ENV.content.datasets.useFeed;
+const baseUrl = ENV.api.baseUrl;
 
 
 function getFeedLink(format: string) {

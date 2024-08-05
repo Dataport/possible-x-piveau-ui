@@ -1,5 +1,5 @@
 <template>
-  <component :is="as">
+  <div>
     <template v-for="(resource, index) in computedResources">
       <slot :resource="resource" :raw-resource="resources[index]" :index="index">
         <resource-info-box
@@ -10,7 +10,7 @@
         ></resource-info-box>
       </slot>
     </template>
-  </component>
+  </div>
 </template>
   
 

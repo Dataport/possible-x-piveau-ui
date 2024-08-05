@@ -19,66 +19,60 @@
     </div>
 </template>
 
-<script>
+<script lang="ts" setup>
+import { ref, computed } from 'vue';
+
+import { useRoute, useRouter } from 'vue-router';
 import { useResourcesStore } from '../../store/resourcesStore';
 
-export default {
-    name: "ResourceFacets",
-    components: {},
-    data() {
-        return {
-            facetsEmptyMessage: 'No facets available',
-            selectedFacets: {},
-        };
-    },
-    computed: {
-        getSelectedResource() {
-            return this.resourcesStore.getters.getSelectedResource;
-        },
-        getFacets() {
-            return this.resourcesStore.getters.getFacets;
-        },
-        facetsEmpty() {
-            return !this.getFacets
-        },
-    },
-    methods: {
-        toggleFacetField(facetID, facetFieldID) {
-            if (!!this.selectedFacets[facetID] && this.selectedFacets[facetID].includes(facetFieldID)) {
-                let index = this.selectedFacets[facetID].indexOf(facetFieldID);
-                this.selectedFacets[facetID].splice(index, 1);
-                if (this.selectedFacets[facetID].length === 0) {
-                    delete this.selectedFacets[facetID];
-                }
-            } else if (!this.selectedFacets[facetID]) {
-                this.selectedFacets[facetID] = [];
-                this.selectedFacets[facetID].push(facetFieldID);
-            } else {
-                this.selectedFacets[facetID].push(facetFieldID);
-            }
+const route = useRoute();
+const router = useRouter();
+const resourcesStore = useResourcesStore();
 
-            this.$router.replace({ query: Object.assign({}, { locale: this.$route.query.locale, facets: JSON.stringify(this.selectedFacets) }) })
-                .catch(error => { console.error(error); });
-        },
-        resetFilters() {
-            this.$emit('resetFilters');
-            this.$router.replace({ query: Object.assign({}, { locale: this.$route.query.locale }) })
-                .catch(error => { console.error(error); });
-        },
-        initFacets() {
-            let facets = this.$route.query?.facets 
-                ? JSON.parse(this.$route.query.facets)
-                : {};
-            this.resourcesStore.mutations.setFacets(facets);
-            this.selectedFacets = facets;
-        },
-    },
-    setup() {
-        const resourcesStore = useResourcesStore();
-        return { resourcesStore };
-    },
-    created() {
-        this.initFacets();
-    },
-}
+const emit = defineEmits(['resetFilters'])
+
+const facetsEmptyMessage = ref('No facets available');
+let selectedFacets: any = ref({});
+
+function toggleFacetField(facetID: any, facetFieldID: any) {
+    if (!!selectedFacets[facetID] && selectedFacets[facetID].includes(facetFieldID)) {
+        let index = selectedFacets[facetID].indexOf(facetFieldID);
+        selectedFacets[facetID].splice(index, 1);
+        if (selectedFacets[facetID].length === 0) {
+            delete selectedFacets[facetID];
+        }
+    } else if (!selectedFacets[facetID]) {
+        selectedFacets[facetID] = [];
+        selectedFacets[facetID].push(facetFieldID);
+    } else {
+        selectedFacets[facetID].push(facetFieldID);
+    }
+
+    router.replace({ query: Object.assign({}, { locale: route.query.locale, facets: JSON.stringify(selectedFacets) }) })
+        .catch(error => { console.error(error); });
+};
+
+function resetFilters() {
+    emit('resetFilters');
+    router.replace({ query: Object.assign({}, { locale: route.query.locale }) })
+        .catch(error => { console.error(error); });
+};
+
+function initFacets() {
+    let facets: any = route.query?.facets 
+        ? JSON.parse(route.query.facets)
+        : {};
+    resourcesStore.mutations.setFacets(facets);
+    selectedFacets = facets;
+};
+
+const getFacets = computed(() => {
+  return resourcesStore.getters.getFacets;
+});
+
+const facetsEmpty = computed(() => {
+    return !getFacets;
+});
+
+initFacets();
 </script>
