@@ -37,7 +37,7 @@
                           <span> 
                             <span class="font-weight-bold ml-3">{{ $t('message.datasetDetails.datasets.modal.fileConversionFail') }}</span> <br>
                             <span class="ml-3">{{ $t('message.datasetDetails.datasets.modal.fileConversionTarget') }} </span>
-                            <div class="ml-3 details"><strong>Details</strong></div>
+                            <div class="ml-3 details"><strong>{{ $t('message.datasetDetails.datasets.modal.fileConversionDetails') }}</strong></div>
                             <p class="ml-3">{{ errorMsg }}</p>
                           </span>
                        </div>
@@ -71,15 +71,16 @@
             <div class="modal-footer justify-content-start">
                <button v-if="!done" @click="download" type="button" class="ecl-button ecl-button--secondary" v-text="downloadBtnText"></button>
                <button v-if="done" type="button" class="ecl-button ecl-button--secondary" data-dismiss="modal" aria-label="Close">Done</button>
-               <button v-if="error == true" @click="alert('todo: download orgiginal')" type="button" class="ecl-button ecl-button--secondary" data-dismiss="modal" aria-label="Close">{{ $t('message.datasetDetails.datasets.modal.fileConversionDownloadOriginal') }}</button>
+                <a v-if="error == true" :href="this.getDistributionDownloadAs.downloadUrls" target="_blank" class="ecl-button ecl-button--secondary">  
+                {{ $t('message.datasetDetails.datasets.modal.fileConversionDownloadOriginal') }} <i class="material-icons align-middle mb-1">open_in_new</i>  </a>
             </div>
-
          </div>
       </div>
    </div>
 </template>
 
 <script >
+import AppLink from "../../widgets/AppLink.vue";
 import $ from 'jquery'
 import {
     mapGetters
@@ -111,6 +112,9 @@ export default {
             'getDistributionDownloadAsOptions',
             'getDistributionDownloadAs',
         ])
+    },
+    components: {
+    AppLink
     },
     mounted() {
         // Add a listener to the modal close button
