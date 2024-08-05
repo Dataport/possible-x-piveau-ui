@@ -82,14 +82,11 @@ import { ref, computed, nextTick } from 'vue';
 
 import { useRoute, useRouter } from 'vue-router';
 import { useResourcesStore } from '../store/resourcesStore';
-
 import { useRuntimeEnv } from '../composables/useRuntimeEnv';
 
-// Components
 import Pagination from '../widgets/Pagination.vue';
 import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
 
-// Generic Resource components
 import ResourceTopControls from "./ResourceTopControls.vue";
 import ResourceInfoBoxList from "./resourceInfoBox/ResourceInfoBoxList.vue";
 import ResourceFilters from "./resourceFilters/ResourceFilters.vue";
@@ -142,22 +139,22 @@ function initFilters() {
 };
 
 function initQuery() {
-  let query = route.query?.query || '';
+  let query = route.query.query || '';
   setQuery(query);
 };
 
 function initLimit() {
-  let limit = Number(route.query?.limit || defaultLimit);
+  let limit = Number(route.query.limit || defaultLimit);
   setLimit(limit);
 };
 
 function initPage() {
-  let page = Number(route.query?.page || 1);
+  let page = Number(route.query.page || 1);
   setPage(page);
 };
 
 function initSort() {
-  let sort = route.query?.sort || defaultSort;
+  let sort = route.query.sort || defaultSort;
   setSort(sort);
 };
 
@@ -199,7 +196,7 @@ const getResultsCount = computed(() => {
 });
 
 const getLimit = computed(() => {
-  return Number(route.query?.limit || resourcesStore.getters.getLimit);
+  return Number(route.query.limit || resourcesStore.getters.getLimit);
 });
 
 const getPage = computed(() => {

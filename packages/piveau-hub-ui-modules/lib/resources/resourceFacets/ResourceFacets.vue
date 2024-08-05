@@ -59,7 +59,7 @@ function resetFilters() {
 };
 
 function initFacets() {
-    let facets: any = route.query?.facets 
+    let facets: any = route.query.facets 
         ? JSON.parse(route.query.facets)
         : {};
     resourcesStore.mutations.setFacets(facets);

@@ -76,7 +76,7 @@ const getSelectedResource = computed(() => {
 });
 
 const getLimit = computed(() => {
-  return Number(route.query?.limit || resourcesStore.getters.getLimit);
+  return Number(route.query.limit || resourcesStore.getters.getLimit);
 });
 
 const getPage = computed(() => {

@@ -13,25 +13,15 @@
   </div>
 </template>
   
-<script>
+<script lang="ts" setup>
+import { useRuntimeEnv } from '../../composables/useRuntimeEnv';
+
 import ResourceFiltersSearch from "./ResourceFiltersSearch";
 import ResourceFiltersSelect from "./ResourceFiltersSelect";
 import ResourceFiltersSort from "./ResourceFiltersSort";
 
-export default {
-  name: "ResourceFilters",
-  components: {
-    ResourceFiltersSearch,
-    ResourceFiltersSelect,
-    ResourceFiltersSort,
-  },
-  data() {
-    return {
-      useSearch: this.$env.content.resources.search.useSearch,
-      useSort: this.$env.content.resources.sort.useSort,
-    }
-  },
-  created() {},
-  methods: {},
-}
+const ENV = useRuntimeEnv();
+
+const useSearch = ENV.content.resources.search.useSearch;
+const useSort = ENV.content.resources.sort.useSort;
 </script>

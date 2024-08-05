@@ -3,7 +3,7 @@
         <span class="mr-2">Sort by:</span>
         <button class="d-flex align-items-center custom-dropdown-button list-group-item p-0 py-1" id="resourceFiltersSort" type="button" data-toggle="dropdown" aria-expanded="false">
             <div class="resource-filters-sort-text">
-            {{ sortSelectedLabel }}
+            {{ getSortSelectedLabel }}
             </div>
             <div class="resource-filters-sort-icon text-white">
                 <i class="material-icons">keyboard_arrow_down</i>
@@ -11,110 +11,95 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="resourceFiltersSort">
             <button
-            class="dropdown-item mb-0 nav-link"
-            @click="setSortMethod('modified', 'desc', $t('message.sort.lastModified'))"
-            >
-            {{ $t('message.sort.lastUpdated') }}
+                class="dropdown-item mb-0 nav-link"
+                @click="setSortMethod('modified', 'desc', t('message.sort.lastUpdated'))"
+                >
+                {{ t('message.sort.lastUpdated') }}
             </button>
             <button
-            class="dropdown-item mb-0 nav-link"
-            @click="setSortMethod('relevance', 'desc', $t('message.sort.relevance'))"
-            >
-            {{ $t('message.sort.relevance') }}
+                class="dropdown-item mb-0 nav-link"
+                @click="setSortMethod('relevance', 'desc', t('message.sort.relevance'))"
+                >
+                {{ t('message.sort.relevance') }}
             </button>
             <button 
-            class="dropdown-item mb-0 nav-link" 
-            @click="setSortMethod(`title.${$route.query.locale}`, 'asc', $t('message.sort.nameAZ'))">
-            {{ $t('message.sort.nameAZ') }}
+                class="dropdown-item mb-0 nav-link" 
+                @click="setSortMethod(`title.${$route.query.locale}`, 'asc', t('message.sort.nameAZ'))">
+                {{ t('message.sort.nameAZ') }}
             </button>
             <button 
-            class="dropdown-item mb-0 nav-link" 
-            @click="setSortMethod(`title.${$route.query.locale}`, 'desc', $t('message.sort.nameZA'))">
-            {{ $t('message.sort.nameZA') }}
+                class="dropdown-item mb-0 nav-link" 
+                @click="setSortMethod(`title.${$route.query.locale}`, 'desc', t('message.sort.nameZA'))">
+                {{ t('message.sort.nameZA') }}
             </button>
             <button 
-            class="dropdown-item mb-0 nav-link" 
-            @click="setSortMethod('issued', 'desc', $t('message.sort.lastCreated'))">
-            {{ $t('message.sort.lastCreated') }}
+                class="dropdown-item mb-0 nav-link" 
+                @click="setSortMethod('issued', 'desc', t('message.sort.lastCreated'))">
+                {{ t('message.sort.lastCreated') }}
             </button>
         </ul>
     </div>
 </template>
     
-<script>
+<script lang="ts" setup>
+import { ref, computed, nextTick } from 'vue';
+
+import { useRoute, useRouter } from 'vue-router';
 import { useResourcesStore } from '../../store/resourcesStore';
-import { defineComponent } from 'vue';
-  
-export default defineComponent({
-    name: 'ResourceFiltersSort',
-    data() {
-        return {
-            sortSelected: '',
-            sortSelectedLabel: this.$t('message.sort.relevance'),
-        };
-    },
-    computed: {},
-    methods: {
-        setSort(sort) {
-        this.resourcesStore.mutations.setSort(sort);
-        },
-        initSort() {
-        let sort = this.$route.query.sort;
-        if (sort) {
-            sort = sort.split(',')[0].toLowerCase();
-            if (sort.includes('title')) {
+import { useI18n } from 'vue-i18n';
+
+const route = useRoute();
+const router = useRouter();
+const resourcesStore = useResourcesStore();
+const { t } = useI18n();
+
+const getSortSelectedLabel = computed(() => {
+    return resourcesStore.getters.getSortSelectedLabel;
+});
+
+function setSort(sort, label) {
+    resourcesStore.mutations.setSort(sort);
+    resourcesStore.mutations.setSortSelectedLabel(label);
+
+    if (route.query.sort) {
+        router.replace({ query: Object.assign({}, route.query, { sort }) })
+            .catch(error => { console.error(error); });
+    }
+};
+
+function initSort() {
+    let sort = route.query.sort;
+    if (sort) {
+        sort = sort.split(',')[0].toLowerCase();
+        if (sort.includes('title')) {
             if (sort.includes('desc')) {
-                this.sortSelectedLabel = this.$t('message.sort.nameZA');
-                this.setSortMethod(`title.${this.$route.query.locale}`, 'desc', this.$t('message.sort.nameZA'));
+                setSortMethod(`title.${route.query.locale}`, 'desc', t('message.sort.nameZA'));
             } else {
-                this.sortSelectedLabel = this.$t('message.sort.nameAZ');
-                this.setSortMethod(`title.${this.$route.query.locale}`, 'asc', this.$t('message.sort.nameAZ'));
+                setSortMethod(`title.${route.query.locale}`, 'asc', t('message.sort.nameAZ'));
             }
-            } else {
+        } else {
             if (sort === 'relevance+desc') {
-                this.sortSelectedLabel = this.$t('message.sort.relevance');
-                this.setSortMethod('relevance', 'desc', this.$t('message.sort.relevance'));
+                setSortMethod('relevance', 'desc', t('message.sort.relevance'));
             }
             if (sort === 'modified+desc') {
-                this.sortSelectedLabel = this.$t('message.sort.lastUpdated');
-                this.setSortMethod('modified', 'desc', this.$t('message.sort.lastUpdated'));
+                setSortMethod('modified', 'desc', t('message.sort.lastUpdated'));
             }
             if (sort === 'issued+desc') {
-                this.sortSelectedLabel = this.$t('message.sort.lastCreated');
-                this.setSortMethod('issued', 'desc', this.$t('message.sort.lastCreated'));
+                setSortMethod('issued', 'desc', t('message.sort.lastCreated'));
             }
-            }
-        } else this.setSort(`relevance+desc, modified+desc, title.${this.$route.query.locale}+asc`);
-        },
-        setSortMethod(method, order, label) {
-        this.sortSelectedLabel = label;
-        if (method === 'relevance') this.sortSelected = `${method}+${order}, modified+desc, title.${this.$route.query.locale}+asc`;
-        if (method === 'modified') this.sortSelected = `${method}+${order}, relevance+desc, title.${this.$route.query.locale}+asc`;
-        if (method === `title.${this.$route.query.locale}`) this.sortSelected = `${method}+${order}, relevance+desc, modified+desc`;
-        if (method === 'issued') this.sortSelected = `${method}+${order}, relevance+desc, title.${this.$route.query.locale}+asc`;
-        return this.sortSelected;
-        },
-    },
-    watch: {
-        sortSelected: {
-        handler(sort) {
-            this.$router.replace({ query: Object.assign({}, this.$route.query, { sort }) })
-            .catch(error => { console.error(error); });
-            this.setSort(sort);
-        },
-        deep: true,
         }
-    },
-    setup() {
-        const resourcesStore = useResourcesStore();
-        return { resourcesStore };
-    },
-    created() {
-        this.$nextTick(() => {
-        this.initSort();
-        });
-    },
-    mounted() {},
+    } else setSortMethod('relevance', 'desc', t('message.sort.relevance'));
+};
+
+function setSortMethod(method, order, label) {
+    if (method === 'relevance') setSort(`${method}+${order}, modified+desc, title.${route.query.locale}+asc`, label);
+    if (method === 'modified') setSort(`${method}+${order}, relevance+desc, title.${route.query.locale}+asc`, label);
+    if (method === `title.${route.query.locale}`) setSort(`${method}+${order}, relevance+desc, modified+desc`, label);
+    if (method === 'issued') setSort(`${method}+${order}, relevance+desc, title.${route.query.locale}+asc`, label);
+};
+
+nextTick(() => {
+    initSort();
 });
 </script>
 

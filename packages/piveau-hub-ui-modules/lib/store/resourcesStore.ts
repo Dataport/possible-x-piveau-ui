@@ -37,6 +37,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         limit: ref(10),
         page: ref(1),
         sort: ref(''),
+        sortSelectedLabel: ref(''),
         facets: ref([] as object[]),
     };
 
@@ -50,6 +51,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         getLimit: computed(() => state.limit.value),
         getPage: computed(() => state.page.value),
         getSort: computed(() => state.sort.value),
+        getSortSelectedLabel: computed(() => state.sortSelectedLabel.value),
         getFacets: computed(() => state.facets.value),
     };
 
@@ -79,6 +81,9 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         },    
         setSort: function (newSort: string) {
             state.sort.value = newSort;
+        },
+        setSortSelectedLabel: function (newSortSelectedLabel: string) {
+            state.sortSelectedLabel.value = newSortSelectedLabel;
         },
         setFacets: function (newFacets: object[]) {
             state.facets.value = newFacets;
