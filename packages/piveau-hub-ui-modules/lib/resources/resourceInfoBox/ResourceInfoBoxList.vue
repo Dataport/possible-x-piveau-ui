@@ -13,20 +13,13 @@
   </component>
 </template>
   
+
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
 import { useResourceInfoBox } from '../composables/useResourceInfoBox';
 
 import resourceInfoBox from './ResourceInfoBox.vue';
 
-const props = withDefaults(defineProps<{
-  as?: string;
-  resources: any;
-}>(), {
-  as: 'div'
-});
-
-const route = useRoute();
+const props = defineProps(['resources']);
 
 const computedResources = useResourceInfoBox({ 
   resources: props.resources,
