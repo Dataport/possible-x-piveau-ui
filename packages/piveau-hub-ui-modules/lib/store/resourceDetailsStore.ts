@@ -23,6 +23,7 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
 
 
   const fetchResourceDetails = async (id) => {
+   
     // try {
     //   const response = await axios.get('https://api.example.com/resource')
     //   resourceDetailsData.value = response.data
@@ -35,6 +36,7 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
         const reqStr = `${ENV.api.baseUrl}${endpoint}`;
         
         
+        
             try {
                 const response = await axios.get(`${reqStr}/${id}`, {
                     headers: {
@@ -44,7 +46,8 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
                     }
                    
                 })
-                console.log(response.data);
+                resourceDetailsData.value = await response.data
+                console.log(resourceDetailsData.value);
                     
                
     
@@ -55,9 +58,16 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
     
   }
 
+  const resetResourceDetails = () => {
+    resourceDetailsData.value = null
+    error.value = null
+  }
+
+
   return {
     resourceDetailsData,
     fetchResourceDetails,
+    resetResourceDetails
   }
 })
 
