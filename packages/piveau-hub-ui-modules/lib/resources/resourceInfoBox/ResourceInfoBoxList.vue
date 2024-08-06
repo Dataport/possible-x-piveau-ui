@@ -15,7 +15,7 @@
   
 
 <script lang="ts" setup>
-import { useResourceInfoBox } from '../composables/useResourceInfoBox';
+import { useResourceInfoBox } from './useResourceInfoBox';
 
 import resourceInfoBox from './ResourceInfoBox.vue';
 
@@ -24,4 +24,4 @@ const props = defineProps(['resources']);
 const computedResources = useResourceInfoBox({ 
   resources: props.resources,
 });
-</script>
+</script>./useResourceInfoBox

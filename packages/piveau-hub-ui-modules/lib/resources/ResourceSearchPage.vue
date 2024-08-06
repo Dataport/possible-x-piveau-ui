@@ -47,7 +47,7 @@
             </slot>
 
             <!-- SELECTED RESOURCE FACETS -->
-            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getFacets"></selectedFacetsOverview>
+            <selectedFacetsOverview v-if="getSelectedFacets" :selected-facets="getSelectedFacets" :available-facets="getFacets"></selectedFacetsOverview>
             
             <!-- RESOURCE RESULTS -->
             <template v-if="!getLoading">
@@ -95,14 +95,13 @@ import ResourceFacets from "./resourceFacets/ResourceFacets.vue";
 const route = useRoute();
 const router = useRouter();
 const resourcesStore = useResourcesStore();
-
 const ENV = useRuntimeEnv();
 
 let isLoading = ref(false);
 const defaultLimit = ENV.content.resources.limit.defaultLimit;
 const defaultSort = ENV.content.resources.sort.defaultSort;
-const usePagination = ENV.content.resources.page.usePagination;
 const useResourceFacets = ENV.content.resources.facets.useResourceFacets;
+const usePagination = ENV.routing.pagination.usePagination;
 
 function initResourceSearchPage() {
   if (route.params.hasOwnProperty('resource_id')) {
@@ -211,7 +210,11 @@ const getFacets = computed(() => {
   return resourcesStore.getters.getFacets;
 });
 
+const getSelectedFacets = computed(() => {
+  return resourcesStore.getters.getSelectedFacets;
+});
 
+// TODO: Improve initial loading mechanism
 if (getAvailableResources.value.length > 0) {
   initResourceSearchPage();
 } else {
@@ -220,7 +223,7 @@ if (getAvailableResources.value.length > 0) {
     if (getAvailableResources.value.length > 0) {
       initResourceSearchPage();
     } else {
-      console.error('No resources available.');
+      console.error('No resources available. \n Waiting for all requests to be finished ...');
     }
   });
 }

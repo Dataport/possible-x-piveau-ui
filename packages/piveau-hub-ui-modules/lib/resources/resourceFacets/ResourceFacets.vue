@@ -1,16 +1,16 @@
 <template>
     <div class="bg-primary text-white align-self-start p-4">
-        <div>
-            <div class="mt-2" v-if="facetsEmpty">
+        <div class="mt-2">
+            <div class="mb-4" v-if="facetsEmpty">
                 <h3>{{ facetsEmptyMessage }}</h3>
             </div>
-            <div class="mt-2" v-for="facet in getFacets">
-                <h3>{{ facet.title }}</h3>
-                <div class="mt-1" v-for="facetField in facet.items">
-                    <button @click="toggleFacetField(facet.id, facetField.id)"><span>{{ facetField.title }}</span> ({{ facetField.count }})</button>
-                </div>
-            </div>
+            <Facets class="mb-4" :facets="getFacets" :facetOrder="getFacetOrder" 
+                @facet-clicked="facetClicked" 
+                @radio-facet-clicked="radioFacetClicked"
+                @checkbox-facet-clicked="checkboxFacetClicked"
+            ></Facets>
         </div>
+        
         <div class="mt-5">
             <button @click="resetFilters()">
                 Reset Filters
@@ -24,32 +24,28 @@ import { ref, computed } from 'vue';
 
 import { useRoute, useRouter } from 'vue-router';
 import { useResourcesStore } from '../../store/resourcesStore';
+import { useI18n } from 'vue-i18n';
+import { useRuntimeEnv } from '../../composables/useRuntimeEnv';
+
+import Facets from './facets/Facets.vue';
 
 const route = useRoute();
 const router = useRouter();
 const resourcesStore = useResourcesStore();
+const { t } = useI18n();
+const ENV = useRuntimeEnv();
 
-const emit = defineEmits(['resetFilters'])
+const emit = defineEmits(['resetFilters']);
 
-const facetsEmptyMessage = ref('No facets available');
 let selectedFacets: any = ref({});
 
-function toggleFacetField(facetID: any, facetFieldID: any) {
-    if (!!selectedFacets[facetID] && selectedFacets[facetID].includes(facetFieldID)) {
-        let index = selectedFacets[facetID].indexOf(facetFieldID);
-        selectedFacets[facetID].splice(index, 1);
-        if (selectedFacets[facetID].length === 0) {
-            delete selectedFacets[facetID];
-        }
-    } else if (!selectedFacets[facetID]) {
-        selectedFacets[facetID] = [];
-        selectedFacets[facetID].push(facetFieldID);
-    } else {
-        selectedFacets[facetID].push(facetFieldID);
-    }
+function initFacets() {
+    let facets: any = route.query.facets 
+        ? JSON.parse(route.query.facets.toString())
+        : {};
 
-    router.replace({ query: Object.assign({}, { locale: route.query.locale, facets: JSON.stringify(selectedFacets) }) })
-        .catch(error => { console.error(error); });
+    selectedFacets = facets;
+    updateSelectedFacets();
 };
 
 function resetFilters() {
@@ -58,20 +54,63 @@ function resetFilters() {
         .catch(error => { console.error(error); });
 };
 
-function initFacets() {
-    let facets: any = route.query.facets 
-        ? JSON.parse(route.query.facets)
-        : {};
-    resourcesStore.mutations.setFacets(facets);
-    selectedFacets = facets;
-};
+function facetClicked(facetID: any, facetField: any) {
+    if (!!selectedFacets[facetID] && selectedFacets[facetID].includes(facetField)) {
+        let index = selectedFacets[facetID].indexOf(facetField);
+        selectedFacets[facetID].splice(index, 1);
+        if (selectedFacets[facetID].length === 0) {
+            delete selectedFacets[facetID];
+        }
+    } else if (!selectedFacets[facetID]) {
+        selectedFacets[facetID] = [];
+        selectedFacets[facetID].push(facetField);
+    } else {
+        selectedFacets[facetID].push(facetField);
+    }
+
+    updateSelectedFacets();
+}
+
+function radioFacetClicked(facetID: any, facetField: any) {
+    selectedFacets[facetID] = facetField;
+
+    updateSelectedFacets();
+}
+
+function checkboxFacetClicked(facetID: any) {
+    if (!!selectedFacets[facetID]) {
+        delete selectedFacets[facetID];
+    } else {
+        selectedFacets[facetID] = true;
+    }
+
+    updateSelectedFacets();
+}
+
+function updateSelectedFacets() {
+    resourcesStore.mutations.setSelectedFacets(selectedFacets);
+    router.replace({ query: Object.assign({}, { locale: route.query.locale, facets: JSON.stringify(selectedFacets) }) })
+        .catch(error => { console.error(error); });
+}
+
+const getSelectedResource = computed(() => {
+  return resourcesStore.getters.getSelectedResource;
+});
 
 const getFacets = computed(() => {
   return resourcesStore.getters.getFacets;
 });
 
+const getFacetOrder = computed(() => {
+  return ENV.content.resources.facets.facetOrder;
+});
+
 const facetsEmpty = computed(() => {
-    return !getFacets;
+    return !getFacets.value;
+});
+
+const facetsEmptyMessage = computed(() => {
+    return `No facets available for ${t(`message.header.navigation.data.${getSelectedResource.value}`)}`
 });
 
 initFacets();

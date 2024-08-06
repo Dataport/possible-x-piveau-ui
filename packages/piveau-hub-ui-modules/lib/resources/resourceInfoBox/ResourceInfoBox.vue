@@ -29,16 +29,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, PropType } from 'vue';
+import { computed, PropType } from 'vue';
 import { Resource } from "../../types/global";
 
-import { useRoute } from 'vue-router';
-import { useResourcesStore } from '../../store/resourcesStore';
-
 import ResourceInfoBoxFooter from "./ResourceInfoBoxFooter.vue";
-
-const route = useRoute();
-const resourcesStore = useResourcesStore();
 
 const props = defineProps({
   resource: {
