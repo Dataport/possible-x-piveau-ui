@@ -1,3 +1,14 @@
+# [4.1.0](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.32...v4.1.0) (2024-08-07)
+
+
+### Features
+
+* **DatasetsFacets:** add facet slot ([45a34d3](https://gitlab.com/piveau/ui/piveau-ui/commit/45a34d37e7005063ff3b5a1e9884e1f966a60784))
+* **DatsetFacets:** add facet content slot ([67694ea](https://gitlab.com/piveau/ui/piveau-ui/commit/67694ea625347bfed0d941f2e7503e7a45a70e50))
+* export RadioFacet component ([b53b3a8](https://gitlab.com/piveau/ui/piveau-ui/commit/b53b3a8e8ee4010751fb2145d512d307e1f79835))
+
+
+
 ## [4.0.32](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.31...v4.0.32) (2024-08-02)
 
 
