@@ -9,17 +9,23 @@
         <settings-facet class="row facet-field mb-3" />
         <div class="row facet-field mb-3" v-for="(field, index) in getSortedFacets" :key="`facet@${field.id}`"
           :class="{ 'mt-3': (index > 0) }">
-          <radio-facet v-if="(field.id === 'dataServices')" :title="dataServices.title"
-            :property="dataServices.property" :toolTipTitle="dataServices.toolTipTitle" :optionIds="['true', 'false']"
-            :optionLabels="[dataServices.yes, dataServices.no]" :initialOption="getDataServices"
-            :change="changeDataServices" />
-          <radio-facet v-if="(field.id === 'superCatalog')" :title="erpd.title" :property="erpd.property"
-            :toolTipTitle="erpd.toolTipTitle" :optionIds="['true', 'false']" :optionLabels="[erpd.yes, erpd.no]"
-            :initialOption="isErdp" :change="changeErpd" />
-          <select-facet v-if="(field.id !== 'superCatalog' && field.id !== 'dataServices')" :fieldId="field.id"
-            :header="facetTitle(field.id)" :items="sortByCount(field.items, field.id)" :toolTipTitle="tooltip(field.id)"
-            :getFacetTranslationWrapper="getFacetTranslationWrapper" :facetIsSelected="facetIsSelected"
-            :facetClicked="facetClicked" :multiSelect="isMultiSelect(field.id)" class="col pr-0" />
+          <slot
+            name="facet"
+            :field="field"
+            :index="index"
+          >
+            <radio-facet v-if="(field.id === 'dataServices')" :title="dataServices.title"
+              :property="dataServices.property" :toolTipTitle="dataServices.toolTipTitle" :optionIds="['true', 'false']"
+              :optionLabels="[dataServices.yes, dataServices.no]" :initialOption="getDataServices"
+              :change="changeDataServices" />
+            <radio-facet v-if="(field.id === 'superCatalog')" :title="erpd.title" :property="erpd.property"
+              :toolTipTitle="erpd.toolTipTitle" :optionIds="['true', 'false']" :optionLabels="[erpd.yes, erpd.no]"
+              :initialOption="isErdp" :change="changeErpd" />
+            <select-facet v-if="(field.id !== 'superCatalog' && field.id !== 'dataServices')" :fieldId="field.id"
+              :header="facetTitle(field.id)" :items="sortByCount(field.items, field.id)" :toolTipTitle="tooltip(field.id)"
+              :getFacetTranslationWrapper="getFacetTranslationWrapper" :facetIsSelected="facetIsSelected"
+              :facetClicked="facetClicked" :multiSelect="isMultiSelect(field.id)" class="col pr-0" />
+          </slot>
         </div>
         <div>
           <pv-show-more v-if="showMoreFacetsShown"
