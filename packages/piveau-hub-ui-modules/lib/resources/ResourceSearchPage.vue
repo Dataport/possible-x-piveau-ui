@@ -12,7 +12,7 @@
           <resource-facets 
             v-if="useResourceFacets" 
             id="resourceFacets" 
-            class="col-md-2 col-12 mb-3 mb-md-0"
+            class="col-md-3 col-12 mb-3 mb-md-0"
             @resetFilters="initFilters"
           ></resource-facets>
 
@@ -47,11 +47,11 @@
             </slot>
 
             <!-- SELECTED RESOURCE FACETS -->
-            <selectedFacetsOverview v-if="getFacets" :selected-facets="getFacets" :available-facets="getFacets"></selectedFacetsOverview>
+            <selectedFacetsOverview v-if="getSelectedFacets" :selected-facets="getSelectedFacets" :available-facets="getFacets"></selectedFacetsOverview>
             
             <!-- RESOURCE RESULTS -->
             <template v-if="!getLoading">
-              <resource-list :resources="getResults"></resource-list>
+              <resource-info-box-list :resources="getResults"></resource-info-box-list>
             </template>
 
             <!-- LOADING SPINNER -->
@@ -77,157 +77,154 @@
   </div>
 </template>
 
-<script>
-// Components
-import Pagination from '../widgets/Pagination.vue';
-import SelectedFacetsOverview from '../facets/SelectedFacetsOverview';
+<script lang="ts" setup>
+import { ref, computed, nextTick } from 'vue';
 
-// Generic Resource components
-import ResourceTopControls from "../resources/ResourceTopControls.vue";
-import ResourceList from "../resources/ResourceList.vue";
-import ResourceFilters from "../resources/resourceFilters/ResourceFilters.vue";
-import ResourceFacets from "../resources/resourceFacets/ResourceFacets.vue";
-
-// Generic Resource stores
+import { useRoute, useRouter } from 'vue-router';
 import { useResourcesStore } from '../store/resourcesStore';
+import { useRuntimeEnv } from '../composables/useRuntimeEnv';
 
-export default {
-  name: 'ResourceSearchPage',
-  components: {
-    Pagination,
-    SelectedFacetsOverview,
-    ResourceTopControls,
-    ResourceFilters,
-    ResourceFacets,
-    ResourceList,
-  },
-  props: {},
-  data() {
-    return {
-      isLoading: false,
-      defaultLimit: this.$env.content.resources.limit.defaultLimit,
-      defaultSort: this.$env.content.resources.limit.defaultSort,
-      usePagination: this.$env.content.resources.page.usePagination,
-      useResourceFacets: this.$env.content.resources.facets.useResourceFacets,
-    };
-  },
-  computed: {
-    getLoading() {
-      return this.isLoading;
-    },
-    getSelectedResource() {
-      return this.resourcesStore.getters.getSelectedResource;
-    },
-    getAvailableResources() {
-      return this.resourcesStore.getters.getAvailableResources;
-    },
-    getResults() {
-      return this.resourcesStore.getters.getResults;
-    },
-    getResultsCount() {
-      return parseInt(this.resourcesStore.getters.getResultsCount);
-    },
-    getLimit() {
-      return parseInt(this.$route.query.limit || this.resourcesStore.getters.getLimit);
-    },
-    getPage() {
-      return parseInt(this.$route.query.page || this.resourcesStore.getters.getPage);
-    },
-    getPageCount() {
-      return Math.ceil(this.getResultsCount / this.getLimit);
-    },
-    getFacets() {
-      return {};
-    },
-  },
-  methods: {
-    initResourceSearchPage() {
-      if (this.$route.params.hasOwnProperty('resource_id')) {
-        this.resourcesStore.mutations.setSelectedResource(this.$route.params.resource_id);
-        this.initResources();
-        this.initFilters();
-      } else this.$router.push({ name: 'ResourceSearchPage', params: { resource_id: this.getAvailableResources[0] }});
-    },
-    initResources() {
-      this.$nextTick(() => {
-        this.$nextTick(() => {
-          this.$Progress.start();
-          this.isLoading = true;
-          this.resourcesStore.actions.loadResults()
-            .then(() => {
-              this.$Progress.finish();
-              this.isLoading = false;
-            })
-            .catch((error) => {
-              console.error(error)
-              this.$Progress.fail();
-              this.isLoading = false;
-            })
-        });
-      });
-    },
-    initFilters() {
-      this.initQuery();
-      this.initLimit();
-      this.initPage();
-      this.initSort();
-      this.initFacets();
-    },
-    initQuery() {
-      let query = this.$route.query?.query || '';
-      this.setQuery(query);
-    },
-    initLimit() {
-      let limit = this.$route.query?.limit || this.defaultLimit;
-      this.setLimit(limit);
-    },
-    initPage() {
-      let page = this.$route.query?.page || 1;
-      this.setPage(page);
-    },
-    initSort() {
-      let sort = this.$route.query?.sort || this.defaultSort;
-      this.setSort(sort);
-    },
-    initFacets() {
-      let facets = this.$route.query?.facets || [];
-      this.setFacets(facets);
-    },
-    setQuery(query) {
-      this.resourcesStore.mutations.setQuery(query);
-    },
-    setLimit(limit) {
-      this.resourcesStore.mutations.setLimit(limit);
-    },
-    setPage(page) {
-      this.resourcesStore.mutations.setPage(page);
-    },
-    setSort(sort) {
-      this.resourcesStore.mutations.setSort(sort);
-    },
-    setFacets(facets) {
-      this.resourcesStore.mutations.setFacets(facets);
-    },
-  },
-  watch: {},
-  setup() {
-    const resourcesStore = useResourcesStore();
-    return { resourcesStore };
-  },
-  created() {
-    if (this.getAvailableResources.length > 0) {
-      this.initResourceSearchPage();
-    } else {
-      this.resourcesStore.actions.loadAvailableResources()
-      .then(() => {
-        if (this.getAvailableResources.length > 0) {
-          this.initResourceSearchPage();
-        } else {
-          console.error('No resources available.');
-        }
-      });
-    }
-  },
-  mounted() {},
+import Pagination from '../widgets/Pagination.vue';
+import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
+
+import ResourceTopControls from "./ResourceTopControls.vue";
+import ResourceInfoBoxList from "./resourceInfoBox/ResourceInfoBoxList.vue";
+import ResourceFilters from "./resourceFilters/ResourceFilters.vue";
+import ResourceFacets from "./resourceFacets/ResourceFacets.vue";
+
+const route = useRoute();
+const router = useRouter();
+const resourcesStore = useResourcesStore();
+const ENV = useRuntimeEnv();
+
+let isLoading = ref(false);
+const defaultLimit = ENV.content.resources.limit.defaultLimit;
+const defaultSort = ENV.content.resources.sort.defaultSort;
+const useResourceFacets = ENV.content.resources.facets.useResourceFacets;
+const usePagination = ENV.routing.pagination.usePagination;
+
+function initResourceSearchPage() {
+  if (route.params.hasOwnProperty('resource_id')) {
+    resourcesStore.mutations.setSelectedResource(route.params.resource_id.toString());
+    initResources();
+    initFilters();
+  } else router.push({ name: 'ResourceSearchPage', params: { resource_id: getAvailableResources.value[0] }});
 };
+
+function initResources() {
+  nextTick(() => {
+    nextTick(() => {
+      // $Progress.start();
+      isLoading.value = true;
+      resourcesStore.actions.loadResults()
+        .then(() => {
+          // $Progress.finish();
+          isLoading.value = false;
+        })
+        .catch((error) => {
+          console.error(error)
+          // $Progress.fail();
+          isLoading.value = false;
+        })
+    });
+  });
+};
+
+function initFilters() {
+  initQuery();
+  initLimit();
+  initPage();
+  initSort();
+};
+
+function initQuery() {
+  let query = route.query.query || '';
+  setQuery(query);
+};
+
+function initLimit() {
+  let limit = Number(route.query.limit || defaultLimit);
+  setLimit(limit);
+};
+
+function initPage() {
+  let page = Number(route.query.page || 1);
+  setPage(page);
+};
+
+function initSort() {
+  let sort = route.query.sort || defaultSort;
+  setSort(sort);
+};
+
+function setQuery(query: any) {
+  resourcesStore.mutations.setQuery(query);
+};
+
+function setLimit(limit: any) {
+  resourcesStore.mutations.setLimit(limit);
+};
+
+function setPage(page: any) {
+  resourcesStore.mutations.setPage(page);
+};
+
+function setSort(sort: any) {
+  resourcesStore.mutations.setSort(sort);
+};
+
+
+const getLoading = computed(() => {
+  return isLoading.value;
+});
+
+const getSelectedResource = computed(() => {
+  return resourcesStore.getters.getSelectedResource;
+});
+
+const getAvailableResources = computed(() => {
+  return resourcesStore.getters.getAvailableResources;
+});
+
+const getResults = computed(() => {
+  return resourcesStore.getters.getResults;
+});
+
+const getResultsCount = computed(() => {
+  return Number(resourcesStore.getters.getResultsCount);
+});
+
+const getLimit = computed(() => {
+  return Number(route.query.limit || resourcesStore.getters.getLimit);
+});
+
+const getPage = computed(() => {
+  return Number(route.query.page || resourcesStore.getters.getPage);
+});
+
+const getPageCount = computed(() => {
+  return Math.ceil(Number(getResultsCount.value) / Number(getLimit.value));
+});
+
+const getFacets = computed(() => {
+  return resourcesStore.getters.getFacets;
+});
+
+const getSelectedFacets = computed(() => {
+  return resourcesStore.getters.getSelectedFacets;
+});
+
+// TODO: Improve initial loading mechanism
+if (getAvailableResources.value.length > 0) {
+  initResourceSearchPage();
+} else {
+  resourcesStore.actions.loadAvailableResources()
+  .then(() => {
+    if (getAvailableResources.value.length > 0) {
+      initResourceSearchPage();
+    } else {
+      console.error('No resources available. \n Waiting for all requests to be finished ...');
+    }
+  });
+}
 </script>

@@ -25,50 +25,44 @@
         </div>
     </div>
 </template>
-  
-<script>
-import { useResourcesStore } from '../../store/resourcesStore';
-import { getTranslationFor } from "../../utils/helpers";
 
-export default {
-  name: "ResourceFiltersSearch",
-  data() {
-    return {
-      query: '',
-      autocompleteData: {
-        suggestions: {},
-        show: true,
-      },
-    }
-  },
-  methods: {
-    getTranslationFor,
-    setSearchQuery(query) {
-      this.query = query;
-    },
-    changeQuery(query) {
-      this.$router.replace(
-        { query: Object.assign({}, this.$route.query, { query }, { page: 1 }) }
-      ).catch(
-        error => { console.error(error); }
-      );
-    },
-    handleSuggestionSelection(suggestion) {
-      this.$router.push(
-        { path: this.$route.path.slice(-1) === '/' ? `${this.$route.path}${suggestion.idName}` : `${this.$route.path}/${suggestion.idName}` }
-      ).catch(
-        error => { console.error(error); }
-      );
-    },
-  },
-  setup() {
-    const resourcesStore = useResourcesStore();
-    return { resourcesStore };
-  },
-  created() {
-    this.$nextTick(() => {
-      this.query = this.resourcesStore.getters.getQuery;
-    });
-  },
-}
+<script lang="ts" setup>
+import { ref, nextTick } from 'vue';
+
+import { useRoute, useRouter } from 'vue-router';
+import { useResourcesStore } from '../../store/resourcesStore';
+
+const route = useRoute();
+const router = useRouter();
+const resourcesStore = useResourcesStore();
+
+let query = ref('');
+const autocompleteData = ref({
+  suggestions: {},
+  show: true,
+});
+
+function setSearchQuery(searchQuery) {
+  query = searchQuery;
+};
+
+function changeQuery(query) {
+  router.replace(
+    { query: Object.assign({}, route.query, { query }, { page: 1 }) }
+  ).catch(
+    error => { console.error(error); }
+  );
+};
+
+function handleSuggestionSelection(suggestion) {
+  router.push(
+    { path: route.path.slice(-1) === '/' ? `${route.path}${suggestion.idName}` : `${route.path}/${suggestion.idName}` }
+  ).catch(
+    error => { console.error(error); }
+  );
+};
+
+nextTick(() => {
+  query = resourcesStore.getters.getQuery;
+});
 </script>

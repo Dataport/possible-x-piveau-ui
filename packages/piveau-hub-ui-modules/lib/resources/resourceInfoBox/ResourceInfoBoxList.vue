@@ -1,5 +1,5 @@
 <template>
-  <component :is="as">
+  <div>
     <template v-for="(resource, index) in computedResources">
       <slot :resource="resource" :raw-resource="resources[index]" :index="index">
         <resource-info-box
@@ -10,26 +10,18 @@
         ></resource-info-box>
       </slot>
     </template>
-  </component>
+  </div>
 </template>
   
+
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
-import { useResourceInfoBox } from './composables/useResourceInfoBox';
+import { useResourceInfoBox } from './useResourceInfoBox';
 
-import resourceInfoBox from './resourceInfoBox/ResourceInfoBox.vue';
+import resourceInfoBox from './ResourceInfoBox.vue';
 
-const props = withDefaults(defineProps<{
-  as?: string;
-  resources: any;
-}>(), {
-  as: 'div'
-});
-
-const route = useRoute();
+const props = defineProps(['resources']);
 
 const computedResources = useResourceInfoBox({ 
   resources: props.resources,
-  locale: route.query.locale,
 });
-</script>
+</script>./useResourceInfoBox

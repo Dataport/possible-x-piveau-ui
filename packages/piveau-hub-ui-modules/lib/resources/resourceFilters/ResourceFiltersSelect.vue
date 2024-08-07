@@ -51,31 +51,18 @@
   </div>
 </template>
   
-<script>
+<script lang="ts" setup>
+import { computed } from 'vue';
 import { useResourcesStore } from '../../store/resourcesStore';
-import { defineComponent } from 'vue';
 
-export default defineComponent({
-  name: 'ResourceFiltersSelect',
-  data() {
-    return {}
-  },
-  computed: {
-      getSelectedResource() {
-        return this.resourcesStore.getters.getSelectedResource;
-      },
-      getAvailableResources() {
-        return this.resourcesStore.getters.getAvailableResources;
-      },
-  },
-  methods: {},
-  watch: {},
-  setup() {
-    const resourcesStore = useResourcesStore();
-    return { resourcesStore };
-  },
-  created() {},
-  mounted() {},
+const resourcesStore = useResourcesStore();
+
+const getSelectedResource = computed(() => {
+  return resourcesStore.getters.getSelectedResource;
+});
+
+const getAvailableResources = computed(() => {
+  return resourcesStore.getters.getAvailableResources;
 });
 </script>
 

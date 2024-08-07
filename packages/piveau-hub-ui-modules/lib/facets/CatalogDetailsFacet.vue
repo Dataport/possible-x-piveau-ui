@@ -1,6 +1,6 @@
 <template>
   <div class="row position-relative">
-    <span class="px-3">
+    <span class="col-12 px-3">
       <img v-if="has(catalog, 'country.id')" class="catalog-flag border border-dark"
         :class="{ 'io': catalog.country.id === 'io' }" :src="getImg(getCatalogImage(catalog))" width="100%" height="auto"
         :alt="catalog.country.id">
