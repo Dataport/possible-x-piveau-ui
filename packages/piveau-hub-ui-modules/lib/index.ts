@@ -172,6 +172,7 @@ import ExpandableSelectFacet from "./facets/ExpandableSelectFacet";
 import Facet from "./facets/Facet";
 import FacetTitle from "./facets/FacetTitle";
 import SelectedFacetsOverview from "./facets/SelectedFacetsOverview";
+import RadioFacet from "./facets/RadioFacet.vue";
 
 // Import map
 import MapBasic from "./map/MapBasic";
@@ -349,6 +350,7 @@ export {
   Facet,
   FacetTitle,
   SelectedFacetsOverview,
+  RadioFacet,
 
   MapBasic,
   MapBoundsReceiver,
