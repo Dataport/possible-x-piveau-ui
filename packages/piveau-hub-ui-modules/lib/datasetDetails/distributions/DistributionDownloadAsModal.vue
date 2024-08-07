@@ -36,8 +36,14 @@
 
                           <span> 
                             <span class="font-weight-bold ml-3">{{ $t('message.datasetDetails.datasets.modal.fileConversionFail') }}</span> <br>
-                            <span class="ml-3">{{ $t('message.datasetDetails.datasets.modal.fileConversionTarget') }} </span>
-                            <div class="ml-3 details"><strong>{{ $t('message.datasetDetails.datasets.modal.fileConversionDetails') }}</strong></div>
+                            <span class="ml-3">
+                                <!-- {{ $t('message.datasetDetails.datasets.modal.fileConversionTarget') }}  -->
+                                The target file contains an error, which prevents the conversion.
+                            </span>
+                            <div class="ml-3 details"><strong>
+                                <!-- {{ $t('message.datasetDetails.datasets.modal.fileConversionDetails') }} -->
+                                Details
+                            </strong></div>
                             <p class="ml-3">{{ errorMsg }}</p>
                           </span>
                        </div>
@@ -71,8 +77,10 @@
             <div class="modal-footer justify-content-start">
                <button v-if="!done" @click="download" type="button" class="ecl-button ecl-button--secondary" v-text="downloadBtnText"></button>
                <button v-if="done" type="button" class="ecl-button ecl-button--secondary" data-dismiss="modal" aria-label="Close">Done</button>
-                <a v-if="error == true" :href="this.getDistributionDownloadAs.downloadUrls" target="_blank" class="ecl-button ecl-button--secondary">  
-                {{ $t('message.datasetDetails.datasets.modal.fileConversionDownloadOriginal') }} <i class="material-icons align-middle mb-1">open_in_new</i>  </a>
+                <a v-if="error == true" :href="this.getDistributionDownloadAs.downloadUrls" target="_blank" class="ecl-button ecl-button--secondary ml-2">  
+                <!-- {{ $t('message.datasetDetails.datasets.modal.fileConversionDownloadOriginal') }} -->
+                Access source file
+                <i class="material-icons align-middle smaller">open_in_new</i>  </a>
             </div>
          </div>
       </div>
@@ -310,4 +318,10 @@ export default {
     margin-top: 5px;
     margin-right: 7px
 }
+
+.smaller {
+    font-size: 17px;
+
+}
+
 </style>
