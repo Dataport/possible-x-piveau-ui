@@ -96,6 +96,26 @@ export default {
     "keywords": "$VITE_METADATA_KEYWORDS"
   },
   "content": {
+    "resources": {
+      "search": {
+        "useSearch": "$VITE_CONTENT_RESOURCES_SEARCH_USE_SEARCH",
+      },
+      "limit": {
+        "defaultLimit": "$VITE_CONTENT_RESOURCES_LIMIT_DEFAULT_LIMIT",
+      },
+      "page": {
+        "usePagination": "$VITE_CONTENT_RESOURCES_PAGE_USE_PAGINATION",
+      },
+      "sort": {
+        "useSort": "$VITE_CONTENT_RESOURCES_SORT_USE_SORT",
+        "defaultSort": "$VITE_CONTENT_RESOURCES_SORT_DEFAULT_SORT",
+      },
+      "facets": {
+        "useResourceFacets": "$VITE_CONTENT_RESOURCES_FACETS_USE_RESOURCE_FACETS",
+        "excludedFacets": "$VITE_CONTENT_RESOURCES_FACETS_EXCLUDED_FACETS",
+        "facetOrder": "$VITE_CONTENT_RESOURCES_FACETS_FACET_ORDER",
+      },
+    },
     "datasets": {
       "useSort": "$VITE_CONTENT_DATASETS_USE_SORT",
       "useFeed": "$VITE_CONTENT_DATASETS_USE_FEED",

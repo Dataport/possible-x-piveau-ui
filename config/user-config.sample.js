@@ -82,15 +82,14 @@ const glueConfig = {
       limit: {
         defaultLimit: 10,
       },
-      page: {
-        usePagination: true,
-      },
       sort: {
         useSort: true,
         defaultSort: 'relevance+desc, modified+desc, title.en+asc',
       },
       facets: {
         useResourceFacets: true,
+        excludedFacets: ['facetGroupOperator', 'dataScope', 'dataServices', 'scoring'],
+        facetOrder: ['facetGroupOperator', 'publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license', 'keyword', 'provided_by'],
       },
     },
     datasets: {
