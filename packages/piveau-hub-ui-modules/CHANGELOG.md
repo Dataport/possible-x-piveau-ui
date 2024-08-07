@@ -1,3 +1,7 @@
+## [4.1.1](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.0...v4.1.1) (2024-08-07)
+
+
+
 # [4.1.0](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.32...v4.1.0) (2024-08-07)
 
 
