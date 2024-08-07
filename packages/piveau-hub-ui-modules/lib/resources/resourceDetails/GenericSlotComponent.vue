@@ -1,23 +1,25 @@
 <template>
     Generic title
-    <!-- <h1>{{name}} </h1> -->
+    <h1>{{id}} </h1>
+    <p>{{ description }}</p>
     <slot>
 
     </slot>
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
-import { useResourcesStore } from '../../store/resourcesStore'
-
 import { defineProps } from 'vue'
 
-// Define the props the component expects
-// const props = defineProps({
-//   name: {
-//     type: String,
-//     required: true
-//   }
-// })
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: false
+  },
+  description: {
+    type:String,
+    required:false
+  }
+})
 
 </script>
