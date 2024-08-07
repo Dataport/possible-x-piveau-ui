@@ -3,3 +3,7 @@
 	url = https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui.git
 	branch = develop
 
+[submodule "apps/deu"]
+	path = apps/deu
+	url = https://gitlab.fokus.fraunhofer.de/dataeuropa/hub/piveau-hub-ui.git
+	branch = develop
