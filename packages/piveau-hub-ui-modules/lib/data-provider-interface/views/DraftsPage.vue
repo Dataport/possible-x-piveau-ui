@@ -1,6 +1,6 @@
 <template>
   <!-- TODO Add a Mobile Version of that overview (pref with Icons)-->
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content draftsWrapper">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content ">
     <h1 class="small-headline text-center">Draft datasets</h1>
     <div class="d-flex align-items-center justify-content-center">
       <table class="table w-75">
@@ -44,9 +44,8 @@
               </button>
               <button type="button" class="btn btn-secondary" @click="handleEdit(id, catalog)">Edit</button>
               <button type="button" class="btn btn-primary" @click="handleConfirmPublish(id, catalog)">Publish</button>
-              <button type="button" class="btn btn-primary" @click="handleConfirmDuplication(id, catalog)">Duplicate
-                this
-                dataset</button>
+              <button type="button" class="btn btn-primary"
+                @click="handleConfirmDuplication(id, catalog)">Duplicate</button>
               <button type="button" class="btn btn-danger" @click="handleConfirmDelete(id, catalog)">Delete</button>
 
             </td>
@@ -68,7 +67,11 @@
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import AppLink from "../../widgets/AppLink.vue";
-
+import { isNil } from 'lodash';
+import axios from 'axios';
+import generalHelper from '../utils/general-helper.js'
+import datasetFactory from '@rdfjs/dataset';
+import N3 from 'n3';
 
 export default {
   props: [],
@@ -90,7 +93,11 @@ export default {
   computed: {
     ...mapGetters('auth', [
       'getUserDrafts',
+      'getUserData',
     ]),
+    token() {
+      return this.getUserData.rtpToken;
+    },
   },
   methods: {
     ...mapActions('auth', [
@@ -99,6 +106,13 @@ export default {
     ]),
     ...mapActions('snackbar', [
       'showSnackbar',
+    ]),
+    ...mapActions('dpiStore', [
+      'convertToRDF',
+      'clearAll',
+      'convertToInput',
+      // 'deleteDistribution',
+      // 'setDeleteDistributionInline',
     ]),
     createLinkedMetricsURL(id, catalog, format) {
       return {
@@ -121,16 +135,6 @@ export default {
         message: 'Draft successfully deleted',
         variant: 'success',
       });
-    },
-    async handleDuplication(id, catalog) {
-
-      $('#modal').modal('hide');
-      let newId = this.duplicatedID;
-      let url = this.$env.api.baseUrl
-      this.isDuplication = false;
-
-      console.log(url);
-      await this.doRequest('auth/duplicateDataset', { id, newId, catalog, url });
     },
     async handlePublish(id, catalog) {
       await this.doRequest('auth/publishUserDraftById', { id, catalog });
@@ -162,11 +166,11 @@ export default {
       this.modalProps.confirm = () => this.handleDuplication(id, catalog);
       $('#modal').modal('show');
     },
-    async doRequest(action, { id, newId, catalog, url }) {
+    async doRequest(action, { id, newId, catalog, url, token }) {
       this.$Progress.start();
       this.modalProps.loading = true;
       try {
-        await this.$store.dispatch(action, { id, newId, catalog, url });
+        await this.$store.dispatch(action, { id, newId, catalog, url, token });
         this.$Progress.finish();
       } catch (ex) {
         // Show snackbar
@@ -188,11 +192,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 1140px) {
-  .draftsWrapper {
-    min-width: 75vw;
-  }
-}
+@media (min-width: 1140px) {}
 
 .nav-link {
   text-decoration: underline;
