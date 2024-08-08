@@ -38,7 +38,7 @@
             :dataScope="dataScope"
             :available-facets="getAllAvailableFacets"
           ></datasets-facets>
-          <section class="col-md-9 col-12">
+          <section class="col-md col-12">
             <slot name="resource-filters">
               <resource-filters :resource="getSelectedResource"></resource-filters>
             </slot>
