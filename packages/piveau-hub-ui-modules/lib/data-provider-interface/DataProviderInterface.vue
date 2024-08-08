@@ -68,7 +68,7 @@ export default {
           document.getElementById("stepperAnchor").classList.remove("border-bottom-lightgray");
         }
       } catch (error) {
-        console.log(error);
+ 
       }
     }
 
