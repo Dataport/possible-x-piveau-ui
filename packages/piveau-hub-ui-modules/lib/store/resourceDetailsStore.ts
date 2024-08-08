@@ -13,6 +13,7 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
         'software-offering': 'softwareOfferings',
     };
 
+   
   const resourceDetailsData = ref(null)
   const resourcesStore = useResourcesStore()
 
@@ -20,7 +21,6 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
   const error = ref(null)
 
   const ENV = useRuntimeEnv();
-
 
   const fetchResourceDetails = async (id) => {
    
@@ -35,15 +35,15 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
-                   
-                })
+                })           
+
                 resourceDetailsData.value = await response.data
-                console.log(resourceDetailsData.value);
-    
+          
             } catch (error) {
                 console.error('API request failed:', error);
             }
   }
+
 
   const resetResourceDetails = () => {
     resourceDetailsData.value = null

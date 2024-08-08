@@ -29,7 +29,7 @@
   
   const resolvedComponent = computed(() => {
     const type = getType(props.value);
-    console.log(StringComponent);
+    // console.log(StringComponent);
     return {
       StringComponent,
       ArrayComponent,
@@ -37,6 +37,6 @@
     }[type];
   });
 
-  console.log(resolvedComponent);
+//   console.log(resolvedComponent);
   </script>
   
