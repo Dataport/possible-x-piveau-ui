@@ -1,7 +1,7 @@
 <template>
   <div class="formkitProperty">
     <h4 class="formkitHeader">{{ props.context.attrs.identifier.charAt(0).toUpperCase() + props.context.attrs.identifier.slice(1) }}</h4>
-    <div v-if="props.context.attrs.identifier === 'licence'" class="d-flex infoLicense py-5">
+    <div v-if="props.context.attrs.identifier === 'licence' && env.content.dataProviderInterface.annifIntegration" class="d-flex infoLicense py-5">
       <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor"
         class="bi bi-info-circle mx-3 mb-3 mt-1 infoboxI " viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -23,7 +23,7 @@
         you check the reuse policy of your organisation before publishing or submitting your dataset.
       </p>
     </div>
-    <div v-if="props.context.attrs.identifier === 'rights'" class="d-flex infoLicense py-5">
+    <div v-if="props.context.attrs.identifier === 'rights' && env.content.dataProviderInterface.annifIntegration" class="d-flex infoLicense py-5">
       <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor"
         class="bi bi-info-circle mx-3 mb-3 mt-1 infoboxI" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -101,7 +101,10 @@
 import { ref } from 'vue';
 import AutocompleteInput from './AutocompleteInput.vue';
 import { onClickOutside } from '@vueuse/core'
+import { useRuntimeEnv } from "../../composables/useRuntimeEnv.ts";
 
+let env = useRuntimeEnv()
+console.log(env);
 const props = defineProps({
   context: Object,
 })
