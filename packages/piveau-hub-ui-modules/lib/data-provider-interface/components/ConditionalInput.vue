@@ -44,8 +44,8 @@
           && props.context.value.name && selectedItem != 'manually'" class="conditionalVocabulary">
           <AutocompleteInput :context="props.context"></AutocompleteInput>
         </div>
- 
-       
+
+
       </div>
 
     </div>
@@ -63,6 +63,8 @@ const props = defineProps({
 let selectModeVal = ref()
 let selectedItem = ref(false)
 let showSelect = ref(false)
+
+
 const I1 = ref(null)
 
 const openSelect = (e) => {
@@ -72,28 +74,20 @@ const openSelect = (e) => {
 }
 const selectMode = (e) => {
   selectModeVal.value = e.target.innerHTML
-  if (e.target.innerHTML === 'Manually') {
+
+  if (e.target.innerHTML === 'manually') {
     selectedItem.value = "manually"
   }
   else selectedItem.value = "vocabulary"
   props.context.node.reset()
-  console.log(selectedItem.value);
 }
+
 onClickOutside(I1, event => showSelect.value = false)
-// determine which property is already there
-if (Object.keys(props.context.value)[0] === 'dct:title') {
-  selectModeVal.value = 'Manually'
-  selectedItem.value = 'manually'
-}
-if (Object.keys(props.context.value)[0] === 'name') {
-  selectModeVal.value = 'Vocabulary'
-  selectedItem.value = 'vocabulary'
-}
 
 </script>
 <style>
-.conditionalManual{
-  .formkit-outer{
+.conditionalManual {
+  .formkit-outer {
     width: 100%;
   }
 }

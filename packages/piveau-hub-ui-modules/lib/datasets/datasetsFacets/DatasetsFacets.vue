@@ -1,33 +1,41 @@
 <template>
   <div class="container dataset-facets">
     <div class="row mx-3 mr-md-0">
-      <div class="col">
-        <datasets-map-facet :showCatalogDetails="showCatalogDetails" />
-        <catalog-details-facet class="catalog-details" v-if="showCatalogDetails" :catalog="catalog"
-          :catalogLanguageIds="catalogLanguageIds" />
-        <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
-        <settings-facet class="row facet-field mb-3" />
-        <div class="row facet-field mb-3" v-for="(field, index) in getSortedFacets" :key="`facet@${field.id}`"
-          :class="{ 'mt-3': (index > 0) }">
-          <radio-facet v-if="(field.id === 'dataServices')" :title="dataServices.title"
-            :property="dataServices.property" :toolTipTitle="dataServices.toolTipTitle" :optionIds="['true', 'false']"
-            :optionLabels="[dataServices.yes, dataServices.no]" :initialOption="getDataServices"
-            :change="changeDataServices" />
-          <radio-facet v-if="(field.id === 'superCatalog')" :title="erpd.title" :property="erpd.property"
-            :toolTipTitle="erpd.toolTipTitle" :optionIds="['true', 'false']" :optionLabels="[erpd.yes, erpd.no]"
-            :initialOption="isErdp" :change="changeErpd" />
-          <select-facet v-if="(field.id !== 'superCatalog' && field.id !== 'dataServices')" :fieldId="field.id"
-            :header="facetTitle(field.id)" :items="sortByCount(field.items, field.id)" :toolTipTitle="tooltip(field.id)"
-            :getFacetTranslationWrapper="getFacetTranslationWrapper" :facetIsSelected="facetIsSelected"
-            :facetClicked="facetClicked" :multiSelect="isMultiSelect(field.id)" class="col pr-0" />
+      <slot :facets="getSortedFacets" name="content">
+        <div class="col">
+          <datasets-map-facet :showCatalogDetails="showCatalogDetails" />
+          <catalog-details-facet class="catalog-details" v-if="showCatalogDetails" :catalog="catalog"
+            :catalogLanguageIds="catalogLanguageIds" />
+          <span v-if="showFacetsTitle" class="row h5 font-weight-bold mt-4 mb-3">Filter by</span>
+          <settings-facet class="row facet-field mb-3" />
+          <div class="row facet-field mb-3" v-for="(field, index) in getSortedFacets" :key="`facet@${field.id}`"
+            :class="{ 'mt-3': (index > 0) }">
+            <slot
+              name="facet"
+              :field="field"
+              :index="index"
+            >
+              <radio-facet v-if="(field.id === 'dataServices')" :title="dataServices.title"
+                :property="dataServices.property" :toolTipTitle="dataServices.toolTipTitle" :optionIds="['true', 'false']"
+                :optionLabels="[dataServices.yes, dataServices.no]" :initialOption="getDataServices"
+                :change="changeDataServices" />
+              <radio-facet v-if="(field.id === 'superCatalog')" :title="erpd.title" :property="erpd.property"
+                :toolTipTitle="erpd.toolTipTitle" :optionIds="['true', 'false']" :optionLabels="[erpd.yes, erpd.no]"
+                :initialOption="isErdp" :change="changeErpd" />
+              <select-facet v-if="(field.id !== 'superCatalog' && field.id !== 'dataServices')" :fieldId="field.id"
+                :header="facetTitle(field.id)" :items="sortByCount(field.items, field.id)" :toolTipTitle="tooltip(field.id)"
+                :getFacetTranslationWrapper="getFacetTranslationWrapper" :facetIsSelected="facetIsSelected"
+                :facetClicked="facetClicked" :multiSelect="isMultiSelect(field.id)" class="col pr-0" />
+            </slot>
+          </div>
+          <div>
+            <pv-show-more v-if="showMoreFacetsShown"
+              :label="cutoff >= 0 ? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.lessFilters')"
+              :upArrow="cutoff === -1" :action="toggleCutoff" class="p-0 row facets-show-more" />
+          </div>
+          <pv-button v-if="showClearButton" label="Clear filters" class="row mt-5 facets-clear" :action="clearFacets" />
         </div>
-        <div>
-          <pv-show-more v-if="showMoreFacetsShown"
-            :label="cutoff >= 0 ? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.lessFilters')"
-            :upArrow="cutoff === -1" :action="toggleCutoff" class="p-0 row facets-show-more" />
-        </div>
-        <pv-button v-if="showClearButton" label="Clear filters" class="row mt-5 facets-clear" :action="clearFacets" />
-      </div>
+      </slot>
     </div>
   </div>
 </template>

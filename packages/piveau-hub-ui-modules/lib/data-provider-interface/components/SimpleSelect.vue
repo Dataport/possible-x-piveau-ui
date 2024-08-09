@@ -4,7 +4,7 @@ import { useStore } from 'vuex';
 import { getNode } from '@formkit/core'
 import { onClickOutside } from '@vueuse/core'
 import axios from 'axios'
-import { getCurrentInstance } from "vue";
+import { useRuntimeEnv } from "../../composables/useRuntimeEnv.ts";
 import {
     has,
     isNil,
@@ -24,7 +24,8 @@ const isEditMode = ref()
 let validationTrigger = ref(true)
 isEditMode.value = computed(() => store.getters['auth/getIsEditMode']);
 let filteredCatalogs = ref([])
-let env = getCurrentInstance().appContext.app.config.globalProperties.$env;
+let env = useRuntimeEnv()
+
 
 onClickOutside(dropdownList, event => showList.value = false)
 

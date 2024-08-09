@@ -1345,7 +1345,6 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:catalog',
       id:'dcat:catalog',
       class: 'property mandatory',
-      validation: 'required',
       options: {},
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },
