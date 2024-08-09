@@ -104,7 +104,6 @@ import { onClickOutside } from '@vueuse/core'
 import { useRuntimeEnv } from "../../composables/useRuntimeEnv.ts";
 
 let env = useRuntimeEnv()
-console.log(env);
 const props = defineProps({
   context: Object,
 })
