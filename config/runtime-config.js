@@ -116,6 +116,9 @@ export default {
         "facetOrder": "$VITE_CONTENT_RESOURCES_FACETS_FACET_ORDER",
       },
     },
+    "resourceDetails": {
+      "customResources": "$VITE_CONTENT_RESOURCE_DETAILS_CUSTOM_RESOURCES",
+    },
     "datasets": {
       "useSort": "$VITE_CONTENT_DATASETS_USE_SORT",
       "useFeed": "$VITE_CONTENT_DATASETS_USE_FEED",
