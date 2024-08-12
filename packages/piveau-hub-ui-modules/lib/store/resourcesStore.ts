@@ -61,7 +61,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     /*** MUTATIONS ***/
     const mutations = {
         setSelectedResource: function (newSelectedResource: string) {
-            state.selectedResource.value = newSelectedResource;
+            state.selectedResource.value = newSelectedResource;            
         },   
         setAvailableResources: function (newAvailableResources: string[]) {
             state.availableResources.value = newAvailableResources.map((resource => resourceMapping[resource as keyof object]));
@@ -154,7 +154,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
 
                 const endpoint = `search`;
                 const reqStr = `${ENV.api.baseUrl}${endpoint}`;
-
+                
                 axios.get(reqStr, { params })
                     .then((response: any) => {
                         let resources = response.data.result;
