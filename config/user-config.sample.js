@@ -92,6 +92,9 @@ const glueConfig = {
         facetOrder: ['facetGroupOperator', 'publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license', 'keyword', 'provided_by'],
       },
     },
+    resourceDetails: {
+      customResources: ["random", "test", "legalPersons"]
+    },
     datasets: {
       useSort: true,
       useFeed: true,
