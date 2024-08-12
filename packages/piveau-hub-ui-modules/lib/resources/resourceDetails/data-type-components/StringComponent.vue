@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <span>
       <strong>{{ label }}:</strong> {{ value }}
-    </div>
+    </span>
   </template>
   
   <script setup>

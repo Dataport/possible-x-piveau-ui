@@ -5,6 +5,9 @@
         :label="label"
         :value="value"
       />
+      <slot>
+        
+      </slot>
     </div>
   </template>
   

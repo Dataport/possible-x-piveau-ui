@@ -2,18 +2,17 @@
     <div v-if="resourceDetailsData">
         <GenericSlotComponent :id="resourceDetailsData.id" :description="resourceDetailsData.description"
             v-if="!customResources.includes(resource_nature)">
-            <h1>Default setup</h1>
+            <!-- <h1>Default setup</h1> -->
 
             <div>{{ resourceDetailsData }}</div>
 
-
             <div v-for="(value, key) in resourceDetailsData" :key="key">
-                <DataRenderer :label="key" :value="value" v-show="value !== null" />
+                <DataRenderer :label="key" :value="value" v-show="value !== null && key !== 'id' && key !== 'name' && key !== 'description'" />
             </div>
         </GenericSlotComponent>
 
         <GenericSlotComponent :id="resourceDetailsData.id" :description="resourceDetailsData.description" v-else>
-            <h1>Your custom content can be added here</h1>
+            <!-- <i>Your custom details page content can be added here</i> -->
             <div v-for="(value, key) in resourceDetailsData" :key="key">
                 <DataRenderer :label="key" :value="value" />
             </div>

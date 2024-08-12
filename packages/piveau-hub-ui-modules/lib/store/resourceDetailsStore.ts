@@ -17,7 +17,7 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
   const resourceDetailsData = ref(null)
   const resourcesStore = useResourcesStore()
 
-  
+
   const error = ref(null)
 
   const ENV = useRuntimeEnv();

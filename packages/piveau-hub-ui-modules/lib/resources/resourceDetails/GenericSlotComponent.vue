@@ -1,6 +1,6 @@
 <template>
-    Generic title
     <h1>{{id}} </h1>
+    <h2>{{ name }}</h2>
     <p>{{ description }}</p>
     <slot>
 
