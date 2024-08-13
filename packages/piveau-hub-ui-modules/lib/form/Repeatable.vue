@@ -33,7 +33,6 @@ const props = defineProps({
   context: Object
 })
 
-console.log(props.context.value);
 const counter = ref([])
 
 //Need to handle the data like this. The values seem to take their time while loading into the DOM.
