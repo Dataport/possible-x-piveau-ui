@@ -166,21 +166,21 @@ export default defineComponent({
     dropdownCLick() {
 
       const h4Elements = document.querySelectorAll('.formkitProperty h4');
-      
-        if (this.expandall) {
-          h4Elements.forEach((h4Element, index) => {
-            h4Element.classList.add('dpiChevUp')
-            h4Element.nextElementSibling.classList.remove('d-none')
-          })
-        }
-        if (!this.expandall) {
-          h4Elements.forEach((h4Element, index) => {
-            h4Element.classList.remove('dpiChevUp')
-            h4Element.nextElementSibling.classList.add('d-none')
-          })
 
-        }
-      
+      if (this.expandall) {
+        h4Elements.forEach((h4Element, index) => {
+          h4Element.classList.add('dpiChevUp')
+          h4Element.nextElementSibling.classList.remove('d-none')
+        })
+      }
+      if (!this.expandall) {
+        h4Elements.forEach((h4Element, index) => {
+          h4Element.classList.remove('dpiChevUp')
+          h4Element.nextElementSibling.classList.add('d-none')
+        })
+
+      }
+
     },
     clearForm() {
       this.$formkit.reset('dpi')
@@ -189,9 +189,6 @@ export default defineComponent({
       window.scrollTo(0, 0);
     },
     initInputPage() {
-
-
-
       // adding validation of modified and issued based on edit mode
       // no validation in edit mode
 
@@ -201,7 +198,9 @@ export default defineComponent({
         key => initialSchema[key].map(el => el.name).includes('dct:issued') || initialSchema[key].map(el => el.name).includes('dct:modified')
       );
 
-      if (localStorage.getItem('dpi_editmode') === 'true') {
+
+
+      if (localStorage.getItem('dpi_editmode') === 'true' && stepWithDates != undefined) {
         initialSchema[stepWithDates].forEach((el) => {
           if (el['identifier'] === 'issued' || el['identifier'] === 'modified') {
             el['children'][1]['props']['else']['validation'] = ''
@@ -224,9 +223,12 @@ export default defineComponent({
       this.saveLocalstorageValues(this.property); // saves values from localStorage to vuex store
       const existingValues = this.$store.getters['dpiStore/getRawValues']({ property: this.property });
 
+
       // only overwrite empty object if there are values
       if (!isEmpty(existingValues)) this.formValues = existingValues;
-
+     
+      
+      
       this.$nextTick(() => {
         $('[data-toggle="tooltip"]').tooltip({
           container: 'body',

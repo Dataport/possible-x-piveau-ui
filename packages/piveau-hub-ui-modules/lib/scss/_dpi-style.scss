@@ -49,7 +49,8 @@
     height: 50px;
     padding-left: 0;
     transition: all 100ms ease-in-out;
-    &:focus-within{
+
+    &:focus-within {
         padding-left: 0.5rem !important;
     }
 
@@ -853,12 +854,13 @@
     -webkit-box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 6px 6px -2px rgba(0, 0, 0, 0.5);
     position: absolute;
-    top: 65px;
+    top: 69px;
+    left: 15px;
     background-color: white;
     z-index: 999;
     list-style: none;
     padding: 0;
-    width: 93%;
+    width: 93.5%;
     cursor: pointer;
 
     li {
@@ -1593,4 +1595,16 @@
     font-size: 100%;
     font-weight: bold;
     color: white;
+}
+
+.creator {
+    .formkitWrapRepeatable {
+        flex-wrap: wrap;
+    }
+
+}
+.catOverviewTable{
+    .font-weight-bold{
+        width: 15rem;
+    }
 }

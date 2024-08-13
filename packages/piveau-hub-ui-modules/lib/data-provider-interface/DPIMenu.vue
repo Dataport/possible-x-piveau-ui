@@ -6,7 +6,7 @@
       </div>
 
       <div style="margin-top:1%;">
-        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" @click="scrollToTop()"
+        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" 
           :groupName="group.group" :groupItems="group.items"
           :show="$env.content.dataProviderInterface.buttons[group.group]"
           :isOperator="getUserData.roles.includes('operator')" :isCatalog="group.group === 'Catalogue' ? true : false">
