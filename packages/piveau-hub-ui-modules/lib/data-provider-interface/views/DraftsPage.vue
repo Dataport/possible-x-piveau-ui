@@ -94,6 +94,7 @@ export default {
     ...mapGetters('auth', [
       'getUserDrafts',
       'getUserData',
+      
     ]),
     token() {
       return this.getUserData.rtpToken;
@@ -103,6 +104,7 @@ export default {
     ...mapActions('auth', [
       'setIsDraft',
       'updateUserDrafts',
+      'setIsEditMode',
     ]),
     ...mapActions('snackbar', [
       'showSnackbar',
@@ -161,10 +163,12 @@ export default {
       $('#modal').modal('show');
     },
     handleConfirmDuplication(id, catalog) {
-      this.isDuplication = true;
-      this.modalProps.message = 'If you want to duplicate this draft, please define a new ID for it:';
-      this.modalProps.confirm = () => this.handleDuplication(id, catalog);
-      $('#modal').modal('show');
+    
+      this.setIsDraft(true);
+      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
+      setTimeout(() => {
+        this.setIsEditMode(false);
+      });
     },
     async doRequest(action, { id, newId, catalog, url, token }) {
       this.$Progress.start();
