@@ -1,3 +1,13 @@
+## [4.1.4](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.3...v4.1.4) (2024-08-13)
+
+
+### Bug Fixes
+
+* fixed the catalogue creation ([89e6e8b](https://gitlab.com/piveau/ui/piveau-ui/commit/89e6e8bfd1f692e1758a2409ddc600f6d6de125f))
+* fixed the repeatable and the DraftsPage ([8acedf8](https://gitlab.com/piveau/ui/piveau-ui/commit/8acedf8433d245c042ab7cca58ec88703645f197))
+
+
+
 ## [4.1.3](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.2...v4.1.3) (2024-08-09)
 
 
