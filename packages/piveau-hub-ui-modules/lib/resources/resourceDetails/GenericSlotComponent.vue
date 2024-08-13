@@ -2,6 +2,7 @@
     <h1>{{id}} </h1>
     <h2>{{ name }}</h2>
     <p>{{ description }}</p>
+    
     <slot>
 
     </slot>
@@ -12,14 +13,10 @@ import { defineProps } from 'vue'
 
 
 const props = defineProps({
-  id: {
-    type: String,
-    required: false
-  },
-  description: {
-    type:String,
+resourceDetailsData:{
+    type:Object,
     required:false
-  }
+}
 })
-
+const {id, name, description} = props.resourceDetailsData
 </script>

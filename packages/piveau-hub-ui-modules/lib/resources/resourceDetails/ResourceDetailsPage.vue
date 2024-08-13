@@ -1,22 +1,24 @@
 <template>
     <div v-if="resourceDetailsData">
-        <GenericSlotComponent :id="resourceDetailsData.id" :description="resourceDetailsData.description"
+        <GenericSlotComponent :resourceDetailsData="resourceDetailsData"
             v-if="!customResources.includes(resource_nature)">
             <!-- <h1>Default setup</h1> -->
 
-            <div>{{ resourceDetailsData }}</div>
+            <!-- <div>{{ resourceDetailsData }}</div> -->
 
             <div v-for="(value, key) in resourceDetailsData" :key="key">
                 <DataRenderer :label="key" :value="value" v-show="value !== null && key !== 'id' && key !== 'name' && key !== 'description'" />
             </div>
         </GenericSlotComponent>
 
-        <GenericSlotComponent :id="resourceDetailsData.id" :description="resourceDetailsData.description" v-else>
+        <GenericSlotComponent :resourceDetailsData="resourceDetailsData" v-else>
             <!-- <i>Your custom details page content can be added here</i> -->
-            <div v-for="(value, key) in resourceDetailsData" :key="key">
-                <DataRenderer :label="key" :value="value" />
-            </div>
-            <div>{{ resourceDetailsData }}</div>
+            <!-- <div v-for="(value, key) in resourceDetailsData" :key="key">
+                <DataRenderer :label="key" :value="value" v-show="value !== null && key !== 'id' && key !== 'name' && key !== 'description'" />
+            </div> -->
+            <!-- <div>{{ resourceDetailsData }}</div> -->
+
+            <CustomResourceRenderer :resource="resource_nature" :resourceDetailsData="resourceDetailsData" />
         </GenericSlotComponent>
     </div>
 </template>
@@ -38,6 +40,8 @@ const resourcesStore = useResourcesStore()
 const resourceDetailsStore = useResourceDetailsStore()
 const { resourceDetailsData } = storeToRefs(resourceDetailsStore)
 const { fetchResourceDetails, resetResourceDetails } = resourceDetailsStore
+
+import CustomResourceRenderer from './CustomResourceRenderer.vue';
 
 
 

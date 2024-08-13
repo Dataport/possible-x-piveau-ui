@@ -40,12 +40,12 @@
   </script>
   
   <style scoped>
-    /* table{
-        border: 1px solid red;
-        display: flex;
-    } */
     .object-component{
-        
+     
+    
+    }
+    .object-component span{
+        background-color: transparent !important;
     }
   </style>
   
