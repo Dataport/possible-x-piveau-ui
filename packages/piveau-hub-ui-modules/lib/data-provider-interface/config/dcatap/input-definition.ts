@@ -1599,326 +1599,353 @@ const dcatapProperties: InputDefinition = {
       options: { url: 'rdfs:label', text: 'rdfs:label' },
       selection: { 1: 'URL', 2: 'Text' }
 
-        // {
-        //   identifier: 'rights',
-        //   $cmp: 'FormKit',
-        //   if: '$get(rightsCondDataset).value',
-        //   props: {
-        //     if: '$get(rightsCondDataset).value === url',
-        //     then: {
-        //       identifier: 'rightsUrl',
-        //       type: "url",
-        //       label: "URL",
-        //       name: 'rdfs:label'
-        //     },
-        //     else: {
-        //       type: 'text',
-        //       name: 'rdfs:label',
-        //     }
-        //   }
-        // },
-      
+      // {
+      //   identifier: 'rights',
+      //   $cmp: 'FormKit',
+      //   if: '$get(rightsCondDataset).value',
+      //   props: {
+      //     if: '$get(rightsCondDataset).value === url',
+      //     then: {
+      //       identifier: 'rightsUrl',
+      //       type: "url",
+      //       label: "URL",
+      //       name: 'rdfs:label'
+      //     },
+      //     else: {
+      //       type: 'text',
+      //       name: 'rdfs:label',
+      //     }
+      //   }
+      // },
+
     },
-spatialResolutionInMeters: {
-  identifier: 'spatialResolutionInMeters',
-    $formkit: 'simpleInput',
+    spatialResolutionInMeters: {
+      identifier: 'spatialResolutionInMeters',
+      $formkit: 'simpleInput',
       name: 'dcat:spatialResolutionInMeters',
-        validation: 'number',
-          classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' },
-},
-temporalResolution: {
-  identifier: 'temporalResolution',
-    $formkit: 'formkitGroup',
+      validation: 'number',
+      classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' },
+    },
+    temporalResolution: {
+      identifier: 'temporalResolution',
+      $formkit: 'formkitGroup',
       name: 'dcat:temporalResolution',
-        children: [
-          {
-            identifier: 'temporalResolutionYear',
-            $formkit: 'number',
-            validation: 'min:1950|max:2100|optional',
-            name: 'Year',
-          },
-          {
-            identifier: 'temporalResolutionMonth',
-            $formkit: 'number',
-            validation: 'min:1|max:12|optional',
-            name: 'Month',
-          },
-          {
-            identifier: 'temporalResolutionDay',
-            $formkit: 'number',
-            validation: 'min:1|max:31|optional',
-            name: 'Day',
-          },
-          {
-            identifier: 'temporalResolutionHour',
-            $formkit: 'number',
-            validation: 'min:0|max:23|optional',
-            name: 'Hour',
-          },
-          {
-            identifier: 'temporalResolutionMinute',
-            $formkit: 'number',
-            validation: 'min:0|max:59|optional',
-            name: 'Minute',
-          },
-          {
-            identifier: 'temporalResolutionSecond',
-            $formkit: 'number',
-            validation: 'min:0|max:59|optional',
-            name: 'Second',
-          },
-        ],
+      children: [
+        {
+          identifier: 'temporalResolutionYear',
+          $formkit: 'number',
+          validation: 'min:1950|max:2100|optional',
+          name: 'Year',
+        },
+        {
+          identifier: 'temporalResolutionMonth',
+          $formkit: 'number',
+          validation: 'min:1|max:12|optional',
+          name: 'Month',
+        },
+        {
+          identifier: 'temporalResolutionDay',
+          $formkit: 'number',
+          validation: 'min:1|max:31|optional',
+          name: 'Day',
+        },
+        {
+          identifier: 'temporalResolutionHour',
+          $formkit: 'number',
+          validation: 'min:0|max:23|optional',
+          name: 'Hour',
+        },
+        {
+          identifier: 'temporalResolutionMinute',
+          $formkit: 'number',
+          validation: 'min:0|max:59|optional',
+          name: 'Minute',
+        },
+        {
+          identifier: 'temporalResolutionSecond',
+          $formkit: 'number',
+          validation: 'min:0|max:59|optional',
+          name: 'Second',
+        },
+      ],
     },
-type: {
-  identifier: 'type',
-    $formkit: 'auto',
-      voc: 'distribution-type',
-        name: 'dct:type',
-
-    },
-status: {
-  identifier: 'status',
-    $formkit: 'auto',
-      voc: 'dataset-status',
-        name: 'adms:status',
-
-    },
-  },
-catalogues: {
-  overview: {
-    $cmp: 'OverviewPage',
-      props: {
-      property: 'datasets'
-    }
-  },
-  datasetID: {
-    $formkit: 'id',
-      identifier: 'datasetID',
-        name: 'datasetID',
-          mandatory: true,
-    },
-  title: {
-    identifier: 'title',
-      $formkit: 'repeatable',
-        name: 'dct:title',
-          children: [
-            {
-              identifier: 'title',
-              $formkit: 'group',
-              name: 'dct:title',
-              mandatory: true,
-              minimum: 1,
-              children: [
-                {
-                  identifier: 'titleLabel',
-                  $formkit: 'text',
-                  name: '@value',
-                  validation: 'required',
-                },
-                {
-                  identifier: 'language',
-                  value: 'en',
-                  $formkit: 'select',
-                  validation: 'required',
-                  options: language,
-                  name: '@language',
-                },
-              ],
-            }
-          ]
-  },
-  description: {
-    identifier: 'datasetDescription',
-      $formkit: 'repeatable',
-        name: 'dct:description',
-          children: [
-            {
-              identifier: 'datasetDescription',
-              $formkit: 'group',
-              name: 'dct:description',
-              mandatory: true,
-              minimum: 1,
-              children: [
-                {
-                  identifier: 'description',
-                  $formkit: 'textarea',
-                  name: '@value',
-                  validation: 'required',
-                  classes: {
-                    outer: 'w25-textfield'
-                  }
-                },
-                {
-                  identifier: 'language',
-                  value: 'en',
-                  $formkit: 'select',
-                  options: language,
-                  validation: 'required',
-                  name: '@language',
-                  classes: {
-                    outer: 'w75-descField'
-                  }
-                },
-
-
-              ],
-            }
-          ]
-  },
-  publisher: {
-    $formkit: 'auto',
-      identifier: 'publisher',
-        name: 'dct:publisher',
-          voc: 'corporate-body',
-            id: 'publisher'
-  },
-  language: {
-    identifier: 'language',
+    type: {
+      identifier: 'type',
       $formkit: 'auto',
-        multiple: true,
-          name: 'dct:language',
-            voc: 'language',
-              id: 'language'
-  },
-  licence: {
-    $formkit: 'simpleConditional',
-      name: 'dct:license',
-        identifier: 'licence',
-          voc: 'licence',
-            options: { text: 'dct:title', textarea: 'skos:prefLabel', url: 'skos:exactMatch' },
-    selection: { 1: 'Vocabulary', 2: 'Manually' }
+      voc: 'distribution-type',
+      name: 'dct:type',
 
-  },
-  spatial: {
-    identifier: 'spatial',
-      $formkit: 'repeatable',
-        name: 'dct:spatial',
-          children: [
-            {
-              $formkit: 'spatialinput',
-              name: 'dct:spatial',
-              identifier: 'spatial',
-            }]
-  },
-  homepage: {
-    identifier: 'homepage',
-      $formkit: 'url',
-        name: 'foaf:homepage',
-          validation: 'optional|url',
     },
-  hasPart: {
-    identifier: 'hasPart',
-      $formkit: 'repeatable',
-        name: 'dct:hasPart',
-          children: [
-            {
-              $formkit: 'group',
-              identifier: 'hasPart',
-              name: 'dct:hasPart',
-              children: [
-                {
-                  identifier: 'hasPartURL',
-                  $formkit: 'url',
-                  name: '@id',
-                  validation: 'optional|url',
-                },
-              ],
-            }
-          ]
-  },
-  isPartOf: {
-    identifier: 'isPartOf',
-      name: 'dct:isPartOf',
-        $formkit: 'url',
-          validation: 'optional|url',
+    status: {
+      identifier: 'status',
+      $formkit: 'auto',
+      voc: 'dataset-status',
+      name: 'adms:status',
+
     },
-  rights: {
-    identifier: "rights",
-      $formkit: 'group',
-        name: 'dct:rights',
-          children: [
-            {
-              identifier: 'rights',
-              $formkit: "select",
-              name: '@type',
-              options: { url: 'Provide an URL', str: 'String' },
-              id: "rightsModeCatalogue"
-            },
-            {
-              identifier: 'rights',
-              $cmp: "FormKit",
-              if: "$get(rightsModeCatalogue).value",
-              props: {
-                if: "$get(rightsModeCatalogue).value === url",
-                then: {
-                  identifier: 'rightsUrl',
-                  type: "url",
-                  label: "URL",
-                  name: 'rdfs:label',
-                },
-                else: {
-                  type: "text",
-                  name: 'rdfs:label',
-                }
-              }
-            }
-          ]
   },
-  catalog: {
-    identifier: 'catalog',
+  catalogues: {
+    overview: {
+      $cmp: 'OverviewPage',
+      props: {
+        property: 'catalogues'
+      }
+    },
+    datasetID: {
+      $formkit: 'id',
+      identifier: 'datasetID',
+      name: 'datasetID',
+      mandatory: true,
+    },
+    title: {
+      identifier: 'title',
       $formkit: 'repeatable',
-        name: 'dcat:catalog',
+      name: 'dct:title',
+      children: [
+        {
+          identifier: 'title',
+          $formkit: 'group',
+          name: 'dct:title',
+          mandatory: true,
+          minimum: 1,
           children: [
+
             {
-              $formkit: 'group',
-              identifier: 'catalog',
-              name: 'dcat:catalog',
-              children: [
-                {
-                  identifier: 'catalogURL',
-                  $formkit: 'url',
-                  validation: 'optional|url',
-                  name: '@id',
-                },
-              ],
-            }
-          ]
-  },
-  creator: {
-    identifier: 'creator',
-      $formkit: 'group',
-        name: 'dct:creator',
-          children: [
-            {
-              identifier: 'creatorType',
+              identifier: 'language',
+              value: 'en',
               $formkit: 'select',
-              name: 'rdf:type',
-              options: {
-                '': '---',
-                'foaf:Person': 'Person',
-                'foaf:Organization': 'Organization',
-              },
-            },
-            {
-              identifier: 'creatorName',
+              validation: 'required',
+              options: language,
+              name: '@language',
+              classes: {
+                outer: 'w25-textfield'
+              }
+            }, {
+              identifier: 'title',
               $formkit: 'text',
-              name: 'foaf:name',
-            },
-            {
-              identifier: 'creatorEmail',
-              $formkit: 'email',
-              name: 'foaf:mbox',
-              validation: 'optional|email',
-            },
-            {
-              identifier: 'creatorHomepage',
-              $formkit: 'url',
-              name: 'foaf:homepage',
-              validation: 'optional|url',
+              name: '@value',
+              validation: 'required',
+              mandatory: true,
+              classes: {
+                outer: 'w75-textfield'
+              }
             },
           ],
+        }
+      ]
     },
-}
+    description: {
+      identifier: 'description',
+      $formkit: 'repeatable',
+      name: 'dct:description',
+      children: [
+        {
+          identifier: 'description',
+          $formkit: 'group',
+          name: 'dct:description',
+          mandatory: true,
+          minimum: 1,
+          children: [
+
+            {
+              identifier: 'language',
+              value: 'en',
+              $formkit: 'select',
+              options: language,
+              validation: 'required',
+              name: '@language',
+              classes: {
+                outer: 'w25-descField'
+              }
+            },
+            {
+              identifier: 'description',
+              $formkit: 'textarea',
+              name: '@value',
+              validation: 'required',
+              classes: {
+                outer: 'w75-textfield'
+              }
+            },
+
+          ],
+        }
+      ]
+    },
+    publisher: {
+      $formkit: 'auto',
+      identifier: 'publisher',
+      name: 'dct:publisher',
+      voc: 'corporate-body',
+      id: 'publisher'
+    },
+    language: {
+      identifier: 'language',
+      $formkit: 'auto',
+      multiple: true,
+      name: 'dct:language',
+      voc: 'language',
+      id: 'language'
+    },
+    licence: {
+      $formkit: 'simpleConditional',
+      name: 'dct:license',
+      identifier: 'licence',
+      voc: 'licence',
+      options: { text: 'dct:title', textarea: 'skos:prefLabel', url: 'skos:exactMatch' },
+      selection: { 1: 'Vocabulary', 2: 'Manually' }
+
+    },
+    spatial: {
+      identifier: 'spatial',
+      $formkit: 'repeatable',
+      name: 'dct:spatial',
+      children: [
+        {
+          $formkit: 'spatialinput',
+          name: 'dct:spatial',
+          identifier: 'spatial',
+        }]
+    },
+    homepage: {
+      identifier: 'homepage',
+      $formkit: 'simpleInput',
+      name: 'foaf:homepage',
+      validation: 'optional|url',
+    },
+    hasPart: {
+      identifier: 'hasPart',
+      $formkit: 'repeatable',
+      name: 'dct:hasPart',
+      children: [
+        {
+          $formkit: 'group',
+          identifier: 'hasPart',
+          name: 'dct:hasPart',
+          children: [
+            {
+              identifier: 'hasPartURL',
+              $formkit: 'url',
+              name: '@id',
+              validationType: 'url',
+              classes: {
+                outer: 'w100-textfield'
+              }
+            },
+          ],
+        }
+      ]
+    },
+    isPartOf: {
+      identifier: 'isPartOf',
+      $formkit: 'simpleInput',
+      name: 'dct:isPartOf',
+      validationType: 'url',
+    },
+    rights: {
+      identifier: "rights",
+      $formkit: 'simpleConditional',
+      name: 'dct:rights',
+      options: { url: 'rdfs:label', text: 'rdfs:label' },
+      selection: { 1: 'URL', 2: 'Text' }
+      // children: [
+      //   {
+      //     identifier: 'rights',
+      //     $formkit: "select",
+      //     name: '@type',
+      //     options: { url: 'Provide an URL', str: 'String' },
+      //     id: "rightsModeCatalogue"
+      //   },
+      //   {
+      //     identifier: 'rights',
+      //     $cmp: "FormKit",
+      //     if: "$get(rightsModeCatalogue).value",
+      //     props: {
+      //       if: "$get(rightsModeCatalogue).value === url",
+      //       then: {
+      //         identifier: 'rightsUrl',
+      //         type: "url",
+      //         label: "URL",
+      //         name: 'rdfs:label',
+      //       },
+      //       else: {
+      //         type: "text",
+      //         name: 'rdfs:label',
+      //       }
+      //     }
+      //   }
+      // ]
+    },
+    catalog: {
+      identifier: 'catalog',
+      $formkit: 'repeatable',
+      name: 'dcat:catalog',
+      children: [
+        {
+          $formkit: 'group',
+          identifier: 'catalog',
+          name: 'dcat:catalog',
+          children: [
+            {
+              identifier: 'catalogURL',
+              $formkit: 'url',
+              validationType: 'url',
+              name: '@id',
+              classes: {
+                outer: 'w100-textfield'
+              }
+            },
+          ],
+        }
+      ]
+    },
+    creator: {
+      identifier: 'creator',
+      $formkit: 'formkitGroup',
+      name: 'dct:creator',
+      children: [
+        {
+          identifier: 'creatorType',
+          $formkit: 'select',
+          name: 'rdf:type',
+          options: {
+            '': '---',
+            'foaf:Person': 'Person',
+            'foaf:Organization': 'Organization',
+          },
+          classes: {
+            outer: 'w100-textfield'
+          }
+        },
+        {
+          identifier: 'creatorName',
+          $formkit: 'text',
+          name: 'foaf:name',
+          classes: {
+            outer: 'w100-textfield'
+          }
+        },
+        {
+          identifier: 'creatorEmail',
+          $formkit: 'email',
+          name: 'foaf:mbox',
+          validation: 'optional|email',
+          classes: {
+            outer: 'w100-textfield'
+          }
+        },
+        {
+          identifier: 'creatorHomepage',
+          $formkit: 'url',
+          name: 'foaf:homepage',
+          validation: 'optional|url',
+          classes: {
+            outer: 'w100-textfield'
+          }
+        },
+      ],
+    },
+  }
 };
 
 

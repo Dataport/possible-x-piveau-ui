@@ -1,3 +1,34 @@
+<template>
+    <div class="formkitProperty">
+        <h4>{{ props.context.label }}</h4>
+
+        <div class="position-relative formkitCmpWrap">
+            <FormKit v-if="isEditMode.value" class="autocompleteInputfield" type="text" readonly
+                :placeholder="getNode('dcat:catalog').value" :name="props.context.node.name" />
+            <FormKit v-else class="autocompleteInputfield" v-model="catVal"
+                :placeholder="props.context.attrs.placeholder" type="text" @click="showList = !showList"
+                validation="required" mandatory="true" readonly :validation-messages="{
+                    required: 'The catalog is required',
+                }" :name="props.context.node.name" />
+
+            <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
+
+                <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match)"
+                    class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
+                        match.name }}
+                </li>
+                <li v-if="filteredCatalogs.length === 0" v-for="idMatch in userCats" :key="idMatch"
+                    @click="setvalue(idMatch)"
+                    class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
+                        idMatch }}
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+</template>
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
@@ -17,7 +48,6 @@ const props = defineProps({
 
 const userCats = computed(() => store.getters['auth/getUserCatalogIds']);
 let showList = ref()
-// let selection = ref()
 const store = useStore()
 const dropdownList = ref(null)
 const isEditMode = ref()
@@ -25,16 +55,18 @@ let validationTrigger = ref(true)
 isEditMode.value = computed(() => store.getters['auth/getIsEditMode']);
 let filteredCatalogs = ref([])
 let env = useRuntimeEnv()
+let catVal = ref()
 
+catVal = getNode('dcat:catalog').value
 
 onClickOutside(dropdownList, event => showList.value = false)
 
 const setvalue = async (e) => {
-    
     validationTrigger = false
     props.context.node.input(e.id)
     showList.value = !showList.value;
-    getNode('dcat:catalog').value = e
+    getNode('dcat:catalog').value = e.id
+    catVal = e.name
 }
 let filterCatList = async () => {
     let cache;
@@ -49,47 +81,24 @@ let filterCatList = async () => {
         if (has(e, 'title') && !isNil(e.title) && has(e, 'id') && !isNil(e.id)) filteredCatalogs.value.push({ title: Object.values(e.title)[0], id: e.id })
     });
 
-    filteredCatalogs.value = filteredCatalogs.value
+    filteredCatalogs.value = await filteredCatalogs.value
         .filter(item => userCats.value.includes(item.id))
         .map(item => ({ id: item.id, name: item.title }));
+
+    // Check if theres only one catalog and set it directly
+
+    let clone = JSON.parse(JSON.stringify(filteredCatalogs.value))
+    if (clone.length === 1) {
+        catVal = clone[0].id
+    }
 }
+
+
 onMounted(async () => {
-    // filterCatList()
+    filterCatList();
 });
+
 </script>
-<template>
-
-
-    <div class="formkitProperty">
-        <h4>{{ props.context.label }}</h4>
-
-        <div class="position-relative formkitCmpWrap">
-            <FormKit v-if="isEditMode.value" class="autocompleteInputfield" type="text" readonly
-                :placeholder="getNode('dcat:catalog').value"  :name="props.context.node.name" />
-            <FormKit v-else class="autocompleteInputfield" v-model="getNode('dcat:catalog').value"
-                :placeholder="props.context.attrs.placeholder" type="text" @click="showList = !showList"
-                validation="required" mandatory="true" readonly :validation-messages="{
-                    required: 'The catalog is required',
-                }" :name="props.context.node.name" />
-
-            <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
-
-                <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match)"
-                    class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
-                        match.id }}
-                </li>
-                <li v-if="filteredCatalogs.length === 0" v-for="idMatch in userCats" :key="idMatch"
-                    @click="setvalue(idMatch)"
-                    class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
-                        idMatch }}
-                </li>
-            </ul>
-        </div>
-
-
-    </div>
-
-</template>
 <style>
 .selectListFK {
     max-height: 20rem;
