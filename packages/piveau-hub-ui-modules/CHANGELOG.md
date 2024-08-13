@@ -1,3 +1,12 @@
+## [4.1.3](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.2...v4.1.3) (2024-08-09)
+
+
+### Bug Fixes
+
+* fixed the issue, that the catalog property throws an error. Furthermore fixed the manual Input for the Publisher. ([295b1fb](https://gitlab.com/piveau/ui/piveau-ui/commit/295b1fbe7f1936eb9881fe1b64758d09501aea31))
+
+
+
 ## [4.1.2](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.1...v4.1.2) (2024-08-08)
 
 
