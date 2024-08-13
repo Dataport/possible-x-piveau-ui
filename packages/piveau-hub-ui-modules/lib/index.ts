@@ -15,6 +15,8 @@ import gazetteerService from "./services/gazetteerService";
 
 // Import Stores
 import store from "./store";
+import { useResourcesStore } from "./store/resourcesStore";
+import { useResourceDetailsStore } from "./store/resourceDetailsStore";
 
 
 // Import Utils
@@ -233,6 +235,8 @@ export {
   gazetteerService,
 
   store,
+  useResourcesStore,
+  useResourceDetailsStore,
 
   decode,
   truncate,
