@@ -17,34 +17,25 @@
         data-toggle="tooltip"
         data-placement="top">
         <router-link
-          :to="{name: 'ResourceSearchPage', params: { resource_id: resourceID }, query: { locale: $route.query.locale }}"
-          class="nav-link"
-          role="presentation">
-              {{ $t(`message.header.navigation.data.${resourceID}`) }}
-        </router-link>
-      </li>
-      <li 
-        class="dropdown-item mb-0 p-0" 
-        :title="$t(`message.tooltip.datasets`)"
-        data-toggle="tooltip"
-        data-placement="top">
-        <router-link
+          v-if="resourceID === 'datasets'"
           :to="{name: 'Datasets', query: { locale: $route.query.locale }}"
           class="nav-link"
           role="presentation">
               {{ $t(`message.header.navigation.data.datasets`) }}
         </router-link>
-      </li>
-      <li 
-        class="dropdown-item mb-0 p-0" 
-        :title="$t(`message.tooltip.catalogues`)"
-        data-toggle="tooltip"
-        data-placement="top">
         <router-link
+          v-else-if="resourceID === 'catalogues'"
           :to="{name: 'Catalogues', query: { locale: $route.query.locale }}"
           class="nav-link"
           role="presentation">
               {{ $t(`message.header.navigation.data.catalogues`) }}
+        </router-link>
+        <router-link
+          v-else
+          :to="{name: 'ResourceSearchPage', params: { resource_id: resourceID }, query: { locale: $route.query.locale }}"
+          class="nav-link"
+          role="presentation">
+              {{ $t(`message.header.navigation.data.${resourceID}`) }}
         </router-link>
       </li>
     </ul>
