@@ -11,6 +11,31 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="d-flex justify-content-between w-100">
+          <ul class="navbar-nav ml-2 mt-2">
+            <li
+              v-for="(navItem, i) in filteredNavigationItems"
+              :key="`navItem@${i}`"
+              class="nav-item"
+            >
+              <slot name="nav-item" v-bind:nav-item="navItem">
+                <router-link
+                  v-if="navItem.to"
+                  :to="navItem.to"
+                  class="nav-link"
+                  active-class="router-link-active"
+                >
+                  {{ navItem.title }}
+                </router-link>
+                <a
+                  v-else
+                  :href="navItem.href"
+                  class="nav-link"
+                >
+                  {{ navItem.title }}
+                </a>
+              </slot>
+            </li>
+          </ul>
           <div class="ml-5 flex-row ml-md-auto d-md-flex" role="navigation">
             <slot name="right">
               <ul v-if="enableAuthentication" class="navbar-nav">
@@ -39,16 +64,16 @@
 </template>
 
 <script>
+import { useResourcesStore } from '@piveau/piveau-hub-ui-modules';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 import Logo from './Logo.vue';
 import LanguageSelector from './LanguageSelector.vue';
 
 export default {
   name: 'Piveau-Header',
   data() {
-    return {
-      isNuxt: false,
-    };
+    return {};
   },
   components: {
     Logo,
@@ -56,14 +81,6 @@ export default {
     FontAwesomeIcon,
   },
   props: {
-    project: {
-      type: String,
-      default: 'hub',
-    },
-    locale: {
-      type: String,
-      default: 'en',
-    },
     useLanguageSelector: {
       type: Boolean,
       default: true,
@@ -73,9 +90,6 @@ export default {
       default() {
         return []
       }
-    },
-    headerBackground: {
-      default: 'linear-gradient(0deg, rgba(0,154,165,1) 0%, rgba(26,52,113,1) 100%)',
     },
     overrideLocale: {
       type: String,
@@ -90,9 +104,51 @@ export default {
       default: false,
     },
   },
-  computed: {},
+  computed: {
+    getAvailableResources() {
+      console.log(this.resourcesStore.getters.getAvailableResources)
+      let availableResources = this.resourcesStore.getters.getAvailableResources;
+
+      // TODO: Replace this hacky solution if datasets and catalogues exist in available resources
+      availableResources.push('datasets');
+      availableResources.push('catalogues');
+
+      console.log(availableResources)
+
+      return availableResources;
+    },
+    defaultNavigationItems() {
+      let defaultNavigationItems = this.$env.routing.navigation.defaultNavigationItems;
+      
+      return defaultNavigationItems.map(item => {
+
+        let navItem = {
+          id: item.id,
+          title: this.$t(`message.header.navigation.data.${item.id}`),
+          to: { 
+            name: item.name, 
+            query: { locale: this.$route.query.locale } 
+          },
+        };
+
+        if (item.name === 'ResourceSearchPage') navItem.to.params = { resource_id: item.id };
+          
+        return navItem;
+      });
+    },
+    filteredNavigationItems() {
+      return this.defaultNavigationItems.filter(item => this.getAvailableResources.includes(item.id));
+    },
+  },
   created() {},
   methods: {},
+  setup() {
+    const resourcesStore = useResourcesStore();
+
+    resourcesStore.actions.loadAvailableResources();
+
+    return { resourcesStore };
+  },
 };
 
 </script>

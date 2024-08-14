@@ -59,7 +59,24 @@ const glueConfig = {
       mode: 'history',
     },
     navigation: {
-      showSparql: false,
+      defaultNavigationItems: [
+        {
+          id: 'datasets',
+          name: 'Datasets',
+        },
+        {
+          id: 'catalogues',
+          name: 'Catalogues',
+        },
+        {
+          id: 'legalPersons',
+          name: 'ResourceSearchPage',
+        },
+        {
+          id: 'softwareOfferings',
+          name: 'ResourceSearchPage',
+        },
+      ],
     },
     pagination: {
       usePagination: true,
@@ -76,6 +93,13 @@ const glueConfig = {
   },
   content: {
     resources: {
+      resourceMapping: {
+        'datasets': 'datasets',
+        'catalogues': 'catalogues',
+        'legal-person': 'legalPersons',
+        'software-offering': 'softwareOfferings',
+        'service-offering': 'serviceOfferings',
+      },
       search: {
         useSearch: true,
       },
