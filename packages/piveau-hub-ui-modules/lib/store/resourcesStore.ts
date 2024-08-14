@@ -16,17 +16,12 @@ import axios from 'axios';
 
 export const useResourcesStore = defineStore('resourcesStore', () => {
 
-    // Map resource IDs from kebap-case to camel-case
-    const resourceMapping:object = {
-        'datasets': 'datasets',
-        'catalogues': 'catalogues',
-        'legal-person': 'legalPersons',
-        'software-offering': 'softwareOfferings',
-    };
-
     // Use the Runtime Env composable that injects the ENV
     const ENV = useRuntimeEnv();
 
+    // Map resource IDs from kebap-case to camel-case
+    const resourceMapping:object = ENV.content.resources.resourceMapping;
+    
     /*** STATE ***/
     const state = {
         selectedResource: ref(''),
