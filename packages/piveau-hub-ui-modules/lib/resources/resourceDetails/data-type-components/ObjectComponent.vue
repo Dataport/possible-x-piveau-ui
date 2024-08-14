@@ -42,7 +42,7 @@
   <style scoped>
     .object-component{
      
-    
+    border-bottom: 1px solid red;
     }
     .object-component span{
         background-color: transparent !important;
