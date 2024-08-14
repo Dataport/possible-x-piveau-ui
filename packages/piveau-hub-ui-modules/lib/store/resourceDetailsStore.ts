@@ -6,21 +6,14 @@ import { useResourcesStore } from './resourcesStore';
 
 export const useResourceDetailsStore = defineStore('resourceDetailsStore', () => {
 
-    const resourceMapping:object = {
-        'datasets': 'datasets',
-        'catalogues': 'catalogues',
-        'legal-person': 'legalPersons',
-        'software-offering': 'softwareOfferings',
-    };
+  const ENV = useRuntimeEnv();
 
+  // Map resource IDs from kebap-case to camel-case
+  const resourceMapping:object = ENV.content.resources.resourceMapping;
    
   const resourceDetailsData = ref(null)
   const resourcesStore = useResourcesStore()
-
-
   const error = ref(null)
-
-  const ENV = useRuntimeEnv();
 
   const fetchResourceDetails = async (id) => {
    
