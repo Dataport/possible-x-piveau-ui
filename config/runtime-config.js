@@ -80,7 +80,7 @@ export default {
       "mode": "$VITE_ROUTING_ROUTER_OPTIONS_MODE"
     },
     "navigation": {
-      "showSparql": "$VITE_ROUTING_NAVIGATION_SHOW_SPARQL"
+      "defaultNavigationItems": "$VITE_ROUTING_NAVIGATION_DEFAULT_NAVIGATION_ITEMS"
     },
     "pagination": {
       "usePagination": "$VITE_ROUTING_PAGINATION_USE_PAGINATION",
@@ -96,6 +96,30 @@ export default {
     "keywords": "$VITE_METADATA_KEYWORDS"
   },
   "content": {
+    "resources": {
+      "resourceMapping": "$VITE_CONTENT_RESOURCES_RESOURCE_MAPPING",
+      "search": {
+        "useSearch": "$VITE_CONTENT_RESOURCES_SEARCH_USE_SEARCH",
+      },
+      "limit": {
+        "defaultLimit": "$VITE_CONTENT_RESOURCES_LIMIT_DEFAULT_LIMIT",
+      },
+      "page": {
+        "usePagination": "$VITE_CONTENT_RESOURCES_PAGE_USE_PAGINATION",
+      },
+      "sort": {
+        "useSort": "$VITE_CONTENT_RESOURCES_SORT_USE_SORT",
+        "defaultSort": "$VITE_CONTENT_RESOURCES_SORT_DEFAULT_SORT",
+      },
+      "facets": {
+        "useResourceFacets": "$VITE_CONTENT_RESOURCES_FACETS_USE_RESOURCE_FACETS",
+        "excludedFacets": "$VITE_CONTENT_RESOURCES_FACETS_EXCLUDED_FACETS",
+        "facetOrder": "$VITE_CONTENT_RESOURCES_FACETS_FACET_ORDER",
+      },
+    },
+    "resourceDetails": {
+      "customResources": "$VITE_CONTENT_RESOURCE_DETAILS_CUSTOM_RESOURCES",
+    },
     "datasets": {
       "useSort": "$VITE_CONTENT_DATASETS_USE_SORT",
       "useFeed": "$VITE_CONTENT_DATASETS_USE_FEED",

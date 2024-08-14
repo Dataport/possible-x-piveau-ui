@@ -2,27 +2,17 @@ import i18n from './i18n';
 
 const glueConfig = {
   api: {
-    // baseUrl: 'https://data.europa.eu/api/hub/search/',
-    // baseUrl: 'https://ppe.data.europa.eu/api/hub/search/',
-    baseUrl: 'https://piveau-hub-search-piveau.apps.osc.fokus.fraunhofer.de/',
+    baseUrl: 'https://possible.fokus.fraunhofer.de/api/hub/search/',
 
-    // hubUrl: 'https://data.europa.eu/api/hub/repo/',
-    // hubUrl: 'https://ppe.data.europa.eu/api/hub/repo/',
-    hubUrl: 'https://piveau-hub-repo-piveau.apps.osc.fokus.fraunhofer.de/',
+    hubUrl: 'https://possible.fokus.fraunhofer.de/api/hub/repo/',
 
-    // qualityBaseUrl: 'https://data.europa.eu/api/mqa/cache/',
-    // qualityBaseUrl: 'https://ppe.data.europa.eu/api/mqa/cache/',
     qualityBaseUrl: 'https://piveau-metrics-cache-piveau.apps.osc.fokus.fraunhofer.de/',
 
-    // similarityBaseUrl: 'https://data.europa.eu/api/similarities/',
-    // similarityBaseUrl: 'https://ppe.data.europa.eu/api/similarities/',
     similarityEndpoint: 'similarities',
     similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-piveau.apps.osc.fokus.fraunhofer.de/',
 
     similarityServiceName: 'similarity',
 
-    // fileUploadUrl: 'https://data.europa.eu/api/hub/store/',
-    // fileUploadUrl: 'https://ppe.data.europa.eu/api/hub/store/',
     fileUploadUrl: 'https://piveau-hub-store-piveau.apps.osc.fokus.fraunhofer.de/',
 
     sparqlUrl: 'https://data.europa.eu/sparql',
@@ -30,7 +20,7 @@ const glueConfig = {
     corsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
   },
   authentication: {
-    useService: true,
+    useService: false,
     login: {
       useLogin: true,
 
@@ -69,7 +59,24 @@ const glueConfig = {
       mode: 'history',
     },
     navigation: {
-      showSparql: false,
+      defaultNavigationItems: [
+        {
+          id: 'datasets',
+          name: 'Datasets',
+        },
+        {
+          id: 'catalogues',
+          name: 'Catalogues',
+        },
+        {
+          id: 'legalPersons',
+          name: 'ResourceSearchPage',
+        },
+        {
+          id: 'softwareOfferings',
+          name: 'ResourceSearchPage',
+        },
+      ],
     },
     pagination: {
       usePagination: true,
@@ -85,6 +92,33 @@ const glueConfig = {
     keywords: 'Open Data',
   },
   content: {
+    resources: {
+      resourceMapping: {
+        'datasets': 'datasets',
+        'catalogues': 'catalogues',
+        'legal-person': 'legalPersons',
+        'software-offering': 'softwareOfferings',
+        'service-offering': 'serviceOfferings',
+      },
+      search: {
+        useSearch: true,
+      },
+      limit: {
+        defaultLimit: 10,
+      },
+      sort: {
+        useSort: true,
+        defaultSort: 'relevance+desc, modified+desc, title.en+asc',
+      },
+      facets: {
+        useResourceFacets: true,
+        excludedFacets: ['facetGroupOperator', 'dataScope', 'dataServices', 'scoring'],
+        facetOrder: ['facetGroupOperator', 'publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license', 'keyword', 'provided_by'],
+      },
+    },
+    resourceDetails: {
+      customResources: ["random", "test", "legalPersons"]
+    },
     datasets: {
       useSort: true,
       useFeed: true,

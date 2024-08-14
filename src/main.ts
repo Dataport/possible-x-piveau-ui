@@ -40,6 +40,8 @@ import UniversalPiwik from '@piveau/piveau-universal-piwik';
 import { glueConfig as GLUE_CONFIG, i18n as I18N_CONFIG } from '../config/user-config';
 import runtimeConfig from '../config/runtime-config';
 
+import { createPinia } from 'pinia';
+
 import {
   dateFilters,
   AppSnackbar,
@@ -75,7 +77,6 @@ $(() => {
   $('[data-toggle="popover"]').popover({ container: 'body' });
   $('[data-toggle="tooltip"]').tooltip({ container: 'body' });
 });
-
 
 // Create the application
 const app = createApp(App);
@@ -134,6 +135,10 @@ const i18n = createI18n({
 router.beforeEach(helpers.createStickyLocale(LOCALE || FALLBACKLOCALE))
 router.app = app;
 app.use(router);
+
+// Pinia
+const pinia = createPinia();
+app.use(pinia);
 
 // Vuex Store
 app.use(store);

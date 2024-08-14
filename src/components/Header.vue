@@ -1,6 +1,6 @@
 <template>
   <div class="mb-5">
-    <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" >
+    <nav id="piveau-header" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top px-5">
       <slot name="logo">
         <a class="navbar-brand" href="/">
           <Logo class="piveau-logo"></Logo>
@@ -11,24 +11,23 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="d-flex justify-content-between w-100">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ml-2 mt-2">
             <li
-              v-for="(navItem, i) in navItems"
+              v-for="(navItem, i) in filteredNavigationItems"
               :key="`navItem@${i}`"
               class="nav-item"
             >
               <slot name="nav-item" v-bind:nav-item="navItem">
-                <component
-                  v-if="navItem.to && navItem.show === true"
-                  :is="isNuxt ? 'nuxt-link' : 'router-link'"
+                <router-link
+                  v-if="navItem.to"
                   :to="navItem.to"
                   class="nav-link"
                   active-class="router-link-active"
                 >
                   {{ navItem.title }}
-                </component>
+                </router-link>
                 <a
-                  v-else-if="navItem.show === true"
+                  v-else
                   :href="navItem.href"
                   class="nav-link"
                 >
@@ -65,16 +64,16 @@
 </template>
 
 <script>
+import { useResourcesStore } from '@piveau/piveau-hub-ui-modules';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 import Logo from './Logo.vue';
 import LanguageSelector from './LanguageSelector.vue';
 
 export default {
   name: 'Piveau-Header',
   data() {
-    return {
-      isNuxt: false,
-    };
+    return {};
   },
   components: {
     Logo,
@@ -82,30 +81,15 @@ export default {
     FontAwesomeIcon,
   },
   props: {
-    project: {
-      type: String,
-      default: 'hub',
-    },
-    locale: {
-      type: String,
-      default: 'en',
-    },
     useLanguageSelector: {
       type: Boolean,
       default: true,
-    },
-    navItemsHook: {
-      type: Function,
-      default: (navItems) => navItems,
     },
     languageObject: {
       type: Array,
       default() {
         return []
       }
-    },
-    headerBackground: {
-      default: 'linear-gradient(0deg, rgba(0,154,165,1) 0%, rgba(26,52,113,1) 100%)',
     },
     overrideLocale: {
       type: String,
@@ -121,33 +105,49 @@ export default {
     },
   },
   computed: {
-    navItems() {
-      const navItems = [
-        {
-          title: this.$t('message.header.navigation.data.datasets'),
-          href: `/datasets?locale=${this.$route.query.locale}`,
-          show: true,
-        },
-        {
-          title: this.$t('message.header.navigation.data.catalogs'),
-          href: `/catalogues?locale=${this.$route.query.locale}`,
-          show: true,
-        },
-      ];
+    getAvailableResources() {
+      console.log(this.resourcesStore.getters.getAvailableResources)
+      let availableResources = this.resourcesStore.getters.getAvailableResources;
 
-      this.adjustNavItemsToProject(navItems);
+      // TODO: Replace this hacky solution if datasets and catalogues exist in available resources
+      availableResources.push('datasets');
+      availableResources.push('catalogues');
 
-      return this.navItemsHook(navItems);
+      console.log(availableResources)
+
+      return availableResources;
+    },
+    defaultNavigationItems() {
+      let defaultNavigationItems = this.$env.routing.navigation.defaultNavigationItems;
+      
+      return defaultNavigationItems.map(item => {
+
+        let navItem = {
+          id: item.id,
+          title: this.$t(`message.header.navigation.data.${item.id}`),
+          to: { 
+            name: item.name, 
+            query: { locale: this.$route.query.locale } 
+          },
+        };
+
+        if (item.name === 'ResourceSearchPage') navItem.to.params = { resource_id: item.id };
+          
+        return navItem;
+      });
+    },
+    filteredNavigationItems() {
+      return this.defaultNavigationItems.filter(item => this.getAvailableResources.includes(item.id));
     },
   },
   created() {},
-  methods: {
-    adjustNavItemsToProject(navItems) {
-      const navigationItems = navItems;
+  methods: {},
+  setup() {
+    const resourcesStore = useResourcesStore();
 
-      navigationItems[0].to = { name: 'Datasets', query: { locale: this.$route.query.locale } };
-      navigationItems[1].to = { name: 'Catalogues', query: { locale: this.$route.query.locale } };
-    },
+    resourcesStore.actions.loadAvailableResources();
+
+    return { resourcesStore };
   },
 };
 
