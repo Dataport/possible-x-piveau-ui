@@ -80,7 +80,7 @@ export default {
       "mode": "$VITE_ROUTING_ROUTER_OPTIONS_MODE"
     },
     "navigation": {
-      "showSparql": "$VITE_ROUTING_NAVIGATION_SHOW_SPARQL"
+      "defaultNavigationItems": "$VITE_ROUTING_NAVIGATION_DEFAULT_NAVIGATION_ITEMS"
     },
     "pagination": {
       "usePagination": "$VITE_ROUTING_PAGINATION_USE_PAGINATION",
@@ -97,6 +97,7 @@ export default {
   },
   "content": {
     "resources": {
+      "resourceMapping": "$VITE_CONTENT_RESOURCES_RESOURCE_MAPPING",
       "search": {
         "useSearch": "$VITE_CONTENT_RESOURCES_SEARCH_USE_SEARCH",
       },

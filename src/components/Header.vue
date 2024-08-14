@@ -11,7 +11,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="d-flex justify-content-between w-100">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav ml-2 mt-2">
             <li
               v-for="(navItem, i) in filteredNavigationItems"
               :key="`navItem@${i}`"
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { resourcesStore } from '@piveau/piveau-hub-ui-modules';
+import { useResourcesStore } from '@piveau/piveau-hub-ui-modules';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import Logo from './Logo.vue';
@@ -105,12 +105,25 @@ export default {
     },
   },
   computed: {
+    getAvailableResources() {
+      console.log(this.resourcesStore.getters.getAvailableResources)
+      let availableResources = this.resourcesStore.getters.getAvailableResources;
+
+      // TODO: Replace this hacky solution if datasets and catalogues exist in available resources
+      availableResources.push('datasets');
+      availableResources.push('catalogues');
+
+      console.log(availableResources)
+
+      return availableResources;
+    },
     defaultNavigationItems() {
       let defaultNavigationItems = this.$env.routing.navigation.defaultNavigationItems;
       
       return defaultNavigationItems.map(item => {
 
         let navItem = {
+          id: item.id,
           title: this.$t(`message.header.navigation.data.${item.id}`),
           to: { 
             name: item.name, 
@@ -124,13 +137,16 @@ export default {
       });
     },
     filteredNavigationItems() {
-      return this.defaultNavigationItems.filter(item => this.resourcesStore.getters.getAvailableResources.includes(item));
+      return this.defaultNavigationItems.filter(item => this.getAvailableResources.includes(item.id));
     },
   },
   created() {},
   methods: {},
   setup() {
-    const resourcesStore = resourcesStore.useResourcesStore();
+    const resourcesStore = useResourcesStore();
+
+    resourcesStore.actions.loadAvailableResources();
+
     return { resourcesStore };
   },
 };

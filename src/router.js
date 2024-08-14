@@ -42,7 +42,7 @@ const router = Router.createRouter({
   routes: [
     {
       path: '/',
-      redirect: { name: 'Resources' },
+      redirect: { name: 'Datasets' },
     },
     {
       path: '/resources',
