@@ -51,7 +51,7 @@
             
             <!-- RESOURCE RESULTS -->
             <template v-if="!getLoading">
-              <resource-info-box-list :resources="getResults"></resource-info-box-list>
+              <resource-info-box-list :resources="getResults" :raw-selected-resource="getRawSelectedResource"></resource-info-box-list>
             </template>
 
             <!-- LOADING SPINNER -->
@@ -102,13 +102,15 @@ const defaultLimit = ENV.content.resources.limit.defaultLimit;
 const defaultSort = ENV.content.resources.sort.defaultSort;
 const useResourceFacets = ENV.content.resources.facets.useResourceFacets;
 const usePagination = ENV.routing.pagination.usePagination;
+const resourceMapping = ENV.content.resources.resourceMapping;
 
 function initResourceSearchPage() {
   if (route.params.hasOwnProperty('resource_type')) {
-    resourcesStore.mutations.setSelectedResource(route.params.resource_type.toString());
+    let selectedResource = resourceMapping[route.params.resource_type]
+    resourcesStore.mutations.setSelectedResource(selectedResource);
     initResources();
     initFilters();
-  } else router.push({ name: 'ResourceSearchPage', params: { resource_type: getAvailableResources.value[0] }});
+  } else router.push({ name: 'ResourceSearchPage', params: { resource_type: getAvailableResources.value[0].resource }});
 };
 
 function initResources() {
@@ -180,6 +182,10 @@ const getLoading = computed(() => {
 
 const getSelectedResource = computed(() => {
   return resourcesStore.getters.getSelectedResource;
+});
+
+const getRawSelectedResource = computed(() => {
+  return resourcesStore.getters.getRawSelectedResource;
 });
 
 const getAvailableResources = computed(() => {

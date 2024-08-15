@@ -32,7 +32,7 @@
         </router-link>
         <router-link
           v-else
-          :to="{name: 'ResourceSearchPage', params: { resource_type: resourceType }, query: { locale: $route.query.locale }}"
+          :to="{name: 'ResourceSearchPage', params: { resource_type: getRawResourceType(resourceType) }, query: { locale: $route.query.locale }}"
           class="nav-link"
           role="presentation">
               {{ $t(`message.header.navigation.data.${resourceType}`) }}
@@ -44,8 +44,10 @@
   
 <script lang="ts" setup>
 import { computed } from 'vue';
+import { useRuntimeEnv } from '../../composables/useRuntimeEnv';
 import { useResourcesStore } from '../../store/resourcesStore';
 
+const ENV = useRuntimeEnv();
 const resourcesStore = useResourcesStore();
 
 const getSelectedResource = computed(() => {
@@ -55,6 +57,10 @@ const getSelectedResource = computed(() => {
 const getAvailableResources = computed(() => {
   return resourcesStore.getters.getAvailableResources;
 });
+
+const getRawResourceType = (type) => {
+  return Object.keys(ENV.content.resources.resourceMapping)[Object.values(ENV.content.resources.resourceMapping).indexOf(type)];
+};
 </script>
 
 <style lang="scss">

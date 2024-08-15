@@ -4,7 +4,7 @@
       <slot :resource="resource" :raw-resource="resources[index]" :index="index">
         <resource-info-box
           :key="resource.id"
-          :to="`/resource/${resource.id}`"
+          :to="`/resource/${rawSelectedResource}/${resource.id}`"
           :resource="resource"
           class="mt-3"
         ></resource-info-box>
@@ -19,9 +19,9 @@ import { useResourceInfoBox } from './useResourceInfoBox';
 
 import resourceInfoBox from './ResourceInfoBox.vue';
 
-const props = defineProps(['resources']);
+const props = defineProps(['resources', 'rawSelectedResource']);
 
 const computedResources = useResourceInfoBox({ 
   resources: props.resources,
 });
-</script>./useResourceInfoBox
+</script>
