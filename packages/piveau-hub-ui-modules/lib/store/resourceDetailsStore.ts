@@ -24,19 +24,15 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
             try {
                 const response = await axios.get(`${reqStr}/${id}`, {
                     headers: {
-                        
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
                 })           
-
                 resourceDetailsData.value = await response.data
-          
             } catch (error) {
                 console.error('API request failed:', error);
             }
   }
-
 
   const resetResourceDetails = () => {
     resourceDetailsData.value = null
