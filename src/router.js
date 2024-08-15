@@ -50,12 +50,12 @@ const router = Router.createRouter({
       component: ResourceSearchPage,
     },
     {
-      path: '/resources/:resource_id',
+      path: '/resources/:resource_type',
       name: 'ResourceSearchPage',
       component: ResourceSearchPage,
     },
     {
-      path: '/resource/:resource_id',
+      path: '/resource/:resource_type/:resource_id',
       name: 'ResourceDetailsPage',
       component: ResourceDetailsPage,
     },

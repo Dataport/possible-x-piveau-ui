@@ -106,14 +106,11 @@ export default {
   },
   computed: {
     getAvailableResources() {
-      console.log(this.resourcesStore.getters.getAvailableResources)
       let availableResources = this.resourcesStore.getters.getAvailableResources;
 
       // TODO: Replace this hacky solution if datasets and catalogues exist in available resources
       availableResources.push('datasets');
       availableResources.push('catalogues');
-
-      console.log(availableResources)
 
       return availableResources;
     },
@@ -131,7 +128,7 @@ export default {
           },
         };
 
-        if (item.name === 'ResourceSearchPage') navItem.to.params = { resource_id: item.id };
+        if (item.name === 'ResourceSearchPage') navItem.to.params = { resource_type: this.getRawResourceType(item.id) };
           
         return navItem;
       });
@@ -139,9 +136,14 @@ export default {
     filteredNavigationItems() {
       return this.defaultNavigationItems.filter(item => this.getAvailableResources.includes(item.id));
     },
+
   },
   created() {},
-  methods: {},
+  methods: {
+    getRawResourceType(type) {
+      return Object.keys(this.$env.content.resources.resourceMapping)[Object.values(this.$env.content.resources.resourceMapping).indexOf(type)];
+    },
+  },
   setup() {
     const resourcesStore = useResourcesStore();
 

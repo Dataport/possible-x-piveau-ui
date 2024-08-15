@@ -1893,6 +1893,7 @@
             "invalidVisualise": "Preview feature not available, because the provided distribution URL is not a valid URL.",
             "resources": "Resources",
             "softwareOfferings": "Software Offerings",
+            "serviceOfferings": "Service Offerings",
             "legalPersons": "Legal Persons"
         },
         "visualisationDistribution": {

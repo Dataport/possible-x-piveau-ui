@@ -69,11 +69,7 @@ const glueConfig = {
           name: 'Catalogues',
         },
         {
-          id: 'legalPersons',
-          name: 'ResourceSearchPage',
-        },
-        {
-          id: 'softwareOfferings',
+          id: 'serviceOfferings',
           name: 'ResourceSearchPage',
         },
       ],
