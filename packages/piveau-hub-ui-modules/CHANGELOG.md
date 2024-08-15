@@ -1,3 +1,12 @@
+## [4.1.5](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.4...v4.1.5) (2024-08-15)
+
+
+### Bug Fixes
+
+* small fix for the DOI creation ([cceb062](https://gitlab.com/piveau/ui/piveau-ui/commit/cceb06268774eb33d42c65fc973029543dd2169b))
+
+
+
 ## [4.1.4](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.3...v4.1.4) (2024-08-13)
 
 
