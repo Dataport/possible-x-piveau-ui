@@ -117,7 +117,7 @@ const glueConfig = {
       },
     },
     resourceDetails: {
-      customResources: ["random", "test", "legalPersons"]
+      customResources: ["random", "test", "legalPersons", "serviceOfferings"]
     },
     datasets: {
       useSort: true,
