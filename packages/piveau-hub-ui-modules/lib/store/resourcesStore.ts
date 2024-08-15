@@ -25,6 +25,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     /*** STATE ***/
     const state = {
         selectedResource: ref(''),
+        rawSelectedResources: ref(''),
         availableResources: ref([] as string[]),
         results: ref([] as object[]),
         resultsCount: ref(0),
@@ -40,6 +41,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     /*** GETTERS ***/
     const getters = {
         getSelectedResource: computed(() => state.selectedResource.value),
+        getRawSelectedResource: computed(() => state.rawSelectedResources.value),
         getAvailableResources: computed(() => state.availableResources.value),
         getResults: computed(() => state.results.value),
         getResultsCount: computed(() => state.resultsCount.value),
@@ -56,6 +58,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     /*** MUTATIONS ***/
     const mutations = {
         setSelectedResource: function (newSelectedResource: string) {
+            state.rawSelectedResources.value = Object.keys(resourceMapping)[Object.values(resourceMapping).indexOf(newSelectedResource)];            
             state.selectedResource.value = newSelectedResource;            
         },   
         setAvailableResources: function (newAvailableResources: string[]) {
