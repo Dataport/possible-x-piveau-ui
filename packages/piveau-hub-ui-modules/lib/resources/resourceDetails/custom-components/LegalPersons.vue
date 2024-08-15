@@ -1,6 +1,6 @@
 <template>
     <div>
-     {{ resourceDetailsData.id }}
+     {{ resourceDetailsData }}
     </div>
   </template>
   

@@ -4,6 +4,7 @@
         :is="loadComponent(resource)"
         :key="resource"
         :resourceDetailsData="resourceDetailsData"
+        :resource="resource"
       />
     </div>
   </template>
