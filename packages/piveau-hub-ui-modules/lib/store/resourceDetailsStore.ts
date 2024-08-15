@@ -15,10 +15,10 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
   const resourcesStore = useResourcesStore()
   const error = ref(null)
 
-  const fetchResourceDetails = async (id) => {
+  const fetchResourceDetails = async (id:string, type:string) => {
    
-    const resource = Object.keys(resourceMapping).find(key => resourceMapping[key as keyof object] === resourcesStore.state.selectedResource);
-        const endpoint = `resources/${resource}`;
+    // const resource = Object.keys(resourceMapping).find(key => resourceMapping[key as keyof object] === resourcesStore.state.selectedResource);
+        const endpoint = `resources/${type}`;
         const reqStr = `${ENV.api.baseUrl}${endpoint}`;
         
             try {
@@ -32,6 +32,9 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
             } catch (error) {
                 console.error('API request failed:', error);
             }
+
+            console.log(id);
+         
   }
 
   const resetResourceDetails = () => {

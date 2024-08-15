@@ -104,11 +104,11 @@ const useResourceFacets = ENV.content.resources.facets.useResourceFacets;
 const usePagination = ENV.routing.pagination.usePagination;
 
 function initResourceSearchPage() {
-  if (route.params.hasOwnProperty('resource_id')) {
-    resourcesStore.mutations.setSelectedResource(route.params.resource_id.toString());
+  if (route.params.hasOwnProperty('resource_type')) {
+    resourcesStore.mutations.setSelectedResource(route.params.resource_type.toString());
     initResources();
     initFilters();
-  } else router.push({ name: 'ResourceSearchPage', params: { resource_id: getAvailableResources.value[0] }});
+  } else router.push({ name: 'ResourceSearchPage', params: { resource_type: getAvailableResources.value[0] }});
 };
 
 function initResources() {

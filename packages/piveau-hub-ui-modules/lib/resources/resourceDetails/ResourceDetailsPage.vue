@@ -47,10 +47,11 @@ import CustomResourceRenderer from './CustomResourceRenderer.vue';
 
 const route = useRoute();
 let id = route.params.resource_id
+let type = route.params.resource_type
 
 
 onMounted(async () => {
-    await fetchResourceDetails(id)
+    await fetchResourceDetails(id, type)
 })
 
 

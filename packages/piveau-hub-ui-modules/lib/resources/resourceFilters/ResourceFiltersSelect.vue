@@ -11,20 +11,20 @@
     </button>
     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="resourceFiltersSelect">
       <li 
-        v-for="resourceID in getAvailableResources" 
+        v-for="resourceType in getAvailableResources" 
         class="dropdown-item mb-0 p-0" 
-        :title="$t(`message.tooltip.${resourceID}`)"
+        :title="$t(`message.tooltip.${resourceType}`)"
         data-toggle="tooltip"
         data-placement="top">
         <router-link
-          v-if="resourceID === 'datasets'"
+          v-if="resourceType === 'datasets'"
           :to="{name: 'Datasets', query: { locale: $route.query.locale }}"
           class="nav-link"
           role="presentation">
               {{ $t(`message.header.navigation.data.datasets`) }}
         </router-link>
         <router-link
-          v-else-if="resourceID === 'catalogues'"
+          v-else-if="resourceType === 'catalogues'"
           :to="{name: 'Catalogues', query: { locale: $route.query.locale }}"
           class="nav-link"
           role="presentation">
@@ -32,10 +32,10 @@
         </router-link>
         <router-link
           v-else
-          :to="{name: 'ResourceSearchPage', params: { resource_id: resourceID }, query: { locale: $route.query.locale }}"
+          :to="{name: 'ResourceSearchPage', params: { resource_type: resourceType }, query: { locale: $route.query.locale }}"
           class="nav-link"
           role="presentation">
-              {{ $t(`message.header.navigation.data.${resourceID}`) }}
+              {{ $t(`message.header.navigation.data.${resourceType}`) }}
         </router-link>
       </li>
     </ul>
