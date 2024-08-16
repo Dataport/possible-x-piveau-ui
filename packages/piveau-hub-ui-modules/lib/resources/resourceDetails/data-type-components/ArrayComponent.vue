@@ -18,7 +18,7 @@
   });
   </script>
   
-  <style>
+  <style scoped>
     li span{
     background-color: yellow;
     padding: .3rem;
