@@ -137,18 +137,17 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
                         return filteredSelectedFacets;
                     }, {});;
                 const facetGroupOperator = state.selectedFacets.value.facetGroupOperator;
-                const dataServices = state.selectedFacets.value.dataServices;
 
-                const params = {
+                let params = {
                     filter: filter,
                     q: query,
                     limit: limit,
                     page: page,
                     sort: sort,
                     facets: facets,
-                    facetGroupOperator: facetGroupOperator,
-                    dataServices: dataServices,
                 };
+
+                if (!!facetGroupOperator) params.facetGroupOperator = facetGroupOperator;
 
                 const endpoint = `search`;
                 const reqStr = `${ENV.api.baseUrl}${endpoint}`;

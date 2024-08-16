@@ -1,10 +1,10 @@
 <template>
     <div>
       <component
-        :is="loadComponent(resource)"
-        :key="resource"
-        :resourceDetailsData="resourceDetailsData"
-        :resource="resource"
+        :is="loadComponent(selectedResource)"
+        :key="selectedResource"
+        :selected-resource="selectedResource"
+        :resource-details-data="resourceDetailsData"
       />
     </div>
   </template>
@@ -15,7 +15,7 @@
   
 
   const props = defineProps({
-    resource: {
+    selectedResource: {
       type: String,
       required: true,
     },

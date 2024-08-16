@@ -12,10 +12,10 @@ export function useResourceInfoBox({ resources }) {
     const computedResources = resourceList.map((resource) => {
       return {
         id: resource.id,
-        title: resource?.title,
+        name: resource?.name,
         description: resource?.description,
-        createdDate: resource?.releaseDate || "01.01.2024",
-        updatedDate: resource?.modificationDate || "01.01.2024",
+        createdDate: resource?.releaseDate,
+        updatedDate: resource?.modificationDate,
       };
     });
 

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <span class="resource_banner">{{ resource }}</span>
+    <span class="resource_banner">{{ $t(`message.header.navigation.data.${selectedResource}`) }}</span>
     <div class="sub_nav">
       <a href="">Linked Data</a>
       <a href="">Get VC</a>
     </div>
-    <h3>{{ resourceDetailsData.result.name }}</h3>
-    <p>{{ resourceDetailsData.result.description }}</p>
+    <h3>{{ resourceDetailsData.result?.name }}</h3>
+    <p>{{ resourceDetailsData.result?.description }}</p>
 
     <section class="main_section">
       <div class="left">
@@ -14,7 +14,7 @@
           <h5>Keywords</h5>
           <hr />
           <div class="tag_container">
-            <div class="tag" v-for="(keyword) in resourceDetailsData.result.keyword">
+            <div class="tag" v-for="(keyword) in resourceDetailsData.result?.keyword">
               <span>{{ keyword.label }}</span>
             </div>
           </div>
@@ -25,7 +25,7 @@
           <h5>Service Policy</h5>
           <hr />
           <div class="tag_container">
-            <div class="tag" v-for="(policy) in resourceDetailsData.result.service_policy">
+            <div class="tag" v-for="(policy) in resourceDetailsData.result?.service_policy">
               <span>{{ policy }}</span>
             </div>
           </div>
@@ -38,18 +38,19 @@
           <div class="endpoint">
             <div>
               <span class="label">URL:</span>
-              <a href="">{{ resourceDetailsData.result.endpoint.endpoint_url }}</a>
+              <a href="">{{ resourceDetailsData.result?.endpoint?.endpoint_url }}</a>
             </div>
 
             <div>
               <span class="label">Formal description:</span>
-              <span>{{ resourceDetailsData.result.endpoint.formal_description }}</span>
+              <span>{{ resourceDetailsData.result?.endpoint?.formal_description }}</span>
             </div>
 
             <div>
               <span class="label">Standard Conformity:</span>
-              <span>{{ resourceDetailsData.result.endpoint.standard_conformity[0].title }} ({{
-      resourceDetailsData.result.endpoint.standard_conformity[0].publisher }})</span>
+              <span>
+                {{ resourceDetailsData.result?.endpoint?.standard_conformity[0]?.title }} ({{ resourceDetailsData.result?.endpoint?.standard_conformity[0]?.publisher }})
+              </span>
             </div>
           </div>
         </section>
@@ -62,11 +63,11 @@
           <div class="info">
             <div>
               <span class="label">URL:</span>
-              <a href="">{{ resourceDetailsData.result.terms_and_conditions[0].url }}</a>
+              <a href="">{{ resourceDetailsData.result?.terms_and_conditions[0]?.url }}</a>
             </div>
             <div>
               <span class="label">Hash:</span>
-              <span>{{ resourceDetailsData.result.terms_and_conditions[0].hash }}</span>
+              <span>{{ resourceDetailsData.result?.terms_and_conditions[0]?.hash }}</span>
             </div>
           </div>
         </div>
@@ -77,15 +78,15 @@
           <div class="info">
             <div>
               <span class="label">Request Type:</span>
-              <span>{{ resourceDetailsData.result.data_account_export[0].request_type }}</span>
+              <span>{{ resourceDetailsData.result?.data_account_export[0]?.request_type }}</span>
             </div>
             <div>
               <span class="label">Format Type:</span>
-              <span>{{ resourceDetailsData.result.data_account_export[0].format_type }}</span>
+              <span>{{ resourceDetailsData.result?.data_account_export[0]?.format_type }}</span>
             </div>
             <div>
               <span class="label">Access Type:</span>
-              <span>{{ resourceDetailsData.result.data_account_export[0].access_type }}</span>
+              <span>{{ resourceDetailsData.result?.data_account_export[0]?.access_type }}</span>
             </div>
           </div>
         </div>
@@ -96,23 +97,23 @@
           <div class="info">
             <div>
               <span class="label">Name:</span>
-              <span>{{ resourceDetailsData.result.hosted_on[0].name }}</span>
+              <span>{{ resourceDetailsData.result?.hosted_on[0]?.name }}</span>
             </div>
             <div>
               <span class="label">Description:</span>
-              <span>{{ resourceDetailsData.result.hosted_on[0].description }}</span>
+              <span>{{ resourceDetailsData.result?.hosted_on[0]?.description }}</span>
             </div>
             <div>
               <span class="label">Resource Policy:</span>
-              <span>{{ resourceDetailsData.result.hosted_on[0].resource_policy[0] }}</span>
+              <span>{{ resourceDetailsData.result?.hosted_on[0]?.resource_policy[0] }}</span>
             </div>
             <div>
               <span class="label">License:</span>
-              <span>{{ resourceDetailsData.result.hosted_on[0].license[0] }}</span>
+              <span>{{ resourceDetailsData.result?.hosted_on[0]?.license[0] }}</span>
             </div>
             <div>
               <span class="label">Copyright Owned By</span>
-              <span>{{ resourceDetailsData.result.hosted_on[0].copyright_owned_by[0] }}</span>
+              <span>{{ resourceDetailsData.result?.hosted_on[0]?.copyright_owned_by[0] }}</span>
             </div>
           </div>
         </div>
@@ -135,10 +136,9 @@
 
 <script setup>
 const props = defineProps({
+  selectedResource: String,
   resourceDetailsData: Object,
-  resource: String
 });
-
 </script>
 
 <style scss scoped>

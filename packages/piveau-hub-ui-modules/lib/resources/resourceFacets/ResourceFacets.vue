@@ -106,7 +106,7 @@ const getFacetOrder = computed(() => {
 });
 
 const facetsEmpty = computed(() => {
-    return !getFacets.value;
+    return getFacets.value.length === 0;
 });
 
 const facetsEmptyMessage = computed(() => {

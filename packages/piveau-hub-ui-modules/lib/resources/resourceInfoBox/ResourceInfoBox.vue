@@ -6,7 +6,7 @@
     <!-- HEADER SLOT -->
     <slot name="header">
       <div class="resource-info-box-header py-3" data-cy="resource-title">
-        <h2 class="card-title">{{ getTitle }}</h2>
+        <h2 class="card-title">{{ getName }}</h2>
       </div>
     </slot>
 
@@ -40,7 +40,7 @@ const props = defineProps({
       default: () =>
         ({
           id: "",
-          title: "",
+          name: "",
           description: "",
           createdDate: "",
           updatedDate: "",
@@ -52,9 +52,10 @@ const props = defineProps({
   },
 });
 
-const getTitle = computed(() => {
-  return props.resource?.title
-        ? props.resource.title
+const getName = computed(() => {
+  console.log(props.resource)
+  return props.resource?.name
+        ? props.resource.name
         : props.resource.id;
 });
 
