@@ -9,17 +9,17 @@
 
     <div class="w-33">
       <h4>POSSIBLE</h4>
-      <p>...</p>
+      <p></p>
     </div>
 
     <div class="w-33">
       <h4>Information</h4>
       <ul>
         <li class="mb-2">
-          <router-link to="/imprint">Impressum</router-link>
+          <a target="_blank" href="https://possible.fokus.fraunhofer.de/imprint">Imprint</a>
         </li>
         <li class="mb-2">
-          <router-link to="/privacypolicy">Datenschutz</router-link>
+          <a target="_blank" href="https://possible.fokus.fraunhofer.de/privacypolicy">Privacy Policy</a>
         </li>
       </ul>
     </div>
@@ -33,9 +33,7 @@ export default {
   inheritAttrs: false,
   props: {},
   data() {
-    return {
-      isNuxt: false
-    }
+    return { }
   }
 };
 </script>
