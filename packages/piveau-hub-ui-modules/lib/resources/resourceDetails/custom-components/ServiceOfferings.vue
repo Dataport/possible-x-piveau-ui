@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="page">
+    <div class="content-wrapper">
     <span class="resource_banner">{{ $t(`message.header.navigation.data.${selectedResource}`) }}</span>
     <div class="sub_nav">
       <a href="">Linked Data</a>
@@ -63,7 +64,7 @@
           <div class="info">
             <div>
               <span class="label">URL:</span>
-              <a href="">{{ resourceDetailsData.result?.terms_and_conditions[0]?.url }}</a>
+              <span class="cropped_link"><a href="">{{ resourceDetailsData.result?.terms_and_conditions[0]?.url }}</a></span>
             </div>
             <div>
               <span class="label">Hash:</span>
@@ -132,6 +133,7 @@
     <!-- Test message from Service Offerings
     {{ resourceDetailsData }} -->
   </div>
+  </div>
 </template>
 
 <script setup>
@@ -142,6 +144,36 @@ const props = defineProps({
 </script>
 
 <style scss scoped>
+.page{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  .content-wrapper{
+    width: 73%;
+  }
+}
+
+a{
+  text-decoration: underline
+}
+
+.cropped_link{
+
+  -ms-word-break: break-all;
+    word-break: break-all;
+    /* Non standard for webkit */
+    word-break: break-word;
+
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+ 
+}
+
 .resource_banner {
   /* background-color: #314D84; */
   background-color: #1E2E4D;
@@ -168,17 +200,17 @@ const props = defineProps({
   gap: 1rem;
 
   .left {
-    width: 65%;
+    width: 60%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .right {
-    width: 35%;
+    width: 40%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 
     hr {
       background-color: #fff;
@@ -263,6 +295,27 @@ const props = defineProps({
     padding: .4rem .6rem;
     border-radius: .3rem;
   
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .page{
+    .content-wrapper{
+      width: 98%
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page{
+
+    .main_section{
+      flex-direction: column;
+
+      .left, .right{
+        width: 100%;
+      }
+    }
   }
 }
 </style>
