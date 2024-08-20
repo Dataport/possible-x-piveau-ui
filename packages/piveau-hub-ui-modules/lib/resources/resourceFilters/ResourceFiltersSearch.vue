@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, nextTick } from 'vue';
+import { ref } from 'vue';
 
 import { useRoute, useRouter } from 'vue-router';
 import { useResourcesStore } from '../../store/resourcesStore';
@@ -40,5 +40,5 @@ function changeQuery(query: string) {
   );
 };
 
-query = resourcesStore.getters.getQuery;
+query = route.query.query || '';
 </script>

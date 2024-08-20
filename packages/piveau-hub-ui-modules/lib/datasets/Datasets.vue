@@ -265,6 +265,7 @@ export default {
       'loadDatasets',
       'loadAdditionalDatasets',
       'setPage',
+      'setQuery',
       'addFacet',
       'removeFacet',
       'setFacets',
@@ -302,33 +303,40 @@ export default {
       this.$nextTick(() => {
         this.$Progress.start();
         this.loadAdditionalDatasets()
-            .then(() => {
-              this.$Progress.finish();
-            })
-            .catch(() => {
-              this.$Progress.fail();
-            });
-        });
-      },
-      initLimit() {
-        const limit = parseInt(this.$route.query.limit, 10);
-        if (limit > 0) this.setLimit(limit);
-      },
-      setPageLimit(value) {
-        this.setLimit(value);
-        this.initDatasets();
-      },
-      initDataScope() {
-        this.setDataScope(this.dataScope);
-      },
-      /**
-       * @description Determines the current page.
-       */
-      initPage() {
-        const page = parseInt(this.$route.query.page, 10);
-        if (page > 0) this.setPage(page);
-        else this.setPage(1);
-      },
+          .then(() => {
+            this.$Progress.finish();
+          })
+          .catch(() => {
+            this.$Progress.fail();
+          });
+      });
+    },
+    initLimit() {
+      const limit = parseInt(this.$route.query.limit, 10);
+      if (limit > 0) this.setLimit(limit);
+    },
+    setPageLimit(value) {
+      this.setLimit(value);
+      this.initDatasets();
+    },
+    initDataScope() {
+      this.setDataScope(this.dataScope);
+    },
+    /**
+     * @description Determines the current page.
+     */
+    initPage() {
+      const page = parseInt(this.$route.query.page, 10);
+      if (page > 0) this.setPage(page);
+      else this.setPage(1);
+    },
+    initQuery() {
+      let query = this.$route.query.query;
+      
+      if (!query) query = '';
+
+      this.setQuery(query);
+    },
     /**
      * @descritption Initialize the active facets by checking the route parameters
      */
@@ -436,12 +444,15 @@ export default {
     this.initDataScope();
     this.initLimit();
     this.initPage();
+    this.initQuery();
     this.initFacetOperator();
     this.initFacetGroupOperator();
     this.initDataServices();
     this.initFacets();
     this.initDatasets();
     this.initInfiniteScrolling();
+
+    this.setQuery(this.$route.query?.query);
 
     if (this.resourcesStore.getters.getAvailableResources.length > 0) {
       this.resourcesStore.mutations.setSelectedResource('datasets');
