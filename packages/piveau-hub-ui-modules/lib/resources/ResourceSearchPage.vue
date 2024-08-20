@@ -110,7 +110,11 @@ function initResourceSearchPage() {
     resourcesStore.mutations.setSelectedResource(selectedResource);
     initResources();
     initFilters();
-  } else router.push({ name: 'ResourceSearchPage', params: { resource_type: getAvailableResources.value[0].resource }});
+  } else router.replace({ 
+    name: 'ResourceSearchPage', 
+    params: { resource_type: getAvailableResources.value[0].resource },
+    query: Object.assign({}, route.query)
+  });
 };
 
 function initResources() {
