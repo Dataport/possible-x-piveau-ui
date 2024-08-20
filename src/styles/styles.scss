@@ -38,17 +38,19 @@
 
 .dsd-subject-feature {
   .mb-4 {
-    margin-left:8rem;
+    margin-left: 8rem;
     font-weight: 400 !important;
     font-size: 2rem;
     line-height: 1.2;
   }
 }
-.dsd-item{
-  table{
+
+.dsd-item {
+  table {
     padding: 1rem
   }
 }
+
 // Hacky solution to fix the dataset details #### end ######
 .circle {
   width: 40px;
@@ -186,6 +188,270 @@
 
   .step-progress__wrapper-after {
     top: 35% !important
+  }
+}
+
+
+
+
+
+
+//styling for dataset details page
+.dsd-nav {
+  justify-content: flex-end !important;
+
+  nav {
+    display: none !important;
+  }
+
+  .dsd-nav-links {
+    display: flex !important;
+
+    .dsd-link-feed,
+    .dsd-link-share,
+    .dsd-link-feedback,
+    .dsd-link-cite {
+      display: none !important;
+    }
+
+    .dsd-link-linked-data {
+      display: block !important;
+      width: 100%;
+
+      a {
+        color: #E3B95B !important;
+      }
+    }
+  }
+}
+
+.dsd-header-info {
+  justify-content: flex-start !important;
+  gap: 1.5rem;
+}
+
+
+.dsd-description-content {
+  padding: 0;
+}
+
+
+.content {
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .dsd-content {
+    width: 86% !important;
+
+    .heading {
+      background-color: #1E2E4D;
+      color: #fff;
+      border-top-right-radius: .375rem;
+      border-top-left-radius: .375rem;
+    }
+  }
+}
+
+.distributions-header-title-container {
+  padding: 0;
+  margin: 0;
+}
+
+.dsd-feature-header-arrow-container {
+  display: inline-block;
+  margin-right: 10px !important;
+  padding: 0 !important;
+  flex: 0 0%;
+  max-width: 8.33333333%;
+
+  i {}
+}
+
+
+.dsd-item.additional-information {
+  padding: 0;
+  margin-left: 3rem;
+
+  .table {
+    background-color: transparent;
+    padding-left: 0 !important;
+
+    tr {
+      border-bottom: 1px solid #e4e4e7;
+
+      td.font-weight-bold {
+        font-weight: 500;
+        color: #3f3f46;
+      }
+
+      td {
+        padding-left: 0;
+        color: #71717a;
+      }
+    }
+  }
+}
+
+.dsd-distributions,
+.dsd-keywords-feature,
+.dsd-categories-feature,
+.dsd-properties,
+.dsd-map-feature {
+  -webkit-box-shadow: 1px 7px 15px -8px #E4E4E7;
+  box-shadow: 1px 7px 15px -8px #E4E4E7;
+  border: 2px solid #e4e4e7;
+  padding: 0rem;
+  border-radius: .5rem;
+  width: 86% !important;
+  margin-left: 8.33333333%;
+}
+
+
+
+//keyword tags alignment
+.keywords__item {
+  flex: 0 0 91.66666667%;
+  max-width: 96.66666667%;
+  width: 96.66666667%;
+  align-self: flex-end;
+
+  &.row {
+    gap: .1rem;
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -2px;
+}
+
+.tag-color {
+  border-radius: 0.375rem !important;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.325rem 0.625rem !important;
+  margin-top: 0;
+  margin-left: 0;
+  background-color: #314D84 !important;
+  color: #fff;
+}
+
+.dsd-title-tag,
+.dsd-action-button,
+.download-all-btn {
+  background-color: #314D84;
+  border-radius: .375rem !important
+}
+
+.download-all-btn {
+  background-color: #314d84;
+  border-radius: .375rem !important;
+  margin-right: 1rem;
+  margin-bottom: .5rem;
+}
+
+.distributions-header-container {
+  background-color: #1E2E4D;
+  color: #fff;
+  padding: 1rem;
+  border-bottom: 2px solid #fff;
+  border-top-right-radius: .375rem;
+  border-top-left-radius: .375rem;
+}
+
+.distributions-header-bottom-hr {
+  display: none
+}
+
+.distributions {
+  margin-top: 1rem;
+}
+
+.settings-facet,
+.datasets-filters-navigation,
+.validate-btn, 
+#subNavigation {
+  display: none !important;
+}
+
+.distributions__item {
+  border-bottom: none !important;
+  margin: 3rem 0;
+}
+
+.distribution-details-show-more {
+  color: #E3B95B;
+}
+
+
+
+//datasets home page
+.datasets-found.alert-primary {
+  background-color: #1E2E4D;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.facet-field {
+  .facet-title {
+    background-color: transparent;
+    -webkit-box-shadow: 0px 11px 40px -14px #D4D4D8;
+    box-shadow: 0px 11px 40px -14px #D4D4D8;
+    border-bottom: 1px solid #d4d4d8;
+  }
+}
+
+.list-group-item {
+  &-action.facet:hover {
+    border: 1px solid #1E2E4D;
+    transition: .75;
+  }
+}
+
+
+//responsive styles for dataset details page
+@media screen and (max-width: 996px) {
+
+  .dsd-distributions,
+  .dsd-keywords-feature,
+  .dsd-categories-feature,
+  .dsd-properties,
+  .dsd-map-feature {
+    width: 100% !important;
+    margin-left: 0%;
+  }
+
+
+  //keyword tags alignment
+  .keywords__item {
+    flex: 0 0 91.66666667%;
+    max-width: 96.66666667%;
+    width: 96.66666667%;
+    align-self: flex-end;
+
+    &.row {
+      gap: .1rem;
+    }
+  }
+
+  .dsd-item.additional-information {
+    margin-left: 0rem !important;
+    padding-left: 1rem;
+
+    a {
+      -ms-word-break: break-all;
+      word-break: break-all;
+      word-break: break-word;
+      -webkit-hyphens: auto;
+      -moz-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphens: auto;
+    }
   }
 }
 
