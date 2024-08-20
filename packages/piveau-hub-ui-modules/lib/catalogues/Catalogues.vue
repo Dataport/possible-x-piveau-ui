@@ -358,8 +358,6 @@ export default {
     this.initCatalogues();
     this.initInfiniteScrolling();
 
-    this.setQuery(this.$route.query?.query);
-
     if (this.resourcesStore.getters.getAvailableResources.length > 0) {
       this.resourcesStore.mutations.setSelectedResource('catalogues');
     } else {
