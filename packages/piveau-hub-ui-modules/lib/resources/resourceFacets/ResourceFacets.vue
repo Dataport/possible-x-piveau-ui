@@ -89,7 +89,11 @@ function checkboxFacetClicked(facetID: any) {
 
 function updateSelectedFacets() {
     resourcesStore.mutations.setSelectedFacets(selectedFacets);
-    router.replace({ query: Object.assign({}, { locale: route.query.locale, facets: JSON.stringify(selectedFacets) }) })
+    let newQuery = { locale: route.query.locale };
+    
+    if (Object.keys(selectedFacets).length > 0) newQuery.facets = JSON.stringify(selectedFacets);
+
+    router.replace({ query: Object.assign({}, route.query, newQuery) })
         .catch(error => { console.error(error); });
 }
 

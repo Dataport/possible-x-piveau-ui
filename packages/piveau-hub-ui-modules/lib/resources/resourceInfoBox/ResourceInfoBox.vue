@@ -53,7 +53,6 @@ const props = defineProps({
 });
 
 const getName = computed(() => {
-  console.log(props.resource)
   return props.resource?.name
         ? props.resource.name
         : props.resource.id;
