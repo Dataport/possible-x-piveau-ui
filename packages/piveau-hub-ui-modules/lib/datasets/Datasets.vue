@@ -452,8 +452,6 @@ export default {
     this.initDatasets();
     this.initInfiniteScrolling();
 
-    this.setQuery(this.$route.query?.query);
-
     if (this.resourcesStore.getters.getAvailableResources.length > 0) {
       this.resourcesStore.mutations.setSelectedResource('datasets');
     } else {
