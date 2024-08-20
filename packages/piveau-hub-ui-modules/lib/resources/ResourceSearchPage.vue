@@ -3,9 +3,6 @@
     <div class="container-fluid resource content">
       <slot name="content">
         
-      <!-- RESOURCE TOP CONTROLS -->
-        <resource-top-controls class="resource-top-controls"></resource-top-controls>
-        
         <div class="row">
 
           <!-- RESOURCE FACETS -->
@@ -87,7 +84,6 @@ import { useRuntimeEnv } from '../composables/useRuntimeEnv';
 import Pagination from '../widgets/Pagination.vue';
 import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
 
-import ResourceTopControls from "./ResourceTopControls.vue";
 import ResourceInfoBoxList from "./resourceInfoBox/ResourceInfoBoxList.vue";
 import ResourceFilters from "./resourceFilters/ResourceFilters.vue";
 import ResourceFacets from "./resourceFacets/ResourceFacets.vue";
