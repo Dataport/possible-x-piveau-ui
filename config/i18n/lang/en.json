@@ -1998,7 +1998,10 @@
                 "categories": "Categories",
                 "catalog": "Catalogues",
                 "countrydata": "Country data",
-                "tags": "Tags"
+                "tags": "Tags",
+                "erpd": "European Register for Protected Data held by the Public Sector",
+                "erpdInfo": "The European Register for Protected Data held by the Public Sector (ERPD) provides relevant information on what data is held by public authorities in the Member States, according to Art. 8.2 of the <a href=\"https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32022R0868\">Data Governance Act</a>. Any user, such as citizens, entrepreneurs, or researchers, can therefore search for and find information about public sector data in the EU Member States, including information on protected data that cannot be made available under the general open data rules (e.g. health or mobility data). <br><br> Further information on the implementation of the Data Governance Act is available <a href=\"https://digital-strategy.ec.europa.eu/en/policies/data-governance-act-explained\">here</a> and for more technical information with the harvesting guidelines <a href=\"https://data.europa.eu/en/academy/data-governance-act-implementation\">here</a>.",
+                "erpdOnly": "ERPD Data Only"
             },
             "title": "Filters",
             "and": "AND",
@@ -2151,7 +2154,8 @@
             "settings": "Decide whether your filter selection is exclusive or not. If you select AND all the search results must match all filters. OR means that at least one filter has to match.",
             "categories": "A category groups datasets sharing a common topic.",
             "publisher": "A publisher is an entity (e.g. organisation) that is responsible for making the Dataset available.",
-            "keywords": "Keywords are ideas and topics that define what the content is about."
+            "keywords": "Keywords are ideas and topics that define what the content is about.",
+            "country": "Provenance indicates the origin location of the dataset."
         },
         "userQueries": {
             "executeQuery": "Execute Query",
