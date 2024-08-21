@@ -68,7 +68,7 @@ export default {
     },
     isAuthenticated() {
       return this.authEnabled && this.keycloak?.authenticated;
-    }
+    },
   },
   methods: {
     ...mapActions('auth', [
