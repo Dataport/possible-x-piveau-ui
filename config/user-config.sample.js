@@ -108,12 +108,12 @@ const glueConfig = {
       },
       facets: {
         useResourceFacets: true,
-        excludedFacets: ['facetGroupOperator', 'dataScope', 'dataServices', 'scoring'],
-        facetOrder: ['facetGroupOperator', 'publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'dataServices', 'scoring', 'license', 'keyword', 'provided_by'],
+        excludedFacets: ['dataScope', 'scoring'],
+        facetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'scoring', 'license', 'keyword', 'provided_by'],
       },
     },
     resourceDetails: {
-      customResources: ["random", "test", "legalPersons", "serviceOfferings"]
+      customResources: ["legalPersons", "serviceOfferings"]
     },
     datasets: {
       useSort: true,

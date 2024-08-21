@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import 'es6-promise/auto';
 import $ from 'jquery';
 
@@ -60,7 +59,6 @@ import {
 } from '@piveau/piveau-hub-ui-modules';
 import '@piveau/piveau-hub-ui-modules/styles';
 
-
 // Add Font Awesome Icons
 library.add([faHome, faChevronDown, faBars, faTimes, faSearch, faExternalLinkAlt, faComments, faUser, faFacebook, faTwitter, faYoutube, faFacebookSquare, faTwitterSquare, faLinkedin, faYoutubeSquare]);
 library.add(faGoogle, faGooglePlus, faGooglePlusG, faFacebook, faFacebookF, faInstagram, faTwitter, faLinkedinIn, faComment, faExternalLinkAlt, faPlus, faMinus, faArrowDown, faArrowUp, faInfoCircle, faExclamationTriangle);
@@ -102,6 +100,13 @@ configureModules(app, store, {
     defaultScoringFacets: env.content.datasets.facets.scoringFacets.defaultScoringFacets,
   }
 });
+
+// Import custom resource components
+import ServiceOfferings from './components/custom-components/ServiceOfferings.vue';
+import LegalPersons from './components/custom-components/LegalPersons.vue';
+
+app.component('ServiceOfferings', ServiceOfferings);
+app.component('LegalPersons', LegalPersons);
 
 app.component('piveau-header', Header);
 app.component('piveau-footer', Footer);
