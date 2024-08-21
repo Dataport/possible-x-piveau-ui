@@ -21,8 +21,8 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     }
-                })           
-                resourceDetailsData.value = await response.data
+                });    
+                resourceDetailsData.value = await response.data?.result;
             } catch (error) {
                 console.error('API request failed:', error);
             }  
