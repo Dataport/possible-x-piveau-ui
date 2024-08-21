@@ -56,7 +56,7 @@ data() {
     defaultLocale: this.$env.languages.locale,
     defaultDisplayCount: 0,
     categories: {
-      displayAll: this.$env.content.datasetDetails.categoriesKey.collapsed,
+      displayAll: this.$env.content.datasetDetails.categoriesKey.isVisible,
       displayCount: 24, // Should never exceed number of keywords
       incrementSteps: [12, 60],
     },

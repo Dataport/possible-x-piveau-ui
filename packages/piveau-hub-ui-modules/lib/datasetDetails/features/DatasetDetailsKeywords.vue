@@ -80,7 +80,8 @@ export default {
       showTitle: this.$env.content.datasetDetails.keywords.showTitle,
       defaultDisplayCount: 0,
       keywords: {
-        displayAll: this.$env.content.datasetDetails.keywords.collapsed ? this.$env.content.datasetDetails.keywords.collapsed : false,
+        displayAll: this.$env.content.datasetDetails.keywords.isVisible,
+        // displayAll: this.$env.content.datasetDetails.keywords.collapsed ? this.$env.content.datasetDetails.keywords.collapsed : false,
         displayCount: 24, // Should never exceed number of keywords
         incrementSteps: [12, 60],
       },
