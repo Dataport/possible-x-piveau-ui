@@ -100,8 +100,8 @@ export default {
         yes: this.i18n.global.t('message.metadata.yes'),
         no: this.i18n.global.t('message.metadata.no'),
         property: this.i18n.global.t('message.datasetFacets.facets.erpdOnly'),
-        title: this.i18n.global.t('message.metadata.erpd'),
-        // toolTipTitle: "TOOLTIP",//this.i18n.global.t('message.helpIcon.dataServices'),
+        title: this.i18n.global.t('message.datasetFacets.facets.erpd'),
+        toolTipTitle: this.i18n.global.t('message.helpIcon.dataServices'),
       }
     };
   },
