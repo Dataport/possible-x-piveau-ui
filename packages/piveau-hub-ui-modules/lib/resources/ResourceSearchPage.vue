@@ -1,61 +1,53 @@
 <template>
   <div class="resource-container d-flex flex-column p-0 px-3 mr-5 bg-transparent">
     <div class="container-fluid resource content">
-      <slot name="content">
-        
-        <div class="row">
+      <!-- RESOURCE SEARCH PAGE -->
+      <div class="row">
 
-          <!-- RESOURCE FACETS -->
-          <resource-facets 
-            v-if="useResourceFacets" 
-            id="resourceFacets" 
-            class="col-md-3 col-12 mb-3 mb-md-0"
-            @resetFilters="initFilters"
-          ></resource-facets>
+        <!-- RESOURCE FACETS -->
+        <resource-facets 
+          v-if="useResourceFacets" 
+          id="resourceFacets" 
+          class="col-md-3 col-12 mb-3 mb-md-0"
+          @resetFilters="initFilters"
+        ></resource-facets>
 
-          <!-- RESOURCES -->
-          <section class="col-md col-12">
+        <!-- RESOURCES -->
+        <section class="col-md col-12">
 
-            <!-- RESOURCE TITLE -->
-            <slot name="title">
-              <div class="row">
-                <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${getSelectedResource}`) }}</h1>
-              </div>
-            </slot>
+          <!-- RESOURCE TITLE -->
+          <div class="row">
+            <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${getSelectedResource}`) }}</h1>
+          </div>
 
-            <!-- RESOURCE FILTERS -->
-            <slot name="resource-filters">
-              <resource-filters></resource-filters>
-            </slot>
+          <!-- RESOURCE FILTERS -->
+          <resource-filters></resource-filters>
 
-            <!-- RESOURCE FOUND MSG -->
-            <slot name="resource-found">
-              <div class="resource-found alert alert-primary mt-3 d-flex flex-row" role="status"
-                   :class="{ 'alert-danger': getResultsCount <= 0 && !getLoading}">
-                <div>
-                  {{
-                    getLoading 
-                    ? $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) }) 
-                    : `${$t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) })} (${getResultsCount})`
-                  }}
-                </div>
-                <div class="loading-spinner ml-3" v-if="getLoading"></div>
-              </div>
-            </slot>
+          <!-- RESOURCE FOUND MSG -->
+          <div class="resource-found alert alert-primary mt-3 d-flex flex-row" role="status"
+                :class="{ 'alert-danger': getResultsCount <= 0 && !getLoading}">
+            <div>
+              {{
+                getLoading 
+                ? $t('message.resources.loadingMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) }) 
+                : `${$t('message.resources.countMessage', { resource: $t(`message.header.navigation.data.${getSelectedResource}`) })} (${getResultsCount})`
+              }}
+            </div>
+            <div class="loading-spinner ml-3" v-if="getLoading"></div>
+          </div>
 
-            <!-- SELECTED RESOURCE FACETS -->
-            <selectedFacetsOverview v-if="getSelectedFacets" :selected-facets="getSelectedFacets" :available-facets="getFacets"></selectedFacetsOverview>
-            
-            <!-- RESOURCE RESULTS -->
-            <template v-if="!getLoading">
-              <resource-info-box-list :resources="getResults" :raw-selected-resource="getRawSelectedResource"></resource-info-box-list>
-            </template>
+          <!-- SELECTED RESOURCE FACETS -->
+          <selectedFacetsOverview v-if="getSelectedFacets" :selected-facets="getSelectedFacets" :available-facets="getFacets"></selectedFacetsOverview>
+          
+          <!-- RESOURCE RESULTS -->
+          <div v-if="!getLoading">
+            <resource-info-box-list :resources="getResults" :raw-selected-resource="getRawSelectedResource"></resource-info-box-list>
+          </div>
 
-            <!-- LOADING SPINNER -->
-            <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
-          </section>
-        </div>
-      </slot>
+          <!-- LOADING SPINNER -->
+          <div class="loading-spinner mx-auto mt-3 mb-3" v-if="getLoading"></div>
+        </section>
+      </div>
 
       <!-- PAGINATION -->
       <div class="row" v-if="usePagination">
@@ -102,13 +94,13 @@ const resourceMapping = ENV.content.resources.resourceMapping;
 
 function initResourceSearchPage() {
   if (route.params.hasOwnProperty('resource_type')) {
-    let selectedResource = resourceMapping[route.params.resource_type]
+    let selectedResource = resourceMapping[route.params.resource_type as keyof object]
     resourcesStore.mutations.setSelectedResource(selectedResource);
     initResources();
     initFilters();
   } else router.replace({ 
     name: 'ResourceSearchPage', 
-    params: { resource_type: getAvailableResources.value[0].resource },
+    params: { resource_type: getAvailableResources.value?.at(0) },
     query: Object.assign({}, route.query)
   });
 };

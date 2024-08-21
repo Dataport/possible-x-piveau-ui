@@ -69,6 +69,53 @@ export const facetSchema = z.object({
   }).default({}),
 }).default({})
 
+const resourcesSchema = z.object({
+  resourceMapping: z.object({
+    'datasets': z.string().default('datasets'),
+    'catalogues': z.string().default('catalogues'),
+    'legal-person': z.string().default('legalPersons'),
+    'software-offering': z.string().default('softwareOfferings'),
+    'service-offering': z.string().default('serviceOfferings'),
+  }),
+  search: z.object({
+    useSearch: z.boolean().default(true),
+  }),
+  limit: z.object({
+    defaultLimit: z.coerce.number().default(10),
+  }),
+  sort: z.object({
+    useSort: z.boolean().default(true),
+    defaultSort: z.string().default('relevance+desc, modified+desc, title.en+asc'),
+  }),
+  facets: z.object({
+    useResourceFacets: z.boolean().default(true),
+    excludedFacets: z.array(z.string()).default([
+      'dataScope', 
+      'scoring',
+    ]),
+    facetOrder: z.array(z.string()).default([
+      'publisher', 
+      'format',
+      'catalog',
+      'categories',
+      'keywords',
+      'dataScope',
+      'country',
+      'scoring',
+      'license',
+      'keyword',
+      'provided_by',
+    ]),
+  }),
+}).default({})
+
+const resourceDetailsSchema = z.object({
+  customResources: z.array(z.string()).default([
+    'legalPersons', 
+    'serviceOfferings',
+  ]),
+}).default({})
+
 const datasetsSchema = z.object({
   useSort: z.boolean().default(true),
   useFeed: z.boolean().default(true),
@@ -299,6 +346,8 @@ const dataProviderInterfaceSchema = z.object({
 }).default({})
 
 export const contentSchema = z.object({
+  resources: resourcesSchema,
+  resourceDetails: resourceDetailsSchema,
   datasets: datasetsSchema,
   catalogs: catalogsSchema,
   datasetDetails: datasetDetailsSchema,
