@@ -242,8 +242,20 @@
   justify-content: center;
   flex-direction: column;
 
+  h1.text-primary.page-title{
+    margin-left: -10px !important;
+    margin-right: 0;
+  }
+
+  .datasets.content{
+    width: 87% !important;
+    margin-top:0 !important;
+    padding-top: 0 !important;
+  }
+
   .dsd-content {
-    width: 86% !important;
+    width: 100% !important;
+
 
     // .heading {
     //   background-color: #1E2E4D;

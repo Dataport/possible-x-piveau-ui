@@ -139,11 +139,6 @@ const props = defineProps({
   display: flex;
   justify-content: center;
   align-items: center;
-
-
-  .content-wrapper {
-    width: 73%;
-  }
 }
 
 a {
