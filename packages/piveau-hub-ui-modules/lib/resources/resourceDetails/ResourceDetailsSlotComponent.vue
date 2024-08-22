@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content-wrapper">
     <span class="resource_banner">{{ $t(`message.header.navigation.data.${selectedResource}`) }}</span>
     <div class="sub_nav">
         <a href="">Linked Data &#128279;</a>
@@ -7,7 +7,6 @@
     </div>
     <h1>{{ resourceDetailsData?.name || resourceDetailsData?.id }} </h1>
     <p>{{ resourceDetailsData?.description }}</p>
-    
     <slot name="resource-details"></slot>
   </div>
 </template>
@@ -22,13 +21,17 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped> 
+.content-wrapper{
+  width: 86% !important;
+  align-self: center;
+}
 .resource_banner {
   background-color: #1E2E4D;
   color: #fff;
   padding: .4rem .6rem;
   border-radius: .3rem;
   font-size: 1.2rem;
-  font-weight: 600
+  font-weight: 600;
 }
 
 .sub_nav {
