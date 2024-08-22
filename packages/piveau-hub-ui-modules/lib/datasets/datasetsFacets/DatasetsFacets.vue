@@ -1,6 +1,6 @@
 <template>
   <div class="container dataset-facets">
-    <div class="row mx-3 mr-md-0">
+    <div class="row mr-md-0">
       <div class="col">
         <datasets-map-facet :showCatalogDetails="showCatalogDetails" />
         <catalog-details-facet class="catalog-details" v-if="showCatalogDetails" :catalog="catalog"
