@@ -263,7 +263,6 @@ a {
 
 @media screen and (max-width: 1024px) {
   .page{
-    background-color: red !important;
     .content-wrapper{
       width: 98%
     }
