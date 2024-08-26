@@ -8,18 +8,21 @@
     </div>
 
     <div class="w-33">
-      <h4>POSSIBLE</h4>
-      <p></p>
+      <h4>POSSIBLE-X Catalogue</h4>
+      <div>© 2024 Fraunhofer FOKUS</div>
     </div>
 
     <div class="w-33">
       <h4>Information</h4>
       <ul>
         <li class="mb-2">
-          <a target="_blank" href="https://possible.fokus.fraunhofer.de/imprint">Imprint</a>
+          <a href="https://www.possible-gaia-x.eu/" target="_blank">POSSIBLE Project</a>
         </li>
         <li class="mb-2">
-          <a target="_blank" href="https://possible.fokus.fraunhofer.de/privacypolicy">Privacy Policy</a>
+          <router-link to="/imprint">Impressum</router-link>
+        </li>
+        <li class="mb-2">
+          <router-link to="/privacypolicy">Datenschutz</router-link>
         </li>
       </ul>
     </div>
