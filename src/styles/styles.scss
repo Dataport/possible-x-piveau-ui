@@ -468,6 +468,10 @@
   }
 }
 
+.page-link.prev-button, .page-item-next, .page-item, .page-link {
+ height: 39px !important;
+}
+
 
 //responsive styles for dataset details page
 @media screen and (max-width: 996px) {
