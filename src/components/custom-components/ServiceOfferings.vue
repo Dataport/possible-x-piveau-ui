@@ -136,9 +136,6 @@ const props = defineProps({
 <style lang="scss" scoped>
 .page {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 a {
@@ -162,6 +159,8 @@ a {
 .main_section {
   display: flex;
   gap: 1rem;
+  width: 100%;
+  justify-content: space-between;
 
   .left {
     width: 60%;
