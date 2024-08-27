@@ -1,6 +1,6 @@
 <template>
   <div ref="datasetDescription" class="mt-4 mb-4 dsd-description" data-cy="dataset-description">
-    <div v-if="getDatasetDescription !== 'No description available'" class="col-12 col-lg-11 offset-lg-1 dsd-description-content" property="dc:description">
+    <div v-if="getDatasetDescription !== 'No description available'" class="col-12 dsd-description-content" property="dc:description">
       <app-markdown-content
         v-if="$env.content.datasetDetails.description.enableMarkdownInterpretation"
         :text="truncate(getDatasetDescription, datasetDescriptionLength)"
@@ -22,7 +22,7 @@
         class="row text-primary"
       />
     </div>
-    <div v-else class="col-10 offset-1 text-muted font-italic dsd-description-content">
+    <div v-else class="col-12 text-muted font-italic dsd-description-content">
       <p style="word-wrap:break-word;">
         {{ $t('message.catalogsAndDatasets.noDescriptionAvailable') }}
       </p>

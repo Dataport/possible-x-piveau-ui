@@ -10,11 +10,14 @@ export const getFacet = (id: string): Component => {
     if (custom && custom[id]) {
         return custom[id];
     } else {
+        // Define logic for special facets here
         switch (id) {
             case "facetGroupOperator": return RadioFacet;
             case "dataServices":
             case "superCatalog": return CheckboxFacet;
         }
+
+        // Return the default Facet component for all other facets
         return Facet;
     }
 }

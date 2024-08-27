@@ -3,7 +3,7 @@
     <div class="container-fluid justify-content-between">
       <div class="navbar-datasets-feed navbar-nav align-items-center justify-content-end">
         <div class="nav-item dropdown">
-          <div v-if="useFeed" class="nav-link dropdown-toggle cursor-pointer"
+          <div class="nav-link dropdown-toggle cursor-pointer"
                id="dropdown-feeds" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
             <ins>{{ $t('message.datasets.datasetsFeed') }}</ins>
@@ -46,7 +46,6 @@ export default {
   ],
   data() {
     return {
-      useFeed: this.$env.content.datasets.useFeed,
       baseUrl: this.$env.api.baseUrl,
     }
   },

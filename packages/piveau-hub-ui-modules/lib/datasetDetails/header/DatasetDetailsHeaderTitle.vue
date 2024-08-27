@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-row align-items-center col-12 col-lg-10 offset-lg-1 mb-3 px-0 dsd-header-title">
+  <div class="d-flex flex-row align-items-center col-12 mb-3 px-0 dsd-header-title">
     <div v-if="isErpdActive()" class="d-none d-lg-flex dsd-title-tag erpdInfo">
       <span>{{$t('message.metadata.protecteddata')}}</span>
     </div>

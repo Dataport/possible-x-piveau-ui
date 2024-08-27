@@ -1,27 +1,28 @@
 <template>
   <div class="resource-container d-flex flex-column p-0 px-3 mr-5 bg-transparent">
     <div class="container-fluid resource content">
+
+      <!-- RESOURCE TITLE -->
+      <div class="row">
+        <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${getSelectedResource}`) }}</h1>
+      </div>
+
       <!-- RESOURCE SEARCH PAGE -->
       <div class="row">
 
         <!-- RESOURCE FACETS -->
-        <resource-facets 
+        <ResourceFacets 
           v-if="useResourceFacets" 
           id="resourceFacets" 
           class="col-md-3 col-12 mb-3 mb-md-0"
           @resetFilters="initFilters"
-        ></resource-facets>
+        ></ResourceFacets>
 
         <!-- RESOURCES -->
         <section class="col-md col-12">
 
-          <!-- RESOURCE TITLE -->
-          <div class="row">
-            <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${getSelectedResource}`) }}</h1>
-          </div>
-
           <!-- RESOURCE FILTERS -->
-          <resource-filters></resource-filters>
+          <ResourceFilters></ResourceFilters>
 
           <!-- RESOURCE FOUND MSG -->
           <div class="resource-found alert alert-primary mt-3 d-flex flex-row" role="status"
@@ -37,11 +38,11 @@
           </div>
 
           <!-- SELECTED RESOURCE FACETS -->
-          <selectedFacetsOverview v-if="getSelectedFacets" :selected-facets="getSelectedFacets" :available-facets="getFacets"></selectedFacetsOverview>
+          <ResourceFacetsSelected v-if="getSelectedFacets" :selected-facets="getSelectedFacets" :available-facets="getFacets"></ResourceFacetsSelected>
           
           <!-- RESOURCE RESULTS -->
           <div v-if="!getLoading">
-            <resource-info-box-list :resources="getResults" :raw-selected-resource="getRawSelectedResource"></resource-info-box-list>
+            <ResourceInfoBoxList :resources="getResults" :raw-selected-resource="getRawSelectedResource"></ResourceInfoBoxList>
           </div>
 
           <!-- LOADING SPINNER -->
@@ -52,14 +53,14 @@
       <!-- PAGINATION -->
       <div class="row" v-if="usePagination">
         <div class="column col-12 col-md-9 offset-md-3">
-          <pagination class="mt-5"
+          <Pagination class="mt-5"
             :items-count="getResultsCount"
             :items-per-page="getLimit"
             :get-page="getPage"
             :get-page-count="getPageCount"
             @setPage="setPage"
             @setPageLimit="setLimit"
-          ></pagination>
+          ></Pagination>
         </div>
       </div>
     </div>
@@ -68,13 +69,14 @@
 
 <script lang="ts" setup>
 import { ref, computed, nextTick } from 'vue';
+import $ from 'jquery';
 
 import { useRoute, useRouter } from 'vue-router';
 import { useResourcesStore } from '../store/resourcesStore';
 import { useRuntimeEnv } from '../composables/useRuntimeEnv';
 
 import Pagination from '../widgets/Pagination.vue';
-import SelectedFacetsOverview from '../facets/SelectedFacetsOverview.vue';
+import ResourceFacetsSelected from './resourceFacets/ResourceFacetsSelected.vue';
 
 import ResourceInfoBoxList from "./resourceInfoBox/ResourceInfoBoxList.vue";
 import ResourceFilters from "./resourceFilters/ResourceFilters.vue";
@@ -114,6 +116,9 @@ function initResources() {
         .then(() => {
           // $Progress.finish();
           isLoading.value = false;
+          $('[data-toggle="tooltip"]').tooltip({
+            container: 'body',
+          });
         })
         .catch((error) => {
           console.error(error)
