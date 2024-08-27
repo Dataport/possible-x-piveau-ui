@@ -385,14 +385,13 @@
   color: #E3B95B;
 }
 
-
-
-//datasets home page
-.datasets-found.alert-primary {
-  background-color: #1E2E4D;
-  color: #fff !important;
-  font-weight: 600;
-  font-size: 1.1rem;
+.datasets-found, .resource-found {
+  &.alert-primary {
+    background-color: #1E2E4D;
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
 }
 
 .facet-field {
