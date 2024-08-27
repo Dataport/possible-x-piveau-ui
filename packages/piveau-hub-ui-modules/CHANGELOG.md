@@ -1,3 +1,12 @@
+## [4.1.6](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.5...v4.1.6) (2024-08-27)
+
+
+### Bug Fixes
+
+* **ResourceAccessPopup:** prevent cookie with null-value from being set on created hook ([093a06e](https://gitlab.com/piveau/ui/piveau-ui/commit/093a06e7ce08cbe698647d9e5089afcd012e3b24))
+
+
+
 ## [4.1.5](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.4...v4.1.5) (2024-08-15)
 
 
