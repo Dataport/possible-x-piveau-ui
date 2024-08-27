@@ -4,7 +4,7 @@ stages:
 
 build-asset:
   stage: build
-  image: node:18-alpine
+  image: node:20-alpine
   only:
     - master
     - develop
