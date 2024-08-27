@@ -34,7 +34,7 @@ const hubUrl = ENV.api.hubUrl;
 
 <style lang="scss" scoped>
 .content-wrapper {
-  width: 86% !important;
+  width: 1500px !important;
   align-self: center;
 }
 
