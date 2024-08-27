@@ -16,8 +16,6 @@ import {
   ResourceDetailsPage,
   Catalogues,
   NotFound,
-  Imprint,
-  PrivacyPolicy,
   SparqlSearch,
   DataProviderInterface,
   DataFetchingComponent,
@@ -28,6 +26,11 @@ import {
   UserCataloguesPage,
   decode,
 } from "@piveau/piveau-hub-ui-modules";
+
+
+import Imprint from './components/Imprint.vue';
+import PrivacyPolicy from './components/PrivacyPolicy.vue';
+
 
 const title = GLUE_CONFIG.metadata.title;
 

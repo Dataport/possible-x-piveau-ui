@@ -13,7 +13,7 @@
           <div>
             <p><strong>Umsatzsteuer-Identifikationsnummer gemäß § 27 a</strong><br>Umsatzsteuergesetz: DE 129515865</p>
             <p><strong>Registergericht</strong><br>Amtsgericht München<br>Eingetragener Verein<br>Register-Nr. VR 4461</p>
-            <p><strong>Verantwortlicher Redakteur:</strong><br><a href="mailto:info@piveau.de">info@piveau.de</a><br><br><b>Vorstand</b><br><b>Prof. Dr.-Ing. Holger Hanselka</b> | Präsident<br><b>Prof. Dr. Axel Müller-Groeling</b> | Mitglied des Vorstands<br><b>Ass. jur. Elisabeth Ewen</b> | Mitglied des Vorstands<br><b>Dr. Sandra Krey</b> | Mitglied des Vorstands</p>
+            <p><strong>Verantwortlicher Redakteur:</strong><br>fabian.kirstein@fokus.fraunhofer.de<br><br><b>Vorstand</b><br><b>Prof. Dr.-Ing. Holger Hanselka</b> | Präsident<br><b>Prof. Dr. Axel Müller-Groeling</b> | Mitglied des Vorstands<br><b>Ass. jur. Elisabeth Ewen</b> | Mitglied des Vorstands<br><b>Dr. Sandra Krey</b> | Mitglied des Vorstands</p>
           </div>
           <hr>
           <div>

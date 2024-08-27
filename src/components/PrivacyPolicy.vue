@@ -5,7 +5,7 @@
     <div class="privacyText">
       <div>
         <p>
-          Im Rahmen der Nutzung der "piveau Demo" Webseite werden personenbezogene Daten von
+          Im Rahmen der Nutzung der "POSSIBLE Katalog" Webseite werden personenbezogene Daten von
           Ihnen durch uns als den für die Datenverarbeitung Verantwortlichen verarbeitet und für die
           Dauer gespeichert, die zur Erfüllung der festgelegten Zwecke und gesetzlicher
           Verpflichtungen erforderlich ist. Im Folgenden informieren wir Sie darüber, um welche
@@ -41,7 +41,7 @@
       <hr>
       <h3>Verarbeitung personenbezogener Daten und Zwecke der Verarbeitung</h3>
       <p>
-        Wenn Sie die "piveau Demo" Webseite besuchen, speichern unsere Server temporär jeden
+        Wenn Sie die "POSSIBLE Katalog" Webseite besuchen, speichern unsere Server temporär jeden
         Zugriff Ihres Endgerätes in einer Protokolldatei. Folgende Daten werden erfasst und bis zur
         automatisierten Löschung gespeichert:<br>
       </p>
@@ -208,7 +208,7 @@
       <hr>
       <h3>Datensicherheit</h3>
       <p>
-        Der Backend-Server der "piveau Demo" Webseite sowie die Ausgaben selbst werden mit
+        Der Backend-Server der "POSSIBLE Katalog" Webseite sowie die Ausgaben selbst werden mit
         dem allgemein üblichen und sicheren Standard TLS (Transport Layer Security) verschlüsselt
         übertragen. TLS ist ein sicherer und erprobter Standard, der z.B. auch beim Onlinebanking
         Verwendung findet. Sie erkennen eine sichere TLS-Verbindung unter anderem an dem angehängten
@@ -226,7 +226,7 @@
 
       Durch die Weiterentwicklung unseres Angebots oder aufgrund geänderter gesetzlicher bzw.
       behördlicher Vorgaben kann es notwendig werden, diese Datenschutzinformation zu ändern. Die
-      jeweils aktuelle Datenschutzinformation kann jederzeit auf der "piveau Demo" Webseite
+      jeweils aktuelle Datenschutzinformation kann jederzeit auf der "POSSIBLE Katalog" Webseite
       von Ihnen abgerufen und ausgedruckt werden.
       <hr>
       <h3>Salvatorische Klausel</h3>

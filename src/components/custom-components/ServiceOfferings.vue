@@ -157,6 +157,8 @@ a {
 .main_section {
   display: flex;
   gap: 1rem;
+  width: 100%;
+  justify-content: space-between;
 
   .left {
     width: 60%;
