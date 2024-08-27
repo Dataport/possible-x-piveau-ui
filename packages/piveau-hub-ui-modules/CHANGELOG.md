@@ -1,3 +1,12 @@
+## [4.1.7](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.6...v4.1.7) (2024-08-27)
+
+
+### Bug Fixes
+
+* fixed the catalog issue and some minor styling thingies ([872d2d6](https://gitlab.com/piveau/ui/piveau-ui/commit/872d2d6c88bded7084fbc76ed201cb5921feb713))
+
+
+
 ## [4.1.6](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.5...v4.1.6) (2024-08-27)
 
 
