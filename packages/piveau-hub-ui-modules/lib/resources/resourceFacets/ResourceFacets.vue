@@ -1,19 +1,21 @@
 <template>
-    <div class="bg-primary text-white align-self-start p-4">
-        <div class="mt-2">
-            <div class="mb-4" v-if="facetsEmpty">
-                <h3>{{ facetsEmptyMessage }}</h3>
-            </div>
-            <Facets class="mb-4" :facets="getFacets" :facetOrder="getFacetOrder" 
-                @facet-clicked="facetClicked" 
-                @radio-facet-clicked="radioFacetClicked"
-                @checkbox-facet-clicked="checkboxFacetClicked"
-            ></Facets>
+    <div>
+        <div class="mb-4" v-if="facetsEmpty">
+            <h3>{{ facetsEmptyMessage }}</h3>
         </div>
+
+        <Facets class="mb-4" :facets="getFacets" :facetOrder="getFacetOrder" 
+            @facet-clicked="facetClicked" 
+            @radio-facet-clicked="radioFacetClicked"
+            @checkbox-facet-clicked="checkboxFacetClicked">
+        </Facets>
         
-        <div class="mt-5">
-            <button @click="resetFilters()">
+        <div class="list-item-container mt-5">
+            <button class="facet list-group-item w-100 text-left" @click="resetFilters()">
                 Reset Filters
+                <i class="material-icons small-icon float-right">
+                    clear
+                </i>
             </button>
         </div>
     </div>
@@ -23,17 +25,17 @@
 import { ref, computed } from 'vue';
 
 import { useRoute, useRouter } from 'vue-router';
-import { useResourcesStore } from '../../store/resourcesStore';
 import { useI18n } from 'vue-i18n';
 import { useRuntimeEnv } from '../../composables/useRuntimeEnv';
+import { useResourcesStore } from '../../store/resourcesStore';
 
 import Facets from './facets/Facets.vue';
 
 const route = useRoute();
 const router = useRouter();
-const resourcesStore = useResourcesStore();
 const { t } = useI18n();
 const ENV = useRuntimeEnv();
+const resourcesStore = useResourcesStore();
 
 const emit = defineEmits(['resetFilters']);
 

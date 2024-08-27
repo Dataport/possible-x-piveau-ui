@@ -1,6 +1,7 @@
 <template>
   <div class="datasets-container d-flex flex-column p-0 bg-transparent">
     <datasets-top-controls
+        v-if="useFeed"
         :facets="facets"
         :getPage="getPage"
         :getLimit="getLimit"
@@ -163,7 +164,8 @@ export default {
       lang: this.locale,
       filterCollapsed: true,
       catalogAllowed: false,
-      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets
+      useDatasetFacets: this.$env.content.datasets.facets.useDatasetFacets,
+      useFeed: this.$env.content.datasets.useFeed,
     };
   },
   computed: {
