@@ -42,7 +42,6 @@ function initFacets() {
         : {};
 
     selectedFacets = facets;
-    updateSelectedFacets();
 };
 
 function routerPush(object: object) {
@@ -117,8 +116,7 @@ function updateSelectedFacets() {
   if (!!oldQuery.facets) delete oldQuery.facets;
   if (Object.keys(selectedFacets).length > 0) newQuery.facets = JSON.stringify(selectedFacets);
 
-  router.replace({ query: Object.assign({}, oldQuery, newQuery) })
-      .catch(error => { console.error(error); });
+  routerPush({ query: Object.assign({}, oldQuery, newQuery) });
 };
 
 const getSelectedFacetsOrdered = computed(() => {
@@ -159,7 +157,7 @@ const getSelectedFacets = computed(() => {
 
     if (route.query.dataScope === 'countryData') newSelectedFacets.dataScope = ['countryData'];
 
-    routerPush({ query: Object.assign({}, route.query) });
+    // routerPush({ query: Object.assign({}, route.query) });
 
     return newSelectedFacets;
 
