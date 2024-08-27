@@ -1,12 +1,12 @@
 <template>
   <div class="page">
-    <section class="main_section">
+    <section class="main_section pt-5">
       <div class="left">
         <section>
-          <h5>Keywords</h5>
+          <h4>Keywords</h4>
           <hr />
           <div class="tag_container">
-            <div class="tag" v-for="(keyword) in resourceDetailsData.keyword">
+            <div class="tag" v-for="(keyword) in resourceDetailsData.keyword" v-bind:key="keyword">
               <span>{{ keyword.label }}</span>
             </div>
           </div>
@@ -14,10 +14,10 @@
         </section>
 
         <section>
-          <h5>Service Policy</h5>
+          <h4>Service Policy</h4>
           <hr />
           <div class="tag_container">
-            <div class="tag" v-for="(policy) in resourceDetailsData.service_policy">
+            <div class="tag" v-for="(policy) in resourceDetailsData.service_policy" v-bind:key="policy">
               <span>{{ policy }}</span>
             </div>
           </div>
@@ -25,12 +25,12 @@
         </section>
 
         <section>
-          <h5>Endpoint</h5>
+          <h4>Endpoint</h4>
           <hr />
           <div class="endpoint">
             <div>
               <span class="label">URL:</span>
-              <a href="">{{ resourceDetailsData.endpoint?.endpoint_url }}</a>
+              <a v-bind:href=resourceDetailsData.endpoint?.endpoint_url target="_blank">{{ resourceDetailsData.endpoint?.endpoint_url }}</a>
             </div>
 
             <div>
@@ -49,13 +49,27 @@
 
       </div>
       <div class="right">
+          <div class="info-box">
+          <h5>General</h5>
+          <hr />
+          <div class="info">
+            <div>
+              <span class="label">Provision Type:</span>
+             <span>{{ resourceDetailsData.provision_type }}</span>
+            </div>
+            <div>
+              <span class="label">Data Protection Regime:</span>
+              <span>{{ resourceDetailsData.data_protection_regime?.at(0) }}</span>
+            </div>
+          </div>
+        </div>
         <div class="info-box">
           <h5>Terms and Conditions</h5>
           <hr />
           <div class="info">
             <div>
               <span class="label">URL:</span>
-              <span class="cropped_link"><a href="">{{ resourceDetailsData.terms_and_conditions?.at(0)?.url }}</a></span>
+              <span class="cropped_link"><a v-bind:href=resourceDetailsData.terms_and_conditions?.at(0)?.url target="_blank">{{ resourceDetailsData.terms_and_conditions?.at(0)?.url }}</a></span>
             </div>
             <div>
               <span class="label">Hash:</span>
