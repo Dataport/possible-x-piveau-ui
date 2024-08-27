@@ -11,7 +11,7 @@
                     required: 'The catalog is required',
                 }" :name="props.context.node.name" />
 
-            <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK">
+            <ul ref="dropdownList" v-show="showList" class="autocompleteResultList selectListFK catSelectList">
 
                 <li v-for="match in filteredCatalogs" :key="match" @click="setvalue(match)"
                     class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">{{
@@ -24,8 +24,6 @@
                 </li>
             </ul>
         </div>
-
-
     </div>
 
 </template>
@@ -62,21 +60,31 @@ catVal = getNode('dcat:catalog').value
 onClickOutside(dropdownList, event => showList.value = false)
 
 const setvalue = async (e) => {
+   
     validationTrigger = false
-    props.context.node.input(e.id)
-    showList.value = !showList.value;
-    getNode('dcat:catalog').value = e.id
-    catVal = e.name
+    if (e.id) {
+        props.context.node.input(e.id)
+        showList.value = !showList.value;
+        getNode('dcat:catalog').value = e.id
+        catVal = e.name
+    } else {
+        props.context.node.input(e)
+        showList.value = !showList.value;
+        getNode('dcat:catalog').value = e
+        catVal = e
+    }
+
 }
 let filterCatList = async () => {
     let cache;
     await axios
-        .get(env.api.baseUrl + 'search?filter=catalogue')
+        .get(env.api.baseUrl + 'search?filter=catalogue&limit=1000')
         .then(response => (cache = response))
         .catch((err) => {
             reject(err);
         });
 
+    
     cache.data.result.results.forEach((e) => {
         if (has(e, 'title') && !isNil(e.title) && has(e, 'id') && !isNil(e.id)) filteredCatalogs.value.push({ title: Object.values(e.title)[0], id: e.id })
     });
@@ -100,7 +108,13 @@ onMounted(async () => {
 
 </script>
 <style>
+.catSelectList {
+    width: 97.3% !important;
+    margin: 0 1rem;
+}
+
 .selectListFK {
+
     max-height: 20rem;
     overflow: overlay;
     overflow-x: hidden;

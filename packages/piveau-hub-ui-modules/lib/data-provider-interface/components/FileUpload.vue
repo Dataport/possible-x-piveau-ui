@@ -5,7 +5,7 @@
       @click="triggerDropdown()" :placeholder="placeholderMessage" v-model="inputChoice" :validation-messages="{
         required: validationMessage,
       }" />
-    <ul ref="fLoad" v-if="drop.active" class="selectListUpload">
+    <ul ref="fLoad" v-if="drop.active" class="selectListUpload fileuploadList">
       <li @click="uploadFileSwitch = true; toggleUploadUrl()"
         class="p-2 border-b border-gray-200 data-[selected=true]:bg-blue-100 choosableItemsAC">Upload a file</li>
       <li @click="uploadURL = true; toggleUploadFileSwitch()"
@@ -389,5 +389,8 @@ export default {
   max-width: 100%;
   display: flex;
   flex-wrap: wrap;
+}
+.fileuploadList{
+  width: 96.7%;
 }
 </style>
