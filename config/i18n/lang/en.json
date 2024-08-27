@@ -1995,6 +1995,7 @@
                 "publisher": "Publisher",
                 "license": "Licences",
                 "keywords": "Keywords",
+                "keyword": "Keyword",
                 "categories": "Categories",
                 "catalog": "Catalogues",
                 "countrydata": "Country data",
@@ -2155,6 +2156,7 @@
             "categories": "A category groups datasets sharing a common topic.",
             "publisher": "A publisher is an entity (e.g. organisation) that is responsible for making the Dataset available.",
             "keywords": "Keywords are ideas and topics that define what the content is about.",
+            "keyword": "Keywords are ideas and topics that define what the content is about.",
             "country": "Provenance indicates the origin location of the dataset."
         },
         "userQueries": {

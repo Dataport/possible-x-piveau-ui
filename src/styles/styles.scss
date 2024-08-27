@@ -332,9 +332,6 @@
   // border: 2px solid #e4e4e7;
   padding: 0rem;
   border-radius: .5rem;
-  width: 86% !important;
-  margin-left: 8.33333333%;
-
 }
 
 .dsd-feature-header-arrow-container{
@@ -442,14 +439,13 @@
   color: #E3B95B;
 }
 
-
-
-//datasets home page
-.datasets-found.alert-primary {
-  background-color: #1E2E4D;
-  color: #fff !important;
-  font-weight: 600;
-  font-size: 1.1rem;
+.datasets-found, .resource-found {
+  &.alert-primary {
+    background-color: #1E2E4D;
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
 }
 
 .facet-field {

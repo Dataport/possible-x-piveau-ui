@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div>
+  <div class="page">
+    <section class="main_section">
       {{ resourceDetailsData }}
-    </div>
+    </section>
   </div>
 </template>
   
@@ -13,9 +13,8 @@ const props = defineProps({
 });
 </script>
   
-<style scss scoped>
+<style lang="scss" scoped>
 .resource_banner {
-  /* background-color: #314D84; */
   background-color: #1E2E4D;
   color: #fff;
   padding: .4rem .6rem;
@@ -24,15 +23,8 @@ const props = defineProps({
   font-weight: 600
 }
 
-.sub_nav {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  a{
-    color: #99772C;
-    text-decoration: underline;
-  }
-
+.page {
+  width: 100%;
 }
 
 .main_section {
@@ -40,101 +32,21 @@ const props = defineProps({
   gap: 1rem;
 
   .left {
-    width: 65%;
+    width: 60%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .right {
-    width: 35%;
+    width: 40%;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
 
     hr {
       background-color: #fff;
     }
-  }
-}
-
-.tag_container {
-  display: flex !important;
-  flex-wrap: wrap;
-  gap: .5rem;
-
-  .tag {
-    background-color: #314D84;
-    color: #fff;
-    padding: .4rem .6rem;
-    border-radius: .3rem
-  }
-}
-
-.label {
-  font-weight: 700;
-}
-
-.info-box {
-  background-color: #1E2E4D;
-  color: #fff;
-  padding: .0rem 0rem;
-  border-radius: .6rem;
-
-  .info {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-
-    div{
-     
-    }
-  }
-
-  a {
-    color: #fff;
-    text-decoration: underline;
-    word-wrap: normal;
-  }
-}
-
-.endpoint {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.left,
-.right {
-  h5 {
-    border: 1px solid #fff;
-    border-top-left-radius: .6rem;
-    border-top-right-radius: .6rem;
-
-  }
-
-  .info {
-    padding: 1rem
-  }
-}
-
-.right {
-  hr {
-    display: none;
-  }
-
-  h5 {
-    padding: 1rem;
-  }
-}
-
-.policy_tag{
-  .label{
-    background-color: #D99809;
-    color: #fff;
-    padding: .4rem .6rem;
-    border-radius: .3rem;
-  
   }
 }
 </style>
