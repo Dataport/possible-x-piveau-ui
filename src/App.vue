@@ -122,7 +122,7 @@ export default {
 }
 
 .container-fluid {
-  max-width: 1500px !important;
+  max-width: 1340px !important;
 }
 </style>
 
