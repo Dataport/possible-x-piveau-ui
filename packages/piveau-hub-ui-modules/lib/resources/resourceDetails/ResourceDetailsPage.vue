@@ -1,5 +1,5 @@
 <template>
-    <div v-if="resourceDetailsData">
+    <div v-if="resourceDetailsData" class="container-fluid" >
         <ResourceDetailsSlotComponent :selected-resource="selectedResource" :resource-details-data="resourceDetailsData">
             <template #resource-details>
                 <!-- USE DEFAULT DETAILS PAGE -->
