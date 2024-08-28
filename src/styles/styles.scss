@@ -12,6 +12,11 @@
   text-align: left;
 }
 
+.container-fluid{
+
+  padding-left:42px !important;
+}
+
 
 // Hacky solution to fix the dataset details -- needs to be fixed in the modules #### start ######
 .additional-information-overlay {
@@ -236,11 +241,13 @@
 }
 
 
+
 .content {
   width: 100% !important;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin-top: 0 !important;
 
   h1.text-primary.page-title{
     margin-left: -10px !important;
@@ -248,7 +255,6 @@
   }
 
   .datasets.content{
-    width: 87% !important;
     margin-top:0 !important;
     padding-top: 0 !important;
   }
