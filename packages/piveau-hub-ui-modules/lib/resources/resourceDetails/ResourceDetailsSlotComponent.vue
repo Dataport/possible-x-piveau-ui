@@ -33,11 +33,6 @@ const hubUrl = ENV.api.hubUrl;
 </script>
 
 <style lang="scss" scoped>
-.content-wrapper {
-  width: 1500px !important;
-  align-self: center;
-}
-
 .resource_banner {
   background-color: #1E2E4D;
   color: #fff;
