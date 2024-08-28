@@ -9,8 +9,8 @@
             }" @click="activeStep = stepName">
             <div class="stepBubbleWrap">
               <div class="circle stepCircle">{{ index + 1 }}</div>
-              <span v-if="checkStepValidity(stepName)" class="step--errors" 
-              v-text="step.errorCount + step.blockingCount" />
+              <span v-if="checkStepValidity(stepName)" class="step--errors" />
+              <!-- v-text="step.errorCount + step.blockingCount" /> -->
               {{ camel2title(stepName) }}
             </div>
             <div v-if="index + 1 != Object.keys(getNavSteps($env.content.dataProviderInterface.specification).distributions).length" class="seperatorHorizontalStepper">

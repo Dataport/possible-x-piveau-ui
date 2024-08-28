@@ -1232,8 +1232,8 @@ const dcatapProperties: InputDefinition = {
               classes: {
                 outer: 'w-100'
               },
-              // validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
-              // 'validation-visibility': 'live',
+              validation: 'optional|date_after:' + new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
+              'validation-visibility': 'live',
             }
           }
         },
@@ -1345,6 +1345,7 @@ const dcatapProperties: InputDefinition = {
       name: 'dcat:catalog',
       id:'dcat:catalog',
       class: 'property mandatory',
+      validation: 'required',
       options: {},
       classes: { outer: 'formkitProperty formkitCmpWrap mx-0 my-3 p-3' }
     },

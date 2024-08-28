@@ -9,9 +9,7 @@ import ConditionalInput from "../data-provider-interface/components/ConditionalI
 import SimpleSelect from "../data-provider-interface/components/SimpleSelect.vue";
 import SimpleInput from "../data-provider-interface/components/SimpleInput.vue";
 
-
 export default {
-  
     repeatable: {
         type: 'list',
         component: Repeatable

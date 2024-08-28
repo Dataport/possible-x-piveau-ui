@@ -236,8 +236,6 @@ export default {
 .spatialWrap {
     .spatialListUpload {
         width: 100%;
-        left: 0;
-        top:78px;
     }
 }
 </style>
