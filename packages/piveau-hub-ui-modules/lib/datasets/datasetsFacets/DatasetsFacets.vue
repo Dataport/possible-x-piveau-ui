@@ -21,13 +21,7 @@
             :getFacetTranslationWrapper="getFacetTranslationWrapper" :facetIsSelected="facetIsSelected"
             :facetClicked="facetClicked" :multiSelect="isMultiSelect(field.id)" class="col pr-0" />
         </div>
-        <div>
-          <pv-show-more v-if="showMoreFacetsShown"
-            :label="cutoff >= 0 ? $t('message.datasetFacets.moreFilters') : $t('message.datasetFacets.lessFilters')"
-            :upArrow="cutoff === -1" :action="toggleCutoff" class="p-0 row facets-show-more" />
-        </div>
-        <pv-button v-if="showClearButton" label="Clear filters" class="row mt-5 facets-clear" :action="clearFacets" />
-      </div>
+      </slot>
     </div>
   </div>
 </template>

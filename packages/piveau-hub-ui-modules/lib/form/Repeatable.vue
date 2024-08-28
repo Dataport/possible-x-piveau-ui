@@ -1,5 +1,33 @@
+<template>
+  <div class="repeatable formkitProperty" :class="[props.context.attrs.identifier]"
+    v-for="key, repeatableIndex in counter" :key="key">
+    <h4>{{ props.context.label }}</h4>
+    <div class="horizontal-wrapper">
+      <div class="repeatableWrap">
+        <div class="interactionHeaderRepeatable my-1">
+          <i18n-t keypath="message.dataupload.info.repeatable" scope="global" tag="p">
+            <template v-slot:add>
+              <a class="add" @click="addItem">+ {{ $t('message.dataupload.info.add') }}</a>
+            </template>
+            <template v-slot:remove>
+
+              <a class="remove" :class="{ disabledRemove: props.context.value.length === 1 }"
+                @click="removeItem(repeatableIndex, counter.length)" :data-key="key">- {{
+                  $t('message.dataupload.info.remove') }}</a>
+            </template>
+          </i18n-t>
+        </div>
+        <div class="formkitWrapRepeatable">
+
+          <slot></slot>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
   context: Object
@@ -26,37 +54,13 @@ const addItem = () => {
   counter.value.push('new_index')
 }
 // remove Item - ToDo need to make sure the localhost notices the splice
-const removeItem = (index) => {
-  counter.value.splice(index, 1)
+const removeItem = (index, counterLength) => {
+  if (counterLength != 1) {
+    counter.value.splice(index, 1)
+  }
+
 }
 </script>
-
-<template>
-  <div class="repeatable formkitProperty" :class="[props.context.attrs.identifier]"
-    v-for="key, repeatableIndex in counter" :key="key">
-    <h4>{{ props.context.label }}</h4>
-    <div class="horizontal-wrapper">
-      <div class="repeatableWrap">
-        <div class="interactionHeaderRepeatable my-1">
-          <i18n-t keypath="message.dataupload.info.repeatable" scope="global" tag="p">
-            <template v-slot:add>
-              <a class="add" @click="addItem">+ {{ $t('message.dataupload.info.add') }}</a>
-            </template>
-            <template v-slot:remove>
-              <a class="remove" @click="removeItem(repeatableIndex)" :data-key="key">- {{
-                $t('message.dataupload.info.remove') }}</a>
-            </template>
-          </i18n-t>
-        </div>
-        <div class="formkitWrapRepeatable">
-
-          <slot></slot>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
 <style scoped>
 .add,
 .remove {
@@ -68,6 +72,7 @@ const removeItem = (index) => {
 
 .add {
   border: 1px solid lightseagreen;
+
   &:hover {
     text-decoration: none;
     color: white;
@@ -82,6 +87,14 @@ const removeItem = (index) => {
     text-decoration: none;
     color: white;
     background-color: lightcoral;
+  }
+}
+
+.disabledRemove {
+  &:hover {
+    text-decoration: none;
+    color: white;
+    background-color: lightgray;
   }
 }
 </style>
