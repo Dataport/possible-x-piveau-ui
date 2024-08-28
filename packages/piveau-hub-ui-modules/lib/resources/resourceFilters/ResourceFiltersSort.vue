@@ -42,7 +42,7 @@
 </template>
     
 <script lang="ts" setup>
-import { ref, computed, nextTick } from 'vue';
+import { computed, nextTick } from 'vue';
 
 import { useRoute, useRouter } from 'vue-router';
 import { useResourcesStore } from '../../store/resourcesStore';
@@ -56,16 +56,6 @@ const { t } = useI18n();
 const getSortSelectedLabel = computed(() => {
     return resourcesStore.getters.getSortSelectedLabel;
 });
-
-function setSort(sort, label) {
-    resourcesStore.mutations.setSort(sort);
-    resourcesStore.mutations.setSortSelectedLabel(label);
-
-    if (route.query.sort) {
-        router.replace({ query: Object.assign({}, route.query, { sort }) })
-            .catch(error => { console.error(error); });
-    }
-};
 
 function initSort() {
     let sort = route.query.sort;
@@ -88,15 +78,34 @@ function initSort() {
                 setSortMethod('issued', 'desc', t('message.sort.lastCreated'));
             }
         }
-    } else setSortMethod('relevance', 'desc', t('message.sort.relevance'));
+    } else {
+        storeSort(`relevance+desc, modified+desc, title.${route.query.locale}+asc`, t('message.sort.relevance'));
+    }
 };
 
-function setSortMethod(method, order, label) {
+function setSortMethod(method: string, order: string, label: string) {
     if (method === 'relevance') setSort(`${method}+${order}, modified+desc, title.${route.query.locale}+asc`, label);
     if (method === 'modified') setSort(`${method}+${order}, relevance+desc, title.${route.query.locale}+asc`, label);
     if (method === `title.${route.query.locale}`) setSort(`${method}+${order}, relevance+desc, modified+desc`, label);
     if (method === 'issued') setSort(`${method}+${order}, relevance+desc, title.${route.query.locale}+asc`, label);
 };
+
+
+function setSort(sort: string, label: string) {
+    let oldQuery = route.query;
+
+    if (!!oldQuery.sort) delete oldQuery.sort;
+
+    storeSort(sort, label);
+
+    router.replace({ query: Object.assign({}, oldQuery, { sort }) })
+            .catch(error => { console.error(error); });
+};
+
+function storeSort(sort: string, label: string) {
+    resourcesStore.mutations.setSort(sort);
+    resourcesStore.mutations.setSortSelectedLabel(label);
+}
 
 nextTick(() => {
     initSort();

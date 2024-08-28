@@ -268,6 +268,7 @@ export default {
       'loadAdditionalDatasets',
       'setPage',
       'setQuery',
+      'setSort',
       'addFacet',
       'removeFacet',
       'setFacets',
@@ -324,9 +325,6 @@ export default {
     initDataScope() {
       this.setDataScope(this.dataScope);
     },
-    /**
-     * @description Determines the current page.
-     */
     initPage() {
       const page = parseInt(this.$route.query.page, 10);
       if (page > 0) this.setPage(page);
@@ -339,9 +337,13 @@ export default {
 
       this.setQuery(query);
     },
-    /**
-     * @descritption Initialize the active facets by checking the route parameters
-     */
+    initSort() {
+      let sort = this.$route.query.sort;
+      
+      if (!sort) sort = '';
+
+      this.setSort(sort);
+    },
      initFacets() {
       const fields = this.$env.content.datasets.facets.defaultFacetOrder;
       const facetsFromRouteParams = this.facets;
@@ -366,13 +368,10 @@ export default {
 
       this.setFacets(facetsFromRouteParams);
     },
-
-
     getUrlFacetsOrDefault(field) {
       const urlFacets = this.$route.query[field];
       return Array.isArray(urlFacets) ? urlFacets : (urlFacets ? [urlFacets] : []);
     },
-
     initFacetOperator() {
       // Always set facet operator to AND when in catalog details mode
       if (this.showCatalogDetails) this.setFacetOperator('AND');
@@ -447,6 +446,7 @@ export default {
     this.initLimit();
     this.initPage();
     this.initQuery();
+    this.initSort();
     this.initFacetOperator();
     this.initFacetGroupOperator();
     this.initDataServices();
