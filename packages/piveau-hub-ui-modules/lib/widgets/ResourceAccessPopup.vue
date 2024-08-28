@@ -86,6 +86,11 @@ export default {
     const { cookies } = useCookies();
     return { cookies };
   },
+  created() {
+    if (this.cookies.get('externalContent') == null) {
+      this.cookies.set('externalContent', false, this.expires);
+    }
+  },
 };
 </script>
 <style scoped>

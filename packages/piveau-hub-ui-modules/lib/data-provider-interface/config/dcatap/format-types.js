@@ -214,7 +214,6 @@ const URIformat = {
         'foaf:homepage',
         'dext:isUsedBy',
         'dcat:endpointURL',
-        'dct:isPartOf',
     ],
     // {'@id': ''} mainly used for repeated links
     id: [
@@ -233,7 +232,7 @@ const URIformat = {
         "prov:wasGeneratedBy",
         "dct:isVersionOf",
         "dct:hasVersion",
-        
+        'dct:isPartOf',
     ]
 }
 

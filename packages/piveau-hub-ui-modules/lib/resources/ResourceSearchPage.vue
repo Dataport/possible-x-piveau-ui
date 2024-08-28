@@ -1,5 +1,5 @@
 <template>
-  <div class="resource-container d-flex flex-column p-0 mr-5 bg-transparent">
+  <div class="resource-container d-flex flex-column p-0 px-3 mr-5 bg-transparent">
     <div class="container-fluid resource content">
 
       <!-- RESOURCE TITLE -->

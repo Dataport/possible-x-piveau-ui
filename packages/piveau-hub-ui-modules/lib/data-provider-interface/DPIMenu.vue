@@ -6,8 +6,9 @@
       </div>
 
       <div style="margin-top:1%;">
-        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" :groupName="group.group"
-          :groupItems="group.items" :show="$env.content.dataProviderInterface.buttons[group.group]"
+        <dropup v-for="(group, index) in menuGroups" :key="`Group${index}`" @click="scrollToTop()"
+          :groupName="group.group" :groupItems="group.items"
+          :show="$env.content.dataProviderInterface.buttons[group.group]"
           :isOperator="getUserData.roles.includes('operator')" :isCatalog="group.group === 'Catalogue' ? true : false">
         </dropup>
         <ul>
@@ -341,24 +342,10 @@ export default {
 
         const maybeErrorStatusMsg = ex.response && ex.response.data && ex.response.data.message;
 
-        this.modal = {
-          ...this.modal,
-          ...{
-            // Need to translate this
-            message: 'DOI registration is not possible, the following error occured: ' + ex.response.data,
-            confirm: 'Okay',
-            confirmHandler: () => $('#modal').modal('hide'),
-          },
-        };
-
-
-        console.log(ex.response.data);
         let customErrorMessage = typeof errorMessage === 'string' && errorMessage;
         customErrorMessage = typeof errorMessage === 'function' && errorMessage(ex);
-        // customErrorMessage = typeof errorMessage === 'object' && errorMessage.prefix && `${errorMessage.prefix}${maybeErrorStatusMsg && ` — ${maybeErrorStatusMsg}`}`;
-        customErrorMessage = typeof errorMessage === 'object' && errorMessage.prefix + " - " + ex.response.data;
+        customErrorMessage = typeof errorMessage === 'object' && errorMessage.prefix && `${errorMessage.prefix}${maybeErrorStatusMsg && ` — ${maybeErrorStatusMsg}`}`;
 
-        console.log(errorMessage);
         const errorMsg = customErrorMessage || maybeErrorStatusMsg || ex.message || 'An error occurred';
         // show snackbar
         this.showSnackbar({
@@ -367,7 +354,7 @@ export default {
         });
       } finally {
         this.modal.loading = false;
-        // $('#modal').modal('hide');
+        $('#modal').modal('hide');
       }
     },
     async handleRegisterDoi({ id, catalog, type = 'eu-ra-doi' }) {
@@ -377,7 +364,6 @@ export default {
         {
           successMessage: this.$te('message.snackbar.doiRegistration.success') ? this.$t('message.snackbar.doiRegistration.success') : 'Successfully registered DOI',
           errorMessage: { prefix: this.$te('message.snackbar.doiRegistration.error') ? this.$t('message.snackbar.doiRegistration.error') : 'DOI registration failed' },
-
         },
       );
     },

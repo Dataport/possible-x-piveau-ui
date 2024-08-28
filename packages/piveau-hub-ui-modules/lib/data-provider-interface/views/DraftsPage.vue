@@ -1,6 +1,6 @@
 <template>
   <!-- TODO Add a Mobile Version of that overview (pref with Icons)-->
-  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content ">
+  <div class="d-flex flex-column bg-transparent container-fluid justify-content-between content draftsWrapper">
     <h1 class="small-headline text-center">Draft datasets</h1>
     <div class="d-flex align-items-center justify-content-center">
       <table class="table w-75">
@@ -39,26 +39,20 @@
                   <app-link :to="createLinkedMetricsURL(id, catalog, 'jsonld')" target="_blank" class="dropdown-item">
                     <div class="px-2 py-1">JSON-LD</div>
                   </app-link>
-
                 </div>
               </button>
               <button type="button" class="btn btn-secondary" @click="handleEdit(id, catalog)">Edit</button>
               <button type="button" class="btn btn-primary" @click="handleConfirmPublish(id, catalog)">Publish</button>
-              <button type="button" class="btn btn-primary"
-                @click="handleConfirmDuplication(id, catalog)">Duplicate</button>
               <button type="button" class="btn btn-danger" @click="handleConfirmDelete(id, catalog)">Delete</button>
-
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <app-confirmation-dialog id="modal" confirm="Confirm" :loading="modalProps.loading" @confirm="modalProps.confirm">
+    <app-confirmation-dialog id="modal" confirm="Confirm" :loading="modalProps.loading"
+      @confirm="modalProps.confirm">
       {{ modalProps.message }}
-      <input v-if="isDuplication" placeholder="Set new ID" type="text" class="m-3 formkit-input d-inline newIdField"
-        v-model="duplicatedID" required>
-      <p v-if="isDuplication">Only lowercase characters and "-" are allowed</p>
     </app-confirmation-dialog>
   </div>
 </template>
@@ -67,11 +61,6 @@
 import { mapActions, mapGetters } from 'vuex';
 import $ from 'jquery';
 import AppLink from "../../widgets/AppLink.vue";
-import { isNil } from 'lodash';
-import axios from 'axios';
-import generalHelper from '../utils/general-helper.js'
-import datasetFactory from '@rdfjs/dataset';
-import N3 from 'n3';
 
 export default {
   props: [],
@@ -81,8 +70,6 @@ export default {
   data() {
     return {
       values: {},
-      isDuplication: false,
-      duplicatedID: '',
       modalProps: {
         loading: false,
         message: 'Are you sure you want to delete this draft?',
@@ -93,28 +80,15 @@ export default {
   computed: {
     ...mapGetters('auth', [
       'getUserDrafts',
-      'getUserData',
-      
     ]),
-    token() {
-      return this.getUserData.rtpToken;
-    },
   },
   methods: {
     ...mapActions('auth', [
       'setIsDraft',
       'updateUserDrafts',
-      'setIsEditMode',
     ]),
     ...mapActions('snackbar', [
       'showSnackbar',
-    ]),
-    ...mapActions('dpiStore', [
-      'convertToRDF',
-      'clearAll',
-      'convertToInput',
-      // 'deleteDistribution',
-      // 'setDeleteDistributionInline',
     ]),
     createLinkedMetricsURL(id, catalog, format) {
       return {
@@ -128,7 +102,7 @@ export default {
     },
     handleEdit(id, catalog) {
       this.setIsDraft(true);
-      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
+        this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
     },
     async handleDelete(id, catalog) {
       await this.doRequest('auth/deleteUserDraftById', { id, catalog });
@@ -151,30 +125,20 @@ export default {
       });
     },
     handleConfirmPublish(id, catalog) {
-      this.isDuplication = false;
       this.modalProps.message = 'Are you sure you want to publish this draft?';
       this.modalProps.confirm = () => this.handlePublish(id, catalog);
       $('#modal').modal('show');
     },
     handleConfirmDelete(id, catalog) {
-      this.isDuplication = false;
       this.modalProps.message = 'Are you sure you want to delete this draft?';
       this.modalProps.confirm = () => this.handleDelete(id, catalog);
       $('#modal').modal('show');
     },
-    handleConfirmDuplication(id, catalog) {
-    
-      this.setIsDraft(true);
-      this.$router.push({ name: 'DataProviderInterface-Edit', params: { catalog, property: 'datasets', id }, query: { locale: this.$route.query.locale } }).catch(() => { });
-      setTimeout(() => {
-        this.setIsEditMode(false);
-      });
-    },
-    async doRequest(action, { id, newId, catalog, url, token }) {
+    async doRequest(action, { id, catalog }) {
       this.$Progress.start();
       this.modalProps.loading = true;
       try {
-        await this.$store.dispatch(action, { id, newId, catalog, url, token });
+        await this.$store.dispatch(action, { id, catalog });
         this.$Progress.finish();
       } catch (ex) {
         // Show snackbar
@@ -196,7 +160,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 1140px) {}
+@media (min-width: 1140px) {
+  .draftsWrapper {
+    min-width: 75vw;
+  }
+}
 
 .nav-link {
   text-decoration: underline;
@@ -219,14 +187,5 @@ export default {
 
 .buttonWrapper button {
   margin: 0.2rem;
-}
-
-.newIdField {
-  margin: 1rem 0 !important;
-
-  box-shadow: none;
-  border-radius: 0;
-  border-bottom: 1px solid #001D85;
-  transition: all 100ms ease-in-out;
 }
 </style>

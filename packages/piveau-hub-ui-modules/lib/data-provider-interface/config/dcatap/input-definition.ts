@@ -1131,12 +1131,12 @@ const dcatapProperties: InputDefinition = {
       identifier: 'accessUrl',
       $formkit: 'repeatable',
       name: 'dcat:accessURL',
-      validation: 'required',
       children: [
         {
           identifier: 'accessUrl',
           name: 'dcat:accessURL',
           $formkit: 'fileupload',
+
         }
       ]
     },
@@ -1460,7 +1460,7 @@ const dcatapProperties: InputDefinition = {
                         outer: 'w75-descfield'
                       },
                     }
-
+                   
                   ]
                 }
               ]
@@ -1591,33 +1591,36 @@ const dcatapProperties: InputDefinition = {
       ]
     },
     rights: {
-
       identifier: 'rights',
-      id: 'rightsCondDataset',
-      $formkit: 'simpleConditional',
+      $formkit: 'group',
       name: 'dct:rights',
-      options: { url: 'rdfs:label', text: 'rdfs:label' },
-      selection: { 1: 'URL', 2: 'Text' }
-
-      // {
-      //   identifier: 'rights',
-      //   $cmp: 'FormKit',
-      //   if: '$get(rightsCondDataset).value',
-      //   props: {
-      //     if: '$get(rightsCondDataset).value === url',
-      //     then: {
-      //       identifier: 'rightsUrl',
-      //       type: "url",
-      //       label: "URL",
-      //       name: 'rdfs:label'
-      //     },
-      //     else: {
-      //       type: 'text',
-      //       name: 'rdfs:label',
-      //     }
-      //   }
-      // },
-
+      children: [
+        {
+          identifier: 'rights',
+          id: 'rightsCondDataset',
+          $formkit: 'select',
+          name: '@type',
+          options: { url: 'Provide URL', text: 'Provide a text' },
+        },
+        {
+          identifier: 'rights',
+          $cmp: 'FormKit',
+          if: '$get(rightsCondDataset).value',
+          props: {
+            if: '$get(rightsCondDataset).value === url',
+            then: {
+              identifier: 'rightsUrl',
+              type: "url",
+              label: "URL",
+              name: 'rdfs:label'
+            },
+            else: {
+              type: 'text',
+              name: 'rdfs:label',
+            }
+          }
+        },
+      ]
     },
     spatialResolutionInMeters: {
       identifier: 'spatialResolutionInMeters',
@@ -1688,7 +1691,7 @@ const dcatapProperties: InputDefinition = {
     overview: {
       $cmp: 'OverviewPage',
       props: {
-        property: 'catalogues'
+        property: 'datasets'
       }
     },
     datasetID: {
@@ -1709,7 +1712,12 @@ const dcatapProperties: InputDefinition = {
           mandatory: true,
           minimum: 1,
           children: [
-
+            {
+              identifier: 'titleLabel',
+              $formkit: 'text',
+              name: '@value',
+              validation: 'required',
+            },
             {
               identifier: 'language',
               value: 'en',
@@ -1717,36 +1725,32 @@ const dcatapProperties: InputDefinition = {
               validation: 'required',
               options: language,
               name: '@language',
-              classes: {
-                outer: 'w25-textfield'
-              }
-            }, {
-              identifier: 'title',
-              $formkit: 'text',
-              name: '@value',
-              validation: 'required',
-              mandatory: true,
-              classes: {
-                outer: 'w75-textfield'
-              }
             },
           ],
         }
       ]
     },
     description: {
-      identifier: 'description',
+      identifier: 'datasetDescription',
       $formkit: 'repeatable',
       name: 'dct:description',
       children: [
         {
-          identifier: 'description',
+          identifier: 'datasetDescription',
           $formkit: 'group',
           name: 'dct:description',
           mandatory: true,
           minimum: 1,
           children: [
-
+            {
+              identifier: 'description',
+              $formkit: 'textarea',
+              name: '@value',
+              validation: 'required',
+              classes: {
+                outer: 'w25-textfield'
+              }
+            },
             {
               identifier: 'language',
               value: 'en',
@@ -1755,18 +1759,10 @@ const dcatapProperties: InputDefinition = {
               validation: 'required',
               name: '@language',
               classes: {
-                outer: 'w25-descField'
+                outer: 'w75-descField'
               }
             },
-            {
-              identifier: 'description',
-              $formkit: 'textarea',
-              name: '@value',
-              validation: 'required',
-              classes: {
-                outer: 'w75-textfield'
-              }
-            },
+
 
           ],
         }
@@ -1809,7 +1805,7 @@ const dcatapProperties: InputDefinition = {
     },
     homepage: {
       identifier: 'homepage',
-      $formkit: 'simpleInput',
+      $formkit: 'url',
       name: 'foaf:homepage',
       validation: 'optional|url',
     },
@@ -1827,10 +1823,7 @@ const dcatapProperties: InputDefinition = {
               identifier: 'hasPartURL',
               $formkit: 'url',
               name: '@id',
-              validationType: 'url',
-              classes: {
-                outer: 'w100-textfield'
-              }
+              validation: 'optional|url',
             },
           ],
         }
@@ -1838,43 +1831,41 @@ const dcatapProperties: InputDefinition = {
     },
     isPartOf: {
       identifier: 'isPartOf',
-      $formkit: 'simpleInput',
       name: 'dct:isPartOf',
-      validationType: 'url',
+      $formkit: 'url',
+      validation: 'optional|url',
     },
     rights: {
       identifier: "rights",
-      $formkit: 'simpleConditional',
+      $formkit: 'group',
       name: 'dct:rights',
-      options: { url: 'rdfs:label', text: 'rdfs:label' },
-      selection: { 1: 'URL', 2: 'Text' }
-      // children: [
-      //   {
-      //     identifier: 'rights',
-      //     $formkit: "select",
-      //     name: '@type',
-      //     options: { url: 'Provide an URL', str: 'String' },
-      //     id: "rightsModeCatalogue"
-      //   },
-      //   {
-      //     identifier: 'rights',
-      //     $cmp: "FormKit",
-      //     if: "$get(rightsModeCatalogue).value",
-      //     props: {
-      //       if: "$get(rightsModeCatalogue).value === url",
-      //       then: {
-      //         identifier: 'rightsUrl',
-      //         type: "url",
-      //         label: "URL",
-      //         name: 'rdfs:label',
-      //       },
-      //       else: {
-      //         type: "text",
-      //         name: 'rdfs:label',
-      //       }
-      //     }
-      //   }
-      // ]
+      children: [
+        {
+          identifier: 'rights',
+          $formkit: "select",
+          name: '@type',
+          options: { url: 'Provide an URL', str: 'String' },
+          id: "rightsModeCatalogue"
+        },
+        {
+          identifier: 'rights',
+          $cmp: "FormKit",
+          if: "$get(rightsModeCatalogue).value",
+          props: {
+            if: "$get(rightsModeCatalogue).value === url",
+            then: {
+              identifier: 'rightsUrl',
+              type: "url",
+              label: "URL",
+              name: 'rdfs:label',
+            },
+            else: {
+              type: "text",
+              name: 'rdfs:label',
+            }
+          }
+        }
+      ]
     },
     catalog: {
       identifier: 'catalog',
@@ -1889,11 +1880,8 @@ const dcatapProperties: InputDefinition = {
             {
               identifier: 'catalogURL',
               $formkit: 'url',
-              validationType: 'url',
+              validation: 'optional|url',
               name: '@id',
-              classes: {
-                outer: 'w100-textfield'
-              }
             },
           ],
         }
@@ -1901,7 +1889,7 @@ const dcatapProperties: InputDefinition = {
     },
     creator: {
       identifier: 'creator',
-      $formkit: 'formkitGroup',
+      $formkit: 'group',
       name: 'dct:creator',
       children: [
         {
@@ -1913,35 +1901,23 @@ const dcatapProperties: InputDefinition = {
             'foaf:Person': 'Person',
             'foaf:Organization': 'Organization',
           },
-          classes: {
-            outer: 'w100-textfield'
-          }
         },
         {
           identifier: 'creatorName',
           $formkit: 'text',
           name: 'foaf:name',
-          classes: {
-            outer: 'w100-textfield'
-          }
         },
         {
           identifier: 'creatorEmail',
           $formkit: 'email',
           name: 'foaf:mbox',
           validation: 'optional|email',
-          classes: {
-            outer: 'w100-textfield'
-          }
         },
         {
           identifier: 'creatorHomepage',
           $formkit: 'url',
           name: 'foaf:homepage',
           validation: 'optional|url',
-          classes: {
-            outer: 'w100-textfield'
-          }
         },
       ],
     },
