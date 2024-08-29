@@ -1,14 +1,21 @@
 <template>
-  <div class="content-wrapper">
-    <span class="resource_banner">{{ $t(`message.header.navigation.data.${selectedResource}`) }}</span>
-    <div class="sub_nav">
-      <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
-      <a :href="`${hubUrl}trust/${type}/${id}`" target='_blank' class="link">Verifiable Credential &#8599;</a>
-      <a :href="`${hubUrl}trust/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
+  <div class="content-wrapper row">
+    <div class="col-12">
+      <!-- <div class="d-flex justify-content-between mb-3"> -->
+      <div class="row mb-3">
+        <div class="col-12 col-md-3 p-0">
+          <span class="resource_banner">{{ $t(`message.header.navigation.data.${selectedResource}`) }}</span>
+        </div>
+        <div class="col-12 col-md-9 p-0 mt-3 mt-md-0 sub_nav">
+          <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
+          <a :href="`${hubUrl}trust/${type}/${id}`" target='_blank' class="link">Verifiable Credential &#8599;</a>
+          <a :href="`${hubUrl}trust/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
+        </div>
+      </div>
+      <h1 class="resource-details-title">{{ resourceDetailsData?.name || resourceDetailsData?.id }}</h1>
+      <p>{{ resourceDetailsData?.description }}</p>
+      <slot name="resource-details"></slot>
     </div>
-    <h1>{{ resourceDetailsData?.name || resourceDetailsData?.id }} </h1>
-    <p>{{ resourceDetailsData?.description }}</p>
-    <slot name="resource-details"></slot>
   </div>
 </template>
 
@@ -45,7 +52,6 @@ const hubUrl = ENV.api.hubUrl;
 .sub_nav {
   display: flex;
   justify-content: flex-end;
-  margin: 1rem 0;
   gap: 1rem;
 
   a {
@@ -65,15 +71,36 @@ const hubUrl = ENV.api.hubUrl;
 
 }
 
-@media screen and (max-width:876px) {
-  .sub_nav{
-    justify-content: flex-start
+.resource-details-title {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.2;
+  color: inherit;
+}
+
+@media (min-width: 768px) {
+  .resource-details-title {
+    font-size: 1.5rem;
   }
 }
-@media screen and (max-width:680px) {
-  .sub_nav{
-    justify-content: flex-start;
-    flex-direction: column
+
+@media (min-width: 992px) {
+  .resource-details-title {
+    font-size: 1.75rem;
   }
 }
+
+// @media screen and (max-width:876px) {
+//   .sub_nav{
+//     justify-content: flex-start
+//   }
+// }
+// @media screen and (max-width:680px) {
+//   .sub_nav{
+//     justify-content: flex-start;
+//     flex-direction: column
+//   }
+// }
 </style>

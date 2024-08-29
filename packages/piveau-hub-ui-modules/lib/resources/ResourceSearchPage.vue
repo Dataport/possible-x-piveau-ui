@@ -3,9 +3,7 @@
     <div class="container-fluid resource content">
 
       <!-- RESOURCE TITLE -->
-      <div class="row">
-        <h1 class="col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${getSelectedResource}`) }}</h1>
-      </div>
+      <h1 class="row col-12 page-title text-primary">{{ $t(`message.header.navigation.data.${getSelectedResource}`) }}</h1>
 
       <!-- RESOURCE SEARCH PAGE -->
       <div class="row">
@@ -68,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, nextTick } from 'vue';
+import { ref, computed, nextTick, onBeforeUnmount } from 'vue';
 import $ from 'jquery';
 
 import { useRoute, useRouter } from 'vue-router';
@@ -230,4 +228,8 @@ if (getAvailableResources.value.length > 0) {
     }
   });
 }
+
+onBeforeUnmount(() => {
+  $('.tooltip').remove();
+});
 </script>

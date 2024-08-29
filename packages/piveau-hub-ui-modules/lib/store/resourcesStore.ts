@@ -59,7 +59,10 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     const mutations = {
         setSelectedResource: function (newSelectedResource: string) {
             state.rawSelectedResources.value = Object.keys(resourceMapping)[Object.values(resourceMapping).indexOf(newSelectedResource)];            
-            state.selectedResource.value = newSelectedResource;            
+            state.selectedResource.value = newSelectedResource;
+
+            // Reset state of current resource if the selected resource changes
+            // resetState();         
         },   
         setAvailableResources: function (newAvailableResources: string[]) {
             state.availableResources.value = newAvailableResources.map((resource => resourceMapping[resource as keyof object]));
@@ -173,17 +176,14 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         }
     };
 
-    function resetStore() {
-        state.selectedResource = ref('');
-        state.availableResources = ref([]);
-        state.results = ref([]);
-        state.resultsCount = ref(0);
+    function resetState() {
+        console.log('RESET')
         state.query = ref('');
         state.limit = ref(10);
         state.page = ref(1);
         state.sort = ref('');
-        state.facets = ref([]);
+        state.selectedFacets = ref({});
     };
 
-    return { state, getters, mutations, actions, resetStore };
+    return { state, getters, mutations, actions };
 });
