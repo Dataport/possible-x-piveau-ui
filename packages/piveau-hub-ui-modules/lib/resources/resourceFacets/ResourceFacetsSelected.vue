@@ -5,10 +5,10 @@
         {{ `${findFacetFieldTitle(facet)}:` }}
       </span>
       <span v-for="(facetId, i) in facet.facets" tabindex="0">
-          <span :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
-            {{ findFacetTitle(facet.field, facetId) }}
-            <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
-          </span>
+        <span :key="i" class="badge badge-pill badge-highlight mr-1 ds-label">
+          {{ findFacetTitle(facet.field, facetId) }}
+          <span @click="removeSelectedFacet(facet.field, facetId)" class="close-facet ml-2">&times;</span>
+        </span>
       </span>
     </p>
   </div>
@@ -37,11 +37,11 @@ const defaultFacetOrder = ref(ENV.content.resources.facets.facetOrder);
 let selectedFacets: any = ref({});
 
 function initFacets() {
-    let facets: any = route.query.facets 
-        ? JSON.parse(route.query.facets.toString())
-        : {};
+  let facets: any = route.query.facets
+    ? JSON.parse(route.query.facets.toString())
+    : {};
 
-    selectedFacets = facets;
+  selectedFacets = facets;
 };
 
 function routerPush(object: object) {
@@ -71,17 +71,17 @@ function findFacetFieldTitle(facet: object) {
   try {
     let title = "";
 
-    if(fieldId==='scoring'){
-      title= t('message.header.navigation.data.metadataquality');
-    } else if(fieldId==='superCatalog' && facet.facets.toString() === 'erpd'){
+    if (fieldId === 'scoring') {
+      title = t('message.header.navigation.data.metadataquality');
+    } else if (fieldId === 'superCatalog' && facet.facets.toString() === 'erpd') {
       title = t('message.datasetFacets.facets.erpd');
-    } else if (route.path === '/catalogues' && fieldId==='country') {
+    } else if (route.path === '/catalogues' && fieldId === 'country') {
       title = t(`message.datasetFacets.facets.origin`)
-    } else{
+    } else {
       title = t(`message.datasetFacets.facets.${fieldId.toLowerCase()}`);
     }
 
-    return !title.includes("@: message.metadata")? title : props.availableFacets.find(field => field.id === fieldId).title;
+    return !title.includes("@: message.metadata") ? title : props.availableFacets.find(field => field.id === fieldId).title;
 
   } catch {
     return fieldId;
@@ -90,16 +90,17 @@ function findFacetFieldTitle(facet: object) {
 
 function removeSelectedFacet(facetID: string, facetField: string) {
   if (!!selectedFacets[facetID] && selectedFacets[facetID].includes(facetField)) {
-      let index = selectedFacets[facetID].indexOf(facetField);
-      selectedFacets[facetID].splice(index, 1);
-      if (selectedFacets[facetID].length === 0) {
-          delete selectedFacets[facetID];
-      }
+    let index = selectedFacets[facetID].indexOf(facetField);
+    if (selectedFacets[facetID].length === 0) {
+      delete selectedFacets[facetID];
+    } else {
+      selectedFacets[facetID].splice(index, 1)
+    }
   } else if (!selectedFacets[facetID]) {
-      selectedFacets[facetID] = [];
-      selectedFacets[facetID].push(facetField);
+    selectedFacets[facetID] = [];
+    selectedFacets[facetID].push(facetField);
   } else {
-      selectedFacets[facetID].push(facetField);
+    selectedFacets[facetID].push(facetField);
   }
 
   nextTick(() => {
@@ -112,7 +113,7 @@ function updateSelectedFacets() {
 
   let oldQuery = route.query;
   let newQuery = {};
-  
+
   if (!!oldQuery.facets) delete oldQuery.facets;
   if (Object.keys(selectedFacets).length > 0) newQuery.facets = JSON.stringify(selectedFacets);
 
@@ -192,7 +193,7 @@ initFacets();
 </script>
 
 <style lang="scss" scoped>
-  .close-facet {
-    cursor: pointer;
-  }
+.close-facet {
+  cursor: pointer;
+}
 </style>
