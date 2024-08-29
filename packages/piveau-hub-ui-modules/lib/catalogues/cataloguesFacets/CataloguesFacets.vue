@@ -1,6 +1,6 @@
 <template>
   <div class="container catalog-facets">
-    <div class="row mx-3 mr-md-0">
+    <div class="row mr-md-0">
       <div class="col">
         <catalog-details-facet class="catalog-details" :catalog="superCatalog"
           :catalogLanguageIds="catalogLanguageIds" />
