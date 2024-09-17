@@ -1,18 +1,17 @@
 ![banner](./images/piveau-hub-ui-banner.png "Image Title")
 
-# piveau-hub-ui
+# POSSIBLE piveau-hub-ui
 
-> Please use node version >= 16. Recommended is version 17.x.
+This project is forked from [Vanilla piveau-hub-ui](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui) and is using the [piveau-hub-ui-modules](https://gitlab.com/piveau/ui/piveau-ui) as a dependency.
 
-Vanilla piveau-hub-ui uses the piveau-hub-ui-modules as a dependency.
-This repository is intended as a template for setting up a new project UI.
+> Please use node version >= 18. Recommended is version 18.20.4
 
 ## Project setup
 
 ### Download the repository
 
 ```bash
-git clone https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui.git
+git clone https://gitlab.fokus.fraunhofer.de/possible/hub/piveau-hub-ui.git
 ```
 
 ### Install the dependencies
@@ -596,7 +595,7 @@ URL to tracking software (default: `https://opanalytics.containers.piwik.pro/`).
 </details>
 
 
-<br><br>
+<br>
 
 
 
