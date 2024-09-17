@@ -4,7 +4,25 @@
 
 This project is forked from [Vanilla piveau-hub-ui](https://gitlab.fokus.fraunhofer.de/piveau/hub/piveau-hub-ui) and is using the [piveau-hub-ui-modules](https://gitlab.com/piveau/ui/piveau-ui) as a dependency.
 
-> Please use node version >= 18. Recommended is version 18.20.4
+- [Prerequisites](#prerequisites)
+- [Project setup](#project-setup)
+    - [Download the repository](#download-the-repository)
+    - [Install the dependencies](#install-the-dependencies)
+    - [Create User configuration file](#create-user-configuration-file)
+    - [Start the app locally](#start-the-app-locally)
+    - [Build for production](#build-for-production)
+    - [Run it via Docker](#run-it-via-docker)
+- [Configurations](#configurations)
+    - [User configurations](#user-configurations)
+    - [Runtime configurations](#runtime-configurations)
+- [Documentation](#documentation)
+    - [Resources](#resources)
+    - [What is new in POSSIBLE?](#what-is-new-in-possible)
+
+
+## Prerequisites
+
+Please use node version `18.x` or higher. Recommended is version `18.20.4` (LTS).
 
 ## Project setup
 
@@ -49,9 +67,6 @@ $ docker run -i -p 8080:8080 piveau-hub-ui
 _Runtime Configurations are only applied, when running the application via [Docker](#run-it-via-docker)._
 
 
-
-
-<br>
 
 ### User configurations
 The User configuration file is located at `config/user-config.js` by default. It is the main project configuration file. The following table shortly describes the configurable values.
@@ -607,7 +622,6 @@ The Runtime configuration file is located at `config/runtime-config.js` by defau
 
 See [runtime-config.js](config/runtime-config.js) for all available runtime variables.
 
-<br>
 
 <details>
 
@@ -659,3 +673,65 @@ VITE_API_HUB_URL=https://data.europa.eu/newHubUrl
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+</details>
+
+<br>
+
+
+## Documentation
+
+- [POSSIBLE](https://possible.fokus.fraunhofer.de)
+- [POSSIBLE piveau-hub-ui repository](https://gitlab.fokus.fraunhofer.de/possible/hub/piveau-hub-ui)
+- [POSSIBLE piveau-hub-ui-modules repository](https://gitlab.com/piveau/ui/piveau-ui/-/tree/POSSIBLE)
+
+
+### What is new in POSSIBLE?
+
+- Generic piveau-Hub-UI frontend, based on generic "resources" instead of hardcoded datasets and catalogues
+- Frontend can handle new Resources that are added to the backend, if they follow the general data structure
+- Using Pinia for state management
+- Using Composition API of Vue 3
+- Using Typescript
+- One generic component handles all Resource search pages
+- One generic component + one custom detail page component for each Resource to handle all Resource detail pages
+
+
+
+#### Generic Pinia stores
+
+- Getter / Setter
+- Mutations
+- Actions
+
+#### Generic search page
+
+- Generic Facets
+- Generic Filters 
+- Generic Info boxes
+
+#### Generic details page
+
+Custom details page will be used if a template for the selected resource exists.
+Otherwise the default details page will be used to render the resource details page.
+
+In ResourceDetailsPage.vue:
+
+```js
+<div class="container-fluid" v-if="resourceDetailsData">
+  <ResourceDetailsSlotComponent :selected-resource="selectedResource" :resource-details-data="resourceDetailsData">
+      <template #resource-details>
+          <!-- USE DEFAULT DETAILS PAGE -->
+          <div v-if="!customResources.includes(selectedResource)">
+              <ResourceDetailsDefaultRenderer :resource-details-data="resourceDetailsData">
+              <ResourceDetailsDefaultRenderer>
+          </div>
+          <!-- USE CUSTOM DETAILS PAGE -->
+          <div v-else>
+              <ResourceDetailsCustomRenderer :selected-resource="selectedResource" :resource-details-data="resourceDetailsData">
+              </ResourceDetailsCustomRenderer>
+          </div>
+      </template>
+  </ResourceDetailsSlotComponent>
+</div>
+```
