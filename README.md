@@ -17,7 +17,11 @@ This project is forked from [Vanilla piveau-hub-ui](https://gitlab.fokus.fraunho
     - [Runtime configurations](#runtime-configurations)
 - [Documentation](#documentation)
     - [Resources](#resources)
-    - [What is new in POSSIBLE?](#what-is-new-in-possible)
+    - [Generic piveau-hub-ui](#generic-piveau-hub-ui)
+    - [Resource stores](#resource-stores)
+    - [Resource search page](#resource-search-page)
+    - [Resource details page](#resource-details-page)
+    - [Resource configurations](#resource-configurations)
 
 
 ## Prerequisites
@@ -681,15 +685,16 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Documentation
 
-- [POSSIBLE](https://possible.fokus.fraunhofer.de)
-- [POSSIBLE piveau-hub-ui repository](https://gitlab.fokus.fraunhofer.de/possible/hub/piveau-hub-ui)
-- [POSSIBLE piveau-hub-ui-modules repository](https://gitlab.com/piveau/ui/piveau-ui/-/tree/POSSIBLE)
+- [POSSIBLE website](https://possible.fokus.fraunhofer.de)
+- [POSSIBLE hub-search (API description)](https://possible.fokus.fraunhofer.de/api/hub/search)
+- [POSSIBLE piveau-hub-ui (Gitlab repository)](https://gitlab.fokus.fraunhofer.de/possible/hub/piveau-hub-ui)
+- [POSSIBLE piveau-hub-ui-modules (Gitlab repository)](https://gitlab.com/piveau/ui/piveau-ui/-/tree/POSSIBLE)
 
 
-### What is new in POSSIBLE?
+### Generic piveau-hub-ui
 
-- Generic piveau-Hub-UI frontend, based on generic "resources" instead of hardcoded datasets and catalogues
-- Frontend can handle new Resources that are added to the backend, if they follow the general data structure
+- Based on generic `Resources` instead of hardcoded datasets and catalogues
+- Can handle newly added `Resources` without any adjustments (if they follow the general data structure)
 - Using Pinia for state management
 - Using Composition API of Vue 3
 - Using Typescript
@@ -698,24 +703,66 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 
-#### Generic Pinia stores
+### Resource stores
 
-- Getter / Setter
-- Mutations
-- Actions
+Instead of implementing dedicated stores for each resource (e.g. for datasets and catalogues), the generic piveau-hub-ui only needs two stores:
 
-#### Generic search page
+The `resourcesStore.ts` holds all information that are neccessary for the Resource search page (e.g. facets, filters, ...), provides getter and setter methods as well as action methods that perform the API calls using Axios.
 
-- Generic Facets
-- Generic Filters 
-- Generic Info boxes
+```js 
+const state = {
+    selectedResource: ref(''),
+    rawSelectedResources: ref(''),
+    availableResources: ref([] as string[]),
+    results: ref([] as object[]),
+    resultsCount: ref(0),
+    query: ref(''),
+    limit: ref(10),
+    page: ref(1),
+    sort: ref(''),
+    sortSelectedLabel: ref(''),
+    facets: ref([] as object[]),
+    selectedFacets: ref({}),
+};
+```
 
-#### Generic details page
+<br>
 
-Custom details page will be used if a template for the selected resource exists.
+The `resourceDetailsStore.ts` stores the requested content of the resource details page without any checks or transformations in one variable and provides a getter method. The action method used to load the resource details data, also contains the Axios API calls.
+
+```js
+const resourceDetailsData = ref(null)
+```
+
+<br>
+
+For future work, the implementation of services (similar to `datasetService.ts` and `catalogService.ts`) should be considered to outsource the API calls from the store and to provide more flexibility regarding the data structures of the requested resources.
+
+### Resource search page
+
+The Resource search page differs only slightly from the former Datasets search page, as most functionality can already be used in a generic way. However, the facets implementation was adjusted to handle facets from all resources. Also the Tab list on top of the filters was replaced by a dropdown that allows switching between different resources to provide more scalability.
+
+### Resource details page
+
+Custom details pages will be used if a template for the selected resource exists.
 Otherwise the default details page will be used to render the resource details page.
 
-In ResourceDetailsPage.vue:
+Custom details pages need to be implemented in [src/components/custom-components](src/components/custom-components). There is no predefined structure, as the custom details pages are intended to be as flexible as possible in designing new details pages. However, each custom details page receives the following properties to consume their data from the store by adding this code snippet to the setup function:
+
+```js
+<script setup>
+const props = defineProps({
+  selectedResource: String,
+  resourceDetailsData: Object,
+});
+</script>
+```
+
+_Note, that the name of the custom details page __MUST__ be exactly the name of the corresponding resource in camel case notation (e.g. custom details page for `service-offerings` must have the name `ServiceOfferings.vue`). This is neccessary to automatically render the custom details pages!_
+
+Additionally, the Resource needs to be added to the list of custom resources as shown in the [Resource configurations](#resource-configurations) section.
+
+If no custom details page can be rendered for the selected resource, a default details page will be used as shown in the following code snippet from `ResourceDetailsPage.vue`:
 
 ```js
 <div class="container-fluid" v-if="resourceDetailsData">
@@ -734,4 +781,41 @@ In ResourceDetailsPage.vue:
       </template>
   </ResourceDetailsSlotComponent>
 </div>
+```
+
+
+### Resource configurations
+
+The following resource-related properties where added to the `user-config.js`:
+
+```js
+{
+    resources: {
+        resourceMapping: {
+            'datasets': 'datasets',
+            'catalogues': 'catalogues',
+            'legal-person': 'legalPersons',
+            'software-offering': 'softwareOfferings',
+            'service-offering': 'serviceOfferings',
+        },
+        search: {
+            useSearch: true,
+        },
+        limit: {
+            defaultLimit: 10,
+        },
+        sort: {
+            useSort: true,
+            defaultSort: 'relevance+desc, modified+desc, title.en+asc',
+        },
+        facets: {
+            useResourceFacets: true,
+            excludedFacets: ['dataScope', 'scoring'],
+            facetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'scoring', 'license', 'keyword', 'provided_by'],
+        },
+    },
+    resourceDetails: {
+        customResources: ["legalPersons", "serviceOfferings"]
+    },
+}
 ```
