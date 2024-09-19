@@ -809,6 +809,7 @@ The following resource-related properties where added to the `user-config.js`:
         },
         facets: {
             useResourceFacets: true,
+            MIN_FACET_LIMIT: 10,
             excludedFacets: ['dataScope', 'scoring'],
             facetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'scoring', 'license', 'keyword', 'provided_by'],
         },

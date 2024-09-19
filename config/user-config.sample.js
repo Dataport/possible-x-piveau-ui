@@ -108,6 +108,7 @@ const glueConfig = {
       },
       facets: {
         useResourceFacets: true,
+        MIN_FACET_LIMIT: 10,
         excludedFacets: ['dataScope', 'scoring'],
         facetOrder: ['publisher', 'format', 'catalog', 'categories', 'keywords', 'dataScope', 'country', 'scoring', 'license', 'keyword', 'provided_by'],
       },
