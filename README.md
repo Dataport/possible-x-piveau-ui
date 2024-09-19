@@ -16,7 +16,6 @@ This project is forked from [Vanilla piveau-hub-ui](https://gitlab.fokus.fraunho
     - [User configurations](#user-configurations)
     - [Runtime configurations](#runtime-configurations)
 - [Documentation](#documentation)
-    - [Resources](#resources)
     - [Generic piveau-hub-ui](#generic-piveau-hub-ui)
     - [Resource stores](#resource-stores)
     - [Resource search page](#resource-search-page)
