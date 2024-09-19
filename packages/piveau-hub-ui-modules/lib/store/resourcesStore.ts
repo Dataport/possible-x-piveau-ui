@@ -8,12 +8,6 @@ import axios from 'axios';
 // Option 1: Implement a generic service that handles all resources
 // Option 2: Implement a generic interface and a specific service for each resource that implements the interface and call this service according to the selected resource
 
-
-// How to implement Pinia Setup Stores:
-// - ref()s become state properties
-// - computed()s become getters
-// - function()s become actions
-
 export const useResourcesStore = defineStore('resourcesStore', () => {
 
     // Use the Runtime Env composable that injects the ENV
@@ -174,15 +168,6 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
                     });
             });
         }
-    };
-
-    function resetState() {
-        console.log('RESET')
-        state.query = ref('');
-        state.limit = ref(10);
-        state.page = ref(1);
-        state.sort = ref('');
-        state.selectedFacets = ref({});
     };
 
     return { state, getters, mutations, actions };
