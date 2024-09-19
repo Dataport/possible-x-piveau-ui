@@ -59,10 +59,7 @@ function resetFilters() {
 function facetClicked(facetID: any, facetField: any) {
     if (!!selectedFacets[facetID] && selectedFacets[facetID].includes(facetField)) {
         let index = selectedFacets[facetID].indexOf(facetField);
-        selectedFacets[facetID].splice(index, 1);
-        if (selectedFacets[facetID].length === 0) {
-            delete selectedFacets[facetID];
-        }
+        selectedFacets[facetID].splice(index, 1)
     } else if (!selectedFacets[facetID]) {
         selectedFacets[facetID] = [];
         selectedFacets[facetID].push(facetField);
