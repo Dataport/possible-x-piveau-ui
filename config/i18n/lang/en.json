@@ -1892,9 +1892,8 @@
             "catalogues": "Search for catalogues. A catalogue hosts datasets and services",
             "invalidVisualise": "Preview feature not available, because the provided distribution URL is not a valid URL.",
             "resources": "Resources",
-            "softwareOfferings": "Software Offerings",
             "serviceOfferings": "Service Offerings",
-            "legalPersons": "Legal Persons"
+            "legalParticipants": "Legal Participants"
         },
         "visualisationDistribution": {
             "barChartExplain": "A bar chart plots numeric values for levels of a categorical feature as bars. Levels are plotted on one chart axis, and values are plotted on the other axis.",
@@ -2030,9 +2029,8 @@
                     "persistentUris": " Persistent URIs",
                     "copyright-notice": "Copyright notice",
                     "resources": "Resources",
-                    "softwareOfferings": "Software Offerings",
                     "serviceOfferings": "Service Offerings",
-                    "legalPersons": "Legal Persons"
+                    "legalParticipants": "Legal Participants"
                 },
                 "impactStudies": {
                     "opendataimpact": "Open Data Impact",

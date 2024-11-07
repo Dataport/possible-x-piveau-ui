@@ -11,6 +11,8 @@ const props = defineProps({
   selectedResource: String,
   resourceDetailsData: Object,
 });
+console.log("*** Inside LegalParticipants.vue");
+console.log("Props: ", props);
 </script>
   
 <style lang="scss" scoped>

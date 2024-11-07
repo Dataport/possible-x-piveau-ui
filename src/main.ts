@@ -103,10 +103,10 @@ configureModules(app, store, {
 
 // Import custom resource components
 import ServiceOfferings from './components/custom-components/ServiceOfferings.vue';
-import LegalPersons from './components/custom-components/LegalPersons.vue';
+import LegalParticipants from './components/custom-components/LegalParticipants.vue';
 
 app.component('ServiceOfferings', ServiceOfferings);
-app.component('LegalPersons', LegalPersons);
+app.component('LegalParticipants', LegalParticipants);
 
 app.component('piveau-header', Header);
 app.component('piveau-footer', Footer);

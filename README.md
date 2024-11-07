@@ -794,7 +794,8 @@ The following resource-related properties where added to the `user-config.js`:
             'datasets': 'datasets',
             'catalogues': 'catalogues',
             'legal-person': 'legalPersons',
-            'software-offering': 'softwareOfferings',
+            'legal-participant': 'legalParticipants',
+            'data-resource': 'dataResources',
             'service-offering': 'serviceOfferings',
         },
         search: {
@@ -815,7 +816,7 @@ The following resource-related properties where added to the `user-config.js`:
         },
     },
     resourceDetails: {
-        customResources: ["legalPersons", "serviceOfferings"]
+        customResources: ["legalParticipants", "serviceOfferings"]
     },
 }
 ```
