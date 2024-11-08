@@ -72,6 +72,10 @@ const glueConfig = {
           id: 'serviceOfferings',
           name: 'ResourceSearchPage',
         },
+        {
+          id: 'legalPersons',
+          name: 'ResourceSearchPage',
+        },
       ],
     },
     pagination: {
