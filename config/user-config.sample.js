@@ -73,7 +73,7 @@ const glueConfig = {
           name: 'ResourceSearchPage',
         },
         {
-          id: 'legalPersons',
+          id: 'legalParticipants',
           name: 'ResourceSearchPage',
         },
       ],
