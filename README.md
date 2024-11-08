@@ -793,9 +793,7 @@ The following resource-related properties where added to the `user-config.js`:
         resourceMapping: {
             'datasets': 'datasets',
             'catalogues': 'catalogues',
-            'legal-person': 'legalPersons',
             'legal-participant': 'legalParticipants',
-            'data-resource': 'dataResources',
             'service-offering': 'serviceOfferings',
         },
         search: {
