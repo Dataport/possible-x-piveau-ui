@@ -1,3 +1,155 @@
+# [6.0.0-beta.0](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.7...v6.0.0-beta.0) (2024-11-08)
+
+
+### Bug Fixes
+
+* Catalogues search ([489cbf7](https://gitlab.com/piveau/ui/piveau-ui/commit/489cbf7ad422a12f04445c59441231aa5822af18))
+* Catalogues search ([7bd791a](https://gitlab.com/piveau/ui/piveau-ui/commit/7bd791a36e1165df4e78511d80f4342a1f89442c))
+* Cleanup stores ([91f7030](https://gitlab.com/piveau/ui/piveau-ui/commit/91f703048ed34a8c7b8318a70e2476dd346789d8))
+* Datasets search ([48ea70f](https://gitlab.com/piveau/ui/piveau-ui/commit/48ea70fe7ffcf27ddae9b25c95afcf9afc50c0ac))
+* Facet stylings ([55f5dfb](https://gitlab.com/piveau/ui/piveau-ui/commit/55f5dfbf7dea5558f3ede1fb3e4d59da0078eb34))
+* Issues with package-lock ([b8a84e6](https://gitlab.com/piveau/ui/piveau-ui/commit/b8a84e64bf2336594dcf3dfe88dc2d8f4e1a529f))
+* Issues with package-lock ([a6a2444](https://gitlab.com/piveau/ui/piveau-ui/commit/a6a244451e25065c736a4da755c3725a49897351))
+* Naming for Resource Types ([b9b032e](https://gitlab.com/piveau/ui/piveau-ui/commit/b9b032eda8285c7aabb5aea59533de8d536cb4dc))
+* Rename components and move custom components to piveau-hub-ui ([a826d02](https://gitlab.com/piveau/ui/piveau-ui/commit/a826d02b0d35184515f1bc31da01ca8b639fef0c))
+* Reported bugs and improvements ([413ced3](https://gitlab.com/piveau/ui/piveau-ui/commit/413ced339249859700959eca645ef9644f0ed1d6))
+* Resource Search page search issue ([f88bc6b](https://gitlab.com/piveau/ui/piveau-ui/commit/f88bc6b30b074a27d680ccbc2c39c6676e778ff5))
+* Resource search page sort ([c0219d8](https://gitlab.com/piveau/ui/piveau-ui/commit/c0219d80843ef3511584b4cede80d303d9fdf96c))
+* Width issue ([7b756a4](https://gitlab.com/piveau/ui/piveau-ui/commit/7b756a4901d965e226bec4712e4dfd1a4c6e74f5))
+
+
+### Features
+
+* Add custom version number to package.json for release ([91f0262](https://gitlab.com/piveau/ui/piveau-ui/commit/91f02620f3da6c1c03914249148d3049e2f34911))
+* Add expand functionality to resource facets ([af77cf5](https://gitlab.com/piveau/ui/piveau-ui/commit/af77cf51272b605abfc1c49d098c99db60063b9a))
+* Add resource mapping to user config ([f0f4564](https://gitlab.com/piveau/ui/piveau-ui/commit/f0f45647e3f6ed09d4830c1b884679e377134c84))
+* Add resources to config schema ([dc73f90](https://gitlab.com/piveau/ui/piveau-ui/commit/dc73f90453e383ed08ca81b21e5a459ea788d714))
+* Add styling to dropdowns ([71b79d6](https://gitlab.com/piveau/ui/piveau-ui/commit/71b79d6dc7dd595fc7f67bf2b500d40a0c661974))
+* implement configurable links for resources menu based on available resources ([b02a711](https://gitlab.com/piveau/ui/piveau-ui/commit/b02a7114d44087d0a19637b0a1311216cbf29508))
+* Implement generic facets with templates ([f74110c](https://gitlab.com/piveau/ui/piveau-ui/commit/f74110c470e87d8091df3d8130cb29ae3d2eb40c))
+* Implement generic resource facets ([fd80beb](https://gitlab.com/piveau/ui/piveau-ui/commit/fd80bebb568e12d87a2ee86459acecf09405cfc1))
+* Increase version number ([1317d30](https://gitlab.com/piveau/ui/piveau-ui/commit/1317d304eff94acc77c857f2648effd22da7641b))
+* Increase version number ([b325995](https://gitlab.com/piveau/ui/piveau-ui/commit/b325995552683c7ada120c2e9b7f389a78b6e712))
+* Increase version number ([36335f9](https://gitlab.com/piveau/ui/piveau-ui/commit/36335f9bc24edb06dfbe322aaf7802602af6d719))
+* Migrate ResourceDate.vue to Vue 3 Composition API ([8c95dd2](https://gitlab.com/piveau/ui/piveau-ui/commit/8c95dd24d4042bf2e751805044439d9bc5e17d84))
+* Migrate ResourceFacets.vue to Vue 3 Composition API ([d08b66d](https://gitlab.com/piveau/ui/piveau-ui/commit/d08b66d989dc1c6084d9b2f6e3e29f8fe2541d7a))
+* Migrate ResourceFilters.vue to Vue 3 Composition API ([86cf07b](https://gitlab.com/piveau/ui/piveau-ui/commit/86cf07bdf1ae15ac4e66ba4dcf7a45d0a2cd1e00))
+* Migrate ResourceInfoBox.vue to Vue 3 Composition API ([3feee23](https://gitlab.com/piveau/ui/piveau-ui/commit/3feee23fa4bdc5d058501fba13ed2b8e1a33ab81))
+* Migrate ResourceInfoBoxFooter.vue to Vue 3 Composition API ([6ee1c2a](https://gitlab.com/piveau/ui/piveau-ui/commit/6ee1c2a2143852778350e0fd88e11fb75ded580f))
+* Migrate ResourceTopControls.vue to Vue 3 Composition API ([da4b146](https://gitlab.com/piveau/ui/piveau-ui/commit/da4b146dcada811f19aa1de3a4f7952d345a277a))
+* release current version ([fc2b1c6](https://gitlab.com/piveau/ui/piveau-ui/commit/fc2b1c6129ccbac2fb560e4a4ee1e45587971e50))
+* Use search backend to implement facets ([93fdc8b](https://gitlab.com/piveau/ui/piveau-ui/commit/93fdc8bc4b6b4a243fb2273bcb23913185f36638))
+
+
+
+# [5.0.0-possible.3](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.2...v5.0.0-possible.3) (2024-07-30)
+
+
+### Bug Fixes
+
+* Publish feature branch as tag ([e2d04a2](https://gitlab.com/piveau/ui/piveau-ui/commit/e2d04a2d978423cce701787c7a70e1c763e5ef03))
+
+
+
+# [5.0.0-possible.2](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.1...v5.0.0-possible.2) (2024-07-30)
+
+
+### Bug Fixes
+
+* Add pinia dependency to vite-config ([e2bdf1c](https://gitlab.com/piveau/ui/piveau-ui/commit/e2bdf1c632bb23d0f92f3eaebbf4732ffc084f83))
+
+
+
+# [5.0.0-possible.1](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.0...v5.0.0-possible.1) (2024-07-30)
+
+
+
+# [5.0.0-possible.0](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.31...v5.0.0-possible.0) (2024-07-30)
+
+
+### Features
+
+* Add copy of Datasets.vue as ResourceSearchPage ([cd92b0d](https://gitlab.com/piveau/ui/piveau-ui/commit/cd92b0dd8c37dd20d74f1d336decf24d3db421a5))
+* Finalize Resource Search page ([1a1b8c5](https://gitlab.com/piveau/ui/piveau-ui/commit/1a1b8c5c35e2dc2005a193e59d242738b7fb2505))
+* Implement generic resource selection and add styling ([7d87b45](https://gitlab.com/piveau/ui/piveau-ui/commit/7d87b4591714835230f8f81af4883420cdc802f7))
+* Implement Resource Tabs for Datasets, Catalogs and SoftwareOfferings ([7a35bfc](https://gitlab.com/piveau/ui/piveau-ui/commit/7a35bfcfa6d7f982c55b1bb30fda84a9a7f6ec30))
+
+
+
+## [4.1.7](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.6...v4.1.7) (2024-08-27)
+
+
+### Bug Fixes
+
+* fixed the catalog issue and some minor styling thingies ([872d2d6](https://gitlab.com/piveau/ui/piveau-ui/commit/872d2d6c88bded7084fbc76ed201cb5921feb713))
+
+
+
+## [4.1.6](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.5...v4.1.6) (2024-08-27)
+
+
+### Bug Fixes
+
+* **ResourceAccessPopup:** prevent cookie with null-value from being set on created hook ([093a06e](https://gitlab.com/piveau/ui/piveau-ui/commit/093a06e7ce08cbe698647d9e5089afcd012e3b24))
+
+
+
+## [4.1.5](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.4...v4.1.5) (2024-08-15)
+
+
+### Bug Fixes
+
+* small fix for the DOI creation ([cceb062](https://gitlab.com/piveau/ui/piveau-ui/commit/cceb06268774eb33d42c65fc973029543dd2169b))
+
+
+
+## [4.1.4](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.3...v4.1.4) (2024-08-13)
+
+
+### Bug Fixes
+
+* fixed the catalogue creation ([89e6e8b](https://gitlab.com/piveau/ui/piveau-ui/commit/89e6e8bfd1f692e1758a2409ddc600f6d6de125f))
+* fixed the repeatable and the DraftsPage ([8acedf8](https://gitlab.com/piveau/ui/piveau-ui/commit/8acedf8433d245c042ab7cca58ec88703645f197))
+
+
+
+## [4.1.3](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.2...v4.1.3) (2024-08-09)
+
+
+### Bug Fixes
+
+* fixed the issue, that the catalog property throws an error. Furthermore fixed the manual Input for the Publisher. ([295b1fb](https://gitlab.com/piveau/ui/piveau-ui/commit/295b1fbe7f1936eb9881fe1b64758d09501aea31))
+
+
+
+## [4.1.2](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.1...v4.1.2) (2024-08-08)
+
+
+
+## [4.1.1](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.0...v4.1.1) (2024-08-07)
+
+
+
+# [4.1.0](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.32...v4.1.0) (2024-08-07)
+
+
+### Features
+
+* **DatasetsFacets:** add facet slot ([45a34d3](https://gitlab.com/piveau/ui/piveau-ui/commit/45a34d37e7005063ff3b5a1e9884e1f966a60784))
+* **DatsetFacets:** add facet content slot ([67694ea](https://gitlab.com/piveau/ui/piveau-ui/commit/67694ea625347bfed0d941f2e7503e7a45a70e50))
+* export RadioFacet component ([b53b3a8](https://gitlab.com/piveau/ui/piveau-ui/commit/b53b3a8e8ee4010751fb2145d512d307e1f79835))
+
+
+
+## [4.0.32](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.3...v4.0.32) (2024-08-02)
+
+
+### Bug Fixes
+
+* validate button behavior in firefox ([6decb13](https://gitlab.com/piveau/ui/piveau-ui/commit/6decb131c08763987a4357db63e51420fd04e9d5))
+
+
+
 ## [4.0.31](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.30...v4.0.31) (2024-07-30)
 
 
@@ -36,6 +188,190 @@
 ## [4.0.24](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.23...v4.0.24) (2024-07-18)
 
 
+### Bug Fixes
+
+* don't show links for 'langauges' property in datasetDetailsProperties ([d67828c](https://gitlab.com/piveau/ui/piveau-ui/commit/d67828c889164c086f2d0c0456de07ac0de2084e))
+
+
+
+## [4.0.23](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.22...v4.0.23) (2024-07-17)
+
+
+### Bug Fixes
+
+* fix properties with translation type not being translated properly ([86d7718](https://gitlab.com/piveau/ui/piveau-ui/commit/86d7718aa9ff1a88dbdb159866c8dff0d05c0432))
+* sort Languages properies alphabetically ([83a0582](https://gitlab.com/piveau/ui/piveau-ui/commit/83a058209c9fd5dff859ac4382281d65b3e98c3f))
+
+
+
+## [4.0.22](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.21...v4.0.22) (2024-07-17)
+
+
+
+## [4.0.21](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.19...v4.0.21) (2024-07-16)
+
+
+
+## [4.0.19](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.18...v4.0.19) (2024-07-16)
+
+
+
+## [4.0.18](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.17...v4.0.18) (2024-07-16)
+
+
+### Bug Fixes
+
+* cookie handling in ResourceAccessPopup.vue ([038f69f](https://gitlab.com/piveau/ui/piveau-ui/commit/038f69f91049050754c22c446caa4d275f751226))
+
+
+
+## [4.0.17](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.16...v4.0.17) (2024-07-16)
+
+
+
+## [4.0.16](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.15...v4.0.16) (2024-07-16)
+
+
+### Bug Fixes
+
+* remove use of this in setup function ([f52be5b](https://gitlab.com/piveau/ui/piveau-ui/commit/f52be5b5f44f9fba247c1a6ea856593fcc911122))
+
+
+
+## [4.0.15](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.14...v4.0.15) (2024-07-12)
+
+
+
+## [4.0.14](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.13...v4.0.14) (2024-07-12)
+
+
+### Bug Fixes
+
+* move composable application to setup function ([fe87172](https://gitlab.com/piveau/ui/piveau-ui/commit/fe87172d40788796879db41cf5e23cdf9654cd32))
+
+
+
+## [4.0.13](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.12...v4.0.13) (2024-07-04)
+
+
+### Bug Fixes
+
+* adapted create catalog command to handle right media type ([7f55845](https://gitlab.com/piveau/ui/piveau-ui/commit/7f55845b685c65ceaa0b4ba0788bd88cc3ef2b63))
+* fixed feature to create catalogs using the DPI ([49d8a82](https://gitlab.com/piveau/ui/piveau-ui/commit/49d8a820962231c8f83126ddefab5c773dc66c85))
+
+
+
+## [4.0.12](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.11...v4.0.12) (2024-07-04)
+
+
+
+## [4.0.11](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.10...v4.0.11) (2024-07-03)
+
+
+
+## [4.0.10](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.9...v4.0.10) (2024-07-03)
+
+
+
+## [4.0.9](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.8...v4.0.9) (2024-07-02)
+
+
+
+## [4.0.8](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.7...v4.0.8) (2024-07-02)
+
+
+
+## [4.0.7](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.6...v4.0.7) (2024-06-28)
+
+
+
+## [4.0.6](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.4...v4.0.6) (2024-06-27)
+
+
+### Bug Fixes
+
+* translation-helper.js typos ([e31aac7](https://gitlab.com/piveau/ui/piveau-ui/commit/e31aac7b535c22a483855dde723be5167e4de7fe))
+
+
+### Features
+
+* user feedback when generating runtime-configs ([843d459](https://gitlab.com/piveau/ui/piveau-ui/commit/843d4591cbce693ac9839d11591759de5ba8bdec))
+
+
+
+# [5.0.0-possible.3](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.2...v5.0.0-possible.3) (2024-07-30)
+
+
+### Bug Fixes
+
+* Publish feature branch as tag ([e2d04a2](https://gitlab.com/piveau/ui/piveau-ui/commit/e2d04a2d978423cce701787c7a70e1c763e5ef03))
+
+
+
+# [5.0.0-possible.2](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.1...v5.0.0-possible.2) (2024-07-30)
+
+
+### Bug Fixes
+
+* Add pinia dependency to vite-config ([e2bdf1c](https://gitlab.com/piveau/ui/piveau-ui/commit/e2bdf1c632bb23d0f92f3eaebbf4732ffc084f83))
+
+
+
+# [5.0.0-possible.1](https://gitlab.com/piveau/ui/piveau-ui/compare/v5.0.0-possible.0...v5.0.0-possible.1) (2024-07-30)
+
+
+
+# [5.0.0-possible.0](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.31...v5.0.0-possible.0) (2024-07-30)
+
+
+### Features
+
+* Add copy of Datasets.vue as ResourceSearchPage ([cd92b0d](https://gitlab.com/piveau/ui/piveau-ui/commit/cd92b0dd8c37dd20d74f1d336decf24d3db421a5))
+* Finalize Resource Search page ([1a1b8c5](https://gitlab.com/piveau/ui/piveau-ui/commit/1a1b8c5c35e2dc2005a193e59d242738b7fb2505))
+* Implement generic resource selection and add styling ([7d87b45](https://gitlab.com/piveau/ui/piveau-ui/commit/7d87b4591714835230f8f81af4883420cdc802f7))
+* Implement Resource Tabs for Datasets, Catalogs and SoftwareOfferings ([7a35bfc](https://gitlab.com/piveau/ui/piveau-ui/commit/7a35bfcfa6d7f982c55b1bb30fda84a9a7f6ec30))
+
+
+
+## [4.0.31](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.30...v4.0.31) (2024-07-30)
+
+
+
+## [4.0.30](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.29...v4.0.30) (2024-07-30)
+
+
+
+## [4.0.29](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.27...v4.0.29) (2024-07-29)
+
+
+
+## [4.0.27](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.26...v4.0.27) (2024-07-25)
+
+
+
+## [4.0.26](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.25...v4.0.26) (2024-07-23)
+
+
+### Bug Fixes
+
+* remove composable access from translation-helper.js ([8fabb75](https://gitlab.com/piveau/ui/piveau-ui/commit/8fabb7557b6822eb27b9c9c361e380fba38159ae))
+
+
+
+## [4.0.25](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.24...v4.0.25) (2024-07-19)
+
+
+### Bug Fixes
+
+* cleanup in FileUpload.vue ([c98018c](https://gitlab.com/piveau/ui/piveau-ui/commit/c98018c011fc5863b60c273b9124de4d1dfbbeeb))
+* logic fixes in FileUpload.vue ([2e81766](https://gitlab.com/piveau/ui/piveau-ui/commit/2e817660ccdbff5278564a23f064e4f72d8e0f80))
+
+
+
+## [4.0.24](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.23...v4.0.24) (2024-07-18)
+
+
+### Bug Fixes
 
 * don't show links for 'langauges' property in datasetDetailsProperties ([d67828c](https://gitlab.com/piveau/ui/piveau-ui/commit/d67828c889164c086f2d0c0456de07ac0de2084e))
 
@@ -138,7 +474,6 @@
 
 ### Features
 
-<<<<<<< HEAD
 * user feedback when generating runtime-configs ([843d459](https://gitlab.com/piveau/ui/piveau-ui/commit/843d4591cbce693ac9839d11591759de5ba8bdec))
 
 
@@ -147,15 +482,6 @@
 
 
 
-=======
-* Add copy of Datasets.vue as ResourceSearchPage ([cd92b0d](https://gitlab.com/piveau/ui/piveau-ui/commit/cd92b0dd8c37dd20d74f1d336decf24d3db421a5))
-* Finalize Resource Search page ([1a1b8c5](https://gitlab.com/piveau/ui/piveau-ui/commit/1a1b8c5c35e2dc2005a193e59d242738b7fb2505))
-* Implement generic resource selection and add styling ([7d87b45](https://gitlab.com/piveau/ui/piveau-ui/commit/7d87b4591714835230f8f81af4883420cdc802f7))
-* Implement Resource Tabs for Datasets, Catalogs and SoftwareOfferings ([7a35bfc](https://gitlab.com/piveau/ui/piveau-ui/commit/7a35bfcfa6d7f982c55b1bb30fda84a9a7f6ec30))
-
-
-
->>>>>>> f/Resource-Search-Page
 ## [4.0.4](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.0.3...v4.0.4) (2024-06-25)
 
 

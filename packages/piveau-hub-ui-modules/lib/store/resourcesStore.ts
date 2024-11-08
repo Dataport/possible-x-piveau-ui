@@ -93,6 +93,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     /*** ACTIONS ***/
     const actions = {
         loadAvailableResources: function () {
+            console.log("*** Inside loadAvailableResources");
             // TODO: Call generic service / function to load all available resources here
 
             // --> Workaround: Use axios directly
@@ -104,6 +105,9 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     
                 axios.get(reqStr, { params })
                     .then((response: any) => {
+                        console.log("Resources endpoint req str: ", reqStr);
+                        console.log("RESPONSE: ", response);
+                        console.log("RESPONSE data: ", response.data);
     
                         mutations.setAvailableResources(response.data);
         
@@ -116,6 +120,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
         },
         loadResults: function () {
             // TODO: Call generic service / function to load all results (GET) here
+            console.log("*** Inside loadResults");
 
             // --> Workaround: Use axios directly
             return new Promise((resolve, reject) => {
@@ -151,6 +156,9 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
                 
                 axios.get(reqStr, { params })
                     .then((response: any) => {
+                        console.log("Search endpoint req str: ", reqStr);
+                        console.log("Params: ", params);
+                        console.log("RESPONSE: ", response);
                         let resources = response.data.result;
 
                         let results = resources.results || [];

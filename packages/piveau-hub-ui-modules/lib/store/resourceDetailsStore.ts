@@ -11,8 +11,10 @@ export const useResourceDetailsStore = defineStore('resourceDetailsStore', () =>
   const error = ref(null)
 
   const fetchResourceDetails = async (type: string, id: string) => {
+        console.log("*** Inside fetchResourceDetails");
    
         const endpoint = `resources/${type}/${id}`;
+        console.log("Endpoint: ", endpoint);
         const reqStr = `${ENV.api.baseUrl}${endpoint}`;
         
             try {
