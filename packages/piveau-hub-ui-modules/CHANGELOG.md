@@ -1,3 +1,7 @@
+# [6.0.0-beta.1](https://gitlab.com/piveau/ui/piveau-ui/compare/v6.0.0-beta.0...v6.0.0-beta.1) (2024-11-08)
+
+
+
 # [6.0.0-beta.0](https://gitlab.com/piveau/ui/piveau-ui/compare/v4.1.7...v6.0.0-beta.0) (2024-11-08)
 
 
