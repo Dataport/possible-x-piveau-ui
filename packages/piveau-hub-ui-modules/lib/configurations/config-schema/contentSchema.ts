@@ -113,6 +113,7 @@ const resourceDetailsSchema = z.object({
   customResources: z.array(z.string()).default([
     'legalParticipants', 
     'serviceOfferings',
+    'dataProducts'
   ]),
 }).default({})
 
