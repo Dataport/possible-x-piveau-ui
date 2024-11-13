@@ -1892,7 +1892,6 @@
             "catalogues": "Search for catalogues. A catalogue hosts datasets and services",
             "invalidVisualise": "Preview feature not available, because the provided distribution URL is not a valid URL.",
             "resources": "Resources",
-            "softwareOfferings": "Software Offerings",
             "serviceOfferings": "Service Offerings",
             "legalPersons": "Legal Persons",
             "dataProducts":"Data Products"
@@ -2031,7 +2030,6 @@
                     "persistentUris": " Persistent URIs",
                     "copyright-notice": "Copyright notice",
                     "resources": "Resources",
-                    "softwareOfferings": "Software Offerings",
                     "serviceOfferings": "Service Offerings",
                     "legalPersons": "Legal Persons",
                     "dataProducts": "Data Products"

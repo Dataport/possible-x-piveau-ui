@@ -72,6 +72,10 @@ const glueConfig = {
           id: 'serviceOfferings',
           name: 'ResourceSearchPage',
         },
+        {
+          id: 'legalParticipants',
+          name: 'ResourceSearchPage',
+        },
       ],
     },
     pagination: {
@@ -92,8 +96,7 @@ const glueConfig = {
       resourceMapping: {
         'datasets': 'datasets',
         'catalogues': 'catalogues',
-        'legal-person': 'legalPersons',
-        'software-offering': 'softwareOfferings',
+        'legal-participant': 'legalParticipants',
         'service-offering': 'serviceOfferings',
         'data-product':'dataProducts'
       },

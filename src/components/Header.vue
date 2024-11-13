@@ -106,11 +106,15 @@ export default {
   },
   computed: {
     getAvailableResources() {
+      console.log("*** Inside Header.vue - getAvailableResources");
       let availableResources = this.resourcesStore.getters.getAvailableResources;
+      console.log("Available resources before: ", availableResources);
 
       // TODO: Replace this hacky solution if datasets and catalogues exist in available resources
       availableResources.push('datasets');
       availableResources.push('catalogues');
+
+      console.log("Available resources after: ", availableResources);
 
       return availableResources;
     },

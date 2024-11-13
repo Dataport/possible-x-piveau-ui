@@ -219,6 +219,8 @@ const props = defineProps({
   selectedResource: String,
   resourceDetailsData: Object,
 });
+console.log("*** Inside ServiceOfferings.vue");
+console.log("Props: ", props);
 </script>
 
 <style lang="scss" scoped>
