@@ -76,6 +76,7 @@ const resourcesSchema = z.object({
     'legal-person': z.string().default('legalPersons'),
     'software-offering': z.string().default('softwareOfferings'),
     'service-offering': z.string().default('serviceOfferings'),
+    'data-product': z.string().default('dataProducts'),
   }),
   search: z.object({
     useSearch: z.boolean().default(true),
@@ -113,6 +114,7 @@ const resourceDetailsSchema = z.object({
   customResources: z.array(z.string()).default([
     'legalPersons', 
     'serviceOfferings',
+    'dataProducts'
   ]),
 }).default({})
 

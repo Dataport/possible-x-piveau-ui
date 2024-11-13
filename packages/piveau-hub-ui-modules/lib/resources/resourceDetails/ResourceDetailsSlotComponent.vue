@@ -9,11 +9,19 @@
         <div class="col-12 col-md-9 p-0 mt-3 mt-md-0 sub_nav">
           <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
           <a :href="`${hubUrl}trust/${type}/${id}`" target='_blank' class="link">Verifiable Credential &#8599;</a>
-          <a :href="`${hubUrl}trust/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
+          <a :href="`${hubUrl}trust/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance
+            &#8599;</a>
         </div>
       </div>
-      <h1 class="resource-details-title">{{ resourceDetailsData?.name || resourceDetailsData?.id }}</h1>
-      <p>{{ resourceDetailsData?.description }}</p>
+
+      <div v-if="'aggregation_of' in resourceDetailsData">
+        <h1 class="resource-details-title">{{ resourceDetailsData.aggregation_of?.at(0)?.name }}</h1>
+        <p>{{ resourceDetailsData.aggregation_of?.at(0)?.description }}</p>
+      </div>
+      <div v-else>
+        <h1 class="resource-details-title">{{ resourceDetailsData?.name || resourceDetailsData?.id }}</h1>
+        <p>{{ resourceDetailsData?.description }}</p>
+      </div>
       <slot name="resource-details"></slot>
     </div>
   </div>
@@ -60,10 +68,10 @@ const hubUrl = ENV.api.hubUrl;
     padding: .5rem .7rem;
     border-radius: .35rem;
     text-decoration: none;
-    transition-duration: .35s !important; 
+    transition-duration: .35s !important;
     align-self: flex-start;
-   
-    &:hover{
+
+    &:hover {
       transform: scale(.95);
       text-decoration: underline
     }
@@ -102,5 +110,4 @@ const hubUrl = ENV.api.hubUrl;
 //     justify-content: flex-start;
 //     flex-direction: column
 //   }
-// }
-</style>
+// }</style>
