@@ -95,6 +95,7 @@ const glueConfig = {
         'legal-person': 'legalPersons',
         'software-offering': 'softwareOfferings',
         'service-offering': 'serviceOfferings',
+        'data-product':'dataProducts'
       },
       search: {
         useSearch: true,
@@ -114,7 +115,7 @@ const glueConfig = {
       },
     },
     resourceDetails: {
-      customResources: ["legalPersons", "serviceOfferings"]
+      customResources: ["legalPersons", "serviceOfferings", "dataProducts"]
     },
     datasets: {
       useSort: true,

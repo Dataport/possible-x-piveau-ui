@@ -1894,7 +1894,8 @@
             "resources": "Resources",
             "softwareOfferings": "Software Offerings",
             "serviceOfferings": "Service Offerings",
-            "legalPersons": "Legal Persons"
+            "legalPersons": "Legal Persons",
+            "dataProducts":"Data Products"
         },
         "visualisationDistribution": {
             "barChartExplain": "A bar chart plots numeric values for levels of a categorical feature as bars. Levels are plotted on one chart axis, and values are plotted on the other axis.",
@@ -2032,7 +2033,8 @@
                     "resources": "Resources",
                     "softwareOfferings": "Software Offerings",
                     "serviceOfferings": "Service Offerings",
-                    "legalPersons": "Legal Persons"
+                    "legalPersons": "Legal Persons",
+                    "dataProducts": "Data Products"
                 },
                 "impactStudies": {
                     "opendataimpact": "Open Data Impact",
