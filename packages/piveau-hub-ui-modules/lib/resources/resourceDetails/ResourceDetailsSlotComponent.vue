@@ -8,9 +8,8 @@
         </div>
         <div class="col-12 col-md-9 p-0 mt-3 mt-md-0 sub_nav">
           <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
-          <a :href="`${hubUrl}trust/${type}/${id}`" target='_blank' class="link">Verifiable Credential &#8599;</a>
-          <a :href="`${hubUrl}trust/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance
-            &#8599;</a>
+          <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Verifiable Credential &#8599;</a>
+          <a :href="`${hubUrl}trust/credentials/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
         </div>
       </div>
 

@@ -9,7 +9,7 @@
         <h2 class="card-title m0">{{ datasetOrCatalogTitle }}</h2>
       </div>
     </slot>
-
+    
     <!-- Body slot -->
     <slot name="body" :dataset="dataset">
       <div class="dataset-info-box-body">

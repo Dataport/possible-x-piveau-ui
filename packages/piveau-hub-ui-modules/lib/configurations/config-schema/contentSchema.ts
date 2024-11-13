@@ -73,8 +73,7 @@ const resourcesSchema = z.object({
   resourceMapping: z.object({
     'datasets': z.string().default('datasets'),
     'catalogues': z.string().default('catalogues'),
-    'legal-person': z.string().default('legalPersons'),
-    'software-offering': z.string().default('softwareOfferings'),
+    'legal-participant': z.string().default('legalParticipants'),
     'service-offering': z.string().default('serviceOfferings'),
     'data-product': z.string().default('dataProducts'),
   }),
@@ -112,7 +111,7 @@ const resourcesSchema = z.object({
 
 const resourceDetailsSchema = z.object({
   customResources: z.array(z.string()).default([
-    'legalPersons', 
+    'legalParticipants', 
     'serviceOfferings',
     'dataProducts'
   ]),
