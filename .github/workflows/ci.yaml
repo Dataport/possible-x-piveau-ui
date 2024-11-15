@@ -38,8 +38,8 @@ jobs:
         with:
           buildkitd-flags: --debug
 
-      - name: Docker "management" meta
-        id: management-meta
+      - name: Docker "catalog-ui" meta
+        id: catalog-ui-meta
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/catalog-ui
@@ -47,12 +47,13 @@ jobs:
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main'}}
             type=raw,value=latest-${{github.ref_name }},enable=${{ github.ref != 'refs/heads/main'}}
             ${{ github.sha }}
-      - name: Build and push "management"
-        id: build_and_push_management
+            
+      - name: Build and push "catalog-ui"
+        id: build_and_push
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.management-meta.outputs.tags }}
-          labels: ${{ steps.management-meta.outputs.labels }}
+          tags: ${{ steps.catalog-ui-meta.outputs.tags }}
+          labels: ${{ steps.catalog-ui-meta.outputs.labels }}
