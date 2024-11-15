@@ -1,0 +1,58 @@
+name: Build and Publish Image
+on:
+  #  pull_request:
+  #    types:
+  #      - opened
+  #      - reopened
+  #      - review_requested
+  push:
+    branches: [ "develop", "main" ]
+  workflow_dispatch:
+env:
+  REGISTRY: ghcr.io
+  REGISTRY_NAMESPACE: possible-x
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Fetch apps/vanilla-piveau-hub-ui
+        run:
+          git clone https://${{vars.FRAUNHOFER_GITLAB_PAT_NAME}}:${{secrets.FRAUNHOFER_GITLAB_PAT_TOKEN}}@gitlab.fokus.fraunhofer.de/possible/hub/piveau-hub-ui.git apps/vanilla-piveau-hub-ui
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          buildkitd-flags: --debug
+
+      - name: Docker "management" meta
+        id: management-meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAMESPACE }}/catalog-ui
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main'}}
+            type=raw,value=latest-${{github.ref_name }},enable=${{ github.ref != 'refs/heads/main'}}
+            ${{ github.sha }}
+      - name: Build and push "management"
+        id: build_and_push_management
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.management-meta.outputs.tags }}
+          labels: ${{ steps.management-meta.outputs.labels }}
