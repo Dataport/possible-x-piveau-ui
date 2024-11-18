@@ -145,18 +145,21 @@
 
         </section> -->
 
-        <section>
+      <section>
         <h4>Service Provider</h4>
         <hr />
         <p>{{ resourceDetailsData?.provided_by }}</p>
       </section>
 
-      <section>
+      <section v-if="resourceDetailsData.data_protection_regime && resourceDetailsData.data_protection_regime.length > 0">
         <h4>Data Protection Regime</h4>
         <hr />
         <div class="tag_container">
-          <div class="tag" v-for="(regime) in resourceDetailsData.data_protection_regime"
-            v-bind:key="data_protection_regime">
+          <div
+            class="tag"
+            v-for="(regime, index) in resourceDetailsData.data_protection_regime"
+            v-bind:key="index"
+          >
             <span>{{ regime }}</span>
           </div>
         </div>
@@ -192,10 +195,8 @@
         <h4>Terms and Conditions</h4>
         <hr />
         <div class="tag_container">
-        <div class="" v-for="(t_c) in resourceDetailsData.policy"
+        <div class="" v-for="(t_c) in resourceDetailsData.terms_and_conditions"
           v-bind:key="terms_and_conditions">
-
-          
             <div class="tag">
             <div>
               <span class="label">URL:</span>
@@ -206,6 +207,21 @@
               <span>{{ t_c.hash }}</span>
             </div>
            
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="">
+        <h4>Service Offering Policy</h4>
+        <hr />
+        <div class="tag_container">
+        <div class="" v-for="(p) in resourceDetailsData.policy"
+          v-bind:key="policy">
+            <div class="tag">
+            <div>
+              <span>{{ p }}</span>
+            </div>
           </div>
           </div>
         </div>
