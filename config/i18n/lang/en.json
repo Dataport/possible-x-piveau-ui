@@ -1894,6 +1894,7 @@
             "resources": "Resources",
             "serviceOfferings": "Service Offerings",
             "legalPersons": "Legal Persons",
+            "legalParticipants": "Legal Participants",
             "dataProducts":"Data Products"
         },
         "visualisationDistribution": {
@@ -2032,6 +2033,7 @@
                     "resources": "Resources",
                     "serviceOfferings": "Service Offerings",
                     "legalPersons": "Legal Persons",
+                    "legalParticipants": "Legal Participants",
                     "dataProducts": "Data Products"
                 },
                 "impactStudies": {
