@@ -146,13 +146,13 @@
         </section> -->
 
         <section>
-        <h4>Service provider</h4>
+        <h4>Service Provider</h4>
         <hr />
         <p>{{ resourceDetailsData?.provided_by }}</p>
       </section>
 
       <section>
-        <h4>Data protection regime</h4>
+        <h4>Data Protection Regime</h4>
         <hr />
         <div class="tag_container">
           <div class="tag" v-for="(regime) in resourceDetailsData.data_protection_regime"
@@ -173,15 +173,15 @@
             <div class="tag">
             <div>
               <span class="label">Format Type:</span>
-              <span>{{ account_export['gx:formatType'] }}</span>
+              <span>{{ account_export['format_type'] }}</span>
             </div>
             <div>
               <span class="label">Access Type:</span>
-              <span>{{ account_export['gx:accessType'] }}</span>
+              <span>{{ account_export['access_type'] }}</span>
             </div>
             <div>
               <span class="label">Request Type:</span>
-              <span>{{ account_export['gx:requestType'] }}</span>
+              <span>{{ account_export['request_type'] }}</span>
             </div>
           </div>
           </div>
@@ -192,7 +192,7 @@
         <h4>Terms and Conditions</h4>
         <hr />
         <div class="tag_container">
-        <div class="" v-for="(t_c) in resourceDetailsData.terms_and_conditions"
+        <div class="" v-for="(t_c) in resourceDetailsData.policy"
           v-bind:key="terms_and_conditions">
 
           
