@@ -25,6 +25,15 @@ jobs:
       - name: Fetch apps/vanilla-piveau-hub-ui
         run:
           git clone https://${{vars.FRAUNHOFER_GITLAB_PAT_NAME}}:${{secrets.FRAUNHOFER_GITLAB_PAT_TOKEN}}@gitlab.fokus.fraunhofer.de/possible/hub/piveau-hub-ui.git apps/vanilla-piveau-hub-ui
+  
+      - name: Build
+        run: |
+          npm ci --prefix apps/vanilla-piveau-hub-ui
+          cp apps/vanilla-piveau-hub-ui/config/user-config.sample.js apps/vanilla-piveau-hub-ui/config/user-config.js
+          npm run build --prefix apps/vanilla-piveau-hub-ui                                                                - name: Log in to the Container registry
+          npm i                                                                                                              uses: docker/login-action@v2
+          ln -s ../apps/vanilla-piveau-hub-ui/node_modules/@piveau node_modules/@piveau                                      with:
+          npm run build                                                                                                        registry: ${{ env.REGISTRY }}
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
@@ -52,8 +61,8 @@ jobs:
         id: build_and_push
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./apps/vanilla-piveau-hub-ui/
+          file: ./apps/vanilla-piveau-hub-ui/Dockerfile
           push: true
           tags: ${{ steps.catalog-ui-meta.outputs.tags }}
           labels: ${{ steps.catalog-ui-meta.outputs.labels }}
