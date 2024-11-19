@@ -34,10 +34,6 @@ jobs:
       - run: ln -s ../apps/vanilla-piveau-hub-ui/node_modules/@piveau node_modules/@piveau
       - run: npm run build
 
-
-
-
-
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
@@ -64,8 +60,8 @@ jobs:
         id: build_and_push
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./apps/vanilla-piveau-hub-ui
+          file: ./apps/vanilla-piveau-hub-ui/Dockerfile
           push: true
           tags: ${{ steps.catalog-ui-meta.outputs.tags }}
           labels: ${{ steps.catalog-ui-meta.outputs.labels }}
