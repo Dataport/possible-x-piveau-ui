@@ -73,6 +73,10 @@ const glueConfig = {
           name: 'ResourceSearchPage',
         },
         {
+          id: 'dataProducts',
+          name: 'ResourceSearchPage',
+        },
+        {
           id: 'legalParticipants',
           name: 'ResourceSearchPage',
         },
@@ -118,7 +122,7 @@ const glueConfig = {
       },
     },
     resourceDetails: {
-      customResources: ["legalPersons", "serviceOfferings", "dataProducts"]
+      customResources: ["serviceOfferings", "dataProducts", "legalParticipants"]
     },
     datasets: {
       useSort: true,

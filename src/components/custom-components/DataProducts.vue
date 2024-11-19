@@ -40,14 +40,14 @@
         <hr />
 
         <section>
-          <h5>Name:</h5>
+          <h4>Name:</h4>
           <p>{{ resourceDetailsData?.name }}</p>
         </section>
 
         <hr />
 
         <section>
-          <h5 class="description_tag">Description:</h5>
+          <h4 class="description_tag">Description:</h4>
           <p class="description">{{ resourceDetailsData?.description }}</p>
         </section>
 
@@ -55,14 +55,14 @@
 
 
         <section>
-          <h5>Service provider:</h5>
+          <h4>Service provider:</h4>
           <p>{{ resourceDetailsData?.provided_by }}</p>
         </section>
 
         <hr />
 
         <section>
-          <h5>Data protection regime:</h5>
+          <h4>Data protection regime:</h4>
 
           <div class="tag_container">
             <div class="tag" v-for="(regime) in resourceDetailsData.data_protection_regime"
@@ -75,7 +75,7 @@
         <hr />
 
         <section class="">
-          <h5>Data Account Export:</h5>
+          <h4>Data Account Export:</h4>
 
           <div class="tag_container">
             <div class="" v-for="(account_export) in resourceDetailsData.data_account_export"
@@ -106,7 +106,7 @@
         <hr />
 
         <section class="">
-          <h5>Terms and Conditions:</h5>
+          <h4>Terms and Conditions:</h4>
        
           <div class="tag_container">
             <div class="" v-for="(t_c) in resourceDetailsData.terms_and_conditions" v-bind:key="terms_and_conditions">
@@ -243,7 +243,7 @@ a {
 
 .left,
 .right {
-  h5 {
+  h4 {
     border: 1px solid #fff;
     border-top-left-radius: .6rem;
     border-top-right-radius: .6rem;
@@ -260,7 +260,7 @@ a {
     display: none;
   }
 
-  h5 {
+  h4 {
     padding: 1rem;
   }
 }
@@ -306,8 +306,9 @@ a {
   border-radius: .5rem;
   width: 100% !important;
 
-  h5{
-    font-size: .9rem;
+  h4{
+    font-size: 1.5rem;
+    font-weight: 500;
   }
 
   .description{
@@ -320,7 +321,7 @@ a {
 
   section {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     gap: .5rem;
 
   
