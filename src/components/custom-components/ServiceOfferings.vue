@@ -177,10 +177,8 @@ a {
     color: #fff;
     padding: .4rem .6rem;
     border-radius: .3rem;
-
     a{
       color: #fff !important;
-    
     }
   }
 }
