@@ -144,6 +144,17 @@
           </div>
 
         </section> -->
+      
+      <section>
+        <h4>Service Offering ID</h4>
+        <hr />
+        <div class="id-container">
+          <span class="id-text">{{ resourceDetailsData.id }}</span>
+          <button class="copy-button" @click="copyToClipboard(resourceDetailsData.id)">
+            Copy ID
+          </button>
+        </div>
+      </section>
 
       <section>
         <h4>Service Provider</h4>
@@ -237,6 +248,14 @@ const props = defineProps({
 });
 console.log("*** Inside ServiceOfferings.vue");
 console.log("Props: ", props);
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert("Service Offering ID copied to clipboard!");
+  }).catch(err => {
+    console.error("Failed to copy ID: ", err);
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -395,5 +414,46 @@ a {
       }
     }
   }
+}
+
+.id-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.id-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.id-text {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: black;
+  padding-bottom: 4px;
+}
+
+
+.copy-button {
+  background-color: #314D84;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #2A3F6E;
+  }
+}
+
+.id-section hr {
+  border: 0;
+  height: 1px;
+  background-color: #314D84; /* Change this to the desired color */
+  margin: 0.5rem 0; /* Adjust the margins as needed */
 }
 </style>
