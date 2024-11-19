@@ -2,6 +2,17 @@
   <div class="page">
     <section class="main_section">
       <section>
+        <h4>Data Product ID</h4>
+        <hr />
+        <div class="id-container">
+          <span class="id-text">{{ resourceDetailsData.id }}</span>
+          <button class="copy-button" @click="copyToClipboard(resourceDetailsData.id)">
+            Copy ID
+          </button>
+        </div>
+      </section>
+
+      <section>
         <h4>Copyright owned by</h4>
         <hr />
         <p>{{ resourceDetailsData.aggregation_of?.at(0)?.copyright_owned_by }}</p>
@@ -55,18 +66,24 @@
 
 
         <section>
-          <h4>Service provider:</h4>
+          <h4>Service Provider:</h4>
           <p>{{ resourceDetailsData?.provided_by }}</p>
         </section>
 
         <hr />
 
         <section>
-          <h4>Data protection regime:</h4>
-
+          <h4>Data Protection Regime:</h4>
           <div class="tag_container">
-            <div class="tag" v-for="(regime) in resourceDetailsData.data_protection_regime"
-              v-bind:key="data_protection_regime">
+            <div v-if="!resourceDetailsData.data_protection_regime || resourceDetailsData.data_protection_regime.length === 0">
+              <span>None</span>
+            </div>
+            <div
+              class="tag"
+              v-else
+              v-for="(regime, index) in resourceDetailsData.data_protection_regime"
+              :key="index"
+            >
               <span>{{ regime }}</span>
             </div>
           </div>
@@ -85,15 +102,15 @@
               <div class="tag">
                 <div>
                   <span class="label">Format Type:</span>
-                  <span>{{ account_export.formatType }}</span>
+                  <span>{{ account_export.format_type }}</span>
                 </div>
                 <div>
                   <span class="label">Access Type:</span>
-                  <span>{{ account_export.accessType }}</span>
+                  <span>{{ account_export.access_type }}</span>
                 </div>
                 <div>
                   <span class="label">Request Type:</span>
-                  <span>{{ account_export.requestType }}</span>
+                  <span>{{ account_export.request_type }}</span>
                 </div>
               </div>
             </div>
@@ -168,23 +185,34 @@ a {
   width: 100%;
   justify-content: space-between;
   flex-direction: column;
+}
 
-  .left {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
+.id-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-  .right {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+.id-text {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: black;
+  padding-bottom: 4px;
+}
 
-    hr {
-      background-color: #fff;
-    }
+.copy-button {
+  background-color: #314D84;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, text-decoration 0.3s;
+
+  &:hover {
+    background-color: #2A3F6E;
+    text-decoration: underline;
+    transform: scale(0.95);
   }
 }
 

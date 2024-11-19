@@ -18,14 +18,18 @@
         <p>{{ resourceDetailsData?.provided_by }}</p>
       </section>
 
-      <section v-if="resourceDetailsData.data_protection_regime && resourceDetailsData.data_protection_regime.length > 0">
+      <section>
         <h4>Data Protection Regime</h4>
         <hr />
         <div class="tag_container">
+          <div v-if="!resourceDetailsData.data_protection_regime || resourceDetailsData.data_protection_regime.length === 0">
+            <span>None</span>
+          </div>
           <div
             class="tag"
+            v-else
             v-for="(regime, index) in resourceDetailsData.data_protection_regime"
-            v-bind:key="index"
+            :key="index"
           >
             <span>{{ regime }}</span>
           </div>

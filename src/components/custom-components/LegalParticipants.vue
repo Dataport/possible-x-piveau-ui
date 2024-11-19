@@ -12,22 +12,12 @@
         </div>
       </section>
 
-      <section>
-        <h4>Organization Name</h4>
-        <hr />
-        <p>{{ resourceDetailsData.organization_name }}</p>
-      </section>
-
-      <section>
-        <h4>Organization Description</h4>
-        <hr />
-        <p>{{ resourceDetailsData.organization_description }}</p>
-      </section>
-
       <section v-if="resourceDetailsData.legal_registration_number">
         <h4>Legal Registration Number</h4>
         <hr />
-        <p>{{ resourceDetailsData.legal_registration_number }}</p>
+        <p v-for="(value, key) in resourceDetailsData.legal_registration_number" :key="key">
+          {{ key }}: {{ value }}
+        </p>
       </section>
 
       <section>
@@ -59,7 +49,7 @@ console.log("Props: ", props);
 
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
-    alert("ID copied to clipboard!");
+    alert("Legal Participant ID copied to clipboard!");
   }).catch(err => {
     console.error("Failed to copy ID: ", err);
   });
