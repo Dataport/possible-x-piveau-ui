@@ -36,17 +36,17 @@
               <span class="label">Country Subdivision Code:</span>
               <span>{{ resourceDetailsData.legal_address.country_subdivision_code }}</span>
             </div>
-            <div v-if="resourceDetailsData.legal_address.street">
+            <div v-if="resourceDetailsData.legal_address.street_address">
               <span class="label">Street:</span>
-              <span>{{ resourceDetailsData.legal_address.street }}</span>
+              <span>{{ resourceDetailsData.legal_address.street_address }}</span>
             </div>
             <div v-if="resourceDetailsData.legal_address.postal_code">
               <span class="label">Postal Code:</span>
               <span>{{ resourceDetailsData.legal_address.postal_code}}</span>
             </div>
-            <div v-if="resourceDetailsData.legal_address.city">
+            <div v-if="resourceDetailsData.legal_address.locality">
               <span class="label">City:</span>
-              <span>{{ resourceDetailsData.legal_address.city }}</span>
+              <span>{{ resourceDetailsData.legal_address.locality }}</span>
             </div>
           </p>
         </div>
@@ -65,17 +65,17 @@
               <span class="label">Country Subdivision Code:</span>
               <span>{{ resourceDetailsData.headquarter_address.country_subdivision_code }}</span>
             </div>
-            <div v-if="resourceDetailsData.headquarter_address.street">
+            <div v-if="resourceDetailsData.headquarter_address.street_address">
               <span class="label">Street:</span>
-              <span>{{ resourceDetailsData.headquarter_address.street }}</span>
+              <span>{{ resourceDetailsData.headquarter_address.street_address }}</span>
             </div>
             <div v-if="resourceDetailsData.headquarter_address.postal_code">
               <span class="label">Postal Code:</span>
               <span>{{ resourceDetailsData.headquarter_address.postal_code}}</span>
             </div>
-            <div v-if="resourceDetailsData.headquarter_address.city">
+            <div v-if="resourceDetailsData.headquarter_address.locality">
               <span class="label">City:</span>
-              <span>{{ resourceDetailsData.headquarter_address.city }}</span>
+              <span>{{ resourceDetailsData.headquarter_address.locality }}</span>
             </div>
           </p>
         </div>
