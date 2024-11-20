@@ -75,15 +75,11 @@
         <section>
           <h4>Data Protection Regime:</h4>
           <div class="tag_container">
-            <div v-if="!resourceDetailsData.data_protection_regime || resourceDetailsData.data_protection_regime.length === 0">
+            <div
+              v-if="!resourceDetailsData.data_protection_regime || resourceDetailsData.data_protection_regime.length === 0">
               <span>None</span>
             </div>
-            <div
-              class="tag"
-              v-else
-              v-for="(regime, index) in resourceDetailsData.data_protection_regime"
-              :key="index"
-            >
+            <div class="tag" v-else v-for="(regime, index) in resourceDetailsData.data_protection_regime" :key="index">
               <span>{{ regime }}</span>
             </div>
           </div>
@@ -116,7 +112,7 @@
             </div>
           </div>
 
-       
+
         </section>
 
 
@@ -124,7 +120,7 @@
 
         <section class="">
           <h4>Terms and Conditions:</h4>
-       
+
           <div class="tag_container">
             <div class="" v-for="(t_c) in resourceDetailsData.terms_and_conditions" v-bind:key="terms_and_conditions">
 
@@ -154,6 +150,25 @@ const props = defineProps({
   selectedResource: String,
   resourceDetailsData: Object,
 });
+
+
+const copyToClipboard = (productId) => {
+  const valueToCopy = productId;
+  if (!valueToCopy) {
+    alert(`No value found for key: "${key}"`);
+    return;
+  }
+  const tempInput = document.createElement('input');
+  tempInput.value = valueToCopy;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  try {
+    alert(`Copied "${valueToCopy}" to clipboard!`);
+  } catch (err) {
+    alert('Clipboard API not supported');
+  }
+  document.body.removeChild(tempInput);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -334,16 +349,16 @@ a {
   border-radius: .5rem;
   width: 100% !important;
 
-  h4{
+  h4 {
     font-size: 1.5rem;
     font-weight: 500;
   }
 
-  .description{
+  .description {
     margin-bottom: 1rem;
   }
 
-  .description_tag{ 
+  .description_tag {
     margin-top: .2rem;
   }
 
@@ -352,7 +367,7 @@ a {
     flex-direction: column;
     gap: .5rem;
 
-  
+
   }
 
 
