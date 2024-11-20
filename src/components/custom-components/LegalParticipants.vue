@@ -36,6 +36,10 @@
               <span class="label">Country Subdivision Code:</span>
               <span>{{ resourceDetailsData.legal_address.country_subdivision_code }}</span>
             </div>
+            <div v-if="resourceDetailsData.legal_address.street">
+              <span class="label">Street:</span>
+              <span>{{ resourceDetailsData.legal_address.street }}</span>
+            </div>
             <div v-if="resourceDetailsData.legal_address.postal_code">
               <span class="label">Postal Code:</span>
               <span>{{ resourceDetailsData.legal_address.postal_code}}</span>
@@ -43,10 +47,6 @@
             <div v-if="resourceDetailsData.legal_address.city">
               <span class="label">City:</span>
               <span>{{ resourceDetailsData.legal_address.city }}</span>
-            </div>
-            <div v-if="resourceDetailsData.legal_address.street">
-              <span class="label">Street:</span>
-              <span>{{ resourceDetailsData.legal_address.street }}</span>
             </div>
           </p>
         </div>
@@ -65,6 +65,10 @@
               <span class="label">Country Subdivision Code:</span>
               <span>{{ resourceDetailsData.headquarter_address.country_subdivision_code }}</span>
             </div>
+            <div v-if="resourceDetailsData.headquarter_address.street">
+              <span class="label">Street:</span>
+              <span>{{ resourceDetailsData.headquarter_address.street }}</span>
+            </div>
             <div v-if="resourceDetailsData.headquarter_address.postal_code">
               <span class="label">Postal Code:</span>
               <span>{{ resourceDetailsData.headquarter_address.postal_code}}</span>
@@ -72,10 +76,6 @@
             <div v-if="resourceDetailsData.headquarter_address.city">
               <span class="label">City:</span>
               <span>{{ resourceDetailsData.headquarter_address.city }}</span>
-            </div>
-            <div v-if="resourceDetailsData.headquarter_address.street">
-              <span class="label">Street:</span>
-              <span>{{ resourceDetailsData.headquarter_address.street }}</span>
             </div>
           </p>
         </div>
