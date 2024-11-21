@@ -2,6 +2,8 @@
   <div class="page">
     <section class="main_section">
       <section>
+        <br />
+        <br />
         <h4>Data Product ID</h4>
         <hr />
         <div class="id-container">
