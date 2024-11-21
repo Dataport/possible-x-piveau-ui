@@ -12,10 +12,12 @@
         </div>
       </section>
 
-      <section>
-        <h4>Copyright owned by</h4>
+      <section class="">
+        <h4>Copyright Owned By:</h4>
         <hr />
-        <p>{{ resourceDetailsData.aggregation_of?.at(0)?.copyright_owned_by }}</p>
+        <div class="tag" v-for="(cob) in resourceDetailsData.aggregation_of?.[0]?.copyright_owned_by" v-bind:key="cob">
+          <span>{{ cob }}</span>
+        </div>
       </section>
 
       <section>
@@ -151,6 +153,7 @@ const props = defineProps({
   resourceDetailsData: Object,
 });
 
+console.log('Resource Details Data:', props.resourceDetailsData);
 
 const copyToClipboard = (productId) => {
   const valueToCopy = productId;

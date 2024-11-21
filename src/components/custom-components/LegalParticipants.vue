@@ -12,6 +12,17 @@
         </div>
       </section>
 
+      <section v-if="resourceDetailsData.email_address">
+        <h4>Email Address</h4>
+        <hr />
+        <div class="tag_container">
+          <div class="tag" v-for="(value, key) in resourceDetailsData.email_address" :key="key">
+            <span class="label">{{ key }}:</span>
+            <span>{{ value }}</span>
+          </div>
+        </div>
+      </section>
+
       <section v-if="resourceDetailsData.legal_registration_number">
         <h4>Legal Registration Number</h4>
         <hr />
@@ -90,8 +101,8 @@ const props = defineProps({
   resourceDetailsData: Object,
 });
 
-// console.log("*** Inside LegalParticipants.vue");
-// console.log("Props: ", props);
+console.log("*** Inside LegalParticipants.vue");
+console.log("Props: ", props);
 
 function copyToClipboard(text) {
   navigator.clipboard
