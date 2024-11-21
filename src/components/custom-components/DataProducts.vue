@@ -49,7 +49,14 @@
 
 
       <section class="additional_info">
-        <h3>Additional Service Offering Information</h3>
+        <h3>Associated Service Offering</h3>
+        <hr />
+
+        <section>
+          <h4>Service Provider:</h4>
+          <p>{{ resourceDetailsData?.provided_by }}</p>
+        </section>
+
         <hr />
 
         <section>
@@ -62,14 +69,6 @@
         <section>
           <h4 class="description_tag">Description:</h4>
           <p class="description">{{ resourceDetailsData?.description }}</p>
-        </section>
-
-        <hr />
-
-
-        <section>
-          <h4>Service Provider:</h4>
-          <p>{{ resourceDetailsData?.provided_by }}</p>
         </section>
 
         <hr />

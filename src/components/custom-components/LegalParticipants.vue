@@ -18,17 +18,6 @@
         <p>{{ resourceDetailsData.email_address || 'None Provided' }}</p>
       </section>
 
-      <section v-if="resourceDetailsData.legal_registration_number">
-        <h4>Legal Registration Number</h4>
-        <hr />
-        <div class="tag_container">
-          <div class="tag" v-for="(value, key) in resourceDetailsData.legal_registration_number" :key="key">
-            <span class="label">{{ key }}:</span>
-            <span>{{ value }}</span>
-          </div>
-        </div>
-      </section>
-
       <section v-if="resourceDetailsData.legal_address">
         <h4>Legal Address</h4>
         <hr />
@@ -43,7 +32,7 @@
               <span>{{ resourceDetailsData.legal_address.country_subdivision_code }}</span>
             </div>
             <div v-if="resourceDetailsData.legal_address.street_address">
-              <span class="label">Street:</span>
+              <span class="label">Street Address:</span>
               <span>{{ resourceDetailsData.legal_address.street_address }}</span>
             </div>
             <div v-if="resourceDetailsData.legal_address.postal_code">
@@ -72,7 +61,7 @@
               <span>{{ resourceDetailsData.headquarter_address.country_subdivision_code }}</span>
             </div>
             <div v-if="resourceDetailsData.headquarter_address.street_address">
-              <span class="label">Street:</span>
+              <span class="label">Street Address:</span>
               <span>{{ resourceDetailsData.headquarter_address.street_address }}</span>
             </div>
             <div v-if="resourceDetailsData.headquarter_address.postal_code">
@@ -84,6 +73,17 @@
               <span>{{ resourceDetailsData.headquarter_address.locality }}</span>
             </div>
           </p>
+        </div>
+      </section>
+
+      <section v-if="resourceDetailsData.legal_registration_number">
+        <h4>Legal Registration Number</h4>
+        <hr />
+        <div class="tag_container">
+          <div class="tag" v-for="(value, key) in resourceDetailsData.legal_registration_number" :key="key">
+            <span class="label">{{ key }}:</span>
+            <span>{{ value }}</span>
+          </div>
         </div>
       </section>
     </section>
