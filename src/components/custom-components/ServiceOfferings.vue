@@ -6,9 +6,12 @@
         <hr />
         <div class="id-container">
           <span class="id-text">{{ resourceDetailsData.id }}</span>
-          <button class="copy-button" @click="copyToClipboard(resourceDetailsData.id)">
+          <button class="copy-button" @click="copyId">
             Copy ID
           </button>
+        </div>
+        <div v-if="notificationVisible" class="notification">
+          Service Offering ID Copied
         </div>
       </section>
 
@@ -36,64 +39,61 @@
         </div>
       </section>
 
-      <section class="">
+      <section>
         <h4>Data Account Export</h4>
         <hr />
         <div class="tag_container">
-        <div class="" v-for="(account_export) in resourceDetailsData.data_account_export"
-          v-bind:key="data_account_export">
-
-          
+          <div v-for="(account_export, index) in resourceDetailsData.data_account_export"
+            :key="index">
             <div class="tag">
-            <div>
-              <span class="label">Format Type:</span>
-              <span>{{ account_export['format_type'] }}</span>
+              <div>
+                <span class="label">Format Type:</span>
+                <span>{{ account_export.format_type }}</span>
+              </div>
+              <div>
+                <span class="label">Access Type:</span>
+                <span>{{ account_export.access_type }}</span>
+              </div>
+              <div>
+                <span class="label">Request Type:</span>
+                <span>{{ account_export.request_type }}</span>
+              </div>
             </div>
-            <div>
-              <span class="label">Access Type:</span>
-              <span>{{ account_export['access_type'] }}</span>
-            </div>
-            <div>
-              <span class="label">Request Type:</span>
-              <span>{{ account_export['request_type'] }}</span>
-            </div>
-          </div>
           </div>
         </div>
       </section>
 
-      <section class="">
+      <section>
         <h4>Terms and Conditions</h4>
         <hr />
         <div class="tag_container">
-        <div class="" v-for="(t_c) in resourceDetailsData.terms_and_conditions"
-          v-bind:key="terms_and_conditions">
+          <div v-for="(t_c, index) in resourceDetailsData.terms_and_conditions"
+            :key="index">
             <div class="tag">
-            <div>
-              <span class="label">URL:</span>
-              <span><a v-bind:href="`${t_c.url}`">{{ t_c.url }}</a></span>
+              <div>
+                <span class="label">URL:</span>
+                <span><a :href="t_c.url">{{ t_c.url }}</a></span>
+              </div>
+              <div>
+                <span class="label">Hash:</span>
+                <span>{{ t_c.hash }}</span>
+              </div>
             </div>
-            <div>
-              <span class="label">Hash:</span>
-              <span>{{ t_c.hash }}</span>
-            </div>
-           
-          </div>
           </div>
         </div>
       </section>
 
-      <section class="">
+      <section>
         <h4>Service Offering Policy</h4>
         <hr />
         <div class="tag_container">
-        <div class="" v-for="(p) in resourceDetailsData.policy"
-          v-bind:key="policy">
+          <div v-for="(p, index) in resourceDetailsData.policy"
+            :key="index">
             <div class="tag">
-            <div>
-              <span>{{ p }}</span>
+              <div>
+                <span>{{ p }}</span>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </section>
@@ -102,11 +102,42 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 const props = defineProps({
   selectedResource: String,
   resourceDetailsData: Object,
-  copyToClipboard:Function
+  copyToClipboard: Function
 });
+
+const notificationVisible = ref(false);
+
+function copyId() {
+  if (props.copyToClipboard) {
+    props.copyToClipboard(props.resourceDetailsData.id);
+  } else if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(props.resourceDetailsData.id);
+  } else {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = props.resourceDetailsData.id;
+    textarea.style.position = 'fixed';  // Avoid scrolling to bottom
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try {
+      document.execCommand('copy');
+    } catch (err) {
+      console.error('Fallback: Unable to copy', err);
+    }
+    document.body.removeChild(textarea);
+  }
+  notificationVisible.value = true;
+  setTimeout(() => {
+    notificationVisible.value = false;
+  }, 3000); // Hide notification after 3 seconds
+}
+
 console.log("*** Inside ServiceOfferings.vue");
 console.log("Props: ", props);
 </script>
@@ -117,21 +148,13 @@ console.log("Props: ", props);
 }
 
 a {
-  text-decoration: underline
+  text-decoration: underline;
 }
 
 .cropped_link {
-
-  -ms-word-break: break-all;
   word-break: break-all;
-  /* Non standard for webkit */
   word-break: break-word;
-
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  -ms-hyphens: auto;
   hyphens: auto;
-
 }
 
 .main_section {
@@ -163,18 +186,14 @@ a {
 .tag_container {
   display: flex !important;
   flex-wrap: wrap;
-  gap: .5rem;
-
-
-  
+  gap: 0.5rem;
 
   .tag {
-    
     background-color: #314D84;
     color: #fff;
-    padding: .4rem .6rem;
-    border-radius: .3rem;
-    a{
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.3rem;
+    a {
       color: #fff !important;
     }
   }
@@ -187,15 +206,16 @@ a {
 .info-box {
   background-color: #1E2E4D;
   color: #fff;
-  padding: .0rem 0rem;
-  border-radius: .6rem;
+  padding: 0rem 0rem;
+  border-radius: 0.6rem;
 
   .info {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 0.5rem;
 
-    div {}
+    div {
+    }
   }
 
   a {
@@ -215,13 +235,12 @@ a {
 .right {
   h5 {
     border: 1px solid #fff;
-    border-top-left-radius: .6rem;
-    border-top-right-radius: .6rem;
-
+    border-top-left-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
   }
 
   .info {
-    padding: 1rem
+    padding: 1rem;
   }
 }
 
@@ -239,23 +258,21 @@ a {
   .label {
     background-color: #D99809;
     color: #fff;
-    padding: .4rem .6rem;
-    border-radius: .3rem;
-
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.3rem;
   }
 }
 
 @media screen and (max-width: 1024px) {
   .page {
     .content-wrapper {
-      width: 98%
+      width: 98%;
     }
   }
 }
 
 @media screen and (max-width: 768px) {
   .page {
-
     .main_section {
       flex-direction: column;
 
@@ -307,5 +324,13 @@ a {
   height: 1px;
   background-color: #314D84; /* Change this to the desired color */
   margin: 0.5rem 0; /* Adjust the margins as needed */
+}
+
+.notification {
+  background-color: #d4edda; /* light green background */
+  color: #155724; /* dark green text */
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
 }
 </style>

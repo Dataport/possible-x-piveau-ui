@@ -6,9 +6,12 @@
         <hr />
         <div class="id-container">
           <span class="id-text">{{ resourceDetailsData.id }}</span>
-          <button class="copy-button" @click="copyToClipboard(resourceDetailsData.id)">
+          <button class="copy-button" @click="copyId">
             Copy ID
           </button>
+        </div>
+        <div v-if="notificationVisible" class="notification">
+          Legal Participant ID Copied
         </div>
       </section>
 
@@ -91,11 +94,27 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 const props = defineProps({
   selectedResource: String,
   resourceDetailsData: Object,
-  copyToClipboard:Function
+  copyToClipboard: Function
 });
+
+const notificationVisible = ref(false);
+
+function copyId() {
+  if (props.copyToClipboard) {
+    props.copyToClipboard(props.resourceDetailsData.id);
+  } else {
+    navigator.clipboard.writeText(props.resourceDetailsData.id);
+  }
+  notificationVisible.value = true;
+  setTimeout(() => {
+    notificationVisible.value = false;
+  }, 3000); // Hide notification after 3 seconds
+}
 
 console.log("*** Inside LegalParticipants.vue");
 console.log("Props: ", props);
@@ -278,5 +297,13 @@ a {
   height: 1px;
   background-color: #314d84; /* Change this to the desired color */
   margin: 0.5rem 0; /* Adjust the margins as needed */
+}
+
+.notification {
+  background-color: #d4edda; /* light green background */
+  color: #155724; /* dark green text */
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
 }
 </style>
