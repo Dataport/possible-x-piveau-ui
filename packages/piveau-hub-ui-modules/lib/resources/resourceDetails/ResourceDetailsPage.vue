@@ -8,7 +8,7 @@
                 </div>
                 <!-- USE CUSTOM DETAILS PAGE -->
                 <div v-else>
-                    <ResourceDetailsCustomRenderer :selected-resource="selectedResource" :resource-details-data="resourceDetailsData"></ResourceDetailsCustomRenderer>
+                    <ResourceDetailsCustomRenderer :selected-resource="selectedResource" :resource-details-data="resourceDetailsData" :copy-to-clipboard="copyToClipboard" :pop-up="popUp"></ResourceDetailsCustomRenderer>
                 </div>
             </template>
         </ResourceDetailsSlotComponent>
@@ -29,8 +29,8 @@ import ResourceDetailsCustomRenderer from './ResourceDetailsCustomRenderer.vue';
 import ResourceDetailsSlotComponent from './ResourceDetailsSlotComponent.vue';
 
 const resourceDetailsStore = useResourceDetailsStore();
-const { resourceDetailsData } = storeToRefs(resourceDetailsStore);
-const { fetchResourceDetails } = resourceDetailsStore;
+const { resourceDetailsData, popUp } = storeToRefs(resourceDetailsStore);
+const { fetchResourceDetails, copyToClipboard } = resourceDetailsStore;
 
 const route = useRoute();
 const ENV = useRuntimeEnv();
