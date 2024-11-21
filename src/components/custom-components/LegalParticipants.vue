@@ -94,21 +94,11 @@
 const props = defineProps({
   selectedResource: String,
   resourceDetailsData: Object,
+  copyToClipboard:Function
 });
 
 console.log("*** Inside LegalParticipants.vue");
 console.log("Props: ", props);
-
-function copyToClipboard(text) {
-  navigator.clipboard
-    .writeText(text)
-    .then(() => {
-      alert("Legal Participant ID copied to clipboard!");
-    })
-    .catch((err) => {
-      console.error("Failed to copy ID: ", err);
-    });
-}
 </script>
 
 <style lang="scss" scoped>

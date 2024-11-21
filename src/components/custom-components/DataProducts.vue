@@ -150,27 +150,12 @@
 const props = defineProps({
   selectedResource: String,
   resourceDetailsData: Object,
+  copyToClipboard:Function
 });
 
-console.log('Resource Details Data:', props.resourceDetailsData);
 
-const copyToClipboard = (productId) => {
-  const valueToCopy = productId;
-  if (!valueToCopy) {
-    alert(`No value found for key: "${key}"`);
-    return;
-  }
-  const tempInput = document.createElement('input');
-  tempInput.value = valueToCopy;
-  document.body.appendChild(tempInput);
-  tempInput.select();
-  try {
-    alert(`Copied "${valueToCopy}" to clipboard!`);
-  } catch (err) {
-    alert('Clipboard API not supported');
-  }
-  document.body.removeChild(tempInput);
-};
+
+console.log('Resource Details Data:', props.resourceDetailsData);
 </script>
 
 <style lang="scss" scoped>
