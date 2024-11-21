@@ -12,15 +12,10 @@
         </div>
       </section>
 
-      <section v-if="resourceDetailsData.email_address">
+      <section>
         <h4>Email Address</h4>
         <hr />
-        <div class="tag_container">
-          <div class="tag" v-for="(value, key) in resourceDetailsData.email_address" :key="key">
-            <span class="label">{{ key }}:</span>
-            <span>{{ value }}</span>
-          </div>
-        </div>
+        <p>{{ resourceDetailsData.email_address || 'None Provided' }}</p>
       </section>
 
       <section v-if="resourceDetailsData.legal_registration_number">
