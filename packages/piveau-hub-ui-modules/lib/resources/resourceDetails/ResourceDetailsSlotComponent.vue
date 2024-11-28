@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <div v-if="'aggregation_of' in resourceDetailsData">
+      <div v-if="'aggregation_of' in resourceDetailsData && resourceDetailsData.aggregation_of !==null">
         <h1 class="resource-details-title">{{ resourceDetailsData.aggregation_of?.at(0)?.name }}</h1>
         <p>{{ resourceDetailsData.aggregation_of?.at(0)?.description }}</p>
       </div>
