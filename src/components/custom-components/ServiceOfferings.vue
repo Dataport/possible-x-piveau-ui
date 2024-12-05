@@ -18,7 +18,16 @@
       <section>
         <h4>Service Provider</h4>
         <hr />
-        <p>{{ resourceDetailsData?.provided_by }}</p>
+        <div class="service-provider">
+          <div>
+            <span class="label">Organization Name:</span>
+            <span>{{ resourceDetailsData?.name || 'Not Available' }}</span>
+          </div>
+          <div>
+            <span class="label">DID:</span>
+            <span>{{ resourceDetailsData?.provided_by || 'Not Available' }}</span>
+          </div>
+        </div>
       </section>
 
       <section>
@@ -137,9 +146,6 @@ function copyId() {
     notificationVisible.value = false;
   }, 3000); // Hide notification after 3 seconds
 }
-
-console.log("*** Inside ServiceOfferings.vue");
-console.log("Props: ", props);
 </script>
 
 <style lang="scss" scoped>
@@ -316,6 +322,17 @@ a {
     background-color: #2A3F6E;
     text-decoration: underline; /* Underline text on hover */
     transform: scale(0.95); /* Slightly shrink the button */
+  }
+}
+
+.service-provider {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .label {
+    font-weight: bold;
+    margin-right: 0.5rem;
   }
 }
 

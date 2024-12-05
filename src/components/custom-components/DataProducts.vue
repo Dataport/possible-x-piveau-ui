@@ -156,6 +156,23 @@
             </div>
           </div>
         </section>
+
+        <hr/>
+
+        <section>
+          <h4>Legitimate Interest</h4>
+          <hr />
+          <div class="tag_container">
+            <div>
+              <span class="label">Legal Basis:</span>
+              <span>{{ resourceDetailsData.legitimate_interest?.legal_basis || 'None' }}</span>
+            </div>
+            <div>
+              <span class="label">Data Protection Contract:</span>
+              <span>{{ resourceDetailsData.legitimate_interest?.data_protection_contract || 'None' }}</span>
+            </div>
+          </div>
+        </section>
       </section>
     </section>
   </div>
