@@ -157,9 +157,8 @@
           </div>
         </section>
 
-        <hr/>
-
-        <section>
+        <section v-if="resourceDetailsData.containsPII">
+          <hr/>
           <h4>Legitimate Interest</h4>
           <hr />
           <div class="tag_container">
