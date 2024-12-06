@@ -157,18 +157,24 @@
           </div>
         </section>
 
-        <section v-if="resourceDetailsData.containsPII">
-          <hr/>
+        <hr />
+
+        <section v-if="resourceDetailsData.aggregation_of?.[0]?.contains_pii === 'true'">
           <h4>Legitimate Interest</h4>
-          <hr />
           <div class="tag_container">
-            <div>
-              <span class="label">Legal Basis:</span>
-              <span>{{ resourceDetailsData.legitimate_interest?.legal_basis || 'None' }}</span>
-            </div>
-            <div>
-              <span class="label">Data Protection Contract:</span>
-              <span>{{ resourceDetailsData.legitimate_interest?.data_protection_contract || 'None' }}</span>
+            <div
+              v-for="(legitimateInterest, index) in resourceDetailsData.aggregation_of?.[0]?.legitimate_interest"
+              :key="index"
+              class="tag"
+            >
+              <div>
+                <span class="label">Legal Basis:</span>
+                <span>{{ legitimateInterest.legal_basis || 'None' }}</span>
+              </div>
+              <div>
+                <span class="label">Data Protection Contract:</span>
+                <span>{{ legitimateInterest.data_protection_contract || 'None' }}</span>
+              </div>
             </div>
           </div>
         </section>
@@ -214,7 +220,7 @@ function copyId() {
   }, 3000); // Hide notification after 3 seconds
 }
 
-console.log('Resource Details Data:', props.resourceDetailsData);
+console.log('DataProducts.vue - Resource Details Data:', props.resourceDetailsData);
 </script>
 
 <style lang="scss" scoped>
