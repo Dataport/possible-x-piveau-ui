@@ -180,6 +180,22 @@
 
         <hr />
 
+        <section>
+          <h4>Service Offering Policy</h4>
+          <div class="tag_container">
+            <div v-for="(p, index) in resourceDetailsData.policy"
+              :key="index">
+              <div class="tag">
+                <div>
+                  <span>{{ p }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr />
+
         <section v-if="resourceDetailsData.aggregation_of?.[0]?.contains_pii === 'true'">
           <h4>Legitimate Interest</h4>
           <div class="tag_container">
