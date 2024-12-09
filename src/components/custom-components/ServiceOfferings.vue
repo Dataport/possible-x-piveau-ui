@@ -156,8 +156,6 @@ async function fetchServiceProviderName() {
       const response = await axios.get(
         `https://possible.fokus.fraunhofer.de/api/hub/search/resources/legal-participant/${providedBy}`
       );
-      console.log("RESPONSE: ", response);
-      console.log("Response data result name: ", response.data.result.name);
       if (response.data && response.data.result && response.data.result.name) {
         serviceProviderName.value = response.data.result.name;
       } else {

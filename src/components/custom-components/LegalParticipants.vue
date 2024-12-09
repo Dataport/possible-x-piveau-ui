@@ -83,18 +83,19 @@
         <h4>Legal Registration Number</h4>
         <hr />
         <div class="tag_container">
-          <div class="tag" v-for="(value, key) in resourceDetailsData.legal_registration_number" :key="key">
+          <div class="tag" v-for="(value, key) in readableLegalRegistrationNumbers" :key="key">
             <span class="label">{{ key }}:</span>
             <span>{{ value }}</span>
           </div>
         </div>
       </section>
+
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const props = defineProps({
   selectedResource: String,
@@ -115,6 +116,25 @@ function copyId() {
     notificationVisible.value = false;
   }, 3000); // Hide notification after 3 seconds
 }
+
+// Computed property to map keys in legal_registration_number to more readable labels
+const readableLegalRegistrationNumbers = computed(() => {
+  const readableKeys = {
+    lei_code: 'LEI Code',
+    vat_id: 'VAT ID',
+    eori: 'EORI'
+  };
+
+  const legalRegNumbers = props.resourceDetailsData.legal_registration_number || {};
+
+  // Map keys to readable labels
+  return Object.fromEntries(
+    Object.entries(legalRegNumbers).map(([key, value]) => [
+      readableKeys[key] || key, // Use readable label if available, otherwise fallback to original key
+      value
+    ])
+  );
+});
 
 console.log("*** Inside LegalParticipants.vue");
 console.log("Props: ", props);
