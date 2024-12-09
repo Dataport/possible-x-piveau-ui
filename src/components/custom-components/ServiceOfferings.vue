@@ -21,7 +21,7 @@
         <div class="service-provider">
           <div>
             <span class="label">Organization Name:</span>
-            <span>{{ resourceDetailsData?.name || 'Not Available' }}</span>
+            <span>{{ serviceProviderName || 'Not Available' }}</span>
           </div>
           <div>
             <span class="label">DID:</span>
@@ -111,7 +111,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
   selectedResource: String,
@@ -120,6 +121,7 @@ const props = defineProps({
 });
 
 const notificationVisible = ref(false);
+const serviceProviderName = ref(null);
 
 function copyId() {
   if (props.copyToClipboard) {
@@ -130,7 +132,7 @@ function copyId() {
     // Fallback for older browsers
     const textarea = document.createElement('textarea');
     textarea.value = props.resourceDetailsData.id;
-    textarea.style.position = 'fixed';  // Avoid scrolling to bottom
+    textarea.style.position = 'fixed'; // Avoid scrolling to bottom
     document.body.appendChild(textarea);
     textarea.focus();
     textarea.select();
@@ -146,6 +148,28 @@ function copyId() {
     notificationVisible.value = false;
   }, 3000); // Hide notification after 3 seconds
 }
+
+async function fetchServiceProviderName() {
+  const providedBy = props.resourceDetailsData?.provided_by;
+  if (providedBy) {
+    try {
+      const response = await axios.get(
+        `https://possible.fokus.fraunhofer.de/api/hub/search/resources/legal-participant/${providedBy}`
+      );
+      if (response.data && response.data.result && response.data.result.name) {
+        serviceProviderName.value = response.data.result.name;
+      } else {
+        console.error('No name found in API response:', response.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch service provider name:', error);
+    }
+  }
+}
+
+onMounted(() => {
+  fetchServiceProviderName();
+});
 </script>
 
 <style lang="scss" scoped>
