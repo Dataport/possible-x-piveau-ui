@@ -96,8 +96,7 @@
         <h4>Service Offering Policy</h4>
         <hr />
         <div class="tag_container">
-          <div v-for="(p, index) in resourceDetailsData.policy"
-            :key="index">
+          <div v-for="(p, index) in convertedPolicies" :key="index">
             <div class="tag">
               <div>
                 <span>{{ p }}</span>
@@ -113,6 +112,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { convertODRLPolicies } from './convertODRLPolicies.js';
 
 const props = defineProps({
   selectedResource: String,
@@ -122,6 +122,13 @@ const props = defineProps({
 
 const notificationVisible = ref(false);
 const serviceProviderName = ref(null);
+
+// Compute the converted policies using the imported function
+const convertedPolicies = ref([]);
+onMounted(() => {
+  convertedPolicies.value = convertODRLPolicies(props.resourceDetailsData.policy);
+  console.log(convertedPolicies.value);
+});
 
 function copyId() {
   if (props.copyToClipboard) {

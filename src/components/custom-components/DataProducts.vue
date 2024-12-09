@@ -65,9 +65,10 @@
         <h4>Data Resource Policy</h4>
         <hr />
         <div class="tag_container">
+          <!-- Use the converted aggregation policies here -->
           <div
             class="tag"
-            v-for="(policy, index) in resourceDetailsData.aggregation_of?.[0]?.policy"
+            v-for="(policy, index) in convertedAggregationPolicies"
             :key="index"
           >
             <span>{{ policy }}</span>
@@ -183,8 +184,7 @@
         <section>
           <h4>Service Offering Policy</h4>
           <div class="tag_container">
-            <div v-for="(p, index) in resourceDetailsData.policy"
-              :key="index">
+            <div v-for="(p, index) in convertedServiceOfferingPolicies" :key="index">
               <div class="tag">
                 <div>
                   <span>{{ p }}</span>
@@ -223,6 +223,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { convertODRLPolicies } from './convertODRLPolicies.js';
 
 const props = defineProps({
   selectedResource: String,
@@ -234,6 +235,10 @@ const notificationVisible = ref(false);
 const copyrightOwnedEntries = ref([]);
 const producedByEntry = ref({ name: null, did: null });
 const serviceProviderEntry = ref({ name: null, did: null });
+
+// New refs for converted policies
+const convertedAggregationPolicies = ref([]);
+const convertedServiceOfferingPolicies = ref([]);
 
 function copyId() {
   if (props.copyToClipboard) {
@@ -298,9 +303,19 @@ async function fetchAllEntries() {
 
 onMounted(() => {
   fetchAllEntries();
+
+  // Convert the policies using the function
+  if (props.resourceDetailsData.aggregation_of?.[0]?.policy) {
+    convertedAggregationPolicies.value = convertODRLPolicies(
+      props.resourceDetailsData.aggregation_of[0].policy
+    );
+  }
+
+  if (props.resourceDetailsData.policy) {
+    convertedServiceOfferingPolicies.value = convertODRLPolicies(props.resourceDetailsData.policy);
+  }
 });
 </script>
-
 
 <style lang="scss" scoped>
 .page {
@@ -385,9 +400,6 @@ a {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-
-    div {
-    }
   }
 
   a {
@@ -401,59 +413,6 @@ a {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.left,
-.right {
-  h4 {
-    border: 1px solid #fff;
-    border-top-left-radius: 0.6rem;
-    border-top-right-radius: 0.6rem;
-  }
-
-  .info {
-    padding: 1rem;
-  }
-}
-
-.right {
-  hr {
-    display: none;
-  }
-
-  h4 {
-    padding: 1rem;
-  }
-}
-
-.policy_tag {
-  .label {
-    background-color: #d99809;
-    color: #fff;
-    padding: 0.4rem 0.6rem;
-    border-radius: 0.3rem;
-  }
-}
-
-@media screen and (max-width: 1024px) {
-  .page {
-    .content-wrapper {
-      width: 98%;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .page {
-    .main_section {
-      flex-direction: column;
-
-      .left,
-      .right {
-        width: 100%;
-      }
-    }
-  }
 }
 
 .additional_info {
