@@ -18,14 +18,17 @@
       </section>
 
       <section>
-        <h4>Copyright Owned By:</h4>
+        <h4>Copyright Owned By</h4>
         <hr />
-        <div
-          class="tag"
-          v-for="(cob, index) in resourceDetailsData.aggregation_of?.[0]?.copyright_owned_by"
-          :key="index"
-        >
-          <span>{{ cob }}</span>
+        <div class="service-provider" v-for="(entry, index) in copyrightOwnedEntries" :key="index">
+          <div>
+            <span class="label">Organization Name:</span>
+            <span>{{ entry.name || 'Not Available' }}</span>
+          </div>
+          <div>
+            <span class="label">DID:</span>
+            <span>{{ entry.did || 'Not Available' }}</span>
+          </div>
         </div>
       </section>
 
@@ -44,9 +47,18 @@
       </section>
 
       <section>
-        <h4>Produced by</h4>
+        <h4>Produced By</h4>
         <hr />
-        <p>{{ resourceDetailsData.aggregation_of?.[0]?.produced_by }}</p>
+        <div class="service-provider">
+          <div>
+            <span class="label">Organization Name:</span>
+            <span>{{ producedByEntry.name || 'Not Available' }}</span>
+          </div>
+          <div>
+            <span class="label">DID:</span>
+            <span>{{ producedByEntry.did || 'Not Available' }}</span>
+          </div>
+        </div>
       </section>
 
       <section>
@@ -68,8 +80,17 @@
         <hr />
 
         <section>
-          <h4>Service Provider:</h4>
-          <p>{{ resourceDetailsData?.provided_by }}</p>
+          <h4>Service Provider</h4>
+          <div class="service-provider">
+            <div>
+              <span class="label">Organization Name:</span>
+              <span>{{ serviceProviderEntry.name || 'Not Available' }}</span>
+            </div>
+            <div>
+              <span class="label">DID:</span>
+              <span>{{ serviceProviderEntry.did || 'Not Available' }}</span>
+            </div>
+          </div>
         </section>
 
         <hr />
@@ -184,7 +205,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
 const props = defineProps({
   selectedResource: String,
@@ -193,6 +215,9 @@ const props = defineProps({
 });
 
 const notificationVisible = ref(false);
+const copyrightOwnedEntries = ref([]);
+const producedByEntry = ref({ name: null, did: null });
+const serviceProviderEntry = ref({ name: null, did: null });
 
 function copyId() {
   if (props.copyToClipboard) {
@@ -200,10 +225,9 @@ function copyId() {
   } else if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(props.resourceDetailsData.id);
   } else {
-    // Fallback for older browsers
     const textarea = document.createElement('textarea');
     textarea.value = props.resourceDetailsData.id;
-    textarea.style.position = 'fixed'; // Avoid scrolling to bottom
+    textarea.style.position = 'fixed';
     document.body.appendChild(textarea);
     textarea.focus();
     textarea.select();
@@ -217,11 +241,50 @@ function copyId() {
   notificationVisible.value = true;
   setTimeout(() => {
     notificationVisible.value = false;
-  }, 3000); // Hide notification after 3 seconds
+  }, 3000);
 }
 
-console.log('DataProducts.vue - Resource Details Data:', props.resourceDetailsData);
+async function fetchOrganizationData(did) {
+  try {
+    const response = await axios.get(
+      `https://possible.fokus.fraunhofer.de/api/hub/search/resources/legal-participant/${did}`
+    );
+    return {
+      name: response.data?.result?.name || null,
+      did,
+    };
+  } catch (error) {
+    console.error(`Failed to fetch data for DID ${did}:`, error);
+    return { name: null, did };
+  }
+}
+
+async function fetchAllEntries() {
+  const copyrightDIDs = props.resourceDetailsData.aggregation_of?.[0]?.copyright_owned_by || [];
+  const producedByDID = props.resourceDetailsData.aggregation_of?.[0]?.produced_by;
+  const serviceProviderDID = props.resourceDetailsData?.provided_by;
+
+  // Fetch data for "Copyright Owned By"
+  copyrightOwnedEntries.value = await Promise.all(
+    copyrightDIDs.map((did) => fetchOrganizationData(did))
+  );
+
+  // Fetch data for "Produced By"
+  if (producedByDID) {
+    producedByEntry.value = await fetchOrganizationData(producedByDID);
+  }
+
+  // Fetch data for "Service Provider"
+  if (serviceProviderDID) {
+    serviceProviderEntry.value = await fetchOrganizationData(serviceProviderDID);
+  }
+}
+
+onMounted(() => {
+  fetchAllEntries();
+});
 </script>
+
 
 <style lang="scss" scoped>
 .page {
