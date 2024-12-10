@@ -110,7 +110,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 import { convertODRLPolicies } from './convertODRLPolicies.js';
 
@@ -176,7 +176,14 @@ async function fetchServiceProviderName() {
 
 onMounted(() => {
   fetchServiceProviderName();
+  convertedPolicies.value = convertODRLPolicies(props.resourceDetailsData.policy);
 });
+
+watch(() => props.resourceDetailsData, (newData) => {
+  fetchServiceProviderName();
+  convertedPolicies.value = convertODRLPolicies(newData.policy);
+});
+
 </script>
 
 <style lang="scss" scoped>
