@@ -221,7 +221,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 import { convertODRLPolicies } from './convertODRLPolicies.js';
 
@@ -301,10 +301,7 @@ async function fetchAllEntries() {
   }
 }
 
-onMounted(() => {
-  fetchAllEntries();
-
-  // Convert the policies using the function
+function updatePolicies() {
   if (props.resourceDetailsData.aggregation_of?.[0]?.policy) {
     convertedAggregationPolicies.value = convertODRLPolicies(
       props.resourceDetailsData.aggregation_of[0].policy
@@ -314,6 +311,16 @@ onMounted(() => {
   if (props.resourceDetailsData.policy) {
     convertedServiceOfferingPolicies.value = convertODRLPolicies(props.resourceDetailsData.policy);
   }
+}
+
+onMounted(() => {
+  fetchAllEntries();
+  updatePolicies();
+});
+
+watch(() => props.resourceDetailsData, () => {
+  fetchAllEntries();
+  updatePolicies();
 });
 </script>
 
