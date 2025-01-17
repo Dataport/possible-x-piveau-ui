@@ -7,9 +7,28 @@
           <span class="resource_banner">{{ $t(`message.header.navigation.data.${selectedResource}`) }}</span>
         </div>
         <div class="col-12 col-md-9 p-0 mt-3 mt-md-0 sub_nav">
-          <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
-          <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Verifiable Credential &#8599;</a>
-          <a :href="`${hubUrl}trust/credentials/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
+          <!-- If the resource type is data-product, show four buttons -->
+          <template v-if="type === 'data-product'">
+            <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Service Offering Verifiable Credential &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/data-resource/${resourceDetailsData.aggregation_of?.at(0)?.id}`" target='_blank' class="link">Data Resource Verifiable Credential &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
+          </template>
+
+          <!-- If the resource type is legal-participant, show four buttons -->
+          <template v-if="type === 'legal-participant'">
+            <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Legal Participant Verifiable Credential &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/legal-registration-number/${id}`" target='_blank' class="link">Legal Registration Number Verifiable Credential &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
+          </template>
+
+          <!-- Otherwise, show the original three buttons -->
+          <template v-else>
+            <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Verifiable Credential &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
+          </template>
         </div>
       </div>
 
