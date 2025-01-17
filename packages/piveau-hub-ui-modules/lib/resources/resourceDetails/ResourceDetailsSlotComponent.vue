@@ -10,16 +10,16 @@
           <!-- If the resource type is data-product, show four buttons -->
           <template v-if="type === 'data-product'">
             <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
-            <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Service Offering Verifiable Credential &#8599;</a>
-            <a :href="`${hubUrl}trust/credentials/data-resource/${resourceDetailsData.aggregation_of?.at(0)?.id}`" target='_blank' class="link">Data Resource Verifiable Credential &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Service Offering VC &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/data-resource/${resourceDetailsData.aggregation_of?.at(0)?.id}`" target='_blank' class="link">Data Resource VC &#8599;</a>
             <a :href="`${hubUrl}trust/credentials/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
           </template>
 
           <!-- If the resource type is legal-participant, show four buttons -->
-          <template v-if="type === 'legal-participant'">
+          <template v-else-if="type === 'legal-participant'">
             <a :href="`${hubUrl}resources/${type}/${id}`" target='_blank' class="link">Linked Data &#8599;</a>
-            <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Legal Participant Verifiable Credential &#8599;</a>
-            <a :href="`${hubUrl}trust/credentials/legal-registration-number/${id}`" target='_blank' class="link">Legal Registration Number Verifiable Credential &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/${type}/${id}`" target='_blank' class="link">Legal Participant VC &#8599;</a>
+            <a :href="`${hubUrl}trust/credentials/legal-registration-number/${id}`" target='_blank' class="link">Legal Registration Number VC &#8599;</a>
             <a :href="`${hubUrl}trust/credentials/${type}/${id}?showCompliance=true`" target='_blank' class="link">Gaia-X Compliance &#8599;</a>
           </template>
 
