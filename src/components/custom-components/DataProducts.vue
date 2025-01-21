@@ -20,7 +20,11 @@
       <section>
         <h4>Copyright Owned By</h4>
         <hr />
-        <div class="service-provider" v-for="(entry, index) in copyrightOwnedEntries" :key="index">
+        <div
+          class="service-provider"
+          v-for="(entry, index) in copyrightOwnedEntries"
+          :key="index"
+        >
           <div>
             <span class="label">Organization Name:</span>
             <span>{{ entry.name || 'Not Available' }}</span>
@@ -29,6 +33,7 @@
             <span class="label">DID:</span>
             <span>{{ entry.did || 'Not Available' }}</span>
           </div>
+          <br v-if="index < copyrightOwnedEntries.length - 1" />
         </div>
       </section>
 
