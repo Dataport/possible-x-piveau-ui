@@ -61,14 +61,6 @@ const glueConfig = {
     navigation: {
       defaultNavigationItems: [
         {
-          id: 'datasets',
-          name: 'Datasets',
-        },
-        {
-          id: 'catalogues',
-          name: 'Catalogues',
-        },
-        {
           id: 'serviceOfferings',
           name: 'ResourceSearchPage',
         },
