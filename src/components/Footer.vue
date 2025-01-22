@@ -9,7 +9,7 @@
 
     <div class="w-33">
       <h4>POSSIBLE-X Catalogue</h4>
-      <div>© 2024 Fraunhofer FOKUS</div>
+      <div>© 2025 Fraunhofer FOKUS</div>
     </div>
 
     <div class="w-33">

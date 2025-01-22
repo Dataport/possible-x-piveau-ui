@@ -4,7 +4,7 @@
       <section>
         <br />
         <br />
-        <h4>Data Product ID</h4>
+        <h4>Data Service Offering ID</h4>
         <hr />
         <div class="id-container">
           <span class="id-text">{{ resourceDetailsData.id }}</span>
@@ -13,7 +13,7 @@
           </button>
         </div>
         <div v-if="notificationVisible" class="notification">
-          Data Product ID Copied
+          Data Service Offering ID Copied
         </div>
       </section>
 

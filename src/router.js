@@ -28,8 +28,9 @@ import {
 } from "@piveau/piveau-hub-ui-modules";
 
 
-import Imprint from './components/Imprint.vue';
-import PrivacyPolicy from './components/PrivacyPolicy.vue';
+import Imprint from '@/components/Imprint.vue';
+import PrivacyPolicy from '@/components/PrivacyPolicy.vue';
+import LandingPage from '@/components/LandingPage.vue';
 
 
 const title = GLUE_CONFIG.metadata.title;
@@ -45,7 +46,8 @@ const router = Router.createRouter({
   routes: [
     {
       path: '/',
-      redirect: { name: 'Datasets' },
+      name: 'home',
+      component: LandingPage
     },
     {
       path: '/resources',
