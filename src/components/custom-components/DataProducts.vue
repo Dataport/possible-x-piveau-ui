@@ -81,6 +81,27 @@
         </div>
       </section>
 
+      <section v-if="resourceDetailsData.aggregation_of?.[0]?.contains_pii === 'true'">
+        <h4>Legitimate Interest</h4>
+        <hr />
+        <div class="tag_container">
+          <div
+            v-for="(legitimateInterest, index) in resourceDetailsData.aggregation_of?.[0]?.legitimate_interest"
+            :key="index"
+            class="tag"
+          >
+            <div>
+              <span class="label">Legal Basis:</span>
+              <span>{{ legitimateInterest.legal_basis || 'None' }}</span>
+            </div>
+            <div>
+              <span class="label">Data Protection Contract:</span>
+              <span>{{ legitimateInterest.data_protection_contract || 'None' }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="additional_info">
         <h3>Associated Service Offering</h3>
         <hr />
@@ -201,25 +222,6 @@
 
         <hr />
 
-        <section v-if="resourceDetailsData.aggregation_of?.[0]?.contains_pii === 'true'">
-          <h4>Legitimate Interest</h4>
-          <div class="tag_container">
-            <div
-              v-for="(legitimateInterest, index) in resourceDetailsData.aggregation_of?.[0]?.legitimate_interest"
-              :key="index"
-              class="tag"
-            >
-              <div>
-                <span class="label">Legal Basis:</span>
-                <span>{{ legitimateInterest.legal_basis || 'None' }}</span>
-              </div>
-              <div>
-                <span class="label">Data Protection Contract:</span>
-                <span>{{ legitimateInterest.data_protection_contract || 'None' }}</span>
-              </div>
-            </div>
-          </div>
-        </section>
       </section>
     </section>
   </div>
