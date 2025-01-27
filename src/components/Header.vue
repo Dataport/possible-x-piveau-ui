@@ -47,14 +47,6 @@
                   </button>
                 </li>
               </ul>
-              <!-- Language box -->
-              <div
-                  v-if="useLanguageSelector"
-              >
-                <div class="input-group">
-                  <language-selector :languageObject="languageObject" :override-locale="overrideLocale"></language-selector>
-                </div>
-              </div>
             </slot>
           </div>
         </div>
