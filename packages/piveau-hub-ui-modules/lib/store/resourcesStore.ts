@@ -93,7 +93,6 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
     /*** ACTIONS ***/
     const actions = {
         loadAvailableResources: function () {
-            console.log("*** Inside loadAvailableResources");
             // TODO: Call generic service / function to load all available resources here
 
             // --> Workaround: Use axios directly
@@ -104,11 +103,7 @@ export const useResourcesStore = defineStore('resourcesStore', () => {
                 const reqStr = `${ENV.api.baseUrl}${endpoint}`;
     
                 axios.get(reqStr, { params })
-                    .then((response: any) => {
-                        console.log("Resources endpoint req str: ", reqStr);
-                        console.log("RESPONSE: ", response);
-                        console.log("RESPONSE data: ", response.data);
-    
+                    .then((response: any) => {    
                         mutations.setAvailableResources(response.data);
         
                         resolve(response.data);
