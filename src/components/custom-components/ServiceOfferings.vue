@@ -21,11 +21,11 @@
         <div class="service-provider">
           <div>
             <span class="label">Organization Name:</span>
-            <span>{{ serviceProviderName || 'Not Available' }}</span>
+            <span>{{ serviceProviderName || 'Unknown Organization' }}</span>
           </div>
           <div>
             <span class="label">DID:</span>
-            <span>{{ resourceDetailsData?.provided_by || 'Not Available' }}</span>
+            <span>{{ resourceDetailsData?.provided_by || 'Unknown DID' }}</span>
           </div>
         </div>
       </section>
@@ -95,24 +95,63 @@
       <section>
         <h4>Service Offering Policy</h4>
         <hr />
-        <div class="tag_container">
-          <div v-for="(p, index) in convertedPolicies" :key="index">
-            <div class="tag">
-              <div>
-                <span>{{ p }}</span>
-              </div>
-            </div>
+        <div class="policy-container">
+          <!-- DID Restriction -->
+          <div v-if="convertedPolicies?.didRestriction?.length" class="policy-item">
+            <span>Contracting is restricted to the following organizations:</span>
+            <ul class="no-space">
+              <li v-for="(did, index) in convertedPolicies.didRestriction" :key="index">
+                Consumer org ({{ did }})
+              </li>
+            </ul>
+          </div>
+
+          <!-- Start Date Restriction -->
+          <div v-if="convertedPolicies?.startDateRestriction" class="policy-item">
+            <span>Contract duration is restricted to the following start date:</span>
+            <ul class="no-space">
+              <li>{{ convertedPolicies.startDateRestriction }}</li>
+            </ul>
+          </div>
+
+          <!-- End Date Restriction -->
+          <div v-if="convertedPolicies?.endDateRestriction" class="policy-item">
+            <span>Contract duration is restricted to the following end date:</span>
+            <ul class="no-space">
+              <li>{{ convertedPolicies.endDateRestriction }}</li>
+            </ul>
+          </div>
+
+          <!-- Offset Restriction -->
+          <div v-if="convertedPolicies?.offsetRestriction" class="policy-item">
+            <span>Transfer is restricted to the following period starting from the contract signing date:</span>
+            <ul class="no-space">
+              <li>{{ convertedPolicies.offsetRestriction }}</li>
+            </ul>
+          </div>
+
+          <!-- No Policies Message -->
+          <div 
+          v-if="!convertedPolicies?.didRestriction?.length &&
+                !convertedPolicies?.startDateRestriction &&
+                !convertedPolicies?.endDateRestriction &&
+                !convertedPolicies?.offsetRestriction"
+          class="policy-item no-policies">
+            <span>No valid ODRL policies apply to this service offering.</span>
           </div>
         </div>
       </section>
+
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, inject } from 'vue';
 import axios from 'axios';
 import { convertODRLPolicies } from './convertODRLPolicies.js';
+
+const baseUrl = inject('baseUrl');
 
 const props = defineProps({
   selectedResource: String,
@@ -157,11 +196,12 @@ function copyId() {
 }
 
 async function fetchServiceProviderName() {
+  console.log("*** Inside fetchServiceProviderName");
   const providedBy = props.resourceDetailsData?.provided_by;
   if (providedBy) {
     try {
       const response = await axios.get(
-        `https://possible.fokus.fraunhofer.de/api/hub/search/resources/legal-participant/${providedBy}`
+        `${baseUrl}/resources/legal-participant/${providedBy}`
       );
       if (response.data && response.data.result && response.data.result.name) {
         serviceProviderName.value = response.data.result.name;
@@ -388,4 +428,38 @@ a {
   border-radius: 0.25rem;
   margin-top: 1rem;
 }
+
+.policy-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Spacing between different policy sections */
+  align-items: flex-start;
+}
+
+.policy-item {
+  background-color: #314d84;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 0.3rem;
+  display: inline-block;
+  max-width: 80%; /* Limits tag width */
+}
+
+.policy-item span {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.policy-item ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.policy-item li {
+  margin: 2px 0;
+  white-space: nowrap;
+}
+
 </style>

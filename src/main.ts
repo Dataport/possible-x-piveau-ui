@@ -246,3 +246,5 @@ if (env.authentication.useService) {
 } else {
   app.mount('#app');
 }
+
+app.provide('baseUrl', env.api.baseUrl);
