@@ -344,8 +344,6 @@ function copyId() {
 }
 
 async function fetchOrganizationData(did) {
-  console.log("*** Inside fetchOrganizationData");
-  console.log("base url: ", baseUrl);
   try {
     const response = await axios.get(
       `${baseUrl}/resources/legal-participant/${did}`
@@ -383,7 +381,6 @@ async function fetchAllEntries() {
 
 async function updatePolicies() {
   if (props.resourceDetailsData.aggregation_of?.[0]?.policy) {
-    console.log("*** DataProducts.vue - policy", props.resourceDetailsData.aggregation_of?.[0]?.policy);
     
     let convertedPolicies = convertODRLPolicies(props.resourceDetailsData.aggregation_of[0].policy);
 
@@ -417,10 +414,6 @@ async function updatePolicies() {
 
     convertedServiceOfferingPolicies.value = convertedPolicies;
   }
-
-  console.log("*** DataProducts.vue - updatePolicies");
-  console.log("Converted aggregation policies: ", convertedAggregationPolicies.value);
-  console.log("Converted service offering policies: ", convertedServiceOfferingPolicies.value);
 }
 
 onMounted(() => {

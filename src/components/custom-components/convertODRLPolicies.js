@@ -1,6 +1,4 @@
 export function convertODRLPolicies(policyArray) {
-  console.log("*** Inside convertODRLPolicies");
-  console.log("policy Array: ", policyArray);
   
   let policyOutput = {
       didRestriction: new Set(),

@@ -166,7 +166,6 @@ const serviceProviderName = ref(null);
 const convertedPolicies = ref([]);
 onMounted(() => {
   convertedPolicies.value = convertODRLPolicies(props.resourceDetailsData.policy);
-  console.log(convertedPolicies.value);
 });
 
 function copyId() {
@@ -196,7 +195,6 @@ function copyId() {
 }
 
 async function fetchServiceProviderName() {
-  console.log("*** Inside fetchServiceProviderName");
   const providedBy = props.resourceDetailsData?.provided_by;
   if (providedBy) {
     try {
@@ -209,7 +207,6 @@ async function fetchServiceProviderName() {
         console.error('No name found in API response:', response.data);
       }
     } catch (error) {
-      console.error('Failed to fetch service provider name:', error);
     }
   }
 }
