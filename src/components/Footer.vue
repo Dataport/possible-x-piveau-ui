@@ -19,10 +19,7 @@
           <a href="https://www.possible-gaia-x.eu/" target="_blank">POSSIBLE Project</a>
         </li>
         <li class="mb-2">
-          <router-link to="/imprint">Impressum</router-link>
-        </li>
-        <li class="mb-2">
-          <router-link to="/privacypolicy">Datenschutz</router-link>
+          <router-link to="/imprint">Impressum</router-link> | <router-link to="/privacypolicy">Datenschutz</router-link>
         </li>
       </ul>
     </div>
