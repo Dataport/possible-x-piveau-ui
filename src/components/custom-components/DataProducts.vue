@@ -619,4 +619,10 @@ ul.no-space {
   margin: 2px 0;
   white-space: nowrap; /* Prevents wrapping */
 }
+
+.no-policies {
+  display: inline-block;
+  text-align: left;
+  width: fit-content;
+}
 </style>

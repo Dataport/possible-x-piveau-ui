@@ -462,4 +462,10 @@ a {
   white-space: nowrap;
 }
 
+.no-policies {
+  display: inline-block;
+  text-align: left;
+  width: fit-content;
+}
+
 </style>
