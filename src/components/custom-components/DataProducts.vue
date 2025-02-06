@@ -103,14 +103,22 @@
             </ul>
           </div>
 
+          <!-- Text Restriction -->
+          <div v-if="convertedAggregationPolicies?.textRestriction?.length" class="policy-item">
+            <div v-for="(restriction, index) in convertedAggregationPolicies.textRestriction" :key="index">
+              <span>{{ restriction }}</span>
+            </div>
+          </div>
+
           <!-- No Policies Message -->
           <div 
             v-if="!convertedAggregationPolicies?.didRestriction?.length &&
                   !convertedAggregationPolicies?.startDateRestriction &&
                   !convertedAggregationPolicies?.endDateRestriction &&
-                  !convertedAggregationPolicies?.offsetRestriction"
+                  !convertedAggregationPolicies?.offsetRestriction &&
+                  !convertedAggregationPolicies?.textRestriction?.length"
             class="policy-item no-policies">
-            <span>No valid ODRL policies apply to this Data Resource.</span>
+            <span>No policies apply to this Data Resource.</span>
           </div>
         </div>
       </section>
@@ -277,16 +285,24 @@
                 <li>{{ convertedServiceOfferingPolicies.offsetRestriction }}</li>
               </ul>
             </div>
-          </div>
 
-          <!-- No Policies Message -->
-          <div 
-            v-if="!convertedServiceOfferingPolicies?.didRestriction?.length &&
-                  !convertedServiceOfferingPolicies?.startDateRestriction &&
-                  !convertedServiceOfferingPolicies?.endDateRestriction &&
-                  !convertedServiceOfferingPolicies?.offsetRestriction"
-            class="policy-item no-policies">
-            <span>No valid ODRL policies apply to this Service Offering.</span>
+            <!-- Text Restriction -->
+            <div v-if="convertedServiceOfferingPolicies?.textRestriction?.length" class="policy-item">
+              <div v-for="(restriction, index) in convertedServiceOfferingPolicies.textRestriction" :key="index">
+                <span>{{ restriction }}</span>
+              </div>
+            </div>
+
+            <!-- No Policies Message -->
+            <div 
+              v-if="!convertedServiceOfferingPolicies?.didRestriction?.length &&
+                    !convertedServiceOfferingPolicies?.startDateRestriction &&
+                    !convertedServiceOfferingPolicies?.endDateRestriction &&
+                    !convertedServiceOfferingPolicies?.offsetRestriction && 
+                    !convertedServiceOfferingPolicies?.textRestriction?.length"
+              class="policy-item no-policies">
+              <span>No policies apply to this Service Offering.</span>
+            </div>
           </div>
         </section>
 
@@ -346,7 +362,7 @@ function copyId() {
 async function fetchOrganizationData(did) {
   try {
     const response = await axios.get(
-      `${baseUrl}/resources/legal-participant/${did}`
+      `${baseUrl}resources/legal-participant/${did}`
     );
     return {
       name: response.data?.result?.name || null,

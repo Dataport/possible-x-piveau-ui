@@ -130,12 +130,20 @@
             </ul>
           </div>
 
+          <!-- Text Restriction -->
+          <div v-if="convertedPolicies?.textRestriction?.length" class="policy-item">
+            <div v-for="(restriction, index) in convertedPolicies.textRestriction" :key="index">
+              <span>{{ restriction }}</span>
+            </div>
+          </div>
+
           <!-- No Policies Message -->
           <div 
           v-if="!convertedPolicies?.didRestriction?.length &&
                 !convertedPolicies?.startDateRestriction &&
                 !convertedPolicies?.endDateRestriction &&
-                !convertedPolicies?.offsetRestriction"
+                !convertedPolicies?.offsetRestriction &&
+                !convertedPolicies?.textRestriction?.length"
           class="policy-item no-policies">
             <span>No valid ODRL policies apply to this service offering.</span>
           </div>
@@ -199,7 +207,7 @@ async function fetchServiceProviderName() {
   if (providedBy) {
     try {
       const response = await axios.get(
-        `${baseUrl}/resources/legal-participant/${providedBy}`
+        `${baseUrl}resources/legal-participant/${providedBy}`
       );
       if (response.data && response.data.result && response.data.result.name) {
         serviceProviderName.value = response.data.result.name;
