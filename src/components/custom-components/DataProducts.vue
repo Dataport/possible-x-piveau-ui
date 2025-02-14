@@ -25,12 +25,18 @@
           v-for="(entry, index) in copyrightOwnedEntries"
           :key="index"
         >
-          <div>
-            <span class="label">Organization Name:</span>
-            <span>{{ entry.name || 'Unknown Organization' }}</span>
+          <div v-if="entry.name">
+            <div>
+              <span class="label">Organization:</span>
+              <span>{{ entry.name }}</span>
+            </div>
+            <div>
+              <span class="label">DID:</span>
+              <span>{{ entry.did || 'Unknown DID' }}</span>
+            </div>
           </div>
-          <div>
-            <span class="label">DID:</span>
+          <div v-else>
+            <span class="label">Copyright Owner:</span>
             <span>{{ entry.did || 'Unknown DID' }}</span>
           </div>
           <br v-if="index < copyrightOwnedEntries.length - 1" />
