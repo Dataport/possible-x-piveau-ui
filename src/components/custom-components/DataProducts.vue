@@ -25,13 +25,19 @@
           v-for="(entry, index) in copyrightOwnedEntries"
           :key="index"
         >
-          <div>
-            <span class="label">Organization Name:</span>
-            <span>{{ entry.name || 'Not Available' }}</span>
+          <div v-if="entry.name">
+            <div>
+              <span class="label">Organization:</span>
+              <span>{{ entry.name }}</span>
+            </div>
+            <div>
+              <span class="label">DID:</span>
+              <span>{{ entry.did || 'Unknown DID' }}</span>
+            </div>
           </div>
-          <div>
-            <span class="label">DID:</span>
-            <span>{{ entry.did || 'Not Available' }}</span>
+          <div v-else>
+            <span class="label">Copyright Owner:</span>
+            <span>{{ entry.did || 'Unknown DID' }}</span>
           </div>
           <br v-if="index < copyrightOwnedEntries.length - 1" />
         </div>
@@ -57,26 +63,68 @@
         <div class="service-provider">
           <div>
             <span class="label">Organization Name:</span>
-            <span>{{ producedByEntry.name || 'Not Available' }}</span>
+            <span>{{ producedByEntry.name || 'Unknown Organization' }}</span>
           </div>
           <div>
             <span class="label">DID:</span>
-            <span>{{ producedByEntry.did || 'Not Available' }}</span>
+            <span>{{ producedByEntry.did || 'Unknown DID' }}</span>
           </div>
         </div>
       </section>
 
       <section>
         <h4>Data Resource Policy</h4>
-        <hr />
-        <div class="tag_container">
-          <!-- Use the converted aggregation policies here -->
-          <div
-            class="tag"
-            v-for="(policy, index) in convertedAggregationPolicies"
-            :key="index"
-          >
-            <span>{{ policy }}</span>
+        <div class="policy-container">
+          <!-- DID Restriction -->
+          <div v-if="convertedAggregationPolicies?.didRestriction?.length" class="policy-item">
+            <span>Contracting is restricted to the following organizations:</span>
+            <ul>
+              <li v-for="(org, index) in convertedAggregationPolicies.didRestriction" :key="index">
+                {{ org }}
+              </li>
+            </ul>
+          </div>
+
+          <!-- Start Date Restriction -->
+          <div v-if="convertedAggregationPolicies?.startDateRestriction" class="policy-item">
+            <span>Contract duration is restricted to the following start date:</span>
+            <ul>
+              <li>{{ convertedAggregationPolicies.startDateRestriction }}</li>
+            </ul>
+          </div>
+
+          <!-- End Date Restriction -->
+          <div v-if="convertedAggregationPolicies?.endDateRestriction" class="policy-item">
+            <span>Contract duration is restricted to the following end date:</span>
+            <ul>
+              <li>{{ convertedAggregationPolicies.endDateRestriction }}</li>
+            </ul>
+          </div>
+
+          <!-- Offset Restriction -->
+          <div v-if="convertedAggregationPolicies?.offsetRestriction" class="policy-item">
+            <span>Transfer is restricted to the following period starting from the contract signing date:</span>
+            <ul>
+              <li>{{ convertedAggregationPolicies.offsetRestriction }}</li>
+            </ul>
+          </div>
+
+          <!-- Text Restriction -->
+          <div v-if="convertedAggregationPolicies?.textRestriction?.length" class="policy-item">
+            <div v-for="(restriction, index) in convertedAggregationPolicies.textRestriction" :key="index">
+              <span>{{ restriction }}</span>
+            </div>
+          </div>
+
+          <!-- No Policies Message -->
+          <div 
+            v-if="!convertedAggregationPolicies?.didRestriction?.length &&
+                  !convertedAggregationPolicies?.startDateRestriction &&
+                  !convertedAggregationPolicies?.endDateRestriction &&
+                  !convertedAggregationPolicies?.offsetRestriction &&
+                  !convertedAggregationPolicies?.textRestriction?.length"
+            class="policy-item no-policies">
+            <span>No policies apply to this Data Resource.</span>
           </div>
         </div>
       </section>
@@ -111,11 +159,11 @@
           <div class="service-provider">
             <div>
               <span class="label">Organization Name:</span>
-              <span>{{ serviceProviderEntry.name || 'Not Available' }}</span>
+              <span>{{ serviceProviderEntry.name || 'Unknown Organization' }}</span>
             </div>
             <div>
               <span class="label">DID:</span>
-              <span>{{ serviceProviderEntry.did || 'Not Available' }}</span>
+              <span>{{ serviceProviderEntry.did || 'Unknown DID' }}</span>
             </div>
           </div>
         </section>
@@ -209,13 +257,57 @@
 
         <section>
           <h4>Service Offering Policy</h4>
-          <div class="tag_container">
-            <div v-for="(p, index) in convertedServiceOfferingPolicies" :key="index">
-              <div class="tag">
-                <div>
-                  <span>{{ p }}</span>
-                </div>
+          <div class="policy-container">
+            <!-- DID Restriction -->
+            <div v-if="convertedServiceOfferingPolicies?.didRestriction?.length" class="policy-item">
+              <span>Contracting is restricted to the following organizations:</span>
+              <ul>
+                <li v-for="(org, index) in convertedServiceOfferingPolicies.didRestriction" :key="index">
+                  {{ org }}
+                </li>
+              </ul>
+            </div>
+
+            <!-- Start Date Restriction -->
+            <div v-if="convertedServiceOfferingPolicies?.startDateRestriction" class="policy-item">
+              <span>Contract duration is restricted to the following start date:</span>
+              <ul>
+                <li>{{ convertedServiceOfferingPolicies.startDateRestriction }}</li>
+              </ul>
+            </div>
+
+            <!-- End Date Restriction -->
+            <div v-if="convertedServiceOfferingPolicies?.endDateRestriction" class="policy-item">
+              <span>Contract duration is restricted to the following end date:</span>
+              <ul>
+                <li>{{ convertedServiceOfferingPolicies.endDateRestriction }}</li>
+              </ul>
+            </div>
+
+            <!-- Offset Restriction -->
+            <div v-if="convertedServiceOfferingPolicies?.offsetRestriction" class="policy-item">
+              <span>Transfer is restricted to the following period starting from the contract signing date:</span>
+              <ul>
+                <li>{{ convertedServiceOfferingPolicies.offsetRestriction }}</li>
+              </ul>
+            </div>
+
+            <!-- Text Restriction -->
+            <div v-if="convertedServiceOfferingPolicies?.textRestriction?.length" class="policy-item">
+              <div v-for="(restriction, index) in convertedServiceOfferingPolicies.textRestriction" :key="index">
+                <span>{{ restriction }}</span>
               </div>
+            </div>
+
+            <!-- No Policies Message -->
+            <div 
+              v-if="!convertedServiceOfferingPolicies?.didRestriction?.length &&
+                    !convertedServiceOfferingPolicies?.startDateRestriction &&
+                    !convertedServiceOfferingPolicies?.endDateRestriction &&
+                    !convertedServiceOfferingPolicies?.offsetRestriction && 
+                    !convertedServiceOfferingPolicies?.textRestriction?.length"
+              class="policy-item no-policies">
+              <span>No policies apply to this Service Offering.</span>
             </div>
           </div>
         </section>
@@ -228,9 +320,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, inject } from 'vue';
 import axios from 'axios';
 import { convertODRLPolicies } from './convertODRLPolicies.js';
+const baseUrl = inject('baseUrl');
 
 const props = defineProps({
   selectedResource: String,
@@ -275,7 +368,7 @@ function copyId() {
 async function fetchOrganizationData(did) {
   try {
     const response = await axios.get(
-      `https://possible.fokus.fraunhofer.de/api/hub/search/resources/legal-participant/${did}`
+      `${baseUrl}resources/legal-participant/${did}`
     );
     return {
       name: response.data?.result?.name || null,
@@ -308,15 +401,40 @@ async function fetchAllEntries() {
   }
 }
 
-function updatePolicies() {
+async function updatePolicies() {
   if (props.resourceDetailsData.aggregation_of?.[0]?.policy) {
-    convertedAggregationPolicies.value = convertODRLPolicies(
-      props.resourceDetailsData.aggregation_of[0].policy
-    );
+    
+    let convertedPolicies = convertODRLPolicies(props.resourceDetailsData.aggregation_of[0].policy);
+
+    // Fetch organization names for each DID restriction
+    if (convertedPolicies.didRestriction.length > 0) {
+      let updatedDidRestrictions = await Promise.all(
+        convertedPolicies.didRestriction.map(async (did) => {
+          const orgData = await fetchOrganizationData(did);
+          return `${orgData.name || "Consumer Org"} (${did})`;
+        })
+      );
+      convertedPolicies.didRestriction = updatedDidRestrictions;
+    }
+
+    convertedAggregationPolicies.value = convertedPolicies;
   }
 
   if (props.resourceDetailsData.policy) {
-    convertedServiceOfferingPolicies.value = convertODRLPolicies(props.resourceDetailsData.policy);
+    let convertedPolicies = convertODRLPolicies(props.resourceDetailsData.policy);
+
+    // Fetch organization names for each DID restriction
+    if (convertedPolicies.didRestriction.length > 0) {
+      let updatedDidRestrictions = await Promise.all(
+        convertedPolicies.didRestriction.map(async (did) => {
+          const orgData = await fetchOrganizationData(did);
+          return `${orgData.name || "Consumer Org"} (${did})`;
+        })
+      );
+      convertedPolicies.didRestriction = updatedDidRestrictions;
+    }
+
+    convertedServiceOfferingPolicies.value = convertedPolicies;
   }
 }
 
@@ -468,5 +586,58 @@ a {
   padding: 1rem;
   border-radius: 0.25rem;
   margin-top: 1rem;
+}
+
+ul.no-space {
+  margin: 0;
+  padding-left: 20px; /* Ensures correct indentation */
+  list-style-type: disc; /* Keep bullet points */
+}
+
+.restriction-item {
+  display: block;
+  margin-top: 5px; /* Ensures spacing between items */
+  margin-bottom: 0; /* Prevents extra space below the last item */
+  padding-bottom: 0;
+  white-space: nowrap; /* Ensures text stays on one line */
+}
+
+.policy-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; /* Ensures spacing between policy sections */
+  align-items: flex-start; /* Align policies to the left */
+}
+
+.policy-item {
+  background-color: #314d84;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 0.3rem;
+  display: inline-block; /* Ensures tags don't take full width */
+  max-width: 80%; /* Limits tag width, adjust as needed */
+}
+
+.policy-item span {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.policy-item ul {
+  margin: 0;
+  padding-left: 20px; /* Proper bullet indentation */
+  list-style-type: disc;
+}
+
+.policy-item li {
+  margin: 2px 0;
+  white-space: nowrap; /* Prevents wrapping */
+}
+
+.no-policies {
+  display: inline-block;
+  text-align: left;
+  width: fit-content;
 }
 </style>
