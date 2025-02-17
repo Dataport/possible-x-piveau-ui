@@ -10,8 +10,9 @@
         <div class="col">
             <div class="ps-main-tile ps-base-tile">
                 <div class="ps-main-text">
-                Discover a new way of sharing data in a secure and sovereign way. Our innovative ecosystem enables organizations and their employees to effortlessly tap into data spaces from different areas while ensuring self-determined handling of their data.
-                Take advantage of data space technology and accelerate the development of new solutions and services. 
+                <h4>Discover a new way of sharing data in a secure and sovereign way!</h4>
+                The POSSIBLE-X Catalogue let you browse through a variety of service offerings and data service offerings, provided in the POSSIBLE ecosystem.
+        
             </div>
             </div>
         </div>
@@ -21,19 +22,21 @@
         <div class="row">
             <div class="col-4">
                 <div class="ps-tile ps-base-tile">
-                        <strong>Service Offerings</strong>
-
+                        <h4>Service Offerings</h4>
+                        You find digital services available for order under Service Offerings, including terms, conditions and detailed information. Providers of the POSSIBLE-X ecosystem provide these offers.
+                </div>
+            </div>
+            <div class="col-4 ">
+                <div class="ps-tile ps-base-tile">
+                        <h4>Data Service Offerings</h4>
+                        You find services, that provide you with data products under Data Service Offerings. The offerings can be consumed via the POSSIBLE-X portal. 
 
                 </div>
             </div>
             <div class="col-4 ">
                 <div class="ps-tile ps-base-tile">
-                        <strong>Data Service Offerings</strong>
-                </div>
-            </div>
-            <div class="col-4 ">
-                <div class="ps-tile ps-base-tile">
-                        <strong>Legal Participants</strong>
+                        <h4>Legal Participants</h4>
+                        Yuu can browse through all official and approved participant of POSSIBLE-X under Legal Participants. This includes background information, such as address and legal registration number.
                 </div>
             </div>
         
@@ -41,10 +44,11 @@
 
         <div class="row">
         <div class="col">
-            <div class="ps-compliance-tile ps-base-tile">
-                <div class="ps-main-text">
-                    <strong>Gaia-X Compliance</strong>
-            </div>
+            <div class="ps-compliance-tile ps-tile ps-base-tile">
+                    <h4>Gaia-X Clearing House Integration</h4>
+                    All hosted self-descriptions in the POSSIBLE-X Catalogue are digitally signed by a Gaia-X Clearing House. You can see and inspect the signed credential on each detail page by clicking on "Gaia-X Compliance".
+                    In addition, the raw JSON-LD representations and signed Verifiable Credentials are accessible. 
+              
             </div>
         </div>
        </div>
@@ -61,6 +65,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.container {
+    background-color: red;
+}
+
 .ps-base-tile {
     padding: 10px;
     border-radius: 15px;
@@ -71,6 +79,7 @@ export default {
     background-color: #1e2e4d;
     color: #ffffff;
     min-height: 300px;
+    padding: 20px;
 }
 .ps-main-tile {
     background-color: #798190;

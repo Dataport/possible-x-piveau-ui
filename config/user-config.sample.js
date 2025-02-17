@@ -83,7 +83,7 @@ const glueConfig = {
     },
   },
   metadata: {
-    title: 'piveau Hub-UI',
+    title: 'POSSIBLE-X Catalogue',
     description: 'A modern and customizable web application for data management of extensive data catalogs.',
     keywords: 'Open Data',
   },
