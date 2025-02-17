@@ -11,7 +11,7 @@
             <div class="ps-main-tile ps-base-tile">
                 <div class="ps-main-text">
                 <h4>Discover a new way of sharing data in a secure and sovereign way!</h4>
-                The POSSIBLE-X Catalogue let's you browse through a variety of Service Offerings and Data Service Offerings, provided in the POSSIBLE Ecosystem.
+                The POSSIBLE-X Catalogue lets you browse through a variety of Service Offerings and Data Service Offerings provided in the POSSIBLE Ecosystem.
         
             </div>
             </div>
