@@ -30,7 +30,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@intlify/unplugin-vue-i18n": "^1.2.0",
     "@piveau/piveau-hub-ui-modules": "file:bin/piveau-piveau-hub-ui-modules-6.0.0-possible.15.tgz",
-    "@piveau/piveau-universal-piwik": "^3.1.2",
+    "@piveau/piveau-universal-piwik": "file:bin/piveau-universal-piwik-3.1.2.tgz",
     "@rdfjs/dataset": "^2.0.1",
     "@triply/yasgui": "^4.2.25",
     "@triply/yasqe": "^4.2.23",

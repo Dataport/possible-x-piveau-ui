@@ -3,21 +3,19 @@ import i18n from './i18n';
 const glueConfig = {
   api: {
     baseUrl: 'https://possible.fokus.fraunhofer.de/api/hub/search/',
-
     hubUrl: 'https://possible.fokus.fraunhofer.de/api/hub/repo/',
 
-    qualityBaseUrl: 'https://piveau-metrics-cache-piveau.apps.osc.fokus.fraunhofer.de/',
+    qualityBaseUrl: '',
 
     similarityEndpoint: 'similarities',
-    similarityBaseUrl: 'https://piveau-metrics-dataset-similarities-piveau.apps.osc.fokus.fraunhofer.de/',
+    similarityBaseUrl: '',
 
     similarityServiceName: 'similarity',
 
-    fileUploadUrl: 'https://piveau-hub-store-piveau.apps.osc.fokus.fraunhofer.de/',
-
-    sparqlUrl: 'https://data.europa.eu/sparql',
-    gazetteerBaseUrl: 'https://data.europa.eu/api/hub/search/gazetteer/',
-    corsproxyApiUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
+    fileUploadUrl: '',
+    sparqlUrl: '',
+    gazetteerBaseUrl: '',
+    corsproxyApiUrl: '',
   },
   authentication: {
     useService: false,
@@ -35,7 +33,7 @@ const glueConfig = {
     keycloak: {
       realm: 'vanilla',
       clientId: 'piveau-hub-ui',
-      url: 'https://demo.piveau.io/auth',
+      url: '',
 
       // TODO: Do we need to include these properties? They seem to be default values that never change #2763
       'ssl-required': 'external',
@@ -216,8 +214,8 @@ const glueConfig = {
       },
       downloadAs: {
         enable: true,
-        proxyUrl: 'https://piveau-corsproxy-piveau.apps.osc.fokus.fraunhofer.de',
-        url: 'https://piveau-fifoc-piveau.apps.osc.fokus.fraunhofer.de/v1/convert',
+        proxyUrl: '',
+        url: '',
         conversionFormats: [
           { sourceFileFormat: 'HTML', targetFileFormat: [ 'html', 'pdf', 'docx', 'json', 'odt', 'rtf' ]},
           { sourceFileFormat: 'CSV', targetFileFormat: [ 'csv', 'docx', 'html', 'json', 'odt', 'rtf', 'xls', 'xlsx', 'xml']},
@@ -341,8 +339,8 @@ const glueConfig = {
       basePath: '/dpi',
       specification: 'dcatap',
       annifIntegration: false,
-      annifLinkSubject:'https://data.europa.eu/annif/v1/projects/eurovoc-nn-ensemble-eurlex-en/suggest',
-      annifLinkTheme:'https://data.europa.eu/annif/v1/projects/data-theme-nn-ensemble-en/suggest',
+      annifLinkSubject:'',
+      annifLinkTheme:'',
       enableFileUploadReplace: false,
       buttons: {
         Dataset: true,
@@ -364,8 +362,8 @@ const glueConfig = {
   tracker: {
     // TODO: Implement disable tracker option based on condition #2767
     isPiwikPro: true, // true: PiwikPro | false: Matomo
-    siteId: 'fed9dbb7-42d1-4ebc-a8bf-3c0b8fd03e09',
-    trackerUrl: 'https://opanalytics.containers.piwik.pro/',
+    siteId: '',
+    trackerUrl: '',
   },
 };
 
